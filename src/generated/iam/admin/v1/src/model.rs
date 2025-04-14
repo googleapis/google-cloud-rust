@@ -2935,7 +2935,10 @@ impl LintPolicyRequest {
         self
     }
 
-    /// Sets the value of `lint_object`.
+    /// Sets the value of [lint_object][crate::model::LintPolicyRequest::lint_object].
+    ///
+    /// Note that all the setters affecting `lint_object` are mutually
+    /// exclusive.
     pub fn set_lint_object<
         T: std::convert::Into<std::option::Option<crate::model::lint_policy_request::LintObject>>,
     >(

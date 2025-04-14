@@ -2100,7 +2100,10 @@ impl InputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::InputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::input_config::Source>>,
     >(
@@ -2261,7 +2264,10 @@ impl OutputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::OutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
     >(

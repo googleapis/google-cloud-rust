@@ -1643,7 +1643,10 @@ impl AccessLevel {
         self
     }
 
-    /// Sets the value of `level`.
+    /// Sets the value of [level][crate::model::AccessLevel::level].
+    ///
+    /// Note that all the setters affecting `level` are mutually
+    /// exclusive.
     pub fn set_level<
         T: std::convert::Into<std::option::Option<crate::model::access_level::Level>>,
     >(
@@ -2822,7 +2825,10 @@ pub mod service_perimeter_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `kind`.
+        /// Sets the value of [kind][crate::model::service_perimeter_config::MethodSelector::kind].
+        ///
+        /// Note that all the setters affecting `kind` are mutually
+        /// exclusive.
         pub fn set_kind<
             T: std::convert::Into<
                     std::option::Option<
@@ -3002,7 +3008,10 @@ pub mod service_perimeter_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::service_perimeter_config::IngressSource::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
         pub fn set_source<
             T: std::convert::Into<
                     std::option::Option<

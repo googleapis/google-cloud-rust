@@ -437,7 +437,10 @@ impl RepoSource {
         self
     }
 
-    /// Sets the value of `revision`.
+    /// Sets the value of [revision][crate::model::RepoSource::revision].
+    ///
+    /// Note that all the setters affecting `revision` are mutually
+    /// exclusive.
     pub fn set_revision<
         T: std::convert::Into<std::option::Option<crate::model::repo_source::Revision>>,
     >(
@@ -625,7 +628,10 @@ impl Source {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Source::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::source::Source>>>(
         mut self,
         v: T,
@@ -2495,7 +2501,10 @@ impl Dependency {
         std::default::Default::default()
     }
 
-    /// Sets the value of `dep`.
+    /// Sets the value of [dep][crate::model::Dependency::dep].
+    ///
+    /// Note that all the setters affecting `dep` are mutually
+    /// exclusive.
     pub fn set_dep<T: std::convert::Into<std::option::Option<crate::model::dependency::Dep>>>(
         mut self,
         v: T,
@@ -2662,7 +2671,10 @@ pub mod dependency {
             std::default::Default::default()
         }
 
-        /// Sets the value of `repotype`.
+        /// Sets the value of [repotype][crate::model::dependency::GitSourceRepository::repotype].
+        ///
+        /// Note that all the setters affecting `repotype` are mutually
+        /// exclusive.
         pub fn set_repotype<
             T: std::convert::Into<
                     std::option::Option<crate::model::dependency::git_source_repository::Repotype>,
@@ -4646,7 +4658,10 @@ impl GitRepoSource {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::GitRepoSource::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::git_repo_source::Source>>,
     >(
@@ -4679,7 +4694,10 @@ impl GitRepoSource {
         self
     }
 
-    /// Sets the value of `enterprise_config`.
+    /// Sets the value of [enterprise_config][crate::model::GitRepoSource::enterprise_config].
+    ///
+    /// Note that all the setters affecting `enterprise_config` are mutually
+    /// exclusive.
     pub fn set_enterprise_config<
         T: std::convert::Into<std::option::Option<crate::model::git_repo_source::EnterpriseConfig>>,
     >(
@@ -4829,7 +4847,10 @@ impl GitFileSource {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::GitFileSource::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::git_file_source::Source>>,
     >(
@@ -4862,7 +4883,10 @@ impl GitFileSource {
         self
     }
 
-    /// Sets the value of `enterprise_config`.
+    /// Sets the value of [enterprise_config][crate::model::GitFileSource::enterprise_config].
+    ///
+    /// Note that all the setters affecting `enterprise_config` are mutually
+    /// exclusive.
     pub fn set_enterprise_config<
         T: std::convert::Into<std::option::Option<crate::model::git_file_source::EnterpriseConfig>>,
     >(
@@ -5310,7 +5334,10 @@ impl BuildTrigger {
         self
     }
 
-    /// Sets the value of `build_template`.
+    /// Sets the value of [build_template][crate::model::BuildTrigger::build_template].
+    ///
+    /// Note that all the setters affecting `build_template` are mutually
+    /// exclusive.
     pub fn set_build_template<
         T: std::convert::Into<std::option::Option<crate::model::build_trigger::BuildTemplate>>,
     >(
@@ -5508,7 +5535,10 @@ impl RepositoryEventConfig {
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::RepositoryEventConfig::filter].
+    ///
+    /// Note that all the setters affecting `filter` are mutually
+    /// exclusive.
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::repository_event_config::Filter>>,
     >(
@@ -5719,7 +5749,10 @@ impl GitHubEventsConfig {
         self
     }
 
-    /// Sets the value of `event`.
+    /// Sets the value of [event][crate::model::GitHubEventsConfig::event].
+    ///
+    /// Note that all the setters affecting `event` are mutually
+    /// exclusive.
     pub fn set_event<
         T: std::convert::Into<std::option::Option<crate::model::git_hub_events_config::Event>>,
     >(
@@ -5992,7 +6025,10 @@ impl WebhookConfig {
         self
     }
 
-    /// Sets the value of `auth_method`.
+    /// Sets the value of [auth_method][crate::model::WebhookConfig::auth_method].
+    ///
+    /// Note that all the setters affecting `auth_method` are mutually
+    /// exclusive.
     pub fn set_auth_method<
         T: std::convert::Into<std::option::Option<crate::model::webhook_config::AuthMethod>>,
     >(
@@ -6156,7 +6192,10 @@ impl PullRequestFilter {
         self
     }
 
-    /// Sets the value of `git_ref`.
+    /// Sets the value of [git_ref][crate::model::PullRequestFilter::git_ref].
+    ///
+    /// Note that all the setters affecting `git_ref` are mutually
+    /// exclusive.
     pub fn set_git_ref<
         T: std::convert::Into<std::option::Option<crate::model::pull_request_filter::GitRef>>,
     >(
@@ -6325,7 +6364,10 @@ impl PushFilter {
         self
     }
 
-    /// Sets the value of `git_ref`.
+    /// Sets the value of [git_ref][crate::model::PushFilter::git_ref].
+    ///
+    /// Note that all the setters affecting `git_ref` are mutually
+    /// exclusive.
     pub fn set_git_ref<
         T: std::convert::Into<std::option::Option<crate::model::push_filter::GitRef>>,
     >(
@@ -7918,7 +7960,10 @@ impl WorkerPool {
         self
     }
 
-    /// Sets the value of `config`.
+    /// Sets the value of [config][crate::model::WorkerPool::config].
+    ///
+    /// Note that all the setters affecting `config` are mutually
+    /// exclusive.
     pub fn set_config<
         T: std::convert::Into<std::option::Option<crate::model::worker_pool::Config>>,
     >(

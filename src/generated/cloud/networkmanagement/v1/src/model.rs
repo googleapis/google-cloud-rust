@@ -1975,7 +1975,10 @@ impl Step {
         self
     }
 
-    /// Sets the value of `step_info`.
+    /// Sets the value of [step_info][crate::model::Step::step_info].
+    ///
+    /// Note that all the setters affecting `step_info` are mutually
+    /// exclusive.
     pub fn set_step_info<
         T: std::convert::Into<std::option::Option<crate::model::step::StepInfo>>,
     >(
@@ -8488,7 +8491,10 @@ impl VpcFlowLogsConfig {
         self
     }
 
-    /// Sets the value of `target_resource`.
+    /// Sets the value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource].
+    ///
+    /// Note that all the setters affecting `target_resource` are mutually
+    /// exclusive.
     pub fn set_target_resource<
         T: std::convert::Into<std::option::Option<crate::model::vpc_flow_logs_config::TargetResource>>,
     >(

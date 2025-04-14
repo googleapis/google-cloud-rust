@@ -715,7 +715,10 @@ impl Job {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::Job::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<T: std::convert::Into<std::option::Option<crate::model::job::Target>>>(
         mut self,
         v: T,
@@ -1186,7 +1189,10 @@ impl HttpTarget {
         self
     }
 
-    /// Sets the value of `authorization_header`.
+    /// Sets the value of [authorization_header][crate::model::HttpTarget::authorization_header].
+    ///
+    /// Note that all the setters affecting `authorization_header` are mutually
+    /// exclusive.
     pub fn set_authorization_header<
         T: std::convert::Into<std::option::Option<crate::model::http_target::AuthorizationHeader>>,
     >(

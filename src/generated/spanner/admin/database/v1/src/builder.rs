@@ -1288,12 +1288,25 @@ pub mod database_admin {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::RestoreDatabaseRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::restore_database_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::RestoreDatabaseRequest::source]
+        /// to hold a `Backup`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_backup(v);
             self
         }
     }

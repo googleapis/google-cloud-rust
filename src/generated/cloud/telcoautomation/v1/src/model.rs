@@ -3918,7 +3918,10 @@ impl ManagementConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `oneof_config`.
+    /// Sets the value of [oneof_config][crate::model::ManagementConfig::oneof_config].
+    ///
+    /// Note that all the setters affecting `oneof_config` are mutually
+    /// exclusive.
     pub fn set_oneof_config<
         T: std::convert::Into<std::option::Option<crate::model::management_config::OneofConfig>>,
     >(

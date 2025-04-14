@@ -3460,7 +3460,10 @@ impl IPAllocationPolicy {
         self
     }
 
-    /// Sets the value of `cluster_ip_allocation`.
+    /// Sets the value of [cluster_ip_allocation][crate::model::IPAllocationPolicy::cluster_ip_allocation].
+    ///
+    /// Note that all the setters affecting `cluster_ip_allocation` are mutually
+    /// exclusive.
     pub fn set_cluster_ip_allocation<
         T: std::convert::Into<
                 std::option::Option<crate::model::ip_allocation_policy::ClusterIpAllocation>,
@@ -3531,7 +3534,10 @@ impl IPAllocationPolicy {
         self
     }
 
-    /// Sets the value of `services_ip_allocation`.
+    /// Sets the value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation].
+    ///
+    /// Note that all the setters affecting `services_ip_allocation` are mutually
+    /// exclusive.
     pub fn set_services_ip_allocation<
         T: std::convert::Into<
                 std::option::Option<crate::model::ip_allocation_policy::ServicesIpAllocation>,

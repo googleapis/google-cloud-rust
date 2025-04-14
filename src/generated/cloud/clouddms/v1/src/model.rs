@@ -726,7 +726,10 @@ impl GenerateSshScriptRequest {
         self
     }
 
-    /// Sets the value of `vm_config`.
+    /// Sets the value of [vm_config][crate::model::GenerateSshScriptRequest::vm_config].
+    ///
+    /// Note that all the setters affecting `vm_config` are mutually
+    /// exclusive.
     pub fn set_vm_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::generate_ssh_script_request::VmConfig>,
@@ -2448,7 +2451,10 @@ impl ApplyConversionWorkspaceRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ApplyConversionWorkspaceRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::apply_conversion_workspace_request::Destination>,
@@ -2715,7 +2721,10 @@ impl SeedConversionWorkspaceRequest {
         self
     }
 
-    /// Sets the value of `seed_from`.
+    /// Sets the value of [seed_from][crate::model::SeedConversionWorkspaceRequest::seed_from].
+    ///
+    /// Note that all the setters affecting `seed_from` are mutually
+    /// exclusive.
     pub fn set_seed_from<
         T: std::convert::Into<
                 std::option::Option<crate::model::seed_conversion_workspace_request::SeedFrom>,
@@ -4025,7 +4034,10 @@ impl PostgreSqlConnectionProfile {
         self
     }
 
-    /// Sets the value of `connectivity`.
+    /// Sets the value of [connectivity][crate::model::PostgreSqlConnectionProfile::connectivity].
+    ///
+    /// Note that all the setters affecting `connectivity` are mutually
+    /// exclusive.
     pub fn set_connectivity<
         T: std::convert::Into<
                 std::option::Option<crate::model::postgre_sql_connection_profile::Connectivity>,
@@ -4233,7 +4245,10 @@ impl OracleConnectionProfile {
         self
     }
 
-    /// Sets the value of `connectivity`.
+    /// Sets the value of [connectivity][crate::model::OracleConnectionProfile::connectivity].
+    ///
+    /// Note that all the setters affecting `connectivity` are mutually
+    /// exclusive.
     pub fn set_connectivity<
         T: std::convert::Into<
                 std::option::Option<crate::model::oracle_connection_profile::Connectivity>,
@@ -4542,7 +4557,10 @@ impl SqlAclEntry {
         self
     }
 
-    /// Sets the value of `expiration`.
+    /// Sets the value of [expiration][crate::model::SqlAclEntry::expiration].
+    ///
+    /// Note that all the setters affecting `expiration` are mutually
+    /// exclusive.
     pub fn set_expiration<
         T: std::convert::Into<std::option::Option<crate::model::sql_acl_entry::Expiration>>,
     >(
@@ -5912,7 +5930,10 @@ impl ForwardSshTunnelConnectivity {
         self
     }
 
-    /// Sets the value of `authentication_method`.
+    /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method].
+    ///
+    /// Note that all the setters affecting `authentication_method` are mutually
+    /// exclusive.
     pub fn set_authentication_method<
         T: std::convert::Into<
                 std::option::Option<
@@ -6415,7 +6436,10 @@ impl MigrationJob {
         self
     }
 
-    /// Sets the value of `connectivity`.
+    /// Sets the value of [connectivity][crate::model::MigrationJob::connectivity].
+    ///
+    /// Note that all the setters affecting `connectivity` are mutually
+    /// exclusive.
     pub fn set_connectivity<
         T: std::convert::Into<std::option::Option<crate::model::migration_job::Connectivity>>,
     >(
@@ -7158,7 +7182,10 @@ impl ConnectionProfile {
         self
     }
 
-    /// Sets the value of `connection_profile`.
+    /// Sets the value of [connection_profile][crate::model::ConnectionProfile::connection_profile].
+    ///
+    /// Note that all the setters affecting `connection_profile` are mutually
+    /// exclusive.
     pub fn set_connection_profile<
         T: std::convert::Into<
                 std::option::Option<crate::model::connection_profile::ConnectionProfile>,
@@ -7843,7 +7870,10 @@ impl PrivateConnection {
         self
     }
 
-    /// Sets the value of `connectivity`.
+    /// Sets the value of [connectivity][crate::model::PrivateConnection::connectivity].
+    ///
+    /// Note that all the setters affecting `connectivity` are mutually
+    /// exclusive.
     pub fn set_connectivity<
         T: std::convert::Into<std::option::Option<crate::model::private_connection::Connectivity>>,
     >(
@@ -8328,7 +8358,10 @@ impl BackgroundJobLogEntry {
         self
     }
 
-    /// Sets the value of `job_details`.
+    /// Sets the value of [job_details][crate::model::BackgroundJobLogEntry::job_details].
+    ///
+    /// Note that all the setters affecting `job_details` are mutually
+    /// exclusive.
     pub fn set_job_details<
         T: std::convert::Into<std::option::Option<crate::model::background_job_log_entry::JobDetails>>,
     >(
@@ -8946,7 +8979,10 @@ impl MappingRule {
         self
     }
 
-    /// Sets the value of `details`.
+    /// Sets the value of [details][crate::model::MappingRule::details].
+    ///
+    /// Note that all the setters affecting `details` are mutually
+    /// exclusive.
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::mapping_rule::Details>>,
     >(
@@ -9848,7 +9884,10 @@ impl MultiColumnDatatypeChange {
         self
     }
 
-    /// Sets the value of `source_filter`.
+    /// Sets the value of [source_filter][crate::model::MultiColumnDatatypeChange::source_filter].
+    ///
+    /// Note that all the setters affecting `source_filter` are mutually
+    /// exclusive.
     pub fn set_source_filter<
         T: std::convert::Into<
                 std::option::Option<crate::model::multi_column_datatype_change::SourceFilter>,
@@ -10121,7 +10160,10 @@ impl ConditionalColumnSetValue {
         self
     }
 
-    /// Sets the value of `source_filter`.
+    /// Sets the value of [source_filter][crate::model::ConditionalColumnSetValue::source_filter].
+    ///
+    /// Note that all the setters affecting `source_filter` are mutually
+    /// exclusive.
     pub fn set_source_filter<
         T: std::convert::Into<
                 std::option::Option<crate::model::conditional_column_set_value::SourceFilter>,
@@ -10245,7 +10287,10 @@ impl ValueTransformation {
         std::default::Default::default()
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ValueTransformation::filter].
+    ///
+    /// Note that all the setters affecting `filter` are mutually
+    /// exclusive.
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::value_transformation::Filter>>,
     >(
@@ -10372,7 +10417,10 @@ impl ValueTransformation {
         self
     }
 
-    /// Sets the value of `action`.
+    /// Sets the value of [action][crate::model::ValueTransformation::action].
+    ///
+    /// Note that all the setters affecting `action` are mutually
+    /// exclusive.
     pub fn set_action<
         T: std::convert::Into<std::option::Option<crate::model::value_transformation::Action>>,
     >(
@@ -11047,7 +11095,10 @@ impl ApplyHash {
         std::default::Default::default()
     }
 
-    /// Sets the value of `hash_function`.
+    /// Sets the value of [hash_function][crate::model::ApplyHash::hash_function].
+    ///
+    /// Note that all the setters affecting `hash_function` are mutually
+    /// exclusive.
     pub fn set_hash_function<
         T: std::convert::Into<std::option::Option<crate::model::apply_hash::HashFunction>>,
     >(
@@ -11257,7 +11308,10 @@ impl DatabaseEntity {
         self
     }
 
-    /// Sets the value of `entity_body`.
+    /// Sets the value of [entity_body][crate::model::DatabaseEntity::entity_body].
+    ///
+    /// Note that all the setters affecting `entity_body` are mutually
+    /// exclusive.
     pub fn set_entity_body<
         T: std::convert::Into<std::option::Option<crate::model::database_entity::EntityBody>>,
     >(

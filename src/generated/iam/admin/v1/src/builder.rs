@@ -1797,12 +1797,28 @@ pub mod iam {
             self
         }
 
-        /// Sets the value of `lint_object`.
+        /// Sets the value of [lint_object][crate::model::LintPolicyRequest::lint_object].
+        ///
+        /// Note that all the setters affecting `lint_object` are
+        /// mutually exclusive.
         pub fn set_lint_object<T: Into<Option<crate::model::lint_policy_request::LintObject>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.lint_object = v.into();
+            self
+        }
+
+        /// Sets the value of [lint_object][crate::model::LintPolicyRequest::lint_object]
+        /// to hold a `Condition`.
+        ///
+        /// Note that all the setters affecting `lint_object` are
+        /// mutually exclusive.
+        pub fn set_condition<T: std::convert::Into<std::boxed::Box<gtype::model::Expr>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_condition(v);
             self
         }
     }

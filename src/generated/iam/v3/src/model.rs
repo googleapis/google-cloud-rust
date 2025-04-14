@@ -381,7 +381,10 @@ pub mod policy_binding {
             std::default::Default::default()
         }
 
-        /// Sets the value of `target`.
+        /// Sets the value of [target][crate::model::policy_binding::Target::target].
+        ///
+        /// Note that all the setters affecting `target` are mutually
+        /// exclusive.
         pub fn set_target<
             T: std::convert::Into<std::option::Option<crate::model::policy_binding::target::Target>>,
         >(

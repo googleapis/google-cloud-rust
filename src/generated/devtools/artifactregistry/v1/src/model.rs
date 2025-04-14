@@ -263,7 +263,10 @@ impl ImportAptArtifactsRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportAptArtifactsRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_apt_artifacts_request::Source>>,
     >(
@@ -360,7 +363,10 @@ impl ImportAptArtifactsErrorInfo {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportAptArtifactsErrorInfo::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_apt_artifacts_error_info::Source>,
@@ -3352,7 +3358,10 @@ impl CleanupPolicy {
         self
     }
 
-    /// Sets the value of `condition_type`.
+    /// Sets the value of [condition_type][crate::model::CleanupPolicy::condition_type].
+    ///
+    /// Note that all the setters affecting `condition_type` are mutually
+    /// exclusive.
     pub fn set_condition_type<
         T: std::convert::Into<std::option::Option<crate::model::cleanup_policy::ConditionType>>,
     >(
@@ -3603,7 +3612,10 @@ impl RemoteRepositoryConfig {
         self
     }
 
-    /// Sets the value of `remote_source`.
+    /// Sets the value of [remote_source][crate::model::RemoteRepositoryConfig::remote_source].
+    ///
+    /// Note that all the setters affecting `remote_source` are mutually
+    /// exclusive.
     pub fn set_remote_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::remote_repository_config::RemoteSource>,
@@ -3891,7 +3903,10 @@ pub mod remote_repository_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `credentials`.
+        /// Sets the value of [credentials][crate::model::remote_repository_config::UpstreamCredentials::credentials].
+        ///
+        /// Note that all the setters affecting `credentials` are mutually
+        /// exclusive.
         pub fn set_credentials<
             T: std::convert::Into<
                     std::option::Option<
@@ -4023,7 +4038,10 @@ pub mod remote_repository_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `upstream`.
+        /// Sets the value of [upstream][crate::model::remote_repository_config::DockerRepository::upstream].
+        ///
+        /// Note that all the setters affecting `upstream` are mutually
+        /// exclusive.
         pub fn set_upstream<
             T: std::convert::Into<
                     std::option::Option<
@@ -4253,7 +4271,10 @@ pub mod remote_repository_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `upstream`.
+        /// Sets the value of [upstream][crate::model::remote_repository_config::MavenRepository::upstream].
+        ///
+        /// Note that all the setters affecting `upstream` are mutually
+        /// exclusive.
         pub fn set_upstream<
             T: std::convert::Into<
                     std::option::Option<
@@ -4483,7 +4504,10 @@ pub mod remote_repository_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `upstream`.
+        /// Sets the value of [upstream][crate::model::remote_repository_config::NpmRepository::upstream].
+        ///
+        /// Note that all the setters affecting `upstream` are mutually
+        /// exclusive.
         pub fn set_upstream<
             T: std::convert::Into<
                     std::option::Option<
@@ -4713,7 +4737,10 @@ pub mod remote_repository_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `upstream`.
+        /// Sets the value of [upstream][crate::model::remote_repository_config::PythonRepository::upstream].
+        ///
+        /// Note that all the setters affecting `upstream` are mutually
+        /// exclusive.
         pub fn set_upstream<
             T: std::convert::Into<
                     std::option::Option<
@@ -4942,7 +4969,10 @@ pub mod remote_repository_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `upstream`.
+        /// Sets the value of [upstream][crate::model::remote_repository_config::AptRepository::upstream].
+        ///
+        /// Note that all the setters affecting `upstream` are mutually
+        /// exclusive.
         pub fn set_upstream<
             T: std::convert::Into<
                     std::option::Option<
@@ -5239,7 +5269,10 @@ pub mod remote_repository_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `upstream`.
+        /// Sets the value of [upstream][crate::model::remote_repository_config::YumRepository::upstream].
+        ///
+        /// Note that all the setters affecting `upstream` are mutually
+        /// exclusive.
         pub fn set_upstream<
             T: std::convert::Into<
                     std::option::Option<
@@ -5814,7 +5847,10 @@ impl Repository {
         self
     }
 
-    /// Sets the value of `format_config`.
+    /// Sets the value of [format_config][crate::model::Repository::format_config].
+    ///
+    /// Note that all the setters affecting `format_config` are mutually
+    /// exclusive.
     pub fn set_format_config<
         T: std::convert::Into<std::option::Option<crate::model::repository::FormatConfig>>,
     >(
@@ -5887,7 +5923,10 @@ impl Repository {
         self
     }
 
-    /// Sets the value of `mode_config`.
+    /// Sets the value of [mode_config][crate::model::Repository::mode_config].
+    ///
+    /// Note that all the setters affecting `mode_config` are mutually
+    /// exclusive.
     pub fn set_mode_config<
         T: std::convert::Into<std::option::Option<crate::model::repository::ModeConfig>>,
     >(
@@ -8895,7 +8934,10 @@ impl ImportYumArtifactsRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportYumArtifactsRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_yum_artifacts_request::Source>>,
     >(
@@ -8992,7 +9034,10 @@ impl ImportYumArtifactsErrorInfo {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportYumArtifactsErrorInfo::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_yum_artifacts_error_info::Source>,

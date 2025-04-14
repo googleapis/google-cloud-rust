@@ -224,7 +224,10 @@ impl Job {
         self
     }
 
-    /// Sets the value of `job_config`.
+    /// Sets the value of [job_config][crate::model::Job::job_config].
+    ///
+    /// Note that all the setters affecting `job_config` are mutually
+    /// exclusive.
     pub fn set_job_config<
         T: std::convert::Into<std::option::Option<crate::model::job::JobConfig>>,
     >(
@@ -1004,7 +1007,10 @@ impl ElementaryStream {
         self
     }
 
-    /// Sets the value of `elementary_stream`.
+    /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream].
+    ///
+    /// Note that all the setters affecting `elementary_stream` are mutually
+    /// exclusive.
     pub fn set_elementary_stream<
         T: std::convert::Into<std::option::Option<crate::model::elementary_stream::ElementaryStream>>,
     >(
@@ -1303,7 +1309,10 @@ impl Manifest {
         self
     }
 
-    /// Sets the value of `manifest_config`.
+    /// Sets the value of [manifest_config][crate::model::Manifest::manifest_config].
+    ///
+    /// Note that all the setters affecting `manifest_config` are mutually
+    /// exclusive.
     pub fn set_manifest_config<
         T: std::convert::Into<std::option::Option<crate::model::manifest::ManifestConfig>>,
     >(
@@ -1715,7 +1724,10 @@ impl SpriteSheet {
         self
     }
 
-    /// Sets the value of `extraction_strategy`.
+    /// Sets the value of [extraction_strategy][crate::model::SpriteSheet::extraction_strategy].
+    ///
+    /// Note that all the setters affecting `extraction_strategy` are mutually
+    /// exclusive.
     pub fn set_extraction_strategy<
         T: std::convert::Into<std::option::Option<crate::model::sprite_sheet::ExtractionStrategy>>,
     >(
@@ -2153,7 +2165,10 @@ pub mod overlay {
             std::default::Default::default()
         }
 
-        /// Sets the value of `animation_type`.
+        /// Sets the value of [animation_type][crate::model::overlay::Animation::animation_type].
+        ///
+        /// Note that all the setters affecting `animation_type` are mutually
+        /// exclusive.
         pub fn set_animation_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::overlay::animation::AnimationType>,
@@ -2830,7 +2845,10 @@ pub mod preprocessing_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `deinterlacing_filter`.
+        /// Sets the value of [deinterlacing_filter][crate::model::preprocessing_config::Deinterlace::deinterlacing_filter].
+        ///
+        /// Note that all the setters affecting `deinterlacing_filter` are mutually
+        /// exclusive.
         pub fn set_deinterlacing_filter<
             T: std::convert::Into<
                     std::option::Option<
@@ -3104,7 +3122,10 @@ impl VideoStream {
         std::default::Default::default()
     }
 
-    /// Sets the value of `codec_settings`.
+    /// Sets the value of [codec_settings][crate::model::VideoStream::codec_settings].
+    ///
+    /// Note that all the setters affecting `codec_settings` are mutually
+    /// exclusive.
     pub fn set_codec_settings<
         T: std::convert::Into<std::option::Option<crate::model::video_stream::CodecSettings>>,
     >(
@@ -3485,7 +3506,10 @@ pub mod video_stream {
             self
         }
 
-        /// Sets the value of `gop_mode`.
+        /// Sets the value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode].
+        ///
+        /// Note that all the setters affecting `gop_mode` are mutually
+        /// exclusive.
         pub fn set_gop_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
@@ -3848,7 +3872,10 @@ pub mod video_stream {
             self
         }
 
-        /// Sets the value of `gop_mode`.
+        /// Sets the value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode].
+        ///
+        /// Note that all the setters affecting `gop_mode` are mutually
+        /// exclusive.
         pub fn set_gop_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>,
@@ -4095,7 +4122,10 @@ pub mod video_stream {
             self
         }
 
-        /// Sets the value of `gop_mode`.
+        /// Sets the value of [gop_mode][crate::model::video_stream::Vp9CodecSettings::gop_mode].
+        ///
+        /// Note that all the setters affecting `gop_mode` are mutually
+        /// exclusive.
         pub fn set_gop_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::video_stream::vp_9_codec_settings::GopMode>,
@@ -4657,7 +4687,10 @@ impl Encryption {
         self
     }
 
-    /// Sets the value of `encryption_mode`.
+    /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode].
+    ///
+    /// Note that all the setters affecting `encryption_mode` are mutually
+    /// exclusive.
     pub fn set_encryption_mode<
         T: std::convert::Into<std::option::Option<crate::model::encryption::EncryptionMode>>,
     >(
@@ -4756,7 +4789,10 @@ impl Encryption {
         self
     }
 
-    /// Sets the value of `secret_source`.
+    /// Sets the value of [secret_source][crate::model::Encryption::secret_source].
+    ///
+    /// Note that all the setters affecting `secret_source` are mutually
+    /// exclusive.
     pub fn set_secret_source<
         T: std::convert::Into<std::option::Option<crate::model::encryption::SecretSource>>,
     >(

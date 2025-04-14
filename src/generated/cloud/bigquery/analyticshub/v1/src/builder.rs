@@ -728,7 +728,10 @@ pub mod analytics_hub_service {
             self
         }
 
-        /// Sets the value of `destination`.
+        /// Sets the value of [destination][crate::model::SubscribeListingRequest::destination].
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
         pub fn set_destination<
             T: Into<Option<crate::model::subscribe_listing_request::Destination>>,
         >(
@@ -736,6 +739,36 @@ pub mod analytics_hub_service {
             v: T,
         ) -> Self {
             self.0.request.destination = v.into();
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::SubscribeListingRequest::destination]
+        /// to hold a `DestinationDataset`.
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        pub fn set_destination_dataset<
+            T: std::convert::Into<std::boxed::Box<crate::model::DestinationDataset>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_destination_dataset(v);
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::SubscribeListingRequest::destination]
+        /// to hold a `DestinationPubsubSubscription`.
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        pub fn set_destination_pubsub_subscription<
+            T: std::convert::Into<std::boxed::Box<crate::model::DestinationPubSubSubscription>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_destination_pubsub_subscription(v);
             self
         }
     }

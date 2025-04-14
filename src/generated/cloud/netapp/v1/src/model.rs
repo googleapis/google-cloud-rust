@@ -8230,7 +8230,10 @@ impl RestoreParameters {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::RestoreParameters::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_parameters::Source>>,
     >(

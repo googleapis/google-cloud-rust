@@ -168,7 +168,10 @@ impl ExclusionRule {
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::ExclusionRule::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::exclusion_rule::Type>>,
     >(
@@ -346,7 +349,10 @@ impl InspectionRule {
         std::default::Default::default()
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::InspectionRule::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::inspection_rule::Type>>,
     >(
@@ -1099,7 +1105,10 @@ impl ContentItem {
         std::default::Default::default()
     }
 
-    /// Sets the value of `data_item`.
+    /// Sets the value of [data_item][crate::model::ContentItem::data_item].
+    ///
+    /// Note that all the setters affecting `data_item` are mutually
+    /// exclusive.
     pub fn set_data_item<
         T: std::convert::Into<std::option::Option<crate::model::content_item::DataItem>>,
     >(
@@ -1706,7 +1715,10 @@ impl ContentLocation {
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::ContentLocation::location].
+    ///
+    /// Note that all the setters affecting `location` are mutually
+    /// exclusive.
     pub fn set_location<
         T: std::convert::Into<std::option::Option<crate::model::content_location::Location>>,
     >(
@@ -1903,7 +1915,10 @@ impl MetadataLocation {
         self
     }
 
-    /// Sets the value of `label`.
+    /// Sets the value of [label][crate::model::MetadataLocation::label].
+    ///
+    /// Note that all the setters affecting `label` are mutually
+    /// exclusive.
     pub fn set_label<
         T: std::convert::Into<std::option::Option<crate::model::metadata_location::Label>>,
     >(
@@ -2544,7 +2559,10 @@ pub mod redact_image_request {
             self
         }
 
-        /// Sets the value of `target`.
+        /// Sets the value of [target][crate::model::redact_image_request::ImageRedactionConfig::target].
+        ///
+        /// Note that all the setters affecting `target` are mutually
+        /// exclusive.
         pub fn set_target<
             T: std::convert::Into<
                     std::option::Option<
@@ -3334,7 +3352,10 @@ impl OutputStorageConfig {
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::OutputStorageConfig::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::output_storage_config::Type>>,
     >(
@@ -3745,7 +3766,10 @@ impl DataProfileBigQueryRowSchema {
         std::default::Default::default()
     }
 
-    /// Sets the value of `data_profile`.
+    /// Sets the value of [data_profile][crate::model::DataProfileBigQueryRowSchema::data_profile].
+    ///
+    /// Note that all the setters affecting `data_profile` are mutually
+    /// exclusive.
     pub fn set_data_profile<
         T: std::convert::Into<
                 std::option::Option<crate::model::data_profile_big_query_row_schema::DataProfile>,
@@ -3960,7 +3984,10 @@ impl ActionDetails {
         std::default::Default::default()
     }
 
-    /// Sets the value of `details`.
+    /// Sets the value of [details][crate::model::ActionDetails::details].
+    ///
+    /// Note that all the setters affecting `details` are mutually
+    /// exclusive.
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::action_details::Details>>,
     >(
@@ -4380,7 +4407,10 @@ impl InfoTypeCategory {
         std::default::Default::default()
     }
 
-    /// Sets the value of `category`.
+    /// Sets the value of [category][crate::model::InfoTypeCategory::category].
+    ///
+    /// Note that all the setters affecting `category` are mutually
+    /// exclusive.
     pub fn set_category<
         T: std::convert::Into<std::option::Option<crate::model::info_type_category::Category>>,
     >(
@@ -5227,7 +5257,10 @@ impl QuasiId {
         self
     }
 
-    /// Sets the value of `tag`.
+    /// Sets the value of [tag][crate::model::QuasiId::tag].
+    ///
+    /// Note that all the setters affecting `tag` are mutually
+    /// exclusive.
     pub fn set_tag<T: std::convert::Into<std::option::Option<crate::model::quasi_id::Tag>>>(
         mut self,
         v: T,
@@ -5485,7 +5518,10 @@ impl PrivacyMetric {
         std::default::Default::default()
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::PrivacyMetric::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::privacy_metric::Type>>,
     >(
@@ -6015,7 +6051,10 @@ pub mod privacy_metric {
                 self
             }
 
-            /// Sets the value of `tag`.
+            /// Sets the value of [tag][crate::model::privacy_metric::k_map_estimation_config::TaggedField::tag].
+            ///
+            /// Note that all the setters affecting `tag` are mutually
+            /// exclusive.
             pub fn set_tag<T: std::convert::Into<std::option::Option<crate::model::privacy_metric::k_map_estimation_config::tagged_field::Tag>>>(mut self, v: T) -> Self
             {
                 self.tag = v.into();
@@ -6440,7 +6479,10 @@ impl AnalyzeDataSourceRiskDetails {
         self
     }
 
-    /// Sets the value of `result`.
+    /// Sets the value of [result][crate::model::AnalyzeDataSourceRiskDetails::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
     pub fn set_result<
         T: std::convert::Into<
                 std::option::Option<crate::model::analyze_data_source_risk_details::Result>,
@@ -7787,7 +7829,10 @@ impl Value {
         std::default::Default::default()
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::Value::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::value::Type>>>(
         mut self,
         v: T,
@@ -8033,7 +8078,10 @@ impl QuoteInfo {
         std::default::Default::default()
     }
 
-    /// Sets the value of `parsed_quote`.
+    /// Sets the value of [parsed_quote][crate::model::QuoteInfo::parsed_quote].
+    ///
+    /// Note that all the setters affecting `parsed_quote` are mutually
+    /// exclusive.
     pub fn set_parsed_quote<
         T: std::convert::Into<std::option::Option<crate::model::quote_info::ParsedQuote>>,
     >(
@@ -8239,7 +8287,10 @@ impl DeidentifyConfig {
         self
     }
 
-    /// Sets the value of `transformation`.
+    /// Sets the value of [transformation][crate::model::DeidentifyConfig::transformation].
+    ///
+    /// Note that all the setters affecting `transformation` are mutually
+    /// exclusive.
     pub fn set_transformation<
         T: std::convert::Into<std::option::Option<crate::model::deidentify_config::Transformation>>,
     >(
@@ -8453,7 +8504,10 @@ pub mod image_transformations {
             self
         }
 
-        /// Sets the value of `target`.
+        /// Sets the value of [target][crate::model::image_transformations::ImageTransformation::target].
+        ///
+        /// Note that all the setters affecting `target` are mutually
+        /// exclusive.
         pub fn set_target<
             T: std::convert::Into<
                     std::option::Option<
@@ -8729,7 +8783,10 @@ impl TransformationErrorHandling {
         std::default::Default::default()
     }
 
-    /// Sets the value of `mode`.
+    /// Sets the value of [mode][crate::model::TransformationErrorHandling::mode].
+    ///
+    /// Note that all the setters affecting `mode` are mutually
+    /// exclusive.
     pub fn set_mode<
         T: std::convert::Into<std::option::Option<crate::model::transformation_error_handling::Mode>>,
     >(
@@ -8904,7 +8961,10 @@ impl PrimitiveTransformation {
         std::default::Default::default()
     }
 
-    /// Sets the value of `transformation`.
+    /// Sets the value of [transformation][crate::model::PrimitiveTransformation::transformation].
+    ///
+    /// Note that all the setters affecting `transformation` are mutually
+    /// exclusive.
     pub fn set_transformation<
         T: std::convert::Into<
                 std::option::Option<crate::model::primitive_transformation::Transformation>,
@@ -9683,7 +9743,10 @@ impl ReplaceDictionaryConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::ReplaceDictionaryConfig::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::replace_dictionary_config::Type>>,
     >(
@@ -9817,7 +9880,10 @@ impl CharsToIgnore {
         std::default::Default::default()
     }
 
-    /// Sets the value of `characters`.
+    /// Sets the value of [characters][crate::model::CharsToIgnore::characters].
+    ///
+    /// Note that all the setters affecting `characters` are mutually
+    /// exclusive.
     pub fn set_characters<
         T: std::convert::Into<std::option::Option<crate::model::chars_to_ignore::Characters>>,
     >(
@@ -10402,7 +10468,10 @@ impl CryptoReplaceFfxFpeConfig {
         self
     }
 
-    /// Sets the value of `alphabet`.
+    /// Sets the value of [alphabet][crate::model::CryptoReplaceFfxFpeConfig::alphabet].
+    ///
+    /// Note that all the setters affecting `alphabet` are mutually
+    /// exclusive.
     pub fn set_alphabet<
         T: std::convert::Into<
                 std::option::Option<crate::model::crypto_replace_ffx_fpe_config::Alphabet>,
@@ -10631,7 +10700,10 @@ impl CryptoKey {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::CryptoKey::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::crypto_key::Source>>,
     >(
@@ -10941,7 +11013,10 @@ impl DateShiftConfig {
         self
     }
 
-    /// Sets the value of `method`.
+    /// Sets the value of [method][crate::model::DateShiftConfig::method].
+    ///
+    /// Note that all the setters affecting `method` are mutually
+    /// exclusive.
     pub fn set_method<
         T: std::convert::Into<std::option::Option<crate::model::date_shift_config::Method>>,
     >(
@@ -11165,7 +11240,10 @@ impl FieldTransformation {
         self
     }
 
-    /// Sets the value of `transformation`.
+    /// Sets the value of [transformation][crate::model::FieldTransformation::transformation].
+    ///
+    /// Note that all the setters affecting `transformation` are mutually
+    /// exclusive.
     pub fn set_transformation<
         T: std::convert::Into<std::option::Option<crate::model::field_transformation::Transformation>>,
     >(
@@ -11550,7 +11628,10 @@ pub mod record_condition {
             self
         }
 
-        /// Sets the value of `r#type`.
+        /// Sets the value of [r#type][crate::model::record_condition::Expressions::type].
+        ///
+        /// Note that all the setters affecting `r#type` are mutually
+        /// exclusive.
         pub fn set_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::record_condition::expressions::Type>,
@@ -12188,7 +12269,10 @@ impl TransformationLocation {
         self
     }
 
-    /// Sets the value of `location_type`.
+    /// Sets the value of [location_type][crate::model::TransformationLocation::location_type].
+    ///
+    /// Note that all the setters affecting `location_type` are mutually
+    /// exclusive.
     pub fn set_location_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::transformation_location::LocationType>,
@@ -12416,7 +12500,10 @@ impl TransformationDetailsStorageConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::TransformationDetailsStorageConfig::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::transformation_details_storage_config::Type>,
@@ -12503,7 +12590,10 @@ impl Schedule {
         std::default::Default::default()
     }
 
-    /// Sets the value of `option`.
+    /// Sets the value of [option][crate::model::Schedule::option].
+    ///
+    /// Note that all the setters affecting `option` are mutually
+    /// exclusive.
     pub fn set_option<
         T: std::convert::Into<std::option::Option<crate::model::schedule::Option>>,
     >(
@@ -13068,7 +13158,10 @@ impl JobTrigger {
         self
     }
 
-    /// Sets the value of `job`.
+    /// Sets the value of [job][crate::model::JobTrigger::job].
+    ///
+    /// Note that all the setters affecting `job` are mutually
+    /// exclusive.
     pub fn set_job<T: std::convert::Into<std::option::Option<crate::model::job_trigger::Job>>>(
         mut self,
         v: T,
@@ -13136,7 +13229,10 @@ pub mod job_trigger {
             std::default::Default::default()
         }
 
-        /// Sets the value of `trigger`.
+        /// Sets the value of [trigger][crate::model::job_trigger::Trigger::trigger].
+        ///
+        /// Note that all the setters affecting `trigger` are mutually
+        /// exclusive.
         pub fn set_trigger<
             T: std::convert::Into<std::option::Option<crate::model::job_trigger::trigger::Trigger>>,
         >(
@@ -13325,7 +13421,10 @@ impl Action {
         std::default::Default::default()
     }
 
-    /// Sets the value of `action`.
+    /// Sets the value of [action][crate::model::Action::action].
+    ///
+    /// Note that all the setters affecting `action` are mutually
+    /// exclusive.
     pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::action::Action>>>(
         mut self,
         v: T,
@@ -13799,7 +13898,10 @@ pub mod action {
             self
         }
 
-        /// Sets the value of `output`.
+        /// Sets the value of [output][crate::model::action::Deidentify::output].
+        ///
+        /// Note that all the setters affecting `output` are mutually
+        /// exclusive.
         pub fn set_output<
             T: std::convert::Into<std::option::Option<crate::model::action::deidentify::Output>>,
         >(
@@ -15038,7 +15140,10 @@ impl CreateDlpJobRequest {
         self
     }
 
-    /// Sets the value of `job`.
+    /// Sets the value of [job][crate::model::CreateDlpJobRequest::job].
+    ///
+    /// Note that all the setters affecting `job` are mutually
+    /// exclusive.
     pub fn set_job<
         T: std::convert::Into<std::option::Option<crate::model::create_dlp_job_request::Job>>,
     >(
@@ -15478,7 +15583,10 @@ impl DataProfileAction {
         std::default::Default::default()
     }
 
-    /// Sets the value of `action`.
+    /// Sets the value of [action][crate::model::DataProfileAction::action].
+    ///
+    /// Note that all the setters affecting `action` are mutually
+    /// exclusive.
     pub fn set_action<
         T: std::convert::Into<std::option::Option<crate::model::data_profile_action::Action>>,
     >(
@@ -16077,7 +16185,10 @@ pub mod data_profile_action {
                 self
             }
 
-            /// Sets the value of `r#type`.
+            /// Sets the value of [r#type][crate::model::data_profile_action::tag_resources::TagCondition::type].
+            ///
+            /// Note that all the setters affecting `r#type` are mutually
+            /// exclusive.
             pub fn set_type<
                 T: std::convert::Into<
                         std::option::Option<
@@ -16168,7 +16279,10 @@ pub mod data_profile_action {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `format`.
+            /// Sets the value of [format][crate::model::data_profile_action::tag_resources::TagValue::format].
+            ///
+            /// Note that all the setters affecting `format` are mutually
+            /// exclusive.
             pub fn set_format<
                 T: std::convert::Into<
                         std::option::Option<
@@ -16492,7 +16606,10 @@ impl DataProfileFindingLocation {
         self
     }
 
-    /// Sets the value of `location_extra_details`.
+    /// Sets the value of [location_extra_details][crate::model::DataProfileFindingLocation::location_extra_details].
+    ///
+    /// Note that all the setters affecting `location_extra_details` are mutually
+    /// exclusive.
     pub fn set_location_extra_details<
         T: std::convert::Into<
                 std::option::Option<
@@ -16897,7 +17014,10 @@ impl DataProfileLocation {
         std::default::Default::default()
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::DataProfileLocation::location].
+    ///
+    /// Note that all the setters affecting `location` are mutually
+    /// exclusive.
     pub fn set_location<
         T: std::convert::Into<std::option::Option<crate::model::data_profile_location::Location>>,
     >(
@@ -17341,7 +17461,10 @@ impl DiscoveryTarget {
         std::default::Default::default()
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::DiscoveryTarget::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::discovery_target::Target>>,
     >(
@@ -17642,7 +17765,10 @@ impl BigQueryDiscoveryTarget {
         self
     }
 
-    /// Sets the value of `frequency`.
+    /// Sets the value of [frequency][crate::model::BigQueryDiscoveryTarget::frequency].
+    ///
+    /// Note that all the setters affecting `frequency` are mutually
+    /// exclusive.
     pub fn set_frequency<
         T: std::convert::Into<
                 std::option::Option<crate::model::big_query_discovery_target::Frequency>,
@@ -17767,7 +17893,10 @@ impl DiscoveryBigQueryFilter {
         std::default::Default::default()
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::DiscoveryBigQueryFilter::filter].
+    ///
+    /// Note that all the setters affecting `filter` are mutually
+    /// exclusive.
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::discovery_big_query_filter::Filter>>,
     >(
@@ -17961,7 +18090,10 @@ impl BigQueryTableCollection {
         std::default::Default::default()
     }
 
-    /// Sets the value of `pattern`.
+    /// Sets the value of [pattern][crate::model::BigQueryTableCollection::pattern].
+    ///
+    /// Note that all the setters affecting `pattern` are mutually
+    /// exclusive.
     pub fn set_pattern<
         T: std::convert::Into<std::option::Option<crate::model::big_query_table_collection::Pattern>>,
     >(
@@ -18085,7 +18217,10 @@ impl DiscoveryBigQueryConditions {
         self
     }
 
-    /// Sets the value of `included_types`.
+    /// Sets the value of [included_types][crate::model::DiscoveryBigQueryConditions::included_types].
+    ///
+    /// Note that all the setters affecting `included_types` are mutually
+    /// exclusive.
     pub fn set_included_types<
         T: std::convert::Into<
                 std::option::Option<crate::model::discovery_big_query_conditions::IncludedTypes>,
@@ -18512,7 +18647,10 @@ impl CloudSqlDiscoveryTarget {
         self
     }
 
-    /// Sets the value of `cadence`.
+    /// Sets the value of [cadence][crate::model::CloudSqlDiscoveryTarget::cadence].
+    ///
+    /// Note that all the setters affecting `cadence` are mutually
+    /// exclusive.
     pub fn set_cadence<
         T: std::convert::Into<std::option::Option<crate::model::cloud_sql_discovery_target::Cadence>>,
     >(
@@ -18634,7 +18772,10 @@ impl DiscoveryCloudSqlFilter {
         std::default::Default::default()
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::DiscoveryCloudSqlFilter::filter].
+    ///
+    /// Note that all the setters affecting `filter` are mutually
+    /// exclusive.
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::discovery_cloud_sql_filter::Filter>>,
     >(
@@ -18795,7 +18936,10 @@ impl DatabaseResourceCollection {
         std::default::Default::default()
     }
 
-    /// Sets the value of `pattern`.
+    /// Sets the value of [pattern][crate::model::DatabaseResourceCollection::pattern].
+    ///
+    /// Note that all the setters affecting `pattern` are mutually
+    /// exclusive.
     pub fn set_pattern<
         T: std::convert::Into<
                 std::option::Option<crate::model::database_resource_collection::Pattern>,
@@ -19554,7 +19698,10 @@ impl CloudStorageDiscoveryTarget {
         self
     }
 
-    /// Sets the value of `cadence`.
+    /// Sets the value of [cadence][crate::model::CloudStorageDiscoveryTarget::cadence].
+    ///
+    /// Note that all the setters affecting `cadence` are mutually
+    /// exclusive.
     pub fn set_cadence<
         T: std::convert::Into<
                 std::option::Option<crate::model::cloud_storage_discovery_target::Cadence>,
@@ -19678,7 +19825,10 @@ impl DiscoveryCloudStorageFilter {
         std::default::Default::default()
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::DiscoveryCloudStorageFilter::filter].
+    ///
+    /// Note that all the setters affecting `filter` are mutually
+    /// exclusive.
     pub fn set_filter<
         T: std::convert::Into<
                 std::option::Option<crate::model::discovery_cloud_storage_filter::Filter>,
@@ -19842,7 +19992,10 @@ impl FileStoreCollection {
         std::default::Default::default()
     }
 
-    /// Sets the value of `pattern`.
+    /// Sets the value of [pattern][crate::model::FileStoreCollection::pattern].
+    ///
+    /// Note that all the setters affecting `pattern` are mutually
+    /// exclusive.
     pub fn set_pattern<
         T: std::convert::Into<std::option::Option<crate::model::file_store_collection::Pattern>>,
     >(
@@ -19968,7 +20121,10 @@ impl FileStoreRegex {
         std::default::Default::default()
     }
 
-    /// Sets the value of `resource_regex`.
+    /// Sets the value of [resource_regex][crate::model::FileStoreRegex::resource_regex].
+    ///
+    /// Note that all the setters affecting `resource_regex` are mutually
+    /// exclusive.
     pub fn set_resource_regex<
         T: std::convert::Into<std::option::Option<crate::model::file_store_regex::ResourceRegex>>,
     >(
@@ -20484,7 +20640,10 @@ impl DiscoveryFileStoreConditions {
         self
     }
 
-    /// Sets the value of `conditions`.
+    /// Sets the value of [conditions][crate::model::DiscoveryFileStoreConditions::conditions].
+    ///
+    /// Note that all the setters affecting `conditions` are mutually
+    /// exclusive.
     pub fn set_conditions<
         T: std::convert::Into<
                 std::option::Option<crate::model::discovery_file_store_conditions::Conditions>,
@@ -20625,7 +20784,10 @@ impl OtherCloudDiscoveryTarget {
         self
     }
 
-    /// Sets the value of `cadence`.
+    /// Sets the value of [cadence][crate::model::OtherCloudDiscoveryTarget::cadence].
+    ///
+    /// Note that all the setters affecting `cadence` are mutually
+    /// exclusive.
     pub fn set_cadence<
         T: std::convert::Into<
                 std::option::Option<crate::model::other_cloud_discovery_target::Cadence>,
@@ -20747,7 +20909,10 @@ impl DiscoveryOtherCloudFilter {
         std::default::Default::default()
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::DiscoveryOtherCloudFilter::filter].
+    ///
+    /// Note that all the setters affecting `filter` are mutually
+    /// exclusive.
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::discovery_other_cloud_filter::Filter>>,
     >(
@@ -20904,7 +21069,10 @@ impl OtherCloudResourceCollection {
         std::default::Default::default()
     }
 
-    /// Sets the value of `pattern`.
+    /// Sets the value of [pattern][crate::model::OtherCloudResourceCollection::pattern].
+    ///
+    /// Note that all the setters affecting `pattern` are mutually
+    /// exclusive.
     pub fn set_pattern<
         T: std::convert::Into<
                 std::option::Option<crate::model::other_cloud_resource_collection::Pattern>,
@@ -21035,7 +21203,10 @@ impl OtherCloudResourceRegex {
         std::default::Default::default()
     }
 
-    /// Sets the value of `resource_regex`.
+    /// Sets the value of [resource_regex][crate::model::OtherCloudResourceRegex::resource_regex].
+    ///
+    /// Note that all the setters affecting `resource_regex` are mutually
+    /// exclusive.
     pub fn set_resource_regex<
         T: std::convert::Into<
                 std::option::Option<crate::model::other_cloud_resource_regex::ResourceRegex>,
@@ -21209,7 +21380,10 @@ impl OtherCloudSingleResourceReference {
         std::default::Default::default()
     }
 
-    /// Sets the value of `resource`.
+    /// Sets the value of [resource][crate::model::OtherCloudSingleResourceReference::resource].
+    ///
+    /// Note that all the setters affecting `resource` are mutually
+    /// exclusive.
     pub fn set_resource<
         T: std::convert::Into<
                 std::option::Option<crate::model::other_cloud_single_resource_reference::Resource>,
@@ -21387,7 +21561,10 @@ impl DiscoveryOtherCloudConditions {
         self
     }
 
-    /// Sets the value of `conditions`.
+    /// Sets the value of [conditions][crate::model::DiscoveryOtherCloudConditions::conditions].
+    ///
+    /// Note that all the setters affecting `conditions` are mutually
+    /// exclusive.
     pub fn set_conditions<
         T: std::convert::Into<
                 std::option::Option<crate::model::discovery_other_cloud_conditions::Conditions>,
@@ -21729,7 +21906,10 @@ impl DiscoveryStartingLocation {
         std::default::Default::default()
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::DiscoveryStartingLocation::location].
+    ///
+    /// Note that all the setters affecting `location` are mutually
+    /// exclusive.
     pub fn set_location<
         T: std::convert::Into<
                 std::option::Option<crate::model::discovery_starting_location::Location>,
@@ -21836,7 +22016,10 @@ impl OtherCloudDiscoveryStartingLocation {
         std::default::Default::default()
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::OtherCloudDiscoveryStartingLocation::location].
+    ///
+    /// Note that all the setters affecting `location` are mutually
+    /// exclusive.
     pub fn set_location<
         T: std::convert::Into<
                 std::option::Option<
@@ -21914,7 +22097,10 @@ pub mod other_cloud_discovery_starting_location {
             std::default::Default::default()
         }
 
-        /// Sets the value of `scope`.
+        /// Sets the value of [scope][crate::model::other_cloud_discovery_starting_location::AwsDiscoveryStartingLocation::scope].
+        ///
+        /// Note that all the setters affecting `scope` are mutually
+        /// exclusive.
         pub fn set_scope<T: std::convert::Into<std::option::Option<crate::model::other_cloud_discovery_starting_location::aws_discovery_starting_location::Scope>>>(mut self, v: T) -> Self
         {
             self.scope = v.into();
@@ -22086,7 +22272,10 @@ impl VertexDatasetDiscoveryTarget {
         self
     }
 
-    /// Sets the value of `cadence`.
+    /// Sets the value of [cadence][crate::model::VertexDatasetDiscoveryTarget::cadence].
+    ///
+    /// Note that all the setters affecting `cadence` are mutually
+    /// exclusive.
     pub fn set_cadence<
         T: std::convert::Into<
                 std::option::Option<crate::model::vertex_dataset_discovery_target::Cadence>,
@@ -22210,7 +22399,10 @@ impl DiscoveryVertexDatasetFilter {
         std::default::Default::default()
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::DiscoveryVertexDatasetFilter::filter].
+    ///
+    /// Note that all the setters affecting `filter` are mutually
+    /// exclusive.
     pub fn set_filter<
         T: std::convert::Into<
                 std::option::Option<crate::model::discovery_vertex_dataset_filter::Filter>,
@@ -22371,7 +22563,10 @@ impl VertexDatasetCollection {
         std::default::Default::default()
     }
 
-    /// Sets the value of `pattern`.
+    /// Sets the value of [pattern][crate::model::VertexDatasetCollection::pattern].
+    ///
+    /// Note that all the setters affecting `pattern` are mutually
+    /// exclusive.
     pub fn set_pattern<
         T: std::convert::Into<std::option::Option<crate::model::vertex_dataset_collection::Pattern>>,
     >(
@@ -22807,7 +23002,10 @@ impl DlpJob {
         self
     }
 
-    /// Sets the value of `details`.
+    /// Sets the value of [details][crate::model::DlpJob::details].
+    ///
+    /// Note that all the setters affecting `details` are mutually
+    /// exclusive.
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::dlp_job::Details>>,
     >(
@@ -23754,7 +23952,10 @@ impl LargeCustomDictionaryConfig {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::LargeCustomDictionaryConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::large_custom_dictionary_config::Source>,
@@ -23928,7 +24129,10 @@ impl StoredInfoTypeConfig {
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::StoredInfoTypeConfig::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::stored_info_type_config::Type>>,
     >(
@@ -24077,7 +24281,10 @@ impl StoredInfoTypeStats {
         std::default::Default::default()
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::StoredInfoTypeStats::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::stored_info_type_stats::Type>>,
     >(
@@ -28218,7 +28425,10 @@ pub mod data_profile_pub_sub_condition {
             std::default::Default::default()
         }
 
-        /// Sets the value of `value`.
+        /// Sets the value of [value][crate::model::data_profile_pub_sub_condition::PubSubCondition::value].
+        ///
+        /// Note that all the setters affecting `value` are mutually
+        /// exclusive.
         pub fn set_value<
             T: std::convert::Into<
                     std::option::Option<
@@ -29056,7 +29266,10 @@ impl Connection {
         self
     }
 
-    /// Sets the value of `properties`.
+    /// Sets the value of [properties][crate::model::Connection::properties].
+    ///
+    /// Note that all the setters affecting `properties` are mutually
+    /// exclusive.
     pub fn set_properties<
         T: std::convert::Into<std::option::Option<crate::model::connection::Properties>>,
     >(
@@ -29255,7 +29468,10 @@ impl CloudSqlProperties {
         self
     }
 
-    /// Sets the value of `credential`.
+    /// Sets the value of [credential][crate::model::CloudSqlProperties::credential].
+    ///
+    /// Note that all the setters affecting `credential` are mutually
+    /// exclusive.
     pub fn set_credential<
         T: std::convert::Into<std::option::Option<crate::model::cloud_sql_properties::Credential>>,
     >(
@@ -29505,7 +29721,10 @@ impl FileClusterType {
         std::default::Default::default()
     }
 
-    /// Sets the value of `file_cluster_type`.
+    /// Sets the value of [file_cluster_type][crate::model::FileClusterType::file_cluster_type].
+    ///
+    /// Note that all the setters affecting `file_cluster_type` are mutually
+    /// exclusive.
     pub fn set_file_cluster_type<
         T: std::convert::Into<std::option::Option<crate::model::file_cluster_type::FileClusterType>>,
     >(
@@ -30151,7 +30370,10 @@ impl CustomInfoType {
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::CustomInfoType::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::custom_info_type::Type>>,
     >(
@@ -30330,7 +30552,10 @@ pub mod custom_info_type {
             std::default::Default::default()
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::custom_info_type::Dictionary::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
         pub fn set_source<
             T: std::convert::Into<
                     std::option::Option<crate::model::custom_info_type::dictionary::Source>,
@@ -30576,7 +30801,10 @@ pub mod custom_info_type {
             std::default::Default::default()
         }
 
-        /// Sets the value of `r#type`.
+        /// Sets the value of [r#type][crate::model::custom_info_type::DetectionRule::type].
+        ///
+        /// Note that all the setters affecting `r#type` are mutually
+        /// exclusive.
         pub fn set_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::custom_info_type::detection_rule::Type>,
@@ -30704,7 +30932,10 @@ pub mod custom_info_type {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `adjustment`.
+            /// Sets the value of [adjustment][crate::model::custom_info_type::detection_rule::LikelihoodAdjustment::adjustment].
+            ///
+            /// Note that all the setters affecting `adjustment` are mutually
+            /// exclusive.
             pub fn set_adjustment<T: std::convert::Into<std::option::Option<crate::model::custom_info_type::detection_rule::likelihood_adjustment::Adjustment>>>(mut self, v: T) -> Self
             {
                 self.adjustment = v.into();
@@ -31788,7 +32019,10 @@ impl StorageConfig {
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::StorageConfig::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::storage_config::Type>>,
     >(
@@ -32365,7 +32599,10 @@ pub mod key {
             self
         }
 
-        /// Sets the value of `id_type`.
+        /// Sets the value of [id_type][crate::model::key::PathElement::id_type].
+        ///
+        /// Note that all the setters affecting `id_type` are mutually
+        /// exclusive.
         pub fn set_id_type<
             T: std::convert::Into<std::option::Option<crate::model::key::path_element::IdType>>,
         >(
@@ -32485,7 +32722,10 @@ impl RecordKey {
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::RecordKey::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::record_key::Type>>>(
         mut self,
         v: T,

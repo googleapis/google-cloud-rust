@@ -5019,7 +5019,10 @@ pub mod indicator {
             self
         }
 
-        /// Sets the value of `signature`.
+        /// Sets the value of [signature][crate::model::indicator::ProcessSignature::signature].
+        ///
+        /// Note that all the setters affecting `signature` are mutually
+        /// exclusive.
         pub fn set_signature<
             T: std::convert::Into<
                     std::option::Option<crate::model::indicator::process_signature::Signature>,
@@ -6345,7 +6348,10 @@ impl LogEntry {
         std::default::Default::default()
     }
 
-    /// Sets the value of `log_entry`.
+    /// Sets the value of [log_entry][crate::model::LogEntry::log_entry].
+    ///
+    /// Note that all the setters affecting `log_entry` are mutually
+    /// exclusive.
     pub fn set_log_entry<
         T: std::convert::Into<std::option::Option<crate::model::log_entry::LogEntry>>,
     >(
@@ -7509,7 +7515,10 @@ impl NotificationConfig {
         self
     }
 
-    /// Sets the value of `notify_config`.
+    /// Sets the value of [notify_config][crate::model::NotificationConfig::notify_config].
+    ///
+    /// Note that all the setters affecting `notify_config` are mutually
+    /// exclusive.
     pub fn set_notify_config<
         T: std::convert::Into<std::option::Option<crate::model::notification_config::NotifyConfig>>,
     >(
@@ -7673,7 +7682,10 @@ impl NotificationMessage {
         self
     }
 
-    /// Sets the value of `event`.
+    /// Sets the value of [event][crate::model::NotificationMessage::event].
+    ///
+    /// Note that all the setters affecting `event` are mutually
+    /// exclusive.
     pub fn set_event<
         T: std::convert::Into<std::option::Option<crate::model::notification_message::Event>>,
     >(
@@ -8073,7 +8085,10 @@ impl Resource {
         self
     }
 
-    /// Sets the value of `cloud_provider_metadata`.
+    /// Sets the value of [cloud_provider_metadata][crate::model::Resource::cloud_provider_metadata].
+    ///
+    /// Note that all the setters affecting `cloud_provider_metadata` are mutually
+    /// exclusive.
     pub fn set_cloud_provider_metadata<
         T: std::convert::Into<std::option::Option<crate::model::resource::CloudProviderMetadata>>,
     >(
@@ -11500,7 +11515,10 @@ pub mod list_findings_response {
                 self
             }
 
-            /// Sets the value of `cloud_provider_metadata`.
+            /// Sets the value of [cloud_provider_metadata][crate::model::list_findings_response::list_findings_result::Resource::cloud_provider_metadata].
+            ///
+            /// Note that all the setters affecting `cloud_provider_metadata` are mutually
+            /// exclusive.
             pub fn set_cloud_provider_metadata<T: std::convert::Into<std::option::Option<crate::model::list_findings_response::list_findings_result::resource::CloudProviderMetadata>>>(mut self, v: T) -> Self
             {
                 self.cloud_provider_metadata = v.into();

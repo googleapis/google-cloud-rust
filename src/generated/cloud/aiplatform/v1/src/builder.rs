@@ -1291,12 +1291,45 @@ pub mod dataset_service {
             self
         }
 
-        /// Sets the value of `order`.
+        /// Sets the value of [order][crate::model::SearchDataItemsRequest::order].
+        ///
+        /// Note that all the setters affecting `order` are
+        /// mutually exclusive.
         pub fn set_order<T: Into<Option<crate::model::search_data_items_request::Order>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.order = v.into();
+            self
+        }
+
+        /// Sets the value of [order][crate::model::SearchDataItemsRequest::order]
+        /// to hold a `OrderByDataItem`.
+        ///
+        /// Note that all the setters affecting `order` are
+        /// mutually exclusive.
+        pub fn set_order_by_data_item<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_order_by_data_item(v);
+            self
+        }
+
+        /// Sets the value of [order][crate::model::SearchDataItemsRequest::order]
+        /// to hold a `OrderByAnnotation`.
+        ///
+        /// Note that all the setters affecting `order` are
+        /// mutually exclusive.
+        pub fn set_order_by_annotation<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::search_data_items_request::OrderByAnnotation>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_order_by_annotation(v);
             self
         }
     }
@@ -4807,7 +4840,10 @@ pub mod evaluation_service {
             self
         }
 
-        /// Sets the value of `metric_inputs`.
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs].
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
         pub fn set_metric_inputs<
             T: Into<Option<crate::model::evaluate_instances_request::MetricInputs>>,
         >(
@@ -4815,6 +4851,380 @@ pub mod evaluation_service {
             v: T,
         ) -> Self {
             self.0.request.metric_inputs = v.into();
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `ExactMatchInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_exact_match_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::ExactMatchInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_exact_match_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `BleuInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_bleu_input<T: std::convert::Into<std::boxed::Box<crate::model::BleuInput>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_bleu_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `RougeInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_rouge_input<T: std::convert::Into<std::boxed::Box<crate::model::RougeInput>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_rouge_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `FluencyInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_fluency_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::FluencyInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_fluency_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `CoherenceInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_coherence_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::CoherenceInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_coherence_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `SafetyInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_safety_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::SafetyInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_safety_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `GroundednessInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_groundedness_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::GroundednessInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_groundedness_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `FulfillmentInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_fulfillment_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::FulfillmentInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_fulfillment_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `SummarizationQualityInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_summarization_quality_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::SummarizationQualityInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_summarization_quality_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `PairwiseSummarizationQualityInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_pairwise_summarization_quality_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::PairwiseSummarizationQualityInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_pairwise_summarization_quality_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `SummarizationHelpfulnessInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_summarization_helpfulness_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::SummarizationHelpfulnessInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_summarization_helpfulness_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `SummarizationVerbosityInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_summarization_verbosity_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::SummarizationVerbosityInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_summarization_verbosity_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `QuestionAnsweringQualityInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_question_answering_quality_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::QuestionAnsweringQualityInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_question_answering_quality_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `PairwiseQuestionAnsweringQualityInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_pairwise_question_answering_quality_input<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::PairwiseQuestionAnsweringQualityInput>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self
+                .0
+                .request
+                .set_pairwise_question_answering_quality_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `QuestionAnsweringRelevanceInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_question_answering_relevance_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::QuestionAnsweringRelevanceInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_question_answering_relevance_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `QuestionAnsweringHelpfulnessInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_question_answering_helpfulness_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::QuestionAnsweringHelpfulnessInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_question_answering_helpfulness_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `QuestionAnsweringCorrectnessInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_question_answering_correctness_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::QuestionAnsweringCorrectnessInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_question_answering_correctness_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `PointwiseMetricInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_pointwise_metric_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::PointwiseMetricInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_pointwise_metric_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `PairwiseMetricInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_pairwise_metric_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::PairwiseMetricInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_pairwise_metric_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `ToolCallValidInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_tool_call_valid_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::ToolCallValidInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_tool_call_valid_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `ToolNameMatchInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_tool_name_match_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::ToolNameMatchInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_tool_name_match_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `ToolParameterKeyMatchInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_tool_parameter_key_match_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::ToolParameterKeyMatchInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_tool_parameter_key_match_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `ToolParameterKvMatchInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_tool_parameter_kv_match_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::ToolParameterKVMatchInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_tool_parameter_kv_match_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `CometInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_comet_input<T: std::convert::Into<std::boxed::Box<crate::model::CometInput>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_comet_input(v);
+            self
+        }
+
+        /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
+        /// to hold a `MetricxInput`.
+        ///
+        /// Note that all the setters affecting `metric_inputs` are
+        /// mutually exclusive.
+        pub fn set_metricx_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::MetricxInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_metricx_input(v);
             self
         }
     }
@@ -11628,7 +12038,10 @@ pub mod featurestore_service {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ImportFeatureValuesRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::import_feature_values_request::Source>>>(
             mut self,
             v: T,
@@ -11637,7 +12050,51 @@ pub mod featurestore_service {
             self
         }
 
-        /// Sets the value of `feature_time_source`.
+        /// Sets the value of [source][crate::model::ImportFeatureValuesRequest::source]
+        /// to hold a `AvroSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_avro_source<T: std::convert::Into<std::boxed::Box<crate::model::AvroSource>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_avro_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportFeatureValuesRequest::source]
+        /// to hold a `BigquerySource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_bigquery_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_bigquery_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportFeatureValuesRequest::source]
+        /// to hold a `CsvSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_csv_source<T: std::convert::Into<std::boxed::Box<crate::model::CsvSource>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_csv_source(v);
+            self
+        }
+
+        /// Sets the value of [feature_time_source][crate::model::ImportFeatureValuesRequest::feature_time_source].
+        ///
+        /// Note that all the setters affecting `feature_time_source` are
+        /// mutually exclusive.
         pub fn set_feature_time_source<
             T: Into<Option<crate::model::import_feature_values_request::FeatureTimeSource>>,
         >(
@@ -11645,6 +12102,32 @@ pub mod featurestore_service {
             v: T,
         ) -> Self {
             self.0.request.feature_time_source = v.into();
+            self
+        }
+
+        /// Sets the value of [feature_time_source][crate::model::ImportFeatureValuesRequest::feature_time_source]
+        /// to hold a `FeatureTimeField`.
+        ///
+        /// Note that all the setters affecting `feature_time_source` are
+        /// mutually exclusive.
+        pub fn set_feature_time_field<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_feature_time_field(v);
+            self
+        }
+
+        /// Sets the value of [feature_time_source][crate::model::ImportFeatureValuesRequest::feature_time_source]
+        /// to hold a `FeatureTime`.
+        ///
+        /// Note that all the setters affecting `feature_time_source` are
+        /// mutually exclusive.
+        pub fn set_feature_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_feature_time(v);
             self
         }
     }
@@ -11781,7 +12264,10 @@ pub mod featurestore_service {
             self
         }
 
-        /// Sets the value of `read_option`.
+        /// Sets the value of [read_option][crate::model::BatchReadFeatureValuesRequest::read_option].
+        ///
+        /// Note that all the setters affecting `read_option` are
+        /// mutually exclusive.
         pub fn set_read_option<
             T: Into<Option<crate::model::batch_read_feature_values_request::ReadOption>>,
         >(
@@ -11789,6 +12275,36 @@ pub mod featurestore_service {
             v: T,
         ) -> Self {
             self.0.request.read_option = v.into();
+            self
+        }
+
+        /// Sets the value of [read_option][crate::model::BatchReadFeatureValuesRequest::read_option]
+        /// to hold a `CsvReadInstances`.
+        ///
+        /// Note that all the setters affecting `read_option` are
+        /// mutually exclusive.
+        pub fn set_csv_read_instances<
+            T: std::convert::Into<std::boxed::Box<crate::model::CsvSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_csv_read_instances(v);
+            self
+        }
+
+        /// Sets the value of [read_option][crate::model::BatchReadFeatureValuesRequest::read_option]
+        /// to hold a `BigqueryReadInstances`.
+        ///
+        /// Note that all the setters affecting `read_option` are
+        /// mutually exclusive.
+        pub fn set_bigquery_read_instances<
+            T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_bigquery_read_instances(v);
             self
         }
     }
@@ -11912,12 +12428,49 @@ pub mod featurestore_service {
             self
         }
 
-        /// Sets the value of `mode`.
+        /// Sets the value of [mode][crate::model::ExportFeatureValuesRequest::mode].
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
         pub fn set_mode<T: Into<Option<crate::model::export_feature_values_request::Mode>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.mode = v.into();
+            self
+        }
+
+        /// Sets the value of [mode][crate::model::ExportFeatureValuesRequest::mode]
+        /// to hold a `SnapshotExport`.
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
+        pub fn set_snapshot_export<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::export_feature_values_request::SnapshotExport>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_snapshot_export(v);
+            self
+        }
+
+        /// Sets the value of [mode][crate::model::ExportFeatureValuesRequest::mode]
+        /// to hold a `FullExport`.
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
+        pub fn set_full_export<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::export_feature_values_request::FullExport>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_full_export(v);
             self
         }
     }
@@ -12010,7 +12563,10 @@ pub mod featurestore_service {
             self
         }
 
-        /// Sets the value of `delete_option`.
+        /// Sets the value of [delete_option][crate::model::DeleteFeatureValuesRequest::delete_option].
+        ///
+        /// Note that all the setters affecting `delete_option` are
+        /// mutually exclusive.
         pub fn set_delete_option<
             T: Into<Option<crate::model::delete_feature_values_request::DeleteOption>>,
         >(
@@ -12018,6 +12574,42 @@ pub mod featurestore_service {
             v: T,
         ) -> Self {
             self.0.request.delete_option = v.into();
+            self
+        }
+
+        /// Sets the value of [delete_option][crate::model::DeleteFeatureValuesRequest::delete_option]
+        /// to hold a `SelectEntity`.
+        ///
+        /// Note that all the setters affecting `delete_option` are
+        /// mutually exclusive.
+        pub fn set_select_entity<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::delete_feature_values_request::SelectEntity>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_select_entity(v);
+            self
+        }
+
+        /// Sets the value of [delete_option][crate::model::DeleteFeatureValuesRequest::delete_option]
+        /// to hold a `SelectTimeRangeAndFeature`.
+        ///
+        /// Note that all the setters affecting `delete_option` are
+        /// mutually exclusive.
+        pub fn set_select_time_range_and_feature<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::delete_feature_values_request::SelectTimeRangeAndFeature,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_select_time_range_and_feature(v);
             self
         }
     }
@@ -26677,7 +27269,10 @@ pub mod model_service {
             self
         }
 
-        /// Sets the value of `destination_model`.
+        /// Sets the value of [destination_model][crate::model::CopyModelRequest::destination_model].
+        ///
+        /// Note that all the setters affecting `destination_model` are
+        /// mutually exclusive.
         pub fn set_destination_model<
             T: Into<Option<crate::model::copy_model_request::DestinationModel>>,
         >(
@@ -26685,6 +27280,29 @@ pub mod model_service {
             v: T,
         ) -> Self {
             self.0.request.destination_model = v.into();
+            self
+        }
+
+        /// Sets the value of [destination_model][crate::model::CopyModelRequest::destination_model]
+        /// to hold a `ModelId`.
+        ///
+        /// Note that all the setters affecting `destination_model` are
+        /// mutually exclusive.
+        pub fn set_model_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_model_id(v);
+            self
+        }
+
+        /// Sets the value of [destination_model][crate::model::CopyModelRequest::destination_model]
+        /// to hold a `ParentModel`.
+        ///
+        /// Note that all the setters affecting `destination_model` are
+        /// mutually exclusive.
+        pub fn set_parent_model<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_parent_model(v);
             self
         }
     }
@@ -41234,7 +41852,10 @@ pub mod vertex_rag_service {
             self
         }
 
-        /// Sets the value of `data_source`.
+        /// Sets the value of [data_source][crate::model::RetrieveContextsRequest::data_source].
+        ///
+        /// Note that all the setters affecting `data_source` are
+        /// mutually exclusive.
         pub fn set_data_source<
             T: Into<Option<crate::model::retrieve_contexts_request::DataSource>>,
         >(
@@ -41242,6 +41863,23 @@ pub mod vertex_rag_service {
             v: T,
         ) -> Self {
             self.0.request.data_source = v.into();
+            self
+        }
+
+        /// Sets the value of [data_source][crate::model::RetrieveContextsRequest::data_source]
+        /// to hold a `VertexRagStore`.
+        ///
+        /// Note that all the setters affecting `data_source` are
+        /// mutually exclusive.
+        pub fn set_vertex_rag_store<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::retrieve_contexts_request::VertexRagStore>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_vertex_rag_store(v);
             self
         }
     }
@@ -41310,7 +41948,10 @@ pub mod vertex_rag_service {
             self
         }
 
-        /// Sets the value of `data_source`.
+        /// Sets the value of [data_source][crate::model::AugmentPromptRequest::data_source].
+        ///
+        /// Note that all the setters affecting `data_source` are
+        /// mutually exclusive.
         pub fn set_data_source<
             T: Into<Option<crate::model::augment_prompt_request::DataSource>>,
         >(
@@ -41318,6 +41959,21 @@ pub mod vertex_rag_service {
             v: T,
         ) -> Self {
             self.0.request.data_source = v.into();
+            self
+        }
+
+        /// Sets the value of [data_source][crate::model::AugmentPromptRequest::data_source]
+        /// to hold a `VertexRagStore`.
+        ///
+        /// Note that all the setters affecting `data_source` are
+        /// mutually exclusive.
+        pub fn set_vertex_rag_store<
+            T: std::convert::Into<std::boxed::Box<crate::model::VertexRagStore>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_vertex_rag_store(v);
             self
         }
     }

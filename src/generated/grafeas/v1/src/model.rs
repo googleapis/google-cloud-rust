@@ -820,7 +820,10 @@ impl ComplianceNote {
         self
     }
 
-    /// Sets the value of `compliance_type`.
+    /// Sets the value of [compliance_type][crate::model::ComplianceNote::compliance_type].
+    ///
+    /// Note that all the setters affecting `compliance_type` are mutually
+    /// exclusive.
     pub fn set_compliance_type<
         T: std::convert::Into<std::option::Option<crate::model::compliance_note::ComplianceType>>,
     >(
@@ -863,7 +866,10 @@ impl ComplianceNote {
         self
     }
 
-    /// Sets the value of `potential_impact`.
+    /// Sets the value of [potential_impact][crate::model::ComplianceNote::potential_impact].
+    ///
+    /// Note that all the setters affecting `potential_impact` are mutually
+    /// exclusive.
     pub fn set_potential_impact<
         T: std::convert::Into<std::option::Option<crate::model::compliance_note::PotentialImpact>>,
     >(
@@ -3170,7 +3176,10 @@ impl DSSEAttestationOccurrence {
         self
     }
 
-    /// Sets the value of `decoded_payload`.
+    /// Sets the value of [decoded_payload][crate::model::DSSEAttestationOccurrence::decoded_payload].
+    ///
+    /// Note that all the setters affecting `decoded_payload` are mutually
+    /// exclusive.
     pub fn set_decoded_payload<
         T: std::convert::Into<
                 std::option::Option<crate::model::dsse_attestation_occurrence::DecodedPayload>,
@@ -3347,7 +3356,10 @@ impl Occurrence {
         self
     }
 
-    /// Sets the value of `details`.
+    /// Sets the value of [details][crate::model::Occurrence::details].
+    ///
+    /// Note that all the setters affecting `details` are mutually
+    /// exclusive.
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::occurrence::Details>>,
     >(
@@ -3850,7 +3862,10 @@ impl Note {
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::Note::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::note::Type>>>(
         mut self,
         v: T,
@@ -5797,7 +5812,10 @@ impl InTotoStatement {
         self
     }
 
-    /// Sets the value of `predicate`.
+    /// Sets the value of [predicate][crate::model::InTotoStatement::predicate].
+    ///
+    /// Note that all the setters affecting `predicate` are mutually
+    /// exclusive.
     pub fn set_predicate<
         T: std::convert::Into<std::option::Option<crate::model::in_toto_statement::Predicate>>,
     >(
@@ -7598,7 +7616,10 @@ impl SourceContext {
         self
     }
 
-    /// Sets the value of `context`.
+    /// Sets the value of [context][crate::model::SourceContext::context].
+    ///
+    /// Note that all the setters affecting `context` are mutually
+    /// exclusive.
     pub fn set_context<
         T: std::convert::Into<std::option::Option<crate::model::source_context::Context>>,
     >(
@@ -7863,7 +7884,10 @@ impl CloudRepoSourceContext {
         self
     }
 
-    /// Sets the value of `revision`.
+    /// Sets the value of [revision][crate::model::CloudRepoSourceContext::revision].
+    ///
+    /// Note that all the setters affecting `revision` are mutually
+    /// exclusive.
     pub fn set_revision<
         T: std::convert::Into<std::option::Option<crate::model::cloud_repo_source_context::Revision>>,
     >(
@@ -7996,7 +8020,10 @@ impl GerritSourceContext {
         self
     }
 
-    /// Sets the value of `revision`.
+    /// Sets the value of [revision][crate::model::GerritSourceContext::revision].
+    ///
+    /// Note that all the setters affecting `revision` are mutually
+    /// exclusive.
     pub fn set_revision<
         T: std::convert::Into<std::option::Option<crate::model::gerrit_source_context::Revision>>,
     >(
@@ -8150,7 +8177,10 @@ impl RepoId {
         std::default::Default::default()
     }
 
-    /// Sets the value of `id`.
+    /// Sets the value of [id][crate::model::RepoId::id].
+    ///
+    /// Note that all the setters affecting `id` are mutually
+    /// exclusive.
     pub fn set_id<T: std::convert::Into<std::option::Option<crate::model::repo_id::Id>>>(
         mut self,
         v: T,
@@ -10054,7 +10084,10 @@ pub mod vulnerability_assessment_note {
             self
         }
 
-        /// Sets the value of `identifier`.
+        /// Sets the value of [identifier][crate::model::vulnerability_assessment_note::Product::identifier].
+        ///
+        /// Note that all the setters affecting `identifier` are mutually
+        /// exclusive.
         pub fn set_identifier<
             T: std::convert::Into<
                     std::option::Option<

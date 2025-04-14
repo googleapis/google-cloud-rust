@@ -281,7 +281,10 @@ impl SignatureInfo {
         self
     }
 
-    /// Sets the value of `verification_info`.
+    /// Sets the value of [verification_info][crate::model::SignatureInfo::verification_info].
+    ///
+    /// Note that all the setters affecting `verification_info` are mutually
+    /// exclusive.
     pub fn set_verification_info<
         T: std::convert::Into<std::option::Option<crate::model::signature_info::VerificationInfo>>,
     >(
@@ -658,7 +661,10 @@ impl ApprovalRequest {
         self
     }
 
-    /// Sets the value of `decision`.
+    /// Sets the value of [decision][crate::model::ApprovalRequest::decision].
+    ///
+    /// Note that all the setters affecting `decision` are mutually
+    /// exclusive.
     pub fn set_decision<
         T: std::convert::Into<std::option::Option<crate::model::approval_request::Decision>>,
     >(

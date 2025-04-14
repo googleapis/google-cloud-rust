@@ -1242,7 +1242,10 @@ impl SdpFilterSettings {
         std::default::Default::default()
     }
 
-    /// Sets the value of `sdp_configuration`.
+    /// Sets the value of [sdp_configuration][crate::model::SdpFilterSettings::sdp_configuration].
+    ///
+    /// Note that all the setters affecting `sdp_configuration` are mutually
+    /// exclusive.
     pub fn set_sdp_configuration<
         T: std::convert::Into<
                 std::option::Option<crate::model::sdp_filter_settings::SdpConfiguration>,
@@ -1863,7 +1866,10 @@ impl FilterResult {
         std::default::Default::default()
     }
 
-    /// Sets the value of `filter_result`.
+    /// Sets the value of [filter_result][crate::model::FilterResult::filter_result].
+    ///
+    /// Note that all the setters affecting `filter_result` are mutually
+    /// exclusive.
     pub fn set_filter_result<
         T: std::convert::Into<std::option::Option<crate::model::filter_result::FilterResult>>,
     >(
@@ -2272,7 +2278,10 @@ impl SdpFilterResult {
         std::default::Default::default()
     }
 
-    /// Sets the value of `result`.
+    /// Sets the value of [result][crate::model::SdpFilterResult::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::sdp_filter_result::Result>>,
     >(
@@ -2486,7 +2495,10 @@ impl DataItem {
         std::default::Default::default()
     }
 
-    /// Sets the value of `data_item`.
+    /// Sets the value of [data_item][crate::model::DataItem::data_item].
+    ///
+    /// Note that all the setters affecting `data_item` are mutually
+    /// exclusive.
     pub fn set_data_item<
         T: std::convert::Into<std::option::Option<crate::model::data_item::DataItem>>,
     >(

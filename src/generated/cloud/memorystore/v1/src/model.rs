@@ -367,7 +367,10 @@ pub mod instance {
             std::default::Default::default()
         }
 
-        /// Sets the value of `info`.
+        /// Sets the value of [info][crate::model::instance::StateInfo::info].
+        ///
+        /// Note that all the setters affecting `info` are mutually
+        /// exclusive.
         pub fn set_info<
             T: std::convert::Into<std::option::Option<crate::model::instance::state_info::Info>>,
         >(
@@ -541,7 +544,10 @@ pub mod instance {
             std::default::Default::default()
         }
 
-        /// Sets the value of `connection`.
+        /// Sets the value of [connection][crate::model::instance::ConnectionDetail::connection].
+        ///
+        /// Note that all the setters affecting `connection` are mutually
+        /// exclusive.
         pub fn set_connection<
             T: std::convert::Into<
                     std::option::Option<crate::model::instance::connection_detail::Connection>,
@@ -1086,7 +1092,10 @@ impl PscAutoConnection {
         self
     }
 
-    /// Sets the value of `ports`.
+    /// Sets the value of [ports][crate::model::PscAutoConnection::ports].
+    ///
+    /// Note that all the setters affecting `ports` are mutually
+    /// exclusive.
     pub fn set_ports<
         T: std::convert::Into<std::option::Option<crate::model::psc_auto_connection::Ports>>,
     >(
@@ -2298,7 +2307,10 @@ impl CertificateAuthority {
         self
     }
 
-    /// Sets the value of `server_ca`.
+    /// Sets the value of [server_ca][crate::model::CertificateAuthority::server_ca].
+    ///
+    /// Note that all the setters affecting `server_ca` are mutually
+    /// exclusive.
     pub fn set_server_ca<
         T: std::convert::Into<std::option::Option<crate::model::certificate_authority::ServerCa>>,
     >(

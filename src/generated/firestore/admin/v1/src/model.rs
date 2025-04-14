@@ -649,7 +649,10 @@ pub mod database {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::database::SourceInfo::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
         pub fn set_source<
             T: std::convert::Into<std::option::Option<crate::model::database::source_info::Source>>,
         >(
@@ -775,7 +778,10 @@ pub mod database {
             std::default::Default::default()
         }
 
-        /// Sets the value of `encryption_type`.
+        /// Sets the value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type].
+        ///
+        /// Note that all the setters affecting `encryption_type` are mutually
+        /// exclusive.
         pub fn set_encryption_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::database::encryption_config::EncryptionType>,
@@ -3840,7 +3846,10 @@ pub mod index {
             self
         }
 
-        /// Sets the value of `value_mode`.
+        /// Sets the value of [value_mode][crate::model::index::IndexField::value_mode].
+        ///
+        /// Note that all the setters affecting `value_mode` are mutually
+        /// exclusive.
         pub fn set_value_mode<
             T: std::convert::Into<std::option::Option<crate::model::index::index_field::ValueMode>>,
         >(
@@ -3987,7 +3996,10 @@ pub mod index {
                 self
             }
 
-            /// Sets the value of `r#type`.
+            /// Sets the value of [r#type][crate::model::index::index_field::VectorConfig::type].
+            ///
+            /// Note that all the setters affecting `r#type` are mutually
+            /// exclusive.
             pub fn set_type<
                 T: std::convert::Into<
                         std::option::Option<crate::model::index::index_field::vector_config::Type>,
@@ -5610,7 +5622,10 @@ impl BackupSchedule {
         self
     }
 
-    /// Sets the value of `recurrence`.
+    /// Sets the value of [recurrence][crate::model::BackupSchedule::recurrence].
+    ///
+    /// Note that all the setters affecting `recurrence` are mutually
+    /// exclusive.
     pub fn set_recurrence<
         T: std::convert::Into<std::option::Option<crate::model::backup_schedule::Recurrence>>,
     >(
@@ -5849,7 +5864,10 @@ impl UserCreds {
         self
     }
 
-    /// Sets the value of `user_creds_identity`.
+    /// Sets the value of [user_creds_identity][crate::model::UserCreds::user_creds_identity].
+    ///
+    /// Note that all the setters affecting `user_creds_identity` are mutually
+    /// exclusive.
     pub fn set_user_creds_identity<
         T: std::convert::Into<std::option::Option<crate::model::user_creds::UserCredsIdentity>>,
     >(

@@ -2479,7 +2479,10 @@ impl Rule {
         self
     }
 
-    /// Sets the value of `action`.
+    /// Sets the value of [action][crate::model::Rule::action].
+    ///
+    /// Note that all the setters affecting `action` are mutually
+    /// exclusive.
     pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::rule::Action>>>(
         mut self,
         v: T,
@@ -3950,7 +3953,10 @@ impl Interval {
         std::default::Default::default()
     }
 
-    /// Sets the value of `min`.
+    /// Sets the value of [min][crate::model::Interval::min].
+    ///
+    /// Note that all the setters affecting `min` are mutually
+    /// exclusive.
     pub fn set_min<T: std::convert::Into<std::option::Option<crate::model::interval::Min>>>(
         mut self,
         v: T,
@@ -4002,7 +4008,10 @@ impl Interval {
         self
     }
 
-    /// Sets the value of `max`.
+    /// Sets the value of [max][crate::model::Interval::max].
+    ///
+    /// Note that all the setters affecting `max` are mutually
+    /// exclusive.
     pub fn set_max<T: std::convert::Into<std::option::Option<crate::model::interval::Max>>>(
         mut self,
         v: T,
@@ -5236,7 +5245,10 @@ impl Control {
         self
     }
 
-    /// Sets the value of `control`.
+    /// Sets the value of [control][crate::model::Control::control].
+    ///
+    /// Note that all the setters affecting `control` are mutually
+    /// exclusive.
     pub fn set_control<
         T: std::convert::Into<std::option::Option<crate::model::control::Control>>,
     >(
@@ -5633,7 +5645,10 @@ impl OutputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::OutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
     >(
@@ -5851,7 +5866,10 @@ impl ExportErrorsConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportErrorsConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_errors_config::Destination>>,
     >(
@@ -6879,7 +6897,10 @@ impl BigQuerySource {
         self
     }
 
-    /// Sets the value of `partition`.
+    /// Sets the value of [partition][crate::model::BigQuerySource::partition].
+    ///
+    /// Note that all the setters affecting `partition` are mutually
+    /// exclusive.
     pub fn set_partition<
         T: std::convert::Into<std::option::Option<crate::model::big_query_source::Partition>>,
     >(
@@ -7043,7 +7064,10 @@ impl ImportErrorsConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ImportErrorsConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::import_errors_config::Destination>>,
     >(
@@ -7462,7 +7486,10 @@ impl ProductInputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ProductInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::product_input_config::Source>>,
     >(
@@ -7610,7 +7637,10 @@ impl UserEventInputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::UserEventInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::user_event_input_config::Source>>,
     >(
@@ -7768,7 +7798,10 @@ impl CompletionDataInputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::CompletionDataInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::completion_data_input_config::Source>>,
     >(
@@ -8556,7 +8589,10 @@ pub mod model {
             std::default::Default::default()
         }
 
-        /// Sets the value of `type_dedicated_config`.
+        /// Sets the value of [type_dedicated_config][crate::model::model::ModelFeaturesConfig::type_dedicated_config].
+        ///
+        /// Note that all the setters affecting `type_dedicated_config` are mutually
+        /// exclusive.
         pub fn set_type_dedicated_config<
             T: std::convert::Into<
                     std::option::Option<
@@ -10680,7 +10716,10 @@ impl Product {
         self
     }
 
-    /// Sets the value of `expiration`.
+    /// Sets the value of [expiration][crate::model::Product::expiration].
+    ///
+    /// Note that all the setters affecting `expiration` are mutually
+    /// exclusive.
     pub fn set_expiration<
         T: std::convert::Into<std::option::Option<crate::model::product::Expiration>>,
     >(
@@ -12941,7 +12980,10 @@ impl Tile {
         self
     }
 
-    /// Sets the value of `product_attribute`.
+    /// Sets the value of [product_attribute][crate::model::Tile::product_attribute].
+    ///
+    /// Note that all the setters affecting `product_attribute` are mutually
+    /// exclusive.
     pub fn set_product_attribute<
         T: std::convert::Into<std::option::Option<crate::model::tile::ProductAttribute>>,
     >(
@@ -14717,7 +14759,10 @@ pub mod search_request {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `r#type`.
+            /// Sets the value of [r#type][crate::model::search_request::conversational_search_spec::UserAnswer::type].
+            ///
+            /// Note that all the setters affecting `r#type` are mutually
+            /// exclusive.
             pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::search_request::conversational_search_spec::user_answer::Type>>>(mut self, v: T) -> Self
             {
                 self.r#type = v.into();
@@ -15592,7 +15637,10 @@ pub mod search_response {
                 self
             }
 
-            /// Sets the value of `facet_value`.
+            /// Sets the value of [facet_value][crate::model::search_response::facet::FacetValue::facet_value].
+            ///
+            /// Note that all the setters affecting `facet_value` are mutually
+            /// exclusive.
             pub fn set_facet_value<
                 T: std::convert::Into<
                         std::option::Option<
@@ -16025,7 +16073,10 @@ impl ExperimentInfo {
         self
     }
 
-    /// Sets the value of `experiment_metadata`.
+    /// Sets the value of [experiment_metadata][crate::model::ExperimentInfo::experiment_metadata].
+    ///
+    /// Note that all the setters affecting `experiment_metadata` are mutually
+    /// exclusive.
     pub fn set_experiment_metadata<
         T: std::convert::Into<std::option::Option<crate::model::experiment_info::ExperimentMetadata>>,
     >(
@@ -17936,7 +17987,10 @@ impl CollectUserEventRequest {
         self
     }
 
-    /// Sets the value of `conversion_rule`.
+    /// Sets the value of [conversion_rule][crate::model::CollectUserEventRequest::conversion_rule].
+    ///
+    /// Note that all the setters affecting `conversion_rule` are mutually
+    /// exclusive.
     pub fn set_conversion_rule<
         T: std::convert::Into<
                 std::option::Option<crate::model::collect_user_event_request::ConversionRule>,

@@ -719,7 +719,10 @@ impl Restrictions {
         self
     }
 
-    /// Sets the value of `client_restrictions`.
+    /// Sets the value of [client_restrictions][crate::model::Restrictions::client_restrictions].
+    ///
+    /// Note that all the setters affecting `client_restrictions` are mutually
+    /// exclusive.
     pub fn set_client_restrictions<
         T: std::convert::Into<std::option::Option<crate::model::restrictions::ClientRestrictions>>,
     >(

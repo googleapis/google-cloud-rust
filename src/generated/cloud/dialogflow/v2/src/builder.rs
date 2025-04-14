@@ -510,12 +510,35 @@ pub mod agents {
             self
         }
 
-        /// Sets the value of `agent`.
+        /// Sets the value of [agent][crate::model::ImportAgentRequest::agent].
+        ///
+        /// Note that all the setters affecting `agent` are
+        /// mutually exclusive.
         pub fn set_agent<T: Into<Option<crate::model::import_agent_request::Agent>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.agent = v.into();
+            self
+        }
+
+        /// Sets the value of [agent][crate::model::ImportAgentRequest::agent]
+        /// to hold a `AgentUri`.
+        ///
+        /// Note that all the setters affecting `agent` are
+        /// mutually exclusive.
+        pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_agent_uri(v);
+            self
+        }
+
+        /// Sets the value of [agent][crate::model::ImportAgentRequest::agent]
+        /// to hold a `AgentContent`.
+        ///
+        /// Note that all the setters affecting `agent` are
+        /// mutually exclusive.
+        pub fn set_agent_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_agent_content(v);
             self
         }
     }
@@ -597,12 +620,35 @@ pub mod agents {
             self
         }
 
-        /// Sets the value of `agent`.
+        /// Sets the value of [agent][crate::model::RestoreAgentRequest::agent].
+        ///
+        /// Note that all the setters affecting `agent` are
+        /// mutually exclusive.
         pub fn set_agent<T: Into<Option<crate::model::restore_agent_request::Agent>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.agent = v.into();
+            self
+        }
+
+        /// Sets the value of [agent][crate::model::RestoreAgentRequest::agent]
+        /// to hold a `AgentUri`.
+        ///
+        /// Note that all the setters affecting `agent` are
+        /// mutually exclusive.
+        pub fn set_agent_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_agent_uri(v);
+            self
+        }
+
+        /// Sets the value of [agent][crate::model::RestoreAgentRequest::agent]
+        /// to hold a `AgentContent`.
+        ///
+        /// Note that all the setters affecting `agent` are
+        /// mutually exclusive.
+        pub fn set_agent_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_agent_content(v);
             self
         }
     }
@@ -2743,7 +2789,10 @@ pub mod conversations {
             self
         }
 
-        /// Sets the value of `generator_resource`.
+        /// Sets the value of [generator_resource][crate::model::GenerateStatelessSuggestionRequest::generator_resource].
+        ///
+        /// Note that all the setters affecting `generator_resource` are
+        /// mutually exclusive.
         pub fn set_generator_resource<
             T: Into<Option<crate::model::generate_stateless_suggestion_request::GeneratorResource>>,
         >(
@@ -2751,6 +2800,32 @@ pub mod conversations {
             v: T,
         ) -> Self {
             self.0.request.generator_resource = v.into();
+            self
+        }
+
+        /// Sets the value of [generator_resource][crate::model::GenerateStatelessSuggestionRequest::generator_resource]
+        /// to hold a `Generator`.
+        ///
+        /// Note that all the setters affecting `generator_resource` are
+        /// mutually exclusive.
+        pub fn set_generator<T: std::convert::Into<std::boxed::Box<crate::model::Generator>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_generator(v);
+            self
+        }
+
+        /// Sets the value of [generator_resource][crate::model::GenerateStatelessSuggestionRequest::generator_resource]
+        /// to hold a `GeneratorName`.
+        ///
+        /// Note that all the setters affecting `generator_resource` are
+        /// mutually exclusive.
+        pub fn set_generator_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_generator_name(v);
             self
         }
     }
@@ -6318,12 +6393,28 @@ pub mod documents {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ImportDocumentsRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::import_documents_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportDocumentsRequest::source]
+        /// to hold a `GcsSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSources>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_source(v);
             self
         }
     }
@@ -6595,12 +6686,25 @@ pub mod documents {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ReloadDocumentRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::reload_document_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ReloadDocumentRequest::source]
+        /// to hold a `ContentUri`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_content_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_content_uri(v);
             self
         }
     }
@@ -6698,7 +6802,10 @@ pub mod documents {
             self
         }
 
-        /// Sets the value of `destination`.
+        /// Sets the value of [destination][crate::model::ExportDocumentRequest::destination].
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
         pub fn set_destination<
             T: Into<Option<crate::model::export_document_request::Destination>>,
         >(
@@ -6706,6 +6813,21 @@ pub mod documents {
             v: T,
         ) -> Self {
             self.0.request.destination = v.into();
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::ExportDocumentRequest::destination]
+        /// to hold a `GcsDestination`.
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        pub fn set_gcs_destination<
+            T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_destination(v);
             self
         }
     }
@@ -7954,7 +8076,10 @@ pub mod entity_types {
             self
         }
 
-        /// Sets the value of `entity_type_batch`.
+        /// Sets the value of [entity_type_batch][crate::model::BatchUpdateEntityTypesRequest::entity_type_batch].
+        ///
+        /// Note that all the setters affecting `entity_type_batch` are
+        /// mutually exclusive.
         pub fn set_entity_type_batch<
             T: Into<Option<crate::model::batch_update_entity_types_request::EntityTypeBatch>>,
         >(
@@ -7962,6 +8087,34 @@ pub mod entity_types {
             v: T,
         ) -> Self {
             self.0.request.entity_type_batch = v.into();
+            self
+        }
+
+        /// Sets the value of [entity_type_batch][crate::model::BatchUpdateEntityTypesRequest::entity_type_batch]
+        /// to hold a `EntityTypeBatchUri`.
+        ///
+        /// Note that all the setters affecting `entity_type_batch` are
+        /// mutually exclusive.
+        pub fn set_entity_type_batch_uri<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_entity_type_batch_uri(v);
+            self
+        }
+
+        /// Sets the value of [entity_type_batch][crate::model::BatchUpdateEntityTypesRequest::entity_type_batch]
+        /// to hold a `EntityTypeBatchInline`.
+        ///
+        /// Note that all the setters affecting `entity_type_batch` are
+        /// mutually exclusive.
+        pub fn set_entity_type_batch_inline<
+            T: std::convert::Into<std::boxed::Box<crate::model::EntityTypeBatch>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_entity_type_batch_inline(v);
             self
         }
     }
@@ -10893,7 +11046,10 @@ pub mod intents {
             self
         }
 
-        /// Sets the value of `intent_batch`.
+        /// Sets the value of [intent_batch][crate::model::BatchUpdateIntentsRequest::intent_batch].
+        ///
+        /// Note that all the setters affecting `intent_batch` are
+        /// mutually exclusive.
         pub fn set_intent_batch<
             T: Into<Option<crate::model::batch_update_intents_request::IntentBatch>>,
         >(
@@ -10901,6 +11057,34 @@ pub mod intents {
             v: T,
         ) -> Self {
             self.0.request.intent_batch = v.into();
+            self
+        }
+
+        /// Sets the value of [intent_batch][crate::model::BatchUpdateIntentsRequest::intent_batch]
+        /// to hold a `IntentBatchUri`.
+        ///
+        /// Note that all the setters affecting `intent_batch` are
+        /// mutually exclusive.
+        pub fn set_intent_batch_uri<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_intent_batch_uri(v);
+            self
+        }
+
+        /// Sets the value of [intent_batch][crate::model::BatchUpdateIntentsRequest::intent_batch]
+        /// to hold a `IntentBatchInline`.
+        ///
+        /// Note that all the setters affecting `intent_batch` are
+        /// mutually exclusive.
+        pub fn set_intent_batch_inline<
+            T: std::convert::Into<std::boxed::Box<crate::model::IntentBatch>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_intent_batch_inline(v);
             self
         }
     }
@@ -12298,12 +12482,69 @@ pub mod participants {
             self
         }
 
-        /// Sets the value of `input`.
+        /// Sets the value of [input][crate::model::AnalyzeContentRequest::input].
+        ///
+        /// Note that all the setters affecting `input` are
+        /// mutually exclusive.
         pub fn set_input<T: Into<Option<crate::model::analyze_content_request::Input>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.input = v.into();
+            self
+        }
+
+        /// Sets the value of [input][crate::model::AnalyzeContentRequest::input]
+        /// to hold a `TextInput`.
+        ///
+        /// Note that all the setters affecting `input` are
+        /// mutually exclusive.
+        pub fn set_text_input<T: std::convert::Into<std::boxed::Box<crate::model::TextInput>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_text_input(v);
+            self
+        }
+
+        /// Sets the value of [input][crate::model::AnalyzeContentRequest::input]
+        /// to hold a `AudioInput`.
+        ///
+        /// Note that all the setters affecting `input` are
+        /// mutually exclusive.
+        pub fn set_audio_input<T: std::convert::Into<std::boxed::Box<crate::model::AudioInput>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_audio_input(v);
+            self
+        }
+
+        /// Sets the value of [input][crate::model::AnalyzeContentRequest::input]
+        /// to hold a `EventInput`.
+        ///
+        /// Note that all the setters affecting `input` are
+        /// mutually exclusive.
+        pub fn set_event_input<T: std::convert::Into<std::boxed::Box<crate::model::EventInput>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_event_input(v);
+            self
+        }
+
+        /// Sets the value of [input][crate::model::AnalyzeContentRequest::input]
+        /// to hold a `SuggestionInput`.
+        ///
+        /// Note that all the setters affecting `input` are
+        /// mutually exclusive.
+        pub fn set_suggestion_input<
+            T: std::convert::Into<std::boxed::Box<crate::model::SuggestionInput>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_suggestion_input(v);
             self
         }
     }

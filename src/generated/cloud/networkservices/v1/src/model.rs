@@ -197,7 +197,10 @@ impl EndpointMatcher {
         std::default::Default::default()
     }
 
-    /// Sets the value of `matcher_type`.
+    /// Sets the value of [matcher_type][crate::model::EndpointMatcher::matcher_type].
+    ///
+    /// Note that all the setters affecting `matcher_type` are mutually
+    /// exclusive.
     pub fn set_matcher_type<
         T: std::convert::Into<std::option::Option<crate::model::endpoint_matcher::MatcherType>>,
     >(
@@ -3484,7 +3487,10 @@ pub mod grpc_route {
             self
         }
 
-        /// Sets the value of `destination_type`.
+        /// Sets the value of [destination_type][crate::model::grpc_route::Destination::destination_type].
+        ///
+        /// Note that all the setters affecting `destination_type` are mutually
+        /// exclusive.
         pub fn set_destination_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::grpc_route::destination::DestinationType>,
@@ -4460,7 +4466,10 @@ pub mod http_route {
             self
         }
 
-        /// Sets the value of `match_type`.
+        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type].
+        ///
+        /// Note that all the setters affecting `match_type` are mutually
+        /// exclusive.
         pub fn set_match_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::http_route::header_match::MatchType>,
@@ -4748,7 +4757,10 @@ pub mod http_route {
             self
         }
 
-        /// Sets the value of `match_type`.
+        /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type].
+        ///
+        /// Note that all the setters affecting `match_type` are mutually
+        /// exclusive.
         pub fn set_match_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::http_route::query_parameter_match::MatchType>,
@@ -4934,7 +4946,10 @@ pub mod http_route {
             self
         }
 
-        /// Sets the value of `path_match`.
+        /// Sets the value of [path_match][crate::model::http_route::RouteMatch::path_match].
+        ///
+        /// Note that all the setters affecting `path_match` are mutually
+        /// exclusive.
         pub fn set_path_match<
             T: std::convert::Into<
                     std::option::Option<crate::model::http_route::route_match::PathMatch>,

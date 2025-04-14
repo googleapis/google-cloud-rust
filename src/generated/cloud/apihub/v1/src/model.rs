@@ -2405,7 +2405,10 @@ impl ApiHubResource {
         std::default::Default::default()
     }
 
-    /// Sets the value of `resource`.
+    /// Sets the value of [resource][crate::model::ApiHubResource::resource].
+    ///
+    /// Note that all the setters affecting `resource` are mutually
+    /// exclusive.
     pub fn set_resource<
         T: std::convert::Into<std::option::Option<crate::model::api_hub_resource::Resource>>,
     >(
@@ -4675,7 +4678,10 @@ impl Definition {
         self
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::Definition::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::definition::Value>>,
     >(
@@ -5315,7 +5321,10 @@ impl SpecDetails {
         self
     }
 
-    /// Sets the value of `details`.
+    /// Sets the value of [details][crate::model::SpecDetails::details].
+    ///
+    /// Note that all the setters affecting `details` are mutually
+    /// exclusive.
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::spec_details::Details>>,
     >(
@@ -5572,7 +5581,10 @@ impl OperationDetails {
         self
     }
 
-    /// Sets the value of `operation`.
+    /// Sets the value of [operation][crate::model::OperationDetails::operation].
+    ///
+    /// Note that all the setters affecting `operation` are mutually
+    /// exclusive.
     pub fn set_operation<
         T: std::convert::Into<std::option::Option<crate::model::operation_details::Operation>>,
     >(
@@ -5971,7 +5983,10 @@ impl AttributeValues {
         self
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::AttributeValues::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::attribute_values::Value>>,
     >(
@@ -6490,7 +6505,10 @@ impl DependencyEntityReference {
         self
     }
 
-    /// Sets the value of `identifier`.
+    /// Sets the value of [identifier][crate::model::DependencyEntityReference::identifier].
+    ///
+    /// Note that all the setters affecting `identifier` are mutually
+    /// exclusive.
     pub fn set_identifier<
         T: std::convert::Into<
                 std::option::Option<crate::model::dependency_entity_reference::Identifier>,

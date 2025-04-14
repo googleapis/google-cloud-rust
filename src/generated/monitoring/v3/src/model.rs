@@ -531,7 +531,10 @@ pub mod alert_policy {
             self
         }
 
-        /// Sets the value of `condition`.
+        /// Sets the value of [condition][crate::model::alert_policy::Condition::condition].
+        ///
+        /// Note that all the setters affecting `condition` are mutually
+        /// exclusive.
         pub fn set_condition<
             T: std::convert::Into<
                     std::option::Option<crate::model::alert_policy::condition::Condition>,
@@ -797,7 +800,10 @@ pub mod alert_policy {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `r#type`.
+            /// Sets the value of [r#type][crate::model::alert_policy::condition::Trigger::type].
+            ///
+            /// Note that all the setters affecting `r#type` are mutually
+            /// exclusive.
             pub fn set_type<
                 T: std::convert::Into<
                         std::option::Option<crate::model::alert_policy::condition::trigger::Type>,
@@ -1665,7 +1671,10 @@ pub mod alert_policy {
                 self
             }
 
-            /// Sets the value of `schedule`.
+            /// Sets the value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule].
+            ///
+            /// Note that all the setters affecting `schedule` are mutually
+            /// exclusive.
             pub fn set_schedule<
                 T: std::convert::Into<
                         std::option::Option<
@@ -1798,7 +1807,10 @@ pub mod alert_policy {
                 self
             }
 
-            /// Sets the value of `evaluate`.
+            /// Sets the value of [evaluate][crate::model::alert_policy::condition::SqlCondition::evaluate].
+            ///
+            /// Note that all the setters affecting `evaluate` are mutually
+            /// exclusive.
             pub fn set_evaluate<
                 T: std::convert::Into<
                         std::option::Option<
@@ -3066,7 +3078,10 @@ impl TypedValue {
         std::default::Default::default()
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::TypedValue::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::typed_value::Value>>,
     >(
@@ -4102,7 +4117,10 @@ impl ListGroupsRequest {
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListGroupsRequest::filter].
+    ///
+    /// Note that all the setters affecting `filter` are mutually
+    /// exclusive.
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::list_groups_request::Filter>>,
     >(
@@ -5146,7 +5164,10 @@ impl LabelValue {
         std::default::Default::default()
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::LabelValue::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::label_value::Value>>,
     >(
@@ -7965,7 +7986,10 @@ impl Service {
         self
     }
 
-    /// Sets the value of `identifier`.
+    /// Sets the value of [identifier][crate::model::Service::identifier].
+    ///
+    /// Note that all the setters affecting `identifier` are mutually
+    /// exclusive.
     pub fn set_identifier<
         T: std::convert::Into<std::option::Option<crate::model::service::Identifier>>,
     >(
@@ -9107,7 +9131,10 @@ impl ServiceLevelObjective {
         self
     }
 
-    /// Sets the value of `period`.
+    /// Sets the value of [period][crate::model::ServiceLevelObjective::period].
+    ///
+    /// Note that all the setters affecting `period` are mutually
+    /// exclusive.
     pub fn set_period<
         T: std::convert::Into<std::option::Option<crate::model::service_level_objective::Period>>,
     >(
@@ -9298,7 +9325,10 @@ impl ServiceLevelIndicator {
         std::default::Default::default()
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::ServiceLevelIndicator::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::service_level_indicator::Type>>,
     >(
@@ -9510,7 +9540,10 @@ impl BasicSli {
         self
     }
 
-    /// Sets the value of `sli_criteria`.
+    /// Sets the value of [sli_criteria][crate::model::BasicSli::sli_criteria].
+    ///
+    /// Note that all the setters affecting `sli_criteria` are mutually
+    /// exclusive.
     pub fn set_sli_criteria<
         T: std::convert::Into<std::option::Option<crate::model::basic_sli::SliCriteria>>,
     >(
@@ -9723,7 +9756,10 @@ impl RequestBasedSli {
         std::default::Default::default()
     }
 
-    /// Sets the value of `method`.
+    /// Sets the value of [method][crate::model::RequestBasedSli::method].
+    ///
+    /// Note that all the setters affecting `method` are mutually
+    /// exclusive.
     pub fn set_method<
         T: std::convert::Into<std::option::Option<crate::model::request_based_sli::Method>>,
     >(
@@ -9992,7 +10028,10 @@ impl WindowsBasedSli {
         self
     }
 
-    /// Sets the value of `window_criterion`.
+    /// Sets the value of [window_criterion][crate::model::WindowsBasedSli::window_criterion].
+    ///
+    /// Note that all the setters affecting `window_criterion` are mutually
+    /// exclusive.
     pub fn set_window_criterion<
         T: std::convert::Into<std::option::Option<crate::model::windows_based_sli::WindowCriterion>>,
     >(
@@ -10171,7 +10210,10 @@ pub mod windows_based_sli {
             self
         }
 
-        /// Sets the value of `r#type`.
+        /// Sets the value of [r#type][crate::model::windows_based_sli::PerformanceThreshold::type].
+        ///
+        /// Note that all the setters affecting `r#type` are mutually
+        /// exclusive.
         pub fn set_type<
             T: std::convert::Into<
                     std::option::Option<
@@ -11762,7 +11804,10 @@ impl SyntheticMonitorTarget {
         std::default::Default::default()
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::SyntheticMonitorTarget::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::synthetic_monitor_target::Target>>,
     >(
@@ -12078,7 +12123,10 @@ impl UptimeCheckConfig {
         self
     }
 
-    /// Sets the value of `resource`.
+    /// Sets the value of [resource][crate::model::UptimeCheckConfig::resource].
+    ///
+    /// Note that all the setters affecting `resource` are mutually
+    /// exclusive.
     pub fn set_resource<
         T: std::convert::Into<std::option::Option<crate::model::uptime_check_config::Resource>>,
     >(
@@ -12186,7 +12234,10 @@ impl UptimeCheckConfig {
         self
     }
 
-    /// Sets the value of `check_request_type`.
+    /// Sets the value of [check_request_type][crate::model::UptimeCheckConfig::check_request_type].
+    ///
+    /// Note that all the setters affecting `check_request_type` are mutually
+    /// exclusive.
     pub fn set_check_request_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::uptime_check_config::CheckRequestType>,
@@ -12593,7 +12644,10 @@ pub mod uptime_check_config {
             self
         }
 
-        /// Sets the value of `auth_method`.
+        /// Sets the value of [auth_method][crate::model::uptime_check_config::HttpCheck::auth_method].
+        ///
+        /// Note that all the setters affecting `auth_method` are mutually
+        /// exclusive.
         pub fn set_auth_method<
             T: std::convert::Into<
                     std::option::Option<crate::model::uptime_check_config::http_check::AuthMethod>,
@@ -12731,7 +12785,10 @@ pub mod uptime_check_config {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `status_code`.
+            /// Sets the value of [status_code][crate::model::uptime_check_config::http_check::ResponseStatusCode::status_code].
+            ///
+            /// Note that all the setters affecting `status_code` are mutually
+            /// exclusive.
             pub fn set_status_code<T: std::convert::Into<std::option::Option<crate::model::uptime_check_config::http_check::response_status_code::StatusCode>>>(mut self, v: T) -> Self
             {
                 self.status_code = v.into();
@@ -13237,7 +13294,10 @@ pub mod uptime_check_config {
             self
         }
 
-        /// Sets the value of `additional_matcher_info`.
+        /// Sets the value of [additional_matcher_info][crate::model::uptime_check_config::ContentMatcher::additional_matcher_info].
+        ///
+        /// Note that all the setters affecting `additional_matcher_info` are mutually
+        /// exclusive.
         pub fn set_additional_matcher_info<
             T: std::convert::Into<
                     std::option::Option<

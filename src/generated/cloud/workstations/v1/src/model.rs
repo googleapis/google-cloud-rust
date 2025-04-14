@@ -751,7 +751,10 @@ pub mod workstation_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `config`.
+        /// Sets the value of [config][crate::model::workstation_config::Host::config].
+        ///
+        /// Note that all the setters affecting `config` are mutually
+        /// exclusive.
         pub fn set_config<
             T: std::convert::Into<std::option::Option<crate::model::workstation_config::host::Config>>,
         >(
@@ -1173,7 +1176,10 @@ pub mod workstation_config {
             self
         }
 
-        /// Sets the value of `directory_type`.
+        /// Sets the value of [directory_type][crate::model::workstation_config::PersistentDirectory::directory_type].
+        ///
+        /// Note that all the setters affecting `directory_type` are mutually
+        /// exclusive.
         pub fn set_directory_type<
             T: std::convert::Into<
                     std::option::Option<
@@ -3382,7 +3388,10 @@ impl GenerateAccessTokenRequest {
         self
     }
 
-    /// Sets the value of `expiration`.
+    /// Sets the value of [expiration][crate::model::GenerateAccessTokenRequest::expiration].
+    ///
+    /// Note that all the setters affecting `expiration` are mutually
+    /// exclusive.
     pub fn set_expiration<
         T: std::convert::Into<
                 std::option::Option<crate::model::generate_access_token_request::Expiration>,

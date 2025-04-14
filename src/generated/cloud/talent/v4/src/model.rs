@@ -978,7 +978,10 @@ pub mod compensation_info {
             self
         }
 
-        /// Sets the value of `compensation_amount`.
+        /// Sets the value of [compensation_amount][crate::model::compensation_info::CompensationEntry::compensation_amount].
+        ///
+        /// Note that all the setters affecting `compensation_amount` are mutually
+        /// exclusive.
         pub fn set_compensation_amount<
             T: std::convert::Into<
                     std::option::Option<
@@ -2629,7 +2632,10 @@ impl ClientEvent {
         self
     }
 
-    /// Sets the value of `event`.
+    /// Sets the value of [event][crate::model::ClientEvent::event].
+    ///
+    /// Note that all the setters affecting `event` are mutually
+    /// exclusive.
     pub fn set_event<
         T: std::convert::Into<std::option::Option<crate::model::client_event::Event>>,
     >(
@@ -3840,7 +3846,10 @@ impl CommuteFilter {
         self
     }
 
-    /// Sets the value of `traffic_option`.
+    /// Sets the value of [traffic_option][crate::model::CommuteFilter::traffic_option].
+    ///
+    /// Note that all the setters affecting `traffic_option` are mutually
+    /// exclusive.
     pub fn set_traffic_option<
         T: std::convert::Into<std::option::Option<crate::model::commute_filter::TrafficOption>>,
     >(

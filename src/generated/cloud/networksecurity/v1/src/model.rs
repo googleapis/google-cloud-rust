@@ -420,7 +420,10 @@ pub mod authorization_policy {
                     self
                 }
 
-                /// Sets the value of `r#type`.
+                /// Sets the value of [r#type][crate::model::authorization_policy::rule::destination::HttpHeaderMatch::type].
+                ///
+                /// Note that all the setters affecting `r#type` are mutually
+                /// exclusive.
                 pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::authorization_policy::rule::destination::http_header_match::Type>>>(mut self, v: T) -> Self
                 {
                     self.r#type = v.into();
@@ -1921,7 +1924,10 @@ impl ValidationCA {
         std::default::Default::default()
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::ValidationCA::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::validation_ca::Type>>,
     >(
@@ -2076,7 +2082,10 @@ impl CertificateProvider {
         std::default::Default::default()
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::CertificateProvider::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::certificate_provider::Type>>,
     >(

@@ -166,7 +166,10 @@ impl Channel {
         self
     }
 
-    /// Sets the value of `transport`.
+    /// Sets the value of [transport][crate::model::Channel::transport].
+    ///
+    /// Note that all the setters affecting `transport` are mutually
+    /// exclusive.
     pub fn set_transport<
         T: std::convert::Into<std::option::Option<crate::model::channel::Transport>>,
     >(
@@ -4642,7 +4645,10 @@ pub mod pipeline {
             std::default::Default::default()
         }
 
-        /// Sets the value of `kind`.
+        /// Sets the value of [kind][crate::model::pipeline::MessagePayloadFormat::kind].
+        ///
+        /// Note that all the setters affecting `kind` are mutually
+        /// exclusive.
         pub fn set_kind<
             T: std::convert::Into<
                     std::option::Option<crate::model::pipeline::message_payload_format::Kind>,
@@ -4965,7 +4971,10 @@ pub mod pipeline {
             self
         }
 
-        /// Sets the value of `destination_descriptor`.
+        /// Sets the value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor].
+        ///
+        /// Note that all the setters affecting `destination_descriptor` are mutually
+        /// exclusive.
         pub fn set_destination_descriptor<
             T: std::convert::Into<
                     std::option::Option<crate::model::pipeline::destination::DestinationDescriptor>,
@@ -5373,7 +5382,10 @@ pub mod pipeline {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `authentication_method_descriptor`.
+            /// Sets the value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor].
+            ///
+            /// Note that all the setters affecting `authentication_method_descriptor` are mutually
+            /// exclusive.
             pub fn set_authentication_method_descriptor<T: std::convert::Into<std::option::Option<crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor>>>(mut self, v: T) -> Self
             {
                 self.authentication_method_descriptor = v.into();
@@ -5666,7 +5678,10 @@ pub mod pipeline {
             std::default::Default::default()
         }
 
-        /// Sets the value of `mediation_descriptor`.
+        /// Sets the value of [mediation_descriptor][crate::model::pipeline::Mediation::mediation_descriptor].
+        ///
+        /// Note that all the setters affecting `mediation_descriptor` are mutually
+        /// exclusive.
         pub fn set_mediation_descriptor<
             T: std::convert::Into<
                     std::option::Option<crate::model::pipeline::mediation::MediationDescriptor>,
@@ -6271,7 +6286,10 @@ impl Destination {
         self
     }
 
-    /// Sets the value of `descriptor`.
+    /// Sets the value of [descriptor][crate::model::Destination::descriptor].
+    ///
+    /// Note that all the setters affecting `descriptor` are mutually
+    /// exclusive.
     pub fn set_descriptor<
         T: std::convert::Into<std::option::Option<crate::model::destination::Descriptor>>,
     >(
@@ -6464,7 +6482,10 @@ impl Transport {
         std::default::Default::default()
     }
 
-    /// Sets the value of `intermediary`.
+    /// Sets the value of [intermediary][crate::model::Transport::intermediary].
+    ///
+    /// Note that all the setters affecting `intermediary` are mutually
+    /// exclusive.
     pub fn set_intermediary<
         T: std::convert::Into<std::option::Option<crate::model::transport::Intermediary>>,
     >(

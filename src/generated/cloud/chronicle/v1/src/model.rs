@@ -788,7 +788,10 @@ impl DataAccessLabel {
         self
     }
 
-    /// Sets the value of `definition`.
+    /// Sets the value of [definition][crate::model::DataAccessLabel::definition].
+    ///
+    /// Note that all the setters affecting `definition` are mutually
+    /// exclusive.
     pub fn set_definition<
         T: std::convert::Into<std::option::Option<crate::model::data_access_label::Definition>>,
     >(
@@ -1038,7 +1041,10 @@ impl DataAccessLabelReference {
         self
     }
 
-    /// Sets the value of `label`.
+    /// Sets the value of [label][crate::model::DataAccessLabelReference::label].
+    ///
+    /// Note that all the setters affecting `label` are mutually
+    /// exclusive.
     pub fn set_label<
         T: std::convert::Into<std::option::Option<crate::model::data_access_label_reference::Label>>,
     >(
@@ -1404,7 +1410,10 @@ pub mod watchlist {
             std::default::Default::default()
         }
 
-        /// Sets the value of `mechanism`.
+        /// Sets the value of [mechanism][crate::model::watchlist::EntityPopulationMechanism::mechanism].
+        ///
+        /// Note that all the setters affecting `mechanism` are mutually
+        /// exclusive.
         pub fn set_mechanism<
             T: std::convert::Into<
                     std::option::Option<

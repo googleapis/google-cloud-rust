@@ -563,7 +563,10 @@ pub mod parallelstore {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ImportDataRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::import_data_request::Source>>>(
             mut self,
             v: T,
@@ -572,12 +575,45 @@ pub mod parallelstore {
             self
         }
 
-        /// Sets the value of `destination`.
+        /// Sets the value of [source][crate::model::ImportDataRequest::source]
+        /// to hold a `SourceGcsBucket`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_source_gcs_bucket<
+            T: std::convert::Into<std::boxed::Box<crate::model::SourceGcsBucket>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_source_gcs_bucket(v);
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::ImportDataRequest::destination].
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
         pub fn set_destination<T: Into<Option<crate::model::import_data_request::Destination>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.destination = v.into();
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::ImportDataRequest::destination]
+        /// to hold a `DestinationParallelstore`.
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        pub fn set_destination_parallelstore<
+            T: std::convert::Into<std::boxed::Box<crate::model::DestinationParallelstore>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_destination_parallelstore(v);
             self
         }
     }
@@ -675,7 +711,10 @@ pub mod parallelstore {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ExportDataRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::export_data_request::Source>>>(
             mut self,
             v: T,
@@ -684,12 +723,45 @@ pub mod parallelstore {
             self
         }
 
-        /// Sets the value of `destination`.
+        /// Sets the value of [source][crate::model::ExportDataRequest::source]
+        /// to hold a `SourceParallelstore`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_source_parallelstore<
+            T: std::convert::Into<std::boxed::Box<crate::model::SourceParallelstore>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_source_parallelstore(v);
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::ExportDataRequest::destination].
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
         pub fn set_destination<T: Into<Option<crate::model::export_data_request::Destination>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.destination = v.into();
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::ExportDataRequest::destination]
+        /// to hold a `DestinationGcsBucket`.
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        pub fn set_destination_gcs_bucket<
+            T: std::convert::Into<std::boxed::Box<crate::model::DestinationGcsBucket>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_destination_gcs_bucket(v);
             self
         }
     }

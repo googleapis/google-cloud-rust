@@ -122,7 +122,10 @@ impl SubmitBuildRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::SubmitBuildRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::submit_build_request::Source>>,
     >(
@@ -165,7 +168,10 @@ impl SubmitBuildRequest {
         self
     }
 
-    /// Sets the value of `build_type`.
+    /// Sets the value of [build_type][crate::model::SubmitBuildRequest::build_type].
+    ///
+    /// Note that all the setters affecting `build_type` are mutually
+    /// exclusive.
     pub fn set_build_type<
         T: std::convert::Into<std::option::Option<crate::model::submit_build_request::BuildType>>,
     >(
@@ -616,7 +622,10 @@ impl Condition {
         self
     }
 
-    /// Sets the value of `reasons`.
+    /// Sets the value of [reasons][crate::model::Condition::reasons].
+    ///
+    /// Note that all the setters affecting `reasons` are mutually
+    /// exclusive.
     pub fn set_reasons<
         T: std::convert::Into<std::option::Option<crate::model::condition::Reasons>>,
     >(
@@ -2865,7 +2874,10 @@ impl Job {
         self
     }
 
-    /// Sets the value of `create_execution`.
+    /// Sets the value of [create_execution][crate::model::Job::create_execution].
+    ///
+    /// Note that all the setters affecting `create_execution` are mutually
+    /// exclusive.
     pub fn set_create_execution<
         T: std::convert::Into<std::option::Option<crate::model::job::CreateExecution>>,
     >(
@@ -3441,7 +3453,10 @@ impl EnvVar {
         self
     }
 
-    /// Sets the value of `values`.
+    /// Sets the value of [values][crate::model::EnvVar::values].
+    ///
+    /// Note that all the setters affecting `values` are mutually
+    /// exclusive.
     pub fn set_values<T: std::convert::Into<std::option::Option<crate::model::env_var::Values>>>(
         mut self,
         v: T,
@@ -3724,7 +3739,10 @@ impl Volume {
         self
     }
 
-    /// Sets the value of `volume_type`.
+    /// Sets the value of [volume_type][crate::model::Volume::volume_type].
+    ///
+    /// Note that all the setters affecting `volume_type` are mutually
+    /// exclusive.
     pub fn set_volume_type<
         T: std::convert::Into<std::option::Option<crate::model::volume::VolumeType>>,
     >(
@@ -4380,7 +4398,10 @@ impl Probe {
         self
     }
 
-    /// Sets the value of `probe_type`.
+    /// Sets the value of [probe_type][crate::model::Probe::probe_type].
+    ///
+    /// Note that all the setters affecting `probe_type` are mutually
+    /// exclusive.
     pub fn set_probe_type<
         T: std::convert::Into<std::option::Option<crate::model::probe::ProbeType>>,
     >(
@@ -7338,7 +7359,10 @@ impl TaskTemplate {
         self
     }
 
-    /// Sets the value of `retries`.
+    /// Sets the value of [retries][crate::model::TaskTemplate::retries].
+    ///
+    /// Note that all the setters affecting `retries` are mutually
+    /// exclusive.
     pub fn set_retries<
         T: std::convert::Into<std::option::Option<crate::model::task_template::Retries>>,
     >(
@@ -7763,7 +7787,10 @@ impl BinaryAuthorization {
         self
     }
 
-    /// Sets the value of `binauthz_method`.
+    /// Sets the value of [binauthz_method][crate::model::BinaryAuthorization::binauthz_method].
+    ///
+    /// Note that all the setters affecting `binauthz_method` are mutually
+    /// exclusive.
     pub fn set_binauthz_method<
         T: std::convert::Into<std::option::Option<crate::model::binary_authorization::BinauthzMethod>>,
     >(

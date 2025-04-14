@@ -73,7 +73,10 @@ impl DiscoverConnectionProfileRequest {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::DiscoverConnectionProfileRequest::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<
                 std::option::Option<crate::model::discover_connection_profile_request::Target>,
@@ -148,7 +151,10 @@ impl DiscoverConnectionProfileRequest {
         self
     }
 
-    /// Sets the value of `hierarchy`.
+    /// Sets the value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy].
+    ///
+    /// Note that all the setters affecting `hierarchy` are mutually
+    /// exclusive.
     pub fn set_hierarchy<
         T: std::convert::Into<
                 std::option::Option<crate::model::discover_connection_profile_request::Hierarchy>,
@@ -211,7 +217,10 @@ impl DiscoverConnectionProfileRequest {
         self
     }
 
-    /// Sets the value of `data_object`.
+    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object].
+    ///
+    /// Note that all the setters affecting `data_object` are mutually
+    /// exclusive.
     pub fn set_data_object<
         T: std::convert::Into<
                 std::option::Option<crate::model::discover_connection_profile_request::DataObject>,
@@ -421,7 +430,10 @@ impl DiscoverConnectionProfileResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `data_object`.
+    /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object].
+    ///
+    /// Note that all the setters affecting `data_object` are mutually
+    /// exclusive.
     pub fn set_data_object<
         T: std::convert::Into<
                 std::option::Option<crate::model::discover_connection_profile_response::DataObject>,
@@ -3296,7 +3308,10 @@ impl SalesforceProfile {
         self
     }
 
-    /// Sets the value of `credentials`.
+    /// Sets the value of [credentials][crate::model::SalesforceProfile::credentials].
+    ///
+    /// Note that all the setters affecting `credentials` are mutually
+    /// exclusive.
     pub fn set_credentials<
         T: std::convert::Into<std::option::Option<crate::model::salesforce_profile::Credentials>>,
     >(
@@ -3690,7 +3705,10 @@ impl ForwardSshTunnelConnectivity {
         self
     }
 
-    /// Sets the value of `authentication_method`.
+    /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method].
+    ///
+    /// Note that all the setters affecting `authentication_method` are mutually
+    /// exclusive.
     pub fn set_authentication_method<
         T: std::convert::Into<
                 std::option::Option<
@@ -4351,7 +4369,10 @@ impl PostgresqlSslConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `encryption_setting`.
+    /// Sets the value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting].
+    ///
+    /// Note that all the setters affecting `encryption_setting` are mutually
+    /// exclusive.
     pub fn set_encryption_setting<
         T: std::convert::Into<
                 std::option::Option<crate::model::postgresql_ssl_config::EncryptionSetting>,
@@ -4690,7 +4711,10 @@ impl ConnectionProfile {
         self
     }
 
-    /// Sets the value of `profile`.
+    /// Sets the value of [profile][crate::model::ConnectionProfile::profile].
+    ///
+    /// Note that all the setters affecting `profile` are mutually
+    /// exclusive.
     pub fn set_profile<
         T: std::convert::Into<std::option::Option<crate::model::connection_profile::Profile>>,
     >(
@@ -4921,7 +4945,10 @@ impl ConnectionProfile {
         self
     }
 
-    /// Sets the value of `connectivity`.
+    /// Sets the value of [connectivity][crate::model::ConnectionProfile::connectivity].
+    ///
+    /// Note that all the setters affecting `connectivity` are mutually
+    /// exclusive.
     pub fn set_connectivity<
         T: std::convert::Into<std::option::Option<crate::model::connection_profile::Connectivity>>,
     >(
@@ -5388,7 +5415,10 @@ impl OracleSourceConfig {
         self
     }
 
-    /// Sets the value of `large_objects_handling`.
+    /// Sets the value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling].
+    ///
+    /// Note that all the setters affecting `large_objects_handling` are mutually
+    /// exclusive.
     pub fn set_large_objects_handling<
         T: std::convert::Into<
                 std::option::Option<crate::model::oracle_source_config::LargeObjectsHandling>,
@@ -5467,7 +5497,10 @@ impl OracleSourceConfig {
         self
     }
 
-    /// Sets the value of `cdc_method`.
+    /// Sets the value of [cdc_method][crate::model::OracleSourceConfig::cdc_method].
+    ///
+    /// Note that all the setters affecting `cdc_method` are mutually
+    /// exclusive.
     pub fn set_cdc_method<
         T: std::convert::Into<std::option::Option<crate::model::oracle_source_config::CdcMethod>>,
     >(
@@ -5642,7 +5675,10 @@ pub mod oracle_source_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `log_file_access`.
+        /// Sets the value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access].
+        ///
+        /// Note that all the setters affecting `log_file_access` are mutually
+        /// exclusive.
         pub fn set_log_file_access<
             T: std::convert::Into<
                     std::option::Option<
@@ -6466,7 +6502,10 @@ impl SqlServerSourceConfig {
         self
     }
 
-    /// Sets the value of `cdc_method`.
+    /// Sets the value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method].
+    ///
+    /// Note that all the setters affecting `cdc_method` are mutually
+    /// exclusive.
     pub fn set_cdc_method<
         T: std::convert::Into<std::option::Option<crate::model::sql_server_source_config::CdcMethod>>,
     >(
@@ -6919,7 +6958,10 @@ impl MysqlSourceConfig {
         self
     }
 
-    /// Sets the value of `cdc_method`.
+    /// Sets the value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method].
+    ///
+    /// Note that all the setters affecting `cdc_method` are mutually
+    /// exclusive.
     pub fn set_cdc_method<
         T: std::convert::Into<std::option::Option<crate::model::mysql_source_config::CdcMethod>>,
     >(
@@ -7298,7 +7340,10 @@ impl SourceConfig {
         self
     }
 
-    /// Sets the value of `source_stream_config`.
+    /// Sets the value of [source_stream_config][crate::model::SourceConfig::source_stream_config].
+    ///
+    /// Note that all the setters affecting `source_stream_config` are mutually
+    /// exclusive.
     pub fn set_source_stream_config<
         T: std::convert::Into<std::option::Option<crate::model::source_config::SourceStreamConfig>>,
     >(
@@ -7748,7 +7793,10 @@ impl GcsDestinationConfig {
         self
     }
 
-    /// Sets the value of `file_format`.
+    /// Sets the value of [file_format][crate::model::GcsDestinationConfig::file_format].
+    ///
+    /// Note that all the setters affecting `file_format` are mutually
+    /// exclusive.
     pub fn set_file_format<
         T: std::convert::Into<std::option::Option<crate::model::gcs_destination_config::FileFormat>>,
     >(
@@ -7903,7 +7951,10 @@ impl BigQueryDestinationConfig {
         self
     }
 
-    /// Sets the value of `dataset_config`.
+    /// Sets the value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config].
+    ///
+    /// Note that all the setters affecting `dataset_config` are mutually
+    /// exclusive.
     pub fn set_dataset_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::big_query_destination_config::DatasetConfig>,
@@ -7994,7 +8045,10 @@ impl BigQueryDestinationConfig {
         self
     }
 
-    /// Sets the value of `write_mode`.
+    /// Sets the value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode].
+    ///
+    /// Note that all the setters affecting `write_mode` are mutually
+    /// exclusive.
     pub fn set_write_mode<
         T: std::convert::Into<
                 std::option::Option<crate::model::big_query_destination_config::WriteMode>,
@@ -8537,7 +8591,10 @@ impl DestinationConfig {
         self
     }
 
-    /// Sets the value of `destination_stream_config`.
+    /// Sets the value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config].
+    ///
+    /// Note that all the setters affecting `destination_stream_config` are mutually
+    /// exclusive.
     pub fn set_destination_stream_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::destination_config::DestinationStreamConfig>,
@@ -8835,7 +8892,10 @@ impl Stream {
         self
     }
 
-    /// Sets the value of `backfill_strategy`.
+    /// Sets the value of [backfill_strategy][crate::model::Stream::backfill_strategy].
+    ///
+    /// Note that all the setters affecting `backfill_strategy` are mutually
+    /// exclusive.
     pub fn set_backfill_strategy<
         T: std::convert::Into<std::option::Option<crate::model::stream::BackfillStrategy>>,
     >(
@@ -8939,7 +8999,10 @@ pub mod stream {
             std::default::Default::default()
         }
 
-        /// Sets the value of `excluded_objects`.
+        /// Sets the value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects].
+        ///
+        /// Note that all the setters affecting `excluded_objects` are mutually
+        /// exclusive.
         pub fn set_excluded_objects<
             T: std::convert::Into<
                     std::option::Option<
@@ -9403,7 +9466,10 @@ impl SourceObjectIdentifier {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source_identifier`.
+    /// Sets the value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier].
+    ///
+    /// Note that all the setters affecting `source_identifier` are mutually
+    /// exclusive.
     pub fn set_source_identifier<
         T: std::convert::Into<
                 std::option::Option<crate::model::source_object_identifier::SourceIdentifier>,
@@ -10492,7 +10558,10 @@ impl CdcStrategy {
         std::default::Default::default()
     }
 
-    /// Sets the value of `start_position`.
+    /// Sets the value of [start_position][crate::model::CdcStrategy::start_position].
+    ///
+    /// Note that all the setters affecting `start_position` are mutually
+    /// exclusive.
     pub fn set_start_position<
         T: std::convert::Into<std::option::Option<crate::model::cdc_strategy::StartPosition>>,
     >(
@@ -10679,7 +10748,10 @@ pub mod cdc_strategy {
             std::default::Default::default()
         }
 
-        /// Sets the value of `position`.
+        /// Sets the value of [position][crate::model::cdc_strategy::SpecificStartPosition::position].
+        ///
+        /// Note that all the setters affecting `position` are mutually
+        /// exclusive.
         pub fn set_position<
             T: std::convert::Into<
                     std::option::Option<

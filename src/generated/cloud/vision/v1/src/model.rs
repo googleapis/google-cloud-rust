@@ -5271,7 +5271,10 @@ impl ImportProductSetsInputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportProductSetsInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_product_sets_input_config::Source>,
@@ -5671,7 +5674,10 @@ impl PurgeProductsRequest {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::PurgeProductsRequest::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::purge_products_request::Target>>,
     >(

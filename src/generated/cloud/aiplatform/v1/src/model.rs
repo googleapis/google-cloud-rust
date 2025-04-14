@@ -301,7 +301,10 @@ impl ApiAuth {
         std::default::Default::default()
     }
 
-    /// Sets the value of `auth_config`.
+    /// Sets the value of [auth_config][crate::model::ApiAuth::auth_config].
+    ///
+    /// Note that all the setters affecting `auth_config` are mutually
+    /// exclusive.
     pub fn set_auth_config<
         T: std::convert::Into<std::option::Option<crate::model::api_auth::AuthConfig>>,
     >(
@@ -1227,7 +1230,10 @@ pub mod batch_prediction_job {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::batch_prediction_job::InputConfig::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
         pub fn set_source<
             T: std::convert::Into<
                     std::option::Option<crate::model::batch_prediction_job::input_config::Source>,
@@ -1545,7 +1551,10 @@ pub mod batch_prediction_job {
             self
         }
 
-        /// Sets the value of `destination`.
+        /// Sets the value of [destination][crate::model::batch_prediction_job::OutputConfig::destination].
+        ///
+        /// Note that all the setters affecting `destination` are mutually
+        /// exclusive.
         pub fn set_destination<
             T: std::convert::Into<
                     std::option::Option<
@@ -1739,7 +1748,10 @@ pub mod batch_prediction_job {
             self
         }
 
-        /// Sets the value of `output_location`.
+        /// Sets the value of [output_location][crate::model::batch_prediction_job::OutputInfo::output_location].
+        ///
+        /// Note that all the setters affecting `output_location` are mutually
+        /// exclusive.
         pub fn set_output_location<
             T: std::convert::Into<
                     std::option::Option<
@@ -1995,7 +2007,10 @@ impl CachedContent {
         self
     }
 
-    /// Sets the value of `expiration`.
+    /// Sets the value of [expiration][crate::model::CachedContent::expiration].
+    ///
+    /// Note that all the setters affecting `expiration` are mutually
+    /// exclusive.
     pub fn set_expiration<
         T: std::convert::Into<std::option::Option<crate::model::cached_content::Expiration>>,
     >(
@@ -2299,7 +2314,10 @@ impl Part {
         std::default::Default::default()
     }
 
-    /// Sets the value of `data`.
+    /// Sets the value of [data][crate::model::Part::data].
+    ///
+    /// Note that all the setters affecting `data` are mutually
+    /// exclusive.
     pub fn set_data<T: std::convert::Into<std::option::Option<crate::model::part::Data>>>(
         mut self,
         v: T,
@@ -2488,7 +2506,10 @@ impl Part {
         self
     }
 
-    /// Sets the value of `metadata`.
+    /// Sets the value of [metadata][crate::model::Part::metadata].
+    ///
+    /// Note that all the setters affecting `metadata` are mutually
+    /// exclusive.
     pub fn set_metadata<
         T: std::convert::Into<std::option::Option<crate::model::part::Metadata>>,
     >(
@@ -2947,7 +2968,10 @@ pub mod generation_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `routing_config`.
+        /// Sets the value of [routing_config][crate::model::generation_config::RoutingConfig::routing_config].
+        ///
+        /// Note that all the setters affecting `routing_config` are mutually
+        /// exclusive.
         pub fn set_routing_config<
             T: std::convert::Into<
                     std::option::Option<
@@ -4256,7 +4280,10 @@ impl GroundingChunk {
         std::default::Default::default()
     }
 
-    /// Sets the value of `chunk_type`.
+    /// Sets the value of [chunk_type][crate::model::GroundingChunk::chunk_type].
+    ///
+    /// Note that all the setters affecting `chunk_type` are mutually
+    /// exclusive.
     pub fn set_chunk_type<
         T: std::convert::Into<std::option::Option<crate::model::grounding_chunk::ChunkType>>,
     >(
@@ -4446,7 +4473,10 @@ pub mod grounding_chunk {
             self
         }
 
-        /// Sets the value of `context_details`.
+        /// Sets the value of [context_details][crate::model::grounding_chunk::RetrievedContext::context_details].
+        ///
+        /// Note that all the setters affecting `context_details` are mutually
+        /// exclusive.
         pub fn set_context_details<
             T: std::convert::Into<
                     std::option::Option<
@@ -5580,7 +5610,10 @@ impl WorkerPoolSpec {
         self
     }
 
-    /// Sets the value of `task`.
+    /// Sets the value of [task][crate::model::WorkerPoolSpec::task].
+    ///
+    /// Note that all the setters affecting `task` are mutually
+    /// exclusive.
     pub fn set_task<
         T: std::convert::Into<std::option::Option<crate::model::worker_pool_spec::Task>>,
     >(
@@ -6501,7 +6534,10 @@ impl ActiveLearningConfig {
         self
     }
 
-    /// Sets the value of `human_labeling_budget`.
+    /// Sets the value of [human_labeling_budget][crate::model::ActiveLearningConfig::human_labeling_budget].
+    ///
+    /// Note that all the setters affecting `human_labeling_budget` are mutually
+    /// exclusive.
     pub fn set_human_labeling_budget<
         T: std::convert::Into<
                 std::option::Option<crate::model::active_learning_config::HumanLabelingBudget>,
@@ -6634,7 +6670,10 @@ impl SampleConfig {
         self
     }
 
-    /// Sets the value of `initial_batch_sample_size`.
+    /// Sets the value of [initial_batch_sample_size][crate::model::SampleConfig::initial_batch_sample_size].
+    ///
+    /// Note that all the setters affecting `initial_batch_sample_size` are mutually
+    /// exclusive.
     pub fn set_initial_batch_sample_size<
         T: std::convert::Into<
                 std::option::Option<crate::model::sample_config::InitialBatchSampleSize>,
@@ -6672,7 +6711,10 @@ impl SampleConfig {
         self
     }
 
-    /// Sets the value of `following_batch_sample_size`.
+    /// Sets the value of [following_batch_sample_size][crate::model::SampleConfig::following_batch_sample_size].
+    ///
+    /// Note that all the setters affecting `following_batch_sample_size` are mutually
+    /// exclusive.
     pub fn set_following_batch_sample_size<
         T: std::convert::Into<
                 std::option::Option<crate::model::sample_config::FollowingBatchSampleSize>,
@@ -7181,7 +7223,10 @@ impl ImportDataConfig {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportDataConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_data_config::Source>>,
     >(
@@ -7369,7 +7414,10 @@ impl ExportDataConfig {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportDataConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_data_config::Destination>>,
     >(
@@ -7412,7 +7460,10 @@ impl ExportDataConfig {
         self
     }
 
-    /// Sets the value of `split`.
+    /// Sets the value of [split][crate::model::ExportDataConfig::split].
+    ///
+    /// Note that all the setters affecting `split` are mutually
+    /// exclusive.
     pub fn set_split<
         T: std::convert::Into<std::option::Option<crate::model::export_data_config::Split>>,
     >(
@@ -9225,7 +9276,10 @@ impl SearchDataItemsRequest {
         self
     }
 
-    /// Sets the value of `order`.
+    /// Sets the value of [order][crate::model::SearchDataItemsRequest::order].
+    ///
+    /// Note that all the setters affecting `order` are mutually
+    /// exclusive.
     pub fn set_order<
         T: std::convert::Into<std::option::Option<crate::model::search_data_items_request::Order>>,
     >(
@@ -11466,7 +11520,10 @@ impl DeployedModel {
         self
     }
 
-    /// Sets the value of `prediction_resources`.
+    /// Sets the value of [prediction_resources][crate::model::DeployedModel::prediction_resources].
+    ///
+    /// Note that all the setters affecting `prediction_resources` are mutually
+    /// exclusive.
     pub fn set_prediction_resources<
         T: std::convert::Into<std::option::Option<crate::model::deployed_model::PredictionResources>>,
     >(
@@ -11891,7 +11948,10 @@ impl SpeculativeDecodingSpec {
         self
     }
 
-    /// Sets the value of `speculation`.
+    /// Sets the value of [speculation][crate::model::SpeculativeDecodingSpec::speculation].
+    ///
+    /// Note that all the setters affecting `speculation` are mutually
+    /// exclusive.
     pub fn set_speculation<
         T: std::convert::Into<
                 std::option::Option<crate::model::speculative_decoding_spec::Speculation>,
@@ -13897,7 +13957,10 @@ impl EvaluateInstancesRequest {
         self
     }
 
-    /// Sets the value of `metric_inputs`.
+    /// Sets the value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs].
+    ///
+    /// Note that all the setters affecting `metric_inputs` are mutually
+    /// exclusive.
     pub fn set_metric_inputs<
         T: std::convert::Into<
                 std::option::Option<crate::model::evaluate_instances_request::MetricInputs>,
@@ -14816,7 +14879,10 @@ impl EvaluateInstancesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `evaluation_results`.
+    /// Sets the value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results].
+    ///
+    /// Note that all the setters affecting `evaluation_results` are mutually
+    /// exclusive.
     pub fn set_evaluation_results<
         T: std::convert::Into<
                 std::option::Option<crate::model::evaluate_instances_response::EvaluationResults>,
@@ -19295,7 +19361,10 @@ impl PointwiseMetricInstance {
         std::default::Default::default()
     }
 
-    /// Sets the value of `instance`.
+    /// Sets the value of [instance][crate::model::PointwiseMetricInstance::instance].
+    ///
+    /// Note that all the setters affecting `instance` are mutually
+    /// exclusive.
     pub fn set_instance<
         T: std::convert::Into<std::option::Option<crate::model::pointwise_metric_instance::Instance>>,
     >(
@@ -19506,7 +19575,10 @@ impl PairwiseMetricInstance {
         std::default::Default::default()
     }
 
-    /// Sets the value of `instance`.
+    /// Sets the value of [instance][crate::model::PairwiseMetricInstance::instance].
+    ///
+    /// Note that all the setters affecting `instance` are mutually
+    /// exclusive.
     pub fn set_instance<
         T: std::convert::Into<std::option::Option<crate::model::pairwise_metric_instance::Instance>>,
     >(
@@ -21885,7 +21957,10 @@ impl ExplanationParameters {
         self
     }
 
-    /// Sets the value of `method`.
+    /// Sets the value of [method][crate::model::ExplanationParameters::method].
+    ///
+    /// Note that all the setters affecting `method` are mutually
+    /// exclusive.
     pub fn set_method<
         T: std::convert::Into<std::option::Option<crate::model::explanation_parameters::Method>>,
     >(
@@ -22295,7 +22370,10 @@ impl SmoothGradConfig {
         self
     }
 
-    /// Sets the value of `gradient_noise_sigma`.
+    /// Sets the value of [gradient_noise_sigma][crate::model::SmoothGradConfig::gradient_noise_sigma].
+    ///
+    /// Note that all the setters affecting `gradient_noise_sigma` are mutually
+    /// exclusive.
     pub fn set_gradient_noise_sigma<
         T: std::convert::Into<
                 std::option::Option<crate::model::smooth_grad_config::GradientNoiseSigma>,
@@ -22580,7 +22658,10 @@ impl Examples {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Examples::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::examples::Source>>,
     >(
@@ -22620,7 +22701,10 @@ impl Examples {
         self
     }
 
-    /// Sets the value of `config`.
+    /// Sets the value of [config][crate::model::Examples::config].
+    ///
+    /// Note that all the setters affecting `config` are mutually
+    /// exclusive.
     pub fn set_config<
         T: std::convert::Into<std::option::Option<crate::model::examples::Config>>,
     >(
@@ -24450,7 +24534,10 @@ pub mod explanation_metadata {
             self
         }
 
-        /// Sets the value of `display_name_mapping`.
+        /// Sets the value of [display_name_mapping][crate::model::explanation_metadata::OutputMetadata::display_name_mapping].
+        ///
+        /// Note that all the setters affecting `display_name_mapping` are mutually
+        /// exclusive.
         pub fn set_display_name_mapping<
             T: std::convert::Into<
                     std::option::Option<
@@ -25115,7 +25202,10 @@ impl FeatureGroup {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::FeatureGroup::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::feature_group::Source>>,
     >(
@@ -25623,7 +25713,10 @@ impl FeatureOnlineStore {
         self
     }
 
-    /// Sets the value of `storage_type`.
+    /// Sets the value of [storage_type][crate::model::FeatureOnlineStore::storage_type].
+    ///
+    /// Note that all the setters affecting `storage_type` are mutually
+    /// exclusive.
     pub fn set_storage_type<
         T: std::convert::Into<std::option::Option<crate::model::feature_online_store::StorageType>>,
     >(
@@ -27246,7 +27339,10 @@ impl FeatureViewDataKey {
         std::default::Default::default()
     }
 
-    /// Sets the value of `key_oneof`.
+    /// Sets the value of [key_oneof][crate::model::FeatureViewDataKey::key_oneof].
+    ///
+    /// Note that all the setters affecting `key_oneof` are mutually
+    /// exclusive.
     pub fn set_key_oneof<
         T: std::convert::Into<std::option::Option<crate::model::feature_view_data_key::KeyOneof>>,
     >(
@@ -27480,7 +27576,10 @@ impl FetchFeatureValuesResponse {
         self
     }
 
-    /// Sets the value of `format`.
+    /// Sets the value of [format][crate::model::FetchFeatureValuesResponse::format].
+    ///
+    /// Note that all the setters affecting `format` are mutually
+    /// exclusive.
     pub fn set_format<
         T: std::convert::Into<
                 std::option::Option<crate::model::fetch_feature_values_response::Format>,
@@ -27644,7 +27743,10 @@ pub mod fetch_feature_values_response {
                 self
             }
 
-            /// Sets the value of `data`.
+            /// Sets the value of [data][crate::model::fetch_feature_values_response::feature_name_value_pair_list::FeatureNameValuePair::data].
+            ///
+            /// Note that all the setters affecting `data` are mutually
+            /// exclusive.
             pub fn set_data<T: std::convert::Into<std::option::Option<crate::model::fetch_feature_values_response::feature_name_value_pair_list::feature_name_value_pair::Data>>>(mut self, v: T) -> Self
             {
                 self.data = v.into();
@@ -27804,7 +27906,10 @@ impl NearestNeighborQuery {
         self
     }
 
-    /// Sets the value of `instance`.
+    /// Sets the value of [instance][crate::model::NearestNeighborQuery::instance].
+    ///
+    /// Note that all the setters affecting `instance` are mutually
+    /// exclusive.
     pub fn set_instance<
         T: std::convert::Into<std::option::Option<crate::model::nearest_neighbor_query::Instance>>,
     >(
@@ -28048,7 +28153,10 @@ pub mod nearest_neighbor_query {
             self
         }
 
-        /// Sets the value of `value`.
+        /// Sets the value of [value][crate::model::nearest_neighbor_query::NumericFilter::value].
+        ///
+        /// Note that all the setters affecting `value` are mutually
+        /// exclusive.
         pub fn set_value<
             T: std::convert::Into<
                     std::option::Option<
@@ -29330,7 +29438,10 @@ impl FeatureView {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::FeatureView::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::feature_view::Source>>,
     >(
@@ -29643,7 +29754,10 @@ pub mod feature_view {
             self
         }
 
-        /// Sets the value of `algorithm_config`.
+        /// Sets the value of [algorithm_config][crate::model::feature_view::IndexConfig::algorithm_config].
+        ///
+        /// Note that all the setters affecting `algorithm_config` are mutually
+        /// exclusive.
         pub fn set_algorithm_config<
             T: std::convert::Into<
                     std::option::Option<crate::model::feature_view::index_config::AlgorithmConfig>,
@@ -31133,7 +31247,10 @@ pub mod featurestore_monitoring_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `threshold`.
+        /// Sets the value of [threshold][crate::model::featurestore_monitoring_config::ThresholdConfig::threshold].
+        ///
+        /// Note that all the setters affecting `threshold` are mutually
+        /// exclusive.
         pub fn set_threshold<
             T: std::convert::Into<
                     std::option::Option<
@@ -31637,7 +31754,10 @@ pub mod read_feature_values_response {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `data`.
+            /// Sets the value of [data][crate::model::read_feature_values_response::entity_view::Data::data].
+            ///
+            /// Note that all the setters affecting `data` are mutually
+            /// exclusive.
             pub fn set_data<
                 T: std::convert::Into<
                         std::option::Option<
@@ -31851,7 +31971,10 @@ impl FeatureValue {
         self
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::FeatureValue::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::feature_value::Value>>,
     >(
@@ -32832,7 +32955,10 @@ impl ImportFeatureValuesRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportFeatureValuesRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_feature_values_request::Source>,
@@ -32935,7 +33061,10 @@ impl ImportFeatureValuesRequest {
         self
     }
 
-    /// Sets the value of `feature_time_source`.
+    /// Sets the value of [feature_time_source][crate::model::ImportFeatureValuesRequest::feature_time_source].
+    ///
+    /// Note that all the setters affecting `feature_time_source` are mutually
+    /// exclusive.
     pub fn set_feature_time_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_feature_values_request::FeatureTimeSource>,
@@ -33268,7 +33397,10 @@ impl BatchReadFeatureValuesRequest {
         self
     }
 
-    /// Sets the value of `read_option`.
+    /// Sets the value of [read_option][crate::model::BatchReadFeatureValuesRequest::read_option].
+    ///
+    /// Note that all the setters affecting `read_option` are mutually
+    /// exclusive.
     pub fn set_read_option<
         T: std::convert::Into<
                 std::option::Option<crate::model::batch_read_feature_values_request::ReadOption>,
@@ -33580,7 +33712,10 @@ impl ExportFeatureValuesRequest {
         self
     }
 
-    /// Sets the value of `mode`.
+    /// Sets the value of [mode][crate::model::ExportFeatureValuesRequest::mode].
+    ///
+    /// Note that all the setters affecting `mode` are mutually
+    /// exclusive.
     pub fn set_mode<
         T: std::convert::Into<std::option::Option<crate::model::export_feature_values_request::Mode>>,
     >(
@@ -33860,7 +33995,10 @@ impl FeatureValueDestination {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::FeatureValueDestination::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::feature_value_destination::Destination>,
@@ -35690,7 +35828,10 @@ impl DeleteFeatureValuesRequest {
         self
     }
 
-    /// Sets the value of `delete_option`.
+    /// Sets the value of [delete_option][crate::model::DeleteFeatureValuesRequest::delete_option].
+    ///
+    /// Note that all the setters affecting `delete_option` are mutually
+    /// exclusive.
     pub fn set_delete_option<
         T: std::convert::Into<
                 std::option::Option<crate::model::delete_feature_values_request::DeleteOption>,
@@ -35937,7 +36078,10 @@ impl DeleteFeatureValuesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `response`.
+    /// Sets the value of [response][crate::model::DeleteFeatureValuesResponse::response].
+    ///
+    /// Note that all the setters affecting `response` are mutually
+    /// exclusive.
     pub fn set_response<
         T: std::convert::Into<
                 std::option::Option<crate::model::delete_feature_values_response::Response>,
@@ -36203,7 +36347,10 @@ impl EntityIdSelector {
         self
     }
 
-    /// Sets the value of `entity_ids_source`.
+    /// Sets the value of [entity_ids_source][crate::model::EntityIdSelector::entity_ids_source].
+    ///
+    /// Note that all the setters affecting `entity_ids_source` are mutually
+    /// exclusive.
     pub fn set_entity_ids_source<
         T: std::convert::Into<std::option::Option<crate::model::entity_id_selector::EntityIdsSource>>,
     >(
@@ -37795,7 +37942,10 @@ pub mod index_datapoint {
             self
         }
 
-        /// Sets the value of `value`.
+        /// Sets the value of [value][crate::model::index_datapoint::NumericRestriction::value].
+        ///
+        /// Note that all the setters affecting `value` are mutually
+        /// exclusive.
         pub fn set_value<
             T: std::convert::Into<
                     std::option::Option<crate::model::index_datapoint::numeric_restriction::Value>,
@@ -41559,7 +41709,10 @@ pub mod share_point_sources {
             self
         }
 
-        /// Sets the value of `folder_source`.
+        /// Sets the value of [folder_source][crate::model::share_point_sources::SharePointSource::folder_source].
+        ///
+        /// Note that all the setters affecting `folder_source` are mutually
+        /// exclusive.
         pub fn set_folder_source<
             T: std::convert::Into<
                     std::option::Option<
@@ -41630,7 +41783,10 @@ pub mod share_point_sources {
             self
         }
 
-        /// Sets the value of `drive_source`.
+        /// Sets the value of [drive_source][crate::model::share_point_sources::SharePointSource::drive_source].
+        ///
+        /// Note that all the setters affecting `drive_source` are mutually
+        /// exclusive.
         pub fn set_drive_source<
             T: std::convert::Into<
                     std::option::Option<
@@ -45442,7 +45598,10 @@ pub mod find_neighbors_request {
             self
         }
 
-        /// Sets the value of `ranking`.
+        /// Sets the value of [ranking][crate::model::find_neighbors_request::Query::ranking].
+        ///
+        /// Note that all the setters affecting `ranking` are mutually
+        /// exclusive.
         pub fn set_ranking<
             T: std::convert::Into<
                     std::option::Option<crate::model::find_neighbors_request::query::Ranking>,
@@ -49028,7 +49187,10 @@ impl MigratableResource {
         self
     }
 
-    /// Sets the value of `resource`.
+    /// Sets the value of [resource][crate::model::MigratableResource::resource].
+    ///
+    /// Note that all the setters affecting `resource` are mutually
+    /// exclusive.
     pub fn set_resource<
         T: std::convert::Into<std::option::Option<crate::model::migratable_resource::Resource>>,
     >(
@@ -49691,7 +49853,10 @@ impl MigrateResourceRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of `request`.
+    /// Sets the value of [request][crate::model::MigrateResourceRequest::request].
+    ///
+    /// Note that all the setters affecting `request` are mutually
+    /// exclusive.
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::migrate_resource_request::Request>>,
     >(
@@ -50251,7 +50416,10 @@ impl MigrateResourceResponse {
         self
     }
 
-    /// Sets the value of `migrated_resource`.
+    /// Sets the value of [migrated_resource][crate::model::MigrateResourceResponse::migrated_resource].
+    ///
+    /// Note that all the setters affecting `migrated_resource` are mutually
+    /// exclusive.
     pub fn set_migrated_resource<
         T: std::convert::Into<
                 std::option::Option<crate::model::migrate_resource_response::MigratedResource>,
@@ -50445,7 +50613,10 @@ pub mod batch_migrate_resources_operation_metadata {
             self
         }
 
-        /// Sets the value of `result`.
+        /// Sets the value of [result][crate::model::batch_migrate_resources_operation_metadata::PartialResult::result].
+        ///
+        /// Note that all the setters affecting `result` are mutually
+        /// exclusive.
         pub fn set_result<T: std::convert::Into<std::option::Option<crate::model::batch_migrate_resources_operation_metadata::partial_result::Result>>>(mut self, v: T) -> Self
         {
             self.result = v.into();
@@ -51552,7 +51723,10 @@ pub mod model {
             std::default::Default::default()
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::model::BaseModelSource::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
         pub fn set_source<
             T: std::convert::Into<std::option::Option<crate::model::model::base_model_source::Source>>,
         >(
@@ -52632,7 +52806,10 @@ impl Probe {
         self
     }
 
-    /// Sets the value of `probe_type`.
+    /// Sets the value of [probe_type][crate::model::Probe::probe_type].
+    ///
+    /// Note that all the setters affecting `probe_type` are mutually
+    /// exclusive.
     pub fn set_probe_type<
         T: std::convert::Into<std::option::Option<crate::model::probe::ProbeType>>,
     >(
@@ -54649,7 +54826,10 @@ pub mod model_evaluation_slice {
                     std::default::Default::default()
                 }
 
-                /// Sets the value of `kind`.
+                /// Sets the value of [kind][crate::model::model_evaluation_slice::slice::slice_spec::SliceConfig::kind].
+                ///
+                /// Note that all the setters affecting `kind` are mutually
+                /// exclusive.
                 pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::model_evaluation_slice::slice::slice_spec::slice_config::Kind>>>(mut self, v: T) -> Self
                 {
                     self.kind = v.into();
@@ -54865,7 +55045,10 @@ pub mod model_evaluation_slice {
                     std::default::Default::default()
                 }
 
-                /// Sets the value of `kind`.
+                /// Sets the value of [kind][crate::model::model_evaluation_slice::slice::slice_spec::Value::kind].
+                ///
+                /// Note that all the setters affecting `kind` are mutually
+                /// exclusive.
                 pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::model_evaluation_slice::slice::slice_spec::value::Kind>>>(mut self, v: T) -> Self
                 {
                     self.kind = v.into();
@@ -55207,7 +55390,10 @@ pub mod model_monitoring_objective_config {
             self
         }
 
-        /// Sets the value of `data_source`.
+        /// Sets the value of [data_source][crate::model::model_monitoring_objective_config::TrainingDataset::data_source].
+        ///
+        /// Note that all the setters affecting `data_source` are mutually
+        /// exclusive.
         pub fn set_data_source<T: std::convert::Into<std::option::Option<crate::model::model_monitoring_objective_config::training_dataset::DataSource>>>(mut self, v: T) -> Self
         {
             self.data_source = v.into();
@@ -55571,7 +55757,10 @@ pub mod model_monitoring_objective_config {
                 self
             }
 
-            /// Sets the value of `destination`.
+            /// Sets the value of [destination][crate::model::model_monitoring_objective_config::explanation_config::ExplanationBaseline::destination].
+            ///
+            /// Note that all the setters affecting `destination` are mutually
+            /// exclusive.
             pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::model_monitoring_objective_config::explanation_config::explanation_baseline::Destination>>>(mut self, v: T) -> Self
             {
                 self.destination = v.into();
@@ -55778,7 +55967,10 @@ impl ModelMonitoringAlertConfig {
         self
     }
 
-    /// Sets the value of `alert`.
+    /// Sets the value of [alert][crate::model::ModelMonitoringAlertConfig::alert].
+    ///
+    /// Note that all the setters affecting `alert` are mutually
+    /// exclusive.
     pub fn set_alert<
         T: std::convert::Into<std::option::Option<crate::model::model_monitoring_alert_config::Alert>>,
     >(
@@ -55903,7 +56095,10 @@ impl ThresholdConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `threshold`.
+    /// Sets the value of [threshold][crate::model::ThresholdConfig::threshold].
+    ///
+    /// Note that all the setters affecting `threshold` are mutually
+    /// exclusive.
     pub fn set_threshold<
         T: std::convert::Into<std::option::Option<crate::model::threshold_config::Threshold>>,
     >(
@@ -57508,7 +57703,10 @@ impl CopyModelRequest {
         self
     }
 
-    /// Sets the value of `destination_model`.
+    /// Sets the value of [destination_model][crate::model::CopyModelRequest::destination_model].
+    ///
+    /// Note that all the setters affecting `destination_model` are mutually
+    /// exclusive.
     pub fn set_destination_model<
         T: std::convert::Into<std::option::Option<crate::model::copy_model_request::DestinationModel>>,
     >(
@@ -58656,7 +58854,10 @@ impl NasJobSpec {
         self
     }
 
-    /// Sets the value of `nas_algorithm_spec`.
+    /// Sets the value of [nas_algorithm_spec][crate::model::NasJobSpec::nas_algorithm_spec].
+    ///
+    /// Note that all the setters affecting `nas_algorithm_spec` are mutually
+    /// exclusive.
     pub fn set_nas_algorithm_spec<
         T: std::convert::Into<std::option::Option<crate::model::nas_job_spec::NasAlgorithmSpec>>,
     >(
@@ -59162,7 +59363,10 @@ impl NasJobOutput {
         std::default::Default::default()
     }
 
-    /// Sets the value of `output`.
+    /// Sets the value of [output][crate::model::NasJobOutput::output].
+    ///
+    /// Note that all the setters affecting `output` are mutually
+    /// exclusive.
     pub fn set_output<
         T: std::convert::Into<std::option::Option<crate::model::nas_job_output::Output>>,
     >(
@@ -59745,7 +59949,10 @@ impl NotebookExecutionJob {
         self
     }
 
-    /// Sets the value of `notebook_source`.
+    /// Sets the value of [notebook_source][crate::model::NotebookExecutionJob::notebook_source].
+    ///
+    /// Note that all the setters affecting `notebook_source` are mutually
+    /// exclusive.
     pub fn set_notebook_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::notebook_execution_job::NotebookSource>,
@@ -59868,7 +60075,10 @@ impl NotebookExecutionJob {
         self
     }
 
-    /// Sets the value of `environment_spec`.
+    /// Sets the value of [environment_spec][crate::model::NotebookExecutionJob::environment_spec].
+    ///
+    /// Note that all the setters affecting `environment_spec` are mutually
+    /// exclusive.
     pub fn set_environment_spec<
         T: std::convert::Into<
                 std::option::Option<crate::model::notebook_execution_job::EnvironmentSpec>,
@@ -59949,7 +60159,10 @@ impl NotebookExecutionJob {
         self
     }
 
-    /// Sets the value of `execution_sink`.
+    /// Sets the value of [execution_sink][crate::model::NotebookExecutionJob::execution_sink].
+    ///
+    /// Note that all the setters affecting `execution_sink` are mutually
+    /// exclusive.
     pub fn set_execution_sink<
         T: std::convert::Into<
                 std::option::Option<crate::model::notebook_execution_job::ExecutionSink>,
@@ -59987,7 +60200,10 @@ impl NotebookExecutionJob {
         self
     }
 
-    /// Sets the value of `execution_identity`.
+    /// Sets the value of [execution_identity][crate::model::NotebookExecutionJob::execution_identity].
+    ///
+    /// Note that all the setters affecting `execution_identity` are mutually
+    /// exclusive.
     pub fn set_execution_identity<
         T: std::convert::Into<
                 std::option::Option<crate::model::notebook_execution_job::ExecutionIdentity>,
@@ -60050,7 +60266,10 @@ impl NotebookExecutionJob {
         self
     }
 
-    /// Sets the value of `runtime_environment`.
+    /// Sets the value of [runtime_environment][crate::model::NotebookExecutionJob::runtime_environment].
+    ///
+    /// Note that all the setters affecting `runtime_environment` are mutually
+    /// exclusive.
     pub fn set_runtime_environment<
         T: std::convert::Into<
                 std::option::Option<crate::model::notebook_execution_job::RuntimeEnvironment>,
@@ -65298,7 +65517,10 @@ pub mod pipeline_job {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `kind`.
+            /// Sets the value of [kind][crate::model::pipeline_job::runtime_config::InputArtifact::kind].
+            ///
+            /// Note that all the setters affecting `kind` are mutually
+            /// exclusive.
             pub fn set_kind<
                 T: std::convert::Into<
                         std::option::Option<
@@ -65905,7 +66127,10 @@ impl PipelineTaskExecutorDetail {
         std::default::Default::default()
     }
 
-    /// Sets the value of `details`.
+    /// Sets the value of [details][crate::model::PipelineTaskExecutorDetail::details].
+    ///
+    /// Note that all the setters affecting `details` are mutually
+    /// exclusive.
     pub fn set_details<
         T: std::convert::Into<
                 std::option::Option<crate::model::pipeline_task_executor_detail::Details>,
@@ -69225,7 +69450,10 @@ pub mod publisher_model {
             std::default::Default::default()
         }
 
-        /// Sets the value of `reference`.
+        /// Sets the value of [reference][crate::model::publisher_model::ResourceReference::reference].
+        ///
+        /// Note that all the setters affecting `reference` are mutually
+        /// exclusive.
         pub fn set_reference<
             T: std::convert::Into<
                     std::option::Option<
@@ -70073,7 +70301,10 @@ pub mod publisher_model {
                 self
             }
 
-            /// Sets the value of `prediction_resources`.
+            /// Sets the value of [prediction_resources][crate::model::publisher_model::call_to_action::Deploy::prediction_resources].
+            ///
+            /// Note that all the setters affecting `prediction_resources` are mutually
+            /// exclusive.
             pub fn set_prediction_resources<T: std::convert::Into<std::option::Option<crate::model::publisher_model::call_to_action::deploy::PredictionResources>>>(mut self, v: T) -> Self
             {
                 self.prediction_resources = v.into();
@@ -71923,7 +72154,10 @@ impl Schedule {
         self
     }
 
-    /// Sets the value of `time_specification`.
+    /// Sets the value of [time_specification][crate::model::Schedule::time_specification].
+    ///
+    /// Note that all the setters affecting `time_specification` are mutually
+    /// exclusive.
     pub fn set_time_specification<
         T: std::convert::Into<std::option::Option<crate::model::schedule::TimeSpecification>>,
     >(
@@ -71956,7 +72190,10 @@ impl Schedule {
         self
     }
 
-    /// Sets the value of `request`.
+    /// Sets the value of [request][crate::model::Schedule::request].
+    ///
+    /// Note that all the setters affecting `request` are mutually
+    /// exclusive.
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::schedule::Request>>,
     >(
@@ -73924,7 +74161,10 @@ impl StudyTimeConstraint {
         std::default::Default::default()
     }
 
-    /// Sets the value of `constraint`.
+    /// Sets the value of [constraint][crate::model::StudyTimeConstraint::constraint].
+    ///
+    /// Note that all the setters affecting `constraint` are mutually
+    /// exclusive.
     pub fn set_constraint<
         T: std::convert::Into<std::option::Option<crate::model::study_time_constraint::Constraint>>,
     >(
@@ -74121,7 +74361,10 @@ impl StudySpec {
         self
     }
 
-    /// Sets the value of `automated_stopping_spec`.
+    /// Sets the value of [automated_stopping_spec][crate::model::StudySpec::automated_stopping_spec].
+    ///
+    /// Note that all the setters affecting `automated_stopping_spec` are mutually
+    /// exclusive.
     pub fn set_automated_stopping_spec<
         T: std::convert::Into<std::option::Option<crate::model::study_spec::AutomatedStoppingSpec>>,
     >(
@@ -74497,7 +74740,10 @@ pub mod study_spec {
             self
         }
 
-        /// Sets the value of `parameter_value_spec`.
+        /// Sets the value of [parameter_value_spec][crate::model::study_spec::ParameterSpec::parameter_value_spec].
+        ///
+        /// Note that all the setters affecting `parameter_value_spec` are mutually
+        /// exclusive.
         pub fn set_parameter_value_spec<
             T: std::convert::Into<
                     std::option::Option<
@@ -74949,7 +75195,10 @@ pub mod study_spec {
                 self
             }
 
-            /// Sets the value of `parent_value_condition`.
+            /// Sets the value of [parent_value_condition][crate::model::study_spec::parameter_spec::ConditionalParameterSpec::parent_value_condition].
+            ///
+            /// Note that all the setters affecting `parent_value_condition` are mutually
+            /// exclusive.
             pub fn set_parent_value_condition<T: std::convert::Into<std::option::Option<crate::model::study_spec::parameter_spec::conditional_parameter_spec::ParentValueCondition>>>(mut self, v: T) -> Self
             {
                 self.parent_value_condition = v.into();
@@ -76260,7 +76509,10 @@ impl TimeSeriesDataPoint {
         self
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::TimeSeriesDataPoint::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::time_series_data_point::Value>>,
     >(
@@ -80297,7 +80549,10 @@ impl Retrieval {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Retrieval::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::retrieval::Source>>,
     >(
@@ -81067,7 +81322,10 @@ pub mod rag_retrieval_config {
             self
         }
 
-        /// Sets the value of `vector_db_threshold`.
+        /// Sets the value of [vector_db_threshold][crate::model::rag_retrieval_config::Filter::vector_db_threshold].
+        ///
+        /// Note that all the setters affecting `vector_db_threshold` are mutually
+        /// exclusive.
         pub fn set_vector_db_threshold<
             T: std::convert::Into<
                     std::option::Option<
@@ -81179,7 +81437,10 @@ pub mod rag_retrieval_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `ranking_config`.
+        /// Sets the value of [ranking_config][crate::model::rag_retrieval_config::Ranking::ranking_config].
+        ///
+        /// Note that all the setters affecting `ranking_config` are mutually
+        /// exclusive.
         pub fn set_ranking_config<
             T: std::convert::Into<
                     std::option::Option<crate::model::rag_retrieval_config::ranking::RankingConfig>,
@@ -81844,7 +82105,10 @@ impl InputDataConfig {
         self
     }
 
-    /// Sets the value of `split`.
+    /// Sets the value of [split][crate::model::InputDataConfig::split].
+    ///
+    /// Note that all the setters affecting `split` are mutually
+    /// exclusive.
     pub fn set_split<
         T: std::convert::Into<std::option::Option<crate::model::input_data_config::Split>>,
     >(
@@ -82011,7 +82275,10 @@ impl InputDataConfig {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::InputDataConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::input_data_config::Destination>>,
     >(
@@ -82778,7 +83045,10 @@ impl TuningJob {
         self
     }
 
-    /// Sets the value of `source_model`.
+    /// Sets the value of [source_model][crate::model::TuningJob::source_model].
+    ///
+    /// Note that all the setters affecting `source_model` are mutually
+    /// exclusive.
     pub fn set_source_model<
         T: std::convert::Into<std::option::Option<crate::model::tuning_job::SourceModel>>,
     >(
@@ -82811,7 +83081,10 @@ impl TuningJob {
         self
     }
 
-    /// Sets the value of `tuning_spec`.
+    /// Sets the value of [tuning_spec][crate::model::TuningJob::tuning_spec].
+    ///
+    /// Note that all the setters affecting `tuning_spec` are mutually
+    /// exclusive.
     pub fn set_tuning_spec<
         T: std::convert::Into<std::option::Option<crate::model::tuning_job::TuningSpec>>,
     >(
@@ -83281,7 +83554,10 @@ impl TuningDataStats {
         std::default::Default::default()
     }
 
-    /// Sets the value of `tuning_data_stats`.
+    /// Sets the value of [tuning_data_stats][crate::model::TuningDataStats::tuning_data_stats].
+    ///
+    /// Note that all the setters affecting `tuning_data_stats` are mutually
+    /// exclusive.
     pub fn set_tuning_data_stats<
         T: std::convert::Into<std::option::Option<crate::model::tuning_data_stats::TuningDataStats>>,
     >(
@@ -83560,7 +83836,10 @@ impl TunedModelRef {
         std::default::Default::default()
     }
 
-    /// Sets the value of `tuned_model_ref`.
+    /// Sets the value of [tuned_model_ref][crate::model::TunedModelRef::tuned_model_ref].
+    ///
+    /// Note that all the setters affecting `tuned_model_ref` are mutually
+    /// exclusive.
     pub fn set_tuned_model_ref<
         T: std::convert::Into<std::option::Option<crate::model::tuned_model_ref::TunedModelRef>>,
     >(
@@ -84283,7 +84562,10 @@ impl UserActionReference {
         self
     }
 
-    /// Sets the value of `reference`.
+    /// Sets the value of [reference][crate::model::UserActionReference::reference].
+    ///
+    /// Note that all the setters affecting `reference` are mutually
+    /// exclusive.
     pub fn set_reference<
         T: std::convert::Into<std::option::Option<crate::model::user_action_reference::Reference>>,
     >(
@@ -84394,7 +84676,10 @@ impl Value {
         std::default::Default::default()
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::Value::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::value::Value>>>(
         mut self,
         v: T,
@@ -84510,7 +84795,10 @@ impl RagEmbeddingModelConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `model_config`.
+    /// Sets the value of [model_config][crate::model::RagEmbeddingModelConfig::model_config].
+    ///
+    /// Note that all the setters affecting `model_config` are mutually
+    /// exclusive.
     pub fn set_model_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::rag_embedding_model_config::ModelConfig>,
@@ -84699,7 +84987,10 @@ impl RagVectorDbConfig {
         self
     }
 
-    /// Sets the value of `vector_db`.
+    /// Sets the value of [vector_db][crate::model::RagVectorDbConfig::vector_db].
+    ///
+    /// Note that all the setters affecting `vector_db` are mutually
+    /// exclusive.
     pub fn set_vector_db<
         T: std::convert::Into<std::option::Option<crate::model::rag_vector_db_config::VectorDb>>,
     >(
@@ -85288,7 +85579,10 @@ impl RagCorpus {
         self
     }
 
-    /// Sets the value of `backend_config`.
+    /// Sets the value of [backend_config][crate::model::RagCorpus::backend_config].
+    ///
+    /// Note that all the setters affecting `backend_config` are mutually
+    /// exclusive.
     pub fn set_backend_config<
         T: std::convert::Into<std::option::Option<crate::model::rag_corpus::BackendConfig>>,
     >(
@@ -85479,7 +85773,10 @@ impl RagFile {
         self
     }
 
-    /// Sets the value of `rag_file_source`.
+    /// Sets the value of [rag_file_source][crate::model::RagFile::rag_file_source].
+    ///
+    /// Note that all the setters affecting `rag_file_source` are mutually
+    /// exclusive.
     pub fn set_rag_file_source<
         T: std::convert::Into<std::option::Option<crate::model::rag_file::RagFileSource>>,
     >(
@@ -85815,7 +86112,10 @@ impl RagFileChunkingConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `chunking_config`.
+    /// Sets the value of [chunking_config][crate::model::RagFileChunkingConfig::chunking_config].
+    ///
+    /// Note that all the setters affecting `chunking_config` are mutually
+    /// exclusive.
     pub fn set_chunking_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::rag_file_chunking_config::ChunkingConfig>,
@@ -85984,7 +86284,10 @@ impl RagFileParsingConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `parser`.
+    /// Sets the value of [parser][crate::model::RagFileParsingConfig::parser].
+    ///
+    /// Note that all the setters affecting `parser` are mutually
+    /// exclusive.
     pub fn set_parser<
         T: std::convert::Into<std::option::Option<crate::model::rag_file_parsing_config::Parser>>,
     >(
@@ -86221,7 +86524,10 @@ impl ImportRagFilesConfig {
         self
     }
 
-    /// Sets the value of `import_source`.
+    /// Sets the value of [import_source][crate::model::ImportRagFilesConfig::import_source].
+    ///
+    /// Note that all the setters affecting `import_source` are mutually
+    /// exclusive.
     pub fn set_import_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_rag_files_config::ImportSource>,
@@ -86386,7 +86692,10 @@ impl ImportRagFilesConfig {
         self
     }
 
-    /// Sets the value of `partial_failure_sink`.
+    /// Sets the value of [partial_failure_sink][crate::model::ImportRagFilesConfig::partial_failure_sink].
+    ///
+    /// Note that all the setters affecting `partial_failure_sink` are mutually
+    /// exclusive.
     pub fn set_partial_failure_sink<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_rag_files_config::PartialFailureSink>,
@@ -86465,7 +86774,10 @@ impl ImportRagFilesConfig {
         self
     }
 
-    /// Sets the value of `import_result_sink`.
+    /// Sets the value of [import_result_sink][crate::model::ImportRagFilesConfig::import_result_sink].
+    ///
+    /// Note that all the setters affecting `import_result_sink` are mutually
+    /// exclusive.
     pub fn set_import_result_sink<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_rag_files_config::ImportResultSink>,
@@ -86971,7 +87283,10 @@ impl UploadRagFileResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `result`.
+    /// Sets the value of [result][crate::model::UploadRagFileResponse::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::upload_rag_file_response::Result>>,
     >(
@@ -87171,7 +87486,10 @@ impl ImportRagFilesResponse {
         self
     }
 
-    /// Sets the value of `partial_failure_sink`.
+    /// Sets the value of [partial_failure_sink][crate::model::ImportRagFilesResponse::partial_failure_sink].
+    ///
+    /// Note that all the setters affecting `partial_failure_sink` are mutually
+    /// exclusive.
     pub fn set_partial_failure_sink<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_rag_files_response::PartialFailureSink>,
@@ -87703,7 +88021,10 @@ impl RagQuery {
         self
     }
 
-    /// Sets the value of `query`.
+    /// Sets the value of [query][crate::model::RagQuery::query].
+    ///
+    /// Note that all the setters affecting `query` are mutually
+    /// exclusive.
     pub fn set_query<T: std::convert::Into<std::option::Option<crate::model::rag_query::Query>>>(
         mut self,
         v: T,
@@ -87804,7 +88125,10 @@ impl RetrieveContextsRequest {
         self
     }
 
-    /// Sets the value of `data_source`.
+    /// Sets the value of [data_source][crate::model::RetrieveContextsRequest::data_source].
+    ///
+    /// Note that all the setters affecting `data_source` are mutually
+    /// exclusive.
     pub fn set_data_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::retrieve_contexts_request::DataSource>,
@@ -88221,7 +88545,10 @@ impl AugmentPromptRequest {
         self
     }
 
-    /// Sets the value of `data_source`.
+    /// Sets the value of [data_source][crate::model::AugmentPromptRequest::data_source].
+    ///
+    /// Note that all the setters affecting `data_source` are mutually
+    /// exclusive.
     pub fn set_data_source<
         T: std::convert::Into<std::option::Option<crate::model::augment_prompt_request::DataSource>>,
     >(

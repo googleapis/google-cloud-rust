@@ -147,12 +147,60 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ProcessRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::process_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ProcessRequest::source]
+        /// to hold a `InlineDocument`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_inline_document<
+            T: std::convert::Into<std::boxed::Box<crate::model::Document>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_inline_document(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ProcessRequest::source]
+        /// to hold a `RawDocument`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_raw_document<
+            T: std::convert::Into<std::boxed::Box<crate::model::RawDocument>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_raw_document(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ProcessRequest::source]
+        /// to hold a `GcsDocument`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_gcs_document<
+            T: std::convert::Into<std::boxed::Box<crate::model::GcsDocument>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_document(v);
             self
         }
     }
@@ -706,7 +754,10 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets the value of `processor_flags`.
+        /// Sets the value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags].
+        ///
+        /// Note that all the setters affecting `processor_flags` are
+        /// mutually exclusive.
         pub fn set_processor_flags<
             T: Into<Option<crate::model::train_processor_version_request::ProcessorFlags>>,
         >(
@@ -714,6 +765,35 @@ pub mod document_processor_service {
             v: T,
         ) -> Self {
             self.0.request.processor_flags = v.into();
+            self
+        }
+
+        /// Sets the value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags]
+        /// to hold a `CustomDocumentExtractionOptions`.
+        ///
+        /// Note that all the setters affecting `processor_flags` are
+        /// mutually exclusive.
+        pub fn set_custom_document_extraction_options<T: std::convert::Into<std::boxed::Box<crate::model::train_processor_version_request::CustomDocumentExtractionOptions>>>(mut self, v: T) -> Self{
+            self.0.request = self.0.request.set_custom_document_extraction_options(v);
+            self
+        }
+
+        /// Sets the value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags]
+        /// to hold a `FoundationModelTuningOptions`.
+        ///
+        /// Note that all the setters affecting `processor_flags` are
+        /// mutually exclusive.
+        pub fn set_foundation_model_tuning_options<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::train_processor_version_request::FoundationModelTuningOptions,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_foundation_model_tuning_options(v);
             self
         }
     }
@@ -1632,12 +1712,30 @@ pub mod document_processor_service {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ReviewDocumentRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::review_document_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ReviewDocumentRequest::source]
+        /// to hold a `InlineDocument`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_inline_document<
+            T: std::convert::Into<std::boxed::Box<crate::model::Document>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_inline_document(v);
             self
         }
     }

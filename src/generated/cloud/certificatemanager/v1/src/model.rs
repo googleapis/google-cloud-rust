@@ -486,7 +486,10 @@ pub mod certificate_issuance_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `kind`.
+        /// Sets the value of [kind][crate::model::certificate_issuance_config::CertificateAuthorityConfig::kind].
+        ///
+        /// Note that all the setters affecting `kind` are mutually
+        /// exclusive.
         pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::certificate_issuance_config::certificate_authority_config::Kind>>>(mut self, v: T) -> Self
         {
             self.kind = v.into();
@@ -2204,7 +2207,10 @@ impl Certificate {
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::Certificate::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::certificate::Type>>>(
         mut self,
         v: T,
@@ -3078,7 +3084,10 @@ pub mod certificate_map {
             self
         }
 
-        /// Sets the value of `target_proxy`.
+        /// Sets the value of [target_proxy][crate::model::certificate_map::GclbTarget::target_proxy].
+        ///
+        /// Note that all the setters affecting `target_proxy` are mutually
+        /// exclusive.
         pub fn set_target_proxy<
             T: std::convert::Into<
                     std::option::Option<crate::model::certificate_map::gclb_target::TargetProxy>,
@@ -3334,7 +3343,10 @@ impl CertificateMapEntry {
         self
     }
 
-    /// Sets the value of `r#match`.
+    /// Sets the value of [r#match][crate::model::CertificateMapEntry::match].
+    ///
+    /// Note that all the setters affecting `r#match` are mutually
+    /// exclusive.
     pub fn set_match<
         T: std::convert::Into<std::option::Option<crate::model::certificate_map_entry::Match>>,
     >(
@@ -4214,7 +4226,10 @@ pub mod trust_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `kind`.
+        /// Sets the value of [kind][crate::model::trust_config::TrustAnchor::kind].
+        ///
+        /// Note that all the setters affecting `kind` are mutually
+        /// exclusive.
         pub fn set_kind<
             T: std::convert::Into<std::option::Option<crate::model::trust_config::trust_anchor::Kind>>,
         >(
@@ -4294,7 +4309,10 @@ pub mod trust_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `kind`.
+        /// Sets the value of [kind][crate::model::trust_config::IntermediateCA::kind].
+        ///
+        /// Note that all the setters affecting `kind` are mutually
+        /// exclusive.
         pub fn set_kind<
             T: std::convert::Into<
                     std::option::Option<crate::model::trust_config::intermediate_ca::Kind>,

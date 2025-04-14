@@ -1550,7 +1550,10 @@ impl MigrationProgressEvent {
         self
     }
 
-    /// Sets the value of `step_details`.
+    /// Sets the value of [step_details][crate::model::MigrationProgressEvent::step_details].
+    ///
+    /// Note that all the setters affecting `step_details` are mutually
+    /// exclusive.
     pub fn set_step_details<
         T: std::convert::Into<
                 std::option::Option<crate::model::migration_progress_event::StepDetails>,

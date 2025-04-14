@@ -579,7 +579,10 @@ impl RepoSource {
         self
     }
 
-    /// Sets the value of `revision`.
+    /// Sets the value of [revision][crate::model::RepoSource::revision].
+    ///
+    /// Note that all the setters affecting `revision` are mutually
+    /// exclusive.
     pub fn set_revision<
         T: std::convert::Into<std::option::Option<crate::model::repo_source::Revision>>,
     >(
@@ -709,7 +712,10 @@ impl Source {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Source::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::source::Source>>>(
         mut self,
         v: T,
@@ -1071,7 +1077,10 @@ impl BuildConfig {
         self
     }
 
-    /// Sets the value of `runtime_update_policy`.
+    /// Sets the value of [runtime_update_policy][crate::model::BuildConfig::runtime_update_policy].
+    ///
+    /// Note that all the setters affecting `runtime_update_policy` are mutually
+    /// exclusive.
     pub fn set_runtime_update_policy<
         T: std::convert::Into<std::option::Option<crate::model::build_config::RuntimeUpdatePolicy>>,
     >(

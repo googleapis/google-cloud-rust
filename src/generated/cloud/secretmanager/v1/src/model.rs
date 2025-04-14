@@ -292,7 +292,10 @@ impl Secret {
         self
     }
 
-    /// Sets the value of `expiration`.
+    /// Sets the value of [expiration][crate::model::Secret::expiration].
+    ///
+    /// Note that all the setters affecting `expiration` are mutually
+    /// exclusive.
     pub fn set_expiration<
         T: std::convert::Into<std::option::Option<crate::model::secret::Expiration>>,
     >(
@@ -685,7 +688,10 @@ impl Replication {
         std::default::Default::default()
     }
 
-    /// Sets the value of `replication`.
+    /// Sets the value of [replication][crate::model::Replication::replication].
+    ///
+    /// Note that all the setters affecting `replication` are mutually
+    /// exclusive.
     pub fn set_replication<
         T: std::convert::Into<std::option::Option<crate::model::replication::Replication>>,
     >(
@@ -1033,7 +1039,10 @@ impl ReplicationStatus {
         std::default::Default::default()
     }
 
-    /// Sets the value of `replication_status`.
+    /// Sets the value of [replication_status][crate::model::ReplicationStatus::replication_status].
+    ///
+    /// Note that all the setters affecting `replication_status` are mutually
+    /// exclusive.
     pub fn set_replication_status<
         T: std::convert::Into<
                 std::option::Option<crate::model::replication_status::ReplicationStatus>,

@@ -4505,7 +4505,10 @@ impl ProvisioningQuota {
         self
     }
 
-    /// Sets the value of `quota`.
+    /// Sets the value of [quota][crate::model::ProvisioningQuota::quota].
+    ///
+    /// Note that all the setters affecting `quota` are mutually
+    /// exclusive.
     pub fn set_quota<
         T: std::convert::Into<std::option::Option<crate::model::provisioning_quota::Quota>>,
     >(
@@ -4548,7 +4551,10 @@ impl ProvisioningQuota {
         self
     }
 
-    /// Sets the value of `availability`.
+    /// Sets the value of [availability][crate::model::ProvisioningQuota::availability].
+    ///
+    /// Note that all the setters affecting `availability` are mutually
+    /// exclusive.
     pub fn set_availability<
         T: std::convert::Into<std::option::Option<crate::model::provisioning_quota::Availability>>,
     >(
@@ -5439,7 +5445,10 @@ pub mod volume_config {
             self
         }
 
-        /// Sets the value of `client`.
+        /// Sets the value of [client][crate::model::volume_config::NfsExport::client].
+        ///
+        /// Note that all the setters affecting `client` are mutually
+        /// exclusive.
         pub fn set_client<
             T: std::convert::Into<
                     std::option::Option<crate::model::volume_config::nfs_export::Client>,

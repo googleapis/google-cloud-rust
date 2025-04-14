@@ -326,7 +326,10 @@ impl FileShareConfig {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::FileShareConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::file_share_config::Source>>,
     >(
@@ -1337,7 +1340,10 @@ pub mod instance {
             std::default::Default::default()
         }
 
-        /// Sets the value of `mode`.
+        /// Sets the value of [mode][crate::model::instance::PerformanceConfig::mode].
+        ///
+        /// Note that all the setters affecting `mode` are mutually
+        /// exclusive.
         pub fn set_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::instance::performance_config::Mode>,
@@ -2036,7 +2042,10 @@ impl RestoreInstanceRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::RestoreInstanceRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_instance_request::Source>>,
     >(

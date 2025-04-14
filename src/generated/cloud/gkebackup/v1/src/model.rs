@@ -408,7 +408,10 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `backup_scope`.
+    /// Sets the value of [backup_scope][crate::model::Backup::backup_scope].
+    ///
+    /// Note that all the setters affecting `backup_scope` are mutually
+    /// exclusive.
     pub fn set_backup_scope<
         T: std::convert::Into<std::option::Option<crate::model::backup::BackupScope>>,
     >(
@@ -585,7 +588,10 @@ pub mod backup {
             self
         }
 
-        /// Sets the value of `platform_version`.
+        /// Sets the value of [platform_version][crate::model::backup::ClusterMetadata::platform_version].
+        ///
+        /// Note that all the setters affecting `platform_version` are mutually
+        /// exclusive.
         pub fn set_platform_version<
             T: std::convert::Into<
                     std::option::Option<crate::model::backup::cluster_metadata::PlatformVersion>,
@@ -1289,7 +1295,10 @@ pub mod backup_plan {
             self
         }
 
-        /// Sets the value of `backup_scope`.
+        /// Sets the value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope].
+        ///
+        /// Note that all the setters affecting `backup_scope` are mutually
+        /// exclusive.
         pub fn set_backup_scope<
             T: std::convert::Into<
                     std::option::Option<crate::model::backup_plan::backup_config::BackupScope>,
@@ -1617,7 +1626,10 @@ impl ExclusionWindow {
         self
     }
 
-    /// Sets the value of `recurrence`.
+    /// Sets the value of [recurrence][crate::model::ExclusionWindow::recurrence].
+    ///
+    /// Note that all the setters affecting `recurrence` are mutually
+    /// exclusive.
     pub fn set_recurrence<
         T: std::convert::Into<std::option::Option<crate::model::exclusion_window::Recurrence>>,
     >(
@@ -4642,7 +4654,10 @@ impl RestoreConfig {
         self
     }
 
-    /// Sets the value of `namespaced_resource_restore_scope`.
+    /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope].
+    ///
+    /// Note that all the setters affecting `namespaced_resource_restore_scope` are mutually
+    /// exclusive.
     pub fn set_namespaced_resource_restore_scope<
         T: std::convert::Into<
                 std::option::Option<crate::model::restore_config::NamespacedResourceRestoreScope>,
@@ -5432,7 +5447,10 @@ pub mod restore_config {
             self
         }
 
-        /// Sets the value of `scope`.
+        /// Sets the value of [scope][crate::model::restore_config::VolumeDataRestorePolicyBinding::scope].
+        ///
+        /// Note that all the setters affecting `scope` are mutually
+        /// exclusive.
         pub fn set_scope<
             T: std::convert::Into<
                     std::option::Option<
@@ -6026,7 +6044,10 @@ impl VolumeDataRestorePolicyOverride {
         self
     }
 
-    /// Sets the value of `scope`.
+    /// Sets the value of [scope][crate::model::VolumeDataRestorePolicyOverride::scope].
+    ///
+    /// Note that all the setters affecting `scope` are mutually
+    /// exclusive.
     pub fn set_scope<
         T: std::convert::Into<
                 std::option::Option<crate::model::volume_data_restore_policy_override::Scope>,

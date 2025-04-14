@@ -570,7 +570,10 @@ pub mod datastream {
             self
         }
 
-        /// Sets the value of `target`.
+        /// Sets the value of [target][crate::model::DiscoverConnectionProfileRequest::target].
+        ///
+        /// Note that all the setters affecting `target` are
+        /// mutually exclusive.
         pub fn set_target<
             T: Into<Option<crate::model::discover_connection_profile_request::Target>>,
         >(
@@ -581,7 +584,38 @@ pub mod datastream {
             self
         }
 
-        /// Sets the value of `hierarchy`.
+        /// Sets the value of [target][crate::model::DiscoverConnectionProfileRequest::target]
+        /// to hold a `ConnectionProfile`.
+        ///
+        /// Note that all the setters affecting `target` are
+        /// mutually exclusive.
+        pub fn set_connection_profile<
+            T: std::convert::Into<std::boxed::Box<crate::model::ConnectionProfile>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_connection_profile(v);
+            self
+        }
+
+        /// Sets the value of [target][crate::model::DiscoverConnectionProfileRequest::target]
+        /// to hold a `ConnectionProfileName`.
+        ///
+        /// Note that all the setters affecting `target` are
+        /// mutually exclusive.
+        pub fn set_connection_profile_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_connection_profile_name(v);
+            self
+        }
+
+        /// Sets the value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy].
+        ///
+        /// Note that all the setters affecting `hierarchy` are
+        /// mutually exclusive.
         pub fn set_hierarchy<
             T: Into<Option<crate::model::discover_connection_profile_request::Hierarchy>>,
         >(
@@ -592,7 +626,30 @@ pub mod datastream {
             self
         }
 
-        /// Sets the value of `data_object`.
+        /// Sets the value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
+        /// to hold a `FullHierarchy`.
+        ///
+        /// Note that all the setters affecting `hierarchy` are
+        /// mutually exclusive.
+        pub fn set_full_hierarchy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_full_hierarchy(v);
+            self
+        }
+
+        /// Sets the value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
+        /// to hold a `HierarchyDepth`.
+        ///
+        /// Note that all the setters affecting `hierarchy` are
+        /// mutually exclusive.
+        pub fn set_hierarchy_depth<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_hierarchy_depth(v);
+            self
+        }
+
+        /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object].
+        ///
+        /// Note that all the setters affecting `data_object` are
+        /// mutually exclusive.
         pub fn set_data_object<
             T: Into<Option<crate::model::discover_connection_profile_request::DataObject>>,
         >(
@@ -600,6 +657,64 @@ pub mod datastream {
             v: T,
         ) -> Self {
             self.0.request.data_object = v.into();
+            self
+        }
+
+        /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+        /// to hold a `OracleRdbms`.
+        ///
+        /// Note that all the setters affecting `data_object` are
+        /// mutually exclusive.
+        pub fn set_oracle_rdbms<
+            T: std::convert::Into<std::boxed::Box<crate::model::OracleRdbms>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_oracle_rdbms(v);
+            self
+        }
+
+        /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+        /// to hold a `MysqlRdbms`.
+        ///
+        /// Note that all the setters affecting `data_object` are
+        /// mutually exclusive.
+        pub fn set_mysql_rdbms<T: std::convert::Into<std::boxed::Box<crate::model::MysqlRdbms>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_mysql_rdbms(v);
+            self
+        }
+
+        /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+        /// to hold a `PostgresqlRdbms`.
+        ///
+        /// Note that all the setters affecting `data_object` are
+        /// mutually exclusive.
+        pub fn set_postgresql_rdbms<
+            T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlRdbms>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_postgresql_rdbms(v);
+            self
+        }
+
+        /// Sets the value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
+        /// to hold a `SqlServerRdbms`.
+        ///
+        /// Note that all the setters affecting `data_object` are
+        /// mutually exclusive.
+        pub fn set_sql_server_rdbms<
+            T: std::convert::Into<std::boxed::Box<crate::model::SqlServerRdbms>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_sql_server_rdbms(v);
             self
         }
     }

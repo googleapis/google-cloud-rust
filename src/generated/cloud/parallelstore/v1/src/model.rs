@@ -1062,7 +1062,10 @@ impl ImportDataRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportDataRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_data_request::Source>>,
     >(
@@ -1105,7 +1108,10 @@ impl ImportDataRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ImportDataRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::import_data_request::Destination>>,
     >(
@@ -1253,7 +1259,10 @@ impl ExportDataRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ExportDataRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::export_data_request::Source>>,
     >(
@@ -1296,7 +1305,10 @@ impl ExportDataRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportDataRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_data_request::Destination>>,
     >(
@@ -1823,7 +1835,10 @@ impl TransferOperationMetadata {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::TransferOperationMetadata::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::transfer_operation_metadata::Source>>,
     >(
@@ -1898,7 +1913,10 @@ impl TransferOperationMetadata {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::TransferOperationMetadata::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::transfer_operation_metadata::Destination>,

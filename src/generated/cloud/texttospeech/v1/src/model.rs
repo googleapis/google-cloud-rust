@@ -601,7 +601,10 @@ impl SynthesisInput {
         self
     }
 
-    /// Sets the value of `input_source`.
+    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source].
+    ///
+    /// Note that all the setters affecting `input_source` are mutually
+    /// exclusive.
     pub fn set_input_source<
         T: std::convert::Into<std::option::Option<crate::model::synthesis_input::InputSource>>,
     >(
@@ -1269,7 +1272,10 @@ impl StreamingSynthesisInput {
         std::default::Default::default()
     }
 
-    /// Sets the value of `input_source`.
+    /// Sets the value of [input_source][crate::model::StreamingSynthesisInput::input_source].
+    ///
+    /// Note that all the setters affecting `input_source` are mutually
+    /// exclusive.
     pub fn set_input_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::streaming_synthesis_input::InputSource>,
@@ -1355,7 +1361,10 @@ impl StreamingSynthesizeRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of `streaming_request`.
+    /// Sets the value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request].
+    ///
+    /// Note that all the setters affecting `streaming_request` are mutually
+    /// exclusive.
     pub fn set_streaming_request<
         T: std::convert::Into<
                 std::option::Option<crate::model::streaming_synthesize_request::StreamingRequest>,

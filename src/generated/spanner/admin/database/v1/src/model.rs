@@ -1885,7 +1885,10 @@ impl BackupScheduleSpec {
         std::default::Default::default()
     }
 
-    /// Sets the value of `schedule_spec`.
+    /// Sets the value of [schedule_spec][crate::model::BackupScheduleSpec::schedule_spec].
+    ///
+    /// Note that all the setters affecting `schedule_spec` are mutually
+    /// exclusive.
     pub fn set_schedule_spec<
         T: std::convert::Into<std::option::Option<crate::model::backup_schedule_spec::ScheduleSpec>>,
     >(
@@ -2053,7 +2056,10 @@ impl BackupSchedule {
         self
     }
 
-    /// Sets the value of `backup_type_spec`.
+    /// Sets the value of [backup_type_spec][crate::model::BackupSchedule::backup_type_spec].
+    ///
+    /// Note that all the setters affecting `backup_type_spec` are mutually
+    /// exclusive.
     pub fn set_backup_type_spec<
         T: std::convert::Into<std::option::Option<crate::model::backup_schedule::BackupTypeSpec>>,
     >(
@@ -2844,7 +2850,10 @@ impl RestoreInfo {
         self
     }
 
-    /// Sets the value of `source_info`.
+    /// Sets the value of [source_info][crate::model::RestoreInfo::source_info].
+    ///
+    /// Note that all the setters affecting `source_info` are mutually
+    /// exclusive.
     pub fn set_source_info<
         T: std::convert::Into<std::option::Option<crate::model::restore_info::SourceInfo>>,
     >(
@@ -4347,7 +4356,10 @@ impl RestoreDatabaseRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::RestoreDatabaseRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_database_request::Source>>,
     >(
@@ -4688,7 +4700,10 @@ impl RestoreDatabaseMetadata {
         self
     }
 
-    /// Sets the value of `source_info`.
+    /// Sets the value of [source_info][crate::model::RestoreDatabaseMetadata::source_info].
+    ///
+    /// Note that all the setters affecting `source_info` are mutually
+    /// exclusive.
     pub fn set_source_info<
         T: std::convert::Into<
                 std::option::Option<crate::model::restore_database_metadata::SourceInfo>,

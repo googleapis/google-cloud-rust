@@ -366,7 +366,10 @@ pub mod span {
             self
         }
 
-        /// Sets the value of `value`.
+        /// Sets the value of [value][crate::model::span::TimeEvent::value].
+        ///
+        /// Note that all the setters affecting `value` are mutually
+        /// exclusive.
         pub fn set_value<
             T: std::convert::Into<std::option::Option<crate::model::span::time_event::Value>>,
         >(
@@ -1006,7 +1009,10 @@ impl AttributeValue {
         std::default::Default::default()
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::AttributeValue::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::attribute_value::Value>>,
     >(

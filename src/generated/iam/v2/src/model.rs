@@ -398,7 +398,10 @@ impl PolicyRule {
         self
     }
 
-    /// Sets the value of `kind`.
+    /// Sets the value of [kind][crate::model::PolicyRule::kind].
+    ///
+    /// Note that all the setters affecting `kind` are mutually
+    /// exclusive.
     pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::policy_rule::Kind>>>(
         mut self,
         v: T,

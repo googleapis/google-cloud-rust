@@ -566,7 +566,10 @@ impl DnsSettings {
         self
     }
 
-    /// Sets the value of `dns_provider`.
+    /// Sets the value of [dns_provider][crate::model::DnsSettings::dns_provider].
+    ///
+    /// Note that all the setters affecting `dns_provider` are mutually
+    /// exclusive.
     pub fn set_dns_provider<
         T: std::convert::Into<std::option::Option<crate::model::dns_settings::DnsProvider>>,
     >(

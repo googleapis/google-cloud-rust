@@ -266,7 +266,10 @@ impl VerifyAttestationRequest {
         self
     }
 
-    /// Sets the value of `tee_attestation`.
+    /// Sets the value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation].
+    ///
+    /// Note that all the setters affecting `tee_attestation` are mutually
+    /// exclusive.
     pub fn set_tee_attestation<
         T: std::convert::Into<
                 std::option::Option<crate::model::verify_attestation_request::TeeAttestation>,
@@ -633,7 +636,10 @@ impl TokenOptions {
         self
     }
 
-    /// Sets the value of `token_type_options`.
+    /// Sets the value of [token_type_options][crate::model::TokenOptions::token_type_options].
+    ///
+    /// Note that all the setters affecting `token_type_options` are mutually
+    /// exclusive.
     pub fn set_token_type_options<
         T: std::convert::Into<std::option::Option<crate::model::token_options::TokenTypeOptions>>,
     >(

@@ -340,7 +340,10 @@ impl LogEntry {
         self
     }
 
-    /// Sets the value of `payload`.
+    /// Sets the value of [payload][crate::model::LogEntry::payload].
+    ///
+    /// Note that all the setters affecting `payload` are mutually
+    /// exclusive.
     pub fn set_payload<
         T: std::convert::Into<std::option::Option<crate::model::log_entry::Payload>>,
     >(
@@ -2155,7 +2158,10 @@ impl LogSink {
         self
     }
 
-    /// Sets the value of `options`.
+    /// Sets the value of [options][crate::model::LogSink::options].
+    ///
+    /// Note that all the setters affecting `options` are mutually
+    /// exclusive.
     pub fn set_options<
         T: std::convert::Into<std::option::Option<crate::model::log_sink::Options>>,
     >(
@@ -5132,7 +5138,10 @@ impl BucketMetadata {
         self
     }
 
-    /// Sets the value of `request`.
+    /// Sets the value of [request][crate::model::BucketMetadata::request].
+    ///
+    /// Note that all the setters affecting `request` are mutually
+    /// exclusive.
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::bucket_metadata::Request>>,
     >(
@@ -5283,7 +5292,10 @@ impl LinkMetadata {
         self
     }
 
-    /// Sets the value of `request`.
+    /// Sets the value of [request][crate::model::LinkMetadata::request].
+    ///
+    /// Note that all the setters affecting `request` are mutually
+    /// exclusive.
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::link_metadata::Request>>,
     >(

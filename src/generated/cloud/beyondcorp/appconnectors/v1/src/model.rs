@@ -131,7 +131,10 @@ impl NotificationConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `config`.
+    /// Sets the value of [config][crate::model::NotificationConfig::config].
+    ///
+    /// Note that all the setters affecting `config` are mutually
+    /// exclusive.
     pub fn set_config<
         T: std::convert::Into<std::option::Option<crate::model::notification_config::Config>>,
     >(
@@ -967,7 +970,10 @@ pub mod app_connector {
             std::default::Default::default()
         }
 
-        /// Sets the value of `r#type`.
+        /// Sets the value of [r#type][crate::model::app_connector::PrincipalInfo::type].
+        ///
+        /// Note that all the setters affecting `r#type` are mutually
+        /// exclusive.
         pub fn set_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::app_connector::principal_info::Type>,

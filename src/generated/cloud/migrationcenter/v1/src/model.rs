@@ -183,7 +183,10 @@ impl Asset {
         self
     }
 
-    /// Sets the value of `asset_details`.
+    /// Sets the value of [asset_details][crate::model::Asset::asset_details].
+    ///
+    /// Note that all the setters affecting `asset_details` are mutually
+    /// exclusive.
     pub fn set_asset_details<
         T: std::convert::Into<std::option::Option<crate::model::asset::AssetDetails>>,
     >(
@@ -456,7 +459,10 @@ impl ImportJob {
         self
     }
 
-    /// Sets the value of `report`.
+    /// Sets the value of [report][crate::model::ImportJob::report].
+    ///
+    /// Note that all the setters affecting `report` are mutually
+    /// exclusive.
     pub fn set_report<
         T: std::convert::Into<std::option::Option<crate::model::import_job::Report>>,
     >(
@@ -720,7 +726,10 @@ impl ImportDataFile {
         self
     }
 
-    /// Sets the value of `file_info`.
+    /// Sets the value of [file_info][crate::model::ImportDataFile::file_info].
+    ///
+    /// Note that all the setters affecting `file_info` are mutually
+    /// exclusive.
     pub fn set_file_info<
         T: std::convert::Into<std::option::Option<crate::model::import_data_file::FileInfo>>,
     >(
@@ -5679,7 +5688,10 @@ impl AssetFrame {
         self
     }
 
-    /// Sets the value of `frame_data`.
+    /// Sets the value of [frame_data][crate::model::AssetFrame::frame_data].
+    ///
+    /// Note that all the setters affecting `frame_data` are mutually
+    /// exclusive.
     pub fn set_frame_data<
         T: std::convert::Into<std::option::Option<crate::model::asset_frame::FrameData>>,
     >(
@@ -6855,7 +6867,10 @@ impl DiskEntry {
         self
     }
 
-    /// Sets the value of `platform_specific`.
+    /// Sets the value of [platform_specific][crate::model::DiskEntry::platform_specific].
+    ///
+    /// Note that all the setters affecting `platform_specific` are mutually
+    /// exclusive.
     pub fn set_platform_specific<
         T: std::convert::Into<std::option::Option<crate::model::disk_entry::PlatformSpecific>>,
     >(
@@ -8973,7 +8988,10 @@ impl PlatformDetails {
         std::default::Default::default()
     }
 
-    /// Sets the value of `vendor_details`.
+    /// Sets the value of [vendor_details][crate::model::PlatformDetails::vendor_details].
+    ///
+    /// Note that all the setters affecting `vendor_details` are mutually
+    /// exclusive.
     pub fn set_vendor_details<
         T: std::convert::Into<std::option::Option<crate::model::platform_details::VendorDetails>>,
     >(
@@ -10105,7 +10123,10 @@ impl Insight {
         std::default::Default::default()
     }
 
-    /// Sets the value of `insight`.
+    /// Sets the value of [insight][crate::model::Insight::insight].
+    ///
+    /// Note that all the setters affecting `insight` are mutually
+    /// exclusive.
     pub fn set_insight<
         T: std::convert::Into<std::option::Option<crate::model::insight::Insight>>,
     >(
@@ -10292,7 +10313,10 @@ impl MigrationInsight {
         self
     }
 
-    /// Sets the value of `migration_target`.
+    /// Sets the value of [migration_target][crate::model::MigrationInsight::migration_target].
+    ///
+    /// Note that all the setters affecting `migration_target` are mutually
+    /// exclusive.
     pub fn set_migration_target<
         T: std::convert::Into<std::option::Option<crate::model::migration_insight::MigrationTarget>>,
     >(
@@ -10653,7 +10677,10 @@ impl Aggregation {
         self
     }
 
-    /// Sets the value of `aggregation_function`.
+    /// Sets the value of [aggregation_function][crate::model::Aggregation::aggregation_function].
+    ///
+    /// Note that all the setters affecting `aggregation_function` are mutually
+    /// exclusive.
     pub fn set_aggregation_function<
         T: std::convert::Into<std::option::Option<crate::model::aggregation::AggregationFunction>>,
     >(
@@ -10949,7 +10976,10 @@ impl AggregationResult {
         self
     }
 
-    /// Sets the value of `result`.
+    /// Sets the value of [result][crate::model::AggregationResult::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::aggregation_result::Result>>,
     >(

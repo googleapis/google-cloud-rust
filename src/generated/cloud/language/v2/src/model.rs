@@ -78,7 +78,10 @@ impl Document {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Document::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::document::Source>>,
     >(

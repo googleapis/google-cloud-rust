@@ -93,7 +93,10 @@ impl Operation {
         self
     }
 
-    /// Sets the value of `result`.
+    /// Sets the value of [result][crate::model::Operation::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::operation::Result>>,
     >(

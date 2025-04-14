@@ -2559,7 +2559,10 @@ impl RestoreTableRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::RestoreTableRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_table_request::Source>>,
     >(
@@ -2706,7 +2709,10 @@ impl RestoreTableMetadata {
         self
     }
 
-    /// Sets the value of `source_info`.
+    /// Sets the value of [source_info][crate::model::RestoreTableMetadata::source_info].
+    ///
+    /// Note that all the setters affecting `source_info` are mutually
+    /// exclusive.
     pub fn set_source_info<
         T: std::convert::Into<std::option::Option<crate::model::restore_table_metadata::SourceInfo>>,
     >(
@@ -3051,7 +3057,10 @@ impl DropRowRangeRequest {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::DropRowRangeRequest::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::drop_row_range_request::Target>>,
     >(
@@ -3706,7 +3715,10 @@ pub mod modify_column_families_request {
             self
         }
 
-        /// Sets the value of `r#mod`.
+        /// Sets the value of [r#mod][crate::model::modify_column_families_request::Modification::mod].
+        ///
+        /// Note that all the setters affecting `r#mod` are mutually
+        /// exclusive.
         pub fn set_mod<
             T: std::convert::Into<
                     std::option::Option<
@@ -3959,7 +3971,10 @@ impl CheckConsistencyRequest {
         self
     }
 
-    /// Sets the value of `mode`.
+    /// Sets the value of [mode][crate::model::CheckConsistencyRequest::mode].
+    ///
+    /// Note that all the setters affecting `mode` are mutually
+    /// exclusive.
     pub fn set_mode<
         T: std::convert::Into<std::option::Option<crate::model::check_consistency_request::Mode>>,
     >(
@@ -6262,7 +6277,10 @@ impl Cluster {
         self
     }
 
-    /// Sets the value of `config`.
+    /// Sets the value of [config][crate::model::Cluster::config].
+    ///
+    /// Note that all the setters affecting `config` are mutually
+    /// exclusive.
     pub fn set_config<T: std::convert::Into<std::option::Option<crate::model::cluster::Config>>>(
         mut self,
         v: T,
@@ -6657,7 +6675,10 @@ impl AppProfile {
         self
     }
 
-    /// Sets the value of `routing_policy`.
+    /// Sets the value of [routing_policy][crate::model::AppProfile::routing_policy].
+    ///
+    /// Note that all the setters affecting `routing_policy` are mutually
+    /// exclusive.
     pub fn set_routing_policy<
         T: std::convert::Into<std::option::Option<crate::model::app_profile::RoutingPolicy>>,
     >(
@@ -6734,7 +6755,10 @@ impl AppProfile {
         self
     }
 
-    /// Sets the value of `isolation`.
+    /// Sets the value of [isolation][crate::model::AppProfile::isolation].
+    ///
+    /// Note that all the setters affecting `isolation` are mutually
+    /// exclusive.
     pub fn set_isolation<
         T: std::convert::Into<std::option::Option<crate::model::app_profile::Isolation>>,
     >(
@@ -6894,7 +6918,10 @@ pub mod app_profile {
             self
         }
 
-        /// Sets the value of `affinity`.
+        /// Sets the value of [affinity][crate::model::app_profile::MultiClusterRoutingUseAny::affinity].
+        ///
+        /// Note that all the setters affecting `affinity` are mutually
+        /// exclusive.
         pub fn set_affinity<
             T: std::convert::Into<
                     std::option::Option<
@@ -7551,7 +7578,10 @@ impl RestoreInfo {
         self
     }
 
-    /// Sets the value of `source_info`.
+    /// Sets the value of [source_info][crate::model::RestoreInfo::source_info].
+    ///
+    /// Note that all the setters affecting `source_info` are mutually
+    /// exclusive.
     pub fn set_source_info<
         T: std::convert::Into<std::option::Option<crate::model::restore_info::SourceInfo>>,
     >(
@@ -7855,7 +7885,10 @@ impl Table {
         self
     }
 
-    /// Sets the value of `automated_backup_config`.
+    /// Sets the value of [automated_backup_config][crate::model::Table::automated_backup_config].
+    ///
+    /// Note that all the setters affecting `automated_backup_config` are mutually
+    /// exclusive.
     pub fn set_automated_backup_config<
         T: std::convert::Into<std::option::Option<crate::model::table::AutomatedBackupConfig>>,
     >(
@@ -8299,7 +8332,10 @@ impl AuthorizedView {
         self
     }
 
-    /// Sets the value of `authorized_view`.
+    /// Sets the value of [authorized_view][crate::model::AuthorizedView::authorized_view].
+    ///
+    /// Note that all the setters affecting `authorized_view` are mutually
+    /// exclusive.
     pub fn set_authorized_view<
         T: std::convert::Into<std::option::Option<crate::model::authorized_view::AuthorizedView>>,
     >(
@@ -8627,7 +8663,10 @@ impl GcRule {
         std::default::Default::default()
     }
 
-    /// Sets the value of `rule`.
+    /// Sets the value of [rule][crate::model::GcRule::rule].
+    ///
+    /// Note that all the setters affecting `rule` are mutually
+    /// exclusive.
     pub fn set_rule<T: std::convert::Into<std::option::Option<crate::model::gc_rule::Rule>>>(
         mut self,
         v: T,
@@ -9595,7 +9634,10 @@ impl Type {
         std::default::Default::default()
     }
 
-    /// Sets the value of `kind`.
+    /// Sets the value of [kind][crate::model::Type::kind].
+    ///
+    /// Note that all the setters affecting `kind` are mutually
+    /// exclusive.
     pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::r#type::Kind>>>(
         mut self,
         v: T,
@@ -9996,7 +10038,10 @@ pub mod r#type {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `encoding`.
+            /// Sets the value of [encoding][crate::model::r#type::bytes::Encoding::encoding].
+            ///
+            /// Note that all the setters affecting `encoding` are mutually
+            /// exclusive.
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::bytes::encoding::Encoding>,
@@ -10153,7 +10198,10 @@ pub mod r#type {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `encoding`.
+            /// Sets the value of [encoding][crate::model::r#type::string::Encoding::encoding].
+            ///
+            /// Note that all the setters affecting `encoding` are mutually
+            /// exclusive.
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::string::encoding::Encoding>,
@@ -10382,7 +10430,10 @@ pub mod r#type {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `encoding`.
+            /// Sets the value of [encoding][crate::model::r#type::int_64::Encoding::encoding].
+            ///
+            /// Note that all the setters affecting `encoding` are mutually
+            /// exclusive.
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::int_64::encoding::Encoding>,
@@ -10701,7 +10752,10 @@ pub mod r#type {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `encoding`.
+            /// Sets the value of [encoding][crate::model::r#type::timestamp::Encoding::encoding].
+            ///
+            /// Note that all the setters affecting `encoding` are mutually
+            /// exclusive.
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::timestamp::encoding::Encoding>,
@@ -10929,7 +10983,10 @@ pub mod r#type {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `encoding`.
+            /// Sets the value of [encoding][crate::model::r#type::r#struct::Encoding::encoding].
+            ///
+            /// Note that all the setters affecting `encoding` are mutually
+            /// exclusive.
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::r#struct::encoding::Encoding>,
@@ -11371,7 +11428,10 @@ pub mod r#type {
             self
         }
 
-        /// Sets the value of `aggregator`.
+        /// Sets the value of [aggregator][crate::model::r#type::Aggregate::aggregator].
+        ///
+        /// Note that all the setters affecting `aggregator` are mutually
+        /// exclusive.
         pub fn set_aggregator<
             T: std::convert::Into<std::option::Option<crate::model::r#type::aggregate::Aggregator>>,
         >(

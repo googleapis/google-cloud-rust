@@ -317,7 +317,10 @@ impl Service {
         self
     }
 
-    /// Sets the value of `metastore_config`.
+    /// Sets the value of [metastore_config][crate::model::Service::metastore_config].
+    ///
+    /// Note that all the setters affecting `metastore_config` are mutually
+    /// exclusive.
     pub fn set_metastore_config<
         T: std::convert::Into<std::option::Option<crate::model::service::MetastoreConfig>>,
     >(
@@ -953,7 +956,10 @@ impl Secret {
         std::default::Default::default()
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::Secret::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::secret::Value>>>(
         mut self,
         v: T,
@@ -1204,7 +1210,10 @@ pub mod network_config {
             self
         }
 
-        /// Sets the value of `vpc_resource`.
+        /// Sets the value of [vpc_resource][crate::model::network_config::Consumer::vpc_resource].
+        ///
+        /// Note that all the setters affecting `vpc_resource` are mutually
+        /// exclusive.
         pub fn set_vpc_resource<
             T: std::convert::Into<
                     std::option::Option<crate::model::network_config::consumer::VpcResource>,
@@ -1511,7 +1520,10 @@ impl MetadataImport {
         self
     }
 
-    /// Sets the value of `metadata`.
+    /// Sets the value of [metadata][crate::model::MetadataImport::metadata].
+    ///
+    /// Note that all the setters affecting `metadata` are mutually
+    /// exclusive.
     pub fn set_metadata<
         T: std::convert::Into<std::option::Option<crate::model::metadata_import::Metadata>>,
     >(
@@ -1847,7 +1859,10 @@ impl MetadataExport {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::MetadataExport::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::metadata_export::Destination>>,
     >(
@@ -2410,7 +2425,10 @@ impl ScalingConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `scaling_model`.
+    /// Sets the value of [scaling_model][crate::model::ScalingConfig::scaling_model].
+    ///
+    /// Note that all the setters affecting `scaling_model` are mutually
+    /// exclusive.
     pub fn set_scaling_model<
         T: std::convert::Into<std::option::Option<crate::model::scaling_config::ScalingModel>>,
     >(
@@ -3823,7 +3841,10 @@ impl ExportMetadataRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportMetadataRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_metadata_request::Destination>>,
     >(

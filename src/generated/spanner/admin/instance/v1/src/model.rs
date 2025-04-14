@@ -824,7 +824,10 @@ impl ReplicaComputeCapacity {
         self
     }
 
-    /// Sets the value of `compute_capacity`.
+    /// Sets the value of [compute_capacity][crate::model::ReplicaComputeCapacity::compute_capacity].
+    ///
+    /// Note that all the setters affecting `compute_capacity` are mutually
+    /// exclusive.
     pub fn set_compute_capacity<
         T: std::convert::Into<
                 std::option::Option<crate::model::replica_compute_capacity::ComputeCapacity>,
@@ -1039,7 +1042,10 @@ pub mod autoscaling_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `min_limit`.
+        /// Sets the value of [min_limit][crate::model::autoscaling_config::AutoscalingLimits::min_limit].
+        ///
+        /// Note that all the setters affecting `min_limit` are mutually
+        /// exclusive.
         pub fn set_min_limit<
             T: std::convert::Into<
                     std::option::Option<
@@ -1104,7 +1110,10 @@ pub mod autoscaling_config {
             self
         }
 
-        /// Sets the value of `max_limit`.
+        /// Sets the value of [max_limit][crate::model::autoscaling_config::AutoscalingLimits::max_limit].
+        ///
+        /// Note that all the setters affecting `max_limit` are mutually
+        /// exclusive.
         pub fn set_max_limit<
             T: std::convert::Into<
                     std::option::Option<
@@ -3567,7 +3576,10 @@ impl InstancePartition {
         self
     }
 
-    /// Sets the value of `compute_capacity`.
+    /// Sets the value of [compute_capacity][crate::model::InstancePartition::compute_capacity].
+    ///
+    /// Note that all the setters affecting `compute_capacity` are mutually
+    /// exclusive.
     pub fn set_compute_capacity<
         T: std::convert::Into<std::option::Option<crate::model::instance_partition::ComputeCapacity>>,
     >(

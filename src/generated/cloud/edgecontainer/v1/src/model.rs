@@ -418,7 +418,10 @@ pub mod cluster {
             std::default::Default::default()
         }
 
-        /// Sets the value of `config`.
+        /// Sets the value of [config][crate::model::cluster::ControlPlane::config].
+        ///
+        /// Note that all the setters affecting `config` are mutually
+        /// exclusive.
         pub fn set_config<
             T: std::convert::Into<std::option::Option<crate::model::cluster::control_plane::Config>>,
         >(

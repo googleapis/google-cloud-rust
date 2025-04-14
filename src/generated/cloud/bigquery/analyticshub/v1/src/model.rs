@@ -208,7 +208,10 @@ impl SharingEnvironmentConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `environment`.
+    /// Sets the value of [environment][crate::model::SharingEnvironmentConfig::environment].
+    ///
+    /// Note that all the setters affecting `environment` are mutually
+    /// exclusive.
     pub fn set_environment<
         T: std::convert::Into<
                 std::option::Option<crate::model::sharing_environment_config::Environment>,
@@ -884,7 +887,10 @@ impl Listing {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Listing::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::listing::Source>>>(
         mut self,
         v: T,
@@ -1068,7 +1074,10 @@ pub mod listing {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `resource`.
+            /// Sets the value of [resource][crate::model::listing::big_query_dataset_source::SelectedResource::resource].
+            ///
+            /// Note that all the setters affecting `resource` are mutually
+            /// exclusive.
             pub fn set_resource<T: std::convert::Into<std::option::Option<crate::model::listing::big_query_dataset_source::selected_resource::Resource>>>(mut self, v: T) -> Self
             {
                 self.resource = v.into();
@@ -1670,7 +1679,10 @@ impl Subscription {
         self
     }
 
-    /// Sets the value of `resource_name`.
+    /// Sets the value of [resource_name][crate::model::Subscription::resource_name].
+    ///
+    /// Note that all the setters affecting `resource_name` are mutually
+    /// exclusive.
     pub fn set_resource_name<
         T: std::convert::Into<std::option::Option<crate::model::subscription::ResourceName>>,
     >(
@@ -1768,7 +1780,10 @@ pub mod subscription {
             self
         }
 
-        /// Sets the value of `reference`.
+        /// Sets the value of [reference][crate::model::subscription::LinkedResource::reference].
+        ///
+        /// Note that all the setters affecting `reference` are mutually
+        /// exclusive.
         pub fn set_reference<
             T: std::convert::Into<
                     std::option::Option<crate::model::subscription::linked_resource::Reference>,
@@ -2671,7 +2686,10 @@ impl SubscribeListingRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::SubscribeListingRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::subscribe_listing_request::Destination>,
@@ -4034,7 +4052,10 @@ impl PushConfig {
         self
     }
 
-    /// Sets the value of `authentication_method`.
+    /// Sets the value of [authentication_method][crate::model::PushConfig::authentication_method].
+    ///
+    /// Note that all the setters affecting `authentication_method` are mutually
+    /// exclusive.
     pub fn set_authentication_method<
         T: std::convert::Into<std::option::Option<crate::model::push_config::AuthenticationMethod>>,
     >(
@@ -4077,7 +4098,10 @@ impl PushConfig {
         self
     }
 
-    /// Sets the value of `wrapper`.
+    /// Sets the value of [wrapper][crate::model::PushConfig::wrapper].
+    ///
+    /// Note that all the setters affecting `wrapper` are mutually
+    /// exclusive.
     pub fn set_wrapper<
         T: std::convert::Into<std::option::Option<crate::model::push_config::Wrapper>>,
     >(
@@ -4532,7 +4556,10 @@ impl CloudStorageConfig {
         self
     }
 
-    /// Sets the value of `output_format`.
+    /// Sets the value of [output_format][crate::model::CloudStorageConfig::output_format].
+    ///
+    /// Note that all the setters affecting `output_format` are mutually
+    /// exclusive.
     pub fn set_output_format<
         T: std::convert::Into<std::option::Option<crate::model::cloud_storage_config::OutputFormat>>,
     >(
@@ -4743,7 +4770,10 @@ impl MessageTransform {
         self
     }
 
-    /// Sets the value of `transform`.
+    /// Sets the value of [transform][crate::model::MessageTransform::transform].
+    ///
+    /// Note that all the setters affecting `transform` are mutually
+    /// exclusive.
     pub fn set_transform<
         T: std::convert::Into<std::option::Option<crate::model::message_transform::Transform>>,
     >(

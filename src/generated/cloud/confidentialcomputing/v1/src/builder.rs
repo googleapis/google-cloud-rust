@@ -207,7 +207,10 @@ pub mod confidential_computing {
             self
         }
 
-        /// Sets the value of `tee_attestation`.
+        /// Sets the value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation].
+        ///
+        /// Note that all the setters affecting `tee_attestation` are
+        /// mutually exclusive.
         pub fn set_tee_attestation<
             T: Into<Option<crate::model::verify_attestation_request::TeeAttestation>>,
         >(
@@ -215,6 +218,36 @@ pub mod confidential_computing {
             v: T,
         ) -> Self {
             self.0.request.tee_attestation = v.into();
+            self
+        }
+
+        /// Sets the value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation]
+        /// to hold a `TdCcel`.
+        ///
+        /// Note that all the setters affecting `tee_attestation` are
+        /// mutually exclusive.
+        pub fn set_td_ccel<
+            T: std::convert::Into<std::boxed::Box<crate::model::TdxCcelAttestation>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_td_ccel(v);
+            self
+        }
+
+        /// Sets the value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation]
+        /// to hold a `SevSnpAttestation`.
+        ///
+        /// Note that all the setters affecting `tee_attestation` are
+        /// mutually exclusive.
+        pub fn set_sev_snp_attestation<
+            T: std::convert::Into<std::boxed::Box<crate::model::SevSnpAttestation>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_sev_snp_attestation(v);
             self
         }
     }
