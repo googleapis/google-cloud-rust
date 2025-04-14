@@ -63,26 +63,56 @@ class FunctionService {
   /// Creates a new function. If a function with the given name already exists in
   /// the specified project, the long running operation will return
   /// `ALREADY_EXISTS` error.
-  Future<Operation> createFunction(CreateFunctionRequest request) async {
+  ///
+  /// Returns an [Operation] representing the status of the long-running
+  /// operation.
+  ///
+  /// When complete, [Operation.done] will be `true`. If successful,
+  /// [Operation.responseAsMessage] will contain the Operation's result.
+  Future<Operation<Function$, OperationMetadata>> createFunction(
+      CreateFunctionRequest request) async {
     final url = Uri.https(_host, '/v2/${request.parent}/functions');
     final response = await _client.post(url, body: request.function);
-    return Operation.fromJson(response);
+    return Operation.fromJson(
+      response,
+      OperationHelper(Function$.fromJson, OperationMetadata.fromJson),
+    );
   }
 
   /// Updates existing function.
-  Future<Operation> updateFunction(UpdateFunctionRequest request) async {
+  ///
+  /// Returns an [Operation] representing the status of the long-running
+  /// operation.
+  ///
+  /// When complete, [Operation.done] will be `true`. If successful,
+  /// [Operation.responseAsMessage] will contain the Operation's result.
+  Future<Operation<Function$, OperationMetadata>> updateFunction(
+      UpdateFunctionRequest request) async {
     final url = Uri.https(_host, '/v2/${request.function.name}');
     final response = await _client.patch(url, body: request.function);
-    return Operation.fromJson(response);
+    return Operation.fromJson(
+      response,
+      OperationHelper(Function$.fromJson, OperationMetadata.fromJson),
+    );
   }
 
   /// Deletes a function with the given name from the specified project. If the
   /// given function is used by some trigger, the trigger will be updated to
   /// remove this function.
-  Future<Operation> deleteFunction(DeleteFunctionRequest request) async {
+  ///
+  /// Returns an [Operation] representing the status of the long-running
+  /// operation.
+  ///
+  /// When complete, [Operation.done] will be `true`. If successful,
+  /// [Operation.responseAsMessage] will contain the Operation's result.
+  Future<Operation<Empty, OperationMetadata>> deleteFunction(
+      DeleteFunctionRequest request) async {
     final url = Uri.https(_host, '/v2/${request.name}');
     final response = await _client.delete(url);
-    return Operation.fromJson(response);
+    return Operation.fromJson(
+      response,
+      OperationHelper(Empty.fromJson, OperationMetadata.fromJson),
+    );
   }
 
   /// Returns a signed URL for uploading a function source code.
@@ -185,10 +215,14 @@ class FunctionService {
   }
 
   /// Provides the `Operations` service functionality in this service.
-  Future<Operation> getOperation(GetOperationRequest request) async {
+  ///
+  /// This method can be used to get the current status of a long-running
+  /// operation.
+  Future<Operation<T, S>> getOperation<T extends Message, S extends Message>(
+      Operation<T, S> request) async {
     final url = Uri.https(_host, '/v2/${request.name}');
     final response = await _client.get(url);
-    return Operation.fromJson(response);
+    return Operation.fromJson(response, request.operationHelper);
   }
 
   /// Closes the client and cleans up any resources associated with it.
