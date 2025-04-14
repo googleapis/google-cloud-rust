@@ -41,6 +41,7 @@ _internal_grpc_client = [
   "_internal_common",
   "dep:auth",
   "dep:gax",
+  "dep:prost",
   "dep:prost-types",
   "dep:rpc",
   "dep:tokio",
@@ -50,21 +51,17 @@ _internal_grpc_client = [
 _internal_common = ["dep:auth", "dep:gax", "dep:thiserror"]
 
 [dependencies]
-bytes = { version = "1", features = ["serde"] }
-http = "1"
+bytes          = { version = "1", features = ["serde"] }
+http           = "1"
 http-body-util = "0.1"
-prost = "0.13"
-prost-types = { version = "0.13", optional = true }
-reqwest = { version = "0.12", optional = true }
-serde = { version = "1", optional = true }
-serde_json = { version = "1", optional = true }
-thiserror = { version = "2", optional = true }
-tokio = { version = "1", features = ["macros", "rt-multi-thread"], optional = true }
-tonic = { version = "0.13", default-features = false, features = [
-  "prost",
-  "tls-native-roots",
-  "tls-ring",
-], optional = true }
+prost          = { workspace = true, optional = true }
+prost-types    = { workspace = true, optional = true }
+reqwest        = { version = "0.12", optional = true }
+serde          = { version = "1", optional = true }
+serde_json     = { version = "1", optional = true }
+thiserror      = { version = "2", optional = true }
+tokio          = { version = "1", features = ["macros", "rt-multi-thread"], optional = true }
+tonic          = { workspace = true, optional = true }
 # Local crates
 auth = { version = "0.19", path = "../auth", package = "google-cloud-auth", optional = true }
 gax  = { workspace = true, features = ["unstable-sdk-client"], optional = true }
