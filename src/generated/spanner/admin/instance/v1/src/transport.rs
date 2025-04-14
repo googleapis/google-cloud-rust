@@ -265,13 +265,9 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         let builder = req
             .field_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "fieldMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("fieldMask", v)]));
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

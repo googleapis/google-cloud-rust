@@ -327,12 +327,11 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = {
-            use gaxi::query_parameter::QueryParameter;
-            serde_json::to_value(&req.update_mask)
-                .map_err(Error::serde)?
-                .add(builder, "updateMask")
-        };
+        let builder = req
+            .update_mask
+            .paths
+            .iter()
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await
@@ -412,12 +411,11 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = {
-            use gaxi::query_parameter::QueryParameter;
-            serde_json::to_value(&req.update_mask)
-                .map_err(Error::serde)?
-                .add(builder, "updateMask")
-        };
+        let builder = req
+            .update_mask
+            .paths
+            .iter()
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await

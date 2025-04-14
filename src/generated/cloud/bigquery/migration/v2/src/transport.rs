@@ -79,13 +79,9 @@ impl super::stub::MigrationService for MigrationService {
         let builder = req
             .read_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "readMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("readMask", v)]));
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -111,13 +107,9 @@ impl super::stub::MigrationService for MigrationService {
         let builder = req
             .read_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "readMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("readMask", v)]));
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
@@ -187,13 +179,9 @@ impl super::stub::MigrationService for MigrationService {
         let builder = req
             .read_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "readMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("readMask", v)]));
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -216,13 +204,9 @@ impl super::stub::MigrationService for MigrationService {
         let builder = req
             .read_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "readMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("readMask", v)]));
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);

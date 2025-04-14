@@ -71,21 +71,70 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
     println!("GET = {get:?}");
     assert_eq!(get, create);
 
-    println!("\nTesting update_secret()");
-    let mut new_labels = get.labels.clone();
-    new_labels.insert("updated".to_string(), "true".to_string());
+    // We need to verify that FieldMask as query parameters are sent correctly
+    // by the client library. This involves:
+    // - Setting the mask does not result in a RPC error
+    // - The mask has the desired effect, only the fields in the mask are set
+    // This test assumes the service works correctly, we are not trying to write
+    // service tests.
+    println!("\nTesting update_secret() [1]");
+    let tag = |mut map: std::collections::HashMap<String, String>, msg: &str| {
+        map.insert("updated".to_string(), msg.to_string());
+        map
+    };
+    use gax::retry_policy::RetryPolicyExt;
     let update = client
         .update_secret(
             sm::model::Secret::new()
                 .set_name(&get.name)
-                .set_labels(new_labels),
+                .set_etag(get.etag)
+                .set_labels(tag(get.labels.clone(), "test-1"))
+                .set_annotations(tag(get.annotations.clone(), "test-1")),
         )
         .set_update_mask(
-            wkt::FieldMask::default().set_paths(["labels"].map(str::to_string).to_vec()),
+            wkt::FieldMask::default()
+                .set_paths(["annotations", "labels"].map(str::to_string).to_vec()),
         )
+        // Avoid flakes, safe to retry because of the etag.
+        .with_retry_policy(gax::retry_policy::AlwaysRetry.with_attempt_limit(3))
         .send()
         .await?;
     println!("UPDATE = {update:?}");
+    assert_eq!(
+        update.labels.get("updated").map(String::as_str),
+        Some("test-1")
+    );
+    assert_eq!(
+        update.annotations.get("updated").map(String::as_str),
+        Some("test-1")
+    );
+
+    println!("\nTesting update_secret() [2]");
+    let update = client
+        .update_secret(
+            sm::model::Secret::new()
+                .set_name(&get.name)
+                .set_etag(update.etag.clone())
+                .set_labels(tag(get.labels.clone(), "test-2"))
+                .set_annotations(tag(get.annotations.clone(), "test-2")),
+        )
+        .set_update_mask(
+            wkt::FieldMask::default().set_paths(["annotations"].map(str::to_string).to_vec()),
+        )
+        // Avoid flakes, safe to retry because of the etag.
+        .with_retry_policy(gax::retry_policy::AlwaysRetry.with_attempt_limit(3))
+        .send()
+        .await?;
+    println!("UPDATE = {update:?}");
+    // Should not change, it is not in the field mask
+    assert_eq!(
+        update.labels.get("updated").map(String::as_str),
+        Some("test-1")
+    );
+    assert_eq!(
+        update.annotations.get("updated").map(String::as_str),
+        Some("test-2")
+    );
 
     println!("\nTesting list_secrets()");
     let list = get_all_secret_names(&client, &project_id).await?;
