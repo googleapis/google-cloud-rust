@@ -42,6 +42,7 @@ _internal_grpc_client = [
   "dep:auth",
   "dep:gax",
   "dep:prost-types",
+  "dep:serde_json",
   "dep:rpc",
   "dep:tokio",
   "dep:tonic",

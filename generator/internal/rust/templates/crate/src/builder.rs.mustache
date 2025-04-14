@@ -201,11 +201,67 @@ pub mod {{Codec.ModuleName}} {
         {{/InputType.Codec.MapFields}}
         {{#InputType.OneOfs}}
 
-        /// Sets the value of `{{Codec.FieldName}}`.
+        /// Sets the value of [{{Codec.FieldName}}][{{Codec.StructQualifiedName}}::{{Codec.SetterName}}].
+        ///
+        /// Note that all the setters affecting `{{Codec.FieldName}}` are
+        /// mutually exclusive.
         pub fn set_{{Codec.SetterName}}<T: Into<Option<{{{Codec.FieldType}}}>>>(mut self, v: T) ->Self {
             self.0.request.{{Codec.FieldName}} = v.into();
             self
         }
+        {{#Codec.SingularFields}}
+
+        /// Sets the value of [{{Group.Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.FieldName}}]
+        /// to hold a `{{Codec.BranchName}}`.
+        ///
+        /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
+        /// mutually exclusive.
+        pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_{{Codec.SetterName}}(v);
+            self
+        }
+        {{/Codec.SingularFields}}
+        {{#Codec.RepeatedFields}}
+
+        /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.SetterName}}].
+        ///
+        /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
+        /// mutually exclusive.
+        pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
+        {
+            use std::iter::Iterator;
+            self.{{Group.Codec.FieldName}} = std::option::Option::Some(
+                {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
+                    v.into_iter().map(|i| i.into()).collect()
+                )
+            );
+            self
+        }
+        {{/Codec.RepeatedFields}}
+        {{#Codec.MapFields}}
+
+        /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.SetterName}}].
+        ///
+        /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
+        /// mutually exclusive.
+        pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<{{{Codec.KeyType}}}>,
+            V: std::convert::Into<{{{Codec.ValueType}}}>,
+        {
+            use std::iter::Iterator;
+            self.{{Group.Codec.FieldName}} = std::option::Option::Some(
+                {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
+                    v.into_iter().map(|(k, v)| (k.into(), v.into())).collect()
+                )
+            );
+            self
+        }
+        {{/Codec.MapFields}}
         {{/InputType.OneOfs}}
     }
 
