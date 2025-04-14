@@ -31,3 +31,5 @@ operations.
 
 [codec]
 copyright-year = '2025'
+dev-dependencies = "test"
+part-file = "src/longrunning.p.dart"
