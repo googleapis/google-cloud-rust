@@ -43,10 +43,15 @@ abstract class Enum implements JsonEncodable {
   const Enum(this.value);
 
   @override
-  int get hashCode => value.hashCode;
+  String toJson() => value;
 
   @override
-  String toJson() => value;
+  bool operator ==(Object other) {
+    return other.runtimeType == runtimeType && value == (other as Enum).value;
+  }
+
+  @override
+  int get hashCode => value.hashCode;
 }
 
 class ServiceClient {

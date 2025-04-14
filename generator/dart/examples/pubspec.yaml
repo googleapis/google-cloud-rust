@@ -24,4 +24,8 @@ resolution: workspace
 
 dependencies:
   google_cloud_language_v2: any
-  googleapis_auth: ^1.6.0
+  google_cloud_rpc: any
+  googleapis_auth: ^2.0.0
+
+dev_dependencies:
+  lints: ^5.0.0
