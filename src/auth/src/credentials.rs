@@ -207,19 +207,13 @@ pub(crate) mod dynamic {
     }
 }
 
-#[allow(dead_code)]
 #[derive(Debug, Clone)]
 enum CredentialsSource {
     CredentialsJson(Value),
     DefaultCredential,
 }
 
-pub(crate) struct AccessTokenCredentialOptions {
-    quota_project_id: Option<String>,
-    scopes: Option<Vec<String>>,
-}
-
-pub(crate) struct Builder {
+pub struct Builder {
     credentials_source: CredentialsSource,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
@@ -227,7 +221,8 @@ pub(crate) struct Builder {
 
 fn build_credentials(
     json: Value,
-    access_token_credentials_options: AccessTokenCredentialOptions,
+    quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
 ) -> Result<Credentials> {
     let cred_type = json
         .get("type")
@@ -244,12 +239,28 @@ fn build_credentials(
         })?;
 
     match cred_type {
-        "authorized_user" => user_account::Builder::new(json)
-            .with_access_token_options(access_token_credentials_options)
-            .build(),
-        "service_account" => service_account::Builder::new(json)
-            .with_access_token_options(access_token_credentials_options)
-            .build(),
+        "authorized_user" => {
+            let mut builder = user_account::Builder::new(json);
+
+            if let Some(qp) = quota_project_id {
+                builder = builder.with_quota_project_id(qp);
+            }
+            if let Some(sc) = scopes {
+                builder = builder.with_scopes(sc);
+            }
+            builder.build()
+        }
+        "service_account" => {
+            let mut builder = service_account::Builder::new(json);
+
+            if let Some(qp) = quota_project_id {
+                builder = builder.with_quota_project_id(qp);
+            }
+            if let Some(sc) = scopes {
+                builder = builder.with_scopes(sc);
+            }
+            builder.build()
+        }
         _ => Err(errors::non_retryable_from_str(format!(
             "Unimplemented credentials type: {cred_type}"
         ))),
@@ -258,7 +269,7 @@ fn build_credentials(
 
 #[allow(dead_code)]
 impl Builder {
-    fn default() -> Self {
+    pub fn default() -> Self {
         Self {
             credentials_source: CredentialsSource::DefaultCredential,
             quota_project_id: None,
@@ -266,7 +277,7 @@ impl Builder {
         }
     }
 
-    fn new(json: serde_json::Value) -> Self {
+    pub fn new(json: serde_json::Value) -> Self {
         Self {
             credentials_source: CredentialsSource::CredentialsJson(json),
             quota_project_id: None,
@@ -274,12 +285,12 @@ impl Builder {
         }
     }
 
-    fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+    pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
         self
     }
 
-    fn with_scopes<I, S>(mut self, scopes: I) -> Self
+    pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
     where
         I: IntoIterator<Item = S>,
         S: Into<String>,
@@ -289,23 +300,25 @@ impl Builder {
     }
 
     pub fn build(self) -> Result<Credentials> {
-        let access_token_credentials_options = AccessTokenCredentialOptions {
-            quota_project_id: self.quota_project_id,
-            scopes: self.scopes,
-        };
-
         match self.credentials_source {
             CredentialsSource::CredentialsJson(json) => {
-                build_credentials(json, access_token_credentials_options)
+                build_credentials(json, self.quota_project_id, self.scopes)
             }
             CredentialsSource::DefaultCredential => match load_adc()? {
                 AdcContents::Contents(contents) => {
                     let json = serde_json::from_str(&contents).map_err(errors::non_retryable)?;
-                    build_credentials(json, access_token_credentials_options)
+                    build_credentials(json, self.quota_project_id, self.scopes)
                 }
-                AdcContents::FallbackToMds => Ok(mds::Builder::default()
-                    .with_access_token_options(access_token_credentials_options)
-                    .build()),
+                AdcContents::FallbackToMds => {
+                    let mut mds_builder = mds::Builder::default();
+                    if let Some(qp) = self.quota_project_id {
+                        mds_builder = mds_builder.with_quota_project_id(qp);
+                    }
+                    if let Some(sc) = self.scopes {
+                        mds_builder = mds_builder.with_scopes(sc);
+                    }
+                    Ok(mds_builder.build())
+                }
             },
         }
     }
@@ -665,6 +678,4 @@ mod test {
         let err = credentials.headers().await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
     }
-
-    // async fn access_token_credential_with
 }

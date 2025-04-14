@@ -87,8 +87,6 @@ use serde_json::Value;
 use std::sync::Arc;
 use time::OffsetDateTime;
 
-use super::AccessTokenCredentialOptions;
-
 const DEFAULT_SCOPE: &str = "https://www.googleapis.com/auth/cloud-platform";
 
 #[derive(Debug)]
@@ -220,17 +218,6 @@ impl Builder {
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
-        self
-    }
-
-    pub(crate) fn with_access_token_options(
-        mut self,
-        options: AccessTokenCredentialOptions,
-    ) -> Self {
-        if let Some(scopes) = options.scopes {
-            self.restrictions = ServiceAccountRestrictions::Scopes(scopes);
-        }
-        self.quota_project_id = options.quota_project_id;
         self
     }
 
@@ -614,12 +601,12 @@ mod test {
         serde_json::from_str(&decoded).unwrap()
     }
 
-    fn parse_and_validate_jwt(
-        token: &Token,
-        service_account_key: &Value,
-        scopes: Value,
-        audience: Value,
-    ) -> TestResult {
+    #[tokio::test]
+    async fn get_service_account_token_pkcs8_key_success() -> TestResult {
+        let mut service_account_key = get_mock_service_key();
+        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+        let cred = Builder::new(service_account_key.clone()).build()?;
+        let token = cred.token().await?;
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let captures = re.captures(&token.token).ok_or_else(|| {
             format!(
@@ -634,27 +621,12 @@ mod test {
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
         assert_eq!(claims["iss"], service_account_key["client_email"]);
-        assert_eq!(claims["scope"], scopes);
-        assert_eq!(claims["aud"], audience);
+        assert_eq!(claims["scope"], DEFAULT_SCOPE);
         assert!(claims["iat"].is_number());
         assert!(claims["exp"].is_number());
         assert_eq!(claims["sub"], service_account_key["client_email"]);
 
         Ok(())
-    }
-
-    #[tokio::test]
-    async fn get_service_account_token_pkcs8_key_success() -> TestResult {
-        let mut service_account_key = get_mock_service_key();
-        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
-        let cred = Builder::new(service_account_key.clone()).build()?;
-        let token = cred.token().await?;
-        parse_and_validate_jwt(
-            &token,
-            &service_account_key,
-            Value::from(DEFAULT_SCOPE),
-            Value::Null,
-        )
     }
 
     #[tokio::test]
@@ -670,6 +642,7 @@ mod test {
         });
 
         let credentials = Builder::new(json_value).build()?;
+
         let token = credentials.token().await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
@@ -757,20 +730,33 @@ mod test {
             .token()
             .await?;
 
-        parse_and_validate_jwt(
-            &token,
-            &service_account_key,
-            Value::Null,
-            Value::from("test-audience"),
-        )
+        let re = regex::Regex::new(SSJ_REGEX).unwrap();
+        let captures = re.captures(&token.token).ok_or_else(|| {
+            format!(
+                r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
+                token.token
+            )
+        })?;
+        let header = b64_decode_to_json(captures["header"].to_string());
+        assert_eq!(header["alg"], "RS256");
+        assert_eq!(header["typ"], "JWT");
+        assert_eq!(header["kid"], service_account_key["private_key_id"]);
+
+        let claims = b64_decode_to_json(captures["claims"].to_string());
+        assert_eq!(claims["iss"], service_account_key["client_email"]);
+        assert_eq!(claims["scope"], Value::Null);
+        assert_eq!(claims["aud"], "test-audience");
+        assert!(claims["iat"].is_number());
+        assert!(claims["exp"].is_number());
+        assert_eq!(claims["sub"], service_account_key["client_email"]);
+        Ok(())
     }
 
     #[tokio::test]
     async fn get_service_account_token_with_custom_scopes() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         let scopes = vec![
-            "https://www.googleapis.com/auth/pubsub",
-            "https://www.googleapis.com/auth/translate",
+            "https://www.googleapis.com/auth/pubsub, https://www.googleapis.com/auth/translate",
         ];
         service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
         let token = Builder::new(service_account_key.clone())
@@ -779,43 +765,25 @@ mod test {
             .token()
             .await?;
 
-        parse_and_validate_jwt(
-            &token,
-            &service_account_key,
-            Value::from(scopes.join(" ")),
-            Value::Null,
-        )
-    }
+        let re = regex::Regex::new(SSJ_REGEX).unwrap();
+        let captures = re.captures(&token.token).ok_or_else(|| {
+            format!(
+                r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
+                token.token
+            )
+        })?;
+        let header = b64_decode_to_json(captures["header"].to_string());
+        assert_eq!(header["alg"], "RS256");
+        assert_eq!(header["typ"], "JWT");
+        assert_eq!(header["kid"], service_account_key["private_key_id"]);
 
-    #[tokio::test]
-    async fn get_service_account_token_with_access_token_options() -> TestResult {
-        let mut service_account_key = get_mock_service_key();
-        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
-        let scopes = vec![
-            "https://www.googleapis.com/auth/pubsub".to_string(),
-            "https://www.googleapis.com/auth/translate".to_string(),
-        ];
-        let access_token_options = AccessTokenCredentialOptions {
-            scopes: Some(scopes.clone()),
-            quota_project_id: Some("test-quota-project".to_string()),
-        };
-
-        let cred = Builder::new(service_account_key.clone())
-            .with_access_token_options(access_token_options)
-            .build()?;
-
-        let token = cred.token().await?;
-
-        parse_and_validate_jwt(
-            &token,
-            &service_account_key,
-            Value::from(scopes.join(" ")),
-            Value::Null,
-        )?;
-
-        let header = cred.headers().await?;
-        let quota_project_header = header.iter().find(|h| h.0 == QUOTA_PROJECT_KEY).unwrap();
-        assert_eq!(quota_project_header.1, "test-quota-project");
+        let claims = b64_decode_to_json(captures["claims"].to_string());
+        assert_eq!(claims["iss"], service_account_key["client_email"]);
+        assert_eq!(claims["scope"], scopes.join(" "));
+        assert_eq!(claims["aud"], Value::Null);
+        assert!(claims["iat"].is_number());
+        assert!(claims["exp"].is_number());
+        assert_eq!(claims["sub"], service_account_key["client_email"]);
         Ok(())
     }
 }
