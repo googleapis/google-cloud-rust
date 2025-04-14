@@ -13,9 +13,11 @@
 // limitations under the License.
 
 use crate::Result;
+use std::collections::HashMap;
+use std::time::Instant;
 
 /// Represents an auth token.
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, PartialEq)]
 pub struct Token {
     /// The actual token string.
     ///
@@ -42,12 +44,23 @@ pub struct Token {
     /// # let expires_at = Some(std::time::Instant::now());
     /// expires_at.map(|i| time::OffsetDateTime::now_utc() + (i - std::time::Instant::now()));
     /// ```
-    pub expires_at: Option<std::time::Instant>,
+    pub expires_at: Option<Instant>,
 
     /// Optional metadata associated with the token.
     ///
     /// This might include information like granted scopes or other claims.
-    pub metadata: Option<std::collections::HashMap<String, String>>,
+    pub metadata: Option<HashMap<String, String>>,
+}
+
+impl std::fmt::Debug for Token {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Token")
+            .field("token", &"[censored]")
+            .field("token_type", &self.token_type)
+            .field("expires_at", &self.expires_at)
+            .field("metadata", &self.metadata)
+            .finish()
+    }
 }
 
 #[async_trait::async_trait]
@@ -58,7 +71,9 @@ pub(crate) trait TokenProvider: std::fmt::Debug + Send + Sync {
 #[cfg(test)]
 pub(crate) mod test {
     use super::*;
+    use std::time::Duration;
 
+    // Used by tests in other modules.
     mockall::mock! {
         #[derive(Debug)]
         pub TokenProvider { }
@@ -67,5 +82,31 @@ pub(crate) mod test {
         impl TokenProvider for TokenProvider {
             async fn token(&self) -> Result<Token>;
         }
+    }
+
+    #[test]
+    fn debug() {
+        let expires_at = Instant::now() + Duration::from_secs(3600);
+        let metadata =
+            HashMap::from([("a", "test-only")].map(|(k, v)| (k.to_string(), v.to_string())));
+
+        let token = Token {
+            token: "token-test-only".into(),
+            token_type: "token-type-test-only".into(),
+            expires_at: Some(expires_at),
+            metadata: Some(metadata.clone()),
+        };
+        let got = format!("{token:?}");
+        assert!(!got.contains("token-test-only"), "{got}");
+        assert!(got.contains("token: \"[censored]\""), "{got}");
+        assert!(got.contains("token_type: \"token-type-test-only"), "{got}");
+        assert!(
+            got.contains(&format!("expires_at: Some({expires_at:?}")),
+            "{got}"
+        );
+        assert!(
+            got.contains(&format!("metadata: Some({metadata:?}")),
+            "{got}"
+        );
     }
 }
