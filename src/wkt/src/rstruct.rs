@@ -151,19 +151,19 @@ impl From<i32> for NullValue {
 // This is needed when `NullValue` is used in a Protobuf-generated message.
 impl From<NullValue> for i32 {
     fn from(_value: NullValue) -> Self {
-        i32::default()
+        Default::default()
     }
 }
 
 impl From<NullValue> for serde_json::Value {
     fn from(_value: NullValue) -> Self {
-        serde_json::Value::Null
+        Default::default()
     }
 }
 
 impl From<&NullValue> for serde_json::Value {
     fn from(_value: &NullValue) -> Self {
-        serde_json::Value::Null
+        Default::default()
     }
 }
 
@@ -361,6 +361,20 @@ mod null_value_tests {
         let input = &NullValue;
         let value = Value::from(input);
         assert!(value.is_null(), "{value:?}");
+    }
+
+    #[test]
+    fn test_i32_from_null_value() {
+        let got = i32::from(NullValue);
+        assert_eq!(got, 0);
+    }
+
+    #[test]
+    fn test_serde_from_null_value() {
+        let got = serde_json::Value::from(NullValue);
+        assert_eq!(got, serde_json::Value::Null);
+        let got = serde_json::Value::from(&NullValue);
+        assert_eq!(got, serde_json::Value::Null);
     }
 
     #[test]
