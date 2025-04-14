@@ -78,11 +78,9 @@ use serde_json::Value;
 use std::sync::Arc;
 use std::time::Duration;
 
-const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
+use super::AccessTokenCredentialOptions;
 
-pub(crate) fn creds_from(js: Value) -> Result<Credentials> {
-    Builder::new(js).build()
-}
+const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
 /// A builder for constructing `user_account` [Credentials] instance.
 ///
@@ -180,6 +178,15 @@ impl Builder {
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    pub(crate) fn with_access_token_options(
+        mut self,
+        options: AccessTokenCredentialOptions,
+    ) -> Self {
+        self.quota_project_id = options.quota_project_id;
+        self.scopes = options.scopes;
         self
     }
 
@@ -989,6 +996,48 @@ mod test {
 
         let e = Builder::new(authorized_user).build().unwrap_err();
         assert!(!e.is_retryable(), "{e}");
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn token_provider_with_access_token_options() -> TestResult {
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: None,
+            refresh_token: None,
+            scope: Some("scope1 scope2".to_string()),
+            token_type: "test-token-type".to_string(),
+        };
+        let response_body = serde_json::to_value(&response).unwrap();
+        let (endpoint, _server) =
+            start(StatusCode::OK, response_body, Arc::new(Mutex::new(0))).await;
+        println!("endpoint = {endpoint}");
+
+        let authorized_user = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "token_uri": "test-endpoint"});
+
+        let access_token_options = AccessTokenCredentialOptions {
+            scopes: Some(vec!["scope1".to_string(), "scope2".to_string()]),
+            quota_project_id: Some("test-quota-project".to_string()),
+        };
+
+        let uc = Builder::new(authorized_user)
+            .with_access_token_options(access_token_options)
+            .with_token_uri(endpoint)
+            .build()?;
+        let token = uc.token().await?;
+        assert_eq!(token.token, "test-access-token");
+        assert_eq!(token.token_type, "test-token-type");
+        assert_eq!(token.expires_at, None);
+
+        let header = uc.headers().await?;
+        let quota_project_header = header.iter().find(|h| h.0 == QUOTA_PROJECT_KEY).unwrap();
+        assert_eq!(quota_project_header.1, "test-quota-project");
 
         Ok(())
     }

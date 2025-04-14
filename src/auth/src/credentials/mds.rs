@@ -63,13 +63,11 @@ use std::default::Default;
 use std::sync::Arc;
 use std::time::Duration;
 
+use super::AccessTokenCredentialOptions;
+
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
 const METADATA_ROOT: &str = "http://metadata.google.internal/";
-
-pub(crate) fn new() -> Credentials {
-    Builder::default().build()
-}
 
 #[derive(Debug)]
 struct MDSCredentials<T>
@@ -150,6 +148,14 @@ impl Builder {
         self
     }
 
+    pub(crate) fn with_access_token_options(
+        mut self,
+        options: AccessTokenCredentialOptions,
+    ) -> Self {
+        self.scopes = options.scopes;
+        self.quota_project_id = options.quota_project_id;
+        self
+    }
     /// Returns a [Credentials] instance with the configured settings.
     pub fn build(self) -> Credentials {
         let endpoint = self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string());
@@ -830,5 +836,55 @@ mod test {
             .await
             .unwrap();
         assert_eq!(universe_domain_response, universe_domain);
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn token_provider_with_access_token_options() -> TestResult {
+        let scopes = vec!["scope1".to_string(), "scope2".to_string()];
+        let response = MDSTokenResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            token_type: "test-token-type".to_string(),
+        };
+        let response_body = serde_json::to_value(&response).unwrap();
+
+        let (endpoint, _server) = start(HashMap::from([(
+            MDS_TOKEN_URI.to_string(),
+            (
+                StatusCode::OK,
+                response_body,
+                TokenQueryParams {
+                    scopes: Some(scopes.join(",")),
+                    recursive: None,
+                },
+                Arc::new(Mutex::new(0)),
+            ),
+        )]))
+        .await;
+        println!("endpoint = {endpoint}");
+        let access_token_options = AccessTokenCredentialOptions {
+            scopes: Some(scopes.clone()),
+            quota_project_id: Some("test-quota-project".to_string()),
+        };
+
+        let mdsc = Builder::default()
+            .with_access_token_options(access_token_options)
+            .with_endpoint(endpoint)
+            .build();
+        let now = std::time::Instant::now();
+        let token = mdsc.token().await?;
+        assert_eq!(token.token, "test-access-token");
+        assert_eq!(token.token_type, "test-token-type");
+        assert!(
+            token
+                .expires_at
+                .is_some_and(|d| d >= now + Duration::from_secs(3600))
+        );
+
+        let header = mdsc.headers().await?;
+        let quota_project_header = header.iter().find(|h| h.0 == QUOTA_PROJECT_KEY).unwrap();
+        assert_eq!(quota_project_header.1, "test-quota-project");
+
+        Ok(())
     }
 }

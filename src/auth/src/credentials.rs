@@ -23,6 +23,7 @@ pub mod user_account;
 use crate::Result;
 use crate::errors::{self, CredentialsError};
 use http::header::{HeaderName, HeaderValue};
+use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
 
@@ -206,6 +207,110 @@ pub(crate) mod dynamic {
     }
 }
 
+#[allow(dead_code)]
+#[derive(Debug, Clone)]
+enum CredentialsSource {
+    CredentialsJson(Value),
+    DefaultCredential,
+}
+
+pub(crate) struct AccessTokenCredentialOptions {
+    quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
+}
+
+pub(crate) struct Builder {
+    credentials_source: CredentialsSource,
+    quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
+}
+
+fn build_credentials(
+    json: Value,
+    access_token_credentials_options: AccessTokenCredentialOptions,
+) -> Result<Credentials> {
+    let cred_type = json
+        .get("type")
+        .ok_or_else(|| {
+            errors::non_retryable_from_str(
+                "Failed to parse Credentials Json. No `type` field found.",
+            )
+        })?
+        .as_str()
+        .ok_or_else(|| {
+            errors::non_retryable_from_str(
+                "Failed to parse Credentials Json. `type` field is not a string.",
+            )
+        })?;
+
+    match cred_type {
+        "authorized_user" => user_account::Builder::new(json)
+            .with_access_token_options(access_token_credentials_options)
+            .build(),
+        "service_account" => service_account::Builder::new(json)
+            .with_access_token_options(access_token_credentials_options)
+            .build(),
+        _ => Err(errors::non_retryable_from_str(format!(
+            "Unimplemented credentials type: {cred_type}"
+        ))),
+    }
+}
+
+#[allow(dead_code)]
+impl Builder {
+    fn default() -> Self {
+        Self {
+            credentials_source: CredentialsSource::DefaultCredential,
+            quota_project_id: None,
+            scopes: None,
+        }
+    }
+
+    fn new(json: serde_json::Value) -> Self {
+        Self {
+            credentials_source: CredentialsSource::CredentialsJson(json),
+            quota_project_id: None,
+            scopes: None,
+        }
+    }
+
+    fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+        self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    fn with_scopes<I, S>(mut self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
+        self
+    }
+
+    pub fn build(self) -> Result<Credentials> {
+        let access_token_credentials_options = AccessTokenCredentialOptions {
+            quota_project_id: self.quota_project_id,
+            scopes: self.scopes,
+        };
+
+        match self.credentials_source {
+            CredentialsSource::CredentialsJson(json) => {
+                build_credentials(json, access_token_credentials_options)
+            }
+            CredentialsSource::DefaultCredential => match load_adc()? {
+                AdcContents::Contents(contents) => {
+                    let json = serde_json::from_str(&contents).map_err(errors::non_retryable)?;
+                    build_credentials(json, access_token_credentials_options)
+                }
+                AdcContents::FallbackToMds => Ok(mds::Builder::default()
+                    .with_access_token_options(access_token_credentials_options)
+                    .build()),
+            },
+        }
+    }
+}
+
 /// Create access token credentials.
 ///
 /// Returns [Application Default Credentials (ADC)][ADC-link]. These are the
@@ -253,24 +358,7 @@ pub(crate) mod dynamic {
 /// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
 /// [gke-link]: https://cloud.google.com/kubernetes-engine
 pub async fn create_access_token_credentials() -> Result<Credentials> {
-    let contents = match load_adc()? {
-        AdcContents::Contents(contents) => contents,
-        AdcContents::FallbackToMds => return Ok(mds::new()),
-    };
-    let js: serde_json::Value = serde_json::from_str(&contents).map_err(errors::non_retryable)?;
-    let cred_type = js
-        .get("type")
-        .ok_or_else(|| errors::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). No `type` field found."))?
-        .as_str()
-        .ok_or_else(|| errors::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). `type` field is not a string.")
-        )?;
-    match cred_type {
-        "authorized_user" => user_account::creds_from(js),
-        "service_account" => service_account::creds_from(js),
-        _ => Err(errors::non_retryable_from_str(format!(
-            "Unimplemented credentials type: {cred_type}"
-        ))),
-    }
+    Builder::default().build()
 }
 
 #[derive(Debug, PartialEq)]
@@ -577,4 +665,6 @@ mod test {
         let err = credentials.headers().await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
     }
+
+    // async fn access_token_credential_with
 }
