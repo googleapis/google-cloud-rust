@@ -28,6 +28,10 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
+var omitGeneration = map[string]string{
+	".google.longrunning.Operation": "",
+}
+
 type modelAnnotations struct {
 	// The Dart package name (e.g. google_cloud_secretmanager).
 	PackageName string
@@ -66,6 +70,7 @@ type messageAnnotation struct {
 	Name              string
 	QualifiedName     string
 	DocLines          []string
+	OmitGeneration    bool
 	ConstructorBody   string // A custom body for the message's constructor.
 	HasFields         bool
 	HasCustomEncoding bool
@@ -75,16 +80,17 @@ type messageAnnotation struct {
 
 type methodAnnotation struct {
 	// The method name using Dart naming conventions.
-	Name            string
-	RequestMethod   string
-	RequestType     string
-	ResponseType    string
-	DocLines        []string
-	HasBody         bool
-	ReturnsValue    bool
-	BodyMessageName string
-	PathParams      []*api.Field
-	QueryParams     []*api.Field
+	Name              string
+	RequestMethod     string
+	RequestType       string
+	ResponseType      string
+	DocLines          []string
+	HasBody           bool
+	ReturnsValue      bool
+	BodyMessageName   string
+	PathParams        []*api.Field
+	QueryParams       []*api.Field
+	IsLROGetOperation bool
 }
 
 type pathInfoAnnotation struct {
@@ -95,6 +101,11 @@ type pathInfoAnnotation struct {
 type oneOfAnnotation struct {
 	Name     string
 	DocLines []string
+}
+
+type operationInfoAnnotation struct {
+	ResponseType string
+	MetadataType string
 }
 
 type fieldAnnotation struct {
@@ -325,13 +336,15 @@ func calculateImports(imports map[string]string) []string {
 		}
 		previousImportType = importType
 
-		// The package:http import should be imported with a prefix.
-		prefix := ""
-		if imp == httpImport {
-			prefix = " as http"
+		// Wrap the first part of the import (or the whole import) in single quotes.
+		index := strings.IndexAny(imp, " ")
+		if index != -1 {
+			imp = "'" + imp[0:index] + "'" + imp[index:]
+		} else {
+			imp = "'" + imp + "'"
 		}
 
-		results = append(results, fmt.Sprintf("import '%s'%s;", imp, prefix))
+		results = append(results, fmt.Sprintf("import %s;", imp))
 	}
 
 	return results
@@ -388,10 +401,13 @@ func (annotate *annotateModel) annotateMessage(m *api.Message, imports map[strin
 	_, hasCustomEncoding := usesCustomEncoding[m.ID]
 	toStringLines := createToStringLines(m)
 
+	_, omit := omitGeneration[m.ID]
+
 	m.Codec = &messageAnnotation{
 		Name:              messageName(m),
 		QualifiedName:     qualifiedName(m),
 		DocLines:          formatDocComments(m.Documentation, annotate.state),
+		OmitGeneration:    omit || m.IsMap,
 		ConstructorBody:   constructorBody,
 		HasFields:         len(m.Fields) > 0,
 		HasCustomEncoding: hasCustomEncoding,
@@ -452,19 +468,42 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 
 	state := annotate.state
 
+	// For 'GetOperation' mixins, we augment the method generation with
+	// additional generic type parameters.
+	isGetOperation := method.Name == "GetOperation" &&
+		method.OutputTypeID == ".google.longrunning.Operation"
+	if method.ID == ".google.longrunning.Operations.GetOperation" {
+		isGetOperation = false
+	}
+
+	if method.OperationInfo != nil {
+		annotate.annotateOperationInfo(method.OperationInfo)
+	}
+
 	annotation := &methodAnnotation{
-		Name:            strcase.ToLowerCamel(method.Name),
-		RequestMethod:   strings.ToLower(method.PathInfo.Verb),
-		RequestType:     annotate.resolveTypeName(state.MessageByID[method.InputTypeID]),
-		ResponseType:    annotate.resolveTypeName(state.MessageByID[method.OutputTypeID]),
-		DocLines:        formatDocComments(method.Documentation, state),
-		HasBody:         method.PathInfo.BodyFieldPath != "",
-		ReturnsValue:    method.OutputTypeID != ".google.protobuf.Empty",
-		BodyMessageName: bodyMessageName,
-		PathParams:      language.PathParams(method, state),
-		QueryParams:     language.QueryParams(method, state),
+		Name:              strcase.ToLowerCamel(method.Name),
+		RequestMethod:     strings.ToLower(method.PathInfo.Verb),
+		RequestType:       annotate.resolveTypeName(state.MessageByID[method.InputTypeID]),
+		ResponseType:      annotate.resolveTypeName(state.MessageByID[method.OutputTypeID]),
+		DocLines:          formatDocComments(method.Documentation, state),
+		HasBody:           method.PathInfo.BodyFieldPath != "",
+		ReturnsValue:      method.OutputTypeID != ".google.protobuf.Empty",
+		BodyMessageName:   bodyMessageName,
+		PathParams:        language.PathParams(method, state),
+		QueryParams:       language.QueryParams(method, state),
+		IsLROGetOperation: isGetOperation,
 	}
 	method.Codec = annotation
+}
+
+func (annotate *annotateModel) annotateOperationInfo(operationInfo *api.OperationInfo) {
+	response := annotate.state.MessageByID[operationInfo.ResponseTypeID]
+	metadata := annotate.state.MessageByID[operationInfo.MetadataTypeID]
+
+	operationInfo.Codec = &operationInfoAnnotation{
+		ResponseType: messageName(response),
+		MetadataType: messageName(metadata),
+	}
 }
 
 func (annotate *annotateModel) annotateOneOf(oneof *api.OneOf) {

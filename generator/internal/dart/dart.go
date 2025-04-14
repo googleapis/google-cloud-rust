@@ -27,13 +27,13 @@ import (
 )
 
 var typedDataImport = "dart:typed_data"
-var httpImport = "package:http/http.dart"
+var httpImport = "package:http/http.dart as http"
 var commonImport = "package:google_cloud_gax/common.dart"
 var commonHelpersImport = "package:google_cloud_gax/src/json_helpers.dart"
 
 var needsCtorValidation = map[string]string{
-	".google.protobuf.Duration":  ".google.protobuf.Duration",
-	".google.protobuf.Timestamp": ".google.protobuf.Timestamp",
+	".google.protobuf.Duration":  "",
+	".google.protobuf.Timestamp": "",
 }
 
 // This list needs to be kept in sync with
