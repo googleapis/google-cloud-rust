@@ -24,19 +24,18 @@ log-integration-tests = ["dep:tracing-subscriber"]
 run-integration-tests = []
 
 [dependencies]
-bytes              = "1"
-crc32c             = "0.6"
-futures            = "0.3"
-gax                = { path = "../../src/gax", package = "google-cloud-gax", features = ["unstable-stream"] }
-iam_v1             = { path = "../../src/generated/iam/v1", package = "google-cloud-iam-v1" }
-loc                = { path = "../../src/generated/cloud/location", package = "google-cloud-location" }
-longrunning        = { path = "../../src/generated/longrunning", package = "google-cloud-longrunning" }
-rand               = "0.9"
-serde_json         = "1"
-tokio              = { version = "1", features = ["full", "macros"] }
-tracing            = "0.1"
-tracing-subscriber = { version = "0.3", optional = true }
-wkt                = { path = "../../src/wkt", package = "google-cloud-wkt" }
+bytes                 = "1"
+crc32c                = "0.6"
+futures               = "0.3"
+gax                   = { workspace = true, features = ["unstable-stream"] }
+iam_v1.workspace      = true
+longrunning.workspace = true
+rand                  = "0.9"
+serde_json            = "1"
+tokio                 = { version = "1", features = ["full", "macros"] }
+tracing               = "0.1"
+tracing-subscriber    = { version = "0.3", optional = true }
+wkt.workspace         = true
 
 [dependencies.firestore]
 package = "google-cloud-firestore"

@@ -215,7 +215,7 @@ type enumValueAnnotation struct {
 // Fields and methods defined in this struct directly correspond to Mustache
 // tags. For example, the Mustache tag {{#Services}} uses the
 // [Template.Services] field.
-func annotateModel(model *api.API, codec *codec, outdir string) *modelAnnotations {
+func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 	codec.hasServices = len(model.State.ServiceByID) > 0
 
 	loadWellKnownTypes(model.State)
@@ -281,7 +281,7 @@ func annotateModel(model *api.API, codec *codec, outdir string) *modelAnnotation
 		PackageNamespace: packageNamespace,
 		PackageVersion:   codec.version,
 		ReleaseLevel:     codec.releaseLevel,
-		RequiredPackages: requiredPackages(outdir, codec.extraPackages),
+		RequiredPackages: requiredPackages(codec.extraPackages),
 		ExternPackages:   externPackages(codec.extraPackages),
 		HasServices:      len(servicesSubset) > 0,
 		HasLROs:          hasLROs,
