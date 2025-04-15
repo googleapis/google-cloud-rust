@@ -87,7 +87,6 @@ mod test {
                 google::firestore::v1::structured_query::unary_filter::OperandType::Field(
                     google::firestore::v1::structured_query::FieldReference {
                         field_path: "a.b.c".into(),
-                        ..Default::default()
                     },
                 )
                 .into(),

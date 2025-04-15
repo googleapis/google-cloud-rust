@@ -63,7 +63,7 @@ mod tests {
             .query()
             .unwrap_or_default()
             .split("&")
-            .filter(|p| *p != "")
+            .filter(|p| !p.is_empty())
             .collect()
     }
 

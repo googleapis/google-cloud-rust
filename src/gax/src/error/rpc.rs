@@ -850,13 +850,10 @@ mod test {
     #[test]
     fn code_try_from_string_error() {
         let err = Code::try_from("INVALID-NOT-A-CODE");
-        match err {
-            Err(s) => assert!(
-                s.contains("INVALID-NOT-A-CODE"),
-                "expected invalid string in error {s}"
-            ),
-            Ok(v) => assert!(false, "expected error in try_from, got {v:?}"),
-        };
+        assert!(
+            matches!(&err, Err(s) if s.contains("INVALID-NOT-A-CODE")),
+            "expected error in try_from, got {err:?}"
+        );
     }
 
     #[test]

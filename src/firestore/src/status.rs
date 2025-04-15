@@ -174,12 +174,10 @@ mod test {
                     description: "desc".into(),
                     ..Default::default()
                 }],
-                ..Default::default()
             }),
             Any::from_msg(&DebugInfo {
                 stack_entries: ["stack"].map(str::to_string).to_vec(),
                 detail: "detail".into(),
-                ..Default::default()
             }),
             Any::from_msg(&ErrorInfo {
                 reason: "reason".into(),
@@ -190,7 +188,6 @@ mod test {
                 links: vec![help::Link {
                     description: "desc".into(),
                     url: "url".into(),
-                    ..Default::default()
                 }],
             }),
             Any::from_msg(&LocalizedMessage {
@@ -202,9 +199,7 @@ mod test {
                     r#type: "type".into(),
                     subject: "subject".into(),
                     description: "desc".into(),
-                    ..Default::default()
                 }],
-                ..Default::default()
             }),
             Any::from_msg(&QuotaFailure {
                 violations: vec![quota_failure::Violation {

@@ -144,7 +144,7 @@ mod test {
             PollingResult::InProgress(m) => {
                 assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
             }
-            _ => assert!(false, "{poll:?}"),
+            _ => panic!("{poll:?}"),
         };
         Ok(())
     }
@@ -162,7 +162,7 @@ mod test {
                 let e = r.err().unwrap();
                 assert_eq!(e.kind(), gax::error::ErrorKind::Other, "{e}")
             }
-            _ => assert!(false, "{poll:?}"),
+            _ => panic!("{poll:?}"),
         };
     }
 
@@ -189,7 +189,7 @@ mod test {
             PollingResult::InProgress(m) => {
                 assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
             }
-            _ => assert!(false, "{poll:?}"),
+            _ => panic!("{poll:?}"),
         };
         Ok(())
     }
@@ -218,7 +218,7 @@ mod test {
                 let error = r.err().unwrap();
                 assert!(format!("{error}").contains("exhausted"), "{error}");
             }
-            _ => assert!(false, "{poll:?}"),
+            _ => panic!("{poll:?}"),
         };
         Ok(())
     }
@@ -241,7 +241,7 @@ mod test {
             PollingResult::PollingError(e) => {
                 assert_eq!(e.kind(), gax::error::ErrorKind::Other, "{e}")
             }
-            _ => assert!(false, "{poll:?}"),
+            _ => panic!("{poll:?}"),
         };
     }
 
@@ -265,7 +265,7 @@ mod test {
                 let e = r.err().unwrap();
                 assert_eq!(e.kind(), gax::error::ErrorKind::Other, "{e}")
             }
-            _ => assert!(false, "{poll:?}"),
+            _ => panic!("{poll:?}"),
         };
     }
 
@@ -290,7 +290,7 @@ mod test {
                 let response = r?;
                 assert_eq!(response, wkt::Duration::clamp(234, 0));
             }
-            _ => assert!(false, "{polling:?}"),
+            _ => panic!("{polling:?}"),
         };
         Ok(())
     }
@@ -311,7 +311,7 @@ mod test {
             PollingResult::InProgress(m) => {
                 assert_eq!(m, &Some(wkt::Timestamp::clamp(123, 0)));
             }
-            _ => assert!(false, "{polling:?}"),
+            _ => panic!("{polling:?}"),
         };
         Ok(())
     }
