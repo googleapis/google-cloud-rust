@@ -578,7 +578,7 @@ mod test {
                 {"@type": "type.googleapis.com/google.rpc.Help", "links": [{"description": "desc", "url": "url"}]},
                 {"@type": "type.googleapis.com/google.rpc.LocalizedMessage", "locale": "locale", "message": "message"},
                 {"@type": "type.googleapis.com/google.rpc.PreconditionFailure", "violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
-                {"@type": "type.googleapis.com/google.rpc.QuotaFailure", "violations": [{"subject": "subject", "description": "desc"}]},
+                {"@type": "type.googleapis.com/google.rpc.QuotaFailure", "violations": [{"subject": "subject", "description": "desc", "quotaValue": "0"}]},
                 {"@type": "type.googleapis.com/google.rpc.RequestInfo", "requestId": "id", "servingData": "data"},
                 {"@type": "type.googleapis.com/google.rpc.ResourceInfo", "resourceType": "type", "resourceName": "name", "owner": "owner", "description": "desc"},
                 {"@type": "type.googleapis.com/google.rpc.RetryInfo", "retryDelay": "1s"},
