@@ -6403,6 +6403,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-language-v2",
  "google-cloud-longrunning",
+ "google-cloud-rpc",
  "google-cloud-secretmanager-v1",
  "google-cloud-speech-v2",
  "google-cloud-wkt",
