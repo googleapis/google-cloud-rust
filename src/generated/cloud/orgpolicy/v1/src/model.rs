@@ -118,7 +118,10 @@ impl Policy {
         self
     }
 
-    /// Sets the value of `policy_type`.
+    /// Sets the value of [policy_type][crate::model::Policy::policy_type].
+    ///
+    /// Note that all the setters affecting `policy_type` are mutually
+    /// exclusive.
     pub fn set_policy_type<
         T: std::convert::Into<std::option::Option<crate::model::policy::PolicyType>>,
     >(
@@ -132,7 +135,7 @@ impl Policy {
     /// The value of [policy_type][crate::model::Policy::policy_type]
     /// if it holds a `ListPolicy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_list_policy(
+    pub fn list_policy(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::policy::ListPolicy>> {
         #[allow(unreachable_patterns)]
@@ -145,7 +148,7 @@ impl Policy {
     /// The value of [policy_type][crate::model::Policy::policy_type]
     /// if it holds a `BooleanPolicy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_boolean_policy(
+    pub fn boolean_policy(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::policy::BooleanPolicy>> {
         #[allow(unreachable_patterns)]
@@ -158,7 +161,7 @@ impl Policy {
     /// The value of [policy_type][crate::model::Policy::policy_type]
     /// if it holds a `RestoreDefault`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_restore_default(
+    pub fn restore_default(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::policy::RestoreDefault>> {
         #[allow(unreachable_patterns)]

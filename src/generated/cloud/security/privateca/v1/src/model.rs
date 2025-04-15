@@ -469,7 +469,10 @@ pub mod certificate_authority {
             std::default::Default::default()
         }
 
-        /// Sets the value of `key_version`.
+        /// Sets the value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version].
+        ///
+        /// Note that all the setters affecting `key_version` are mutually
+        /// exclusive.
         pub fn set_key_version<
             T: std::convert::Into<
                     std::option::Option<
@@ -487,7 +490,7 @@ pub mod certificate_authority {
         /// The value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version]
         /// if it holds a `CloudKmsKeyVersion`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_cloud_kms_key_version(&self) -> std::option::Option<&std::string::String> {
+        pub fn cloud_kms_key_version(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.key_version.as_ref().and_then(|v| match v {
                 crate::model::certificate_authority::key_version_spec::KeyVersion::CloudKmsKeyVersion(v) => std::option::Option::Some(v),
@@ -498,7 +501,7 @@ pub mod certificate_authority {
         /// The value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version]
         /// if it holds a `Algorithm`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_algorithm(
+        pub fn algorithm(
             &self,
         ) -> std::option::Option<&crate::model::certificate_authority::SignHashAlgorithm> {
             #[allow(unreachable_patterns)]
@@ -1356,7 +1359,10 @@ pub mod ca_pool {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `key_type`.
+            /// Sets the value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type].
+            ///
+            /// Note that all the setters affecting `key_type` are mutually
+            /// exclusive.
             pub fn set_key_type<
                 T: std::convert::Into<
                         std::option::Option<
@@ -1374,7 +1380,7 @@ pub mod ca_pool {
             /// The value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type]
             /// if it holds a `Rsa`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_rsa(
+            pub fn rsa(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<
@@ -1393,7 +1399,7 @@ pub mod ca_pool {
             /// The value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type]
             /// if it holds a `EllipticCurve`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_elliptic_curve(
+            pub fn elliptic_curve(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<
@@ -2315,7 +2321,10 @@ impl Certificate {
         self
     }
 
-    /// Sets the value of `certificate_config`.
+    /// Sets the value of [certificate_config][crate::model::Certificate::certificate_config].
+    ///
+    /// Note that all the setters affecting `certificate_config` are mutually
+    /// exclusive.
     pub fn set_certificate_config<
         T: std::convert::Into<std::option::Option<crate::model::certificate::CertificateConfig>>,
     >(
@@ -2329,7 +2338,7 @@ impl Certificate {
     /// The value of [certificate_config][crate::model::Certificate::certificate_config]
     /// if it holds a `PemCsr`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pem_csr(&self) -> std::option::Option<&std::string::String> {
+    pub fn pem_csr(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.certificate_config.as_ref().and_then(|v| match v {
             crate::model::certificate::CertificateConfig::PemCsr(v) => std::option::Option::Some(v),
@@ -2340,9 +2349,7 @@ impl Certificate {
     /// The value of [certificate_config][crate::model::Certificate::certificate_config]
     /// if it holds a `Config`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CertificateConfig>> {
+    pub fn config(&self) -> std::option::Option<&std::boxed::Box<crate::model::CertificateConfig>> {
         #[allow(unreachable_patterns)]
         self.certificate_config.as_ref().and_then(|v| match v {
             crate::model::certificate::CertificateConfig::Config(v) => std::option::Option::Some(v),
@@ -3061,7 +3068,10 @@ impl SubordinateConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `subordinate_config`.
+    /// Sets the value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config].
+    ///
+    /// Note that all the setters affecting `subordinate_config` are mutually
+    /// exclusive.
     pub fn set_subordinate_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::subordinate_config::SubordinateConfig>,
@@ -3077,7 +3087,7 @@ impl SubordinateConfig {
     /// The value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config]
     /// if it holds a `CertificateAuthority`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_certificate_authority(&self) -> std::option::Option<&std::string::String> {
+    pub fn certificate_authority(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.subordinate_config.as_ref().and_then(|v| match v {
             crate::model::subordinate_config::SubordinateConfig::CertificateAuthority(v) => {
@@ -3090,7 +3100,7 @@ impl SubordinateConfig {
     /// The value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config]
     /// if it holds a `PemIssuerChain`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pem_issuer_chain(
+    pub fn pem_issuer_chain(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::subordinate_config::SubordinateConfigChain>,

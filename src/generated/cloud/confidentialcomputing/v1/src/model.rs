@@ -266,7 +266,10 @@ impl VerifyAttestationRequest {
         self
     }
 
-    /// Sets the value of `tee_attestation`.
+    /// Sets the value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation].
+    ///
+    /// Note that all the setters affecting `tee_attestation` are mutually
+    /// exclusive.
     pub fn set_tee_attestation<
         T: std::convert::Into<
                 std::option::Option<crate::model::verify_attestation_request::TeeAttestation>,
@@ -282,7 +285,7 @@ impl VerifyAttestationRequest {
     /// The value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation]
     /// if it holds a `TdCcel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_td_ccel(
+    pub fn td_ccel(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TdxCcelAttestation>> {
         #[allow(unreachable_patterns)]
@@ -297,7 +300,7 @@ impl VerifyAttestationRequest {
     /// The value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation]
     /// if it holds a `SevSnpAttestation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sev_snp_attestation(
+    pub fn sev_snp_attestation(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SevSnpAttestation>> {
         #[allow(unreachable_patterns)]
@@ -633,7 +636,10 @@ impl TokenOptions {
         self
     }
 
-    /// Sets the value of `token_type_options`.
+    /// Sets the value of [token_type_options][crate::model::TokenOptions::token_type_options].
+    ///
+    /// Note that all the setters affecting `token_type_options` are mutually
+    /// exclusive.
     pub fn set_token_type_options<
         T: std::convert::Into<std::option::Option<crate::model::token_options::TokenTypeOptions>>,
     >(
@@ -647,7 +653,7 @@ impl TokenOptions {
     /// The value of [token_type_options][crate::model::TokenOptions::token_type_options]
     /// if it holds a `AwsPrincipalTagsOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_aws_principal_tags_options(
+    pub fn aws_principal_tags_options(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::token_options::AwsPrincipalTagsOptions>>
     {

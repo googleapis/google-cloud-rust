@@ -368,11 +368,28 @@ pub struct Database {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub source_info: std::option::Option<crate::model::database::SourceInfo>,
 
+    /// Output only. Background: Free tier is the ability of a Firestore database
+    /// to use a small amount of resources every day without being charged. Once
+    /// usage exceeds the free tier limit further usage is charged.
+    ///
+    /// Whether this database can make use of the free tier. Only one database
+    /// per project can be eligible for the free tier.
+    ///
+    /// The first (or next) database that is created in a project without a free
+    /// tier database will be marked as eligible for the free tier. Databases that
+    /// are created while there is a free tier database will not be eligible for
+    /// the free tier.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub free_tier: std::option::Option<bool>,
+
     /// This checksum is computed by the server based on the value of other
     /// fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    /// Immutable. The edition of the database.
+    pub database_edition: crate::model::database::DatabaseEdition,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -533,9 +550,24 @@ impl Database {
         self
     }
 
+    /// Sets the value of [free_tier][crate::model::Database::free_tier].
+    pub fn set_free_tier<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
+        self.free_tier = v.into();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::Database::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [database_edition][crate::model::Database::database_edition].
+    pub fn set_database_edition<T: std::convert::Into<crate::model::database::DatabaseEdition>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.database_edition = v.into();
         self
     }
 }
@@ -649,7 +681,10 @@ pub mod database {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::database::SourceInfo::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
         pub fn set_source<
             T: std::convert::Into<std::option::Option<crate::model::database::source_info::Source>>,
         >(
@@ -663,7 +698,7 @@ pub mod database {
         /// The value of [source][crate::model::database::SourceInfo::source]
         /// if it holds a `Backup`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_backup(
+        pub fn backup(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::database::source_info::BackupSource>>
         {
@@ -775,7 +810,10 @@ pub mod database {
             std::default::Default::default()
         }
 
-        /// Sets the value of `encryption_type`.
+        /// Sets the value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type].
+        ///
+        /// Note that all the setters affecting `encryption_type` are mutually
+        /// exclusive.
         pub fn set_encryption_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::database::encryption_config::EncryptionType>,
@@ -791,7 +829,7 @@ pub mod database {
         /// The value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
         /// if it holds a `GoogleDefaultEncryption`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_google_default_encryption(
+        pub fn google_default_encryption(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -808,7 +846,7 @@ pub mod database {
         /// The value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
         /// if it holds a `UseSourceEncryption`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_use_source_encryption(
+        pub fn use_source_encryption(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::database::encryption_config::SourceEncryptionOptions>,
@@ -825,7 +863,7 @@ pub mod database {
         /// The value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
         /// if it holds a `CustomerManagedEncryption`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_customer_managed_encryption(
+        pub fn customer_managed_encryption(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -1371,6 +1409,67 @@ pub mod database {
     }
 
     impl std::default::Default for DeleteProtectionState {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    /// The edition of the database.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct DatabaseEdition(i32);
+
+    impl DatabaseEdition {
+        /// Not used.
+        pub const DATABASE_EDITION_UNSPECIFIED: DatabaseEdition = DatabaseEdition::new(0);
+
+        /// Standard edition.
+        ///
+        /// This is the default setting if not specified.
+        pub const STANDARD: DatabaseEdition = DatabaseEdition::new(1);
+
+        /// Enterprise edition.
+        pub const ENTERPRISE: DatabaseEdition = DatabaseEdition::new(2);
+
+        /// Creates a new DatabaseEdition instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DATABASE_EDITION_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("STANDARD"),
+                2 => std::borrow::Cow::Borrowed("ENTERPRISE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DATABASE_EDITION_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::DATABASE_EDITION_UNSPECIFIED)
+                }
+                "STANDARD" => std::option::Option::Some(Self::STANDARD),
+                "ENTERPRISE" => std::option::Option::Some(Self::ENTERPRISE),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for DatabaseEdition {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for DatabaseEdition {
         fn default() -> Self {
             Self::new(0)
         }
@@ -3745,6 +3844,22 @@ pub struct Index {
     /// Output only. The serving state of the index.
     pub state: crate::model::index::State,
 
+    /// Immutable. The density configuration of the index.
+    pub density: crate::model::index::Density,
+
+    /// Optional. Whether the index is multikey. By default, the index is not
+    /// multikey. For non-multikey indexes, none of the paths in the index
+    /// definition reach or traverse an array, except via an explicit array index.
+    /// For multikey indexes, at most one of the paths in the index definition
+    /// reach or traverse an array, except via an explicit array index. Violations
+    /// will result in errors.
+    ///
+    /// Note this field only applies to index with MONGODB_COMPATIBLE_API ApiScope.
+    pub multikey: bool,
+
+    /// Optional. The number of shards for the index.
+    pub shard_count: i32,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3781,6 +3896,27 @@ impl Index {
     /// Sets the value of [state][crate::model::Index::state].
     pub fn set_state<T: std::convert::Into<crate::model::index::State>>(mut self, v: T) -> Self {
         self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [density][crate::model::Index::density].
+    pub fn set_density<T: std::convert::Into<crate::model::index::Density>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.density = v.into();
+        self
+    }
+
+    /// Sets the value of [multikey][crate::model::Index::multikey].
+    pub fn set_multikey<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.multikey = v.into();
+        self
+    }
+
+    /// Sets the value of [shard_count][crate::model::Index::shard_count].
+    pub fn set_shard_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.shard_count = v.into();
         self
     }
 
@@ -3840,7 +3976,10 @@ pub mod index {
             self
         }
 
-        /// Sets the value of `value_mode`.
+        /// Sets the value of [value_mode][crate::model::index::IndexField::value_mode].
+        ///
+        /// Note that all the setters affecting `value_mode` are mutually
+        /// exclusive.
         pub fn set_value_mode<
             T: std::convert::Into<std::option::Option<crate::model::index::index_field::ValueMode>>,
         >(
@@ -3854,7 +3993,7 @@ pub mod index {
         /// The value of [value_mode][crate::model::index::IndexField::value_mode]
         /// if it holds a `Order`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_order(&self) -> std::option::Option<&crate::model::index::index_field::Order> {
+        pub fn order(&self) -> std::option::Option<&crate::model::index::index_field::Order> {
             #[allow(unreachable_patterns)]
             self.value_mode.as_ref().and_then(|v| match v {
                 crate::model::index::index_field::ValueMode::Order(v) => {
@@ -3867,7 +4006,7 @@ pub mod index {
         /// The value of [value_mode][crate::model::index::IndexField::value_mode]
         /// if it holds a `ArrayConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_array_config(
+        pub fn array_config(
             &self,
         ) -> std::option::Option<&crate::model::index::index_field::ArrayConfig> {
             #[allow(unreachable_patterns)]
@@ -3882,7 +4021,7 @@ pub mod index {
         /// The value of [value_mode][crate::model::index::IndexField::value_mode]
         /// if it holds a `VectorConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_vector_config(
+        pub fn vector_config(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::index::index_field::VectorConfig>>
         {
@@ -3987,7 +4126,10 @@ pub mod index {
                 self
             }
 
-            /// Sets the value of `r#type`.
+            /// Sets the value of [r#type][crate::model::index::index_field::VectorConfig::type].
+            ///
+            /// Note that all the setters affecting `r#type` are mutually
+            /// exclusive.
             pub fn set_type<
                 T: std::convert::Into<
                         std::option::Option<crate::model::index::index_field::vector_config::Type>,
@@ -4003,7 +4145,7 @@ pub mod index {
             /// The value of [r#type][crate::model::index::index_field::VectorConfig::r#type]
             /// if it holds a `Flat`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_flat(
+            pub fn flat(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::index::index_field::vector_config::FlatIndex>,
@@ -4291,6 +4433,9 @@ pub mod index {
         /// The index can only be used by the Firestore in Datastore Mode query API.
         pub const DATASTORE_MODE_API: ApiScope = ApiScope::new(1);
 
+        /// The index can only be used by the MONGODB_COMPATIBLE_API.
+        pub const MONGODB_COMPATIBLE_API: ApiScope = ApiScope::new(2);
+
         /// Creates a new ApiScope instance.
         pub(crate) const fn new(value: i32) -> Self {
             Self(value)
@@ -4306,6 +4451,7 @@ pub mod index {
             match self.0 {
                 0 => std::borrow::Cow::Borrowed("ANY_API"),
                 1 => std::borrow::Cow::Borrowed("DATASTORE_MODE_API"),
+                2 => std::borrow::Cow::Borrowed("MONGODB_COMPATIBLE_API"),
                 _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
             }
         }
@@ -4315,6 +4461,7 @@ pub mod index {
             match name {
                 "ANY_API" => std::option::Option::Some(Self::ANY_API),
                 "DATASTORE_MODE_API" => std::option::Option::Some(Self::DATASTORE_MODE_API),
+                "MONGODB_COMPATIBLE_API" => std::option::Option::Some(Self::MONGODB_COMPATIBLE_API),
                 _ => std::option::Option::None,
             }
         }
@@ -4404,6 +4551,79 @@ pub mod index {
     }
 
     impl std::default::Default for State {
+        fn default() -> Self {
+            Self::new(0)
+        }
+    }
+
+    /// The density configuration for the index.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct Density(i32);
+
+    impl Density {
+        /// Unspecified. It will use database default setting. This value is input
+        /// only.
+        pub const DENSITY_UNSPECIFIED: Density = Density::new(0);
+
+        /// In order for an index entry to be added, the document must
+        /// contain all fields specified in the index.
+        ///
+        /// This is the only allowed value for indexes having ApiScope `ANY_API` and
+        /// `DATASTORE_MODE_API`.
+        pub const SPARSE_ALL: Density = Density::new(1);
+
+        /// In order for an index entry to be added, the document must
+        /// contain at least one of the fields specified in the index.
+        /// Non-existent fields are treated as having a NULL value when generating
+        /// index entries.
+        pub const SPARSE_ANY: Density = Density::new(2);
+
+        /// An index entry will be added regardless of whether the
+        /// document contains any of the fields specified in the index.
+        /// Non-existent fields are treated as having a NULL value when generating
+        /// index entries.
+        pub const DENSE: Density = Density::new(3);
+
+        /// Creates a new Density instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("DENSITY_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("SPARSE_ALL"),
+                2 => std::borrow::Cow::Borrowed("SPARSE_ANY"),
+                3 => std::borrow::Cow::Borrowed("DENSE"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "DENSITY_UNSPECIFIED" => std::option::Option::Some(Self::DENSITY_UNSPECIFIED),
+                "SPARSE_ALL" => std::option::Option::Some(Self::SPARSE_ALL),
+                "SPARSE_ANY" => std::option::Option::Some(Self::SPARSE_ANY),
+                "DENSE" => std::option::Option::Some(Self::DENSE),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for Density {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for Density {
         fn default() -> Self {
             Self::new(0)
         }
@@ -5610,7 +5830,10 @@ impl BackupSchedule {
         self
     }
 
-    /// Sets the value of `recurrence`.
+    /// Sets the value of [recurrence][crate::model::BackupSchedule::recurrence].
+    ///
+    /// Note that all the setters affecting `recurrence` are mutually
+    /// exclusive.
     pub fn set_recurrence<
         T: std::convert::Into<std::option::Option<crate::model::backup_schedule::Recurrence>>,
     >(
@@ -5624,7 +5847,7 @@ impl BackupSchedule {
     /// The value of [recurrence][crate::model::BackupSchedule::recurrence]
     /// if it holds a `DailyRecurrence`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_daily_recurrence(
+    pub fn daily_recurrence(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DailyRecurrence>> {
         #[allow(unreachable_patterns)]
@@ -5639,7 +5862,7 @@ impl BackupSchedule {
     /// The value of [recurrence][crate::model::BackupSchedule::recurrence]
     /// if it holds a `WeeklyRecurrence`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_weekly_recurrence(
+    pub fn weekly_recurrence(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::WeeklyRecurrence>> {
         #[allow(unreachable_patterns)]
@@ -5849,7 +6072,10 @@ impl UserCreds {
         self
     }
 
-    /// Sets the value of `user_creds_identity`.
+    /// Sets the value of [user_creds_identity][crate::model::UserCreds::user_creds_identity].
+    ///
+    /// Note that all the setters affecting `user_creds_identity` are mutually
+    /// exclusive.
     pub fn set_user_creds_identity<
         T: std::convert::Into<std::option::Option<crate::model::user_creds::UserCredsIdentity>>,
     >(
@@ -5863,7 +6089,7 @@ impl UserCreds {
     /// The value of [user_creds_identity][crate::model::UserCreds::user_creds_identity]
     /// if it holds a `ResourceIdentity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_resource_identity(
+    pub fn resource_identity(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::user_creds::ResourceIdentity>> {
         #[allow(unreachable_patterns)]

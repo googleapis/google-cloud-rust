@@ -512,12 +512,10 @@ mod test {
         let got = Duration::try_from(input);
         assert!(got.is_err());
         let err = got.err().unwrap();
-        match err {
-            DurationError::Deserialize(_) => {
-                assert!(true)
-            }
-            _ => assert!(false, "unexpected error {err:?}"),
-        };
+        assert!(
+            matches!(err, DurationError::Deserialize(_)),
+            "unexpected error {err:?}"
+        );
         Ok(())
     }
 

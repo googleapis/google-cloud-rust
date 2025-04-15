@@ -65,7 +65,10 @@ impl InputConfig {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::InputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::input_config::Source>>,
     >(
@@ -79,7 +82,7 @@ impl InputConfig {
     /// The value of [source][crate::model::InputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::input_config::Source::GcsSource(v) => std::option::Option::Some(v),
@@ -157,7 +160,10 @@ impl OutputConfig {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::OutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
     >(
@@ -171,7 +177,7 @@ impl OutputConfig {
     /// The value of [destination][crate::model::OutputConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_destination(
+    pub fn gcs_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
         #[allow(unreachable_patterns)]
@@ -4752,7 +4758,10 @@ impl Waypoint {
         self
     }
 
-    /// Sets the value of `location_type`.
+    /// Sets the value of [location_type][crate::model::Waypoint::location_type].
+    ///
+    /// Note that all the setters affecting `location_type` are mutually
+    /// exclusive.
     pub fn set_location_type<
         T: std::convert::Into<std::option::Option<crate::model::waypoint::LocationType>>,
     >(
@@ -4766,7 +4775,7 @@ impl Waypoint {
     /// The value of [location_type][crate::model::Waypoint::location_type]
     /// if it holds a `Location`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_location(&self) -> std::option::Option<&std::boxed::Box<crate::model::Location>> {
+    pub fn location(&self) -> std::option::Option<&std::boxed::Box<crate::model::Location>> {
         #[allow(unreachable_patterns)]
         self.location_type.as_ref().and_then(|v| match v {
             crate::model::waypoint::LocationType::Location(v) => std::option::Option::Some(v),
@@ -4777,7 +4786,7 @@ impl Waypoint {
     /// The value of [location_type][crate::model::Waypoint::location_type]
     /// if it holds a `PlaceId`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_place_id(&self) -> std::option::Option<&std::string::String> {
+    pub fn place_id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.location_type.as_ref().and_then(|v| match v {
             crate::model::waypoint::LocationType::PlaceId(v) => std::option::Option::Some(v),
@@ -7481,7 +7490,10 @@ pub mod optimize_tours_validation_error {
             self
         }
 
-        /// Sets the value of `index_or_key`.
+        /// Sets the value of [index_or_key][crate::model::optimize_tours_validation_error::FieldReference::index_or_key].
+        ///
+        /// Note that all the setters affecting `index_or_key` are mutually
+        /// exclusive.
         pub fn set_index_or_key<
             T: std::convert::Into<
                     std::option::Option<
@@ -7499,7 +7511,7 @@ pub mod optimize_tours_validation_error {
         /// The value of [index_or_key][crate::model::optimize_tours_validation_error::FieldReference::index_or_key]
         /// if it holds a `Index`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_index(&self) -> std::option::Option<&i32> {
+        pub fn index(&self) -> std::option::Option<&i32> {
             #[allow(unreachable_patterns)]
             self.index_or_key.as_ref().and_then(|v| match v {
                 crate::model::optimize_tours_validation_error::field_reference::IndexOrKey::Index(v) => std::option::Option::Some(v),
@@ -7510,7 +7522,7 @@ pub mod optimize_tours_validation_error {
         /// The value of [index_or_key][crate::model::optimize_tours_validation_error::FieldReference::index_or_key]
         /// if it holds a `Key`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_key(&self) -> std::option::Option<&std::string::String> {
+        pub fn key(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.index_or_key.as_ref().and_then(|v| match v {
                 crate::model::optimize_tours_validation_error::field_reference::IndexOrKey::Key(

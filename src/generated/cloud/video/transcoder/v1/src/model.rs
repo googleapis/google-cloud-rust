@@ -224,7 +224,10 @@ impl Job {
         self
     }
 
-    /// Sets the value of `job_config`.
+    /// Sets the value of [job_config][crate::model::Job::job_config].
+    ///
+    /// Note that all the setters affecting `job_config` are mutually
+    /// exclusive.
     pub fn set_job_config<
         T: std::convert::Into<std::option::Option<crate::model::job::JobConfig>>,
     >(
@@ -238,7 +241,7 @@ impl Job {
     /// The value of [job_config][crate::model::Job::job_config]
     /// if it holds a `TemplateId`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_template_id(&self) -> std::option::Option<&std::string::String> {
+    pub fn template_id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.job_config.as_ref().and_then(|v| match v {
             crate::model::job::JobConfig::TemplateId(v) => std::option::Option::Some(v),
@@ -249,7 +252,7 @@ impl Job {
     /// The value of [job_config][crate::model::Job::job_config]
     /// if it holds a `Config`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::JobConfig>> {
+    pub fn config(&self) -> std::option::Option<&std::boxed::Box<crate::model::JobConfig>> {
         #[allow(unreachable_patterns)]
         self.job_config.as_ref().and_then(|v| match v {
             crate::model::job::JobConfig::Config(v) => std::option::Option::Some(v),
@@ -1004,7 +1007,10 @@ impl ElementaryStream {
         self
     }
 
-    /// Sets the value of `elementary_stream`.
+    /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream].
+    ///
+    /// Note that all the setters affecting `elementary_stream` are mutually
+    /// exclusive.
     pub fn set_elementary_stream<
         T: std::convert::Into<std::option::Option<crate::model::elementary_stream::ElementaryStream>>,
     >(
@@ -1018,9 +1024,7 @@ impl ElementaryStream {
     /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
     /// if it holds a `VideoStream`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_video_stream(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VideoStream>> {
+    pub fn video_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::VideoStream>> {
         #[allow(unreachable_patterns)]
         self.elementary_stream.as_ref().and_then(|v| match v {
             crate::model::elementary_stream::ElementaryStream::VideoStream(v) => {
@@ -1033,9 +1037,7 @@ impl ElementaryStream {
     /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
     /// if it holds a `AudioStream`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_audio_stream(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AudioStream>> {
+    pub fn audio_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::AudioStream>> {
         #[allow(unreachable_patterns)]
         self.elementary_stream.as_ref().and_then(|v| match v {
             crate::model::elementary_stream::ElementaryStream::AudioStream(v) => {
@@ -1048,9 +1050,7 @@ impl ElementaryStream {
     /// The value of [elementary_stream][crate::model::ElementaryStream::elementary_stream]
     /// if it holds a `TextStream`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text_stream(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TextStream>> {
+    pub fn text_stream(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextStream>> {
         #[allow(unreachable_patterns)]
         self.elementary_stream.as_ref().and_then(|v| match v {
             crate::model::elementary_stream::ElementaryStream::TextStream(v) => {
@@ -1303,7 +1303,10 @@ impl Manifest {
         self
     }
 
-    /// Sets the value of `manifest_config`.
+    /// Sets the value of [manifest_config][crate::model::Manifest::manifest_config].
+    ///
+    /// Note that all the setters affecting `manifest_config` are mutually
+    /// exclusive.
     pub fn set_manifest_config<
         T: std::convert::Into<std::option::Option<crate::model::manifest::ManifestConfig>>,
     >(
@@ -1317,7 +1320,7 @@ impl Manifest {
     /// The value of [manifest_config][crate::model::Manifest::manifest_config]
     /// if it holds a `Dash`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_dash(
+    pub fn dash(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::manifest::DashConfig>> {
         #[allow(unreachable_patterns)]
@@ -1715,7 +1718,10 @@ impl SpriteSheet {
         self
     }
 
-    /// Sets the value of `extraction_strategy`.
+    /// Sets the value of [extraction_strategy][crate::model::SpriteSheet::extraction_strategy].
+    ///
+    /// Note that all the setters affecting `extraction_strategy` are mutually
+    /// exclusive.
     pub fn set_extraction_strategy<
         T: std::convert::Into<std::option::Option<crate::model::sprite_sheet::ExtractionStrategy>>,
     >(
@@ -1729,7 +1735,7 @@ impl SpriteSheet {
     /// The value of [extraction_strategy][crate::model::SpriteSheet::extraction_strategy]
     /// if it holds a `TotalCount`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_total_count(&self) -> std::option::Option<&i32> {
+    pub fn total_count(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.extraction_strategy.as_ref().and_then(|v| match v {
             crate::model::sprite_sheet::ExtractionStrategy::TotalCount(v) => {
@@ -1742,7 +1748,7 @@ impl SpriteSheet {
     /// The value of [extraction_strategy][crate::model::SpriteSheet::extraction_strategy]
     /// if it holds a `Interval`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_interval(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+    pub fn interval(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.extraction_strategy.as_ref().and_then(|v| match v {
             crate::model::sprite_sheet::ExtractionStrategy::Interval(v) => {
@@ -2153,7 +2159,10 @@ pub mod overlay {
             std::default::Default::default()
         }
 
-        /// Sets the value of `animation_type`.
+        /// Sets the value of [animation_type][crate::model::overlay::Animation::animation_type].
+        ///
+        /// Note that all the setters affecting `animation_type` are mutually
+        /// exclusive.
         pub fn set_animation_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::overlay::animation::AnimationType>,
@@ -2169,7 +2178,7 @@ pub mod overlay {
         /// The value of [animation_type][crate::model::overlay::Animation::animation_type]
         /// if it holds a `AnimationStatic`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_animation_static(
+        pub fn animation_static(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::overlay::AnimationStatic>> {
             #[allow(unreachable_patterns)]
@@ -2184,7 +2193,7 @@ pub mod overlay {
         /// The value of [animation_type][crate::model::overlay::Animation::animation_type]
         /// if it holds a `AnimationFade`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_animation_fade(
+        pub fn animation_fade(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::overlay::AnimationFade>> {
             #[allow(unreachable_patterns)]
@@ -2199,7 +2208,7 @@ pub mod overlay {
         /// The value of [animation_type][crate::model::overlay::Animation::animation_type]
         /// if it holds a `AnimationEnd`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_animation_end(
+        pub fn animation_end(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::overlay::AnimationEnd>> {
             #[allow(unreachable_patterns)]
@@ -2830,7 +2839,10 @@ pub mod preprocessing_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `deinterlacing_filter`.
+        /// Sets the value of [deinterlacing_filter][crate::model::preprocessing_config::Deinterlace::deinterlacing_filter].
+        ///
+        /// Note that all the setters affecting `deinterlacing_filter` are mutually
+        /// exclusive.
         pub fn set_deinterlacing_filter<
             T: std::convert::Into<
                     std::option::Option<
@@ -2848,7 +2860,7 @@ pub mod preprocessing_config {
         /// The value of [deinterlacing_filter][crate::model::preprocessing_config::Deinterlace::deinterlacing_filter]
         /// if it holds a `Yadif`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_yadif(
+        pub fn yadif(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::preprocessing_config::deinterlace::YadifConfig>,
@@ -2865,7 +2877,7 @@ pub mod preprocessing_config {
         /// The value of [deinterlacing_filter][crate::model::preprocessing_config::Deinterlace::deinterlacing_filter]
         /// if it holds a `Bwdif`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_bwdif(
+        pub fn bwdif(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::preprocessing_config::deinterlace::BwdifConfig>,
@@ -3104,7 +3116,10 @@ impl VideoStream {
         std::default::Default::default()
     }
 
-    /// Sets the value of `codec_settings`.
+    /// Sets the value of [codec_settings][crate::model::VideoStream::codec_settings].
+    ///
+    /// Note that all the setters affecting `codec_settings` are mutually
+    /// exclusive.
     pub fn set_codec_settings<
         T: std::convert::Into<std::option::Option<crate::model::video_stream::CodecSettings>>,
     >(
@@ -3118,7 +3133,7 @@ impl VideoStream {
     /// The value of [codec_settings][crate::model::VideoStream::codec_settings]
     /// if it holds a `H264`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_h264(
+    pub fn h264(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H264CodecSettings>> {
         #[allow(unreachable_patterns)]
@@ -3131,7 +3146,7 @@ impl VideoStream {
     /// The value of [codec_settings][crate::model::VideoStream::codec_settings]
     /// if it holds a `H265`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_h265(
+    pub fn h265(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::H265CodecSettings>> {
         #[allow(unreachable_patterns)]
@@ -3144,7 +3159,7 @@ impl VideoStream {
     /// The value of [codec_settings][crate::model::VideoStream::codec_settings]
     /// if it holds a `Vp9`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vp9(
+    pub fn vp9(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::video_stream::Vp9CodecSettings>> {
         #[allow(unreachable_patterns)]
@@ -3485,7 +3500,10 @@ pub mod video_stream {
             self
         }
 
-        /// Sets the value of `gop_mode`.
+        /// Sets the value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode].
+        ///
+        /// Note that all the setters affecting `gop_mode` are mutually
+        /// exclusive.
         pub fn set_gop_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
@@ -3501,7 +3519,7 @@ pub mod video_stream {
         /// The value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
         /// if it holds a `GopFrameCount`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gop_frame_count(&self) -> std::option::Option<&i32> {
+        pub fn gop_frame_count(&self) -> std::option::Option<&i32> {
             #[allow(unreachable_patterns)]
             self.gop_mode.as_ref().and_then(|v| match v {
                 crate::model::video_stream::h_264_codec_settings::GopMode::GopFrameCount(v) => {
@@ -3514,7 +3532,7 @@ pub mod video_stream {
         /// The value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode]
         /// if it holds a `GopDuration`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gop_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        pub fn gop_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
             #[allow(unreachable_patterns)]
             self.gop_mode.as_ref().and_then(|v| match v {
                 crate::model::video_stream::h_264_codec_settings::GopMode::GopDuration(v) => {
@@ -3848,7 +3866,10 @@ pub mod video_stream {
             self
         }
 
-        /// Sets the value of `gop_mode`.
+        /// Sets the value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode].
+        ///
+        /// Note that all the setters affecting `gop_mode` are mutually
+        /// exclusive.
         pub fn set_gop_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>,
@@ -3864,7 +3885,7 @@ pub mod video_stream {
         /// The value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode]
         /// if it holds a `GopFrameCount`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gop_frame_count(&self) -> std::option::Option<&i32> {
+        pub fn gop_frame_count(&self) -> std::option::Option<&i32> {
             #[allow(unreachable_patterns)]
             self.gop_mode.as_ref().and_then(|v| match v {
                 crate::model::video_stream::h_265_codec_settings::GopMode::GopFrameCount(v) => {
@@ -3877,7 +3898,7 @@ pub mod video_stream {
         /// The value of [gop_mode][crate::model::video_stream::H265CodecSettings::gop_mode]
         /// if it holds a `GopDuration`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gop_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        pub fn gop_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
             #[allow(unreachable_patterns)]
             self.gop_mode.as_ref().and_then(|v| match v {
                 crate::model::video_stream::h_265_codec_settings::GopMode::GopDuration(v) => {
@@ -4095,7 +4116,10 @@ pub mod video_stream {
             self
         }
 
-        /// Sets the value of `gop_mode`.
+        /// Sets the value of [gop_mode][crate::model::video_stream::Vp9CodecSettings::gop_mode].
+        ///
+        /// Note that all the setters affecting `gop_mode` are mutually
+        /// exclusive.
         pub fn set_gop_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::video_stream::vp_9_codec_settings::GopMode>,
@@ -4111,7 +4135,7 @@ pub mod video_stream {
         /// The value of [gop_mode][crate::model::video_stream::Vp9CodecSettings::gop_mode]
         /// if it holds a `GopFrameCount`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gop_frame_count(&self) -> std::option::Option<&i32> {
+        pub fn gop_frame_count(&self) -> std::option::Option<&i32> {
             #[allow(unreachable_patterns)]
             self.gop_mode.as_ref().and_then(|v| match v {
                 crate::model::video_stream::vp_9_codec_settings::GopMode::GopFrameCount(v) => {
@@ -4124,7 +4148,7 @@ pub mod video_stream {
         /// The value of [gop_mode][crate::model::video_stream::Vp9CodecSettings::gop_mode]
         /// if it holds a `GopDuration`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gop_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        pub fn gop_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
             #[allow(unreachable_patterns)]
             self.gop_mode.as_ref().and_then(|v| match v {
                 crate::model::video_stream::vp_9_codec_settings::GopMode::GopDuration(v) => {
@@ -4657,7 +4681,10 @@ impl Encryption {
         self
     }
 
-    /// Sets the value of `encryption_mode`.
+    /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode].
+    ///
+    /// Note that all the setters affecting `encryption_mode` are mutually
+    /// exclusive.
     pub fn set_encryption_mode<
         T: std::convert::Into<std::option::Option<crate::model::encryption::EncryptionMode>>,
     >(
@@ -4671,7 +4698,7 @@ impl Encryption {
     /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
     /// if it holds a `Aes128`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_aes_128(
+    pub fn aes_128(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::Aes128Encryption>> {
         #[allow(unreachable_patterns)]
@@ -4684,7 +4711,7 @@ impl Encryption {
     /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
     /// if it holds a `SampleAes`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sample_aes(
+    pub fn sample_aes(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::SampleAesEncryption>> {
         #[allow(unreachable_patterns)]
@@ -4697,7 +4724,7 @@ impl Encryption {
     /// The value of [encryption_mode][crate::model::Encryption::encryption_mode]
     /// if it holds a `MpegCenc`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_mpeg_cenc(
+    pub fn mpeg_cenc(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::MpegCommonEncryption>> {
         #[allow(unreachable_patterns)]
@@ -4756,7 +4783,10 @@ impl Encryption {
         self
     }
 
-    /// Sets the value of `secret_source`.
+    /// Sets the value of [secret_source][crate::model::Encryption::secret_source].
+    ///
+    /// Note that all the setters affecting `secret_source` are mutually
+    /// exclusive.
     pub fn set_secret_source<
         T: std::convert::Into<std::option::Option<crate::model::encryption::SecretSource>>,
     >(
@@ -4770,7 +4800,7 @@ impl Encryption {
     /// The value of [secret_source][crate::model::Encryption::secret_source]
     /// if it holds a `SecretManagerKeySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_secret_manager_key_source(
+    pub fn secret_manager_key_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::encryption::SecretManagerSource>> {
         #[allow(unreachable_patterns)]

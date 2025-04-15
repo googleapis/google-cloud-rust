@@ -293,7 +293,10 @@ impl BillingInfo {
         self
     }
 
-    /// Sets the value of `current_billing_info`.
+    /// Sets the value of [current_billing_info][crate::model::BillingInfo::current_billing_info].
+    ///
+    /// Note that all the setters affecting `current_billing_info` are mutually
+    /// exclusive.
     pub fn set_current_billing_info<
         T: std::convert::Into<std::option::Option<crate::model::billing_info::CurrentBillingInfo>>,
     >(
@@ -307,7 +310,7 @@ impl BillingInfo {
     /// The value of [current_billing_info][crate::model::BillingInfo::current_billing_info]
     /// if it holds a `UserCountBilling`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_user_count_billing(
+    pub fn user_count_billing(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UserCountBillingInfo>> {
         #[allow(unreachable_patterns)]
@@ -1508,7 +1511,10 @@ impl QueryConfigurationLicenseUsageResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `details`.
+    /// Sets the value of [details][crate::model::QueryConfigurationLicenseUsageResponse::details].
+    ///
+    /// Note that all the setters affecting `details` are mutually
+    /// exclusive.
     pub fn set_details<
         T: std::convert::Into<
                 std::option::Option<
@@ -1526,7 +1532,7 @@ impl QueryConfigurationLicenseUsageResponse {
     /// The value of [details][crate::model::QueryConfigurationLicenseUsageResponse::details]
     /// if it holds a `UserCountUsage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_user_count_usage(
+    pub fn user_count_usage(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UserCountUsage>> {
         #[allow(unreachable_patterns)]

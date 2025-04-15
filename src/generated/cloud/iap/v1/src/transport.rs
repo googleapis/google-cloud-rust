@@ -156,6 +156,29 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
             .await
     }
 
+    async fn validate_iap_attribute_expression(
+        &self,
+        req: crate::model::ValidateIapAttributeExpressionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}:validateAttributeExpression", req.name),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("expression", &req.expression)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
     async fn list_tunnel_dest_groups(
         &self,
         req: crate::model::ListTunnelDestGroupsRequest,

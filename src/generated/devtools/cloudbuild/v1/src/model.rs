@@ -437,7 +437,10 @@ impl RepoSource {
         self
     }
 
-    /// Sets the value of `revision`.
+    /// Sets the value of [revision][crate::model::RepoSource::revision].
+    ///
+    /// Note that all the setters affecting `revision` are mutually
+    /// exclusive.
     pub fn set_revision<
         T: std::convert::Into<std::option::Option<crate::model::repo_source::Revision>>,
     >(
@@ -451,7 +454,7 @@ impl RepoSource {
     /// The value of [revision][crate::model::RepoSource::revision]
     /// if it holds a `BranchName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_branch_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn branch_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.revision.as_ref().and_then(|v| match v {
             crate::model::repo_source::Revision::BranchName(v) => std::option::Option::Some(v),
@@ -462,7 +465,7 @@ impl RepoSource {
     /// The value of [revision][crate::model::RepoSource::revision]
     /// if it holds a `TagName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tag_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn tag_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.revision.as_ref().and_then(|v| match v {
             crate::model::repo_source::Revision::TagName(v) => std::option::Option::Some(v),
@@ -473,7 +476,7 @@ impl RepoSource {
     /// The value of [revision][crate::model::RepoSource::revision]
     /// if it holds a `CommitSha`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_commit_sha(&self) -> std::option::Option<&std::string::String> {
+    pub fn commit_sha(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.revision.as_ref().and_then(|v| match v {
             crate::model::repo_source::Revision::CommitSha(v) => std::option::Option::Some(v),
@@ -625,7 +628,10 @@ impl Source {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Source::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::source::Source>>>(
         mut self,
         v: T,
@@ -637,7 +643,7 @@ impl Source {
     /// The value of [source][crate::model::Source::source]
     /// if it holds a `StorageSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_storage_source(
+    pub fn storage_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StorageSource>> {
         #[allow(unreachable_patterns)]
@@ -650,9 +656,7 @@ impl Source {
     /// The value of [source][crate::model::Source::source]
     /// if it holds a `RepoSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_repo_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RepoSource>> {
+    pub fn repo_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::RepoSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::source::Source::RepoSource(v) => std::option::Option::Some(v),
@@ -663,7 +667,7 @@ impl Source {
     /// The value of [source][crate::model::Source::source]
     /// if it holds a `GitSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_git_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GitSource>> {
+    pub fn git_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GitSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::source::Source::GitSource(v) => std::option::Option::Some(v),
@@ -674,7 +678,7 @@ impl Source {
     /// The value of [source][crate::model::Source::source]
     /// if it holds a `StorageSourceManifest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_storage_source_manifest(
+    pub fn storage_source_manifest(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StorageSourceManifest>> {
         #[allow(unreachable_patterns)]
@@ -2495,7 +2499,10 @@ impl Dependency {
         std::default::Default::default()
     }
 
-    /// Sets the value of `dep`.
+    /// Sets the value of [dep][crate::model::Dependency::dep].
+    ///
+    /// Note that all the setters affecting `dep` are mutually
+    /// exclusive.
     pub fn set_dep<T: std::convert::Into<std::option::Option<crate::model::dependency::Dep>>>(
         mut self,
         v: T,
@@ -2507,7 +2514,7 @@ impl Dependency {
     /// The value of [dep][crate::model::Dependency::dep]
     /// if it holds a `Empty`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_empty(&self) -> std::option::Option<&bool> {
+    pub fn empty(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.dep.as_ref().and_then(|v| match v {
             crate::model::dependency::Dep::Empty(v) => std::option::Option::Some(v),
@@ -2518,7 +2525,7 @@ impl Dependency {
     /// The value of [dep][crate::model::Dependency::dep]
     /// if it holds a `GitSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_git_source(
+    pub fn git_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::dependency::GitSourceDependency>> {
         #[allow(unreachable_patterns)]
@@ -2662,7 +2669,10 @@ pub mod dependency {
             std::default::Default::default()
         }
 
-        /// Sets the value of `repotype`.
+        /// Sets the value of [repotype][crate::model::dependency::GitSourceRepository::repotype].
+        ///
+        /// Note that all the setters affecting `repotype` are mutually
+        /// exclusive.
         pub fn set_repotype<
             T: std::convert::Into<
                     std::option::Option<crate::model::dependency::git_source_repository::Repotype>,
@@ -2678,7 +2688,7 @@ pub mod dependency {
         /// The value of [repotype][crate::model::dependency::GitSourceRepository::repotype]
         /// if it holds a `Url`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_url(&self) -> std::option::Option<&std::string::String> {
+        pub fn url(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.repotype.as_ref().and_then(|v| match v {
                 crate::model::dependency::git_source_repository::Repotype::Url(v) => {
@@ -2691,7 +2701,7 @@ pub mod dependency {
         /// The value of [repotype][crate::model::dependency::GitSourceRepository::repotype]
         /// if it holds a `DeveloperConnect`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_developer_connect(&self) -> std::option::Option<&std::string::String> {
+        pub fn developer_connect(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.repotype.as_ref().and_then(|v| match v {
                 crate::model::dependency::git_source_repository::Repotype::DeveloperConnect(v) => {
@@ -4646,7 +4656,10 @@ impl GitRepoSource {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::GitRepoSource::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::git_repo_source::Source>>,
     >(
@@ -4660,7 +4673,7 @@ impl GitRepoSource {
     /// The value of [source][crate::model::GitRepoSource::source]
     /// if it holds a `Repository`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_repository(&self) -> std::option::Option<&std::string::String> {
+    pub fn repository(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::git_repo_source::Source::Repository(v) => std::option::Option::Some(v),
@@ -4679,7 +4692,10 @@ impl GitRepoSource {
         self
     }
 
-    /// Sets the value of `enterprise_config`.
+    /// Sets the value of [enterprise_config][crate::model::GitRepoSource::enterprise_config].
+    ///
+    /// Note that all the setters affecting `enterprise_config` are mutually
+    /// exclusive.
     pub fn set_enterprise_config<
         T: std::convert::Into<std::option::Option<crate::model::git_repo_source::EnterpriseConfig>>,
     >(
@@ -4693,7 +4709,7 @@ impl GitRepoSource {
     /// The value of [enterprise_config][crate::model::GitRepoSource::enterprise_config]
     /// if it holds a `GithubEnterpriseConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_github_enterprise_config(&self) -> std::option::Option<&std::string::String> {
+    pub fn github_enterprise_config(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.enterprise_config.as_ref().and_then(|v| match v {
             crate::model::git_repo_source::EnterpriseConfig::GithubEnterpriseConfig(v) => {
@@ -4829,7 +4845,10 @@ impl GitFileSource {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::GitFileSource::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::git_file_source::Source>>,
     >(
@@ -4843,7 +4862,7 @@ impl GitFileSource {
     /// The value of [source][crate::model::GitFileSource::source]
     /// if it holds a `Repository`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_repository(&self) -> std::option::Option<&std::string::String> {
+    pub fn repository(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::git_file_source::Source::Repository(v) => std::option::Option::Some(v),
@@ -4862,7 +4881,10 @@ impl GitFileSource {
         self
     }
 
-    /// Sets the value of `enterprise_config`.
+    /// Sets the value of [enterprise_config][crate::model::GitFileSource::enterprise_config].
+    ///
+    /// Note that all the setters affecting `enterprise_config` are mutually
+    /// exclusive.
     pub fn set_enterprise_config<
         T: std::convert::Into<std::option::Option<crate::model::git_file_source::EnterpriseConfig>>,
     >(
@@ -4876,7 +4898,7 @@ impl GitFileSource {
     /// The value of [enterprise_config][crate::model::GitFileSource::enterprise_config]
     /// if it holds a `GithubEnterpriseConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_github_enterprise_config(&self) -> std::option::Option<&std::string::String> {
+    pub fn github_enterprise_config(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.enterprise_config.as_ref().and_then(|v| match v {
             crate::model::git_file_source::EnterpriseConfig::GithubEnterpriseConfig(v) => {
@@ -5310,7 +5332,10 @@ impl BuildTrigger {
         self
     }
 
-    /// Sets the value of `build_template`.
+    /// Sets the value of [build_template][crate::model::BuildTrigger::build_template].
+    ///
+    /// Note that all the setters affecting `build_template` are mutually
+    /// exclusive.
     pub fn set_build_template<
         T: std::convert::Into<std::option::Option<crate::model::build_trigger::BuildTemplate>>,
     >(
@@ -5324,7 +5349,7 @@ impl BuildTrigger {
     /// The value of [build_template][crate::model::BuildTrigger::build_template]
     /// if it holds a `Autodetect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_autodetect(&self) -> std::option::Option<&bool> {
+    pub fn autodetect(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.build_template.as_ref().and_then(|v| match v {
             crate::model::build_trigger::BuildTemplate::Autodetect(v) => {
@@ -5337,7 +5362,7 @@ impl BuildTrigger {
     /// The value of [build_template][crate::model::BuildTrigger::build_template]
     /// if it holds a `Build`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_build(&self) -> std::option::Option<&std::boxed::Box<crate::model::Build>> {
+    pub fn build(&self) -> std::option::Option<&std::boxed::Box<crate::model::Build>> {
         #[allow(unreachable_patterns)]
         self.build_template.as_ref().and_then(|v| match v {
             crate::model::build_trigger::BuildTemplate::Build(v) => std::option::Option::Some(v),
@@ -5348,7 +5373,7 @@ impl BuildTrigger {
     /// The value of [build_template][crate::model::BuildTrigger::build_template]
     /// if it holds a `Filename`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_filename(&self) -> std::option::Option<&std::string::String> {
+    pub fn filename(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.build_template.as_ref().and_then(|v| match v {
             crate::model::build_trigger::BuildTemplate::Filename(v) => std::option::Option::Some(v),
@@ -5359,7 +5384,7 @@ impl BuildTrigger {
     /// The value of [build_template][crate::model::BuildTrigger::build_template]
     /// if it holds a `GitFileSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_git_file_source(
+    pub fn git_file_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GitFileSource>> {
         #[allow(unreachable_patterns)]
@@ -5508,7 +5533,10 @@ impl RepositoryEventConfig {
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::RepositoryEventConfig::filter].
+    ///
+    /// Note that all the setters affecting `filter` are mutually
+    /// exclusive.
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::repository_event_config::Filter>>,
     >(
@@ -5522,7 +5550,7 @@ impl RepositoryEventConfig {
     /// The value of [filter][crate::model::RepositoryEventConfig::filter]
     /// if it holds a `PullRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pull_request(
+    pub fn pull_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PullRequestFilter>> {
         #[allow(unreachable_patterns)]
@@ -5537,7 +5565,7 @@ impl RepositoryEventConfig {
     /// The value of [filter][crate::model::RepositoryEventConfig::filter]
     /// if it holds a `Push`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_push(&self) -> std::option::Option<&std::boxed::Box<crate::model::PushFilter>> {
+    pub fn push(&self) -> std::option::Option<&std::boxed::Box<crate::model::PushFilter>> {
         #[allow(unreachable_patterns)]
         self.filter.as_ref().and_then(|v| match v {
             crate::model::repository_event_config::Filter::Push(v) => std::option::Option::Some(v),
@@ -5719,7 +5747,10 @@ impl GitHubEventsConfig {
         self
     }
 
-    /// Sets the value of `event`.
+    /// Sets the value of [event][crate::model::GitHubEventsConfig::event].
+    ///
+    /// Note that all the setters affecting `event` are mutually
+    /// exclusive.
     pub fn set_event<
         T: std::convert::Into<std::option::Option<crate::model::git_hub_events_config::Event>>,
     >(
@@ -5733,7 +5764,7 @@ impl GitHubEventsConfig {
     /// The value of [event][crate::model::GitHubEventsConfig::event]
     /// if it holds a `PullRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pull_request(
+    pub fn pull_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PullRequestFilter>> {
         #[allow(unreachable_patterns)]
@@ -5748,7 +5779,7 @@ impl GitHubEventsConfig {
     /// The value of [event][crate::model::GitHubEventsConfig::event]
     /// if it holds a `Push`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_push(&self) -> std::option::Option<&std::boxed::Box<crate::model::PushFilter>> {
+    pub fn push(&self) -> std::option::Option<&std::boxed::Box<crate::model::PushFilter>> {
         #[allow(unreachable_patterns)]
         self.event.as_ref().and_then(|v| match v {
             crate::model::git_hub_events_config::Event::Push(v) => std::option::Option::Some(v),
@@ -5992,7 +6023,10 @@ impl WebhookConfig {
         self
     }
 
-    /// Sets the value of `auth_method`.
+    /// Sets the value of [auth_method][crate::model::WebhookConfig::auth_method].
+    ///
+    /// Note that all the setters affecting `auth_method` are mutually
+    /// exclusive.
     pub fn set_auth_method<
         T: std::convert::Into<std::option::Option<crate::model::webhook_config::AuthMethod>>,
     >(
@@ -6006,7 +6040,7 @@ impl WebhookConfig {
     /// The value of [auth_method][crate::model::WebhookConfig::auth_method]
     /// if it holds a `Secret`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_secret(&self) -> std::option::Option<&std::string::String> {
+    pub fn secret(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.auth_method.as_ref().and_then(|v| match v {
             crate::model::webhook_config::AuthMethod::Secret(v) => std::option::Option::Some(v),
@@ -6156,7 +6190,10 @@ impl PullRequestFilter {
         self
     }
 
-    /// Sets the value of `git_ref`.
+    /// Sets the value of [git_ref][crate::model::PullRequestFilter::git_ref].
+    ///
+    /// Note that all the setters affecting `git_ref` are mutually
+    /// exclusive.
     pub fn set_git_ref<
         T: std::convert::Into<std::option::Option<crate::model::pull_request_filter::GitRef>>,
     >(
@@ -6170,7 +6207,7 @@ impl PullRequestFilter {
     /// The value of [git_ref][crate::model::PullRequestFilter::git_ref]
     /// if it holds a `Branch`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_branch(&self) -> std::option::Option<&std::string::String> {
+    pub fn branch(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.git_ref.as_ref().and_then(|v| match v {
             crate::model::pull_request_filter::GitRef::Branch(v) => std::option::Option::Some(v),
@@ -6325,7 +6362,10 @@ impl PushFilter {
         self
     }
 
-    /// Sets the value of `git_ref`.
+    /// Sets the value of [git_ref][crate::model::PushFilter::git_ref].
+    ///
+    /// Note that all the setters affecting `git_ref` are mutually
+    /// exclusive.
     pub fn set_git_ref<
         T: std::convert::Into<std::option::Option<crate::model::push_filter::GitRef>>,
     >(
@@ -6339,7 +6379,7 @@ impl PushFilter {
     /// The value of [git_ref][crate::model::PushFilter::git_ref]
     /// if it holds a `Branch`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_branch(&self) -> std::option::Option<&std::string::String> {
+    pub fn branch(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.git_ref.as_ref().and_then(|v| match v {
             crate::model::push_filter::GitRef::Branch(v) => std::option::Option::Some(v),
@@ -6350,7 +6390,7 @@ impl PushFilter {
     /// The value of [git_ref][crate::model::PushFilter::git_ref]
     /// if it holds a `Tag`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tag(&self) -> std::option::Option<&std::string::String> {
+    pub fn tag(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.git_ref.as_ref().and_then(|v| match v {
             crate::model::push_filter::GitRef::Tag(v) => std::option::Option::Some(v),
@@ -7918,7 +7958,10 @@ impl WorkerPool {
         self
     }
 
-    /// Sets the value of `config`.
+    /// Sets the value of [config][crate::model::WorkerPool::config].
+    ///
+    /// Note that all the setters affecting `config` are mutually
+    /// exclusive.
     pub fn set_config<
         T: std::convert::Into<std::option::Option<crate::model::worker_pool::Config>>,
     >(
@@ -7932,7 +7975,7 @@ impl WorkerPool {
     /// The value of [config][crate::model::WorkerPool::config]
     /// if it holds a `PrivatePoolV1Config`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_private_pool_v1_config(
+    pub fn private_pool_v1_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PrivatePoolV1Config>> {
         #[allow(unreachable_patterns)]

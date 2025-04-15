@@ -78,7 +78,10 @@ impl Document {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Document::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::document::Source>>,
     >(
@@ -92,7 +95,7 @@ impl Document {
     /// The value of [source][crate::model::Document::source]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content(&self) -> std::option::Option<&std::string::String> {
+    pub fn content(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::document::Source::Content(v) => std::option::Option::Some(v),
@@ -103,7 +106,7 @@ impl Document {
     /// The value of [source][crate::model::Document::source]
     /// if it holds a `GcsContentUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_content_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn gcs_content_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::document::Source::GcsContentUri(v) => std::option::Option::Some(v),

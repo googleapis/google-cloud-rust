@@ -40,7 +40,7 @@ extern crate wkt;
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListJobsRequest {
-    /// Required. Format: projects/{project_id}/locations/global.
+    /// Required. Format: projects/{project_id}/locations/{location_id} .
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
@@ -188,7 +188,7 @@ impl gax::paginator::internal::PageableResponse for ListJobsResponse {
 #[non_exhaustive]
 pub struct GetJobRequest {
     /// Required. `name` of the job to retrieve.
-    /// Format: projects/{project_id}/locations/global/jobs/{job_id} .
+    /// Format: projects/{project_id}/locations/{location_id}/jobs/{job_id} .
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -237,9 +237,9 @@ pub struct CreateJobRequest {
 
     /// Optional. An optional request ID to identify requests. Specify a unique
     /// request ID in case you need to retry your request. Requests with same
-    /// `request_id` will be ignored for at least 60 minutes since the first
-    /// request. The request ID must be a valid UUID with the exception that zero
-    /// UUID is not supported (00000000-0000-0000-0000-000000000000).
+    /// `request_id` will ignored for at least 60 minutes since the first request.
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
 
@@ -293,15 +293,15 @@ impl wkt::message::Message for CreateJobRequest {
 #[non_exhaustive]
 pub struct CancelJobRequest {
     /// Required. The `name` of the job to cancel.
-    /// Format: projects/{project_id}/locations/global/jobs/{job_id}.
+    /// Format: projects/{project_id}/locations/{location_id}/jobs/{job_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
     /// request ID in case you need to retry your request. Requests with same
-    /// `request_id` will be ignored for at least 60 minutes since the first
-    /// request. The request ID must be a valid UUID with the exception that zero
-    /// UUID is not supported (00000000-0000-0000-0000-000000000000).
+    /// `request_id` will ignored for at least 60 minutes since the first request.
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
 
@@ -340,15 +340,15 @@ impl wkt::message::Message for CancelJobRequest {
 #[non_exhaustive]
 pub struct DeleteJobRequest {
     /// Required. The `name` of the job to delete.
-    /// Format: projects/{project_id}/locations/global/jobs/{job_id} .
+    /// Format: projects/{project_id}/locations/{location_id}/jobs/{job_id} .
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
     /// request ID in case you need to retry your request. Requests with same
-    /// `request_id` will be ignored for at least 60 minutes since the first
-    /// request. The request ID must be a valid UUID with the exception that zero
-    /// UUID is not supported (00000000-0000-0000-0000-000000000000).
+    /// `request_id` will ignored for at least 60 minutes since the first request.
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
 
@@ -409,7 +409,7 @@ impl wkt::message::Message for CancelJobResponse {
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// Output only. The unique operation resource name.
-    /// Format: projects/{project}/locations/global/operations/{operation}.
+    /// Format: projects/{project}/locations/{location}/operations/{operation}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub operation: std::string::String,
 
@@ -426,11 +426,9 @@ pub struct OperationMetadata {
     /// have
     /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
     /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
-    /// corresponding to
-    /// `[Code.CANCELLED][google.rpc.Code.CANCELLED]`.
+    /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
-    /// [google.rpc.Code.CANCELLED]: rpc::model::code::CANCELLED
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub requested_cancellation: bool,
 
@@ -510,10 +508,10 @@ impl wkt::message::Message for OperationMetadata {
 #[non_exhaustive]
 pub struct Job {
     /// Identifier. The resource name of the Job. job_id is unique
-    /// within the project, that is either set by the customer or
+    /// within the project and location, that is either set by the customer or
     /// defined by the service. Format:
-    /// projects/{project}/locations/global/jobs/{job_id} .
-    /// For example: "projects/123456/locations/global/jobs/job01".
+    /// projects/{project}/locations/{location}/jobs/{job_id} .
+    /// For example: "projects/123456/locations/us-central1/jobs/job01".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -642,7 +640,10 @@ impl Job {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Job::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::job::Source>>>(
         mut self,
         v: T,
@@ -654,9 +655,7 @@ impl Job {
     /// The value of [source][crate::model::Job::source]
     /// if it holds a `BucketList`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bucket_list(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BucketList>> {
+    pub fn bucket_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::BucketList>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::job::Source::BucketList(v) => std::option::Option::Some(v),
@@ -677,7 +676,10 @@ impl Job {
         self
     }
 
-    /// Sets the value of `transformation`.
+    /// Sets the value of [transformation][crate::model::Job::transformation].
+    ///
+    /// Note that all the setters affecting `transformation` are mutually
+    /// exclusive.
     pub fn set_transformation<
         T: std::convert::Into<std::option::Option<crate::model::job::Transformation>>,
     >(
@@ -691,7 +693,7 @@ impl Job {
     /// The value of [transformation][crate::model::Job::transformation]
     /// if it holds a `PutObjectHold`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_put_object_hold(
+    pub fn put_object_hold(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PutObjectHold>> {
         #[allow(unreachable_patterns)]
@@ -704,7 +706,7 @@ impl Job {
     /// The value of [transformation][crate::model::Job::transformation]
     /// if it holds a `DeleteObject`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_delete_object(
+    pub fn delete_object(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteObject>> {
         #[allow(unreachable_patterns)]
@@ -717,9 +719,7 @@ impl Job {
     /// The value of [transformation][crate::model::Job::transformation]
     /// if it holds a `PutMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_put_metadata(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PutMetadata>> {
+    pub fn put_metadata(&self) -> std::option::Option<&std::boxed::Box<crate::model::PutMetadata>> {
         #[allow(unreachable_patterns)]
         self.transformation.as_ref().and_then(|v| match v {
             crate::model::job::Transformation::PutMetadata(v) => std::option::Option::Some(v),
@@ -730,7 +730,7 @@ impl Job {
     /// The value of [transformation][crate::model::Job::transformation]
     /// if it holds a `RewriteObject`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rewrite_object(
+    pub fn rewrite_object(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RewriteObject>> {
         #[allow(unreachable_patterns)]
@@ -981,7 +981,10 @@ pub mod bucket_list {
             self
         }
 
-        /// Sets the value of `object_configuration`.
+        /// Sets the value of [object_configuration][crate::model::bucket_list::Bucket::object_configuration].
+        ///
+        /// Note that all the setters affecting `object_configuration` are mutually
+        /// exclusive.
         pub fn set_object_configuration<
             T: std::convert::Into<
                     std::option::Option<crate::model::bucket_list::bucket::ObjectConfiguration>,
@@ -997,7 +1000,7 @@ pub mod bucket_list {
         /// The value of [object_configuration][crate::model::bucket_list::Bucket::object_configuration]
         /// if it holds a `PrefixList`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_prefix_list(
+        pub fn prefix_list(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::PrefixList>> {
             #[allow(unreachable_patterns)]
@@ -1012,9 +1015,7 @@ pub mod bucket_list {
         /// The value of [object_configuration][crate::model::bucket_list::Bucket::object_configuration]
         /// if it holds a `Manifest`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_manifest(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::Manifest>> {
+        pub fn manifest(&self) -> std::option::Option<&std::boxed::Box<crate::model::Manifest>> {
             #[allow(unreachable_patterns)]
             self.object_configuration.as_ref().and_then(|v| match v {
                 crate::model::bucket_list::bucket::ObjectConfiguration::Manifest(v) => {
@@ -1093,9 +1094,9 @@ pub struct Manifest {
     /// `manifest_location` should either be
     ///
     /// ) An absolute path to the object in the format of
-    ///   `gs://bucket_name/path/file_name.csv`.
+    ///   gs://bucket_name/path/file_name.csv.
     /// ) An absolute path with a single wildcard character in the file name, for
-    ///   example `gs://bucket_name/path/file_name*.csv`.
+    ///   example gs://bucket_name/path/file_name*.csv.
     ///   If manifest location is specified with a wildcard, objects in all manifest
     ///   files matching the pattern will be acted upon.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]

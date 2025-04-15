@@ -733,18 +733,22 @@ mod tests {
     }
 
     fn http_unavailable() -> Error {
-        let mut status = Status::default();
-        status.code = 503;
-        status.message = "SERVICE UNAVAILABLE".to_string();
-        status.status = Some("UNAVAILABLE".to_string());
+        let status = Status {
+            code: 503,
+            message: "SERVICE UNAVAILABLE".into(),
+            status: Some("UNAVAILABLE".into()),
+            ..Default::default()
+        };
         http_from_status(status)
     }
 
     fn http_permission_denied() -> Error {
-        let mut status = Status::default();
-        status.code = 403;
-        status.message = "PERMISSION DENIED".to_string();
-        status.status = Some("PERMISSION_DENIED".to_string());
+        let status = Status {
+            code: 403,
+            message: "PERMISSION DENIED".into(),
+            status: Some("PERMISSION_DENIED".into()),
+            ..Default::default()
+        };
         http_from_status(status)
     }
 
@@ -819,7 +823,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_throttle()
             .times(1..)
-            .returning(|_, _| Some(Error::other(format!("err"))));
+            .returning(|_, _| Some(Error::other("err".to_string())));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
@@ -1008,7 +1012,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_throttle()
             .times(1..)
-            .returning(|_, _| Some(Error::other(format!("err"))));
+            .returning(|_, _| Some(Error::other("err".to_string())));
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);

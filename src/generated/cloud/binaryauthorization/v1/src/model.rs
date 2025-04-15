@@ -599,7 +599,10 @@ impl Attestor {
         self
     }
 
-    /// Sets the value of `attestor_type`.
+    /// Sets the value of [attestor_type][crate::model::Attestor::attestor_type].
+    ///
+    /// Note that all the setters affecting `attestor_type` are mutually
+    /// exclusive.
     pub fn set_attestor_type<
         T: std::convert::Into<std::option::Option<crate::model::attestor::AttestorType>>,
     >(
@@ -613,7 +616,7 @@ impl Attestor {
     /// The value of [attestor_type][crate::model::Attestor::attestor_type]
     /// if it holds a `UserOwnedGrafeasNote`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_user_owned_grafeas_note(
+    pub fn user_owned_grafeas_note(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UserOwnedGrafeasNote>> {
         #[allow(unreachable_patterns)]
@@ -985,7 +988,10 @@ impl AttestorPublicKey {
         self
     }
 
-    /// Sets the value of `public_key`.
+    /// Sets the value of [public_key][crate::model::AttestorPublicKey::public_key].
+    ///
+    /// Note that all the setters affecting `public_key` are mutually
+    /// exclusive.
     pub fn set_public_key<
         T: std::convert::Into<std::option::Option<crate::model::attestor_public_key::PublicKey>>,
     >(
@@ -999,7 +1005,7 @@ impl AttestorPublicKey {
     /// The value of [public_key][crate::model::AttestorPublicKey::public_key]
     /// if it holds a `AsciiArmoredPgpPublicKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ascii_armored_pgp_public_key(&self) -> std::option::Option<&std::string::String> {
+    pub fn ascii_armored_pgp_public_key(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.public_key.as_ref().and_then(|v| match v {
             crate::model::attestor_public_key::PublicKey::AsciiArmoredPgpPublicKey(v) => {
@@ -1012,7 +1018,7 @@ impl AttestorPublicKey {
     /// The value of [public_key][crate::model::AttestorPublicKey::public_key]
     /// if it holds a `PkixPublicKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pkix_public_key(
+    pub fn pkix_public_key(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PkixPublicKey>> {
         #[allow(unreachable_patterns)]

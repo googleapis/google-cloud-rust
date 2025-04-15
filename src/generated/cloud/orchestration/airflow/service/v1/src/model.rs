@@ -3460,7 +3460,10 @@ impl IPAllocationPolicy {
         self
     }
 
-    /// Sets the value of `cluster_ip_allocation`.
+    /// Sets the value of [cluster_ip_allocation][crate::model::IPAllocationPolicy::cluster_ip_allocation].
+    ///
+    /// Note that all the setters affecting `cluster_ip_allocation` are mutually
+    /// exclusive.
     pub fn set_cluster_ip_allocation<
         T: std::convert::Into<
                 std::option::Option<crate::model::ip_allocation_policy::ClusterIpAllocation>,
@@ -3476,7 +3479,7 @@ impl IPAllocationPolicy {
     /// The value of [cluster_ip_allocation][crate::model::IPAllocationPolicy::cluster_ip_allocation]
     /// if it holds a `ClusterSecondaryRangeName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cluster_secondary_range_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn cluster_secondary_range_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.cluster_ip_allocation.as_ref().and_then(|v| match v {
             crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterSecondaryRangeName(
@@ -3489,7 +3492,7 @@ impl IPAllocationPolicy {
     /// The value of [cluster_ip_allocation][crate::model::IPAllocationPolicy::cluster_ip_allocation]
     /// if it holds a `ClusterIpv4CidrBlock`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cluster_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
+    pub fn cluster_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.cluster_ip_allocation.as_ref().and_then(|v| match v {
             crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterIpv4CidrBlock(v) => {
@@ -3531,7 +3534,10 @@ impl IPAllocationPolicy {
         self
     }
 
-    /// Sets the value of `services_ip_allocation`.
+    /// Sets the value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation].
+    ///
+    /// Note that all the setters affecting `services_ip_allocation` are mutually
+    /// exclusive.
     pub fn set_services_ip_allocation<
         T: std::convert::Into<
                 std::option::Option<crate::model::ip_allocation_policy::ServicesIpAllocation>,
@@ -3547,7 +3553,7 @@ impl IPAllocationPolicy {
     /// The value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation]
     /// if it holds a `ServicesSecondaryRangeName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_services_secondary_range_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn services_secondary_range_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.services_ip_allocation.as_ref().and_then(|v| match v {
             crate::model::ip_allocation_policy::ServicesIpAllocation::ServicesSecondaryRangeName(v) => std::option::Option::Some(v),
@@ -3558,7 +3564,7 @@ impl IPAllocationPolicy {
     /// The value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation]
     /// if it holds a `ServicesIpv4CidrBlock`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_services_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
+    pub fn services_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.services_ip_allocation.as_ref().and_then(|v| match v {
             crate::model::ip_allocation_policy::ServicesIpAllocation::ServicesIpv4CidrBlock(v) => {
@@ -4830,7 +4836,7 @@ impl wkt::message::Message for ScheduledSnapshotsConfig {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct MasterAuthorizedNetworksConfig {
-    /// Whether or not master authorized networks feature is enabled.
+    /// Optional. Whether or not master authorized networks feature is enabled.
     pub enabled: bool,
 
     /// Up to 50 external networks that could access Kubernetes master through

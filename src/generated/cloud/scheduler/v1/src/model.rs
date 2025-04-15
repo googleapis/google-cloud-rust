@@ -715,7 +715,10 @@ impl Job {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::Job::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<T: std::convert::Into<std::option::Option<crate::model::job::Target>>>(
         mut self,
         v: T,
@@ -727,7 +730,7 @@ impl Job {
     /// The value of [target][crate::model::Job::target]
     /// if it holds a `PubsubTarget`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pubsub_target(
+    pub fn pubsub_target(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PubsubTarget>> {
         #[allow(unreachable_patterns)]
@@ -740,7 +743,7 @@ impl Job {
     /// The value of [target][crate::model::Job::target]
     /// if it holds a `AppEngineHttpTarget`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_app_engine_http_target(
+    pub fn app_engine_http_target(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AppEngineHttpTarget>> {
         #[allow(unreachable_patterns)]
@@ -753,9 +756,7 @@ impl Job {
     /// The value of [target][crate::model::Job::target]
     /// if it holds a `HttpTarget`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_http_target(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HttpTarget>> {
+    pub fn http_target(&self) -> std::option::Option<&std::boxed::Box<crate::model::HttpTarget>> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
             crate::model::job::Target::HttpTarget(v) => std::option::Option::Some(v),
@@ -1186,7 +1187,10 @@ impl HttpTarget {
         self
     }
 
-    /// Sets the value of `authorization_header`.
+    /// Sets the value of [authorization_header][crate::model::HttpTarget::authorization_header].
+    ///
+    /// Note that all the setters affecting `authorization_header` are mutually
+    /// exclusive.
     pub fn set_authorization_header<
         T: std::convert::Into<std::option::Option<crate::model::http_target::AuthorizationHeader>>,
     >(
@@ -1200,9 +1204,7 @@ impl HttpTarget {
     /// The value of [authorization_header][crate::model::HttpTarget::authorization_header]
     /// if it holds a `OauthToken`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oauth_token(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::OAuthToken>> {
+    pub fn oauth_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OAuthToken>> {
         #[allow(unreachable_patterns)]
         self.authorization_header.as_ref().and_then(|v| match v {
             crate::model::http_target::AuthorizationHeader::OauthToken(v) => {
@@ -1215,7 +1217,7 @@ impl HttpTarget {
     /// The value of [authorization_header][crate::model::HttpTarget::authorization_header]
     /// if it holds a `OidcToken`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oidc_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OidcToken>> {
+    pub fn oidc_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OidcToken>> {
         #[allow(unreachable_patterns)]
         self.authorization_header.as_ref().and_then(|v| match v {
             crate::model::http_target::AuthorizationHeader::OidcToken(v) => {

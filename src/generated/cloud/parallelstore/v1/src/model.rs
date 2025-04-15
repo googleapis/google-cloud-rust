@@ -73,7 +73,7 @@ pub struct Instance {
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub capacity_gib: i64,
 
-    /// Deprecated 'daos_version' field.
+    /// Output only. Deprecated 'daos_version' field.
     /// Output only. The version of DAOS software running in the instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub daos_version: std::string::String,
@@ -1062,7 +1062,10 @@ impl ImportDataRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportDataRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_data_request::Source>>,
     >(
@@ -1076,7 +1079,7 @@ impl ImportDataRequest {
     /// The value of [source][crate::model::ImportDataRequest::source]
     /// if it holds a `SourceGcsBucket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_gcs_bucket(
+    pub fn source_gcs_bucket(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SourceGcsBucket>> {
         #[allow(unreachable_patterns)]
@@ -1105,7 +1108,10 @@ impl ImportDataRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ImportDataRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::import_data_request::Destination>>,
     >(
@@ -1119,7 +1125,7 @@ impl ImportDataRequest {
     /// The value of [destination][crate::model::ImportDataRequest::destination]
     /// if it holds a `DestinationParallelstore`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_parallelstore(
+    pub fn destination_parallelstore(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationParallelstore>> {
         #[allow(unreachable_patterns)]
@@ -1253,7 +1259,10 @@ impl ExportDataRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ExportDataRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::export_data_request::Source>>,
     >(
@@ -1267,7 +1276,7 @@ impl ExportDataRequest {
     /// The value of [source][crate::model::ExportDataRequest::source]
     /// if it holds a `SourceParallelstore`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_parallelstore(
+    pub fn source_parallelstore(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SourceParallelstore>> {
         #[allow(unreachable_patterns)]
@@ -1296,7 +1305,10 @@ impl ExportDataRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportDataRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_data_request::Destination>>,
     >(
@@ -1310,7 +1322,7 @@ impl ExportDataRequest {
     /// The value of [destination][crate::model::ExportDataRequest::destination]
     /// if it holds a `DestinationGcsBucket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_gcs_bucket(
+    pub fn destination_gcs_bucket(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationGcsBucket>> {
         #[allow(unreachable_patterns)]
@@ -1823,7 +1835,10 @@ impl TransferOperationMetadata {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::TransferOperationMetadata::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::transfer_operation_metadata::Source>>,
     >(
@@ -1837,7 +1852,7 @@ impl TransferOperationMetadata {
     /// The value of [source][crate::model::TransferOperationMetadata::source]
     /// if it holds a `SourceParallelstore`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_parallelstore(
+    pub fn source_parallelstore(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SourceParallelstore>> {
         #[allow(unreachable_patterns)]
@@ -1852,7 +1867,7 @@ impl TransferOperationMetadata {
     /// The value of [source][crate::model::TransferOperationMetadata::source]
     /// if it holds a `SourceGcsBucket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_gcs_bucket(
+    pub fn source_gcs_bucket(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SourceGcsBucket>> {
         #[allow(unreachable_patterns)]
@@ -1898,7 +1913,10 @@ impl TransferOperationMetadata {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::TransferOperationMetadata::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::transfer_operation_metadata::Destination>,
@@ -1914,7 +1932,7 @@ impl TransferOperationMetadata {
     /// The value of [destination][crate::model::TransferOperationMetadata::destination]
     /// if it holds a `DestinationGcsBucket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_gcs_bucket(
+    pub fn destination_gcs_bucket(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationGcsBucket>> {
         #[allow(unreachable_patterns)]
@@ -1929,7 +1947,7 @@ impl TransferOperationMetadata {
     /// The value of [destination][crate::model::TransferOperationMetadata::destination]
     /// if it holds a `DestinationParallelstore`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_parallelstore(
+    pub fn destination_parallelstore(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationParallelstore>> {
         #[allow(unreachable_patterns)]
@@ -2048,11 +2066,11 @@ pub struct TransferCounters {
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub bytes_copied: i64,
 
-    /// Objects that failed to write to the data destination.
+    /// Objects that are failed to write to the data destination.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub objects_failed: i64,
 
-    /// Number of Bytes that failed to be written to the data destination.
+    /// Bytes that are failed to write to the data destination.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub bytes_failed: i64,
 

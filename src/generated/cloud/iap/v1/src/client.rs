@@ -180,6 +180,17 @@ impl IdentityAwareProxyAdminService {
         .set_iap_settings(iap_settings.into())
     }
 
+    /// Validates that a given CEL expression conforms to IAP restrictions.
+    pub fn validate_iap_attribute_expression(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::identity_aware_proxy_admin_service::ValidateIapAttributeExpression {
+        super::builder::identity_aware_proxy_admin_service::ValidateIapAttributeExpression::new(
+            self.inner.clone(),
+        )
+        .set_name(name.into())
+    }
+
     /// Lists the existing TunnelDestGroups. To group across all locations, use a
     /// `-` as the location ID. For example:
     /// `/v1/projects/123/iap_tunnel/locations/-/destGroups`

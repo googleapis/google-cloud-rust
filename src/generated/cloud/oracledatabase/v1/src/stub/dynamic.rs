@@ -155,6 +155,24 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDatabaseBackupsResponse>>;
 
+    async fn stop_autonomous_database(
+        &self,
+        req: crate::model::StopAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn start_autonomous_database(
+        &self,
+        req: crate::model::StartAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn restart_autonomous_database(
+        &self,
+        req: crate::model::RestartAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -408,6 +426,33 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     ) -> crate::Result<gax::response::Response<crate::model::ListAutonomousDatabaseBackupsResponse>>
     {
         T::list_autonomous_database_backups(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn stop_autonomous_database(
+        &self,
+        req: crate::model::StopAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::stop_autonomous_database(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn start_autonomous_database(
+        &self,
+        req: crate::model::StartAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::start_autonomous_database(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn restart_autonomous_database(
+        &self,
+        req: crate::model::RestartAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::restart_autonomous_database(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

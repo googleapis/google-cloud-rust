@@ -2100,7 +2100,10 @@ impl InputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::InputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::input_config::Source>>,
     >(
@@ -2114,7 +2117,7 @@ impl InputConfig {
     /// The value of [source][crate::model::InputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::input_config::Source::GcsSource(v) => std::option::Option::Some(v),
@@ -2261,7 +2264,10 @@ impl OutputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::OutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
     >(
@@ -2275,7 +2281,7 @@ impl OutputConfig {
     /// The value of [destination][crate::model::OutputConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_destination(
+    pub fn gcs_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
         #[allow(unreachable_patterns)]

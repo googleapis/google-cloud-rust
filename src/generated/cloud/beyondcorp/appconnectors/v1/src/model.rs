@@ -131,7 +131,10 @@ impl NotificationConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `config`.
+    /// Sets the value of [config][crate::model::NotificationConfig::config].
+    ///
+    /// Note that all the setters affecting `config` are mutually
+    /// exclusive.
     pub fn set_config<
         T: std::convert::Into<std::option::Option<crate::model::notification_config::Config>>,
     >(
@@ -145,7 +148,7 @@ impl NotificationConfig {
     /// The value of [config][crate::model::NotificationConfig::config]
     /// if it holds a `PubsubNotification`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pubsub_notification(
+    pub fn pubsub_notification(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::notification_config::CloudPubSubNotificationConfig>,
@@ -967,7 +970,10 @@ pub mod app_connector {
             std::default::Default::default()
         }
 
-        /// Sets the value of `r#type`.
+        /// Sets the value of [r#type][crate::model::app_connector::PrincipalInfo::type].
+        ///
+        /// Note that all the setters affecting `r#type` are mutually
+        /// exclusive.
         pub fn set_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::app_connector::principal_info::Type>,
@@ -983,7 +989,7 @@ pub mod app_connector {
         /// The value of [r#type][crate::model::app_connector::PrincipalInfo::r#type]
         /// if it holds a `ServiceAccount`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_service_account(
+        pub fn service_account(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::app_connector::principal_info::ServiceAccount>,

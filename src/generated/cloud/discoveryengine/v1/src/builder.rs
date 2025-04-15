@@ -217,7 +217,10 @@ pub mod completion_service {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ImportSuggestionDenyListEntriesRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<
             T: Into<Option<crate::model::import_suggestion_deny_list_entries_request::Source>>,
         >(
@@ -225,6 +228,38 @@ pub mod completion_service {
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportSuggestionDenyListEntriesRequest::source]
+        /// to hold a `InlineSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_inline_source<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::import_suggestion_deny_list_entries_request::InlineSource,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_inline_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportSuggestionDenyListEntriesRequest::source]
+        /// to hold a `GcsSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_source(v);
             self
         }
     }
@@ -419,7 +454,10 @@ pub mod completion_service {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ImportCompletionSuggestionsRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<
             T: Into<Option<crate::model::import_completion_suggestions_request::Source>>,
         >(
@@ -427,6 +465,53 @@ pub mod completion_service {
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportCompletionSuggestionsRequest::source]
+        /// to hold a `InlineSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_inline_source<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::import_completion_suggestions_request::InlineSource,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_inline_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportCompletionSuggestionsRequest::source]
+        /// to hold a `GcsSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportCompletionSuggestionsRequest::source]
+        /// to hold a `BigquerySource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_bigquery_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_bigquery_source(v);
             self
         }
     }
@@ -3383,12 +3468,150 @@ pub mod document_service {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ImportDocumentsRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::import_documents_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportDocumentsRequest::source]
+        /// to hold a `InlineSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_inline_source<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::import_documents_request::InlineSource>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_inline_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportDocumentsRequest::source]
+        /// to hold a `GcsSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportDocumentsRequest::source]
+        /// to hold a `BigquerySource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_bigquery_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_bigquery_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportDocumentsRequest::source]
+        /// to hold a `FhirStoreSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_fhir_store_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::FhirStoreSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_fhir_store_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportDocumentsRequest::source]
+        /// to hold a `SpannerSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_spanner_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::SpannerSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_spanner_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportDocumentsRequest::source]
+        /// to hold a `CloudSqlSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_cloud_sql_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_cloud_sql_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportDocumentsRequest::source]
+        /// to hold a `FirestoreSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_firestore_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::FirestoreSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_firestore_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportDocumentsRequest::source]
+        /// to hold a `AlloyDbSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_alloy_db_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::AlloyDbSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_alloy_db_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportDocumentsRequest::source]
+        /// to hold a `BigtableSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_bigtable_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::BigtableSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_bigtable_source(v);
             self
         }
     }
@@ -3497,12 +3720,45 @@ pub mod document_service {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::PurgeDocumentsRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::purge_documents_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::PurgeDocumentsRequest::source]
+        /// to hold a `GcsSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::PurgeDocumentsRequest::source]
+        /// to hold a `InlineSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_inline_source<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::purge_documents_request::InlineSource>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_inline_source(v);
             self
         }
     }
@@ -7289,7 +7545,10 @@ pub mod search_tuning_service {
             self
         }
 
-        /// Sets the value of `training_input`.
+        /// Sets the value of [training_input][crate::model::TrainCustomModelRequest::training_input].
+        ///
+        /// Note that all the setters affecting `training_input` are
+        /// mutually exclusive.
         pub fn set_training_input<
             T: Into<Option<crate::model::train_custom_model_request::TrainingInput>>,
         >(
@@ -7297,6 +7556,23 @@ pub mod search_tuning_service {
             v: T,
         ) -> Self {
             self.0.request.training_input = v.into();
+            self
+        }
+
+        /// Sets the value of [training_input][crate::model::TrainCustomModelRequest::training_input]
+        /// to hold a `GcsTrainingInput`.
+        ///
+        /// Note that all the setters affecting `training_input` are
+        /// mutually exclusive.
+        pub fn set_gcs_training_input<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::train_custom_model_request::GcsTrainingInput>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_training_input(v);
             self
         }
     }
@@ -9638,12 +9914,60 @@ pub mod user_event_service {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ImportUserEventsRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::import_user_events_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportUserEventsRequest::source]
+        /// to hold a `InlineSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_inline_source<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::import_user_events_request::InlineSource>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_inline_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportUserEventsRequest::source]
+        /// to hold a `GcsSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportUserEventsRequest::source]
+        /// to hold a `BigquerySource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_bigquery_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_bigquery_source(v);
             self
         }
     }

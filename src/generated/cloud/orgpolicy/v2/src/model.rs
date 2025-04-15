@@ -130,7 +130,10 @@ impl Constraint {
         self
     }
 
-    /// Sets the value of `constraint_type`.
+    /// Sets the value of [constraint_type][crate::model::Constraint::constraint_type].
+    ///
+    /// Note that all the setters affecting `constraint_type` are mutually
+    /// exclusive.
     pub fn set_constraint_type<
         T: std::convert::Into<std::option::Option<crate::model::constraint::ConstraintType>>,
     >(
@@ -144,7 +147,7 @@ impl Constraint {
     /// The value of [constraint_type][crate::model::Constraint::constraint_type]
     /// if it holds a `ListConstraint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_list_constraint(
+    pub fn list_constraint(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::constraint::ListConstraint>> {
         #[allow(unreachable_patterns)]
@@ -159,7 +162,7 @@ impl Constraint {
     /// The value of [constraint_type][crate::model::Constraint::constraint_type]
     /// if it holds a `BooleanConstraint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_boolean_constraint(
+    pub fn boolean_constraint(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::constraint::BooleanConstraint>> {
         #[allow(unreachable_patterns)]
@@ -961,7 +964,10 @@ pub mod policy_spec {
             self
         }
 
-        /// Sets the value of `kind`.
+        /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind].
+        ///
+        /// Note that all the setters affecting `kind` are mutually
+        /// exclusive.
         pub fn set_kind<
             T: std::convert::Into<std::option::Option<crate::model::policy_spec::policy_rule::Kind>>,
         >(
@@ -975,7 +981,7 @@ pub mod policy_spec {
         /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
         /// if it holds a `Values`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_values(
+        pub fn values(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::policy_spec::policy_rule::StringValues>,
@@ -992,7 +998,7 @@ pub mod policy_spec {
         /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
         /// if it holds a `AllowAll`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_allow_all(&self) -> std::option::Option<&bool> {
+        pub fn allow_all(&self) -> std::option::Option<&bool> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::policy_spec::policy_rule::Kind::AllowAll(v) => {
@@ -1005,7 +1011,7 @@ pub mod policy_spec {
         /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
         /// if it holds a `DenyAll`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_deny_all(&self) -> std::option::Option<&bool> {
+        pub fn deny_all(&self) -> std::option::Option<&bool> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::policy_spec::policy_rule::Kind::DenyAll(v) => {
@@ -1018,7 +1024,7 @@ pub mod policy_spec {
         /// The value of [kind][crate::model::policy_spec::PolicyRule::kind]
         /// if it holds a `Enforce`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_enforce(&self) -> std::option::Option<&bool> {
+        pub fn enforce(&self) -> std::option::Option<&bool> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::policy_spec::policy_rule::Kind::Enforce(v) => {

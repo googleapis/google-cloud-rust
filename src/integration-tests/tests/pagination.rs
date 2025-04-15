@@ -273,7 +273,6 @@ mod mocking {
 
     fn make_secrets(count: i32, start: i32) -> Vec<sm::model::Secret> {
         (start..(start + count))
-            .into_iter()
             .map(|v| {
                 sm::model::Secret::default()
                     .set_name(format!("projects/test-project/secrets/{}", v))

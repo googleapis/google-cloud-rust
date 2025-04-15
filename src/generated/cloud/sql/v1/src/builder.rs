@@ -2423,9 +2423,22 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets the value of `sync_config`.
+        /// Sets the value of [sync_config][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_config].
+        ///
+        /// Note that all the setters affecting `sync_config` are
+        /// mutually exclusive.
         pub fn set_sync_config<T: Into<Option<crate::model::sql_instances_verify_external_sync_settings_request::SyncConfig>>>(mut self, v: T) ->Self {
             self.0.request.sync_config = v.into();
+            self
+        }
+
+        /// Sets the value of [sync_config][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_config]
+        /// to hold a `MysqlSyncConfig`.
+        ///
+        /// Note that all the setters affecting `sync_config` are
+        /// mutually exclusive.
+        pub fn set_mysql_sync_config<T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_mysql_sync_config(v);
             self
         }
     }
@@ -2501,9 +2514,22 @@ pub mod sql_instances_service {
             self
         }
 
-        /// Sets the value of `sync_config`.
+        /// Sets the value of [sync_config][crate::model::SqlInstancesStartExternalSyncRequest::sync_config].
+        ///
+        /// Note that all the setters affecting `sync_config` are
+        /// mutually exclusive.
         pub fn set_sync_config<T: Into<Option<crate::model::sql_instances_start_external_sync_request::SyncConfig>>>(mut self, v: T) ->Self {
             self.0.request.sync_config = v.into();
+            self
+        }
+
+        /// Sets the value of [sync_config][crate::model::SqlInstancesStartExternalSyncRequest::sync_config]
+        /// to hold a `MysqlSyncConfig`.
+        ///
+        /// Note that all the setters affecting `sync_config` are
+        /// mutually exclusive.
+        pub fn set_mysql_sync_config<T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_mysql_sync_config(v);
             self
         }
     }

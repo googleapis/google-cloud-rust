@@ -800,7 +800,10 @@ pub mod agent {
             std::default::Default::default()
         }
 
-        /// Sets the value of `git_settings`.
+        /// Sets the value of [git_settings][crate::model::agent::GitIntegrationSettings::git_settings].
+        ///
+        /// Note that all the setters affecting `git_settings` are mutually
+        /// exclusive.
         pub fn set_git_settings<
             T: std::convert::Into<
                     std::option::Option<crate::model::agent::git_integration_settings::GitSettings>,
@@ -816,7 +819,7 @@ pub mod agent {
         /// The value of [git_settings][crate::model::agent::GitIntegrationSettings::git_settings]
         /// if it holds a `GithubSettings`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_github_settings(
+        pub fn github_settings(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::agent::git_integration_settings::GithubSettings>,
@@ -1683,7 +1686,10 @@ impl ExportAgentResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `agent`.
+    /// Sets the value of [agent][crate::model::ExportAgentResponse::agent].
+    ///
+    /// Note that all the setters affecting `agent` are mutually
+    /// exclusive.
     pub fn set_agent<
         T: std::convert::Into<std::option::Option<crate::model::export_agent_response::Agent>>,
     >(
@@ -1697,7 +1703,7 @@ impl ExportAgentResponse {
     /// The value of [agent][crate::model::ExportAgentResponse::agent]
     /// if it holds a `AgentUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn agent_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::export_agent_response::Agent::AgentUri(v) => std::option::Option::Some(v),
@@ -1708,7 +1714,7 @@ impl ExportAgentResponse {
     /// The value of [agent][crate::model::ExportAgentResponse::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::export_agent_response::Agent::AgentContent(v) => {
@@ -1721,7 +1727,7 @@ impl ExportAgentResponse {
     /// The value of [agent][crate::model::ExportAgentResponse::agent]
     /// if it holds a `CommitSha`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_commit_sha(&self) -> std::option::Option<&std::string::String> {
+    pub fn commit_sha(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::export_agent_response::Agent::CommitSha(v) => {
@@ -1852,7 +1858,10 @@ impl RestoreAgentRequest {
         self
     }
 
-    /// Sets the value of `agent`.
+    /// Sets the value of [agent][crate::model::RestoreAgentRequest::agent].
+    ///
+    /// Note that all the setters affecting `agent` are mutually
+    /// exclusive.
     pub fn set_agent<
         T: std::convert::Into<std::option::Option<crate::model::restore_agent_request::Agent>>,
     >(
@@ -1866,7 +1875,7 @@ impl RestoreAgentRequest {
     /// The value of [agent][crate::model::RestoreAgentRequest::agent]
     /// if it holds a `AgentUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn agent_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::restore_agent_request::Agent::AgentUri(v) => std::option::Option::Some(v),
@@ -1877,7 +1886,7 @@ impl RestoreAgentRequest {
     /// The value of [agent][crate::model::RestoreAgentRequest::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::restore_agent_request::Agent::AgentContent(v) => {
@@ -1890,7 +1899,7 @@ impl RestoreAgentRequest {
     /// The value of [agent][crate::model::RestoreAgentRequest::agent]
     /// if it holds a `GitSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_git_source(
+    pub fn git_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::restore_agent_request::GitSource>> {
         #[allow(unreachable_patterns)]
@@ -4973,7 +4982,10 @@ impl ExportEntityTypesRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportEntityTypesRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_entity_types_request::Destination>,
@@ -4989,7 +5001,7 @@ impl ExportEntityTypesRequest {
     /// The value of [destination][crate::model::ExportEntityTypesRequest::destination]
     /// if it holds a `EntityTypesUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_entity_types_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn entity_types_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::export_entity_types_request::Destination::EntityTypesUri(v) => {
@@ -5002,7 +5014,7 @@ impl ExportEntityTypesRequest {
     /// The value of [destination][crate::model::ExportEntityTypesRequest::destination]
     /// if it holds a `EntityTypesContentInline`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_entity_types_content_inline(&self) -> std::option::Option<&bool> {
+    pub fn entity_types_content_inline(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::export_entity_types_request::Destination::EntityTypesContentInline(v) => {
@@ -5156,7 +5168,10 @@ impl ExportEntityTypesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `exported_entity_types`.
+    /// Sets the value of [exported_entity_types][crate::model::ExportEntityTypesResponse::exported_entity_types].
+    ///
+    /// Note that all the setters affecting `exported_entity_types` are mutually
+    /// exclusive.
     pub fn set_exported_entity_types<
         T: std::convert::Into<
                 std::option::Option<
@@ -5174,7 +5189,7 @@ impl ExportEntityTypesResponse {
     /// The value of [exported_entity_types][crate::model::ExportEntityTypesResponse::exported_entity_types]
     /// if it holds a `EntityTypesUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_entity_types_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn entity_types_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.exported_entity_types.as_ref().and_then(|v| match v {
             crate::model::export_entity_types_response::ExportedEntityTypes::EntityTypesUri(v) => {
@@ -5187,7 +5202,7 @@ impl ExportEntityTypesResponse {
     /// The value of [exported_entity_types][crate::model::ExportEntityTypesResponse::exported_entity_types]
     /// if it holds a `EntityTypesContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_entity_types_content(
+    pub fn entity_types_content(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InlineDestination>> {
         #[allow(unreachable_patterns)]
@@ -5363,7 +5378,10 @@ impl ImportEntityTypesRequest {
         self
     }
 
-    /// Sets the value of `entity_types`.
+    /// Sets the value of [entity_types][crate::model::ImportEntityTypesRequest::entity_types].
+    ///
+    /// Note that all the setters affecting `entity_types` are mutually
+    /// exclusive.
     pub fn set_entity_types<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_entity_types_request::EntityTypes>,
@@ -5379,7 +5397,7 @@ impl ImportEntityTypesRequest {
     /// The value of [entity_types][crate::model::ImportEntityTypesRequest::entity_types]
     /// if it holds a `EntityTypesUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_entity_types_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn entity_types_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.entity_types.as_ref().and_then(|v| match v {
             crate::model::import_entity_types_request::EntityTypes::EntityTypesUri(v) => {
@@ -5392,7 +5410,7 @@ impl ImportEntityTypesRequest {
     /// The value of [entity_types][crate::model::ImportEntityTypesRequest::entity_types]
     /// if it holds a `EntityTypesContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_entity_types_content(
+    pub fn entity_types_content(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InlineSource>> {
         #[allow(unreachable_patterns)]
@@ -7604,7 +7622,10 @@ pub mod experiment {
             self
         }
 
-        /// Sets the value of `variants`.
+        /// Sets the value of [variants][crate::model::experiment::Definition::variants].
+        ///
+        /// Note that all the setters affecting `variants` are mutually
+        /// exclusive.
         pub fn set_variants<
             T: std::convert::Into<std::option::Option<crate::model::experiment::definition::Variants>>,
         >(
@@ -7618,7 +7639,7 @@ pub mod experiment {
         /// The value of [variants][crate::model::experiment::Definition::variants]
         /// if it holds a `VersionVariants`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_version_variants(
+        pub fn version_variants(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::VersionVariants>> {
             #[allow(unreachable_patterns)]
@@ -7855,7 +7876,10 @@ pub mod experiment {
                 self
             }
 
-            /// Sets the value of `value`.
+            /// Sets the value of [value][crate::model::experiment::result::Metric::value].
+            ///
+            /// Note that all the setters affecting `value` are mutually
+            /// exclusive.
             pub fn set_value<
                 T: std::convert::Into<
                         std::option::Option<crate::model::experiment::result::metric::Value>,
@@ -7871,7 +7895,7 @@ pub mod experiment {
             /// The value of [value][crate::model::experiment::result::Metric::value]
             /// if it holds a `Ratio`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_ratio(&self) -> std::option::Option<&f64> {
+            pub fn ratio(&self) -> std::option::Option<&f64> {
                 #[allow(unreachable_patterns)]
                 self.value.as_ref().and_then(|v| match v {
                     crate::model::experiment::result::metric::Value::Ratio(v) => {
@@ -7884,7 +7908,7 @@ pub mod experiment {
             /// The value of [value][crate::model::experiment::result::Metric::value]
             /// if it holds a `Count`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_count(&self) -> std::option::Option<&f64> {
+            pub fn count(&self) -> std::option::Option<&f64> {
                 #[allow(unreachable_patterns)]
                 self.value.as_ref().and_then(|v| match v {
                     crate::model::experiment::result::metric::Value::Count(v) => {
@@ -8346,7 +8370,10 @@ impl VariantsHistory {
         self
     }
 
-    /// Sets the value of `variants`.
+    /// Sets the value of [variants][crate::model::VariantsHistory::variants].
+    ///
+    /// Note that all the setters affecting `variants` are mutually
+    /// exclusive.
     pub fn set_variants<
         T: std::convert::Into<std::option::Option<crate::model::variants_history::Variants>>,
     >(
@@ -8360,7 +8387,7 @@ impl VariantsHistory {
     /// The value of [variants][crate::model::VariantsHistory::variants]
     /// if it holds a `VersionVariants`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_version_variants(
+    pub fn version_variants(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VersionVariants>> {
         #[allow(unreachable_patterns)]
@@ -10139,7 +10166,10 @@ impl ImportFlowRequest {
         self
     }
 
-    /// Sets the value of `flow`.
+    /// Sets the value of [flow][crate::model::ImportFlowRequest::flow].
+    ///
+    /// Note that all the setters affecting `flow` are mutually
+    /// exclusive.
     pub fn set_flow<
         T: std::convert::Into<std::option::Option<crate::model::import_flow_request::Flow>>,
     >(
@@ -10153,7 +10183,7 @@ impl ImportFlowRequest {
     /// The value of [flow][crate::model::ImportFlowRequest::flow]
     /// if it holds a `FlowUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_flow_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn flow_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.flow.as_ref().and_then(|v| match v {
             crate::model::import_flow_request::Flow::FlowUri(v) => std::option::Option::Some(v),
@@ -10164,7 +10194,7 @@ impl ImportFlowRequest {
     /// The value of [flow][crate::model::ImportFlowRequest::flow]
     /// if it holds a `FlowContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_flow_content(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn flow_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.flow.as_ref().and_then(|v| match v {
             crate::model::import_flow_request::Flow::FlowContent(v) => std::option::Option::Some(v),
@@ -10454,7 +10484,10 @@ impl ExportFlowResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `flow`.
+    /// Sets the value of [flow][crate::model::ExportFlowResponse::flow].
+    ///
+    /// Note that all the setters affecting `flow` are mutually
+    /// exclusive.
     pub fn set_flow<
         T: std::convert::Into<std::option::Option<crate::model::export_flow_response::Flow>>,
     >(
@@ -10468,7 +10501,7 @@ impl ExportFlowResponse {
     /// The value of [flow][crate::model::ExportFlowResponse::flow]
     /// if it holds a `FlowUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_flow_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn flow_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.flow.as_ref().and_then(|v| match v {
             crate::model::export_flow_response::Flow::FlowUri(v) => std::option::Option::Some(v),
@@ -10479,7 +10512,7 @@ impl ExportFlowResponse {
     /// The value of [flow][crate::model::ExportFlowResponse::flow]
     /// if it holds a `FlowContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_flow_content(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn flow_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.flow.as_ref().and_then(|v| match v {
             crate::model::export_flow_response::Flow::FlowContent(v) => {
@@ -10887,7 +10920,10 @@ pub mod fulfillment {
                     std::default::Default::default()
                 }
 
-                /// Sets the value of `cases_or_message`.
+                /// Sets the value of [cases_or_message][crate::model::fulfillment::conditional_cases::case::CaseContent::cases_or_message].
+                ///
+                /// Note that all the setters affecting `cases_or_message` are mutually
+                /// exclusive.
                 pub fn set_cases_or_message<T: std::convert::Into<std::option::Option<crate::model::fulfillment::conditional_cases::case::case_content::CasesOrMessage>>>(mut self, v: T) -> Self
                 {
                     self.cases_or_message = v.into();
@@ -10897,7 +10933,7 @@ pub mod fulfillment {
                 /// The value of [cases_or_message][crate::model::fulfillment::conditional_cases::case::CaseContent::cases_or_message]
                 /// if it holds a `Message`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_message(
+                pub fn message(
                     &self,
                 ) -> std::option::Option<&std::boxed::Box<crate::model::ResponseMessage>>
                 {
@@ -10911,7 +10947,7 @@ pub mod fulfillment {
                 /// The value of [cases_or_message][crate::model::fulfillment::conditional_cases::case::CaseContent::cases_or_message]
                 /// if it holds a `AdditionalCases`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_additional_cases(
+                pub fn additional_cases(
                     &self,
                 ) -> std::option::Option<
                     &std::boxed::Box<crate::model::fulfillment::ConditionalCases>,
@@ -12832,7 +12868,10 @@ impl ImportIntentsRequest {
         self
     }
 
-    /// Sets the value of `intents`.
+    /// Sets the value of [intents][crate::model::ImportIntentsRequest::intents].
+    ///
+    /// Note that all the setters affecting `intents` are mutually
+    /// exclusive.
     pub fn set_intents<
         T: std::convert::Into<std::option::Option<crate::model::import_intents_request::Intents>>,
     >(
@@ -12846,7 +12885,7 @@ impl ImportIntentsRequest {
     /// The value of [intents][crate::model::ImportIntentsRequest::intents]
     /// if it holds a `IntentsUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_intents_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn intents_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.intents.as_ref().and_then(|v| match v {
             crate::model::import_intents_request::Intents::IntentsUri(v) => {
@@ -12859,7 +12898,7 @@ impl ImportIntentsRequest {
     /// The value of [intents][crate::model::ImportIntentsRequest::intents]
     /// if it holds a `IntentsContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_intents_content(
+    pub fn intents_content(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InlineSource>> {
         #[allow(unreachable_patterns)]
@@ -13232,7 +13271,10 @@ impl ExportIntentsRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportIntentsRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_intents_request::Destination>>,
     >(
@@ -13246,7 +13288,7 @@ impl ExportIntentsRequest {
     /// The value of [destination][crate::model::ExportIntentsRequest::destination]
     /// if it holds a `IntentsUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_intents_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn intents_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::export_intents_request::Destination::IntentsUri(v) => {
@@ -13259,7 +13301,7 @@ impl ExportIntentsRequest {
     /// The value of [destination][crate::model::ExportIntentsRequest::destination]
     /// if it holds a `IntentsContentInline`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_intents_content_inline(&self) -> std::option::Option<&bool> {
+    pub fn intents_content_inline(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::export_intents_request::Destination::IntentsContentInline(v) => {
@@ -13412,7 +13454,10 @@ impl ExportIntentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `intents`.
+    /// Sets the value of [intents][crate::model::ExportIntentsResponse::intents].
+    ///
+    /// Note that all the setters affecting `intents` are mutually
+    /// exclusive.
     pub fn set_intents<
         T: std::convert::Into<std::option::Option<crate::model::export_intents_response::Intents>>,
     >(
@@ -13426,7 +13471,7 @@ impl ExportIntentsResponse {
     /// The value of [intents][crate::model::ExportIntentsResponse::intents]
     /// if it holds a `IntentsUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_intents_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn intents_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.intents.as_ref().and_then(|v| match v {
             crate::model::export_intents_response::Intents::IntentsUri(v) => {
@@ -13439,7 +13484,7 @@ impl ExportIntentsResponse {
     /// The value of [intents][crate::model::ExportIntentsResponse::intents]
     /// if it holds a `IntentsContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_intents_content(
+    pub fn intents_content(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InlineDestination>> {
         #[allow(unreachable_patterns)]
@@ -14121,7 +14166,10 @@ impl EventHandler {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::EventHandler::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::event_handler::Target>>,
     >(
@@ -14135,7 +14183,7 @@ impl EventHandler {
     /// The value of [target][crate::model::EventHandler::target]
     /// if it holds a `TargetPage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_target_page(&self) -> std::option::Option<&std::string::String> {
+    pub fn target_page(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
             crate::model::event_handler::Target::TargetPage(v) => std::option::Option::Some(v),
@@ -14146,7 +14194,7 @@ impl EventHandler {
     /// The value of [target][crate::model::EventHandler::target]
     /// if it holds a `TargetFlow`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_target_flow(&self) -> std::option::Option<&std::string::String> {
+    pub fn target_flow(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
             crate::model::event_handler::Target::TargetFlow(v) => std::option::Option::Some(v),
@@ -14331,7 +14379,10 @@ impl TransitionRoute {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::TransitionRoute::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::transition_route::Target>>,
     >(
@@ -14345,7 +14396,7 @@ impl TransitionRoute {
     /// The value of [target][crate::model::TransitionRoute::target]
     /// if it holds a `TargetPage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_target_page(&self) -> std::option::Option<&std::string::String> {
+    pub fn target_page(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
             crate::model::transition_route::Target::TargetPage(v) => std::option::Option::Some(v),
@@ -14356,7 +14407,7 @@ impl TransitionRoute {
     /// The value of [target][crate::model::TransitionRoute::target]
     /// if it holds a `TargetFlow`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_target_flow(&self) -> std::option::Option<&std::string::String> {
+    pub fn target_flow(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
             crate::model::transition_route::Target::TargetFlow(v) => std::option::Option::Some(v),
@@ -14936,7 +14987,10 @@ impl KnowledgeConnectorSettings {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::KnowledgeConnectorSettings::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::knowledge_connector_settings::Target>>,
     >(
@@ -14950,7 +15004,7 @@ impl KnowledgeConnectorSettings {
     /// The value of [target][crate::model::KnowledgeConnectorSettings::target]
     /// if it holds a `TargetPage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_target_page(&self) -> std::option::Option<&std::string::String> {
+    pub fn target_page(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
             crate::model::knowledge_connector_settings::Target::TargetPage(v) => {
@@ -14963,7 +15017,7 @@ impl KnowledgeConnectorSettings {
     /// The value of [target][crate::model::KnowledgeConnectorSettings::target]
     /// if it holds a `TargetFlow`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_target_flow(&self) -> std::option::Option<&std::string::String> {
+    pub fn target_flow(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
             crate::model::knowledge_connector_settings::Target::TargetFlow(v) => {
@@ -15094,7 +15148,10 @@ impl ResponseMessage {
         self
     }
 
-    /// Sets the value of `message`.
+    /// Sets the value of [message][crate::model::ResponseMessage::message].
+    ///
+    /// Note that all the setters affecting `message` are mutually
+    /// exclusive.
     pub fn set_message<
         T: std::convert::Into<std::option::Option<crate::model::response_message::Message>>,
     >(
@@ -15108,7 +15165,7 @@ impl ResponseMessage {
     /// The value of [message][crate::model::ResponseMessage::message]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text(
+    pub fn text(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::Text>> {
         #[allow(unreachable_patterns)]
@@ -15121,7 +15178,7 @@ impl ResponseMessage {
     /// The value of [message][crate::model::ResponseMessage::message]
     /// if it holds a `Payload`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
+    pub fn payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
         #[allow(unreachable_patterns)]
         self.message.as_ref().and_then(|v| match v {
             crate::model::response_message::Message::Payload(v) => std::option::Option::Some(v),
@@ -15132,7 +15189,7 @@ impl ResponseMessage {
     /// The value of [message][crate::model::ResponseMessage::message]
     /// if it holds a `ConversationSuccess`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_conversation_success(
+    pub fn conversation_success(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::ConversationSuccess>>
     {
@@ -15148,7 +15205,7 @@ impl ResponseMessage {
     /// The value of [message][crate::model::ResponseMessage::message]
     /// if it holds a `OutputAudioText`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_output_audio_text(
+    pub fn output_audio_text(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::OutputAudioText>>
     {
@@ -15164,7 +15221,7 @@ impl ResponseMessage {
     /// The value of [message][crate::model::ResponseMessage::message]
     /// if it holds a `LiveAgentHandoff`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_live_agent_handoff(
+    pub fn live_agent_handoff(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::LiveAgentHandoff>>
     {
@@ -15180,7 +15237,7 @@ impl ResponseMessage {
     /// The value of [message][crate::model::ResponseMessage::message]
     /// if it holds a `EndInteraction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_end_interaction(
+    pub fn end_interaction(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::EndInteraction>> {
         #[allow(unreachable_patterns)]
@@ -15195,7 +15252,7 @@ impl ResponseMessage {
     /// The value of [message][crate::model::ResponseMessage::message]
     /// if it holds a `PlayAudio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_play_audio(
+    pub fn play_audio(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::PlayAudio>> {
         #[allow(unreachable_patterns)]
@@ -15208,7 +15265,7 @@ impl ResponseMessage {
     /// The value of [message][crate::model::ResponseMessage::message]
     /// if it holds a `MixedAudio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_mixed_audio(
+    pub fn mixed_audio(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::MixedAudio>> {
         #[allow(unreachable_patterns)]
@@ -15221,7 +15278,7 @@ impl ResponseMessage {
     /// The value of [message][crate::model::ResponseMessage::message]
     /// if it holds a `TelephonyTransferCall`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_telephony_transfer_call(
+    pub fn telephony_transfer_call(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::TelephonyTransferCall>>
     {
@@ -15237,7 +15294,7 @@ impl ResponseMessage {
     /// The value of [message][crate::model::ResponseMessage::message]
     /// if it holds a `KnowledgeInfoCard`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_knowledge_info_card(
+    pub fn knowledge_info_card(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::response_message::KnowledgeInfoCard>>
     {
@@ -15621,7 +15678,10 @@ pub mod response_message {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::response_message::OutputAudioText::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
         pub fn set_source<
             T: std::convert::Into<
                     std::option::Option<crate::model::response_message::output_audio_text::Source>,
@@ -15637,7 +15697,7 @@ pub mod response_message {
         /// The value of [source][crate::model::response_message::OutputAudioText::source]
         /// if it holds a `Text`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_text(&self) -> std::option::Option<&std::string::String> {
+        pub fn text(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
                 crate::model::response_message::output_audio_text::Source::Text(v) => {
@@ -15650,7 +15710,7 @@ pub mod response_message {
         /// The value of [source][crate::model::response_message::OutputAudioText::source]
         /// if it holds a `Ssml`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_ssml(&self) -> std::option::Option<&std::string::String> {
+        pub fn ssml(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
                 crate::model::response_message::output_audio_text::Source::Ssml(v) => {
@@ -15864,7 +15924,10 @@ pub mod response_message {
                 self
             }
 
-            /// Sets the value of `content`.
+            /// Sets the value of [content][crate::model::response_message::mixed_audio::Segment::content].
+            ///
+            /// Note that all the setters affecting `content` are mutually
+            /// exclusive.
             pub fn set_content<
                 T: std::convert::Into<
                         std::option::Option<
@@ -15882,7 +15945,7 @@ pub mod response_message {
             /// The value of [content][crate::model::response_message::mixed_audio::Segment::content]
             /// if it holds a `Audio`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_audio(&self) -> std::option::Option<&::bytes::Bytes> {
+            pub fn audio(&self) -> std::option::Option<&::bytes::Bytes> {
                 #[allow(unreachable_patterns)]
                 self.content.as_ref().and_then(|v| match v {
                     crate::model::response_message::mixed_audio::segment::Content::Audio(v) => {
@@ -15895,7 +15958,7 @@ pub mod response_message {
             /// The value of [content][crate::model::response_message::mixed_audio::Segment::content]
             /// if it holds a `Uri`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_uri(&self) -> std::option::Option<&std::string::String> {
+            pub fn uri(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.content.as_ref().and_then(|v| match v {
                     crate::model::response_message::mixed_audio::segment::Content::Uri(v) => {
@@ -15977,7 +16040,10 @@ pub mod response_message {
             std::default::Default::default()
         }
 
-        /// Sets the value of `endpoint`.
+        /// Sets the value of [endpoint][crate::model::response_message::TelephonyTransferCall::endpoint].
+        ///
+        /// Note that all the setters affecting `endpoint` are mutually
+        /// exclusive.
         pub fn set_endpoint<
             T: std::convert::Into<
                     std::option::Option<
@@ -15995,7 +16061,7 @@ pub mod response_message {
         /// The value of [endpoint][crate::model::response_message::TelephonyTransferCall::endpoint]
         /// if it holds a `PhoneNumber`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_phone_number(&self) -> std::option::Option<&std::string::String> {
+        pub fn phone_number(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.endpoint.as_ref().and_then(|v| match v {
                 crate::model::response_message::telephony_transfer_call::Endpoint::PhoneNumber(
@@ -16800,7 +16866,10 @@ impl SecuritySettings {
         self
     }
 
-    /// Sets the value of `data_retention`.
+    /// Sets the value of [data_retention][crate::model::SecuritySettings::data_retention].
+    ///
+    /// Note that all the setters affecting `data_retention` are mutually
+    /// exclusive.
     pub fn set_data_retention<
         T: std::convert::Into<std::option::Option<crate::model::security_settings::DataRetention>>,
     >(
@@ -16814,7 +16883,7 @@ impl SecuritySettings {
     /// The value of [data_retention][crate::model::SecuritySettings::data_retention]
     /// if it holds a `RetentionWindowDays`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_retention_window_days(&self) -> std::option::Option<&i32> {
+    pub fn retention_window_days(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.data_retention.as_ref().and_then(|v| match v {
             crate::model::security_settings::DataRetention::RetentionWindowDays(v) => {
@@ -16827,7 +16896,7 @@ impl SecuritySettings {
     /// The value of [data_retention][crate::model::SecuritySettings::data_retention]
     /// if it holds a `RetentionStrategy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_retention_strategy(
+    pub fn retention_strategy(
         &self,
     ) -> std::option::Option<&crate::model::security_settings::RetentionStrategy> {
         #[allow(unreachable_patterns)]
@@ -18301,7 +18370,10 @@ impl StreamingDetectIntentResponse {
         self
     }
 
-    /// Sets the value of `response`.
+    /// Sets the value of [response][crate::model::StreamingDetectIntentResponse::response].
+    ///
+    /// Note that all the setters affecting `response` are mutually
+    /// exclusive.
     pub fn set_response<
         T: std::convert::Into<
                 std::option::Option<crate::model::streaming_detect_intent_response::Response>,
@@ -18317,7 +18389,7 @@ impl StreamingDetectIntentResponse {
     /// The value of [response][crate::model::StreamingDetectIntentResponse::response]
     /// if it holds a `RecognitionResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_recognition_result(
+    pub fn recognition_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingRecognitionResult>> {
         #[allow(unreachable_patterns)]
@@ -18332,7 +18404,7 @@ impl StreamingDetectIntentResponse {
     /// The value of [response][crate::model::StreamingDetectIntentResponse::response]
     /// if it holds a `DetectIntentResponse`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_detect_intent_response(
+    pub fn detect_intent_response(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DetectIntentResponse>> {
         #[allow(unreachable_patterns)]
@@ -19583,7 +19655,10 @@ impl QueryInput {
         self
     }
 
-    /// Sets the value of `input`.
+    /// Sets the value of [input][crate::model::QueryInput::input].
+    ///
+    /// Note that all the setters affecting `input` are mutually
+    /// exclusive.
     pub fn set_input<
         T: std::convert::Into<std::option::Option<crate::model::query_input::Input>>,
     >(
@@ -19597,7 +19672,7 @@ impl QueryInput {
     /// The value of [input][crate::model::QueryInput::input]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextInput>> {
+    pub fn text(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextInput>> {
         #[allow(unreachable_patterns)]
         self.input.as_ref().and_then(|v| match v {
             crate::model::query_input::Input::Text(v) => std::option::Option::Some(v),
@@ -19608,7 +19683,7 @@ impl QueryInput {
     /// The value of [input][crate::model::QueryInput::input]
     /// if it holds a `Intent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_intent(&self) -> std::option::Option<&std::boxed::Box<crate::model::IntentInput>> {
+    pub fn intent(&self) -> std::option::Option<&std::boxed::Box<crate::model::IntentInput>> {
         #[allow(unreachable_patterns)]
         self.input.as_ref().and_then(|v| match v {
             crate::model::query_input::Input::Intent(v) => std::option::Option::Some(v),
@@ -19619,7 +19694,7 @@ impl QueryInput {
     /// The value of [input][crate::model::QueryInput::input]
     /// if it holds a `Audio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_audio(&self) -> std::option::Option<&std::boxed::Box<crate::model::AudioInput>> {
+    pub fn audio(&self) -> std::option::Option<&std::boxed::Box<crate::model::AudioInput>> {
         #[allow(unreachable_patterns)]
         self.input.as_ref().and_then(|v| match v {
             crate::model::query_input::Input::Audio(v) => std::option::Option::Some(v),
@@ -19630,7 +19705,7 @@ impl QueryInput {
     /// The value of [input][crate::model::QueryInput::input]
     /// if it holds a `Event`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_event(&self) -> std::option::Option<&std::boxed::Box<crate::model::EventInput>> {
+    pub fn event(&self) -> std::option::Option<&std::boxed::Box<crate::model::EventInput>> {
         #[allow(unreachable_patterns)]
         self.input.as_ref().and_then(|v| match v {
             crate::model::query_input::Input::Event(v) => std::option::Option::Some(v),
@@ -19641,7 +19716,7 @@ impl QueryInput {
     /// The value of [input][crate::model::QueryInput::input]
     /// if it holds a `Dtmf`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_dtmf(&self) -> std::option::Option<&std::boxed::Box<crate::model::DtmfInput>> {
+    pub fn dtmf(&self) -> std::option::Option<&std::boxed::Box<crate::model::DtmfInput>> {
         #[allow(unreachable_patterns)]
         self.input.as_ref().and_then(|v| match v {
             crate::model::query_input::Input::Dtmf(v) => std::option::Option::Some(v),
@@ -20098,7 +20173,10 @@ impl QueryResult {
         self
     }
 
-    /// Sets the value of `query`.
+    /// Sets the value of [query][crate::model::QueryResult::query].
+    ///
+    /// Note that all the setters affecting `query` are mutually
+    /// exclusive.
     pub fn set_query<
         T: std::convert::Into<std::option::Option<crate::model::query_result::Query>>,
     >(
@@ -20112,7 +20190,7 @@ impl QueryResult {
     /// The value of [query][crate::model::QueryResult::query]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text(&self) -> std::option::Option<&std::string::String> {
+    pub fn text(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::query_result::Query::Text(v) => std::option::Option::Some(v),
@@ -20123,7 +20201,7 @@ impl QueryResult {
     /// The value of [query][crate::model::QueryResult::query]
     /// if it holds a `TriggerIntent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_trigger_intent(&self) -> std::option::Option<&std::string::String> {
+    pub fn trigger_intent(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::query_result::Query::TriggerIntent(v) => std::option::Option::Some(v),
@@ -20134,7 +20212,7 @@ impl QueryResult {
     /// The value of [query][crate::model::QueryResult::query]
     /// if it holds a `Transcript`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_transcript(&self) -> std::option::Option<&std::string::String> {
+    pub fn transcript(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::query_result::Query::Transcript(v) => std::option::Option::Some(v),
@@ -20145,7 +20223,7 @@ impl QueryResult {
     /// The value of [query][crate::model::QueryResult::query]
     /// if it holds a `TriggerEvent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_trigger_event(&self) -> std::option::Option<&std::string::String> {
+    pub fn trigger_event(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::query_result::Query::TriggerEvent(v) => std::option::Option::Some(v),
@@ -20156,7 +20234,7 @@ impl QueryResult {
     /// The value of [query][crate::model::QueryResult::query]
     /// if it holds a `Dtmf`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_dtmf(&self) -> std::option::Option<&std::boxed::Box<crate::model::DtmfInput>> {
+    pub fn dtmf(&self) -> std::option::Option<&std::boxed::Box<crate::model::DtmfInput>> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::query_result::Query::Dtmf(v) => std::option::Option::Some(v),
@@ -20816,7 +20894,10 @@ impl MatchIntentResponse {
         self
     }
 
-    /// Sets the value of `query`.
+    /// Sets the value of [query][crate::model::MatchIntentResponse::query].
+    ///
+    /// Note that all the setters affecting `query` are mutually
+    /// exclusive.
     pub fn set_query<
         T: std::convert::Into<std::option::Option<crate::model::match_intent_response::Query>>,
     >(
@@ -20830,7 +20911,7 @@ impl MatchIntentResponse {
     /// The value of [query][crate::model::MatchIntentResponse::query]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text(&self) -> std::option::Option<&std::string::String> {
+    pub fn text(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::match_intent_response::Query::Text(v) => std::option::Option::Some(v),
@@ -20841,7 +20922,7 @@ impl MatchIntentResponse {
     /// The value of [query][crate::model::MatchIntentResponse::query]
     /// if it holds a `TriggerIntent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_trigger_intent(&self) -> std::option::Option<&std::string::String> {
+    pub fn trigger_intent(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::match_intent_response::Query::TriggerIntent(v) => {
@@ -20854,7 +20935,7 @@ impl MatchIntentResponse {
     /// The value of [query][crate::model::MatchIntentResponse::query]
     /// if it holds a `Transcript`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_transcript(&self) -> std::option::Option<&std::string::String> {
+    pub fn transcript(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::match_intent_response::Query::Transcript(v) => {
@@ -20867,7 +20948,7 @@ impl MatchIntentResponse {
     /// The value of [query][crate::model::MatchIntentResponse::query]
     /// if it holds a `TriggerEvent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_trigger_event(&self) -> std::option::Option<&std::string::String> {
+    pub fn trigger_event(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::match_intent_response::Query::TriggerEvent(v) => {
@@ -22408,7 +22489,10 @@ pub mod transition_coverage {
             std::default::Default::default()
         }
 
-        /// Sets the value of `kind`.
+        /// Sets the value of [kind][crate::model::transition_coverage::TransitionNode::kind].
+        ///
+        /// Note that all the setters affecting `kind` are mutually
+        /// exclusive.
         pub fn set_kind<
             T: std::convert::Into<
                     std::option::Option<crate::model::transition_coverage::transition_node::Kind>,
@@ -22424,7 +22508,7 @@ pub mod transition_coverage {
         /// The value of [kind][crate::model::transition_coverage::TransitionNode::kind]
         /// if it holds a `Page`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_page(&self) -> std::option::Option<&std::boxed::Box<crate::model::Page>> {
+        pub fn page(&self) -> std::option::Option<&std::boxed::Box<crate::model::Page>> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::transition_coverage::transition_node::Kind::Page(v) => {
@@ -22437,7 +22521,7 @@ pub mod transition_coverage {
         /// The value of [kind][crate::model::transition_coverage::TransitionNode::kind]
         /// if it holds a `Flow`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_flow(&self) -> std::option::Option<&std::boxed::Box<crate::model::Flow>> {
+        pub fn flow(&self) -> std::option::Option<&std::boxed::Box<crate::model::Flow>> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::transition_coverage::transition_node::Kind::Flow(v) => {
@@ -22579,7 +22663,10 @@ pub mod transition_coverage {
             self
         }
 
-        /// Sets the value of `detail`.
+        /// Sets the value of [detail][crate::model::transition_coverage::Transition::detail].
+        ///
+        /// Note that all the setters affecting `detail` are mutually
+        /// exclusive.
         pub fn set_detail<
             T: std::convert::Into<
                     std::option::Option<crate::model::transition_coverage::transition::Detail>,
@@ -22595,7 +22682,7 @@ pub mod transition_coverage {
         /// The value of [detail][crate::model::transition_coverage::Transition::detail]
         /// if it holds a `TransitionRoute`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_transition_route(
+        pub fn transition_route(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::TransitionRoute>> {
             #[allow(unreachable_patterns)]
@@ -22610,7 +22697,7 @@ pub mod transition_coverage {
         /// The value of [detail][crate::model::transition_coverage::Transition::detail]
         /// if it holds a `EventHandler`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_event_handler(
+        pub fn event_handler(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::EventHandler>> {
             #[allow(unreachable_patterns)]
@@ -23103,7 +23190,10 @@ impl CalculateCoverageResponse {
         self
     }
 
-    /// Sets the value of `coverage_type`.
+    /// Sets the value of [coverage_type][crate::model::CalculateCoverageResponse::coverage_type].
+    ///
+    /// Note that all the setters affecting `coverage_type` are mutually
+    /// exclusive.
     pub fn set_coverage_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::calculate_coverage_response::CoverageType>,
@@ -23119,7 +23209,7 @@ impl CalculateCoverageResponse {
     /// The value of [coverage_type][crate::model::CalculateCoverageResponse::coverage_type]
     /// if it holds a `IntentCoverage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_intent_coverage(
+    pub fn intent_coverage(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::IntentCoverage>> {
         #[allow(unreachable_patterns)]
@@ -23134,7 +23224,7 @@ impl CalculateCoverageResponse {
     /// The value of [coverage_type][crate::model::CalculateCoverageResponse::coverage_type]
     /// if it holds a `TransitionCoverage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_transition_coverage(
+    pub fn transition_coverage(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TransitionCoverage>> {
         #[allow(unreachable_patterns)]
@@ -23149,7 +23239,7 @@ impl CalculateCoverageResponse {
     /// The value of [coverage_type][crate::model::CalculateCoverageResponse::coverage_type]
     /// if it holds a `RouteGroupCoverage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_route_group_coverage(
+    pub fn route_group_coverage(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TransitionRouteGroupCoverage>> {
         #[allow(unreachable_patterns)]
@@ -23987,7 +24077,10 @@ impl ImportTestCasesRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportTestCasesRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_test_cases_request::Source>>,
     >(
@@ -24001,7 +24094,7 @@ impl ImportTestCasesRequest {
     /// The value of [source][crate::model::ImportTestCasesRequest::source]
     /// if it holds a `GcsUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn gcs_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::import_test_cases_request::Source::GcsUri(v) => {
@@ -24014,7 +24107,7 @@ impl ImportTestCasesRequest {
     /// The value of [source][crate::model::ImportTestCasesRequest::source]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::import_test_cases_request::Source::Content(v) => {
@@ -24278,7 +24371,10 @@ impl ExportTestCasesRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportTestCasesRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_test_cases_request::Destination>,
@@ -24294,7 +24390,7 @@ impl ExportTestCasesRequest {
     /// The value of [destination][crate::model::ExportTestCasesRequest::destination]
     /// if it holds a `GcsUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn gcs_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::export_test_cases_request::Destination::GcsUri(v) => {
@@ -24428,7 +24524,10 @@ impl ExportTestCasesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportTestCasesResponse::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_test_cases_response::Destination>,
@@ -24444,7 +24543,7 @@ impl ExportTestCasesResponse {
     /// The value of [destination][crate::model::ExportTestCasesResponse::destination]
     /// if it holds a `GcsUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn gcs_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::export_test_cases_response::Destination::GcsUri(v) => {
@@ -24457,7 +24556,7 @@ impl ExportTestCasesResponse {
     /// The value of [destination][crate::model::ExportTestCasesResponse::destination]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::export_test_cases_response::Destination::Content(v) => {
@@ -26316,7 +26415,10 @@ impl Webhook {
         self
     }
 
-    /// Sets the value of `webhook`.
+    /// Sets the value of [webhook][crate::model::Webhook::webhook].
+    ///
+    /// Note that all the setters affecting `webhook` are mutually
+    /// exclusive.
     pub fn set_webhook<
         T: std::convert::Into<std::option::Option<crate::model::webhook::Webhook>>,
     >(
@@ -26330,7 +26432,7 @@ impl Webhook {
     /// The value of [webhook][crate::model::Webhook::webhook]
     /// if it holds a `GenericWebService`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_generic_web_service(
+    pub fn generic_web_service(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::webhook::GenericWebService>> {
         #[allow(unreachable_patterns)]
@@ -26343,7 +26445,7 @@ impl Webhook {
     /// The value of [webhook][crate::model::Webhook::webhook]
     /// if it holds a `ServiceDirectory`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_service_directory(
+    pub fn service_directory(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::webhook::ServiceDirectoryConfig>> {
         #[allow(unreachable_patterns)]
@@ -27459,7 +27561,10 @@ impl WebhookRequest {
         self
     }
 
-    /// Sets the value of `query`.
+    /// Sets the value of [query][crate::model::WebhookRequest::query].
+    ///
+    /// Note that all the setters affecting `query` are mutually
+    /// exclusive.
     pub fn set_query<
         T: std::convert::Into<std::option::Option<crate::model::webhook_request::Query>>,
     >(
@@ -27473,7 +27578,7 @@ impl WebhookRequest {
     /// The value of [query][crate::model::WebhookRequest::query]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text(&self) -> std::option::Option<&std::string::String> {
+    pub fn text(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::webhook_request::Query::Text(v) => std::option::Option::Some(v),
@@ -27484,7 +27589,7 @@ impl WebhookRequest {
     /// The value of [query][crate::model::WebhookRequest::query]
     /// if it holds a `TriggerIntent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_trigger_intent(&self) -> std::option::Option<&std::string::String> {
+    pub fn trigger_intent(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::webhook_request::Query::TriggerIntent(v) => std::option::Option::Some(v),
@@ -27495,7 +27600,7 @@ impl WebhookRequest {
     /// The value of [query][crate::model::WebhookRequest::query]
     /// if it holds a `Transcript`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_transcript(&self) -> std::option::Option<&std::string::String> {
+    pub fn transcript(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::webhook_request::Query::Transcript(v) => std::option::Option::Some(v),
@@ -27506,7 +27611,7 @@ impl WebhookRequest {
     /// The value of [query][crate::model::WebhookRequest::query]
     /// if it holds a `TriggerEvent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_trigger_event(&self) -> std::option::Option<&std::string::String> {
+    pub fn trigger_event(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::webhook_request::Query::TriggerEvent(v) => std::option::Option::Some(v),
@@ -27517,7 +27622,7 @@ impl WebhookRequest {
     /// The value of [query][crate::model::WebhookRequest::query]
     /// if it holds a `DtmfDigits`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_dtmf_digits(&self) -> std::option::Option<&std::string::String> {
+    pub fn dtmf_digits(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::webhook_request::Query::DtmfDigits(v) => std::option::Option::Some(v),
@@ -27940,7 +28045,10 @@ impl WebhookResponse {
         self
     }
 
-    /// Sets the value of `transition`.
+    /// Sets the value of [transition][crate::model::WebhookResponse::transition].
+    ///
+    /// Note that all the setters affecting `transition` are mutually
+    /// exclusive.
     pub fn set_transition<
         T: std::convert::Into<std::option::Option<crate::model::webhook_response::Transition>>,
     >(
@@ -27954,7 +28062,7 @@ impl WebhookResponse {
     /// The value of [transition][crate::model::WebhookResponse::transition]
     /// if it holds a `TargetPage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_target_page(&self) -> std::option::Option<&std::string::String> {
+    pub fn target_page(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.transition.as_ref().and_then(|v| match v {
             crate::model::webhook_response::Transition::TargetPage(v) => {
@@ -27967,7 +28075,7 @@ impl WebhookResponse {
     /// The value of [transition][crate::model::WebhookResponse::transition]
     /// if it holds a `TargetFlow`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_target_flow(&self) -> std::option::Option<&std::string::String> {
+    pub fn target_flow(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.transition.as_ref().and_then(|v| match v {
             crate::model::webhook_response::Transition::TargetFlow(v) => {

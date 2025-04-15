@@ -105,6 +105,23 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         )
     }
 
+    /// Implements [super::client::IdentityAwareProxyAdminService::validate_iap_attribute_expression].
+    fn validate_iap_attribute_expression(
+        &self,
+        _req: crate::model::ValidateIapAttributeExpressionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>,
+        >,
+    > + Send {
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
+    }
+
     /// Implements [super::client::IdentityAwareProxyAdminService::list_tunnel_dest_groups].
     fn list_tunnel_dest_groups(
         &self,

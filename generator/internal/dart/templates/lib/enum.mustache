@@ -30,9 +30,5 @@ class {{Codec.Name}} extends Enum {
   factory {{Codec.Name}}.fromJson(String json) => {{Codec.Name}}(json);
 
   @override
-  bool operator ==(Object other) =>
-      other is {{Codec.Name}} && value == other.value;
-
-  @override
   String toString() => '{{Name}}.$value';
 }

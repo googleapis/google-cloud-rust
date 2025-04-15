@@ -28,3 +28,7 @@ dependencies:
   google_cloud_protobuf: any
   google_cloud_rpc: any
   http: any
+
+dev_dependencies:
+  test: any
+  lints: any

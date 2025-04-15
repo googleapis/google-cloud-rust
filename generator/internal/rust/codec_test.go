@@ -1273,13 +1273,13 @@ func TestOneOfAsQueryParameter(t *testing.T) {
 		field *api.Field
 		want  string
 	}{
-		{optionsField, `let builder = req.get_options_field().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "optionsField") });`},
-		{typeField, `let builder = req.get_type().iter().fold(builder, |builder, p| builder.query(&[("type", p)]));`},
-		{singularField, `let builder = req.get_singular_field().iter().fold(builder, |builder, p| builder.query(&[("singularField", p)]));`},
-		{repeatedField, `let builder = req.get_repeated_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
-		{singularEnumField, `let builder = req.get_singular_enum_field().iter().fold(builder, |builder, p| builder.query(&[("singularEnumField", p.value())]));`},
-		{repeatedEnumField, `let builder = req.get_repeated_enum_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p.value())]));`},
-		{singularFieldMaskField, `let builder = req.get_singular_field_mask().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "singularFieldMask") });`},
+		{optionsField, `let builder = req.options_field().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "optionsField") });`},
+		{typeField, `let builder = req.r#type().iter().fold(builder, |builder, p| builder.query(&[("type", p)]));`},
+		{singularField, `let builder = req.singular_field().iter().fold(builder, |builder, p| builder.query(&[("singularField", p)]));`},
+		{repeatedField, `let builder = req.repeated_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
+		{singularEnumField, `let builder = req.singular_enum_field().iter().fold(builder, |builder, p| builder.query(&[("singularEnumField", p.value())]));`},
+		{repeatedEnumField, `let builder = req.repeated_enum_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p.value())]));`},
+		{singularFieldMaskField, `let builder = req.singular_field_mask().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "singularFieldMask") });`},
 	} {
 		got := addQueryParameter(test.field)
 		if test.want != got {

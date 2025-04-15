@@ -8313,7 +8313,10 @@ impl PolicyBasedRoute {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::PolicyBasedRoute::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::policy_based_route::Target>>,
     >(
@@ -8327,7 +8330,7 @@ impl PolicyBasedRoute {
     /// The value of [target][crate::model::PolicyBasedRoute::target]
     /// if it holds a `VirtualMachine`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_virtual_machine(
+    pub fn virtual_machine(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::policy_based_route::VirtualMachine>>
     {
@@ -8343,7 +8346,7 @@ impl PolicyBasedRoute {
     /// The value of [target][crate::model::PolicyBasedRoute::target]
     /// if it holds a `InterconnectAttachment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_interconnect_attachment(
+    pub fn interconnect_attachment(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::policy_based_route::InterconnectAttachment>,
@@ -8393,7 +8396,10 @@ impl PolicyBasedRoute {
         self
     }
 
-    /// Sets the value of `next_hop`.
+    /// Sets the value of [next_hop][crate::model::PolicyBasedRoute::next_hop].
+    ///
+    /// Note that all the setters affecting `next_hop` are mutually
+    /// exclusive.
     pub fn set_next_hop<
         T: std::convert::Into<std::option::Option<crate::model::policy_based_route::NextHop>>,
     >(
@@ -8407,7 +8413,7 @@ impl PolicyBasedRoute {
     /// The value of [next_hop][crate::model::PolicyBasedRoute::next_hop]
     /// if it holds a `NextHopIlbIp`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_next_hop_ilb_ip(&self) -> std::option::Option<&std::string::String> {
+    pub fn next_hop_ilb_ip(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.next_hop.as_ref().and_then(|v| match v {
             crate::model::policy_based_route::NextHop::NextHopIlbIp(v) => {
@@ -8420,7 +8426,7 @@ impl PolicyBasedRoute {
     /// The value of [next_hop][crate::model::PolicyBasedRoute::next_hop]
     /// if it holds a `NextHopOtherRoutes`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_next_hop_other_routes(
+    pub fn next_hop_other_routes(
         &self,
     ) -> std::option::Option<&crate::model::policy_based_route::OtherRoutes> {
         #[allow(unreachable_patterns)]

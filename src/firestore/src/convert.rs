@@ -55,7 +55,7 @@ mod test {
         let got = sidekick.clone().cnv();
         assert_eq!(got, proto);
 
-        let got = proto.clone().cnv();
+        let got = proto.cnv();
         assert_eq!(got, sidekick);
     }
 
@@ -87,7 +87,6 @@ mod test {
                 google::firestore::v1::structured_query::unary_filter::OperandType::Field(
                     google::firestore::v1::structured_query::FieldReference {
                         field_path: "a.b.c".into(),
-                        ..Default::default()
                     },
                 )
                 .into(),

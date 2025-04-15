@@ -77,7 +77,10 @@ impl AuthConfig {
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::AuthConfig::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::auth_config::Type>>>(
         mut self,
         v: T,
@@ -89,7 +92,7 @@ impl AuthConfig {
     /// The value of [r#type][crate::model::AuthConfig::r#type]
     /// if it holds a `UserPassword`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_user_password(
+    pub fn user_password(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::UserPassword>> {
         #[allow(unreachable_patterns)]
@@ -102,7 +105,7 @@ impl AuthConfig {
     /// The value of [r#type][crate::model::AuthConfig::r#type]
     /// if it holds a `Oauth2JwtBearer`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oauth2_jwt_bearer(
+    pub fn oauth2_jwt_bearer(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::Oauth2JwtBearer>> {
         #[allow(unreachable_patterns)]
@@ -115,7 +118,7 @@ impl AuthConfig {
     /// The value of [r#type][crate::model::AuthConfig::r#type]
     /// if it holds a `Oauth2ClientCredentials`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oauth2_client_credentials(
+    pub fn oauth2_client_credentials(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::Oauth2ClientCredentials>>
     {
@@ -131,7 +134,7 @@ impl AuthConfig {
     /// The value of [r#type][crate::model::AuthConfig::r#type]
     /// if it holds a `SshPublicKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ssh_public_key(
+    pub fn ssh_public_key(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::auth_config::SshPublicKey>> {
         #[allow(unreachable_patterns)]
@@ -1091,7 +1094,10 @@ impl ConfigVariable {
         self
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::ConfigVariable::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::config_variable::Value>>,
     >(
@@ -1105,7 +1111,7 @@ impl ConfigVariable {
     /// The value of [value][crate::model::ConfigVariable::value]
     /// if it holds a `IntValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_int_value(&self) -> std::option::Option<&i64> {
+    pub fn int_value(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::config_variable::Value::IntValue(v) => std::option::Option::Some(v),
@@ -1116,7 +1122,7 @@ impl ConfigVariable {
     /// The value of [value][crate::model::ConfigVariable::value]
     /// if it holds a `BoolValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bool_value(&self) -> std::option::Option<&bool> {
+    pub fn bool_value(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::config_variable::Value::BoolValue(v) => std::option::Option::Some(v),
@@ -1127,7 +1133,7 @@ impl ConfigVariable {
     /// The value of [value][crate::model::ConfigVariable::value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_value(&self) -> std::option::Option<&std::string::String> {
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::config_variable::Value::StringValue(v) => std::option::Option::Some(v),
@@ -1138,7 +1144,7 @@ impl ConfigVariable {
     /// The value of [value][crate::model::ConfigVariable::value]
     /// if it holds a `SecretValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_secret_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::Secret>> {
+    pub fn secret_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::Secret>> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::config_variable::Value::SecretValue(v) => std::option::Option::Some(v),
@@ -4057,7 +4063,10 @@ impl EgressControlConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `oneof_backends`.
+    /// Sets the value of [oneof_backends][crate::model::EgressControlConfig::oneof_backends].
+    ///
+    /// Note that all the setters affecting `oneof_backends` are mutually
+    /// exclusive.
     pub fn set_oneof_backends<
         T: std::convert::Into<std::option::Option<crate::model::egress_control_config::OneofBackends>>,
     >(
@@ -4071,7 +4080,7 @@ impl EgressControlConfig {
     /// The value of [oneof_backends][crate::model::EgressControlConfig::oneof_backends]
     /// if it holds a `Backends`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backends(&self) -> std::option::Option<&std::string::String> {
+    pub fn backends(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.oneof_backends.as_ref().and_then(|v| match v {
             crate::model::egress_control_config::OneofBackends::Backends(v) => {
@@ -4084,7 +4093,7 @@ impl EgressControlConfig {
     /// The value of [oneof_backends][crate::model::EgressControlConfig::oneof_backends]
     /// if it holds a `ExtractionRules`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_extraction_rules(
+    pub fn extraction_rules(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ExtractionRules>> {
         #[allow(unreachable_patterns)]
@@ -4417,7 +4426,10 @@ impl Destination {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::Destination::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::destination::Destination>>,
     >(
@@ -4431,7 +4443,7 @@ impl Destination {
     /// The value of [destination][crate::model::Destination::destination]
     /// if it holds a `ServiceAttachment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_service_attachment(&self) -> std::option::Option<&std::string::String> {
+    pub fn service_attachment(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::destination::Destination::ServiceAttachment(v) => {
@@ -4444,7 +4456,7 @@ impl Destination {
     /// The value of [destination][crate::model::Destination::destination]
     /// if it holds a `Host`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_host(&self) -> std::option::Option<&std::string::String> {
+    pub fn host(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::destination::Destination::Host(v) => std::option::Option::Some(v),

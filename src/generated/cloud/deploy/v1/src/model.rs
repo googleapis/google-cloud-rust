@@ -358,7 +358,10 @@ impl DeliveryPipeline {
         self
     }
 
-    /// Sets the value of `pipeline`.
+    /// Sets the value of [pipeline][crate::model::DeliveryPipeline::pipeline].
+    ///
+    /// Note that all the setters affecting `pipeline` are mutually
+    /// exclusive.
     pub fn set_pipeline<
         T: std::convert::Into<std::option::Option<crate::model::delivery_pipeline::Pipeline>>,
     >(
@@ -372,7 +375,7 @@ impl DeliveryPipeline {
     /// The value of [pipeline][crate::model::DeliveryPipeline::pipeline]
     /// if it holds a `SerialPipeline`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_serial_pipeline(
+    pub fn serial_pipeline(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SerialPipeline>> {
         #[allow(unreachable_patterns)]
@@ -618,7 +621,10 @@ impl Strategy {
         std::default::Default::default()
     }
 
-    /// Sets the value of `deployment_strategy`.
+    /// Sets the value of [deployment_strategy][crate::model::Strategy::deployment_strategy].
+    ///
+    /// Note that all the setters affecting `deployment_strategy` are mutually
+    /// exclusive.
     pub fn set_deployment_strategy<
         T: std::convert::Into<std::option::Option<crate::model::strategy::DeploymentStrategy>>,
     >(
@@ -632,7 +638,7 @@ impl Strategy {
     /// The value of [deployment_strategy][crate::model::Strategy::deployment_strategy]
     /// if it holds a `Standard`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_standard(&self) -> std::option::Option<&std::boxed::Box<crate::model::Standard>> {
+    pub fn standard(&self) -> std::option::Option<&std::boxed::Box<crate::model::Standard>> {
         #[allow(unreachable_patterns)]
         self.deployment_strategy.as_ref().and_then(|v| match v {
             crate::model::strategy::DeploymentStrategy::Standard(v) => std::option::Option::Some(v),
@@ -643,7 +649,7 @@ impl Strategy {
     /// The value of [deployment_strategy][crate::model::Strategy::deployment_strategy]
     /// if it holds a `Canary`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_canary(&self) -> std::option::Option<&std::boxed::Box<crate::model::Canary>> {
+    pub fn canary(&self) -> std::option::Option<&std::boxed::Box<crate::model::Canary>> {
         #[allow(unreachable_patterns)]
         self.deployment_strategy.as_ref().and_then(|v| match v {
             crate::model::strategy::DeploymentStrategy::Canary(v) => std::option::Option::Some(v),
@@ -877,7 +883,10 @@ impl Canary {
         self
     }
 
-    /// Sets the value of `mode`.
+    /// Sets the value of [mode][crate::model::Canary::mode].
+    ///
+    /// Note that all the setters affecting `mode` are mutually
+    /// exclusive.
     pub fn set_mode<T: std::convert::Into<std::option::Option<crate::model::canary::Mode>>>(
         mut self,
         v: T,
@@ -889,7 +898,7 @@ impl Canary {
     /// The value of [mode][crate::model::Canary::mode]
     /// if it holds a `CanaryDeployment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_canary_deployment(
+    pub fn canary_deployment(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CanaryDeployment>> {
         #[allow(unreachable_patterns)]
@@ -902,7 +911,7 @@ impl Canary {
     /// The value of [mode][crate::model::Canary::mode]
     /// if it holds a `CustomCanaryDeployment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_custom_canary_deployment(
+    pub fn custom_canary_deployment(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CustomCanaryDeployment>> {
         #[allow(unreachable_patterns)]
@@ -1216,7 +1225,10 @@ impl KubernetesConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `service_definition`.
+    /// Sets the value of [service_definition][crate::model::KubernetesConfig::service_definition].
+    ///
+    /// Note that all the setters affecting `service_definition` are mutually
+    /// exclusive.
     pub fn set_service_definition<
         T: std::convert::Into<std::option::Option<crate::model::kubernetes_config::ServiceDefinition>>,
     >(
@@ -1230,7 +1242,7 @@ impl KubernetesConfig {
     /// The value of [service_definition][crate::model::KubernetesConfig::service_definition]
     /// if it holds a `GatewayServiceMesh`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gateway_service_mesh(
+    pub fn gateway_service_mesh(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::kubernetes_config::GatewayServiceMesh>>
     {
@@ -1246,7 +1258,7 @@ impl KubernetesConfig {
     /// The value of [service_definition][crate::model::KubernetesConfig::service_definition]
     /// if it holds a `ServiceNetworking`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_service_networking(
+    pub fn service_networking(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::kubernetes_config::ServiceNetworking>>
     {
@@ -1677,7 +1689,10 @@ impl RuntimeConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `runtime_config`.
+    /// Sets the value of [runtime_config][crate::model::RuntimeConfig::runtime_config].
+    ///
+    /// Note that all the setters affecting `runtime_config` are mutually
+    /// exclusive.
     pub fn set_runtime_config<
         T: std::convert::Into<std::option::Option<crate::model::runtime_config::RuntimeConfig>>,
     >(
@@ -1691,7 +1706,7 @@ impl RuntimeConfig {
     /// The value of [runtime_config][crate::model::RuntimeConfig::runtime_config]
     /// if it holds a `Kubernetes`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_kubernetes(
+    pub fn kubernetes(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::KubernetesConfig>> {
         #[allow(unreachable_patterns)]
@@ -1706,9 +1721,7 @@ impl RuntimeConfig {
     /// The value of [runtime_config][crate::model::RuntimeConfig::runtime_config]
     /// if it holds a `CloudRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_run(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudRunConfig>> {
+    pub fn cloud_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudRunConfig>> {
         #[allow(unreachable_patterns)]
         self.runtime_config.as_ref().and_then(|v| match v {
             crate::model::runtime_config::RuntimeConfig::CloudRun(v) => {
@@ -2897,7 +2910,10 @@ impl Target {
         self
     }
 
-    /// Sets the value of `deployment_target`.
+    /// Sets the value of [deployment_target][crate::model::Target::deployment_target].
+    ///
+    /// Note that all the setters affecting `deployment_target` are mutually
+    /// exclusive.
     pub fn set_deployment_target<
         T: std::convert::Into<std::option::Option<crate::model::target::DeploymentTarget>>,
     >(
@@ -2911,7 +2927,7 @@ impl Target {
     /// The value of [deployment_target][crate::model::Target::deployment_target]
     /// if it holds a `Gke`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gke(&self) -> std::option::Option<&std::boxed::Box<crate::model::GkeCluster>> {
+    pub fn gke(&self) -> std::option::Option<&std::boxed::Box<crate::model::GkeCluster>> {
         #[allow(unreachable_patterns)]
         self.deployment_target.as_ref().and_then(|v| match v {
             crate::model::target::DeploymentTarget::Gke(v) => std::option::Option::Some(v),
@@ -2922,7 +2938,7 @@ impl Target {
     /// The value of [deployment_target][crate::model::Target::deployment_target]
     /// if it holds a `AnthosCluster`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_anthos_cluster(
+    pub fn anthos_cluster(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AnthosCluster>> {
         #[allow(unreachable_patterns)]
@@ -2937,7 +2953,7 @@ impl Target {
     /// The value of [deployment_target][crate::model::Target::deployment_target]
     /// if it holds a `Run`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudRunLocation>> {
+    pub fn run(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudRunLocation>> {
         #[allow(unreachable_patterns)]
         self.deployment_target.as_ref().and_then(|v| match v {
             crate::model::target::DeploymentTarget::Run(v) => std::option::Option::Some(v),
@@ -2948,9 +2964,7 @@ impl Target {
     /// The value of [deployment_target][crate::model::Target::deployment_target]
     /// if it holds a `MultiTarget`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_multi_target(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MultiTarget>> {
+    pub fn multi_target(&self) -> std::option::Option<&std::boxed::Box<crate::model::MultiTarget>> {
         #[allow(unreachable_patterns)]
         self.deployment_target.as_ref().and_then(|v| match v {
             crate::model::target::DeploymentTarget::MultiTarget(v) => std::option::Option::Some(v),
@@ -2961,7 +2975,7 @@ impl Target {
     /// The value of [deployment_target][crate::model::Target::deployment_target]
     /// if it holds a `CustomTarget`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_custom_target(
+    pub fn custom_target(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CustomTarget>> {
         #[allow(unreachable_patterns)]
@@ -3178,7 +3192,10 @@ impl ExecutionConfig {
         self
     }
 
-    /// Sets the value of `execution_environment`.
+    /// Sets the value of [execution_environment][crate::model::ExecutionConfig::execution_environment].
+    ///
+    /// Note that all the setters affecting `execution_environment` are mutually
+    /// exclusive.
     pub fn set_execution_environment<
         T: std::convert::Into<
                 std::option::Option<crate::model::execution_config::ExecutionEnvironment>,
@@ -3194,9 +3211,7 @@ impl ExecutionConfig {
     /// The value of [execution_environment][crate::model::ExecutionConfig::execution_environment]
     /// if it holds a `DefaultPool`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_default_pool(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DefaultPool>> {
+    pub fn default_pool(&self) -> std::option::Option<&std::boxed::Box<crate::model::DefaultPool>> {
         #[allow(unreachable_patterns)]
         self.execution_environment.as_ref().and_then(|v| match v {
             crate::model::execution_config::ExecutionEnvironment::DefaultPool(v) => {
@@ -3209,9 +3224,7 @@ impl ExecutionConfig {
     /// The value of [execution_environment][crate::model::ExecutionConfig::execution_environment]
     /// if it holds a `PrivatePool`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_private_pool(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivatePool>> {
+    pub fn private_pool(&self) -> std::option::Option<&std::boxed::Box<crate::model::PrivatePool>> {
         #[allow(unreachable_patterns)]
         self.execution_environment.as_ref().and_then(|v| match v {
             crate::model::execution_config::ExecutionEnvironment::PrivatePool(v) => {
@@ -4339,7 +4352,10 @@ impl CustomTargetType {
         self
     }
 
-    /// Sets the value of `definition`.
+    /// Sets the value of [definition][crate::model::CustomTargetType::definition].
+    ///
+    /// Note that all the setters affecting `definition` are mutually
+    /// exclusive.
     pub fn set_definition<
         T: std::convert::Into<std::option::Option<crate::model::custom_target_type::Definition>>,
     >(
@@ -4353,7 +4369,7 @@ impl CustomTargetType {
     /// The value of [definition][crate::model::CustomTargetType::definition]
     /// if it holds a `CustomActions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_custom_actions(
+    pub fn custom_actions(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CustomTargetSkaffoldActions>> {
         #[allow(unreachable_patterns)]
@@ -4500,7 +4516,10 @@ impl SkaffoldModules {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::SkaffoldModules::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::skaffold_modules::Source>>,
     >(
@@ -4514,7 +4533,7 @@ impl SkaffoldModules {
     /// The value of [source][crate::model::SkaffoldModules::source]
     /// if it holds a `Git`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_git(
+    pub fn git(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::skaffold_modules::SkaffoldGitSource>>
     {
@@ -4528,7 +4547,7 @@ impl SkaffoldModules {
     /// The value of [source][crate::model::SkaffoldModules::source]
     /// if it holds a `GoogleCloudStorage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_google_cloud_storage(
+    pub fn google_cloud_storage(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCSSource>>
     {
@@ -4544,7 +4563,7 @@ impl SkaffoldModules {
     /// The value of [source][crate::model::SkaffoldModules::source]
     /// if it holds a `GoogleCloudBuildRepo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_google_cloud_build_repo(
+    pub fn google_cloud_build_repo(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCBRepoSource>>
     {
@@ -5695,7 +5714,10 @@ impl PolicyRule {
         std::default::Default::default()
     }
 
-    /// Sets the value of `rule`.
+    /// Sets the value of [rule][crate::model::PolicyRule::rule].
+    ///
+    /// Note that all the setters affecting `rule` are mutually
+    /// exclusive.
     pub fn set_rule<T: std::convert::Into<std::option::Option<crate::model::policy_rule::Rule>>>(
         mut self,
         v: T,
@@ -5707,7 +5729,7 @@ impl PolicyRule {
     /// The value of [rule][crate::model::PolicyRule::rule]
     /// if it holds a `RolloutRestriction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rollout_restriction(
+    pub fn rollout_restriction(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RolloutRestriction>> {
         #[allow(unreachable_patterns)]
@@ -7664,7 +7686,10 @@ impl TargetArtifact {
         self
     }
 
-    /// Sets the value of `uri`.
+    /// Sets the value of [uri][crate::model::TargetArtifact::uri].
+    ///
+    /// Note that all the setters affecting `uri` are mutually
+    /// exclusive.
     pub fn set_uri<
         T: std::convert::Into<std::option::Option<crate::model::target_artifact::Uri>>,
     >(
@@ -7678,7 +7703,7 @@ impl TargetArtifact {
     /// The value of [uri][crate::model::TargetArtifact::uri]
     /// if it holds a `ArtifactUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_artifact_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn artifact_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.uri.as_ref().and_then(|v| match v {
             crate::model::target_artifact::Uri::ArtifactUri(v) => std::option::Option::Some(v),
@@ -9213,7 +9238,10 @@ impl Phase {
         self
     }
 
-    /// Sets the value of `jobs`.
+    /// Sets the value of [jobs][crate::model::Phase::jobs].
+    ///
+    /// Note that all the setters affecting `jobs` are mutually
+    /// exclusive.
     pub fn set_jobs<T: std::convert::Into<std::option::Option<crate::model::phase::Jobs>>>(
         mut self,
         v: T,
@@ -9225,7 +9253,7 @@ impl Phase {
     /// The value of [jobs][crate::model::Phase::jobs]
     /// if it holds a `DeploymentJobs`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_deployment_jobs(
+    pub fn deployment_jobs(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DeploymentJobs>> {
         #[allow(unreachable_patterns)]
@@ -9238,7 +9266,7 @@ impl Phase {
     /// The value of [jobs][crate::model::Phase::jobs]
     /// if it holds a `ChildRolloutJobs`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_child_rollout_jobs(
+    pub fn child_rollout_jobs(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ChildRolloutJobs>> {
         #[allow(unreachable_patterns)]
@@ -9566,7 +9594,10 @@ impl Job {
         self
     }
 
-    /// Sets the value of `job_type`.
+    /// Sets the value of [job_type][crate::model::Job::job_type].
+    ///
+    /// Note that all the setters affecting `job_type` are mutually
+    /// exclusive.
     pub fn set_job_type<T: std::convert::Into<std::option::Option<crate::model::job::JobType>>>(
         mut self,
         v: T,
@@ -9578,7 +9609,7 @@ impl Job {
     /// The value of [job_type][crate::model::Job::job_type]
     /// if it holds a `DeployJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_deploy_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::DeployJob>> {
+    pub fn deploy_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::DeployJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::job::JobType::DeployJob(v) => std::option::Option::Some(v),
@@ -9589,7 +9620,7 @@ impl Job {
     /// The value of [job_type][crate::model::Job::job_type]
     /// if it holds a `VerifyJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_verify_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::VerifyJob>> {
+    pub fn verify_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::VerifyJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::job::JobType::VerifyJob(v) => std::option::Option::Some(v),
@@ -9600,7 +9631,7 @@ impl Job {
     /// The value of [job_type][crate::model::Job::job_type]
     /// if it holds a `PredeployJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_predeploy_job(
+    pub fn predeploy_job(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PredeployJob>> {
         #[allow(unreachable_patterns)]
@@ -9613,7 +9644,7 @@ impl Job {
     /// The value of [job_type][crate::model::Job::job_type]
     /// if it holds a `PostdeployJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_postdeploy_job(
+    pub fn postdeploy_job(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PostdeployJob>> {
         #[allow(unreachable_patterns)]
@@ -9626,7 +9657,7 @@ impl Job {
     /// The value of [job_type][crate::model::Job::job_type]
     /// if it holds a `CreateChildRolloutJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_create_child_rollout_job(
+    pub fn create_child_rollout_job(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CreateChildRolloutJob>> {
         #[allow(unreachable_patterns)]
@@ -9639,7 +9670,7 @@ impl Job {
     /// The value of [job_type][crate::model::Job::job_type]
     /// if it holds a `AdvanceChildRolloutJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_advance_child_rollout_job(
+    pub fn advance_child_rollout_job(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceChildRolloutJob>> {
         #[allow(unreachable_patterns)]
@@ -11023,7 +11054,10 @@ impl JobRun {
         self
     }
 
-    /// Sets the value of `job_run`.
+    /// Sets the value of [job_run][crate::model::JobRun::job_run].
+    ///
+    /// Note that all the setters affecting `job_run` are mutually
+    /// exclusive.
     pub fn set_job_run<
         T: std::convert::Into<std::option::Option<crate::model::job_run::JobRun>>,
     >(
@@ -11037,7 +11071,7 @@ impl JobRun {
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `DeployJobRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_deploy_job_run(
+    pub fn deploy_job_run(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DeployJobRun>> {
         #[allow(unreachable_patterns)]
@@ -11050,7 +11084,7 @@ impl JobRun {
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `VerifyJobRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_verify_job_run(
+    pub fn verify_job_run(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VerifyJobRun>> {
         #[allow(unreachable_patterns)]
@@ -11063,7 +11097,7 @@ impl JobRun {
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `PredeployJobRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_predeploy_job_run(
+    pub fn predeploy_job_run(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PredeployJobRun>> {
         #[allow(unreachable_patterns)]
@@ -11076,7 +11110,7 @@ impl JobRun {
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `PostdeployJobRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_postdeploy_job_run(
+    pub fn postdeploy_job_run(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PostdeployJobRun>> {
         #[allow(unreachable_patterns)]
@@ -11089,7 +11123,7 @@ impl JobRun {
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `CreateChildRolloutJobRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_create_child_rollout_job_run(
+    pub fn create_child_rollout_job_run(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CreateChildRolloutJobRun>> {
         #[allow(unreachable_patterns)]
@@ -11104,7 +11138,7 @@ impl JobRun {
     /// The value of [job_run][crate::model::JobRun::job_run]
     /// if it holds a `AdvanceChildRolloutJobRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_advance_child_rollout_job_run(
+    pub fn advance_child_rollout_job_run(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceChildRolloutJobRun>> {
         #[allow(unreachable_patterns)]
@@ -12745,7 +12779,10 @@ impl AutomationRule {
         std::default::Default::default()
     }
 
-    /// Sets the value of `rule`.
+    /// Sets the value of [rule][crate::model::AutomationRule::rule].
+    ///
+    /// Note that all the setters affecting `rule` are mutually
+    /// exclusive.
     pub fn set_rule<
         T: std::convert::Into<std::option::Option<crate::model::automation_rule::Rule>>,
     >(
@@ -12759,7 +12796,7 @@ impl AutomationRule {
     /// The value of [rule][crate::model::AutomationRule::rule]
     /// if it holds a `PromoteReleaseRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_promote_release_rule(
+    pub fn promote_release_rule(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PromoteReleaseRule>> {
         #[allow(unreachable_patterns)]
@@ -12774,7 +12811,7 @@ impl AutomationRule {
     /// The value of [rule][crate::model::AutomationRule::rule]
     /// if it holds a `AdvanceRolloutRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_advance_rollout_rule(
+    pub fn advance_rollout_rule(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceRolloutRule>> {
         #[allow(unreachable_patterns)]
@@ -12789,7 +12826,7 @@ impl AutomationRule {
     /// The value of [rule][crate::model::AutomationRule::rule]
     /// if it holds a `RepairRolloutRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_repair_rollout_rule(
+    pub fn repair_rollout_rule(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RepairRolloutRule>> {
         #[allow(unreachable_patterns)]
@@ -12804,7 +12841,7 @@ impl AutomationRule {
     /// The value of [rule][crate::model::AutomationRule::rule]
     /// if it holds a `TimedPromoteReleaseRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_timed_promote_release_rule(
+    pub fn timed_promote_release_rule(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TimedPromoteReleaseRule>> {
         #[allow(unreachable_patterns)]
@@ -13324,7 +13361,10 @@ impl RepairPhaseConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `repair_phase`.
+    /// Sets the value of [repair_phase][crate::model::RepairPhaseConfig::repair_phase].
+    ///
+    /// Note that all the setters affecting `repair_phase` are mutually
+    /// exclusive.
     pub fn set_repair_phase<
         T: std::convert::Into<std::option::Option<crate::model::repair_phase_config::RepairPhase>>,
     >(
@@ -13338,7 +13378,7 @@ impl RepairPhaseConfig {
     /// The value of [repair_phase][crate::model::RepairPhaseConfig::repair_phase]
     /// if it holds a `Retry`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_retry(&self) -> std::option::Option<&std::boxed::Box<crate::model::Retry>> {
+    pub fn retry(&self) -> std::option::Option<&std::boxed::Box<crate::model::Retry>> {
         #[allow(unreachable_patterns)]
         self.repair_phase.as_ref().and_then(|v| match v {
             crate::model::repair_phase_config::RepairPhase::Retry(v) => {
@@ -13351,7 +13391,7 @@ impl RepairPhaseConfig {
     /// The value of [repair_phase][crate::model::RepairPhaseConfig::repair_phase]
     /// if it holds a `Rollback`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rollback(&self) -> std::option::Option<&std::boxed::Box<crate::model::Rollback>> {
+    pub fn rollback(&self) -> std::option::Option<&std::boxed::Box<crate::model::Rollback>> {
         #[allow(unreachable_patterns)]
         self.repair_phase.as_ref().and_then(|v| match v {
             crate::model::repair_phase_config::RepairPhase::Rollback(v) => {
@@ -13560,7 +13600,10 @@ impl AutomationRuleCondition {
         self
     }
 
-    /// Sets the value of `rule_type_condition`.
+    /// Sets the value of [rule_type_condition][crate::model::AutomationRuleCondition::rule_type_condition].
+    ///
+    /// Note that all the setters affecting `rule_type_condition` are mutually
+    /// exclusive.
     pub fn set_rule_type_condition<
         T: std::convert::Into<
                 std::option::Option<crate::model::automation_rule_condition::RuleTypeCondition>,
@@ -13576,7 +13619,7 @@ impl AutomationRuleCondition {
     /// The value of [rule_type_condition][crate::model::AutomationRuleCondition::rule_type_condition]
     /// if it holds a `TimedPromoteReleaseCondition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_timed_promote_release_condition(
+    pub fn timed_promote_release_condition(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TimedPromoteReleaseCondition>> {
         #[allow(unreachable_patterns)]
@@ -14396,7 +14439,10 @@ impl AutomationRun {
         self
     }
 
-    /// Sets the value of `operation`.
+    /// Sets the value of [operation][crate::model::AutomationRun::operation].
+    ///
+    /// Note that all the setters affecting `operation` are mutually
+    /// exclusive.
     pub fn set_operation<
         T: std::convert::Into<std::option::Option<crate::model::automation_run::Operation>>,
     >(
@@ -14410,7 +14456,7 @@ impl AutomationRun {
     /// The value of [operation][crate::model::AutomationRun::operation]
     /// if it holds a `PromoteReleaseOperation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_promote_release_operation(
+    pub fn promote_release_operation(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PromoteReleaseOperation>> {
         #[allow(unreachable_patterns)]
@@ -14425,7 +14471,7 @@ impl AutomationRun {
     /// The value of [operation][crate::model::AutomationRun::operation]
     /// if it holds a `AdvanceRolloutOperation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_advance_rollout_operation(
+    pub fn advance_rollout_operation(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AdvanceRolloutOperation>> {
         #[allow(unreachable_patterns)]
@@ -14440,7 +14486,7 @@ impl AutomationRun {
     /// The value of [operation][crate::model::AutomationRun::operation]
     /// if it holds a `RepairRolloutOperation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_repair_rollout_operation(
+    pub fn repair_rollout_operation(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RepairRolloutOperation>> {
         #[allow(unreachable_patterns)]
@@ -14455,7 +14501,7 @@ impl AutomationRun {
     /// The value of [operation][crate::model::AutomationRun::operation]
     /// if it holds a `TimedPromoteReleaseOperation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_timed_promote_release_operation(
+    pub fn timed_promote_release_operation(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TimedPromoteReleaseOperation>> {
         #[allow(unreachable_patterns)]
@@ -14929,7 +14975,10 @@ impl RepairPhase {
         std::default::Default::default()
     }
 
-    /// Sets the value of `repair_phase`.
+    /// Sets the value of [repair_phase][crate::model::RepairPhase::repair_phase].
+    ///
+    /// Note that all the setters affecting `repair_phase` are mutually
+    /// exclusive.
     pub fn set_repair_phase<
         T: std::convert::Into<std::option::Option<crate::model::repair_phase::RepairPhase>>,
     >(
@@ -14943,7 +14992,7 @@ impl RepairPhase {
     /// The value of [repair_phase][crate::model::RepairPhase::repair_phase]
     /// if it holds a `Retry`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_retry(&self) -> std::option::Option<&std::boxed::Box<crate::model::RetryPhase>> {
+    pub fn retry(&self) -> std::option::Option<&std::boxed::Box<crate::model::RetryPhase>> {
         #[allow(unreachable_patterns)]
         self.repair_phase.as_ref().and_then(|v| match v {
             crate::model::repair_phase::RepairPhase::Retry(v) => std::option::Option::Some(v),
@@ -14954,9 +15003,7 @@ impl RepairPhase {
     /// The value of [repair_phase][crate::model::RepairPhase::repair_phase]
     /// if it holds a `Rollback`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rollback(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RollbackAttempt>> {
+    pub fn rollback(&self) -> std::option::Option<&std::boxed::Box<crate::model::RollbackAttempt>> {
         #[allow(unreachable_patterns)]
         self.repair_phase.as_ref().and_then(|v| match v {
             crate::model::repair_phase::RepairPhase::Rollback(v) => std::option::Option::Some(v),

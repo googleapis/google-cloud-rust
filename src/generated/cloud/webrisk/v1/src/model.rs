@@ -1101,7 +1101,10 @@ pub mod threat_info {
             std::default::Default::default()
         }
 
-        /// Sets the value of `value`.
+        /// Sets the value of [value][crate::model::threat_info::Confidence::value].
+        ///
+        /// Note that all the setters affecting `value` are mutually
+        /// exclusive.
         pub fn set_value<
             T: std::convert::Into<std::option::Option<crate::model::threat_info::confidence::Value>>,
         >(
@@ -1115,7 +1118,7 @@ pub mod threat_info {
         /// The value of [value][crate::model::threat_info::Confidence::value]
         /// if it holds a `Score`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_score(&self) -> std::option::Option<&f32> {
+        pub fn score(&self) -> std::option::Option<&f32> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
                 crate::model::threat_info::confidence::Value::Score(v) => {
@@ -1128,7 +1131,7 @@ pub mod threat_info {
         /// The value of [value][crate::model::threat_info::Confidence::value]
         /// if it holds a `Level`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_level(
+        pub fn level(
             &self,
         ) -> std::option::Option<&crate::model::threat_info::confidence::ConfidenceLevel> {
             #[allow(unreachable_patterns)]

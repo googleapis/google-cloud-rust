@@ -726,7 +726,10 @@ impl GenerateSshScriptRequest {
         self
     }
 
-    /// Sets the value of `vm_config`.
+    /// Sets the value of [vm_config][crate::model::GenerateSshScriptRequest::vm_config].
+    ///
+    /// Note that all the setters affecting `vm_config` are mutually
+    /// exclusive.
     pub fn set_vm_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::generate_ssh_script_request::VmConfig>,
@@ -742,7 +745,7 @@ impl GenerateSshScriptRequest {
     /// The value of [vm_config][crate::model::GenerateSshScriptRequest::vm_config]
     /// if it holds a `VmCreationConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vm_creation_config(
+    pub fn vm_creation_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VmCreationConfig>> {
         #[allow(unreachable_patterns)]
@@ -757,7 +760,7 @@ impl GenerateSshScriptRequest {
     /// The value of [vm_config][crate::model::GenerateSshScriptRequest::vm_config]
     /// if it holds a `VmSelectionConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vm_selection_config(
+    pub fn vm_selection_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VmSelectionConfig>> {
         #[allow(unreachable_patterns)]
@@ -2448,7 +2451,10 @@ impl ApplyConversionWorkspaceRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ApplyConversionWorkspaceRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::apply_conversion_workspace_request::Destination>,
@@ -2464,7 +2470,7 @@ impl ApplyConversionWorkspaceRequest {
     /// The value of [destination][crate::model::ApplyConversionWorkspaceRequest::destination]
     /// if it holds a `ConnectionProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_connection_profile(&self) -> std::option::Option<&std::string::String> {
+    pub fn connection_profile(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::apply_conversion_workspace_request::Destination::ConnectionProfile(v) => {
@@ -2715,7 +2721,10 @@ impl SeedConversionWorkspaceRequest {
         self
     }
 
-    /// Sets the value of `seed_from`.
+    /// Sets the value of [seed_from][crate::model::SeedConversionWorkspaceRequest::seed_from].
+    ///
+    /// Note that all the setters affecting `seed_from` are mutually
+    /// exclusive.
     pub fn set_seed_from<
         T: std::convert::Into<
                 std::option::Option<crate::model::seed_conversion_workspace_request::SeedFrom>,
@@ -2731,7 +2740,7 @@ impl SeedConversionWorkspaceRequest {
     /// The value of [seed_from][crate::model::SeedConversionWorkspaceRequest::seed_from]
     /// if it holds a `SourceConnectionProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_connection_profile(&self) -> std::option::Option<&std::string::String> {
+    pub fn source_connection_profile(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.seed_from.as_ref().and_then(|v| match v {
             crate::model::seed_conversion_workspace_request::SeedFrom::SourceConnectionProfile(
@@ -2744,7 +2753,7 @@ impl SeedConversionWorkspaceRequest {
     /// The value of [seed_from][crate::model::SeedConversionWorkspaceRequest::seed_from]
     /// if it holds a `DestinationConnectionProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_connection_profile(&self) -> std::option::Option<&std::string::String> {
+    pub fn destination_connection_profile(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.seed_from.as_ref().and_then(|v| match v {
             crate::model::seed_conversion_workspace_request::SeedFrom::DestinationConnectionProfile(v) => std::option::Option::Some(v),
@@ -4025,7 +4034,10 @@ impl PostgreSqlConnectionProfile {
         self
     }
 
-    /// Sets the value of `connectivity`.
+    /// Sets the value of [connectivity][crate::model::PostgreSqlConnectionProfile::connectivity].
+    ///
+    /// Note that all the setters affecting `connectivity` are mutually
+    /// exclusive.
     pub fn set_connectivity<
         T: std::convert::Into<
                 std::option::Option<crate::model::postgre_sql_connection_profile::Connectivity>,
@@ -4041,7 +4053,7 @@ impl PostgreSqlConnectionProfile {
     /// The value of [connectivity][crate::model::PostgreSqlConnectionProfile::connectivity]
     /// if it holds a `StaticIpConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_static_ip_connectivity(
+    pub fn static_ip_connectivity(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StaticIpConnectivity>> {
         #[allow(unreachable_patterns)]
@@ -4056,7 +4068,7 @@ impl PostgreSqlConnectionProfile {
     /// The value of [connectivity][crate::model::PostgreSqlConnectionProfile::connectivity]
     /// if it holds a `PrivateServiceConnectConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_private_service_connect_connectivity(
+    pub fn private_service_connect_connectivity(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateServiceConnectConnectivity>>
     {
@@ -4233,7 +4245,10 @@ impl OracleConnectionProfile {
         self
     }
 
-    /// Sets the value of `connectivity`.
+    /// Sets the value of [connectivity][crate::model::OracleConnectionProfile::connectivity].
+    ///
+    /// Note that all the setters affecting `connectivity` are mutually
+    /// exclusive.
     pub fn set_connectivity<
         T: std::convert::Into<
                 std::option::Option<crate::model::oracle_connection_profile::Connectivity>,
@@ -4249,7 +4264,7 @@ impl OracleConnectionProfile {
     /// The value of [connectivity][crate::model::OracleConnectionProfile::connectivity]
     /// if it holds a `StaticServiceIpConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_static_service_ip_connectivity(
+    pub fn static_service_ip_connectivity(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StaticServiceIpConnectivity>> {
         #[allow(unreachable_patterns)]
@@ -4264,7 +4279,7 @@ impl OracleConnectionProfile {
     /// The value of [connectivity][crate::model::OracleConnectionProfile::connectivity]
     /// if it holds a `ForwardSshConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_forward_ssh_connectivity(
+    pub fn forward_ssh_connectivity(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>> {
         #[allow(unreachable_patterns)]
@@ -4279,7 +4294,7 @@ impl OracleConnectionProfile {
     /// The value of [connectivity][crate::model::OracleConnectionProfile::connectivity]
     /// if it holds a `PrivateConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_private_connectivity(
+    pub fn private_connectivity(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectivity>> {
         #[allow(unreachable_patterns)]
@@ -4542,7 +4557,10 @@ impl SqlAclEntry {
         self
     }
 
-    /// Sets the value of `expiration`.
+    /// Sets the value of [expiration][crate::model::SqlAclEntry::expiration].
+    ///
+    /// Note that all the setters affecting `expiration` are mutually
+    /// exclusive.
     pub fn set_expiration<
         T: std::convert::Into<std::option::Option<crate::model::sql_acl_entry::Expiration>>,
     >(
@@ -4556,7 +4574,7 @@ impl SqlAclEntry {
     /// The value of [expiration][crate::model::SqlAclEntry::expiration]
     /// if it holds a `ExpireTime`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_expire_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+    pub fn expire_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.expiration.as_ref().and_then(|v| match v {
             crate::model::sql_acl_entry::Expiration::ExpireTime(v) => std::option::Option::Some(v),
@@ -4567,7 +4585,7 @@ impl SqlAclEntry {
     /// The value of [expiration][crate::model::SqlAclEntry::expiration]
     /// if it holds a `Ttl`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.expiration.as_ref().and_then(|v| match v {
             crate::model::sql_acl_entry::Expiration::Ttl(v) => std::option::Option::Some(v),
@@ -5912,7 +5930,10 @@ impl ForwardSshTunnelConnectivity {
         self
     }
 
-    /// Sets the value of `authentication_method`.
+    /// Sets the value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method].
+    ///
+    /// Note that all the setters affecting `authentication_method` are mutually
+    /// exclusive.
     pub fn set_authentication_method<
         T: std::convert::Into<
                 std::option::Option<
@@ -5930,7 +5951,7 @@ impl ForwardSshTunnelConnectivity {
     /// The value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
     /// if it holds a `Password`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_password(&self) -> std::option::Option<&std::string::String> {
+    pub fn password(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.authentication_method.as_ref().and_then(|v| match v {
             crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v) => {
@@ -5943,7 +5964,7 @@ impl ForwardSshTunnelConnectivity {
     /// The value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
     /// if it holds a `PrivateKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_private_key(&self) -> std::option::Option<&std::string::String> {
+    pub fn private_key(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.authentication_method.as_ref().and_then(|v| match v {
             crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::PrivateKey(v) => {
@@ -6415,7 +6436,10 @@ impl MigrationJob {
         self
     }
 
-    /// Sets the value of `connectivity`.
+    /// Sets the value of [connectivity][crate::model::MigrationJob::connectivity].
+    ///
+    /// Note that all the setters affecting `connectivity` are mutually
+    /// exclusive.
     pub fn set_connectivity<
         T: std::convert::Into<std::option::Option<crate::model::migration_job::Connectivity>>,
     >(
@@ -6429,7 +6453,7 @@ impl MigrationJob {
     /// The value of [connectivity][crate::model::MigrationJob::connectivity]
     /// if it holds a `ReverseSshConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_reverse_ssh_connectivity(
+    pub fn reverse_ssh_connectivity(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ReverseSshConnectivity>> {
         #[allow(unreachable_patterns)]
@@ -6444,7 +6468,7 @@ impl MigrationJob {
     /// The value of [connectivity][crate::model::MigrationJob::connectivity]
     /// if it holds a `VpcPeeringConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vpc_peering_connectivity(
+    pub fn vpc_peering_connectivity(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VpcPeeringConnectivity>> {
         #[allow(unreachable_patterns)]
@@ -6459,7 +6483,7 @@ impl MigrationJob {
     /// The value of [connectivity][crate::model::MigrationJob::connectivity]
     /// if it holds a `StaticIpConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_static_ip_connectivity(
+    pub fn static_ip_connectivity(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StaticIpConnectivity>> {
         #[allow(unreachable_patterns)]
@@ -7158,7 +7182,10 @@ impl ConnectionProfile {
         self
     }
 
-    /// Sets the value of `connection_profile`.
+    /// Sets the value of [connection_profile][crate::model::ConnectionProfile::connection_profile].
+    ///
+    /// Note that all the setters affecting `connection_profile` are mutually
+    /// exclusive.
     pub fn set_connection_profile<
         T: std::convert::Into<
                 std::option::Option<crate::model::connection_profile::ConnectionProfile>,
@@ -7174,7 +7201,7 @@ impl ConnectionProfile {
     /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
     /// if it holds a `Mysql`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_mysql(
+    pub fn mysql(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MySqlConnectionProfile>> {
         #[allow(unreachable_patterns)]
@@ -7189,7 +7216,7 @@ impl ConnectionProfile {
     /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
     /// if it holds a `Postgresql`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_postgresql(
+    pub fn postgresql(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PostgreSqlConnectionProfile>> {
         #[allow(unreachable_patterns)]
@@ -7204,7 +7231,7 @@ impl ConnectionProfile {
     /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
     /// if it holds a `Oracle`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oracle(
+    pub fn oracle(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::OracleConnectionProfile>> {
         #[allow(unreachable_patterns)]
@@ -7219,7 +7246,7 @@ impl ConnectionProfile {
     /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
     /// if it holds a `Cloudsql`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloudsql(
+    pub fn cloudsql(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlConnectionProfile>> {
         #[allow(unreachable_patterns)]
@@ -7234,7 +7261,7 @@ impl ConnectionProfile {
     /// The value of [connection_profile][crate::model::ConnectionProfile::connection_profile]
     /// if it holds a `Alloydb`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_alloydb(
+    pub fn alloydb(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AlloyDbConnectionProfile>> {
         #[allow(unreachable_patterns)]
@@ -7843,7 +7870,10 @@ impl PrivateConnection {
         self
     }
 
-    /// Sets the value of `connectivity`.
+    /// Sets the value of [connectivity][crate::model::PrivateConnection::connectivity].
+    ///
+    /// Note that all the setters affecting `connectivity` are mutually
+    /// exclusive.
     pub fn set_connectivity<
         T: std::convert::Into<std::option::Option<crate::model::private_connection::Connectivity>>,
     >(
@@ -7857,7 +7887,7 @@ impl PrivateConnection {
     /// The value of [connectivity][crate::model::PrivateConnection::connectivity]
     /// if it holds a `VpcPeeringConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vpc_peering_config(
+    pub fn vpc_peering_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VpcPeeringConfig>> {
         #[allow(unreachable_patterns)]
@@ -8328,7 +8358,10 @@ impl BackgroundJobLogEntry {
         self
     }
 
-    /// Sets the value of `job_details`.
+    /// Sets the value of [job_details][crate::model::BackgroundJobLogEntry::job_details].
+    ///
+    /// Note that all the setters affecting `job_details` are mutually
+    /// exclusive.
     pub fn set_job_details<
         T: std::convert::Into<std::option::Option<crate::model::background_job_log_entry::JobDetails>>,
     >(
@@ -8342,7 +8375,7 @@ impl BackgroundJobLogEntry {
     /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
     /// if it holds a `SeedJobDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_seed_job_details(
+    pub fn seed_job_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::background_job_log_entry::SeedJobDetails>>
     {
@@ -8358,7 +8391,7 @@ impl BackgroundJobLogEntry {
     /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
     /// if it holds a `ImportRulesJobDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_import_rules_job_details(
+    pub fn import_rules_job_details(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::background_job_log_entry::ImportRulesJobDetails>,
@@ -8375,7 +8408,7 @@ impl BackgroundJobLogEntry {
     /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
     /// if it holds a `ConvertJobDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_convert_job_details(
+    pub fn convert_job_details(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::background_job_log_entry::ConvertJobDetails>,
@@ -8392,7 +8425,7 @@ impl BackgroundJobLogEntry {
     /// The value of [job_details][crate::model::BackgroundJobLogEntry::job_details]
     /// if it holds a `ApplyJobDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_apply_job_details(
+    pub fn apply_job_details(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::background_job_log_entry::ApplyJobDetails>,
@@ -8946,7 +8979,10 @@ impl MappingRule {
         self
     }
 
-    /// Sets the value of `details`.
+    /// Sets the value of [details][crate::model::MappingRule::details].
+    ///
+    /// Note that all the setters affecting `details` are mutually
+    /// exclusive.
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::mapping_rule::Details>>,
     >(
@@ -8960,7 +8996,7 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `SingleEntityRename`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_single_entity_rename(
+    pub fn single_entity_rename(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SingleEntityRename>> {
         #[allow(unreachable_patterns)]
@@ -8975,7 +9011,7 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `MultiEntityRename`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_multi_entity_rename(
+    pub fn multi_entity_rename(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MultiEntityRename>> {
         #[allow(unreachable_patterns)]
@@ -8990,9 +9026,7 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `EntityMove`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_entity_move(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::EntityMove>> {
+    pub fn entity_move(&self) -> std::option::Option<&std::boxed::Box<crate::model::EntityMove>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
             crate::model::mapping_rule::Details::EntityMove(v) => std::option::Option::Some(v),
@@ -9003,7 +9037,7 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `SingleColumnChange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_single_column_change(
+    pub fn single_column_change(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SingleColumnChange>> {
         #[allow(unreachable_patterns)]
@@ -9018,7 +9052,7 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `MultiColumnDataTypeChange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_multi_column_data_type_change(
+    pub fn multi_column_data_type_change(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MultiColumnDatatypeChange>> {
         #[allow(unreachable_patterns)]
@@ -9033,7 +9067,7 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `ConditionalColumnSetValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_conditional_column_set_value(
+    pub fn conditional_column_set_value(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ConditionalColumnSetValue>> {
         #[allow(unreachable_patterns)]
@@ -9048,7 +9082,7 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `ConvertRowidColumn`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_convert_rowid_column(
+    pub fn convert_rowid_column(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ConvertRowIdToColumn>> {
         #[allow(unreachable_patterns)]
@@ -9063,7 +9097,7 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `SetTablePrimaryKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_set_table_primary_key(
+    pub fn set_table_primary_key(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SetTablePrimaryKey>> {
         #[allow(unreachable_patterns)]
@@ -9078,7 +9112,7 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `SinglePackageChange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_single_package_change(
+    pub fn single_package_change(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SinglePackageChange>> {
         #[allow(unreachable_patterns)]
@@ -9093,7 +9127,7 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `SourceSqlChange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_sql_change(
+    pub fn source_sql_change(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SourceSqlChange>> {
         #[allow(unreachable_patterns)]
@@ -9106,7 +9140,7 @@ impl MappingRule {
     /// The value of [details][crate::model::MappingRule::details]
     /// if it holds a `FilterTableColumns`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_filter_table_columns(
+    pub fn filter_table_columns(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FilterTableColumns>> {
         #[allow(unreachable_patterns)]
@@ -9848,7 +9882,10 @@ impl MultiColumnDatatypeChange {
         self
     }
 
-    /// Sets the value of `source_filter`.
+    /// Sets the value of [source_filter][crate::model::MultiColumnDatatypeChange::source_filter].
+    ///
+    /// Note that all the setters affecting `source_filter` are mutually
+    /// exclusive.
     pub fn set_source_filter<
         T: std::convert::Into<
                 std::option::Option<crate::model::multi_column_datatype_change::SourceFilter>,
@@ -9864,7 +9901,7 @@ impl MultiColumnDatatypeChange {
     /// The value of [source_filter][crate::model::MultiColumnDatatypeChange::source_filter]
     /// if it holds a `SourceTextFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_text_filter(
+    pub fn source_text_filter(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SourceTextFilter>> {
         #[allow(unreachable_patterns)]
@@ -9879,7 +9916,7 @@ impl MultiColumnDatatypeChange {
     /// The value of [source_filter][crate::model::MultiColumnDatatypeChange::source_filter]
     /// if it holds a `SourceNumericFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_numeric_filter(
+    pub fn source_numeric_filter(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SourceNumericFilter>> {
         #[allow(unreachable_patterns)]
@@ -10121,7 +10158,10 @@ impl ConditionalColumnSetValue {
         self
     }
 
-    /// Sets the value of `source_filter`.
+    /// Sets the value of [source_filter][crate::model::ConditionalColumnSetValue::source_filter].
+    ///
+    /// Note that all the setters affecting `source_filter` are mutually
+    /// exclusive.
     pub fn set_source_filter<
         T: std::convert::Into<
                 std::option::Option<crate::model::conditional_column_set_value::SourceFilter>,
@@ -10137,7 +10177,7 @@ impl ConditionalColumnSetValue {
     /// The value of [source_filter][crate::model::ConditionalColumnSetValue::source_filter]
     /// if it holds a `SourceTextFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_text_filter(
+    pub fn source_text_filter(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SourceTextFilter>> {
         #[allow(unreachable_patterns)]
@@ -10152,7 +10192,7 @@ impl ConditionalColumnSetValue {
     /// The value of [source_filter][crate::model::ConditionalColumnSetValue::source_filter]
     /// if it holds a `SourceNumericFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_numeric_filter(
+    pub fn source_numeric_filter(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SourceNumericFilter>> {
         #[allow(unreachable_patterns)]
@@ -10245,7 +10285,10 @@ impl ValueTransformation {
         std::default::Default::default()
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ValueTransformation::filter].
+    ///
+    /// Note that all the setters affecting `filter` are mutually
+    /// exclusive.
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::value_transformation::Filter>>,
     >(
@@ -10259,7 +10302,7 @@ impl ValueTransformation {
     /// The value of [filter][crate::model::ValueTransformation::filter]
     /// if it holds a `IsNull`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_is_null(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
+    pub fn is_null(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
         #[allow(unreachable_patterns)]
         self.filter.as_ref().and_then(|v| match v {
             crate::model::value_transformation::Filter::IsNull(v) => std::option::Option::Some(v),
@@ -10270,7 +10313,7 @@ impl ValueTransformation {
     /// The value of [filter][crate::model::ValueTransformation::filter]
     /// if it holds a `ValueList`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_value_list(
+    pub fn value_list(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ValueListFilter>> {
         #[allow(unreachable_patterns)]
@@ -10285,7 +10328,7 @@ impl ValueTransformation {
     /// The value of [filter][crate::model::ValueTransformation::filter]
     /// if it holds a `IntComparison`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_int_comparison(
+    pub fn int_comparison(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::IntComparisonFilter>> {
         #[allow(unreachable_patterns)]
@@ -10300,7 +10343,7 @@ impl ValueTransformation {
     /// The value of [filter][crate::model::ValueTransformation::filter]
     /// if it holds a `DoubleComparison`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_double_comparison(
+    pub fn double_comparison(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DoubleComparisonFilter>> {
         #[allow(unreachable_patterns)]
@@ -10372,7 +10415,10 @@ impl ValueTransformation {
         self
     }
 
-    /// Sets the value of `action`.
+    /// Sets the value of [action][crate::model::ValueTransformation::action].
+    ///
+    /// Note that all the setters affecting `action` are mutually
+    /// exclusive.
     pub fn set_action<
         T: std::convert::Into<std::option::Option<crate::model::value_transformation::Action>>,
     >(
@@ -10386,7 +10432,7 @@ impl ValueTransformation {
     /// The value of [action][crate::model::ValueTransformation::action]
     /// if it holds a `AssignNull`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_assign_null(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
+    pub fn assign_null(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::value_transformation::Action::AssignNull(v) => {
@@ -10399,7 +10445,7 @@ impl ValueTransformation {
     /// The value of [action][crate::model::ValueTransformation::action]
     /// if it holds a `AssignSpecificValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_assign_specific_value(
+    pub fn assign_specific_value(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AssignSpecificValue>> {
         #[allow(unreachable_patterns)]
@@ -10414,7 +10460,7 @@ impl ValueTransformation {
     /// The value of [action][crate::model::ValueTransformation::action]
     /// if it holds a `AssignMinValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_assign_min_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
+    pub fn assign_min_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::value_transformation::Action::AssignMinValue(v) => {
@@ -10427,7 +10473,7 @@ impl ValueTransformation {
     /// The value of [action][crate::model::ValueTransformation::action]
     /// if it holds a `AssignMaxValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_assign_max_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
+    pub fn assign_max_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::value_transformation::Action::AssignMaxValue(v) => {
@@ -10440,9 +10486,7 @@ impl ValueTransformation {
     /// The value of [action][crate::model::ValueTransformation::action]
     /// if it holds a `RoundScale`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_round_scale(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RoundToScale>> {
+    pub fn round_scale(&self) -> std::option::Option<&std::boxed::Box<crate::model::RoundToScale>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::value_transformation::Action::RoundScale(v) => {
@@ -10455,7 +10499,7 @@ impl ValueTransformation {
     /// The value of [action][crate::model::ValueTransformation::action]
     /// if it holds a `ApplyHash`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_apply_hash(&self) -> std::option::Option<&std::boxed::Box<crate::model::ApplyHash>> {
+    pub fn apply_hash(&self) -> std::option::Option<&std::boxed::Box<crate::model::ApplyHash>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
             crate::model::value_transformation::Action::ApplyHash(v) => {
@@ -11047,7 +11091,10 @@ impl ApplyHash {
         std::default::Default::default()
     }
 
-    /// Sets the value of `hash_function`.
+    /// Sets the value of [hash_function][crate::model::ApplyHash::hash_function].
+    ///
+    /// Note that all the setters affecting `hash_function` are mutually
+    /// exclusive.
     pub fn set_hash_function<
         T: std::convert::Into<std::option::Option<crate::model::apply_hash::HashFunction>>,
     >(
@@ -11061,7 +11108,7 @@ impl ApplyHash {
     /// The value of [hash_function][crate::model::ApplyHash::hash_function]
     /// if it holds a `UuidFromBytes`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_uuid_from_bytes(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
+    pub fn uuid_from_bytes(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
         #[allow(unreachable_patterns)]
         self.hash_function.as_ref().and_then(|v| match v {
             crate::model::apply_hash::HashFunction::UuidFromBytes(v) => {
@@ -11257,7 +11304,10 @@ impl DatabaseEntity {
         self
     }
 
-    /// Sets the value of `entity_body`.
+    /// Sets the value of [entity_body][crate::model::DatabaseEntity::entity_body].
+    ///
+    /// Note that all the setters affecting `entity_body` are mutually
+    /// exclusive.
     pub fn set_entity_body<
         T: std::convert::Into<std::option::Option<crate::model::database_entity::EntityBody>>,
     >(
@@ -11271,7 +11321,7 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `Database`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_database(
+    pub fn database(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DatabaseInstanceEntity>> {
         #[allow(unreachable_patterns)]
@@ -11284,7 +11334,7 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `Schema`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::SchemaEntity>> {
+    pub fn schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::SchemaEntity>> {
         #[allow(unreachable_patterns)]
         self.entity_body.as_ref().and_then(|v| match v {
             crate::model::database_entity::EntityBody::Schema(v) => std::option::Option::Some(v),
@@ -11295,7 +11345,7 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `Table`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_table(&self) -> std::option::Option<&std::boxed::Box<crate::model::TableEntity>> {
+    pub fn table(&self) -> std::option::Option<&std::boxed::Box<crate::model::TableEntity>> {
         #[allow(unreachable_patterns)]
         self.entity_body.as_ref().and_then(|v| match v {
             crate::model::database_entity::EntityBody::Table(v) => std::option::Option::Some(v),
@@ -11306,7 +11356,7 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `View`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_view(&self) -> std::option::Option<&std::boxed::Box<crate::model::ViewEntity>> {
+    pub fn view(&self) -> std::option::Option<&std::boxed::Box<crate::model::ViewEntity>> {
         #[allow(unreachable_patterns)]
         self.entity_body.as_ref().and_then(|v| match v {
             crate::model::database_entity::EntityBody::View(v) => std::option::Option::Some(v),
@@ -11317,9 +11367,7 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `Sequence`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sequence(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SequenceEntity>> {
+    pub fn sequence(&self) -> std::option::Option<&std::boxed::Box<crate::model::SequenceEntity>> {
         #[allow(unreachable_patterns)]
         self.entity_body.as_ref().and_then(|v| match v {
             crate::model::database_entity::EntityBody::Sequence(v) => std::option::Option::Some(v),
@@ -11330,7 +11378,7 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `StoredProcedure`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_stored_procedure(
+    pub fn stored_procedure(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StoredProcedureEntity>> {
         #[allow(unreachable_patterns)]
@@ -11345,7 +11393,7 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `DatabaseFunction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_database_function(
+    pub fn database_function(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FunctionEntity>> {
         #[allow(unreachable_patterns)]
@@ -11360,9 +11408,7 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `Synonym`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_synonym(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SynonymEntity>> {
+    pub fn synonym(&self) -> std::option::Option<&std::boxed::Box<crate::model::SynonymEntity>> {
         #[allow(unreachable_patterns)]
         self.entity_body.as_ref().and_then(|v| match v {
             crate::model::database_entity::EntityBody::Synonym(v) => std::option::Option::Some(v),
@@ -11373,7 +11419,7 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `DatabasePackage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_database_package(
+    pub fn database_package(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PackageEntity>> {
         #[allow(unreachable_patterns)]
@@ -11388,7 +11434,7 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `Udt`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_udt(&self) -> std::option::Option<&std::boxed::Box<crate::model::UDTEntity>> {
+    pub fn udt(&self) -> std::option::Option<&std::boxed::Box<crate::model::UDTEntity>> {
         #[allow(unreachable_patterns)]
         self.entity_body.as_ref().and_then(|v| match v {
             crate::model::database_entity::EntityBody::Udt(v) => std::option::Option::Some(v),
@@ -11399,7 +11445,7 @@ impl DatabaseEntity {
     /// The value of [entity_body][crate::model::DatabaseEntity::entity_body]
     /// if it holds a `MaterializedView`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_materialized_view(
+    pub fn materialized_view(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MaterializedViewEntity>> {
         #[allow(unreachable_patterns)]

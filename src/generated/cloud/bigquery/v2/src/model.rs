@@ -4078,7 +4078,10 @@ impl RemoteModelInfo {
         self
     }
 
-    /// Sets the value of `remote_service`.
+    /// Sets the value of [remote_service][crate::model::RemoteModelInfo::remote_service].
+    ///
+    /// Note that all the setters affecting `remote_service` are mutually
+    /// exclusive.
     pub fn set_remote_service<
         T: std::convert::Into<std::option::Option<crate::model::remote_model_info::RemoteService>>,
     >(
@@ -4092,7 +4095,7 @@ impl RemoteModelInfo {
     /// The value of [remote_service][crate::model::RemoteModelInfo::remote_service]
     /// if it holds a `Endpoint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_endpoint(&self) -> std::option::Option<&std::string::String> {
+    pub fn endpoint(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.remote_service.as_ref().and_then(|v| match v {
             crate::model::remote_model_info::RemoteService::Endpoint(v) => {
@@ -4105,7 +4108,7 @@ impl RemoteModelInfo {
     /// The value of [remote_service][crate::model::RemoteModelInfo::remote_service]
     /// if it holds a `RemoteServiceType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_remote_service_type(
+    pub fn remote_service_type(
         &self,
     ) -> std::option::Option<&crate::model::remote_model_info::RemoteServiceType> {
         #[allow(unreachable_patterns)]
@@ -6100,7 +6103,10 @@ pub mod model {
                     self
                 }
 
-                /// Sets the value of `value`.
+                /// Sets the value of [value][crate::model::model::clustering_metrics::cluster::FeatureValue::value].
+                ///
+                /// Note that all the setters affecting `value` are mutually
+                /// exclusive.
                 pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::model::clustering_metrics::cluster::feature_value::Value>>>(mut self, v: T) -> Self
                 {
                     self.value = v.into();
@@ -6110,7 +6116,7 @@ pub mod model {
                 /// The value of [value][crate::model::model::clustering_metrics::cluster::FeatureValue::value]
                 /// if it holds a `NumericalValue`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_numerical_value(
+                pub fn numerical_value(
                     &self,
                 ) -> std::option::Option<&std::boxed::Box<wkt::DoubleValue>> {
                     #[allow(unreachable_patterns)]
@@ -6123,7 +6129,7 @@ pub mod model {
                 /// The value of [value][crate::model::model::clustering_metrics::cluster::FeatureValue::value]
                 /// if it holds a `CategoricalValue`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_categorical_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::model::clustering_metrics::cluster::feature_value::CategoricalValue>>{
+                pub fn categorical_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::model::clustering_metrics::cluster::feature_value::CategoricalValue>>{
                     #[allow(unreachable_patterns)]
                     self.value.as_ref().and_then(|v| match v {
                         crate::model::model::clustering_metrics::cluster::feature_value::Value::CategoricalValue(v) => std::option::Option::Some(v),
@@ -6652,7 +6658,10 @@ pub mod model {
             std::default::Default::default()
         }
 
-        /// Sets the value of `metrics`.
+        /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics].
+        ///
+        /// Note that all the setters affecting `metrics` are mutually
+        /// exclusive.
         pub fn set_metrics<
             T: std::convert::Into<
                     std::option::Option<crate::model::model::evaluation_metrics::Metrics>,
@@ -6668,7 +6677,7 @@ pub mod model {
         /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// if it holds a `RegressionMetrics`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_regression_metrics(
+        pub fn regression_metrics(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::model::RegressionMetrics>> {
             #[allow(unreachable_patterns)]
@@ -6683,7 +6692,7 @@ pub mod model {
         /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// if it holds a `BinaryClassificationMetrics`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_binary_classification_metrics(
+        pub fn binary_classification_metrics(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::model::BinaryClassificationMetrics>>
         {
@@ -6699,7 +6708,7 @@ pub mod model {
         /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// if it holds a `MultiClassClassificationMetrics`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_multi_class_classification_metrics(
+        pub fn multi_class_classification_metrics(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::model::MultiClassClassificationMetrics>,
@@ -6714,7 +6723,7 @@ pub mod model {
         /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// if it holds a `ClusteringMetrics`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_clustering_metrics(
+        pub fn clustering_metrics(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::model::ClusteringMetrics>> {
             #[allow(unreachable_patterns)]
@@ -6729,7 +6738,7 @@ pub mod model {
         /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// if it holds a `RankingMetrics`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_ranking_metrics(
+        pub fn ranking_metrics(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::model::RankingMetrics>> {
             #[allow(unreachable_patterns)]
@@ -6744,7 +6753,7 @@ pub mod model {
         /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// if it holds a `ArimaForecastingMetrics`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_arima_forecasting_metrics(
+        pub fn arima_forecasting_metrics(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::model::ArimaForecastingMetrics>>
         {
@@ -6760,7 +6769,7 @@ pub mod model {
         /// The value of [metrics][crate::model::model::EvaluationMetrics::metrics]
         /// if it holds a `DimensionalityReductionMetrics`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_dimensionality_reduction_metrics(
+        pub fn dimensionality_reduction_metrics(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::model::DimensionalityReductionMetrics>,
@@ -9623,7 +9632,10 @@ pub mod model {
             std::default::Default::default()
         }
 
-        /// Sets the value of `search_space`.
+        /// Sets the value of [search_space][crate::model::model::DoubleHparamSearchSpace::search_space].
+        ///
+        /// Note that all the setters affecting `search_space` are mutually
+        /// exclusive.
         pub fn set_search_space<
             T: std::convert::Into<
                     std::option::Option<
@@ -9641,7 +9653,7 @@ pub mod model {
         /// The value of [search_space][crate::model::model::DoubleHparamSearchSpace::search_space]
         /// if it holds a `Range`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_range(
+        pub fn range(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::model::double_hparam_search_space::DoubleRange>,
@@ -9658,7 +9670,7 @@ pub mod model {
         /// The value of [search_space][crate::model::model::DoubleHparamSearchSpace::search_space]
         /// if it holds a `Candidates`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_candidates(
+        pub fn candidates(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::model::double_hparam_search_space::DoubleCandidates>,
@@ -9843,7 +9855,10 @@ pub mod model {
             std::default::Default::default()
         }
 
-        /// Sets the value of `search_space`.
+        /// Sets the value of [search_space][crate::model::model::IntHparamSearchSpace::search_space].
+        ///
+        /// Note that all the setters affecting `search_space` are mutually
+        /// exclusive.
         pub fn set_search_space<
             T: std::convert::Into<
                     std::option::Option<crate::model::model::int_hparam_search_space::SearchSpace>,
@@ -9859,7 +9874,7 @@ pub mod model {
         /// The value of [search_space][crate::model::model::IntHparamSearchSpace::search_space]
         /// if it holds a `Range`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_range(
+        pub fn range(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::model::int_hparam_search_space::IntRange>,
@@ -9876,7 +9891,7 @@ pub mod model {
         /// The value of [search_space][crate::model::model::IntHparamSearchSpace::search_space]
         /// if it holds a `Candidates`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_candidates(
+        pub fn candidates(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::model::int_hparam_search_space::IntCandidates>,
@@ -12689,7 +12704,10 @@ impl PrivacyPolicy {
         self
     }
 
-    /// Sets the value of `privacy_policy`.
+    /// Sets the value of [privacy_policy][crate::model::PrivacyPolicy::privacy_policy].
+    ///
+    /// Note that all the setters affecting `privacy_policy` are mutually
+    /// exclusive.
     pub fn set_privacy_policy<
         T: std::convert::Into<std::option::Option<crate::model::privacy_policy::PrivacyPolicy>>,
     >(
@@ -12703,7 +12721,7 @@ impl PrivacyPolicy {
     /// The value of [privacy_policy][crate::model::PrivacyPolicy::privacy_policy]
     /// if it holds a `AggregationThresholdPolicy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_aggregation_threshold_policy(
+    pub fn aggregation_threshold_policy(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AggregationThresholdPolicy>> {
         #[allow(unreachable_patterns)]
@@ -12718,7 +12736,7 @@ impl PrivacyPolicy {
     /// The value of [privacy_policy][crate::model::PrivacyPolicy::privacy_policy]
     /// if it holds a `DifferentialPrivacyPolicy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_differential_privacy_policy(
+    pub fn differential_privacy_policy(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DifferentialPrivacyPolicy>> {
         #[allow(unreachable_patterns)]
@@ -15795,7 +15813,10 @@ impl StandardSqlDataType {
         self
     }
 
-    /// Sets the value of `sub_type`.
+    /// Sets the value of [sub_type][crate::model::StandardSqlDataType::sub_type].
+    ///
+    /// Note that all the setters affecting `sub_type` are mutually
+    /// exclusive.
     pub fn set_sub_type<
         T: std::convert::Into<std::option::Option<crate::model::standard_sql_data_type::SubType>>,
     >(
@@ -15809,7 +15830,7 @@ impl StandardSqlDataType {
     /// The value of [sub_type][crate::model::StandardSqlDataType::sub_type]
     /// if it holds a `ArrayElementType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_array_element_type(
+    pub fn array_element_type(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StandardSqlDataType>> {
         #[allow(unreachable_patterns)]
@@ -15824,7 +15845,7 @@ impl StandardSqlDataType {
     /// The value of [sub_type][crate::model::StandardSqlDataType::sub_type]
     /// if it holds a `StructType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_struct_type(
+    pub fn struct_type(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StandardSqlStructType>> {
         #[allow(unreachable_patterns)]
@@ -15839,7 +15860,7 @@ impl StandardSqlDataType {
     /// The value of [sub_type][crate::model::StandardSqlDataType::sub_type]
     /// if it holds a `RangeElementType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_range_element_type(
+    pub fn range_element_type(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StandardSqlDataType>> {
         #[allow(unreachable_patterns)]

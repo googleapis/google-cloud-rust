@@ -326,7 +326,10 @@ impl FileShareConfig {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::FileShareConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::file_share_config::Source>>,
     >(
@@ -340,7 +343,7 @@ impl FileShareConfig {
     /// The value of [source][crate::model::FileShareConfig::source]
     /// if it holds a `SourceBackup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_backup(&self) -> std::option::Option<&std::string::String> {
+    pub fn source_backup(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::file_share_config::Source::SourceBackup(v) => {
@@ -1337,7 +1340,10 @@ pub mod instance {
             std::default::Default::default()
         }
 
-        /// Sets the value of `mode`.
+        /// Sets the value of [mode][crate::model::instance::PerformanceConfig::mode].
+        ///
+        /// Note that all the setters affecting `mode` are mutually
+        /// exclusive.
         pub fn set_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::instance::performance_config::Mode>,
@@ -1353,7 +1359,7 @@ pub mod instance {
         /// The value of [mode][crate::model::instance::PerformanceConfig::mode]
         /// if it holds a `IopsPerTb`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_iops_per_tb(
+        pub fn iops_per_tb(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::instance::IOPSPerTB>> {
             #[allow(unreachable_patterns)]
@@ -1368,7 +1374,7 @@ pub mod instance {
         /// The value of [mode][crate::model::instance::PerformanceConfig::mode]
         /// if it holds a `FixedIops`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_fixed_iops(
+        pub fn fixed_iops(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::instance::FixedIOPS>> {
             #[allow(unreachable_patterns)]
@@ -2036,7 +2042,10 @@ impl RestoreInstanceRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::RestoreInstanceRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_instance_request::Source>>,
     >(
@@ -2050,7 +2059,7 @@ impl RestoreInstanceRequest {
     /// The value of [source][crate::model::RestoreInstanceRequest::source]
     /// if it holds a `SourceBackup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_backup(&self) -> std::option::Option<&std::string::String> {
+    pub fn source_backup(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::restore_instance_request::Source::SourceBackup(v) => {

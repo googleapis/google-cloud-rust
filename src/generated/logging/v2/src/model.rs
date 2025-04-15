@@ -340,7 +340,10 @@ impl LogEntry {
         self
     }
 
-    /// Sets the value of `payload`.
+    /// Sets the value of [payload][crate::model::LogEntry::payload].
+    ///
+    /// Note that all the setters affecting `payload` are mutually
+    /// exclusive.
     pub fn set_payload<
         T: std::convert::Into<std::option::Option<crate::model::log_entry::Payload>>,
     >(
@@ -354,7 +357,7 @@ impl LogEntry {
     /// The value of [payload][crate::model::LogEntry::payload]
     /// if it holds a `ProtoPayload`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_proto_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Any>> {
+    pub fn proto_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Any>> {
         #[allow(unreachable_patterns)]
         self.payload.as_ref().and_then(|v| match v {
             crate::model::log_entry::Payload::ProtoPayload(v) => std::option::Option::Some(v),
@@ -365,7 +368,7 @@ impl LogEntry {
     /// The value of [payload][crate::model::LogEntry::payload]
     /// if it holds a `TextPayload`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text_payload(&self) -> std::option::Option<&std::string::String> {
+    pub fn text_payload(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.payload.as_ref().and_then(|v| match v {
             crate::model::log_entry::Payload::TextPayload(v) => std::option::Option::Some(v),
@@ -376,7 +379,7 @@ impl LogEntry {
     /// The value of [payload][crate::model::LogEntry::payload]
     /// if it holds a `JsonPayload`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_json_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
+    pub fn json_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
         #[allow(unreachable_patterns)]
         self.payload.as_ref().and_then(|v| match v {
             crate::model::log_entry::Payload::JsonPayload(v) => std::option::Option::Some(v),
@@ -2155,7 +2158,10 @@ impl LogSink {
         self
     }
 
-    /// Sets the value of `options`.
+    /// Sets the value of [options][crate::model::LogSink::options].
+    ///
+    /// Note that all the setters affecting `options` are mutually
+    /// exclusive.
     pub fn set_options<
         T: std::convert::Into<std::option::Option<crate::model::log_sink::Options>>,
     >(
@@ -2169,7 +2175,7 @@ impl LogSink {
     /// The value of [options][crate::model::LogSink::options]
     /// if it holds a `BigqueryOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigquery_options(
+    pub fn bigquery_options(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryOptions>> {
         #[allow(unreachable_patterns)]
@@ -5132,7 +5138,10 @@ impl BucketMetadata {
         self
     }
 
-    /// Sets the value of `request`.
+    /// Sets the value of [request][crate::model::BucketMetadata::request].
+    ///
+    /// Note that all the setters affecting `request` are mutually
+    /// exclusive.
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::bucket_metadata::Request>>,
     >(
@@ -5146,7 +5155,7 @@ impl BucketMetadata {
     /// The value of [request][crate::model::BucketMetadata::request]
     /// if it holds a `CreateBucketRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_create_bucket_request(
+    pub fn create_bucket_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CreateBucketRequest>> {
         #[allow(unreachable_patterns)]
@@ -5161,7 +5170,7 @@ impl BucketMetadata {
     /// The value of [request][crate::model::BucketMetadata::request]
     /// if it holds a `UpdateBucketRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_update_bucket_request(
+    pub fn update_bucket_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateBucketRequest>> {
         #[allow(unreachable_patterns)]
@@ -5283,7 +5292,10 @@ impl LinkMetadata {
         self
     }
 
-    /// Sets the value of `request`.
+    /// Sets the value of [request][crate::model::LinkMetadata::request].
+    ///
+    /// Note that all the setters affecting `request` are mutually
+    /// exclusive.
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::link_metadata::Request>>,
     >(
@@ -5297,7 +5309,7 @@ impl LinkMetadata {
     /// The value of [request][crate::model::LinkMetadata::request]
     /// if it holds a `CreateLinkRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_create_link_request(
+    pub fn create_link_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CreateLinkRequest>> {
         #[allow(unreachable_patterns)]
@@ -5312,7 +5324,7 @@ impl LinkMetadata {
     /// The value of [request][crate::model::LinkMetadata::request]
     /// if it holds a `DeleteLinkRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_delete_link_request(
+    pub fn delete_link_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteLinkRequest>> {
         #[allow(unreachable_patterns)]

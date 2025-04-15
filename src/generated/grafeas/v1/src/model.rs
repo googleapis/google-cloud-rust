@@ -820,7 +820,10 @@ impl ComplianceNote {
         self
     }
 
-    /// Sets the value of `compliance_type`.
+    /// Sets the value of [compliance_type][crate::model::ComplianceNote::compliance_type].
+    ///
+    /// Note that all the setters affecting `compliance_type` are mutually
+    /// exclusive.
     pub fn set_compliance_type<
         T: std::convert::Into<std::option::Option<crate::model::compliance_note::ComplianceType>>,
     >(
@@ -834,7 +837,7 @@ impl ComplianceNote {
     /// The value of [compliance_type][crate::model::ComplianceNote::compliance_type]
     /// if it holds a `CisBenchmark`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cis_benchmark(
+    pub fn cis_benchmark(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::compliance_note::CisBenchmark>> {
         #[allow(unreachable_patterns)]
@@ -863,7 +866,10 @@ impl ComplianceNote {
         self
     }
 
-    /// Sets the value of `potential_impact`.
+    /// Sets the value of [potential_impact][crate::model::ComplianceNote::potential_impact].
+    ///
+    /// Note that all the setters affecting `potential_impact` are mutually
+    /// exclusive.
     pub fn set_potential_impact<
         T: std::convert::Into<std::option::Option<crate::model::compliance_note::PotentialImpact>>,
     >(
@@ -877,7 +883,7 @@ impl ComplianceNote {
     /// The value of [potential_impact][crate::model::ComplianceNote::potential_impact]
     /// if it holds a `Impact`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_impact(&self) -> std::option::Option<&std::string::String> {
+    pub fn impact(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.potential_impact.as_ref().and_then(|v| match v {
             crate::model::compliance_note::PotentialImpact::Impact(v) => {
@@ -3170,7 +3176,10 @@ impl DSSEAttestationOccurrence {
         self
     }
 
-    /// Sets the value of `decoded_payload`.
+    /// Sets the value of [decoded_payload][crate::model::DSSEAttestationOccurrence::decoded_payload].
+    ///
+    /// Note that all the setters affecting `decoded_payload` are mutually
+    /// exclusive.
     pub fn set_decoded_payload<
         T: std::convert::Into<
                 std::option::Option<crate::model::dsse_attestation_occurrence::DecodedPayload>,
@@ -3186,7 +3195,7 @@ impl DSSEAttestationOccurrence {
     /// The value of [decoded_payload][crate::model::DSSEAttestationOccurrence::decoded_payload]
     /// if it holds a `Statement`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_statement(
+    pub fn statement(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InTotoStatement>> {
         #[allow(unreachable_patterns)]
@@ -3347,7 +3356,10 @@ impl Occurrence {
         self
     }
 
-    /// Sets the value of `details`.
+    /// Sets the value of [details][crate::model::Occurrence::details].
+    ///
+    /// Note that all the setters affecting `details` are mutually
+    /// exclusive.
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::occurrence::Details>>,
     >(
@@ -3361,7 +3373,7 @@ impl Occurrence {
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Vulnerability`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vulnerability(
+    pub fn vulnerability(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VulnerabilityOccurrence>> {
         #[allow(unreachable_patterns)]
@@ -3374,9 +3386,7 @@ impl Occurrence {
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Build`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_build(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BuildOccurrence>> {
+    pub fn build(&self) -> std::option::Option<&std::boxed::Box<crate::model::BuildOccurrence>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
             crate::model::occurrence::Details::Build(v) => std::option::Option::Some(v),
@@ -3387,9 +3397,7 @@ impl Occurrence {
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Image`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_image(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ImageOccurrence>> {
+    pub fn image(&self) -> std::option::Option<&std::boxed::Box<crate::model::ImageOccurrence>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
             crate::model::occurrence::Details::Image(v) => std::option::Option::Some(v),
@@ -3400,7 +3408,7 @@ impl Occurrence {
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Package`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_package(
+    pub fn package(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PackageOccurrence>> {
         #[allow(unreachable_patterns)]
@@ -3413,7 +3421,7 @@ impl Occurrence {
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Deployment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_deployment(
+    pub fn deployment(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DeploymentOccurrence>> {
         #[allow(unreachable_patterns)]
@@ -3426,7 +3434,7 @@ impl Occurrence {
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Discovery`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_discovery(
+    pub fn discovery(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DiscoveryOccurrence>> {
         #[allow(unreachable_patterns)]
@@ -3439,7 +3447,7 @@ impl Occurrence {
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Attestation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_attestation(
+    pub fn attestation(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AttestationOccurrence>> {
         #[allow(unreachable_patterns)]
@@ -3452,7 +3460,7 @@ impl Occurrence {
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Upgrade`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_upgrade(
+    pub fn upgrade(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UpgradeOccurrence>> {
         #[allow(unreachable_patterns)]
@@ -3465,7 +3473,7 @@ impl Occurrence {
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `Compliance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_compliance(
+    pub fn compliance(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ComplianceOccurrence>> {
         #[allow(unreachable_patterns)]
@@ -3478,7 +3486,7 @@ impl Occurrence {
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `DsseAttestation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_dsse_attestation(
+    pub fn dsse_attestation(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DSSEAttestationOccurrence>> {
         #[allow(unreachable_patterns)]
@@ -3491,7 +3499,7 @@ impl Occurrence {
     /// The value of [details][crate::model::Occurrence::details]
     /// if it holds a `SbomReference`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sbom_reference(
+    pub fn sbom_reference(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SBOMReferenceOccurrence>> {
         #[allow(unreachable_patterns)]
@@ -3850,7 +3858,10 @@ impl Note {
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::Note::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::note::Type>>>(
         mut self,
         v: T,
@@ -3862,7 +3873,7 @@ impl Note {
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Vulnerability`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vulnerability(
+    pub fn vulnerability(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VulnerabilityNote>> {
         #[allow(unreachable_patterns)]
@@ -3875,7 +3886,7 @@ impl Note {
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Build`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_build(&self) -> std::option::Option<&std::boxed::Box<crate::model::BuildNote>> {
+    pub fn build(&self) -> std::option::Option<&std::boxed::Box<crate::model::BuildNote>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::note::Type::Build(v) => std::option::Option::Some(v),
@@ -3886,7 +3897,7 @@ impl Note {
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Image`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_image(&self) -> std::option::Option<&std::boxed::Box<crate::model::ImageNote>> {
+    pub fn image(&self) -> std::option::Option<&std::boxed::Box<crate::model::ImageNote>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::note::Type::Image(v) => std::option::Option::Some(v),
@@ -3897,7 +3908,7 @@ impl Note {
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Package`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_package(&self) -> std::option::Option<&std::boxed::Box<crate::model::PackageNote>> {
+    pub fn package(&self) -> std::option::Option<&std::boxed::Box<crate::model::PackageNote>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::note::Type::Package(v) => std::option::Option::Some(v),
@@ -3908,7 +3919,7 @@ impl Note {
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Deployment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_deployment(
+    pub fn deployment(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DeploymentNote>> {
         #[allow(unreachable_patterns)]
@@ -3921,9 +3932,7 @@ impl Note {
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Discovery`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_discovery(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DiscoveryNote>> {
+    pub fn discovery(&self) -> std::option::Option<&std::boxed::Box<crate::model::DiscoveryNote>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::note::Type::Discovery(v) => std::option::Option::Some(v),
@@ -3934,7 +3943,7 @@ impl Note {
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Attestation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_attestation(
+    pub fn attestation(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AttestationNote>> {
         #[allow(unreachable_patterns)]
@@ -3947,7 +3956,7 @@ impl Note {
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Upgrade`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_upgrade(&self) -> std::option::Option<&std::boxed::Box<crate::model::UpgradeNote>> {
+    pub fn upgrade(&self) -> std::option::Option<&std::boxed::Box<crate::model::UpgradeNote>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::note::Type::Upgrade(v) => std::option::Option::Some(v),
@@ -3958,7 +3967,7 @@ impl Note {
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `Compliance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_compliance(
+    pub fn compliance(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ComplianceNote>> {
         #[allow(unreachable_patterns)]
@@ -3971,7 +3980,7 @@ impl Note {
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `DsseAttestation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_dsse_attestation(
+    pub fn dsse_attestation(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DSSEAttestationNote>> {
         #[allow(unreachable_patterns)]
@@ -3984,7 +3993,7 @@ impl Note {
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `VulnerabilityAssessment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vulnerability_assessment(
+    pub fn vulnerability_assessment(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VulnerabilityAssessmentNote>> {
         #[allow(unreachable_patterns)]
@@ -3997,7 +4006,7 @@ impl Note {
     /// The value of [r#type][crate::model::Note::r#type]
     /// if it holds a `SbomReference`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sbom_reference(
+    pub fn sbom_reference(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SBOMReferenceNote>> {
         #[allow(unreachable_patterns)]
@@ -5797,7 +5806,10 @@ impl InTotoStatement {
         self
     }
 
-    /// Sets the value of `predicate`.
+    /// Sets the value of [predicate][crate::model::InTotoStatement::predicate].
+    ///
+    /// Note that all the setters affecting `predicate` are mutually
+    /// exclusive.
     pub fn set_predicate<
         T: std::convert::Into<std::option::Option<crate::model::in_toto_statement::Predicate>>,
     >(
@@ -5811,7 +5823,7 @@ impl InTotoStatement {
     /// The value of [predicate][crate::model::InTotoStatement::predicate]
     /// if it holds a `Provenance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_provenance(
+    pub fn provenance(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InTotoProvenance>> {
         #[allow(unreachable_patterns)]
@@ -5826,7 +5838,7 @@ impl InTotoStatement {
     /// The value of [predicate][crate::model::InTotoStatement::predicate]
     /// if it holds a `SlsaProvenance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_slsa_provenance(
+    pub fn slsa_provenance(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SlsaProvenance>> {
         #[allow(unreachable_patterns)]
@@ -5841,7 +5853,7 @@ impl InTotoStatement {
     /// The value of [predicate][crate::model::InTotoStatement::predicate]
     /// if it holds a `SlsaProvenanceZeroTwo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_slsa_provenance_zero_two(
+    pub fn slsa_provenance_zero_two(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SlsaProvenanceZeroTwo>> {
         #[allow(unreachable_patterns)]
@@ -7598,7 +7610,10 @@ impl SourceContext {
         self
     }
 
-    /// Sets the value of `context`.
+    /// Sets the value of [context][crate::model::SourceContext::context].
+    ///
+    /// Note that all the setters affecting `context` are mutually
+    /// exclusive.
     pub fn set_context<
         T: std::convert::Into<std::option::Option<crate::model::source_context::Context>>,
     >(
@@ -7612,7 +7627,7 @@ impl SourceContext {
     /// The value of [context][crate::model::SourceContext::context]
     /// if it holds a `CloudRepo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_repo(
+    pub fn cloud_repo(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudRepoSourceContext>> {
         #[allow(unreachable_patterns)]
@@ -7625,7 +7640,7 @@ impl SourceContext {
     /// The value of [context][crate::model::SourceContext::context]
     /// if it holds a `Gerrit`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gerrit(
+    pub fn gerrit(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GerritSourceContext>> {
         #[allow(unreachable_patterns)]
@@ -7638,7 +7653,7 @@ impl SourceContext {
     /// The value of [context][crate::model::SourceContext::context]
     /// if it holds a `Git`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_git(&self) -> std::option::Option<&std::boxed::Box<crate::model::GitSourceContext>> {
+    pub fn git(&self) -> std::option::Option<&std::boxed::Box<crate::model::GitSourceContext>> {
         #[allow(unreachable_patterns)]
         self.context.as_ref().and_then(|v| match v {
             crate::model::source_context::Context::Git(v) => std::option::Option::Some(v),
@@ -7863,7 +7878,10 @@ impl CloudRepoSourceContext {
         self
     }
 
-    /// Sets the value of `revision`.
+    /// Sets the value of [revision][crate::model::CloudRepoSourceContext::revision].
+    ///
+    /// Note that all the setters affecting `revision` are mutually
+    /// exclusive.
     pub fn set_revision<
         T: std::convert::Into<std::option::Option<crate::model::cloud_repo_source_context::Revision>>,
     >(
@@ -7877,7 +7895,7 @@ impl CloudRepoSourceContext {
     /// The value of [revision][crate::model::CloudRepoSourceContext::revision]
     /// if it holds a `RevisionId`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_revision_id(&self) -> std::option::Option<&std::string::String> {
+    pub fn revision_id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.revision.as_ref().and_then(|v| match v {
             crate::model::cloud_repo_source_context::Revision::RevisionId(v) => {
@@ -7890,7 +7908,7 @@ impl CloudRepoSourceContext {
     /// The value of [revision][crate::model::CloudRepoSourceContext::revision]
     /// if it holds a `AliasContext`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_alias_context(
+    pub fn alias_context(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AliasContext>> {
         #[allow(unreachable_patterns)]
@@ -7996,7 +8014,10 @@ impl GerritSourceContext {
         self
     }
 
-    /// Sets the value of `revision`.
+    /// Sets the value of [revision][crate::model::GerritSourceContext::revision].
+    ///
+    /// Note that all the setters affecting `revision` are mutually
+    /// exclusive.
     pub fn set_revision<
         T: std::convert::Into<std::option::Option<crate::model::gerrit_source_context::Revision>>,
     >(
@@ -8010,7 +8031,7 @@ impl GerritSourceContext {
     /// The value of [revision][crate::model::GerritSourceContext::revision]
     /// if it holds a `RevisionId`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_revision_id(&self) -> std::option::Option<&std::string::String> {
+    pub fn revision_id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.revision.as_ref().and_then(|v| match v {
             crate::model::gerrit_source_context::Revision::RevisionId(v) => {
@@ -8023,7 +8044,7 @@ impl GerritSourceContext {
     /// The value of [revision][crate::model::GerritSourceContext::revision]
     /// if it holds a `AliasContext`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_alias_context(
+    pub fn alias_context(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AliasContext>> {
         #[allow(unreachable_patterns)]
@@ -8150,7 +8171,10 @@ impl RepoId {
         std::default::Default::default()
     }
 
-    /// Sets the value of `id`.
+    /// Sets the value of [id][crate::model::RepoId::id].
+    ///
+    /// Note that all the setters affecting `id` are mutually
+    /// exclusive.
     pub fn set_id<T: std::convert::Into<std::option::Option<crate::model::repo_id::Id>>>(
         mut self,
         v: T,
@@ -8162,7 +8186,7 @@ impl RepoId {
     /// The value of [id][crate::model::RepoId::id]
     /// if it holds a `ProjectRepoId`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_project_repo_id(
+    pub fn project_repo_id(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ProjectRepoId>> {
         #[allow(unreachable_patterns)]
@@ -8175,7 +8199,7 @@ impl RepoId {
     /// The value of [id][crate::model::RepoId::id]
     /// if it holds a `Uid`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_uid(&self) -> std::option::Option<&std::string::String> {
+    pub fn uid(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.id.as_ref().and_then(|v| match v {
             crate::model::repo_id::Id::Uid(v) => std::option::Option::Some(v),
@@ -10054,7 +10078,10 @@ pub mod vulnerability_assessment_note {
             self
         }
 
-        /// Sets the value of `identifier`.
+        /// Sets the value of [identifier][crate::model::vulnerability_assessment_note::Product::identifier].
+        ///
+        /// Note that all the setters affecting `identifier` are mutually
+        /// exclusive.
         pub fn set_identifier<
             T: std::convert::Into<
                     std::option::Option<
@@ -10072,7 +10099,7 @@ pub mod vulnerability_assessment_note {
         /// The value of [identifier][crate::model::vulnerability_assessment_note::Product::identifier]
         /// if it holds a `GenericUri`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_generic_uri(&self) -> std::option::Option<&std::string::String> {
+        pub fn generic_uri(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.identifier.as_ref().and_then(|v| match v {
                 crate::model::vulnerability_assessment_note::product::Identifier::GenericUri(v) => {

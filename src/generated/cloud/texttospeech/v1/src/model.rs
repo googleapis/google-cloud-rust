@@ -601,7 +601,10 @@ impl SynthesisInput {
         self
     }
 
-    /// Sets the value of `input_source`.
+    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source].
+    ///
+    /// Note that all the setters affecting `input_source` are mutually
+    /// exclusive.
     pub fn set_input_source<
         T: std::convert::Into<std::option::Option<crate::model::synthesis_input::InputSource>>,
     >(
@@ -615,7 +618,7 @@ impl SynthesisInput {
     /// The value of [input_source][crate::model::SynthesisInput::input_source]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text(&self) -> std::option::Option<&std::string::String> {
+    pub fn text(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.input_source.as_ref().and_then(|v| match v {
             crate::model::synthesis_input::InputSource::Text(v) => std::option::Option::Some(v),
@@ -626,7 +629,7 @@ impl SynthesisInput {
     /// The value of [input_source][crate::model::SynthesisInput::input_source]
     /// if it holds a `Ssml`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ssml(&self) -> std::option::Option<&std::string::String> {
+    pub fn ssml(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.input_source.as_ref().and_then(|v| match v {
             crate::model::synthesis_input::InputSource::Ssml(v) => std::option::Option::Some(v),
@@ -637,7 +640,7 @@ impl SynthesisInput {
     /// The value of [input_source][crate::model::SynthesisInput::input_source]
     /// if it holds a `MultiSpeakerMarkup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_multi_speaker_markup(
+    pub fn multi_speaker_markup(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MultiSpeakerMarkup>> {
         #[allow(unreachable_patterns)]
@@ -1269,7 +1272,10 @@ impl StreamingSynthesisInput {
         std::default::Default::default()
     }
 
-    /// Sets the value of `input_source`.
+    /// Sets the value of [input_source][crate::model::StreamingSynthesisInput::input_source].
+    ///
+    /// Note that all the setters affecting `input_source` are mutually
+    /// exclusive.
     pub fn set_input_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::streaming_synthesis_input::InputSource>,
@@ -1285,7 +1291,7 @@ impl StreamingSynthesisInput {
     /// The value of [input_source][crate::model::StreamingSynthesisInput::input_source]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text(&self) -> std::option::Option<&std::string::String> {
+    pub fn text(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.input_source.as_ref().and_then(|v| match v {
             crate::model::streaming_synthesis_input::InputSource::Text(v) => {
@@ -1355,7 +1361,10 @@ impl StreamingSynthesizeRequest {
         std::default::Default::default()
     }
 
-    /// Sets the value of `streaming_request`.
+    /// Sets the value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request].
+    ///
+    /// Note that all the setters affecting `streaming_request` are mutually
+    /// exclusive.
     pub fn set_streaming_request<
         T: std::convert::Into<
                 std::option::Option<crate::model::streaming_synthesize_request::StreamingRequest>,
@@ -1371,7 +1380,7 @@ impl StreamingSynthesizeRequest {
     /// The value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
     /// if it holds a `StreamingConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_streaming_config(
+    pub fn streaming_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingSynthesizeConfig>> {
         #[allow(unreachable_patterns)]
@@ -1386,7 +1395,7 @@ impl StreamingSynthesizeRequest {
     /// The value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
     /// if it holds a `Input`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_input(
+    pub fn input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingSynthesisInput>> {
         #[allow(unreachable_patterns)]

@@ -407,7 +407,10 @@ impl DateTime {
         self
     }
 
-    /// Sets the value of `time_offset`.
+    /// Sets the value of [time_offset][crate::model::DateTime::time_offset].
+    ///
+    /// Note that all the setters affecting `time_offset` are mutually
+    /// exclusive.
     pub fn set_time_offset<
         T: std::convert::Into<std::option::Option<crate::model::date_time::TimeOffset>>,
     >(
@@ -421,7 +424,7 @@ impl DateTime {
     /// The value of [time_offset][crate::model::DateTime::time_offset]
     /// if it holds a `UtcOffset`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_utc_offset(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+    pub fn utc_offset(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.time_offset.as_ref().and_then(|v| match v {
             crate::model::date_time::TimeOffset::UtcOffset(v) => std::option::Option::Some(v),
@@ -432,7 +435,7 @@ impl DateTime {
     /// The value of [time_offset][crate::model::DateTime::time_offset]
     /// if it holds a `TimeZone`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_time_zone(&self) -> std::option::Option<&std::boxed::Box<crate::model::TimeZone>> {
+    pub fn time_zone(&self) -> std::option::Option<&std::boxed::Box<crate::model::TimeZone>> {
         #[allow(unreachable_patterns)]
         self.time_offset.as_ref().and_then(|v| match v {
             crate::model::date_time::TimeOffset::TimeZone(v) => std::option::Option::Some(v),
@@ -1061,7 +1064,10 @@ impl PhoneNumber {
         self
     }
 
-    /// Sets the value of `kind`.
+    /// Sets the value of [kind][crate::model::PhoneNumber::kind].
+    ///
+    /// Note that all the setters affecting `kind` are mutually
+    /// exclusive.
     pub fn set_kind<
         T: std::convert::Into<std::option::Option<crate::model::phone_number::Kind>>,
     >(
@@ -1075,7 +1081,7 @@ impl PhoneNumber {
     /// The value of [kind][crate::model::PhoneNumber::kind]
     /// if it holds a `E164Number`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_e164_number(&self) -> std::option::Option<&std::string::String> {
+    pub fn e164_number(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.kind.as_ref().and_then(|v| match v {
             crate::model::phone_number::Kind::E164Number(v) => std::option::Option::Some(v),
@@ -1086,7 +1092,7 @@ impl PhoneNumber {
     /// The value of [kind][crate::model::PhoneNumber::kind]
     /// if it holds a `ShortCode`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_short_code(
+    pub fn short_code(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::phone_number::ShortCode>> {
         #[allow(unreachable_patterns)]

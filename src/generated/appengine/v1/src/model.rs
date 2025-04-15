@@ -329,7 +329,10 @@ impl UrlMap {
         self
     }
 
-    /// Sets the value of `handler_type`.
+    /// Sets the value of [handler_type][crate::model::UrlMap::handler_type].
+    ///
+    /// Note that all the setters affecting `handler_type` are mutually
+    /// exclusive.
     pub fn set_handler_type<
         T: std::convert::Into<std::option::Option<crate::model::url_map::HandlerType>>,
     >(
@@ -343,7 +346,7 @@ impl UrlMap {
     /// The value of [handler_type][crate::model::UrlMap::handler_type]
     /// if it holds a `StaticFiles`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_static_files(
+    pub fn static_files(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StaticFilesHandler>> {
         #[allow(unreachable_patterns)]
@@ -356,7 +359,7 @@ impl UrlMap {
     /// The value of [handler_type][crate::model::UrlMap::handler_type]
     /// if it holds a `Script`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_script(&self) -> std::option::Option<&std::boxed::Box<crate::model::ScriptHandler>> {
+    pub fn script(&self) -> std::option::Option<&std::boxed::Box<crate::model::ScriptHandler>> {
         #[allow(unreachable_patterns)]
         self.handler_type.as_ref().and_then(|v| match v {
             crate::model::url_map::HandlerType::Script(v) => std::option::Option::Some(v),
@@ -367,7 +370,7 @@ impl UrlMap {
     /// The value of [handler_type][crate::model::UrlMap::handler_type]
     /// if it holds a `ApiEndpoint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_api_endpoint(
+    pub fn api_endpoint(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ApiEndpointHandler>> {
         #[allow(unreachable_patterns)]
@@ -3702,7 +3705,10 @@ impl AuditData {
         std::default::Default::default()
     }
 
-    /// Sets the value of `method`.
+    /// Sets the value of [method][crate::model::AuditData::method].
+    ///
+    /// Note that all the setters affecting `method` are mutually
+    /// exclusive.
     pub fn set_method<
         T: std::convert::Into<std::option::Option<crate::model::audit_data::Method>>,
     >(
@@ -3716,7 +3722,7 @@ impl AuditData {
     /// The value of [method][crate::model::AuditData::method]
     /// if it holds a `UpdateService`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_update_service(
+    pub fn update_service(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateServiceMethod>> {
         #[allow(unreachable_patterns)]
@@ -3729,7 +3735,7 @@ impl AuditData {
     /// The value of [method][crate::model::AuditData::method]
     /// if it holds a `CreateVersion`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_create_version(
+    pub fn create_version(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CreateVersionMethod>> {
         #[allow(unreachable_patterns)]
@@ -5638,7 +5644,10 @@ impl OperationMetadataV1 {
         self
     }
 
-    /// Sets the value of `method_metadata`.
+    /// Sets the value of [method_metadata][crate::model::OperationMetadataV1::method_metadata].
+    ///
+    /// Note that all the setters affecting `method_metadata` are mutually
+    /// exclusive.
     pub fn set_method_metadata<
         T: std::convert::Into<
                 std::option::Option<crate::model::operation_metadata_v_1::MethodMetadata>,
@@ -5654,7 +5663,7 @@ impl OperationMetadataV1 {
     /// The value of [method_metadata][crate::model::OperationMetadataV1::method_metadata]
     /// if it holds a `CreateVersionMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_create_version_metadata(
+    pub fn create_version_metadata(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CreateVersionMetadataV1>> {
         #[allow(unreachable_patterns)]
@@ -6545,7 +6554,10 @@ impl Version {
         self
     }
 
-    /// Sets the value of `scaling`.
+    /// Sets the value of [scaling][crate::model::Version::scaling].
+    ///
+    /// Note that all the setters affecting `scaling` are mutually
+    /// exclusive.
     pub fn set_scaling<
         T: std::convert::Into<std::option::Option<crate::model::version::Scaling>>,
     >(
@@ -6559,7 +6571,7 @@ impl Version {
     /// The value of [scaling][crate::model::Version::scaling]
     /// if it holds a `AutomaticScaling`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_automatic_scaling(
+    pub fn automatic_scaling(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AutomaticScaling>> {
         #[allow(unreachable_patterns)]
@@ -6572,7 +6584,7 @@ impl Version {
     /// The value of [scaling][crate::model::Version::scaling]
     /// if it holds a `BasicScaling`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_basic_scaling(
+    pub fn basic_scaling(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BasicScaling>> {
         #[allow(unreachable_patterns)]
@@ -6585,7 +6597,7 @@ impl Version {
     /// The value of [scaling][crate::model::Version::scaling]
     /// if it holds a `ManualScaling`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_manual_scaling(
+    pub fn manual_scaling(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ManualScaling>> {
         #[allow(unreachable_patterns)]
@@ -7743,7 +7755,10 @@ impl Entrypoint {
         std::default::Default::default()
     }
 
-    /// Sets the value of `command`.
+    /// Sets the value of [command][crate::model::Entrypoint::command].
+    ///
+    /// Note that all the setters affecting `command` are mutually
+    /// exclusive.
     pub fn set_command<
         T: std::convert::Into<std::option::Option<crate::model::entrypoint::Command>>,
     >(
@@ -7757,7 +7772,7 @@ impl Entrypoint {
     /// The value of [command][crate::model::Entrypoint::command]
     /// if it holds a `Shell`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_shell(&self) -> std::option::Option<&std::string::String> {
+    pub fn shell(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.command.as_ref().and_then(|v| match v {
             crate::model::entrypoint::Command::Shell(v) => std::option::Option::Some(v),

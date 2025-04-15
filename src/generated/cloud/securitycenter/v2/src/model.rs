@@ -5019,7 +5019,10 @@ pub mod indicator {
             self
         }
 
-        /// Sets the value of `signature`.
+        /// Sets the value of [signature][crate::model::indicator::ProcessSignature::signature].
+        ///
+        /// Note that all the setters affecting `signature` are mutually
+        /// exclusive.
         pub fn set_signature<
             T: std::convert::Into<
                     std::option::Option<crate::model::indicator::process_signature::Signature>,
@@ -5035,7 +5038,7 @@ pub mod indicator {
         /// The value of [signature][crate::model::indicator::ProcessSignature::signature]
         /// if it holds a `MemoryHashSignature`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_memory_hash_signature(
+        pub fn memory_hash_signature(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::indicator::process_signature::MemoryHashSignature>,
@@ -5052,7 +5055,7 @@ pub mod indicator {
         /// The value of [signature][crate::model::indicator::ProcessSignature::signature]
         /// if it holds a `YaraRuleSignature`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_yara_rule_signature(
+        pub fn yara_rule_signature(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::indicator::process_signature::YaraRuleSignature>,
@@ -6345,7 +6348,10 @@ impl LogEntry {
         std::default::Default::default()
     }
 
-    /// Sets the value of `log_entry`.
+    /// Sets the value of [log_entry][crate::model::LogEntry::log_entry].
+    ///
+    /// Note that all the setters affecting `log_entry` are mutually
+    /// exclusive.
     pub fn set_log_entry<
         T: std::convert::Into<std::option::Option<crate::model::log_entry::LogEntry>>,
     >(
@@ -6359,7 +6365,7 @@ impl LogEntry {
     /// The value of [log_entry][crate::model::LogEntry::log_entry]
     /// if it holds a `CloudLoggingEntry`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_logging_entry(
+    pub fn cloud_logging_entry(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudLoggingEntry>> {
         #[allow(unreachable_patterns)]
@@ -7509,7 +7515,10 @@ impl NotificationConfig {
         self
     }
 
-    /// Sets the value of `notify_config`.
+    /// Sets the value of [notify_config][crate::model::NotificationConfig::notify_config].
+    ///
+    /// Note that all the setters affecting `notify_config` are mutually
+    /// exclusive.
     pub fn set_notify_config<
         T: std::convert::Into<std::option::Option<crate::model::notification_config::NotifyConfig>>,
     >(
@@ -7523,7 +7532,7 @@ impl NotificationConfig {
     /// The value of [notify_config][crate::model::NotificationConfig::notify_config]
     /// if it holds a `StreamingConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_streaming_config(
+    pub fn streaming_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::notification_config::StreamingConfig>>
     {
@@ -7673,7 +7682,10 @@ impl NotificationMessage {
         self
     }
 
-    /// Sets the value of `event`.
+    /// Sets the value of [event][crate::model::NotificationMessage::event].
+    ///
+    /// Note that all the setters affecting `event` are mutually
+    /// exclusive.
     pub fn set_event<
         T: std::convert::Into<std::option::Option<crate::model::notification_message::Event>>,
     >(
@@ -7687,7 +7699,7 @@ impl NotificationMessage {
     /// The value of [event][crate::model::NotificationMessage::event]
     /// if it holds a `Finding`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_finding(&self) -> std::option::Option<&std::boxed::Box<crate::model::Finding>> {
+    pub fn finding(&self) -> std::option::Option<&std::boxed::Box<crate::model::Finding>> {
         #[allow(unreachable_patterns)]
         self.event.as_ref().and_then(|v| match v {
             crate::model::notification_message::Event::Finding(v) => std::option::Option::Some(v),
@@ -8073,7 +8085,10 @@ impl Resource {
         self
     }
 
-    /// Sets the value of `cloud_provider_metadata`.
+    /// Sets the value of [cloud_provider_metadata][crate::model::Resource::cloud_provider_metadata].
+    ///
+    /// Note that all the setters affecting `cloud_provider_metadata` are mutually
+    /// exclusive.
     pub fn set_cloud_provider_metadata<
         T: std::convert::Into<std::option::Option<crate::model::resource::CloudProviderMetadata>>,
     >(
@@ -8087,9 +8102,7 @@ impl Resource {
     /// The value of [cloud_provider_metadata][crate::model::Resource::cloud_provider_metadata]
     /// if it holds a `GcpMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcp_metadata(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcpMetadata>> {
+    pub fn gcp_metadata(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcpMetadata>> {
         #[allow(unreachable_patterns)]
         self.cloud_provider_metadata.as_ref().and_then(|v| match v {
             crate::model::resource::CloudProviderMetadata::GcpMetadata(v) => {
@@ -8102,9 +8115,7 @@ impl Resource {
     /// The value of [cloud_provider_metadata][crate::model::Resource::cloud_provider_metadata]
     /// if it holds a `AwsMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_aws_metadata(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AwsMetadata>> {
+    pub fn aws_metadata(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsMetadata>> {
         #[allow(unreachable_patterns)]
         self.cloud_provider_metadata.as_ref().and_then(|v| match v {
             crate::model::resource::CloudProviderMetadata::AwsMetadata(v) => {
@@ -8117,7 +8128,7 @@ impl Resource {
     /// The value of [cloud_provider_metadata][crate::model::Resource::cloud_provider_metadata]
     /// if it holds a `AzureMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_azure_metadata(
+    pub fn azure_metadata(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AzureMetadata>> {
         #[allow(unreachable_patterns)]
@@ -11500,7 +11511,10 @@ pub mod list_findings_response {
                 self
             }
 
-            /// Sets the value of `cloud_provider_metadata`.
+            /// Sets the value of [cloud_provider_metadata][crate::model::list_findings_response::list_findings_result::Resource::cloud_provider_metadata].
+            ///
+            /// Note that all the setters affecting `cloud_provider_metadata` are mutually
+            /// exclusive.
             pub fn set_cloud_provider_metadata<T: std::convert::Into<std::option::Option<crate::model::list_findings_response::list_findings_result::resource::CloudProviderMetadata>>>(mut self, v: T) -> Self
             {
                 self.cloud_provider_metadata = v.into();
@@ -11510,7 +11524,7 @@ pub mod list_findings_response {
             /// The value of [cloud_provider_metadata][crate::model::list_findings_response::list_findings_result::Resource::cloud_provider_metadata]
             /// if it holds a `GcpMetadata`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_gcp_metadata(
+            pub fn gcp_metadata(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::GcpMetadata>> {
                 #[allow(unreachable_patterns)]
@@ -11523,7 +11537,7 @@ pub mod list_findings_response {
             /// The value of [cloud_provider_metadata][crate::model::list_findings_response::list_findings_result::Resource::cloud_provider_metadata]
             /// if it holds a `AwsMetadata`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_aws_metadata(
+            pub fn aws_metadata(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::AwsMetadata>> {
                 #[allow(unreachable_patterns)]
@@ -11536,7 +11550,7 @@ pub mod list_findings_response {
             /// The value of [cloud_provider_metadata][crate::model::list_findings_response::list_findings_result::Resource::cloud_provider_metadata]
             /// if it holds a `AzureMetadata`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_azure_metadata(
+            pub fn azure_metadata(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::AzureMetadata>> {
                 #[allow(unreachable_patterns)]

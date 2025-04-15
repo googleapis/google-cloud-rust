@@ -2479,7 +2479,10 @@ impl Rule {
         self
     }
 
-    /// Sets the value of `action`.
+    /// Sets the value of [action][crate::model::Rule::action].
+    ///
+    /// Note that all the setters affecting `action` are mutually
+    /// exclusive.
     pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::rule::Action>>>(
         mut self,
         v: T,
@@ -2491,7 +2494,7 @@ impl Rule {
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `BoostAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_boost_action(
+    pub fn boost_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rule::BoostAction>> {
         #[allow(unreachable_patterns)]
@@ -2504,7 +2507,7 @@ impl Rule {
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `RedirectAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_redirect_action(
+    pub fn redirect_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rule::RedirectAction>> {
         #[allow(unreachable_patterns)]
@@ -2517,7 +2520,7 @@ impl Rule {
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `OnewaySynonymsAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oneway_synonyms_action(
+    pub fn oneway_synonyms_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rule::OnewaySynonymsAction>> {
         #[allow(unreachable_patterns)]
@@ -2530,7 +2533,7 @@ impl Rule {
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `DoNotAssociateAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_do_not_associate_action(
+    pub fn do_not_associate_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rule::DoNotAssociateAction>> {
         #[allow(unreachable_patterns)]
@@ -2543,7 +2546,7 @@ impl Rule {
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `ReplacementAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_replacement_action(
+    pub fn replacement_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rule::ReplacementAction>> {
         #[allow(unreachable_patterns)]
@@ -2556,7 +2559,7 @@ impl Rule {
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `IgnoreAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ignore_action(
+    pub fn ignore_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rule::IgnoreAction>> {
         #[allow(unreachable_patterns)]
@@ -2569,7 +2572,7 @@ impl Rule {
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `FilterAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_filter_action(
+    pub fn filter_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rule::FilterAction>> {
         #[allow(unreachable_patterns)]
@@ -2582,7 +2585,7 @@ impl Rule {
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `TwowaySynonymsAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_twoway_synonyms_action(
+    pub fn twoway_synonyms_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rule::TwowaySynonymsAction>> {
         #[allow(unreachable_patterns)]
@@ -2595,7 +2598,7 @@ impl Rule {
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `ForceReturnFacetAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_force_return_facet_action(
+    pub fn force_return_facet_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rule::ForceReturnFacetAction>> {
         #[allow(unreachable_patterns)]
@@ -2608,7 +2611,7 @@ impl Rule {
     /// The value of [action][crate::model::Rule::action]
     /// if it holds a `RemoveFacetAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_remove_facet_action(
+    pub fn remove_facet_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rule::RemoveFacetAction>> {
         #[allow(unreachable_patterns)]
@@ -3950,7 +3953,10 @@ impl Interval {
         std::default::Default::default()
     }
 
-    /// Sets the value of `min`.
+    /// Sets the value of [min][crate::model::Interval::min].
+    ///
+    /// Note that all the setters affecting `min` are mutually
+    /// exclusive.
     pub fn set_min<T: std::convert::Into<std::option::Option<crate::model::interval::Min>>>(
         mut self,
         v: T,
@@ -3962,7 +3968,7 @@ impl Interval {
     /// The value of [min][crate::model::Interval::min]
     /// if it holds a `Minimum`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_minimum(&self) -> std::option::Option<&f64> {
+    pub fn minimum(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.min.as_ref().and_then(|v| match v {
             crate::model::interval::Min::Minimum(v) => std::option::Option::Some(v),
@@ -3973,7 +3979,7 @@ impl Interval {
     /// The value of [min][crate::model::Interval::min]
     /// if it holds a `ExclusiveMinimum`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_exclusive_minimum(&self) -> std::option::Option<&f64> {
+    pub fn exclusive_minimum(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.min.as_ref().and_then(|v| match v {
             crate::model::interval::Min::ExclusiveMinimum(v) => std::option::Option::Some(v),
@@ -4002,7 +4008,10 @@ impl Interval {
         self
     }
 
-    /// Sets the value of `max`.
+    /// Sets the value of [max][crate::model::Interval::max].
+    ///
+    /// Note that all the setters affecting `max` are mutually
+    /// exclusive.
     pub fn set_max<T: std::convert::Into<std::option::Option<crate::model::interval::Max>>>(
         mut self,
         v: T,
@@ -4014,7 +4023,7 @@ impl Interval {
     /// The value of [max][crate::model::Interval::max]
     /// if it holds a `Maximum`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_maximum(&self) -> std::option::Option<&f64> {
+    pub fn maximum(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.max.as_ref().and_then(|v| match v {
             crate::model::interval::Max::Maximum(v) => std::option::Option::Some(v),
@@ -4025,7 +4034,7 @@ impl Interval {
     /// The value of [max][crate::model::Interval::max]
     /// if it holds a `ExclusiveMaximum`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_exclusive_maximum(&self) -> std::option::Option<&f64> {
+    pub fn exclusive_maximum(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.max.as_ref().and_then(|v| match v {
             crate::model::interval::Max::ExclusiveMaximum(v) => std::option::Option::Some(v),
@@ -5236,7 +5245,10 @@ impl Control {
         self
     }
 
-    /// Sets the value of `control`.
+    /// Sets the value of [control][crate::model::Control::control].
+    ///
+    /// Note that all the setters affecting `control` are mutually
+    /// exclusive.
     pub fn set_control<
         T: std::convert::Into<std::option::Option<crate::model::control::Control>>,
     >(
@@ -5250,7 +5262,7 @@ impl Control {
     /// The value of [control][crate::model::Control::control]
     /// if it holds a `Rule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rule(&self) -> std::option::Option<&std::boxed::Box<crate::model::Rule>> {
+    pub fn rule(&self) -> std::option::Option<&std::boxed::Box<crate::model::Rule>> {
         #[allow(unreachable_patterns)]
         self.control.as_ref().and_then(|v| match v {
             crate::model::control::Control::Rule(v) => std::option::Option::Some(v),
@@ -5633,7 +5645,10 @@ impl OutputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::OutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
     >(
@@ -5647,7 +5662,7 @@ impl OutputConfig {
     /// The value of [destination][crate::model::OutputConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_destination(
+    pub fn gcs_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::output_config::GcsDestination>> {
         #[allow(unreachable_patterns)]
@@ -5662,7 +5677,7 @@ impl OutputConfig {
     /// The value of [destination][crate::model::OutputConfig::destination]
     /// if it holds a `BigqueryDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigquery_destination(
+    pub fn bigquery_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::output_config::BigQueryDestination>>
     {
@@ -5851,7 +5866,10 @@ impl ExportErrorsConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportErrorsConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_errors_config::Destination>>,
     >(
@@ -5865,7 +5883,7 @@ impl ExportErrorsConfig {
     /// The value of [destination][crate::model::ExportErrorsConfig::destination]
     /// if it holds a `GcsPrefix`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_prefix(&self) -> std::option::Option<&std::string::String> {
+    pub fn gcs_prefix(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::export_errors_config::Destination::GcsPrefix(v) => {
@@ -6879,7 +6897,10 @@ impl BigQuerySource {
         self
     }
 
-    /// Sets the value of `partition`.
+    /// Sets the value of [partition][crate::model::BigQuerySource::partition].
+    ///
+    /// Note that all the setters affecting `partition` are mutually
+    /// exclusive.
     pub fn set_partition<
         T: std::convert::Into<std::option::Option<crate::model::big_query_source::Partition>>,
     >(
@@ -6893,7 +6914,7 @@ impl BigQuerySource {
     /// The value of [partition][crate::model::BigQuerySource::partition]
     /// if it holds a `PartitionDate`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_partition_date(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
+    pub fn partition_date(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
         #[allow(unreachable_patterns)]
         self.partition.as_ref().and_then(|v| match v {
             crate::model::big_query_source::Partition::PartitionDate(v) => {
@@ -7043,7 +7064,10 @@ impl ImportErrorsConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ImportErrorsConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::import_errors_config::Destination>>,
     >(
@@ -7057,7 +7081,7 @@ impl ImportErrorsConfig {
     /// The value of [destination][crate::model::ImportErrorsConfig::destination]
     /// if it holds a `GcsPrefix`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_prefix(&self) -> std::option::Option<&std::string::String> {
+    pub fn gcs_prefix(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::import_errors_config::Destination::GcsPrefix(v) => {
@@ -7462,7 +7486,10 @@ impl ProductInputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ProductInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::product_input_config::Source>>,
     >(
@@ -7476,7 +7503,7 @@ impl ProductInputConfig {
     /// The value of [source][crate::model::ProductInputConfig::source]
     /// if it holds a `ProductInlineSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_product_inline_source(
+    pub fn product_inline_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ProductInlineSource>> {
         #[allow(unreachable_patterns)]
@@ -7491,7 +7518,7 @@ impl ProductInputConfig {
     /// The value of [source][crate::model::ProductInputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::product_input_config::Source::GcsSource(v) => {
@@ -7504,7 +7531,7 @@ impl ProductInputConfig {
     /// The value of [source][crate::model::ProductInputConfig::source]
     /// if it holds a `BigQuerySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_big_query_source(
+    pub fn big_query_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
         #[allow(unreachable_patterns)]
@@ -7610,7 +7637,10 @@ impl UserEventInputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::UserEventInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::user_event_input_config::Source>>,
     >(
@@ -7624,7 +7654,7 @@ impl UserEventInputConfig {
     /// The value of [source][crate::model::UserEventInputConfig::source]
     /// if it holds a `UserEventInlineSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_user_event_inline_source(
+    pub fn user_event_inline_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UserEventInlineSource>> {
         #[allow(unreachable_patterns)]
@@ -7639,7 +7669,7 @@ impl UserEventInputConfig {
     /// The value of [source][crate::model::UserEventInputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::user_event_input_config::Source::GcsSource(v) => {
@@ -7652,7 +7682,7 @@ impl UserEventInputConfig {
     /// The value of [source][crate::model::UserEventInputConfig::source]
     /// if it holds a `BigQuerySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_big_query_source(
+    pub fn big_query_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
         #[allow(unreachable_patterns)]
@@ -7768,7 +7798,10 @@ impl CompletionDataInputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::CompletionDataInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::completion_data_input_config::Source>>,
     >(
@@ -7782,7 +7815,7 @@ impl CompletionDataInputConfig {
     /// The value of [source][crate::model::CompletionDataInputConfig::source]
     /// if it holds a `BigQuerySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_big_query_source(
+    pub fn big_query_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
         #[allow(unreachable_patterns)]
@@ -8556,7 +8589,10 @@ pub mod model {
             std::default::Default::default()
         }
 
-        /// Sets the value of `type_dedicated_config`.
+        /// Sets the value of [type_dedicated_config][crate::model::model::ModelFeaturesConfig::type_dedicated_config].
+        ///
+        /// Note that all the setters affecting `type_dedicated_config` are mutually
+        /// exclusive.
         pub fn set_type_dedicated_config<
             T: std::convert::Into<
                     std::option::Option<
@@ -8574,7 +8610,7 @@ pub mod model {
         /// The value of [type_dedicated_config][crate::model::model::ModelFeaturesConfig::type_dedicated_config]
         /// if it holds a `FrequentlyBoughtTogetherConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_frequently_bought_together_config(
+        pub fn frequently_bought_together_config(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::model::FrequentlyBoughtTogetherFeaturesConfig>,
@@ -10680,7 +10716,10 @@ impl Product {
         self
     }
 
-    /// Sets the value of `expiration`.
+    /// Sets the value of [expiration][crate::model::Product::expiration].
+    ///
+    /// Note that all the setters affecting `expiration` are mutually
+    /// exclusive.
     pub fn set_expiration<
         T: std::convert::Into<std::option::Option<crate::model::product::Expiration>>,
     >(
@@ -10694,7 +10733,7 @@ impl Product {
     /// The value of [expiration][crate::model::Product::expiration]
     /// if it holds a `ExpireTime`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_expire_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+    pub fn expire_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.expiration.as_ref().and_then(|v| match v {
             crate::model::product::Expiration::ExpireTime(v) => std::option::Option::Some(v),
@@ -10705,7 +10744,7 @@ impl Product {
     /// The value of [expiration][crate::model::Product::expiration]
     /// if it holds a `Ttl`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.expiration.as_ref().and_then(|v| match v {
             crate::model::product::Expiration::Ttl(v) => std::option::Option::Some(v),
@@ -12941,7 +12980,10 @@ impl Tile {
         self
     }
 
-    /// Sets the value of `product_attribute`.
+    /// Sets the value of [product_attribute][crate::model::Tile::product_attribute].
+    ///
+    /// Note that all the setters affecting `product_attribute` are mutually
+    /// exclusive.
     pub fn set_product_attribute<
         T: std::convert::Into<std::option::Option<crate::model::tile::ProductAttribute>>,
     >(
@@ -12955,7 +12997,7 @@ impl Tile {
     /// The value of [product_attribute][crate::model::Tile::product_attribute]
     /// if it holds a `ProductAttributeValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_product_attribute_value(
+    pub fn product_attribute_value(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ProductAttributeValue>> {
         #[allow(unreachable_patterns)]
@@ -12970,7 +13012,7 @@ impl Tile {
     /// The value of [product_attribute][crate::model::Tile::product_attribute]
     /// if it holds a `ProductAttributeInterval`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_product_attribute_interval(
+    pub fn product_attribute_interval(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ProductAttributeInterval>> {
         #[allow(unreachable_patterns)]
@@ -14717,7 +14759,10 @@ pub mod search_request {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `r#type`.
+            /// Sets the value of [r#type][crate::model::search_request::conversational_search_spec::UserAnswer::type].
+            ///
+            /// Note that all the setters affecting `r#type` are mutually
+            /// exclusive.
             pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::search_request::conversational_search_spec::user_answer::Type>>>(mut self, v: T) -> Self
             {
                 self.r#type = v.into();
@@ -14727,7 +14772,7 @@ pub mod search_request {
             /// The value of [r#type][crate::model::search_request::conversational_search_spec::UserAnswer::r#type]
             /// if it holds a `TextAnswer`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_text_answer(&self) -> std::option::Option<&std::string::String> {
+            pub fn text_answer(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.r#type.as_ref().and_then(|v| match v {
                     crate::model::search_request::conversational_search_spec::user_answer::Type::TextAnswer(v) => std::option::Option::Some(v),
@@ -14738,7 +14783,7 @@ pub mod search_request {
             /// The value of [r#type][crate::model::search_request::conversational_search_spec::UserAnswer::r#type]
             /// if it holds a `SelectedAnswer`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_selected_answer(&self) -> std::option::Option<&std::boxed::Box<crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer>>{
+            pub fn selected_answer(&self) -> std::option::Option<&std::boxed::Box<crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer>>{
                 #[allow(unreachable_patterns)]
                 self.r#type.as_ref().and_then(|v| match v {
                     crate::model::search_request::conversational_search_spec::user_answer::Type::SelectedAnswer(v) => std::option::Option::Some(v),
@@ -15592,7 +15637,10 @@ pub mod search_response {
                 self
             }
 
-            /// Sets the value of `facet_value`.
+            /// Sets the value of [facet_value][crate::model::search_response::facet::FacetValue::facet_value].
+            ///
+            /// Note that all the setters affecting `facet_value` are mutually
+            /// exclusive.
             pub fn set_facet_value<
                 T: std::convert::Into<
                         std::option::Option<
@@ -15610,7 +15658,7 @@ pub mod search_response {
             /// The value of [facet_value][crate::model::search_response::facet::FacetValue::facet_value]
             /// if it holds a `Value`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_value(&self) -> std::option::Option<&std::string::String> {
+            pub fn value(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.facet_value.as_ref().and_then(|v| match v {
                     crate::model::search_response::facet::facet_value::FacetValue::Value(v) => {
@@ -15623,7 +15671,7 @@ pub mod search_response {
             /// The value of [facet_value][crate::model::search_response::facet::FacetValue::facet_value]
             /// if it holds a `Interval`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_interval(
+            pub fn interval(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::Interval>> {
                 #[allow(unreachable_patterns)]
@@ -16025,7 +16073,10 @@ impl ExperimentInfo {
         self
     }
 
-    /// Sets the value of `experiment_metadata`.
+    /// Sets the value of [experiment_metadata][crate::model::ExperimentInfo::experiment_metadata].
+    ///
+    /// Note that all the setters affecting `experiment_metadata` are mutually
+    /// exclusive.
     pub fn set_experiment_metadata<
         T: std::convert::Into<std::option::Option<crate::model::experiment_info::ExperimentMetadata>>,
     >(
@@ -16039,7 +16090,7 @@ impl ExperimentInfo {
     /// The value of [experiment_metadata][crate::model::ExperimentInfo::experiment_metadata]
     /// if it holds a `ServingConfigExperiment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_serving_config_experiment(
+    pub fn serving_config_experiment(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::experiment_info::ServingConfigExperiment>>
     {
@@ -17936,7 +17987,10 @@ impl CollectUserEventRequest {
         self
     }
 
-    /// Sets the value of `conversion_rule`.
+    /// Sets the value of [conversion_rule][crate::model::CollectUserEventRequest::conversion_rule].
+    ///
+    /// Note that all the setters affecting `conversion_rule` are mutually
+    /// exclusive.
     pub fn set_conversion_rule<
         T: std::convert::Into<
                 std::option::Option<crate::model::collect_user_event_request::ConversionRule>,
@@ -17952,7 +18006,7 @@ impl CollectUserEventRequest {
     /// The value of [conversion_rule][crate::model::CollectUserEventRequest::conversion_rule]
     /// if it holds a `PrebuiltRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_prebuilt_rule(&self) -> std::option::Option<&std::string::String> {
+    pub fn prebuilt_rule(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.conversion_rule.as_ref().and_then(|v| match v {
             crate::model::collect_user_event_request::ConversionRule::PrebuiltRule(v) => {

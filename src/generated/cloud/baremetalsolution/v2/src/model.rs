@@ -4505,7 +4505,10 @@ impl ProvisioningQuota {
         self
     }
 
-    /// Sets the value of `quota`.
+    /// Sets the value of [quota][crate::model::ProvisioningQuota::quota].
+    ///
+    /// Note that all the setters affecting `quota` are mutually
+    /// exclusive.
     pub fn set_quota<
         T: std::convert::Into<std::option::Option<crate::model::provisioning_quota::Quota>>,
     >(
@@ -4519,7 +4522,7 @@ impl ProvisioningQuota {
     /// The value of [quota][crate::model::ProvisioningQuota::quota]
     /// if it holds a `InstanceQuota`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_instance_quota(
+    pub fn instance_quota(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InstanceQuota>> {
         #[allow(unreachable_patterns)]
@@ -4548,7 +4551,10 @@ impl ProvisioningQuota {
         self
     }
 
-    /// Sets the value of `availability`.
+    /// Sets the value of [availability][crate::model::ProvisioningQuota::availability].
+    ///
+    /// Note that all the setters affecting `availability` are mutually
+    /// exclusive.
     pub fn set_availability<
         T: std::convert::Into<std::option::Option<crate::model::provisioning_quota::Availability>>,
     >(
@@ -4562,7 +4568,7 @@ impl ProvisioningQuota {
     /// The value of [availability][crate::model::ProvisioningQuota::availability]
     /// if it holds a `ServerCount`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_server_count(&self) -> std::option::Option<&i64> {
+    pub fn server_count(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.availability.as_ref().and_then(|v| match v {
             crate::model::provisioning_quota::Availability::ServerCount(v) => {
@@ -4575,7 +4581,7 @@ impl ProvisioningQuota {
     /// The value of [availability][crate::model::ProvisioningQuota::availability]
     /// if it holds a `NetworkBandwidth`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_network_bandwidth(&self) -> std::option::Option<&i64> {
+    pub fn network_bandwidth(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.availability.as_ref().and_then(|v| match v {
             crate::model::provisioning_quota::Availability::NetworkBandwidth(v) => {
@@ -4588,7 +4594,7 @@ impl ProvisioningQuota {
     /// The value of [availability][crate::model::ProvisioningQuota::availability]
     /// if it holds a `StorageGib`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_storage_gib(&self) -> std::option::Option<&i64> {
+    pub fn storage_gib(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.availability.as_ref().and_then(|v| match v {
             crate::model::provisioning_quota::Availability::StorageGib(v) => {
@@ -5439,7 +5445,10 @@ pub mod volume_config {
             self
         }
 
-        /// Sets the value of `client`.
+        /// Sets the value of [client][crate::model::volume_config::NfsExport::client].
+        ///
+        /// Note that all the setters affecting `client` are mutually
+        /// exclusive.
         pub fn set_client<
             T: std::convert::Into<
                     std::option::Option<crate::model::volume_config::nfs_export::Client>,
@@ -5455,7 +5464,7 @@ pub mod volume_config {
         /// The value of [client][crate::model::volume_config::NfsExport::client]
         /// if it holds a `MachineId`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_machine_id(&self) -> std::option::Option<&std::string::String> {
+        pub fn machine_id(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.client.as_ref().and_then(|v| match v {
                 crate::model::volume_config::nfs_export::Client::MachineId(v) => {
@@ -5468,7 +5477,7 @@ pub mod volume_config {
         /// The value of [client][crate::model::volume_config::NfsExport::client]
         /// if it holds a `Cidr`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_cidr(&self) -> std::option::Option<&std::string::String> {
+        pub fn cidr(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.client.as_ref().and_then(|v| match v {
                 crate::model::volume_config::nfs_export::Client::Cidr(v) => {

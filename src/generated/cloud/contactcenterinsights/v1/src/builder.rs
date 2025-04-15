@@ -1122,7 +1122,10 @@ pub mod contact_center_insights {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::IngestConversationsRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::ingest_conversations_request::Source>>>(
             mut self,
             v: T,
@@ -1131,7 +1134,27 @@ pub mod contact_center_insights {
             self
         }
 
-        /// Sets the value of `object_config`.
+        /// Sets the value of [source][crate::model::IngestConversationsRequest::source]
+        /// to hold a `GcsSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_gcs_source<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::ingest_conversations_request::GcsSource>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_source(v);
+            self
+        }
+
+        /// Sets the value of [object_config][crate::model::IngestConversationsRequest::object_config].
+        ///
+        /// Note that all the setters affecting `object_config` are
+        /// mutually exclusive.
         pub fn set_object_config<
             T: Into<Option<crate::model::ingest_conversations_request::ObjectConfig>>,
         >(
@@ -1139,6 +1162,25 @@ pub mod contact_center_insights {
             v: T,
         ) -> Self {
             self.0.request.object_config = v.into();
+            self
+        }
+
+        /// Sets the value of [object_config][crate::model::IngestConversationsRequest::object_config]
+        /// to hold a `TranscriptObjectConfig`.
+        ///
+        /// Note that all the setters affecting `object_config` are
+        /// mutually exclusive.
+        pub fn set_transcript_object_config<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::ingest_conversations_request::TranscriptObjectConfig,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_transcript_object_config(v);
             self
         }
     }
@@ -1256,7 +1298,10 @@ pub mod contact_center_insights {
             self
         }
 
-        /// Sets the value of `destination`.
+        /// Sets the value of [destination][crate::model::ExportInsightsDataRequest::destination].
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
         pub fn set_destination<
             T: Into<Option<crate::model::export_insights_data_request::Destination>>,
         >(
@@ -1264,6 +1309,25 @@ pub mod contact_center_insights {
             v: T,
         ) -> Self {
             self.0.request.destination = v.into();
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::ExportInsightsDataRequest::destination]
+        /// to hold a `BigQueryDestination`.
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        pub fn set_big_query_destination<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::export_insights_data_request::BigQueryDestination,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_big_query_destination(v);
             self
         }
     }
@@ -1871,7 +1935,10 @@ pub mod contact_center_insights {
             self
         }
 
-        /// Sets the value of `destination`.
+        /// Sets the value of [destination][crate::model::ExportIssueModelRequest::destination].
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
         pub fn set_destination<
             T: Into<Option<crate::model::export_issue_model_request::Destination>>,
         >(
@@ -1879,6 +1946,23 @@ pub mod contact_center_insights {
             v: T,
         ) -> Self {
             self.0.request.destination = v.into();
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::ExportIssueModelRequest::destination]
+        /// to hold a `GcsDestination`.
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        pub fn set_gcs_destination<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::export_issue_model_request::GcsDestination>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_destination(v);
             self
         }
     }
@@ -1979,12 +2063,32 @@ pub mod contact_center_insights {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ImportIssueModelRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::import_issue_model_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportIssueModelRequest::source]
+        /// to hold a `GcsSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_gcs_source<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::import_issue_model_request::GcsSource>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_source(v);
             self
         }
     }
@@ -5022,7 +5126,10 @@ pub mod contact_center_insights {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::BulkUploadFeedbackLabelsRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<
             T: Into<Option<crate::model::bulk_upload_feedback_labels_request::Source>>,
         >(
@@ -5030,6 +5137,23 @@ pub mod contact_center_insights {
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::BulkUploadFeedbackLabelsRequest::source]
+        /// to hold a `GcsSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_gcs_source<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::bulk_upload_feedback_labels_request::GcsSource>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_source(v);
             self
         }
     }
@@ -5166,7 +5290,10 @@ pub mod contact_center_insights {
             self
         }
 
-        /// Sets the value of `destination`.
+        /// Sets the value of [destination][crate::model::BulkDownloadFeedbackLabelsRequest::destination].
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
         pub fn set_destination<
             T: Into<Option<crate::model::bulk_download_feedback_labels_request::Destination>>,
         >(
@@ -5174,6 +5301,25 @@ pub mod contact_center_insights {
             v: T,
         ) -> Self {
             self.0.request.destination = v.into();
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::BulkDownloadFeedbackLabelsRequest::destination]
+        /// to hold a `GcsDestination`.
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        pub fn set_gcs_destination<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::bulk_download_feedback_labels_request::GcsDestination,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_destination(v);
             self
         }
     }

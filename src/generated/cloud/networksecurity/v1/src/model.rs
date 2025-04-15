@@ -420,7 +420,10 @@ pub mod authorization_policy {
                     self
                 }
 
-                /// Sets the value of `r#type`.
+                /// Sets the value of [r#type][crate::model::authorization_policy::rule::destination::HttpHeaderMatch::type].
+                ///
+                /// Note that all the setters affecting `r#type` are mutually
+                /// exclusive.
                 pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::authorization_policy::rule::destination::http_header_match::Type>>>(mut self, v: T) -> Self
                 {
                     self.r#type = v.into();
@@ -430,7 +433,7 @@ pub mod authorization_policy {
                 /// The value of [r#type][crate::model::authorization_policy::rule::destination::HttpHeaderMatch::r#type]
                 /// if it holds a `RegexMatch`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_regex_match(&self) -> std::option::Option<&std::string::String> {
+                pub fn regex_match(&self) -> std::option::Option<&std::string::String> {
                     #[allow(unreachable_patterns)]
                     self.r#type.as_ref().and_then(|v| match v {
                         crate::model::authorization_policy::rule::destination::http_header_match::Type::RegexMatch(v) => std::option::Option::Some(v),
@@ -1921,7 +1924,10 @@ impl ValidationCA {
         std::default::Default::default()
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::ValidationCA::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::validation_ca::Type>>,
     >(
@@ -1935,7 +1941,7 @@ impl ValidationCA {
     /// The value of [r#type][crate::model::ValidationCA::r#type]
     /// if it holds a `GrpcEndpoint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_grpc_endpoint(
+    pub fn grpc_endpoint(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GrpcEndpoint>> {
         #[allow(unreachable_patterns)]
@@ -1948,7 +1954,7 @@ impl ValidationCA {
     /// The value of [r#type][crate::model::ValidationCA::r#type]
     /// if it holds a `CertificateProviderInstance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_certificate_provider_instance(
+    pub fn certificate_provider_instance(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CertificateProviderInstance>> {
         #[allow(unreachable_patterns)]
@@ -2076,7 +2082,10 @@ impl CertificateProvider {
         std::default::Default::default()
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::CertificateProvider::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::certificate_provider::Type>>,
     >(
@@ -2090,7 +2099,7 @@ impl CertificateProvider {
     /// The value of [r#type][crate::model::CertificateProvider::r#type]
     /// if it holds a `GrpcEndpoint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_grpc_endpoint(
+    pub fn grpc_endpoint(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GrpcEndpoint>> {
         #[allow(unreachable_patterns)]
@@ -2105,7 +2114,7 @@ impl CertificateProvider {
     /// The value of [r#type][crate::model::CertificateProvider::r#type]
     /// if it holds a `CertificateProviderInstance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_certificate_provider_instance(
+    pub fn certificate_provider_instance(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CertificateProviderInstance>> {
         #[allow(unreachable_patterns)]

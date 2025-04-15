@@ -978,7 +978,10 @@ pub mod compensation_info {
             self
         }
 
-        /// Sets the value of `compensation_amount`.
+        /// Sets the value of [compensation_amount][crate::model::compensation_info::CompensationEntry::compensation_amount].
+        ///
+        /// Note that all the setters affecting `compensation_amount` are mutually
+        /// exclusive.
         pub fn set_compensation_amount<
             T: std::convert::Into<
                     std::option::Option<
@@ -996,7 +999,7 @@ pub mod compensation_info {
         /// The value of [compensation_amount][crate::model::compensation_info::CompensationEntry::compensation_amount]
         /// if it holds a `Amount`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_amount(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Money>> {
+        pub fn amount(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Money>> {
             #[allow(unreachable_patterns)]
             self.compensation_amount.as_ref().and_then(|v| match v {
                 crate::model::compensation_info::compensation_entry::CompensationAmount::Amount(
@@ -1009,7 +1012,7 @@ pub mod compensation_info {
         /// The value of [compensation_amount][crate::model::compensation_info::CompensationEntry::compensation_amount]
         /// if it holds a `Range`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_range(
+        pub fn range(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::compensation_info::CompensationRange>>
         {
@@ -2629,7 +2632,10 @@ impl ClientEvent {
         self
     }
 
-    /// Sets the value of `event`.
+    /// Sets the value of [event][crate::model::ClientEvent::event].
+    ///
+    /// Note that all the setters affecting `event` are mutually
+    /// exclusive.
     pub fn set_event<
         T: std::convert::Into<std::option::Option<crate::model::client_event::Event>>,
     >(
@@ -2643,7 +2649,7 @@ impl ClientEvent {
     /// The value of [event][crate::model::ClientEvent::event]
     /// if it holds a `JobEvent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_job_event(&self) -> std::option::Option<&std::boxed::Box<crate::model::JobEvent>> {
+    pub fn job_event(&self) -> std::option::Option<&std::boxed::Box<crate::model::JobEvent>> {
         #[allow(unreachable_patterns)]
         self.event.as_ref().and_then(|v| match v {
             crate::model::client_event::Event::JobEvent(v) => std::option::Option::Some(v),
@@ -3840,7 +3846,10 @@ impl CommuteFilter {
         self
     }
 
-    /// Sets the value of `traffic_option`.
+    /// Sets the value of [traffic_option][crate::model::CommuteFilter::traffic_option].
+    ///
+    /// Note that all the setters affecting `traffic_option` are mutually
+    /// exclusive.
     pub fn set_traffic_option<
         T: std::convert::Into<std::option::Option<crate::model::commute_filter::TrafficOption>>,
     >(
@@ -3854,9 +3863,7 @@ impl CommuteFilter {
     /// The value of [traffic_option][crate::model::CommuteFilter::traffic_option]
     /// if it holds a `RoadTraffic`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_road_traffic(
-        &self,
-    ) -> std::option::Option<&crate::model::commute_filter::RoadTraffic> {
+    pub fn road_traffic(&self) -> std::option::Option<&crate::model::commute_filter::RoadTraffic> {
         #[allow(unreachable_patterns)]
         self.traffic_option.as_ref().and_then(|v| match v {
             crate::model::commute_filter::TrafficOption::RoadTraffic(v) => {
@@ -3869,9 +3876,7 @@ impl CommuteFilter {
     /// The value of [traffic_option][crate::model::CommuteFilter::traffic_option]
     /// if it holds a `DepartureTime`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_departure_time(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<gtype::model::TimeOfDay>> {
+    pub fn departure_time(&self) -> std::option::Option<&std::boxed::Box<gtype::model::TimeOfDay>> {
         #[allow(unreachable_patterns)]
         self.traffic_option.as_ref().and_then(|v| match v {
             crate::model::commute_filter::TrafficOption::DepartureTime(v) => {

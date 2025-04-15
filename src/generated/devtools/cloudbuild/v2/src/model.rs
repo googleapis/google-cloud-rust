@@ -361,7 +361,10 @@ impl Connection {
         self
     }
 
-    /// Sets the value of `connection_config`.
+    /// Sets the value of [connection_config][crate::model::Connection::connection_config].
+    ///
+    /// Note that all the setters affecting `connection_config` are mutually
+    /// exclusive.
     pub fn set_connection_config<
         T: std::convert::Into<std::option::Option<crate::model::connection::ConnectionConfig>>,
     >(
@@ -375,7 +378,7 @@ impl Connection {
     /// The value of [connection_config][crate::model::Connection::connection_config]
     /// if it holds a `GithubConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_github_config(
+    pub fn github_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GitHubConfig>> {
         #[allow(unreachable_patterns)]
@@ -390,7 +393,7 @@ impl Connection {
     /// The value of [connection_config][crate::model::Connection::connection_config]
     /// if it holds a `GithubEnterpriseConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_github_enterprise_config(
+    pub fn github_enterprise_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GitHubEnterpriseConfig>> {
         #[allow(unreachable_patterns)]
@@ -405,7 +408,7 @@ impl Connection {
     /// The value of [connection_config][crate::model::Connection::connection_config]
     /// if it holds a `GitlabConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gitlab_config(
+    pub fn gitlab_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GitLabConfig>> {
         #[allow(unreachable_patterns)]
@@ -420,7 +423,7 @@ impl Connection {
     /// The value of [connection_config][crate::model::Connection::connection_config]
     /// if it holds a `BitbucketDataCenterConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bitbucket_data_center_config(
+    pub fn bitbucket_data_center_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BitbucketDataCenterConfig>> {
         #[allow(unreachable_patterns)]
@@ -435,7 +438,7 @@ impl Connection {
     /// The value of [connection_config][crate::model::Connection::connection_config]
     /// if it holds a `BitbucketCloudConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bitbucket_cloud_config(
+    pub fn bitbucket_cloud_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BitbucketCloudConfig>> {
         #[allow(unreachable_patterns)]

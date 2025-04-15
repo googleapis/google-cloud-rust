@@ -174,7 +174,10 @@ pub mod client_connector_service {
             std::default::Default::default()
         }
 
-        /// Sets the value of `ingress_config`.
+        /// Sets the value of [ingress_config][crate::model::client_connector_service::Ingress::ingress_config].
+        ///
+        /// Note that all the setters affecting `ingress_config` are mutually
+        /// exclusive.
         pub fn set_ingress_config<
             T: std::convert::Into<
                     std::option::Option<
@@ -192,7 +195,7 @@ pub mod client_connector_service {
         /// The value of [ingress_config][crate::model::client_connector_service::Ingress::ingress_config]
         /// if it holds a `Config`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_config(
+        pub fn config(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::client_connector_service::ingress::Config>,
@@ -437,7 +440,10 @@ pub mod client_connector_service {
             std::default::Default::default()
         }
 
-        /// Sets the value of `destination_type`.
+        /// Sets the value of [destination_type][crate::model::client_connector_service::Egress::destination_type].
+        ///
+        /// Note that all the setters affecting `destination_type` are mutually
+        /// exclusive.
         pub fn set_destination_type<
             T: std::convert::Into<
                     std::option::Option<
@@ -455,7 +461,7 @@ pub mod client_connector_service {
         /// The value of [destination_type][crate::model::client_connector_service::Egress::destination_type]
         /// if it holds a `PeeredVpc`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_peered_vpc(
+        pub fn peered_vpc(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::client_connector_service::egress::PeeredVpc>,

@@ -980,7 +980,10 @@ impl ImportAdaptiveMtFileRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportAdaptiveMtFileRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_adaptive_mt_file_request::Source>,
@@ -996,7 +999,7 @@ impl ImportAdaptiveMtFileRequest {
     /// The value of [source][crate::model::ImportAdaptiveMtFileRequest::source]
     /// if it holds a `FileInputSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_file_input_source(
+    pub fn file_input_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FileInputSource>> {
         #[allow(unreachable_patterns)]
@@ -1011,7 +1014,7 @@ impl ImportAdaptiveMtFileRequest {
     /// The value of [source][crate::model::ImportAdaptiveMtFileRequest::source]
     /// if it holds a `GcsInputSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_input_source(
+    pub fn gcs_input_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsInputSource>> {
         #[allow(unreachable_patterns)]
@@ -1558,7 +1561,10 @@ pub mod dataset_input_config {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::dataset_input_config::InputFile::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
         pub fn set_source<
             T: std::convert::Into<
                     std::option::Option<crate::model::dataset_input_config::input_file::Source>,
@@ -1574,7 +1580,7 @@ pub mod dataset_input_config {
         /// The value of [source][crate::model::dataset_input_config::InputFile::source]
         /// if it holds a `GcsSource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gcs_source(
+        pub fn gcs_source(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::GcsInputSource>> {
             #[allow(unreachable_patterns)]
@@ -1765,7 +1771,10 @@ impl DatasetOutputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::DatasetOutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::dataset_output_config::Destination>>,
     >(
@@ -1779,7 +1788,7 @@ impl DatasetOutputConfig {
     /// The value of [destination][crate::model::DatasetOutputConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_destination(
+    pub fn gcs_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsOutputDestination>> {
         #[allow(unreachable_patterns)]
@@ -3378,7 +3387,10 @@ impl GlossaryEntry {
         self
     }
 
-    /// Sets the value of `data`.
+    /// Sets the value of [data][crate::model::GlossaryEntry::data].
+    ///
+    /// Note that all the setters affecting `data` are mutually
+    /// exclusive.
     pub fn set_data<
         T: std::convert::Into<std::option::Option<crate::model::glossary_entry::Data>>,
     >(
@@ -3392,7 +3404,7 @@ impl GlossaryEntry {
     /// The value of [data][crate::model::GlossaryEntry::data]
     /// if it holds a `TermsPair`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_terms_pair(
+    pub fn terms_pair(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::glossary_entry::GlossaryTermsPair>>
     {
@@ -3406,7 +3418,7 @@ impl GlossaryEntry {
     /// The value of [data][crate::model::GlossaryEntry::data]
     /// if it holds a `TermsSet`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_terms_set(
+    pub fn terms_set(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::glossary_entry::GlossaryTermsSet>> {
         #[allow(unreachable_patterns)]
@@ -4224,7 +4236,10 @@ impl DetectLanguageRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::DetectLanguageRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::detect_language_request::Source>>,
     >(
@@ -4238,7 +4253,7 @@ impl DetectLanguageRequest {
     /// The value of [source][crate::model::DetectLanguageRequest::source]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content(&self) -> std::option::Option<&std::string::String> {
+    pub fn content(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::detect_language_request::Source::Content(v) => {
@@ -4610,7 +4625,10 @@ impl InputConfig {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::InputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::input_config::Source>>,
     >(
@@ -4624,7 +4642,7 @@ impl InputConfig {
     /// The value of [source][crate::model::InputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::input_config::Source::GcsSource(v) => std::option::Option::Some(v),
@@ -4743,7 +4761,10 @@ impl OutputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::OutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
     >(
@@ -4757,7 +4778,7 @@ impl OutputConfig {
     /// The value of [destination][crate::model::OutputConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_destination(
+    pub fn gcs_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
         #[allow(unreachable_patterns)]
@@ -4924,7 +4945,10 @@ impl DocumentInputConfig {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::DocumentInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::document_input_config::Source>>,
     >(
@@ -4938,7 +4962,7 @@ impl DocumentInputConfig {
     /// The value of [source][crate::model::DocumentInputConfig::source]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::document_input_config::Source::Content(v) => std::option::Option::Some(v),
@@ -4949,7 +4973,7 @@ impl DocumentInputConfig {
     /// The value of [source][crate::model::DocumentInputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::document_input_config::Source::GcsSource(v) => {
@@ -5061,7 +5085,10 @@ impl DocumentOutputConfig {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::DocumentOutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::document_output_config::Destination>>,
     >(
@@ -5075,7 +5102,7 @@ impl DocumentOutputConfig {
     /// The value of [destination][crate::model::DocumentOutputConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_destination(
+    pub fn gcs_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
         #[allow(unreachable_patterns)]
@@ -5993,7 +6020,10 @@ impl GlossaryInputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::GlossaryInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::glossary_input_config::Source>>,
     >(
@@ -6007,7 +6037,7 @@ impl GlossaryInputConfig {
     /// The value of [source][crate::model::GlossaryInputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::glossary_input_config::Source::GcsSource(v) => {
@@ -6166,7 +6196,10 @@ impl Glossary {
         self
     }
 
-    /// Sets the value of `languages`.
+    /// Sets the value of [languages][crate::model::Glossary::languages].
+    ///
+    /// Note that all the setters affecting `languages` are mutually
+    /// exclusive.
     pub fn set_languages<
         T: std::convert::Into<std::option::Option<crate::model::glossary::Languages>>,
     >(
@@ -6180,7 +6213,7 @@ impl Glossary {
     /// The value of [languages][crate::model::Glossary::languages]
     /// if it holds a `LanguagePair`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_language_pair(
+    pub fn language_pair(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::glossary::LanguageCodePair>> {
         #[allow(unreachable_patterns)]
@@ -6193,7 +6226,7 @@ impl Glossary {
     /// The value of [languages][crate::model::Glossary::languages]
     /// if it holds a `LanguageCodesSet`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_language_codes_set(
+    pub fn language_codes_set(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::glossary::LanguageCodesSet>> {
         #[allow(unreachable_patterns)]
@@ -7644,7 +7677,10 @@ impl BatchDocumentInputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::BatchDocumentInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::batch_document_input_config::Source>>,
     >(
@@ -7658,7 +7694,7 @@ impl BatchDocumentInputConfig {
     /// The value of [source][crate::model::BatchDocumentInputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::batch_document_input_config::Source::GcsSource(v) => {
@@ -7744,7 +7780,10 @@ impl BatchDocumentOutputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::BatchDocumentOutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::batch_document_output_config::Destination>,
@@ -7760,7 +7799,7 @@ impl BatchDocumentOutputConfig {
     /// The value of [destination][crate::model::BatchDocumentOutputConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_destination(
+    pub fn gcs_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
         #[allow(unreachable_patterns)]

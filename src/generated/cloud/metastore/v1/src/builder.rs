@@ -904,7 +904,10 @@ pub mod dataproc_metastore {
             self
         }
 
-        /// Sets the value of `destination`.
+        /// Sets the value of [destination][crate::model::ExportMetadataRequest::destination].
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
         pub fn set_destination<
             T: Into<Option<crate::model::export_metadata_request::Destination>>,
         >(
@@ -912,6 +915,19 @@ pub mod dataproc_metastore {
             v: T,
         ) -> Self {
             self.0.request.destination = v.into();
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::ExportMetadataRequest::destination]
+        /// to hold a `DestinationGcsFolder`.
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        pub fn set_destination_gcs_folder<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_destination_gcs_folder(v);
             self
         }
     }

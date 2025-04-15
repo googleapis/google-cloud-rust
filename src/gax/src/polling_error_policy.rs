@@ -626,18 +626,22 @@ mod tests {
     }
 
     fn http_unavailable() -> Error {
-        let mut status = Status::default();
-        status.code = 503;
-        status.message = "SERVICE UNAVAILABLE".to_string();
-        status.status = Some("UNAVAILABLE".to_string());
+        let status = Status {
+            code: 503,
+            message: "SERVICE UNAVAILABLE".into(),
+            status: Some("UNAVAILABLE".into()),
+            ..Default::default()
+        };
         from_status(status)
     }
 
     fn http_permission_denied() -> Error {
-        let mut status = Status::default();
-        status.code = 403;
-        status.message = "PERMISSION DENIED".to_string();
-        status.status = Some("PERMISSION_DENIED".to_string());
+        let status = Status {
+            code: 403,
+            message: "PERMISSION DENIED".into(),
+            status: Some("PERMISSION_DENIED".into()),
+            ..Default::default()
+        };
         from_status(status)
     }
 

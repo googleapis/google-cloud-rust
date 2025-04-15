@@ -749,7 +749,10 @@ impl Rollout {
         self
     }
 
-    /// Sets the value of `strategy`.
+    /// Sets the value of [strategy][crate::model::Rollout::strategy].
+    ///
+    /// Note that all the setters affecting `strategy` are mutually
+    /// exclusive.
     pub fn set_strategy<
         T: std::convert::Into<std::option::Option<crate::model::rollout::Strategy>>,
     >(
@@ -763,7 +766,7 @@ impl Rollout {
     /// The value of [strategy][crate::model::Rollout::strategy]
     /// if it holds a `TrafficPercentStrategy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_traffic_percent_strategy(
+    pub fn traffic_percent_strategy(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rollout::TrafficPercentStrategy>> {
         #[allow(unreachable_patterns)]
@@ -778,7 +781,7 @@ impl Rollout {
     /// The value of [strategy][crate::model::Rollout::strategy]
     /// if it holds a `DeleteServiceStrategy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_delete_service_strategy(
+    pub fn delete_service_strategy(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rollout::DeleteServiceStrategy>> {
         #[allow(unreachable_patterns)]

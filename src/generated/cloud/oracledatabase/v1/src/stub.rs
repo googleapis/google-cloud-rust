@@ -347,6 +347,45 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         >(Err(Error::other("unimplemented")))
     }
 
+    /// Implements [super::client::OracleDatabase::stop_autonomous_database].
+    fn stop_autonomous_database(
+        &self,
+        _req: crate::model::StopAutonomousDatabaseRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::OracleDatabase::start_autonomous_database].
+    fn start_autonomous_database(
+        &self,
+        _req: crate::model::StartAutonomousDatabaseRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
+    /// Implements [super::client::OracleDatabase::restart_autonomous_database].
+    fn restart_autonomous_database(
+        &self,
+        _req: crate::model::RestartAutonomousDatabaseRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
     /// Implements [super::client::OracleDatabase::list_locations].
     fn list_locations(
         &self,

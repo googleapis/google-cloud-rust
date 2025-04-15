@@ -1885,7 +1885,10 @@ impl BackupScheduleSpec {
         std::default::Default::default()
     }
 
-    /// Sets the value of `schedule_spec`.
+    /// Sets the value of [schedule_spec][crate::model::BackupScheduleSpec::schedule_spec].
+    ///
+    /// Note that all the setters affecting `schedule_spec` are mutually
+    /// exclusive.
     pub fn set_schedule_spec<
         T: std::convert::Into<std::option::Option<crate::model::backup_schedule_spec::ScheduleSpec>>,
     >(
@@ -1899,9 +1902,7 @@ impl BackupScheduleSpec {
     /// The value of [schedule_spec][crate::model::BackupScheduleSpec::schedule_spec]
     /// if it holds a `CronSpec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cron_spec(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CrontabSpec>> {
+    pub fn cron_spec(&self) -> std::option::Option<&std::boxed::Box<crate::model::CrontabSpec>> {
         #[allow(unreachable_patterns)]
         self.schedule_spec.as_ref().and_then(|v| match v {
             crate::model::backup_schedule_spec::ScheduleSpec::CronSpec(v) => {
@@ -2053,7 +2054,10 @@ impl BackupSchedule {
         self
     }
 
-    /// Sets the value of `backup_type_spec`.
+    /// Sets the value of [backup_type_spec][crate::model::BackupSchedule::backup_type_spec].
+    ///
+    /// Note that all the setters affecting `backup_type_spec` are mutually
+    /// exclusive.
     pub fn set_backup_type_spec<
         T: std::convert::Into<std::option::Option<crate::model::backup_schedule::BackupTypeSpec>>,
     >(
@@ -2067,7 +2071,7 @@ impl BackupSchedule {
     /// The value of [backup_type_spec][crate::model::BackupSchedule::backup_type_spec]
     /// if it holds a `FullBackupSpec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_full_backup_spec(
+    pub fn full_backup_spec(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FullBackupSpec>> {
         #[allow(unreachable_patterns)]
@@ -2082,7 +2086,7 @@ impl BackupSchedule {
     /// The value of [backup_type_spec][crate::model::BackupSchedule::backup_type_spec]
     /// if it holds a `IncrementalBackupSpec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_incremental_backup_spec(
+    pub fn incremental_backup_spec(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::IncrementalBackupSpec>> {
         #[allow(unreachable_patterns)]
@@ -2844,7 +2848,10 @@ impl RestoreInfo {
         self
     }
 
-    /// Sets the value of `source_info`.
+    /// Sets the value of [source_info][crate::model::RestoreInfo::source_info].
+    ///
+    /// Note that all the setters affecting `source_info` are mutually
+    /// exclusive.
     pub fn set_source_info<
         T: std::convert::Into<std::option::Option<crate::model::restore_info::SourceInfo>>,
     >(
@@ -2858,9 +2865,7 @@ impl RestoreInfo {
     /// The value of [source_info][crate::model::RestoreInfo::source_info]
     /// if it holds a `BackupInfo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backup_info(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BackupInfo>> {
+    pub fn backup_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::BackupInfo>> {
         #[allow(unreachable_patterns)]
         self.source_info.as_ref().and_then(|v| match v {
             crate::model::restore_info::SourceInfo::BackupInfo(v) => std::option::Option::Some(v),
@@ -4347,7 +4352,10 @@ impl RestoreDatabaseRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::RestoreDatabaseRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_database_request::Source>>,
     >(
@@ -4361,7 +4369,7 @@ impl RestoreDatabaseRequest {
     /// The value of [source][crate::model::RestoreDatabaseRequest::source]
     /// if it holds a `Backup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backup(&self) -> std::option::Option<&std::string::String> {
+    pub fn backup(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::restore_database_request::Source::Backup(v) => {
@@ -4688,7 +4696,10 @@ impl RestoreDatabaseMetadata {
         self
     }
 
-    /// Sets the value of `source_info`.
+    /// Sets the value of [source_info][crate::model::RestoreDatabaseMetadata::source_info].
+    ///
+    /// Note that all the setters affecting `source_info` are mutually
+    /// exclusive.
     pub fn set_source_info<
         T: std::convert::Into<
                 std::option::Option<crate::model::restore_database_metadata::SourceInfo>,
@@ -4704,9 +4715,7 @@ impl RestoreDatabaseMetadata {
     /// The value of [source_info][crate::model::RestoreDatabaseMetadata::source_info]
     /// if it holds a `BackupInfo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backup_info(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BackupInfo>> {
+    pub fn backup_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::BackupInfo>> {
         #[allow(unreachable_patterns)]
         self.source_info.as_ref().and_then(|v| match v {
             crate::model::restore_database_metadata::SourceInfo::BackupInfo(v) => {

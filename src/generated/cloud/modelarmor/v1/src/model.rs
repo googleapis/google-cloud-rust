@@ -1242,7 +1242,10 @@ impl SdpFilterSettings {
         std::default::Default::default()
     }
 
-    /// Sets the value of `sdp_configuration`.
+    /// Sets the value of [sdp_configuration][crate::model::SdpFilterSettings::sdp_configuration].
+    ///
+    /// Note that all the setters affecting `sdp_configuration` are mutually
+    /// exclusive.
     pub fn set_sdp_configuration<
         T: std::convert::Into<
                 std::option::Option<crate::model::sdp_filter_settings::SdpConfiguration>,
@@ -1258,7 +1261,7 @@ impl SdpFilterSettings {
     /// The value of [sdp_configuration][crate::model::SdpFilterSettings::sdp_configuration]
     /// if it holds a `BasicConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_basic_config(
+    pub fn basic_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SdpBasicConfig>> {
         #[allow(unreachable_patterns)]
@@ -1273,7 +1276,7 @@ impl SdpFilterSettings {
     /// The value of [sdp_configuration][crate::model::SdpFilterSettings::sdp_configuration]
     /// if it holds a `AdvancedConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_advanced_config(
+    pub fn advanced_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SdpAdvancedConfig>> {
         #[allow(unreachable_patterns)]
@@ -1863,7 +1866,10 @@ impl FilterResult {
         std::default::Default::default()
     }
 
-    /// Sets the value of `filter_result`.
+    /// Sets the value of [filter_result][crate::model::FilterResult::filter_result].
+    ///
+    /// Note that all the setters affecting `filter_result` are mutually
+    /// exclusive.
     pub fn set_filter_result<
         T: std::convert::Into<std::option::Option<crate::model::filter_result::FilterResult>>,
     >(
@@ -1877,7 +1883,7 @@ impl FilterResult {
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `RaiFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rai_filter_result(
+    pub fn rai_filter_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RaiFilterResult>> {
         #[allow(unreachable_patterns)]
@@ -1892,7 +1898,7 @@ impl FilterResult {
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `SdpFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sdp_filter_result(
+    pub fn sdp_filter_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SdpFilterResult>> {
         #[allow(unreachable_patterns)]
@@ -1907,7 +1913,7 @@ impl FilterResult {
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `PiAndJailbreakFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pi_and_jailbreak_filter_result(
+    pub fn pi_and_jailbreak_filter_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PiAndJailbreakFilterResult>> {
         #[allow(unreachable_patterns)]
@@ -1922,7 +1928,7 @@ impl FilterResult {
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `MaliciousUriFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_malicious_uri_filter_result(
+    pub fn malicious_uri_filter_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MaliciousUriFilterResult>> {
         #[allow(unreachable_patterns)]
@@ -1937,7 +1943,7 @@ impl FilterResult {
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `CsamFilterFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_csam_filter_filter_result(
+    pub fn csam_filter_filter_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CsamFilterResult>> {
         #[allow(unreachable_patterns)]
@@ -1952,7 +1958,7 @@ impl FilterResult {
     /// The value of [filter_result][crate::model::FilterResult::filter_result]
     /// if it holds a `VirusScanFilterResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_virus_scan_filter_result(
+    pub fn virus_scan_filter_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VirusScanFilterResult>> {
         #[allow(unreachable_patterns)]
@@ -2272,7 +2278,10 @@ impl SdpFilterResult {
         std::default::Default::default()
     }
 
-    /// Sets the value of `result`.
+    /// Sets the value of [result][crate::model::SdpFilterResult::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::sdp_filter_result::Result>>,
     >(
@@ -2286,7 +2295,7 @@ impl SdpFilterResult {
     /// The value of [result][crate::model::SdpFilterResult::result]
     /// if it holds a `InspectResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_inspect_result(
+    pub fn inspect_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SdpInspectResult>> {
         #[allow(unreachable_patterns)]
@@ -2301,7 +2310,7 @@ impl SdpFilterResult {
     /// The value of [result][crate::model::SdpFilterResult::result]
     /// if it holds a `DeidentifyResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_deidentify_result(
+    pub fn deidentify_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SdpDeidentifyResult>> {
         #[allow(unreachable_patterns)]
@@ -2486,7 +2495,10 @@ impl DataItem {
         std::default::Default::default()
     }
 
-    /// Sets the value of `data_item`.
+    /// Sets the value of [data_item][crate::model::DataItem::data_item].
+    ///
+    /// Note that all the setters affecting `data_item` are mutually
+    /// exclusive.
     pub fn set_data_item<
         T: std::convert::Into<std::option::Option<crate::model::data_item::DataItem>>,
     >(
@@ -2500,7 +2512,7 @@ impl DataItem {
     /// The value of [data_item][crate::model::DataItem::data_item]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text(&self) -> std::option::Option<&std::string::String> {
+    pub fn text(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.data_item.as_ref().and_then(|v| match v {
             crate::model::data_item::DataItem::Text(v) => std::option::Option::Some(v),
@@ -2511,9 +2523,7 @@ impl DataItem {
     /// The value of [data_item][crate::model::DataItem::data_item]
     /// if it holds a `ByteItem`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_byte_item(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ByteDataItem>> {
+    pub fn byte_item(&self) -> std::option::Option<&std::boxed::Box<crate::model::ByteDataItem>> {
         #[allow(unreachable_patterns)]
         self.data_item.as_ref().and_then(|v| match v {
             crate::model::data_item::DataItem::ByteItem(v) => std::option::Option::Some(v),

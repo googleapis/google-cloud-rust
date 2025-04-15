@@ -440,7 +440,10 @@ impl DataPolicy {
         self
     }
 
-    /// Sets the value of `matching_label`.
+    /// Sets the value of [matching_label][crate::model::DataPolicy::matching_label].
+    ///
+    /// Note that all the setters affecting `matching_label` are mutually
+    /// exclusive.
     pub fn set_matching_label<
         T: std::convert::Into<std::option::Option<crate::model::data_policy::MatchingLabel>>,
     >(
@@ -454,7 +457,7 @@ impl DataPolicy {
     /// The value of [matching_label][crate::model::DataPolicy::matching_label]
     /// if it holds a `PolicyTag`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_policy_tag(&self) -> std::option::Option<&std::string::String> {
+    pub fn policy_tag(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.matching_label.as_ref().and_then(|v| match v {
             crate::model::data_policy::MatchingLabel::PolicyTag(v) => std::option::Option::Some(v),
@@ -474,7 +477,10 @@ impl DataPolicy {
         self
     }
 
-    /// Sets the value of `policy`.
+    /// Sets the value of [policy][crate::model::DataPolicy::policy].
+    ///
+    /// Note that all the setters affecting `policy` are mutually
+    /// exclusive.
     pub fn set_policy<
         T: std::convert::Into<std::option::Option<crate::model::data_policy::Policy>>,
     >(
@@ -488,7 +494,7 @@ impl DataPolicy {
     /// The value of [policy][crate::model::DataPolicy::policy]
     /// if it holds a `DataMaskingPolicy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_data_masking_policy(
+    pub fn data_masking_policy(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DataMaskingPolicy>> {
         #[allow(unreachable_patterns)]
@@ -629,7 +635,10 @@ impl DataMaskingPolicy {
         std::default::Default::default()
     }
 
-    /// Sets the value of `masking_expression`.
+    /// Sets the value of [masking_expression][crate::model::DataMaskingPolicy::masking_expression].
+    ///
+    /// Note that all the setters affecting `masking_expression` are mutually
+    /// exclusive.
     pub fn set_masking_expression<
         T: std::convert::Into<
                 std::option::Option<crate::model::data_masking_policy::MaskingExpression>,
@@ -645,7 +654,7 @@ impl DataMaskingPolicy {
     /// The value of [masking_expression][crate::model::DataMaskingPolicy::masking_expression]
     /// if it holds a `PredefinedExpression`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_predefined_expression(
+    pub fn predefined_expression(
         &self,
     ) -> std::option::Option<&crate::model::data_masking_policy::PredefinedExpression> {
         #[allow(unreachable_patterns)]
@@ -660,7 +669,7 @@ impl DataMaskingPolicy {
     /// The value of [masking_expression][crate::model::DataMaskingPolicy::masking_expression]
     /// if it holds a `Routine`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_routine(&self) -> std::option::Option<&std::string::String> {
+    pub fn routine(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.masking_expression.as_ref().and_then(|v| match v {
             crate::model::data_masking_policy::MaskingExpression::Routine(v) => {

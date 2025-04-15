@@ -606,12 +606,45 @@ pub mod data_transfer_service {
             self
         }
 
-        /// Sets the value of `time`.
+        /// Sets the value of [time][crate::model::StartManualTransferRunsRequest::time].
+        ///
+        /// Note that all the setters affecting `time` are
+        /// mutually exclusive.
         pub fn set_time<T: Into<Option<crate::model::start_manual_transfer_runs_request::Time>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.time = v.into();
+            self
+        }
+
+        /// Sets the value of [time][crate::model::StartManualTransferRunsRequest::time]
+        /// to hold a `RequestedTimeRange`.
+        ///
+        /// Note that all the setters affecting `time` are
+        /// mutually exclusive.
+        pub fn set_requested_time_range<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_requested_time_range(v);
+            self
+        }
+
+        /// Sets the value of [time][crate::model::StartManualTransferRunsRequest::time]
+        /// to hold a `RequestedRunTime`.
+        ///
+        /// Note that all the setters affecting `time` are
+        /// mutually exclusive.
+        pub fn set_requested_run_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_requested_run_time(v);
             self
         }
     }

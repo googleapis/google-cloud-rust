@@ -722,7 +722,10 @@ impl EndpointVerificationInfo {
         self
     }
 
-    /// Sets the value of `endpoint`.
+    /// Sets the value of [endpoint][crate::model::EndpointVerificationInfo::endpoint].
+    ///
+    /// Note that all the setters affecting `endpoint` are mutually
+    /// exclusive.
     pub fn set_endpoint<
         T: std::convert::Into<std::option::Option<crate::model::endpoint_verification_info::Endpoint>>,
     >(
@@ -736,7 +739,7 @@ impl EndpointVerificationInfo {
     /// The value of [endpoint][crate::model::EndpointVerificationInfo::endpoint]
     /// if it holds a `EmailAddress`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_email_address(&self) -> std::option::Option<&std::string::String> {
+    pub fn email_address(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.endpoint.as_ref().and_then(|v| match v {
             crate::model::endpoint_verification_info::Endpoint::EmailAddress(v) => {
@@ -749,7 +752,7 @@ impl EndpointVerificationInfo {
     /// The value of [endpoint][crate::model::EndpointVerificationInfo::endpoint]
     /// if it holds a `PhoneNumber`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_phone_number(&self) -> std::option::Option<&std::string::String> {
+    pub fn phone_number(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.endpoint.as_ref().and_then(|v| match v {
             crate::model::endpoint_verification_info::Endpoint::PhoneNumber(v) => {
@@ -2188,7 +2191,10 @@ impl UserId {
         std::default::Default::default()
     }
 
-    /// Sets the value of `id_oneof`.
+    /// Sets the value of [id_oneof][crate::model::UserId::id_oneof].
+    ///
+    /// Note that all the setters affecting `id_oneof` are mutually
+    /// exclusive.
     pub fn set_id_oneof<
         T: std::convert::Into<std::option::Option<crate::model::user_id::IdOneof>>,
     >(
@@ -2202,7 +2208,7 @@ impl UserId {
     /// The value of [id_oneof][crate::model::UserId::id_oneof]
     /// if it holds a `Email`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_email(&self) -> std::option::Option<&std::string::String> {
+    pub fn email(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.id_oneof.as_ref().and_then(|v| match v {
             crate::model::user_id::IdOneof::Email(v) => std::option::Option::Some(v),
@@ -2213,7 +2219,7 @@ impl UserId {
     /// The value of [id_oneof][crate::model::UserId::id_oneof]
     /// if it holds a `PhoneNumber`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_phone_number(&self) -> std::option::Option<&std::string::String> {
+    pub fn phone_number(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.id_oneof.as_ref().and_then(|v| match v {
             crate::model::user_id::IdOneof::PhoneNumber(v) => std::option::Option::Some(v),
@@ -2224,7 +2230,7 @@ impl UserId {
     /// The value of [id_oneof][crate::model::UserId::id_oneof]
     /// if it holds a `Username`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_username(&self) -> std::option::Option<&std::string::String> {
+    pub fn username(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.id_oneof.as_ref().and_then(|v| match v {
             crate::model::user_id::IdOneof::Username(v) => std::option::Option::Some(v),
@@ -4363,7 +4369,10 @@ impl Key {
         self
     }
 
-    /// Sets the value of `platform_settings`.
+    /// Sets the value of [platform_settings][crate::model::Key::platform_settings].
+    ///
+    /// Note that all the setters affecting `platform_settings` are mutually
+    /// exclusive.
     pub fn set_platform_settings<
         T: std::convert::Into<std::option::Option<crate::model::key::PlatformSettings>>,
     >(
@@ -4377,7 +4386,7 @@ impl Key {
     /// The value of [platform_settings][crate::model::Key::platform_settings]
     /// if it holds a `WebSettings`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_web_settings(
+    pub fn web_settings(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::WebKeySettings>> {
         #[allow(unreachable_patterns)]
@@ -4390,7 +4399,7 @@ impl Key {
     /// The value of [platform_settings][crate::model::Key::platform_settings]
     /// if it holds a `AndroidSettings`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_android_settings(
+    pub fn android_settings(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AndroidKeySettings>> {
         #[allow(unreachable_patterns)]
@@ -4403,7 +4412,7 @@ impl Key {
     /// The value of [platform_settings][crate::model::Key::platform_settings]
     /// if it holds a `IosSettings`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ios_settings(
+    pub fn ios_settings(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::IOSKeySettings>> {
         #[allow(unreachable_patterns)]
@@ -4416,7 +4425,7 @@ impl Key {
     /// The value of [platform_settings][crate::model::Key::platform_settings]
     /// if it holds a `ExpressSettings`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_express_settings(
+    pub fn express_settings(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ExpressKeySettings>> {
         #[allow(unreachable_patterns)]
@@ -5307,7 +5316,10 @@ impl FirewallAction {
         std::default::Default::default()
     }
 
-    /// Sets the value of `firewall_action_oneof`.
+    /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof].
+    ///
+    /// Note that all the setters affecting `firewall_action_oneof` are mutually
+    /// exclusive.
     pub fn set_firewall_action_oneof<
         T: std::convert::Into<std::option::Option<crate::model::firewall_action::FirewallActionOneof>>,
     >(
@@ -5321,7 +5333,7 @@ impl FirewallAction {
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `Allow`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_allow(
+    pub fn allow(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::AllowAction>> {
         #[allow(unreachable_patterns)]
@@ -5336,7 +5348,7 @@ impl FirewallAction {
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `Block`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_block(
+    pub fn block(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::BlockAction>> {
         #[allow(unreachable_patterns)]
@@ -5351,7 +5363,7 @@ impl FirewallAction {
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `IncludeRecaptchaScript`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_include_recaptcha_script(
+    pub fn include_recaptcha_script(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::firewall_action::IncludeRecaptchaScriptAction>,
@@ -5368,7 +5380,7 @@ impl FirewallAction {
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `Redirect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_redirect(
+    pub fn redirect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::RedirectAction>> {
         #[allow(unreachable_patterns)]
@@ -5383,7 +5395,7 @@ impl FirewallAction {
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `Substitute`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_substitute(
+    pub fn substitute(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::SubstituteAction>>
     {
@@ -5399,7 +5411,7 @@ impl FirewallAction {
     /// The value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof]
     /// if it holds a `SetHeader`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_set_header(
+    pub fn set_header(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::firewall_action::SetHeaderAction>> {
         #[allow(unreachable_patterns)]

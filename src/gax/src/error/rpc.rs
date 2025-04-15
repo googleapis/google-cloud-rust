@@ -578,7 +578,7 @@ mod test {
                 {"@type": "type.googleapis.com/google.rpc.Help", "links": [{"description": "desc", "url": "url"}]},
                 {"@type": "type.googleapis.com/google.rpc.LocalizedMessage", "locale": "locale", "message": "message"},
                 {"@type": "type.googleapis.com/google.rpc.PreconditionFailure", "violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
-                {"@type": "type.googleapis.com/google.rpc.QuotaFailure", "violations": [{"subject": "subject", "description": "desc"}]},
+                {"@type": "type.googleapis.com/google.rpc.QuotaFailure", "violations": [{"subject": "subject", "description": "desc", "quotaValue": "0"}]},
                 {"@type": "type.googleapis.com/google.rpc.RequestInfo", "requestId": "id", "servingData": "data"},
                 {"@type": "type.googleapis.com/google.rpc.ResourceInfo", "resourceType": "type", "resourceName": "name", "owner": "owner", "description": "desc"},
                 {"@type": "type.googleapis.com/google.rpc.RetryInfo", "retryDelay": "1s"},
@@ -850,13 +850,10 @@ mod test {
     #[test]
     fn code_try_from_string_error() {
         let err = Code::try_from("INVALID-NOT-A-CODE");
-        match err {
-            Err(s) => assert!(
-                s.contains("INVALID-NOT-A-CODE"),
-                "expected invalid string in error {s}"
-            ),
-            Ok(v) => assert!(false, "expected error in try_from, got {v:?}"),
-        };
+        assert!(
+            matches!(&err, Err(s) if s.contains("INVALID-NOT-A-CODE")),
+            "expected error in try_from, got {err:?}"
+        );
     }
 
     #[test]

@@ -3918,7 +3918,10 @@ impl ManagementConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `oneof_config`.
+    /// Sets the value of [oneof_config][crate::model::ManagementConfig::oneof_config].
+    ///
+    /// Note that all the setters affecting `oneof_config` are mutually
+    /// exclusive.
     pub fn set_oneof_config<
         T: std::convert::Into<std::option::Option<crate::model::management_config::OneofConfig>>,
     >(
@@ -3932,7 +3935,7 @@ impl ManagementConfig {
     /// The value of [oneof_config][crate::model::ManagementConfig::oneof_config]
     /// if it holds a `StandardManagementConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_standard_management_config(
+    pub fn standard_management_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StandardManagementConfig>> {
         #[allow(unreachable_patterns)]
@@ -3947,7 +3950,7 @@ impl ManagementConfig {
     /// The value of [oneof_config][crate::model::ManagementConfig::oneof_config]
     /// if it holds a `FullManagementConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_full_management_config(
+    pub fn full_management_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FullManagementConfig>> {
         #[allow(unreachable_patterns)]

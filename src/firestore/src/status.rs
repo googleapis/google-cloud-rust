@@ -167,6 +167,8 @@ mod test {
     fn prost_details() -> Vec<prost_types::Any> {
         use google::rpc::*;
         use prost_types::Any;
+        // We do not want our CI to break if/when the protos grow.
+        #[allow(clippy::needless_update)]
         let from_msg = vec![
             Any::from_msg(&BadRequest {
                 field_violations: vec![bad_request::FieldViolation {
@@ -174,7 +176,6 @@ mod test {
                     description: "desc".into(),
                     ..Default::default()
                 }],
-                ..Default::default()
             }),
             Any::from_msg(&DebugInfo {
                 stack_entries: ["stack"].map(str::to_string).to_vec(),
@@ -196,6 +197,7 @@ mod test {
             Any::from_msg(&LocalizedMessage {
                 locale: "locale".into(),
                 message: "message".into(),
+                ..Default::default()
             }),
             Any::from_msg(&PreconditionFailure {
                 violations: vec![precondition_failure::Violation {
@@ -204,28 +206,31 @@ mod test {
                     description: "desc".into(),
                     ..Default::default()
                 }],
-                ..Default::default()
             }),
             Any::from_msg(&QuotaFailure {
                 violations: vec![quota_failure::Violation {
                     subject: "subject".into(),
                     description: "desc".into(),
+                    ..Default::default()
                 }],
             }),
             Any::from_msg(&RequestInfo {
                 request_id: "id".into(),
                 serving_data: "data".into(),
+                ..Default::default()
             }),
             Any::from_msg(&ResourceInfo {
                 resource_type: "type".into(),
                 resource_name: "name".into(),
                 owner: "owner".into(),
                 description: "desc".into(),
+                ..Default::default()
             }),
             Any::from_msg(&RetryInfo {
                 retry_delay: prost_types::Duration {
                     seconds: 1,
                     nanos: 0,
+                    ..Default::default()
                 }
                 .into(),
             }),

@@ -197,7 +197,10 @@ impl EndpointMatcher {
         std::default::Default::default()
     }
 
-    /// Sets the value of `matcher_type`.
+    /// Sets the value of [matcher_type][crate::model::EndpointMatcher::matcher_type].
+    ///
+    /// Note that all the setters affecting `matcher_type` are mutually
+    /// exclusive.
     pub fn set_matcher_type<
         T: std::convert::Into<std::option::Option<crate::model::endpoint_matcher::MatcherType>>,
     >(
@@ -211,7 +214,7 @@ impl EndpointMatcher {
     /// The value of [matcher_type][crate::model::EndpointMatcher::matcher_type]
     /// if it holds a `MetadataLabelMatcher`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_metadata_label_matcher(
+    pub fn metadata_label_matcher(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::endpoint_matcher::MetadataLabelMatcher>>
     {
@@ -3484,7 +3487,10 @@ pub mod grpc_route {
             self
         }
 
-        /// Sets the value of `destination_type`.
+        /// Sets the value of [destination_type][crate::model::grpc_route::Destination::destination_type].
+        ///
+        /// Note that all the setters affecting `destination_type` are mutually
+        /// exclusive.
         pub fn set_destination_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::grpc_route::destination::DestinationType>,
@@ -3500,7 +3506,7 @@ pub mod grpc_route {
         /// The value of [destination_type][crate::model::grpc_route::Destination::destination_type]
         /// if it holds a `ServiceName`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_service_name(&self) -> std::option::Option<&std::string::String> {
+        pub fn service_name(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.destination_type.as_ref().and_then(|v| match v {
                 crate::model::grpc_route::destination::DestinationType::ServiceName(v) => {
@@ -4460,7 +4466,10 @@ pub mod http_route {
             self
         }
 
-        /// Sets the value of `match_type`.
+        /// Sets the value of [match_type][crate::model::http_route::HeaderMatch::match_type].
+        ///
+        /// Note that all the setters affecting `match_type` are mutually
+        /// exclusive.
         pub fn set_match_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::http_route::header_match::MatchType>,
@@ -4476,7 +4485,7 @@ pub mod http_route {
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// if it holds a `ExactMatch`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_exact_match(&self) -> std::option::Option<&std::string::String> {
+        pub fn exact_match(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.match_type.as_ref().and_then(|v| match v {
                 crate::model::http_route::header_match::MatchType::ExactMatch(v) => {
@@ -4489,7 +4498,7 @@ pub mod http_route {
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// if it holds a `RegexMatch`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_regex_match(&self) -> std::option::Option<&std::string::String> {
+        pub fn regex_match(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.match_type.as_ref().and_then(|v| match v {
                 crate::model::http_route::header_match::MatchType::RegexMatch(v) => {
@@ -4502,7 +4511,7 @@ pub mod http_route {
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// if it holds a `PrefixMatch`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_prefix_match(&self) -> std::option::Option<&std::string::String> {
+        pub fn prefix_match(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.match_type.as_ref().and_then(|v| match v {
                 crate::model::http_route::header_match::MatchType::PrefixMatch(v) => {
@@ -4515,7 +4524,7 @@ pub mod http_route {
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// if it holds a `PresentMatch`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_present_match(&self) -> std::option::Option<&bool> {
+        pub fn present_match(&self) -> std::option::Option<&bool> {
             #[allow(unreachable_patterns)]
             self.match_type.as_ref().and_then(|v| match v {
                 crate::model::http_route::header_match::MatchType::PresentMatch(v) => {
@@ -4528,7 +4537,7 @@ pub mod http_route {
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// if it holds a `SuffixMatch`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_suffix_match(&self) -> std::option::Option<&std::string::String> {
+        pub fn suffix_match(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.match_type.as_ref().and_then(|v| match v {
                 crate::model::http_route::header_match::MatchType::SuffixMatch(v) => {
@@ -4541,7 +4550,7 @@ pub mod http_route {
         /// The value of [match_type][crate::model::http_route::HeaderMatch::match_type]
         /// if it holds a `RangeMatch`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_range_match(
+        pub fn range_match(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::http_route::header_match::IntegerRange>,
@@ -4748,7 +4757,10 @@ pub mod http_route {
             self
         }
 
-        /// Sets the value of `match_type`.
+        /// Sets the value of [match_type][crate::model::http_route::QueryParameterMatch::match_type].
+        ///
+        /// Note that all the setters affecting `match_type` are mutually
+        /// exclusive.
         pub fn set_match_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::http_route::query_parameter_match::MatchType>,
@@ -4764,7 +4776,7 @@ pub mod http_route {
         /// The value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
         /// if it holds a `ExactMatch`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_exact_match(&self) -> std::option::Option<&std::string::String> {
+        pub fn exact_match(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.match_type.as_ref().and_then(|v| match v {
                 crate::model::http_route::query_parameter_match::MatchType::ExactMatch(v) => {
@@ -4777,7 +4789,7 @@ pub mod http_route {
         /// The value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
         /// if it holds a `RegexMatch`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_regex_match(&self) -> std::option::Option<&std::string::String> {
+        pub fn regex_match(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.match_type.as_ref().and_then(|v| match v {
                 crate::model::http_route::query_parameter_match::MatchType::RegexMatch(v) => {
@@ -4790,7 +4802,7 @@ pub mod http_route {
         /// The value of [match_type][crate::model::http_route::QueryParameterMatch::match_type]
         /// if it holds a `PresentMatch`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_present_match(&self) -> std::option::Option<&bool> {
+        pub fn present_match(&self) -> std::option::Option<&bool> {
             #[allow(unreachable_patterns)]
             self.match_type.as_ref().and_then(|v| match v {
                 crate::model::http_route::query_parameter_match::MatchType::PresentMatch(v) => {
@@ -4934,7 +4946,10 @@ pub mod http_route {
             self
         }
 
-        /// Sets the value of `path_match`.
+        /// Sets the value of [path_match][crate::model::http_route::RouteMatch::path_match].
+        ///
+        /// Note that all the setters affecting `path_match` are mutually
+        /// exclusive.
         pub fn set_path_match<
             T: std::convert::Into<
                     std::option::Option<crate::model::http_route::route_match::PathMatch>,
@@ -4950,7 +4965,7 @@ pub mod http_route {
         /// The value of [path_match][crate::model::http_route::RouteMatch::path_match]
         /// if it holds a `FullPathMatch`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_full_path_match(&self) -> std::option::Option<&std::string::String> {
+        pub fn full_path_match(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.path_match.as_ref().and_then(|v| match v {
                 crate::model::http_route::route_match::PathMatch::FullPathMatch(v) => {
@@ -4963,7 +4978,7 @@ pub mod http_route {
         /// The value of [path_match][crate::model::http_route::RouteMatch::path_match]
         /// if it holds a `PrefixMatch`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_prefix_match(&self) -> std::option::Option<&std::string::String> {
+        pub fn prefix_match(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.path_match.as_ref().and_then(|v| match v {
                 crate::model::http_route::route_match::PathMatch::PrefixMatch(v) => {
@@ -4976,7 +4991,7 @@ pub mod http_route {
         /// The value of [path_match][crate::model::http_route::RouteMatch::path_match]
         /// if it holds a `RegexMatch`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_regex_match(&self) -> std::option::Option<&std::string::String> {
+        pub fn regex_match(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.path_match.as_ref().and_then(|v| match v {
                 crate::model::http_route::route_match::PathMatch::RegexMatch(v) => {

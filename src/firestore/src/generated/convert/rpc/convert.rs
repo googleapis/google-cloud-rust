@@ -70,6 +70,12 @@ impl gaxi::prost::Convert<quota_failure::Violation> for rpc::model::quota_failur
         quota_failure::Violation {
             subject: self.subject.cnv(),
             description: self.description.cnv(),
+            api_service: self.api_service.cnv(),
+            quota_metric: self.quota_metric.cnv(),
+            quota_id: self.quota_id.cnv(),
+            quota_value: self.quota_value.cnv(),
+            future_quota_value: self.future_quota_value.map(|v| v.cnv()),
+            quota_dimensions: self.quota_dimensions.into_iter().map(|(k, v)| (k.cnv(), v.cnv())).collect(),
         }
     }
 }
@@ -79,6 +85,12 @@ impl gaxi::prost::Convert<rpc::model::quota_failure::Violation> for quota_failur
         rpc::model::quota_failure::Violation::new()
             .set_subject(self.subject)
             .set_description(self.description)
+            .set_api_service(self.api_service)
+            .set_quota_metric(self.quota_metric)
+            .set_quota_id(self.quota_id)
+            .set_quota_value(self.quota_value)
+            .set_future_quota_value(self.future_quota_value.map(|v| v.cnv()))
+            .set_quota_dimensions(self.quota_dimensions.into_iter().map(|(k, v)| (k.cnv(), v.cnv())))
     }
 }
 

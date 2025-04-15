@@ -719,7 +719,10 @@ impl Restrictions {
         self
     }
 
-    /// Sets the value of `client_restrictions`.
+    /// Sets the value of [client_restrictions][crate::model::Restrictions::client_restrictions].
+    ///
+    /// Note that all the setters affecting `client_restrictions` are mutually
+    /// exclusive.
     pub fn set_client_restrictions<
         T: std::convert::Into<std::option::Option<crate::model::restrictions::ClientRestrictions>>,
     >(
@@ -733,7 +736,7 @@ impl Restrictions {
     /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
     /// if it holds a `BrowserKeyRestrictions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_browser_key_restrictions(
+    pub fn browser_key_restrictions(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BrowserKeyRestrictions>> {
         #[allow(unreachable_patterns)]
@@ -748,7 +751,7 @@ impl Restrictions {
     /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
     /// if it holds a `ServerKeyRestrictions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_server_key_restrictions(
+    pub fn server_key_restrictions(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ServerKeyRestrictions>> {
         #[allow(unreachable_patterns)]
@@ -763,7 +766,7 @@ impl Restrictions {
     /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
     /// if it holds a `AndroidKeyRestrictions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_android_key_restrictions(
+    pub fn android_key_restrictions(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AndroidKeyRestrictions>> {
         #[allow(unreachable_patterns)]
@@ -778,7 +781,7 @@ impl Restrictions {
     /// The value of [client_restrictions][crate::model::Restrictions::client_restrictions]
     /// if it holds a `IosKeyRestrictions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ios_key_restrictions(
+    pub fn ios_key_restrictions(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::IosKeyRestrictions>> {
         #[allow(unreachable_patterns)]

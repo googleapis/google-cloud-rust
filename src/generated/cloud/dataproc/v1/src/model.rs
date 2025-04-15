@@ -140,7 +140,10 @@ impl AutoscalingPolicy {
         self
     }
 
-    /// Sets the value of `algorithm`.
+    /// Sets the value of [algorithm][crate::model::AutoscalingPolicy::algorithm].
+    ///
+    /// Note that all the setters affecting `algorithm` are mutually
+    /// exclusive.
     pub fn set_algorithm<
         T: std::convert::Into<std::option::Option<crate::model::autoscaling_policy::Algorithm>>,
     >(
@@ -154,7 +157,7 @@ impl AutoscalingPolicy {
     /// The value of [algorithm][crate::model::AutoscalingPolicy::algorithm]
     /// if it holds a `BasicAlgorithm`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_basic_algorithm(
+    pub fn basic_algorithm(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BasicAutoscalingAlgorithm>> {
         #[allow(unreachable_patterns)]
@@ -238,7 +241,10 @@ impl BasicAutoscalingAlgorithm {
         self
     }
 
-    /// Sets the value of `config`.
+    /// Sets the value of [config][crate::model::BasicAutoscalingAlgorithm::config].
+    ///
+    /// Note that all the setters affecting `config` are mutually
+    /// exclusive.
     pub fn set_config<
         T: std::convert::Into<std::option::Option<crate::model::basic_autoscaling_algorithm::Config>>,
     >(
@@ -252,7 +258,7 @@ impl BasicAutoscalingAlgorithm {
     /// The value of [config][crate::model::BasicAutoscalingAlgorithm::config]
     /// if it holds a `YarnConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_yarn_config(
+    pub fn yarn_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BasicYarnAutoscalingConfig>> {
         #[allow(unreachable_patterns)]
@@ -1294,7 +1300,10 @@ impl Batch {
         self
     }
 
-    /// Sets the value of `batch_config`.
+    /// Sets the value of [batch_config][crate::model::Batch::batch_config].
+    ///
+    /// Note that all the setters affecting `batch_config` are mutually
+    /// exclusive.
     pub fn set_batch_config<
         T: std::convert::Into<std::option::Option<crate::model::batch::BatchConfig>>,
     >(
@@ -1308,7 +1317,7 @@ impl Batch {
     /// The value of [batch_config][crate::model::Batch::batch_config]
     /// if it holds a `PysparkBatch`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pyspark_batch(
+    pub fn pyspark_batch(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PySparkBatch>> {
         #[allow(unreachable_patterns)]
@@ -1321,9 +1330,7 @@ impl Batch {
     /// The value of [batch_config][crate::model::Batch::batch_config]
     /// if it holds a `SparkBatch`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spark_batch(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SparkBatch>> {
+    pub fn spark_batch(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkBatch>> {
         #[allow(unreachable_patterns)]
         self.batch_config.as_ref().and_then(|v| match v {
             crate::model::batch::BatchConfig::SparkBatch(v) => std::option::Option::Some(v),
@@ -1334,7 +1341,7 @@ impl Batch {
     /// The value of [batch_config][crate::model::Batch::batch_config]
     /// if it holds a `SparkRBatch`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spark_r_batch(
+    pub fn spark_r_batch(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SparkRBatch>> {
         #[allow(unreachable_patterns)]
@@ -1347,7 +1354,7 @@ impl Batch {
     /// The value of [batch_config][crate::model::Batch::batch_config]
     /// if it holds a `SparkSqlBatch`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spark_sql_batch(
+    pub fn spark_sql_batch(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SparkSqlBatch>> {
         #[allow(unreachable_patterns)]
@@ -1791,7 +1798,10 @@ impl SparkBatch {
         self
     }
 
-    /// Sets the value of `driver`.
+    /// Sets the value of [driver][crate::model::SparkBatch::driver].
+    ///
+    /// Note that all the setters affecting `driver` are mutually
+    /// exclusive.
     pub fn set_driver<
         T: std::convert::Into<std::option::Option<crate::model::spark_batch::Driver>>,
     >(
@@ -1805,7 +1815,7 @@ impl SparkBatch {
     /// The value of [driver][crate::model::SparkBatch::driver]
     /// if it holds a `MainJarFileUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_main_jar_file_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn main_jar_file_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.driver.as_ref().and_then(|v| match v {
             crate::model::spark_batch::Driver::MainJarFileUri(v) => std::option::Option::Some(v),
@@ -1816,7 +1826,7 @@ impl SparkBatch {
     /// The value of [driver][crate::model::SparkBatch::driver]
     /// if it holds a `MainClass`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_main_class(&self) -> std::option::Option<&std::string::String> {
+    pub fn main_class(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.driver.as_ref().and_then(|v| match v {
             crate::model::spark_batch::Driver::MainClass(v) => std::option::Option::Some(v),
@@ -2543,7 +2553,10 @@ impl VirtualClusterConfig {
         self
     }
 
-    /// Sets the value of `infrastructure_config`.
+    /// Sets the value of [infrastructure_config][crate::model::VirtualClusterConfig::infrastructure_config].
+    ///
+    /// Note that all the setters affecting `infrastructure_config` are mutually
+    /// exclusive.
     pub fn set_infrastructure_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::virtual_cluster_config::InfrastructureConfig>,
@@ -2559,7 +2572,7 @@ impl VirtualClusterConfig {
     /// The value of [infrastructure_config][crate::model::VirtualClusterConfig::infrastructure_config]
     /// if it holds a `KubernetesClusterConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_kubernetes_cluster_config(
+    pub fn kubernetes_cluster_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::KubernetesClusterConfig>> {
         #[allow(unreachable_patterns)]
@@ -5198,7 +5211,10 @@ impl LifecycleConfig {
         self
     }
 
-    /// Sets the value of `ttl`.
+    /// Sets the value of [ttl][crate::model::LifecycleConfig::ttl].
+    ///
+    /// Note that all the setters affecting `ttl` are mutually
+    /// exclusive.
     pub fn set_ttl<
         T: std::convert::Into<std::option::Option<crate::model::lifecycle_config::Ttl>>,
     >(
@@ -5212,7 +5228,7 @@ impl LifecycleConfig {
     /// The value of [ttl][crate::model::LifecycleConfig::ttl]
     /// if it holds a `AutoDeleteTime`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_auto_delete_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+    pub fn auto_delete_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.ttl.as_ref().and_then(|v| match v {
             crate::model::lifecycle_config::Ttl::AutoDeleteTime(v) => std::option::Option::Some(v),
@@ -5223,7 +5239,7 @@ impl LifecycleConfig {
     /// The value of [ttl][crate::model::LifecycleConfig::ttl]
     /// if it holds a `AutoDeleteTtl`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_auto_delete_ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+    pub fn auto_delete_ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.ttl.as_ref().and_then(|v| match v {
             crate::model::lifecycle_config::Ttl::AutoDeleteTtl(v) => std::option::Option::Some(v),
@@ -6953,7 +6969,10 @@ impl HadoopJob {
         self
     }
 
-    /// Sets the value of `driver`.
+    /// Sets the value of [driver][crate::model::HadoopJob::driver].
+    ///
+    /// Note that all the setters affecting `driver` are mutually
+    /// exclusive.
     pub fn set_driver<
         T: std::convert::Into<std::option::Option<crate::model::hadoop_job::Driver>>,
     >(
@@ -6967,7 +6986,7 @@ impl HadoopJob {
     /// The value of [driver][crate::model::HadoopJob::driver]
     /// if it holds a `MainJarFileUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_main_jar_file_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn main_jar_file_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.driver.as_ref().and_then(|v| match v {
             crate::model::hadoop_job::Driver::MainJarFileUri(v) => std::option::Option::Some(v),
@@ -6978,7 +6997,7 @@ impl HadoopJob {
     /// The value of [driver][crate::model::HadoopJob::driver]
     /// if it holds a `MainClass`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_main_class(&self) -> std::option::Option<&std::string::String> {
+    pub fn main_class(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.driver.as_ref().and_then(|v| match v {
             crate::model::hadoop_job::Driver::MainClass(v) => std::option::Option::Some(v),
@@ -7171,7 +7190,10 @@ impl SparkJob {
         self
     }
 
-    /// Sets the value of `driver`.
+    /// Sets the value of [driver][crate::model::SparkJob::driver].
+    ///
+    /// Note that all the setters affecting `driver` are mutually
+    /// exclusive.
     pub fn set_driver<
         T: std::convert::Into<std::option::Option<crate::model::spark_job::Driver>>,
     >(
@@ -7185,7 +7207,7 @@ impl SparkJob {
     /// The value of [driver][crate::model::SparkJob::driver]
     /// if it holds a `MainJarFileUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_main_jar_file_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn main_jar_file_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.driver.as_ref().and_then(|v| match v {
             crate::model::spark_job::Driver::MainJarFileUri(v) => std::option::Option::Some(v),
@@ -7196,7 +7218,7 @@ impl SparkJob {
     /// The value of [driver][crate::model::SparkJob::driver]
     /// if it holds a `MainClass`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_main_class(&self) -> std::option::Option<&std::string::String> {
+    pub fn main_class(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.driver.as_ref().and_then(|v| match v {
             crate::model::spark_job::Driver::MainClass(v) => std::option::Option::Some(v),
@@ -7555,7 +7577,10 @@ impl HiveJob {
         self
     }
 
-    /// Sets the value of `queries`.
+    /// Sets the value of [queries][crate::model::HiveJob::queries].
+    ///
+    /// Note that all the setters affecting `queries` are mutually
+    /// exclusive.
     pub fn set_queries<
         T: std::convert::Into<std::option::Option<crate::model::hive_job::Queries>>,
     >(
@@ -7569,7 +7594,7 @@ impl HiveJob {
     /// The value of [queries][crate::model::HiveJob::queries]
     /// if it holds a `QueryFileUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_query_file_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn query_file_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.queries.as_ref().and_then(|v| match v {
             crate::model::hive_job::Queries::QueryFileUri(v) => std::option::Option::Some(v),
@@ -7580,7 +7605,7 @@ impl HiveJob {
     /// The value of [queries][crate::model::HiveJob::queries]
     /// if it holds a `QueryList`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_query_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::QueryList>> {
+    pub fn query_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::QueryList>> {
         #[allow(unreachable_patterns)]
         self.queries.as_ref().and_then(|v| match v {
             crate::model::hive_job::Queries::QueryList(v) => std::option::Option::Some(v),
@@ -7724,7 +7749,10 @@ impl SparkSqlJob {
         self
     }
 
-    /// Sets the value of `queries`.
+    /// Sets the value of [queries][crate::model::SparkSqlJob::queries].
+    ///
+    /// Note that all the setters affecting `queries` are mutually
+    /// exclusive.
     pub fn set_queries<
         T: std::convert::Into<std::option::Option<crate::model::spark_sql_job::Queries>>,
     >(
@@ -7738,7 +7766,7 @@ impl SparkSqlJob {
     /// The value of [queries][crate::model::SparkSqlJob::queries]
     /// if it holds a `QueryFileUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_query_file_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn query_file_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.queries.as_ref().and_then(|v| match v {
             crate::model::spark_sql_job::Queries::QueryFileUri(v) => std::option::Option::Some(v),
@@ -7749,7 +7777,7 @@ impl SparkSqlJob {
     /// The value of [queries][crate::model::SparkSqlJob::queries]
     /// if it holds a `QueryList`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_query_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::QueryList>> {
+    pub fn query_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::QueryList>> {
         #[allow(unreachable_patterns)]
         self.queries.as_ref().and_then(|v| match v {
             crate::model::spark_sql_job::Queries::QueryList(v) => std::option::Option::Some(v),
@@ -7906,7 +7934,10 @@ impl PigJob {
         self
     }
 
-    /// Sets the value of `queries`.
+    /// Sets the value of [queries][crate::model::PigJob::queries].
+    ///
+    /// Note that all the setters affecting `queries` are mutually
+    /// exclusive.
     pub fn set_queries<
         T: std::convert::Into<std::option::Option<crate::model::pig_job::Queries>>,
     >(
@@ -7920,7 +7951,7 @@ impl PigJob {
     /// The value of [queries][crate::model::PigJob::queries]
     /// if it holds a `QueryFileUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_query_file_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn query_file_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.queries.as_ref().and_then(|v| match v {
             crate::model::pig_job::Queries::QueryFileUri(v) => std::option::Option::Some(v),
@@ -7931,7 +7962,7 @@ impl PigJob {
     /// The value of [queries][crate::model::PigJob::queries]
     /// if it holds a `QueryList`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_query_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::QueryList>> {
+    pub fn query_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::QueryList>> {
         #[allow(unreachable_patterns)]
         self.queries.as_ref().and_then(|v| match v {
             crate::model::pig_job::Queries::QueryList(v) => std::option::Option::Some(v),
@@ -8202,7 +8233,10 @@ impl PrestoJob {
         self
     }
 
-    /// Sets the value of `queries`.
+    /// Sets the value of [queries][crate::model::PrestoJob::queries].
+    ///
+    /// Note that all the setters affecting `queries` are mutually
+    /// exclusive.
     pub fn set_queries<
         T: std::convert::Into<std::option::Option<crate::model::presto_job::Queries>>,
     >(
@@ -8216,7 +8250,7 @@ impl PrestoJob {
     /// The value of [queries][crate::model::PrestoJob::queries]
     /// if it holds a `QueryFileUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_query_file_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn query_file_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.queries.as_ref().and_then(|v| match v {
             crate::model::presto_job::Queries::QueryFileUri(v) => std::option::Option::Some(v),
@@ -8227,7 +8261,7 @@ impl PrestoJob {
     /// The value of [queries][crate::model::PrestoJob::queries]
     /// if it holds a `QueryList`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_query_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::QueryList>> {
+    pub fn query_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::QueryList>> {
         #[allow(unreachable_patterns)]
         self.queries.as_ref().and_then(|v| match v {
             crate::model::presto_job::Queries::QueryList(v) => std::option::Option::Some(v),
@@ -8379,7 +8413,10 @@ impl TrinoJob {
         self
     }
 
-    /// Sets the value of `queries`.
+    /// Sets the value of [queries][crate::model::TrinoJob::queries].
+    ///
+    /// Note that all the setters affecting `queries` are mutually
+    /// exclusive.
     pub fn set_queries<
         T: std::convert::Into<std::option::Option<crate::model::trino_job::Queries>>,
     >(
@@ -8393,7 +8430,7 @@ impl TrinoJob {
     /// The value of [queries][crate::model::TrinoJob::queries]
     /// if it holds a `QueryFileUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_query_file_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn query_file_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.queries.as_ref().and_then(|v| match v {
             crate::model::trino_job::Queries::QueryFileUri(v) => std::option::Option::Some(v),
@@ -8404,7 +8441,7 @@ impl TrinoJob {
     /// The value of [queries][crate::model::TrinoJob::queries]
     /// if it holds a `QueryList`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_query_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::QueryList>> {
+    pub fn query_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::QueryList>> {
         #[allow(unreachable_patterns)]
         self.queries.as_ref().and_then(|v| match v {
             crate::model::trino_job::Queries::QueryList(v) => std::option::Option::Some(v),
@@ -8567,7 +8604,10 @@ impl FlinkJob {
         self
     }
 
-    /// Sets the value of `driver`.
+    /// Sets the value of [driver][crate::model::FlinkJob::driver].
+    ///
+    /// Note that all the setters affecting `driver` are mutually
+    /// exclusive.
     pub fn set_driver<
         T: std::convert::Into<std::option::Option<crate::model::flink_job::Driver>>,
     >(
@@ -8581,7 +8621,7 @@ impl FlinkJob {
     /// The value of [driver][crate::model::FlinkJob::driver]
     /// if it holds a `MainJarFileUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_main_jar_file_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn main_jar_file_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.driver.as_ref().and_then(|v| match v {
             crate::model::flink_job::Driver::MainJarFileUri(v) => std::option::Option::Some(v),
@@ -8592,7 +8632,7 @@ impl FlinkJob {
     /// The value of [driver][crate::model::FlinkJob::driver]
     /// if it holds a `MainClass`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_main_class(&self) -> std::option::Option<&std::string::String> {
+    pub fn main_class(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.driver.as_ref().and_then(|v| match v {
             crate::model::flink_job::Driver::MainClass(v) => std::option::Option::Some(v),
@@ -9381,7 +9421,10 @@ impl Job {
         self
     }
 
-    /// Sets the value of `type_job`.
+    /// Sets the value of [type_job][crate::model::Job::type_job].
+    ///
+    /// Note that all the setters affecting `type_job` are mutually
+    /// exclusive.
     pub fn set_type_job<T: std::convert::Into<std::option::Option<crate::model::job::TypeJob>>>(
         mut self,
         v: T,
@@ -9393,7 +9436,7 @@ impl Job {
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `HadoopJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_hadoop_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::HadoopJob>> {
+    pub fn hadoop_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::HadoopJob>> {
         #[allow(unreachable_patterns)]
         self.type_job.as_ref().and_then(|v| match v {
             crate::model::job::TypeJob::HadoopJob(v) => std::option::Option::Some(v),
@@ -9404,7 +9447,7 @@ impl Job {
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `SparkJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spark_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkJob>> {
+    pub fn spark_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkJob>> {
         #[allow(unreachable_patterns)]
         self.type_job.as_ref().and_then(|v| match v {
             crate::model::job::TypeJob::SparkJob(v) => std::option::Option::Some(v),
@@ -9415,9 +9458,7 @@ impl Job {
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `PysparkJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pyspark_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PySparkJob>> {
+    pub fn pyspark_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::PySparkJob>> {
         #[allow(unreachable_patterns)]
         self.type_job.as_ref().and_then(|v| match v {
             crate::model::job::TypeJob::PysparkJob(v) => std::option::Option::Some(v),
@@ -9428,7 +9469,7 @@ impl Job {
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `HiveJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_hive_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::HiveJob>> {
+    pub fn hive_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::HiveJob>> {
         #[allow(unreachable_patterns)]
         self.type_job.as_ref().and_then(|v| match v {
             crate::model::job::TypeJob::HiveJob(v) => std::option::Option::Some(v),
@@ -9439,7 +9480,7 @@ impl Job {
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `PigJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pig_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::PigJob>> {
+    pub fn pig_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::PigJob>> {
         #[allow(unreachable_patterns)]
         self.type_job.as_ref().and_then(|v| match v {
             crate::model::job::TypeJob::PigJob(v) => std::option::Option::Some(v),
@@ -9450,9 +9491,7 @@ impl Job {
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `SparkRJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spark_r_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SparkRJob>> {
+    pub fn spark_r_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkRJob>> {
         #[allow(unreachable_patterns)]
         self.type_job.as_ref().and_then(|v| match v {
             crate::model::job::TypeJob::SparkRJob(v) => std::option::Option::Some(v),
@@ -9463,7 +9502,7 @@ impl Job {
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `SparkSqlJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spark_sql_job(
+    pub fn spark_sql_job(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SparkSqlJob>> {
         #[allow(unreachable_patterns)]
@@ -9476,7 +9515,7 @@ impl Job {
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `PrestoJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_presto_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::PrestoJob>> {
+    pub fn presto_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::PrestoJob>> {
         #[allow(unreachable_patterns)]
         self.type_job.as_ref().and_then(|v| match v {
             crate::model::job::TypeJob::PrestoJob(v) => std::option::Option::Some(v),
@@ -9487,7 +9526,7 @@ impl Job {
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `TrinoJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_trino_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::TrinoJob>> {
+    pub fn trino_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::TrinoJob>> {
         #[allow(unreachable_patterns)]
         self.type_job.as_ref().and_then(|v| match v {
             crate::model::job::TypeJob::TrinoJob(v) => std::option::Option::Some(v),
@@ -9498,7 +9537,7 @@ impl Job {
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `FlinkJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_flink_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::FlinkJob>> {
+    pub fn flink_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::FlinkJob>> {
         #[allow(unreachable_patterns)]
         self.type_job.as_ref().and_then(|v| match v {
             crate::model::job::TypeJob::FlinkJob(v) => std::option::Option::Some(v),
@@ -11906,7 +11945,10 @@ impl SessionTemplate {
         self
     }
 
-    /// Sets the value of `session_config`.
+    /// Sets the value of [session_config][crate::model::SessionTemplate::session_config].
+    ///
+    /// Note that all the setters affecting `session_config` are mutually
+    /// exclusive.
     pub fn set_session_config<
         T: std::convert::Into<std::option::Option<crate::model::session_template::SessionConfig>>,
     >(
@@ -11920,7 +11962,7 @@ impl SessionTemplate {
     /// The value of [session_config][crate::model::SessionTemplate::session_config]
     /// if it holds a `JupyterSession`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_jupyter_session(
+    pub fn jupyter_session(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::JupyterConfig>> {
         #[allow(unreachable_patterns)]
@@ -11935,7 +11977,7 @@ impl SessionTemplate {
     /// The value of [session_config][crate::model::SessionTemplate::session_config]
     /// if it holds a `SparkConnectSession`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spark_connect_session(
+    pub fn spark_connect_session(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SparkConnectConfig>> {
         #[allow(unreachable_patterns)]
@@ -12571,7 +12613,10 @@ impl Session {
         self
     }
 
-    /// Sets the value of `session_config`.
+    /// Sets the value of [session_config][crate::model::Session::session_config].
+    ///
+    /// Note that all the setters affecting `session_config` are mutually
+    /// exclusive.
     pub fn set_session_config<
         T: std::convert::Into<std::option::Option<crate::model::session::SessionConfig>>,
     >(
@@ -12585,7 +12630,7 @@ impl Session {
     /// The value of [session_config][crate::model::Session::session_config]
     /// if it holds a `JupyterSession`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_jupyter_session(
+    pub fn jupyter_session(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::JupyterConfig>> {
         #[allow(unreachable_patterns)]
@@ -12598,7 +12643,7 @@ impl Session {
     /// The value of [session_config][crate::model::Session::session_config]
     /// if it holds a `SparkConnectSession`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spark_connect_session(
+    pub fn spark_connect_session(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SparkConnectConfig>> {
         #[allow(unreachable_patterns)]
@@ -13221,7 +13266,10 @@ impl ExecutionConfig {
         self
     }
 
-    /// Sets the value of `network`.
+    /// Sets the value of [network][crate::model::ExecutionConfig::network].
+    ///
+    /// Note that all the setters affecting `network` are mutually
+    /// exclusive.
     pub fn set_network<
         T: std::convert::Into<std::option::Option<crate::model::execution_config::Network>>,
     >(
@@ -13235,7 +13283,7 @@ impl ExecutionConfig {
     /// The value of [network][crate::model::ExecutionConfig::network]
     /// if it holds a `NetworkUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_network_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn network_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.network.as_ref().and_then(|v| match v {
             crate::model::execution_config::Network::NetworkUri(v) => std::option::Option::Some(v),
@@ -13246,7 +13294,7 @@ impl ExecutionConfig {
     /// The value of [network][crate::model::ExecutionConfig::network]
     /// if it holds a `SubnetworkUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_subnetwork_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn subnetwork_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.network.as_ref().and_then(|v| match v {
             crate::model::execution_config::Network::SubnetworkUri(v) => {
@@ -13789,7 +13837,10 @@ impl KubernetesClusterConfig {
         self
     }
 
-    /// Sets the value of `config`.
+    /// Sets the value of [config][crate::model::KubernetesClusterConfig::config].
+    ///
+    /// Note that all the setters affecting `config` are mutually
+    /// exclusive.
     pub fn set_config<
         T: std::convert::Into<std::option::Option<crate::model::kubernetes_cluster_config::Config>>,
     >(
@@ -13803,7 +13854,7 @@ impl KubernetesClusterConfig {
     /// The value of [config][crate::model::KubernetesClusterConfig::config]
     /// if it holds a `GkeClusterConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gke_cluster_config(
+    pub fn gke_cluster_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GkeClusterConfig>> {
         #[allow(unreachable_patterns)]
@@ -14987,7 +15038,10 @@ impl WorkflowTemplatePlacement {
         std::default::Default::default()
     }
 
-    /// Sets the value of `placement`.
+    /// Sets the value of [placement][crate::model::WorkflowTemplatePlacement::placement].
+    ///
+    /// Note that all the setters affecting `placement` are mutually
+    /// exclusive.
     pub fn set_placement<
         T: std::convert::Into<
                 std::option::Option<crate::model::workflow_template_placement::Placement>,
@@ -15003,7 +15057,7 @@ impl WorkflowTemplatePlacement {
     /// The value of [placement][crate::model::WorkflowTemplatePlacement::placement]
     /// if it holds a `ManagedCluster`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_managed_cluster(
+    pub fn managed_cluster(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ManagedCluster>> {
         #[allow(unreachable_patterns)]
@@ -15018,7 +15072,7 @@ impl WorkflowTemplatePlacement {
     /// The value of [placement][crate::model::WorkflowTemplatePlacement::placement]
     /// if it holds a `ClusterSelector`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cluster_selector(
+    pub fn cluster_selector(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ClusterSelector>> {
         #[allow(unreachable_patterns)]
@@ -15317,7 +15371,10 @@ impl OrderedJob {
         self
     }
 
-    /// Sets the value of `job_type`.
+    /// Sets the value of [job_type][crate::model::OrderedJob::job_type].
+    ///
+    /// Note that all the setters affecting `job_type` are mutually
+    /// exclusive.
     pub fn set_job_type<
         T: std::convert::Into<std::option::Option<crate::model::ordered_job::JobType>>,
     >(
@@ -15331,7 +15388,7 @@ impl OrderedJob {
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `HadoopJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_hadoop_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::HadoopJob>> {
+    pub fn hadoop_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::HadoopJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::ordered_job::JobType::HadoopJob(v) => std::option::Option::Some(v),
@@ -15342,7 +15399,7 @@ impl OrderedJob {
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `SparkJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spark_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkJob>> {
+    pub fn spark_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::ordered_job::JobType::SparkJob(v) => std::option::Option::Some(v),
@@ -15353,9 +15410,7 @@ impl OrderedJob {
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `PysparkJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pyspark_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PySparkJob>> {
+    pub fn pyspark_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::PySparkJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::ordered_job::JobType::PysparkJob(v) => std::option::Option::Some(v),
@@ -15366,7 +15421,7 @@ impl OrderedJob {
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `HiveJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_hive_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::HiveJob>> {
+    pub fn hive_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::HiveJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::ordered_job::JobType::HiveJob(v) => std::option::Option::Some(v),
@@ -15377,7 +15432,7 @@ impl OrderedJob {
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `PigJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pig_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::PigJob>> {
+    pub fn pig_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::PigJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::ordered_job::JobType::PigJob(v) => std::option::Option::Some(v),
@@ -15388,9 +15443,7 @@ impl OrderedJob {
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `SparkRJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spark_r_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SparkRJob>> {
+    pub fn spark_r_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkRJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::ordered_job::JobType::SparkRJob(v) => std::option::Option::Some(v),
@@ -15401,7 +15454,7 @@ impl OrderedJob {
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `SparkSqlJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spark_sql_job(
+    pub fn spark_sql_job(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SparkSqlJob>> {
         #[allow(unreachable_patterns)]
@@ -15414,7 +15467,7 @@ impl OrderedJob {
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `PrestoJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_presto_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::PrestoJob>> {
+    pub fn presto_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::PrestoJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::ordered_job::JobType::PrestoJob(v) => std::option::Option::Some(v),
@@ -15425,7 +15478,7 @@ impl OrderedJob {
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `TrinoJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_trino_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::TrinoJob>> {
+    pub fn trino_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::TrinoJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::ordered_job::JobType::TrinoJob(v) => std::option::Option::Some(v),
@@ -15436,7 +15489,7 @@ impl OrderedJob {
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `FlinkJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_flink_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::FlinkJob>> {
+    pub fn flink_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::FlinkJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::ordered_job::JobType::FlinkJob(v) => std::option::Option::Some(v),
@@ -15777,7 +15830,10 @@ impl ParameterValidation {
         std::default::Default::default()
     }
 
-    /// Sets the value of `validation_type`.
+    /// Sets the value of [validation_type][crate::model::ParameterValidation::validation_type].
+    ///
+    /// Note that all the setters affecting `validation_type` are mutually
+    /// exclusive.
     pub fn set_validation_type<
         T: std::convert::Into<std::option::Option<crate::model::parameter_validation::ValidationType>>,
     >(
@@ -15791,9 +15847,7 @@ impl ParameterValidation {
     /// The value of [validation_type][crate::model::ParameterValidation::validation_type]
     /// if it holds a `Regex`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_regex(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RegexValidation>> {
+    pub fn regex(&self) -> std::option::Option<&std::boxed::Box<crate::model::RegexValidation>> {
         #[allow(unreachable_patterns)]
         self.validation_type.as_ref().and_then(|v| match v {
             crate::model::parameter_validation::ValidationType::Regex(v) => {
@@ -15806,9 +15860,7 @@ impl ParameterValidation {
     /// The value of [validation_type][crate::model::ParameterValidation::validation_type]
     /// if it holds a `Values`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_values(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ValueValidation>> {
+    pub fn values(&self) -> std::option::Option<&std::boxed::Box<crate::model::ValueValidation>> {
         #[allow(unreachable_patterns)]
         self.validation_type.as_ref().and_then(|v| match v {
             crate::model::parameter_validation::ValidationType::Values(v) => {

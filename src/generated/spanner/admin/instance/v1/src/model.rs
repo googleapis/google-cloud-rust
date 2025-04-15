@@ -824,7 +824,10 @@ impl ReplicaComputeCapacity {
         self
     }
 
-    /// Sets the value of `compute_capacity`.
+    /// Sets the value of [compute_capacity][crate::model::ReplicaComputeCapacity::compute_capacity].
+    ///
+    /// Note that all the setters affecting `compute_capacity` are mutually
+    /// exclusive.
     pub fn set_compute_capacity<
         T: std::convert::Into<
                 std::option::Option<crate::model::replica_compute_capacity::ComputeCapacity>,
@@ -840,7 +843,7 @@ impl ReplicaComputeCapacity {
     /// The value of [compute_capacity][crate::model::ReplicaComputeCapacity::compute_capacity]
     /// if it holds a `NodeCount`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_node_count(&self) -> std::option::Option<&i32> {
+    pub fn node_count(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.compute_capacity.as_ref().and_then(|v| match v {
             crate::model::replica_compute_capacity::ComputeCapacity::NodeCount(v) => {
@@ -853,7 +856,7 @@ impl ReplicaComputeCapacity {
     /// The value of [compute_capacity][crate::model::ReplicaComputeCapacity::compute_capacity]
     /// if it holds a `ProcessingUnits`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_processing_units(&self) -> std::option::Option<&i32> {
+    pub fn processing_units(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.compute_capacity.as_ref().and_then(|v| match v {
             crate::model::replica_compute_capacity::ComputeCapacity::ProcessingUnits(v) => {
@@ -1039,7 +1042,10 @@ pub mod autoscaling_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `min_limit`.
+        /// Sets the value of [min_limit][crate::model::autoscaling_config::AutoscalingLimits::min_limit].
+        ///
+        /// Note that all the setters affecting `min_limit` are mutually
+        /// exclusive.
         pub fn set_min_limit<
             T: std::convert::Into<
                     std::option::Option<
@@ -1057,7 +1063,7 @@ pub mod autoscaling_config {
         /// The value of [min_limit][crate::model::autoscaling_config::AutoscalingLimits::min_limit]
         /// if it holds a `MinNodes`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_min_nodes(&self) -> std::option::Option<&i32> {
+        pub fn min_nodes(&self) -> std::option::Option<&i32> {
             #[allow(unreachable_patterns)]
             self.min_limit.as_ref().and_then(|v| match v {
                 crate::model::autoscaling_config::autoscaling_limits::MinLimit::MinNodes(v) => {
@@ -1070,7 +1076,7 @@ pub mod autoscaling_config {
         /// The value of [min_limit][crate::model::autoscaling_config::AutoscalingLimits::min_limit]
         /// if it holds a `MinProcessingUnits`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_min_processing_units(&self) -> std::option::Option<&i32> {
+        pub fn min_processing_units(&self) -> std::option::Option<&i32> {
             #[allow(unreachable_patterns)]
             self.min_limit.as_ref().and_then(|v| match v {
                 crate::model::autoscaling_config::autoscaling_limits::MinLimit::MinProcessingUnits(v) => std::option::Option::Some(v),
@@ -1104,7 +1110,10 @@ pub mod autoscaling_config {
             self
         }
 
-        /// Sets the value of `max_limit`.
+        /// Sets the value of [max_limit][crate::model::autoscaling_config::AutoscalingLimits::max_limit].
+        ///
+        /// Note that all the setters affecting `max_limit` are mutually
+        /// exclusive.
         pub fn set_max_limit<
             T: std::convert::Into<
                     std::option::Option<
@@ -1122,7 +1131,7 @@ pub mod autoscaling_config {
         /// The value of [max_limit][crate::model::autoscaling_config::AutoscalingLimits::max_limit]
         /// if it holds a `MaxNodes`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_max_nodes(&self) -> std::option::Option<&i32> {
+        pub fn max_nodes(&self) -> std::option::Option<&i32> {
             #[allow(unreachable_patterns)]
             self.max_limit.as_ref().and_then(|v| match v {
                 crate::model::autoscaling_config::autoscaling_limits::MaxLimit::MaxNodes(v) => {
@@ -1135,7 +1144,7 @@ pub mod autoscaling_config {
         /// The value of [max_limit][crate::model::autoscaling_config::AutoscalingLimits::max_limit]
         /// if it holds a `MaxProcessingUnits`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_max_processing_units(&self) -> std::option::Option<&i32> {
+        pub fn max_processing_units(&self) -> std::option::Option<&i32> {
             #[allow(unreachable_patterns)]
             self.max_limit.as_ref().and_then(|v| match v {
                 crate::model::autoscaling_config::autoscaling_limits::MaxLimit::MaxProcessingUnits(v) => std::option::Option::Some(v),
@@ -3567,7 +3576,10 @@ impl InstancePartition {
         self
     }
 
-    /// Sets the value of `compute_capacity`.
+    /// Sets the value of [compute_capacity][crate::model::InstancePartition::compute_capacity].
+    ///
+    /// Note that all the setters affecting `compute_capacity` are mutually
+    /// exclusive.
     pub fn set_compute_capacity<
         T: std::convert::Into<std::option::Option<crate::model::instance_partition::ComputeCapacity>>,
     >(
@@ -3581,7 +3593,7 @@ impl InstancePartition {
     /// The value of [compute_capacity][crate::model::InstancePartition::compute_capacity]
     /// if it holds a `NodeCount`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_node_count(&self) -> std::option::Option<&i32> {
+    pub fn node_count(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.compute_capacity.as_ref().and_then(|v| match v {
             crate::model::instance_partition::ComputeCapacity::NodeCount(v) => {
@@ -3594,7 +3606,7 @@ impl InstancePartition {
     /// The value of [compute_capacity][crate::model::InstancePartition::compute_capacity]
     /// if it holds a `ProcessingUnits`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_processing_units(&self) -> std::option::Option<&i32> {
+    pub fn processing_units(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.compute_capacity.as_ref().and_then(|v| match v {
             crate::model::instance_partition::ComputeCapacity::ProcessingUnits(v) => {

@@ -201,20 +201,14 @@ impl super::stub::GroupService for GroupService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+        let builder = req.children_of_group().iter().fold(builder, |builder, p| {
+            builder.query(&[("childrenOfGroup", p)])
+        });
+        let builder = req.ancestors_of_group().iter().fold(builder, |builder, p| {
+            builder.query(&[("ancestorsOfGroup", p)])
+        });
         let builder = req
-            .get_children_of_group()
-            .iter()
-            .fold(builder, |builder, p| {
-                builder.query(&[("childrenOfGroup", p)])
-            });
-        let builder = req
-            .get_ancestors_of_group()
-            .iter()
-            .fold(builder, |builder, p| {
-                builder.query(&[("ancestorsOfGroup", p)])
-            });
-        let builder = req
-            .get_descendants_of_group()
+            .descendants_of_group()
             .iter()
             .fold(builder, |builder, p| {
                 builder.query(&[("descendantsOfGroup", p)])

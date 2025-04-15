@@ -3020,7 +3020,10 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
         self
     }
 
-    /// Sets the value of `sync_config`.
+    /// Sets the value of [sync_config][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_config].
+    ///
+    /// Note that all the setters affecting `sync_config` are mutually
+    /// exclusive.
     pub fn set_sync_config<T: std::convert::Into<std::option::Option<crate::model::sql_instances_verify_external_sync_settings_request::SyncConfig>>>(mut self, v: T) -> Self
     {
         self.sync_config = v.into();
@@ -3030,7 +3033,7 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
     /// The value of [sync_config][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_config]
     /// if it holds a `MysqlSyncConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_mysql_sync_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::MySqlSyncConfig>> {
+    pub fn mysql_sync_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::MySqlSyncConfig>> {
         #[allow(unreachable_patterns)]
         self.sync_config.as_ref().and_then(|v| match v {
             crate::model::sql_instances_verify_external_sync_settings_request::SyncConfig::MysqlSyncConfig(v) => std::option::Option::Some(v),
@@ -3270,7 +3273,10 @@ impl SqlInstancesStartExternalSyncRequest {
         self
     }
 
-    /// Sets the value of `sync_config`.
+    /// Sets the value of [sync_config][crate::model::SqlInstancesStartExternalSyncRequest::sync_config].
+    ///
+    /// Note that all the setters affecting `sync_config` are mutually
+    /// exclusive.
     pub fn set_sync_config<T: std::convert::Into<std::option::Option<crate::model::sql_instances_start_external_sync_request::SyncConfig>>>(mut self, v: T) -> Self
     {
         self.sync_config = v.into();
@@ -3280,7 +3286,7 @@ impl SqlInstancesStartExternalSyncRequest {
     /// The value of [sync_config][crate::model::SqlInstancesStartExternalSyncRequest::sync_config]
     /// if it holds a `MysqlSyncConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_mysql_sync_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::MySqlSyncConfig>> {
+    pub fn mysql_sync_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::MySqlSyncConfig>> {
         #[allow(unreachable_patterns)]
         self.sync_config.as_ref().and_then(|v| match v {
             crate::model::sql_instances_start_external_sync_request::SyncConfig::MysqlSyncConfig(v) => std::option::Option::Some(v),
@@ -7520,7 +7526,10 @@ impl Database {
         self
     }
 
-    /// Sets the value of `database_details`.
+    /// Sets the value of [database_details][crate::model::Database::database_details].
+    ///
+    /// Note that all the setters affecting `database_details` are mutually
+    /// exclusive.
     pub fn set_database_details<T: std::convert::Into<std::option::Option<crate::model::database::DatabaseDetails>>>(mut self, v: T) -> Self
     {
         self.database_details = v.into();
@@ -7530,7 +7539,7 @@ impl Database {
     /// The value of [database_details][crate::model::Database::database_details]
     /// if it holds a `SqlserverDatabaseDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sqlserver_database_details(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerDatabaseDetails>> {
+    pub fn sqlserver_database_details(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerDatabaseDetails>> {
         #[allow(unreachable_patterns)]
         self.database_details.as_ref().and_then(|v| match v {
             crate::model::database::DatabaseDetails::SqlserverDatabaseDetails(v) => std::option::Option::Some(v),
@@ -12682,7 +12691,10 @@ impl User {
         self
     }
 
-    /// Sets the value of `user_details`.
+    /// Sets the value of [user_details][crate::model::User::user_details].
+    ///
+    /// Note that all the setters affecting `user_details` are mutually
+    /// exclusive.
     pub fn set_user_details<T: std::convert::Into<std::option::Option<crate::model::user::UserDetails>>>(mut self, v: T) -> Self
     {
         self.user_details = v.into();
@@ -12692,7 +12704,7 @@ impl User {
     /// The value of [user_details][crate::model::User::user_details]
     /// if it holds a `SqlserverUserDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sqlserver_user_details(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerUserDetails>> {
+    pub fn sqlserver_user_details(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerUserDetails>> {
         #[allow(unreachable_patterns)]
         self.user_details.as_ref().and_then(|v| match v {
             crate::model::user::UserDetails::SqlserverUserDetails(v) => std::option::Option::Some(v),

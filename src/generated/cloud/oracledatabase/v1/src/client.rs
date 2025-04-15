@@ -391,6 +391,63 @@ impl OracleDatabase {
             .set_parent(parent.into())
     }
 
+    /// Stops an Autonomous Database.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn stop_autonomous_database(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::oracle_database::StopAutonomousDatabase {
+        super::builder::oracle_database::StopAutonomousDatabase::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Starts an Autonomous Database.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn start_autonomous_database(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::oracle_database::StartAutonomousDatabase {
+        super::builder::oracle_database::StartAutonomousDatabase::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Restarts an Autonomous Database.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn restart_autonomous_database(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::oracle_database::RestartAutonomousDatabase {
+        super::builder::oracle_database::RestartAutonomousDatabase::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,

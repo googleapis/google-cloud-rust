@@ -27,18 +27,18 @@ repository.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
-async-trait = { version = "0.1" }
-bytes       = { version = "1", features = ["serde"] }
-http        = "1"
-lazy_static = "1"
-prost       = "0.13"
-prost-types = "0.13"
-serde       = { version = "1", features = ["serde_derive"] }
-serde_json  = { version = "1" }
-serde_with  = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
-tonic       = { version = "0.13", features = ["tls-native-roots", "tls-ring"] }
-tokio       = { version = "1", features = ["macros", "rt-multi-thread"] }
-tracing     = "0.1"
+async-trait           = { version = "0.1" }
+bytes                 = { version = "1", features = ["serde"] }
+http                  = "1"
+lazy_static           = "1"
+prost.workspace       = true
+prost-types.workspace = true
+serde                 = { version = "1", features = ["serde_derive"] }
+serde_json            = { version = "1" }
+serde_with            = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
+tonic.workspace       = true
+tokio                 = { version = "1", features = ["macros", "rt-multi-thread"] }
+tracing               = "0.1"
 # Local crates
 auth.workspace  = true
 gax             = { workspace = true, features = ["unstable-sdk-client"] }

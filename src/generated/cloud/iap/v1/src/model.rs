@@ -347,17 +347,16 @@ impl wkt::message::Message for UpdateTunnelDestGroupRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TunnelDestGroup {
-    /// Required. Immutable. Identifier for the TunnelDestGroup. Must be unique
-    /// within the project and contain only lower case letters (a-z) and dashes
-    /// (-).
+    /// Identifier. Identifier for the TunnelDestGroup. Must be unique within the
+    /// project and contain only lower case letters (a-z) and dashes (-).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    /// Unordered list. List of CIDRs that this group applies to.
+    /// Optional. Unordered list. List of CIDRs that this group applies to.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub cidrs: std::vec::Vec<std::string::String>,
 
-    /// Unordered list. List of FQDNs that this group applies to.
+    /// Optional. Unordered list. List of FQDNs that this group applies to.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub fqdns: std::vec::Vec<std::string::String>,
 
@@ -506,11 +505,11 @@ pub struct IapSettings {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    /// Top level wrapper for all access related setting in IAP
+    /// Optional. Top level wrapper for all access related setting in IAP
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub access_settings: std::option::Option<crate::model::AccessSettings>,
 
-    /// Top level wrapper for all application related settings in IAP
+    /// Optional. Top level wrapper for all application related settings in IAP
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub application_settings: std::option::Option<crate::model::ApplicationSettings>,
 
@@ -564,25 +563,36 @@ impl wkt::message::Message for IapSettings {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AccessSettings {
-    /// GCIP claims and endpoint configurations for 3p identity providers.
+    /// Optional. GCIP claims and endpoint configurations for 3p identity
+    /// providers.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub gcip_settings: std::option::Option<crate::model::GcipSettings>,
 
-    /// Configuration to allow cross-origin requests via IAP.
+    /// Optional. Configuration to allow cross-origin requests via IAP.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cors_settings: std::option::Option<crate::model::CorsSettings>,
 
-    /// Settings to configure IAP's OAuth behavior.
+    /// Optional. Settings to configure IAP's OAuth behavior.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub oauth_settings: std::option::Option<crate::model::OAuthSettings>,
 
-    /// Settings to configure reauthentication policies in IAP.
+    /// Optional. Settings to configure reauthentication policies in IAP.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub reauth_settings: std::option::Option<crate::model::ReauthSettings>,
 
-    /// Settings to configure and enable allowed domains.
+    /// Optional. Settings to configure and enable allowed domains.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub allowed_domains_settings: std::option::Option<crate::model::AllowedDomainsSettings>,
+
+    /// Optional. Settings to configure the workforce identity federation,
+    /// including workforce pools and OAuth 2.0 settings.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub workforce_identity_settings: std::option::Option<crate::model::WorkforceIdentitySettings>,
+
+    /// Optional. Identity sources that IAP can use to authenticate the end user.
+    /// Only one identity source can be configured.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub identity_sources: std::vec::Vec<crate::model::access_settings::IdentitySource>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -647,11 +657,100 @@ impl AccessSettings {
         self.allowed_domains_settings = v.into();
         self
     }
+
+    /// Sets the value of [workforce_identity_settings][crate::model::AccessSettings::workforce_identity_settings].
+    pub fn set_workforce_identity_settings<
+        T: std::convert::Into<std::option::Option<crate::model::WorkforceIdentitySettings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.workforce_identity_settings = v.into();
+        self
+    }
+
+    /// Sets the value of [identity_sources][crate::model::AccessSettings::identity_sources].
+    pub fn set_identity_sources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::access_settings::IdentitySource>,
+    {
+        use std::iter::Iterator;
+        self.identity_sources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for AccessSettings {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.iap.v1.AccessSettings"
+    }
+}
+
+/// Defines additional types related to [AccessSettings].
+pub mod access_settings {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Types of identity source supported by IAP.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct IdentitySource(i32);
+
+    impl IdentitySource {
+        /// IdentitySource Unspecified.
+        /// When selected, IAP relies on which identity settings are fully configured
+        /// to redirect the traffic to. The precedence order is
+        /// WorkforceIdentitySettings > GcipSettings. If none is set, default to use
+        /// Google identity.
+        pub const IDENTITY_SOURCE_UNSPECIFIED: IdentitySource = IdentitySource::new(0);
+
+        /// Use external identities set up on Google Cloud Workforce Identity
+        /// Federation.
+        pub const WORKFORCE_IDENTITY_FEDERATION: IdentitySource = IdentitySource::new(3);
+
+        /// Creates a new IdentitySource instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("IDENTITY_SOURCE_UNSPECIFIED"),
+                3 => std::borrow::Cow::Borrowed("WORKFORCE_IDENTITY_FEDERATION"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "IDENTITY_SOURCE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::IDENTITY_SOURCE_UNSPECIFIED)
+                }
+                "WORKFORCE_IDENTITY_FEDERATION" => {
+                    std::option::Option::Some(Self::WORKFORCE_IDENTITY_FEDERATION)
+                }
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for IdentitySource {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for IdentitySource {
+        fn default() -> Self {
+            Self::new(0)
+        }
     }
 }
 
@@ -661,7 +760,7 @@ impl wkt::message::Message for AccessSettings {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GcipSettings {
-    /// GCIP tenant ids that are linked to the IAP resource.
+    /// Optional. GCIP tenant ids that are linked to the IAP resource.
     /// tenant_ids could be a string beginning with a number character to indicate
     /// authenticating with GCIP tenant flow, or in the format of _\<ProjectNumber\>
     /// to indicate authenticating with GCIP agent flow.
@@ -764,7 +863,7 @@ pub struct OAuthSettings {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub login_hint: std::option::Option<wkt::StringValue>,
 
-    /// List of OAuth client IDs allowed to programmatically authenticate with IAP.
+    /// Optional. List of client ids allowed to use IAP programmatically.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub programmatic_clients: std::vec::Vec<std::string::String>,
 
@@ -804,22 +903,134 @@ impl wkt::message::Message for OAuthSettings {
     }
 }
 
+/// WorkforceIdentitySettings allows customers to configure workforce pools and
+/// OAuth 2.0 settings to gate their applications using a third-party IdP with
+/// access control.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct WorkforceIdentitySettings {
+    /// The workforce pool resources. Only one workforce pool is accepted.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub workforce_pools: std::vec::Vec<std::string::String>,
+
+    /// OAuth 2.0 settings for IAP to perform OIDC flow with workforce identity
+    /// federation services.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub oauth2: std::option::Option<crate::model::OAuth2>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkforceIdentitySettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [oauth2][crate::model::WorkforceIdentitySettings::oauth2].
+    pub fn set_oauth2<T: std::convert::Into<std::option::Option<crate::model::OAuth2>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.oauth2 = v.into();
+        self
+    }
+
+    /// Sets the value of [workforce_pools][crate::model::WorkforceIdentitySettings::workforce_pools].
+    pub fn set_workforce_pools<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.workforce_pools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for WorkforceIdentitySettings {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.iap.v1.WorkforceIdentitySettings"
+    }
+}
+
+/// The OAuth 2.0 Settings
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct OAuth2 {
+    /// The OAuth 2.0 client ID registered in the workforce identity federation
+    /// OAuth 2.0 Server.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub client_id: std::string::String,
+
+    /// Input only. The OAuth 2.0 client secret created while registering the
+    /// client ID.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub client_secret: std::string::String,
+
+    /// Output only. SHA256 hash value for the client secret. This field is
+    /// returned by IAP when the settings are retrieved.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub client_secret_sha256: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl OAuth2 {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [client_id][crate::model::OAuth2::client_id].
+    pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client_id = v.into();
+        self
+    }
+
+    /// Sets the value of [client_secret][crate::model::OAuth2::client_secret].
+    pub fn set_client_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client_secret = v.into();
+        self
+    }
+
+    /// Sets the value of [client_secret_sha256][crate::model::OAuth2::client_secret_sha256].
+    pub fn set_client_secret_sha256<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.client_secret_sha256 = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for OAuth2 {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.iap.v1.OAuth2"
+    }
+}
+
 /// Configuration for IAP reauthentication policies.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ReauthSettings {
-    /// Reauth method requested.
+    /// Optional. Reauth method requested.
     pub method: crate::model::reauth_settings::Method,
 
-    /// Reauth session lifetime, how long before a user has to reauthenticate
-    /// again.
+    /// Optional. Reauth session lifetime, how long before a user has to
+    /// reauthenticate again.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub max_age: std::option::Option<wkt::Duration>,
 
-    /// How IAP determines the effective policy in cases of hierarchial policies.
-    /// Policies are merged from higher in the hierarchy to lower in the hierarchy.
+    /// Optional. How IAP determines the effective policy in cases of hierarchical
+    /// policies. Policies are merged from higher in the hierarchy to lower in the
+    /// hierarchy.
     pub policy_type: crate::model::reauth_settings::PolicyType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -938,7 +1149,7 @@ pub mod reauth_settings {
         }
     }
 
-    /// Type of policy in the case of hierarchial policies.
+    /// Type of policy in the case of hierarchical policies.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct PolicyType(i32);
 
@@ -1006,11 +1217,11 @@ pub mod reauth_settings {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AllowedDomainsSettings {
-    /// Configuration for customers to opt in for the feature.
+    /// Optional. Configuration for customers to opt in for the feature.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub enable: std::option::Option<bool>,
 
-    /// List of trusted domains.
+    /// Optional. List of trusted domains.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub domains: std::vec::Vec<std::string::String>,
 
@@ -1053,11 +1264,11 @@ impl wkt::message::Message for AllowedDomainsSettings {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ApplicationSettings {
-    /// Settings to configure IAP's behavior for a service mesh.
+    /// Optional. Settings to configure IAP's behavior for a service mesh.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub csm_settings: std::option::Option<crate::model::CsmSettings>,
 
-    /// Customization for Access Denied page.
+    /// Optional. Customization for Access Denied page.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub access_denied_page_settings: std::option::Option<crate::model::AccessDeniedPageSettings>,
 
@@ -1066,7 +1277,7 @@ pub struct ApplicationSettings {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cookie_domain: std::option::Option<wkt::StringValue>,
 
-    /// Settings to configure attribute propagation.
+    /// Optional. Settings to configure attribute propagation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub attribute_propagation_settings:
         std::option::Option<crate::model::AttributePropagationSettings>,
@@ -1247,9 +1458,9 @@ impl wkt::message::Message for AccessDeniedPageSettings {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AttributePropagationSettings {
-    /// Raw string CEL expression. Must return a list of attributes. A maximum of
-    /// 45 attributes can be selected. Expressions can select different attribute
-    /// types from `attributes`: `attributes.saml_attributes`,
+    /// Optional. Raw string CEL expression. Must return a list of attributes. A
+    /// maximum of 45 attributes can be selected. Expressions can select different
+    /// attribute types from `attributes`: `attributes.saml_attributes`,
     /// `attributes.iap_attributes`. The following functions are supported:
     ///
     /// - filter `<list>.filter(<iter_var>, <predicate>)`: Returns a subset of
@@ -1279,16 +1490,16 @@ pub struct AttributePropagationSettings {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expression: std::option::Option<std::string::String>,
 
-    /// Which output credentials attributes selected by the CEL expression should
-    /// be propagated in. All attributes will be fully duplicated in each selected
-    /// output credential.
+    /// Optional. Which output credentials attributes selected by the CEL
+    /// expression should be propagated in. All attributes will be fully duplicated
+    /// in each selected output credential.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub output_credentials:
         std::vec::Vec<crate::model::attribute_propagation_settings::OutputCredentials>,
 
-    /// Whether the provided attribute propagation settings should be evaluated on
-    /// user requests. If set to true, attributes returned from the expression will
-    /// be propagated in the set output credentials.
+    /// Optional. Whether the provided attribute propagation settings should be
+    /// evaluated on user requests. If set to true, attributes returned from the
+    /// expression will be propagated in the set output credentials.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub enable: std::option::Option<bool>,
 
@@ -1405,6 +1616,72 @@ pub mod attribute_propagation_settings {
         fn default() -> Self {
             Self::new(0)
         }
+    }
+}
+
+/// Request sent to IAP Expression Linter endpoint.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ValidateIapAttributeExpressionRequest {
+    /// Required. The resource name of the IAP protected resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// Required. User input string expression. Should be of the form
+    /// `attributes.saml_attributes.filter(attribute, attribute.name in
+    /// ['{attribute_name}', '{attribute_name}'])`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub expression: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ValidateIapAttributeExpressionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ValidateIapAttributeExpressionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [expression][crate::model::ValidateIapAttributeExpressionRequest::expression].
+    pub fn set_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.expression = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ValidateIapAttributeExpressionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.iap.v1.ValidateIapAttributeExpressionRequest"
+    }
+}
+
+/// IAP Expression Linter endpoint returns empty response body.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ValidateIapAttributeExpressionResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ValidateIapAttributeExpressionResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for ValidateIapAttributeExpressionResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.iap.v1.ValidateIapAttributeExpressionResponse"
     }
 }
 

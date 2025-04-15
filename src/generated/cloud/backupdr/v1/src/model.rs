@@ -1555,7 +1555,10 @@ impl BackupRule {
         self
     }
 
-    /// Sets the value of `backup_schedule_oneof`.
+    /// Sets the value of [backup_schedule_oneof][crate::model::BackupRule::backup_schedule_oneof].
+    ///
+    /// Note that all the setters affecting `backup_schedule_oneof` are mutually
+    /// exclusive.
     pub fn set_backup_schedule_oneof<
         T: std::convert::Into<std::option::Option<crate::model::backup_rule::BackupScheduleOneof>>,
     >(
@@ -1569,7 +1572,7 @@ impl BackupRule {
     /// The value of [backup_schedule_oneof][crate::model::BackupRule::backup_schedule_oneof]
     /// if it holds a `StandardSchedule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_standard_schedule(
+    pub fn standard_schedule(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StandardSchedule>> {
         #[allow(unreachable_patterns)]
@@ -3688,7 +3691,10 @@ impl DataSource {
         self
     }
 
-    /// Sets the value of `source_resource`.
+    /// Sets the value of [source_resource][crate::model::DataSource::source_resource].
+    ///
+    /// Note that all the setters affecting `source_resource` are mutually
+    /// exclusive.
     pub fn set_source_resource<
         T: std::convert::Into<std::option::Option<crate::model::data_source::SourceResource>>,
     >(
@@ -3702,7 +3708,7 @@ impl DataSource {
     /// The value of [source_resource][crate::model::DataSource::source_resource]
     /// if it holds a `DataSourceGcpResource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_data_source_gcp_resource(
+    pub fn data_source_gcp_resource(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DataSourceGcpResource>> {
         #[allow(unreachable_patterns)]
@@ -3717,7 +3723,7 @@ impl DataSource {
     /// The value of [source_resource][crate::model::DataSource::source_resource]
     /// if it holds a `DataSourceBackupApplianceApplication`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_data_source_backup_appliance_application(
+    pub fn data_source_backup_appliance_application(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DataSourceBackupApplianceApplication>>
     {
@@ -3926,7 +3932,10 @@ impl BackupConfigInfo {
         self
     }
 
-    /// Sets the value of `backup_config`.
+    /// Sets the value of [backup_config][crate::model::BackupConfigInfo::backup_config].
+    ///
+    /// Note that all the setters affecting `backup_config` are mutually
+    /// exclusive.
     pub fn set_backup_config<
         T: std::convert::Into<std::option::Option<crate::model::backup_config_info::BackupConfig>>,
     >(
@@ -3940,7 +3949,7 @@ impl BackupConfigInfo {
     /// The value of [backup_config][crate::model::BackupConfigInfo::backup_config]
     /// if it holds a `GcpBackupConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcp_backup_config(
+    pub fn gcp_backup_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcpBackupConfig>> {
         #[allow(unreachable_patterns)]
@@ -3955,7 +3964,7 @@ impl BackupConfigInfo {
     /// The value of [backup_config][crate::model::BackupConfigInfo::backup_config]
     /// if it holds a `BackupApplianceBackupConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backup_appliance_backup_config(
+    pub fn backup_appliance_backup_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BackupApplianceBackupConfig>> {
         #[allow(unreachable_patterns)]
@@ -4328,7 +4337,10 @@ impl DataSourceGcpResource {
         self
     }
 
-    /// Sets the value of `gcp_resource_properties`.
+    /// Sets the value of [gcp_resource_properties][crate::model::DataSourceGcpResource::gcp_resource_properties].
+    ///
+    /// Note that all the setters affecting `gcp_resource_properties` are mutually
+    /// exclusive.
     pub fn set_gcp_resource_properties<
         T: std::convert::Into<
                 std::option::Option<crate::model::data_source_gcp_resource::GcpResourceProperties>,
@@ -4344,7 +4356,7 @@ impl DataSourceGcpResource {
     /// The value of [gcp_resource_properties][crate::model::DataSourceGcpResource::gcp_resource_properties]
     /// if it holds a `ComputeInstanceDatasourceProperties`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_compute_instance_datasource_properties(
+    pub fn compute_instance_datasource_properties(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ComputeInstanceDataSourceProperties>>
     {
@@ -4588,7 +4600,10 @@ impl BackupApplianceLockInfo {
         self
     }
 
-    /// Sets the value of `lock_source`.
+    /// Sets the value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source].
+    ///
+    /// Note that all the setters affecting `lock_source` are mutually
+    /// exclusive.
     pub fn set_lock_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::backup_appliance_lock_info::LockSource>,
@@ -4604,7 +4619,7 @@ impl BackupApplianceLockInfo {
     /// The value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
     /// if it holds a `JobName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_job_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn job_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.lock_source.as_ref().and_then(|v| match v {
             crate::model::backup_appliance_lock_info::LockSource::JobName(v) => {
@@ -4617,7 +4632,7 @@ impl BackupApplianceLockInfo {
     /// The value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
     /// if it holds a `BackupImage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backup_image(&self) -> std::option::Option<&std::string::String> {
+    pub fn backup_image(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.lock_source.as_ref().and_then(|v| match v {
             crate::model::backup_appliance_lock_info::LockSource::BackupImage(v) => {
@@ -4630,7 +4645,7 @@ impl BackupApplianceLockInfo {
     /// The value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source]
     /// if it holds a `SlaId`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sla_id(&self) -> std::option::Option<&i64> {
+    pub fn sla_id(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.lock_source.as_ref().and_then(|v| match v {
             crate::model::backup_appliance_lock_info::LockSource::SlaId(v) => {
@@ -4736,7 +4751,10 @@ impl BackupLock {
         self
     }
 
-    /// Sets the value of `client_lock_info`.
+    /// Sets the value of [client_lock_info][crate::model::BackupLock::client_lock_info].
+    ///
+    /// Note that all the setters affecting `client_lock_info` are mutually
+    /// exclusive.
     pub fn set_client_lock_info<
         T: std::convert::Into<std::option::Option<crate::model::backup_lock::ClientLockInfo>>,
     >(
@@ -4750,7 +4768,7 @@ impl BackupLock {
     /// The value of [client_lock_info][crate::model::BackupLock::client_lock_info]
     /// if it holds a `BackupApplianceLockInfo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backup_appliance_lock_info(
+    pub fn backup_appliance_lock_info(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BackupApplianceLockInfo>> {
         #[allow(unreachable_patterns)]
@@ -4765,7 +4783,7 @@ impl BackupLock {
     /// The value of [client_lock_info][crate::model::BackupLock::client_lock_info]
     /// if it holds a `ServiceLockInfo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_service_lock_info(
+    pub fn service_lock_info(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ServiceLockInfo>> {
         #[allow(unreachable_patterns)]
@@ -5048,7 +5066,10 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `backup_properties`.
+    /// Sets the value of [backup_properties][crate::model::Backup::backup_properties].
+    ///
+    /// Note that all the setters affecting `backup_properties` are mutually
+    /// exclusive.
     pub fn set_backup_properties<
         T: std::convert::Into<std::option::Option<crate::model::backup::BackupProperties>>,
     >(
@@ -5062,7 +5083,7 @@ impl Backup {
     /// The value of [backup_properties][crate::model::Backup::backup_properties]
     /// if it holds a `ComputeInstanceBackupProperties`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_compute_instance_backup_properties(
+    pub fn compute_instance_backup_properties(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ComputeInstanceBackupProperties>> {
         #[allow(unreachable_patterns)]
@@ -5077,7 +5098,7 @@ impl Backup {
     /// The value of [backup_properties][crate::model::Backup::backup_properties]
     /// if it holds a `BackupApplianceBackupProperties`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backup_appliance_backup_properties(
+    pub fn backup_appliance_backup_properties(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BackupApplianceBackupProperties>> {
         #[allow(unreachable_patterns)]
@@ -5123,7 +5144,10 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `plan_info`.
+    /// Sets the value of [plan_info][crate::model::Backup::plan_info].
+    ///
+    /// Note that all the setters affecting `plan_info` are mutually
+    /// exclusive.
     pub fn set_plan_info<
         T: std::convert::Into<std::option::Option<crate::model::backup::PlanInfo>>,
     >(
@@ -5137,7 +5161,7 @@ impl Backup {
     /// The value of [plan_info][crate::model::Backup::plan_info]
     /// if it holds a `GcpBackupPlanInfo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcp_backup_plan_info(
+    pub fn gcp_backup_plan_info(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::backup::GCPBackupPlanInfo>> {
         #[allow(unreachable_patterns)]
@@ -6717,7 +6741,10 @@ impl RestoreBackupRequest {
         self
     }
 
-    /// Sets the value of `target_environment`.
+    /// Sets the value of [target_environment][crate::model::RestoreBackupRequest::target_environment].
+    ///
+    /// Note that all the setters affecting `target_environment` are mutually
+    /// exclusive.
     pub fn set_target_environment<
         T: std::convert::Into<
                 std::option::Option<crate::model::restore_backup_request::TargetEnvironment>,
@@ -6733,7 +6760,7 @@ impl RestoreBackupRequest {
     /// The value of [target_environment][crate::model::RestoreBackupRequest::target_environment]
     /// if it holds a `ComputeInstanceTargetEnvironment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_compute_instance_target_environment(
+    pub fn compute_instance_target_environment(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ComputeInstanceTargetEnvironment>> {
         #[allow(unreachable_patterns)]
@@ -6762,7 +6789,10 @@ impl RestoreBackupRequest {
         self
     }
 
-    /// Sets the value of `instance_properties`.
+    /// Sets the value of [instance_properties][crate::model::RestoreBackupRequest::instance_properties].
+    ///
+    /// Note that all the setters affecting `instance_properties` are mutually
+    /// exclusive.
     pub fn set_instance_properties<
         T: std::convert::Into<
                 std::option::Option<crate::model::restore_backup_request::InstanceProperties>,
@@ -6778,7 +6808,7 @@ impl RestoreBackupRequest {
     /// The value of [instance_properties][crate::model::RestoreBackupRequest::instance_properties]
     /// if it holds a `ComputeInstanceRestoreProperties`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_compute_instance_restore_properties(
+    pub fn compute_instance_restore_properties(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ComputeInstanceRestoreProperties>> {
         #[allow(unreachable_patterns)]
@@ -6899,7 +6929,10 @@ impl TargetResource {
         std::default::Default::default()
     }
 
-    /// Sets the value of `target_resource_info`.
+    /// Sets the value of [target_resource_info][crate::model::TargetResource::target_resource_info].
+    ///
+    /// Note that all the setters affecting `target_resource_info` are mutually
+    /// exclusive.
     pub fn set_target_resource_info<
         T: std::convert::Into<std::option::Option<crate::model::target_resource::TargetResourceInfo>>,
     >(
@@ -6913,9 +6946,7 @@ impl TargetResource {
     /// The value of [target_resource_info][crate::model::TargetResource::target_resource_info]
     /// if it holds a `GcpResource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcp_resource(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcpResource>> {
+    pub fn gcp_resource(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcpResource>> {
         #[allow(unreachable_patterns)]
         self.target_resource_info.as_ref().and_then(|v| match v {
             crate::model::target_resource::TargetResourceInfo::GcpResource(v) => {
@@ -8183,7 +8214,10 @@ impl CustomerEncryptionKey {
         self
     }
 
-    /// Sets the value of `key`.
+    /// Sets the value of [key][crate::model::CustomerEncryptionKey::key].
+    ///
+    /// Note that all the setters affecting `key` are mutually
+    /// exclusive.
     pub fn set_key<
         T: std::convert::Into<std::option::Option<crate::model::customer_encryption_key::Key>>,
     >(
@@ -8197,7 +8231,7 @@ impl CustomerEncryptionKey {
     /// The value of [key][crate::model::CustomerEncryptionKey::key]
     /// if it holds a `RawKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_raw_key(&self) -> std::option::Option<&std::string::String> {
+    pub fn raw_key(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.key.as_ref().and_then(|v| match v {
             crate::model::customer_encryption_key::Key::RawKey(v) => std::option::Option::Some(v),
@@ -8208,7 +8242,7 @@ impl CustomerEncryptionKey {
     /// The value of [key][crate::model::CustomerEncryptionKey::key]
     /// if it holds a `RsaEncryptedKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rsa_encrypted_key(&self) -> std::option::Option<&std::string::String> {
+    pub fn rsa_encrypted_key(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.key.as_ref().and_then(|v| match v {
             crate::model::customer_encryption_key::Key::RsaEncryptedKey(v) => {
@@ -8221,7 +8255,7 @@ impl CustomerEncryptionKey {
     /// The value of [key][crate::model::CustomerEncryptionKey::key]
     /// if it holds a `KmsKeyName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_kms_key_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn kms_key_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.key.as_ref().and_then(|v| match v {
             crate::model::customer_encryption_key::Key::KmsKeyName(v) => {

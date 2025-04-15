@@ -208,7 +208,10 @@ impl SharingEnvironmentConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `environment`.
+    /// Sets the value of [environment][crate::model::SharingEnvironmentConfig::environment].
+    ///
+    /// Note that all the setters affecting `environment` are mutually
+    /// exclusive.
     pub fn set_environment<
         T: std::convert::Into<
                 std::option::Option<crate::model::sharing_environment_config::Environment>,
@@ -224,7 +227,7 @@ impl SharingEnvironmentConfig {
     /// The value of [environment][crate::model::SharingEnvironmentConfig::environment]
     /// if it holds a `DefaultExchangeConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_default_exchange_config(
+    pub fn default_exchange_config(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::sharing_environment_config::DefaultExchangeConfig>,
@@ -241,7 +244,7 @@ impl SharingEnvironmentConfig {
     /// The value of [environment][crate::model::SharingEnvironmentConfig::environment]
     /// if it holds a `DcrExchangeConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_dcr_exchange_config(
+    pub fn dcr_exchange_config(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>,
@@ -884,7 +887,10 @@ impl Listing {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Listing::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::listing::Source>>>(
         mut self,
         v: T,
@@ -896,7 +902,7 @@ impl Listing {
     /// The value of [source][crate::model::Listing::source]
     /// if it holds a `BigqueryDataset`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigquery_dataset(
+    pub fn bigquery_dataset(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::listing::BigQueryDatasetSource>> {
         #[allow(unreachable_patterns)]
@@ -909,7 +915,7 @@ impl Listing {
     /// The value of [source][crate::model::Listing::source]
     /// if it holds a `PubsubTopic`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pubsub_topic(
+    pub fn pubsub_topic(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::listing::PubSubTopicSource>> {
         #[allow(unreachable_patterns)]
@@ -1068,7 +1074,10 @@ pub mod listing {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `resource`.
+            /// Sets the value of [resource][crate::model::listing::big_query_dataset_source::SelectedResource::resource].
+            ///
+            /// Note that all the setters affecting `resource` are mutually
+            /// exclusive.
             pub fn set_resource<T: std::convert::Into<std::option::Option<crate::model::listing::big_query_dataset_source::selected_resource::Resource>>>(mut self, v: T) -> Self
             {
                 self.resource = v.into();
@@ -1078,7 +1087,7 @@ pub mod listing {
             /// The value of [resource][crate::model::listing::big_query_dataset_source::SelectedResource::resource]
             /// if it holds a `Table`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_table(&self) -> std::option::Option<&std::string::String> {
+            pub fn table(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.resource.as_ref().and_then(|v| match v {
                     crate::model::listing::big_query_dataset_source::selected_resource::Resource::Table(v) => std::option::Option::Some(v),
@@ -1670,7 +1679,10 @@ impl Subscription {
         self
     }
 
-    /// Sets the value of `resource_name`.
+    /// Sets the value of [resource_name][crate::model::Subscription::resource_name].
+    ///
+    /// Note that all the setters affecting `resource_name` are mutually
+    /// exclusive.
     pub fn set_resource_name<
         T: std::convert::Into<std::option::Option<crate::model::subscription::ResourceName>>,
     >(
@@ -1684,7 +1696,7 @@ impl Subscription {
     /// The value of [resource_name][crate::model::Subscription::resource_name]
     /// if it holds a `Listing`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_listing(&self) -> std::option::Option<&std::string::String> {
+    pub fn listing(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.resource_name.as_ref().and_then(|v| match v {
             crate::model::subscription::ResourceName::Listing(v) => std::option::Option::Some(v),
@@ -1695,7 +1707,7 @@ impl Subscription {
     /// The value of [resource_name][crate::model::Subscription::resource_name]
     /// if it holds a `DataExchange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_data_exchange(&self) -> std::option::Option<&std::string::String> {
+    pub fn data_exchange(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.resource_name.as_ref().and_then(|v| match v {
             crate::model::subscription::ResourceName::DataExchange(v) => {
@@ -1768,7 +1780,10 @@ pub mod subscription {
             self
         }
 
-        /// Sets the value of `reference`.
+        /// Sets the value of [reference][crate::model::subscription::LinkedResource::reference].
+        ///
+        /// Note that all the setters affecting `reference` are mutually
+        /// exclusive.
         pub fn set_reference<
             T: std::convert::Into<
                     std::option::Option<crate::model::subscription::linked_resource::Reference>,
@@ -1784,7 +1799,7 @@ pub mod subscription {
         /// The value of [reference][crate::model::subscription::LinkedResource::reference]
         /// if it holds a `LinkedDataset`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_linked_dataset(&self) -> std::option::Option<&std::string::String> {
+        pub fn linked_dataset(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.reference.as_ref().and_then(|v| match v {
                 crate::model::subscription::linked_resource::Reference::LinkedDataset(v) => {
@@ -1797,7 +1812,7 @@ pub mod subscription {
         /// The value of [reference][crate::model::subscription::LinkedResource::reference]
         /// if it holds a `LinkedPubsubSubscription`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_linked_pubsub_subscription(&self) -> std::option::Option<&std::string::String> {
+        pub fn linked_pubsub_subscription(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.reference.as_ref().and_then(|v| match v {
                 crate::model::subscription::linked_resource::Reference::LinkedPubsubSubscription(v) => std::option::Option::Some(v),
@@ -2671,7 +2686,10 @@ impl SubscribeListingRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::SubscribeListingRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::subscribe_listing_request::Destination>,
@@ -2687,7 +2705,7 @@ impl SubscribeListingRequest {
     /// The value of [destination][crate::model::SubscribeListingRequest::destination]
     /// if it holds a `DestinationDataset`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_dataset(
+    pub fn destination_dataset(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationDataset>> {
         #[allow(unreachable_patterns)]
@@ -2702,7 +2720,7 @@ impl SubscribeListingRequest {
     /// The value of [destination][crate::model::SubscribeListingRequest::destination]
     /// if it holds a `DestinationPubsubSubscription`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_pubsub_subscription(
+    pub fn destination_pubsub_subscription(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationPubSubSubscription>> {
         #[allow(unreachable_patterns)]
@@ -4034,7 +4052,10 @@ impl PushConfig {
         self
     }
 
-    /// Sets the value of `authentication_method`.
+    /// Sets the value of [authentication_method][crate::model::PushConfig::authentication_method].
+    ///
+    /// Note that all the setters affecting `authentication_method` are mutually
+    /// exclusive.
     pub fn set_authentication_method<
         T: std::convert::Into<std::option::Option<crate::model::push_config::AuthenticationMethod>>,
     >(
@@ -4048,7 +4069,7 @@ impl PushConfig {
     /// The value of [authentication_method][crate::model::PushConfig::authentication_method]
     /// if it holds a `OidcToken`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oidc_token(
+    pub fn oidc_token(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::OidcToken>> {
         #[allow(unreachable_patterns)]
@@ -4077,7 +4098,10 @@ impl PushConfig {
         self
     }
 
-    /// Sets the value of `wrapper`.
+    /// Sets the value of [wrapper][crate::model::PushConfig::wrapper].
+    ///
+    /// Note that all the setters affecting `wrapper` are mutually
+    /// exclusive.
     pub fn set_wrapper<
         T: std::convert::Into<std::option::Option<crate::model::push_config::Wrapper>>,
     >(
@@ -4091,7 +4115,7 @@ impl PushConfig {
     /// The value of [wrapper][crate::model::PushConfig::wrapper]
     /// if it holds a `PubsubWrapper`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pubsub_wrapper(
+    pub fn pubsub_wrapper(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::PubsubWrapper>> {
         #[allow(unreachable_patterns)]
@@ -4104,7 +4128,7 @@ impl PushConfig {
     /// The value of [wrapper][crate::model::PushConfig::wrapper]
     /// if it holds a `NoWrapper`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_no_wrapper(
+    pub fn no_wrapper(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::NoWrapper>> {
         #[allow(unreachable_patterns)]
@@ -4532,7 +4556,10 @@ impl CloudStorageConfig {
         self
     }
 
-    /// Sets the value of `output_format`.
+    /// Sets the value of [output_format][crate::model::CloudStorageConfig::output_format].
+    ///
+    /// Note that all the setters affecting `output_format` are mutually
+    /// exclusive.
     pub fn set_output_format<
         T: std::convert::Into<std::option::Option<crate::model::cloud_storage_config::OutputFormat>>,
     >(
@@ -4546,7 +4573,7 @@ impl CloudStorageConfig {
     /// The value of [output_format][crate::model::CloudStorageConfig::output_format]
     /// if it holds a `TextConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text_config(
+    pub fn text_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::TextConfig>> {
         #[allow(unreachable_patterns)]
@@ -4561,7 +4588,7 @@ impl CloudStorageConfig {
     /// The value of [output_format][crate::model::CloudStorageConfig::output_format]
     /// if it holds a `AvroConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_avro_config(
+    pub fn avro_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>> {
         #[allow(unreachable_patterns)]
@@ -4743,7 +4770,10 @@ impl MessageTransform {
         self
     }
 
-    /// Sets the value of `transform`.
+    /// Sets the value of [transform][crate::model::MessageTransform::transform].
+    ///
+    /// Note that all the setters affecting `transform` are mutually
+    /// exclusive.
     pub fn set_transform<
         T: std::convert::Into<std::option::Option<crate::model::message_transform::Transform>>,
     >(
@@ -4757,7 +4787,7 @@ impl MessageTransform {
     /// The value of [transform][crate::model::MessageTransform::transform]
     /// if it holds a `JavascriptUdf`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_javascript_udf(
+    pub fn javascript_udf(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::JavaScriptUDF>> {
         #[allow(unreachable_patterns)]

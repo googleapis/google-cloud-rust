@@ -836,7 +836,10 @@ impl AutomatedBackupPolicy {
         self
     }
 
-    /// Sets the value of `schedule`.
+    /// Sets the value of [schedule][crate::model::AutomatedBackupPolicy::schedule].
+    ///
+    /// Note that all the setters affecting `schedule` are mutually
+    /// exclusive.
     pub fn set_schedule<
         T: std::convert::Into<std::option::Option<crate::model::automated_backup_policy::Schedule>>,
     >(
@@ -850,7 +853,7 @@ impl AutomatedBackupPolicy {
     /// The value of [schedule][crate::model::AutomatedBackupPolicy::schedule]
     /// if it holds a `WeeklySchedule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_weekly_schedule(
+    pub fn weekly_schedule(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::automated_backup_policy::WeeklySchedule>>
     {
@@ -880,7 +883,10 @@ impl AutomatedBackupPolicy {
         self
     }
 
-    /// Sets the value of `retention`.
+    /// Sets the value of [retention][crate::model::AutomatedBackupPolicy::retention].
+    ///
+    /// Note that all the setters affecting `retention` are mutually
+    /// exclusive.
     pub fn set_retention<
         T: std::convert::Into<std::option::Option<crate::model::automated_backup_policy::Retention>>,
     >(
@@ -894,7 +900,7 @@ impl AutomatedBackupPolicy {
     /// The value of [retention][crate::model::AutomatedBackupPolicy::retention]
     /// if it holds a `TimeBasedRetention`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_time_based_retention(
+    pub fn time_based_retention(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::automated_backup_policy::TimeBasedRetention>,
@@ -911,7 +917,7 @@ impl AutomatedBackupPolicy {
     /// The value of [retention][crate::model::AutomatedBackupPolicy::retention]
     /// if it holds a `QuantityBasedRetention`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_quantity_based_retention(
+    pub fn quantity_based_retention(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::automated_backup_policy::QuantityBasedRetention>,
@@ -1989,7 +1995,10 @@ impl Cluster {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Cluster::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::cluster::Source>>>(
         mut self,
         v: T,
@@ -2001,7 +2010,7 @@ impl Cluster {
     /// The value of [source][crate::model::Cluster::source]
     /// if it holds a `BackupSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backup_source(
+    pub fn backup_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BackupSource>> {
         #[allow(unreachable_patterns)]
@@ -2014,7 +2023,7 @@ impl Cluster {
     /// The value of [source][crate::model::Cluster::source]
     /// if it holds a `MigrationSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_migration_source(
+    pub fn migration_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MigrationSource>> {
         #[allow(unreachable_patterns)]
@@ -4243,7 +4252,10 @@ impl SupportedDatabaseFlag {
         self
     }
 
-    /// Sets the value of `restrictions`.
+    /// Sets the value of [restrictions][crate::model::SupportedDatabaseFlag::restrictions].
+    ///
+    /// Note that all the setters affecting `restrictions` are mutually
+    /// exclusive.
     pub fn set_restrictions<
         T: std::convert::Into<
                 std::option::Option<crate::model::supported_database_flag::Restrictions>,
@@ -4259,7 +4271,7 @@ impl SupportedDatabaseFlag {
     /// The value of [restrictions][crate::model::SupportedDatabaseFlag::restrictions]
     /// if it holds a `StringRestrictions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_restrictions(
+    pub fn string_restrictions(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::supported_database_flag::StringRestrictions>,
@@ -4276,7 +4288,7 @@ impl SupportedDatabaseFlag {
     /// The value of [restrictions][crate::model::SupportedDatabaseFlag::restrictions]
     /// if it holds a `IntegerRestrictions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_integer_restrictions(
+    pub fn integer_restrictions(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::supported_database_flag::IntegerRestrictions>,
@@ -5501,7 +5513,10 @@ impl RestoreClusterRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::RestoreClusterRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_cluster_request::Source>>,
     >(
@@ -5515,7 +5530,7 @@ impl RestoreClusterRequest {
     /// The value of [source][crate::model::RestoreClusterRequest::source]
     /// if it holds a `BackupSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backup_source(
+    pub fn backup_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BackupSource>> {
         #[allow(unreachable_patterns)]
@@ -5530,7 +5545,7 @@ impl RestoreClusterRequest {
     /// The value of [source][crate::model::RestoreClusterRequest::source]
     /// if it holds a `ContinuousBackupSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_continuous_backup_source(
+    pub fn continuous_backup_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ContinuousBackupSource>> {
         #[allow(unreachable_patterns)]
@@ -6886,7 +6901,10 @@ impl ExecuteSqlRequest {
         self
     }
 
-    /// Sets the value of `user_credential`.
+    /// Sets the value of [user_credential][crate::model::ExecuteSqlRequest::user_credential].
+    ///
+    /// Note that all the setters affecting `user_credential` are mutually
+    /// exclusive.
     pub fn set_user_credential<
         T: std::convert::Into<std::option::Option<crate::model::execute_sql_request::UserCredential>>,
     >(
@@ -6900,7 +6918,7 @@ impl ExecuteSqlRequest {
     /// The value of [user_credential][crate::model::ExecuteSqlRequest::user_credential]
     /// if it holds a `Password`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_password(&self) -> std::option::Option<&std::string::String> {
+    pub fn password(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.user_credential.as_ref().and_then(|v| match v {
             crate::model::execute_sql_request::UserCredential::Password(v) => {
@@ -8002,7 +8020,10 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets the value of `request_specific`.
+    /// Sets the value of [request_specific][crate::model::OperationMetadata::request_specific].
+    ///
+    /// Note that all the setters affecting `request_specific` are mutually
+    /// exclusive.
     pub fn set_request_specific<
         T: std::convert::Into<std::option::Option<crate::model::operation_metadata::RequestSpecific>>,
     >(
@@ -8016,7 +8037,7 @@ impl OperationMetadata {
     /// The value of [request_specific][crate::model::OperationMetadata::request_specific]
     /// if it holds a `BatchCreateInstancesMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_batch_create_instances_metadata(
+    pub fn batch_create_instances_metadata(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BatchCreateInstancesMetadata>> {
         #[allow(unreachable_patterns)]

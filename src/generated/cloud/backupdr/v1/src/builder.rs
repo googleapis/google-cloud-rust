@@ -1606,7 +1606,10 @@ pub mod backup_dr {
             self
         }
 
-        /// Sets the value of `target_environment`.
+        /// Sets the value of [target_environment][crate::model::RestoreBackupRequest::target_environment].
+        ///
+        /// Note that all the setters affecting `target_environment` are
+        /// mutually exclusive.
         pub fn set_target_environment<
             T: Into<Option<crate::model::restore_backup_request::TargetEnvironment>>,
         >(
@@ -1617,7 +1620,25 @@ pub mod backup_dr {
             self
         }
 
-        /// Sets the value of `instance_properties`.
+        /// Sets the value of [target_environment][crate::model::RestoreBackupRequest::target_environment]
+        /// to hold a `ComputeInstanceTargetEnvironment`.
+        ///
+        /// Note that all the setters affecting `target_environment` are
+        /// mutually exclusive.
+        pub fn set_compute_instance_target_environment<
+            T: std::convert::Into<std::boxed::Box<crate::model::ComputeInstanceTargetEnvironment>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_compute_instance_target_environment(v);
+            self
+        }
+
+        /// Sets the value of [instance_properties][crate::model::RestoreBackupRequest::instance_properties].
+        ///
+        /// Note that all the setters affecting `instance_properties` are
+        /// mutually exclusive.
         pub fn set_instance_properties<
             T: Into<Option<crate::model::restore_backup_request::InstanceProperties>>,
         >(
@@ -1625,6 +1646,21 @@ pub mod backup_dr {
             v: T,
         ) -> Self {
             self.0.request.instance_properties = v.into();
+            self
+        }
+
+        /// Sets the value of [instance_properties][crate::model::RestoreBackupRequest::instance_properties]
+        /// to hold a `ComputeInstanceRestoreProperties`.
+        ///
+        /// Note that all the setters affecting `instance_properties` are
+        /// mutually exclusive.
+        pub fn set_compute_instance_restore_properties<
+            T: std::convert::Into<std::boxed::Box<crate::model::ComputeInstanceRestoreProperties>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_compute_instance_restore_properties(v);
             self
         }
     }

@@ -28,6 +28,10 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
+var omitGeneration = map[string]string{
+	".google.longrunning.Operation": "",
+}
+
 type modelAnnotations struct {
 	// The Dart package name (e.g. google_cloud_secretmanager).
 	PackageName string
@@ -66,6 +70,7 @@ type messageAnnotation struct {
 	Name              string
 	QualifiedName     string
 	DocLines          []string
+	OmitGeneration    bool
 	ConstructorBody   string // A custom body for the message's constructor.
 	HasFields         bool
 	HasCustomEncoding bool
@@ -75,16 +80,17 @@ type messageAnnotation struct {
 
 type methodAnnotation struct {
 	// The method name using Dart naming conventions.
-	Name            string
-	RequestMethod   string
-	RequestType     string
-	ResponseType    string
-	DocLines        []string
-	HasBody         bool
-	ReturnsValue    bool
-	BodyMessageName string
-	PathParams      []*api.Field
-	QueryParams     []*api.Field
+	Name              string
+	RequestMethod     string
+	RequestType       string
+	ResponseType      string
+	DocLines          []string
+	HasBody           bool
+	ReturnsValue      bool
+	BodyMessageName   string
+	PathParams        []*api.Field
+	QueryParams       []*api.Field
+	IsLROGetOperation bool
 }
 
 type pathInfoAnnotation struct {
@@ -95,6 +101,11 @@ type pathInfoAnnotation struct {
 type oneOfAnnotation struct {
 	Name     string
 	DocLines []string
+}
+
+type operationInfoAnnotation struct {
+	ResponseType string
+	MetadataType string
 }
 
 type fieldAnnotation struct {
@@ -221,6 +232,9 @@ func (annotate *annotateModel) annotateModel(options map[string]string) (*modelA
 	// Remove our package self-reference.
 	delete(annotate.imports, model.PackageName)
 
+	// Add a dev dependency on package:lints.
+	devDependencies = append(devDependencies, "lints")
+
 	// Add the import for the google_cloud_gax package.
 	annotate.imports["cloud_gax"] = commonImport
 
@@ -322,13 +336,15 @@ func calculateImports(imports map[string]string) []string {
 		}
 		previousImportType = importType
 
-		// The package:http import should be imported with a prefix.
-		prefix := ""
-		if imp == httpImport {
-			prefix = " as http"
+		// Wrap the first part of the import (or the whole import) in single quotes.
+		index := strings.IndexAny(imp, " ")
+		if index != -1 {
+			imp = "'" + imp[0:index] + "'" + imp[index:]
+		} else {
+			imp = "'" + imp + "'"
 		}
 
-		results = append(results, fmt.Sprintf("import '%s'%s;", imp, prefix))
+		results = append(results, fmt.Sprintf("import %s;", imp))
 	}
 
 	return results
@@ -385,10 +401,13 @@ func (annotate *annotateModel) annotateMessage(m *api.Message, imports map[strin
 	_, hasCustomEncoding := usesCustomEncoding[m.ID]
 	toStringLines := createToStringLines(m)
 
+	_, omit := omitGeneration[m.ID]
+
 	m.Codec = &messageAnnotation{
 		Name:              messageName(m),
 		QualifiedName:     qualifiedName(m),
 		DocLines:          formatDocComments(m.Documentation, annotate.state),
+		OmitGeneration:    omit || m.IsMap,
 		ConstructorBody:   constructorBody,
 		HasFields:         len(m.Fields) > 0,
 		HasCustomEncoding: hasCustomEncoding,
@@ -449,19 +468,42 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 
 	state := annotate.state
 
+	// For 'GetOperation' mixins, we augment the method generation with
+	// additional generic type parameters.
+	isGetOperation := method.Name == "GetOperation" &&
+		method.OutputTypeID == ".google.longrunning.Operation"
+	if method.ID == ".google.longrunning.Operations.GetOperation" {
+		isGetOperation = false
+	}
+
+	if method.OperationInfo != nil {
+		annotate.annotateOperationInfo(method.OperationInfo)
+	}
+
 	annotation := &methodAnnotation{
-		Name:            strcase.ToLowerCamel(method.Name),
-		RequestMethod:   strings.ToLower(method.PathInfo.Verb),
-		RequestType:     annotate.resolveTypeName(state.MessageByID[method.InputTypeID]),
-		ResponseType:    annotate.resolveTypeName(state.MessageByID[method.OutputTypeID]),
-		DocLines:        formatDocComments(method.Documentation, state),
-		HasBody:         method.PathInfo.BodyFieldPath != "",
-		ReturnsValue:    method.OutputTypeID != ".google.protobuf.Empty",
-		BodyMessageName: bodyMessageName,
-		PathParams:      language.PathParams(method, state),
-		QueryParams:     language.QueryParams(method, state),
+		Name:              strcase.ToLowerCamel(method.Name),
+		RequestMethod:     strings.ToLower(method.PathInfo.Verb),
+		RequestType:       annotate.resolveTypeName(state.MessageByID[method.InputTypeID]),
+		ResponseType:      annotate.resolveTypeName(state.MessageByID[method.OutputTypeID]),
+		DocLines:          formatDocComments(method.Documentation, state),
+		HasBody:           method.PathInfo.BodyFieldPath != "",
+		ReturnsValue:      method.OutputTypeID != ".google.protobuf.Empty",
+		BodyMessageName:   bodyMessageName,
+		PathParams:        language.PathParams(method, state),
+		QueryParams:       language.QueryParams(method, state),
+		IsLROGetOperation: isGetOperation,
 	}
 	method.Codec = annotation
+}
+
+func (annotate *annotateModel) annotateOperationInfo(operationInfo *api.OperationInfo) {
+	response := annotate.state.MessageByID[operationInfo.ResponseTypeID]
+	metadata := annotate.state.MessageByID[operationInfo.MetadataTypeID]
+
+	operationInfo.Codec = &operationInfoAnnotation{
+		ResponseType: messageName(response),
+		MetadataType: messageName(metadata),
+	}
 }
 
 func (annotate *annotateModel) annotateOneOf(oneof *api.OneOf) {
@@ -489,66 +531,77 @@ func (annotate *annotateModel) annotateField(field *api.Field) {
 func createFromJsonLine(field *api.Field, state *api.APIState, required bool) string {
 	name := fieldName(field)
 	message := state.MessageByID[field.TypezID]
-	typeName := ""
 
 	isList := field.Repeated
-	isMessage := field.Typez == api.MESSAGE_TYPE
-	isEnum := field.Typez == api.ENUM_TYPE
-	isBytes := field.Typez == api.BYTES_TYPE
-	isDouble := field.Typez == api.DOUBLE_TYPE || field.Typez == api.FLOAT_TYPE
 	isMap := message != nil && message.IsMap
-	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
 
-	if isMessage {
-		typeName = messageName(message)
-	} else if isEnum {
-		enum := state.EnumByID[field.TypezID]
-		typeName = enumName(enum)
-	}
+	data := fmt.Sprintf("json['%s']", name)
 
-	data := "json['" + name + "']"
-	fn := typeName + ".fromJson"
-	opt := ""
 	bang := "!"
 	if !required {
-		opt = "?"
 		bang = ""
 	}
 
-	if isMap {
-		if isMessageMap {
-			// message maps: decodeMap(json['name'], Status.fromJson)!,
-			return "decodeMap(" + data + ", " + fn + ")" + bang
-		} else {
-			// primitive maps: (json['name'] as Map?)?.cast(),
-			return "(" + data + " as Map" + opt + ")" + opt + ".cast()"
+	switch {
+	case isList:
+		switch {
+		case field.Typez == api.BYTES_TYPE:
+			return fmt.Sprintf("decodeListBytes(%s)%s", data, bang)
+		case field.Typez == api.ENUM_TYPE:
+			typeName := enumName(state.EnumByID[field.TypezID])
+			return fmt.Sprintf("decodeListEnum(%s, %s.fromJson)%s", data, typeName, bang)
+		case field.Typez == api.MESSAGE_TYPE:
+			_, hasCustomEncoding := usesCustomEncoding[field.TypezID]
+			typeName := messageName(state.MessageByID[field.TypezID])
+			if hasCustomEncoding {
+				return fmt.Sprintf("decodeListMessageCustom(%s, %s.fromJson)%s", data, typeName, bang)
+			} else {
+				return fmt.Sprintf("decodeListMessage(%s, %s.fromJson)%s", data, typeName, bang)
+			}
+		default:
+			return fmt.Sprintf("decodeList(%s)%s", data, bang)
 		}
-	} else if isList {
-		if isMessage {
-			// message lists, custom lists: decodeList(json['name'], FieldMask.fromJson)!,
-			return "decodeList(" + data + ", " + fn + ")" + bang
-		} else {
-			// primitive lists: (json['name'] as List?)?.cast(),
-			return "(" + data + " as List" + opt + ")" + opt + ".cast()"
+	case isMap:
+		valueField := message.Fields[1]
+
+		switch {
+		case valueField.Typez == api.BYTES_TYPE:
+			return fmt.Sprintf("decodeMapBytes(%s)%s", data, bang)
+		case valueField.Typez == api.ENUM_TYPE:
+			typeName := enumName(state.EnumByID[valueField.TypezID])
+			return fmt.Sprintf("decodeMapEnum(%s, %s.fromJson)%s", data, typeName, bang)
+		case valueField.Typez == api.MESSAGE_TYPE:
+			_, hasCustomEncoding := usesCustomEncoding[valueField.TypezID]
+			typeName := messageName(state.MessageByID[valueField.TypezID])
+			if hasCustomEncoding {
+				return fmt.Sprintf("decodeMapMessageCustom(%s, %s.fromJson)%s", data, typeName, bang)
+			} else {
+				return fmt.Sprintf("decodeMapMessage(%s, %s.fromJson)%s", data, typeName, bang)
+			}
+		default:
+			return fmt.Sprintf("decodeMap(%s)%s", data, bang)
 		}
-	} else if isMessage || isEnum {
-		// enum or message
-		if required {
-			// FieldMask.fromJson(json['name']),
-			return fn + "(" + data + ")"
+	case field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE:
+		return fmt.Sprintf("decodeInt64(%s)%s", data, bang)
+	case field.Typez == api.FLOAT_TYPE || field.Typez == api.DOUBLE_TYPE:
+		return fmt.Sprintf("decodeDouble(%s)%s", data, bang)
+	case field.Typez == api.BYTES_TYPE:
+		return fmt.Sprintf("decodeBytes(%s)%s", data, bang)
+	case field.Typez == api.ENUM_TYPE:
+		typeName := enumName(state.EnumByID[field.TypezID])
+		return fmt.Sprintf("decodeEnum(%s, %s.fromJson)%s", data, typeName, bang)
+	case field.Typez == api.MESSAGE_TYPE:
+		_, hasCustomEncoding := usesCustomEncoding[field.TypezID]
+		typeName := messageName(state.MessageByID[field.TypezID])
+		if hasCustomEncoding {
+			return fmt.Sprintf("decodeCustom(%s, %s.fromJson)%s", data, typeName, bang)
 		} else {
-			// decode(json['name'], FieldMask.fromJson),
-			return "decode(" + data + ", " + fn + ")"
+			return fmt.Sprintf("decode(%s, %s.fromJson)%s", data, typeName, bang)
 		}
-	} else if isBytes {
-		return "decodeBytes(" + data + ")" + bang
-	} else if isDouble {
-		// (json['name'] as num?)?.toDouble(),
-		return "(" + data + " as num" + opt + ")" + opt + ".toDouble()"
-	} else {
-		// json['name']
-		return data
 	}
+
+	// No decoding necessary.
+	return data
 }
 
 func createToJsonLine(field *api.Field, state *api.APIState, required bool) string {
@@ -556,34 +609,47 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 	message := state.MessageByID[field.TypezID]
 
 	isList := field.Repeated
-	isMessage := field.Typez == api.MESSAGE_TYPE
-	isEnum := field.Typez == api.ENUM_TYPE
-	isBytes := field.Typez == api.BYTES_TYPE
 	isMap := message != nil && message.IsMap
-	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
+
 	bang := "!"
 	if required {
 		bang = ""
 	}
 
-	if isMessageMap {
-		// message maps: encodeMap(name)
-		return "encodeMap(" + name + ")"
-	} else if isList && (isMessage || isEnum) {
-		// message lists, custom lists, and enum lists: encodeList(name)
-		return "encodeList(" + name + ")"
-	} else if isMap {
-		// primitive maps
-		return name
-	} else if isMessage || isEnum {
-		// message, enum, and custom: name!.toJson()
-		return name + bang + ".toJson()"
-	} else if isBytes {
-		return "encodeBytes(" + name + bang + ")"
-	} else {
-		// primitive, primitive lists
-		return name
+	switch {
+	case isList:
+		switch {
+		case field.Typez == api.BYTES_TYPE:
+			return fmt.Sprintf("encodeListBytes(%s)", name)
+		case field.Typez == api.MESSAGE_TYPE || field.Typez == api.ENUM_TYPE:
+			return fmt.Sprintf("encodeList(%s)", name)
+		default:
+			// identity
+			return name
+		}
+	case isMap:
+		valueField := message.Fields[1]
+
+		switch {
+		case valueField.Typez == api.BYTES_TYPE:
+			return fmt.Sprintf("encodeMapBytes(%s)", name)
+		case valueField.Typez == api.MESSAGE_TYPE || valueField.Typez == api.ENUM_TYPE:
+			return fmt.Sprintf("encodeMap(%s)", name)
+		default:
+			// identity
+			return name
+		}
+	case field.Typez == api.MESSAGE_TYPE || field.Typez == api.ENUM_TYPE:
+		return fmt.Sprintf("%s%s.toJson()", name, bang)
+	case field.Typez == api.BYTES_TYPE:
+		return fmt.Sprintf("encodeBytes(%s)", name)
+	case field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE:
+		return fmt.Sprintf("encodeInt64(%s)", name)
+	default:
 	}
+
+	// No encoding necessary.
+	return name
 }
 
 func (annotate *annotateModel) annotateEnum(enum *api.Enum) {

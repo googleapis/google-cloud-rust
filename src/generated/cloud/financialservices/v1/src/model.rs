@@ -42,7 +42,7 @@ extern crate wkt;
 pub struct BacktestResult {
     /// Output only. The resource name of the BacktestResult.
     /// format:
-    /// "/projects/{project_num}/locations/{location}/instances/{instance}/backtestResults/{backtest_result}"
+    /// `/projects/{project_num}/locations/{location}/instances/{instance}/backtestResults/{backtest_result}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -63,13 +63,13 @@ pub struct BacktestResult {
 
     /// Required. The resource name of the Dataset to backtest on
     /// Format:
-    /// "/projects/{project_num}/locations/{location}/instances/{instance}/datasets/{dataset}"
+    /// `/projects/{project_num}/locations/{location}/instances/{instance}/datasets/{dataset}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub dataset: std::string::String,
 
     /// Required. The resource name of the Model to use or to backtest.
     /// Format:
-    /// "/projects/{project_num}/locations/{location}/instances/{instance}/models/{model}"
+    /// `/projects/{project_num}/locations/{location}/instances/{instance}/models/{model}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub model: std::string::String,
 
@@ -798,7 +798,7 @@ pub struct BigQueryDestination {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub table_uri: std::string::String,
 
-    /// Required. Whether or not to overwrite destination table. By default the
+    /// Required. Whether or not to overwrite the destination table. By default the
     /// table won't be overwritten and an error will be returned if the table
     /// exists and contains data.
     pub write_disposition: crate::model::big_query_destination::WriteDisposition,
@@ -910,7 +910,7 @@ pub mod big_query_destination {
 pub struct Dataset {
     /// Output only. The resource name of the Dataset.
     /// format:
-    /// "/projects/{project_num}/locations/{location}/instances/{instance}/datasets/{dataset}"
+    /// `/projects/{project_num}/locations/{location}/instances/{instance}/datasets/{dataset}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -1512,7 +1512,7 @@ impl wkt::message::Message for DeleteDatasetRequest {
 pub struct EngineConfig {
     /// Output only. The resource name of the EngineConfig.
     /// format:
-    /// "/projects/{project_num}/locations/{location}/instances/{instance}/engineConfigs/{engine_config}"
+    /// `/projects/{project_num}/locations/{location}/instances/{instance}/engineConfigs/{engine_config}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -1533,7 +1533,7 @@ pub struct EngineConfig {
 
     /// Required. The resource name of the EngineVersion used in this model tuning.
     /// format:
-    /// "/projects/{project_num}/locations/{location}/instances/{instance}/engineVersions/{engine_version}"
+    /// `/projects/{project_num}/locations/{location}/instances/{instance}/engineVersions/{engine_version}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub engine_version: std::string::String,
 
@@ -1699,7 +1699,7 @@ pub mod engine_config {
         /// Required. The resource name of the Primary Dataset used in this model
         /// tuning. For information about how primary and auxiliary datasets are
         /// used, refer to the engine version's documentation.  Format:
-        /// "/projects/{project_num}/locations/{location}/instances/{instance}/datasets/{dataset}"
+        /// `/projects/{project_num}/locations/{location}/instances/{instance}/datasets/{dataset}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub primary_dataset: std::string::String,
 
@@ -1793,13 +1793,13 @@ pub mod engine_config {
     pub struct HyperparameterSource {
         /// Required. The resource name of the source EngineConfig whose outputs are
         /// used. Format:
-        /// "/projects/{project_num}/locations/{location}/instances/{instance}/engineConfigs/{engine_config}"
+        /// `/projects/{project_num}/locations/{location}/instances/{instance}/engineConfigs/{engine_config}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub source_engine_config: std::string::String,
 
         /// Output only. The resource name of the EngineVersion that was used in the
         /// tuning run. Format:
-        /// "/projects/{project_num}/locations/{location}/instances/{instance}/engineVersions/{engine_version}"
+        /// `/projects/{project_num}/locations/{location}/instances/{instance}/engineVersions/{engine_version}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub source_engine_version: std::string::String,
 
@@ -2444,7 +2444,7 @@ impl wkt::message::Message for ExportEngineConfigMetadataResponse {
 pub struct EngineVersion {
     /// Output only. Identifier. The resource name of the EngineVersion
     /// format:
-    /// "/projects/{project_num}/locations/{location}/instances/{instance}/engineVersions/{engine_version}"
+    /// `/projects/{project_num}/locations/{location}/instances/{instance}/engineVersions/{engine_version}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -2798,7 +2798,7 @@ impl wkt::message::Message for GetEngineVersionRequest {
 #[non_exhaustive]
 pub struct Instance {
     /// Output only. The full path to the Instance resource in this API.
-    /// format: "projects/{project}/locations/{location}/instances/{instance}"
+    /// format: `projects/{project}/locations/{location}/instances/{instance}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -2822,7 +2822,7 @@ pub struct Instance {
 
     /// Required. The KMS key name used for CMEK (encryption-at-rest).
     /// format:
-    /// "projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{cryptoKey}"
+    /// `projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{cryptoKey}`
     /// VPC-SC restrictions apply.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key: std::string::String,
@@ -3366,13 +3366,13 @@ impl wkt::message::Message for DeleteInstanceRequest {
 #[non_exhaustive]
 pub struct ImportRegisteredPartiesRequest {
     /// Required. The full path to the Instance resource in this API.
-    /// format: "projects/{project}/locations/{location}/instances/{instance}"
+    /// format: `projects/{project}/locations/{location}/instances/{instance}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Optional. List of BigQuery tables. Union of tables will be taken if there
     /// is more than one table. VPC-SC restrictions apply. format:
-    /// "bq://{project}.{bqDatasetID}.{bqTableID}" Use of `datasets` is preferred
+    /// `bq://{project}.{bqDatasetID}.{bqTableID}` Use of `datasets` is preferred
     /// over the latter due to its simplicity and the reduced risk of errors
     /// `party_tables` and `datasets` must not be provided at the
     /// same time
@@ -3382,8 +3382,8 @@ pub struct ImportRegisteredPartiesRequest {
     /// Required. Mode of the request.
     pub mode: crate::model::import_registered_parties_request::UpdateMode,
 
-    /// Optional. Is the request will not register the parties, just determine what
-    /// woud happen.
+    /// Optional. If the request will not register the parties, just determine what
+    /// would happen.
     pub validate_only: bool,
 
     /// Required. LineOfBusiness for the specified registered parties.
@@ -3612,7 +3612,7 @@ impl wkt::message::Message for ImportRegisteredPartiesResponse {
 #[non_exhaustive]
 pub struct ExportRegisteredPartiesRequest {
     /// Required. The full path to the Instance resource in this API.
-    /// format: "projects/{project}/locations/{location}/instances/{instance}"
+    /// format: `projects/{project}/locations/{location}/instances/{instance}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -3695,7 +3695,7 @@ impl wkt::message::Message for ExportRegisteredPartiesResponse {
 pub struct Model {
     /// Output only. The resource name of the Model.
     /// format:
-    /// "/projects/{project_num}/locations/{location}/instances/{instance}/models/{model}"
+    /// `/projects/{project_num}/locations/{location}/instances/{instance}/models/{model}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -3721,14 +3721,14 @@ pub struct Model {
 
     /// Required. The resource name of the EngineConfig the model training will be
     /// based on. Format:
-    /// "/projects/{project_num}/locations/{location}/instances/{instance}/engineConfigs/{engineConfig}"
+    /// `/projects/{project_num}/locations/{location}/instances/{instance}/engineConfigs/{engineConfig}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub engine_config: std::string::String,
 
     /// Required. The resource name of the Primary Dataset used in this model
     /// training. For information about how primary and auxiliary datasets are
     /// used, refer to the engine version's documentation.  Format:
-    /// "/projects/{project_num}/locations/{location}/instances/{instance}/datasets/{dataset}"
+    /// `/projects/{project_num}/locations/{location}/instances/{instance}/datasets/{dataset}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub primary_dataset: std::string::String,
 
@@ -4378,7 +4378,7 @@ impl wkt::message::Message for ExportModelMetadataResponse {
 pub struct PredictionResult {
     /// Output only. The resource name of the PredictionResult.
     /// format:
-    /// "/projects/{project_num}/locations/{location}/instances/{instance}/predictionResults/{prediction_result}"
+    /// `/projects/{project_num}/locations/{location}/instances/{instance}/predictionResults/{prediction_result}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -4400,13 +4400,13 @@ pub struct PredictionResult {
 
     /// Required. The resource name of the Dataset to do predictions on
     /// Format:
-    /// "/projects/{project_num}/locations/{location}/instances/{instance}/dataset/{dataset_id}"
+    /// `/projects/{project_num}/locations/{location}/instances/{instance}/dataset/{dataset_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub dataset: std::string::String,
 
     /// Required. The resource name of the Model to use to use to make predictions
     /// Format:
-    /// "/projects/{project_num}/locations/{location}/instances/{instance}/models/{model}"
+    /// `/projects/{project_num}/locations/{location}/instances/{instance}/models/{model}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub model: std::string::String,
 
@@ -5173,12 +5173,10 @@ pub struct OperationMetadata {
     /// Output only. Identifies whether the user has requested cancellation of the
     /// operation.
     ///
-    /// Successfully cancelled operations have a
-    /// [google.longrunning.Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// Successfully cancelled operations have a [Operation.error][] value
+    /// with a [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding
+    /// to `Code.CANCELLED`.
     ///
-    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub requested_cancellation: bool,
 

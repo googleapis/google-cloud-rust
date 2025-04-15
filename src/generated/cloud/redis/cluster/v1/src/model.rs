@@ -863,7 +863,10 @@ impl ExportBackupRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportBackupRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_backup_request::Destination>>,
     >(
@@ -877,7 +880,7 @@ impl ExportBackupRequest {
     /// The value of [destination][crate::model::ExportBackupRequest::destination]
     /// if it holds a `GcsBucket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_bucket(&self) -> std::option::Option<&std::string::String> {
+    pub fn gcs_bucket(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::export_backup_request::Destination::GcsBucket(v) => {
@@ -1397,7 +1400,10 @@ impl Cluster {
         self
     }
 
-    /// Sets the value of `import_sources`.
+    /// Sets the value of [import_sources][crate::model::Cluster::import_sources].
+    ///
+    /// Note that all the setters affecting `import_sources` are mutually
+    /// exclusive.
     pub fn set_import_sources<
         T: std::convert::Into<std::option::Option<crate::model::cluster::ImportSources>>,
     >(
@@ -1411,7 +1417,7 @@ impl Cluster {
     /// The value of [import_sources][crate::model::Cluster::import_sources]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(
+    pub fn gcs_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::cluster::GcsBackupSource>> {
         #[allow(unreachable_patterns)]
@@ -1424,7 +1430,7 @@ impl Cluster {
     /// The value of [import_sources][crate::model::Cluster::import_sources]
     /// if it holds a `ManagedBackupSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_managed_backup_source(
+    pub fn managed_backup_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::cluster::ManagedBackupSource>> {
         #[allow(unreachable_patterns)]
@@ -1499,7 +1505,10 @@ pub mod cluster {
             std::default::Default::default()
         }
 
-        /// Sets the value of `info`.
+        /// Sets the value of [info][crate::model::cluster::StateInfo::info].
+        ///
+        /// Note that all the setters affecting `info` are mutually
+        /// exclusive.
         pub fn set_info<
             T: std::convert::Into<std::option::Option<crate::model::cluster::state_info::Info>>,
         >(
@@ -1513,7 +1522,7 @@ pub mod cluster {
         /// The value of [info][crate::model::cluster::StateInfo::info]
         /// if it holds a `UpdateInfo`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_update_info(
+        pub fn update_info(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::cluster::state_info::UpdateInfo>>
         {
@@ -1819,7 +1828,10 @@ impl AutomatedBackupConfig {
         self
     }
 
-    /// Sets the value of `schedule`.
+    /// Sets the value of [schedule][crate::model::AutomatedBackupConfig::schedule].
+    ///
+    /// Note that all the setters affecting `schedule` are mutually
+    /// exclusive.
     pub fn set_schedule<
         T: std::convert::Into<std::option::Option<crate::model::automated_backup_config::Schedule>>,
     >(
@@ -1833,7 +1845,7 @@ impl AutomatedBackupConfig {
     /// The value of [schedule][crate::model::AutomatedBackupConfig::schedule]
     /// if it holds a `FixedFrequencySchedule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_fixed_frequency_schedule(
+    pub fn fixed_frequency_schedule(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::automated_backup_config::FixedFrequencySchedule>,
@@ -3218,7 +3230,10 @@ impl ConnectionDetail {
         std::default::Default::default()
     }
 
-    /// Sets the value of `connection`.
+    /// Sets the value of [connection][crate::model::ConnectionDetail::connection].
+    ///
+    /// Note that all the setters affecting `connection` are mutually
+    /// exclusive.
     pub fn set_connection<
         T: std::convert::Into<std::option::Option<crate::model::connection_detail::Connection>>,
     >(
@@ -3232,7 +3247,7 @@ impl ConnectionDetail {
     /// The value of [connection][crate::model::ConnectionDetail::connection]
     /// if it holds a `PscAutoConnection`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_psc_auto_connection(
+    pub fn psc_auto_connection(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PscAutoConnection>> {
         #[allow(unreachable_patterns)]
@@ -3247,7 +3262,7 @@ impl ConnectionDetail {
     /// The value of [connection][crate::model::ConnectionDetail::connection]
     /// if it holds a `PscConnection`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_psc_connection(
+    pub fn psc_connection(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PscConnection>> {
         #[allow(unreachable_patterns)]
@@ -3579,7 +3594,10 @@ impl CertificateAuthority {
         self
     }
 
-    /// Sets the value of `server_ca`.
+    /// Sets the value of [server_ca][crate::model::CertificateAuthority::server_ca].
+    ///
+    /// Note that all the setters affecting `server_ca` are mutually
+    /// exclusive.
     pub fn set_server_ca<
         T: std::convert::Into<std::option::Option<crate::model::certificate_authority::ServerCa>>,
     >(
@@ -3593,7 +3611,7 @@ impl CertificateAuthority {
     /// The value of [server_ca][crate::model::CertificateAuthority::server_ca]
     /// if it holds a `ManagedServerCa`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_managed_server_ca(
+    pub fn managed_server_ca(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::certificate_authority::ManagedCertificateAuthority>,

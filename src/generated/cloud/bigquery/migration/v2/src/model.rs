@@ -391,7 +391,10 @@ impl MigrationTask {
         self
     }
 
-    /// Sets the value of `task_details`.
+    /// Sets the value of [task_details][crate::model::MigrationTask::task_details].
+    ///
+    /// Note that all the setters affecting `task_details` are mutually
+    /// exclusive.
     pub fn set_task_details<
         T: std::convert::Into<std::option::Option<crate::model::migration_task::TaskDetails>>,
     >(
@@ -405,7 +408,7 @@ impl MigrationTask {
     /// The value of [task_details][crate::model::MigrationTask::task_details]
     /// if it holds a `TranslationConfigDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_translation_config_details(
+    pub fn translation_config_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TranslationConfigDetails>> {
         #[allow(unreachable_patterns)]
@@ -420,7 +423,7 @@ impl MigrationTask {
     /// The value of [task_details][crate::model::MigrationTask::task_details]
     /// if it holds a `TranslationDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_translation_details(
+    pub fn translation_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TranslationDetails>> {
         #[allow(unreachable_patterns)]
@@ -831,7 +834,10 @@ impl MigrationTaskResult {
         std::default::Default::default()
     }
 
-    /// Sets the value of `details`.
+    /// Sets the value of [details][crate::model::MigrationTaskResult::details].
+    ///
+    /// Note that all the setters affecting `details` are mutually
+    /// exclusive.
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::migration_task_result::Details>>,
     >(
@@ -845,7 +851,7 @@ impl MigrationTaskResult {
     /// The value of [details][crate::model::MigrationTaskResult::details]
     /// if it holds a `TranslationTaskResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_translation_task_result(
+    pub fn translation_task_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TranslationTaskResult>> {
         #[allow(unreachable_patterns)]
@@ -1314,7 +1320,10 @@ impl TypedValue {
         std::default::Default::default()
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::TypedValue::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::typed_value::Value>>,
     >(
@@ -1328,7 +1337,7 @@ impl TypedValue {
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `BoolValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bool_value(&self) -> std::option::Option<&bool> {
+    pub fn bool_value(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::typed_value::Value::BoolValue(v) => std::option::Option::Some(v),
@@ -1339,7 +1348,7 @@ impl TypedValue {
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `Int64Value`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_int64_value(&self) -> std::option::Option<&i64> {
+    pub fn int64_value(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::typed_value::Value::Int64Value(v) => std::option::Option::Some(v),
@@ -1350,7 +1359,7 @@ impl TypedValue {
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `DoubleValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_double_value(&self) -> std::option::Option<&f64> {
+    pub fn double_value(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::typed_value::Value::DoubleValue(v) => std::option::Option::Some(v),
@@ -1361,7 +1370,7 @@ impl TypedValue {
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_value(&self) -> std::option::Option<&std::string::String> {
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::typed_value::Value::StringValue(v) => std::option::Option::Some(v),
@@ -1372,7 +1381,7 @@ impl TypedValue {
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `DistributionValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_distribution_value(
+    pub fn distribution_value(
         &self,
     ) -> std::option::Option<&std::boxed::Box<api::model::Distribution>> {
         #[allow(unreachable_patterns)]
@@ -2056,7 +2065,10 @@ impl TranslationConfigDetails {
         self
     }
 
-    /// Sets the value of `source_location`.
+    /// Sets the value of [source_location][crate::model::TranslationConfigDetails::source_location].
+    ///
+    /// Note that all the setters affecting `source_location` are mutually
+    /// exclusive.
     pub fn set_source_location<
         T: std::convert::Into<
                 std::option::Option<crate::model::translation_config_details::SourceLocation>,
@@ -2072,7 +2084,7 @@ impl TranslationConfigDetails {
     /// The value of [source_location][crate::model::TranslationConfigDetails::source_location]
     /// if it holds a `GcsSourcePath`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source_path(&self) -> std::option::Option<&std::string::String> {
+    pub fn gcs_source_path(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source_location.as_ref().and_then(|v| match v {
             crate::model::translation_config_details::SourceLocation::GcsSourcePath(v) => {
@@ -2094,7 +2106,10 @@ impl TranslationConfigDetails {
         self
     }
 
-    /// Sets the value of `target_location`.
+    /// Sets the value of [target_location][crate::model::TranslationConfigDetails::target_location].
+    ///
+    /// Note that all the setters affecting `target_location` are mutually
+    /// exclusive.
     pub fn set_target_location<
         T: std::convert::Into<
                 std::option::Option<crate::model::translation_config_details::TargetLocation>,
@@ -2110,7 +2125,7 @@ impl TranslationConfigDetails {
     /// The value of [target_location][crate::model::TranslationConfigDetails::target_location]
     /// if it holds a `GcsTargetPath`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_target_path(&self) -> std::option::Option<&std::string::String> {
+    pub fn gcs_target_path(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.target_location.as_ref().and_then(|v| match v {
             crate::model::translation_config_details::TargetLocation::GcsTargetPath(v) => {
@@ -2132,7 +2147,10 @@ impl TranslationConfigDetails {
         self
     }
 
-    /// Sets the value of `output_name_mapping`.
+    /// Sets the value of [output_name_mapping][crate::model::TranslationConfigDetails::output_name_mapping].
+    ///
+    /// Note that all the setters affecting `output_name_mapping` are mutually
+    /// exclusive.
     pub fn set_output_name_mapping<
         T: std::convert::Into<
                 std::option::Option<crate::model::translation_config_details::OutputNameMapping>,
@@ -2148,7 +2166,7 @@ impl TranslationConfigDetails {
     /// The value of [output_name_mapping][crate::model::TranslationConfigDetails::output_name_mapping]
     /// if it holds a `NameMappingList`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_name_mapping_list(
+    pub fn name_mapping_list(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ObjectNameMappingList>> {
         #[allow(unreachable_patterns)]
@@ -2237,7 +2255,10 @@ impl Dialect {
         std::default::Default::default()
     }
 
-    /// Sets the value of `dialect_value`.
+    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value].
+    ///
+    /// Note that all the setters affecting `dialect_value` are mutually
+    /// exclusive.
     pub fn set_dialect_value<
         T: std::convert::Into<std::option::Option<crate::model::dialect::DialectValue>>,
     >(
@@ -2251,7 +2272,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `BigqueryDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigquery_dialect(
+    pub fn bigquery_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDialect>> {
         #[allow(unreachable_patterns)]
@@ -2264,7 +2285,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `HiveqlDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_hiveql_dialect(
+    pub fn hiveql_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::HiveQLDialect>> {
         #[allow(unreachable_patterns)]
@@ -2277,7 +2298,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `RedshiftDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_redshift_dialect(
+    pub fn redshift_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RedshiftDialect>> {
         #[allow(unreachable_patterns)]
@@ -2290,7 +2311,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `TeradataDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_teradata_dialect(
+    pub fn teradata_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TeradataDialect>> {
         #[allow(unreachable_patterns)]
@@ -2303,7 +2324,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `OracleDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oracle_dialect(
+    pub fn oracle_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::OracleDialect>> {
         #[allow(unreachable_patterns)]
@@ -2316,7 +2337,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `SparksqlDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sparksql_dialect(
+    pub fn sparksql_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SparkSQLDialect>> {
         #[allow(unreachable_patterns)]
@@ -2329,7 +2350,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `SnowflakeDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_snowflake_dialect(
+    pub fn snowflake_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SnowflakeDialect>> {
         #[allow(unreachable_patterns)]
@@ -2344,7 +2365,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `NetezzaDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_netezza_dialect(
+    pub fn netezza_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::NetezzaDialect>> {
         #[allow(unreachable_patterns)]
@@ -2357,7 +2378,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `AzureSynapseDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_azure_synapse_dialect(
+    pub fn azure_synapse_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AzureSynapseDialect>> {
         #[allow(unreachable_patterns)]
@@ -2372,7 +2393,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `VerticaDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vertica_dialect(
+    pub fn vertica_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VerticaDialect>> {
         #[allow(unreachable_patterns)]
@@ -2385,7 +2406,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `SqlServerDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sql_server_dialect(
+    pub fn sql_server_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SQLServerDialect>> {
         #[allow(unreachable_patterns)]
@@ -2400,7 +2421,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `PostgresqlDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_postgresql_dialect(
+    pub fn postgresql_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlDialect>> {
         #[allow(unreachable_patterns)]
@@ -2415,7 +2436,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `PrestoDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_presto_dialect(
+    pub fn presto_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PrestoDialect>> {
         #[allow(unreachable_patterns)]
@@ -2428,7 +2449,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `MysqlDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_mysql_dialect(
+    pub fn mysql_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MySQLDialect>> {
         #[allow(unreachable_patterns)]
@@ -2441,9 +2462,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `Db2Dialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_db2_dialect(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DB2Dialect>> {
+    pub fn db2_dialect(&self) -> std::option::Option<&std::boxed::Box<crate::model::DB2Dialect>> {
         #[allow(unreachable_patterns)]
         self.dialect_value.as_ref().and_then(|v| match v {
             crate::model::dialect::DialectValue::Db2Dialect(v) => std::option::Option::Some(v),
@@ -2454,7 +2473,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `SqliteDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sqlite_dialect(
+    pub fn sqlite_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SQLiteDialect>> {
         #[allow(unreachable_patterns)]
@@ -2467,7 +2486,7 @@ impl Dialect {
     /// The value of [dialect_value][crate::model::Dialect::dialect_value]
     /// if it holds a `GreenplumDialect`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_greenplum_dialect(
+    pub fn greenplum_dialect(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GreenplumDialect>> {
         #[allow(unreachable_patterns)]
@@ -3828,7 +3847,10 @@ impl SourceSpec {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::SourceSpec::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::source_spec::Source>>,
     >(
@@ -3842,7 +3864,7 @@ impl SourceSpec {
     /// The value of [source][crate::model::SourceSpec::source]
     /// if it holds a `BaseUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_base_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn base_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::source_spec::Source::BaseUri(v) => std::option::Option::Some(v),
@@ -3853,7 +3875,7 @@ impl SourceSpec {
     /// The value of [source][crate::model::SourceSpec::source]
     /// if it holds a `Literal`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_literal(&self) -> std::option::Option<&std::boxed::Box<crate::model::Literal>> {
+    pub fn literal(&self) -> std::option::Option<&std::boxed::Box<crate::model::Literal>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::source_spec::Source::Literal(v) => std::option::Option::Some(v),
@@ -3973,7 +3995,10 @@ impl Literal {
         self
     }
 
-    /// Sets the value of `literal_data`.
+    /// Sets the value of [literal_data][crate::model::Literal::literal_data].
+    ///
+    /// Note that all the setters affecting `literal_data` are mutually
+    /// exclusive.
     pub fn set_literal_data<
         T: std::convert::Into<std::option::Option<crate::model::literal::LiteralData>>,
     >(
@@ -3987,7 +4012,7 @@ impl Literal {
     /// The value of [literal_data][crate::model::Literal::literal_data]
     /// if it holds a `LiteralString`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_literal_string(&self) -> std::option::Option<&std::string::String> {
+    pub fn literal_string(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.literal_data.as_ref().and_then(|v| match v {
             crate::model::literal::LiteralData::LiteralString(v) => std::option::Option::Some(v),
@@ -3998,7 +4023,7 @@ impl Literal {
     /// The value of [literal_data][crate::model::Literal::literal_data]
     /// if it holds a `LiteralBytes`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_literal_bytes(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn literal_bytes(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.literal_data.as_ref().and_then(|v| match v {
             crate::model::literal::LiteralData::LiteralBytes(v) => std::option::Option::Some(v),

@@ -1033,7 +1033,10 @@ impl Organization {
         self
     }
 
-    /// Sets the value of `owner`.
+    /// Sets the value of [owner][crate::model::Organization::owner].
+    ///
+    /// Note that all the setters affecting `owner` are mutually
+    /// exclusive.
     pub fn set_owner<
         T: std::convert::Into<std::option::Option<crate::model::organization::Owner>>,
     >(
@@ -1047,7 +1050,7 @@ impl Organization {
     /// The value of [owner][crate::model::Organization::owner]
     /// if it holds a `DirectoryCustomerId`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_directory_customer_id(&self) -> std::option::Option<&std::string::String> {
+    pub fn directory_customer_id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.owner.as_ref().and_then(|v| match v {
             crate::model::organization::Owner::DirectoryCustomerId(v) => {

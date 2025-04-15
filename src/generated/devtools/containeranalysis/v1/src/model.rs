@@ -63,7 +63,10 @@ impl ExportSBOMRequest {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::ExportSBOMRequest::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::export_sbom_request::Target>>,
     >(
@@ -77,7 +80,7 @@ impl ExportSBOMRequest {
     /// The value of [target][crate::model::ExportSBOMRequest::target]
     /// if it holds a `CloudStorageLocation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_storage_location(
+    pub fn cloud_storage_location(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::export_sbom_request::CloudStorageLocation>,

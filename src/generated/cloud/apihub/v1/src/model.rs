@@ -2405,7 +2405,10 @@ impl ApiHubResource {
         std::default::Default::default()
     }
 
-    /// Sets the value of `resource`.
+    /// Sets the value of [resource][crate::model::ApiHubResource::resource].
+    ///
+    /// Note that all the setters affecting `resource` are mutually
+    /// exclusive.
     pub fn set_resource<
         T: std::convert::Into<std::option::Option<crate::model::api_hub_resource::Resource>>,
     >(
@@ -2419,7 +2422,7 @@ impl ApiHubResource {
     /// The value of [resource][crate::model::ApiHubResource::resource]
     /// if it holds a `Api`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_api(&self) -> std::option::Option<&std::boxed::Box<crate::model::Api>> {
+    pub fn api(&self) -> std::option::Option<&std::boxed::Box<crate::model::Api>> {
         #[allow(unreachable_patterns)]
         self.resource.as_ref().and_then(|v| match v {
             crate::model::api_hub_resource::Resource::Api(v) => std::option::Option::Some(v),
@@ -2430,9 +2433,7 @@ impl ApiHubResource {
     /// The value of [resource][crate::model::ApiHubResource::resource]
     /// if it holds a `Operation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_operation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ApiOperation>> {
+    pub fn operation(&self) -> std::option::Option<&std::boxed::Box<crate::model::ApiOperation>> {
         #[allow(unreachable_patterns)]
         self.resource.as_ref().and_then(|v| match v {
             crate::model::api_hub_resource::Resource::Operation(v) => std::option::Option::Some(v),
@@ -2443,9 +2444,7 @@ impl ApiHubResource {
     /// The value of [resource][crate::model::ApiHubResource::resource]
     /// if it holds a `Deployment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_deployment(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::Deployment>> {
+    pub fn deployment(&self) -> std::option::Option<&std::boxed::Box<crate::model::Deployment>> {
         #[allow(unreachable_patterns)]
         self.resource.as_ref().and_then(|v| match v {
             crate::model::api_hub_resource::Resource::Deployment(v) => std::option::Option::Some(v),
@@ -2456,7 +2455,7 @@ impl ApiHubResource {
     /// The value of [resource][crate::model::ApiHubResource::resource]
     /// if it holds a `Spec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spec(&self) -> std::option::Option<&std::boxed::Box<crate::model::Spec>> {
+    pub fn spec(&self) -> std::option::Option<&std::boxed::Box<crate::model::Spec>> {
         #[allow(unreachable_patterns)]
         self.resource.as_ref().and_then(|v| match v {
             crate::model::api_hub_resource::Resource::Spec(v) => std::option::Option::Some(v),
@@ -2467,9 +2466,7 @@ impl ApiHubResource {
     /// The value of [resource][crate::model::ApiHubResource::resource]
     /// if it holds a `Definition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_definition(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::Definition>> {
+    pub fn definition(&self) -> std::option::Option<&std::boxed::Box<crate::model::Definition>> {
         #[allow(unreachable_patterns)]
         self.resource.as_ref().and_then(|v| match v {
             crate::model::api_hub_resource::Resource::Definition(v) => std::option::Option::Some(v),
@@ -2480,7 +2477,7 @@ impl ApiHubResource {
     /// The value of [resource][crate::model::ApiHubResource::resource]
     /// if it holds a `Version`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_version(&self) -> std::option::Option<&std::boxed::Box<crate::model::Version>> {
+    pub fn version(&self) -> std::option::Option<&std::boxed::Box<crate::model::Version>> {
         #[allow(unreachable_patterns)]
         self.resource.as_ref().and_then(|v| match v {
             crate::model::api_hub_resource::Resource::Version(v) => std::option::Option::Some(v),
@@ -4675,7 +4672,10 @@ impl Definition {
         self
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::Definition::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::definition::Value>>,
     >(
@@ -4689,7 +4689,7 @@ impl Definition {
     /// The value of [value][crate::model::Definition::value]
     /// if it holds a `Schema`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::Schema>> {
+    pub fn schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::Schema>> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::definition::Value::Schema(v) => std::option::Option::Some(v),
@@ -5315,7 +5315,10 @@ impl SpecDetails {
         self
     }
 
-    /// Sets the value of `details`.
+    /// Sets the value of [details][crate::model::SpecDetails::details].
+    ///
+    /// Note that all the setters affecting `details` are mutually
+    /// exclusive.
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::spec_details::Details>>,
     >(
@@ -5329,7 +5332,7 @@ impl SpecDetails {
     /// The value of [details][crate::model::SpecDetails::details]
     /// if it holds a `OpenApiSpecDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_open_api_spec_details(
+    pub fn open_api_spec_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::OpenApiSpecDetails>> {
         #[allow(unreachable_patterns)]
@@ -5572,7 +5575,10 @@ impl OperationDetails {
         self
     }
 
-    /// Sets the value of `operation`.
+    /// Sets the value of [operation][crate::model::OperationDetails::operation].
+    ///
+    /// Note that all the setters affecting `operation` are mutually
+    /// exclusive.
     pub fn set_operation<
         T: std::convert::Into<std::option::Option<crate::model::operation_details::Operation>>,
     >(
@@ -5586,7 +5592,7 @@ impl OperationDetails {
     /// The value of [operation][crate::model::OperationDetails::operation]
     /// if it holds a `HttpOperation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_http_operation(
+    pub fn http_operation(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::HttpOperation>> {
         #[allow(unreachable_patterns)]
@@ -5971,7 +5977,10 @@ impl AttributeValues {
         self
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::AttributeValues::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::attribute_values::Value>>,
     >(
@@ -5985,7 +5994,7 @@ impl AttributeValues {
     /// The value of [value][crate::model::AttributeValues::value]
     /// if it holds a `EnumValues`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_enum_values(
+    pub fn enum_values(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::attribute_values::EnumAttributeValues>>
     {
@@ -5999,7 +6008,7 @@ impl AttributeValues {
     /// The value of [value][crate::model::AttributeValues::value]
     /// if it holds a `StringValues`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_values(
+    pub fn string_values(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::attribute_values::StringAttributeValues>>
     {
@@ -6013,7 +6022,7 @@ impl AttributeValues {
     /// The value of [value][crate::model::AttributeValues::value]
     /// if it holds a `JsonValues`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_json_values(
+    pub fn json_values(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::attribute_values::StringAttributeValues>>
     {
@@ -6490,7 +6499,10 @@ impl DependencyEntityReference {
         self
     }
 
-    /// Sets the value of `identifier`.
+    /// Sets the value of [identifier][crate::model::DependencyEntityReference::identifier].
+    ///
+    /// Note that all the setters affecting `identifier` are mutually
+    /// exclusive.
     pub fn set_identifier<
         T: std::convert::Into<
                 std::option::Option<crate::model::dependency_entity_reference::Identifier>,
@@ -6506,7 +6518,7 @@ impl DependencyEntityReference {
     /// The value of [identifier][crate::model::DependencyEntityReference::identifier]
     /// if it holds a `OperationResourceName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_operation_resource_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn operation_resource_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.identifier.as_ref().and_then(|v| match v {
             crate::model::dependency_entity_reference::Identifier::OperationResourceName(v) => {
@@ -6519,7 +6531,7 @@ impl DependencyEntityReference {
     /// The value of [identifier][crate::model::DependencyEntityReference::identifier]
     /// if it holds a `ExternalApiResourceName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_external_api_resource_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn external_api_resource_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.identifier.as_ref().and_then(|v| match v {
             crate::model::dependency_entity_reference::Identifier::ExternalApiResourceName(v) => {

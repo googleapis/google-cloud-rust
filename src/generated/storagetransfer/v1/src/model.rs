@@ -1458,7 +1458,10 @@ impl AwsS3Data {
         self
     }
 
-    /// Sets the value of `private_network`.
+    /// Sets the value of [private_network][crate::model::AwsS3Data::private_network].
+    ///
+    /// Note that all the setters affecting `private_network` are mutually
+    /// exclusive.
     pub fn set_private_network<
         T: std::convert::Into<std::option::Option<crate::model::aws_s_3_data::PrivateNetwork>>,
     >(
@@ -1472,7 +1475,7 @@ impl AwsS3Data {
     /// The value of [private_network][crate::model::AwsS3Data::private_network]
     /// if it holds a `ManagedPrivateNetwork`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_managed_private_network(&self) -> std::option::Option<&bool> {
+    pub fn managed_private_network(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.private_network.as_ref().and_then(|v| match v {
             crate::model::aws_s_3_data::PrivateNetwork::ManagedPrivateNetwork(v) => {
@@ -1841,7 +1844,10 @@ impl AwsS3CompatibleData {
         self
     }
 
-    /// Sets the value of `data_provider`.
+    /// Sets the value of [data_provider][crate::model::AwsS3CompatibleData::data_provider].
+    ///
+    /// Note that all the setters affecting `data_provider` are mutually
+    /// exclusive.
     pub fn set_data_provider<
         T: std::convert::Into<
                 std::option::Option<crate::model::aws_s_3_compatible_data::DataProvider>,
@@ -1857,7 +1863,7 @@ impl AwsS3CompatibleData {
     /// The value of [data_provider][crate::model::AwsS3CompatibleData::data_provider]
     /// if it holds a `S3Metadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_s3_metadata(
+    pub fn s3_metadata(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::S3CompatibleMetadata>> {
         #[allow(unreachable_patterns)]
@@ -2710,7 +2716,10 @@ impl TransferSpec {
         self
     }
 
-    /// Sets the value of `data_sink`.
+    /// Sets the value of [data_sink][crate::model::TransferSpec::data_sink].
+    ///
+    /// Note that all the setters affecting `data_sink` are mutually
+    /// exclusive.
     pub fn set_data_sink<
         T: std::convert::Into<std::option::Option<crate::model::transfer_spec::DataSink>>,
     >(
@@ -2724,9 +2733,7 @@ impl TransferSpec {
     /// The value of [data_sink][crate::model::TransferSpec::data_sink]
     /// if it holds a `GcsDataSink`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_data_sink(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
+    pub fn gcs_data_sink(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
         #[allow(unreachable_patterns)]
         self.data_sink.as_ref().and_then(|v| match v {
             crate::model::transfer_spec::DataSink::GcsDataSink(v) => std::option::Option::Some(v),
@@ -2737,7 +2744,7 @@ impl TransferSpec {
     /// The value of [data_sink][crate::model::TransferSpec::data_sink]
     /// if it holds a `PosixDataSink`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_posix_data_sink(
+    pub fn posix_data_sink(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PosixFilesystem>> {
         #[allow(unreachable_patterns)]
@@ -2778,7 +2785,10 @@ impl TransferSpec {
         self
     }
 
-    /// Sets the value of `data_source`.
+    /// Sets the value of [data_source][crate::model::TransferSpec::data_source].
+    ///
+    /// Note that all the setters affecting `data_source` are mutually
+    /// exclusive.
     pub fn set_data_source<
         T: std::convert::Into<std::option::Option<crate::model::transfer_spec::DataSource>>,
     >(
@@ -2792,9 +2802,7 @@ impl TransferSpec {
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `GcsDataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
+    pub fn gcs_data_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
         #[allow(unreachable_patterns)]
         self.data_source.as_ref().and_then(|v| match v {
             crate::model::transfer_spec::DataSource::GcsDataSource(v) => {
@@ -2807,7 +2815,7 @@ impl TransferSpec {
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `AwsS3DataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_aws_s3_data_source(
+    pub fn aws_s3_data_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AwsS3Data>> {
         #[allow(unreachable_patterns)]
@@ -2822,7 +2830,7 @@ impl TransferSpec {
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `HttpDataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_http_data_source(
+    pub fn http_data_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::HttpData>> {
         #[allow(unreachable_patterns)]
@@ -2837,7 +2845,7 @@ impl TransferSpec {
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `PosixDataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_posix_data_source(
+    pub fn posix_data_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PosixFilesystem>> {
         #[allow(unreachable_patterns)]
@@ -2852,7 +2860,7 @@ impl TransferSpec {
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `AzureBlobStorageDataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_azure_blob_storage_data_source(
+    pub fn azure_blob_storage_data_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AzureBlobStorageData>> {
         #[allow(unreachable_patterns)]
@@ -2867,7 +2875,7 @@ impl TransferSpec {
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `AwsS3CompatibleDataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_aws_s3_compatible_data_source(
+    pub fn aws_s3_compatible_data_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AwsS3CompatibleData>> {
         #[allow(unreachable_patterns)]
@@ -2882,7 +2890,7 @@ impl TransferSpec {
     /// The value of [data_source][crate::model::TransferSpec::data_source]
     /// if it holds a `HdfsDataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_hdfs_data_source(
+    pub fn hdfs_data_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::HdfsData>> {
         #[allow(unreachable_patterns)]
@@ -3007,7 +3015,10 @@ impl TransferSpec {
         self
     }
 
-    /// Sets the value of `intermediate_data_location`.
+    /// Sets the value of [intermediate_data_location][crate::model::TransferSpec::intermediate_data_location].
+    ///
+    /// Note that all the setters affecting `intermediate_data_location` are mutually
+    /// exclusive.
     pub fn set_intermediate_data_location<
         T: std::convert::Into<
                 std::option::Option<crate::model::transfer_spec::IntermediateDataLocation>,
@@ -3023,7 +3034,7 @@ impl TransferSpec {
     /// The value of [intermediate_data_location][crate::model::TransferSpec::intermediate_data_location]
     /// if it holds a `GcsIntermediateDataLocation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_intermediate_data_location(
+    pub fn gcs_intermediate_data_location(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
         #[allow(unreachable_patterns)]
@@ -3173,7 +3184,10 @@ impl ReplicationSpec {
         self
     }
 
-    /// Sets the value of `data_source`.
+    /// Sets the value of [data_source][crate::model::ReplicationSpec::data_source].
+    ///
+    /// Note that all the setters affecting `data_source` are mutually
+    /// exclusive.
     pub fn set_data_source<
         T: std::convert::Into<std::option::Option<crate::model::replication_spec::DataSource>>,
     >(
@@ -3187,9 +3201,7 @@ impl ReplicationSpec {
     /// The value of [data_source][crate::model::ReplicationSpec::data_source]
     /// if it holds a `GcsDataSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_data_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
+    pub fn gcs_data_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
         #[allow(unreachable_patterns)]
         self.data_source.as_ref().and_then(|v| match v {
             crate::model::replication_spec::DataSource::GcsDataSource(v) => {
@@ -3214,7 +3226,10 @@ impl ReplicationSpec {
         self
     }
 
-    /// Sets the value of `data_sink`.
+    /// Sets the value of [data_sink][crate::model::ReplicationSpec::data_sink].
+    ///
+    /// Note that all the setters affecting `data_sink` are mutually
+    /// exclusive.
     pub fn set_data_sink<
         T: std::convert::Into<std::option::Option<crate::model::replication_spec::DataSink>>,
     >(
@@ -3228,9 +3243,7 @@ impl ReplicationSpec {
     /// The value of [data_sink][crate::model::ReplicationSpec::data_sink]
     /// if it holds a `GcsDataSink`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_data_sink(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
+    pub fn gcs_data_sink(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsData>> {
         #[allow(unreachable_patterns)]
         self.data_sink.as_ref().and_then(|v| match v {
             crate::model::replication_spec::DataSink::GcsDataSink(v) => {

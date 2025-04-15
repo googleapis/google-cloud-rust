@@ -2559,7 +2559,10 @@ impl RestoreTableRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::RestoreTableRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_table_request::Source>>,
     >(
@@ -2573,7 +2576,7 @@ impl RestoreTableRequest {
     /// The value of [source][crate::model::RestoreTableRequest::source]
     /// if it holds a `Backup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backup(&self) -> std::option::Option<&std::string::String> {
+    pub fn backup(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::restore_table_request::Source::Backup(v) => std::option::Option::Some(v),
@@ -2706,7 +2709,10 @@ impl RestoreTableMetadata {
         self
     }
 
-    /// Sets the value of `source_info`.
+    /// Sets the value of [source_info][crate::model::RestoreTableMetadata::source_info].
+    ///
+    /// Note that all the setters affecting `source_info` are mutually
+    /// exclusive.
     pub fn set_source_info<
         T: std::convert::Into<std::option::Option<crate::model::restore_table_metadata::SourceInfo>>,
     >(
@@ -2720,9 +2726,7 @@ impl RestoreTableMetadata {
     /// The value of [source_info][crate::model::RestoreTableMetadata::source_info]
     /// if it holds a `BackupInfo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backup_info(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BackupInfo>> {
+    pub fn backup_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::BackupInfo>> {
         #[allow(unreachable_patterns)]
         self.source_info.as_ref().and_then(|v| match v {
             crate::model::restore_table_metadata::SourceInfo::BackupInfo(v) => {
@@ -3051,7 +3055,10 @@ impl DropRowRangeRequest {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::DropRowRangeRequest::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::drop_row_range_request::Target>>,
     >(
@@ -3065,7 +3072,7 @@ impl DropRowRangeRequest {
     /// The value of [target][crate::model::DropRowRangeRequest::target]
     /// if it holds a `RowKeyPrefix`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_row_key_prefix(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn row_key_prefix(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
             crate::model::drop_row_range_request::Target::RowKeyPrefix(v) => {
@@ -3078,7 +3085,7 @@ impl DropRowRangeRequest {
     /// The value of [target][crate::model::DropRowRangeRequest::target]
     /// if it holds a `DeleteAllDataFromTable`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_delete_all_data_from_table(&self) -> std::option::Option<&bool> {
+    pub fn delete_all_data_from_table(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
             crate::model::drop_row_range_request::Target::DeleteAllDataFromTable(v) => {
@@ -3706,7 +3713,10 @@ pub mod modify_column_families_request {
             self
         }
 
-        /// Sets the value of `r#mod`.
+        /// Sets the value of [r#mod][crate::model::modify_column_families_request::Modification::mod].
+        ///
+        /// Note that all the setters affecting `r#mod` are mutually
+        /// exclusive.
         pub fn set_mod<
             T: std::convert::Into<
                     std::option::Option<
@@ -3724,9 +3734,7 @@ pub mod modify_column_families_request {
         /// The value of [r#mod][crate::model::modify_column_families_request::Modification::r#mod]
         /// if it holds a `Create`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_create(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::ColumnFamily>> {
+        pub fn create(&self) -> std::option::Option<&std::boxed::Box<crate::model::ColumnFamily>> {
             #[allow(unreachable_patterns)]
             self.r#mod.as_ref().and_then(|v| match v {
                 crate::model::modify_column_families_request::modification::Mod::Create(v) => {
@@ -3739,9 +3747,7 @@ pub mod modify_column_families_request {
         /// The value of [r#mod][crate::model::modify_column_families_request::Modification::r#mod]
         /// if it holds a `Update`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_update(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::ColumnFamily>> {
+        pub fn update(&self) -> std::option::Option<&std::boxed::Box<crate::model::ColumnFamily>> {
             #[allow(unreachable_patterns)]
             self.r#mod.as_ref().and_then(|v| match v {
                 crate::model::modify_column_families_request::modification::Mod::Update(v) => {
@@ -3754,7 +3760,7 @@ pub mod modify_column_families_request {
         /// The value of [r#mod][crate::model::modify_column_families_request::Modification::r#mod]
         /// if it holds a `Drop`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_drop(&self) -> std::option::Option<&bool> {
+        pub fn drop(&self) -> std::option::Option<&bool> {
             #[allow(unreachable_patterns)]
             self.r#mod.as_ref().and_then(|v| match v {
                 crate::model::modify_column_families_request::modification::Mod::Drop(v) => {
@@ -3959,7 +3965,10 @@ impl CheckConsistencyRequest {
         self
     }
 
-    /// Sets the value of `mode`.
+    /// Sets the value of [mode][crate::model::CheckConsistencyRequest::mode].
+    ///
+    /// Note that all the setters affecting `mode` are mutually
+    /// exclusive.
     pub fn set_mode<
         T: std::convert::Into<std::option::Option<crate::model::check_consistency_request::Mode>>,
     >(
@@ -3973,7 +3982,7 @@ impl CheckConsistencyRequest {
     /// The value of [mode][crate::model::CheckConsistencyRequest::mode]
     /// if it holds a `StandardReadRemoteWrites`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_standard_read_remote_writes(
+    pub fn standard_read_remote_writes(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StandardReadRemoteWrites>> {
         #[allow(unreachable_patterns)]
@@ -3988,7 +3997,7 @@ impl CheckConsistencyRequest {
     /// The value of [mode][crate::model::CheckConsistencyRequest::mode]
     /// if it holds a `DataBoostReadLocalWrites`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_data_boost_read_local_writes(
+    pub fn data_boost_read_local_writes(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DataBoostReadLocalWrites>> {
         #[allow(unreachable_patterns)]
@@ -6262,7 +6271,10 @@ impl Cluster {
         self
     }
 
-    /// Sets the value of `config`.
+    /// Sets the value of [config][crate::model::Cluster::config].
+    ///
+    /// Note that all the setters affecting `config` are mutually
+    /// exclusive.
     pub fn set_config<T: std::convert::Into<std::option::Option<crate::model::cluster::Config>>>(
         mut self,
         v: T,
@@ -6274,7 +6286,7 @@ impl Cluster {
     /// The value of [config][crate::model::Cluster::config]
     /// if it holds a `ClusterConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cluster_config(
+    pub fn cluster_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::cluster::ClusterConfig>> {
         #[allow(unreachable_patterns)]
@@ -6657,7 +6669,10 @@ impl AppProfile {
         self
     }
 
-    /// Sets the value of `routing_policy`.
+    /// Sets the value of [routing_policy][crate::model::AppProfile::routing_policy].
+    ///
+    /// Note that all the setters affecting `routing_policy` are mutually
+    /// exclusive.
     pub fn set_routing_policy<
         T: std::convert::Into<std::option::Option<crate::model::app_profile::RoutingPolicy>>,
     >(
@@ -6671,7 +6686,7 @@ impl AppProfile {
     /// The value of [routing_policy][crate::model::AppProfile::routing_policy]
     /// if it holds a `MultiClusterRoutingUseAny`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_multi_cluster_routing_use_any(
+    pub fn multi_cluster_routing_use_any(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::app_profile::MultiClusterRoutingUseAny>>
     {
@@ -6687,7 +6702,7 @@ impl AppProfile {
     /// The value of [routing_policy][crate::model::AppProfile::routing_policy]
     /// if it holds a `SingleClusterRouting`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_single_cluster_routing(
+    pub fn single_cluster_routing(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::app_profile::SingleClusterRouting>>
     {
@@ -6734,7 +6749,10 @@ impl AppProfile {
         self
     }
 
-    /// Sets the value of `isolation`.
+    /// Sets the value of [isolation][crate::model::AppProfile::isolation].
+    ///
+    /// Note that all the setters affecting `isolation` are mutually
+    /// exclusive.
     pub fn set_isolation<
         T: std::convert::Into<std::option::Option<crate::model::app_profile::Isolation>>,
     >(
@@ -6748,7 +6766,7 @@ impl AppProfile {
     /// The value of [isolation][crate::model::AppProfile::isolation]
     /// if it holds a `Priority`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_priority(&self) -> std::option::Option<&crate::model::app_profile::Priority> {
+    pub fn priority(&self) -> std::option::Option<&crate::model::app_profile::Priority> {
         #[allow(unreachable_patterns)]
         self.isolation.as_ref().and_then(|v| match v {
             crate::model::app_profile::Isolation::Priority(v) => std::option::Option::Some(v),
@@ -6759,7 +6777,7 @@ impl AppProfile {
     /// The value of [isolation][crate::model::AppProfile::isolation]
     /// if it holds a `StandardIsolation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_standard_isolation(
+    pub fn standard_isolation(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::app_profile::StandardIsolation>> {
         #[allow(unreachable_patterns)]
@@ -6774,7 +6792,7 @@ impl AppProfile {
     /// The value of [isolation][crate::model::AppProfile::isolation]
     /// if it holds a `DataBoostIsolationReadOnly`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_data_boost_isolation_read_only(
+    pub fn data_boost_isolation_read_only(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::app_profile::DataBoostIsolationReadOnly>>
     {
@@ -6894,7 +6912,10 @@ pub mod app_profile {
             self
         }
 
-        /// Sets the value of `affinity`.
+        /// Sets the value of [affinity][crate::model::app_profile::MultiClusterRoutingUseAny::affinity].
+        ///
+        /// Note that all the setters affecting `affinity` are mutually
+        /// exclusive.
         pub fn set_affinity<
             T: std::convert::Into<
                     std::option::Option<
@@ -6912,7 +6933,7 @@ pub mod app_profile {
         /// The value of [affinity][crate::model::app_profile::MultiClusterRoutingUseAny::affinity]
         /// if it holds a `RowAffinity`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_row_affinity(
+        pub fn row_affinity(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::app_profile::multi_cluster_routing_use_any::RowAffinity>,
@@ -7551,7 +7572,10 @@ impl RestoreInfo {
         self
     }
 
-    /// Sets the value of `source_info`.
+    /// Sets the value of [source_info][crate::model::RestoreInfo::source_info].
+    ///
+    /// Note that all the setters affecting `source_info` are mutually
+    /// exclusive.
     pub fn set_source_info<
         T: std::convert::Into<std::option::Option<crate::model::restore_info::SourceInfo>>,
     >(
@@ -7565,9 +7589,7 @@ impl RestoreInfo {
     /// The value of [source_info][crate::model::RestoreInfo::source_info]
     /// if it holds a `BackupInfo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backup_info(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BackupInfo>> {
+    pub fn backup_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::BackupInfo>> {
         #[allow(unreachable_patterns)]
         self.source_info.as_ref().and_then(|v| match v {
             crate::model::restore_info::SourceInfo::BackupInfo(v) => std::option::Option::Some(v),
@@ -7855,7 +7877,10 @@ impl Table {
         self
     }
 
-    /// Sets the value of `automated_backup_config`.
+    /// Sets the value of [automated_backup_config][crate::model::Table::automated_backup_config].
+    ///
+    /// Note that all the setters affecting `automated_backup_config` are mutually
+    /// exclusive.
     pub fn set_automated_backup_config<
         T: std::convert::Into<std::option::Option<crate::model::table::AutomatedBackupConfig>>,
     >(
@@ -7869,7 +7894,7 @@ impl Table {
     /// The value of [automated_backup_config][crate::model::Table::automated_backup_config]
     /// if it holds a `AutomatedBackupPolicy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_automated_backup_policy(
+    pub fn automated_backup_policy(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::table::AutomatedBackupPolicy>> {
         #[allow(unreachable_patterns)]
@@ -8299,7 +8324,10 @@ impl AuthorizedView {
         self
     }
 
-    /// Sets the value of `authorized_view`.
+    /// Sets the value of [authorized_view][crate::model::AuthorizedView::authorized_view].
+    ///
+    /// Note that all the setters affecting `authorized_view` are mutually
+    /// exclusive.
     pub fn set_authorized_view<
         T: std::convert::Into<std::option::Option<crate::model::authorized_view::AuthorizedView>>,
     >(
@@ -8313,7 +8341,7 @@ impl AuthorizedView {
     /// The value of [authorized_view][crate::model::AuthorizedView::authorized_view]
     /// if it holds a `SubsetView`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_subset_view(
+    pub fn subset_view(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::authorized_view::SubsetView>> {
         #[allow(unreachable_patterns)]
@@ -8627,7 +8655,10 @@ impl GcRule {
         std::default::Default::default()
     }
 
-    /// Sets the value of `rule`.
+    /// Sets the value of [rule][crate::model::GcRule::rule].
+    ///
+    /// Note that all the setters affecting `rule` are mutually
+    /// exclusive.
     pub fn set_rule<T: std::convert::Into<std::option::Option<crate::model::gc_rule::Rule>>>(
         mut self,
         v: T,
@@ -8639,7 +8670,7 @@ impl GcRule {
     /// The value of [rule][crate::model::GcRule::rule]
     /// if it holds a `MaxNumVersions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_max_num_versions(&self) -> std::option::Option<&i32> {
+    pub fn max_num_versions(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.rule.as_ref().and_then(|v| match v {
             crate::model::gc_rule::Rule::MaxNumVersions(v) => std::option::Option::Some(v),
@@ -8650,7 +8681,7 @@ impl GcRule {
     /// The value of [rule][crate::model::GcRule::rule]
     /// if it holds a `MaxAge`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_max_age(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+    pub fn max_age(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.rule.as_ref().and_then(|v| match v {
             crate::model::gc_rule::Rule::MaxAge(v) => std::option::Option::Some(v),
@@ -8661,7 +8692,7 @@ impl GcRule {
     /// The value of [rule][crate::model::GcRule::rule]
     /// if it holds a `Intersection`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_intersection(
+    pub fn intersection(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::gc_rule::Intersection>> {
         #[allow(unreachable_patterns)]
@@ -8674,7 +8705,7 @@ impl GcRule {
     /// The value of [rule][crate::model::GcRule::rule]
     /// if it holds a `Union`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_union(&self) -> std::option::Option<&std::boxed::Box<crate::model::gc_rule::Union>> {
+    pub fn union(&self) -> std::option::Option<&std::boxed::Box<crate::model::gc_rule::Union>> {
         #[allow(unreachable_patterns)]
         self.rule.as_ref().and_then(|v| match v {
             crate::model::gc_rule::Rule::Union(v) => std::option::Option::Some(v),
@@ -9595,7 +9626,10 @@ impl Type {
         std::default::Default::default()
     }
 
-    /// Sets the value of `kind`.
+    /// Sets the value of [kind][crate::model::Type::kind].
+    ///
+    /// Note that all the setters affecting `kind` are mutually
+    /// exclusive.
     pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::r#type::Kind>>>(
         mut self,
         v: T,
@@ -9607,9 +9641,7 @@ impl Type {
     /// The value of [kind][crate::model::Type::kind]
     /// if it holds a `BytesType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bytes_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Bytes>> {
+    pub fn bytes_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Bytes>> {
         #[allow(unreachable_patterns)]
         self.kind.as_ref().and_then(|v| match v {
             crate::model::r#type::Kind::BytesType(v) => std::option::Option::Some(v),
@@ -9620,7 +9652,7 @@ impl Type {
     /// The value of [kind][crate::model::Type::kind]
     /// if it holds a `StringType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_type(
+    pub fn string_type(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::String>> {
         #[allow(unreachable_patterns)]
@@ -9633,9 +9665,7 @@ impl Type {
     /// The value of [kind][crate::model::Type::kind]
     /// if it holds a `Int64Type`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_int64_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Int64>> {
+    pub fn int64_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Int64>> {
         #[allow(unreachable_patterns)]
         self.kind.as_ref().and_then(|v| match v {
             crate::model::r#type::Kind::Int64Type(v) => std::option::Option::Some(v),
@@ -9646,7 +9676,7 @@ impl Type {
     /// The value of [kind][crate::model::Type::kind]
     /// if it holds a `Float32Type`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_float32_type(
+    pub fn float32_type(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Float32>> {
         #[allow(unreachable_patterns)]
@@ -9659,7 +9689,7 @@ impl Type {
     /// The value of [kind][crate::model::Type::kind]
     /// if it holds a `Float64Type`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_float64_type(
+    pub fn float64_type(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Float64>> {
         #[allow(unreachable_patterns)]
@@ -9672,9 +9702,7 @@ impl Type {
     /// The value of [kind][crate::model::Type::kind]
     /// if it holds a `BoolType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bool_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Bool>> {
+    pub fn bool_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Bool>> {
         #[allow(unreachable_patterns)]
         self.kind.as_ref().and_then(|v| match v {
             crate::model::r#type::Kind::BoolType(v) => std::option::Option::Some(v),
@@ -9685,7 +9713,7 @@ impl Type {
     /// The value of [kind][crate::model::Type::kind]
     /// if it holds a `TimestampType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_timestamp_type(
+    pub fn timestamp_type(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Timestamp>> {
         #[allow(unreachable_patterns)]
@@ -9698,9 +9726,7 @@ impl Type {
     /// The value of [kind][crate::model::Type::kind]
     /// if it holds a `DateType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_date_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Date>> {
+    pub fn date_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Date>> {
         #[allow(unreachable_patterns)]
         self.kind.as_ref().and_then(|v| match v {
             crate::model::r#type::Kind::DateType(v) => std::option::Option::Some(v),
@@ -9711,7 +9737,7 @@ impl Type {
     /// The value of [kind][crate::model::Type::kind]
     /// if it holds a `AggregateType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_aggregate_type(
+    pub fn aggregate_type(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Aggregate>> {
         #[allow(unreachable_patterns)]
@@ -9724,7 +9750,7 @@ impl Type {
     /// The value of [kind][crate::model::Type::kind]
     /// if it holds a `StructType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_struct_type(
+    pub fn struct_type(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Struct>> {
         #[allow(unreachable_patterns)]
@@ -9737,9 +9763,7 @@ impl Type {
     /// The value of [kind][crate::model::Type::kind]
     /// if it holds a `ArrayType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_array_type(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Array>> {
+    pub fn array_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Array>> {
         #[allow(unreachable_patterns)]
         self.kind.as_ref().and_then(|v| match v {
             crate::model::r#type::Kind::ArrayType(v) => std::option::Option::Some(v),
@@ -9750,7 +9774,7 @@ impl Type {
     /// The value of [kind][crate::model::Type::kind]
     /// if it holds a `MapType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_map_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Map>> {
+    pub fn map_type(&self) -> std::option::Option<&std::boxed::Box<crate::model::r#type::Map>> {
         #[allow(unreachable_patterns)]
         self.kind.as_ref().and_then(|v| match v {
             crate::model::r#type::Kind::MapType(v) => std::option::Option::Some(v),
@@ -9996,7 +10020,10 @@ pub mod r#type {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `encoding`.
+            /// Sets the value of [encoding][crate::model::r#type::bytes::Encoding::encoding].
+            ///
+            /// Note that all the setters affecting `encoding` are mutually
+            /// exclusive.
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::bytes::encoding::Encoding>,
@@ -10012,7 +10039,7 @@ pub mod r#type {
             /// The value of [encoding][crate::model::r#type::bytes::Encoding::encoding]
             /// if it holds a `Raw`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_raw(
+            pub fn raw(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::bytes::encoding::Raw>>
             {
@@ -10153,7 +10180,10 @@ pub mod r#type {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `encoding`.
+            /// Sets the value of [encoding][crate::model::r#type::string::Encoding::encoding].
+            ///
+            /// Note that all the setters affecting `encoding` are mutually
+            /// exclusive.
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::string::encoding::Encoding>,
@@ -10169,7 +10199,7 @@ pub mod r#type {
             /// The value of [encoding][crate::model::r#type::string::Encoding::encoding]
             /// if it holds a `Utf8Raw`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_utf8_raw(
+            pub fn utf8_raw(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::r#type::string::encoding::Utf8Raw>,
@@ -10186,7 +10216,7 @@ pub mod r#type {
             /// The value of [encoding][crate::model::r#type::string::Encoding::encoding]
             /// if it holds a `Utf8Bytes`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_utf8_bytes(
+            pub fn utf8_bytes(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::r#type::string::encoding::Utf8Bytes>,
@@ -10382,7 +10412,10 @@ pub mod r#type {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `encoding`.
+            /// Sets the value of [encoding][crate::model::r#type::int_64::Encoding::encoding].
+            ///
+            /// Note that all the setters affecting `encoding` are mutually
+            /// exclusive.
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::int_64::encoding::Encoding>,
@@ -10398,7 +10431,7 @@ pub mod r#type {
             /// The value of [encoding][crate::model::r#type::int_64::Encoding::encoding]
             /// if it holds a `BigEndianBytes`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_big_endian_bytes(
+            pub fn big_endian_bytes(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::r#type::int_64::encoding::BigEndianBytes>,
@@ -10415,7 +10448,7 @@ pub mod r#type {
             /// The value of [encoding][crate::model::r#type::int_64::Encoding::encoding]
             /// if it holds a `OrderedCodeBytes`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_ordered_code_bytes(
+            pub fn ordered_code_bytes(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::r#type::int_64::encoding::OrderedCodeBytes>,
@@ -10701,7 +10734,10 @@ pub mod r#type {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `encoding`.
+            /// Sets the value of [encoding][crate::model::r#type::timestamp::Encoding::encoding].
+            ///
+            /// Note that all the setters affecting `encoding` are mutually
+            /// exclusive.
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::timestamp::encoding::Encoding>,
@@ -10717,7 +10753,7 @@ pub mod r#type {
             /// The value of [encoding][crate::model::r#type::timestamp::Encoding::encoding]
             /// if it holds a `UnixMicrosInt64`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_unix_micros_int64(
+            pub fn unix_micros_int64(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::int_64::Encoding>>
             {
@@ -10929,7 +10965,10 @@ pub mod r#type {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `encoding`.
+            /// Sets the value of [encoding][crate::model::r#type::r#struct::Encoding::encoding].
+            ///
+            /// Note that all the setters affecting `encoding` are mutually
+            /// exclusive.
             pub fn set_encoding<
                 T: std::convert::Into<
                         std::option::Option<crate::model::r#type::r#struct::encoding::Encoding>,
@@ -10945,7 +10984,7 @@ pub mod r#type {
             /// The value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
             /// if it holds a `Singleton`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_singleton(
+            pub fn singleton(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::r#type::r#struct::encoding::Singleton>,
@@ -10962,7 +11001,7 @@ pub mod r#type {
             /// The value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
             /// if it holds a `DelimitedBytes`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_delimited_bytes(
+            pub fn delimited_bytes(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::r#type::r#struct::encoding::DelimitedBytes>,
@@ -10979,7 +11018,7 @@ pub mod r#type {
             /// The value of [encoding][crate::model::r#type::r#struct::Encoding::encoding]
             /// if it holds a `OrderedCodeBytes`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_ordered_code_bytes(
+            pub fn ordered_code_bytes(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::r#type::r#struct::encoding::OrderedCodeBytes>,
@@ -11371,7 +11410,10 @@ pub mod r#type {
             self
         }
 
-        /// Sets the value of `aggregator`.
+        /// Sets the value of [aggregator][crate::model::r#type::Aggregate::aggregator].
+        ///
+        /// Note that all the setters affecting `aggregator` are mutually
+        /// exclusive.
         pub fn set_aggregator<
             T: std::convert::Into<std::option::Option<crate::model::r#type::aggregate::Aggregator>>,
         >(
@@ -11385,7 +11427,7 @@ pub mod r#type {
         /// The value of [aggregator][crate::model::r#type::Aggregate::aggregator]
         /// if it holds a `Sum`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_sum(
+        pub fn sum(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::aggregate::Sum>> {
             #[allow(unreachable_patterns)]
@@ -11398,7 +11440,7 @@ pub mod r#type {
         /// The value of [aggregator][crate::model::r#type::Aggregate::aggregator]
         /// if it holds a `HllppUniqueCount`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_hllpp_unique_count(
+        pub fn hllpp_unique_count(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::r#type::aggregate::HyperLogLogPlusPlusUniqueCount>,
@@ -11415,7 +11457,7 @@ pub mod r#type {
         /// The value of [aggregator][crate::model::r#type::Aggregate::aggregator]
         /// if it holds a `Max`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_max(
+        pub fn max(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::aggregate::Max>> {
             #[allow(unreachable_patterns)]
@@ -11428,7 +11470,7 @@ pub mod r#type {
         /// The value of [aggregator][crate::model::r#type::Aggregate::aggregator]
         /// if it holds a `Min`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_min(
+        pub fn min(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::r#type::aggregate::Min>> {
             #[allow(unreachable_patterns)]

@@ -459,7 +459,10 @@ pub mod answer {
             std::default::Default::default()
         }
 
-        /// Sets the value of `content`.
+        /// Sets the value of [content][crate::model::answer::Reference::content].
+        ///
+        /// Note that all the setters affecting `content` are mutually
+        /// exclusive.
         pub fn set_content<
             T: std::convert::Into<std::option::Option<crate::model::answer::reference::Content>>,
         >(
@@ -473,7 +476,7 @@ pub mod answer {
         /// The value of [content][crate::model::answer::Reference::content]
         /// if it holds a `UnstructuredDocumentInfo`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_unstructured_document_info(
+        pub fn unstructured_document_info(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::answer::reference::UnstructuredDocumentInfo>,
@@ -490,7 +493,7 @@ pub mod answer {
         /// The value of [content][crate::model::answer::Reference::content]
         /// if it holds a `ChunkInfo`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_chunk_info(
+        pub fn chunk_info(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::answer::reference::ChunkInfo>>
         {
@@ -506,7 +509,7 @@ pub mod answer {
         /// The value of [content][crate::model::answer::Reference::content]
         /// if it holds a `StructuredDocumentInfo`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_structured_document_info(
+        pub fn structured_document_info(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::answer::reference::StructuredDocumentInfo>,
@@ -1112,7 +1115,10 @@ pub mod answer {
                 self
             }
 
-            /// Sets the value of `action`.
+            /// Sets the value of [action][crate::model::answer::step::Action::action].
+            ///
+            /// Note that all the setters affecting `action` are mutually
+            /// exclusive.
             pub fn set_action<
                 T: std::convert::Into<std::option::Option<crate::model::answer::step::action::Action>>,
             >(
@@ -1126,7 +1132,7 @@ pub mod answer {
             /// The value of [action][crate::model::answer::step::Action::action]
             /// if it holds a `SearchAction`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_search_action(
+            pub fn search_action(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::answer::step::action::SearchAction>,
@@ -2281,7 +2287,10 @@ impl Interval {
         std::default::Default::default()
     }
 
-    /// Sets the value of `min`.
+    /// Sets the value of [min][crate::model::Interval::min].
+    ///
+    /// Note that all the setters affecting `min` are mutually
+    /// exclusive.
     pub fn set_min<T: std::convert::Into<std::option::Option<crate::model::interval::Min>>>(
         mut self,
         v: T,
@@ -2293,7 +2302,7 @@ impl Interval {
     /// The value of [min][crate::model::Interval::min]
     /// if it holds a `Minimum`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_minimum(&self) -> std::option::Option<&f64> {
+    pub fn minimum(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.min.as_ref().and_then(|v| match v {
             crate::model::interval::Min::Minimum(v) => std::option::Option::Some(v),
@@ -2304,7 +2313,7 @@ impl Interval {
     /// The value of [min][crate::model::Interval::min]
     /// if it holds a `ExclusiveMinimum`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_exclusive_minimum(&self) -> std::option::Option<&f64> {
+    pub fn exclusive_minimum(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.min.as_ref().and_then(|v| match v {
             crate::model::interval::Min::ExclusiveMinimum(v) => std::option::Option::Some(v),
@@ -2333,7 +2342,10 @@ impl Interval {
         self
     }
 
-    /// Sets the value of `max`.
+    /// Sets the value of [max][crate::model::Interval::max].
+    ///
+    /// Note that all the setters affecting `max` are mutually
+    /// exclusive.
     pub fn set_max<T: std::convert::Into<std::option::Option<crate::model::interval::Max>>>(
         mut self,
         v: T,
@@ -2345,7 +2357,7 @@ impl Interval {
     /// The value of [max][crate::model::Interval::max]
     /// if it holds a `Maximum`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_maximum(&self) -> std::option::Option<&f64> {
+    pub fn maximum(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.max.as_ref().and_then(|v| match v {
             crate::model::interval::Max::Maximum(v) => std::option::Option::Some(v),
@@ -2356,7 +2368,7 @@ impl Interval {
     /// The value of [max][crate::model::Interval::max]
     /// if it holds a `ExclusiveMaximum`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_exclusive_maximum(&self) -> std::option::Option<&f64> {
+    pub fn exclusive_maximum(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.max.as_ref().and_then(|v| match v {
             crate::model::interval::Max::ExclusiveMaximum(v) => std::option::Option::Some(v),
@@ -2885,7 +2897,10 @@ impl CompletionSuggestion {
         self
     }
 
-    /// Sets the value of `ranking_info`.
+    /// Sets the value of [ranking_info][crate::model::CompletionSuggestion::ranking_info].
+    ///
+    /// Note that all the setters affecting `ranking_info` are mutually
+    /// exclusive.
     pub fn set_ranking_info<
         T: std::convert::Into<std::option::Option<crate::model::completion_suggestion::RankingInfo>>,
     >(
@@ -2899,7 +2914,7 @@ impl CompletionSuggestion {
     /// The value of [ranking_info][crate::model::CompletionSuggestion::ranking_info]
     /// if it holds a `GlobalScore`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_global_score(&self) -> std::option::Option<&f64> {
+    pub fn global_score(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.ranking_info.as_ref().and_then(|v| match v {
             crate::model::completion_suggestion::RankingInfo::GlobalScore(v) => {
@@ -2912,7 +2927,7 @@ impl CompletionSuggestion {
     /// The value of [ranking_info][crate::model::CompletionSuggestion::ranking_info]
     /// if it holds a `Frequency`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_frequency(&self) -> std::option::Option<&i64> {
+    pub fn frequency(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.ranking_info.as_ref().and_then(|v| match v {
             crate::model::completion_suggestion::RankingInfo::Frequency(v) => {
@@ -3505,7 +3520,10 @@ impl Control {
         self
     }
 
-    /// Sets the value of `action`.
+    /// Sets the value of [action][crate::model::Control::action].
+    ///
+    /// Note that all the setters affecting `action` are mutually
+    /// exclusive.
     pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::control::Action>>>(
         mut self,
         v: T,
@@ -3517,7 +3535,7 @@ impl Control {
     /// The value of [action][crate::model::Control::action]
     /// if it holds a `BoostAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_boost_action(
+    pub fn boost_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::control::BoostAction>> {
         #[allow(unreachable_patterns)]
@@ -3530,7 +3548,7 @@ impl Control {
     /// The value of [action][crate::model::Control::action]
     /// if it holds a `FilterAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_filter_action(
+    pub fn filter_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::control::FilterAction>> {
         #[allow(unreachable_patterns)]
@@ -3543,7 +3561,7 @@ impl Control {
     /// The value of [action][crate::model::Control::action]
     /// if it holds a `RedirectAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_redirect_action(
+    pub fn redirect_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::control::RedirectAction>> {
         #[allow(unreachable_patterns)]
@@ -3556,7 +3574,7 @@ impl Control {
     /// The value of [action][crate::model::Control::action]
     /// if it holds a `SynonymsAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_synonyms_action(
+    pub fn synonyms_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::control::SynonymsAction>> {
         #[allow(unreachable_patterns)]
@@ -3569,7 +3587,7 @@ impl Control {
     /// The value of [action][crate::model::Control::action]
     /// if it holds a `PromoteAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_promote_action(
+    pub fn promote_action(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::control::PromoteAction>> {
         #[allow(unreachable_patterns)]
@@ -3728,7 +3746,10 @@ pub mod control {
             self
         }
 
-        /// Sets the value of `boost_spec`.
+        /// Sets the value of [boost_spec][crate::model::control::BoostAction::boost_spec].
+        ///
+        /// Note that all the setters affecting `boost_spec` are mutually
+        /// exclusive.
         pub fn set_boost_spec<
             T: std::convert::Into<std::option::Option<crate::model::control::boost_action::BoostSpec>>,
         >(
@@ -3742,7 +3763,7 @@ pub mod control {
         /// The value of [boost_spec][crate::model::control::BoostAction::boost_spec]
         /// if it holds a `FixedBoost`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_fixed_boost(&self) -> std::option::Option<&f32> {
+        pub fn fixed_boost(&self) -> std::option::Option<&f32> {
             #[allow(unreachable_patterns)]
             self.boost_spec.as_ref().and_then(|v| match v {
                 crate::model::control::boost_action::BoostSpec::FixedBoost(v) => {
@@ -3755,7 +3776,7 @@ pub mod control {
         /// The value of [boost_spec][crate::model::control::BoostAction::boost_spec]
         /// if it holds a `InterpolationBoostSpec`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_interpolation_boost_spec(
+        pub fn interpolation_boost_spec(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::control::boost_action::InterpolationBoostSpec>,
@@ -4947,7 +4968,10 @@ impl ConversationMessage {
         self
     }
 
-    /// Sets the value of `message`.
+    /// Sets the value of [message][crate::model::ConversationMessage::message].
+    ///
+    /// Note that all the setters affecting `message` are mutually
+    /// exclusive.
     pub fn set_message<
         T: std::convert::Into<std::option::Option<crate::model::conversation_message::Message>>,
     >(
@@ -4961,7 +4985,7 @@ impl ConversationMessage {
     /// The value of [message][crate::model::ConversationMessage::message]
     /// if it holds a `UserInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_user_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextInput>> {
+    pub fn user_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextInput>> {
         #[allow(unreachable_patterns)]
         self.message.as_ref().and_then(|v| match v {
             crate::model::conversation_message::Message::UserInput(v) => {
@@ -4974,7 +4998,7 @@ impl ConversationMessage {
     /// The value of [message][crate::model::ConversationMessage::message]
     /// if it holds a `Reply`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_reply(&self) -> std::option::Option<&std::boxed::Box<crate::model::Reply>> {
+    pub fn reply(&self) -> std::option::Option<&std::boxed::Box<crate::model::Reply>> {
         #[allow(unreachable_patterns)]
         self.message.as_ref().and_then(|v| match v {
             crate::model::conversation_message::Message::Reply(v) => std::option::Option::Some(v),
@@ -6465,7 +6489,10 @@ pub mod answer_query_request {
             std::default::Default::default()
         }
 
-        /// Sets the value of `input`.
+        /// Sets the value of [input][crate::model::answer_query_request::SearchSpec::input].
+        ///
+        /// Note that all the setters affecting `input` are mutually
+        /// exclusive.
         pub fn set_input<
             T: std::convert::Into<
                     std::option::Option<crate::model::answer_query_request::search_spec::Input>,
@@ -6481,7 +6508,7 @@ pub mod answer_query_request {
         /// The value of [input][crate::model::answer_query_request::SearchSpec::input]
         /// if it holds a `SearchParams`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_search_params(
+        pub fn search_params(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::answer_query_request::search_spec::SearchParams>,
@@ -6498,7 +6525,7 @@ pub mod answer_query_request {
         /// The value of [input][crate::model::answer_query_request::SearchSpec::input]
         /// if it holds a `SearchResultList`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_search_result_list(
+        pub fn search_result_list(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::answer_query_request::search_spec::SearchResultList>,
@@ -6762,7 +6789,10 @@ pub mod answer_query_request {
                     std::default::Default::default()
                 }
 
-                /// Sets the value of `content`.
+                /// Sets the value of [content][crate::model::answer_query_request::search_spec::search_result_list::SearchResult::content].
+                ///
+                /// Note that all the setters affecting `content` are mutually
+                /// exclusive.
                 pub fn set_content<T: std::convert::Into<std::option::Option<crate::model::answer_query_request::search_spec::search_result_list::search_result::Content>>>(mut self, v: T) -> Self
                 {
                     self.content = v.into();
@@ -6772,7 +6802,7 @@ pub mod answer_query_request {
                 /// The value of [content][crate::model::answer_query_request::search_spec::search_result_list::SearchResult::content]
                 /// if it holds a `UnstructuredDocumentInfo`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_unstructured_document_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::answer_query_request::search_spec::search_result_list::search_result::UnstructuredDocumentInfo>>{
+                pub fn unstructured_document_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::answer_query_request::search_spec::search_result_list::search_result::UnstructuredDocumentInfo>>{
                     #[allow(unreachable_patterns)]
                     self.content.as_ref().and_then(|v| match v {
                         crate::model::answer_query_request::search_spec::search_result_list::search_result::Content::UnstructuredDocumentInfo(v) => std::option::Option::Some(v),
@@ -6783,7 +6813,7 @@ pub mod answer_query_request {
                 /// The value of [content][crate::model::answer_query_request::search_spec::search_result_list::SearchResult::content]
                 /// if it holds a `ChunkInfo`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_chunk_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::answer_query_request::search_spec::search_result_list::search_result::ChunkInfo>>{
+                pub fn chunk_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::answer_query_request::search_spec::search_result_list::search_result::ChunkInfo>>{
                     #[allow(unreachable_patterns)]
                     self.content.as_ref().and_then(|v| match v {
                         crate::model::answer_query_request::search_spec::search_result_list::search_result::Content::ChunkInfo(v) => std::option::Option::Some(v),
@@ -7657,7 +7687,10 @@ pub mod answer_query_request {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `content`.
+            /// Sets the value of [content][crate::model::answer_query_request::end_user_spec::EndUserMetaData::content].
+            ///
+            /// Note that all the setters affecting `content` are mutually
+            /// exclusive.
             pub fn set_content<T: std::convert::Into<std::option::Option<crate::model::answer_query_request::end_user_spec::end_user_meta_data::Content>>>(mut self, v: T) -> Self
             {
                 self.content = v.into();
@@ -7667,7 +7700,7 @@ pub mod answer_query_request {
             /// The value of [content][crate::model::answer_query_request::end_user_spec::EndUserMetaData::content]
             /// if it holds a `ChunkInfo`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_chunk_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::answer_query_request::end_user_spec::end_user_meta_data::ChunkInfo>>{
+            pub fn chunk_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::answer_query_request::end_user_spec::end_user_meta_data::ChunkInfo>>{
                 #[allow(unreachable_patterns)]
                 self.content.as_ref().and_then(|v| match v {
                     crate::model::answer_query_request::end_user_spec::end_user_meta_data::Content::ChunkInfo(v) => std::option::Option::Some(v),
@@ -9782,7 +9815,10 @@ impl Document {
         self
     }
 
-    /// Sets the value of `data`.
+    /// Sets the value of [data][crate::model::Document::data].
+    ///
+    /// Note that all the setters affecting `data` are mutually
+    /// exclusive.
     pub fn set_data<T: std::convert::Into<std::option::Option<crate::model::document::Data>>>(
         mut self,
         v: T,
@@ -9794,7 +9830,7 @@ impl Document {
     /// The value of [data][crate::model::Document::data]
     /// if it holds a `StructData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_struct_data(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
+    pub fn struct_data(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
         #[allow(unreachable_patterns)]
         self.data.as_ref().and_then(|v| match v {
             crate::model::document::Data::StructData(v) => std::option::Option::Some(v),
@@ -9805,7 +9841,7 @@ impl Document {
     /// The value of [data][crate::model::Document::data]
     /// if it holds a `JsonData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_json_data(&self) -> std::option::Option<&std::string::String> {
+    pub fn json_data(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.data.as_ref().and_then(|v| match v {
             crate::model::document::Data::JsonData(v) => std::option::Option::Some(v),
@@ -9884,7 +9920,10 @@ pub mod document {
             self
         }
 
-        /// Sets the value of `content`.
+        /// Sets the value of [content][crate::model::document::Content::content].
+        ///
+        /// Note that all the setters affecting `content` are mutually
+        /// exclusive.
         pub fn set_content<
             T: std::convert::Into<std::option::Option<crate::model::document::content::Content>>,
         >(
@@ -9898,7 +9937,7 @@ pub mod document {
         /// The value of [content][crate::model::document::Content::content]
         /// if it holds a `RawBytes`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_raw_bytes(&self) -> std::option::Option<&::bytes::Bytes> {
+        pub fn raw_bytes(&self) -> std::option::Option<&::bytes::Bytes> {
             #[allow(unreachable_patterns)]
             self.content.as_ref().and_then(|v| match v {
                 crate::model::document::content::Content::RawBytes(v) => {
@@ -9911,7 +9950,7 @@ pub mod document {
         /// The value of [content][crate::model::document::Content::content]
         /// if it holds a `Uri`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_uri(&self) -> std::option::Option<&std::string::String> {
+        pub fn uri(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.content.as_ref().and_then(|v| match v {
                 crate::model::document::content::Content::Uri(v) => std::option::Option::Some(v),
@@ -10206,7 +10245,10 @@ pub mod document_processing_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `chunk_mode`.
+        /// Sets the value of [chunk_mode][crate::model::document_processing_config::ChunkingConfig::chunk_mode].
+        ///
+        /// Note that all the setters affecting `chunk_mode` are mutually
+        /// exclusive.
         pub fn set_chunk_mode<
             T: std::convert::Into<
                     std::option::Option<
@@ -10224,7 +10266,7 @@ pub mod document_processing_config {
         /// The value of [chunk_mode][crate::model::document_processing_config::ChunkingConfig::chunk_mode]
         /// if it holds a `LayoutBasedChunkingConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_layout_based_chunking_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::document_processing_config::chunking_config::LayoutBasedChunkingConfig>>{
+        pub fn layout_based_chunking_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::document_processing_config::chunking_config::LayoutBasedChunkingConfig>>{
             #[allow(unreachable_patterns)]
             self.chunk_mode.as_ref().and_then(|v| match v {
                 crate::model::document_processing_config::chunking_config::ChunkMode::LayoutBasedChunkingConfig(v) => std::option::Option::Some(v),
@@ -10338,7 +10380,10 @@ pub mod document_processing_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `type_dedicated_config`.
+        /// Sets the value of [type_dedicated_config][crate::model::document_processing_config::ParsingConfig::type_dedicated_config].
+        ///
+        /// Note that all the setters affecting `type_dedicated_config` are mutually
+        /// exclusive.
         pub fn set_type_dedicated_config<T: std::convert::Into<std::option::Option<crate::model::document_processing_config::parsing_config::TypeDedicatedConfig>>>(mut self, v: T) -> Self
         {
             self.type_dedicated_config = v.into();
@@ -10348,7 +10393,7 @@ pub mod document_processing_config {
         /// The value of [type_dedicated_config][crate::model::document_processing_config::ParsingConfig::type_dedicated_config]
         /// if it holds a `DigitalParsingConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_digital_parsing_config(
+        pub fn digital_parsing_config(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -10365,7 +10410,7 @@ pub mod document_processing_config {
         /// The value of [type_dedicated_config][crate::model::document_processing_config::ParsingConfig::type_dedicated_config]
         /// if it holds a `OcrParsingConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_ocr_parsing_config(
+        pub fn ocr_parsing_config(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -10382,7 +10427,7 @@ pub mod document_processing_config {
         /// The value of [type_dedicated_config][crate::model::document_processing_config::ParsingConfig::type_dedicated_config]
         /// if it holds a `LayoutParsingConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_layout_parsing_config(
+        pub fn layout_parsing_config(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -11159,7 +11204,10 @@ pub mod batch_get_documents_metadata_request {
             std::default::Default::default()
         }
 
-        /// Sets the value of `matcher`.
+        /// Sets the value of [matcher][crate::model::batch_get_documents_metadata_request::Matcher::matcher].
+        ///
+        /// Note that all the setters affecting `matcher` are mutually
+        /// exclusive.
         pub fn set_matcher<
             T: std::convert::Into<
                     std::option::Option<
@@ -11177,7 +11225,7 @@ pub mod batch_get_documents_metadata_request {
         /// The value of [matcher][crate::model::batch_get_documents_metadata_request::Matcher::matcher]
         /// if it holds a `UrisMatcher`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_uris_matcher(
+        pub fn uris_matcher(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::batch_get_documents_metadata_request::UrisMatcher>,
@@ -11192,7 +11240,7 @@ pub mod batch_get_documents_metadata_request {
         /// The value of [matcher][crate::model::batch_get_documents_metadata_request::Matcher::matcher]
         /// if it holds a `FhirMatcher`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_fhir_matcher(
+        pub fn fhir_matcher(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::batch_get_documents_metadata_request::FhirMatcher>,
@@ -11455,7 +11503,10 @@ pub mod batch_get_documents_metadata_response {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `matcher_value`.
+            /// Sets the value of [matcher_value][crate::model::batch_get_documents_metadata_response::document_metadata::MatcherValue::matcher_value].
+            ///
+            /// Note that all the setters affecting `matcher_value` are mutually
+            /// exclusive.
             pub fn set_matcher_value<T: std::convert::Into<std::option::Option<crate::model::batch_get_documents_metadata_response::document_metadata::matcher_value::MatcherValue>>>(mut self, v: T) -> Self
             {
                 self.matcher_value = v.into();
@@ -11465,7 +11516,7 @@ pub mod batch_get_documents_metadata_response {
             /// The value of [matcher_value][crate::model::batch_get_documents_metadata_response::document_metadata::MatcherValue::matcher_value]
             /// if it holds a `Uri`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_uri(&self) -> std::option::Option<&std::string::String> {
+            pub fn uri(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.matcher_value.as_ref().and_then(|v| match v {
                     crate::model::batch_get_documents_metadata_response::document_metadata::matcher_value::MatcherValue::Uri(v) => std::option::Option::Some(v),
@@ -11476,7 +11527,7 @@ pub mod batch_get_documents_metadata_response {
             /// The value of [matcher_value][crate::model::batch_get_documents_metadata_response::document_metadata::MatcherValue::matcher_value]
             /// if it holds a `FhirResource`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_fhir_resource(&self) -> std::option::Option<&std::string::String> {
+            pub fn fhir_resource(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.matcher_value.as_ref().and_then(|v| match v {
                     crate::model::batch_get_documents_metadata_response::document_metadata::matcher_value::MatcherValue::FhirResource(v) => std::option::Option::Some(v),
@@ -11795,7 +11846,10 @@ impl Engine {
         self
     }
 
-    /// Sets the value of `engine_config`.
+    /// Sets the value of [engine_config][crate::model::Engine::engine_config].
+    ///
+    /// Note that all the setters affecting `engine_config` are mutually
+    /// exclusive.
     pub fn set_engine_config<
         T: std::convert::Into<std::option::Option<crate::model::engine::EngineConfig>>,
     >(
@@ -11809,7 +11863,7 @@ impl Engine {
     /// The value of [engine_config][crate::model::Engine::engine_config]
     /// if it holds a `ChatEngineConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_chat_engine_config(
+    pub fn chat_engine_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::engine::ChatEngineConfig>> {
         #[allow(unreachable_patterns)]
@@ -11822,7 +11876,7 @@ impl Engine {
     /// The value of [engine_config][crate::model::Engine::engine_config]
     /// if it holds a `SearchEngineConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_search_engine_config(
+    pub fn search_engine_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::engine::SearchEngineConfig>> {
         #[allow(unreachable_patterns)]
@@ -11868,7 +11922,10 @@ impl Engine {
         self
     }
 
-    /// Sets the value of `engine_metadata`.
+    /// Sets the value of [engine_metadata][crate::model::Engine::engine_metadata].
+    ///
+    /// Note that all the setters affecting `engine_metadata` are mutually
+    /// exclusive.
     pub fn set_engine_metadata<
         T: std::convert::Into<std::option::Option<crate::model::engine::EngineMetadata>>,
     >(
@@ -11882,7 +11939,7 @@ impl Engine {
     /// The value of [engine_metadata][crate::model::Engine::engine_metadata]
     /// if it holds a `ChatEngineMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_chat_engine_metadata(
+    pub fn chat_engine_metadata(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::engine::ChatEngineMetadata>> {
         #[allow(unreachable_patterns)]
@@ -12842,7 +12899,10 @@ pub mod grounded_generation_content {
             std::default::Default::default()
         }
 
-        /// Sets the value of `data`.
+        /// Sets the value of [data][crate::model::grounded_generation_content::Part::data].
+        ///
+        /// Note that all the setters affecting `data` are mutually
+        /// exclusive.
         pub fn set_data<
             T: std::convert::Into<
                     std::option::Option<crate::model::grounded_generation_content::part::Data>,
@@ -12858,7 +12918,7 @@ pub mod grounded_generation_content {
         /// The value of [data][crate::model::grounded_generation_content::Part::data]
         /// if it holds a `Text`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_text(&self) -> std::option::Option<&std::string::String> {
+        pub fn text(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.data.as_ref().and_then(|v| match v {
                 crate::model::grounded_generation_content::part::Data::Text(v) => {
@@ -13344,7 +13404,10 @@ pub mod generate_grounded_content_request {
             std::default::Default::default()
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::generate_grounded_content_request::GroundingSource::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
         pub fn set_source<
             T: std::convert::Into<
                     std::option::Option<
@@ -13362,7 +13425,7 @@ pub mod generate_grounded_content_request {
         /// The value of [source][crate::model::generate_grounded_content_request::GroundingSource::source]
         /// if it holds a `InlineSource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_inline_source(
+        pub fn inline_source(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -13379,7 +13442,7 @@ pub mod generate_grounded_content_request {
         /// The value of [source][crate::model::generate_grounded_content_request::GroundingSource::source]
         /// if it holds a `SearchSource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_search_source(
+        pub fn search_source(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -13396,7 +13459,7 @@ pub mod generate_grounded_content_request {
         /// The value of [source][crate::model::generate_grounded_content_request::GroundingSource::source]
         /// if it holds a `GoogleSearchSource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_google_search_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::generate_grounded_content_request::grounding_source::GoogleSearchSource>>{
+        pub fn google_search_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::generate_grounded_content_request::grounding_source::GoogleSearchSource>>{
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
                 crate::model::generate_grounded_content_request::grounding_source::Source::GoogleSearchSource(v) => std::option::Option::Some(v),
@@ -13407,7 +13470,7 @@ pub mod generate_grounded_content_request {
         /// The value of [source][crate::model::generate_grounded_content_request::GroundingSource::source]
         /// if it holds a `EnterpriseWebRetrievalSource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_enterprise_web_retrieval_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::generate_grounded_content_request::grounding_source::EnterpriseWebRetrievalSource>>{
+        pub fn enterprise_web_retrieval_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::generate_grounded_content_request::grounding_source::EnterpriseWebRetrievalSource>>{
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
                 crate::model::generate_grounded_content_request::grounding_source::Source::EnterpriseWebRetrievalSource(v) => std::option::Option::Some(v),
@@ -15197,7 +15260,10 @@ impl BigQuerySource {
         self
     }
 
-    /// Sets the value of `partition`.
+    /// Sets the value of [partition][crate::model::BigQuerySource::partition].
+    ///
+    /// Note that all the setters affecting `partition` are mutually
+    /// exclusive.
     pub fn set_partition<
         T: std::convert::Into<std::option::Option<crate::model::big_query_source::Partition>>,
     >(
@@ -15211,7 +15277,7 @@ impl BigQuerySource {
     /// The value of [partition][crate::model::BigQuerySource::partition]
     /// if it holds a `PartitionDate`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_partition_date(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
+    pub fn partition_date(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
         #[allow(unreachable_patterns)]
         self.partition.as_ref().and_then(|v| match v {
             crate::model::big_query_source::Partition::PartitionDate(v) => {
@@ -16134,7 +16200,10 @@ impl ImportErrorConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ImportErrorConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::import_error_config::Destination>>,
     >(
@@ -16148,7 +16217,7 @@ impl ImportErrorConfig {
     /// The value of [destination][crate::model::ImportErrorConfig::destination]
     /// if it holds a `GcsPrefix`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_prefix(&self) -> std::option::Option<&std::string::String> {
+    pub fn gcs_prefix(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::import_error_config::Destination::GcsPrefix(v) => {
@@ -16241,7 +16310,10 @@ impl ImportUserEventsRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportUserEventsRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_user_events_request::Source>>,
     >(
@@ -16255,7 +16327,7 @@ impl ImportUserEventsRequest {
     /// The value of [source][crate::model::ImportUserEventsRequest::source]
     /// if it holds a `InlineSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_inline_source(
+    pub fn inline_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::import_user_events_request::InlineSource>>
     {
@@ -16271,7 +16343,7 @@ impl ImportUserEventsRequest {
     /// The value of [source][crate::model::ImportUserEventsRequest::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::import_user_events_request::Source::GcsSource(v) => {
@@ -16284,7 +16356,7 @@ impl ImportUserEventsRequest {
     /// The value of [source][crate::model::ImportUserEventsRequest::source]
     /// if it holds a `BigquerySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigquery_source(
+    pub fn bigquery_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
         #[allow(unreachable_patterns)]
@@ -16824,7 +16896,10 @@ impl ImportDocumentsRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportDocumentsRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_documents_request::Source>>,
     >(
@@ -16838,7 +16913,7 @@ impl ImportDocumentsRequest {
     /// The value of [source][crate::model::ImportDocumentsRequest::source]
     /// if it holds a `InlineSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_inline_source(
+    pub fn inline_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::import_documents_request::InlineSource>>
     {
@@ -16854,7 +16929,7 @@ impl ImportDocumentsRequest {
     /// The value of [source][crate::model::ImportDocumentsRequest::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::import_documents_request::Source::GcsSource(v) => {
@@ -16867,7 +16942,7 @@ impl ImportDocumentsRequest {
     /// The value of [source][crate::model::ImportDocumentsRequest::source]
     /// if it holds a `BigquerySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigquery_source(
+    pub fn bigquery_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
         #[allow(unreachable_patterns)]
@@ -16882,7 +16957,7 @@ impl ImportDocumentsRequest {
     /// The value of [source][crate::model::ImportDocumentsRequest::source]
     /// if it holds a `FhirStoreSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_fhir_store_source(
+    pub fn fhir_store_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FhirStoreSource>> {
         #[allow(unreachable_patterns)]
@@ -16897,7 +16972,7 @@ impl ImportDocumentsRequest {
     /// The value of [source][crate::model::ImportDocumentsRequest::source]
     /// if it holds a `SpannerSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spanner_source(
+    pub fn spanner_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SpannerSource>> {
         #[allow(unreachable_patterns)]
@@ -16912,7 +16987,7 @@ impl ImportDocumentsRequest {
     /// The value of [source][crate::model::ImportDocumentsRequest::source]
     /// if it holds a `CloudSqlSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_sql_source(
+    pub fn cloud_sql_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlSource>> {
         #[allow(unreachable_patterns)]
@@ -16927,7 +17002,7 @@ impl ImportDocumentsRequest {
     /// The value of [source][crate::model::ImportDocumentsRequest::source]
     /// if it holds a `FirestoreSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_firestore_source(
+    pub fn firestore_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FirestoreSource>> {
         #[allow(unreachable_patterns)]
@@ -16942,7 +17017,7 @@ impl ImportDocumentsRequest {
     /// The value of [source][crate::model::ImportDocumentsRequest::source]
     /// if it holds a `AlloyDbSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_alloy_db_source(
+    pub fn alloy_db_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AlloyDbSource>> {
         #[allow(unreachable_patterns)]
@@ -16957,7 +17032,7 @@ impl ImportDocumentsRequest {
     /// The value of [source][crate::model::ImportDocumentsRequest::source]
     /// if it holds a `BigtableSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigtable_source(
+    pub fn bigtable_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigtableSource>> {
         #[allow(unreachable_patterns)]
@@ -17352,7 +17427,10 @@ impl ImportSuggestionDenyListEntriesRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportSuggestionDenyListEntriesRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<
@@ -17370,7 +17448,7 @@ impl ImportSuggestionDenyListEntriesRequest {
     /// The value of [source][crate::model::ImportSuggestionDenyListEntriesRequest::source]
     /// if it holds a `InlineSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_inline_source(
+    pub fn inline_source(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::import_suggestion_deny_list_entries_request::InlineSource>,
@@ -17387,7 +17465,7 @@ impl ImportSuggestionDenyListEntriesRequest {
     /// The value of [source][crate::model::ImportSuggestionDenyListEntriesRequest::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::import_suggestion_deny_list_entries_request::Source::GcsSource(v) => {
@@ -17670,7 +17748,10 @@ impl ImportCompletionSuggestionsRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportCompletionSuggestionsRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_completion_suggestions_request::Source>,
@@ -17686,7 +17767,7 @@ impl ImportCompletionSuggestionsRequest {
     /// The value of [source][crate::model::ImportCompletionSuggestionsRequest::source]
     /// if it holds a `InlineSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_inline_source(
+    pub fn inline_source(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::import_completion_suggestions_request::InlineSource>,
@@ -17703,7 +17784,7 @@ impl ImportCompletionSuggestionsRequest {
     /// The value of [source][crate::model::ImportCompletionSuggestionsRequest::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::import_completion_suggestions_request::Source::GcsSource(v) => {
@@ -17716,7 +17797,7 @@ impl ImportCompletionSuggestionsRequest {
     /// The value of [source][crate::model::ImportCompletionSuggestionsRequest::source]
     /// if it holds a `BigquerySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigquery_source(
+    pub fn bigquery_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
         #[allow(unreachable_patterns)]
@@ -18536,7 +18617,10 @@ impl PurgeErrorConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::PurgeErrorConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::purge_error_config::Destination>>,
     >(
@@ -18550,7 +18634,7 @@ impl PurgeErrorConfig {
     /// The value of [destination][crate::model::PurgeErrorConfig::destination]
     /// if it holds a `GcsPrefix`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_prefix(&self) -> std::option::Option<&std::string::String> {
+    pub fn gcs_prefix(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::purge_error_config::Destination::GcsPrefix(v) => {
@@ -18668,7 +18752,10 @@ impl PurgeDocumentsRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::PurgeDocumentsRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::purge_documents_request::Source>>,
     >(
@@ -18682,7 +18769,7 @@ impl PurgeDocumentsRequest {
     /// The value of [source][crate::model::PurgeDocumentsRequest::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::purge_documents_request::Source::GcsSource(v) => {
@@ -18695,7 +18782,7 @@ impl PurgeDocumentsRequest {
     /// The value of [source][crate::model::PurgeDocumentsRequest::source]
     /// if it holds a `InlineSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_inline_source(
+    pub fn inline_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::purge_documents_request::InlineSource>>
     {
@@ -20127,7 +20214,10 @@ impl Schema {
         self
     }
 
-    /// Sets the value of `schema`.
+    /// Sets the value of [schema][crate::model::Schema::schema].
+    ///
+    /// Note that all the setters affecting `schema` are mutually
+    /// exclusive.
     pub fn set_schema<T: std::convert::Into<std::option::Option<crate::model::schema::Schema>>>(
         mut self,
         v: T,
@@ -20139,7 +20229,7 @@ impl Schema {
     /// The value of [schema][crate::model::Schema::schema]
     /// if it holds a `StructSchema`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_struct_schema(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
+    pub fn struct_schema(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
         #[allow(unreachable_patterns)]
         self.schema.as_ref().and_then(|v| match v {
             crate::model::schema::Schema::StructSchema(v) => std::option::Option::Some(v),
@@ -20150,7 +20240,7 @@ impl Schema {
     /// The value of [schema][crate::model::Schema::schema]
     /// if it holds a `JsonSchema`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_json_schema(&self) -> std::option::Option<&std::string::String> {
+    pub fn json_schema(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.schema.as_ref().and_then(|v| match v {
             crate::model::schema::Schema::JsonSchema(v) => std::option::Option::Some(v),
@@ -21311,7 +21401,10 @@ pub mod search_request {
             std::default::Default::default()
         }
 
-        /// Sets the value of `image`.
+        /// Sets the value of [image][crate::model::search_request::ImageQuery::image].
+        ///
+        /// Note that all the setters affecting `image` are mutually
+        /// exclusive.
         pub fn set_image<
             T: std::convert::Into<
                     std::option::Option<crate::model::search_request::image_query::Image>,
@@ -21327,7 +21420,7 @@ pub mod search_request {
         /// The value of [image][crate::model::search_request::ImageQuery::image]
         /// if it holds a `ImageBytes`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_image_bytes(&self) -> std::option::Option<&std::string::String> {
+        pub fn image_bytes(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.image.as_ref().and_then(|v| match v {
                 crate::model::search_request::image_query::Image::ImageBytes(v) => {
@@ -23909,7 +24002,10 @@ pub mod search_response {
                 self
             }
 
-            /// Sets the value of `facet_value`.
+            /// Sets the value of [facet_value][crate::model::search_response::facet::FacetValue::facet_value].
+            ///
+            /// Note that all the setters affecting `facet_value` are mutually
+            /// exclusive.
             pub fn set_facet_value<
                 T: std::convert::Into<
                         std::option::Option<
@@ -23927,7 +24023,7 @@ pub mod search_response {
             /// The value of [facet_value][crate::model::search_response::facet::FacetValue::facet_value]
             /// if it holds a `Value`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_value(&self) -> std::option::Option<&std::string::String> {
+            pub fn value(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.facet_value.as_ref().and_then(|v| match v {
                     crate::model::search_response::facet::facet_value::FacetValue::Value(v) => {
@@ -23940,7 +24036,7 @@ pub mod search_response {
             /// The value of [facet_value][crate::model::search_response::facet::FacetValue::facet_value]
             /// if it holds a `Interval`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_interval(
+            pub fn interval(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::Interval>> {
                 #[allow(unreachable_patterns)]
@@ -24905,7 +25001,10 @@ impl TrainCustomModelRequest {
         self
     }
 
-    /// Sets the value of `training_input`.
+    /// Sets the value of [training_input][crate::model::TrainCustomModelRequest::training_input].
+    ///
+    /// Note that all the setters affecting `training_input` are mutually
+    /// exclusive.
     pub fn set_training_input<
         T: std::convert::Into<
                 std::option::Option<crate::model::train_custom_model_request::TrainingInput>,
@@ -24921,7 +25020,7 @@ impl TrainCustomModelRequest {
     /// The value of [training_input][crate::model::TrainCustomModelRequest::training_input]
     /// if it holds a `GcsTrainingInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_training_input(
+    pub fn gcs_training_input(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::train_custom_model_request::GcsTrainingInput>,
@@ -25592,7 +25691,10 @@ impl ServingConfig {
         self
     }
 
-    /// Sets the value of `vertical_config`.
+    /// Sets the value of [vertical_config][crate::model::ServingConfig::vertical_config].
+    ///
+    /// Note that all the setters affecting `vertical_config` are mutually
+    /// exclusive.
     pub fn set_vertical_config<
         T: std::convert::Into<std::option::Option<crate::model::serving_config::VerticalConfig>>,
     >(
@@ -25606,7 +25708,7 @@ impl ServingConfig {
     /// The value of [vertical_config][crate::model::ServingConfig::vertical_config]
     /// if it holds a `MediaConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_media_config(
+    pub fn media_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::serving_config::MediaConfig>> {
         #[allow(unreachable_patterns)]
@@ -25621,7 +25723,7 @@ impl ServingConfig {
     /// The value of [vertical_config][crate::model::ServingConfig::vertical_config]
     /// if it holds a `GenericConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_generic_config(
+    pub fn generic_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::serving_config::GenericConfig>> {
         #[allow(unreachable_patterns)]
@@ -25767,7 +25869,10 @@ pub mod serving_config {
             self
         }
 
-        /// Sets the value of `demote_content_watched`.
+        /// Sets the value of [demote_content_watched][crate::model::serving_config::MediaConfig::demote_content_watched].
+        ///
+        /// Note that all the setters affecting `demote_content_watched` are mutually
+        /// exclusive.
         pub fn set_demote_content_watched<
             T: std::convert::Into<
                     std::option::Option<
@@ -25785,7 +25890,7 @@ pub mod serving_config {
         /// The value of [demote_content_watched][crate::model::serving_config::MediaConfig::demote_content_watched]
         /// if it holds a `ContentWatchedPercentageThreshold`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_content_watched_percentage_threshold(&self) -> std::option::Option<&f32> {
+        pub fn content_watched_percentage_threshold(&self) -> std::option::Option<&f32> {
             #[allow(unreachable_patterns)]
             self.demote_content_watched.as_ref().and_then(|v| match v {
                 crate::model::serving_config::media_config::DemoteContentWatched::ContentWatchedPercentageThreshold(v) => std::option::Option::Some(v),
@@ -25796,7 +25901,7 @@ pub mod serving_config {
         /// The value of [demote_content_watched][crate::model::serving_config::MediaConfig::demote_content_watched]
         /// if it holds a `ContentWatchedSecondsThreshold`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_content_watched_seconds_threshold(&self) -> std::option::Option<&f32> {
+        pub fn content_watched_seconds_threshold(&self) -> std::option::Option<&f32> {
             #[allow(unreachable_patterns)]
             self.demote_content_watched.as_ref().and_then(|v| match v {
                 crate::model::serving_config::media_config::DemoteContentWatched::ContentWatchedSecondsThreshold(v) => std::option::Option::Some(v),
@@ -26255,7 +26360,10 @@ impl Query {
         self
     }
 
-    /// Sets the value of `content`.
+    /// Sets the value of [content][crate::model::Query::content].
+    ///
+    /// Note that all the setters affecting `content` are mutually
+    /// exclusive.
     pub fn set_content<T: std::convert::Into<std::option::Option<crate::model::query::Content>>>(
         mut self,
         v: T,
@@ -26267,7 +26375,7 @@ impl Query {
     /// The value of [content][crate::model::Query::content]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text(&self) -> std::option::Option<&std::string::String> {
+    pub fn text(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.content.as_ref().and_then(|v| match v {
             crate::model::query::Content::Text(v) => std::option::Option::Some(v),
@@ -26519,7 +26627,10 @@ pub mod target_site {
             std::default::Default::default()
         }
 
-        /// Sets the value of `failure`.
+        /// Sets the value of [failure][crate::model::target_site::FailureReason::failure].
+        ///
+        /// Note that all the setters affecting `failure` are mutually
+        /// exclusive.
         pub fn set_failure<
             T: std::convert::Into<
                     std::option::Option<crate::model::target_site::failure_reason::Failure>,
@@ -26535,7 +26646,7 @@ pub mod target_site {
         /// The value of [failure][crate::model::target_site::FailureReason::failure]
         /// if it holds a `QuotaFailure`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_quota_failure(
+        pub fn quota_failure(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::target_site::failure_reason::QuotaFailure>,
@@ -26922,7 +27033,10 @@ impl Sitemap {
         self
     }
 
-    /// Sets the value of `feed`.
+    /// Sets the value of [feed][crate::model::Sitemap::feed].
+    ///
+    /// Note that all the setters affecting `feed` are mutually
+    /// exclusive.
     pub fn set_feed<T: std::convert::Into<std::option::Option<crate::model::sitemap::Feed>>>(
         mut self,
         v: T,
@@ -26934,7 +27048,7 @@ impl Sitemap {
     /// The value of [feed][crate::model::Sitemap::feed]
     /// if it holds a `Uri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.feed.as_ref().and_then(|v| match v {
             crate::model::sitemap::Feed::Uri(v) => std::option::Option::Some(v),
@@ -27909,7 +28023,10 @@ pub mod fetch_sitemaps_request {
             std::default::Default::default()
         }
 
-        /// Sets the value of `matcher`.
+        /// Sets the value of [matcher][crate::model::fetch_sitemaps_request::Matcher::matcher].
+        ///
+        /// Note that all the setters affecting `matcher` are mutually
+        /// exclusive.
         pub fn set_matcher<
             T: std::convert::Into<
                     std::option::Option<crate::model::fetch_sitemaps_request::matcher::Matcher>,
@@ -27925,7 +28042,7 @@ pub mod fetch_sitemaps_request {
         /// The value of [matcher][crate::model::fetch_sitemaps_request::Matcher::matcher]
         /// if it holds a `UrisMatcher`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_uris_matcher(
+        pub fn uris_matcher(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::fetch_sitemaps_request::UrisMatcher>>
         {
@@ -30121,7 +30238,10 @@ impl DocumentInfo {
         self
     }
 
-    /// Sets the value of `document_descriptor`.
+    /// Sets the value of [document_descriptor][crate::model::DocumentInfo::document_descriptor].
+    ///
+    /// Note that all the setters affecting `document_descriptor` are mutually
+    /// exclusive.
     pub fn set_document_descriptor<
         T: std::convert::Into<std::option::Option<crate::model::document_info::DocumentDescriptor>>,
     >(
@@ -30135,7 +30255,7 @@ impl DocumentInfo {
     /// The value of [document_descriptor][crate::model::DocumentInfo::document_descriptor]
     /// if it holds a `Id`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_id(&self) -> std::option::Option<&std::string::String> {
+    pub fn id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.document_descriptor.as_ref().and_then(|v| match v {
             crate::model::document_info::DocumentDescriptor::Id(v) => std::option::Option::Some(v),
@@ -30146,7 +30266,7 @@ impl DocumentInfo {
     /// The value of [document_descriptor][crate::model::DocumentInfo::document_descriptor]
     /// if it holds a `Name`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.document_descriptor.as_ref().and_then(|v| match v {
             crate::model::document_info::DocumentDescriptor::Name(v) => {
@@ -30159,7 +30279,7 @@ impl DocumentInfo {
     /// The value of [document_descriptor][crate::model::DocumentInfo::document_descriptor]
     /// if it holds a `Uri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.document_descriptor.as_ref().and_then(|v| match v {
             crate::model::document_info::DocumentDescriptor::Uri(v) => std::option::Option::Some(v),

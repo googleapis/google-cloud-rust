@@ -1975,7 +1975,10 @@ impl Step {
         self
     }
 
-    /// Sets the value of `step_info`.
+    /// Sets the value of [step_info][crate::model::Step::step_info].
+    ///
+    /// Note that all the setters affecting `step_info` are mutually
+    /// exclusive.
     pub fn set_step_info<
         T: std::convert::Into<std::option::Option<crate::model::step::StepInfo>>,
     >(
@@ -1989,9 +1992,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Instance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_instance(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::InstanceInfo>> {
+    pub fn instance(&self) -> std::option::Option<&std::boxed::Box<crate::model::InstanceInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Instance(v) => std::option::Option::Some(v),
@@ -2002,9 +2003,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Firewall`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_firewall(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::FirewallInfo>> {
+    pub fn firewall(&self) -> std::option::Option<&std::boxed::Box<crate::model::FirewallInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Firewall(v) => std::option::Option::Some(v),
@@ -2015,7 +2014,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Route`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_route(&self) -> std::option::Option<&std::boxed::Box<crate::model::RouteInfo>> {
+    pub fn route(&self) -> std::option::Option<&std::boxed::Box<crate::model::RouteInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Route(v) => std::option::Option::Some(v),
@@ -2026,9 +2025,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Endpoint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_endpoint(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::EndpointInfo>> {
+    pub fn endpoint(&self) -> std::option::Option<&std::boxed::Box<crate::model::EndpointInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Endpoint(v) => std::option::Option::Some(v),
@@ -2039,7 +2036,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `GoogleService`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_google_service(
+    pub fn google_service(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GoogleServiceInfo>> {
         #[allow(unreachable_patterns)]
@@ -2052,7 +2049,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `ForwardingRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_forwarding_rule(
+    pub fn forwarding_rule(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ForwardingRuleInfo>> {
         #[allow(unreachable_patterns)]
@@ -2065,7 +2062,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `VpnGateway`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vpn_gateway(
+    pub fn vpn_gateway(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VpnGatewayInfo>> {
         #[allow(unreachable_patterns)]
@@ -2078,9 +2075,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `VpnTunnel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vpn_tunnel(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VpnTunnelInfo>> {
+    pub fn vpn_tunnel(&self) -> std::option::Option<&std::boxed::Box<crate::model::VpnTunnelInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::VpnTunnel(v) => std::option::Option::Some(v),
@@ -2091,7 +2086,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `VpcConnector`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vpc_connector(
+    pub fn vpc_connector(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VpcConnectorInfo>> {
         #[allow(unreachable_patterns)]
@@ -2102,9 +2097,39 @@ impl Step {
     }
 
     /// The value of [step_info][crate::model::Step::step_info]
+    /// if it holds a `DirectVpcEgressConnection`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn direct_vpc_egress_connection(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DirectVpcEgressConnectionInfo>> {
+        #[allow(unreachable_patterns)]
+        self.step_info.as_ref().and_then(|v| match v {
+            crate::model::step::StepInfo::DirectVpcEgressConnection(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [step_info][crate::model::Step::step_info]
+    /// if it holds a `ServerlessExternalConnection`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn serverless_external_connection(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ServerlessExternalConnectionInfo>> {
+        #[allow(unreachable_patterns)]
+        self.step_info.as_ref().and_then(|v| match v {
+            crate::model::step::StepInfo::ServerlessExternalConnection(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Deliver`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_deliver(&self) -> std::option::Option<&std::boxed::Box<crate::model::DeliverInfo>> {
+    pub fn deliver(&self) -> std::option::Option<&std::boxed::Box<crate::model::DeliverInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Deliver(v) => std::option::Option::Some(v),
@@ -2115,7 +2140,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Forward`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_forward(&self) -> std::option::Option<&std::boxed::Box<crate::model::ForwardInfo>> {
+    pub fn forward(&self) -> std::option::Option<&std::boxed::Box<crate::model::ForwardInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Forward(v) => std::option::Option::Some(v),
@@ -2126,7 +2151,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Abort`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_abort(&self) -> std::option::Option<&std::boxed::Box<crate::model::AbortInfo>> {
+    pub fn abort(&self) -> std::option::Option<&std::boxed::Box<crate::model::AbortInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Abort(v) => std::option::Option::Some(v),
@@ -2137,7 +2162,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Drop`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_drop(&self) -> std::option::Option<&std::boxed::Box<crate::model::DropInfo>> {
+    pub fn drop(&self) -> std::option::Option<&std::boxed::Box<crate::model::DropInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Drop(v) => std::option::Option::Some(v),
@@ -2148,7 +2173,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `LoadBalancer`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_load_balancer(
+    pub fn load_balancer(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::LoadBalancerInfo>> {
         #[allow(unreachable_patterns)]
@@ -2161,7 +2186,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Network`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_network(&self) -> std::option::Option<&std::boxed::Box<crate::model::NetworkInfo>> {
+    pub fn network(&self) -> std::option::Option<&std::boxed::Box<crate::model::NetworkInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Network(v) => std::option::Option::Some(v),
@@ -2172,9 +2197,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `GkeMaster`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gke_master(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GKEMasterInfo>> {
+    pub fn gke_master(&self) -> std::option::Option<&std::boxed::Box<crate::model::GKEMasterInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::GkeMaster(v) => std::option::Option::Some(v),
@@ -2185,7 +2208,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `CloudSqlInstance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_sql_instance(
+    pub fn cloud_sql_instance(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSQLInstanceInfo>> {
         #[allow(unreachable_patterns)]
@@ -2198,7 +2221,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `RedisInstance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_redis_instance(
+    pub fn redis_instance(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RedisInstanceInfo>> {
         #[allow(unreachable_patterns)]
@@ -2211,7 +2234,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `RedisCluster`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_redis_cluster(
+    pub fn redis_cluster(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RedisClusterInfo>> {
         #[allow(unreachable_patterns)]
@@ -2224,7 +2247,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `CloudFunction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_function(
+    pub fn cloud_function(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudFunctionInfo>> {
         #[allow(unreachable_patterns)]
@@ -2237,7 +2260,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `AppEngineVersion`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_app_engine_version(
+    pub fn app_engine_version(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AppEngineVersionInfo>> {
         #[allow(unreachable_patterns)]
@@ -2250,7 +2273,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `CloudRunRevision`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_run_revision(
+    pub fn cloud_run_revision(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudRunRevisionInfo>> {
         #[allow(unreachable_patterns)]
@@ -2263,7 +2286,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Nat`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_nat(&self) -> std::option::Option<&std::boxed::Box<crate::model::NatInfo>> {
+    pub fn nat(&self) -> std::option::Option<&std::boxed::Box<crate::model::NatInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Nat(v) => std::option::Option::Some(v),
@@ -2274,7 +2297,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `ProxyConnection`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_proxy_connection(
+    pub fn proxy_connection(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ProxyConnectionInfo>> {
         #[allow(unreachable_patterns)]
@@ -2287,7 +2310,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `LoadBalancerBackendInfo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_load_balancer_backend_info(
+    pub fn load_balancer_backend_info(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::LoadBalancerBackendInfo>> {
         #[allow(unreachable_patterns)]
@@ -2302,7 +2325,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `StorageBucket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_storage_bucket(
+    pub fn storage_bucket(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StorageBucketInfo>> {
         #[allow(unreachable_patterns)]
@@ -2315,7 +2338,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `ServerlessNeg`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_serverless_neg(
+    pub fn serverless_neg(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ServerlessNegInfo>> {
         #[allow(unreachable_patterns)]
@@ -2453,6 +2476,40 @@ impl Step {
     ) -> Self {
         self.step_info =
             std::option::Option::Some(crate::model::step::StepInfo::VpcConnector(v.into()));
+        self
+    }
+
+    /// Sets the value of [step_info][crate::model::Step::step_info]
+    /// to hold a `DirectVpcEgressConnection`.
+    ///
+    /// Note that all the setters affecting `step_info` are
+    /// mutually exclusive.
+    pub fn set_direct_vpc_egress_connection<
+        T: std::convert::Into<std::boxed::Box<crate::model::DirectVpcEgressConnectionInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.step_info = std::option::Option::Some(
+            crate::model::step::StepInfo::DirectVpcEgressConnection(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [step_info][crate::model::Step::step_info]
+    /// to hold a `ServerlessExternalConnection`.
+    ///
+    /// Note that all the setters affecting `step_info` are
+    /// mutually exclusive.
+    pub fn set_serverless_external_connection<
+        T: std::convert::Into<std::boxed::Box<crate::model::ServerlessExternalConnectionInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.step_info = std::option::Option::Some(
+            crate::model::step::StepInfo::ServerlessExternalConnection(v.into()),
+        );
         self
     }
 
@@ -2829,9 +2886,13 @@ pub mod step {
         pub const ARRIVE_AT_INSTANCE: State = State::new(9);
 
         /// Forwarding state: arriving at a Compute Engine internal load balancer.
+        /// Deprecated in favor of the `ANALYZE_LOAD_BALANCER_BACKEND` state, not
+        /// used in new tests.
         pub const ARRIVE_AT_INTERNAL_LOAD_BALANCER: State = State::new(10);
 
         /// Forwarding state: arriving at a Compute Engine external load balancer.
+        /// Deprecated in favor of the `ANALYZE_LOAD_BALANCER_BACKEND` state, not
+        /// used in new tests.
         pub const ARRIVE_AT_EXTERNAL_LOAD_BALANCER: State = State::new(11);
 
         /// Forwarding state: arriving at a Cloud VPN gateway.
@@ -2842,6 +2903,14 @@ pub mod step {
 
         /// Forwarding state: arriving at a VPC connector.
         pub const ARRIVE_AT_VPC_CONNECTOR: State = State::new(24);
+
+        /// Forwarding state: for packets originating from a serverless endpoint
+        /// forwarded through Direct VPC egress.
+        pub const DIRECT_VPC_EGRESS_CONNECTION: State = State::new(35);
+
+        /// Forwarding state: for packets originating from a serverless endpoint
+        /// forwarded through public (external) connectivity.
+        pub const SERVERLESS_EXTERNAL_CONNECTION: State = State::new(36);
 
         /// Transition state: packet header translated.
         pub const NAT: State = State::new(14);
@@ -2914,6 +2983,8 @@ pub mod step {
                 31 => std::borrow::Cow::Borrowed("START_FROM_SERVERLESS_NEG"),
                 32 => std::borrow::Cow::Borrowed("START_FROM_REDIS_INSTANCE"),
                 33 => std::borrow::Cow::Borrowed("START_FROM_REDIS_CLUSTER"),
+                35 => std::borrow::Cow::Borrowed("DIRECT_VPC_EGRESS_CONNECTION"),
+                36 => std::borrow::Cow::Borrowed("SERVERLESS_EXTERNAL_CONNECTION"),
                 _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
             }
         }
@@ -2982,6 +3053,12 @@ pub mod step {
                 "ARRIVE_AT_VPC_CONNECTOR" => {
                     std::option::Option::Some(Self::ARRIVE_AT_VPC_CONNECTOR)
                 }
+                "DIRECT_VPC_EGRESS_CONNECTION" => {
+                    std::option::Option::Some(Self::DIRECT_VPC_EGRESS_CONNECTION)
+                }
+                "SERVERLESS_EXTERNAL_CONNECTION" => {
+                    std::option::Option::Some(Self::SERVERLESS_EXTERNAL_CONNECTION)
+                }
                 "NAT" => std::option::Option::Some(Self::NAT),
                 "PROXY_CONNECTION" => std::option::Option::Some(Self::PROXY_CONNECTION),
                 "DELIVER" => std::option::Option::Some(Self::DELIVER),
@@ -3038,6 +3115,12 @@ pub mod step {
         VpnTunnel(std::boxed::Box<crate::model::VpnTunnelInfo>),
         /// Display information of a VPC connector.
         VpcConnector(std::boxed::Box<crate::model::VpcConnectorInfo>),
+        /// Display information of a serverless direct VPC egress connection.
+        DirectVpcEgressConnection(std::boxed::Box<crate::model::DirectVpcEgressConnectionInfo>),
+        /// Display information of a serverless public (external) connection.
+        ServerlessExternalConnection(
+            std::boxed::Box<crate::model::ServerlessExternalConnectionInfo>,
+        ),
         /// Display information of the final state "deliver" and reason.
         Deliver(std::boxed::Box<crate::model::DeliverInfo>),
         /// Display information of the final state "forward" and reason.
@@ -3490,6 +3573,10 @@ pub mod firewall_info {
         /// specifications](https://cloud.google.com/firewall/docs/firewalls#specifications)
         pub const TRACKING_STATE: FirewallRuleType = FirewallRuleType::new(101);
 
+        /// Firewall analysis was skipped due to executing Connectivity Test in the
+        /// BypassFirewallChecks mode
+        pub const ANALYSIS_SKIPPED: FirewallRuleType = FirewallRuleType::new(102);
+
         /// Creates a new FirewallRuleType instance.
         pub(crate) const fn new(value: i32) -> Self {
             Self(value)
@@ -3512,6 +3599,7 @@ pub mod firewall_info {
                 6 => std::borrow::Cow::Borrowed("NETWORK_REGIONAL_FIREWALL_POLICY_RULE"),
                 100 => std::borrow::Cow::Borrowed("UNSUPPORTED_FIREWALL_POLICY_RULE"),
                 101 => std::borrow::Cow::Borrowed("TRACKING_STATE"),
+                102 => std::borrow::Cow::Borrowed("ANALYSIS_SKIPPED"),
                 _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
             }
         }
@@ -3542,6 +3630,7 @@ pub mod firewall_info {
                     std::option::Option::Some(Self::UNSUPPORTED_FIREWALL_POLICY_RULE)
                 }
                 "TRACKING_STATE" => std::option::Option::Some(Self::TRACKING_STATE),
+                "ANALYSIS_SKIPPED" => std::option::Option::Some(Self::ANALYSIS_SKIPPED),
                 _ => std::option::Option::None,
             }
         }
@@ -3572,18 +3661,22 @@ pub struct RouteInfo {
     /// Type of next hop.
     pub next_hop_type: crate::model::route_info::NextHopType,
 
-    /// Indicates where route is applicable.
+    /// Indicates where route is applicable. Deprecated, routes with NCC_HUB scope
+    /// are not included in the trace in new tests.
     pub route_scope: crate::model::route_info::RouteScope,
 
     /// Name of a route.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
 
-    /// URI of a route (if applicable).
+    /// URI of a route. SUBNET, STATIC, PEERING_SUBNET (only for peering network)
+    /// and POLICY_BASED routes only.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
 
-    /// Region of the route (if applicable).
+    /// Region of the route. DYNAMIC, PEERING_DYNAMIC, POLICY_BASED and ADVERTISED
+    /// routes only. If set for POLICY_BASED route, this is a region of VLAN
+    /// attachments for Cloud Interconnect the route applies to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub region: std::string::String,
 
@@ -3591,11 +3684,13 @@ pub struct RouteInfo {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub dest_ip_range: std::string::String,
 
-    /// Next hop of the route.
+    /// String type of the next hop of the route (for example, "VPN tunnel").
+    /// Deprecated in favor of the next_hop_type and next_hop_uri fields, not used
+    /// in new tests.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_hop: std::string::String,
 
-    /// URI of a Compute Engine network. NETWORK routes only.
+    /// URI of a VPC network where route is located.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub network_uri: std::string::String,
 
@@ -3606,41 +3701,67 @@ pub struct RouteInfo {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub instance_tags: std::vec::Vec<std::string::String>,
 
-    /// Source IP address range of the route. Policy based routes only.
+    /// Source IP address range of the route. POLICY_BASED routes only.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub src_ip_range: std::string::String,
 
-    /// Destination port ranges of the route. Policy based routes only.
+    /// Destination port ranges of the route. POLICY_BASED routes only.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub dest_port_ranges: std::vec::Vec<std::string::String>,
 
-    /// Source port ranges of the route. Policy based routes only.
+    /// Source port ranges of the route. POLICY_BASED routes only.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub src_port_ranges: std::vec::Vec<std::string::String>,
 
-    /// Protocols of the route. Policy based routes only.
+    /// Protocols of the route. POLICY_BASED routes only.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub protocols: std::vec::Vec<std::string::String>,
 
-    /// URI of a NCC Hub. NCC_HUB routes only.
+    /// URI of the NCC Hub the route is advertised by. PEERING_SUBNET and
+    /// PEERING_DYNAMIC routes that are advertised by NCC Hub only.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ncc_hub_uri: std::option::Option<std::string::String>,
 
-    /// URI of a NCC Spoke. NCC_HUB routes only.
+    /// URI of the destination NCC Spoke. PEERING_SUBNET and PEERING_DYNAMIC routes
+    /// that are advertised by NCC Hub only.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ncc_spoke_uri: std::option::Option<std::string::String>,
 
-    /// For advertised dynamic routes, the URI of the Cloud Router that advertised
+    /// For ADVERTISED dynamic routes, the URI of the Cloud Router that advertised
     /// the corresponding IP prefix.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub advertised_route_source_router_uri: std::option::Option<std::string::String>,
 
-    /// For advertised routes, the URI of their next hop, i.e. the URI of the
+    /// For ADVERTISED routes, the URI of their next hop, i.e. the URI of the
     /// hybrid endpoint (VPN tunnel, Interconnect attachment, NCC router appliance)
     /// the advertised prefix is advertised through, or URI of the source peered
-    /// network.
+    /// network. Deprecated in favor of the next_hop_uri field, not used in new
+    /// tests.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub advertised_route_next_hop_uri: std::option::Option<std::string::String>,
+
+    /// URI of the next hop resource.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_hop_uri: std::string::String,
+
+    /// URI of a VPC network where the next hop resource is located.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_hop_network_uri: std::string::String,
+
+    /// For PEERING_SUBNET and PEERING_STATIC routes, the URI of the originating
+    /// SUBNET/STATIC route.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub originating_route_uri: std::string::String,
+
+    /// For PEERING_SUBNET, PEERING_STATIC and PEERING_DYNAMIC routes, the name of
+    /// the originating SUBNET/STATIC/DYNAMIC route.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub originating_route_display_name: std::string::String,
+
+    /// For PEERING_SUBNET and PEERING_DYNAMIC routes that are advertised by NCC
+    /// Hub, the URI of the corresponding route in NCC Hub's routing table.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub ncc_hub_route_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3766,6 +3887,48 @@ impl RouteInfo {
         self
     }
 
+    /// Sets the value of [next_hop_uri][crate::model::RouteInfo::next_hop_uri].
+    pub fn set_next_hop_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_hop_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [next_hop_network_uri][crate::model::RouteInfo::next_hop_network_uri].
+    pub fn set_next_hop_network_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.next_hop_network_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [originating_route_uri][crate::model::RouteInfo::originating_route_uri].
+    pub fn set_originating_route_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.originating_route_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [originating_route_display_name][crate::model::RouteInfo::originating_route_display_name].
+    pub fn set_originating_route_display_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.originating_route_display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [ncc_hub_route_uri][crate::model::RouteInfo::ncc_hub_route_uri].
+    pub fn set_ncc_hub_route_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ncc_hub_route_uri = v.into();
+        self
+    }
+
     /// Sets the value of [instance_tags][crate::model::RouteInfo::instance_tags].
     pub fn set_instance_tags<T, V>(mut self, v: T) -> Self
     where
@@ -3840,13 +4003,13 @@ pub mod route_info {
         /// Dynamic route exchanged between BGP peers.
         pub const DYNAMIC: RouteType = RouteType::new(3);
 
-        /// A subnet route received from peering network.
+        /// A subnet route received from peering network or NCC Hub.
         pub const PEERING_SUBNET: RouteType = RouteType::new(4);
 
         /// A static route received from peering network.
         pub const PEERING_STATIC: RouteType = RouteType::new(5);
 
-        /// A dynamic route received from peering network.
+        /// A dynamic route received from peering network or NCC Hub.
         pub const PEERING_DYNAMIC: RouteType = RouteType::new(6);
 
         /// Policy based route.
@@ -3928,7 +4091,9 @@ pub mod route_info {
         /// Next hop is a VPC network gateway.
         pub const NEXT_HOP_NETWORK: NextHopType = NextHopType::new(3);
 
-        /// Next hop is a peering VPC.
+        /// Next hop is a peering VPC. This scenario only happens when the user
+        /// doesn't have permissions to the project where the next hop resource is
+        /// located.
         pub const NEXT_HOP_PEERING: NextHopType = NextHopType::new(4);
 
         /// Next hop is an interconnect.
@@ -3947,7 +4112,7 @@ pub mod route_info {
         pub const NEXT_HOP_INTERNET_GATEWAY: NextHopType = NextHopType::new(8);
 
         /// Next hop is blackhole; that is, the next hop either does not exist or is
-        /// not running.
+        /// unusable.
         pub const NEXT_HOP_BLACKHOLE: NextHopType = NextHopType::new(9);
 
         /// Next hop is the forwarding rule of an Internal Load Balancer.
@@ -3958,7 +4123,8 @@ pub mod route_info {
         /// instance](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/ra-overview).
         pub const NEXT_HOP_ROUTER_APPLIANCE: NextHopType = NextHopType::new(11);
 
-        /// Next hop is an NCC hub.
+        /// Next hop is an NCC hub. This scenario only happens when the user doesn't
+        /// have permissions to the project where the next hop resource is located.
         pub const NEXT_HOP_NCC_HUB: NextHopType = NextHopType::new(12);
 
         /// Creates a new NextHopType instance.
@@ -4181,6 +4347,10 @@ pub mod google_service_info {
         /// <https://cloud.google.com/vpc/docs/configure-private-service-connect-apis>
         pub const GOOGLE_API_VPC_SC: GoogleServiceType = GoogleServiceType::new(6);
 
+        /// Google API via Serverless VPC Access.
+        /// <https://cloud.google.com/vpc/docs/serverless-vpc-access>
+        pub const SERVERLESS_VPC_ACCESS: GoogleServiceType = GoogleServiceType::new(7);
+
         /// Creates a new GoogleServiceType instance.
         pub(crate) const fn new(value: i32) -> Self {
             Self(value)
@@ -4201,6 +4371,7 @@ pub mod google_service_info {
                 4 => std::borrow::Cow::Borrowed("GOOGLE_API"),
                 5 => std::borrow::Cow::Borrowed("GOOGLE_API_PSC"),
                 6 => std::borrow::Cow::Borrowed("GOOGLE_API_VPC_SC"),
+                7 => std::borrow::Cow::Borrowed("SERVERLESS_VPC_ACCESS"),
                 _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
             }
         }
@@ -4219,6 +4390,7 @@ pub mod google_service_info {
                 "GOOGLE_API" => std::option::Option::Some(Self::GOOGLE_API),
                 "GOOGLE_API_PSC" => std::option::Option::Some(Self::GOOGLE_API_PSC),
                 "GOOGLE_API_VPC_SC" => std::option::Option::Some(Self::GOOGLE_API_VPC_SC),
+                "SERVERLESS_VPC_ACCESS" => std::option::Option::Some(Self::SERVERLESS_VPC_ACCESS),
                 _ => std::option::Option::None,
             }
         }
@@ -5757,6 +5929,10 @@ pub mod abort_info {
         /// project.
         pub const UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG: Cause = Cause::new(31);
 
+        /// Aborted because the source endpoint is a Cloud Run revision with direct
+        /// VPC access enabled, but there are no reserved serverless IP ranges.
+        pub const NO_SERVERLESS_IP_RANGES: Cause = Cause::new(37);
+
         /// Creates a new Cause instance.
         pub(crate) const fn new(value: i32) -> Self {
             Self(value)
@@ -5806,6 +5982,7 @@ pub mod abort_info {
                 34 => std::borrow::Cow::Borrowed("SOURCE_REDIS_CLUSTER_UNSUPPORTED"),
                 35 => std::borrow::Cow::Borrowed("SOURCE_REDIS_INSTANCE_UNSUPPORTED"),
                 36 => std::borrow::Cow::Borrowed("PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS"),
+                37 => std::borrow::Cow::Borrowed("NO_SERVERLESS_IP_RANGES"),
                 _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
             }
         }
@@ -5892,6 +6069,9 @@ pub mod abort_info {
                 }
                 "UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG" => {
                     std::option::Option::Some(Self::UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG)
+                }
+                "NO_SERVERLESS_IP_RANGES" => {
+                    std::option::Option::Some(Self::NO_SERVERLESS_IP_RANGES)
                 }
                 _ => std::option::Option::None,
             }
@@ -6088,6 +6268,11 @@ pub mod drop_info {
         /// For more details, see [Health check firewall
         /// rules](https://cloud.google.com/load-balancing/docs/health-checks#firewall_rules).
         pub const FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK: Cause = Cause::new(13);
+
+        /// Matching ingress firewall rules by network tags for packets sent via
+        /// serverless VPC direct egress is unsupported. Behavior is undefined.
+        /// <https://cloud.google.com/run/docs/configuring/vpc-direct-vpc#limitations>
+        pub const INGRESS_FIREWALL_TAGS_UNSUPPORTED_BY_DIRECT_VPC_EGRESS: Cause = Cause::new(85);
 
         /// Packet is sent from or to a Compute Engine instance that is not in a
         /// running state.
@@ -6327,6 +6512,18 @@ pub mod drop_info {
         /// Service Connect endpoints is not supported.
         pub const PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED: Cause = Cause::new(83);
 
+        /// Packet is sent to the PSC port mapping service, but its destination port
+        /// does not match any port mapping rules.
+        pub const PSC_PORT_MAPPING_PORT_MISMATCH: Cause = Cause::new(86);
+
+        /// Sending packets directly to the PSC port mapping service without going
+        /// through the PSC connection is not supported.
+        pub const PSC_PORT_MAPPING_WITHOUT_PSC_CONNECTION_UNSUPPORTED: Cause = Cause::new(87);
+
+        /// Packet with destination IP address within the reserved NAT64 range is
+        /// dropped due to matching a route of an unsupported type.
+        pub const UNSUPPORTED_ROUTE_MATCHED_FOR_NAT64_DESTINATION: Cause = Cause::new(88);
+
         /// Creates a new Cause instance.
         pub(crate) const fn new(value: i32) -> Self {
             Self(value)
@@ -6434,6 +6631,14 @@ pub mod drop_info {
                     std::borrow::Cow::Borrowed("NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION")
                 }
                 83 => std::borrow::Cow::Borrowed("PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED"),
+                85 => std::borrow::Cow::Borrowed(
+                    "INGRESS_FIREWALL_TAGS_UNSUPPORTED_BY_DIRECT_VPC_EGRESS",
+                ),
+                86 => std::borrow::Cow::Borrowed("PSC_PORT_MAPPING_PORT_MISMATCH"),
+                87 => std::borrow::Cow::Borrowed(
+                    "PSC_PORT_MAPPING_WITHOUT_PSC_CONNECTION_UNSUPPORTED",
+                ),
+                88 => std::borrow::Cow::Borrowed("UNSUPPORTED_ROUTE_MATCHED_FOR_NAT64_DESTINATION"),
                 _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
             }
         }
@@ -6502,6 +6707,11 @@ pub mod drop_info {
                 "FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK" => {
                     std::option::Option::Some(
                         Self::FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK,
+                    )
+                }
+                "INGRESS_FIREWALL_TAGS_UNSUPPORTED_BY_DIRECT_VPC_EGRESS" => {
+                    std::option::Option::Some(
+                        Self::INGRESS_FIREWALL_TAGS_UNSUPPORTED_BY_DIRECT_VPC_EGRESS,
                     )
                 }
                 "INSTANCE_NOT_RUNNING" => std::option::Option::Some(Self::INSTANCE_NOT_RUNNING),
@@ -6672,6 +6882,15 @@ pub mod drop_info {
                 ),
                 "PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED" => {
                     std::option::Option::Some(Self::PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED)
+                }
+                "PSC_PORT_MAPPING_PORT_MISMATCH" => {
+                    std::option::Option::Some(Self::PSC_PORT_MAPPING_PORT_MISMATCH)
+                }
+                "PSC_PORT_MAPPING_WITHOUT_PSC_CONNECTION_UNSUPPORTED" => std::option::Option::Some(
+                    Self::PSC_PORT_MAPPING_WITHOUT_PSC_CONNECTION_UNSUPPORTED,
+                ),
+                "UNSUPPORTED_ROUTE_MATCHED_FOR_NAT64_DESTINATION" => {
+                    std::option::Option::Some(Self::UNSUPPORTED_ROUTE_MATCHED_FOR_NAT64_DESTINATION)
                 }
                 _ => std::option::Option::None,
             }
@@ -6953,7 +7172,7 @@ pub struct RedisClusterInfo {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
 
-    /// URI of a Redis Cluster network in format
+    /// URI of the network containing the Redis Cluster endpoints in format
     /// "projects/{project_id}/global/networks/{network_id}".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub network_uri: std::string::String,
@@ -7264,6 +7483,120 @@ impl VpcConnectorInfo {
 impl wkt::message::Message for VpcConnectorInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.networkmanagement.v1.VpcConnectorInfo"
+    }
+}
+
+/// For display only. Metadata associated with a serverless direct VPC egress
+/// connection.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DirectVpcEgressConnectionInfo {
+    /// URI of direct access network.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub network_uri: std::string::String,
+
+    /// URI of direct access subnetwork.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub subnetwork_uri: std::string::String,
+
+    /// Selected IP range.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub selected_ip_range: std::string::String,
+
+    /// Selected starting IP address, from the selected IP range.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub selected_ip_address: std::string::String,
+
+    /// Region in which the Direct VPC egress is deployed.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub region: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DirectVpcEgressConnectionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [network_uri][crate::model::DirectVpcEgressConnectionInfo::network_uri].
+    pub fn set_network_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [subnetwork_uri][crate::model::DirectVpcEgressConnectionInfo::subnetwork_uri].
+    pub fn set_subnetwork_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.subnetwork_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [selected_ip_range][crate::model::DirectVpcEgressConnectionInfo::selected_ip_range].
+    pub fn set_selected_ip_range<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.selected_ip_range = v.into();
+        self
+    }
+
+    /// Sets the value of [selected_ip_address][crate::model::DirectVpcEgressConnectionInfo::selected_ip_address].
+    pub fn set_selected_ip_address<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.selected_ip_address = v.into();
+        self
+    }
+
+    /// Sets the value of [region][crate::model::DirectVpcEgressConnectionInfo::region].
+    pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.region = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DirectVpcEgressConnectionInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.DirectVpcEgressConnectionInfo"
+    }
+}
+
+/// For display only. Metadata associated with a serverless public connection.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ServerlessExternalConnectionInfo {
+    /// Selected starting IP address, from the Google dynamic address pool.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub selected_ip_address: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ServerlessExternalConnectionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [selected_ip_address][crate::model::ServerlessExternalConnectionInfo::selected_ip_address].
+    pub fn set_selected_ip_address<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.selected_ip_address = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ServerlessExternalConnectionInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.ServerlessExternalConnectionInfo"
     }
 }
 
@@ -8488,7 +8821,10 @@ impl VpcFlowLogsConfig {
         self
     }
 
-    /// Sets the value of `target_resource`.
+    /// Sets the value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource].
+    ///
+    /// Note that all the setters affecting `target_resource` are mutually
+    /// exclusive.
     pub fn set_target_resource<
         T: std::convert::Into<std::option::Option<crate::model::vpc_flow_logs_config::TargetResource>>,
     >(
@@ -8502,7 +8838,7 @@ impl VpcFlowLogsConfig {
     /// The value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource]
     /// if it holds a `InterconnectAttachment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_interconnect_attachment(&self) -> std::option::Option<&std::string::String> {
+    pub fn interconnect_attachment(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.target_resource.as_ref().and_then(|v| match v {
             crate::model::vpc_flow_logs_config::TargetResource::InterconnectAttachment(v) => {
@@ -8515,7 +8851,7 @@ impl VpcFlowLogsConfig {
     /// The value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource]
     /// if it holds a `VpnTunnel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vpn_tunnel(&self) -> std::option::Option<&std::string::String> {
+    pub fn vpn_tunnel(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.target_resource.as_ref().and_then(|v| match v {
             crate::model::vpc_flow_logs_config::TargetResource::VpnTunnel(v) => {

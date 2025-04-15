@@ -1204,7 +1204,10 @@ impl ObjectMetadataReportOptions {
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ObjectMetadataReportOptions::filter].
+    ///
+    /// Note that all the setters affecting `filter` are mutually
+    /// exclusive.
     pub fn set_filter<
         T: std::convert::Into<
                 std::option::Option<crate::model::object_metadata_report_options::Filter>,
@@ -1220,7 +1223,7 @@ impl ObjectMetadataReportOptions {
     /// The value of [filter][crate::model::ObjectMetadataReportOptions::filter]
     /// if it holds a `StorageFilters`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_storage_filters(
+    pub fn storage_filters(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudStorageFilters>> {
         #[allow(unreachable_patterns)]
@@ -1249,7 +1252,10 @@ impl ObjectMetadataReportOptions {
         self
     }
 
-    /// Sets the value of `destination_options`.
+    /// Sets the value of [destination_options][crate::model::ObjectMetadataReportOptions::destination_options].
+    ///
+    /// Note that all the setters affecting `destination_options` are mutually
+    /// exclusive.
     pub fn set_destination_options<
         T: std::convert::Into<
                 std::option::Option<
@@ -1267,7 +1273,7 @@ impl ObjectMetadataReportOptions {
     /// The value of [destination_options][crate::model::ObjectMetadataReportOptions::destination_options]
     /// if it holds a `StorageDestinationOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_storage_destination_options(
+    pub fn storage_destination_options(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudStorageDestinationOptions>> {
         #[allow(unreachable_patterns)]
@@ -1434,7 +1440,10 @@ impl ReportConfig {
         self
     }
 
-    /// Sets the value of `report_format`.
+    /// Sets the value of [report_format][crate::model::ReportConfig::report_format].
+    ///
+    /// Note that all the setters affecting `report_format` are mutually
+    /// exclusive.
     pub fn set_report_format<
         T: std::convert::Into<std::option::Option<crate::model::report_config::ReportFormat>>,
     >(
@@ -1448,9 +1457,7 @@ impl ReportConfig {
     /// The value of [report_format][crate::model::ReportConfig::report_format]
     /// if it holds a `CsvOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_csv_options(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CSVOptions>> {
+    pub fn csv_options(&self) -> std::option::Option<&std::boxed::Box<crate::model::CSVOptions>> {
         #[allow(unreachable_patterns)]
         self.report_format.as_ref().and_then(|v| match v {
             crate::model::report_config::ReportFormat::CsvOptions(v) => {
@@ -1463,7 +1470,7 @@ impl ReportConfig {
     /// The value of [report_format][crate::model::ReportConfig::report_format]
     /// if it holds a `ParquetOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_parquet_options(
+    pub fn parquet_options(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ParquetOptions>> {
         #[allow(unreachable_patterns)]
@@ -1507,7 +1514,10 @@ impl ReportConfig {
         self
     }
 
-    /// Sets the value of `report_kind`.
+    /// Sets the value of [report_kind][crate::model::ReportConfig::report_kind].
+    ///
+    /// Note that all the setters affecting `report_kind` are mutually
+    /// exclusive.
     pub fn set_report_kind<
         T: std::convert::Into<std::option::Option<crate::model::report_config::ReportKind>>,
     >(
@@ -1521,7 +1531,7 @@ impl ReportConfig {
     /// The value of [report_kind][crate::model::ReportConfig::report_kind]
     /// if it holds a `ObjectMetadataReportOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_object_metadata_report_options(
+    pub fn object_metadata_report_options(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ObjectMetadataReportOptions>> {
         #[allow(unreachable_patterns)]

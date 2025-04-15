@@ -1251,7 +1251,10 @@ pub mod scan_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `authentication`.
+        /// Sets the value of [authentication][crate::model::scan_config::Authentication::authentication].
+        ///
+        /// Note that all the setters affecting `authentication` are mutually
+        /// exclusive.
         pub fn set_authentication<
             T: std::convert::Into<
                     std::option::Option<crate::model::scan_config::authentication::Authentication>,
@@ -1267,7 +1270,7 @@ pub mod scan_config {
         /// The value of [authentication][crate::model::scan_config::Authentication::authentication]
         /// if it holds a `GoogleAccount`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_google_account(
+        pub fn google_account(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::scan_config::authentication::GoogleAccount>,
@@ -1284,7 +1287,7 @@ pub mod scan_config {
         /// The value of [authentication][crate::model::scan_config::Authentication::authentication]
         /// if it holds a `CustomAccount`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_custom_account(
+        pub fn custom_account(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::scan_config::authentication::CustomAccount>,
@@ -1301,7 +1304,7 @@ pub mod scan_config {
         /// The value of [authentication][crate::model::scan_config::Authentication::authentication]
         /// if it holds a `IapCredential`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_iap_credential(
+        pub fn iap_credential(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::scan_config::authentication::IapCredential>,
@@ -1516,7 +1519,10 @@ pub mod scan_config {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `iap_credentials`.
+            /// Sets the value of [iap_credentials][crate::model::scan_config::authentication::IapCredential::iap_credentials].
+            ///
+            /// Note that all the setters affecting `iap_credentials` are mutually
+            /// exclusive.
             pub fn set_iap_credentials<T: std::convert::Into<std::option::Option<crate::model::scan_config::authentication::iap_credential::IapCredentials>>>(mut self, v: T) -> Self
             {
                 self.iap_credentials = v.into();
@@ -1526,7 +1532,7 @@ pub mod scan_config {
             /// The value of [iap_credentials][crate::model::scan_config::authentication::IapCredential::iap_credentials]
             /// if it holds a `IapTestServiceAccountInfo`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_iap_test_service_account_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::scan_config::authentication::iap_credential::IapTestServiceAccountInfo>>{
+            pub fn iap_test_service_account_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::scan_config::authentication::iap_credential::IapTestServiceAccountInfo>>{
                 #[allow(unreachable_patterns)]
                 self.iap_credentials.as_ref().and_then(|v| match v {
                     crate::model::scan_config::authentication::iap_credential::IapCredentials::IapTestServiceAccountInfo(v) => std::option::Option::Some(v),

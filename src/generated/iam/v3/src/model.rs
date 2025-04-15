@@ -381,7 +381,10 @@ pub mod policy_binding {
             std::default::Default::default()
         }
 
-        /// Sets the value of `target`.
+        /// Sets the value of [target][crate::model::policy_binding::Target::target].
+        ///
+        /// Note that all the setters affecting `target` are mutually
+        /// exclusive.
         pub fn set_target<
             T: std::convert::Into<std::option::Option<crate::model::policy_binding::target::Target>>,
         >(
@@ -395,7 +398,7 @@ pub mod policy_binding {
         /// The value of [target][crate::model::policy_binding::Target::target]
         /// if it holds a `PrincipalSet`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_principal_set(&self) -> std::option::Option<&std::string::String> {
+        pub fn principal_set(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.target.as_ref().and_then(|v| match v {
                 crate::model::policy_binding::target::Target::PrincipalSet(v) => {

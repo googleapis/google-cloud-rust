@@ -579,7 +579,10 @@ impl RepoSource {
         self
     }
 
-    /// Sets the value of `revision`.
+    /// Sets the value of [revision][crate::model::RepoSource::revision].
+    ///
+    /// Note that all the setters affecting `revision` are mutually
+    /// exclusive.
     pub fn set_revision<
         T: std::convert::Into<std::option::Option<crate::model::repo_source::Revision>>,
     >(
@@ -593,7 +596,7 @@ impl RepoSource {
     /// The value of [revision][crate::model::RepoSource::revision]
     /// if it holds a `BranchName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_branch_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn branch_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.revision.as_ref().and_then(|v| match v {
             crate::model::repo_source::Revision::BranchName(v) => std::option::Option::Some(v),
@@ -604,7 +607,7 @@ impl RepoSource {
     /// The value of [revision][crate::model::RepoSource::revision]
     /// if it holds a `TagName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tag_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn tag_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.revision.as_ref().and_then(|v| match v {
             crate::model::repo_source::Revision::TagName(v) => std::option::Option::Some(v),
@@ -615,7 +618,7 @@ impl RepoSource {
     /// The value of [revision][crate::model::RepoSource::revision]
     /// if it holds a `CommitSha`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_commit_sha(&self) -> std::option::Option<&std::string::String> {
+    pub fn commit_sha(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.revision.as_ref().and_then(|v| match v {
             crate::model::repo_source::Revision::CommitSha(v) => std::option::Option::Some(v),
@@ -709,7 +712,10 @@ impl Source {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Source::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::source::Source>>>(
         mut self,
         v: T,
@@ -721,7 +727,7 @@ impl Source {
     /// The value of [source][crate::model::Source::source]
     /// if it holds a `StorageSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_storage_source(
+    pub fn storage_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StorageSource>> {
         #[allow(unreachable_patterns)]
@@ -734,9 +740,7 @@ impl Source {
     /// The value of [source][crate::model::Source::source]
     /// if it holds a `RepoSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_repo_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RepoSource>> {
+    pub fn repo_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::RepoSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::source::Source::RepoSource(v) => std::option::Option::Some(v),
@@ -747,7 +751,7 @@ impl Source {
     /// The value of [source][crate::model::Source::source]
     /// if it holds a `GitUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_git_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn git_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::source::Source::GitUri(v) => std::option::Option::Some(v),
@@ -1071,7 +1075,10 @@ impl BuildConfig {
         self
     }
 
-    /// Sets the value of `runtime_update_policy`.
+    /// Sets the value of [runtime_update_policy][crate::model::BuildConfig::runtime_update_policy].
+    ///
+    /// Note that all the setters affecting `runtime_update_policy` are mutually
+    /// exclusive.
     pub fn set_runtime_update_policy<
         T: std::convert::Into<std::option::Option<crate::model::build_config::RuntimeUpdatePolicy>>,
     >(
@@ -1085,7 +1092,7 @@ impl BuildConfig {
     /// The value of [runtime_update_policy][crate::model::BuildConfig::runtime_update_policy]
     /// if it holds a `AutomaticUpdatePolicy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_automatic_update_policy(
+    pub fn automatic_update_policy(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AutomaticUpdatePolicy>> {
         #[allow(unreachable_patterns)]
@@ -1100,7 +1107,7 @@ impl BuildConfig {
     /// The value of [runtime_update_policy][crate::model::BuildConfig::runtime_update_policy]
     /// if it holds a `OnDeployUpdatePolicy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_on_deploy_update_policy(
+    pub fn on_deploy_update_policy(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::OnDeployUpdatePolicy>> {
         #[allow(unreachable_patterns)]

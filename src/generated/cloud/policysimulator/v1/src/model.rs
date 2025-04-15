@@ -914,7 +914,10 @@ impl ReplayResult {
         self
     }
 
-    /// Sets the value of `result`.
+    /// Sets the value of [result][crate::model::ReplayResult::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::replay_result::Result>>,
     >(
@@ -928,7 +931,7 @@ impl ReplayResult {
     /// The value of [result][crate::model::ReplayResult::result]
     /// if it holds a `Diff`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_diff(&self) -> std::option::Option<&std::boxed::Box<crate::model::ReplayDiff>> {
+    pub fn diff(&self) -> std::option::Option<&std::boxed::Box<crate::model::ReplayDiff>> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
             crate::model::replay_result::Result::Diff(v) => std::option::Option::Some(v),
@@ -939,7 +942,7 @@ impl ReplayResult {
     /// The value of [result][crate::model::ReplayResult::result]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
             crate::model::replay_result::Result::Error(v) => std::option::Option::Some(v),

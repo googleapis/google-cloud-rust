@@ -2022,7 +2022,7 @@ impl super::stub::UserEventService for UserEventService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = req
-            .get_prebuilt_rule()
+            .prebuilt_rule()
             .iter()
             .fold(builder, |builder, p| builder.query(&[("prebuiltRule", p)]));
         let builder = builder.query(&[("userEvent", &req.user_event)]);

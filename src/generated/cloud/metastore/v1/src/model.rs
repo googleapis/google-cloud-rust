@@ -317,7 +317,10 @@ impl Service {
         self
     }
 
-    /// Sets the value of `metastore_config`.
+    /// Sets the value of [metastore_config][crate::model::Service::metastore_config].
+    ///
+    /// Note that all the setters affecting `metastore_config` are mutually
+    /// exclusive.
     pub fn set_metastore_config<
         T: std::convert::Into<std::option::Option<crate::model::service::MetastoreConfig>>,
     >(
@@ -331,7 +334,7 @@ impl Service {
     /// The value of [metastore_config][crate::model::Service::metastore_config]
     /// if it holds a `HiveMetastoreConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_hive_metastore_config(
+    pub fn hive_metastore_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::HiveMetastoreConfig>> {
         #[allow(unreachable_patterns)]
@@ -953,7 +956,10 @@ impl Secret {
         std::default::Default::default()
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::Secret::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::secret::Value>>>(
         mut self,
         v: T,
@@ -965,7 +971,7 @@ impl Secret {
     /// The value of [value][crate::model::Secret::value]
     /// if it holds a `CloudSecret`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_secret(&self) -> std::option::Option<&std::string::String> {
+    pub fn cloud_secret(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::secret::Value::CloudSecret(v) => std::option::Option::Some(v),
@@ -1204,7 +1210,10 @@ pub mod network_config {
             self
         }
 
-        /// Sets the value of `vpc_resource`.
+        /// Sets the value of [vpc_resource][crate::model::network_config::Consumer::vpc_resource].
+        ///
+        /// Note that all the setters affecting `vpc_resource` are mutually
+        /// exclusive.
         pub fn set_vpc_resource<
             T: std::convert::Into<
                     std::option::Option<crate::model::network_config::consumer::VpcResource>,
@@ -1220,7 +1229,7 @@ pub mod network_config {
         /// The value of [vpc_resource][crate::model::network_config::Consumer::vpc_resource]
         /// if it holds a `Subnetwork`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_subnetwork(&self) -> std::option::Option<&std::string::String> {
+        pub fn subnetwork(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.vpc_resource.as_ref().and_then(|v| match v {
                 crate::model::network_config::consumer::VpcResource::Subnetwork(v) => {
@@ -1511,7 +1520,10 @@ impl MetadataImport {
         self
     }
 
-    /// Sets the value of `metadata`.
+    /// Sets the value of [metadata][crate::model::MetadataImport::metadata].
+    ///
+    /// Note that all the setters affecting `metadata` are mutually
+    /// exclusive.
     pub fn set_metadata<
         T: std::convert::Into<std::option::Option<crate::model::metadata_import::Metadata>>,
     >(
@@ -1525,7 +1537,7 @@ impl MetadataImport {
     /// The value of [metadata][crate::model::MetadataImport::metadata]
     /// if it holds a `DatabaseDump`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_database_dump(
+    pub fn database_dump(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::metadata_import::DatabaseDump>> {
         #[allow(unreachable_patterns)]
@@ -1847,7 +1859,10 @@ impl MetadataExport {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::MetadataExport::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::metadata_export::Destination>>,
     >(
@@ -1861,7 +1876,7 @@ impl MetadataExport {
     /// The value of [destination][crate::model::MetadataExport::destination]
     /// if it holds a `DestinationGcsUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_gcs_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn destination_gcs_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::metadata_export::Destination::DestinationGcsUri(v) => {
@@ -2410,7 +2425,10 @@ impl ScalingConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `scaling_model`.
+    /// Sets the value of [scaling_model][crate::model::ScalingConfig::scaling_model].
+    ///
+    /// Note that all the setters affecting `scaling_model` are mutually
+    /// exclusive.
     pub fn set_scaling_model<
         T: std::convert::Into<std::option::Option<crate::model::scaling_config::ScalingModel>>,
     >(
@@ -2424,7 +2442,7 @@ impl ScalingConfig {
     /// The value of [scaling_model][crate::model::ScalingConfig::scaling_model]
     /// if it holds a `InstanceSize`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_instance_size(
+    pub fn instance_size(
         &self,
     ) -> std::option::Option<&crate::model::scaling_config::InstanceSize> {
         #[allow(unreachable_patterns)]
@@ -2439,7 +2457,7 @@ impl ScalingConfig {
     /// The value of [scaling_model][crate::model::ScalingConfig::scaling_model]
     /// if it holds a `ScalingFactor`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_scaling_factor(&self) -> std::option::Option<&f32> {
+    pub fn scaling_factor(&self) -> std::option::Option<&f32> {
         #[allow(unreachable_patterns)]
         self.scaling_model.as_ref().and_then(|v| match v {
             crate::model::scaling_config::ScalingModel::ScalingFactor(v) => {
@@ -3823,7 +3841,10 @@ impl ExportMetadataRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportMetadataRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_metadata_request::Destination>>,
     >(
@@ -3837,7 +3858,7 @@ impl ExportMetadataRequest {
     /// The value of [destination][crate::model::ExportMetadataRequest::destination]
     /// if it holds a `DestinationGcsFolder`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_gcs_folder(&self) -> std::option::Option<&std::string::String> {
+    pub fn destination_gcs_folder(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::export_metadata_request::Destination::DestinationGcsFolder(v) => {

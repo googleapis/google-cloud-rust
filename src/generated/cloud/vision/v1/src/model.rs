@@ -5271,7 +5271,10 @@ impl ImportProductSetsInputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportProductSetsInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_product_sets_input_config::Source>,
@@ -5287,7 +5290,7 @@ impl ImportProductSetsInputConfig {
     /// The value of [source][crate::model::ImportProductSetsInputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(
+    pub fn gcs_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ImportProductSetsGcsSource>> {
         #[allow(unreachable_patterns)]
@@ -5671,7 +5674,10 @@ impl PurgeProductsRequest {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::PurgeProductsRequest::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::purge_products_request::Target>>,
     >(
@@ -5685,7 +5691,7 @@ impl PurgeProductsRequest {
     /// The value of [target][crate::model::PurgeProductsRequest::target]
     /// if it holds a `ProductSetPurgeConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_product_set_purge_config(
+    pub fn product_set_purge_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ProductSetPurgeConfig>> {
         #[allow(unreachable_patterns)]
@@ -5700,7 +5706,7 @@ impl PurgeProductsRequest {
     /// The value of [target][crate::model::PurgeProductsRequest::target]
     /// if it holds a `DeleteOrphanProducts`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_delete_orphan_products(&self) -> std::option::Option<&bool> {
+    pub fn delete_orphan_products(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
             crate::model::purge_products_request::Target::DeleteOrphanProducts(v) => {

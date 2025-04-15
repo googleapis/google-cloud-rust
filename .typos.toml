@@ -97,13 +97,9 @@ abolute  = "abolute"
 verion = "verion"
 # src/generated/cloud/discoveryengine/v1 has a borderline word.
 inputed = "inputed"
-# src/generated/cloud/edgenetwork/v1 has a typo, it needs to be fixed upstream.
-diagnositcs = "diagnositcs"
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
 enpdoint = "enpdoint"
 oder     = "oder"
-# src/generated/cloud/financialservices/v1 has a typo, it needs to be fixed upstream.
-woud = "woud"
 # src/generated/cloud/gkebackup/v1 has a typo, it needs to be fixed upstream.
 everyting = "everyting"
 # src/generated/cloud/gkemulticloud/v1 has a typo, it needs to be fixed
@@ -190,6 +186,8 @@ intoto = "intoto" # should be "in_toto" :shrug:
 similiarly = "similiarly"
 # src/generated/spanner/admin/database/v1 has a typo, needs to be fixed upstream.
 intital = "intital"
+# src/generated/rpc/types has a typo, needs to be fixed upstream.
+orginates = "orginates"
 # src/generated/type say "Requestor", `typos` recommends `Requester`.
 requestor = "requestor"
 # src/generated/storagetransfer has typos, they need to be fixed upstream.

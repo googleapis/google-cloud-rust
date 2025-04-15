@@ -2082,7 +2082,10 @@ impl CryptoKey {
         self
     }
 
-    /// Sets the value of `rotation_schedule`.
+    /// Sets the value of [rotation_schedule][crate::model::CryptoKey::rotation_schedule].
+    ///
+    /// Note that all the setters affecting `rotation_schedule` are mutually
+    /// exclusive.
     pub fn set_rotation_schedule<
         T: std::convert::Into<std::option::Option<crate::model::crypto_key::RotationSchedule>>,
     >(
@@ -2096,7 +2099,7 @@ impl CryptoKey {
     /// The value of [rotation_schedule][crate::model::CryptoKey::rotation_schedule]
     /// if it holds a `RotationPeriod`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rotation_period(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+    pub fn rotation_period(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.rotation_schedule.as_ref().and_then(|v| match v {
             crate::model::crypto_key::RotationSchedule::RotationPeriod(v) => {
@@ -5738,7 +5741,10 @@ impl ImportCryptoKeyVersionRequest {
         self
     }
 
-    /// Sets the value of `wrapped_key_material`.
+    /// Sets the value of [wrapped_key_material][crate::model::ImportCryptoKeyVersionRequest::wrapped_key_material].
+    ///
+    /// Note that all the setters affecting `wrapped_key_material` are mutually
+    /// exclusive.
     pub fn set_wrapped_key_material<
         T: std::convert::Into<
                 std::option::Option<
@@ -5756,7 +5762,7 @@ impl ImportCryptoKeyVersionRequest {
     /// The value of [wrapped_key_material][crate::model::ImportCryptoKeyVersionRequest::wrapped_key_material]
     /// if it holds a `RsaAesWrappedKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rsa_aes_wrapped_key(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn rsa_aes_wrapped_key(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.wrapped_key_material.as_ref().and_then(|v| match v {
             crate::model::import_crypto_key_version_request::WrappedKeyMaterial::RsaAesWrappedKey(v) => std::option::Option::Some(v),
@@ -8649,7 +8655,10 @@ impl Digest {
         std::default::Default::default()
     }
 
-    /// Sets the value of `digest`.
+    /// Sets the value of [digest][crate::model::Digest::digest].
+    ///
+    /// Note that all the setters affecting `digest` are mutually
+    /// exclusive.
     pub fn set_digest<T: std::convert::Into<std::option::Option<crate::model::digest::Digest>>>(
         mut self,
         v: T,
@@ -8661,7 +8670,7 @@ impl Digest {
     /// The value of [digest][crate::model::Digest::digest]
     /// if it holds a `Sha256`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sha256(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn sha256(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.digest.as_ref().and_then(|v| match v {
             crate::model::digest::Digest::Sha256(v) => std::option::Option::Some(v),
@@ -8672,7 +8681,7 @@ impl Digest {
     /// The value of [digest][crate::model::Digest::digest]
     /// if it holds a `Sha384`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sha384(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn sha384(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.digest.as_ref().and_then(|v| match v {
             crate::model::digest::Digest::Sha384(v) => std::option::Option::Some(v),
@@ -8683,7 +8692,7 @@ impl Digest {
     /// The value of [digest][crate::model::Digest::digest]
     /// if it holds a `Sha512`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sha512(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn sha512(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.digest.as_ref().and_then(|v| match v {
             crate::model::digest::Digest::Sha512(v) => std::option::Option::Some(v),
