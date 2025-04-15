@@ -435,7 +435,7 @@ pub mod cluster {
         /// The value of [config][crate::model::cluster::ControlPlane::config]
         /// if it holds a `Remote`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_remote(
+        pub fn remote(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::cluster::control_plane::Remote>>
         {
@@ -451,7 +451,7 @@ pub mod cluster {
         /// The value of [config][crate::model::cluster::ControlPlane::config]
         /// if it holds a `Local`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_local(
+        pub fn local(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::cluster::control_plane::Local>>
         {

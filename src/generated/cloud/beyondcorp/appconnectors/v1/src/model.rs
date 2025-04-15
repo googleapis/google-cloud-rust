@@ -148,7 +148,7 @@ impl NotificationConfig {
     /// The value of [config][crate::model::NotificationConfig::config]
     /// if it holds a `PubsubNotification`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pubsub_notification(
+    pub fn pubsub_notification(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::notification_config::CloudPubSubNotificationConfig>,
@@ -989,7 +989,7 @@ pub mod app_connector {
         /// The value of [r#type][crate::model::app_connector::PrincipalInfo::r#type]
         /// if it holds a `ServiceAccount`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_service_account(
+        pub fn service_account(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::app_connector::principal_info::ServiceAccount>,

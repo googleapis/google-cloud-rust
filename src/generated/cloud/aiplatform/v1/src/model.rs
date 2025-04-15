@@ -318,7 +318,7 @@ impl ApiAuth {
     /// The value of [auth_config][crate::model::ApiAuth::auth_config]
     /// if it holds a `ApiKeyConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_api_key_config(
+    pub fn api_key_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::api_auth::ApiKeyConfig>> {
         #[allow(unreachable_patterns)]
@@ -1249,9 +1249,7 @@ pub mod batch_prediction_job {
         /// The value of [source][crate::model::batch_prediction_job::InputConfig::source]
         /// if it holds a `GcsSource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gcs_source(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+        pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
                 crate::model::batch_prediction_job::input_config::Source::GcsSource(v) => {
@@ -1264,7 +1262,7 @@ pub mod batch_prediction_job {
         /// The value of [source][crate::model::batch_prediction_job::InputConfig::source]
         /// if it holds a `BigquerySource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_bigquery_source(
+        pub fn bigquery_source(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
             #[allow(unreachable_patterns)]
@@ -1572,7 +1570,7 @@ pub mod batch_prediction_job {
         /// The value of [destination][crate::model::batch_prediction_job::OutputConfig::destination]
         /// if it holds a `GcsDestination`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gcs_destination(
+        pub fn gcs_destination(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
             #[allow(unreachable_patterns)]
@@ -1587,7 +1585,7 @@ pub mod batch_prediction_job {
         /// The value of [destination][crate::model::batch_prediction_job::OutputConfig::destination]
         /// if it holds a `BigqueryDestination`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_bigquery_destination(
+        pub fn bigquery_destination(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestination>> {
             #[allow(unreachable_patterns)]
@@ -1769,7 +1767,7 @@ pub mod batch_prediction_job {
         /// The value of [output_location][crate::model::batch_prediction_job::OutputInfo::output_location]
         /// if it holds a `GcsOutputDirectory`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gcs_output_directory(&self) -> std::option::Option<&std::string::String> {
+        pub fn gcs_output_directory(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.output_location.as_ref().and_then(|v| match v {
                 crate::model::batch_prediction_job::output_info::OutputLocation::GcsOutputDirectory(v) => std::option::Option::Some(v),
@@ -1780,7 +1778,7 @@ pub mod batch_prediction_job {
         /// The value of [output_location][crate::model::batch_prediction_job::OutputInfo::output_location]
         /// if it holds a `BigqueryOutputDataset`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_bigquery_output_dataset(&self) -> std::option::Option<&std::string::String> {
+        pub fn bigquery_output_dataset(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.output_location.as_ref().and_then(|v| match v {
                 crate::model::batch_prediction_job::output_info::OutputLocation::BigqueryOutputDataset(v) => std::option::Option::Some(v),
@@ -2024,7 +2022,7 @@ impl CachedContent {
     /// The value of [expiration][crate::model::CachedContent::expiration]
     /// if it holds a `ExpireTime`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_expire_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+    pub fn expire_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.expiration.as_ref().and_then(|v| match v {
             crate::model::cached_content::Expiration::ExpireTime(v) => std::option::Option::Some(v),
@@ -2035,7 +2033,7 @@ impl CachedContent {
     /// The value of [expiration][crate::model::CachedContent::expiration]
     /// if it holds a `Ttl`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.expiration.as_ref().and_then(|v| match v {
             crate::model::cached_content::Expiration::Ttl(v) => std::option::Option::Some(v),
@@ -2329,7 +2327,7 @@ impl Part {
     /// The value of [data][crate::model::Part::data]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text(&self) -> std::option::Option<&std::string::String> {
+    pub fn text(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.data.as_ref().and_then(|v| match v {
             crate::model::part::Data::Text(v) => std::option::Option::Some(v),
@@ -2340,7 +2338,7 @@ impl Part {
     /// The value of [data][crate::model::Part::data]
     /// if it holds a `InlineData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_inline_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::Blob>> {
+    pub fn inline_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::Blob>> {
         #[allow(unreachable_patterns)]
         self.data.as_ref().and_then(|v| match v {
             crate::model::part::Data::InlineData(v) => std::option::Option::Some(v),
@@ -2351,7 +2349,7 @@ impl Part {
     /// The value of [data][crate::model::Part::data]
     /// if it holds a `FileData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_file_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::FileData>> {
+    pub fn file_data(&self) -> std::option::Option<&std::boxed::Box<crate::model::FileData>> {
         #[allow(unreachable_patterns)]
         self.data.as_ref().and_then(|v| match v {
             crate::model::part::Data::FileData(v) => std::option::Option::Some(v),
@@ -2362,7 +2360,7 @@ impl Part {
     /// The value of [data][crate::model::Part::data]
     /// if it holds a `FunctionCall`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_function_call(
+    pub fn function_call(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FunctionCall>> {
         #[allow(unreachable_patterns)]
@@ -2375,7 +2373,7 @@ impl Part {
     /// The value of [data][crate::model::Part::data]
     /// if it holds a `FunctionResponse`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_function_response(
+    pub fn function_response(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FunctionResponse>> {
         #[allow(unreachable_patterns)]
@@ -2388,7 +2386,7 @@ impl Part {
     /// The value of [data][crate::model::Part::data]
     /// if it holds a `ExecutableCode`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_executable_code(
+    pub fn executable_code(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ExecutableCode>> {
         #[allow(unreachable_patterns)]
@@ -2401,7 +2399,7 @@ impl Part {
     /// The value of [data][crate::model::Part::data]
     /// if it holds a `CodeExecutionResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_code_execution_result(
+    pub fn code_execution_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CodeExecutionResult>> {
         #[allow(unreachable_patterns)]
@@ -2523,7 +2521,7 @@ impl Part {
     /// The value of [metadata][crate::model::Part::metadata]
     /// if it holds a `VideoMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_video_metadata(
+    pub fn video_metadata(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VideoMetadata>> {
         #[allow(unreachable_patterns)]
@@ -2989,7 +2987,7 @@ pub mod generation_config {
         /// The value of [routing_config][crate::model::generation_config::RoutingConfig::routing_config]
         /// if it holds a `AutoMode`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_auto_mode(
+        pub fn auto_mode(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::generation_config::routing_config::AutoRoutingMode>,
@@ -3006,7 +3004,7 @@ pub mod generation_config {
         /// The value of [routing_config][crate::model::generation_config::RoutingConfig::routing_config]
         /// if it holds a `ManualMode`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_manual_mode(
+        pub fn manual_mode(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::generation_config::routing_config::ManualRoutingMode>,
@@ -4297,9 +4295,7 @@ impl GroundingChunk {
     /// The value of [chunk_type][crate::model::GroundingChunk::chunk_type]
     /// if it holds a `Web`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_web(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::grounding_chunk::Web>> {
+    pub fn web(&self) -> std::option::Option<&std::boxed::Box<crate::model::grounding_chunk::Web>> {
         #[allow(unreachable_patterns)]
         self.chunk_type.as_ref().and_then(|v| match v {
             crate::model::grounding_chunk::ChunkType::Web(v) => std::option::Option::Some(v),
@@ -4310,7 +4306,7 @@ impl GroundingChunk {
     /// The value of [chunk_type][crate::model::GroundingChunk::chunk_type]
     /// if it holds a `RetrievedContext`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_retrieved_context(
+    pub fn retrieved_context(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::grounding_chunk::RetrievedContext>>
     {
@@ -4494,9 +4490,7 @@ pub mod grounding_chunk {
         /// The value of [context_details][crate::model::grounding_chunk::RetrievedContext::context_details]
         /// if it holds a `RagChunk`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_rag_chunk(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::RagChunk>> {
+        pub fn rag_chunk(&self) -> std::option::Option<&std::boxed::Box<crate::model::RagChunk>> {
             #[allow(unreachable_patterns)]
             self.context_details.as_ref().and_then(|v| match v {
                 crate::model::grounding_chunk::retrieved_context::ContextDetails::RagChunk(v) => {
@@ -5627,7 +5621,7 @@ impl WorkerPoolSpec {
     /// The value of [task][crate::model::WorkerPoolSpec::task]
     /// if it holds a `ContainerSpec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_container_spec(
+    pub fn container_spec(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ContainerSpec>> {
         #[allow(unreachable_patterns)]
@@ -5640,7 +5634,7 @@ impl WorkerPoolSpec {
     /// The value of [task][crate::model::WorkerPoolSpec::task]
     /// if it holds a `PythonPackageSpec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_python_package_spec(
+    pub fn python_package_spec(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PythonPackageSpec>> {
         #[allow(unreachable_patterns)]
@@ -6553,7 +6547,7 @@ impl ActiveLearningConfig {
     /// The value of [human_labeling_budget][crate::model::ActiveLearningConfig::human_labeling_budget]
     /// if it holds a `MaxDataItemCount`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_max_data_item_count(&self) -> std::option::Option<&i64> {
+    pub fn max_data_item_count(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.human_labeling_budget.as_ref().and_then(|v| match v {
             crate::model::active_learning_config::HumanLabelingBudget::MaxDataItemCount(v) => {
@@ -6566,7 +6560,7 @@ impl ActiveLearningConfig {
     /// The value of [human_labeling_budget][crate::model::ActiveLearningConfig::human_labeling_budget]
     /// if it holds a `MaxDataItemPercentage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_max_data_item_percentage(&self) -> std::option::Option<&i32> {
+    pub fn max_data_item_percentage(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.human_labeling_budget.as_ref().and_then(|v| match v {
             crate::model::active_learning_config::HumanLabelingBudget::MaxDataItemPercentage(v) => {
@@ -6689,7 +6683,7 @@ impl SampleConfig {
     /// The value of [initial_batch_sample_size][crate::model::SampleConfig::initial_batch_sample_size]
     /// if it holds a `InitialBatchSamplePercentage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_initial_batch_sample_percentage(&self) -> std::option::Option<&i32> {
+    pub fn initial_batch_sample_percentage(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.initial_batch_sample_size.as_ref().and_then(|v| match v {
             crate::model::sample_config::InitialBatchSampleSize::InitialBatchSamplePercentage(v) => std::option::Option::Some(v),
@@ -6730,7 +6724,7 @@ impl SampleConfig {
     /// The value of [following_batch_sample_size][crate::model::SampleConfig::following_batch_sample_size]
     /// if it holds a `FollowingBatchSamplePercentage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_following_batch_sample_percentage(&self) -> std::option::Option<&i32> {
+    pub fn following_batch_sample_percentage(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.following_batch_sample_size.as_ref().and_then(|v| match v {
             crate::model::sample_config::FollowingBatchSampleSize::FollowingBatchSamplePercentage(v) => std::option::Option::Some(v),
@@ -7240,7 +7234,7 @@ impl ImportDataConfig {
     /// The value of [source][crate::model::ImportDataConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::import_data_config::Source::GcsSource(v) => std::option::Option::Some(v),
@@ -7431,7 +7425,7 @@ impl ExportDataConfig {
     /// The value of [destination][crate::model::ExportDataConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_destination(
+    pub fn gcs_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
         #[allow(unreachable_patterns)]
@@ -7477,7 +7471,7 @@ impl ExportDataConfig {
     /// The value of [split][crate::model::ExportDataConfig::split]
     /// if it holds a `FractionSplit`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_fraction_split(
+    pub fn fraction_split(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ExportFractionSplit>> {
         #[allow(unreachable_patterns)]
@@ -7492,7 +7486,7 @@ impl ExportDataConfig {
     /// The value of [split][crate::model::ExportDataConfig::split]
     /// if it holds a `FilterSplit`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_filter_split(
+    pub fn filter_split(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ExportFilterSplit>> {
         #[allow(unreachable_patterns)]
@@ -9293,7 +9287,7 @@ impl SearchDataItemsRequest {
     /// The value of [order][crate::model::SearchDataItemsRequest::order]
     /// if it holds a `OrderByDataItem`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_order_by_data_item(&self) -> std::option::Option<&std::string::String> {
+    pub fn order_by_data_item(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.order.as_ref().and_then(|v| match v {
             crate::model::search_data_items_request::Order::OrderByDataItem(v) => {
@@ -9306,7 +9300,7 @@ impl SearchDataItemsRequest {
     /// The value of [order][crate::model::SearchDataItemsRequest::order]
     /// if it holds a `OrderByAnnotation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_order_by_annotation(
+    pub fn order_by_annotation(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::search_data_items_request::OrderByAnnotation>,
@@ -11537,7 +11531,7 @@ impl DeployedModel {
     /// The value of [prediction_resources][crate::model::DeployedModel::prediction_resources]
     /// if it holds a `DedicatedResources`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_dedicated_resources(
+    pub fn dedicated_resources(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DedicatedResources>> {
         #[allow(unreachable_patterns)]
@@ -11552,7 +11546,7 @@ impl DeployedModel {
     /// The value of [prediction_resources][crate::model::DeployedModel::prediction_resources]
     /// if it holds a `AutomaticResources`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_automatic_resources(
+    pub fn automatic_resources(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AutomaticResources>> {
         #[allow(unreachable_patterns)]
@@ -11567,7 +11561,7 @@ impl DeployedModel {
     /// The value of [prediction_resources][crate::model::DeployedModel::prediction_resources]
     /// if it holds a `SharedResources`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_shared_resources(&self) -> std::option::Option<&std::string::String> {
+    pub fn shared_resources(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.prediction_resources.as_ref().and_then(|v| match v {
             crate::model::deployed_model::PredictionResources::SharedResources(v) => {
@@ -11967,7 +11961,7 @@ impl SpeculativeDecodingSpec {
     /// The value of [speculation][crate::model::SpeculativeDecodingSpec::speculation]
     /// if it holds a `DraftModelSpeculation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_draft_model_speculation(
+    pub fn draft_model_speculation(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::speculative_decoding_spec::DraftModelSpeculation>,
@@ -11984,7 +11978,7 @@ impl SpeculativeDecodingSpec {
     /// The value of [speculation][crate::model::SpeculativeDecodingSpec::speculation]
     /// if it holds a `NgramSpeculation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ngram_speculation(
+    pub fn ngram_speculation(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::speculative_decoding_spec::NgramSpeculation>,
@@ -13976,7 +13970,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `ExactMatchInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_exact_match_input(
+    pub fn exact_match_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ExactMatchInput>> {
         #[allow(unreachable_patterns)]
@@ -13991,7 +13985,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `BleuInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bleu_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::BleuInput>> {
+    pub fn bleu_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::BleuInput>> {
         #[allow(unreachable_patterns)]
         self.metric_inputs.as_ref().and_then(|v| match v {
             crate::model::evaluate_instances_request::MetricInputs::BleuInput(v) => {
@@ -14004,9 +13998,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `RougeInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rouge_input(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RougeInput>> {
+    pub fn rouge_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::RougeInput>> {
         #[allow(unreachable_patterns)]
         self.metric_inputs.as_ref().and_then(|v| match v {
             crate::model::evaluate_instances_request::MetricInputs::RougeInput(v) => {
@@ -14019,7 +14011,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `FluencyInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_fluency_input(
+    pub fn fluency_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FluencyInput>> {
         #[allow(unreachable_patterns)]
@@ -14034,7 +14026,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `CoherenceInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_coherence_input(
+    pub fn coherence_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CoherenceInput>> {
         #[allow(unreachable_patterns)]
@@ -14049,9 +14041,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `SafetyInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_safety_input(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SafetyInput>> {
+    pub fn safety_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::SafetyInput>> {
         #[allow(unreachable_patterns)]
         self.metric_inputs.as_ref().and_then(|v| match v {
             crate::model::evaluate_instances_request::MetricInputs::SafetyInput(v) => {
@@ -14064,7 +14054,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `GroundednessInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_groundedness_input(
+    pub fn groundedness_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GroundednessInput>> {
         #[allow(unreachable_patterns)]
@@ -14079,7 +14069,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `FulfillmentInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_fulfillment_input(
+    pub fn fulfillment_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FulfillmentInput>> {
         #[allow(unreachable_patterns)]
@@ -14094,7 +14084,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `SummarizationQualityInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_summarization_quality_input(
+    pub fn summarization_quality_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SummarizationQualityInput>> {
         #[allow(unreachable_patterns)]
@@ -14109,7 +14099,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `PairwiseSummarizationQualityInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pairwise_summarization_quality_input(
+    pub fn pairwise_summarization_quality_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PairwiseSummarizationQualityInput>>
     {
@@ -14123,7 +14113,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `SummarizationHelpfulnessInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_summarization_helpfulness_input(
+    pub fn summarization_helpfulness_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SummarizationHelpfulnessInput>> {
         #[allow(unreachable_patterns)]
@@ -14136,7 +14126,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `SummarizationVerbosityInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_summarization_verbosity_input(
+    pub fn summarization_verbosity_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SummarizationVerbosityInput>> {
         #[allow(unreachable_patterns)]
@@ -14151,7 +14141,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `QuestionAnsweringQualityInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_question_answering_quality_input(
+    pub fn question_answering_quality_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::QuestionAnsweringQualityInput>> {
         #[allow(unreachable_patterns)]
@@ -14164,7 +14154,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `PairwiseQuestionAnsweringQualityInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pairwise_question_answering_quality_input(
+    pub fn pairwise_question_answering_quality_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PairwiseQuestionAnsweringQualityInput>>
     {
@@ -14178,7 +14168,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `QuestionAnsweringRelevanceInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_question_answering_relevance_input(
+    pub fn question_answering_relevance_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::QuestionAnsweringRelevanceInput>> {
         #[allow(unreachable_patterns)]
@@ -14191,7 +14181,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `QuestionAnsweringHelpfulnessInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_question_answering_helpfulness_input(
+    pub fn question_answering_helpfulness_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::QuestionAnsweringHelpfulnessInput>>
     {
@@ -14205,7 +14195,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `QuestionAnsweringCorrectnessInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_question_answering_correctness_input(
+    pub fn question_answering_correctness_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::QuestionAnsweringCorrectnessInput>>
     {
@@ -14219,7 +14209,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `PointwiseMetricInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pointwise_metric_input(
+    pub fn pointwise_metric_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PointwiseMetricInput>> {
         #[allow(unreachable_patterns)]
@@ -14234,7 +14224,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `PairwiseMetricInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pairwise_metric_input(
+    pub fn pairwise_metric_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PairwiseMetricInput>> {
         #[allow(unreachable_patterns)]
@@ -14249,7 +14239,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `ToolCallValidInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tool_call_valid_input(
+    pub fn tool_call_valid_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ToolCallValidInput>> {
         #[allow(unreachable_patterns)]
@@ -14264,7 +14254,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `ToolNameMatchInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tool_name_match_input(
+    pub fn tool_name_match_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ToolNameMatchInput>> {
         #[allow(unreachable_patterns)]
@@ -14279,7 +14269,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `ToolParameterKeyMatchInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tool_parameter_key_match_input(
+    pub fn tool_parameter_key_match_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ToolParameterKeyMatchInput>> {
         #[allow(unreachable_patterns)]
@@ -14294,7 +14284,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `ToolParameterKvMatchInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tool_parameter_kv_match_input(
+    pub fn tool_parameter_kv_match_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ToolParameterKVMatchInput>> {
         #[allow(unreachable_patterns)]
@@ -14309,9 +14299,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `CometInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_comet_input(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CometInput>> {
+    pub fn comet_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::CometInput>> {
         #[allow(unreachable_patterns)]
         self.metric_inputs.as_ref().and_then(|v| match v {
             crate::model::evaluate_instances_request::MetricInputs::CometInput(v) => {
@@ -14324,7 +14312,7 @@ impl EvaluateInstancesRequest {
     /// The value of [metric_inputs][crate::model::EvaluateInstancesRequest::metric_inputs]
     /// if it holds a `MetricxInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_metricx_input(
+    pub fn metricx_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MetricxInput>> {
         #[allow(unreachable_patterns)]
@@ -14898,7 +14886,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `ExactMatchResults`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_exact_match_results(
+    pub fn exact_match_results(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ExactMatchResults>> {
         #[allow(unreachable_patterns)]
@@ -14913,9 +14901,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `BleuResults`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bleu_results(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BleuResults>> {
+    pub fn bleu_results(&self) -> std::option::Option<&std::boxed::Box<crate::model::BleuResults>> {
         #[allow(unreachable_patterns)]
         self.evaluation_results.as_ref().and_then(|v| match v {
             crate::model::evaluate_instances_response::EvaluationResults::BleuResults(v) => {
@@ -14928,7 +14914,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `RougeResults`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rouge_results(
+    pub fn rouge_results(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RougeResults>> {
         #[allow(unreachable_patterns)]
@@ -14943,7 +14929,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `FluencyResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_fluency_result(
+    pub fn fluency_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FluencyResult>> {
         #[allow(unreachable_patterns)]
@@ -14958,7 +14944,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `CoherenceResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_coherence_result(
+    pub fn coherence_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CoherenceResult>> {
         #[allow(unreachable_patterns)]
@@ -14973,7 +14959,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `SafetyResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_safety_result(
+    pub fn safety_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SafetyResult>> {
         #[allow(unreachable_patterns)]
@@ -14988,7 +14974,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `GroundednessResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_groundedness_result(
+    pub fn groundedness_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GroundednessResult>> {
         #[allow(unreachable_patterns)]
@@ -15003,7 +14989,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `FulfillmentResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_fulfillment_result(
+    pub fn fulfillment_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FulfillmentResult>> {
         #[allow(unreachable_patterns)]
@@ -15018,7 +15004,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `SummarizationQualityResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_summarization_quality_result(
+    pub fn summarization_quality_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SummarizationQualityResult>> {
         #[allow(unreachable_patterns)]
@@ -15031,7 +15017,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `PairwiseSummarizationQualityResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pairwise_summarization_quality_result(
+    pub fn pairwise_summarization_quality_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PairwiseSummarizationQualityResult>>
     {
@@ -15045,7 +15031,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `SummarizationHelpfulnessResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_summarization_helpfulness_result(
+    pub fn summarization_helpfulness_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SummarizationHelpfulnessResult>> {
         #[allow(unreachable_patterns)]
@@ -15058,7 +15044,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `SummarizationVerbosityResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_summarization_verbosity_result(
+    pub fn summarization_verbosity_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SummarizationVerbosityResult>> {
         #[allow(unreachable_patterns)]
@@ -15071,7 +15057,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `QuestionAnsweringQualityResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_question_answering_quality_result(
+    pub fn question_answering_quality_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::QuestionAnsweringQualityResult>> {
         #[allow(unreachable_patterns)]
@@ -15084,7 +15070,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `PairwiseQuestionAnsweringQualityResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pairwise_question_answering_quality_result(
+    pub fn pairwise_question_answering_quality_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PairwiseQuestionAnsweringQualityResult>>
     {
@@ -15098,7 +15084,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `QuestionAnsweringRelevanceResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_question_answering_relevance_result(
+    pub fn question_answering_relevance_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::QuestionAnsweringRelevanceResult>> {
         #[allow(unreachable_patterns)]
@@ -15111,7 +15097,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `QuestionAnsweringHelpfulnessResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_question_answering_helpfulness_result(
+    pub fn question_answering_helpfulness_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::QuestionAnsweringHelpfulnessResult>>
     {
@@ -15125,7 +15111,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `QuestionAnsweringCorrectnessResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_question_answering_correctness_result(
+    pub fn question_answering_correctness_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::QuestionAnsweringCorrectnessResult>>
     {
@@ -15139,7 +15125,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `PointwiseMetricResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pointwise_metric_result(
+    pub fn pointwise_metric_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PointwiseMetricResult>> {
         #[allow(unreachable_patterns)]
@@ -15154,7 +15140,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `PairwiseMetricResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pairwise_metric_result(
+    pub fn pairwise_metric_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PairwiseMetricResult>> {
         #[allow(unreachable_patterns)]
@@ -15169,7 +15155,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `ToolCallValidResults`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tool_call_valid_results(
+    pub fn tool_call_valid_results(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ToolCallValidResults>> {
         #[allow(unreachable_patterns)]
@@ -15184,7 +15170,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `ToolNameMatchResults`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tool_name_match_results(
+    pub fn tool_name_match_results(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ToolNameMatchResults>> {
         #[allow(unreachable_patterns)]
@@ -15199,7 +15185,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `ToolParameterKeyMatchResults`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tool_parameter_key_match_results(
+    pub fn tool_parameter_key_match_results(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ToolParameterKeyMatchResults>> {
         #[allow(unreachable_patterns)]
@@ -15212,7 +15198,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `ToolParameterKvMatchResults`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tool_parameter_kv_match_results(
+    pub fn tool_parameter_kv_match_results(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ToolParameterKVMatchResults>> {
         #[allow(unreachable_patterns)]
@@ -15225,9 +15211,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `CometResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_comet_result(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CometResult>> {
+    pub fn comet_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::CometResult>> {
         #[allow(unreachable_patterns)]
         self.evaluation_results.as_ref().and_then(|v| match v {
             crate::model::evaluate_instances_response::EvaluationResults::CometResult(v) => {
@@ -15240,7 +15224,7 @@ impl EvaluateInstancesResponse {
     /// The value of [evaluation_results][crate::model::EvaluateInstancesResponse::evaluation_results]
     /// if it holds a `MetricxResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_metricx_result(
+    pub fn metricx_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MetricxResult>> {
         #[allow(unreachable_patterns)]
@@ -19378,7 +19362,7 @@ impl PointwiseMetricInstance {
     /// The value of [instance][crate::model::PointwiseMetricInstance::instance]
     /// if it holds a `JsonInstance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_json_instance(&self) -> std::option::Option<&std::string::String> {
+    pub fn json_instance(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.instance.as_ref().and_then(|v| match v {
             crate::model::pointwise_metric_instance::Instance::JsonInstance(v) => {
@@ -19592,7 +19576,7 @@ impl PairwiseMetricInstance {
     /// The value of [instance][crate::model::PairwiseMetricInstance::instance]
     /// if it holds a `JsonInstance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_json_instance(&self) -> std::option::Option<&std::string::String> {
+    pub fn json_instance(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.instance.as_ref().and_then(|v| match v {
             crate::model::pairwise_metric_instance::Instance::JsonInstance(v) => {
@@ -21974,7 +21958,7 @@ impl ExplanationParameters {
     /// The value of [method][crate::model::ExplanationParameters::method]
     /// if it holds a `SampledShapleyAttribution`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sampled_shapley_attribution(
+    pub fn sampled_shapley_attribution(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SampledShapleyAttribution>> {
         #[allow(unreachable_patterns)]
@@ -21989,7 +21973,7 @@ impl ExplanationParameters {
     /// The value of [method][crate::model::ExplanationParameters::method]
     /// if it holds a `IntegratedGradientsAttribution`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_integrated_gradients_attribution(
+    pub fn integrated_gradients_attribution(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::IntegratedGradientsAttribution>> {
         #[allow(unreachable_patterns)]
@@ -22004,7 +21988,7 @@ impl ExplanationParameters {
     /// The value of [method][crate::model::ExplanationParameters::method]
     /// if it holds a `XraiAttribution`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_xrai_attribution(
+    pub fn xrai_attribution(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::XraiAttribution>> {
         #[allow(unreachable_patterns)]
@@ -22019,7 +22003,7 @@ impl ExplanationParameters {
     /// The value of [method][crate::model::ExplanationParameters::method]
     /// if it holds a `Examples`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_examples(&self) -> std::option::Option<&std::boxed::Box<crate::model::Examples>> {
+    pub fn examples(&self) -> std::option::Option<&std::boxed::Box<crate::model::Examples>> {
         #[allow(unreachable_patterns)]
         self.method.as_ref().and_then(|v| match v {
             crate::model::explanation_parameters::Method::Examples(v) => {
@@ -22389,7 +22373,7 @@ impl SmoothGradConfig {
     /// The value of [gradient_noise_sigma][crate::model::SmoothGradConfig::gradient_noise_sigma]
     /// if it holds a `NoiseSigma`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_noise_sigma(&self) -> std::option::Option<&f32> {
+    pub fn noise_sigma(&self) -> std::option::Option<&f32> {
         #[allow(unreachable_patterns)]
         self.gradient_noise_sigma.as_ref().and_then(|v| match v {
             crate::model::smooth_grad_config::GradientNoiseSigma::NoiseSigma(v) => {
@@ -22402,7 +22386,7 @@ impl SmoothGradConfig {
     /// The value of [gradient_noise_sigma][crate::model::SmoothGradConfig::gradient_noise_sigma]
     /// if it holds a `FeatureNoiseSigma`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_feature_noise_sigma(
+    pub fn feature_noise_sigma(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FeatureNoiseSigma>> {
         #[allow(unreachable_patterns)]
@@ -22675,7 +22659,7 @@ impl Examples {
     /// The value of [source][crate::model::Examples::source]
     /// if it holds a `ExampleGcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_example_gcs_source(
+    pub fn example_gcs_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::examples::ExampleGcsSource>> {
         #[allow(unreachable_patterns)]
@@ -22718,7 +22702,7 @@ impl Examples {
     /// The value of [config][crate::model::Examples::config]
     /// if it holds a `NearestNeighborSearchConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_nearest_neighbor_search_config(
+    pub fn nearest_neighbor_search_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<wkt::Value>> {
         #[allow(unreachable_patterns)]
@@ -22733,7 +22717,7 @@ impl Examples {
     /// The value of [config][crate::model::Examples::config]
     /// if it holds a `Presets`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_presets(&self) -> std::option::Option<&std::boxed::Box<crate::model::Presets>> {
+    pub fn presets(&self) -> std::option::Option<&std::boxed::Box<crate::model::Presets>> {
         #[allow(unreachable_patterns)]
         self.config.as_ref().and_then(|v| match v {
             crate::model::examples::Config::Presets(v) => std::option::Option::Some(v),
@@ -24555,7 +24539,7 @@ pub mod explanation_metadata {
         /// The value of [display_name_mapping][crate::model::explanation_metadata::OutputMetadata::display_name_mapping]
         /// if it holds a `IndexDisplayNameMapping`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_index_display_name_mapping(
+        pub fn index_display_name_mapping(
             &self,
         ) -> std::option::Option<&std::boxed::Box<wkt::Value>> {
             #[allow(unreachable_patterns)]
@@ -24568,7 +24552,7 @@ pub mod explanation_metadata {
         /// The value of [display_name_mapping][crate::model::explanation_metadata::OutputMetadata::display_name_mapping]
         /// if it holds a `DisplayNameMappingKey`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_display_name_mapping_key(&self) -> std::option::Option<&std::string::String> {
+        pub fn display_name_mapping_key(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.display_name_mapping.as_ref().and_then(|v| match v {
                 crate::model::explanation_metadata::output_metadata::DisplayNameMapping::DisplayNameMappingKey(v) => std::option::Option::Some(v),
@@ -25219,7 +25203,7 @@ impl FeatureGroup {
     /// The value of [source][crate::model::FeatureGroup::source]
     /// if it holds a `BigQuery`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_big_query(
+    pub fn big_query(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::feature_group::BigQuery>> {
         #[allow(unreachable_patterns)]
@@ -25730,7 +25714,7 @@ impl FeatureOnlineStore {
     /// The value of [storage_type][crate::model::FeatureOnlineStore::storage_type]
     /// if it holds a `Bigtable`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigtable(
+    pub fn bigtable(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::feature_online_store::Bigtable>> {
         #[allow(unreachable_patterns)]
@@ -25745,7 +25729,7 @@ impl FeatureOnlineStore {
     /// The value of [storage_type][crate::model::FeatureOnlineStore::storage_type]
     /// if it holds a `Optimized`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_optimized(
+    pub fn optimized(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::feature_online_store::Optimized>> {
         #[allow(unreachable_patterns)]
@@ -27356,7 +27340,7 @@ impl FeatureViewDataKey {
     /// The value of [key_oneof][crate::model::FeatureViewDataKey::key_oneof]
     /// if it holds a `Key`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_key(&self) -> std::option::Option<&std::string::String> {
+    pub fn key(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.key_oneof.as_ref().and_then(|v| match v {
             crate::model::feature_view_data_key::KeyOneof::Key(v) => std::option::Option::Some(v),
@@ -27367,7 +27351,7 @@ impl FeatureViewDataKey {
     /// The value of [key_oneof][crate::model::FeatureViewDataKey::key_oneof]
     /// if it holds a `CompositeKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_composite_key(
+    pub fn composite_key(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::feature_view_data_key::CompositeKey>>
     {
@@ -27595,7 +27579,7 @@ impl FetchFeatureValuesResponse {
     /// The value of [format][crate::model::FetchFeatureValuesResponse::format]
     /// if it holds a `KeyValues`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_key_values(
+    pub fn key_values(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::fetch_feature_values_response::FeatureNameValuePairList>,
@@ -27612,7 +27596,7 @@ impl FetchFeatureValuesResponse {
     /// The value of [format][crate::model::FetchFeatureValuesResponse::format]
     /// if it holds a `ProtoStruct`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_proto_struct(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
+    pub fn proto_struct(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
         #[allow(unreachable_patterns)]
         self.format.as_ref().and_then(|v| match v {
             crate::model::fetch_feature_values_response::Format::ProtoStruct(v) => {
@@ -27756,7 +27740,7 @@ pub mod fetch_feature_values_response {
             /// The value of [data][crate::model::fetch_feature_values_response::feature_name_value_pair_list::FeatureNameValuePair::data]
             /// if it holds a `Value`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_value(
+            pub fn value(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::FeatureValue>> {
                 #[allow(unreachable_patterns)]
@@ -27923,7 +27907,7 @@ impl NearestNeighborQuery {
     /// The value of [instance][crate::model::NearestNeighborQuery::instance]
     /// if it holds a `EntityId`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_entity_id(&self) -> std::option::Option<&std::string::String> {
+    pub fn entity_id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.instance.as_ref().and_then(|v| match v {
             crate::model::nearest_neighbor_query::Instance::EntityId(v) => {
@@ -27936,7 +27920,7 @@ impl NearestNeighborQuery {
     /// The value of [instance][crate::model::NearestNeighborQuery::instance]
     /// if it holds a `Embedding`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_embedding(
+    pub fn embedding(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::nearest_neighbor_query::Embedding>>
     {
@@ -28174,7 +28158,7 @@ pub mod nearest_neighbor_query {
         /// The value of [value][crate::model::nearest_neighbor_query::NumericFilter::value]
         /// if it holds a `ValueInt`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_value_int(&self) -> std::option::Option<&i64> {
+        pub fn value_int(&self) -> std::option::Option<&i64> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
                 crate::model::nearest_neighbor_query::numeric_filter::Value::ValueInt(v) => {
@@ -28187,7 +28171,7 @@ pub mod nearest_neighbor_query {
         /// The value of [value][crate::model::nearest_neighbor_query::NumericFilter::value]
         /// if it holds a `ValueFloat`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_value_float(&self) -> std::option::Option<&f32> {
+        pub fn value_float(&self) -> std::option::Option<&f32> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
                 crate::model::nearest_neighbor_query::numeric_filter::Value::ValueFloat(v) => {
@@ -28200,7 +28184,7 @@ pub mod nearest_neighbor_query {
         /// The value of [value][crate::model::nearest_neighbor_query::NumericFilter::value]
         /// if it holds a `ValueDouble`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_value_double(&self) -> std::option::Option<&f64> {
+        pub fn value_double(&self) -> std::option::Option<&f64> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
                 crate::model::nearest_neighbor_query::numeric_filter::Value::ValueDouble(v) => {
@@ -29455,7 +29439,7 @@ impl FeatureView {
     /// The value of [source][crate::model::FeatureView::source]
     /// if it holds a `BigQuerySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_big_query_source(
+    pub fn big_query_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::feature_view::BigQuerySource>> {
         #[allow(unreachable_patterns)]
@@ -29468,7 +29452,7 @@ impl FeatureView {
     /// The value of [source][crate::model::FeatureView::source]
     /// if it holds a `FeatureRegistrySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_feature_registry_source(
+    pub fn feature_registry_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::feature_view::FeatureRegistrySource>>
     {
@@ -29484,7 +29468,7 @@ impl FeatureView {
     /// The value of [source][crate::model::FeatureView::source]
     /// if it holds a `VertexRagSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vertex_rag_source(
+    pub fn vertex_rag_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::feature_view::VertexRagSource>> {
         #[allow(unreachable_patterns)]
@@ -29773,7 +29757,7 @@ pub mod feature_view {
         /// The value of [algorithm_config][crate::model::feature_view::IndexConfig::algorithm_config]
         /// if it holds a `TreeAhConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_tree_ah_config(
+        pub fn tree_ah_config(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::feature_view::index_config::TreeAHConfig>,
@@ -29790,7 +29774,7 @@ pub mod feature_view {
         /// The value of [algorithm_config][crate::model::feature_view::IndexConfig::algorithm_config]
         /// if it holds a `BruteForceConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_brute_force_config(
+        pub fn brute_force_config(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::feature_view::index_config::BruteForceConfig>,
@@ -31268,7 +31252,7 @@ pub mod featurestore_monitoring_config {
         /// The value of [threshold][crate::model::featurestore_monitoring_config::ThresholdConfig::threshold]
         /// if it holds a `Value`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_value(&self) -> std::option::Option<&f64> {
+        pub fn value(&self) -> std::option::Option<&f64> {
             #[allow(unreachable_patterns)]
             self.threshold.as_ref().and_then(|v| match v {
                 crate::model::featurestore_monitoring_config::threshold_config::Threshold::Value(v) => std::option::Option::Some(v),
@@ -31775,7 +31759,7 @@ pub mod read_feature_values_response {
             /// The value of [data][crate::model::read_feature_values_response::entity_view::Data::data]
             /// if it holds a `Value`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_value(
+            pub fn value(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::FeatureValue>> {
                 #[allow(unreachable_patterns)]
@@ -31790,7 +31774,7 @@ pub mod read_feature_values_response {
             /// The value of [data][crate::model::read_feature_values_response::entity_view::Data::data]
             /// if it holds a `Values`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_values(
+            pub fn values(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::FeatureValueList>> {
                 #[allow(unreachable_patterns)]
@@ -31988,7 +31972,7 @@ impl FeatureValue {
     /// The value of [value][crate::model::FeatureValue::value]
     /// if it holds a `BoolValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bool_value(&self) -> std::option::Option<&bool> {
+    pub fn bool_value(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::feature_value::Value::BoolValue(v) => std::option::Option::Some(v),
@@ -31999,7 +31983,7 @@ impl FeatureValue {
     /// The value of [value][crate::model::FeatureValue::value]
     /// if it holds a `DoubleValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_double_value(&self) -> std::option::Option<&f64> {
+    pub fn double_value(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::feature_value::Value::DoubleValue(v) => std::option::Option::Some(v),
@@ -32010,7 +31994,7 @@ impl FeatureValue {
     /// The value of [value][crate::model::FeatureValue::value]
     /// if it holds a `Int64Value`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_int64_value(&self) -> std::option::Option<&i64> {
+    pub fn int64_value(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::feature_value::Value::Int64Value(v) => std::option::Option::Some(v),
@@ -32021,7 +32005,7 @@ impl FeatureValue {
     /// The value of [value][crate::model::FeatureValue::value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_value(&self) -> std::option::Option<&std::string::String> {
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::feature_value::Value::StringValue(v) => std::option::Option::Some(v),
@@ -32032,7 +32016,7 @@ impl FeatureValue {
     /// The value of [value][crate::model::FeatureValue::value]
     /// if it holds a `BoolArrayValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bool_array_value(
+    pub fn bool_array_value(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BoolArray>> {
         #[allow(unreachable_patterns)]
@@ -32045,7 +32029,7 @@ impl FeatureValue {
     /// The value of [value][crate::model::FeatureValue::value]
     /// if it holds a `DoubleArrayValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_double_array_value(
+    pub fn double_array_value(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DoubleArray>> {
         #[allow(unreachable_patterns)]
@@ -32058,7 +32042,7 @@ impl FeatureValue {
     /// The value of [value][crate::model::FeatureValue::value]
     /// if it holds a `Int64ArrayValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_int64_array_value(
+    pub fn int64_array_value(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::Int64Array>> {
         #[allow(unreachable_patterns)]
@@ -32071,7 +32055,7 @@ impl FeatureValue {
     /// The value of [value][crate::model::FeatureValue::value]
     /// if it holds a `StringArrayValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_array_value(
+    pub fn string_array_value(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StringArray>> {
         #[allow(unreachable_patterns)]
@@ -32084,7 +32068,7 @@ impl FeatureValue {
     /// The value of [value][crate::model::FeatureValue::value]
     /// if it holds a `BytesValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bytes_value(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn bytes_value(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::feature_value::Value::BytesValue(v) => std::option::Option::Some(v),
@@ -32095,9 +32079,7 @@ impl FeatureValue {
     /// The value of [value][crate::model::FeatureValue::value]
     /// if it holds a `StructValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_struct_value(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StructValue>> {
+    pub fn struct_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::StructValue>> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::feature_value::Value::StructValue(v) => std::option::Option::Some(v),
@@ -32974,9 +32956,7 @@ impl ImportFeatureValuesRequest {
     /// The value of [source][crate::model::ImportFeatureValuesRequest::source]
     /// if it holds a `AvroSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_avro_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AvroSource>> {
+    pub fn avro_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::AvroSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::import_feature_values_request::Source::AvroSource(v) => {
@@ -32989,7 +32969,7 @@ impl ImportFeatureValuesRequest {
     /// The value of [source][crate::model::ImportFeatureValuesRequest::source]
     /// if it holds a `BigquerySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigquery_source(
+    pub fn bigquery_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
         #[allow(unreachable_patterns)]
@@ -33004,7 +32984,7 @@ impl ImportFeatureValuesRequest {
     /// The value of [source][crate::model::ImportFeatureValuesRequest::source]
     /// if it holds a `CsvSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_csv_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::CsvSource>> {
+    pub fn csv_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::CsvSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::import_feature_values_request::Source::CsvSource(v) => {
@@ -33080,7 +33060,7 @@ impl ImportFeatureValuesRequest {
     /// The value of [feature_time_source][crate::model::ImportFeatureValuesRequest::feature_time_source]
     /// if it holds a `FeatureTimeField`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_feature_time_field(&self) -> std::option::Option<&std::string::String> {
+    pub fn feature_time_field(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.feature_time_source.as_ref().and_then(|v| match v {
             crate::model::import_feature_values_request::FeatureTimeSource::FeatureTimeField(v) => {
@@ -33093,7 +33073,7 @@ impl ImportFeatureValuesRequest {
     /// The value of [feature_time_source][crate::model::ImportFeatureValuesRequest::feature_time_source]
     /// if it holds a `FeatureTime`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_feature_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+    pub fn feature_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.feature_time_source.as_ref().and_then(|v| match v {
             crate::model::import_feature_values_request::FeatureTimeSource::FeatureTime(v) => {
@@ -33416,7 +33396,7 @@ impl BatchReadFeatureValuesRequest {
     /// The value of [read_option][crate::model::BatchReadFeatureValuesRequest::read_option]
     /// if it holds a `CsvReadInstances`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_csv_read_instances(
+    pub fn csv_read_instances(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CsvSource>> {
         #[allow(unreachable_patterns)]
@@ -33431,7 +33411,7 @@ impl BatchReadFeatureValuesRequest {
     /// The value of [read_option][crate::model::BatchReadFeatureValuesRequest::read_option]
     /// if it holds a `BigqueryReadInstances`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigquery_read_instances(
+    pub fn bigquery_read_instances(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
         #[allow(unreachable_patterns)]
@@ -33729,7 +33709,7 @@ impl ExportFeatureValuesRequest {
     /// The value of [mode][crate::model::ExportFeatureValuesRequest::mode]
     /// if it holds a `SnapshotExport`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_snapshot_export(
+    pub fn snapshot_export(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::export_feature_values_request::SnapshotExport>,
@@ -33746,7 +33726,7 @@ impl ExportFeatureValuesRequest {
     /// The value of [mode][crate::model::ExportFeatureValuesRequest::mode]
     /// if it holds a `FullExport`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_full_export(
+    pub fn full_export(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::export_feature_values_request::FullExport>,
@@ -34014,7 +33994,7 @@ impl FeatureValueDestination {
     /// The value of [destination][crate::model::FeatureValueDestination::destination]
     /// if it holds a `BigqueryDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigquery_destination(
+    pub fn bigquery_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestination>> {
         #[allow(unreachable_patterns)]
@@ -34029,7 +34009,7 @@ impl FeatureValueDestination {
     /// The value of [destination][crate::model::FeatureValueDestination::destination]
     /// if it holds a `TfrecordDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tfrecord_destination(
+    pub fn tfrecord_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TFRecordDestination>> {
         #[allow(unreachable_patterns)]
@@ -34044,7 +34024,7 @@ impl FeatureValueDestination {
     /// The value of [destination][crate::model::FeatureValueDestination::destination]
     /// if it holds a `CsvDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_csv_destination(
+    pub fn csv_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CsvDestination>> {
         #[allow(unreachable_patterns)]
@@ -35847,7 +35827,7 @@ impl DeleteFeatureValuesRequest {
     /// The value of [delete_option][crate::model::DeleteFeatureValuesRequest::delete_option]
     /// if it holds a `SelectEntity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_select_entity(
+    pub fn select_entity(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::delete_feature_values_request::SelectEntity>,
@@ -35864,7 +35844,7 @@ impl DeleteFeatureValuesRequest {
     /// The value of [delete_option][crate::model::DeleteFeatureValuesRequest::delete_option]
     /// if it holds a `SelectTimeRangeAndFeature`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_select_time_range_and_feature(
+    pub fn select_time_range_and_feature(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::delete_feature_values_request::SelectTimeRangeAndFeature>,
@@ -36097,7 +36077,7 @@ impl DeleteFeatureValuesResponse {
     /// The value of [response][crate::model::DeleteFeatureValuesResponse::response]
     /// if it holds a `SelectEntity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_select_entity(
+    pub fn select_entity(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::delete_feature_values_response::SelectEntity>,
@@ -36114,7 +36094,7 @@ impl DeleteFeatureValuesResponse {
     /// The value of [response][crate::model::DeleteFeatureValuesResponse::response]
     /// if it holds a `SelectTimeRangeAndFeature`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_select_time_range_and_feature(
+    pub fn select_time_range_and_feature(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::delete_feature_values_response::SelectTimeRangeAndFeature>,
@@ -36364,7 +36344,7 @@ impl EntityIdSelector {
     /// The value of [entity_ids_source][crate::model::EntityIdSelector::entity_ids_source]
     /// if it holds a `CsvSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_csv_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::CsvSource>> {
+    pub fn csv_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::CsvSource>> {
         #[allow(unreachable_patterns)]
         self.entity_ids_source.as_ref().and_then(|v| match v {
             crate::model::entity_id_selector::EntityIdsSource::CsvSource(v) => {
@@ -37961,7 +37941,7 @@ pub mod index_datapoint {
         /// The value of [value][crate::model::index_datapoint::NumericRestriction::value]
         /// if it holds a `ValueInt`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_value_int(&self) -> std::option::Option<&i64> {
+        pub fn value_int(&self) -> std::option::Option<&i64> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
                 crate::model::index_datapoint::numeric_restriction::Value::ValueInt(v) => {
@@ -37974,7 +37954,7 @@ pub mod index_datapoint {
         /// The value of [value][crate::model::index_datapoint::NumericRestriction::value]
         /// if it holds a `ValueFloat`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_value_float(&self) -> std::option::Option<&f32> {
+        pub fn value_float(&self) -> std::option::Option<&f32> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
                 crate::model::index_datapoint::numeric_restriction::Value::ValueFloat(v) => {
@@ -37987,7 +37967,7 @@ pub mod index_datapoint {
         /// The value of [value][crate::model::index_datapoint::NumericRestriction::value]
         /// if it holds a `ValueDouble`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_value_double(&self) -> std::option::Option<&f64> {
+        pub fn value_double(&self) -> std::option::Option<&f64> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
                 crate::model::index_datapoint::numeric_restriction::Value::ValueDouble(v) => {
@@ -41730,7 +41710,7 @@ pub mod share_point_sources {
         /// The value of [folder_source][crate::model::share_point_sources::SharePointSource::folder_source]
         /// if it holds a `SharepointFolderPath`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_sharepoint_folder_path(&self) -> std::option::Option<&std::string::String> {
+        pub fn sharepoint_folder_path(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.folder_source.as_ref().and_then(|v| match v {
                 crate::model::share_point_sources::share_point_source::FolderSource::SharepointFolderPath(v) => std::option::Option::Some(v),
@@ -41741,7 +41721,7 @@ pub mod share_point_sources {
         /// The value of [folder_source][crate::model::share_point_sources::SharePointSource::folder_source]
         /// if it holds a `SharepointFolderId`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_sharepoint_folder_id(&self) -> std::option::Option<&std::string::String> {
+        pub fn sharepoint_folder_id(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.folder_source.as_ref().and_then(|v| match v {
                 crate::model::share_point_sources::share_point_source::FolderSource::SharepointFolderId(v) => std::option::Option::Some(v),
@@ -41804,7 +41784,7 @@ pub mod share_point_sources {
         /// The value of [drive_source][crate::model::share_point_sources::SharePointSource::drive_source]
         /// if it holds a `DriveName`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_drive_name(&self) -> std::option::Option<&std::string::String> {
+        pub fn drive_name(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.drive_source.as_ref().and_then(|v| match v {
                 crate::model::share_point_sources::share_point_source::DriveSource::DriveName(
@@ -41817,7 +41797,7 @@ pub mod share_point_sources {
         /// The value of [drive_source][crate::model::share_point_sources::SharePointSource::drive_source]
         /// if it holds a `DriveId`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_drive_id(&self) -> std::option::Option<&std::string::String> {
+        pub fn drive_id(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.drive_source.as_ref().and_then(|v| match v {
                 crate::model::share_point_sources::share_point_source::DriveSource::DriveId(v) => {
@@ -45617,7 +45597,7 @@ pub mod find_neighbors_request {
         /// The value of [ranking][crate::model::find_neighbors_request::Query::ranking]
         /// if it holds a `Rrf`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_rrf(
+        pub fn rrf(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::find_neighbors_request::query::Rrf>>
         {
@@ -49204,7 +49184,7 @@ impl MigratableResource {
     /// The value of [resource][crate::model::MigratableResource::resource]
     /// if it holds a `MlEngineModelVersion`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ml_engine_model_version(
+    pub fn ml_engine_model_version(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::migratable_resource::MlEngineModelVersion>,
@@ -49221,7 +49201,7 @@ impl MigratableResource {
     /// The value of [resource][crate::model::MigratableResource::resource]
     /// if it holds a `AutomlModel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_automl_model(
+    pub fn automl_model(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::migratable_resource::AutomlModel>> {
         #[allow(unreachable_patterns)]
@@ -49236,7 +49216,7 @@ impl MigratableResource {
     /// The value of [resource][crate::model::MigratableResource::resource]
     /// if it holds a `AutomlDataset`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_automl_dataset(
+    pub fn automl_dataset(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::migratable_resource::AutomlDataset>>
     {
@@ -49252,7 +49232,7 @@ impl MigratableResource {
     /// The value of [resource][crate::model::MigratableResource::resource]
     /// if it holds a `DataLabelingDataset`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_data_labeling_dataset(
+    pub fn data_labeling_dataset(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::migratable_resource::DataLabelingDataset>>
     {
@@ -49870,7 +49850,7 @@ impl MigrateResourceRequest {
     /// The value of [request][crate::model::MigrateResourceRequest::request]
     /// if it holds a `MigrateMlEngineModelVersionConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_migrate_ml_engine_model_version_config(
+    pub fn migrate_ml_engine_model_version_config(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::migrate_resource_request::MigrateMlEngineModelVersionConfig>,
@@ -49887,7 +49867,7 @@ impl MigrateResourceRequest {
     /// The value of [request][crate::model::MigrateResourceRequest::request]
     /// if it holds a `MigrateAutomlModelConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_migrate_automl_model_config(
+    pub fn migrate_automl_model_config(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::migrate_resource_request::MigrateAutomlModelConfig>,
@@ -49904,7 +49884,7 @@ impl MigrateResourceRequest {
     /// The value of [request][crate::model::MigrateResourceRequest::request]
     /// if it holds a `MigrateAutomlDatasetConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_migrate_automl_dataset_config(
+    pub fn migrate_automl_dataset_config(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::migrate_resource_request::MigrateAutomlDatasetConfig>,
@@ -49921,7 +49901,7 @@ impl MigrateResourceRequest {
     /// The value of [request][crate::model::MigrateResourceRequest::request]
     /// if it holds a `MigrateDataLabelingDatasetConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_migrate_data_labeling_dataset_config(
+    pub fn migrate_data_labeling_dataset_config(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::migrate_resource_request::MigrateDataLabelingDatasetConfig>,
@@ -50435,7 +50415,7 @@ impl MigrateResourceResponse {
     /// The value of [migrated_resource][crate::model::MigrateResourceResponse::migrated_resource]
     /// if it holds a `Dataset`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_dataset(&self) -> std::option::Option<&std::string::String> {
+    pub fn dataset(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.migrated_resource.as_ref().and_then(|v| match v {
             crate::model::migrate_resource_response::MigratedResource::Dataset(v) => {
@@ -50448,7 +50428,7 @@ impl MigrateResourceResponse {
     /// The value of [migrated_resource][crate::model::MigrateResourceResponse::migrated_resource]
     /// if it holds a `Model`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_model(&self) -> std::option::Option<&std::string::String> {
+    pub fn model(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.migrated_resource.as_ref().and_then(|v| match v {
             crate::model::migrate_resource_response::MigratedResource::Model(v) => {
@@ -50626,7 +50606,7 @@ pub mod batch_migrate_resources_operation_metadata {
         /// The value of [result][crate::model::batch_migrate_resources_operation_metadata::PartialResult::result]
         /// if it holds a `Error`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+        pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
             #[allow(unreachable_patterns)]
             self.result.as_ref().and_then(|v| match v {
                 crate::model::batch_migrate_resources_operation_metadata::partial_result::Result::Error(v) => std::option::Option::Some(v),
@@ -50637,7 +50617,7 @@ pub mod batch_migrate_resources_operation_metadata {
         /// The value of [result][crate::model::batch_migrate_resources_operation_metadata::PartialResult::result]
         /// if it holds a `Model`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_model(&self) -> std::option::Option<&std::string::String> {
+        pub fn model(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.result.as_ref().and_then(|v| match v {
                 crate::model::batch_migrate_resources_operation_metadata::partial_result::Result::Model(v) => std::option::Option::Some(v),
@@ -50648,7 +50628,7 @@ pub mod batch_migrate_resources_operation_metadata {
         /// The value of [result][crate::model::batch_migrate_resources_operation_metadata::PartialResult::result]
         /// if it holds a `Dataset`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_dataset(&self) -> std::option::Option<&std::string::String> {
+        pub fn dataset(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.result.as_ref().and_then(|v| match v {
                 crate::model::batch_migrate_resources_operation_metadata::partial_result::Result::Dataset(v) => std::option::Option::Some(v),
@@ -51740,7 +51720,7 @@ pub mod model {
         /// The value of [source][crate::model::model::BaseModelSource::source]
         /// if it holds a `ModelGardenSource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_model_garden_source(
+        pub fn model_garden_source(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::ModelGardenSource>> {
             #[allow(unreachable_patterns)]
@@ -51755,7 +51735,7 @@ pub mod model {
         /// The value of [source][crate::model::model::BaseModelSource::source]
         /// if it holds a `GenieSource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_genie_source(
+        pub fn genie_source(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::GenieSource>> {
             #[allow(unreachable_patterns)]
@@ -52823,9 +52803,7 @@ impl Probe {
     /// The value of [probe_type][crate::model::Probe::probe_type]
     /// if it holds a `Exec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_exec(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::probe::ExecAction>> {
+    pub fn exec(&self) -> std::option::Option<&std::boxed::Box<crate::model::probe::ExecAction>> {
         #[allow(unreachable_patterns)]
         self.probe_type.as_ref().and_then(|v| match v {
             crate::model::probe::ProbeType::Exec(v) => std::option::Option::Some(v),
@@ -52836,7 +52814,7 @@ impl Probe {
     /// The value of [probe_type][crate::model::Probe::probe_type]
     /// if it holds a `HttpGet`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_http_get(
+    pub fn http_get(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::probe::HttpGetAction>> {
         #[allow(unreachable_patterns)]
@@ -52849,9 +52827,7 @@ impl Probe {
     /// The value of [probe_type][crate::model::Probe::probe_type]
     /// if it holds a `Grpc`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_grpc(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::probe::GrpcAction>> {
+    pub fn grpc(&self) -> std::option::Option<&std::boxed::Box<crate::model::probe::GrpcAction>> {
         #[allow(unreachable_patterns)]
         self.probe_type.as_ref().and_then(|v| match v {
             crate::model::probe::ProbeType::Grpc(v) => std::option::Option::Some(v),
@@ -52862,7 +52838,7 @@ impl Probe {
     /// The value of [probe_type][crate::model::Probe::probe_type]
     /// if it holds a `TcpSocket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tcp_socket(
+    pub fn tcp_socket(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::probe::TcpSocketAction>> {
         #[allow(unreachable_patterns)]
@@ -54839,7 +54815,7 @@ pub mod model_evaluation_slice {
                 /// The value of [kind][crate::model::model_evaluation_slice::slice::slice_spec::SliceConfig::kind]
                 /// if it holds a `Value`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_value(
+                pub fn value(
                     &self,
                 ) -> std::option::Option<
                     &std::boxed::Box<
@@ -54856,7 +54832,7 @@ pub mod model_evaluation_slice {
                 /// The value of [kind][crate::model::model_evaluation_slice::slice::slice_spec::SliceConfig::kind]
                 /// if it holds a `Range`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_range(
+                pub fn range(
                     &self,
                 ) -> std::option::Option<
                     &std::boxed::Box<
@@ -54873,9 +54849,7 @@ pub mod model_evaluation_slice {
                 /// The value of [kind][crate::model::model_evaluation_slice::slice::slice_spec::SliceConfig::kind]
                 /// if it holds a `AllValues`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_all_values(
-                    &self,
-                ) -> std::option::Option<&std::boxed::Box<wkt::BoolValue>> {
+                pub fn all_values(&self) -> std::option::Option<&std::boxed::Box<wkt::BoolValue>> {
                     #[allow(unreachable_patterns)]
                     self.kind.as_ref().and_then(|v| match v {
                         crate::model::model_evaluation_slice::slice::slice_spec::slice_config::Kind::AllValues(v) => std::option::Option::Some(v),
@@ -55058,7 +55032,7 @@ pub mod model_evaluation_slice {
                 /// The value of [kind][crate::model::model_evaluation_slice::slice::slice_spec::Value::kind]
                 /// if it holds a `StringValue`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_string_value(&self) -> std::option::Option<&std::string::String> {
+                pub fn string_value(&self) -> std::option::Option<&std::string::String> {
                     #[allow(unreachable_patterns)]
                     self.kind.as_ref().and_then(|v| match v {
                         crate::model::model_evaluation_slice::slice::slice_spec::value::Kind::StringValue(v) => std::option::Option::Some(v),
@@ -55069,7 +55043,7 @@ pub mod model_evaluation_slice {
                 /// The value of [kind][crate::model::model_evaluation_slice::slice::slice_spec::Value::kind]
                 /// if it holds a `FloatValue`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_float_value(&self) -> std::option::Option<&f32> {
+                pub fn float_value(&self) -> std::option::Option<&f32> {
                     #[allow(unreachable_patterns)]
                     self.kind.as_ref().and_then(|v| match v {
                         crate::model::model_evaluation_slice::slice::slice_spec::value::Kind::FloatValue(v) => std::option::Option::Some(v),
@@ -55403,7 +55377,7 @@ pub mod model_monitoring_objective_config {
         /// The value of [data_source][crate::model::model_monitoring_objective_config::TrainingDataset::data_source]
         /// if it holds a `Dataset`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_dataset(&self) -> std::option::Option<&std::string::String> {
+        pub fn dataset(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.data_source.as_ref().and_then(|v| match v {
                 crate::model::model_monitoring_objective_config::training_dataset::DataSource::Dataset(v) => std::option::Option::Some(v),
@@ -55414,9 +55388,7 @@ pub mod model_monitoring_objective_config {
         /// The value of [data_source][crate::model::model_monitoring_objective_config::TrainingDataset::data_source]
         /// if it holds a `GcsSource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gcs_source(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+        pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
             #[allow(unreachable_patterns)]
             self.data_source.as_ref().and_then(|v| match v {
                 crate::model::model_monitoring_objective_config::training_dataset::DataSource::GcsSource(v) => std::option::Option::Some(v),
@@ -55427,7 +55399,7 @@ pub mod model_monitoring_objective_config {
         /// The value of [data_source][crate::model::model_monitoring_objective_config::TrainingDataset::data_source]
         /// if it holds a `BigquerySource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_bigquery_source(
+        pub fn bigquery_source(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::BigQuerySource>> {
             #[allow(unreachable_patterns)]
@@ -55770,7 +55742,7 @@ pub mod model_monitoring_objective_config {
             /// The value of [destination][crate::model::model_monitoring_objective_config::explanation_config::ExplanationBaseline::destination]
             /// if it holds a `Gcs`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_gcs(
+            pub fn gcs(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
                 #[allow(unreachable_patterns)]
@@ -55783,7 +55755,7 @@ pub mod model_monitoring_objective_config {
             /// The value of [destination][crate::model::model_monitoring_objective_config::explanation_config::ExplanationBaseline::destination]
             /// if it holds a `Bigquery`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_bigquery(
+            pub fn bigquery(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestination>>
             {
@@ -55984,7 +55956,7 @@ impl ModelMonitoringAlertConfig {
     /// The value of [alert][crate::model::ModelMonitoringAlertConfig::alert]
     /// if it holds a `EmailAlertConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_email_alert_config(
+    pub fn email_alert_config(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::model_monitoring_alert_config::EmailAlertConfig>,
@@ -56112,7 +56084,7 @@ impl ThresholdConfig {
     /// The value of [threshold][crate::model::ThresholdConfig::threshold]
     /// if it holds a `Value`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_value(&self) -> std::option::Option<&f64> {
+    pub fn value(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.threshold.as_ref().and_then(|v| match v {
             crate::model::threshold_config::Threshold::Value(v) => std::option::Option::Some(v),
@@ -57720,7 +57692,7 @@ impl CopyModelRequest {
     /// The value of [destination_model][crate::model::CopyModelRequest::destination_model]
     /// if it holds a `ModelId`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_model_id(&self) -> std::option::Option<&std::string::String> {
+    pub fn model_id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination_model.as_ref().and_then(|v| match v {
             crate::model::copy_model_request::DestinationModel::ModelId(v) => {
@@ -57733,7 +57705,7 @@ impl CopyModelRequest {
     /// The value of [destination_model][crate::model::CopyModelRequest::destination_model]
     /// if it holds a `ParentModel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_parent_model(&self) -> std::option::Option<&std::string::String> {
+    pub fn parent_model(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination_model.as_ref().and_then(|v| match v {
             crate::model::copy_model_request::DestinationModel::ParentModel(v) => {
@@ -58871,7 +58843,7 @@ impl NasJobSpec {
     /// The value of [nas_algorithm_spec][crate::model::NasJobSpec::nas_algorithm_spec]
     /// if it holds a `MultiTrialAlgorithmSpec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_multi_trial_algorithm_spec(
+    pub fn multi_trial_algorithm_spec(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::nas_job_spec::MultiTrialAlgorithmSpec>>
     {
@@ -59380,7 +59352,7 @@ impl NasJobOutput {
     /// The value of [output][crate::model::NasJobOutput::output]
     /// if it holds a `MultiTrialJobOutput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_multi_trial_job_output(
+    pub fn multi_trial_job_output(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::nas_job_output::MultiTrialJobOutput>>
     {
@@ -59968,7 +59940,7 @@ impl NotebookExecutionJob {
     /// The value of [notebook_source][crate::model::NotebookExecutionJob::notebook_source]
     /// if it holds a `DataformRepositorySource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_dataform_repository_source(
+    pub fn dataform_repository_source(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::notebook_execution_job::DataformRepositorySource>,
@@ -59985,7 +59957,7 @@ impl NotebookExecutionJob {
     /// The value of [notebook_source][crate::model::NotebookExecutionJob::notebook_source]
     /// if it holds a `GcsNotebookSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_notebook_source(
+    pub fn gcs_notebook_source(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::notebook_execution_job::GcsNotebookSource>,
@@ -60002,7 +59974,7 @@ impl NotebookExecutionJob {
     /// The value of [notebook_source][crate::model::NotebookExecutionJob::notebook_source]
     /// if it holds a `DirectNotebookSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_direct_notebook_source(
+    pub fn direct_notebook_source(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::notebook_execution_job::DirectNotebookSource>,
@@ -60094,7 +60066,7 @@ impl NotebookExecutionJob {
     /// The value of [environment_spec][crate::model::NotebookExecutionJob::environment_spec]
     /// if it holds a `NotebookRuntimeTemplateResourceName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_notebook_runtime_template_resource_name(
+    pub fn notebook_runtime_template_resource_name(
         &self,
     ) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
@@ -60107,7 +60079,7 @@ impl NotebookExecutionJob {
     /// The value of [environment_spec][crate::model::NotebookExecutionJob::environment_spec]
     /// if it holds a `CustomEnvironmentSpec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_custom_environment_spec(
+    pub fn custom_environment_spec(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::notebook_execution_job::CustomEnvironmentSpec>,
@@ -60178,7 +60150,7 @@ impl NotebookExecutionJob {
     /// The value of [execution_sink][crate::model::NotebookExecutionJob::execution_sink]
     /// if it holds a `GcsOutputUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_output_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn gcs_output_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.execution_sink.as_ref().and_then(|v| match v {
             crate::model::notebook_execution_job::ExecutionSink::GcsOutputUri(v) => {
@@ -60219,7 +60191,7 @@ impl NotebookExecutionJob {
     /// The value of [execution_identity][crate::model::NotebookExecutionJob::execution_identity]
     /// if it holds a `ExecutionUser`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_execution_user(&self) -> std::option::Option<&std::string::String> {
+    pub fn execution_user(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.execution_identity.as_ref().and_then(|v| match v {
             crate::model::notebook_execution_job::ExecutionIdentity::ExecutionUser(v) => {
@@ -60232,7 +60204,7 @@ impl NotebookExecutionJob {
     /// The value of [execution_identity][crate::model::NotebookExecutionJob::execution_identity]
     /// if it holds a `ServiceAccount`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_service_account(&self) -> std::option::Option<&std::string::String> {
+    pub fn service_account(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.execution_identity.as_ref().and_then(|v| match v {
             crate::model::notebook_execution_job::ExecutionIdentity::ServiceAccount(v) => {
@@ -60285,7 +60257,7 @@ impl NotebookExecutionJob {
     /// The value of [runtime_environment][crate::model::NotebookExecutionJob::runtime_environment]
     /// if it holds a `WorkbenchRuntime`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_workbench_runtime(
+    pub fn workbench_runtime(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::notebook_execution_job::WorkbenchRuntime>>
     {
@@ -65538,7 +65510,7 @@ pub mod pipeline_job {
             /// The value of [kind][crate::model::pipeline_job::runtime_config::InputArtifact::kind]
             /// if it holds a `ArtifactId`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_artifact_id(&self) -> std::option::Option<&std::string::String> {
+            pub fn artifact_id(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.kind.as_ref().and_then(|v| match v {
                     crate::model::pipeline_job::runtime_config::input_artifact::Kind::ArtifactId(v) => std::option::Option::Some(v),
@@ -66146,7 +66118,7 @@ impl PipelineTaskExecutorDetail {
     /// The value of [details][crate::model::PipelineTaskExecutorDetail::details]
     /// if it holds a `ContainerDetail`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_container_detail(
+    pub fn container_detail(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::pipeline_task_executor_detail::ContainerDetail>,
@@ -66163,7 +66135,7 @@ impl PipelineTaskExecutorDetail {
     /// The value of [details][crate::model::PipelineTaskExecutorDetail::details]
     /// if it holds a `CustomJobDetail`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_custom_job_detail(
+    pub fn custom_job_detail(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::pipeline_task_executor_detail::CustomJobDetail>,
@@ -69471,7 +69443,7 @@ pub mod publisher_model {
         /// The value of [reference][crate::model::publisher_model::ResourceReference::reference]
         /// if it holds a `Uri`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_uri(&self) -> std::option::Option<&std::string::String> {
+        pub fn uri(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.reference.as_ref().and_then(|v| match v {
                 crate::model::publisher_model::resource_reference::Reference::Uri(v) => {
@@ -69484,7 +69456,7 @@ pub mod publisher_model {
         /// The value of [reference][crate::model::publisher_model::ResourceReference::reference]
         /// if it holds a `ResourceName`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_resource_name(&self) -> std::option::Option<&std::string::String> {
+        pub fn resource_name(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.reference.as_ref().and_then(|v| match v {
                 crate::model::publisher_model::resource_reference::Reference::ResourceName(v) => {
@@ -69497,7 +69469,7 @@ pub mod publisher_model {
         /// The value of [reference][crate::model::publisher_model::ResourceReference::reference]
         /// if it holds a `UseCase`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_use_case(&self) -> std::option::Option<&std::string::String> {
+        pub fn use_case(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.reference.as_ref().and_then(|v| match v {
                 crate::model::publisher_model::resource_reference::Reference::UseCase(v) => {
@@ -69510,7 +69482,7 @@ pub mod publisher_model {
         /// The value of [reference][crate::model::publisher_model::ResourceReference::reference]
         /// if it holds a `Description`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_description(&self) -> std::option::Option<&std::string::String> {
+        pub fn description(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.reference.as_ref().and_then(|v| match v {
                 crate::model::publisher_model::resource_reference::Reference::Description(v) => {
@@ -70314,7 +70286,7 @@ pub mod publisher_model {
             /// The value of [prediction_resources][crate::model::publisher_model::call_to_action::Deploy::prediction_resources]
             /// if it holds a `DedicatedResources`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_dedicated_resources(
+            pub fn dedicated_resources(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::DedicatedResources>>
             {
@@ -70328,7 +70300,7 @@ pub mod publisher_model {
             /// The value of [prediction_resources][crate::model::publisher_model::call_to_action::Deploy::prediction_resources]
             /// if it holds a `AutomaticResources`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_automatic_resources(
+            pub fn automatic_resources(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::AutomaticResources>>
             {
@@ -70342,7 +70314,7 @@ pub mod publisher_model {
             /// The value of [prediction_resources][crate::model::publisher_model::call_to_action::Deploy::prediction_resources]
             /// if it holds a `SharedResources`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_shared_resources(&self) -> std::option::Option<&std::string::String> {
+            pub fn shared_resources(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.prediction_resources.as_ref().and_then(|v| match v {
                     crate::model::publisher_model::call_to_action::deploy::PredictionResources::SharedResources(v) => std::option::Option::Some(v),
@@ -72171,7 +72143,7 @@ impl Schedule {
     /// The value of [time_specification][crate::model::Schedule::time_specification]
     /// if it holds a `Cron`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cron(&self) -> std::option::Option<&std::string::String> {
+    pub fn cron(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.time_specification.as_ref().and_then(|v| match v {
             crate::model::schedule::TimeSpecification::Cron(v) => std::option::Option::Some(v),
@@ -72207,7 +72179,7 @@ impl Schedule {
     /// The value of [request][crate::model::Schedule::request]
     /// if it holds a `CreatePipelineJobRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_create_pipeline_job_request(
+    pub fn create_pipeline_job_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CreatePipelineJobRequest>> {
         #[allow(unreachable_patterns)]
@@ -72222,7 +72194,7 @@ impl Schedule {
     /// The value of [request][crate::model::Schedule::request]
     /// if it holds a `CreateNotebookExecutionJobRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_create_notebook_execution_job_request(
+    pub fn create_notebook_execution_job_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CreateNotebookExecutionJobRequest>>
     {
@@ -74178,7 +74150,7 @@ impl StudyTimeConstraint {
     /// The value of [constraint][crate::model::StudyTimeConstraint::constraint]
     /// if it holds a `MaxDuration`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_max_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+    pub fn max_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.constraint.as_ref().and_then(|v| match v {
             crate::model::study_time_constraint::Constraint::MaxDuration(v) => {
@@ -74191,7 +74163,7 @@ impl StudyTimeConstraint {
     /// The value of [constraint][crate::model::StudyTimeConstraint::constraint]
     /// if it holds a `EndTime`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_end_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+    pub fn end_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.constraint.as_ref().and_then(|v| match v {
             crate::model::study_time_constraint::Constraint::EndTime(v) => {
@@ -74378,7 +74350,7 @@ impl StudySpec {
     /// The value of [automated_stopping_spec][crate::model::StudySpec::automated_stopping_spec]
     /// if it holds a `DecayCurveStoppingSpec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_decay_curve_stopping_spec(
+    pub fn decay_curve_stopping_spec(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::study_spec::DecayCurveAutomatedStoppingSpec>,
@@ -74395,7 +74367,7 @@ impl StudySpec {
     /// The value of [automated_stopping_spec][crate::model::StudySpec::automated_stopping_spec]
     /// if it holds a `MedianAutomatedStoppingSpec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_median_automated_stopping_spec(
+    pub fn median_automated_stopping_spec(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::study_spec::MedianAutomatedStoppingSpec>>
     {
@@ -74411,7 +74383,7 @@ impl StudySpec {
     /// The value of [automated_stopping_spec][crate::model::StudySpec::automated_stopping_spec]
     /// if it holds a `ConvexAutomatedStoppingSpec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_convex_automated_stopping_spec(
+    pub fn convex_automated_stopping_spec(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::study_spec::ConvexAutomatedStoppingSpec>>
     {
@@ -74761,7 +74733,7 @@ pub mod study_spec {
         /// The value of [parameter_value_spec][crate::model::study_spec::ParameterSpec::parameter_value_spec]
         /// if it holds a `DoubleValueSpec`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_double_value_spec(
+        pub fn double_value_spec(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::study_spec::parameter_spec::DoubleValueSpec>,
@@ -74778,7 +74750,7 @@ pub mod study_spec {
         /// The value of [parameter_value_spec][crate::model::study_spec::ParameterSpec::parameter_value_spec]
         /// if it holds a `IntegerValueSpec`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_integer_value_spec(
+        pub fn integer_value_spec(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::study_spec::parameter_spec::IntegerValueSpec>,
@@ -74795,7 +74767,7 @@ pub mod study_spec {
         /// The value of [parameter_value_spec][crate::model::study_spec::ParameterSpec::parameter_value_spec]
         /// if it holds a `CategoricalValueSpec`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_categorical_value_spec(
+        pub fn categorical_value_spec(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::study_spec::parameter_spec::CategoricalValueSpec>,
@@ -74810,7 +74782,7 @@ pub mod study_spec {
         /// The value of [parameter_value_spec][crate::model::study_spec::ParameterSpec::parameter_value_spec]
         /// if it holds a `DiscreteValueSpec`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_discrete_value_spec(
+        pub fn discrete_value_spec(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::study_spec::parameter_spec::DiscreteValueSpec>,
@@ -75208,7 +75180,7 @@ pub mod study_spec {
             /// The value of [parent_value_condition][crate::model::study_spec::parameter_spec::ConditionalParameterSpec::parent_value_condition]
             /// if it holds a `ParentDiscreteValues`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_parent_discrete_values(&self) -> std::option::Option<&std::boxed::Box<crate::model::study_spec::parameter_spec::conditional_parameter_spec::DiscreteValueCondition>>{
+            pub fn parent_discrete_values(&self) -> std::option::Option<&std::boxed::Box<crate::model::study_spec::parameter_spec::conditional_parameter_spec::DiscreteValueCondition>>{
                 #[allow(unreachable_patterns)]
                 self.parent_value_condition.as_ref().and_then(|v| match v {
                     crate::model::study_spec::parameter_spec::conditional_parameter_spec::ParentValueCondition::ParentDiscreteValues(v) => std::option::Option::Some(v),
@@ -75219,7 +75191,7 @@ pub mod study_spec {
             /// The value of [parent_value_condition][crate::model::study_spec::parameter_spec::ConditionalParameterSpec::parent_value_condition]
             /// if it holds a `ParentIntValues`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_parent_int_values(&self) -> std::option::Option<&std::boxed::Box<crate::model::study_spec::parameter_spec::conditional_parameter_spec::IntValueCondition>>{
+            pub fn parent_int_values(&self) -> std::option::Option<&std::boxed::Box<crate::model::study_spec::parameter_spec::conditional_parameter_spec::IntValueCondition>>{
                 #[allow(unreachable_patterns)]
                 self.parent_value_condition.as_ref().and_then(|v| match v {
                     crate::model::study_spec::parameter_spec::conditional_parameter_spec::ParentValueCondition::ParentIntValues(v) => std::option::Option::Some(v),
@@ -75230,7 +75202,7 @@ pub mod study_spec {
             /// The value of [parent_value_condition][crate::model::study_spec::parameter_spec::ConditionalParameterSpec::parent_value_condition]
             /// if it holds a `ParentCategoricalValues`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_parent_categorical_values(&self) -> std::option::Option<&std::boxed::Box<crate::model::study_spec::parameter_spec::conditional_parameter_spec::CategoricalValueCondition>>{
+            pub fn parent_categorical_values(&self) -> std::option::Option<&std::boxed::Box<crate::model::study_spec::parameter_spec::conditional_parameter_spec::CategoricalValueCondition>>{
                 #[allow(unreachable_patterns)]
                 self.parent_value_condition.as_ref().and_then(|v| match v {
                     crate::model::study_spec::parameter_spec::conditional_parameter_spec::ParentValueCondition::ParentCategoricalValues(v) => std::option::Option::Some(v),
@@ -76526,7 +76498,7 @@ impl TimeSeriesDataPoint {
     /// The value of [value][crate::model::TimeSeriesDataPoint::value]
     /// if it holds a `Scalar`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_scalar(&self) -> std::option::Option<&std::boxed::Box<crate::model::Scalar>> {
+    pub fn scalar(&self) -> std::option::Option<&std::boxed::Box<crate::model::Scalar>> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::time_series_data_point::Value::Scalar(v) => std::option::Option::Some(v),
@@ -76537,9 +76509,7 @@ impl TimeSeriesDataPoint {
     /// The value of [value][crate::model::TimeSeriesDataPoint::value]
     /// if it holds a `Tensor`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tensor(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TensorboardTensor>> {
+    pub fn tensor(&self) -> std::option::Option<&std::boxed::Box<crate::model::TensorboardTensor>> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::time_series_data_point::Value::Tensor(v) => std::option::Option::Some(v),
@@ -76550,7 +76520,7 @@ impl TimeSeriesDataPoint {
     /// The value of [value][crate::model::TimeSeriesDataPoint::value]
     /// if it holds a `Blobs`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_blobs(
+    pub fn blobs(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TensorboardBlobSequence>> {
         #[allow(unreachable_patterns)]
@@ -80566,7 +80536,7 @@ impl Retrieval {
     /// The value of [source][crate::model::Retrieval::source]
     /// if it holds a `VertexAiSearch`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vertex_ai_search(
+    pub fn vertex_ai_search(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VertexAISearch>> {
         #[allow(unreachable_patterns)]
@@ -80579,7 +80549,7 @@ impl Retrieval {
     /// The value of [source][crate::model::Retrieval::source]
     /// if it holds a `VertexRagStore`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vertex_rag_store(
+    pub fn vertex_rag_store(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VertexRagStore>> {
         #[allow(unreachable_patterns)]
@@ -81343,7 +81313,7 @@ pub mod rag_retrieval_config {
         /// The value of [vector_db_threshold][crate::model::rag_retrieval_config::Filter::vector_db_threshold]
         /// if it holds a `VectorDistanceThreshold`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_vector_distance_threshold(&self) -> std::option::Option<&f64> {
+        pub fn vector_distance_threshold(&self) -> std::option::Option<&f64> {
             #[allow(unreachable_patterns)]
             self.vector_db_threshold.as_ref().and_then(|v| match v {
                 crate::model::rag_retrieval_config::filter::VectorDbThreshold::VectorDistanceThreshold(v) => std::option::Option::Some(v),
@@ -81354,7 +81324,7 @@ pub mod rag_retrieval_config {
         /// The value of [vector_db_threshold][crate::model::rag_retrieval_config::Filter::vector_db_threshold]
         /// if it holds a `VectorSimilarityThreshold`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_vector_similarity_threshold(&self) -> std::option::Option<&f64> {
+        pub fn vector_similarity_threshold(&self) -> std::option::Option<&f64> {
             #[allow(unreachable_patterns)]
             self.vector_db_threshold.as_ref().and_then(|v| match v {
                 crate::model::rag_retrieval_config::filter::VectorDbThreshold::VectorSimilarityThreshold(v) => std::option::Option::Some(v),
@@ -81456,7 +81426,7 @@ pub mod rag_retrieval_config {
         /// The value of [ranking_config][crate::model::rag_retrieval_config::Ranking::ranking_config]
         /// if it holds a `RankService`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_rank_service(
+        pub fn rank_service(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::rag_retrieval_config::ranking::RankService>,
@@ -81473,7 +81443,7 @@ pub mod rag_retrieval_config {
         /// The value of [ranking_config][crate::model::rag_retrieval_config::Ranking::ranking_config]
         /// if it holds a `LlmRanker`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_llm_ranker(
+        pub fn llm_ranker(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::rag_retrieval_config::ranking::LlmRanker>,
@@ -82122,7 +82092,7 @@ impl InputDataConfig {
     /// The value of [split][crate::model::InputDataConfig::split]
     /// if it holds a `FractionSplit`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_fraction_split(
+    pub fn fraction_split(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FractionSplit>> {
         #[allow(unreachable_patterns)]
@@ -82137,9 +82107,7 @@ impl InputDataConfig {
     /// The value of [split][crate::model::InputDataConfig::split]
     /// if it holds a `FilterSplit`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_filter_split(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::FilterSplit>> {
+    pub fn filter_split(&self) -> std::option::Option<&std::boxed::Box<crate::model::FilterSplit>> {
         #[allow(unreachable_patterns)]
         self.split.as_ref().and_then(|v| match v {
             crate::model::input_data_config::Split::FilterSplit(v) => std::option::Option::Some(v),
@@ -82150,7 +82118,7 @@ impl InputDataConfig {
     /// The value of [split][crate::model::InputDataConfig::split]
     /// if it holds a `PredefinedSplit`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_predefined_split(
+    pub fn predefined_split(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PredefinedSplit>> {
         #[allow(unreachable_patterns)]
@@ -82165,7 +82133,7 @@ impl InputDataConfig {
     /// The value of [split][crate::model::InputDataConfig::split]
     /// if it holds a `TimestampSplit`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_timestamp_split(
+    pub fn timestamp_split(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TimestampSplit>> {
         #[allow(unreachable_patterns)]
@@ -82180,7 +82148,7 @@ impl InputDataConfig {
     /// The value of [split][crate::model::InputDataConfig::split]
     /// if it holds a `StratifiedSplit`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_stratified_split(
+    pub fn stratified_split(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StratifiedSplit>> {
         #[allow(unreachable_patterns)]
@@ -82292,7 +82260,7 @@ impl InputDataConfig {
     /// The value of [destination][crate::model::InputDataConfig::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_destination(
+    pub fn gcs_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
         #[allow(unreachable_patterns)]
@@ -82307,7 +82275,7 @@ impl InputDataConfig {
     /// The value of [destination][crate::model::InputDataConfig::destination]
     /// if it holds a `BigqueryDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigquery_destination(
+    pub fn bigquery_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestination>> {
         #[allow(unreachable_patterns)]
@@ -83062,7 +83030,7 @@ impl TuningJob {
     /// The value of [source_model][crate::model::TuningJob::source_model]
     /// if it holds a `BaseModel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_base_model(&self) -> std::option::Option<&std::string::String> {
+    pub fn base_model(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source_model.as_ref().and_then(|v| match v {
             crate::model::tuning_job::SourceModel::BaseModel(v) => std::option::Option::Some(v),
@@ -83098,7 +83066,7 @@ impl TuningJob {
     /// The value of [tuning_spec][crate::model::TuningJob::tuning_spec]
     /// if it holds a `SupervisedTuningSpec`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_supervised_tuning_spec(
+    pub fn supervised_tuning_spec(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SupervisedTuningSpec>> {
         #[allow(unreachable_patterns)]
@@ -83571,7 +83539,7 @@ impl TuningDataStats {
     /// The value of [tuning_data_stats][crate::model::TuningDataStats::tuning_data_stats]
     /// if it holds a `SupervisedTuningDataStats`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_supervised_tuning_data_stats(
+    pub fn supervised_tuning_data_stats(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SupervisedTuningDataStats>> {
         #[allow(unreachable_patterns)]
@@ -83853,7 +83821,7 @@ impl TunedModelRef {
     /// The value of [tuned_model_ref][crate::model::TunedModelRef::tuned_model_ref]
     /// if it holds a `TunedModel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tuned_model(&self) -> std::option::Option<&std::string::String> {
+    pub fn tuned_model(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.tuned_model_ref.as_ref().and_then(|v| match v {
             crate::model::tuned_model_ref::TunedModelRef::TunedModel(v) => {
@@ -83866,7 +83834,7 @@ impl TunedModelRef {
     /// The value of [tuned_model_ref][crate::model::TunedModelRef::tuned_model_ref]
     /// if it holds a `TuningJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tuning_job(&self) -> std::option::Option<&std::string::String> {
+    pub fn tuning_job(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.tuned_model_ref.as_ref().and_then(|v| match v {
             crate::model::tuned_model_ref::TunedModelRef::TuningJob(v) => {
@@ -83879,7 +83847,7 @@ impl TunedModelRef {
     /// The value of [tuned_model_ref][crate::model::TunedModelRef::tuned_model_ref]
     /// if it holds a `PipelineJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pipeline_job(&self) -> std::option::Option<&std::string::String> {
+    pub fn pipeline_job(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.tuned_model_ref.as_ref().and_then(|v| match v {
             crate::model::tuned_model_ref::TunedModelRef::PipelineJob(v) => {
@@ -84579,7 +84547,7 @@ impl UserActionReference {
     /// The value of [reference][crate::model::UserActionReference::reference]
     /// if it holds a `Operation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_operation(&self) -> std::option::Option<&std::string::String> {
+    pub fn operation(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.reference.as_ref().and_then(|v| match v {
             crate::model::user_action_reference::Reference::Operation(v) => {
@@ -84592,7 +84560,7 @@ impl UserActionReference {
     /// The value of [reference][crate::model::UserActionReference::reference]
     /// if it holds a `DataLabelingJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_data_labeling_job(&self) -> std::option::Option<&std::string::String> {
+    pub fn data_labeling_job(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.reference.as_ref().and_then(|v| match v {
             crate::model::user_action_reference::Reference::DataLabelingJob(v) => {
@@ -84691,7 +84659,7 @@ impl Value {
     /// The value of [value][crate::model::Value::value]
     /// if it holds a `IntValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_int_value(&self) -> std::option::Option<&i64> {
+    pub fn int_value(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::value::Value::IntValue(v) => std::option::Option::Some(v),
@@ -84702,7 +84670,7 @@ impl Value {
     /// The value of [value][crate::model::Value::value]
     /// if it holds a `DoubleValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_double_value(&self) -> std::option::Option<&f64> {
+    pub fn double_value(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::value::Value::DoubleValue(v) => std::option::Option::Some(v),
@@ -84713,7 +84681,7 @@ impl Value {
     /// The value of [value][crate::model::Value::value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_value(&self) -> std::option::Option<&std::string::String> {
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::value::Value::StringValue(v) => std::option::Option::Some(v),
@@ -84814,7 +84782,7 @@ impl RagEmbeddingModelConfig {
     /// The value of [model_config][crate::model::RagEmbeddingModelConfig::model_config]
     /// if it holds a `VertexPredictionEndpoint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vertex_prediction_endpoint(
+    pub fn vertex_prediction_endpoint(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::rag_embedding_model_config::VertexPredictionEndpoint>,
@@ -85004,7 +84972,7 @@ impl RagVectorDbConfig {
     /// The value of [vector_db][crate::model::RagVectorDbConfig::vector_db]
     /// if it holds a `RagManagedDb`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rag_managed_db(
+    pub fn rag_managed_db(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rag_vector_db_config::RagManagedDb>>
     {
@@ -85020,7 +84988,7 @@ impl RagVectorDbConfig {
     /// The value of [vector_db][crate::model::RagVectorDbConfig::vector_db]
     /// if it holds a `Pinecone`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pinecone(
+    pub fn pinecone(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rag_vector_db_config::Pinecone>> {
         #[allow(unreachable_patterns)]
@@ -85035,7 +85003,7 @@ impl RagVectorDbConfig {
     /// The value of [vector_db][crate::model::RagVectorDbConfig::vector_db]
     /// if it holds a `VertexVectorSearch`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vertex_vector_search(
+    pub fn vertex_vector_search(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rag_vector_db_config::VertexVectorSearch>>
     {
@@ -85596,7 +85564,7 @@ impl RagCorpus {
     /// The value of [backend_config][crate::model::RagCorpus::backend_config]
     /// if it holds a `VectorDbConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vector_db_config(
+    pub fn vector_db_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RagVectorDbConfig>> {
         #[allow(unreachable_patterns)]
@@ -85611,7 +85579,7 @@ impl RagCorpus {
     /// The value of [backend_config][crate::model::RagCorpus::backend_config]
     /// if it holds a `VertexAiSearchConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vertex_ai_search_config(
+    pub fn vertex_ai_search_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VertexAiSearchConfig>> {
         #[allow(unreachable_patterns)]
@@ -85790,7 +85758,7 @@ impl RagFile {
     /// The value of [rag_file_source][crate::model::RagFile::rag_file_source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.rag_file_source.as_ref().and_then(|v| match v {
             crate::model::rag_file::RagFileSource::GcsSource(v) => std::option::Option::Some(v),
@@ -85801,7 +85769,7 @@ impl RagFile {
     /// The value of [rag_file_source][crate::model::RagFile::rag_file_source]
     /// if it holds a `GoogleDriveSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_google_drive_source(
+    pub fn google_drive_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GoogleDriveSource>> {
         #[allow(unreachable_patterns)]
@@ -85816,7 +85784,7 @@ impl RagFile {
     /// The value of [rag_file_source][crate::model::RagFile::rag_file_source]
     /// if it holds a `DirectUploadSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_direct_upload_source(
+    pub fn direct_upload_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DirectUploadSource>> {
         #[allow(unreachable_patterns)]
@@ -85831,9 +85799,7 @@ impl RagFile {
     /// The value of [rag_file_source][crate::model::RagFile::rag_file_source]
     /// if it holds a `SlackSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_slack_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SlackSource>> {
+    pub fn slack_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::SlackSource>> {
         #[allow(unreachable_patterns)]
         self.rag_file_source.as_ref().and_then(|v| match v {
             crate::model::rag_file::RagFileSource::SlackSource(v) => std::option::Option::Some(v),
@@ -85844,9 +85810,7 @@ impl RagFile {
     /// The value of [rag_file_source][crate::model::RagFile::rag_file_source]
     /// if it holds a `JiraSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_jira_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::JiraSource>> {
+    pub fn jira_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::JiraSource>> {
         #[allow(unreachable_patterns)]
         self.rag_file_source.as_ref().and_then(|v| match v {
             crate::model::rag_file::RagFileSource::JiraSource(v) => std::option::Option::Some(v),
@@ -85857,7 +85821,7 @@ impl RagFile {
     /// The value of [rag_file_source][crate::model::RagFile::rag_file_source]
     /// if it holds a `SharePointSources`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_share_point_sources(
+    pub fn share_point_sources(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SharePointSources>> {
         #[allow(unreachable_patterns)]
@@ -86131,7 +86095,7 @@ impl RagFileChunkingConfig {
     /// The value of [chunking_config][crate::model::RagFileChunkingConfig::chunking_config]
     /// if it holds a `FixedLengthChunking`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_fixed_length_chunking(
+    pub fn fixed_length_chunking(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::rag_file_chunking_config::FixedLengthChunking>,
@@ -86301,7 +86265,7 @@ impl RagFileParsingConfig {
     /// The value of [parser][crate::model::RagFileParsingConfig::parser]
     /// if it holds a `LayoutParser`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_layout_parser(
+    pub fn layout_parser(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::rag_file_parsing_config::LayoutParser>>
     {
@@ -86543,7 +86507,7 @@ impl ImportRagFilesConfig {
     /// The value of [import_source][crate::model::ImportRagFilesConfig::import_source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSource>> {
         #[allow(unreachable_patterns)]
         self.import_source.as_ref().and_then(|v| match v {
             crate::model::import_rag_files_config::ImportSource::GcsSource(v) => {
@@ -86556,7 +86520,7 @@ impl ImportRagFilesConfig {
     /// The value of [import_source][crate::model::ImportRagFilesConfig::import_source]
     /// if it holds a `GoogleDriveSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_google_drive_source(
+    pub fn google_drive_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GoogleDriveSource>> {
         #[allow(unreachable_patterns)]
@@ -86571,9 +86535,7 @@ impl ImportRagFilesConfig {
     /// The value of [import_source][crate::model::ImportRagFilesConfig::import_source]
     /// if it holds a `SlackSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_slack_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SlackSource>> {
+    pub fn slack_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::SlackSource>> {
         #[allow(unreachable_patterns)]
         self.import_source.as_ref().and_then(|v| match v {
             crate::model::import_rag_files_config::ImportSource::SlackSource(v) => {
@@ -86586,9 +86548,7 @@ impl ImportRagFilesConfig {
     /// The value of [import_source][crate::model::ImportRagFilesConfig::import_source]
     /// if it holds a `JiraSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_jira_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::JiraSource>> {
+    pub fn jira_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::JiraSource>> {
         #[allow(unreachable_patterns)]
         self.import_source.as_ref().and_then(|v| match v {
             crate::model::import_rag_files_config::ImportSource::JiraSource(v) => {
@@ -86601,7 +86561,7 @@ impl ImportRagFilesConfig {
     /// The value of [import_source][crate::model::ImportRagFilesConfig::import_source]
     /// if it holds a `SharePointSources`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_share_point_sources(
+    pub fn share_point_sources(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SharePointSources>> {
         #[allow(unreachable_patterns)]
@@ -86711,7 +86671,7 @@ impl ImportRagFilesConfig {
     /// The value of [partial_failure_sink][crate::model::ImportRagFilesConfig::partial_failure_sink]
     /// if it holds a `PartialFailureGcsSink`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_partial_failure_gcs_sink(
+    pub fn partial_failure_gcs_sink(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
         #[allow(unreachable_patterns)]
@@ -86726,7 +86686,7 @@ impl ImportRagFilesConfig {
     /// The value of [partial_failure_sink][crate::model::ImportRagFilesConfig::partial_failure_sink]
     /// if it holds a `PartialFailureBigquerySink`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_partial_failure_bigquery_sink(
+    pub fn partial_failure_bigquery_sink(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestination>> {
         #[allow(unreachable_patterns)]
@@ -86793,7 +86753,7 @@ impl ImportRagFilesConfig {
     /// The value of [import_result_sink][crate::model::ImportRagFilesConfig::import_result_sink]
     /// if it holds a `ImportResultGcsSink`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_import_result_gcs_sink(
+    pub fn import_result_gcs_sink(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
         #[allow(unreachable_patterns)]
@@ -86808,7 +86768,7 @@ impl ImportRagFilesConfig {
     /// The value of [import_result_sink][crate::model::ImportRagFilesConfig::import_result_sink]
     /// if it holds a `ImportResultBigquerySink`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_import_result_bigquery_sink(
+    pub fn import_result_bigquery_sink(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestination>> {
         #[allow(unreachable_patterns)]
@@ -87300,7 +87260,7 @@ impl UploadRagFileResponse {
     /// The value of [result][crate::model::UploadRagFileResponse::result]
     /// if it holds a `RagFile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rag_file(&self) -> std::option::Option<&std::boxed::Box<crate::model::RagFile>> {
+    pub fn rag_file(&self) -> std::option::Option<&std::boxed::Box<crate::model::RagFile>> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
             crate::model::upload_rag_file_response::Result::RagFile(v) => {
@@ -87313,7 +87273,7 @@ impl UploadRagFileResponse {
     /// The value of [result][crate::model::UploadRagFileResponse::result]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
             crate::model::upload_rag_file_response::Result::Error(v) => {
@@ -87505,7 +87465,7 @@ impl ImportRagFilesResponse {
     /// The value of [partial_failure_sink][crate::model::ImportRagFilesResponse::partial_failure_sink]
     /// if it holds a `PartialFailuresGcsPath`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_partial_failures_gcs_path(&self) -> std::option::Option<&std::string::String> {
+    pub fn partial_failures_gcs_path(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.partial_failure_sink.as_ref().and_then(|v| match v {
             crate::model::import_rag_files_response::PartialFailureSink::PartialFailuresGcsPath(
@@ -87518,7 +87478,7 @@ impl ImportRagFilesResponse {
     /// The value of [partial_failure_sink][crate::model::ImportRagFilesResponse::partial_failure_sink]
     /// if it holds a `PartialFailuresBigqueryTable`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_partial_failures_bigquery_table(&self) -> std::option::Option<&std::string::String> {
+    pub fn partial_failures_bigquery_table(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.partial_failure_sink.as_ref().and_then(|v| match v {
             crate::model::import_rag_files_response::PartialFailureSink::PartialFailuresBigqueryTable(v) => std::option::Option::Some(v),
@@ -88036,7 +87996,7 @@ impl RagQuery {
     /// The value of [query][crate::model::RagQuery::query]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text(&self) -> std::option::Option<&std::string::String> {
+    pub fn text(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.query.as_ref().and_then(|v| match v {
             crate::model::rag_query::Query::Text(v) => std::option::Option::Some(v),
@@ -88144,7 +88104,7 @@ impl RetrieveContextsRequest {
     /// The value of [data_source][crate::model::RetrieveContextsRequest::data_source]
     /// if it holds a `VertexRagStore`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vertex_rag_store(
+    pub fn vertex_rag_store(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::retrieve_contexts_request::VertexRagStore>,
@@ -88562,7 +88522,7 @@ impl AugmentPromptRequest {
     /// The value of [data_source][crate::model::AugmentPromptRequest::data_source]
     /// if it holds a `VertexRagStore`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vertex_rag_store(
+    pub fn vertex_rag_store(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VertexRagStore>> {
         #[allow(unreachable_patterns)]

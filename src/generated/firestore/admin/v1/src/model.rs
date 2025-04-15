@@ -666,7 +666,7 @@ pub mod database {
         /// The value of [source][crate::model::database::SourceInfo::source]
         /// if it holds a `Backup`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_backup(
+        pub fn backup(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::database::source_info::BackupSource>>
         {
@@ -797,7 +797,7 @@ pub mod database {
         /// The value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
         /// if it holds a `GoogleDefaultEncryption`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_google_default_encryption(
+        pub fn google_default_encryption(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -814,7 +814,7 @@ pub mod database {
         /// The value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
         /// if it holds a `UseSourceEncryption`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_use_source_encryption(
+        pub fn use_source_encryption(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::database::encryption_config::SourceEncryptionOptions>,
@@ -831,7 +831,7 @@ pub mod database {
         /// The value of [encryption_type][crate::model::database::EncryptionConfig::encryption_type]
         /// if it holds a `CustomerManagedEncryption`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_customer_managed_encryption(
+        pub fn customer_managed_encryption(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -3863,7 +3863,7 @@ pub mod index {
         /// The value of [value_mode][crate::model::index::IndexField::value_mode]
         /// if it holds a `Order`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_order(&self) -> std::option::Option<&crate::model::index::index_field::Order> {
+        pub fn order(&self) -> std::option::Option<&crate::model::index::index_field::Order> {
             #[allow(unreachable_patterns)]
             self.value_mode.as_ref().and_then(|v| match v {
                 crate::model::index::index_field::ValueMode::Order(v) => {
@@ -3876,7 +3876,7 @@ pub mod index {
         /// The value of [value_mode][crate::model::index::IndexField::value_mode]
         /// if it holds a `ArrayConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_array_config(
+        pub fn array_config(
             &self,
         ) -> std::option::Option<&crate::model::index::index_field::ArrayConfig> {
             #[allow(unreachable_patterns)]
@@ -3891,7 +3891,7 @@ pub mod index {
         /// The value of [value_mode][crate::model::index::IndexField::value_mode]
         /// if it holds a `VectorConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_vector_config(
+        pub fn vector_config(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::index::index_field::VectorConfig>>
         {
@@ -4015,7 +4015,7 @@ pub mod index {
             /// The value of [r#type][crate::model::index::index_field::VectorConfig::r#type]
             /// if it holds a `Flat`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_flat(
+            pub fn flat(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::index::index_field::vector_config::FlatIndex>,
@@ -5639,7 +5639,7 @@ impl BackupSchedule {
     /// The value of [recurrence][crate::model::BackupSchedule::recurrence]
     /// if it holds a `DailyRecurrence`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_daily_recurrence(
+    pub fn daily_recurrence(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DailyRecurrence>> {
         #[allow(unreachable_patterns)]
@@ -5654,7 +5654,7 @@ impl BackupSchedule {
     /// The value of [recurrence][crate::model::BackupSchedule::recurrence]
     /// if it holds a `WeeklyRecurrence`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_weekly_recurrence(
+    pub fn weekly_recurrence(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::WeeklyRecurrence>> {
         #[allow(unreachable_patterns)]
@@ -5881,7 +5881,7 @@ impl UserCreds {
     /// The value of [user_creds_identity][crate::model::UserCreds::user_creds_identity]
     /// if it holds a `ResourceIdentity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_resource_identity(
+    pub fn resource_identity(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::user_creds::ResourceIdentity>> {
         #[allow(unreachable_patterns)]

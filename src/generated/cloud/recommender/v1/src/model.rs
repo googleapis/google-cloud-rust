@@ -1250,7 +1250,7 @@ impl Operation {
     /// The value of [path_value][crate::model::Operation::path_value]
     /// if it holds a `Value`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_value(&self) -> std::option::Option<&std::boxed::Box<wkt::Value>> {
+    pub fn value(&self) -> std::option::Option<&std::boxed::Box<wkt::Value>> {
         #[allow(unreachable_patterns)]
         self.path_value.as_ref().and_then(|v| match v {
             crate::model::operation::PathValue::Value(v) => std::option::Option::Some(v),
@@ -1261,7 +1261,7 @@ impl Operation {
     /// The value of [path_value][crate::model::Operation::path_value]
     /// if it holds a `ValueMatcher`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_value_matcher(
+    pub fn value_matcher(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ValueMatcher>> {
         #[allow(unreachable_patterns)]
@@ -1359,7 +1359,7 @@ impl ValueMatcher {
     /// The value of [match_variant][crate::model::ValueMatcher::match_variant]
     /// if it holds a `MatchesPattern`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_matches_pattern(&self) -> std::option::Option<&std::string::String> {
+    pub fn matches_pattern(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.match_variant.as_ref().and_then(|v| match v {
             crate::model::value_matcher::MatchVariant::MatchesPattern(v) => {
@@ -1721,7 +1721,7 @@ impl Impact {
     /// The value of [projection][crate::model::Impact::projection]
     /// if it holds a `CostProjection`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cost_projection(
+    pub fn cost_projection(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CostProjection>> {
         #[allow(unreachable_patterns)]
@@ -1734,7 +1734,7 @@ impl Impact {
     /// The value of [projection][crate::model::Impact::projection]
     /// if it holds a `SecurityProjection`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_security_projection(
+    pub fn security_projection(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SecurityProjection>> {
         #[allow(unreachable_patterns)]
@@ -1747,7 +1747,7 @@ impl Impact {
     /// The value of [projection][crate::model::Impact::projection]
     /// if it holds a `SustainabilityProjection`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sustainability_projection(
+    pub fn sustainability_projection(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SustainabilityProjection>> {
         #[allow(unreachable_patterns)]
@@ -1762,7 +1762,7 @@ impl Impact {
     /// The value of [projection][crate::model::Impact::projection]
     /// if it holds a `ReliabilityProjection`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_reliability_projection(
+    pub fn reliability_projection(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ReliabilityProjection>> {
         #[allow(unreachable_patterns)]

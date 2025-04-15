@@ -1992,9 +1992,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Instance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_instance(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::InstanceInfo>> {
+    pub fn instance(&self) -> std::option::Option<&std::boxed::Box<crate::model::InstanceInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Instance(v) => std::option::Option::Some(v),
@@ -2005,9 +2003,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Firewall`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_firewall(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::FirewallInfo>> {
+    pub fn firewall(&self) -> std::option::Option<&std::boxed::Box<crate::model::FirewallInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Firewall(v) => std::option::Option::Some(v),
@@ -2018,7 +2014,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Route`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_route(&self) -> std::option::Option<&std::boxed::Box<crate::model::RouteInfo>> {
+    pub fn route(&self) -> std::option::Option<&std::boxed::Box<crate::model::RouteInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Route(v) => std::option::Option::Some(v),
@@ -2029,9 +2025,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Endpoint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_endpoint(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::EndpointInfo>> {
+    pub fn endpoint(&self) -> std::option::Option<&std::boxed::Box<crate::model::EndpointInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Endpoint(v) => std::option::Option::Some(v),
@@ -2042,7 +2036,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `GoogleService`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_google_service(
+    pub fn google_service(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GoogleServiceInfo>> {
         #[allow(unreachable_patterns)]
@@ -2055,7 +2049,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `ForwardingRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_forwarding_rule(
+    pub fn forwarding_rule(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ForwardingRuleInfo>> {
         #[allow(unreachable_patterns)]
@@ -2068,7 +2062,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `VpnGateway`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vpn_gateway(
+    pub fn vpn_gateway(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VpnGatewayInfo>> {
         #[allow(unreachable_patterns)]
@@ -2081,9 +2075,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `VpnTunnel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vpn_tunnel(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VpnTunnelInfo>> {
+    pub fn vpn_tunnel(&self) -> std::option::Option<&std::boxed::Box<crate::model::VpnTunnelInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::VpnTunnel(v) => std::option::Option::Some(v),
@@ -2094,7 +2086,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `VpcConnector`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vpc_connector(
+    pub fn vpc_connector(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VpcConnectorInfo>> {
         #[allow(unreachable_patterns)]
@@ -2107,7 +2099,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Deliver`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_deliver(&self) -> std::option::Option<&std::boxed::Box<crate::model::DeliverInfo>> {
+    pub fn deliver(&self) -> std::option::Option<&std::boxed::Box<crate::model::DeliverInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Deliver(v) => std::option::Option::Some(v),
@@ -2118,7 +2110,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Forward`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_forward(&self) -> std::option::Option<&std::boxed::Box<crate::model::ForwardInfo>> {
+    pub fn forward(&self) -> std::option::Option<&std::boxed::Box<crate::model::ForwardInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Forward(v) => std::option::Option::Some(v),
@@ -2129,7 +2121,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Abort`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_abort(&self) -> std::option::Option<&std::boxed::Box<crate::model::AbortInfo>> {
+    pub fn abort(&self) -> std::option::Option<&std::boxed::Box<crate::model::AbortInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Abort(v) => std::option::Option::Some(v),
@@ -2140,7 +2132,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Drop`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_drop(&self) -> std::option::Option<&std::boxed::Box<crate::model::DropInfo>> {
+    pub fn drop(&self) -> std::option::Option<&std::boxed::Box<crate::model::DropInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Drop(v) => std::option::Option::Some(v),
@@ -2151,7 +2143,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `LoadBalancer`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_load_balancer(
+    pub fn load_balancer(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::LoadBalancerInfo>> {
         #[allow(unreachable_patterns)]
@@ -2164,7 +2156,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Network`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_network(&self) -> std::option::Option<&std::boxed::Box<crate::model::NetworkInfo>> {
+    pub fn network(&self) -> std::option::Option<&std::boxed::Box<crate::model::NetworkInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Network(v) => std::option::Option::Some(v),
@@ -2175,9 +2167,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `GkeMaster`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gke_master(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GKEMasterInfo>> {
+    pub fn gke_master(&self) -> std::option::Option<&std::boxed::Box<crate::model::GKEMasterInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::GkeMaster(v) => std::option::Option::Some(v),
@@ -2188,7 +2178,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `CloudSqlInstance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_sql_instance(
+    pub fn cloud_sql_instance(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSQLInstanceInfo>> {
         #[allow(unreachable_patterns)]
@@ -2201,7 +2191,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `RedisInstance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_redis_instance(
+    pub fn redis_instance(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RedisInstanceInfo>> {
         #[allow(unreachable_patterns)]
@@ -2214,7 +2204,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `RedisCluster`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_redis_cluster(
+    pub fn redis_cluster(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RedisClusterInfo>> {
         #[allow(unreachable_patterns)]
@@ -2227,7 +2217,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `CloudFunction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_function(
+    pub fn cloud_function(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudFunctionInfo>> {
         #[allow(unreachable_patterns)]
@@ -2240,7 +2230,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `AppEngineVersion`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_app_engine_version(
+    pub fn app_engine_version(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AppEngineVersionInfo>> {
         #[allow(unreachable_patterns)]
@@ -2253,7 +2243,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `CloudRunRevision`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_run_revision(
+    pub fn cloud_run_revision(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudRunRevisionInfo>> {
         #[allow(unreachable_patterns)]
@@ -2266,7 +2256,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `Nat`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_nat(&self) -> std::option::Option<&std::boxed::Box<crate::model::NatInfo>> {
+    pub fn nat(&self) -> std::option::Option<&std::boxed::Box<crate::model::NatInfo>> {
         #[allow(unreachable_patterns)]
         self.step_info.as_ref().and_then(|v| match v {
             crate::model::step::StepInfo::Nat(v) => std::option::Option::Some(v),
@@ -2277,7 +2267,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `ProxyConnection`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_proxy_connection(
+    pub fn proxy_connection(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ProxyConnectionInfo>> {
         #[allow(unreachable_patterns)]
@@ -2290,7 +2280,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `LoadBalancerBackendInfo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_load_balancer_backend_info(
+    pub fn load_balancer_backend_info(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::LoadBalancerBackendInfo>> {
         #[allow(unreachable_patterns)]
@@ -2305,7 +2295,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `StorageBucket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_storage_bucket(
+    pub fn storage_bucket(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StorageBucketInfo>> {
         #[allow(unreachable_patterns)]
@@ -2318,7 +2308,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `ServerlessNeg`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_serverless_neg(
+    pub fn serverless_neg(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ServerlessNegInfo>> {
         #[allow(unreachable_patterns)]
@@ -8508,7 +8498,7 @@ impl VpcFlowLogsConfig {
     /// The value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource]
     /// if it holds a `InterconnectAttachment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_interconnect_attachment(&self) -> std::option::Option<&std::string::String> {
+    pub fn interconnect_attachment(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.target_resource.as_ref().and_then(|v| match v {
             crate::model::vpc_flow_logs_config::TargetResource::InterconnectAttachment(v) => {
@@ -8521,7 +8511,7 @@ impl VpcFlowLogsConfig {
     /// The value of [target_resource][crate::model::VpcFlowLogsConfig::target_resource]
     /// if it holds a `VpnTunnel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vpn_tunnel(&self) -> std::option::Option<&std::string::String> {
+    pub fn vpn_tunnel(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.target_resource.as_ref().and_then(|v| match v {
             crate::model::vpc_flow_logs_config::TargetResource::VpnTunnel(v) => {

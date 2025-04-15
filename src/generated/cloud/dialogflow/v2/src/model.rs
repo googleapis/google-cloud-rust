@@ -783,7 +783,7 @@ impl ExportAgentResponse {
     /// The value of [agent][crate::model::ExportAgentResponse::agent]
     /// if it holds a `AgentUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn agent_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::export_agent_response::Agent::AgentUri(v) => std::option::Option::Some(v),
@@ -794,7 +794,7 @@ impl ExportAgentResponse {
     /// The value of [agent][crate::model::ExportAgentResponse::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::export_agent_response::Agent::AgentContent(v) => {
@@ -903,7 +903,7 @@ impl ImportAgentRequest {
     /// The value of [agent][crate::model::ImportAgentRequest::agent]
     /// if it holds a `AgentUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn agent_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::import_agent_request::Agent::AgentUri(v) => std::option::Option::Some(v),
@@ -914,7 +914,7 @@ impl ImportAgentRequest {
     /// The value of [agent][crate::model::ImportAgentRequest::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::import_agent_request::Agent::AgentContent(v) => {
@@ -1029,7 +1029,7 @@ impl RestoreAgentRequest {
     /// The value of [agent][crate::model::RestoreAgentRequest::agent]
     /// if it holds a `AgentUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn agent_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::restore_agent_request::Agent::AgentUri(v) => std::option::Option::Some(v),
@@ -1040,7 +1040,7 @@ impl RestoreAgentRequest {
     /// The value of [agent][crate::model::RestoreAgentRequest::agent]
     /// if it holds a `AgentContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn agent_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.agent.as_ref().and_then(|v| match v {
             crate::model::restore_agent_request::Agent::AgentContent(v) => {
@@ -1253,7 +1253,7 @@ impl AnswerRecord {
     /// The value of [record][crate::model::AnswerRecord::record]
     /// if it holds a `AgentAssistantRecord`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_assistant_record(
+    pub fn agent_assistant_record(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AgentAssistantRecord>> {
         #[allow(unreachable_patterns)]
@@ -1618,7 +1618,7 @@ impl AnswerFeedback {
     /// The value of [detail_feedback][crate::model::AnswerFeedback::detail_feedback]
     /// if it holds a `AgentAssistantDetailFeedback`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_agent_assistant_detail_feedback(
+    pub fn agent_assistant_detail_feedback(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AgentAssistantFeedback>> {
         #[allow(unreachable_patterns)]
@@ -2296,7 +2296,7 @@ impl AgentAssistantRecord {
     /// The value of [answer][crate::model::AgentAssistantRecord::answer]
     /// if it holds a `ArticleSuggestionAnswer`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_article_suggestion_answer(
+    pub fn article_suggestion_answer(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ArticleAnswer>> {
         #[allow(unreachable_patterns)]
@@ -2311,7 +2311,7 @@ impl AgentAssistantRecord {
     /// The value of [answer][crate::model::AgentAssistantRecord::answer]
     /// if it holds a `FaqAnswer`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_faq_answer(&self) -> std::option::Option<&std::boxed::Box<crate::model::FaqAnswer>> {
+    pub fn faq_answer(&self) -> std::option::Option<&std::boxed::Box<crate::model::FaqAnswer>> {
         #[allow(unreachable_patterns)]
         self.answer.as_ref().and_then(|v| match v {
             crate::model::agent_assistant_record::Answer::FaqAnswer(v) => {
@@ -2324,7 +2324,7 @@ impl AgentAssistantRecord {
     /// The value of [answer][crate::model::AgentAssistantRecord::answer]
     /// if it holds a `DialogflowAssistAnswer`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_dialogflow_assist_answer(
+    pub fn dialogflow_assist_answer(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DialogflowAssistAnswer>> {
         #[allow(unreachable_patterns)]
@@ -5584,7 +5584,7 @@ impl GenerateStatelessSuggestionRequest {
     /// The value of [generator_resource][crate::model::GenerateStatelessSuggestionRequest::generator_resource]
     /// if it holds a `Generator`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_generator(&self) -> std::option::Option<&std::boxed::Box<crate::model::Generator>> {
+    pub fn generator(&self) -> std::option::Option<&std::boxed::Box<crate::model::Generator>> {
         #[allow(unreachable_patterns)]
         self.generator_resource.as_ref().and_then(|v| match v {
             crate::model::generate_stateless_suggestion_request::GeneratorResource::Generator(
@@ -5597,7 +5597,7 @@ impl GenerateStatelessSuggestionRequest {
     /// The value of [generator_resource][crate::model::GenerateStatelessSuggestionRequest::generator_resource]
     /// if it holds a `GeneratorName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_generator_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn generator_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.generator_resource.as_ref().and_then(|v| match v {
             crate::model::generate_stateless_suggestion_request::GeneratorResource::GeneratorName(v) => std::option::Option::Some(v),
@@ -6960,9 +6960,7 @@ impl InputConfig {
     /// The value of [source][crate::model::InputConfig::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsSources>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSources>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::input_config::Source::GcsSource(v) => std::option::Option::Some(v),
@@ -7701,7 +7699,7 @@ impl ConversationEvent {
     /// The value of [payload][crate::model::ConversationEvent::payload]
     /// if it holds a `NewMessagePayload`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_new_message_payload(
+    pub fn new_message_payload(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::Message>> {
         #[allow(unreachable_patterns)]
@@ -7716,7 +7714,7 @@ impl ConversationEvent {
     /// The value of [payload][crate::model::ConversationEvent::payload]
     /// if it holds a `NewRecognitionResultPayload`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_new_recognition_result_payload(
+    pub fn new_recognition_result_payload(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingRecognitionResult>> {
         #[allow(unreachable_patterns)]
@@ -8026,7 +8024,7 @@ impl ConversationModel {
     /// The value of [model_metadata][crate::model::ConversationModel::model_metadata]
     /// if it holds a `ArticleSuggestionModelMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_article_suggestion_model_metadata(
+    pub fn article_suggestion_model_metadata(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ArticleSuggestionModelMetadata>> {
         #[allow(unreachable_patterns)]
@@ -8041,7 +8039,7 @@ impl ConversationModel {
     /// The value of [model_metadata][crate::model::ConversationModel::model_metadata]
     /// if it holds a `SmartReplyModelMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_smart_reply_model_metadata(
+    pub fn smart_reply_model_metadata(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SmartReplyModelMetadata>> {
         #[allow(unreachable_patterns)]
@@ -8380,7 +8378,7 @@ impl ConversationModelEvaluation {
     /// The value of [metrics][crate::model::ConversationModelEvaluation::metrics]
     /// if it holds a `SmartReplyMetrics`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_smart_reply_metrics(
+    pub fn smart_reply_metrics(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SmartReplyMetrics>> {
         #[allow(unreachable_patterns)]
@@ -8485,7 +8483,7 @@ impl EvaluationConfig {
     /// The value of [model_specific_config][crate::model::EvaluationConfig::model_specific_config]
     /// if it holds a `SmartReplyConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_smart_reply_config(
+    pub fn smart_reply_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::evaluation_config::SmartReplyConfig>>
     {
@@ -8501,7 +8499,7 @@ impl EvaluationConfig {
     /// The value of [model_specific_config][crate::model::EvaluationConfig::model_specific_config]
     /// if it holds a `SmartComposeConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_smart_compose_config(
+    pub fn smart_compose_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::evaluation_config::SmartComposeConfig>>
     {
@@ -11061,7 +11059,7 @@ pub mod human_agent_assistant_config {
         /// The value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
         /// if it holds a `KnowledgeBaseQuerySource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_knowledge_base_query_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::human_agent_assistant_config::suggestion_query_config::KnowledgeBaseQuerySource>>{
+        pub fn knowledge_base_query_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::human_agent_assistant_config::suggestion_query_config::KnowledgeBaseQuerySource>>{
             #[allow(unreachable_patterns)]
             self.query_source.as_ref().and_then(|v| match v {
                 crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource::KnowledgeBaseQuerySource(v) => std::option::Option::Some(v),
@@ -11072,7 +11070,7 @@ pub mod human_agent_assistant_config {
         /// The value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
         /// if it holds a `DocumentQuerySource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_document_query_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::human_agent_assistant_config::suggestion_query_config::DocumentQuerySource>>{
+        pub fn document_query_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::human_agent_assistant_config::suggestion_query_config::DocumentQuerySource>>{
             #[allow(unreachable_patterns)]
             self.query_source.as_ref().and_then(|v| match v {
                 crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource::DocumentQuerySource(v) => std::option::Option::Some(v),
@@ -11083,7 +11081,7 @@ pub mod human_agent_assistant_config {
         /// The value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source]
         /// if it holds a `DialogflowQuerySource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_dialogflow_query_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::human_agent_assistant_config::suggestion_query_config::DialogflowQuerySource>>{
+        pub fn dialogflow_query_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::human_agent_assistant_config::suggestion_query_config::DialogflowQuerySource>>{
             #[allow(unreachable_patterns)]
             self.query_source.as_ref().and_then(|v| match v {
                 crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource::DialogflowQuerySource(v) => std::option::Option::Some(v),
@@ -11740,7 +11738,7 @@ impl HumanAgentHandoffConfig {
     /// The value of [agent_service][crate::model::HumanAgentHandoffConfig::agent_service]
     /// if it holds a `LivePersonConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_live_person_config(
+    pub fn live_person_config(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::human_agent_handoff_config::LivePersonConfig>,
@@ -11757,7 +11755,7 @@ impl HumanAgentHandoffConfig {
     /// The value of [agent_service][crate::model::HumanAgentHandoffConfig::agent_service]
     /// if it holds a `SalesforceLiveAgentConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_salesforce_live_agent_config(
+    pub fn salesforce_live_agent_config(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::human_agent_handoff_config::SalesforceLiveAgentConfig>,
@@ -12704,7 +12702,7 @@ impl Document {
     /// The value of [source][crate::model::Document::source]
     /// if it holds a `ContentUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn content_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::document::Source::ContentUri(v) => std::option::Option::Some(v),
@@ -12715,7 +12713,7 @@ impl Document {
     /// The value of [source][crate::model::Document::source]
     /// if it holds a `RawContent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_raw_content(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn raw_content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::document::Source::RawContent(v) => std::option::Option::Some(v),
@@ -13301,9 +13299,7 @@ impl ImportDocumentsRequest {
     /// The value of [source][crate::model::ImportDocumentsRequest::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsSources>> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsSources>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::import_documents_request::Source::GcsSource(v) => {
@@ -13636,7 +13632,7 @@ impl ReloadDocumentRequest {
     /// The value of [source][crate::model::ReloadDocumentRequest::source]
     /// if it holds a `ContentUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn content_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::reload_document_request::Source::ContentUri(v) => {
@@ -13762,7 +13758,7 @@ impl ExportDocumentRequest {
     /// The value of [destination][crate::model::ExportDocumentRequest::destination]
     /// if it holds a `GcsDestination`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_destination(
+    pub fn gcs_destination(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
         #[allow(unreachable_patterns)]
@@ -13911,7 +13907,7 @@ impl KnowledgeOperationMetadata {
     /// The value of [operation_metadata][crate::model::KnowledgeOperationMetadata::operation_metadata]
     /// if it holds a `ExportOperationMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_export_operation_metadata(
+    pub fn export_operation_metadata(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ExportOperationMetadata>> {
         #[allow(unreachable_patterns)]
@@ -14949,7 +14945,7 @@ impl BatchUpdateEntityTypesRequest {
     /// The value of [entity_type_batch][crate::model::BatchUpdateEntityTypesRequest::entity_type_batch]
     /// if it holds a `EntityTypeBatchUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_entity_type_batch_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn entity_type_batch_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.entity_type_batch.as_ref().and_then(|v| match v {
             crate::model::batch_update_entity_types_request::EntityTypeBatch::EntityTypeBatchUri(v) => std::option::Option::Some(v),
@@ -14960,7 +14956,7 @@ impl BatchUpdateEntityTypesRequest {
     /// The value of [entity_type_batch][crate::model::BatchUpdateEntityTypesRequest::entity_type_batch]
     /// if it holds a `EntityTypeBatchInline`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_entity_type_batch_inline(
+    pub fn entity_type_batch_inline(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::EntityTypeBatch>> {
         #[allow(unreachable_patterns)]
@@ -16313,7 +16309,7 @@ impl Fulfillment {
     /// The value of [fulfillment][crate::model::Fulfillment::fulfillment]
     /// if it holds a `GenericWebService`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_generic_web_service(
+    pub fn generic_web_service(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::fulfillment::GenericWebService>> {
         #[allow(unreachable_patterns)]
@@ -17305,7 +17301,7 @@ impl FewShotExample {
     /// The value of [instruction_list][crate::model::FewShotExample::instruction_list]
     /// if it holds a `SummarizationSectionList`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_summarization_section_list(
+    pub fn summarization_section_list(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SummarizationSectionList>> {
         #[allow(unreachable_patterns)]
@@ -17837,7 +17833,7 @@ impl Generator {
     /// The value of [context][crate::model::Generator::context]
     /// if it holds a `FreeFormContext`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_free_form_context(
+    pub fn free_form_context(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FreeFormContext>> {
         #[allow(unreachable_patterns)]
@@ -17850,7 +17846,7 @@ impl Generator {
     /// The value of [context][crate::model::Generator::context]
     /// if it holds a `SummarizationContext`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_summarization_context(
+    pub fn summarization_context(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SummarizationContext>> {
         #[allow(unreachable_patterns)]
@@ -17912,7 +17908,7 @@ impl Generator {
     /// The value of [foundation_model][crate::model::Generator::foundation_model]
     /// if it holds a `PublishedModel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_published_model(&self) -> std::option::Option<&std::string::String> {
+    pub fn published_model(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.foundation_model.as_ref().and_then(|v| match v {
             crate::model::generator::FoundationModel::PublishedModel(v) => {
@@ -18127,7 +18123,7 @@ impl GeneratorSuggestion {
     /// The value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
     /// if it holds a `FreeFormSuggestion`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_free_form_suggestion(
+    pub fn free_form_suggestion(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::FreeFormSuggestion>> {
         #[allow(unreachable_patterns)]
@@ -18142,7 +18138,7 @@ impl GeneratorSuggestion {
     /// The value of [suggestion][crate::model::GeneratorSuggestion::suggestion]
     /// if it holds a `SummarySuggestion`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_summary_suggestion(
+    pub fn summary_suggestion(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SummarySuggestion>> {
         #[allow(unreachable_patterns)]
@@ -19017,7 +19013,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `Text`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_text(
+        pub fn text(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Text>> {
             #[allow(unreachable_patterns)]
@@ -19030,7 +19026,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `Image`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_image(
+        pub fn image(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Image>> {
             #[allow(unreachable_patterns)]
@@ -19043,7 +19039,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `QuickReplies`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_quick_replies(
+        pub fn quick_replies(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::QuickReplies>>
         {
@@ -19059,7 +19055,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `Card`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_card(
+        pub fn card(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Card>> {
             #[allow(unreachable_patterns)]
@@ -19072,7 +19068,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `Payload`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
+        pub fn payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
             #[allow(unreachable_patterns)]
             self.message.as_ref().and_then(|v| match v {
                 crate::model::intent::message::Message::Payload(v) => std::option::Option::Some(v),
@@ -19083,7 +19079,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `SimpleResponses`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_simple_responses(
+        pub fn simple_responses(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::SimpleResponses>>
         {
@@ -19099,7 +19095,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `BasicCard`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_basic_card(
+        pub fn basic_card(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::BasicCard>>
         {
@@ -19115,7 +19111,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `Suggestions`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_suggestions(
+        pub fn suggestions(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Suggestions>>
         {
@@ -19131,7 +19127,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `LinkOutSuggestion`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_link_out_suggestion(
+        pub fn link_out_suggestion(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::LinkOutSuggestion>>
         {
@@ -19147,7 +19143,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `ListSelect`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_list_select(
+        pub fn list_select(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::ListSelect>>
         {
@@ -19163,7 +19159,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `CarouselSelect`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_carousel_select(
+        pub fn carousel_select(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::CarouselSelect>>
         {
@@ -19179,7 +19175,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `BrowseCarouselCard`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_browse_carousel_card(
+        pub fn browse_carousel_card(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::BrowseCarouselCard>>
         {
@@ -19195,7 +19191,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `TableCard`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_table_card(
+        pub fn table_card(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::TableCard>>
         {
@@ -19211,7 +19207,7 @@ pub mod intent {
         /// The value of [message][crate::model::intent::Message::message]
         /// if it holds a `MediaContent`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_media_content(
+        pub fn media_content(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::MediaContent>>
         {
@@ -20592,7 +20588,7 @@ pub mod intent {
                 /// The value of [image][crate::model::intent::message::media_content::ResponseMediaObject::image]
                 /// if it holds a `LargeImage`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_large_image(
+                pub fn large_image(
                     &self,
                 ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Image>>
                 {
@@ -20606,7 +20602,7 @@ pub mod intent {
                 /// The value of [image][crate::model::intent::message::media_content::ResponseMediaObject::image]
                 /// if it holds a `Icon`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_icon(
+                pub fn icon(
                     &self,
                 ) -> std::option::Option<&std::boxed::Box<crate::model::intent::message::Image>>
                 {
@@ -22146,7 +22142,7 @@ impl BatchUpdateIntentsRequest {
     /// The value of [intent_batch][crate::model::BatchUpdateIntentsRequest::intent_batch]
     /// if it holds a `IntentBatchUri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_intent_batch_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn intent_batch_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.intent_batch.as_ref().and_then(|v| match v {
             crate::model::batch_update_intents_request::IntentBatch::IntentBatchUri(v) => {
@@ -22159,7 +22155,7 @@ impl BatchUpdateIntentsRequest {
     /// The value of [intent_batch][crate::model::BatchUpdateIntentsRequest::intent_batch]
     /// if it holds a `IntentBatchInline`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_intent_batch_inline(
+    pub fn intent_batch_inline(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::IntentBatch>> {
         #[allow(unreachable_patterns)]
@@ -23522,7 +23518,7 @@ impl AnalyzeContentRequest {
     /// The value of [input][crate::model::AnalyzeContentRequest::input]
     /// if it holds a `TextInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextInput>> {
+    pub fn text_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextInput>> {
         #[allow(unreachable_patterns)]
         self.input.as_ref().and_then(|v| match v {
             crate::model::analyze_content_request::Input::TextInput(v) => {
@@ -23535,9 +23531,7 @@ impl AnalyzeContentRequest {
     /// The value of [input][crate::model::AnalyzeContentRequest::input]
     /// if it holds a `AudioInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_audio_input(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AudioInput>> {
+    pub fn audio_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::AudioInput>> {
         #[allow(unreachable_patterns)]
         self.input.as_ref().and_then(|v| match v {
             crate::model::analyze_content_request::Input::AudioInput(v) => {
@@ -23550,9 +23544,7 @@ impl AnalyzeContentRequest {
     /// The value of [input][crate::model::AnalyzeContentRequest::input]
     /// if it holds a `EventInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_event_input(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::EventInput>> {
+    pub fn event_input(&self) -> std::option::Option<&std::boxed::Box<crate::model::EventInput>> {
         #[allow(unreachable_patterns)]
         self.input.as_ref().and_then(|v| match v {
             crate::model::analyze_content_request::Input::EventInput(v) => {
@@ -23565,7 +23557,7 @@ impl AnalyzeContentRequest {
     /// The value of [input][crate::model::AnalyzeContentRequest::input]
     /// if it holds a `SuggestionInput`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_suggestion_input(
+    pub fn suggestion_input(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestionInput>> {
         #[allow(unreachable_patterns)]
@@ -24089,7 +24081,7 @@ impl StreamingAnalyzeContentRequest {
     /// The value of [config][crate::model::StreamingAnalyzeContentRequest::config]
     /// if it holds a `AudioConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_audio_config(
+    pub fn audio_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InputAudioConfig>> {
         #[allow(unreachable_patterns)]
@@ -24104,7 +24096,7 @@ impl StreamingAnalyzeContentRequest {
     /// The value of [config][crate::model::StreamingAnalyzeContentRequest::config]
     /// if it holds a `TextConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text_config(
+    pub fn text_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InputTextConfig>> {
         #[allow(unreachable_patterns)]
@@ -24169,7 +24161,7 @@ impl StreamingAnalyzeContentRequest {
     /// The value of [input][crate::model::StreamingAnalyzeContentRequest::input]
     /// if it holds a `InputAudio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_input_audio(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn input_audio(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.input.as_ref().and_then(|v| match v {
             crate::model::streaming_analyze_content_request::Input::InputAudio(v) => {
@@ -24182,7 +24174,7 @@ impl StreamingAnalyzeContentRequest {
     /// The value of [input][crate::model::StreamingAnalyzeContentRequest::input]
     /// if it holds a `InputText`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_input_text(&self) -> std::option::Option<&std::string::String> {
+    pub fn input_text(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.input.as_ref().and_then(|v| match v {
             crate::model::streaming_analyze_content_request::Input::InputText(v) => {
@@ -24195,7 +24187,7 @@ impl StreamingAnalyzeContentRequest {
     /// The value of [input][crate::model::StreamingAnalyzeContentRequest::input]
     /// if it holds a `InputDtmf`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_input_dtmf(
+    pub fn input_dtmf(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TelephonyDtmfEvents>> {
         #[allow(unreachable_patterns)]
@@ -25638,7 +25630,7 @@ impl IntentSuggestion {
     /// The value of [intent][crate::model::IntentSuggestion::intent]
     /// if it holds a `IntentV2`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_intent_v2(&self) -> std::option::Option<&std::string::String> {
+    pub fn intent_v2(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.intent.as_ref().and_then(|v| match v {
             crate::model::intent_suggestion::Intent::IntentV2(v) => std::option::Option::Some(v),
@@ -25731,9 +25723,7 @@ impl DialogflowAssistAnswer {
     /// The value of [result][crate::model::DialogflowAssistAnswer::result]
     /// if it holds a `QueryResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_query_result(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::QueryResult>> {
+    pub fn query_result(&self) -> std::option::Option<&std::boxed::Box<crate::model::QueryResult>> {
         #[allow(unreachable_patterns)]
         self.result.as_ref().and_then(|v| match v {
             crate::model::dialogflow_assist_answer::Result::QueryResult(v) => {
@@ -25746,7 +25736,7 @@ impl DialogflowAssistAnswer {
     /// The value of [result][crate::model::DialogflowAssistAnswer::result]
     /// if it holds a `IntentSuggestion`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_intent_suggestion(
+    pub fn intent_suggestion(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::IntentSuggestion>> {
         #[allow(unreachable_patterns)]
@@ -25862,7 +25852,7 @@ impl SuggestionResult {
     /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// if it holds a `Error`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
         #[allow(unreachable_patterns)]
         self.suggestion_response.as_ref().and_then(|v| match v {
             crate::model::suggestion_result::SuggestionResponse::Error(v) => {
@@ -25875,7 +25865,7 @@ impl SuggestionResult {
     /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// if it holds a `SuggestArticlesResponse`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_suggest_articles_response(
+    pub fn suggest_articles_response(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestArticlesResponse>> {
         #[allow(unreachable_patterns)]
@@ -25890,7 +25880,7 @@ impl SuggestionResult {
     /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// if it holds a `SuggestKnowledgeAssistResponse`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_suggest_knowledge_assist_response(
+    pub fn suggest_knowledge_assist_response(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestKnowledgeAssistResponse>> {
         #[allow(unreachable_patterns)]
@@ -25905,7 +25895,7 @@ impl SuggestionResult {
     /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// if it holds a `SuggestFaqAnswersResponse`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_suggest_faq_answers_response(
+    pub fn suggest_faq_answers_response(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestFaqAnswersResponse>> {
         #[allow(unreachable_patterns)]
@@ -25920,7 +25910,7 @@ impl SuggestionResult {
     /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// if it holds a `SuggestSmartRepliesResponse`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_suggest_smart_replies_response(
+    pub fn suggest_smart_replies_response(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SuggestSmartRepliesResponse>> {
         #[allow(unreachable_patterns)]
@@ -25935,7 +25925,7 @@ impl SuggestionResult {
     /// The value of [suggestion_response][crate::model::SuggestionResult::suggestion_response]
     /// if it holds a `GenerateSuggestionsResponse`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_generate_suggestions_response(
+    pub fn generate_suggestions_response(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GenerateSuggestionsResponse>> {
         #[allow(unreachable_patterns)]
@@ -26639,7 +26629,7 @@ pub mod knowledge_assist_answer {
         /// The value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source]
         /// if it holds a `FaqSource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_faq_source(
+        pub fn faq_source(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::knowledge_assist_answer::knowledge_answer::FaqSource>,
@@ -26656,7 +26646,7 @@ pub mod knowledge_assist_answer {
         /// The value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source]
         /// if it holds a `GenerativeSource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_generative_source(
+        pub fn generative_source(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -27343,7 +27333,7 @@ impl QueryInput {
     /// The value of [input][crate::model::QueryInput::input]
     /// if it holds a `AudioConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_audio_config(
+    pub fn audio_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InputAudioConfig>> {
         #[allow(unreachable_patterns)]
@@ -27356,7 +27346,7 @@ impl QueryInput {
     /// The value of [input][crate::model::QueryInput::input]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextInput>> {
+    pub fn text(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextInput>> {
         #[allow(unreachable_patterns)]
         self.input.as_ref().and_then(|v| match v {
             crate::model::query_input::Input::Text(v) => std::option::Option::Some(v),
@@ -27367,7 +27357,7 @@ impl QueryInput {
     /// The value of [input][crate::model::QueryInput::input]
     /// if it holds a `Event`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_event(&self) -> std::option::Option<&std::boxed::Box<crate::model::EventInput>> {
+    pub fn event(&self) -> std::option::Option<&std::boxed::Box<crate::model::EventInput>> {
         #[allow(unreachable_patterns)]
         self.input.as_ref().and_then(|v| match v {
             crate::model::query_input::Input::Event(v) => std::option::Option::Some(v),

@@ -1079,7 +1079,7 @@ impl ImportDataRequest {
     /// The value of [source][crate::model::ImportDataRequest::source]
     /// if it holds a `SourceGcsBucket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_gcs_bucket(
+    pub fn source_gcs_bucket(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SourceGcsBucket>> {
         #[allow(unreachable_patterns)]
@@ -1125,7 +1125,7 @@ impl ImportDataRequest {
     /// The value of [destination][crate::model::ImportDataRequest::destination]
     /// if it holds a `DestinationParallelstore`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_parallelstore(
+    pub fn destination_parallelstore(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationParallelstore>> {
         #[allow(unreachable_patterns)]
@@ -1276,7 +1276,7 @@ impl ExportDataRequest {
     /// The value of [source][crate::model::ExportDataRequest::source]
     /// if it holds a `SourceParallelstore`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_parallelstore(
+    pub fn source_parallelstore(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SourceParallelstore>> {
         #[allow(unreachable_patterns)]
@@ -1322,7 +1322,7 @@ impl ExportDataRequest {
     /// The value of [destination][crate::model::ExportDataRequest::destination]
     /// if it holds a `DestinationGcsBucket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_gcs_bucket(
+    pub fn destination_gcs_bucket(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationGcsBucket>> {
         #[allow(unreachable_patterns)]
@@ -1852,7 +1852,7 @@ impl TransferOperationMetadata {
     /// The value of [source][crate::model::TransferOperationMetadata::source]
     /// if it holds a `SourceParallelstore`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_parallelstore(
+    pub fn source_parallelstore(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SourceParallelstore>> {
         #[allow(unreachable_patterns)]
@@ -1867,7 +1867,7 @@ impl TransferOperationMetadata {
     /// The value of [source][crate::model::TransferOperationMetadata::source]
     /// if it holds a `SourceGcsBucket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_gcs_bucket(
+    pub fn source_gcs_bucket(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SourceGcsBucket>> {
         #[allow(unreachable_patterns)]
@@ -1932,7 +1932,7 @@ impl TransferOperationMetadata {
     /// The value of [destination][crate::model::TransferOperationMetadata::destination]
     /// if it holds a `DestinationGcsBucket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_gcs_bucket(
+    pub fn destination_gcs_bucket(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationGcsBucket>> {
         #[allow(unreachable_patterns)]
@@ -1947,7 +1947,7 @@ impl TransferOperationMetadata {
     /// The value of [destination][crate::model::TransferOperationMetadata::destination]
     /// if it holds a `DestinationParallelstore`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_parallelstore(
+    pub fn destination_parallelstore(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationParallelstore>> {
         #[allow(unreachable_patterns)]

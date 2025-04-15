@@ -434,7 +434,7 @@ impl Distribution {
     /// The value of [bucket_option][crate::model::Distribution::bucket_option]
     /// if it holds a `LinearBuckets`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_linear_buckets(
+    pub fn linear_buckets(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::distribution::LinearBuckets>> {
         #[allow(unreachable_patterns)]
@@ -449,7 +449,7 @@ impl Distribution {
     /// The value of [bucket_option][crate::model::Distribution::bucket_option]
     /// if it holds a `ExponentialBuckets`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_exponential_buckets(
+    pub fn exponential_buckets(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::distribution::ExponentialBuckets>> {
         #[allow(unreachable_patterns)]
@@ -464,7 +464,7 @@ impl Distribution {
     /// The value of [bucket_option][crate::model::Distribution::bucket_option]
     /// if it holds a `ExplicitBuckets`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_explicit_buckets(
+    pub fn explicit_buckets(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::distribution::ExplicitBuckets>> {
         #[allow(unreachable_patterns)]
@@ -1094,7 +1094,7 @@ impl LogEntry {
     /// The value of [payload][crate::model::LogEntry::payload]
     /// if it holds a `ProtoPayload`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_proto_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Any>> {
+    pub fn proto_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Any>> {
         #[allow(unreachable_patterns)]
         self.payload.as_ref().and_then(|v| match v {
             crate::model::log_entry::Payload::ProtoPayload(v) => std::option::Option::Some(v),
@@ -1105,7 +1105,7 @@ impl LogEntry {
     /// The value of [payload][crate::model::LogEntry::payload]
     /// if it holds a `TextPayload`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text_payload(&self) -> std::option::Option<&std::string::String> {
+    pub fn text_payload(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.payload.as_ref().and_then(|v| match v {
             crate::model::log_entry::Payload::TextPayload(v) => std::option::Option::Some(v),
@@ -1116,7 +1116,7 @@ impl LogEntry {
     /// The value of [payload][crate::model::LogEntry::payload]
     /// if it holds a `StructPayload`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_struct_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
+    pub fn struct_payload(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
         #[allow(unreachable_patterns)]
         self.payload.as_ref().and_then(|v| match v {
             crate::model::log_entry::Payload::StructPayload(v) => std::option::Option::Some(v),
@@ -1411,7 +1411,7 @@ impl MetricValue {
     /// The value of [value][crate::model::MetricValue::value]
     /// if it holds a `BoolValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bool_value(&self) -> std::option::Option<&bool> {
+    pub fn bool_value(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::metric_value::Value::BoolValue(v) => std::option::Option::Some(v),
@@ -1422,7 +1422,7 @@ impl MetricValue {
     /// The value of [value][crate::model::MetricValue::value]
     /// if it holds a `Int64Value`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_int64_value(&self) -> std::option::Option<&i64> {
+    pub fn int64_value(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::metric_value::Value::Int64Value(v) => std::option::Option::Some(v),
@@ -1433,7 +1433,7 @@ impl MetricValue {
     /// The value of [value][crate::model::MetricValue::value]
     /// if it holds a `DoubleValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_double_value(&self) -> std::option::Option<&f64> {
+    pub fn double_value(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::metric_value::Value::DoubleValue(v) => std::option::Option::Some(v),
@@ -1444,7 +1444,7 @@ impl MetricValue {
     /// The value of [value][crate::model::MetricValue::value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_value(&self) -> std::option::Option<&std::string::String> {
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::metric_value::Value::StringValue(v) => std::option::Option::Some(v),
@@ -1455,7 +1455,7 @@ impl MetricValue {
     /// The value of [value][crate::model::MetricValue::value]
     /// if it holds a `DistributionValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_distribution_value(
+    pub fn distribution_value(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::Distribution>> {
         #[allow(unreachable_patterns)]

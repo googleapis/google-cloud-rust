@@ -298,7 +298,7 @@ impl SignatureInfo {
     /// The value of [verification_info][crate::model::SignatureInfo::verification_info]
     /// if it holds a `GooglePublicKeyPem`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_google_public_key_pem(&self) -> std::option::Option<&std::string::String> {
+    pub fn google_public_key_pem(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.verification_info.as_ref().and_then(|v| match v {
             crate::model::signature_info::VerificationInfo::GooglePublicKeyPem(v) => {
@@ -311,7 +311,7 @@ impl SignatureInfo {
     /// The value of [verification_info][crate::model::SignatureInfo::verification_info]
     /// if it holds a `CustomerKmsKeyVersion`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_customer_kms_key_version(&self) -> std::option::Option<&std::string::String> {
+    pub fn customer_kms_key_version(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.verification_info.as_ref().and_then(|v| match v {
             crate::model::signature_info::VerificationInfo::CustomerKmsKeyVersion(v) => {
@@ -678,9 +678,7 @@ impl ApprovalRequest {
     /// The value of [decision][crate::model::ApprovalRequest::decision]
     /// if it holds a `Approve`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_approve(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ApproveDecision>> {
+    pub fn approve(&self) -> std::option::Option<&std::boxed::Box<crate::model::ApproveDecision>> {
         #[allow(unreachable_patterns)]
         self.decision.as_ref().and_then(|v| match v {
             crate::model::approval_request::Decision::Approve(v) => std::option::Option::Some(v),
@@ -691,9 +689,7 @@ impl ApprovalRequest {
     /// The value of [decision][crate::model::ApprovalRequest::decision]
     /// if it holds a `Dismiss`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_dismiss(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DismissDecision>> {
+    pub fn dismiss(&self) -> std::option::Option<&std::boxed::Box<crate::model::DismissDecision>> {
         #[allow(unreachable_patterns)]
         self.decision.as_ref().and_then(|v| match v {
             crate::model::approval_request::Decision::Dismiss(v) => std::option::Option::Some(v),

@@ -167,7 +167,7 @@ pub mod check_onboarding_status_response {
         /// The value of [finding_type][crate::model::check_onboarding_status_response::Finding::finding_type]
         /// if it holds a `IamAccessDenied`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_iam_access_denied(
+        pub fn iam_access_denied(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -501,7 +501,7 @@ pub mod entitlement {
         /// The value of [justification_type][crate::model::entitlement::RequesterJustificationConfig::justification_type]
         /// if it holds a `NotMandatory`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_not_mandatory(
+        pub fn not_mandatory(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -518,7 +518,7 @@ pub mod entitlement {
         /// The value of [justification_type][crate::model::entitlement::RequesterJustificationConfig::justification_type]
         /// if it holds a `Unstructured`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_unstructured(
+        pub fn unstructured(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -861,7 +861,7 @@ impl ApprovalWorkflow {
     /// The value of [approval_workflow][crate::model::ApprovalWorkflow::approval_workflow]
     /// if it holds a `ManualApprovals`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_manual_approvals(
+    pub fn manual_approvals(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ManualApprovals>> {
         #[allow(unreachable_patterns)]
@@ -1080,7 +1080,7 @@ impl PrivilegedAccess {
     /// The value of [access_type][crate::model::PrivilegedAccess::access_type]
     /// if it holds a `GcpIamAccess`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcp_iam_access(
+    pub fn gcp_iam_access(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::privileged_access::GcpIamAccess>> {
         #[allow(unreachable_patterns)]
@@ -2141,7 +2141,7 @@ pub mod grant {
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `Requested`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_requested(
+            pub fn requested(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::grant::timeline::event::Requested>,
@@ -2158,7 +2158,7 @@ pub mod grant {
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `Approved`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_approved(
+            pub fn approved(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Approved>>
             {
@@ -2174,7 +2174,7 @@ pub mod grant {
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `Denied`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_denied(
+            pub fn denied(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Denied>>
             {
@@ -2190,7 +2190,7 @@ pub mod grant {
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `Revoked`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_revoked(
+            pub fn revoked(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Revoked>>
             {
@@ -2206,7 +2206,7 @@ pub mod grant {
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `Scheduled`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_scheduled(
+            pub fn scheduled(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::grant::timeline::event::Scheduled>,
@@ -2223,7 +2223,7 @@ pub mod grant {
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `Activated`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_activated(
+            pub fn activated(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::grant::timeline::event::Activated>,
@@ -2240,7 +2240,7 @@ pub mod grant {
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `ActivationFailed`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_activation_failed(
+            pub fn activation_failed(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::grant::timeline::event::ActivationFailed>,
@@ -2257,7 +2257,7 @@ pub mod grant {
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `Expired`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_expired(
+            pub fn expired(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Expired>>
             {
@@ -2273,7 +2273,7 @@ pub mod grant {
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `Ended`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_ended(
+            pub fn ended(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::grant::timeline::event::Ended>>
             {
@@ -2289,7 +2289,7 @@ pub mod grant {
             /// The value of [event][crate::model::grant::timeline::Event::event]
             /// if it holds a `ExternallyModified`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_externally_modified(
+            pub fn externally_modified(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::grant::timeline::event::ExternallyModified>,
@@ -3068,7 +3068,7 @@ impl Justification {
     /// The value of [justification][crate::model::Justification::justification]
     /// if it holds a `UnstructuredJustification`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_unstructured_justification(&self) -> std::option::Option<&std::string::String> {
+    pub fn unstructured_justification(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.justification.as_ref().and_then(|v| match v {
             crate::model::justification::Justification::UnstructuredJustification(v) => {

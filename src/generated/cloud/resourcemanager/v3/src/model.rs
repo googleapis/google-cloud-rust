@@ -1050,7 +1050,7 @@ impl Organization {
     /// The value of [owner][crate::model::Organization::owner]
     /// if it holds a `DirectoryCustomerId`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_directory_customer_id(&self) -> std::option::Option<&std::string::String> {
+    pub fn directory_customer_id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.owner.as_ref().and_then(|v| match v {
             crate::model::organization::Owner::DirectoryCustomerId(v) => {

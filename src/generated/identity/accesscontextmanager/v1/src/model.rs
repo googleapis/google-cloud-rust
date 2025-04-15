@@ -1660,7 +1660,7 @@ impl AccessLevel {
     /// The value of [level][crate::model::AccessLevel::level]
     /// if it holds a `Basic`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_basic(&self) -> std::option::Option<&std::boxed::Box<crate::model::BasicLevel>> {
+    pub fn basic(&self) -> std::option::Option<&std::boxed::Box<crate::model::BasicLevel>> {
         #[allow(unreachable_patterns)]
         self.level.as_ref().and_then(|v| match v {
             crate::model::access_level::Level::Basic(v) => std::option::Option::Some(v),
@@ -1671,7 +1671,7 @@ impl AccessLevel {
     /// The value of [level][crate::model::AccessLevel::level]
     /// if it holds a `Custom`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_custom(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomLevel>> {
+    pub fn custom(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomLevel>> {
         #[allow(unreachable_patterns)]
         self.level.as_ref().and_then(|v| match v {
             crate::model::access_level::Level::Custom(v) => std::option::Option::Some(v),
@@ -2846,7 +2846,7 @@ pub mod service_perimeter_config {
         /// The value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
         /// if it holds a `Method`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_method(&self) -> std::option::Option<&std::string::String> {
+        pub fn method(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::service_perimeter_config::method_selector::Kind::Method(v) => {
@@ -2859,7 +2859,7 @@ pub mod service_perimeter_config {
         /// The value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
         /// if it holds a `Permission`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_permission(&self) -> std::option::Option<&std::string::String> {
+        pub fn permission(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::service_perimeter_config::method_selector::Kind::Permission(v) => {
@@ -3029,7 +3029,7 @@ pub mod service_perimeter_config {
         /// The value of [source][crate::model::service_perimeter_config::IngressSource::source]
         /// if it holds a `AccessLevel`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_access_level(&self) -> std::option::Option<&std::string::String> {
+        pub fn access_level(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
                 crate::model::service_perimeter_config::ingress_source::Source::AccessLevel(v) => {
@@ -3042,7 +3042,7 @@ pub mod service_perimeter_config {
         /// The value of [source][crate::model::service_perimeter_config::IngressSource::source]
         /// if it holds a `Resource`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_resource(&self) -> std::option::Option<&std::string::String> {
+        pub fn resource(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
                 crate::model::service_perimeter_config::ingress_source::Source::Resource(v) => {

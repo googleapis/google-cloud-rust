@@ -514,7 +514,7 @@ impl CommonFeatureSpec {
     /// The value of [feature_spec][crate::model::CommonFeatureSpec::feature_spec]
     /// if it holds a `Multiclusteringress`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_multiclusteringress(
+    pub fn multiclusteringress(
         &self,
     ) -> std::option::Option<&std::boxed::Box<gkehub_multiclusteringress_v1::model::FeatureSpec>>
     {
@@ -636,7 +636,7 @@ impl MembershipFeatureSpec {
     /// The value of [feature_spec][crate::model::MembershipFeatureSpec::feature_spec]
     /// if it holds a `Configmanagement`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_configmanagement(
+    pub fn configmanagement(
         &self,
     ) -> std::option::Option<&std::boxed::Box<gkehub_configmanagement_v1::model::MembershipSpec>>
     {
@@ -738,7 +738,7 @@ impl MembershipFeatureState {
     /// The value of [feature_state][crate::model::MembershipFeatureState::feature_state]
     /// if it holds a `Configmanagement`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_configmanagement(
+    pub fn configmanagement(
         &self,
     ) -> std::option::Option<&std::boxed::Box<gkehub_configmanagement_v1::model::MembershipState>>
     {
@@ -1000,7 +1000,7 @@ impl Membership {
     /// The value of [r#type][crate::model::Membership::r#type]
     /// if it holds a `Endpoint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_endpoint(
+    pub fn endpoint(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MembershipEndpoint>> {
         #[allow(unreachable_patterns)]

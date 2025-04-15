@@ -186,7 +186,7 @@ impl UniversalAction {
     /// The value of [action_type][crate::model::UniversalAction::action_type]
     /// if it holds a `OpenLink`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_open_link(&self) -> std::option::Option<&std::string::String> {
+    pub fn open_link(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.action_type.as_ref().and_then(|v| match v {
             crate::model::universal_action::ActionType::OpenLink(v) => std::option::Option::Some(v),
@@ -197,7 +197,7 @@ impl UniversalAction {
     /// The value of [action_type][crate::model::UniversalAction::action_type]
     /// if it holds a `RunFunction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_run_function(&self) -> std::option::Option<&std::string::String> {
+    pub fn run_function(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.action_type.as_ref().and_then(|v| match v {
             crate::model::universal_action::ActionType::RunFunction(v) => {
@@ -427,7 +427,7 @@ impl ContextualTrigger {
     /// The value of [trigger][crate::model::ContextualTrigger::trigger]
     /// if it holds a `Unconditional`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_unconditional(
+    pub fn unconditional(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UnconditionalTrigger>> {
         #[allow(unreachable_patterns)]

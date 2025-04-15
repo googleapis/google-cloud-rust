@@ -768,7 +768,7 @@ pub mod workstation_config {
         /// The value of [config][crate::model::workstation_config::Host::config]
         /// if it holds a `GceInstance`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gce_instance(
+        pub fn gce_instance(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::workstation_config::host::GceInstance>,
@@ -1197,7 +1197,7 @@ pub mod workstation_config {
         /// The value of [directory_type][crate::model::workstation_config::PersistentDirectory::directory_type]
         /// if it holds a `GcePd`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gce_pd(
+        pub fn gce_pd(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -3407,7 +3407,7 @@ impl GenerateAccessTokenRequest {
     /// The value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
     /// if it holds a `ExpireTime`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_expire_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+    pub fn expire_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.expiration.as_ref().and_then(|v| match v {
             crate::model::generate_access_token_request::Expiration::ExpireTime(v) => {
@@ -3420,7 +3420,7 @@ impl GenerateAccessTokenRequest {
     /// The value of [expiration][crate::model::GenerateAccessTokenRequest::expiration]
     /// if it holds a `Ttl`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.expiration.as_ref().and_then(|v| match v {
             crate::model::generate_access_token_request::Expiration::Ttl(v) => {

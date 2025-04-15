@@ -232,7 +232,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `BatchRecognizeRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_batch_recognize_request(
+    pub fn batch_recognize_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BatchRecognizeRequest>> {
         #[allow(unreachable_patterns)]
@@ -247,7 +247,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `CreateRecognizerRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_create_recognizer_request(
+    pub fn create_recognizer_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CreateRecognizerRequest>> {
         #[allow(unreachable_patterns)]
@@ -262,7 +262,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UpdateRecognizerRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_update_recognizer_request(
+    pub fn update_recognizer_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateRecognizerRequest>> {
         #[allow(unreachable_patterns)]
@@ -277,7 +277,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `DeleteRecognizerRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_delete_recognizer_request(
+    pub fn delete_recognizer_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteRecognizerRequest>> {
         #[allow(unreachable_patterns)]
@@ -292,7 +292,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UndeleteRecognizerRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_undelete_recognizer_request(
+    pub fn undelete_recognizer_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UndeleteRecognizerRequest>> {
         #[allow(unreachable_patterns)]
@@ -307,7 +307,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `CreateCustomClassRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_create_custom_class_request(
+    pub fn create_custom_class_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CreateCustomClassRequest>> {
         #[allow(unreachable_patterns)]
@@ -322,7 +322,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UpdateCustomClassRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_update_custom_class_request(
+    pub fn update_custom_class_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateCustomClassRequest>> {
         #[allow(unreachable_patterns)]
@@ -337,7 +337,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `DeleteCustomClassRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_delete_custom_class_request(
+    pub fn delete_custom_class_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteCustomClassRequest>> {
         #[allow(unreachable_patterns)]
@@ -352,7 +352,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UndeleteCustomClassRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_undelete_custom_class_request(
+    pub fn undelete_custom_class_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UndeleteCustomClassRequest>> {
         #[allow(unreachable_patterns)]
@@ -367,7 +367,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `CreatePhraseSetRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_create_phrase_set_request(
+    pub fn create_phrase_set_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CreatePhraseSetRequest>> {
         #[allow(unreachable_patterns)]
@@ -382,7 +382,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UpdatePhraseSetRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_update_phrase_set_request(
+    pub fn update_phrase_set_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UpdatePhraseSetRequest>> {
         #[allow(unreachable_patterns)]
@@ -397,7 +397,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `DeletePhraseSetRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_delete_phrase_set_request(
+    pub fn delete_phrase_set_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DeletePhraseSetRequest>> {
         #[allow(unreachable_patterns)]
@@ -412,7 +412,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UndeletePhraseSetRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_undelete_phrase_set_request(
+    pub fn undelete_phrase_set_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UndeletePhraseSetRequest>> {
         #[allow(unreachable_patterns)]
@@ -427,7 +427,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UpdateConfigRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_update_config_request(
+    pub fn update_config_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateConfigRequest>> {
         #[allow(unreachable_patterns)]
@@ -694,7 +694,7 @@ impl OperationMetadata {
     /// The value of [metadata][crate::model::OperationMetadata::metadata]
     /// if it holds a `BatchRecognizeMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_batch_recognize_metadata(
+    pub fn batch_recognize_metadata(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BatchRecognizeMetadata>> {
         #[allow(unreachable_patterns)]
@@ -2196,7 +2196,7 @@ pub mod speech_adaptation {
         /// The value of [value][crate::model::speech_adaptation::AdaptationPhraseSet::value]
         /// if it holds a `PhraseSet`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_phrase_set(&self) -> std::option::Option<&std::string::String> {
+        pub fn phrase_set(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
                 crate::model::speech_adaptation::adaptation_phrase_set::Value::PhraseSet(v) => {
@@ -2209,7 +2209,7 @@ pub mod speech_adaptation {
         /// The value of [value][crate::model::speech_adaptation::AdaptationPhraseSet::value]
         /// if it holds a `InlinePhraseSet`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_inline_phrase_set(
+        pub fn inline_phrase_set(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::PhraseSet>> {
             #[allow(unreachable_patterns)]
@@ -2422,7 +2422,7 @@ impl RecognitionConfig {
     /// The value of [decoding_config][crate::model::RecognitionConfig::decoding_config]
     /// if it holds a `AutoDecodingConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_auto_decoding_config(
+    pub fn auto_decoding_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AutoDetectDecodingConfig>> {
         #[allow(unreachable_patterns)]
@@ -2437,7 +2437,7 @@ impl RecognitionConfig {
     /// The value of [decoding_config][crate::model::RecognitionConfig::decoding_config]
     /// if it holds a `ExplicitDecodingConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_explicit_decoding_config(
+    pub fn explicit_decoding_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ExplicitDecodingConfig>> {
         #[allow(unreachable_patterns)]
@@ -2616,7 +2616,7 @@ impl RecognizeRequest {
     /// The value of [audio_source][crate::model::RecognizeRequest::audio_source]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.audio_source.as_ref().and_then(|v| match v {
             crate::model::recognize_request::AudioSource::Content(v) => {
@@ -2629,7 +2629,7 @@ impl RecognizeRequest {
     /// The value of [audio_source][crate::model::RecognizeRequest::audio_source]
     /// if it holds a `Uri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.audio_source.as_ref().and_then(|v| match v {
             crate::model::recognize_request::AudioSource::Uri(v) => std::option::Option::Some(v),
@@ -3343,7 +3343,7 @@ impl StreamingRecognizeRequest {
     /// The value of [streaming_request][crate::model::StreamingRecognizeRequest::streaming_request]
     /// if it holds a `StreamingConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_streaming_config(
+    pub fn streaming_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingRecognitionConfig>> {
         #[allow(unreachable_patterns)]
@@ -3358,7 +3358,7 @@ impl StreamingRecognizeRequest {
     /// The value of [streaming_request][crate::model::StreamingRecognizeRequest::streaming_request]
     /// if it holds a `Audio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_audio(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn audio(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.streaming_request.as_ref().and_then(|v| match v {
             crate::model::streaming_recognize_request::StreamingRequest::Audio(v) => {
@@ -3866,7 +3866,7 @@ impl RecognitionOutputConfig {
     /// The value of [output][crate::model::RecognitionOutputConfig::output]
     /// if it holds a `GcsOutputConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_output_config(
+    pub fn gcs_output_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsOutputConfig>> {
         #[allow(unreachable_patterns)]
@@ -3881,7 +3881,7 @@ impl RecognitionOutputConfig {
     /// The value of [output][crate::model::RecognitionOutputConfig::output]
     /// if it holds a `InlineResponseConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_inline_response_config(
+    pub fn inline_response_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InlineOutputConfig>> {
         #[allow(unreachable_patterns)]
@@ -4270,7 +4270,7 @@ impl BatchRecognizeFileResult {
     /// The value of [result][crate::model::BatchRecognizeFileResult::result]
     /// if it holds a `CloudStorageResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_storage_result(
+    pub fn cloud_storage_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudStorageResult>> {
         #[allow(unreachable_patterns)]
@@ -4285,7 +4285,7 @@ impl BatchRecognizeFileResult {
     /// The value of [result][crate::model::BatchRecognizeFileResult::result]
     /// if it holds a `InlineResult`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_inline_result(
+    pub fn inline_result(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InlineResult>> {
         #[allow(unreachable_patterns)]
@@ -4554,7 +4554,7 @@ impl BatchRecognizeFileMetadata {
     /// The value of [audio_source][crate::model::BatchRecognizeFileMetadata::audio_source]
     /// if it holds a `Uri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.audio_source.as_ref().and_then(|v| match v {
             crate::model::batch_recognize_file_metadata::AudioSource::Uri(v) => {

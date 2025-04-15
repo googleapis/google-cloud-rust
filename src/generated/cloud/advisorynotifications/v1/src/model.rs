@@ -369,7 +369,7 @@ impl Attachment {
     /// The value of [data][crate::model::Attachment::data]
     /// if it holds a `Csv`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_csv(&self) -> std::option::Option<&std::boxed::Box<crate::model::Csv>> {
+    pub fn csv(&self) -> std::option::Option<&std::boxed::Box<crate::model::Csv>> {
         #[allow(unreachable_patterns)]
         self.data.as_ref().and_then(|v| match v {
             crate::model::attachment::Data::Csv(v) => std::option::Option::Some(v),

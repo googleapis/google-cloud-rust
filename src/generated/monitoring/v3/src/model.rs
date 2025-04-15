@@ -550,7 +550,7 @@ pub mod alert_policy {
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionThreshold`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_condition_threshold(
+        pub fn condition_threshold(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::alert_policy::condition::MetricThreshold>,
@@ -567,7 +567,7 @@ pub mod alert_policy {
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionAbsent`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_condition_absent(
+        pub fn condition_absent(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::alert_policy::condition::MetricAbsence>,
@@ -584,7 +584,7 @@ pub mod alert_policy {
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionMatchedLog`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_condition_matched_log(
+        pub fn condition_matched_log(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::alert_policy::condition::LogMatch>>
         {
@@ -600,7 +600,7 @@ pub mod alert_policy {
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionMonitoringQueryLanguage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_condition_monitoring_query_language(
+        pub fn condition_monitoring_query_language(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -617,7 +617,7 @@ pub mod alert_policy {
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionPrometheusQueryLanguage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_condition_prometheus_query_language(
+        pub fn condition_prometheus_query_language(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -634,7 +634,7 @@ pub mod alert_policy {
         /// The value of [condition][crate::model::alert_policy::Condition::condition]
         /// if it holds a `ConditionSql`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_condition_sql(
+        pub fn condition_sql(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::alert_policy::condition::SqlCondition>,
@@ -819,7 +819,7 @@ pub mod alert_policy {
             /// The value of [r#type][crate::model::alert_policy::condition::Trigger::r#type]
             /// if it holds a `Count`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_count(&self) -> std::option::Option<&i32> {
+            pub fn count(&self) -> std::option::Option<&i32> {
                 #[allow(unreachable_patterns)]
                 self.r#type.as_ref().and_then(|v| match v {
                     crate::model::alert_policy::condition::trigger::Type::Count(v) => {
@@ -832,7 +832,7 @@ pub mod alert_policy {
             /// The value of [r#type][crate::model::alert_policy::condition::Trigger::r#type]
             /// if it holds a `Percent`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_percent(&self) -> std::option::Option<&f64> {
+            pub fn percent(&self) -> std::option::Option<&f64> {
                 #[allow(unreachable_patterns)]
                 self.r#type.as_ref().and_then(|v| match v {
                     crate::model::alert_policy::condition::trigger::Type::Percent(v) => {
@@ -1692,7 +1692,7 @@ pub mod alert_policy {
             /// The value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
             /// if it holds a `Minutes`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_minutes(
+            pub fn minutes(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Minutes>,
@@ -1709,7 +1709,7 @@ pub mod alert_policy {
             /// The value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
             /// if it holds a `Hourly`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_hourly(
+            pub fn hourly(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Hourly>,
@@ -1726,7 +1726,7 @@ pub mod alert_policy {
             /// The value of [schedule][crate::model::alert_policy::condition::SqlCondition::schedule]
             /// if it holds a `Daily`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_daily(
+            pub fn daily(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::Daily>,
@@ -1828,7 +1828,7 @@ pub mod alert_policy {
             /// The value of [evaluate][crate::model::alert_policy::condition::SqlCondition::evaluate]
             /// if it holds a `RowCountTest`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_row_count_test(
+            pub fn row_count_test(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<
@@ -1845,7 +1845,7 @@ pub mod alert_policy {
             /// The value of [evaluate][crate::model::alert_policy::condition::SqlCondition::evaluate]
             /// if it holds a `BooleanTest`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_boolean_test(
+            pub fn boolean_test(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::alert_policy::condition::sql_condition::BooleanTest>,
@@ -3095,7 +3095,7 @@ impl TypedValue {
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `BoolValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bool_value(&self) -> std::option::Option<&bool> {
+    pub fn bool_value(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::typed_value::Value::BoolValue(v) => std::option::Option::Some(v),
@@ -3106,7 +3106,7 @@ impl TypedValue {
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `Int64Value`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_int64_value(&self) -> std::option::Option<&i64> {
+    pub fn int64_value(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::typed_value::Value::Int64Value(v) => std::option::Option::Some(v),
@@ -3117,7 +3117,7 @@ impl TypedValue {
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `DoubleValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_double_value(&self) -> std::option::Option<&f64> {
+    pub fn double_value(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::typed_value::Value::DoubleValue(v) => std::option::Option::Some(v),
@@ -3128,7 +3128,7 @@ impl TypedValue {
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_value(&self) -> std::option::Option<&std::string::String> {
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::typed_value::Value::StringValue(v) => std::option::Option::Some(v),
@@ -3139,7 +3139,7 @@ impl TypedValue {
     /// The value of [value][crate::model::TypedValue::value]
     /// if it holds a `DistributionValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_distribution_value(
+    pub fn distribution_value(
         &self,
     ) -> std::option::Option<&std::boxed::Box<api::model::Distribution>> {
         #[allow(unreachable_patterns)]
@@ -4134,7 +4134,7 @@ impl ListGroupsRequest {
     /// The value of [filter][crate::model::ListGroupsRequest::filter]
     /// if it holds a `ChildrenOfGroup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_children_of_group(&self) -> std::option::Option<&std::string::String> {
+    pub fn children_of_group(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.filter.as_ref().and_then(|v| match v {
             crate::model::list_groups_request::Filter::ChildrenOfGroup(v) => {
@@ -4147,7 +4147,7 @@ impl ListGroupsRequest {
     /// The value of [filter][crate::model::ListGroupsRequest::filter]
     /// if it holds a `AncestorsOfGroup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ancestors_of_group(&self) -> std::option::Option<&std::string::String> {
+    pub fn ancestors_of_group(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.filter.as_ref().and_then(|v| match v {
             crate::model::list_groups_request::Filter::AncestorsOfGroup(v) => {
@@ -4160,7 +4160,7 @@ impl ListGroupsRequest {
     /// The value of [filter][crate::model::ListGroupsRequest::filter]
     /// if it holds a `DescendantsOfGroup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_descendants_of_group(&self) -> std::option::Option<&std::string::String> {
+    pub fn descendants_of_group(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.filter.as_ref().and_then(|v| match v {
             crate::model::list_groups_request::Filter::DescendantsOfGroup(v) => {
@@ -5181,7 +5181,7 @@ impl LabelValue {
     /// The value of [value][crate::model::LabelValue::value]
     /// if it holds a `BoolValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bool_value(&self) -> std::option::Option<&bool> {
+    pub fn bool_value(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::label_value::Value::BoolValue(v) => std::option::Option::Some(v),
@@ -5192,7 +5192,7 @@ impl LabelValue {
     /// The value of [value][crate::model::LabelValue::value]
     /// if it holds a `Int64Value`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_int64_value(&self) -> std::option::Option<&i64> {
+    pub fn int64_value(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::label_value::Value::Int64Value(v) => std::option::Option::Some(v),
@@ -5203,7 +5203,7 @@ impl LabelValue {
     /// The value of [value][crate::model::LabelValue::value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_value(&self) -> std::option::Option<&std::string::String> {
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::label_value::Value::StringValue(v) => std::option::Option::Some(v),
@@ -8003,9 +8003,7 @@ impl Service {
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `Custom`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_custom(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::service::Custom>> {
+    pub fn custom(&self) -> std::option::Option<&std::boxed::Box<crate::model::service::Custom>> {
         #[allow(unreachable_patterns)]
         self.identifier.as_ref().and_then(|v| match v {
             crate::model::service::Identifier::Custom(v) => std::option::Option::Some(v),
@@ -8016,7 +8014,7 @@ impl Service {
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `AppEngine`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_app_engine(
+    pub fn app_engine(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::service::AppEngine>> {
         #[allow(unreachable_patterns)]
@@ -8029,7 +8027,7 @@ impl Service {
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `CloudEndpoints`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_endpoints(
+    pub fn cloud_endpoints(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::service::CloudEndpoints>> {
         #[allow(unreachable_patterns)]
@@ -8042,7 +8040,7 @@ impl Service {
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `ClusterIstio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cluster_istio(
+    pub fn cluster_istio(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::service::ClusterIstio>> {
         #[allow(unreachable_patterns)]
@@ -8055,7 +8053,7 @@ impl Service {
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `MeshIstio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_mesh_istio(
+    pub fn mesh_istio(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::service::MeshIstio>> {
         #[allow(unreachable_patterns)]
@@ -8068,7 +8066,7 @@ impl Service {
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `IstioCanonicalService`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_istio_canonical_service(
+    pub fn istio_canonical_service(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::service::IstioCanonicalService>> {
         #[allow(unreachable_patterns)]
@@ -8083,7 +8081,7 @@ impl Service {
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `CloudRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_run(
+    pub fn cloud_run(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::service::CloudRun>> {
         #[allow(unreachable_patterns)]
@@ -8096,7 +8094,7 @@ impl Service {
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `GkeNamespace`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gke_namespace(
+    pub fn gke_namespace(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeNamespace>> {
         #[allow(unreachable_patterns)]
@@ -8109,7 +8107,7 @@ impl Service {
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `GkeWorkload`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gke_workload(
+    pub fn gke_workload(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeWorkload>> {
         #[allow(unreachable_patterns)]
@@ -8122,7 +8120,7 @@ impl Service {
     /// The value of [identifier][crate::model::Service::identifier]
     /// if it holds a `GkeService`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gke_service(
+    pub fn gke_service(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::service::GkeService>> {
         #[allow(unreachable_patterns)]
@@ -9148,7 +9146,7 @@ impl ServiceLevelObjective {
     /// The value of [period][crate::model::ServiceLevelObjective::period]
     /// if it holds a `RollingPeriod`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rolling_period(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+    pub fn rolling_period(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.period.as_ref().and_then(|v| match v {
             crate::model::service_level_objective::Period::RollingPeriod(v) => {
@@ -9161,7 +9159,7 @@ impl ServiceLevelObjective {
     /// The value of [period][crate::model::ServiceLevelObjective::period]
     /// if it holds a `CalendarPeriod`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_calendar_period(&self) -> std::option::Option<&gtype::model::CalendarPeriod> {
+    pub fn calendar_period(&self) -> std::option::Option<&gtype::model::CalendarPeriod> {
         #[allow(unreachable_patterns)]
         self.period.as_ref().and_then(|v| match v {
             crate::model::service_level_objective::Period::CalendarPeriod(v) => {
@@ -9342,7 +9340,7 @@ impl ServiceLevelIndicator {
     /// The value of [r#type][crate::model::ServiceLevelIndicator::r#type]
     /// if it holds a `BasicSli`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_basic_sli(&self) -> std::option::Option<&std::boxed::Box<crate::model::BasicSli>> {
+    pub fn basic_sli(&self) -> std::option::Option<&std::boxed::Box<crate::model::BasicSli>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::service_level_indicator::Type::BasicSli(v) => {
@@ -9355,7 +9353,7 @@ impl ServiceLevelIndicator {
     /// The value of [r#type][crate::model::ServiceLevelIndicator::r#type]
     /// if it holds a `RequestBased`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_request_based(
+    pub fn request_based(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RequestBasedSli>> {
         #[allow(unreachable_patterns)]
@@ -9370,7 +9368,7 @@ impl ServiceLevelIndicator {
     /// The value of [r#type][crate::model::ServiceLevelIndicator::r#type]
     /// if it holds a `WindowsBased`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_windows_based(
+    pub fn windows_based(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::WindowsBasedSli>> {
         #[allow(unreachable_patterns)]
@@ -9557,7 +9555,7 @@ impl BasicSli {
     /// The value of [sli_criteria][crate::model::BasicSli::sli_criteria]
     /// if it holds a `Availability`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_availability(
+    pub fn availability(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::basic_sli::AvailabilityCriteria>> {
         #[allow(unreachable_patterns)]
@@ -9570,7 +9568,7 @@ impl BasicSli {
     /// The value of [sli_criteria][crate::model::BasicSli::sli_criteria]
     /// if it holds a `Latency`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_latency(
+    pub fn latency(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::basic_sli::LatencyCriteria>> {
         #[allow(unreachable_patterns)]
@@ -9773,7 +9771,7 @@ impl RequestBasedSli {
     /// The value of [method][crate::model::RequestBasedSli::method]
     /// if it holds a `GoodTotalRatio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_good_total_ratio(
+    pub fn good_total_ratio(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TimeSeriesRatio>> {
         #[allow(unreachable_patterns)]
@@ -9788,7 +9786,7 @@ impl RequestBasedSli {
     /// The value of [method][crate::model::RequestBasedSli::method]
     /// if it holds a `DistributionCut`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_distribution_cut(
+    pub fn distribution_cut(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DistributionCut>> {
         #[allow(unreachable_patterns)]
@@ -10045,7 +10043,7 @@ impl WindowsBasedSli {
     /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
     /// if it holds a `GoodBadMetricFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_good_bad_metric_filter(&self) -> std::option::Option<&std::string::String> {
+    pub fn good_bad_metric_filter(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.window_criterion.as_ref().and_then(|v| match v {
             crate::model::windows_based_sli::WindowCriterion::GoodBadMetricFilter(v) => {
@@ -10058,7 +10056,7 @@ impl WindowsBasedSli {
     /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
     /// if it holds a `GoodTotalRatioThreshold`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_good_total_ratio_threshold(
+    pub fn good_total_ratio_threshold(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::windows_based_sli::PerformanceThreshold>>
     {
@@ -10074,7 +10072,7 @@ impl WindowsBasedSli {
     /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
     /// if it holds a `MetricMeanInRange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_metric_mean_in_range(
+    pub fn metric_mean_in_range(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::windows_based_sli::MetricRange>> {
         #[allow(unreachable_patterns)]
@@ -10089,7 +10087,7 @@ impl WindowsBasedSli {
     /// The value of [window_criterion][crate::model::WindowsBasedSli::window_criterion]
     /// if it holds a `MetricSumInRange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_metric_sum_in_range(
+    pub fn metric_sum_in_range(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::windows_based_sli::MetricRange>> {
         #[allow(unreachable_patterns)]
@@ -10231,7 +10229,7 @@ pub mod windows_based_sli {
         /// The value of [r#type][crate::model::windows_based_sli::PerformanceThreshold::r#type]
         /// if it holds a `Performance`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_performance(
+        pub fn performance(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::RequestBasedSli>> {
             #[allow(unreachable_patterns)]
@@ -10246,7 +10244,7 @@ pub mod windows_based_sli {
         /// The value of [r#type][crate::model::windows_based_sli::PerformanceThreshold::r#type]
         /// if it holds a `BasicSliPerformance`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_basic_sli_performance(
+        pub fn basic_sli_performance(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::BasicSli>> {
             #[allow(unreachable_patterns)]
@@ -11821,7 +11819,7 @@ impl SyntheticMonitorTarget {
     /// The value of [target][crate::model::SyntheticMonitorTarget::target]
     /// if it holds a `CloudFunctionV2`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_function_v2(
+    pub fn cloud_function_v2(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::synthetic_monitor_target::CloudFunctionV2Target>,
@@ -12140,7 +12138,7 @@ impl UptimeCheckConfig {
     /// The value of [resource][crate::model::UptimeCheckConfig::resource]
     /// if it holds a `MonitoredResource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_monitored_resource(
+    pub fn monitored_resource(
         &self,
     ) -> std::option::Option<&std::boxed::Box<api::model::MonitoredResource>> {
         #[allow(unreachable_patterns)]
@@ -12155,7 +12153,7 @@ impl UptimeCheckConfig {
     /// The value of [resource][crate::model::UptimeCheckConfig::resource]
     /// if it holds a `ResourceGroup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_resource_group(
+    pub fn resource_group(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::ResourceGroup>>
     {
@@ -12171,7 +12169,7 @@ impl UptimeCheckConfig {
     /// The value of [resource][crate::model::UptimeCheckConfig::resource]
     /// if it holds a `SyntheticMonitor`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_synthetic_monitor(
+    pub fn synthetic_monitor(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SyntheticMonitorTarget>> {
         #[allow(unreachable_patterns)]
@@ -12253,7 +12251,7 @@ impl UptimeCheckConfig {
     /// The value of [check_request_type][crate::model::UptimeCheckConfig::check_request_type]
     /// if it holds a `HttpCheck`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_http_check(
+    pub fn http_check(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::HttpCheck>> {
         #[allow(unreachable_patterns)]
@@ -12268,7 +12266,7 @@ impl UptimeCheckConfig {
     /// The value of [check_request_type][crate::model::UptimeCheckConfig::check_request_type]
     /// if it holds a `TcpCheck`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tcp_check(
+    pub fn tcp_check(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::uptime_check_config::TcpCheck>> {
         #[allow(unreachable_patterns)]
@@ -12663,7 +12661,7 @@ pub mod uptime_check_config {
         /// The value of [auth_method][crate::model::uptime_check_config::HttpCheck::auth_method]
         /// if it holds a `ServiceAgentAuthentication`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_service_agent_authentication(
+        pub fn service_agent_authentication(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -12798,7 +12796,7 @@ pub mod uptime_check_config {
             /// The value of [status_code][crate::model::uptime_check_config::http_check::ResponseStatusCode::status_code]
             /// if it holds a `StatusValue`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_status_value(&self) -> std::option::Option<&i32> {
+            pub fn status_value(&self) -> std::option::Option<&i32> {
                 #[allow(unreachable_patterns)]
                 self.status_code.as_ref().and_then(|v| match v {
                     crate::model::uptime_check_config::http_check::response_status_code::StatusCode::StatusValue(v) => std::option::Option::Some(v),
@@ -12809,7 +12807,7 @@ pub mod uptime_check_config {
             /// The value of [status_code][crate::model::uptime_check_config::http_check::ResponseStatusCode::status_code]
             /// if it holds a `StatusClass`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_status_class(
+            pub fn status_class(
                 &self,
             ) -> std::option::Option<
                 &crate::model::uptime_check_config::http_check::response_status_code::StatusClass,
@@ -13315,7 +13313,7 @@ pub mod uptime_check_config {
         /// The value of [additional_matcher_info][crate::model::uptime_check_config::ContentMatcher::additional_matcher_info]
         /// if it holds a `JsonPathMatcher`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_json_path_matcher(
+        pub fn json_path_matcher(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::uptime_check_config::content_matcher::JsonPathMatcher>,
