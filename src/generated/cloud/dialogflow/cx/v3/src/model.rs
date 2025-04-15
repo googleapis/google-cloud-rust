@@ -800,7 +800,10 @@ pub mod agent {
             std::default::Default::default()
         }
 
-        /// Sets the value of `git_settings`.
+        /// Sets the value of [git_settings][crate::model::agent::GitIntegrationSettings::git_settings].
+        ///
+        /// Note that all the setters affecting `git_settings` are mutually
+        /// exclusive.
         pub fn set_git_settings<
             T: std::convert::Into<
                     std::option::Option<crate::model::agent::git_integration_settings::GitSettings>,
@@ -1683,7 +1686,10 @@ impl ExportAgentResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `agent`.
+    /// Sets the value of [agent][crate::model::ExportAgentResponse::agent].
+    ///
+    /// Note that all the setters affecting `agent` are mutually
+    /// exclusive.
     pub fn set_agent<
         T: std::convert::Into<std::option::Option<crate::model::export_agent_response::Agent>>,
     >(
@@ -1852,7 +1858,10 @@ impl RestoreAgentRequest {
         self
     }
 
-    /// Sets the value of `agent`.
+    /// Sets the value of [agent][crate::model::RestoreAgentRequest::agent].
+    ///
+    /// Note that all the setters affecting `agent` are mutually
+    /// exclusive.
     pub fn set_agent<
         T: std::convert::Into<std::option::Option<crate::model::restore_agent_request::Agent>>,
     >(
@@ -4973,7 +4982,10 @@ impl ExportEntityTypesRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportEntityTypesRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_entity_types_request::Destination>,
@@ -5156,7 +5168,10 @@ impl ExportEntityTypesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `exported_entity_types`.
+    /// Sets the value of [exported_entity_types][crate::model::ExportEntityTypesResponse::exported_entity_types].
+    ///
+    /// Note that all the setters affecting `exported_entity_types` are mutually
+    /// exclusive.
     pub fn set_exported_entity_types<
         T: std::convert::Into<
                 std::option::Option<
@@ -5363,7 +5378,10 @@ impl ImportEntityTypesRequest {
         self
     }
 
-    /// Sets the value of `entity_types`.
+    /// Sets the value of [entity_types][crate::model::ImportEntityTypesRequest::entity_types].
+    ///
+    /// Note that all the setters affecting `entity_types` are mutually
+    /// exclusive.
     pub fn set_entity_types<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_entity_types_request::EntityTypes>,
@@ -7604,7 +7622,10 @@ pub mod experiment {
             self
         }
 
-        /// Sets the value of `variants`.
+        /// Sets the value of [variants][crate::model::experiment::Definition::variants].
+        ///
+        /// Note that all the setters affecting `variants` are mutually
+        /// exclusive.
         pub fn set_variants<
             T: std::convert::Into<std::option::Option<crate::model::experiment::definition::Variants>>,
         >(
@@ -7855,7 +7876,10 @@ pub mod experiment {
                 self
             }
 
-            /// Sets the value of `value`.
+            /// Sets the value of [value][crate::model::experiment::result::Metric::value].
+            ///
+            /// Note that all the setters affecting `value` are mutually
+            /// exclusive.
             pub fn set_value<
                 T: std::convert::Into<
                         std::option::Option<crate::model::experiment::result::metric::Value>,
@@ -8346,7 +8370,10 @@ impl VariantsHistory {
         self
     }
 
-    /// Sets the value of `variants`.
+    /// Sets the value of [variants][crate::model::VariantsHistory::variants].
+    ///
+    /// Note that all the setters affecting `variants` are mutually
+    /// exclusive.
     pub fn set_variants<
         T: std::convert::Into<std::option::Option<crate::model::variants_history::Variants>>,
     >(
@@ -10139,7 +10166,10 @@ impl ImportFlowRequest {
         self
     }
 
-    /// Sets the value of `flow`.
+    /// Sets the value of [flow][crate::model::ImportFlowRequest::flow].
+    ///
+    /// Note that all the setters affecting `flow` are mutually
+    /// exclusive.
     pub fn set_flow<
         T: std::convert::Into<std::option::Option<crate::model::import_flow_request::Flow>>,
     >(
@@ -10454,7 +10484,10 @@ impl ExportFlowResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `flow`.
+    /// Sets the value of [flow][crate::model::ExportFlowResponse::flow].
+    ///
+    /// Note that all the setters affecting `flow` are mutually
+    /// exclusive.
     pub fn set_flow<
         T: std::convert::Into<std::option::Option<crate::model::export_flow_response::Flow>>,
     >(
@@ -10887,7 +10920,10 @@ pub mod fulfillment {
                     std::default::Default::default()
                 }
 
-                /// Sets the value of `cases_or_message`.
+                /// Sets the value of [cases_or_message][crate::model::fulfillment::conditional_cases::case::CaseContent::cases_or_message].
+                ///
+                /// Note that all the setters affecting `cases_or_message` are mutually
+                /// exclusive.
                 pub fn set_cases_or_message<T: std::convert::Into<std::option::Option<crate::model::fulfillment::conditional_cases::case::case_content::CasesOrMessage>>>(mut self, v: T) -> Self
                 {
                     self.cases_or_message = v.into();
@@ -12832,7 +12868,10 @@ impl ImportIntentsRequest {
         self
     }
 
-    /// Sets the value of `intents`.
+    /// Sets the value of [intents][crate::model::ImportIntentsRequest::intents].
+    ///
+    /// Note that all the setters affecting `intents` are mutually
+    /// exclusive.
     pub fn set_intents<
         T: std::convert::Into<std::option::Option<crate::model::import_intents_request::Intents>>,
     >(
@@ -13232,7 +13271,10 @@ impl ExportIntentsRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportIntentsRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_intents_request::Destination>>,
     >(
@@ -13412,7 +13454,10 @@ impl ExportIntentsResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `intents`.
+    /// Sets the value of [intents][crate::model::ExportIntentsResponse::intents].
+    ///
+    /// Note that all the setters affecting `intents` are mutually
+    /// exclusive.
     pub fn set_intents<
         T: std::convert::Into<std::option::Option<crate::model::export_intents_response::Intents>>,
     >(
@@ -14121,7 +14166,10 @@ impl EventHandler {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::EventHandler::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::event_handler::Target>>,
     >(
@@ -14331,7 +14379,10 @@ impl TransitionRoute {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::TransitionRoute::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::transition_route::Target>>,
     >(
@@ -14936,7 +14987,10 @@ impl KnowledgeConnectorSettings {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::KnowledgeConnectorSettings::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::knowledge_connector_settings::Target>>,
     >(
@@ -15094,7 +15148,10 @@ impl ResponseMessage {
         self
     }
 
-    /// Sets the value of `message`.
+    /// Sets the value of [message][crate::model::ResponseMessage::message].
+    ///
+    /// Note that all the setters affecting `message` are mutually
+    /// exclusive.
     pub fn set_message<
         T: std::convert::Into<std::option::Option<crate::model::response_message::Message>>,
     >(
@@ -15621,7 +15678,10 @@ pub mod response_message {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::response_message::OutputAudioText::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
         pub fn set_source<
             T: std::convert::Into<
                     std::option::Option<crate::model::response_message::output_audio_text::Source>,
@@ -15864,7 +15924,10 @@ pub mod response_message {
                 self
             }
 
-            /// Sets the value of `content`.
+            /// Sets the value of [content][crate::model::response_message::mixed_audio::Segment::content].
+            ///
+            /// Note that all the setters affecting `content` are mutually
+            /// exclusive.
             pub fn set_content<
                 T: std::convert::Into<
                         std::option::Option<
@@ -15977,7 +16040,10 @@ pub mod response_message {
             std::default::Default::default()
         }
 
-        /// Sets the value of `endpoint`.
+        /// Sets the value of [endpoint][crate::model::response_message::TelephonyTransferCall::endpoint].
+        ///
+        /// Note that all the setters affecting `endpoint` are mutually
+        /// exclusive.
         pub fn set_endpoint<
             T: std::convert::Into<
                     std::option::Option<
@@ -16800,7 +16866,10 @@ impl SecuritySettings {
         self
     }
 
-    /// Sets the value of `data_retention`.
+    /// Sets the value of [data_retention][crate::model::SecuritySettings::data_retention].
+    ///
+    /// Note that all the setters affecting `data_retention` are mutually
+    /// exclusive.
     pub fn set_data_retention<
         T: std::convert::Into<std::option::Option<crate::model::security_settings::DataRetention>>,
     >(
@@ -18301,7 +18370,10 @@ impl StreamingDetectIntentResponse {
         self
     }
 
-    /// Sets the value of `response`.
+    /// Sets the value of [response][crate::model::StreamingDetectIntentResponse::response].
+    ///
+    /// Note that all the setters affecting `response` are mutually
+    /// exclusive.
     pub fn set_response<
         T: std::convert::Into<
                 std::option::Option<crate::model::streaming_detect_intent_response::Response>,
@@ -19583,7 +19655,10 @@ impl QueryInput {
         self
     }
 
-    /// Sets the value of `input`.
+    /// Sets the value of [input][crate::model::QueryInput::input].
+    ///
+    /// Note that all the setters affecting `input` are mutually
+    /// exclusive.
     pub fn set_input<
         T: std::convert::Into<std::option::Option<crate::model::query_input::Input>>,
     >(
@@ -20098,7 +20173,10 @@ impl QueryResult {
         self
     }
 
-    /// Sets the value of `query`.
+    /// Sets the value of [query][crate::model::QueryResult::query].
+    ///
+    /// Note that all the setters affecting `query` are mutually
+    /// exclusive.
     pub fn set_query<
         T: std::convert::Into<std::option::Option<crate::model::query_result::Query>>,
     >(
@@ -20816,7 +20894,10 @@ impl MatchIntentResponse {
         self
     }
 
-    /// Sets the value of `query`.
+    /// Sets the value of [query][crate::model::MatchIntentResponse::query].
+    ///
+    /// Note that all the setters affecting `query` are mutually
+    /// exclusive.
     pub fn set_query<
         T: std::convert::Into<std::option::Option<crate::model::match_intent_response::Query>>,
     >(
@@ -22408,7 +22489,10 @@ pub mod transition_coverage {
             std::default::Default::default()
         }
 
-        /// Sets the value of `kind`.
+        /// Sets the value of [kind][crate::model::transition_coverage::TransitionNode::kind].
+        ///
+        /// Note that all the setters affecting `kind` are mutually
+        /// exclusive.
         pub fn set_kind<
             T: std::convert::Into<
                     std::option::Option<crate::model::transition_coverage::transition_node::Kind>,
@@ -22579,7 +22663,10 @@ pub mod transition_coverage {
             self
         }
 
-        /// Sets the value of `detail`.
+        /// Sets the value of [detail][crate::model::transition_coverage::Transition::detail].
+        ///
+        /// Note that all the setters affecting `detail` are mutually
+        /// exclusive.
         pub fn set_detail<
             T: std::convert::Into<
                     std::option::Option<crate::model::transition_coverage::transition::Detail>,
@@ -23103,7 +23190,10 @@ impl CalculateCoverageResponse {
         self
     }
 
-    /// Sets the value of `coverage_type`.
+    /// Sets the value of [coverage_type][crate::model::CalculateCoverageResponse::coverage_type].
+    ///
+    /// Note that all the setters affecting `coverage_type` are mutually
+    /// exclusive.
     pub fn set_coverage_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::calculate_coverage_response::CoverageType>,
@@ -23987,7 +24077,10 @@ impl ImportTestCasesRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportTestCasesRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_test_cases_request::Source>>,
     >(
@@ -24278,7 +24371,10 @@ impl ExportTestCasesRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportTestCasesRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_test_cases_request::Destination>,
@@ -24428,7 +24524,10 @@ impl ExportTestCasesResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportTestCasesResponse::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_test_cases_response::Destination>,
@@ -26316,7 +26415,10 @@ impl Webhook {
         self
     }
 
-    /// Sets the value of `webhook`.
+    /// Sets the value of [webhook][crate::model::Webhook::webhook].
+    ///
+    /// Note that all the setters affecting `webhook` are mutually
+    /// exclusive.
     pub fn set_webhook<
         T: std::convert::Into<std::option::Option<crate::model::webhook::Webhook>>,
     >(
@@ -27459,7 +27561,10 @@ impl WebhookRequest {
         self
     }
 
-    /// Sets the value of `query`.
+    /// Sets the value of [query][crate::model::WebhookRequest::query].
+    ///
+    /// Note that all the setters affecting `query` are mutually
+    /// exclusive.
     pub fn set_query<
         T: std::convert::Into<std::option::Option<crate::model::webhook_request::Query>>,
     >(
@@ -27940,7 +28045,10 @@ impl WebhookResponse {
         self
     }
 
-    /// Sets the value of `transition`.
+    /// Sets the value of [transition][crate::model::WebhookResponse::transition].
+    ///
+    /// Note that all the setters affecting `transition` are mutually
+    /// exclusive.
     pub fn set_transition<
         T: std::convert::Into<std::option::Option<crate::model::webhook_response::Transition>>,
     >(

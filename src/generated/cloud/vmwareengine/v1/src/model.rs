@@ -8504,7 +8504,10 @@ pub mod external_access_rule {
             std::default::Default::default()
         }
 
-        /// Sets the value of `ip_range`.
+        /// Sets the value of [ip_range][crate::model::external_access_rule::IpRange::ip_range].
+        ///
+        /// Note that all the setters affecting `ip_range` are mutually
+        /// exclusive.
         pub fn set_ip_range<
             T: std::convert::Into<
                     std::option::Option<crate::model::external_access_rule::ip_range::IpRange>,
@@ -11263,7 +11266,10 @@ impl ManagementDnsZoneBinding {
         self
     }
 
-    /// Sets the value of `bind_network`.
+    /// Sets the value of [bind_network][crate::model::ManagementDnsZoneBinding::bind_network].
+    ///
+    /// Note that all the setters affecting `bind_network` are mutually
+    /// exclusive.
     pub fn set_bind_network<
         T: std::convert::Into<
                 std::option::Option<crate::model::management_dns_zone_binding::BindNetwork>,
@@ -12482,7 +12488,10 @@ impl Principal {
         std::default::Default::default()
     }
 
-    /// Sets the value of `principal`.
+    /// Sets the value of [principal][crate::model::Principal::principal].
+    ///
+    /// Note that all the setters affecting `principal` are mutually
+    /// exclusive.
     pub fn set_principal<
         T: std::convert::Into<std::option::Option<crate::model::principal::Principal>>,
     >(

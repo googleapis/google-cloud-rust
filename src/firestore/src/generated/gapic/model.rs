@@ -251,7 +251,10 @@ impl Precondition {
         std::default::Default::default()
     }
 
-    /// Sets the value of `condition_type`.
+    /// Sets the value of [condition_type][crate::model::Precondition::condition_type].
+    ///
+    /// Note that all the setters affecting `condition_type` are mutually
+    /// exclusive.
     pub fn set_condition_type<
         T: std::convert::Into<std::option::Option<crate::model::precondition::ConditionType>>,
     >(
@@ -370,7 +373,10 @@ impl TransactionOptions {
         std::default::Default::default()
     }
 
-    /// Sets the value of `mode`.
+    /// Sets the value of [mode][crate::model::TransactionOptions::mode].
+    ///
+    /// Note that all the setters affecting `mode` are mutually
+    /// exclusive.
     pub fn set_mode<
         T: std::convert::Into<std::option::Option<crate::model::transaction_options::Mode>>,
     >(
@@ -511,7 +517,10 @@ pub mod transaction_options {
             std::default::Default::default()
         }
 
-        /// Sets the value of `consistency_selector`.
+        /// Sets the value of [consistency_selector][crate::model::transaction_options::ReadOnly::consistency_selector].
+        ///
+        /// Note that all the setters affecting `consistency_selector` are mutually
+        /// exclusive.
         pub fn set_consistency_selector<
             T: std::convert::Into<
                     std::option::Option<
@@ -748,7 +757,10 @@ impl Value {
         std::default::Default::default()
     }
 
-    /// Sets the value of `value_type`.
+    /// Sets the value of [value_type][crate::model::Value::value_type].
+    ///
+    /// Note that all the setters affecting `value_type` are mutually
+    /// exclusive.
     pub fn set_value_type<
         T: std::convert::Into<std::option::Option<crate::model::value::ValueType>>,
     >(
@@ -1259,7 +1271,10 @@ impl GetDocumentRequest {
         self
     }
 
-    /// Sets the value of `consistency_selector`.
+    /// Sets the value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector].
+    ///
+    /// Note that all the setters affecting `consistency_selector` are mutually
+    /// exclusive.
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::get_document_request::ConsistencySelector>,
@@ -1501,7 +1516,10 @@ impl ListDocumentsRequest {
         self
     }
 
-    /// Sets the value of `consistency_selector`.
+    /// Sets the value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector].
+    ///
+    /// Note that all the setters affecting `consistency_selector` are mutually
+    /// exclusive.
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::list_documents_request::ConsistencySelector>,
@@ -1975,7 +1993,10 @@ impl BatchGetDocumentsRequest {
         self
     }
 
-    /// Sets the value of `consistency_selector`.
+    /// Sets the value of [consistency_selector][crate::model::BatchGetDocumentsRequest::consistency_selector].
+    ///
+    /// Note that all the setters affecting `consistency_selector` are mutually
+    /// exclusive.
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::batch_get_documents_request::ConsistencySelector>,
@@ -2181,7 +2202,10 @@ impl BatchGetDocumentsResponse {
         self
     }
 
-    /// Sets the value of `result`.
+    /// Sets the value of [result][crate::model::BatchGetDocumentsResponse::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::batch_get_documents_response::Result>>,
     >(
@@ -2593,7 +2617,10 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of `query_type`.
+    /// Sets the value of [query_type][crate::model::RunQueryRequest::query_type].
+    ///
+    /// Note that all the setters affecting `query_type` are mutually
+    /// exclusive.
     pub fn set_query_type<
         T: std::convert::Into<std::option::Option<crate::model::run_query_request::QueryType>>,
     >(
@@ -2636,7 +2663,10 @@ impl RunQueryRequest {
         self
     }
 
-    /// Sets the value of `consistency_selector`.
+    /// Sets the value of [consistency_selector][crate::model::RunQueryRequest::consistency_selector].
+    ///
+    /// Note that all the setters affecting `consistency_selector` are mutually
+    /// exclusive.
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::run_query_request::ConsistencySelector>,
@@ -2908,7 +2938,10 @@ impl RunQueryResponse {
         self
     }
 
-    /// Sets the value of `continuation_selector`.
+    /// Sets the value of [continuation_selector][crate::model::RunQueryResponse::continuation_selector].
+    ///
+    /// Note that all the setters affecting `continuation_selector` are mutually
+    /// exclusive.
     pub fn set_continuation_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::run_query_response::ContinuationSelector>,
@@ -3034,7 +3067,10 @@ impl RunAggregationQueryRequest {
         self
     }
 
-    /// Sets the value of `query_type`.
+    /// Sets the value of [query_type][crate::model::RunAggregationQueryRequest::query_type].
+    ///
+    /// Note that all the setters affecting `query_type` are mutually
+    /// exclusive.
     pub fn set_query_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::run_aggregation_query_request::QueryType>,
@@ -3081,7 +3117,10 @@ impl RunAggregationQueryRequest {
         self
     }
 
-    /// Sets the value of `consistency_selector`.
+    /// Sets the value of [consistency_selector][crate::model::RunAggregationQueryRequest::consistency_selector].
+    ///
+    /// Note that all the setters affecting `consistency_selector` are mutually
+    /// exclusive.
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<
@@ -3443,7 +3482,10 @@ impl PartitionQueryRequest {
         self
     }
 
-    /// Sets the value of `query_type`.
+    /// Sets the value of [query_type][crate::model::PartitionQueryRequest::query_type].
+    ///
+    /// Note that all the setters affecting `query_type` are mutually
+    /// exclusive.
     pub fn set_query_type<
         T: std::convert::Into<std::option::Option<crate::model::partition_query_request::QueryType>>,
     >(
@@ -3486,7 +3528,10 @@ impl PartitionQueryRequest {
         self
     }
 
-    /// Sets the value of `consistency_selector`.
+    /// Sets the value of [consistency_selector][crate::model::PartitionQueryRequest::consistency_selector].
+    ///
+    /// Note that all the setters affecting `consistency_selector` are mutually
+    /// exclusive.
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::partition_query_request::ConsistencySelector>,
@@ -3908,7 +3953,10 @@ impl ListenRequest {
         self
     }
 
-    /// Sets the value of `target_change`.
+    /// Sets the value of [target_change][crate::model::ListenRequest::target_change].
+    ///
+    /// Note that all the setters affecting `target_change` are mutually
+    /// exclusive.
     pub fn set_target_change<
         T: std::convert::Into<std::option::Option<crate::model::listen_request::TargetChange>>,
     >(
@@ -4028,7 +4076,10 @@ impl ListenResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `response_type`.
+    /// Sets the value of [response_type][crate::model::ListenResponse::response_type].
+    ///
+    /// Note that all the setters affecting `response_type` are mutually
+    /// exclusive.
     pub fn set_response_type<
         T: std::convert::Into<std::option::Option<crate::model::listen_response::ResponseType>>,
     >(
@@ -4346,7 +4397,10 @@ impl Target {
         self
     }
 
-    /// Sets the value of `target_type`.
+    /// Sets the value of [target_type][crate::model::Target::target_type].
+    ///
+    /// Note that all the setters affecting `target_type` are mutually
+    /// exclusive.
     pub fn set_target_type<
         T: std::convert::Into<std::option::Option<crate::model::target::TargetType>>,
     >(
@@ -4413,7 +4467,10 @@ impl Target {
         self
     }
 
-    /// Sets the value of `resume_type`.
+    /// Sets the value of [resume_type][crate::model::Target::resume_type].
+    ///
+    /// Note that all the setters affecting `resume_type` are mutually
+    /// exclusive.
     pub fn set_resume_type<
         T: std::convert::Into<std::option::Option<crate::model::target::ResumeType>>,
     >(
@@ -4557,7 +4614,10 @@ pub mod target {
             self
         }
 
-        /// Sets the value of `query_type`.
+        /// Sets the value of [query_type][crate::model::target::QueryTarget::query_type].
+        ///
+        /// Note that all the setters affecting `query_type` are mutually
+        /// exclusive.
         pub fn set_query_type<
             T: std::convert::Into<std::option::Option<crate::model::target::query_target::QueryType>>,
         >(
@@ -4940,7 +5000,10 @@ impl ListCollectionIdsRequest {
         self
     }
 
-    /// Sets the value of `consistency_selector`.
+    /// Sets the value of [consistency_selector][crate::model::ListCollectionIdsRequest::consistency_selector].
+    ///
+    /// Note that all the setters affecting `consistency_selector` are mutually
+    /// exclusive.
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::list_collection_ids_request::ConsistencySelector>,
@@ -5506,7 +5569,10 @@ pub mod structured_query {
             std::default::Default::default()
         }
 
-        /// Sets the value of `filter_type`.
+        /// Sets the value of [filter_type][crate::model::structured_query::Filter::filter_type].
+        ///
+        /// Note that all the setters affecting `filter_type` are mutually
+        /// exclusive.
         pub fn set_filter_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::structured_query::filter::FilterType>,
@@ -6034,7 +6100,10 @@ pub mod structured_query {
             self
         }
 
-        /// Sets the value of `operand_type`.
+        /// Sets the value of [operand_type][crate::model::structured_query::UnaryFilter::operand_type].
+        ///
+        /// Note that all the setters affecting `operand_type` are mutually
+        /// exclusive.
         pub fn set_operand_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::structured_query::unary_filter::OperandType>,
@@ -6624,7 +6693,10 @@ impl StructuredAggregationQuery {
         self
     }
 
-    /// Sets the value of `query_type`.
+    /// Sets the value of [query_type][crate::model::StructuredAggregationQuery::query_type].
+    ///
+    /// Note that all the setters affecting `query_type` are mutually
+    /// exclusive.
     pub fn set_query_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::structured_aggregation_query::QueryType>,
@@ -6747,7 +6819,10 @@ pub mod structured_aggregation_query {
             self
         }
 
-        /// Sets the value of `operator`.
+        /// Sets the value of [operator][crate::model::structured_aggregation_query::Aggregation::operator].
+        ///
+        /// Note that all the setters affecting `operator` are mutually
+        /// exclusive.
         pub fn set_operator<
             T: std::convert::Into<
                     std::option::Option<
@@ -7450,7 +7525,10 @@ impl Write {
         self
     }
 
-    /// Sets the value of `operation`.
+    /// Sets the value of [operation][crate::model::Write::operation].
+    ///
+    /// Note that all the setters affecting `operation` are mutually
+    /// exclusive.
     pub fn set_operation<
         T: std::convert::Into<std::option::Option<crate::model::write::Operation>>,
     >(
@@ -7671,7 +7749,10 @@ pub mod document_transform {
             self
         }
 
-        /// Sets the value of `transform_type`.
+        /// Sets the value of [transform_type][crate::model::document_transform::FieldTransform::transform_type].
+        ///
+        /// Note that all the setters affecting `transform_type` are mutually
+        /// exclusive.
         pub fn set_transform_type<
             T: std::convert::Into<
                     std::option::Option<

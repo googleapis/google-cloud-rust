@@ -174,7 +174,10 @@ pub mod client_connector_service {
             std::default::Default::default()
         }
 
-        /// Sets the value of `ingress_config`.
+        /// Sets the value of [ingress_config][crate::model::client_connector_service::Ingress::ingress_config].
+        ///
+        /// Note that all the setters affecting `ingress_config` are mutually
+        /// exclusive.
         pub fn set_ingress_config<
             T: std::convert::Into<
                     std::option::Option<
@@ -437,7 +440,10 @@ pub mod client_connector_service {
             std::default::Default::default()
         }
 
-        /// Sets the value of `destination_type`.
+        /// Sets the value of [destination_type][crate::model::client_connector_service::Egress::destination_type].
+        ///
+        /// Note that all the setters affecting `destination_type` are mutually
+        /// exclusive.
         pub fn set_destination_type<
             T: std::convert::Into<
                     std::option::Option<

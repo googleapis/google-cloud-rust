@@ -420,7 +420,10 @@ impl Connection {
         self
     }
 
-    /// Sets the value of `properties`.
+    /// Sets the value of [properties][crate::model::Connection::properties].
+    ///
+    /// Note that all the setters affecting `properties` are mutually
+    /// exclusive.
     pub fn set_properties<
         T: std::convert::Into<std::option::Option<crate::model::connection::Properties>>,
     >(
@@ -982,7 +985,10 @@ impl AwsProperties {
         std::default::Default::default()
     }
 
-    /// Sets the value of `authentication_method`.
+    /// Sets the value of [authentication_method][crate::model::AwsProperties::authentication_method].
+    ///
+    /// Note that all the setters affecting `authentication_method` are mutually
+    /// exclusive.
     pub fn set_authentication_method<
         T: std::convert::Into<std::option::Option<crate::model::aws_properties::AuthenticationMethod>>,
     >(

@@ -836,7 +836,10 @@ impl AutomatedBackupPolicy {
         self
     }
 
-    /// Sets the value of `schedule`.
+    /// Sets the value of [schedule][crate::model::AutomatedBackupPolicy::schedule].
+    ///
+    /// Note that all the setters affecting `schedule` are mutually
+    /// exclusive.
     pub fn set_schedule<
         T: std::convert::Into<std::option::Option<crate::model::automated_backup_policy::Schedule>>,
     >(
@@ -880,7 +883,10 @@ impl AutomatedBackupPolicy {
         self
     }
 
-    /// Sets the value of `retention`.
+    /// Sets the value of [retention][crate::model::AutomatedBackupPolicy::retention].
+    ///
+    /// Note that all the setters affecting `retention` are mutually
+    /// exclusive.
     pub fn set_retention<
         T: std::convert::Into<std::option::Option<crate::model::automated_backup_policy::Retention>>,
     >(
@@ -1989,7 +1995,10 @@ impl Cluster {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Cluster::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::cluster::Source>>>(
         mut self,
         v: T,
@@ -4243,7 +4252,10 @@ impl SupportedDatabaseFlag {
         self
     }
 
-    /// Sets the value of `restrictions`.
+    /// Sets the value of [restrictions][crate::model::SupportedDatabaseFlag::restrictions].
+    ///
+    /// Note that all the setters affecting `restrictions` are mutually
+    /// exclusive.
     pub fn set_restrictions<
         T: std::convert::Into<
                 std::option::Option<crate::model::supported_database_flag::Restrictions>,
@@ -5501,7 +5513,10 @@ impl RestoreClusterRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::RestoreClusterRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_cluster_request::Source>>,
     >(
@@ -6886,7 +6901,10 @@ impl ExecuteSqlRequest {
         self
     }
 
-    /// Sets the value of `user_credential`.
+    /// Sets the value of [user_credential][crate::model::ExecuteSqlRequest::user_credential].
+    ///
+    /// Note that all the setters affecting `user_credential` are mutually
+    /// exclusive.
     pub fn set_user_credential<
         T: std::convert::Into<std::option::Option<crate::model::execute_sql_request::UserCredential>>,
     >(
@@ -8002,7 +8020,10 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets the value of `request_specific`.
+    /// Sets the value of [request_specific][crate::model::OperationMetadata::request_specific].
+    ///
+    /// Note that all the setters affecting `request_specific` are mutually
+    /// exclusive.
     pub fn set_request_specific<
         T: std::convert::Into<std::option::Option<crate::model::operation_metadata::RequestSpecific>>,
     >(

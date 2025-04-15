@@ -1251,7 +1251,10 @@ pub mod scan_config {
             std::default::Default::default()
         }
 
-        /// Sets the value of `authentication`.
+        /// Sets the value of [authentication][crate::model::scan_config::Authentication::authentication].
+        ///
+        /// Note that all the setters affecting `authentication` are mutually
+        /// exclusive.
         pub fn set_authentication<
             T: std::convert::Into<
                     std::option::Option<crate::model::scan_config::authentication::Authentication>,
@@ -1516,7 +1519,10 @@ pub mod scan_config {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `iap_credentials`.
+            /// Sets the value of [iap_credentials][crate::model::scan_config::authentication::IapCredential::iap_credentials].
+            ///
+            /// Note that all the setters affecting `iap_credentials` are mutually
+            /// exclusive.
             pub fn set_iap_credentials<T: std::convert::Into<std::option::Option<crate::model::scan_config::authentication::iap_credential::IapCredentials>>>(mut self, v: T) -> Self
             {
                 self.iap_credentials = v.into();

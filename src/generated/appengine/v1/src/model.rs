@@ -329,7 +329,10 @@ impl UrlMap {
         self
     }
 
-    /// Sets the value of `handler_type`.
+    /// Sets the value of [handler_type][crate::model::UrlMap::handler_type].
+    ///
+    /// Note that all the setters affecting `handler_type` are mutually
+    /// exclusive.
     pub fn set_handler_type<
         T: std::convert::Into<std::option::Option<crate::model::url_map::HandlerType>>,
     >(
@@ -3702,7 +3705,10 @@ impl AuditData {
         std::default::Default::default()
     }
 
-    /// Sets the value of `method`.
+    /// Sets the value of [method][crate::model::AuditData::method].
+    ///
+    /// Note that all the setters affecting `method` are mutually
+    /// exclusive.
     pub fn set_method<
         T: std::convert::Into<std::option::Option<crate::model::audit_data::Method>>,
     >(
@@ -5638,7 +5644,10 @@ impl OperationMetadataV1 {
         self
     }
 
-    /// Sets the value of `method_metadata`.
+    /// Sets the value of [method_metadata][crate::model::OperationMetadataV1::method_metadata].
+    ///
+    /// Note that all the setters affecting `method_metadata` are mutually
+    /// exclusive.
     pub fn set_method_metadata<
         T: std::convert::Into<
                 std::option::Option<crate::model::operation_metadata_v_1::MethodMetadata>,
@@ -6545,7 +6554,10 @@ impl Version {
         self
     }
 
-    /// Sets the value of `scaling`.
+    /// Sets the value of [scaling][crate::model::Version::scaling].
+    ///
+    /// Note that all the setters affecting `scaling` are mutually
+    /// exclusive.
     pub fn set_scaling<
         T: std::convert::Into<std::option::Option<crate::model::version::Scaling>>,
     >(
@@ -7743,7 +7755,10 @@ impl Entrypoint {
         std::default::Default::default()
     }
 
-    /// Sets the value of `command`.
+    /// Sets the value of [command][crate::model::Entrypoint::command].
+    ///
+    /// Note that all the setters affecting `command` are mutually
+    /// exclusive.
     pub fn set_command<
         T: std::convert::Into<std::option::Option<crate::model::entrypoint::Command>>,
     >(

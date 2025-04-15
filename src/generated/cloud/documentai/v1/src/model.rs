@@ -328,7 +328,10 @@ impl Document {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Document::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::document::Source>>,
     >(
@@ -2843,7 +2846,10 @@ pub mod document {
                 self
             }
 
-            /// Sets the value of `structured_value`.
+            /// Sets the value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value].
+            ///
+            /// Note that all the setters affecting `structured_value` are mutually
+            /// exclusive.
             pub fn set_structured_value<
                 T: std::convert::Into<
                         std::option::Option<
@@ -3850,7 +3856,10 @@ pub mod document {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::document::Revision::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
         pub fn set_source<
             T: std::convert::Into<std::option::Option<crate::model::document::revision::Source>>,
         >(
@@ -4142,7 +4151,10 @@ pub mod document {
                 self
             }
 
-            /// Sets the value of `block`.
+            /// Sets the value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block].
+            ///
+            /// Note that all the setters affecting `block` are mutually
+            /// exclusive.
             pub fn set_block<
                 T: std::convert::Into<
                         std::option::Option<
@@ -5167,7 +5179,10 @@ impl BatchDocumentsInputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::BatchDocumentsInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::batch_documents_input_config::Source>>,
     >(
@@ -5281,7 +5296,10 @@ impl DocumentOutputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::DocumentOutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::document_output_config::Destination>>,
     >(
@@ -5771,7 +5789,10 @@ impl ProcessOptions {
         self
     }
 
-    /// Sets the value of `page_range`.
+    /// Sets the value of [page_range][crate::model::ProcessOptions::page_range].
+    ///
+    /// Note that all the setters affecting `page_range` are mutually
+    /// exclusive.
     pub fn set_page_range<
         T: std::convert::Into<std::option::Option<crate::model::process_options::PageRange>>,
     >(
@@ -6146,7 +6167,10 @@ impl ProcessRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ProcessRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::process_request::Source>>,
     >(
@@ -8280,7 +8304,10 @@ impl TrainProcessorVersionRequest {
         self
     }
 
-    /// Sets the value of `processor_flags`.
+    /// Sets the value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags].
+    ///
+    /// Note that all the setters affecting `processor_flags` are mutually
+    /// exclusive.
     pub fn set_processor_flags<
         T: std::convert::Into<
                 std::option::Option<crate::model::train_processor_version_request::ProcessorFlags>,
@@ -8868,7 +8895,10 @@ impl ReviewDocumentRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ReviewDocumentRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::review_document_request::Source>>,
     >(
@@ -9621,7 +9651,10 @@ pub mod document_schema {
             self
         }
 
-        /// Sets the value of `value_source`.
+        /// Sets the value of [value_source][crate::model::document_schema::EntityType::value_source].
+        ///
+        /// Note that all the setters affecting `value_source` are mutually
+        /// exclusive.
         pub fn set_value_source<
             T: std::convert::Into<
                     std::option::Option<crate::model::document_schema::entity_type::ValueSource>,
@@ -11131,7 +11164,10 @@ pub mod processor_version {
             std::default::Default::default()
         }
 
-        /// Sets the value of `model_info`.
+        /// Sets the value of [model_info][crate::model::processor_version::GenAiModelInfo::model_info].
+        ///
+        /// Note that all the setters affecting `model_info` are mutually
+        /// exclusive.
         pub fn set_model_info<
             T: std::convert::Into<
                     std::option::Option<

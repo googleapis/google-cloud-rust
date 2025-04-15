@@ -1945,7 +1945,10 @@ impl StartManualTransferRunsRequest {
         self
     }
 
-    /// Sets the value of `time`.
+    /// Sets the value of [time][crate::model::StartManualTransferRunsRequest::time].
+    ///
+    /// Note that all the setters affecting `time` are mutually
+    /// exclusive.
     pub fn set_time<
         T: std::convert::Into<
                 std::option::Option<crate::model::start_manual_transfer_runs_request::Time>,
@@ -2368,7 +2371,10 @@ impl ScheduleOptionsV2 {
         std::default::Default::default()
     }
 
-    /// Sets the value of `schedule`.
+    /// Sets the value of [schedule][crate::model::ScheduleOptionsV2::schedule].
+    ///
+    /// Note that all the setters affecting `schedule` are mutually
+    /// exclusive.
     pub fn set_schedule<
         T: std::convert::Into<std::option::Option<crate::model::schedule_options_v_2::Schedule>>,
     >(
@@ -2968,7 +2974,10 @@ impl TransferConfig {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::TransferConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::transfer_config::Destination>>,
     >(
@@ -3271,7 +3280,10 @@ impl TransferRun {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::TransferRun::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::transfer_run::Destination>>,
     >(

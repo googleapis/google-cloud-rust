@@ -863,7 +863,10 @@ impl ExportBackupRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportBackupRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_backup_request::Destination>>,
     >(
@@ -1397,7 +1400,10 @@ impl Cluster {
         self
     }
 
-    /// Sets the value of `import_sources`.
+    /// Sets the value of [import_sources][crate::model::Cluster::import_sources].
+    ///
+    /// Note that all the setters affecting `import_sources` are mutually
+    /// exclusive.
     pub fn set_import_sources<
         T: std::convert::Into<std::option::Option<crate::model::cluster::ImportSources>>,
     >(
@@ -1499,7 +1505,10 @@ pub mod cluster {
             std::default::Default::default()
         }
 
-        /// Sets the value of `info`.
+        /// Sets the value of [info][crate::model::cluster::StateInfo::info].
+        ///
+        /// Note that all the setters affecting `info` are mutually
+        /// exclusive.
         pub fn set_info<
             T: std::convert::Into<std::option::Option<crate::model::cluster::state_info::Info>>,
         >(
@@ -1819,7 +1828,10 @@ impl AutomatedBackupConfig {
         self
     }
 
-    /// Sets the value of `schedule`.
+    /// Sets the value of [schedule][crate::model::AutomatedBackupConfig::schedule].
+    ///
+    /// Note that all the setters affecting `schedule` are mutually
+    /// exclusive.
     pub fn set_schedule<
         T: std::convert::Into<std::option::Option<crate::model::automated_backup_config::Schedule>>,
     >(
@@ -3218,7 +3230,10 @@ impl ConnectionDetail {
         std::default::Default::default()
     }
 
-    /// Sets the value of `connection`.
+    /// Sets the value of [connection][crate::model::ConnectionDetail::connection].
+    ///
+    /// Note that all the setters affecting `connection` are mutually
+    /// exclusive.
     pub fn set_connection<
         T: std::convert::Into<std::option::Option<crate::model::connection_detail::Connection>>,
     >(
@@ -3579,7 +3594,10 @@ impl CertificateAuthority {
         self
     }
 
-    /// Sets the value of `server_ca`.
+    /// Sets the value of [server_ca][crate::model::CertificateAuthority::server_ca].
+    ///
+    /// Note that all the setters affecting `server_ca` are mutually
+    /// exclusive.
     pub fn set_server_ca<
         T: std::convert::Into<std::option::Option<crate::model::certificate_authority::ServerCa>>,
     >(

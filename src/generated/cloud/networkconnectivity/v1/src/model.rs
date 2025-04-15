@@ -8313,7 +8313,10 @@ impl PolicyBasedRoute {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::PolicyBasedRoute::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::policy_based_route::Target>>,
     >(
@@ -8393,7 +8396,10 @@ impl PolicyBasedRoute {
         self
     }
 
-    /// Sets the value of `next_hop`.
+    /// Sets the value of [next_hop][crate::model::PolicyBasedRoute::next_hop].
+    ///
+    /// Note that all the setters affecting `next_hop` are mutually
+    /// exclusive.
     pub fn set_next_hop<
         T: std::convert::Into<std::option::Option<crate::model::policy_based_route::NextHop>>,
     >(

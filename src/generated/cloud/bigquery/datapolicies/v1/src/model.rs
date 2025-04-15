@@ -440,7 +440,10 @@ impl DataPolicy {
         self
     }
 
-    /// Sets the value of `matching_label`.
+    /// Sets the value of [matching_label][crate::model::DataPolicy::matching_label].
+    ///
+    /// Note that all the setters affecting `matching_label` are mutually
+    /// exclusive.
     pub fn set_matching_label<
         T: std::convert::Into<std::option::Option<crate::model::data_policy::MatchingLabel>>,
     >(
@@ -474,7 +477,10 @@ impl DataPolicy {
         self
     }
 
-    /// Sets the value of `policy`.
+    /// Sets the value of [policy][crate::model::DataPolicy::policy].
+    ///
+    /// Note that all the setters affecting `policy` are mutually
+    /// exclusive.
     pub fn set_policy<
         T: std::convert::Into<std::option::Option<crate::model::data_policy::Policy>>,
     >(
@@ -629,7 +635,10 @@ impl DataMaskingPolicy {
         std::default::Default::default()
     }
 
-    /// Sets the value of `masking_expression`.
+    /// Sets the value of [masking_expression][crate::model::DataMaskingPolicy::masking_expression].
+    ///
+    /// Note that all the setters affecting `masking_expression` are mutually
+    /// exclusive.
     pub fn set_masking_expression<
         T: std::convert::Into<
                 std::option::Option<crate::model::data_masking_policy::MaskingExpression>,

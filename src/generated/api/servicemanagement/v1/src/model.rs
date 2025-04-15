@@ -749,7 +749,10 @@ impl Rollout {
         self
     }
 
-    /// Sets the value of `strategy`.
+    /// Sets the value of [strategy][crate::model::Rollout::strategy].
+    ///
+    /// Note that all the setters affecting `strategy` are mutually
+    /// exclusive.
     pub fn set_strategy<
         T: std::convert::Into<std::option::Option<crate::model::rollout::Strategy>>,
     >(

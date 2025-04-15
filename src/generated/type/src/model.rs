@@ -407,7 +407,10 @@ impl DateTime {
         self
     }
 
-    /// Sets the value of `time_offset`.
+    /// Sets the value of [time_offset][crate::model::DateTime::time_offset].
+    ///
+    /// Note that all the setters affecting `time_offset` are mutually
+    /// exclusive.
     pub fn set_time_offset<
         T: std::convert::Into<std::option::Option<crate::model::date_time::TimeOffset>>,
     >(
@@ -1061,7 +1064,10 @@ impl PhoneNumber {
         self
     }
 
-    /// Sets the value of `kind`.
+    /// Sets the value of [kind][crate::model::PhoneNumber::kind].
+    ///
+    /// Note that all the setters affecting `kind` are mutually
+    /// exclusive.
     pub fn set_kind<
         T: std::convert::Into<std::option::Option<crate::model::phone_number::Kind>>,
     >(

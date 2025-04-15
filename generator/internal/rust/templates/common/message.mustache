@@ -86,7 +86,10 @@ impl {{Codec.Name}} {
     {{/Codec.MapFields}}
     {{#OneOfs}}
 
-    /// Sets the value of `{{Codec.FieldName}}`.
+    /// Sets the value of [{{Codec.FieldName}}][{{Codec.StructQualifiedName}}::{{Codec.SetterName}}].
+    ///
+    /// Note that all the setters affecting `{{Codec.FieldName}}` are mutually
+    /// exclusive.
     pub fn set_{{Codec.SetterName}}<T: std::convert::Into<std::option::Option<{{{Codec.FieldType}}}>>>(mut self, v: T) -> Self
     {
         self.{{Codec.FieldName}} = v.into();
@@ -124,7 +127,10 @@ impl {{Codec.Name}} {
     {{/Codec.SingularFields}}
     {{#Codec.RepeatedFields}}
 
-    /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+    /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.SetterName}}].
+    ///
+    /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
+    /// mutually exclusive.
     pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -141,7 +147,10 @@ impl {{Codec.Name}} {
     {{/Codec.RepeatedFields}}
     {{#Codec.MapFields}}
 
-    /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+    /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.SetterName}}].
+    ///
+    /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
+    /// mutually exclusive.
     pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,

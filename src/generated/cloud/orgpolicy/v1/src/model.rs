@@ -118,7 +118,10 @@ impl Policy {
         self
     }
 
-    /// Sets the value of `policy_type`.
+    /// Sets the value of [policy_type][crate::model::Policy::policy_type].
+    ///
+    /// Note that all the setters affecting `policy_type` are mutually
+    /// exclusive.
     pub fn set_policy_type<
         T: std::convert::Into<std::option::Option<crate::model::policy::PolicyType>>,
     >(

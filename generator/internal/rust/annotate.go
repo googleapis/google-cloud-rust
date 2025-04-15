@@ -151,8 +151,10 @@ type oneOfAnnotation struct {
 	// The fully qualified name, relative to `codec.modulePath`. Typically this
 	// is the `QualifiedName` with the `crate::model::` prefix removed.
 	RelativeName string
-	FieldType    string
-	DocLines     []string
+	// The Rust `struct` that contains this oneof, fully qualified
+	StructQualifiedName string
+	FieldType           string
+	DocLines            []string
 	// The subset of the oneof fields that are neither maps, nor repeated.
 	SingularFields []*api.Field
 	// The subset of the oneof fields that are repeated (`Vec<T>` in Rust).
@@ -458,17 +460,19 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 	enumName := toPascal(oneof.Name)
 	qualifiedName := fmt.Sprintf("%s::%s", scope, enumName)
 	relativeEnumName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
+	structQualifiedName := fullyQualifiedMessageName(message, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	oneof.Codec = &oneOfAnnotation{
-		FieldName:      toSnake(oneof.Name),
-		SetterName:     toSnakeNoMangling(oneof.Name),
-		EnumName:       enumName,
-		QualifiedName:  qualifiedName,
-		RelativeName:   relativeEnumName,
-		FieldType:      fmt.Sprintf("%s::%s", scope, toPascal(oneof.Name)),
-		DocLines:       formatDocComments(oneof.Documentation, oneof.ID, state, c.modulePath, message.Scopes(), c.packageMapping),
-		SingularFields: partition.singularFields,
-		RepeatedFields: partition.repeatedFields,
-		MapFields:      partition.mapFields,
+		FieldName:           toSnake(oneof.Name),
+		SetterName:          toSnakeNoMangling(oneof.Name),
+		EnumName:            enumName,
+		QualifiedName:       qualifiedName,
+		RelativeName:        relativeEnumName,
+		StructQualifiedName: structQualifiedName,
+		FieldType:           fmt.Sprintf("%s::%s", scope, toPascal(oneof.Name)),
+		DocLines:            formatDocComments(oneof.Documentation, oneof.ID, state, c.modulePath, message.Scopes(), c.packageMapping),
+		SingularFields:      partition.singularFields,
+		RepeatedFields:      partition.repeatedFields,
+		MapFields:           partition.mapFields,
 	}
 }
 

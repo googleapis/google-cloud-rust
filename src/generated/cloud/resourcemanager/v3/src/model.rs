@@ -1033,7 +1033,10 @@ impl Organization {
         self
     }
 
-    /// Sets the value of `owner`.
+    /// Sets the value of [owner][crate::model::Organization::owner].
+    ///
+    /// Note that all the setters affecting `owner` are mutually
+    /// exclusive.
     pub fn set_owner<
         T: std::convert::Into<std::option::Option<crate::model::organization::Owner>>,
     >(

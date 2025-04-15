@@ -599,7 +599,10 @@ impl Attestor {
         self
     }
 
-    /// Sets the value of `attestor_type`.
+    /// Sets the value of [attestor_type][crate::model::Attestor::attestor_type].
+    ///
+    /// Note that all the setters affecting `attestor_type` are mutually
+    /// exclusive.
     pub fn set_attestor_type<
         T: std::convert::Into<std::option::Option<crate::model::attestor::AttestorType>>,
     >(
@@ -985,7 +988,10 @@ impl AttestorPublicKey {
         self
     }
 
-    /// Sets the value of `public_key`.
+    /// Sets the value of [public_key][crate::model::AttestorPublicKey::public_key].
+    ///
+    /// Note that all the setters affecting `public_key` are mutually
+    /// exclusive.
     pub fn set_public_key<
         T: std::convert::Into<std::option::Option<crate::model::attestor_public_key::PublicKey>>,
     >(

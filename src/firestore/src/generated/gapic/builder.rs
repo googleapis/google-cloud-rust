@@ -111,7 +111,10 @@ pub mod firestore {
             self
         }
 
-        /// Sets the value of `consistency_selector`.
+        /// Sets the value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector].
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
         pub fn set_consistency_selector<
             T: Into<Option<crate::model::get_document_request::ConsistencySelector>>,
         >(
@@ -119,6 +122,29 @@ pub mod firestore {
             v: T,
         ) -> Self {
             self.0.request.consistency_selector = v.into();
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
+        /// to hold a `Transaction`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_transaction(v);
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::GetDocumentRequest::consistency_selector]
+        /// to hold a `ReadTime`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_read_time(v);
             self
         }
     }
@@ -219,7 +245,10 @@ pub mod firestore {
             self
         }
 
-        /// Sets the value of `consistency_selector`.
+        /// Sets the value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector].
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
         pub fn set_consistency_selector<
             T: Into<Option<crate::model::list_documents_request::ConsistencySelector>>,
         >(
@@ -227,6 +256,29 @@ pub mod firestore {
             v: T,
         ) -> Self {
             self.0.request.consistency_selector = v.into();
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
+        /// to hold a `Transaction`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_transaction(v);
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::ListDocumentsRequest::consistency_selector]
+        /// to hold a `ReadTime`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_read_time(v);
             self
         }
     }
@@ -595,7 +647,10 @@ pub mod firestore {
             self
         }
 
-        /// Sets the value of `query_type`.
+        /// Sets the value of [query_type][crate::model::PartitionQueryRequest::query_type].
+        ///
+        /// Note that all the setters affecting `query_type` are
+        /// mutually exclusive.
         pub fn set_query_type<T: Into<Option<crate::model::partition_query_request::QueryType>>>(
             mut self,
             v: T,
@@ -604,7 +659,25 @@ pub mod firestore {
             self
         }
 
-        /// Sets the value of `consistency_selector`.
+        /// Sets the value of [query_type][crate::model::PartitionQueryRequest::query_type]
+        /// to hold a `StructuredQuery`.
+        ///
+        /// Note that all the setters affecting `query_type` are
+        /// mutually exclusive.
+        pub fn set_structured_query<
+            T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_structured_query(v);
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::PartitionQueryRequest::consistency_selector].
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
         pub fn set_consistency_selector<
             T: Into<Option<crate::model::partition_query_request::ConsistencySelector>>,
         >(
@@ -612,6 +685,19 @@ pub mod firestore {
             v: T,
         ) -> Self {
             self.0.request.consistency_selector = v.into();
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::PartitionQueryRequest::consistency_selector]
+        /// to hold a `ReadTime`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_read_time(v);
             self
         }
     }
@@ -673,7 +759,10 @@ pub mod firestore {
             self
         }
 
-        /// Sets the value of `consistency_selector`.
+        /// Sets the value of [consistency_selector][crate::model::ListCollectionIdsRequest::consistency_selector].
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
         pub fn set_consistency_selector<
             T: Into<Option<crate::model::list_collection_ids_request::ConsistencySelector>>,
         >(
@@ -681,6 +770,19 @@ pub mod firestore {
             v: T,
         ) -> Self {
             self.0.request.consistency_selector = v.into();
+            self
+        }
+
+        /// Sets the value of [consistency_selector][crate::model::ListCollectionIdsRequest::consistency_selector]
+        /// to hold a `ReadTime`.
+        ///
+        /// Note that all the setters affecting `consistency_selector` are
+        /// mutually exclusive.
+        pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_read_time(v);
             self
         }
     }

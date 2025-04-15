@@ -1233,7 +1233,10 @@ impl Operation {
         self
     }
 
-    /// Sets the value of `path_value`.
+    /// Sets the value of [path_value][crate::model::Operation::path_value].
+    ///
+    /// Note that all the setters affecting `path_value` are mutually
+    /// exclusive.
     pub fn set_path_value<
         T: std::convert::Into<std::option::Option<crate::model::operation::PathValue>>,
     >(
@@ -1339,7 +1342,10 @@ impl ValueMatcher {
         std::default::Default::default()
     }
 
-    /// Sets the value of `match_variant`.
+    /// Sets the value of [match_variant][crate::model::ValueMatcher::match_variant].
+    ///
+    /// Note that all the setters affecting `match_variant` are mutually
+    /// exclusive.
     pub fn set_match_variant<
         T: std::convert::Into<std::option::Option<crate::model::value_matcher::MatchVariant>>,
     >(
@@ -1698,7 +1704,10 @@ impl Impact {
         self
     }
 
-    /// Sets the value of `projection`.
+    /// Sets the value of [projection][crate::model::Impact::projection].
+    ///
+    /// Note that all the setters affecting `projection` are mutually
+    /// exclusive.
     pub fn set_projection<
         T: std::convert::Into<std::option::Option<crate::model::impact::Projection>>,
     >(

@@ -387,7 +387,10 @@ impl EventDimension {
         self
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::EventDimension::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::event_dimension::Value>>,
     >(
@@ -931,7 +934,10 @@ impl PinnedDimension {
         self
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::PinnedDimension::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::pinned_dimension::Value>>,
     >(

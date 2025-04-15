@@ -2082,7 +2082,10 @@ impl CryptoKey {
         self
     }
 
-    /// Sets the value of `rotation_schedule`.
+    /// Sets the value of [rotation_schedule][crate::model::CryptoKey::rotation_schedule].
+    ///
+    /// Note that all the setters affecting `rotation_schedule` are mutually
+    /// exclusive.
     pub fn set_rotation_schedule<
         T: std::convert::Into<std::option::Option<crate::model::crypto_key::RotationSchedule>>,
     >(
@@ -5738,7 +5741,10 @@ impl ImportCryptoKeyVersionRequest {
         self
     }
 
-    /// Sets the value of `wrapped_key_material`.
+    /// Sets the value of [wrapped_key_material][crate::model::ImportCryptoKeyVersionRequest::wrapped_key_material].
+    ///
+    /// Note that all the setters affecting `wrapped_key_material` are mutually
+    /// exclusive.
     pub fn set_wrapped_key_material<
         T: std::convert::Into<
                 std::option::Option<
@@ -8649,7 +8655,10 @@ impl Digest {
         std::default::Default::default()
     }
 
-    /// Sets the value of `digest`.
+    /// Sets the value of [digest][crate::model::Digest::digest].
+    ///
+    /// Note that all the setters affecting `digest` are mutually
+    /// exclusive.
     pub fn set_digest<T: std::convert::Into<std::option::Option<crate::model::digest::Digest>>>(
         mut self,
         v: T,

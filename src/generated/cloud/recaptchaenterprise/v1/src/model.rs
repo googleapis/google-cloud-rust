@@ -722,7 +722,10 @@ impl EndpointVerificationInfo {
         self
     }
 
-    /// Sets the value of `endpoint`.
+    /// Sets the value of [endpoint][crate::model::EndpointVerificationInfo::endpoint].
+    ///
+    /// Note that all the setters affecting `endpoint` are mutually
+    /// exclusive.
     pub fn set_endpoint<
         T: std::convert::Into<std::option::Option<crate::model::endpoint_verification_info::Endpoint>>,
     >(
@@ -2188,7 +2191,10 @@ impl UserId {
         std::default::Default::default()
     }
 
-    /// Sets the value of `id_oneof`.
+    /// Sets the value of [id_oneof][crate::model::UserId::id_oneof].
+    ///
+    /// Note that all the setters affecting `id_oneof` are mutually
+    /// exclusive.
     pub fn set_id_oneof<
         T: std::convert::Into<std::option::Option<crate::model::user_id::IdOneof>>,
     >(
@@ -4363,7 +4369,10 @@ impl Key {
         self
     }
 
-    /// Sets the value of `platform_settings`.
+    /// Sets the value of [platform_settings][crate::model::Key::platform_settings].
+    ///
+    /// Note that all the setters affecting `platform_settings` are mutually
+    /// exclusive.
     pub fn set_platform_settings<
         T: std::convert::Into<std::option::Option<crate::model::key::PlatformSettings>>,
     >(
@@ -5307,7 +5316,10 @@ impl FirewallAction {
         std::default::Default::default()
     }
 
-    /// Sets the value of `firewall_action_oneof`.
+    /// Sets the value of [firewall_action_oneof][crate::model::FirewallAction::firewall_action_oneof].
+    ///
+    /// Note that all the setters affecting `firewall_action_oneof` are mutually
+    /// exclusive.
     pub fn set_firewall_action_oneof<
         T: std::convert::Into<std::option::Option<crate::model::firewall_action::FirewallActionOneof>>,
     >(

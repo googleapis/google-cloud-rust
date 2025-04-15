@@ -469,7 +469,10 @@ pub mod certificate_authority {
             std::default::Default::default()
         }
 
-        /// Sets the value of `key_version`.
+        /// Sets the value of [key_version][crate::model::certificate_authority::KeyVersionSpec::key_version].
+        ///
+        /// Note that all the setters affecting `key_version` are mutually
+        /// exclusive.
         pub fn set_key_version<
             T: std::convert::Into<
                     std::option::Option<
@@ -1356,7 +1359,10 @@ pub mod ca_pool {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `key_type`.
+            /// Sets the value of [key_type][crate::model::ca_pool::issuance_policy::AllowedKeyType::key_type].
+            ///
+            /// Note that all the setters affecting `key_type` are mutually
+            /// exclusive.
             pub fn set_key_type<
                 T: std::convert::Into<
                         std::option::Option<
@@ -2315,7 +2321,10 @@ impl Certificate {
         self
     }
 
-    /// Sets the value of `certificate_config`.
+    /// Sets the value of [certificate_config][crate::model::Certificate::certificate_config].
+    ///
+    /// Note that all the setters affecting `certificate_config` are mutually
+    /// exclusive.
     pub fn set_certificate_config<
         T: std::convert::Into<std::option::Option<crate::model::certificate::CertificateConfig>>,
     >(
@@ -3061,7 +3070,10 @@ impl SubordinateConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `subordinate_config`.
+    /// Sets the value of [subordinate_config][crate::model::SubordinateConfig::subordinate_config].
+    ///
+    /// Note that all the setters affecting `subordinate_config` are mutually
+    /// exclusive.
     pub fn set_subordinate_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::subordinate_config::SubordinateConfig>,

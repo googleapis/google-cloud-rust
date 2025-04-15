@@ -2368,7 +2368,10 @@ pub mod containerd_config {
                 self
             }
 
-            /// Sets the value of `certificate_config`.
+            /// Sets the value of [certificate_config][crate::model::containerd_config::private_registry_access_config::CertificateAuthorityDomainConfig::certificate_config].
+            ///
+            /// Note that all the setters affecting `certificate_config` are mutually
+            /// exclusive.
             pub fn set_certificate_config<T: std::convert::Into<std::option::Option<crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::CertificateConfig>>>(mut self, v: T) -> Self
             {
                 self.certificate_config = v.into();
@@ -8541,7 +8544,10 @@ pub mod operation_progress {
             self
         }
 
-        /// Sets the value of `value`.
+        /// Sets the value of [value][crate::model::operation_progress::Metric::value].
+        ///
+        /// Note that all the setters affecting `value` are mutually
+        /// exclusive.
         pub fn set_value<
             T: std::convert::Into<
                     std::option::Option<crate::model::operation_progress::metric::Value>,
@@ -11101,7 +11107,10 @@ impl BlueGreenSettings {
         self
     }
 
-    /// Sets the value of `rollout_policy`.
+    /// Sets the value of [rollout_policy][crate::model::BlueGreenSettings::rollout_policy].
+    ///
+    /// Note that all the setters affecting `rollout_policy` are mutually
+    /// exclusive.
     pub fn set_rollout_policy<
         T: std::convert::Into<std::option::Option<crate::model::blue_green_settings::RolloutPolicy>>,
     >(
@@ -11196,7 +11205,10 @@ pub mod blue_green_settings {
             self
         }
 
-        /// Sets the value of `update_batch_size`.
+        /// Sets the value of [update_batch_size][crate::model::blue_green_settings::StandardRolloutPolicy::update_batch_size].
+        ///
+        /// Note that all the setters affecting `update_batch_size` are mutually
+        /// exclusive.
         pub fn set_update_batch_size<
             T: std::convert::Into<
                     std::option::Option<
@@ -12468,7 +12480,10 @@ impl MaintenanceWindow {
         self
     }
 
-    /// Sets the value of `policy`.
+    /// Sets the value of [policy][crate::model::MaintenanceWindow::policy].
+    ///
+    /// Note that all the setters affecting `policy` are mutually
+    /// exclusive.
     pub fn set_policy<
         T: std::convert::Into<std::option::Option<crate::model::maintenance_window::Policy>>,
     >(
@@ -12613,7 +12628,10 @@ impl TimeWindow {
         self
     }
 
-    /// Sets the value of `options`.
+    /// Sets the value of [options][crate::model::TimeWindow::options].
+    ///
+    /// Note that all the setters affecting `options` are mutually
+    /// exclusive.
     pub fn set_options<
         T: std::convert::Into<std::option::Option<crate::model::time_window::Options>>,
     >(

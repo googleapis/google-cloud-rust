@@ -284,7 +284,10 @@ impl CycleStep {
         self
     }
 
-    /// Sets the value of `step`.
+    /// Sets the value of [step][crate::model::CycleStep::step].
+    ///
+    /// Note that all the setters affecting `step` are mutually
+    /// exclusive.
     pub fn set_step<T: std::convert::Into<std::option::Option<crate::model::cycle_step::Step>>>(
         mut self,
         v: T,
@@ -806,7 +809,10 @@ impl MigratingVm {
         self
     }
 
-    /// Sets the value of `target_vm_defaults`.
+    /// Sets the value of [target_vm_defaults][crate::model::MigratingVm::target_vm_defaults].
+    ///
+    /// Note that all the setters affecting `target_vm_defaults` are mutually
+    /// exclusive.
     pub fn set_target_vm_defaults<
         T: std::convert::Into<std::option::Option<crate::model::migrating_vm::TargetVmDefaults>>,
     >(
@@ -849,7 +855,10 @@ impl MigratingVm {
         self
     }
 
-    /// Sets the value of `source_vm_details`.
+    /// Sets the value of [source_vm_details][crate::model::MigratingVm::source_vm_details].
+    ///
+    /// Note that all the setters affecting `source_vm_details` are mutually
+    /// exclusive.
     pub fn set_source_vm_details<
         T: std::convert::Into<std::option::Option<crate::model::migrating_vm::SourceVmDetails>>,
     >(
@@ -1153,7 +1162,10 @@ impl CloneJob {
         self
     }
 
-    /// Sets the value of `target_vm_details`.
+    /// Sets the value of [target_vm_details][crate::model::CloneJob::target_vm_details].
+    ///
+    /// Note that all the setters affecting `target_vm_details` are mutually
+    /// exclusive.
     pub fn set_target_vm_details<
         T: std::convert::Into<std::option::Option<crate::model::clone_job::TargetVmDetails>>,
     >(
@@ -1345,7 +1357,10 @@ impl CloneStep {
         self
     }
 
-    /// Sets the value of `step`.
+    /// Sets the value of [step][crate::model::CloneStep::step].
+    ///
+    /// Note that all the setters affecting `step` are mutually
+    /// exclusive.
     pub fn set_step<T: std::convert::Into<std::option::Option<crate::model::clone_step::Step>>>(
         mut self,
         v: T,
@@ -1664,7 +1679,10 @@ impl CutoverJob {
         self
     }
 
-    /// Sets the value of `target_vm_details`.
+    /// Sets the value of [target_vm_details][crate::model::CutoverJob::target_vm_details].
+    ///
+    /// Note that all the setters affecting `target_vm_details` are mutually
+    /// exclusive.
     pub fn set_target_vm_details<
         T: std::convert::Into<std::option::Option<crate::model::cutover_job::TargetVmDetails>>,
     >(
@@ -1856,7 +1874,10 @@ impl CutoverStep {
         self
     }
 
-    /// Sets the value of `step`.
+    /// Sets the value of [step][crate::model::CutoverStep::step].
+    ///
+    /// Note that all the setters affecting `step` are mutually
+    /// exclusive.
     pub fn set_step<
         T: std::convert::Into<std::option::Option<crate::model::cutover_step::Step>>,
     >(
@@ -2471,7 +2492,10 @@ impl Source {
         self
     }
 
-    /// Sets the value of `source_details`.
+    /// Sets the value of [source_details][crate::model::Source::source_details].
+    ///
+    /// Note that all the setters affecting `source_details` are mutually
+    /// exclusive.
     pub fn set_source_details<
         T: std::convert::Into<std::option::Option<crate::model::source::SourceDetails>>,
     >(
@@ -2739,7 +2763,10 @@ impl AwsSourceDetails {
         self
     }
 
-    /// Sets the value of `credentials_type`.
+    /// Sets the value of [credentials_type][crate::model::AwsSourceDetails::credentials_type].
+    ///
+    /// Note that all the setters affecting `credentials_type` are mutually
+    /// exclusive.
     pub fn set_credentials_type<
         T: std::convert::Into<std::option::Option<crate::model::aws_source_details::CredentialsType>>,
     >(
@@ -4869,7 +4896,10 @@ impl FetchInventoryResponse {
         self
     }
 
-    /// Sets the value of `source_vms`.
+    /// Sets the value of [source_vms][crate::model::FetchInventoryResponse::source_vms].
+    ///
+    /// Note that all the setters affecting `source_vms` are mutually
+    /// exclusive.
     pub fn set_source_vms<
         T: std::convert::Into<std::option::Option<crate::model::fetch_inventory_response::SourceVms>>,
     >(
@@ -5289,7 +5319,10 @@ impl VmUtilizationInfo {
         self
     }
 
-    /// Sets the value of `vm_details`.
+    /// Sets the value of [vm_details][crate::model::VmUtilizationInfo::vm_details].
+    ///
+    /// Note that all the setters affecting `vm_details` are mutually
+    /// exclusive.
     pub fn set_vm_details<
         T: std::convert::Into<std::option::Option<crate::model::vm_utilization_info::VmDetails>>,
     >(

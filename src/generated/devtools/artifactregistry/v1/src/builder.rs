@@ -621,12 +621,30 @@ pub mod artifact_registry {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ImportAptArtifactsRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::import_apt_artifacts_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportAptArtifactsRequest::source]
+        /// to hold a `GcsSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_gcs_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_source(v);
             self
         }
     }
@@ -719,12 +737,30 @@ pub mod artifact_registry {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ImportYumArtifactsRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::import_yum_artifacts_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportYumArtifactsRequest::source]
+        /// to hold a `GcsSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_gcs_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_source(v);
             self
         }
     }

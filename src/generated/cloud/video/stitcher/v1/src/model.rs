@@ -359,7 +359,10 @@ impl CdnKey {
         self
     }
 
-    /// Sets the value of `cdn_key_config`.
+    /// Sets the value of [cdn_key_config][crate::model::CdnKey::cdn_key_config].
+    ///
+    /// Note that all the setters affecting `cdn_key_config` are mutually
+    /// exclusive.
     pub fn set_cdn_key_config<
         T: std::convert::Into<std::option::Option<crate::model::cdn_key::CdnKeyConfig>>,
     >(
@@ -895,7 +898,10 @@ impl Companion {
         self
     }
 
-    /// Sets the value of `ad_resource`.
+    /// Sets the value of [ad_resource][crate::model::Companion::ad_resource].
+    ///
+    /// Note that all the setters affecting `ad_resource` are mutually
+    /// exclusive.
     pub fn set_ad_resource<
         T: std::convert::Into<std::option::Option<crate::model::companion::AdResource>>,
     >(

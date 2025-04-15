@@ -217,7 +217,10 @@ impl JwtLocation {
         self
     }
 
-    /// Sets the value of `r#in`.
+    /// Sets the value of [r#in][crate::model::JwtLocation::in].
+    ///
+    /// Note that all the setters affecting `r#in` are mutually
+    /// exclusive.
     pub fn set_in<T: std::convert::Into<std::option::Option<crate::model::jwt_location::In>>>(
         mut self,
         v: T,
@@ -808,7 +811,10 @@ impl BackendRule {
         self
     }
 
-    /// Sets the value of `authentication`.
+    /// Sets the value of [authentication][crate::model::BackendRule::authentication].
+    ///
+    /// Note that all the setters affecting `authentication` are mutually
+    /// exclusive.
     pub fn set_authentication<
         T: std::convert::Into<std::option::Option<crate::model::backend_rule::Authentication>>,
     >(
@@ -3138,7 +3144,10 @@ pub mod distribution {
             std::default::Default::default()
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][crate::model::distribution::BucketOptions::options].
+        ///
+        /// Note that all the setters affecting `options` are mutually
+        /// exclusive.
         pub fn set_options<
             T: std::convert::Into<
                     std::option::Option<crate::model::distribution::bucket_options::Options>,
@@ -4504,7 +4513,10 @@ impl HttpRule {
         self
     }
 
-    /// Sets the value of `pattern`.
+    /// Sets the value of [pattern][crate::model::HttpRule::pattern].
+    ///
+    /// Note that all the setters affecting `pattern` are mutually
+    /// exclusive.
     pub fn set_pattern<
         T: std::convert::Into<std::option::Option<crate::model::http_rule::Pattern>>,
     >(

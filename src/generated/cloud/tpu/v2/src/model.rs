@@ -1270,7 +1270,10 @@ impl QueuedResource {
         self
     }
 
-    /// Sets the value of `resource`.
+    /// Sets the value of [resource][crate::model::QueuedResource::resource].
+    ///
+    /// Note that all the setters affecting `resource` are mutually
+    /// exclusive.
     pub fn set_resource<
         T: std::convert::Into<std::option::Option<crate::model::queued_resource::Resource>>,
     >(
@@ -1308,7 +1311,10 @@ impl QueuedResource {
         self
     }
 
-    /// Sets the value of `tier`.
+    /// Sets the value of [tier][crate::model::QueuedResource::tier].
+    ///
+    /// Note that all the setters affecting `tier` are mutually
+    /// exclusive.
     pub fn set_tier<
         T: std::convert::Into<std::option::Option<crate::model::queued_resource::Tier>>,
     >(
@@ -1473,7 +1479,10 @@ pub mod queued_resource {
                 self
             }
 
-            /// Sets the value of `name_strategy`.
+            /// Sets the value of [name_strategy][crate::model::queued_resource::tpu::NodeSpec::name_strategy].
+            ///
+            /// Note that all the setters affecting `name_strategy` are mutually
+            /// exclusive.
             pub fn set_name_strategy<
                 T: std::convert::Into<
                         std::option::Option<
@@ -1715,7 +1724,10 @@ pub mod queued_resource {
             std::default::Default::default()
         }
 
-        /// Sets the value of `start_timing_constraints`.
+        /// Sets the value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints].
+        ///
+        /// Note that all the setters affecting `start_timing_constraints` are mutually
+        /// exclusive.
         pub fn set_start_timing_constraints<
             T: std::convert::Into<
                     std::option::Option<
@@ -1985,7 +1997,10 @@ impl QueuedResourceState {
         self
     }
 
-    /// Sets the value of `state_data`.
+    /// Sets the value of [state_data][crate::model::QueuedResourceState::state_data].
+    ///
+    /// Note that all the setters affecting `state_data` are mutually
+    /// exclusive.
     pub fn set_state_data<
         T: std::convert::Into<std::option::Option<crate::model::queued_resource_state::StateData>>,
     >(

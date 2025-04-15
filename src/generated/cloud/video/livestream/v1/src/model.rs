@@ -68,7 +68,10 @@ impl ElementaryStream {
         self
     }
 
-    /// Sets the value of `elementary_stream`.
+    /// Sets the value of [elementary_stream][crate::model::ElementaryStream::elementary_stream].
+    ///
+    /// Note that all the setters affecting `elementary_stream` are mutually
+    /// exclusive.
     pub fn set_elementary_stream<
         T: std::convert::Into<std::option::Option<crate::model::elementary_stream::ElementaryStream>>,
     >(
@@ -860,7 +863,10 @@ impl VideoStream {
         std::default::Default::default()
     }
 
-    /// Sets the value of `codec_settings`.
+    /// Sets the value of [codec_settings][crate::model::VideoStream::codec_settings].
+    ///
+    /// Note that all the setters affecting `codec_settings` are mutually
+    /// exclusive.
     pub fn set_codec_settings<
         T: std::convert::Into<std::option::Option<crate::model::video_stream::CodecSettings>>,
     >(
@@ -1110,7 +1116,10 @@ pub mod video_stream {
             self
         }
 
-        /// Sets the value of `gop_mode`.
+        /// Sets the value of [gop_mode][crate::model::video_stream::H264CodecSettings::gop_mode].
+        ///
+        /// Note that all the setters affecting `gop_mode` are mutually
+        /// exclusive.
         pub fn set_gop_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
@@ -1548,7 +1557,10 @@ impl TimecodeConfig {
         self
     }
 
-    /// Sets the value of `time_offset`.
+    /// Sets the value of [time_offset][crate::model::TimecodeConfig::time_offset].
+    ///
+    /// Note that all the setters affecting `time_offset` are mutually
+    /// exclusive.
     pub fn set_time_offset<
         T: std::convert::Into<std::option::Option<crate::model::timecode_config::TimeOffset>>,
     >(
@@ -3433,7 +3445,10 @@ impl Event {
         self
     }
 
-    /// Sets the value of `task`.
+    /// Sets the value of [task][crate::model::Event::task].
+    ///
+    /// Note that all the setters affecting `task` are mutually
+    /// exclusive.
     pub fn set_task<T: std::convert::Into<std::option::Option<crate::model::event::Task>>>(
         mut self,
         v: T,
@@ -4151,7 +4166,10 @@ pub mod clip {
             std::default::Default::default()
         }
 
-        /// Sets the value of `kind`.
+        /// Sets the value of [kind][crate::model::clip::Slice::kind].
+        ///
+        /// Note that all the setters affecting `kind` are mutually
+        /// exclusive.
         pub fn set_kind<
             T: std::convert::Into<std::option::Option<crate::model::clip::slice::Kind>>,
         >(
@@ -4456,7 +4474,10 @@ impl Asset {
         self
     }
 
-    /// Sets the value of `resource`.
+    /// Sets the value of [resource][crate::model::Asset::resource].
+    ///
+    /// Note that all the setters affecting `resource` are mutually
+    /// exclusive.
     pub fn set_resource<
         T: std::convert::Into<std::option::Option<crate::model::asset::Resource>>,
     >(
@@ -4728,7 +4749,10 @@ impl Encryption {
         self
     }
 
-    /// Sets the value of `secret_source`.
+    /// Sets the value of [secret_source][crate::model::Encryption::secret_source].
+    ///
+    /// Note that all the setters affecting `secret_source` are mutually
+    /// exclusive.
     pub fn set_secret_source<
         T: std::convert::Into<std::option::Option<crate::model::encryption::SecretSource>>,
     >(
@@ -4771,7 +4795,10 @@ impl Encryption {
         self
     }
 
-    /// Sets the value of `encryption_mode`.
+    /// Sets the value of [encryption_mode][crate::model::Encryption::encryption_mode].
+    ///
+    /// Note that all the setters affecting `encryption_mode` are mutually
+    /// exclusive.
     pub fn set_encryption_mode<
         T: std::convert::Into<std::option::Option<crate::model::encryption::EncryptionMode>>,
     >(

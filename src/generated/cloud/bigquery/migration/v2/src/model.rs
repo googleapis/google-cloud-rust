@@ -391,7 +391,10 @@ impl MigrationTask {
         self
     }
 
-    /// Sets the value of `task_details`.
+    /// Sets the value of [task_details][crate::model::MigrationTask::task_details].
+    ///
+    /// Note that all the setters affecting `task_details` are mutually
+    /// exclusive.
     pub fn set_task_details<
         T: std::convert::Into<std::option::Option<crate::model::migration_task::TaskDetails>>,
     >(
@@ -831,7 +834,10 @@ impl MigrationTaskResult {
         std::default::Default::default()
     }
 
-    /// Sets the value of `details`.
+    /// Sets the value of [details][crate::model::MigrationTaskResult::details].
+    ///
+    /// Note that all the setters affecting `details` are mutually
+    /// exclusive.
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::migration_task_result::Details>>,
     >(
@@ -1314,7 +1320,10 @@ impl TypedValue {
         std::default::Default::default()
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::TypedValue::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::typed_value::Value>>,
     >(
@@ -2056,7 +2065,10 @@ impl TranslationConfigDetails {
         self
     }
 
-    /// Sets the value of `source_location`.
+    /// Sets the value of [source_location][crate::model::TranslationConfigDetails::source_location].
+    ///
+    /// Note that all the setters affecting `source_location` are mutually
+    /// exclusive.
     pub fn set_source_location<
         T: std::convert::Into<
                 std::option::Option<crate::model::translation_config_details::SourceLocation>,
@@ -2094,7 +2106,10 @@ impl TranslationConfigDetails {
         self
     }
 
-    /// Sets the value of `target_location`.
+    /// Sets the value of [target_location][crate::model::TranslationConfigDetails::target_location].
+    ///
+    /// Note that all the setters affecting `target_location` are mutually
+    /// exclusive.
     pub fn set_target_location<
         T: std::convert::Into<
                 std::option::Option<crate::model::translation_config_details::TargetLocation>,
@@ -2132,7 +2147,10 @@ impl TranslationConfigDetails {
         self
     }
 
-    /// Sets the value of `output_name_mapping`.
+    /// Sets the value of [output_name_mapping][crate::model::TranslationConfigDetails::output_name_mapping].
+    ///
+    /// Note that all the setters affecting `output_name_mapping` are mutually
+    /// exclusive.
     pub fn set_output_name_mapping<
         T: std::convert::Into<
                 std::option::Option<crate::model::translation_config_details::OutputNameMapping>,
@@ -2237,7 +2255,10 @@ impl Dialect {
         std::default::Default::default()
     }
 
-    /// Sets the value of `dialect_value`.
+    /// Sets the value of [dialect_value][crate::model::Dialect::dialect_value].
+    ///
+    /// Note that all the setters affecting `dialect_value` are mutually
+    /// exclusive.
     pub fn set_dialect_value<
         T: std::convert::Into<std::option::Option<crate::model::dialect::DialectValue>>,
     >(
@@ -3828,7 +3849,10 @@ impl SourceSpec {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::SourceSpec::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::source_spec::Source>>,
     >(
@@ -3973,7 +3997,10 @@ impl Literal {
         self
     }
 
-    /// Sets the value of `literal_data`.
+    /// Sets the value of [literal_data][crate::model::Literal::literal_data].
+    ///
+    /// Note that all the setters affecting `literal_data` are mutually
+    /// exclusive.
     pub fn set_literal_data<
         T: std::convert::Into<std::option::Option<crate::model::literal::LiteralData>>,
     >(

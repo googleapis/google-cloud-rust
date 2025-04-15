@@ -3020,7 +3020,10 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
         self
     }
 
-    /// Sets the value of `sync_config`.
+    /// Sets the value of [sync_config][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_config].
+    ///
+    /// Note that all the setters affecting `sync_config` are mutually
+    /// exclusive.
     pub fn set_sync_config<T: std::convert::Into<std::option::Option<crate::model::sql_instances_verify_external_sync_settings_request::SyncConfig>>>(mut self, v: T) -> Self
     {
         self.sync_config = v.into();
@@ -3270,7 +3273,10 @@ impl SqlInstancesStartExternalSyncRequest {
         self
     }
 
-    /// Sets the value of `sync_config`.
+    /// Sets the value of [sync_config][crate::model::SqlInstancesStartExternalSyncRequest::sync_config].
+    ///
+    /// Note that all the setters affecting `sync_config` are mutually
+    /// exclusive.
     pub fn set_sync_config<T: std::convert::Into<std::option::Option<crate::model::sql_instances_start_external_sync_request::SyncConfig>>>(mut self, v: T) -> Self
     {
         self.sync_config = v.into();
@@ -7520,7 +7526,10 @@ impl Database {
         self
     }
 
-    /// Sets the value of `database_details`.
+    /// Sets the value of [database_details][crate::model::Database::database_details].
+    ///
+    /// Note that all the setters affecting `database_details` are mutually
+    /// exclusive.
     pub fn set_database_details<T: std::convert::Into<std::option::Option<crate::model::database::DatabaseDetails>>>(mut self, v: T) -> Self
     {
         self.database_details = v.into();
@@ -12682,7 +12691,10 @@ impl User {
         self
     }
 
-    /// Sets the value of `user_details`.
+    /// Sets the value of [user_details][crate::model::User::user_details].
+    ///
+    /// Note that all the setters affecting `user_details` are mutually
+    /// exclusive.
     pub fn set_user_details<T: std::convert::Into<std::option::Option<crate::model::user::UserDetails>>>(mut self, v: T) -> Self
     {
         self.user_details = v.into();

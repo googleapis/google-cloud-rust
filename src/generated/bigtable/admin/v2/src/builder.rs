@@ -830,9 +830,27 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of `config`.
+        /// Sets the value of [config][crate::model::Cluster::config].
+        ///
+        /// Note that all the setters affecting `config` are
+        /// mutually exclusive.
         pub fn set_config<T: Into<Option<crate::model::cluster::Config>>>(mut self, v: T) -> Self {
             self.0.request.config = v.into();
+            self
+        }
+
+        /// Sets the value of [config][crate::model::Cluster::config]
+        /// to hold a `ClusterConfig`.
+        ///
+        /// Note that all the setters affecting `config` are
+        /// mutually exclusive.
+        pub fn set_cluster_config<
+            T: std::convert::Into<std::boxed::Box<crate::model::cluster::ClusterConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_cluster_config(v);
             self
         }
     }
@@ -3645,12 +3663,35 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of `target`.
+        /// Sets the value of [target][crate::model::DropRowRangeRequest::target].
+        ///
+        /// Note that all the setters affecting `target` are
+        /// mutually exclusive.
         pub fn set_target<T: Into<Option<crate::model::drop_row_range_request::Target>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.target = v.into();
+            self
+        }
+
+        /// Sets the value of [target][crate::model::DropRowRangeRequest::target]
+        /// to hold a `RowKeyPrefix`.
+        ///
+        /// Note that all the setters affecting `target` are
+        /// mutually exclusive.
+        pub fn set_row_key_prefix<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_row_key_prefix(v);
+            self
+        }
+
+        /// Sets the value of [target][crate::model::DropRowRangeRequest::target]
+        /// to hold a `DeleteAllDataFromTable`.
+        ///
+        /// Note that all the setters affecting `target` are
+        /// mutually exclusive.
+        pub fn set_delete_all_data_from_table<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_delete_all_data_from_table(v);
             self
         }
     }
@@ -3754,12 +3795,45 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of `mode`.
+        /// Sets the value of [mode][crate::model::CheckConsistencyRequest::mode].
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
         pub fn set_mode<T: Into<Option<crate::model::check_consistency_request::Mode>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.mode = v.into();
+            self
+        }
+
+        /// Sets the value of [mode][crate::model::CheckConsistencyRequest::mode]
+        /// to hold a `StandardReadRemoteWrites`.
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
+        pub fn set_standard_read_remote_writes<
+            T: std::convert::Into<std::boxed::Box<crate::model::StandardReadRemoteWrites>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_standard_read_remote_writes(v);
+            self
+        }
+
+        /// Sets the value of [mode][crate::model::CheckConsistencyRequest::mode]
+        /// to hold a `DataBoostReadLocalWrites`.
+        ///
+        /// Note that all the setters affecting `mode` are
+        /// mutually exclusive.
+        pub fn set_data_boost_read_local_writes<
+            T: std::convert::Into<std::boxed::Box<crate::model::DataBoostReadLocalWrites>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_data_boost_read_local_writes(v);
             self
         }
     }
@@ -4430,12 +4504,25 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::RestoreTableRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::restore_table_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::RestoreTableRequest::source]
+        /// to hold a `Backup`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_backup(v);
             self
         }
     }

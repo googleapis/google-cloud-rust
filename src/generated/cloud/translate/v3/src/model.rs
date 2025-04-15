@@ -980,7 +980,10 @@ impl ImportAdaptiveMtFileRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportAdaptiveMtFileRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_adaptive_mt_file_request::Source>,
@@ -1558,7 +1561,10 @@ pub mod dataset_input_config {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::dataset_input_config::InputFile::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
         pub fn set_source<
             T: std::convert::Into<
                     std::option::Option<crate::model::dataset_input_config::input_file::Source>,
@@ -1765,7 +1771,10 @@ impl DatasetOutputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::DatasetOutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::dataset_output_config::Destination>>,
     >(
@@ -3378,7 +3387,10 @@ impl GlossaryEntry {
         self
     }
 
-    /// Sets the value of `data`.
+    /// Sets the value of [data][crate::model::GlossaryEntry::data].
+    ///
+    /// Note that all the setters affecting `data` are mutually
+    /// exclusive.
     pub fn set_data<
         T: std::convert::Into<std::option::Option<crate::model::glossary_entry::Data>>,
     >(
@@ -4224,7 +4236,10 @@ impl DetectLanguageRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::DetectLanguageRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::detect_language_request::Source>>,
     >(
@@ -4610,7 +4625,10 @@ impl InputConfig {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::InputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::input_config::Source>>,
     >(
@@ -4743,7 +4761,10 @@ impl OutputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::OutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
     >(
@@ -4924,7 +4945,10 @@ impl DocumentInputConfig {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::DocumentInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::document_input_config::Source>>,
     >(
@@ -5061,7 +5085,10 @@ impl DocumentOutputConfig {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::DocumentOutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::document_output_config::Destination>>,
     >(
@@ -5993,7 +6020,10 @@ impl GlossaryInputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::GlossaryInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::glossary_input_config::Source>>,
     >(
@@ -6166,7 +6196,10 @@ impl Glossary {
         self
     }
 
-    /// Sets the value of `languages`.
+    /// Sets the value of [languages][crate::model::Glossary::languages].
+    ///
+    /// Note that all the setters affecting `languages` are mutually
+    /// exclusive.
     pub fn set_languages<
         T: std::convert::Into<std::option::Option<crate::model::glossary::Languages>>,
     >(
@@ -7644,7 +7677,10 @@ impl BatchDocumentInputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::BatchDocumentInputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::batch_document_input_config::Source>>,
     >(
@@ -7744,7 +7780,10 @@ impl BatchDocumentOutputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::BatchDocumentOutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::batch_document_output_config::Destination>,

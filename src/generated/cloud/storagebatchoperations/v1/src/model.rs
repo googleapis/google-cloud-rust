@@ -642,7 +642,10 @@ impl Job {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Job::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::job::Source>>>(
         mut self,
         v: T,
@@ -677,7 +680,10 @@ impl Job {
         self
     }
 
-    /// Sets the value of `transformation`.
+    /// Sets the value of [transformation][crate::model::Job::transformation].
+    ///
+    /// Note that all the setters affecting `transformation` are mutually
+    /// exclusive.
     pub fn set_transformation<
         T: std::convert::Into<std::option::Option<crate::model::job::Transformation>>,
     >(
@@ -981,7 +987,10 @@ pub mod bucket_list {
             self
         }
 
-        /// Sets the value of `object_configuration`.
+        /// Sets the value of [object_configuration][crate::model::bucket_list::Bucket::object_configuration].
+        ///
+        /// Note that all the setters affecting `object_configuration` are mutually
+        /// exclusive.
         pub fn set_object_configuration<
             T: std::convert::Into<
                     std::option::Option<crate::model::bucket_list::bucket::ObjectConfiguration>,

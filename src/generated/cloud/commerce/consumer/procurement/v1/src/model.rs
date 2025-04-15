@@ -51,7 +51,10 @@ impl AssignmentProtocol {
         std::default::Default::default()
     }
 
-    /// Sets the value of `assignment_type`.
+    /// Sets the value of [assignment_type][crate::model::AssignmentProtocol::assignment_type].
+    ///
+    /// Note that all the setters affecting `assignment_type` are mutually
+    /// exclusive.
     pub fn set_assignment_type<
         T: std::convert::Into<std::option::Option<crate::model::assignment_protocol::AssignmentType>>,
     >(
@@ -1198,7 +1201,10 @@ pub mod parameter {
             std::default::Default::default()
         }
 
-        /// Sets the value of `kind`.
+        /// Sets the value of [kind][crate::model::parameter::Value::kind].
+        ///
+        /// Note that all the setters affecting `kind` are mutually
+        /// exclusive.
         pub fn set_kind<
             T: std::convert::Into<std::option::Option<crate::model::parameter::value::Kind>>,
         >(

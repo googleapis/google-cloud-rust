@@ -366,7 +366,10 @@ impl Deployment {
         self
     }
 
-    /// Sets the value of `blueprint`.
+    /// Sets the value of [blueprint][crate::model::Deployment::blueprint].
+    ///
+    /// Note that all the setters affecting `blueprint` are mutually
+    /// exclusive.
     pub fn set_blueprint<
         T: std::convert::Into<std::option::Option<crate::model::deployment::Blueprint>>,
     >(
@@ -718,7 +721,10 @@ impl TerraformBlueprint {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::TerraformBlueprint::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::terraform_blueprint::Source>>,
     >(
@@ -1773,7 +1779,10 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets the value of `resource_metadata`.
+    /// Sets the value of [resource_metadata][crate::model::OperationMetadata::resource_metadata].
+    ///
+    /// Note that all the setters affecting `resource_metadata` are mutually
+    /// exclusive.
     pub fn set_resource_metadata<
         T: std::convert::Into<std::option::Option<crate::model::operation_metadata::ResourceMetadata>>,
     >(
@@ -2134,7 +2143,10 @@ impl Revision {
         self
     }
 
-    /// Sets the value of `blueprint`.
+    /// Sets the value of [blueprint][crate::model::Revision::blueprint].
+    ///
+    /// Note that all the setters affecting `blueprint` are mutually
+    /// exclusive.
     pub fn set_blueprint<
         T: std::convert::Into<std::option::Option<crate::model::revision::Blueprint>>,
     >(
@@ -3945,7 +3957,10 @@ impl Preview {
         self
     }
 
-    /// Sets the value of `blueprint`.
+    /// Sets the value of [blueprint][crate::model::Preview::blueprint].
+    ///
+    /// Note that all the setters affecting `blueprint` are mutually
+    /// exclusive.
     pub fn set_blueprint<
         T: std::convert::Into<std::option::Option<crate::model::preview::Blueprint>>,
     >(

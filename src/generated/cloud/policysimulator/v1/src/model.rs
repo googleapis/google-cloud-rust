@@ -914,7 +914,10 @@ impl ReplayResult {
         self
     }
 
-    /// Sets the value of `result`.
+    /// Sets the value of [result][crate::model::ReplayResult::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::replay_result::Result>>,
     >(

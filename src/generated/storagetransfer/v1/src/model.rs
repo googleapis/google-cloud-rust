@@ -1458,7 +1458,10 @@ impl AwsS3Data {
         self
     }
 
-    /// Sets the value of `private_network`.
+    /// Sets the value of [private_network][crate::model::AwsS3Data::private_network].
+    ///
+    /// Note that all the setters affecting `private_network` are mutually
+    /// exclusive.
     pub fn set_private_network<
         T: std::convert::Into<std::option::Option<crate::model::aws_s_3_data::PrivateNetwork>>,
     >(
@@ -1841,7 +1844,10 @@ impl AwsS3CompatibleData {
         self
     }
 
-    /// Sets the value of `data_provider`.
+    /// Sets the value of [data_provider][crate::model::AwsS3CompatibleData::data_provider].
+    ///
+    /// Note that all the setters affecting `data_provider` are mutually
+    /// exclusive.
     pub fn set_data_provider<
         T: std::convert::Into<
                 std::option::Option<crate::model::aws_s_3_compatible_data::DataProvider>,
@@ -2710,7 +2716,10 @@ impl TransferSpec {
         self
     }
 
-    /// Sets the value of `data_sink`.
+    /// Sets the value of [data_sink][crate::model::TransferSpec::data_sink].
+    ///
+    /// Note that all the setters affecting `data_sink` are mutually
+    /// exclusive.
     pub fn set_data_sink<
         T: std::convert::Into<std::option::Option<crate::model::transfer_spec::DataSink>>,
     >(
@@ -2778,7 +2787,10 @@ impl TransferSpec {
         self
     }
 
-    /// Sets the value of `data_source`.
+    /// Sets the value of [data_source][crate::model::TransferSpec::data_source].
+    ///
+    /// Note that all the setters affecting `data_source` are mutually
+    /// exclusive.
     pub fn set_data_source<
         T: std::convert::Into<std::option::Option<crate::model::transfer_spec::DataSource>>,
     >(
@@ -3007,7 +3019,10 @@ impl TransferSpec {
         self
     }
 
-    /// Sets the value of `intermediate_data_location`.
+    /// Sets the value of [intermediate_data_location][crate::model::TransferSpec::intermediate_data_location].
+    ///
+    /// Note that all the setters affecting `intermediate_data_location` are mutually
+    /// exclusive.
     pub fn set_intermediate_data_location<
         T: std::convert::Into<
                 std::option::Option<crate::model::transfer_spec::IntermediateDataLocation>,
@@ -3173,7 +3188,10 @@ impl ReplicationSpec {
         self
     }
 
-    /// Sets the value of `data_source`.
+    /// Sets the value of [data_source][crate::model::ReplicationSpec::data_source].
+    ///
+    /// Note that all the setters affecting `data_source` are mutually
+    /// exclusive.
     pub fn set_data_source<
         T: std::convert::Into<std::option::Option<crate::model::replication_spec::DataSource>>,
     >(
@@ -3214,7 +3232,10 @@ impl ReplicationSpec {
         self
     }
 
-    /// Sets the value of `data_sink`.
+    /// Sets the value of [data_sink][crate::model::ReplicationSpec::data_sink].
+    ///
+    /// Note that all the setters affecting `data_sink` are mutually
+    /// exclusive.
     pub fn set_data_sink<
         T: std::convert::Into<std::option::Option<crate::model::replication_spec::DataSink>>,
     >(

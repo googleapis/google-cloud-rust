@@ -361,7 +361,10 @@ impl Connection {
         self
     }
 
-    /// Sets the value of `connection_config`.
+    /// Sets the value of [connection_config][crate::model::Connection::connection_config].
+    ///
+    /// Note that all the setters affecting `connection_config` are mutually
+    /// exclusive.
     pub fn set_connection_config<
         T: std::convert::Into<std::option::Option<crate::model::connection::ConnectionConfig>>,
     >(

@@ -497,7 +497,10 @@ impl CommonFeatureSpec {
         std::default::Default::default()
     }
 
-    /// Sets the value of `feature_spec`.
+    /// Sets the value of [feature_spec][crate::model::CommonFeatureSpec::feature_spec].
+    ///
+    /// Note that all the setters affecting `feature_spec` are mutually
+    /// exclusive.
     pub fn set_feature_spec<
         T: std::convert::Into<std::option::Option<crate::model::common_feature_spec::FeatureSpec>>,
     >(
@@ -616,7 +619,10 @@ impl MembershipFeatureSpec {
         std::default::Default::default()
     }
 
-    /// Sets the value of `feature_spec`.
+    /// Sets the value of [feature_spec][crate::model::MembershipFeatureSpec::feature_spec].
+    ///
+    /// Note that all the setters affecting `feature_spec` are mutually
+    /// exclusive.
     pub fn set_feature_spec<
         T: std::convert::Into<std::option::Option<crate::model::membership_feature_spec::FeatureSpec>>,
     >(
@@ -713,7 +719,10 @@ impl MembershipFeatureState {
         self
     }
 
-    /// Sets the value of `feature_state`.
+    /// Sets the value of [feature_state][crate::model::MembershipFeatureState::feature_state].
+    ///
+    /// Note that all the setters affecting `feature_state` are mutually
+    /// exclusive.
     pub fn set_feature_state<
         T: std::convert::Into<
                 std::option::Option<crate::model::membership_feature_state::FeatureState>,
@@ -976,7 +985,10 @@ impl Membership {
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::Membership::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::membership::Type>>>(
         mut self,
         v: T,

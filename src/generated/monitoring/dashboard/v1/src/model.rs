@@ -1068,7 +1068,10 @@ impl Dashboard {
         self
     }
 
-    /// Sets the value of `layout`.
+    /// Sets the value of [layout][crate::model::Dashboard::layout].
+    ///
+    /// Note that all the setters affecting `layout` are mutually
+    /// exclusive.
     pub fn set_layout<
         T: std::convert::Into<std::option::Option<crate::model::dashboard::Layout>>,
     >(
@@ -1273,7 +1276,10 @@ impl DashboardFilter {
         self
     }
 
-    /// Sets the value of `default_value`.
+    /// Sets the value of [default_value][crate::model::DashboardFilter::default_value].
+    ///
+    /// Note that all the setters affecting `default_value` are mutually
+    /// exclusive.
     pub fn set_default_value<
         T: std::convert::Into<std::option::Option<crate::model::dashboard_filter::DefaultValue>>,
     >(
@@ -2313,7 +2319,10 @@ impl TimeSeriesQuery {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::TimeSeriesQuery::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::time_series_query::Source>>,
     >(
@@ -2538,7 +2547,10 @@ impl TimeSeriesFilter {
         self
     }
 
-    /// Sets the value of `output_filter`.
+    /// Sets the value of [output_filter][crate::model::TimeSeriesFilter::output_filter].
+    ///
+    /// Note that all the setters affecting `output_filter` are mutually
+    /// exclusive.
     pub fn set_output_filter<
         T: std::convert::Into<std::option::Option<crate::model::time_series_filter::OutputFilter>>,
     >(
@@ -2705,7 +2717,10 @@ impl TimeSeriesFilterRatio {
         self
     }
 
-    /// Sets the value of `output_filter`.
+    /// Sets the value of [output_filter][crate::model::TimeSeriesFilterRatio::output_filter].
+    ///
+    /// Note that all the setters affecting `output_filter` are mutually
+    /// exclusive.
     pub fn set_output_filter<
         T: std::convert::Into<
                 std::option::Option<crate::model::time_series_filter_ratio::OutputFilter>,
@@ -3413,7 +3428,10 @@ impl Scorecard {
         self
     }
 
-    /// Sets the value of `data_view`.
+    /// Sets the value of [data_view][crate::model::Scorecard::data_view].
+    ///
+    /// Note that all the setters affecting `data_view` are mutually
+    /// exclusive.
     pub fn set_data_view<
         T: std::convert::Into<std::option::Option<crate::model::scorecard::DataView>>,
     >(
@@ -4664,7 +4682,10 @@ impl Widget {
         self
     }
 
-    /// Sets the value of `content`.
+    /// Sets the value of [content][crate::model::Widget::content].
+    ///
+    /// Note that all the setters affecting `content` are mutually
+    /// exclusive.
     pub fn set_content<
         T: std::convert::Into<std::option::Option<crate::model::widget::Content>>,
     >(

@@ -146,7 +146,10 @@ pub mod check_onboarding_status_response {
             std::default::Default::default()
         }
 
-        /// Sets the value of `finding_type`.
+        /// Sets the value of [finding_type][crate::model::check_onboarding_status_response::Finding::finding_type].
+        ///
+        /// Note that all the setters affecting `finding_type` are mutually
+        /// exclusive.
         pub fn set_finding_type<
             T: std::convert::Into<
                     std::option::Option<
@@ -485,7 +488,10 @@ pub mod entitlement {
             std::default::Default::default()
         }
 
-        /// Sets the value of `justification_type`.
+        /// Sets the value of [justification_type][crate::model::entitlement::RequesterJustificationConfig::justification_type].
+        ///
+        /// Note that all the setters affecting `justification_type` are mutually
+        /// exclusive.
         pub fn set_justification_type<T: std::convert::Into<std::option::Option<crate::model::entitlement::requester_justification_config::JustificationType>>>(mut self, v: T) -> Self
         {
             self.justification_type = v.into();
@@ -838,7 +844,10 @@ impl ApprovalWorkflow {
         std::default::Default::default()
     }
 
-    /// Sets the value of `approval_workflow`.
+    /// Sets the value of [approval_workflow][crate::model::ApprovalWorkflow::approval_workflow].
+    ///
+    /// Note that all the setters affecting `approval_workflow` are mutually
+    /// exclusive.
     pub fn set_approval_workflow<
         T: std::convert::Into<std::option::Option<crate::model::approval_workflow::ApprovalWorkflow>>,
     >(
@@ -1054,7 +1063,10 @@ impl PrivilegedAccess {
         std::default::Default::default()
     }
 
-    /// Sets the value of `access_type`.
+    /// Sets the value of [access_type][crate::model::PrivilegedAccess::access_type].
+    ///
+    /// Note that all the setters affecting `access_type` are mutually
+    /// exclusive.
     pub fn set_access_type<
         T: std::convert::Into<std::option::Option<crate::model::privileged_access::AccessType>>,
     >(
@@ -2110,7 +2122,10 @@ pub mod grant {
                 self
             }
 
-            /// Sets the value of `event`.
+            /// Sets the value of [event][crate::model::grant::timeline::Event::event].
+            ///
+            /// Note that all the setters affecting `event` are mutually
+            /// exclusive.
             pub fn set_event<
                 T: std::convert::Into<
                         std::option::Option<crate::model::grant::timeline::event::Event>,
@@ -3036,7 +3051,10 @@ impl Justification {
         std::default::Default::default()
     }
 
-    /// Sets the value of `justification`.
+    /// Sets the value of [justification][crate::model::Justification::justification].
+    ///
+    /// Note that all the setters affecting `justification` are mutually
+    /// exclusive.
     pub fn set_justification<
         T: std::convert::Into<std::option::Option<crate::model::justification::Justification>>,
     >(

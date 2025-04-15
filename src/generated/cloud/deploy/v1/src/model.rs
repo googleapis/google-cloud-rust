@@ -358,7 +358,10 @@ impl DeliveryPipeline {
         self
     }
 
-    /// Sets the value of `pipeline`.
+    /// Sets the value of [pipeline][crate::model::DeliveryPipeline::pipeline].
+    ///
+    /// Note that all the setters affecting `pipeline` are mutually
+    /// exclusive.
     pub fn set_pipeline<
         T: std::convert::Into<std::option::Option<crate::model::delivery_pipeline::Pipeline>>,
     >(
@@ -618,7 +621,10 @@ impl Strategy {
         std::default::Default::default()
     }
 
-    /// Sets the value of `deployment_strategy`.
+    /// Sets the value of [deployment_strategy][crate::model::Strategy::deployment_strategy].
+    ///
+    /// Note that all the setters affecting `deployment_strategy` are mutually
+    /// exclusive.
     pub fn set_deployment_strategy<
         T: std::convert::Into<std::option::Option<crate::model::strategy::DeploymentStrategy>>,
     >(
@@ -877,7 +883,10 @@ impl Canary {
         self
     }
 
-    /// Sets the value of `mode`.
+    /// Sets the value of [mode][crate::model::Canary::mode].
+    ///
+    /// Note that all the setters affecting `mode` are mutually
+    /// exclusive.
     pub fn set_mode<T: std::convert::Into<std::option::Option<crate::model::canary::Mode>>>(
         mut self,
         v: T,
@@ -1216,7 +1225,10 @@ impl KubernetesConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `service_definition`.
+    /// Sets the value of [service_definition][crate::model::KubernetesConfig::service_definition].
+    ///
+    /// Note that all the setters affecting `service_definition` are mutually
+    /// exclusive.
     pub fn set_service_definition<
         T: std::convert::Into<std::option::Option<crate::model::kubernetes_config::ServiceDefinition>>,
     >(
@@ -1677,7 +1689,10 @@ impl RuntimeConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `runtime_config`.
+    /// Sets the value of [runtime_config][crate::model::RuntimeConfig::runtime_config].
+    ///
+    /// Note that all the setters affecting `runtime_config` are mutually
+    /// exclusive.
     pub fn set_runtime_config<
         T: std::convert::Into<std::option::Option<crate::model::runtime_config::RuntimeConfig>>,
     >(
@@ -2897,7 +2912,10 @@ impl Target {
         self
     }
 
-    /// Sets the value of `deployment_target`.
+    /// Sets the value of [deployment_target][crate::model::Target::deployment_target].
+    ///
+    /// Note that all the setters affecting `deployment_target` are mutually
+    /// exclusive.
     pub fn set_deployment_target<
         T: std::convert::Into<std::option::Option<crate::model::target::DeploymentTarget>>,
     >(
@@ -3178,7 +3196,10 @@ impl ExecutionConfig {
         self
     }
 
-    /// Sets the value of `execution_environment`.
+    /// Sets the value of [execution_environment][crate::model::ExecutionConfig::execution_environment].
+    ///
+    /// Note that all the setters affecting `execution_environment` are mutually
+    /// exclusive.
     pub fn set_execution_environment<
         T: std::convert::Into<
                 std::option::Option<crate::model::execution_config::ExecutionEnvironment>,
@@ -4339,7 +4360,10 @@ impl CustomTargetType {
         self
     }
 
-    /// Sets the value of `definition`.
+    /// Sets the value of [definition][crate::model::CustomTargetType::definition].
+    ///
+    /// Note that all the setters affecting `definition` are mutually
+    /// exclusive.
     pub fn set_definition<
         T: std::convert::Into<std::option::Option<crate::model::custom_target_type::Definition>>,
     >(
@@ -4500,7 +4524,10 @@ impl SkaffoldModules {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::SkaffoldModules::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::skaffold_modules::Source>>,
     >(
@@ -5695,7 +5722,10 @@ impl PolicyRule {
         std::default::Default::default()
     }
 
-    /// Sets the value of `rule`.
+    /// Sets the value of [rule][crate::model::PolicyRule::rule].
+    ///
+    /// Note that all the setters affecting `rule` are mutually
+    /// exclusive.
     pub fn set_rule<T: std::convert::Into<std::option::Option<crate::model::policy_rule::Rule>>>(
         mut self,
         v: T,
@@ -7664,7 +7694,10 @@ impl TargetArtifact {
         self
     }
 
-    /// Sets the value of `uri`.
+    /// Sets the value of [uri][crate::model::TargetArtifact::uri].
+    ///
+    /// Note that all the setters affecting `uri` are mutually
+    /// exclusive.
     pub fn set_uri<
         T: std::convert::Into<std::option::Option<crate::model::target_artifact::Uri>>,
     >(
@@ -9213,7 +9246,10 @@ impl Phase {
         self
     }
 
-    /// Sets the value of `jobs`.
+    /// Sets the value of [jobs][crate::model::Phase::jobs].
+    ///
+    /// Note that all the setters affecting `jobs` are mutually
+    /// exclusive.
     pub fn set_jobs<T: std::convert::Into<std::option::Option<crate::model::phase::Jobs>>>(
         mut self,
         v: T,
@@ -9566,7 +9602,10 @@ impl Job {
         self
     }
 
-    /// Sets the value of `job_type`.
+    /// Sets the value of [job_type][crate::model::Job::job_type].
+    ///
+    /// Note that all the setters affecting `job_type` are mutually
+    /// exclusive.
     pub fn set_job_type<T: std::convert::Into<std::option::Option<crate::model::job::JobType>>>(
         mut self,
         v: T,
@@ -11023,7 +11062,10 @@ impl JobRun {
         self
     }
 
-    /// Sets the value of `job_run`.
+    /// Sets the value of [job_run][crate::model::JobRun::job_run].
+    ///
+    /// Note that all the setters affecting `job_run` are mutually
+    /// exclusive.
     pub fn set_job_run<
         T: std::convert::Into<std::option::Option<crate::model::job_run::JobRun>>,
     >(
@@ -12745,7 +12787,10 @@ impl AutomationRule {
         std::default::Default::default()
     }
 
-    /// Sets the value of `rule`.
+    /// Sets the value of [rule][crate::model::AutomationRule::rule].
+    ///
+    /// Note that all the setters affecting `rule` are mutually
+    /// exclusive.
     pub fn set_rule<
         T: std::convert::Into<std::option::Option<crate::model::automation_rule::Rule>>,
     >(
@@ -13324,7 +13369,10 @@ impl RepairPhaseConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `repair_phase`.
+    /// Sets the value of [repair_phase][crate::model::RepairPhaseConfig::repair_phase].
+    ///
+    /// Note that all the setters affecting `repair_phase` are mutually
+    /// exclusive.
     pub fn set_repair_phase<
         T: std::convert::Into<std::option::Option<crate::model::repair_phase_config::RepairPhase>>,
     >(
@@ -13560,7 +13608,10 @@ impl AutomationRuleCondition {
         self
     }
 
-    /// Sets the value of `rule_type_condition`.
+    /// Sets the value of [rule_type_condition][crate::model::AutomationRuleCondition::rule_type_condition].
+    ///
+    /// Note that all the setters affecting `rule_type_condition` are mutually
+    /// exclusive.
     pub fn set_rule_type_condition<
         T: std::convert::Into<
                 std::option::Option<crate::model::automation_rule_condition::RuleTypeCondition>,
@@ -14396,7 +14447,10 @@ impl AutomationRun {
         self
     }
 
-    /// Sets the value of `operation`.
+    /// Sets the value of [operation][crate::model::AutomationRun::operation].
+    ///
+    /// Note that all the setters affecting `operation` are mutually
+    /// exclusive.
     pub fn set_operation<
         T: std::convert::Into<std::option::Option<crate::model::automation_run::Operation>>,
     >(
@@ -14929,7 +14983,10 @@ impl RepairPhase {
         std::default::Default::default()
     }
 
-    /// Sets the value of `repair_phase`.
+    /// Sets the value of [repair_phase][crate::model::RepairPhase::repair_phase].
+    ///
+    /// Note that all the setters affecting `repair_phase` are mutually
+    /// exclusive.
     pub fn set_repair_phase<
         T: std::convert::Into<std::option::Option<crate::model::repair_phase::RepairPhase>>,
     >(

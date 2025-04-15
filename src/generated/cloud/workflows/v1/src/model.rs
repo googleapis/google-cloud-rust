@@ -346,7 +346,10 @@ impl Workflow {
         self
     }
 
-    /// Sets the value of `source_code`.
+    /// Sets the value of [source_code][crate::model::Workflow::source_code].
+    ///
+    /// Note that all the setters affecting `source_code` are mutually
+    /// exclusive.
     pub fn set_source_code<
         T: std::convert::Into<std::option::Option<crate::model::workflow::SourceCode>>,
     >(

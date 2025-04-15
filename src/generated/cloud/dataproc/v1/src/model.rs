@@ -140,7 +140,10 @@ impl AutoscalingPolicy {
         self
     }
 
-    /// Sets the value of `algorithm`.
+    /// Sets the value of [algorithm][crate::model::AutoscalingPolicy::algorithm].
+    ///
+    /// Note that all the setters affecting `algorithm` are mutually
+    /// exclusive.
     pub fn set_algorithm<
         T: std::convert::Into<std::option::Option<crate::model::autoscaling_policy::Algorithm>>,
     >(
@@ -238,7 +241,10 @@ impl BasicAutoscalingAlgorithm {
         self
     }
 
-    /// Sets the value of `config`.
+    /// Sets the value of [config][crate::model::BasicAutoscalingAlgorithm::config].
+    ///
+    /// Note that all the setters affecting `config` are mutually
+    /// exclusive.
     pub fn set_config<
         T: std::convert::Into<std::option::Option<crate::model::basic_autoscaling_algorithm::Config>>,
     >(
@@ -1294,7 +1300,10 @@ impl Batch {
         self
     }
 
-    /// Sets the value of `batch_config`.
+    /// Sets the value of [batch_config][crate::model::Batch::batch_config].
+    ///
+    /// Note that all the setters affecting `batch_config` are mutually
+    /// exclusive.
     pub fn set_batch_config<
         T: std::convert::Into<std::option::Option<crate::model::batch::BatchConfig>>,
     >(
@@ -1791,7 +1800,10 @@ impl SparkBatch {
         self
     }
 
-    /// Sets the value of `driver`.
+    /// Sets the value of [driver][crate::model::SparkBatch::driver].
+    ///
+    /// Note that all the setters affecting `driver` are mutually
+    /// exclusive.
     pub fn set_driver<
         T: std::convert::Into<std::option::Option<crate::model::spark_batch::Driver>>,
     >(
@@ -2543,7 +2555,10 @@ impl VirtualClusterConfig {
         self
     }
 
-    /// Sets the value of `infrastructure_config`.
+    /// Sets the value of [infrastructure_config][crate::model::VirtualClusterConfig::infrastructure_config].
+    ///
+    /// Note that all the setters affecting `infrastructure_config` are mutually
+    /// exclusive.
     pub fn set_infrastructure_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::virtual_cluster_config::InfrastructureConfig>,
@@ -5198,7 +5213,10 @@ impl LifecycleConfig {
         self
     }
 
-    /// Sets the value of `ttl`.
+    /// Sets the value of [ttl][crate::model::LifecycleConfig::ttl].
+    ///
+    /// Note that all the setters affecting `ttl` are mutually
+    /// exclusive.
     pub fn set_ttl<
         T: std::convert::Into<std::option::Option<crate::model::lifecycle_config::Ttl>>,
     >(
@@ -6953,7 +6971,10 @@ impl HadoopJob {
         self
     }
 
-    /// Sets the value of `driver`.
+    /// Sets the value of [driver][crate::model::HadoopJob::driver].
+    ///
+    /// Note that all the setters affecting `driver` are mutually
+    /// exclusive.
     pub fn set_driver<
         T: std::convert::Into<std::option::Option<crate::model::hadoop_job::Driver>>,
     >(
@@ -7171,7 +7192,10 @@ impl SparkJob {
         self
     }
 
-    /// Sets the value of `driver`.
+    /// Sets the value of [driver][crate::model::SparkJob::driver].
+    ///
+    /// Note that all the setters affecting `driver` are mutually
+    /// exclusive.
     pub fn set_driver<
         T: std::convert::Into<std::option::Option<crate::model::spark_job::Driver>>,
     >(
@@ -7555,7 +7579,10 @@ impl HiveJob {
         self
     }
 
-    /// Sets the value of `queries`.
+    /// Sets the value of [queries][crate::model::HiveJob::queries].
+    ///
+    /// Note that all the setters affecting `queries` are mutually
+    /// exclusive.
     pub fn set_queries<
         T: std::convert::Into<std::option::Option<crate::model::hive_job::Queries>>,
     >(
@@ -7724,7 +7751,10 @@ impl SparkSqlJob {
         self
     }
 
-    /// Sets the value of `queries`.
+    /// Sets the value of [queries][crate::model::SparkSqlJob::queries].
+    ///
+    /// Note that all the setters affecting `queries` are mutually
+    /// exclusive.
     pub fn set_queries<
         T: std::convert::Into<std::option::Option<crate::model::spark_sql_job::Queries>>,
     >(
@@ -7906,7 +7936,10 @@ impl PigJob {
         self
     }
 
-    /// Sets the value of `queries`.
+    /// Sets the value of [queries][crate::model::PigJob::queries].
+    ///
+    /// Note that all the setters affecting `queries` are mutually
+    /// exclusive.
     pub fn set_queries<
         T: std::convert::Into<std::option::Option<crate::model::pig_job::Queries>>,
     >(
@@ -8202,7 +8235,10 @@ impl PrestoJob {
         self
     }
 
-    /// Sets the value of `queries`.
+    /// Sets the value of [queries][crate::model::PrestoJob::queries].
+    ///
+    /// Note that all the setters affecting `queries` are mutually
+    /// exclusive.
     pub fn set_queries<
         T: std::convert::Into<std::option::Option<crate::model::presto_job::Queries>>,
     >(
@@ -8379,7 +8415,10 @@ impl TrinoJob {
         self
     }
 
-    /// Sets the value of `queries`.
+    /// Sets the value of [queries][crate::model::TrinoJob::queries].
+    ///
+    /// Note that all the setters affecting `queries` are mutually
+    /// exclusive.
     pub fn set_queries<
         T: std::convert::Into<std::option::Option<crate::model::trino_job::Queries>>,
     >(
@@ -8567,7 +8606,10 @@ impl FlinkJob {
         self
     }
 
-    /// Sets the value of `driver`.
+    /// Sets the value of [driver][crate::model::FlinkJob::driver].
+    ///
+    /// Note that all the setters affecting `driver` are mutually
+    /// exclusive.
     pub fn set_driver<
         T: std::convert::Into<std::option::Option<crate::model::flink_job::Driver>>,
     >(
@@ -9381,7 +9423,10 @@ impl Job {
         self
     }
 
-    /// Sets the value of `type_job`.
+    /// Sets the value of [type_job][crate::model::Job::type_job].
+    ///
+    /// Note that all the setters affecting `type_job` are mutually
+    /// exclusive.
     pub fn set_type_job<T: std::convert::Into<std::option::Option<crate::model::job::TypeJob>>>(
         mut self,
         v: T,
@@ -11906,7 +11951,10 @@ impl SessionTemplate {
         self
     }
 
-    /// Sets the value of `session_config`.
+    /// Sets the value of [session_config][crate::model::SessionTemplate::session_config].
+    ///
+    /// Note that all the setters affecting `session_config` are mutually
+    /// exclusive.
     pub fn set_session_config<
         T: std::convert::Into<std::option::Option<crate::model::session_template::SessionConfig>>,
     >(
@@ -12571,7 +12619,10 @@ impl Session {
         self
     }
 
-    /// Sets the value of `session_config`.
+    /// Sets the value of [session_config][crate::model::Session::session_config].
+    ///
+    /// Note that all the setters affecting `session_config` are mutually
+    /// exclusive.
     pub fn set_session_config<
         T: std::convert::Into<std::option::Option<crate::model::session::SessionConfig>>,
     >(
@@ -13221,7 +13272,10 @@ impl ExecutionConfig {
         self
     }
 
-    /// Sets the value of `network`.
+    /// Sets the value of [network][crate::model::ExecutionConfig::network].
+    ///
+    /// Note that all the setters affecting `network` are mutually
+    /// exclusive.
     pub fn set_network<
         T: std::convert::Into<std::option::Option<crate::model::execution_config::Network>>,
     >(
@@ -13789,7 +13843,10 @@ impl KubernetesClusterConfig {
         self
     }
 
-    /// Sets the value of `config`.
+    /// Sets the value of [config][crate::model::KubernetesClusterConfig::config].
+    ///
+    /// Note that all the setters affecting `config` are mutually
+    /// exclusive.
     pub fn set_config<
         T: std::convert::Into<std::option::Option<crate::model::kubernetes_cluster_config::Config>>,
     >(
@@ -14987,7 +15044,10 @@ impl WorkflowTemplatePlacement {
         std::default::Default::default()
     }
 
-    /// Sets the value of `placement`.
+    /// Sets the value of [placement][crate::model::WorkflowTemplatePlacement::placement].
+    ///
+    /// Note that all the setters affecting `placement` are mutually
+    /// exclusive.
     pub fn set_placement<
         T: std::convert::Into<
                 std::option::Option<crate::model::workflow_template_placement::Placement>,
@@ -15317,7 +15377,10 @@ impl OrderedJob {
         self
     }
 
-    /// Sets the value of `job_type`.
+    /// Sets the value of [job_type][crate::model::OrderedJob::job_type].
+    ///
+    /// Note that all the setters affecting `job_type` are mutually
+    /// exclusive.
     pub fn set_job_type<
         T: std::convert::Into<std::option::Option<crate::model::ordered_job::JobType>>,
     >(
@@ -15777,7 +15840,10 @@ impl ParameterValidation {
         std::default::Default::default()
     }
 
-    /// Sets the value of `validation_type`.
+    /// Sets the value of [validation_type][crate::model::ParameterValidation::validation_type].
+    ///
+    /// Note that all the setters affecting `validation_type` are mutually
+    /// exclusive.
     pub fn set_validation_type<
         T: std::convert::Into<std::option::Option<crate::model::parameter_validation::ValidationType>>,
     >(

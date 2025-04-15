@@ -1745,7 +1745,10 @@ impl HttpRequest {
         self
     }
 
-    /// Sets the value of `authorization_header`.
+    /// Sets the value of [authorization_header][crate::model::HttpRequest::authorization_header].
+    ///
+    /// Note that all the setters affecting `authorization_header` are mutually
+    /// exclusive.
     pub fn set_authorization_header<
         T: std::convert::Into<std::option::Option<crate::model::http_request::AuthorizationHeader>>,
     >(
@@ -2546,7 +2549,10 @@ impl Task {
         self
     }
 
-    /// Sets the value of `message_type`.
+    /// Sets the value of [message_type][crate::model::Task::message_type].
+    ///
+    /// Note that all the setters affecting `message_type` are mutually
+    /// exclusive.
     pub fn set_message_type<
         T: std::convert::Into<std::option::Option<crate::model::task::MessageType>>,
     >(

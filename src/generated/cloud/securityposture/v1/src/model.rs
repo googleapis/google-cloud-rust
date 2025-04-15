@@ -76,7 +76,10 @@ impl PolicyRule {
         self
     }
 
-    /// Sets the value of `kind`.
+    /// Sets the value of [kind][crate::model::PolicyRule::kind].
+    ///
+    /// Note that all the setters affecting `kind` are mutually
+    /// exclusive.
     pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::policy_rule::Kind>>>(
         mut self,
         v: T,
@@ -1186,7 +1189,10 @@ impl Constraint {
         std::default::Default::default()
     }
 
-    /// Sets the value of `implementation`.
+    /// Sets the value of [implementation][crate::model::Constraint::implementation].
+    ///
+    /// Note that all the setters affecting `implementation` are mutually
+    /// exclusive.
     pub fn set_implementation<
         T: std::convert::Into<std::option::Option<crate::model::constraint::Implementation>>,
     >(

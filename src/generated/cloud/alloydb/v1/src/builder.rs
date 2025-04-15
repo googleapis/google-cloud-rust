@@ -809,12 +809,45 @@ pub mod alloy_db_admin {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::RestoreClusterRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::restore_cluster_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::RestoreClusterRequest::source]
+        /// to hold a `BackupSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_backup_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::BackupSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_backup_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::RestoreClusterRequest::source]
+        /// to hold a `ContinuousBackupSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_continuous_backup_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::ContinuousBackupSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_continuous_backup_source(v);
             self
         }
     }
@@ -1952,7 +1985,10 @@ pub mod alloy_db_admin {
             self
         }
 
-        /// Sets the value of `user_credential`.
+        /// Sets the value of [user_credential][crate::model::ExecuteSqlRequest::user_credential].
+        ///
+        /// Note that all the setters affecting `user_credential` are
+        /// mutually exclusive.
         pub fn set_user_credential<
             T: Into<Option<crate::model::execute_sql_request::UserCredential>>,
         >(
@@ -1960,6 +1996,16 @@ pub mod alloy_db_admin {
             v: T,
         ) -> Self {
             self.0.request.user_credential = v.into();
+            self
+        }
+
+        /// Sets the value of [user_credential][crate::model::ExecuteSqlRequest::user_credential]
+        /// to hold a `Password`.
+        ///
+        /// Note that all the setters affecting `user_credential` are
+        /// mutually exclusive.
+        pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_password(v);
             self
         }
     }

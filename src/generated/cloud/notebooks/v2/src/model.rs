@@ -421,7 +421,10 @@ impl VmImage {
         self
     }
 
-    /// Sets the value of `image`.
+    /// Sets the value of [image][crate::model::VmImage::image].
+    ///
+    /// Note that all the setters affecting `image` are mutually
+    /// exclusive.
     pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::vm_image::Image>>>(
         mut self,
         v: T,
@@ -1189,7 +1192,10 @@ impl GceSetup {
         self
     }
 
-    /// Sets the value of `image`.
+    /// Sets the value of [image][crate::model::GceSetup::image].
+    ///
+    /// Note that all the setters affecting `image` are mutually
+    /// exclusive.
     pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::gce_setup::Image>>>(
         mut self,
         v: T,
@@ -1717,7 +1723,10 @@ impl Instance {
         self
     }
 
-    /// Sets the value of `infrastructure`.
+    /// Sets the value of [infrastructure][crate::model::Instance::infrastructure].
+    ///
+    /// Note that all the setters affecting `infrastructure` are mutually
+    /// exclusive.
     pub fn set_infrastructure<
         T: std::convert::Into<std::option::Option<crate::model::instance::Infrastructure>>,
     >(

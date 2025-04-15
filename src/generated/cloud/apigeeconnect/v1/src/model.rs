@@ -357,7 +357,10 @@ impl Payload {
         std::default::Default::default()
     }
 
-    /// Sets the value of `kind`.
+    /// Sets the value of [kind][crate::model::Payload::kind].
+    ///
+    /// Note that all the setters affecting `kind` are mutually
+    /// exclusive.
     pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::payload::Kind>>>(
         mut self,
         v: T,

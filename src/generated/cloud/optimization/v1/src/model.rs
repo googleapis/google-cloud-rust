@@ -65,7 +65,10 @@ impl InputConfig {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::InputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::input_config::Source>>,
     >(
@@ -157,7 +160,10 @@ impl OutputConfig {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::OutputConfig::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
     >(
@@ -4752,7 +4758,10 @@ impl Waypoint {
         self
     }
 
-    /// Sets the value of `location_type`.
+    /// Sets the value of [location_type][crate::model::Waypoint::location_type].
+    ///
+    /// Note that all the setters affecting `location_type` are mutually
+    /// exclusive.
     pub fn set_location_type<
         T: std::convert::Into<std::option::Option<crate::model::waypoint::LocationType>>,
     >(
@@ -7481,7 +7490,10 @@ pub mod optimize_tours_validation_error {
             self
         }
 
-        /// Sets the value of `index_or_key`.
+        /// Sets the value of [index_or_key][crate::model::optimize_tours_validation_error::FieldReference::index_or_key].
+        ///
+        /// Note that all the setters affecting `index_or_key` are mutually
+        /// exclusive.
         pub fn set_index_or_key<
             T: std::convert::Into<
                     std::option::Option<

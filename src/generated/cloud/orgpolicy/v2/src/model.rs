@@ -130,7 +130,10 @@ impl Constraint {
         self
     }
 
-    /// Sets the value of `constraint_type`.
+    /// Sets the value of [constraint_type][crate::model::Constraint::constraint_type].
+    ///
+    /// Note that all the setters affecting `constraint_type` are mutually
+    /// exclusive.
     pub fn set_constraint_type<
         T: std::convert::Into<std::option::Option<crate::model::constraint::ConstraintType>>,
     >(
@@ -961,7 +964,10 @@ pub mod policy_spec {
             self
         }
 
-        /// Sets the value of `kind`.
+        /// Sets the value of [kind][crate::model::policy_spec::PolicyRule::kind].
+        ///
+        /// Note that all the setters affecting `kind` are mutually
+        /// exclusive.
         pub fn set_kind<
             T: std::convert::Into<std::option::Option<crate::model::policy_spec::policy_rule::Kind>>,
         >(

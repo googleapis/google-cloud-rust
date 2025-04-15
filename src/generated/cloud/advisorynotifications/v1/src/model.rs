@@ -354,7 +354,10 @@ impl Attachment {
         self
     }
 
-    /// Sets the value of `data`.
+    /// Sets the value of [data][crate::model::Attachment::data].
+    ///
+    /// Note that all the setters affecting `data` are mutually
+    /// exclusive.
     pub fn set_data<T: std::convert::Into<std::option::Option<crate::model::attachment::Data>>>(
         mut self,
         v: T,

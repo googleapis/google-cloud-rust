@@ -766,7 +766,10 @@ impl ExportAgentResponse {
         std::default::Default::default()
     }
 
-    /// Sets the value of `agent`.
+    /// Sets the value of [agent][crate::model::ExportAgentResponse::agent].
+    ///
+    /// Note that all the setters affecting `agent` are mutually
+    /// exclusive.
     pub fn set_agent<
         T: std::convert::Into<std::option::Option<crate::model::export_agent_response::Agent>>,
     >(
@@ -883,7 +886,10 @@ impl ImportAgentRequest {
         self
     }
 
-    /// Sets the value of `agent`.
+    /// Sets the value of [agent][crate::model::ImportAgentRequest::agent].
+    ///
+    /// Note that all the setters affecting `agent` are mutually
+    /// exclusive.
     pub fn set_agent<
         T: std::convert::Into<std::option::Option<crate::model::import_agent_request::Agent>>,
     >(
@@ -1006,7 +1012,10 @@ impl RestoreAgentRequest {
         self
     }
 
-    /// Sets the value of `agent`.
+    /// Sets the value of [agent][crate::model::RestoreAgentRequest::agent].
+    ///
+    /// Note that all the setters affecting `agent` are mutually
+    /// exclusive.
     pub fn set_agent<
         T: std::convert::Into<std::option::Option<crate::model::restore_agent_request::Agent>>,
     >(
@@ -1227,7 +1236,10 @@ impl AnswerRecord {
         self
     }
 
-    /// Sets the value of `record`.
+    /// Sets the value of [record][crate::model::AnswerRecord::record].
+    ///
+    /// Note that all the setters affecting `record` are mutually
+    /// exclusive.
     pub fn set_record<
         T: std::convert::Into<std::option::Option<crate::model::answer_record::Record>>,
     >(
@@ -1589,7 +1601,10 @@ impl AnswerFeedback {
         self
     }
 
-    /// Sets the value of `detail_feedback`.
+    /// Sets the value of [detail_feedback][crate::model::AnswerFeedback::detail_feedback].
+    ///
+    /// Note that all the setters affecting `detail_feedback` are mutually
+    /// exclusive.
     pub fn set_detail_feedback<
         T: std::convert::Into<std::option::Option<crate::model::answer_feedback::DetailFeedback>>,
     >(
@@ -2264,7 +2279,10 @@ impl AgentAssistantRecord {
         std::default::Default::default()
     }
 
-    /// Sets the value of `answer`.
+    /// Sets the value of [answer][crate::model::AgentAssistantRecord::answer].
+    ///
+    /// Note that all the setters affecting `answer` are mutually
+    /// exclusive.
     pub fn set_answer<
         T: std::convert::Into<std::option::Option<crate::model::agent_assistant_record::Answer>>,
     >(
@@ -5545,7 +5563,10 @@ impl GenerateStatelessSuggestionRequest {
         self
     }
 
-    /// Sets the value of `generator_resource`.
+    /// Sets the value of [generator_resource][crate::model::GenerateStatelessSuggestionRequest::generator_resource].
+    ///
+    /// Note that all the setters affecting `generator_resource` are mutually
+    /// exclusive.
     pub fn set_generator_resource<
         T: std::convert::Into<
                 std::option::Option<
@@ -6922,7 +6943,10 @@ impl InputConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::InputConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::input_config::Source>>,
     >(
@@ -7660,7 +7684,10 @@ impl ConversationEvent {
         self
     }
 
-    /// Sets the value of `payload`.
+    /// Sets the value of [payload][crate::model::ConversationEvent::payload].
+    ///
+    /// Note that all the setters affecting `payload` are mutually
+    /// exclusive.
     pub fn set_payload<
         T: std::convert::Into<std::option::Option<crate::model::conversation_event::Payload>>,
     >(
@@ -7982,7 +8009,10 @@ impl ConversationModel {
         self
     }
 
-    /// Sets the value of `model_metadata`.
+    /// Sets the value of [model_metadata][crate::model::ConversationModel::model_metadata].
+    ///
+    /// Note that all the setters affecting `model_metadata` are mutually
+    /// exclusive.
     pub fn set_model_metadata<
         T: std::convert::Into<std::option::Option<crate::model::conversation_model::ModelMetadata>>,
     >(
@@ -8331,7 +8361,10 @@ impl ConversationModelEvaluation {
         self
     }
 
-    /// Sets the value of `metrics`.
+    /// Sets the value of [metrics][crate::model::ConversationModelEvaluation::metrics].
+    ///
+    /// Note that all the setters affecting `metrics` are mutually
+    /// exclusive.
     pub fn set_metrics<
         T: std::convert::Into<
                 std::option::Option<crate::model::conversation_model_evaluation::Metrics>,
@@ -8433,7 +8466,10 @@ impl EvaluationConfig {
         self
     }
 
-    /// Sets the value of `model_specific_config`.
+    /// Sets the value of [model_specific_config][crate::model::EvaluationConfig::model_specific_config].
+    ///
+    /// Note that all the setters affecting `model_specific_config` are mutually
+    /// exclusive.
     pub fn set_model_specific_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::evaluation_config::ModelSpecificConfig>,
@@ -11012,7 +11048,10 @@ pub mod human_agent_assistant_config {
             self
         }
 
-        /// Sets the value of `query_source`.
+        /// Sets the value of [query_source][crate::model::human_agent_assistant_config::SuggestionQueryConfig::query_source].
+        ///
+        /// Note that all the setters affecting `query_source` are mutually
+        /// exclusive.
         pub fn set_query_source<T: std::convert::Into<std::option::Option<crate::model::human_agent_assistant_config::suggestion_query_config::QuerySource>>>(mut self, v: T) -> Self
         {
             self.query_source = v.into();
@@ -11682,7 +11721,10 @@ impl HumanAgentHandoffConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `agent_service`.
+    /// Sets the value of [agent_service][crate::model::HumanAgentHandoffConfig::agent_service].
+    ///
+    /// Note that all the setters affecting `agent_service` are mutually
+    /// exclusive.
     pub fn set_agent_service<
         T: std::convert::Into<
                 std::option::Option<crate::model::human_agent_handoff_config::AgentService>,
@@ -12645,7 +12687,10 @@ impl Document {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::Document::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::document::Source>>,
     >(
@@ -13239,7 +13284,10 @@ impl ImportDocumentsRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportDocumentsRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_documents_request::Source>>,
     >(
@@ -13571,7 +13619,10 @@ impl ReloadDocumentRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ReloadDocumentRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::reload_document_request::Source>>,
     >(
@@ -13694,7 +13745,10 @@ impl ExportDocumentRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportDocumentRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_document_request::Destination>>,
     >(
@@ -13838,7 +13892,10 @@ impl KnowledgeOperationMetadata {
         self
     }
 
-    /// Sets the value of `operation_metadata`.
+    /// Sets the value of [operation_metadata][crate::model::KnowledgeOperationMetadata::operation_metadata].
+    ///
+    /// Note that all the setters affecting `operation_metadata` are mutually
+    /// exclusive.
     pub fn set_operation_metadata<
         T: std::convert::Into<
                 std::option::Option<crate::model::knowledge_operation_metadata::OperationMetadata>,
@@ -14871,7 +14928,10 @@ impl BatchUpdateEntityTypesRequest {
         self
     }
 
-    /// Sets the value of `entity_type_batch`.
+    /// Sets the value of [entity_type_batch][crate::model::BatchUpdateEntityTypesRequest::entity_type_batch].
+    ///
+    /// Note that all the setters affecting `entity_type_batch` are mutually
+    /// exclusive.
     pub fn set_entity_type_batch<
         T: std::convert::Into<
                 std::option::Option<
@@ -16236,7 +16296,10 @@ impl Fulfillment {
         self
     }
 
-    /// Sets the value of `fulfillment`.
+    /// Sets the value of [fulfillment][crate::model::Fulfillment::fulfillment].
+    ///
+    /// Note that all the setters affecting `fulfillment` are mutually
+    /// exclusive.
     pub fn set_fulfillment<
         T: std::convert::Into<std::option::Option<crate::model::fulfillment::Fulfillment>>,
     >(
@@ -17225,7 +17288,10 @@ impl FewShotExample {
         self
     }
 
-    /// Sets the value of `instruction_list`.
+    /// Sets the value of [instruction_list][crate::model::FewShotExample::instruction_list].
+    ///
+    /// Note that all the setters affecting `instruction_list` are mutually
+    /// exclusive.
     pub fn set_instruction_list<
         T: std::convert::Into<std::option::Option<crate::model::few_shot_example::InstructionList>>,
     >(
@@ -17754,7 +17820,10 @@ impl Generator {
         self
     }
 
-    /// Sets the value of `context`.
+    /// Sets the value of [context][crate::model::Generator::context].
+    ///
+    /// Note that all the setters affecting `context` are mutually
+    /// exclusive.
     pub fn set_context<
         T: std::convert::Into<std::option::Option<crate::model::generator::Context>>,
     >(
@@ -17826,7 +17895,10 @@ impl Generator {
         self
     }
 
-    /// Sets the value of `foundation_model`.
+    /// Sets the value of [foundation_model][crate::model::Generator::foundation_model].
+    ///
+    /// Note that all the setters affecting `foundation_model` are mutually
+    /// exclusive.
     pub fn set_foundation_model<
         T: std::convert::Into<std::option::Option<crate::model::generator::FoundationModel>>,
     >(
@@ -18038,7 +18110,10 @@ impl GeneratorSuggestion {
         std::default::Default::default()
     }
 
-    /// Sets the value of `suggestion`.
+    /// Sets the value of [suggestion][crate::model::GeneratorSuggestion::suggestion].
+    ///
+    /// Note that all the setters affecting `suggestion` are mutually
+    /// exclusive.
     pub fn set_suggestion<
         T: std::convert::Into<std::option::Option<crate::model::generator_suggestion::Suggestion>>,
     >(
@@ -18925,7 +19000,10 @@ pub mod intent {
             self
         }
 
-        /// Sets the value of `message`.
+        /// Sets the value of [message][crate::model::intent::Message::message].
+        ///
+        /// Note that all the setters affecting `message` are mutually
+        /// exclusive.
         pub fn set_message<
             T: std::convert::Into<std::option::Option<crate::model::intent::message::Message>>,
         >(
@@ -20501,7 +20579,10 @@ pub mod intent {
                     self
                 }
 
-                /// Sets the value of `image`.
+                /// Sets the value of [image][crate::model::intent::message::media_content::ResponseMediaObject::image].
+                ///
+                /// Note that all the setters affecting `image` are mutually
+                /// exclusive.
                 pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::intent::message::media_content::response_media_object::Image>>>(mut self, v: T) -> Self
                 {
                     self.image = v.into();
@@ -22046,7 +22127,10 @@ impl BatchUpdateIntentsRequest {
         self
     }
 
-    /// Sets the value of `intent_batch`.
+    /// Sets the value of [intent_batch][crate::model::BatchUpdateIntentsRequest::intent_batch].
+    ///
+    /// Note that all the setters affecting `intent_batch` are mutually
+    /// exclusive.
     pub fn set_intent_batch<
         T: std::convert::Into<
                 std::option::Option<crate::model::batch_update_intents_request::IntentBatch>,
@@ -23421,7 +23505,10 @@ impl AnalyzeContentRequest {
         self
     }
 
-    /// Sets the value of `input`.
+    /// Sets the value of [input][crate::model::AnalyzeContentRequest::input].
+    ///
+    /// Note that all the setters affecting `input` are mutually
+    /// exclusive.
     pub fn set_input<
         T: std::convert::Into<std::option::Option<crate::model::analyze_content_request::Input>>,
     >(
@@ -23983,7 +24070,10 @@ impl StreamingAnalyzeContentRequest {
         self
     }
 
-    /// Sets the value of `config`.
+    /// Sets the value of [config][crate::model::StreamingAnalyzeContentRequest::config].
+    ///
+    /// Note that all the setters affecting `config` are mutually
+    /// exclusive.
     pub fn set_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::streaming_analyze_content_request::Config>,
@@ -24060,7 +24150,10 @@ impl StreamingAnalyzeContentRequest {
         self
     }
 
-    /// Sets the value of `input`.
+    /// Sets the value of [input][crate::model::StreamingAnalyzeContentRequest::input].
+    ///
+    /// Note that all the setters affecting `input` are mutually
+    /// exclusive.
     pub fn set_input<
         T: std::convert::Into<
                 std::option::Option<crate::model::streaming_analyze_content_request::Input>,
@@ -25528,7 +25621,10 @@ impl IntentSuggestion {
         self
     }
 
-    /// Sets the value of `intent`.
+    /// Sets the value of [intent][crate::model::IntentSuggestion::intent].
+    ///
+    /// Note that all the setters affecting `intent` are mutually
+    /// exclusive.
     pub fn set_intent<
         T: std::convert::Into<std::option::Option<crate::model::intent_suggestion::Intent>>,
     >(
@@ -25618,7 +25714,10 @@ impl DialogflowAssistAnswer {
         self
     }
 
-    /// Sets the value of `result`.
+    /// Sets the value of [result][crate::model::DialogflowAssistAnswer::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::dialogflow_assist_answer::Result>>,
     >(
@@ -25744,7 +25843,10 @@ impl SuggestionResult {
         std::default::Default::default()
     }
 
-    /// Sets the value of `suggestion_response`.
+    /// Sets the value of [suggestion_response][crate::model::SuggestionResult::suggestion_response].
+    ///
+    /// Note that all the setters affecting `suggestion_response` are mutually
+    /// exclusive.
     pub fn set_suggestion_response<
         T: std::convert::Into<
                 std::option::Option<crate::model::suggestion_result::SuggestionResponse>,
@@ -26516,7 +26618,10 @@ pub mod knowledge_assist_answer {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::knowledge_assist_answer::KnowledgeAnswer::source].
+        ///
+        /// Note that all the setters affecting `source` are mutually
+        /// exclusive.
         pub fn set_source<
             T: std::convert::Into<
                     std::option::Option<
@@ -27221,7 +27326,10 @@ impl QueryInput {
         std::default::Default::default()
     }
 
-    /// Sets the value of `input`.
+    /// Sets the value of [input][crate::model::QueryInput::input].
+    ///
+    /// Note that all the setters affecting `input` are mutually
+    /// exclusive.
     pub fn set_input<
         T: std::convert::Into<std::option::Option<crate::model::query_input::Input>>,
     >(

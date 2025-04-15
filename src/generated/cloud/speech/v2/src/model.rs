@@ -215,7 +215,10 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets the value of `request`.
+    /// Sets the value of [request][crate::model::OperationMetadata::request].
+    ///
+    /// Note that all the setters affecting `request` are mutually
+    /// exclusive.
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::operation_metadata::Request>>,
     >(
@@ -674,7 +677,10 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets the value of `metadata`.
+    /// Sets the value of [metadata][crate::model::OperationMetadata::metadata].
+    ///
+    /// Note that all the setters affecting `metadata` are mutually
+    /// exclusive.
     pub fn set_metadata<
         T: std::convert::Into<std::option::Option<crate::model::operation_metadata::Metadata>>,
     >(
@@ -2169,7 +2175,10 @@ pub mod speech_adaptation {
             std::default::Default::default()
         }
 
-        /// Sets the value of `value`.
+        /// Sets the value of [value][crate::model::speech_adaptation::AdaptationPhraseSet::value].
+        ///
+        /// Note that all the setters affecting `value` are mutually
+        /// exclusive.
         pub fn set_value<
             T: std::convert::Into<
                     std::option::Option<
@@ -2396,7 +2405,10 @@ impl RecognitionConfig {
         self
     }
 
-    /// Sets the value of `decoding_config`.
+    /// Sets the value of [decoding_config][crate::model::RecognitionConfig::decoding_config].
+    ///
+    /// Note that all the setters affecting `decoding_config` are mutually
+    /// exclusive.
     pub fn set_decoding_config<
         T: std::convert::Into<std::option::Option<crate::model::recognition_config::DecodingConfig>>,
     >(
@@ -2587,7 +2599,10 @@ impl RecognizeRequest {
         self
     }
 
-    /// Sets the value of `audio_source`.
+    /// Sets the value of [audio_source][crate::model::RecognizeRequest::audio_source].
+    ///
+    /// Note that all the setters affecting `audio_source` are mutually
+    /// exclusive.
     pub fn set_audio_source<
         T: std::convert::Into<std::option::Option<crate::model::recognize_request::AudioSource>>,
     >(
@@ -3309,7 +3324,10 @@ impl StreamingRecognizeRequest {
         self
     }
 
-    /// Sets the value of `streaming_request`.
+    /// Sets the value of [streaming_request][crate::model::StreamingRecognizeRequest::streaming_request].
+    ///
+    /// Note that all the setters affecting `streaming_request` are mutually
+    /// exclusive.
     pub fn set_streaming_request<
         T: std::convert::Into<
                 std::option::Option<crate::model::streaming_recognize_request::StreamingRequest>,
@@ -3831,7 +3849,10 @@ impl RecognitionOutputConfig {
         self
     }
 
-    /// Sets the value of `output`.
+    /// Sets the value of [output][crate::model::RecognitionOutputConfig::output].
+    ///
+    /// Note that all the setters affecting `output` are mutually
+    /// exclusive.
     pub fn set_output<
         T: std::convert::Into<std::option::Option<crate::model::recognition_output_config::Output>>,
     >(
@@ -4232,7 +4253,10 @@ impl BatchRecognizeFileResult {
         self
     }
 
-    /// Sets the value of `result`.
+    /// Sets the value of [result][crate::model::BatchRecognizeFileResult::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::batch_recognize_file_result::Result>>,
     >(
@@ -4511,7 +4535,10 @@ impl BatchRecognizeFileMetadata {
         self
     }
 
-    /// Sets the value of `audio_source`.
+    /// Sets the value of [audio_source][crate::model::BatchRecognizeFileMetadata::audio_source].
+    ///
+    /// Note that all the setters affecting `audio_source` are mutually
+    /// exclusive.
     pub fn set_audio_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::batch_recognize_file_metadata::AudioSource>,

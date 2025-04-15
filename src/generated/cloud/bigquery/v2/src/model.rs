@@ -4078,7 +4078,10 @@ impl RemoteModelInfo {
         self
     }
 
-    /// Sets the value of `remote_service`.
+    /// Sets the value of [remote_service][crate::model::RemoteModelInfo::remote_service].
+    ///
+    /// Note that all the setters affecting `remote_service` are mutually
+    /// exclusive.
     pub fn set_remote_service<
         T: std::convert::Into<std::option::Option<crate::model::remote_model_info::RemoteService>>,
     >(
@@ -6100,7 +6103,10 @@ pub mod model {
                     self
                 }
 
-                /// Sets the value of `value`.
+                /// Sets the value of [value][crate::model::model::clustering_metrics::cluster::FeatureValue::value].
+                ///
+                /// Note that all the setters affecting `value` are mutually
+                /// exclusive.
                 pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::model::clustering_metrics::cluster::feature_value::Value>>>(mut self, v: T) -> Self
                 {
                     self.value = v.into();
@@ -6652,7 +6658,10 @@ pub mod model {
             std::default::Default::default()
         }
 
-        /// Sets the value of `metrics`.
+        /// Sets the value of [metrics][crate::model::model::EvaluationMetrics::metrics].
+        ///
+        /// Note that all the setters affecting `metrics` are mutually
+        /// exclusive.
         pub fn set_metrics<
             T: std::convert::Into<
                     std::option::Option<crate::model::model::evaluation_metrics::Metrics>,
@@ -9623,7 +9632,10 @@ pub mod model {
             std::default::Default::default()
         }
 
-        /// Sets the value of `search_space`.
+        /// Sets the value of [search_space][crate::model::model::DoubleHparamSearchSpace::search_space].
+        ///
+        /// Note that all the setters affecting `search_space` are mutually
+        /// exclusive.
         pub fn set_search_space<
             T: std::convert::Into<
                     std::option::Option<
@@ -9843,7 +9855,10 @@ pub mod model {
             std::default::Default::default()
         }
 
-        /// Sets the value of `search_space`.
+        /// Sets the value of [search_space][crate::model::model::IntHparamSearchSpace::search_space].
+        ///
+        /// Note that all the setters affecting `search_space` are mutually
+        /// exclusive.
         pub fn set_search_space<
             T: std::convert::Into<
                     std::option::Option<crate::model::model::int_hparam_search_space::SearchSpace>,
@@ -12689,7 +12704,10 @@ impl PrivacyPolicy {
         self
     }
 
-    /// Sets the value of `privacy_policy`.
+    /// Sets the value of [privacy_policy][crate::model::PrivacyPolicy::privacy_policy].
+    ///
+    /// Note that all the setters affecting `privacy_policy` are mutually
+    /// exclusive.
     pub fn set_privacy_policy<
         T: std::convert::Into<std::option::Option<crate::model::privacy_policy::PrivacyPolicy>>,
     >(
@@ -15795,7 +15813,10 @@ impl StandardSqlDataType {
         self
     }
 
-    /// Sets the value of `sub_type`.
+    /// Sets the value of [sub_type][crate::model::StandardSqlDataType::sub_type].
+    ///
+    /// Note that all the setters affecting `sub_type` are mutually
+    /// exclusive.
     pub fn set_sub_type<
         T: std::convert::Into<std::option::Option<crate::model::standard_sql_data_type::SubType>>,
     >(

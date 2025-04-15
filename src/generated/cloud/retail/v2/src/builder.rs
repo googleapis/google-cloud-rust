@@ -5802,7 +5802,10 @@ pub mod user_event_service {
             self
         }
 
-        /// Sets the value of `conversion_rule`.
+        /// Sets the value of [conversion_rule][crate::model::CollectUserEventRequest::conversion_rule].
+        ///
+        /// Note that all the setters affecting `conversion_rule` are
+        /// mutually exclusive.
         pub fn set_conversion_rule<
             T: Into<Option<crate::model::collect_user_event_request::ConversionRule>>,
         >(
@@ -5810,6 +5813,19 @@ pub mod user_event_service {
             v: T,
         ) -> Self {
             self.0.request.conversion_rule = v.into();
+            self
+        }
+
+        /// Sets the value of [conversion_rule][crate::model::CollectUserEventRequest::conversion_rule]
+        /// to hold a `PrebuiltRule`.
+        ///
+        /// Note that all the setters affecting `conversion_rule` are
+        /// mutually exclusive.
+        pub fn set_prebuilt_rule<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_prebuilt_rule(v);
             self
         }
     }

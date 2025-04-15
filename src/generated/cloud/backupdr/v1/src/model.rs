@@ -1555,7 +1555,10 @@ impl BackupRule {
         self
     }
 
-    /// Sets the value of `backup_schedule_oneof`.
+    /// Sets the value of [backup_schedule_oneof][crate::model::BackupRule::backup_schedule_oneof].
+    ///
+    /// Note that all the setters affecting `backup_schedule_oneof` are mutually
+    /// exclusive.
     pub fn set_backup_schedule_oneof<
         T: std::convert::Into<std::option::Option<crate::model::backup_rule::BackupScheduleOneof>>,
     >(
@@ -3688,7 +3691,10 @@ impl DataSource {
         self
     }
 
-    /// Sets the value of `source_resource`.
+    /// Sets the value of [source_resource][crate::model::DataSource::source_resource].
+    ///
+    /// Note that all the setters affecting `source_resource` are mutually
+    /// exclusive.
     pub fn set_source_resource<
         T: std::convert::Into<std::option::Option<crate::model::data_source::SourceResource>>,
     >(
@@ -3926,7 +3932,10 @@ impl BackupConfigInfo {
         self
     }
 
-    /// Sets the value of `backup_config`.
+    /// Sets the value of [backup_config][crate::model::BackupConfigInfo::backup_config].
+    ///
+    /// Note that all the setters affecting `backup_config` are mutually
+    /// exclusive.
     pub fn set_backup_config<
         T: std::convert::Into<std::option::Option<crate::model::backup_config_info::BackupConfig>>,
     >(
@@ -4328,7 +4337,10 @@ impl DataSourceGcpResource {
         self
     }
 
-    /// Sets the value of `gcp_resource_properties`.
+    /// Sets the value of [gcp_resource_properties][crate::model::DataSourceGcpResource::gcp_resource_properties].
+    ///
+    /// Note that all the setters affecting `gcp_resource_properties` are mutually
+    /// exclusive.
     pub fn set_gcp_resource_properties<
         T: std::convert::Into<
                 std::option::Option<crate::model::data_source_gcp_resource::GcpResourceProperties>,
@@ -4588,7 +4600,10 @@ impl BackupApplianceLockInfo {
         self
     }
 
-    /// Sets the value of `lock_source`.
+    /// Sets the value of [lock_source][crate::model::BackupApplianceLockInfo::lock_source].
+    ///
+    /// Note that all the setters affecting `lock_source` are mutually
+    /// exclusive.
     pub fn set_lock_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::backup_appliance_lock_info::LockSource>,
@@ -4736,7 +4751,10 @@ impl BackupLock {
         self
     }
 
-    /// Sets the value of `client_lock_info`.
+    /// Sets the value of [client_lock_info][crate::model::BackupLock::client_lock_info].
+    ///
+    /// Note that all the setters affecting `client_lock_info` are mutually
+    /// exclusive.
     pub fn set_client_lock_info<
         T: std::convert::Into<std::option::Option<crate::model::backup_lock::ClientLockInfo>>,
     >(
@@ -5048,7 +5066,10 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `backup_properties`.
+    /// Sets the value of [backup_properties][crate::model::Backup::backup_properties].
+    ///
+    /// Note that all the setters affecting `backup_properties` are mutually
+    /// exclusive.
     pub fn set_backup_properties<
         T: std::convert::Into<std::option::Option<crate::model::backup::BackupProperties>>,
     >(
@@ -5123,7 +5144,10 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `plan_info`.
+    /// Sets the value of [plan_info][crate::model::Backup::plan_info].
+    ///
+    /// Note that all the setters affecting `plan_info` are mutually
+    /// exclusive.
     pub fn set_plan_info<
         T: std::convert::Into<std::option::Option<crate::model::backup::PlanInfo>>,
     >(
@@ -6717,7 +6741,10 @@ impl RestoreBackupRequest {
         self
     }
 
-    /// Sets the value of `target_environment`.
+    /// Sets the value of [target_environment][crate::model::RestoreBackupRequest::target_environment].
+    ///
+    /// Note that all the setters affecting `target_environment` are mutually
+    /// exclusive.
     pub fn set_target_environment<
         T: std::convert::Into<
                 std::option::Option<crate::model::restore_backup_request::TargetEnvironment>,
@@ -6762,7 +6789,10 @@ impl RestoreBackupRequest {
         self
     }
 
-    /// Sets the value of `instance_properties`.
+    /// Sets the value of [instance_properties][crate::model::RestoreBackupRequest::instance_properties].
+    ///
+    /// Note that all the setters affecting `instance_properties` are mutually
+    /// exclusive.
     pub fn set_instance_properties<
         T: std::convert::Into<
                 std::option::Option<crate::model::restore_backup_request::InstanceProperties>,
@@ -6899,7 +6929,10 @@ impl TargetResource {
         std::default::Default::default()
     }
 
-    /// Sets the value of `target_resource_info`.
+    /// Sets the value of [target_resource_info][crate::model::TargetResource::target_resource_info].
+    ///
+    /// Note that all the setters affecting `target_resource_info` are mutually
+    /// exclusive.
     pub fn set_target_resource_info<
         T: std::convert::Into<std::option::Option<crate::model::target_resource::TargetResourceInfo>>,
     >(
@@ -8183,7 +8216,10 @@ impl CustomerEncryptionKey {
         self
     }
 
-    /// Sets the value of `key`.
+    /// Sets the value of [key][crate::model::CustomerEncryptionKey::key].
+    ///
+    /// Note that all the setters affecting `key` are mutually
+    /// exclusive.
     pub fn set_key<
         T: std::convert::Into<std::option::Option<crate::model::customer_encryption_key::Key>>,
     >(

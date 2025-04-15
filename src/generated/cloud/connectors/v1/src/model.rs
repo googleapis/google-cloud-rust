@@ -77,7 +77,10 @@ impl AuthConfig {
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::AuthConfig::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::auth_config::Type>>>(
         mut self,
         v: T,
@@ -1091,7 +1094,10 @@ impl ConfigVariable {
         self
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::ConfigVariable::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::config_variable::Value>>,
     >(
@@ -4057,7 +4063,10 @@ impl EgressControlConfig {
         std::default::Default::default()
     }
 
-    /// Sets the value of `oneof_backends`.
+    /// Sets the value of [oneof_backends][crate::model::EgressControlConfig::oneof_backends].
+    ///
+    /// Note that all the setters affecting `oneof_backends` are mutually
+    /// exclusive.
     pub fn set_oneof_backends<
         T: std::convert::Into<std::option::Option<crate::model::egress_control_config::OneofBackends>>,
     >(
@@ -4417,7 +4426,10 @@ impl Destination {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::Destination::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::destination::Destination>>,
     >(

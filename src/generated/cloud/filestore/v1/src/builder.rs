@@ -475,12 +475,28 @@ pub mod cloud_filestore_manager {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::RestoreInstanceRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::restore_instance_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::RestoreInstanceRequest::source]
+        /// to hold a `SourceBackup`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_source_backup<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_source_backup(v);
             self
         }
     }

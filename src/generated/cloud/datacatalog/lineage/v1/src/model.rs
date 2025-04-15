@@ -1765,7 +1765,10 @@ impl SearchLinksRequest {
         self
     }
 
-    /// Sets the value of `criteria`.
+    /// Sets the value of [criteria][crate::model::SearchLinksRequest::criteria].
+    ///
+    /// Note that all the setters affecting `criteria` are mutually
+    /// exclusive.
     pub fn set_criteria<
         T: std::convert::Into<std::option::Option<crate::model::search_links_request::Criteria>>,
     >(

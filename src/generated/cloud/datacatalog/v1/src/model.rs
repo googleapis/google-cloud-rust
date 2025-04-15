@@ -77,7 +77,10 @@ impl BigQueryConnectionSpec {
         self
     }
 
-    /// Sets the value of `connection_spec`.
+    /// Sets the value of [connection_spec][crate::model::BigQueryConnectionSpec::connection_spec].
+    ///
+    /// Note that all the setters affecting `connection_spec` are mutually
+    /// exclusive.
     pub fn set_connection_spec<
         T: std::convert::Into<
                 std::option::Option<crate::model::big_query_connection_spec::ConnectionSpec>,
@@ -452,7 +455,10 @@ impl DataSource {
         self
     }
 
-    /// Sets the value of `properties`.
+    /// Sets the value of [properties][crate::model::DataSource::properties].
+    ///
+    /// Note that all the setters affecting `properties` are mutually
+    /// exclusive.
     pub fn set_properties<
         T: std::convert::Into<std::option::Option<crate::model::data_source::Properties>>,
     >(
@@ -1597,7 +1603,10 @@ impl LookupEntryRequest {
         self
     }
 
-    /// Sets the value of `target_name`.
+    /// Sets the value of [target_name][crate::model::LookupEntryRequest::target_name].
+    ///
+    /// Note that all the setters affecting `target_name` are mutually
+    /// exclusive.
     pub fn set_target_name<
         T: std::convert::Into<std::option::Option<crate::model::lookup_entry_request::TargetName>>,
     >(
@@ -2001,7 +2010,10 @@ impl Entry {
         self
     }
 
-    /// Sets the value of `entry_type`.
+    /// Sets the value of [entry_type][crate::model::Entry::entry_type].
+    ///
+    /// Note that all the setters affecting `entry_type` are mutually
+    /// exclusive.
     pub fn set_entry_type<
         T: std::convert::Into<std::option::Option<crate::model::entry::EntryType>>,
     >(
@@ -2058,7 +2070,10 @@ impl Entry {
         self
     }
 
-    /// Sets the value of `system`.
+    /// Sets the value of [system][crate::model::Entry::system].
+    ///
+    /// Note that all the setters affecting `system` are mutually
+    /// exclusive.
     pub fn set_system<T: std::convert::Into<std::option::Option<crate::model::entry::System>>>(
         mut self,
         v: T,
@@ -2117,7 +2132,10 @@ impl Entry {
         self
     }
 
-    /// Sets the value of `system_spec`.
+    /// Sets the value of [system_spec][crate::model::Entry::system_spec].
+    ///
+    /// Note that all the setters affecting `system_spec` are mutually
+    /// exclusive.
     pub fn set_system_spec<
         T: std::convert::Into<std::option::Option<crate::model::entry::SystemSpec>>,
     >(
@@ -2221,7 +2239,10 @@ impl Entry {
         self
     }
 
-    /// Sets the value of `type_spec`.
+    /// Sets the value of [type_spec][crate::model::Entry::type_spec].
+    ///
+    /// Note that all the setters affecting `type_spec` are mutually
+    /// exclusive.
     pub fn set_type_spec<
         T: std::convert::Into<std::option::Option<crate::model::entry::TypeSpec>>,
     >(
@@ -2322,7 +2343,10 @@ impl Entry {
         self
     }
 
-    /// Sets the value of `spec`.
+    /// Sets the value of [spec][crate::model::Entry::spec].
+    ///
+    /// Note that all the setters affecting `spec` are mutually
+    /// exclusive.
     pub fn set_spec<T: std::convert::Into<std::option::Option<crate::model::entry::Spec>>>(
         mut self,
         v: T,
@@ -2785,7 +2809,10 @@ pub mod database_table_spec {
             self
         }
 
-        /// Sets the value of `source_definition`.
+        /// Sets the value of [source_definition][crate::model::database_table_spec::DatabaseViewSpec::source_definition].
+        ///
+        /// Note that all the setters affecting `source_definition` are mutually
+        /// exclusive.
         pub fn set_source_definition<
             T: std::convert::Into<
                     std::option::Option<
@@ -3152,7 +3179,10 @@ impl RoutineSpec {
         self
     }
 
-    /// Sets the value of `system_spec`.
+    /// Sets the value of [system_spec][crate::model::RoutineSpec::system_spec].
+    ///
+    /// Note that all the setters affecting `system_spec` are mutually
+    /// exclusive.
     pub fn set_system_spec<
         T: std::convert::Into<std::option::Option<crate::model::routine_spec::SystemSpec>>,
     >(
@@ -3421,7 +3451,10 @@ impl DatasetSpec {
         std::default::Default::default()
     }
 
-    /// Sets the value of `system_spec`.
+    /// Sets the value of [system_spec][crate::model::DatasetSpec::system_spec].
+    ///
+    /// Note that all the setters affecting `system_spec` are mutually
+    /// exclusive.
     pub fn set_system_spec<
         T: std::convert::Into<std::option::Option<crate::model::dataset_spec::SystemSpec>>,
     >(
@@ -3828,7 +3861,10 @@ impl ServiceSpec {
         std::default::Default::default()
     }
 
-    /// Sets the value of `system_spec`.
+    /// Sets the value of [system_spec][crate::model::ServiceSpec::system_spec].
+    ///
+    /// Note that all the setters affecting `system_spec` are mutually
+    /// exclusive.
     pub fn set_system_spec<
         T: std::convert::Into<std::option::Option<crate::model::service_spec::SystemSpec>>,
     >(
@@ -4307,7 +4343,10 @@ impl ModelSpec {
         std::default::Default::default()
     }
 
-    /// Sets the value of `system_spec`.
+    /// Sets the value of [system_spec][crate::model::ModelSpec::system_spec].
+    ///
+    /// Note that all the setters affecting `system_spec` are mutually
+    /// exclusive.
     pub fn set_system_spec<
         T: std::convert::Into<std::option::Option<crate::model::model_spec::SystemSpec>>,
     >(
@@ -6085,7 +6124,10 @@ impl ImportEntriesRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportEntriesRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_entries_request::Source>>,
     >(
@@ -6461,7 +6503,10 @@ impl SetConfigRequest {
         self
     }
 
-    /// Sets the value of `configuration`.
+    /// Sets the value of [configuration][crate::model::SetConfigRequest::configuration].
+    ///
+    /// Note that all the setters affecting `configuration` are mutually
+    /// exclusive.
     pub fn set_configuration<
         T: std::convert::Into<std::option::Option<crate::model::set_config_request::Configuration>>,
     >(
@@ -7030,7 +7075,10 @@ impl TaggedEntry {
         self
     }
 
-    /// Sets the value of `entry`.
+    /// Sets the value of [entry][crate::model::TaggedEntry::entry].
+    ///
+    /// Note that all the setters affecting `entry` are mutually
+    /// exclusive.
     pub fn set_entry<
         T: std::convert::Into<std::option::Option<crate::model::tagged_entry::Entry>>,
     >(
@@ -7106,7 +7154,10 @@ impl DumpItem {
         std::default::Default::default()
     }
 
-    /// Sets the value of `item`.
+    /// Sets the value of [item][crate::model::DumpItem::item].
+    ///
+    /// Note that all the setters affecting `item` are mutually
+    /// exclusive.
     pub fn set_item<T: std::convert::Into<std::option::Option<crate::model::dump_item::Item>>>(
         mut self,
         v: T,
@@ -7320,7 +7371,10 @@ impl PhysicalSchema {
         std::default::Default::default()
     }
 
-    /// Sets the value of `schema`.
+    /// Sets the value of [schema][crate::model::PhysicalSchema::schema].
+    ///
+    /// Note that all the setters affecting `schema` are mutually
+    /// exclusive.
     pub fn set_schema<
         T: std::convert::Into<std::option::Option<crate::model::physical_schema::Schema>>,
     >(
@@ -8898,7 +8952,10 @@ impl ImportTaxonomiesRequest {
         self
     }
 
-    /// Sets the value of `source`.
+    /// Sets the value of [source][crate::model::ImportTaxonomiesRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_taxonomies_request::Source>>,
     >(
@@ -9153,7 +9210,10 @@ impl ExportTaxonomiesRequest {
         self
     }
 
-    /// Sets the value of `destination`.
+    /// Sets the value of [destination][crate::model::ExportTaxonomiesRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_taxonomies_request::Destination>,
@@ -9448,7 +9508,10 @@ impl ColumnSchema {
         self
     }
 
-    /// Sets the value of `system_spec`.
+    /// Sets the value of [system_spec][crate::model::ColumnSchema::system_spec].
+    ///
+    /// Note that all the setters affecting `system_spec` are mutually
+    /// exclusive.
     pub fn set_system_spec<
         T: std::convert::Into<std::option::Option<crate::model::column_schema::SystemSpec>>,
     >(
@@ -9891,7 +9954,10 @@ impl SearchCatalogResult {
         self
     }
 
-    /// Sets the value of `system`.
+    /// Sets the value of [system][crate::model::SearchCatalogResult::system].
+    ///
+    /// Note that all the setters affecting `system` are mutually
+    /// exclusive.
     pub fn set_system<
         T: std::convert::Into<std::option::Option<crate::model::search_catalog_result::System>>,
     >(
@@ -10015,7 +10081,10 @@ impl BigQueryTableSpec {
         self
     }
 
-    /// Sets the value of `type_spec`.
+    /// Sets the value of [type_spec][crate::model::BigQueryTableSpec::type_spec].
+    ///
+    /// Note that all the setters affecting `type_spec` are mutually
+    /// exclusive.
     pub fn set_type_spec<
         T: std::convert::Into<std::option::Option<crate::model::big_query_table_spec::TypeSpec>>,
     >(
@@ -10359,7 +10428,10 @@ impl Tag {
         self
     }
 
-    /// Sets the value of `scope`.
+    /// Sets the value of [scope][crate::model::Tag::scope].
+    ///
+    /// Note that all the setters affecting `scope` are mutually
+    /// exclusive.
     pub fn set_scope<T: std::convert::Into<std::option::Option<crate::model::tag::Scope>>>(
         mut self,
         v: T,
@@ -10470,7 +10542,10 @@ impl TagField {
         self
     }
 
-    /// Sets the value of `kind`.
+    /// Sets the value of [kind][crate::model::TagField::kind].
+    ///
+    /// Note that all the setters affecting `kind` are mutually
+    /// exclusive.
     pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::tag_field::Kind>>>(
         mut self,
         v: T,
@@ -10997,7 +11072,10 @@ impl FieldType {
         std::default::Default::default()
     }
 
-    /// Sets the value of `type_decl`.
+    /// Sets the value of [type_decl][crate::model::FieldType::type_decl].
+    ///
+    /// Note that all the setters affecting `type_decl` are mutually
+    /// exclusive.
     pub fn set_type_decl<
         T: std::convert::Into<std::option::Option<crate::model::field_type::TypeDecl>>,
     >(

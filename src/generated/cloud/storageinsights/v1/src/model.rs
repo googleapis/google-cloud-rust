@@ -1204,7 +1204,10 @@ impl ObjectMetadataReportOptions {
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ObjectMetadataReportOptions::filter].
+    ///
+    /// Note that all the setters affecting `filter` are mutually
+    /// exclusive.
     pub fn set_filter<
         T: std::convert::Into<
                 std::option::Option<crate::model::object_metadata_report_options::Filter>,
@@ -1249,7 +1252,10 @@ impl ObjectMetadataReportOptions {
         self
     }
 
-    /// Sets the value of `destination_options`.
+    /// Sets the value of [destination_options][crate::model::ObjectMetadataReportOptions::destination_options].
+    ///
+    /// Note that all the setters affecting `destination_options` are mutually
+    /// exclusive.
     pub fn set_destination_options<
         T: std::convert::Into<
                 std::option::Option<
@@ -1434,7 +1440,10 @@ impl ReportConfig {
         self
     }
 
-    /// Sets the value of `report_format`.
+    /// Sets the value of [report_format][crate::model::ReportConfig::report_format].
+    ///
+    /// Note that all the setters affecting `report_format` are mutually
+    /// exclusive.
     pub fn set_report_format<
         T: std::convert::Into<std::option::Option<crate::model::report_config::ReportFormat>>,
     >(
@@ -1507,7 +1516,10 @@ impl ReportConfig {
         self
     }
 
-    /// Sets the value of `report_kind`.
+    /// Sets the value of [report_kind][crate::model::ReportConfig::report_kind].
+    ///
+    /// Note that all the setters affecting `report_kind` are mutually
+    /// exclusive.
     pub fn set_report_kind<
         T: std::convert::Into<std::option::Option<crate::model::report_config::ReportKind>>,
     >(

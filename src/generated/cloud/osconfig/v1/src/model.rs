@@ -325,7 +325,10 @@ pub mod inventory {
             self
         }
 
-        /// Sets the value of `details`.
+        /// Sets the value of [details][crate::model::inventory::Item::details].
+        ///
+        /// Note that all the setters affecting `details` are mutually
+        /// exclusive.
         pub fn set_details<
             T: std::convert::Into<std::option::Option<crate::model::inventory::item::Details>>,
         >(
@@ -557,7 +560,10 @@ pub mod inventory {
             std::default::Default::default()
         }
 
-        /// Sets the value of `details`.
+        /// Sets the value of [details][crate::model::inventory::SoftwarePackage::details].
+        ///
+        /// Note that all the setters affecting `details` are mutually
+        /// exclusive.
         pub fn set_details<
             T: std::convert::Into<
                     std::option::Option<crate::model::inventory::software_package::Details>,
@@ -1764,7 +1770,10 @@ pub mod os_policy {
             self
         }
 
-        /// Sets the value of `resource_type`.
+        /// Sets the value of [resource_type][crate::model::os_policy::Resource::resource_type].
+        ///
+        /// Note that all the setters affecting `resource_type` are mutually
+        /// exclusive.
         pub fn set_resource_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::os_policy::resource::ResourceType>,
@@ -1956,7 +1965,10 @@ pub mod os_policy {
                 self
             }
 
-            /// Sets the value of `r#type`.
+            /// Sets the value of [r#type][crate::model::os_policy::resource::File::type].
+            ///
+            /// Note that all the setters affecting `r#type` are mutually
+            /// exclusive.
             pub fn set_type<
                 T: std::convert::Into<
                         std::option::Option<crate::model::os_policy::resource::file::Type>,
@@ -2233,7 +2245,10 @@ pub mod os_policy {
                 self
             }
 
-            /// Sets the value of `system_package`.
+            /// Sets the value of [system_package][crate::model::os_policy::resource::PackageResource::system_package].
+            ///
+            /// Note that all the setters affecting `system_package` are mutually
+            /// exclusive.
             pub fn set_system_package<
                 T: std::convert::Into<
                         std::option::Option<
@@ -2950,7 +2965,10 @@ pub mod os_policy {
                 std::default::Default::default()
             }
 
-            /// Sets the value of `repository`.
+            /// Sets the value of [repository][crate::model::os_policy::resource::RepositoryResource::repository].
+            ///
+            /// Note that all the setters affecting `repository` are mutually
+            /// exclusive.
             pub fn set_repository<
                 T: std::convert::Into<
                         std::option::Option<
@@ -3687,7 +3705,10 @@ pub mod os_policy {
                     self
                 }
 
-                /// Sets the value of `source`.
+                /// Sets the value of [source][crate::model::os_policy::resource::exec_resource::Exec::source].
+                ///
+                /// Note that all the setters affecting `source` are mutually
+                /// exclusive.
                 pub fn set_source<
                     T: std::convert::Into<
                             std::option::Option<
@@ -3931,7 +3952,10 @@ pub mod os_policy {
                 self
             }
 
-            /// Sets the value of `source`.
+            /// Sets the value of [source][crate::model::os_policy::resource::FileResource::source].
+            ///
+            /// Note that all the setters affecting `source` are mutually
+            /// exclusive.
             pub fn set_source<
                 T: std::convert::Into<
                         std::option::Option<
@@ -4724,7 +4748,10 @@ pub mod os_policy_assignment_report {
                 self
             }
 
-            /// Sets the value of `output`.
+            /// Sets the value of [output][crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance::output].
+            ///
+            /// Note that all the setters affecting `output` are mutually
+            /// exclusive.
             pub fn set_output<T: std::convert::Into<std::option::Option<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::Output>>>(mut self, v: T) -> Self
             {
                 self.output = v.into();
@@ -6279,7 +6306,10 @@ impl FixedOrPercent {
         std::default::Default::default()
     }
 
-    /// Sets the value of `mode`.
+    /// Sets the value of [mode][crate::model::FixedOrPercent::mode].
+    ///
+    /// Note that all the setters affecting `mode` are mutually
+    /// exclusive.
     pub fn set_mode<
         T: std::convert::Into<std::option::Option<crate::model::fixed_or_percent::Mode>>,
     >(
@@ -6518,7 +6548,10 @@ impl PatchDeployment {
         self
     }
 
-    /// Sets the value of `schedule`.
+    /// Sets the value of [schedule][crate::model::PatchDeployment::schedule].
+    ///
+    /// Note that all the setters affecting `schedule` are mutually
+    /// exclusive.
     pub fn set_schedule<
         T: std::convert::Into<std::option::Option<crate::model::patch_deployment::Schedule>>,
     >(
@@ -6824,7 +6857,10 @@ impl RecurringSchedule {
         self
     }
 
-    /// Sets the value of `schedule_config`.
+    /// Sets the value of [schedule_config][crate::model::RecurringSchedule::schedule_config].
+    ///
+    /// Note that all the setters affecting `schedule_config` are mutually
+    /// exclusive.
     pub fn set_schedule_config<
         T: std::convert::Into<std::option::Option<crate::model::recurring_schedule::ScheduleConfig>>,
     >(
@@ -7036,7 +7072,10 @@ impl MonthlySchedule {
         std::default::Default::default()
     }
 
-    /// Sets the value of `day_of_month`.
+    /// Sets the value of [day_of_month][crate::model::MonthlySchedule::day_of_month].
+    ///
+    /// Note that all the setters affecting `day_of_month` are mutually
+    /// exclusive.
     pub fn set_day_of_month<
         T: std::convert::Into<std::option::Option<crate::model::monthly_schedule::DayOfMonth>>,
     >(
@@ -9573,7 +9612,10 @@ impl ExecStepConfig {
         self
     }
 
-    /// Sets the value of `executable`.
+    /// Sets the value of [executable][crate::model::ExecStepConfig::executable].
+    ///
+    /// Note that all the setters affecting `executable` are mutually
+    /// exclusive.
     pub fn set_executable<
         T: std::convert::Into<std::option::Option<crate::model::exec_step_config::Executable>>,
     >(

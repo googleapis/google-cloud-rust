@@ -690,12 +690,54 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets the value of `target_name`.
+        /// Sets the value of [target_name][crate::model::LookupEntryRequest::target_name].
+        ///
+        /// Note that all the setters affecting `target_name` are
+        /// mutually exclusive.
         pub fn set_target_name<T: Into<Option<crate::model::lookup_entry_request::TargetName>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.target_name = v.into();
+            self
+        }
+
+        /// Sets the value of [target_name][crate::model::LookupEntryRequest::target_name]
+        /// to hold a `LinkedResource`.
+        ///
+        /// Note that all the setters affecting `target_name` are
+        /// mutually exclusive.
+        pub fn set_linked_resource<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_linked_resource(v);
+            self
+        }
+
+        /// Sets the value of [target_name][crate::model::LookupEntryRequest::target_name]
+        /// to hold a `SqlResource`.
+        ///
+        /// Note that all the setters affecting `target_name` are
+        /// mutually exclusive.
+        pub fn set_sql_resource<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_sql_resource(v);
+            self
+        }
+
+        /// Sets the value of [target_name][crate::model::LookupEntryRequest::target_name]
+        /// to hold a `FullyQualifiedName`.
+        ///
+        /// Note that all the setters affecting `target_name` are
+        /// mutually exclusive.
+        pub fn set_fully_qualified_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_fully_qualified_name(v);
             self
         }
     }
@@ -2056,12 +2098,28 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ImportEntriesRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::import_entries_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportEntriesRequest::source]
+        /// to hold a `GcsBucketPath`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_gcs_bucket_path<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_gcs_bucket_path(v);
             self
         }
     }
@@ -2108,7 +2166,10 @@ pub mod data_catalog {
             self
         }
 
-        /// Sets the value of `configuration`.
+        /// Sets the value of [configuration][crate::model::SetConfigRequest::configuration].
+        ///
+        /// Note that all the setters affecting `configuration` are
+        /// mutually exclusive.
         pub fn set_configuration<
             T: Into<Option<crate::model::set_config_request::Configuration>>,
         >(
@@ -2116,6 +2177,36 @@ pub mod data_catalog {
             v: T,
         ) -> Self {
             self.0.request.configuration = v.into();
+            self
+        }
+
+        /// Sets the value of [configuration][crate::model::SetConfigRequest::configuration]
+        /// to hold a `TagTemplateMigration`.
+        ///
+        /// Note that all the setters affecting `configuration` are
+        /// mutually exclusive.
+        pub fn set_tag_template_migration<
+            T: std::convert::Into<crate::model::TagTemplateMigration>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_tag_template_migration(v);
+            self
+        }
+
+        /// Sets the value of [configuration][crate::model::SetConfigRequest::configuration]
+        /// to hold a `CatalogUiExperience`.
+        ///
+        /// Note that all the setters affecting `configuration` are
+        /// mutually exclusive.
+        pub fn set_catalog_ui_experience<
+            T: std::convert::Into<crate::model::CatalogUIExperience>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_catalog_ui_experience(v);
             self
         }
     }
@@ -3560,12 +3651,45 @@ pub mod policy_tag_manager_serialization {
             self
         }
 
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::ImportTaxonomiesRequest::source].
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
         pub fn set_source<T: Into<Option<crate::model::import_taxonomies_request::Source>>>(
             mut self,
             v: T,
         ) -> Self {
             self.0.request.source = v.into();
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportTaxonomiesRequest::source]
+        /// to hold a `InlineSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_inline_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::InlineSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_inline_source(v);
+            self
+        }
+
+        /// Sets the value of [source][crate::model::ImportTaxonomiesRequest::source]
+        /// to hold a `CrossRegionalSource`.
+        ///
+        /// Note that all the setters affecting `source` are
+        /// mutually exclusive.
+        pub fn set_cross_regional_source<
+            T: std::convert::Into<std::boxed::Box<crate::model::CrossRegionalSource>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_cross_regional_source(v);
             self
         }
     }
@@ -3628,7 +3752,10 @@ pub mod policy_tag_manager_serialization {
             self
         }
 
-        /// Sets the value of `destination`.
+        /// Sets the value of [destination][crate::model::ExportTaxonomiesRequest::destination].
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
         pub fn set_destination<
             T: Into<Option<crate::model::export_taxonomies_request::Destination>>,
         >(
@@ -3636,6 +3763,16 @@ pub mod policy_tag_manager_serialization {
             v: T,
         ) -> Self {
             self.0.request.destination = v.into();
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::ExportTaxonomiesRequest::destination]
+        /// to hold a `SerializedTaxonomies`.
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        pub fn set_serialized_taxonomies<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_serialized_taxonomies(v);
             self
         }
     }

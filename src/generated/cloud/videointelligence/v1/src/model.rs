@@ -2856,7 +2856,10 @@ impl ObjectTrackingAnnotation {
         self
     }
 
-    /// Sets the value of `track_info`.
+    /// Sets the value of [track_info][crate::model::ObjectTrackingAnnotation::track_info].
+    ///
+    /// Note that all the setters affecting `track_info` are mutually
+    /// exclusive.
     pub fn set_track_info<
         T: std::convert::Into<
                 std::option::Option<crate::model::object_tracking_annotation::TrackInfo>,

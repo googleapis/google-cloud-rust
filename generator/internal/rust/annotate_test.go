@@ -211,16 +211,17 @@ func TestOneOfAnnotations(t *testing.T) {
 	ignore := cmpopts.IgnoreFields(api.Field{}, "Group")
 
 	if diff := cmp.Diff(&oneOfAnnotation{
-		FieldName:      "r#type",
-		SetterName:     "type",
-		EnumName:       "Type",
-		QualifiedName:  "crate::model::message::Type",
-		RelativeName:   "message::Type",
-		FieldType:      "crate::model::message::Type",
-		DocLines:       []string{"/// Say something clever about this oneof."},
-		SingularFields: []*api.Field{singular},
-		RepeatedFields: []*api.Field{repeated},
-		MapFields:      []*api.Field{map_field},
+		FieldName:           "r#type",
+		SetterName:          "type",
+		EnumName:            "Type",
+		QualifiedName:       "crate::model::message::Type",
+		RelativeName:        "message::Type",
+		StructQualifiedName: "crate::model::Message",
+		FieldType:           "crate::model::message::Type",
+		DocLines:            []string{"/// Say something clever about this oneof."},
+		SingularFields:      []*api.Field{singular},
+		RepeatedFields:      []*api.Field{repeated},
+		MapFields:           []*api.Field{map_field},
 	}, group.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in oneof annotations (-want, +got)\n:%s", diff)
 	}

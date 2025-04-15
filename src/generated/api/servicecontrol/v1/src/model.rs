@@ -417,7 +417,10 @@ impl Distribution {
         self
     }
 
-    /// Sets the value of `bucket_option`.
+    /// Sets the value of [bucket_option][crate::model::Distribution::bucket_option].
+    ///
+    /// Note that all the setters affecting `bucket_option` are mutually
+    /// exclusive.
     pub fn set_bucket_option<
         T: std::convert::Into<std::option::Option<crate::model::distribution::BucketOption>>,
     >(
@@ -1074,7 +1077,10 @@ impl LogEntry {
         self
     }
 
-    /// Sets the value of `payload`.
+    /// Sets the value of [payload][crate::model::LogEntry::payload].
+    ///
+    /// Note that all the setters affecting `payload` are mutually
+    /// exclusive.
     pub fn set_payload<
         T: std::convert::Into<std::option::Option<crate::model::log_entry::Payload>>,
     >(
@@ -1388,7 +1394,10 @@ impl MetricValue {
         self
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::MetricValue::value].
+    ///
+    /// Note that all the setters affecting `value` are mutually
+    /// exclusive.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::metric_value::Value>>,
     >(

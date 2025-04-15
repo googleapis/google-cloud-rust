@@ -169,7 +169,10 @@ impl UniversalAction {
         self
     }
 
-    /// Sets the value of `action_type`.
+    /// Sets the value of [action_type][crate::model::UniversalAction::action_type].
+    ///
+    /// Note that all the setters affecting `action_type` are mutually
+    /// exclusive.
     pub fn set_action_type<
         T: std::convert::Into<std::option::Option<crate::model::universal_action::ActionType>>,
     >(
@@ -407,7 +410,10 @@ impl ContextualTrigger {
         self
     }
 
-    /// Sets the value of `trigger`.
+    /// Sets the value of [trigger][crate::model::ContextualTrigger::trigger].
+    ///
+    /// Note that all the setters affecting `trigger` are mutually
+    /// exclusive.
     pub fn set_trigger<
         T: std::convert::Into<std::option::Option<crate::model::contextual_trigger::Trigger>>,
     >(
