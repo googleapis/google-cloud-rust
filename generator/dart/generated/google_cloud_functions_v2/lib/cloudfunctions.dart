@@ -68,7 +68,7 @@ class FunctionService {
   /// operation.
   ///
   /// When complete, [Operation.done] will be `true`. If successful,
-  /// [Operation.responseAsMessage] will contain the Operation's result.
+  /// [Operation.responseAsMessage] will contain the operation's result.
   Future<Operation<Function$, OperationMetadata>> createFunction(
       CreateFunctionRequest request) async {
     final url = Uri.https(_host, '/v2/${request.parent}/functions');
@@ -85,7 +85,7 @@ class FunctionService {
   /// operation.
   ///
   /// When complete, [Operation.done] will be `true`. If successful,
-  /// [Operation.responseAsMessage] will contain the Operation's result.
+  /// [Operation.responseAsMessage] will contain the operation's result.
   Future<Operation<Function$, OperationMetadata>> updateFunction(
       UpdateFunctionRequest request) async {
     final url = Uri.https(_host, '/v2/${request.function.name}');
@@ -104,7 +104,7 @@ class FunctionService {
   /// operation.
   ///
   /// When complete, [Operation.done] will be `true`. If successful,
-  /// [Operation.responseAsMessage] will contain the Operation's result.
+  /// [Operation.responseAsMessage] will contain the operation's result.
   Future<Operation<Empty, OperationMetadata>> deleteFunction(
       DeleteFunctionRequest request) async {
     final url = Uri.https(_host, '/v2/${request.name}');
