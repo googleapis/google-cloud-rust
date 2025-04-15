@@ -1,6 +1,6 @@
-# Google Cloud Client Libraries for Rust - Bigtable
+# Google Cloud Client Libraries for Rust - Datastore
 
-This crate implements the [datastore] client library.
+This crate implements the [Datastore] client library.
 
 **WARNING:** this crate is under active development. We expect multiple breaking
 changes in the upcoming releases. Testing is also incomplete, we do **not**
