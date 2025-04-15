@@ -20,7 +20,7 @@
 library;
 
 import 'package:google_cloud_gax/common.dart';
-import 'package:google_cloud_gax/src/json_helpers.dart';
+import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 
 /// Represents the metadata of the long-running operation.
@@ -64,8 +64,8 @@ class OperationMetadata extends Message {
 
   factory OperationMetadata.fromJson(Map<String, dynamic> json) {
     return OperationMetadata(
-      createTime: decode(json['createTime'], Timestamp.fromJson),
-      endTime: decode(json['endTime'], Timestamp.fromJson),
+      createTime: decodeCustom(json['createTime'], Timestamp.fromJson),
+      endTime: decodeCustom(json['endTime'], Timestamp.fromJson),
       target: json['target'],
       verb: json['verb'],
       statusDetail: json['statusDetail'],

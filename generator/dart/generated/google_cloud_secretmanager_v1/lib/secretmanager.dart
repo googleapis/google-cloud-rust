@@ -23,7 +23,7 @@ library;
 import 'dart:typed_data';
 
 import 'package:google_cloud_gax/common.dart';
-import 'package:google_cloud_gax/src/json_helpers.dart';
+import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:google_cloud_iam_v1/iam.dart';
 import 'package:google_cloud_location/location.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
@@ -342,16 +342,17 @@ class Secret extends Message {
     return Secret(
       name: json['name'],
       replication: decode(json['replication'], Replication.fromJson),
-      createTime: decode(json['createTime'], Timestamp.fromJson),
-      labels: (json['labels'] as Map?)?.cast(),
-      topics: decodeList(json['topics'], Topic.fromJson),
-      expireTime: decode(json['expireTime'], Timestamp.fromJson),
-      ttl: decode(json['ttl'], Duration.fromJson),
+      createTime: decodeCustom(json['createTime'], Timestamp.fromJson),
+      labels: decodeMap(json['labels']),
+      topics: decodeListMessage(json['topics'], Topic.fromJson),
+      expireTime: decodeCustom(json['expireTime'], Timestamp.fromJson),
+      ttl: decodeCustom(json['ttl'], Duration.fromJson),
       etag: json['etag'],
       rotation: decode(json['rotation'], Rotation.fromJson),
-      versionAliases: (json['versionAliases'] as Map?)?.cast(),
-      annotations: (json['annotations'] as Map?)?.cast(),
-      versionDestroyTtl: decode(json['versionDestroyTtl'], Duration.fromJson),
+      versionAliases: decodeMap(json['versionAliases']),
+      annotations: decodeMap(json['annotations']),
+      versionDestroyTtl:
+          decodeCustom(json['versionDestroyTtl'], Duration.fromJson),
       customerManagedEncryption: decode(json['customerManagedEncryption'],
           CustomerManagedEncryption.fromJson),
     );
@@ -461,15 +462,15 @@ class SecretVersion extends Message {
   factory SecretVersion.fromJson(Map<String, dynamic> json) {
     return SecretVersion(
       name: json['name'],
-      createTime: decode(json['createTime'], Timestamp.fromJson),
-      destroyTime: decode(json['destroyTime'], Timestamp.fromJson),
-      state: decode(json['state'], SecretVersion_State.fromJson),
+      createTime: decodeCustom(json['createTime'], Timestamp.fromJson),
+      destroyTime: decodeCustom(json['destroyTime'], Timestamp.fromJson),
+      state: decodeEnum(json['state'], SecretVersion_State.fromJson),
       replicationStatus:
           decode(json['replicationStatus'], ReplicationStatus.fromJson),
       etag: json['etag'],
       clientSpecifiedPayloadChecksum: json['clientSpecifiedPayloadChecksum'],
       scheduledDestroyTime:
-          decode(json['scheduledDestroyTime'], Timestamp.fromJson),
+          decodeCustom(json['scheduledDestroyTime'], Timestamp.fromJson),
       customerManagedEncryption: decode(json['customerManagedEncryption'],
           CustomerManagedEncryptionStatus.fromJson),
     );
@@ -638,7 +639,7 @@ class Replication_UserManaged extends Message {
 
   factory Replication_UserManaged.fromJson(Map<String, dynamic> json) {
     return Replication_UserManaged(
-      replicas: decodeList(
+      replicas: decodeListMessage(
           json['replicas'], Replication_UserManaged_Replica.fromJson),
     );
   }
@@ -863,7 +864,7 @@ class ReplicationStatus_UserManagedStatus extends Message {
   factory ReplicationStatus_UserManagedStatus.fromJson(
       Map<String, dynamic> json) {
     return ReplicationStatus_UserManagedStatus(
-      replicas: decodeList(json['replicas'],
+      replicas: decodeListMessage(json['replicas'],
           ReplicationStatus_UserManagedStatus_ReplicaStatus.fromJson),
     );
   }
@@ -1041,8 +1042,9 @@ class Rotation extends Message {
 
   factory Rotation.fromJson(Map<String, dynamic> json) {
     return Rotation(
-      nextRotationTime: decode(json['nextRotationTime'], Timestamp.fromJson),
-      rotationPeriod: decode(json['rotationPeriod'], Duration.fromJson),
+      nextRotationTime:
+          decodeCustom(json['nextRotationTime'], Timestamp.fromJson),
+      rotationPeriod: decodeCustom(json['rotationPeriod'], Duration.fromJson),
     );
   }
 
@@ -1095,15 +1097,15 @@ class SecretPayload extends Message {
   factory SecretPayload.fromJson(Map<String, dynamic> json) {
     return SecretPayload(
       data: decodeBytes(json['data']),
-      dataCrc32C: json['dataCrc32C'],
+      dataCrc32C: decodeInt64(json['dataCrc32C']),
     );
   }
 
   @override
   Object toJson() {
     return {
-      if (data != null) 'data': encodeBytes(data!),
-      if (dataCrc32C != null) 'dataCrc32C': dataCrc32C,
+      if (data != null) 'data': encodeBytes(data),
+      if (dataCrc32C != null) 'dataCrc32C': encodeInt64(dataCrc32C),
     };
   }
 
@@ -1211,7 +1213,7 @@ class ListSecretsResponse extends Message {
 
   factory ListSecretsResponse.fromJson(Map<String, dynamic> json) {
     return ListSecretsResponse(
-      secrets: decodeList(json['secrets'], Secret.fromJson),
+      secrets: decodeListMessage(json['secrets'], Secret.fromJson),
       nextPageToken: json['nextPageToken'],
       totalSize: json['totalSize'],
     );
@@ -1268,7 +1270,7 @@ class CreateSecretRequest extends Message {
     return CreateSecretRequest(
       parent: json['parent'],
       secretId: json['secretId'],
-      secret: Secret.fromJson(json['secret']),
+      secret: decode(json['secret'], Secret.fromJson)!,
     );
   }
 
@@ -1469,7 +1471,7 @@ class ListSecretVersionsResponse extends Message {
 
   factory ListSecretVersionsResponse.fromJson(Map<String, dynamic> json) {
     return ListSecretVersionsResponse(
-      versions: decodeList(json['versions'], SecretVersion.fromJson),
+      versions: decodeListMessage(json['versions'], SecretVersion.fromJson),
       nextPageToken: json['nextPageToken'],
       totalSize: json['totalSize'],
     );
@@ -1557,8 +1559,8 @@ class UpdateSecretRequest extends Message {
 
   factory UpdateSecretRequest.fromJson(Map<String, dynamic> json) {
     return UpdateSecretRequest(
-      secret: Secret.fromJson(json['secret']),
-      updateMask: decode(json['updateMask'], FieldMask.fromJson),
+      secret: decode(json['secret'], Secret.fromJson)!,
+      updateMask: decodeCustom(json['updateMask'], FieldMask.fromJson),
     );
   }
 

@@ -29,7 +29,7 @@
 library;
 
 import 'package:google_cloud_gax/common.dart';
-import 'package:google_cloud_gax/src/json_helpers.dart';
+import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:google_cloud_rpc/rpc.dart';
 import 'package:http/http.dart' as http;
@@ -212,7 +212,7 @@ class ListOperationsResponse extends Message {
 
   factory ListOperationsResponse.fromJson(Map<String, dynamic> json) {
     return ListOperationsResponse(
-      operations: decodeList(json['operations'], Operation.fromJson),
+      operations: decodeListMessage(json['operations'], Operation.fromJson),
       nextPageToken: json['nextPageToken'],
     );
   }
@@ -326,7 +326,7 @@ class WaitOperationRequest extends Message {
   factory WaitOperationRequest.fromJson(Map<String, dynamic> json) {
     return WaitOperationRequest(
       name: json['name'],
-      timeout: decode(json['timeout'], Duration.fromJson),
+      timeout: decodeCustom(json['timeout'], Duration.fromJson),
     );
   }
 

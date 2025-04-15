@@ -20,7 +20,7 @@
 library;
 
 import 'package:google_cloud_gax/common.dart';
-import 'package:google_cloud_gax/src/json_helpers.dart';
+import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 
 /// Represents a color in the RGBA color space. This representation is designed
@@ -181,10 +181,10 @@ class Color extends Message {
 
   factory Color.fromJson(Map<String, dynamic> json) {
     return Color(
-      red: (json['red'] as num?)?.toDouble(),
-      green: (json['green'] as num?)?.toDouble(),
-      blue: (json['blue'] as num?)?.toDouble(),
-      alpha: decode(json['alpha'], FloatValue.fromJson),
+      red: decodeDouble(json['red']),
+      green: decodeDouble(json['green']),
+      blue: decodeDouble(json['blue']),
+      alpha: decodeCustom(json['alpha'], FloatValue.fromJson),
     );
   }
 
@@ -355,7 +355,7 @@ class DateTime extends Message {
       minutes: json['minutes'],
       seconds: json['seconds'],
       nanos: json['nanos'],
-      utcOffset: decode(json['utcOffset'], Duration.fromJson),
+      utcOffset: decodeCustom(json['utcOffset'], Duration.fromJson),
       timeZone: decode(json['timeZone'], TimeZone.fromJson),
     );
   }
@@ -636,16 +636,16 @@ class Fraction extends Message {
 
   factory Fraction.fromJson(Map<String, dynamic> json) {
     return Fraction(
-      numerator: json['numerator'],
-      denominator: json['denominator'],
+      numerator: decodeInt64(json['numerator']),
+      denominator: decodeInt64(json['denominator']),
     );
   }
 
   @override
   Object toJson() {
     return {
-      if (numerator != null) 'numerator': numerator,
-      if (denominator != null) 'denominator': denominator,
+      if (numerator != null) 'numerator': encodeInt64(numerator),
+      if (denominator != null) 'denominator': encodeInt64(denominator),
     };
   }
 
@@ -687,8 +687,8 @@ class Interval extends Message {
 
   factory Interval.fromJson(Map<String, dynamic> json) {
     return Interval(
-      startTime: decode(json['startTime'], Timestamp.fromJson),
-      endTime: decode(json['endTime'], Timestamp.fromJson),
+      startTime: decodeCustom(json['startTime'], Timestamp.fromJson),
+      endTime: decodeCustom(json['endTime'], Timestamp.fromJson),
     );
   }
 
@@ -725,8 +725,8 @@ class LatLng extends Message {
 
   factory LatLng.fromJson(Map<String, dynamic> json) {
     return LatLng(
-      latitude: (json['latitude'] as num?)?.toDouble(),
-      longitude: (json['longitude'] as num?)?.toDouble(),
+      latitude: decodeDouble(json['latitude']),
+      longitude: decodeDouble(json['longitude']),
     );
   }
 
@@ -819,7 +819,7 @@ class Money extends Message {
   factory Money.fromJson(Map<String, dynamic> json) {
     return Money(
       currencyCode: json['currencyCode'],
-      units: json['units'],
+      units: decodeInt64(json['units']),
       nanos: json['nanos'],
     );
   }
@@ -828,7 +828,7 @@ class Money extends Message {
   Object toJson() {
     return {
       if (currencyCode != null) 'currencyCode': currencyCode,
-      if (units != null) 'units': units,
+      if (units != null) 'units': encodeInt64(units),
       if (nanos != null) 'nanos': nanos,
     };
   }
@@ -1128,8 +1128,8 @@ class PostalAddress extends Message {
       administrativeArea: json['administrativeArea'],
       locality: json['locality'],
       sublocality: json['sublocality'],
-      addressLines: (json['addressLines'] as List?)?.cast(),
-      recipients: (json['recipients'] as List?)?.cast(),
+      addressLines: decodeList(json['addressLines']),
+      recipients: decodeList(json['recipients']),
       organization: json['organization'],
     );
   }
@@ -1247,10 +1247,10 @@ class Quaternion extends Message {
 
   factory Quaternion.fromJson(Map<String, dynamic> json) {
     return Quaternion(
-      x: (json['x'] as num?)?.toDouble(),
-      y: (json['y'] as num?)?.toDouble(),
-      z: (json['z'] as num?)?.toDouble(),
-      w: (json['w'] as num?)?.toDouble(),
+      x: decodeDouble(json['x']),
+      y: decodeDouble(json['y']),
+      z: decodeDouble(json['z']),
+      w: decodeDouble(json['w']),
     );
   }
 

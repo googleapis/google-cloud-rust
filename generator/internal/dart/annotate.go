@@ -531,66 +531,77 @@ func (annotate *annotateModel) annotateField(field *api.Field) {
 func createFromJsonLine(field *api.Field, state *api.APIState, required bool) string {
 	name := fieldName(field)
 	message := state.MessageByID[field.TypezID]
-	typeName := ""
 
 	isList := field.Repeated
-	isMessage := field.Typez == api.MESSAGE_TYPE
-	isEnum := field.Typez == api.ENUM_TYPE
-	isBytes := field.Typez == api.BYTES_TYPE
-	isDouble := field.Typez == api.DOUBLE_TYPE || field.Typez == api.FLOAT_TYPE
 	isMap := message != nil && message.IsMap
-	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
 
-	if isMessage {
-		typeName = messageName(message)
-	} else if isEnum {
-		enum := state.EnumByID[field.TypezID]
-		typeName = enumName(enum)
-	}
+	data := fmt.Sprintf("json['%s']", name)
 
-	data := "json['" + name + "']"
-	fn := typeName + ".fromJson"
-	opt := ""
 	bang := "!"
 	if !required {
-		opt = "?"
 		bang = ""
 	}
 
-	if isMap {
-		if isMessageMap {
-			// message maps: decodeMap(json['name'], Status.fromJson)!,
-			return "decodeMap(" + data + ", " + fn + ")" + bang
-		} else {
-			// primitive maps: (json['name'] as Map?)?.cast(),
-			return "(" + data + " as Map" + opt + ")" + opt + ".cast()"
+	switch {
+	case isList:
+		switch {
+		case field.Typez == api.BYTES_TYPE:
+			return fmt.Sprintf("decodeListBytes(%s)%s", data, bang)
+		case field.Typez == api.ENUM_TYPE:
+			typeName := enumName(state.EnumByID[field.TypezID])
+			return fmt.Sprintf("decodeListEnum(%s, %s.fromJson)%s", data, typeName, bang)
+		case field.Typez == api.MESSAGE_TYPE:
+			_, hasCustomEncoding := usesCustomEncoding[field.TypezID]
+			typeName := messageName(state.MessageByID[field.TypezID])
+			if hasCustomEncoding {
+				return fmt.Sprintf("decodeListMessageCustom(%s, %s.fromJson)%s", data, typeName, bang)
+			} else {
+				return fmt.Sprintf("decodeListMessage(%s, %s.fromJson)%s", data, typeName, bang)
+			}
+		default:
+			return fmt.Sprintf("decodeList(%s)%s", data, bang)
 		}
-	} else if isList {
-		if isMessage {
-			// message lists, custom lists: decodeList(json['name'], FieldMask.fromJson)!,
-			return "decodeList(" + data + ", " + fn + ")" + bang
-		} else {
-			// primitive lists: (json['name'] as List?)?.cast(),
-			return "(" + data + " as List" + opt + ")" + opt + ".cast()"
+	case isMap:
+		valueField := message.Fields[1]
+
+		switch {
+		case valueField.Typez == api.BYTES_TYPE:
+			return fmt.Sprintf("decodeMapBytes(%s)%s", data, bang)
+		case valueField.Typez == api.ENUM_TYPE:
+			typeName := enumName(state.EnumByID[valueField.TypezID])
+			return fmt.Sprintf("decodeMapEnum(%s, %s.fromJson)%s", data, typeName, bang)
+		case valueField.Typez == api.MESSAGE_TYPE:
+			_, hasCustomEncoding := usesCustomEncoding[valueField.TypezID]
+			typeName := messageName(state.MessageByID[valueField.TypezID])
+			if hasCustomEncoding {
+				return fmt.Sprintf("decodeMapMessageCustom(%s, %s.fromJson)%s", data, typeName, bang)
+			} else {
+				return fmt.Sprintf("decodeMapMessage(%s, %s.fromJson)%s", data, typeName, bang)
+			}
+		default:
+			return fmt.Sprintf("decodeMap(%s)%s", data, bang)
 		}
-	} else if isMessage || isEnum {
-		// enum or message
-		if required {
-			// FieldMask.fromJson(json['name']),
-			return fn + "(" + data + ")"
+	case field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE:
+		return fmt.Sprintf("decodeInt64(%s)%s", data, bang)
+	case field.Typez == api.FLOAT_TYPE || field.Typez == api.DOUBLE_TYPE:
+		return fmt.Sprintf("decodeDouble(%s)%s", data, bang)
+	case field.Typez == api.BYTES_TYPE:
+		return fmt.Sprintf("decodeBytes(%s)%s", data, bang)
+	case field.Typez == api.ENUM_TYPE:
+		typeName := enumName(state.EnumByID[field.TypezID])
+		return fmt.Sprintf("decodeEnum(%s, %s.fromJson)%s", data, typeName, bang)
+	case field.Typez == api.MESSAGE_TYPE:
+		_, hasCustomEncoding := usesCustomEncoding[field.TypezID]
+		typeName := messageName(state.MessageByID[field.TypezID])
+		if hasCustomEncoding {
+			return fmt.Sprintf("decodeCustom(%s, %s.fromJson)%s", data, typeName, bang)
 		} else {
-			// decode(json['name'], FieldMask.fromJson),
-			return "decode(" + data + ", " + fn + ")"
+			return fmt.Sprintf("decode(%s, %s.fromJson)%s", data, typeName, bang)
 		}
-	} else if isBytes {
-		return "decodeBytes(" + data + ")" + bang
-	} else if isDouble {
-		// (json['name'] as num?)?.toDouble(),
-		return "(" + data + " as num" + opt + ")" + opt + ".toDouble()"
-	} else {
-		// json['name']
-		return data
 	}
+
+	// No decoding necessary.
+	return data
 }
 
 func createToJsonLine(field *api.Field, state *api.APIState, required bool) string {
@@ -598,34 +609,47 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 	message := state.MessageByID[field.TypezID]
 
 	isList := field.Repeated
-	isMessage := field.Typez == api.MESSAGE_TYPE
-	isEnum := field.Typez == api.ENUM_TYPE
-	isBytes := field.Typez == api.BYTES_TYPE
 	isMap := message != nil && message.IsMap
-	isMessageMap := isMap && message.Fields[1].Typez == api.MESSAGE_TYPE
+
 	bang := "!"
 	if required {
 		bang = ""
 	}
 
-	if isMessageMap {
-		// message maps: encodeMap(name)
-		return "encodeMap(" + name + ")"
-	} else if isList && (isMessage || isEnum) {
-		// message lists, custom lists, and enum lists: encodeList(name)
-		return "encodeList(" + name + ")"
-	} else if isMap {
-		// primitive maps
-		return name
-	} else if isMessage || isEnum {
-		// message, enum, and custom: name!.toJson()
-		return name + bang + ".toJson()"
-	} else if isBytes {
-		return "encodeBytes(" + name + bang + ")"
-	} else {
-		// primitive, primitive lists
-		return name
+	switch {
+	case isList:
+		switch {
+		case field.Typez == api.BYTES_TYPE:
+			return fmt.Sprintf("encodeListBytes(%s)", name)
+		case field.Typez == api.MESSAGE_TYPE || field.Typez == api.ENUM_TYPE:
+			return fmt.Sprintf("encodeList(%s)", name)
+		default:
+			// identity
+			return name
+		}
+	case isMap:
+		valueField := message.Fields[1]
+
+		switch {
+		case valueField.Typez == api.BYTES_TYPE:
+			return fmt.Sprintf("encodeMapBytes(%s)", name)
+		case valueField.Typez == api.MESSAGE_TYPE || valueField.Typez == api.ENUM_TYPE:
+			return fmt.Sprintf("encodeMap(%s)", name)
+		default:
+			// identity
+			return name
+		}
+	case field.Typez == api.MESSAGE_TYPE || field.Typez == api.ENUM_TYPE:
+		return fmt.Sprintf("%s%s.toJson()", name, bang)
+	case field.Typez == api.BYTES_TYPE:
+		return fmt.Sprintf("encodeBytes(%s)", name)
+	case field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE:
+		return fmt.Sprintf("encodeInt64(%s)", name)
+	default:
 	}
+
+	// No encoding necessary.
+	return name
 }
 
 func (annotate *annotateModel) annotateEnum(enum *api.Enum) {

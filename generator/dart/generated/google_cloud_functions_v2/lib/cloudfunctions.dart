@@ -22,7 +22,7 @@ library;
 import 'dart:typed_data';
 
 import 'package:google_cloud_gax/common.dart';
-import 'package:google_cloud_gax/src/json_helpers.dart';
+import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:google_cloud_iam_v1/iam.dart';
 import 'package:google_cloud_location/location.dart';
 import 'package:google_cloud_longrunning/longrunning.dart';
@@ -311,15 +311,16 @@ class Function$ extends Message {
       buildConfig: decode(json['buildConfig'], BuildConfig.fromJson),
       serviceConfig: decode(json['serviceConfig'], ServiceConfig.fromJson),
       eventTrigger: decode(json['eventTrigger'], EventTrigger.fromJson),
-      state: decode(json['state'], Function$_State.fromJson),
-      updateTime: decode(json['updateTime'], Timestamp.fromJson),
-      labels: (json['labels'] as Map?)?.cast(),
-      stateMessages: decodeList(json['stateMessages'], StateMessage.fromJson),
-      environment: decode(json['environment'], Environment.fromJson),
+      state: decodeEnum(json['state'], Function$_State.fromJson),
+      updateTime: decodeCustom(json['updateTime'], Timestamp.fromJson),
+      labels: decodeMap(json['labels']),
+      stateMessages:
+          decodeListMessage(json['stateMessages'], StateMessage.fromJson),
+      environment: decodeEnum(json['environment'], Environment.fromJson),
       url: json['url'],
       kmsKeyName: json['kmsKeyName'],
       satisfiesPzs: json['satisfiesPzs'],
-      createTime: decode(json['createTime'], Timestamp.fromJson),
+      createTime: decodeCustom(json['createTime'], Timestamp.fromJson),
     );
   }
 
@@ -409,7 +410,7 @@ class StateMessage extends Message {
 
   factory StateMessage.fromJson(Map<String, dynamic> json) {
     return StateMessage(
-      severity: decode(json['severity'], StateMessage_Severity.fromJson),
+      severity: decodeEnum(json['severity'], StateMessage_Severity.fromJson),
       type: json['type'],
       message: json['message'],
     );
@@ -495,7 +496,7 @@ class StorageSource extends Message {
     return StorageSource(
       bucket: json['bucket'],
       object: json['object'],
-      generation: json['generation'],
+      generation: decodeInt64(json['generation']),
       sourceUploadUrl: json['sourceUploadUrl'],
     );
   }
@@ -505,7 +506,7 @@ class StorageSource extends Message {
     return {
       if (bucket != null) 'bucket': bucket,
       if (object != null) 'object': object,
-      if (generation != null) 'generation': generation,
+      if (generation != null) 'generation': encodeInt64(generation),
       if (sourceUploadUrl != null) 'sourceUploadUrl': sourceUploadUrl,
     };
   }
@@ -820,9 +821,9 @@ class BuildConfig extends Message {
       sourceProvenance:
           decode(json['sourceProvenance'], SourceProvenance.fromJson),
       workerPool: json['workerPool'],
-      environmentVariables: (json['environmentVariables'] as Map?)?.cast(),
-      dockerRegistry:
-          decode(json['dockerRegistry'], BuildConfig_DockerRegistry.fromJson),
+      environmentVariables: decodeMap(json['environmentVariables']),
+      dockerRegistry: decodeEnum(
+          json['dockerRegistry'], BuildConfig_DockerRegistry.fromJson),
       dockerRepository: json['dockerRepository'],
       serviceAccount: json['serviceAccount'],
     );
@@ -1029,24 +1030,25 @@ class ServiceConfig extends Message {
       timeoutSeconds: json['timeoutSeconds'],
       availableMemory: json['availableMemory'],
       availableCpu: json['availableCpu'],
-      environmentVariables: (json['environmentVariables'] as Map?)?.cast(),
+      environmentVariables: decodeMap(json['environmentVariables']),
       maxInstanceCount: json['maxInstanceCount'],
       minInstanceCount: json['minInstanceCount'],
       vpcConnector: json['vpcConnector'],
-      vpcConnectorEgressSettings: decode(json['vpcConnectorEgressSettings'],
+      vpcConnectorEgressSettings: decodeEnum(json['vpcConnectorEgressSettings'],
           ServiceConfig_VpcConnectorEgressSettings.fromJson),
-      ingressSettings: decode(
+      ingressSettings: decodeEnum(
           json['ingressSettings'], ServiceConfig_IngressSettings.fromJson),
       uri: json['uri'],
       serviceAccountEmail: json['serviceAccountEmail'],
       allTrafficOnLatestRevision: json['allTrafficOnLatestRevision'],
-      secretEnvironmentVariables:
-          decodeList(json['secretEnvironmentVariables'], SecretEnvVar.fromJson),
-      secretVolumes: decodeList(json['secretVolumes'], SecretVolume.fromJson),
+      secretEnvironmentVariables: decodeListMessage(
+          json['secretEnvironmentVariables'], SecretEnvVar.fromJson),
+      secretVolumes:
+          decodeListMessage(json['secretVolumes'], SecretVolume.fromJson),
       revision: json['revision'],
       maxInstanceRequestConcurrency: json['maxInstanceRequestConcurrency'],
-      securityLevel:
-          decode(json['securityLevel'], ServiceConfig_SecurityLevel.fromJson),
+      securityLevel: decodeEnum(
+          json['securityLevel'], ServiceConfig_SecurityLevel.fromJson),
       binaryAuthorizationPolicy: json['binaryAuthorizationPolicy'],
     );
   }
@@ -1301,8 +1303,8 @@ class SecretVolume extends Message {
       mountPath: json['mountPath'],
       projectId: json['projectId'],
       secret: json['secret'],
-      versions:
-          decodeList(json['versions'], SecretVolume_SecretVersion.fromJson),
+      versions: decodeListMessage(
+          json['versions'], SecretVolume_SecretVersion.fromJson),
     );
   }
 
@@ -1449,11 +1451,12 @@ class EventTrigger extends Message {
       trigger: json['trigger'],
       triggerRegion: json['triggerRegion'],
       eventType: json['eventType'],
-      eventFilters: decodeList(json['eventFilters'], EventFilter.fromJson),
+      eventFilters:
+          decodeListMessage(json['eventFilters'], EventFilter.fromJson),
       pubsubTopic: json['pubsubTopic'],
       serviceAccountEmail: json['serviceAccountEmail'],
       retryPolicy:
-          decode(json['retryPolicy'], EventTrigger_RetryPolicy.fromJson),
+          decodeEnum(json['retryPolicy'], EventTrigger_RetryPolicy.fromJson),
       channel: json['channel'],
       service: json['service'],
     );
@@ -1714,9 +1717,9 @@ class ListFunctionsResponse extends Message {
 
   factory ListFunctionsResponse.fromJson(Map<String, dynamic> json) {
     return ListFunctionsResponse(
-      functions: decodeList(json['functions'], Function$.fromJson),
+      functions: decodeListMessage(json['functions'], Function$.fromJson),
       nextPageToken: json['nextPageToken'],
-      unreachable: (json['unreachable'] as List?)?.cast(),
+      unreachable: decodeList(json['unreachable']),
     );
   }
 
@@ -1766,7 +1769,7 @@ class CreateFunctionRequest extends Message {
   factory CreateFunctionRequest.fromJson(Map<String, dynamic> json) {
     return CreateFunctionRequest(
       parent: json['parent'],
-      function: Function$.fromJson(json['function']),
+      function: decode(json['function'], Function$.fromJson)!,
       functionId: json['functionId'],
     );
   }
@@ -1809,8 +1812,8 @@ class UpdateFunctionRequest extends Message {
 
   factory UpdateFunctionRequest.fromJson(Map<String, dynamic> json) {
     return UpdateFunctionRequest(
-      function: Function$.fromJson(json['function']),
-      updateMask: decode(json['updateMask'], FieldMask.fromJson),
+      function: decode(json['function'], Function$.fromJson)!,
+      updateMask: decodeCustom(json['updateMask'], FieldMask.fromJson),
     );
   }
 
@@ -1902,7 +1905,7 @@ class GenerateUploadUrlRequest extends Message {
     return GenerateUploadUrlRequest(
       parent: json['parent'],
       kmsKeyName: json['kmsKeyName'],
-      environment: decode(json['environment'], Environment.fromJson),
+      environment: decodeEnum(json['environment'], Environment.fromJson),
     );
   }
 
@@ -2102,8 +2105,8 @@ class ListRuntimesResponse extends Message {
 
   factory ListRuntimesResponse.fromJson(Map<String, dynamic> json) {
     return ListRuntimesResponse(
-      runtimes:
-          decodeList(json['runtimes'], ListRuntimesResponse_Runtime.fromJson),
+      runtimes: decodeListMessage(
+          json['runtimes'], ListRuntimesResponse_Runtime.fromJson),
     );
   }
 
@@ -2159,9 +2162,10 @@ class ListRuntimesResponse_Runtime extends Message {
     return ListRuntimesResponse_Runtime(
       name: json['name'],
       displayName: json['displayName'],
-      stage: decode(json['stage'], ListRuntimesResponse_RuntimeStage.fromJson),
-      warnings: (json['warnings'] as List?)?.cast(),
-      environment: decode(json['environment'], Environment.fromJson),
+      stage:
+          decodeEnum(json['stage'], ListRuntimesResponse_RuntimeStage.fromJson),
+      warnings: decodeList(json['warnings']),
+      environment: decodeEnum(json['environment'], Environment.fromJson),
       deprecationDate: decode(json['deprecationDate'], Date.fromJson),
       decommissionDate: decode(json['decommissionDate'], Date.fromJson),
     );
@@ -2347,18 +2351,18 @@ class OperationMetadata extends Message {
 
   factory OperationMetadata.fromJson(Map<String, dynamic> json) {
     return OperationMetadata(
-      createTime: decode(json['createTime'], Timestamp.fromJson),
-      endTime: decode(json['endTime'], Timestamp.fromJson),
+      createTime: decodeCustom(json['createTime'], Timestamp.fromJson),
+      endTime: decodeCustom(json['endTime'], Timestamp.fromJson),
       target: json['target'],
       verb: json['verb'],
       statusDetail: json['statusDetail'],
       cancelRequested: json['cancelRequested'],
       apiVersion: json['apiVersion'],
       requestResource: decode(json['requestResource'], Any.fromJson),
-      stages: decodeList(json['stages'], Stage.fromJson),
+      stages: decodeListMessage(json['stages'], Stage.fromJson),
       sourceToken: json['sourceToken'],
       buildName: json['buildName'],
-      operationType: decode(json['operationType'], OperationType.fromJson),
+      operationType: decodeEnum(json['operationType'], OperationType.fromJson),
     );
   }
 
@@ -2410,7 +2414,7 @@ class LocationMetadata extends Message {
 
   factory LocationMetadata.fromJson(Map<String, dynamic> json) {
     return LocationMetadata(
-      environments: (json['environments'] as List?)?.cast(),
+      environments: decodeListEnum(json['environments'], Environment.fromJson),
     );
   }
 
@@ -2458,12 +2462,13 @@ class Stage extends Message {
 
   factory Stage.fromJson(Map<String, dynamic> json) {
     return Stage(
-      name: decode(json['name'], Stage_Name.fromJson),
+      name: decodeEnum(json['name'], Stage_Name.fromJson),
       message: json['message'],
-      state: decode(json['state'], Stage_State.fromJson),
+      state: decodeEnum(json['state'], Stage_State.fromJson),
       resource: json['resource'],
       resourceUri: json['resourceUri'],
-      stateMessages: decodeList(json['stateMessages'], StateMessage.fromJson),
+      stateMessages:
+          decodeListMessage(json['stateMessages'], StateMessage.fromJson),
     );
   }
 

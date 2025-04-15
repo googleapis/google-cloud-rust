@@ -22,7 +22,7 @@
 library;
 
 import 'package:google_cloud_gax/common.dart';
-import 'package:google_cloud_gax/src/json_helpers.dart';
+import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:http/http.dart' as http;
 
@@ -131,7 +131,7 @@ class ListLocationsResponse extends Message {
 
   factory ListLocationsResponse.fromJson(Map<String, dynamic> json) {
     return ListLocationsResponse(
-      locations: decodeList(json['locations'], Location.fromJson),
+      locations: decodeListMessage(json['locations'], Location.fromJson),
       nextPageToken: json['nextPageToken'],
     );
   }
@@ -224,7 +224,7 @@ class Location extends Message {
       name: json['name'],
       locationId: json['locationId'],
       displayName: json['displayName'],
-      labels: (json['labels'] as Map?)?.cast(),
+      labels: decodeMap(json['labels']),
       metadata: decode(json['metadata'], Any.fromJson),
     );
   }

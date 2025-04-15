@@ -39,7 +39,7 @@ class Any extends Message {
   final Map<String, dynamic> json;
 
   Any({Map<String, dynamic>? json})
-      : this.json = json ?? {},
+      : json = json ?? {},
         super(fullyQualifiedName);
 
   /// Create an [Any] from an existing [message].
@@ -266,7 +266,7 @@ class TimestampHelper {
     }
 
     // construct "2017-01-15T01:30:15.01Z"
-    return '${year}-${month}-${day}T${hour}:${minute}:${second}${nanosStr}Z';
+    return '$year-$month-${day}T$hour:$minute:$second${nanosStr}Z';
   }
 
   /// Decode the timestamp from a RFC3339/UTC format string.
@@ -381,7 +381,7 @@ class StringValueHelper {
 
 class BytesValueHelper {
   static String encode(BytesValue value) {
-    return encodeBytes(value.value!);
+    return encodeBytes(value.value!)!;
   }
 
   static BytesValue decode(Object value) {

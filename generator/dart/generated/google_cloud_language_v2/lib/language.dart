@@ -22,7 +22,7 @@
 library;
 
 import 'package:google_cloud_gax/common.dart';
-import 'package:google_cloud_gax/src/json_helpers.dart';
+import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:http/http.dart' as http;
 
 /// Provides text analysis operations such as sentiment analysis and entity
@@ -117,7 +117,7 @@ class Document extends Message {
 
   factory Document.fromJson(Map<String, dynamic> json) {
     return Document(
-      type: decode(json['type'], Document_Type.fromJson),
+      type: decodeEnum(json['type'], Document_Type.fromJson),
       content: json['content'],
       gcsContentUri: json['gcsContentUri'],
       languageCode: json['languageCode'],
@@ -240,9 +240,9 @@ class Entity extends Message {
   factory Entity.fromJson(Map<String, dynamic> json) {
     return Entity(
       name: json['name'],
-      type: decode(json['type'], Entity_Type.fromJson),
-      metadata: (json['metadata'] as Map?)?.cast(),
-      mentions: decodeList(json['mentions'], EntityMention.fromJson),
+      type: decodeEnum(json['type'], Entity_Type.fromJson),
+      metadata: decodeMap(json['metadata']),
+      mentions: decodeListMessage(json['mentions'], EntityMention.fromJson),
       sentiment: decode(json['sentiment'], Sentiment.fromJson),
     );
   }
@@ -374,8 +374,8 @@ class Sentiment extends Message {
 
   factory Sentiment.fromJson(Map<String, dynamic> json) {
     return Sentiment(
-      magnitude: (json['magnitude'] as num?)?.toDouble(),
-      score: (json['score'] as num?)?.toDouble(),
+      magnitude: decodeDouble(json['magnitude']),
+      score: decodeDouble(json['score']),
     );
   }
 
@@ -431,9 +431,9 @@ class EntityMention extends Message {
   factory EntityMention.fromJson(Map<String, dynamic> json) {
     return EntityMention(
       text: decode(json['text'], TextSpan.fromJson),
-      type: decode(json['type'], EntityMention_Type.fromJson),
+      type: decodeEnum(json['type'], EntityMention_Type.fromJson),
       sentiment: decode(json['sentiment'], Sentiment.fromJson),
-      probability: (json['probability'] as num?)?.toDouble(),
+      probability: decodeDouble(json['probability']),
     );
   }
 
@@ -545,8 +545,8 @@ class ClassificationCategory extends Message {
   factory ClassificationCategory.fromJson(Map<String, dynamic> json) {
     return ClassificationCategory(
       name: json['name'],
-      confidence: (json['confidence'] as num?)?.toDouble(),
-      severity: (json['severity'] as num?)?.toDouble(),
+      confidence: decodeDouble(json['confidence']),
+      severity: decodeDouble(json['severity']),
     );
   }
 
@@ -589,7 +589,7 @@ class AnalyzeSentimentRequest extends Message {
   factory AnalyzeSentimentRequest.fromJson(Map<String, dynamic> json) {
     return AnalyzeSentimentRequest(
       document: decode(json['document'], Document.fromJson),
-      encodingType: decode(json['encodingType'], EncodingType.fromJson),
+      encodingType: decodeEnum(json['encodingType'], EncodingType.fromJson),
     );
   }
 
@@ -642,7 +642,7 @@ class AnalyzeSentimentResponse extends Message {
     return AnalyzeSentimentResponse(
       documentSentiment: decode(json['documentSentiment'], Sentiment.fromJson),
       languageCode: json['languageCode'],
-      sentences: decodeList(json['sentences'], Sentence.fromJson),
+      sentences: decodeListMessage(json['sentences'], Sentence.fromJson),
       languageSupported: json['languageSupported'],
     );
   }
@@ -687,7 +687,7 @@ class AnalyzeEntitiesRequest extends Message {
   factory AnalyzeEntitiesRequest.fromJson(Map<String, dynamic> json) {
     return AnalyzeEntitiesRequest(
       document: decode(json['document'], Document.fromJson),
-      encodingType: decode(json['encodingType'], EncodingType.fromJson),
+      encodingType: decodeEnum(json['encodingType'], EncodingType.fromJson),
     );
   }
 
@@ -734,7 +734,7 @@ class AnalyzeEntitiesResponse extends Message {
 
   factory AnalyzeEntitiesResponse.fromJson(Map<String, dynamic> json) {
     return AnalyzeEntitiesResponse(
-      entities: decodeList(json['entities'], Entity.fromJson),
+      entities: decodeListMessage(json['entities'], Entity.fromJson),
       languageCode: json['languageCode'],
       languageSupported: json['languageSupported'],
     );
@@ -814,8 +814,8 @@ class ClassifyTextResponse extends Message {
 
   factory ClassifyTextResponse.fromJson(Map<String, dynamic> json) {
     return ClassifyTextResponse(
-      categories:
-          decodeList(json['categories'], ClassificationCategory.fromJson),
+      categories: decodeListMessage(
+          json['categories'], ClassificationCategory.fromJson),
       languageCode: json['languageCode'],
       languageSupported: json['languageSupported'],
     );
@@ -859,7 +859,7 @@ class ModerateTextRequest extends Message {
   factory ModerateTextRequest.fromJson(Map<String, dynamic> json) {
     return ModerateTextRequest(
       document: decode(json['document'], Document.fromJson),
-      modelVersion: decode(
+      modelVersion: decodeEnum(
           json['modelVersion'], ModerateTextRequest_ModelVersion.fromJson),
     );
   }
@@ -934,7 +934,7 @@ class ModerateTextResponse extends Message {
 
   factory ModerateTextResponse.fromJson(Map<String, dynamic> json) {
     return ModerateTextResponse(
-      moderationCategories: decodeList(
+      moderationCategories: decodeListMessage(
           json['moderationCategories'], ClassificationCategory.fromJson),
       languageCode: json['languageCode'],
       languageSupported: json['languageSupported'],
@@ -986,7 +986,7 @@ class AnnotateTextRequest extends Message {
     return AnnotateTextRequest(
       document: decode(json['document'], Document.fromJson),
       features: decode(json['features'], AnnotateTextRequest_Features.fromJson),
-      encodingType: decode(json['encodingType'], EncodingType.fromJson),
+      encodingType: decodeEnum(json['encodingType'], EncodingType.fromJson),
     );
   }
 
@@ -1114,13 +1114,13 @@ class AnnotateTextResponse extends Message {
 
   factory AnnotateTextResponse.fromJson(Map<String, dynamic> json) {
     return AnnotateTextResponse(
-      sentences: decodeList(json['sentences'], Sentence.fromJson),
-      entities: decodeList(json['entities'], Entity.fromJson),
+      sentences: decodeListMessage(json['sentences'], Sentence.fromJson),
+      entities: decodeListMessage(json['entities'], Entity.fromJson),
       documentSentiment: decode(json['documentSentiment'], Sentiment.fromJson),
       languageCode: json['languageCode'],
-      categories:
-          decodeList(json['categories'], ClassificationCategory.fromJson),
-      moderationCategories: decodeList(
+      categories: decodeListMessage(
+          json['categories'], ClassificationCategory.fromJson),
+      moderationCategories: decodeListMessage(
           json['moderationCategories'], ClassificationCategory.fromJson),
       languageSupported: json['languageSupported'],
     );

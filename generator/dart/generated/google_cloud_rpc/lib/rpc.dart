@@ -22,7 +22,7 @@ library;
 import 'dart:typed_data';
 
 import 'package:google_cloud_gax/common.dart';
-import 'package:google_cloud_gax/src/json_helpers.dart';
+import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 
 part 'src/rpc.p.dart';
@@ -90,7 +90,7 @@ class ErrorInfo extends Message {
     return ErrorInfo(
       reason: json['reason'],
       domain: json['domain'],
-      metadata: (json['metadata'] as Map?)?.cast(),
+      metadata: decodeMap(json['metadata']),
     );
   }
 
@@ -138,7 +138,7 @@ class RetryInfo extends Message {
 
   factory RetryInfo.fromJson(Map<String, dynamic> json) {
     return RetryInfo(
-      retryDelay: decode(json['retryDelay'], Duration.fromJson),
+      retryDelay: decodeCustom(json['retryDelay'], Duration.fromJson),
     );
   }
 
@@ -170,7 +170,7 @@ class DebugInfo extends Message {
 
   factory DebugInfo.fromJson(Map<String, dynamic> json) {
     return DebugInfo(
-      stackEntries: (json['stackEntries'] as List?)?.cast(),
+      stackEntries: decodeList(json['stackEntries']),
       detail: json['detail'],
     );
   }
@@ -215,8 +215,8 @@ class QuotaFailure extends Message {
 
   factory QuotaFailure.fromJson(Map<String, dynamic> json) {
     return QuotaFailure(
-      violations:
-          decodeList(json['violations'], QuotaFailure_Violation.fromJson),
+      violations: decodeListMessage(
+          json['violations'], QuotaFailure_Violation.fromJson),
     );
   }
 
@@ -297,7 +297,7 @@ class PreconditionFailure extends Message {
 
   factory PreconditionFailure.fromJson(Map<String, dynamic> json) {
     return PreconditionFailure(
-      violations: decodeList(
+      violations: decodeListMessage(
           json['violations'], PreconditionFailure_Violation.fromJson),
     );
   }
@@ -382,7 +382,7 @@ class BadRequest extends Message {
 
   factory BadRequest.fromJson(Map<String, dynamic> json) {
     return BadRequest(
-      fieldViolations: decodeList(
+      fieldViolations: decodeListMessage(
           json['fieldViolations'], BadRequest_FieldViolation.fromJson),
     );
   }
@@ -620,7 +620,7 @@ class Help extends Message {
 
   factory Help.fromJson(Map<String, dynamic> json) {
     return Help(
-      links: decodeList(json['links'], Help_Link.fromJson),
+      links: decodeListMessage(json['links'], Help_Link.fromJson),
     );
   }
 
@@ -746,7 +746,7 @@ class HttpRequest extends Message {
     return HttpRequest(
       method: json['method'],
       uri: json['uri'],
-      headers: decodeList(json['headers'], HttpHeader.fromJson),
+      headers: decodeListMessage(json['headers'], HttpHeader.fromJson),
       body: decodeBytes(json['body']),
     );
   }
@@ -757,7 +757,7 @@ class HttpRequest extends Message {
       if (method != null) 'method': method,
       if (uri != null) 'uri': uri,
       if (headers != null) 'headers': encodeList(headers),
-      if (body != null) 'body': encodeBytes(body!),
+      if (body != null) 'body': encodeBytes(body),
     };
   }
 
@@ -800,7 +800,7 @@ class HttpResponse extends Message {
     return HttpResponse(
       status: json['status'],
       reason: json['reason'],
-      headers: decodeList(json['headers'], HttpHeader.fromJson),
+      headers: decodeListMessage(json['headers'], HttpHeader.fromJson),
       body: decodeBytes(json['body']),
     );
   }
@@ -811,7 +811,7 @@ class HttpResponse extends Message {
       if (status != null) 'status': status,
       if (reason != null) 'reason': reason,
       if (headers != null) 'headers': encodeList(headers),
-      if (body != null) 'body': encodeBytes(body!),
+      if (body != null) 'body': encodeBytes(body),
     };
   }
 
@@ -900,7 +900,7 @@ class Status extends Message {
     return Status(
       code: json['code'],
       message: json['message'],
-      details: decodeList(json['details'], Any.fromJson),
+      details: decodeListMessage(json['details'], Any.fromJson),
     );
   }
 
