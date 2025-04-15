@@ -83,6 +83,17 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn validate_iap_attribute_expression(
+        &self,
+        req: crate::model::ValidateIapAttributeExpressionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>> {
+        self.inner
+            .validate_iap_attribute_expression(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_tunnel_dest_groups(
         &self,
         req: crate::model::ListTunnelDestGroupsRequest,

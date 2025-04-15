@@ -4836,7 +4836,7 @@ impl wkt::message::Message for ScheduledSnapshotsConfig {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct MasterAuthorizedNetworksConfig {
-    /// Whether or not master authorized networks feature is enabled.
+    /// Optional. Whether or not master authorized networks feature is enabled.
     pub enabled: bool,
 
     /// Up to 50 external networks that could access Kubernetes master through

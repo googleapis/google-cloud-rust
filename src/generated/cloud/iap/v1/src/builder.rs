@@ -350,6 +350,62 @@ pub mod identity_aware_proxy_admin_service {
         }
     }
 
+    /// The request builder for [IdentityAwareProxyAdminService::validate_iap_attribute_expression][super::super::client::IdentityAwareProxyAdminService::validate_iap_attribute_expression] calls.
+    #[derive(Clone, Debug)]
+    pub struct ValidateIapAttributeExpression(
+        RequestBuilder<crate::model::ValidateIapAttributeExpressionRequest>,
+    );
+
+    impl ValidateIapAttributeExpression {
+        pub(crate) fn new(
+            stub: Arc<dyn super::super::stub::dynamic::IdentityAwareProxyAdminService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ValidateIapAttributeExpressionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ValidateIapAttributeExpressionResponse> {
+            (*self.0.stub)
+                .validate_iap_attribute_expression(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::ValidateIapAttributeExpressionRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [expression][crate::model::ValidateIapAttributeExpressionRequest::expression].
+        pub fn set_expression<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.expression = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ValidateIapAttributeExpression {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [IdentityAwareProxyAdminService::list_tunnel_dest_groups][super::super::client::IdentityAwareProxyAdminService::list_tunnel_dest_groups] calls.
     #[derive(Clone, Debug)]
     pub struct ListTunnelDestGroups(RequestBuilder<crate::model::ListTunnelDestGroupsRequest>);

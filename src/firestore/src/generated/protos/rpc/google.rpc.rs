@@ -137,6 +137,21 @@ pub mod quota_failure {
         pub subject: ::prost::alloc::string::String,
         #[prost(string, tag = "2")]
         pub description: ::prost::alloc::string::String,
+        #[prost(string, tag = "3")]
+        pub api_service: ::prost::alloc::string::String,
+        #[prost(string, tag = "4")]
+        pub quota_metric: ::prost::alloc::string::String,
+        #[prost(string, tag = "5")]
+        pub quota_id: ::prost::alloc::string::String,
+        #[prost(map = "string, string", tag = "6")]
+        pub quota_dimensions: ::std::collections::HashMap<
+            ::prost::alloc::string::String,
+            ::prost::alloc::string::String,
+        >,
+        #[prost(int64, tag = "7")]
+        pub quota_value: i64,
+        #[prost(int64, optional, tag = "8")]
+        pub future_quota_value: ::core::option::Option<i64>,
     }
     impl ::prost::Name for Violation {
         const NAME: &'static str = "Violation";

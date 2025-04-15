@@ -295,6 +295,78 @@ pub mod quota_failure {
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub description: std::string::String,
 
+        /// The API Service from which the `QuotaFailure.Violation` orginates. In
+        /// some cases, Quota issues originate from an API Service other than the one
+        /// that was called. In other words, a dependency of the called API Service
+        /// could be the cause of the `QuotaFailure`, and this field would have the
+        /// dependency API service name.
+        ///
+        /// For example, if the called API is Kubernetes Engine API
+        /// (container.googleapis.com), and a quota violation occurs in the
+        /// Kubernetes Engine API itself, this field would be
+        /// "container.googleapis.com". On the other hand, if the quota violation
+        /// occurs when the Kubernetes Engine API creates VMs in the Compute Engine
+        /// API (compute.googleapis.com), this field would be
+        /// "compute.googleapis.com".
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub api_service: std::string::String,
+
+        /// The metric of the violated quota. A quota metric is a named counter to
+        /// measure usage, such as API requests or CPUs. When an activity occurs in a
+        /// service, such as Virtual Machine allocation, one or more quota metrics
+        /// may be affected.
+        ///
+        /// For example, "compute.googleapis.com/cpus_per_vm_family",
+        /// "storage.googleapis.com/internet_egress_bandwidth".
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub quota_metric: std::string::String,
+
+        /// The id of the violated quota. Also know as "limit name", this is the
+        /// unique identifier of a quota in the context of an API service.
+        ///
+        /// For example, "CPUS-PER-VM-FAMILY-per-project-region".
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub quota_id: std::string::String,
+
+        /// The dimensions of the violated quota. Every non-global quota is enforced
+        /// on a set of dimensions. While quota metric defines what to count, the
+        /// dimensions specify for what aspects the counter should be increased.
+        ///
+        /// For example, the quota "CPUs per region per VM family" enforces a limit
+        /// on the metric "compute.googleapis.com/cpus_per_vm_family" on dimensions
+        /// "region" and "vm_family". And if the violation occurred in region
+        /// "us-central1" and for VM family "n1", the quota_dimensions would be,
+        ///
+        /// {
+        /// "region": "us-central1",
+        /// "vm_family": "n1",
+        /// }
+        ///
+        /// When a quota is enforced globally, the quota_dimensions would always be
+        /// empty.
+        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        pub quota_dimensions: std::collections::HashMap<std::string::String, std::string::String>,
+
+        /// The enforced quota value at the time of the `QuotaFailure`.
+        ///
+        /// For example, if the enforced quota value at the time of the
+        /// `QuotaFailure` on the number of CPUs is "10", then the value of this
+        /// field would reflect this quantity.
+        #[serde_as(as = "serde_with::DisplayFromStr")]
+        pub quota_value: i64,
+
+        /// The new quota value being rolled out at the time of the violation. At the
+        /// completion of the rollout, this value will be enforced in place of
+        /// quota_value. If no rollout is in progress at the time of the violation,
+        /// this field is not set.
+        ///
+        /// For example, if at the time of the violation a rollout is in progress
+        /// changing the number of CPUs quota from 10 to 20, 20 would be the value of
+        /// this field.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        pub future_quota_value: std::option::Option<i64>,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -313,6 +385,54 @@ pub mod quota_failure {
         /// Sets the value of [description][crate::model::quota_failure::Violation::description].
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
+            self
+        }
+
+        /// Sets the value of [api_service][crate::model::quota_failure::Violation::api_service].
+        pub fn set_api_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.api_service = v.into();
+            self
+        }
+
+        /// Sets the value of [quota_metric][crate::model::quota_failure::Violation::quota_metric].
+        pub fn set_quota_metric<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.quota_metric = v.into();
+            self
+        }
+
+        /// Sets the value of [quota_id][crate::model::quota_failure::Violation::quota_id].
+        pub fn set_quota_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.quota_id = v.into();
+            self
+        }
+
+        /// Sets the value of [quota_value][crate::model::quota_failure::Violation::quota_value].
+        pub fn set_quota_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.quota_value = v.into();
+            self
+        }
+
+        /// Sets the value of [future_quota_value][crate::model::quota_failure::Violation::future_quota_value].
+        pub fn set_future_quota_value<T: std::convert::Into<std::option::Option<i64>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.future_quota_value = v.into();
+            self
+        }
+
+        /// Sets the value of [quota_dimensions][crate::model::quota_failure::Violation::quota_dimensions].
+        pub fn set_quota_dimensions<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.quota_dimensions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }

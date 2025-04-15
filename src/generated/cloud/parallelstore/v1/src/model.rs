@@ -73,7 +73,7 @@ pub struct Instance {
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub capacity_gib: i64,
 
-    /// Deprecated 'daos_version' field.
+    /// Output only. Deprecated 'daos_version' field.
     /// Output only. The version of DAOS software running in the instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub daos_version: std::string::String,
@@ -2066,11 +2066,11 @@ pub struct TransferCounters {
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub bytes_copied: i64,
 
-    /// Objects that failed to write to the data destination.
+    /// Objects that are failed to write to the data destination.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub objects_failed: i64,
 
-    /// Number of Bytes that failed to be written to the data destination.
+    /// Bytes that are failed to write to the data destination.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub bytes_failed: i64,
 
