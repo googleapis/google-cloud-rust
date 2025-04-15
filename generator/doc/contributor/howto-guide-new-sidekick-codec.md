@@ -129,5 +129,3 @@ and set the `.Codec` field with annotations about methods, messages, enums, and
 so forth. Look at the other codecs for examples. The most common annotations are
 the names of the generated elements, as these often differ in non-trivial ways
 from the source name.
-
-[#1500]: https://github.com/googleapis/google-cloud-rust/issues/1500
