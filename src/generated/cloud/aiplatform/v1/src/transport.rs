@@ -403,14 +403,11 @@ impl super::stub::DatasetService for DatasetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+        let builder = req.order_by_data_item().iter().fold(builder, |builder, p| {
+            builder.query(&[("orderByDataItem", p)])
+        });
         let builder = req
-            .get_order_by_data_item()
-            .iter()
-            .fold(builder, |builder, p| {
-                builder.query(&[("orderByDataItem", p)])
-            });
-        let builder = req
-            .get_order_by_annotation()
+            .order_by_annotation()
             .map(|p| serde_json::to_value(p).map_err(Error::serde))
             .transpose()?
             .into_iter()
