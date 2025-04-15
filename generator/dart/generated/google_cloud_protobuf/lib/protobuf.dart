@@ -19,11 +19,10 @@
 /// Core Protobuf types used by most services.
 library;
 
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:google_cloud_gax/common.dart';
-import 'package:google_cloud_gax/src/json_helpers.dart';
+import 'package:google_cloud_gax/src/encoding.dart';
 
 part 'src/protobuf.p.dart';
 

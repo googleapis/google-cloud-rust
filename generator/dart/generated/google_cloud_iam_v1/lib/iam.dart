@@ -22,7 +22,7 @@ library;
 import 'dart:typed_data';
 
 import 'package:google_cloud_gax/common.dart';
-import 'package:google_cloud_gax/src/json_helpers.dart';
+import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:google_cloud_type/type.dart';
 import 'package:http/http.dart' as http;
@@ -130,7 +130,7 @@ class SetIamPolicyRequest extends Message {
     return SetIamPolicyRequest(
       resource: json['resource'],
       policy: decode(json['policy'], Policy.fromJson),
-      updateMask: decode(json['updateMask'], FieldMask.fromJson),
+      updateMask: decodeCustom(json['updateMask'], FieldMask.fromJson),
     );
   }
 
@@ -216,7 +216,7 @@ class TestIamPermissionsRequest extends Message {
   factory TestIamPermissionsRequest.fromJson(Map<String, dynamic> json) {
     return TestIamPermissionsRequest(
       resource: json['resource'],
-      permissions: (json['permissions'] as List?)?.cast(),
+      permissions: decodeList(json['permissions']),
     );
   }
 
@@ -252,7 +252,7 @@ class TestIamPermissionsResponse extends Message {
 
   factory TestIamPermissionsResponse.fromJson(Map<String, dynamic> json) {
     return TestIamPermissionsResponse(
-      permissions: (json['permissions'] as List?)?.cast(),
+      permissions: decodeList(json['permissions']),
     );
   }
 
@@ -461,8 +461,9 @@ class Policy extends Message {
   factory Policy.fromJson(Map<String, dynamic> json) {
     return Policy(
       version: json['version'],
-      bindings: decodeList(json['bindings'], Binding.fromJson),
-      auditConfigs: decodeList(json['auditConfigs'], AuditConfig.fromJson),
+      bindings: decodeListMessage(json['bindings'], Binding.fromJson),
+      auditConfigs:
+          decodeListMessage(json['auditConfigs'], AuditConfig.fromJson),
       etag: decodeBytes(json['etag']),
     );
   }
@@ -473,7 +474,7 @@ class Policy extends Message {
       if (version != null) 'version': version,
       if (bindings != null) 'bindings': encodeList(bindings),
       if (auditConfigs != null) 'auditConfigs': encodeList(auditConfigs),
-      if (etag != null) 'etag': encodeBytes(etag!),
+      if (etag != null) 'etag': encodeBytes(etag),
     };
   }
 
@@ -562,7 +563,7 @@ class Binding extends Message {
   factory Binding.fromJson(Map<String, dynamic> json) {
     return Binding(
       role: json['role'],
-      members: (json['members'] as List?)?.cast(),
+      members: decodeList(json['members']),
       condition: decode(json['condition'], Expr.fromJson),
     );
   }
@@ -656,7 +657,7 @@ class AuditConfig extends Message {
     return AuditConfig(
       service: json['service'],
       auditLogConfigs:
-          decodeList(json['auditLogConfigs'], AuditLogConfig.fromJson),
+          decodeListMessage(json['auditLogConfigs'], AuditLogConfig.fromJson),
     );
   }
 
@@ -716,8 +717,8 @@ class AuditLogConfig extends Message {
 
   factory AuditLogConfig.fromJson(Map<String, dynamic> json) {
     return AuditLogConfig(
-      logType: decode(json['logType'], AuditLogConfig_LogType.fromJson),
-      exemptedMembers: (json['exemptedMembers'] as List?)?.cast(),
+      logType: decodeEnum(json['logType'], AuditLogConfig_LogType.fromJson),
+      exemptedMembers: decodeList(json['exemptedMembers']),
     );
   }
 
@@ -780,9 +781,10 @@ class PolicyDelta extends Message {
 
   factory PolicyDelta.fromJson(Map<String, dynamic> json) {
     return PolicyDelta(
-      bindingDeltas: decodeList(json['bindingDeltas'], BindingDelta.fromJson),
-      auditConfigDeltas:
-          decodeList(json['auditConfigDeltas'], AuditConfigDelta.fromJson),
+      bindingDeltas:
+          decodeListMessage(json['bindingDeltas'], BindingDelta.fromJson),
+      auditConfigDeltas: decodeListMessage(
+          json['auditConfigDeltas'], AuditConfigDelta.fromJson),
     );
   }
 
@@ -830,7 +832,7 @@ class BindingDelta extends Message {
 
   factory BindingDelta.fromJson(Map<String, dynamic> json) {
     return BindingDelta(
-      action: decode(json['action'], BindingDelta_Action.fromJson),
+      action: decodeEnum(json['action'], BindingDelta_Action.fromJson),
       role: json['role'],
       member: json['member'],
       condition: decode(json['condition'], Expr.fromJson),
@@ -912,7 +914,7 @@ class AuditConfigDelta extends Message {
 
   factory AuditConfigDelta.fromJson(Map<String, dynamic> json) {
     return AuditConfigDelta(
-      action: decode(json['action'], AuditConfigDelta_Action.fromJson),
+      action: decodeEnum(json['action'], AuditConfigDelta_Action.fromJson),
       service: json['service'],
       exemptedMember: json['exemptedMember'],
       logType: json['logType'],
