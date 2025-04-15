@@ -64,7 +64,7 @@ thiserror      = { version = "2", optional = true }
 tokio          = { version = "1", features = ["macros", "rt-multi-thread"], optional = true }
 tonic          = { workspace = true, optional = true }
 # Local crates
-auth = { version = "0.19", path = "../auth", package = "google-cloud-auth", optional = true }
+auth = { workspace = true, optional = true }
 gax  = { workspace = true, features = ["unstable-sdk-client"], optional = true }
 rpc  = { workspace = true, optional = true }
 wkt  = { workspace = true, optional = true }
