@@ -57,7 +57,7 @@ cargo test
 ## Running lints and unit tests
 
 ```bash
-cargo fmt && cargo clippy -- --deny warnings && cargo test
+cargo fmt && cargo clippy --profile=test -- --deny warnings && cargo test
 git status # Shows any diffs created by `cargo fmt`
 ```
 
