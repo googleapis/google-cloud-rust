@@ -410,11 +410,11 @@ mod test {
         (response_code, response_headers, response_body.to_string()).into_response()
     }
 
+    type Handlers = HashMap<String, (StatusCode, Value, TokenQueryParams, Arc<Mutex<i32>>)>;
+
     // Starts a server running locally that responds on multiple paths.
     // Returns an (endpoint, server) pair.
-    async fn start(
-        path_handlers: HashMap<String, (StatusCode, Value, TokenQueryParams, Arc<Mutex<i32>>)>,
-    ) -> (String, JoinHandle<()>) {
+    async fn start(path_handlers: Handlers) -> (String, JoinHandle<()>) {
         let mut app = axum::Router::new();
 
         for (path, (code, body, expected_query, call_count)) in path_handlers {
@@ -453,7 +453,7 @@ mod test {
             aliases: None,
         };
         let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
-        let (endpoint, _server) = start(HashMap::from([(
+        let (endpoint, _server) = start(Handlers::from([(
             path,
             (
                 StatusCode::OK,
@@ -479,7 +479,7 @@ mod test {
     #[tokio::test]
     async fn get_service_account_info_server_error() {
         let path = "/computeMetadata/v1/instance/service-accounts/default/".to_string();
-        let (endpoint, _server) = start(HashMap::from([(
+        let (endpoint, _server) = start(Handlers::from([(
             path,
             (
                 StatusCode::SERVICE_UNAVAILABLE,
@@ -510,7 +510,7 @@ mod test {
         };
         let response_body = serde_json::to_value(&response).unwrap();
 
-        let (endpoint, _server) = start(HashMap::from([(
+        let (endpoint, _server) = start(Handlers::from([(
             MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::OK,
@@ -559,7 +559,7 @@ mod test {
         let response_body = serde_json::to_value(&response).unwrap();
 
         let call_count = Arc::new(Mutex::new(0));
-        let (endpoint, _server) = start(HashMap::from([(
+        let (endpoint, _server) = start(Handlers::from([(
             MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::OK,
@@ -598,7 +598,7 @@ mod test {
         };
         let response_body = serde_json::to_value(&response).unwrap();
 
-        let (endpoint, _server) = start(HashMap::from([(
+        let (endpoint, _server) = start(Handlers::from([(
             MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::OK,
@@ -649,7 +649,7 @@ mod test {
         };
         let response_body = serde_json::to_value(&response).unwrap();
 
-        let (endpoint, _server) = start(HashMap::from([
+        let (endpoint, _server) = start(Handlers::from([
             (
                 service_account_info_path,
                 (
@@ -701,7 +701,7 @@ mod test {
             token_type: "test-token-type".to_string(),
         };
         let response_body = serde_json::to_value(&response).unwrap();
-        let (endpoint, _server) = start(HashMap::from([(
+        let (endpoint, _server) = start(Handlers::from([(
             MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::OK,
@@ -731,7 +731,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_retryable_error() -> TestResult {
         let scopes = vec!["scope1".to_string()];
-        let (endpoint, _server) = start(HashMap::from([(
+        let (endpoint, _server) = start(Handlers::from([(
             MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::SERVICE_UNAVAILABLE,
@@ -759,7 +759,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_nonretryable_error() -> TestResult {
         let scopes = vec!["scope1".to_string()];
-        let (endpoint, _server) = start(HashMap::from([(
+        let (endpoint, _server) = start(Handlers::from([(
             MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::UNAUTHORIZED,
@@ -788,7 +788,7 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_malformed_response_is_nonretryable() -> TestResult {
         let scopes = vec!["scope1".to_string()];
-        let (endpoint, _server) = start(HashMap::from([(
+        let (endpoint, _server) = start(Handlers::from([(
             MDS_TOKEN_URI.to_string(),
             (
                 StatusCode::OK,

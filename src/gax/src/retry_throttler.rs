@@ -407,7 +407,7 @@ mod tests {
         assert!(throttler.is_err());
 
         let throttler = AdaptiveThrottler::new(0.0);
-        assert!(!throttler.is_err());
+        assert!(throttler.is_ok());
     }
 
     fn test_error() -> Error {
@@ -459,7 +459,7 @@ mod tests {
         // This creates a throttler with reject probability == 0.
         let mut throttler = AdaptiveThrottler::new(100.0)?;
         throttler.on_success();
-        assert_eq!(false, throttler.throttle_retry_attempt(), "{throttler:?}");
+        assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
 
         Ok(())
     }
@@ -496,10 +496,10 @@ mod tests {
         // Permanent errors also open back the throttle.
         throttler.on_retry_failure(&LoopState::Continue(test_error()));
         for _ in 0..9 {
-            throttler.on_retry_failure(&&LoopState::Permanent(test_error()));
+            throttler.on_retry_failure(&LoopState::Permanent(test_error()));
             assert!(throttler.throttle_retry_attempt(), "{throttler:?}");
         }
-        throttler.on_retry_failure(&&LoopState::Permanent(test_error()));
+        throttler.on_retry_failure(&LoopState::Permanent(test_error()));
         assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
     }
 }

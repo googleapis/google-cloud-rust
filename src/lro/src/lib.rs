@@ -341,9 +341,9 @@ mod test {
         let op = TestOperation::new(op);
         assert_eq!(op.name(), "test-only-name");
         assert!(!op.done());
-        assert!(matches!(op.metadata(), None));
-        assert!(matches!(op.response(), Some(_)));
-        assert!(matches!(op.error(), None));
+        assert!(op.metadata().is_none());
+        assert!(op.response().is_some());
+        assert!(op.error().is_none());
         let got = op
             .response()
             .unwrap()
@@ -412,7 +412,7 @@ mod test {
                 assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
             }
             r => {
-                assert!(false, "{r:?}");
+                panic!("{r:?}");
             }
         }
 
@@ -423,7 +423,7 @@ mod test {
                 assert_eq!(response, wkt::Duration::clamp(234, 0));
             }
             r => {
-                assert!(false, "{r:?}");
+                panic!("{r:?}");
             }
         }
 
@@ -470,7 +470,7 @@ mod test {
                 assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
             }
             r => {
-                assert!(false, "{r:?}");
+                panic!("{r:?}");
             }
         }
 
@@ -481,7 +481,7 @@ mod test {
                 assert_eq!(response, wkt::Duration::clamp(234, 0));
             }
             r => {
-                assert!(false, "{r:?}");
+                panic!("{r:?}");
             }
         }
 
@@ -594,7 +594,7 @@ mod test {
         };
 
         let query = move |_: String| async move {
-            return Err::<TestOperation, Error>(Error::other("unrecoverable (see policy below)"));
+            Err::<TestOperation, Error>(Error::other("unrecoverable (see policy below)"))
         };
 
         let poller = PollerImpl::new(
