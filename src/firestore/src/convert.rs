@@ -55,7 +55,7 @@ mod test {
         let got = sidekick.clone().cnv();
         assert_eq!(got, proto);
 
-        let got = proto.clone().cnv();
+        let got = proto.cnv();
         assert_eq!(got, sidekick);
     }
 
