@@ -54,7 +54,7 @@ T? decodeCustom<T extends Message>(Object? value, T Function(Object) decoder) {
   return value == null ? null : decoder(value);
 }
 
-/// Decode a list of primative types.
+/// Decode a list of primitives types.
 List<T>? decodeList<T>(Object? value) {
   return (value as List?)?.cast();
 }
@@ -82,7 +82,7 @@ List<T>? decodeListMessageCustom<T extends Message>(
   return (value as List?)?.map((item) => decoder(item)).toList().cast();
 }
 
-/// Decode a map of primatives types.
+/// Decode a map of primitives types.
 Map<K, V>? decodeMap<K, V>(Object? value) {
   return (value as Map?)?.cast();
 }
