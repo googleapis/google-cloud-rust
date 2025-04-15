@@ -425,7 +425,7 @@ impl Backup {
     /// The value of [backup_scope][crate::model::Backup::backup_scope]
     /// if it holds a `AllNamespaces`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_all_namespaces(&self) -> std::option::Option<&bool> {
+    pub fn all_namespaces(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.backup_scope.as_ref().and_then(|v| match v {
             crate::model::backup::BackupScope::AllNamespaces(v) => std::option::Option::Some(v),
@@ -436,7 +436,7 @@ impl Backup {
     /// The value of [backup_scope][crate::model::Backup::backup_scope]
     /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_selected_namespaces(
+    pub fn selected_namespaces(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
         #[allow(unreachable_patterns)]
@@ -451,7 +451,7 @@ impl Backup {
     /// The value of [backup_scope][crate::model::Backup::backup_scope]
     /// if it holds a `SelectedApplications`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_selected_applications(
+    pub fn selected_applications(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
         #[allow(unreachable_patterns)]
@@ -607,7 +607,7 @@ pub mod backup {
         /// The value of [platform_version][crate::model::backup::ClusterMetadata::platform_version]
         /// if it holds a `GkeVersion`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_gke_version(&self) -> std::option::Option<&std::string::String> {
+        pub fn gke_version(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.platform_version.as_ref().and_then(|v| match v {
                 crate::model::backup::cluster_metadata::PlatformVersion::GkeVersion(v) => {
@@ -620,7 +620,7 @@ pub mod backup {
         /// The value of [platform_version][crate::model::backup::ClusterMetadata::platform_version]
         /// if it holds a `AnthosVersion`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_anthos_version(&self) -> std::option::Option<&std::string::String> {
+        pub fn anthos_version(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.platform_version.as_ref().and_then(|v| match v {
                 crate::model::backup::cluster_metadata::PlatformVersion::AnthosVersion(v) => {
@@ -1314,7 +1314,7 @@ pub mod backup_plan {
         /// The value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
         /// if it holds a `AllNamespaces`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_all_namespaces(&self) -> std::option::Option<&bool> {
+        pub fn all_namespaces(&self) -> std::option::Option<&bool> {
             #[allow(unreachable_patterns)]
             self.backup_scope.as_ref().and_then(|v| match v {
                 crate::model::backup_plan::backup_config::BackupScope::AllNamespaces(v) => {
@@ -1327,7 +1327,7 @@ pub mod backup_plan {
         /// The value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
         /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_selected_namespaces(
+        pub fn selected_namespaces(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
             #[allow(unreachable_patterns)]
@@ -1342,7 +1342,7 @@ pub mod backup_plan {
         /// The value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
         /// if it holds a `SelectedApplications`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_selected_applications(
+        pub fn selected_applications(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
             #[allow(unreachable_patterns)]
@@ -1643,7 +1643,7 @@ impl ExclusionWindow {
     /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
     /// if it holds a `SingleOccurrenceDate`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_single_occurrence_date(
+    pub fn single_occurrence_date(
         &self,
     ) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
         #[allow(unreachable_patterns)]
@@ -1658,7 +1658,7 @@ impl ExclusionWindow {
     /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
     /// if it holds a `Daily`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_daily(&self) -> std::option::Option<&bool> {
+    pub fn daily(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.recurrence.as_ref().and_then(|v| match v {
             crate::model::exclusion_window::Recurrence::Daily(v) => std::option::Option::Some(v),
@@ -1669,7 +1669,7 @@ impl ExclusionWindow {
     /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
     /// if it holds a `DaysOfWeek`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_days_of_week(
+    pub fn days_of_week(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::exclusion_window::DayOfWeekList>> {
         #[allow(unreachable_patterns)]
@@ -4673,7 +4673,7 @@ impl RestoreConfig {
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// if it holds a `AllNamespaces`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_all_namespaces(&self) -> std::option::Option<&bool> {
+    pub fn all_namespaces(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.namespaced_resource_restore_scope
             .as_ref()
@@ -4688,7 +4688,7 @@ impl RestoreConfig {
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_selected_namespaces(
+    pub fn selected_namespaces(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
         #[allow(unreachable_patterns)]
@@ -4701,7 +4701,7 @@ impl RestoreConfig {
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// if it holds a `SelectedApplications`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_selected_applications(
+    pub fn selected_applications(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
         #[allow(unreachable_patterns)]
@@ -4714,7 +4714,7 @@ impl RestoreConfig {
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// if it holds a `NoNamespaces`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_no_namespaces(&self) -> std::option::Option<&bool> {
+    pub fn no_namespaces(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.namespaced_resource_restore_scope
             .as_ref()
@@ -4729,7 +4729,7 @@ impl RestoreConfig {
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// if it holds a `ExcludedNamespaces`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_excluded_namespaces(
+    pub fn excluded_namespaces(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
         #[allow(unreachable_patterns)]
@@ -5468,7 +5468,7 @@ pub mod restore_config {
         /// The value of [scope][crate::model::restore_config::VolumeDataRestorePolicyBinding::scope]
         /// if it holds a `VolumeType`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_volume_type(
+        pub fn volume_type(
             &self,
         ) -> std::option::Option<&crate::model::volume_type_enum::VolumeType> {
             #[allow(unreachable_patterns)]
@@ -6063,7 +6063,7 @@ impl VolumeDataRestorePolicyOverride {
     /// The value of [scope][crate::model::VolumeDataRestorePolicyOverride::scope]
     /// if it holds a `SelectedPvcs`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_selected_pvcs(
+    pub fn selected_pvcs(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
         #[allow(unreachable_patterns)]

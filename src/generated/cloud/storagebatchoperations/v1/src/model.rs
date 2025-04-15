@@ -657,9 +657,7 @@ impl Job {
     /// The value of [source][crate::model::Job::source]
     /// if it holds a `BucketList`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bucket_list(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BucketList>> {
+    pub fn bucket_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::BucketList>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::job::Source::BucketList(v) => std::option::Option::Some(v),
@@ -697,7 +695,7 @@ impl Job {
     /// The value of [transformation][crate::model::Job::transformation]
     /// if it holds a `PutObjectHold`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_put_object_hold(
+    pub fn put_object_hold(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PutObjectHold>> {
         #[allow(unreachable_patterns)]
@@ -710,7 +708,7 @@ impl Job {
     /// The value of [transformation][crate::model::Job::transformation]
     /// if it holds a `DeleteObject`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_delete_object(
+    pub fn delete_object(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteObject>> {
         #[allow(unreachable_patterns)]
@@ -723,9 +721,7 @@ impl Job {
     /// The value of [transformation][crate::model::Job::transformation]
     /// if it holds a `PutMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_put_metadata(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PutMetadata>> {
+    pub fn put_metadata(&self) -> std::option::Option<&std::boxed::Box<crate::model::PutMetadata>> {
         #[allow(unreachable_patterns)]
         self.transformation.as_ref().and_then(|v| match v {
             crate::model::job::Transformation::PutMetadata(v) => std::option::Option::Some(v),
@@ -736,7 +732,7 @@ impl Job {
     /// The value of [transformation][crate::model::Job::transformation]
     /// if it holds a `RewriteObject`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_rewrite_object(
+    pub fn rewrite_object(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RewriteObject>> {
         #[allow(unreachable_patterns)]
@@ -1006,7 +1002,7 @@ pub mod bucket_list {
         /// The value of [object_configuration][crate::model::bucket_list::Bucket::object_configuration]
         /// if it holds a `PrefixList`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_prefix_list(
+        pub fn prefix_list(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::PrefixList>> {
             #[allow(unreachable_patterns)]
@@ -1021,9 +1017,7 @@ pub mod bucket_list {
         /// The value of [object_configuration][crate::model::bucket_list::Bucket::object_configuration]
         /// if it holds a `Manifest`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_manifest(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::Manifest>> {
+        pub fn manifest(&self) -> std::option::Option<&std::boxed::Box<crate::model::Manifest>> {
             #[allow(unreachable_patterns)]
             self.object_configuration.as_ref().and_then(|v| match v {
                 crate::model::bucket_list::bucket::ObjectConfiguration::Manifest(v) => {

@@ -436,7 +436,7 @@ impl VmImage {
     /// The value of [image][crate::model::VmImage::image]
     /// if it holds a `Name`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.image.as_ref().and_then(|v| match v {
             crate::model::vm_image::Image::Name(v) => std::option::Option::Some(v),
@@ -447,7 +447,7 @@ impl VmImage {
     /// The value of [image][crate::model::VmImage::image]
     /// if it holds a `Family`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_family(&self) -> std::option::Option<&std::string::String> {
+    pub fn family(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.image.as_ref().and_then(|v| match v {
             crate::model::vm_image::Image::Family(v) => std::option::Option::Some(v),
@@ -1207,7 +1207,7 @@ impl GceSetup {
     /// The value of [image][crate::model::GceSetup::image]
     /// if it holds a `VmImage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vm_image(&self) -> std::option::Option<&std::boxed::Box<crate::model::VmImage>> {
+    pub fn vm_image(&self) -> std::option::Option<&std::boxed::Box<crate::model::VmImage>> {
         #[allow(unreachable_patterns)]
         self.image.as_ref().and_then(|v| match v {
             crate::model::gce_setup::Image::VmImage(v) => std::option::Option::Some(v),
@@ -1218,7 +1218,7 @@ impl GceSetup {
     /// The value of [image][crate::model::GceSetup::image]
     /// if it holds a `ContainerImage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_container_image(
+    pub fn container_image(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ContainerImage>> {
         #[allow(unreachable_patterns)]
@@ -1740,7 +1740,7 @@ impl Instance {
     /// The value of [infrastructure][crate::model::Instance::infrastructure]
     /// if it holds a `GceSetup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gce_setup(&self) -> std::option::Option<&std::boxed::Box<crate::model::GceSetup>> {
+    pub fn gce_setup(&self) -> std::option::Option<&std::boxed::Box<crate::model::GceSetup>> {
         #[allow(unreachable_patterns)]
         self.infrastructure.as_ref().and_then(|v| match v {
             crate::model::instance::Infrastructure::GceSetup(v) => std::option::Option::Some(v),

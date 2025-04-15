@@ -1762,9 +1762,7 @@ impl HttpRequest {
     /// The value of [authorization_header][crate::model::HttpRequest::authorization_header]
     /// if it holds a `OauthToken`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oauth_token(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::OAuthToken>> {
+    pub fn oauth_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OAuthToken>> {
         #[allow(unreachable_patterns)]
         self.authorization_header.as_ref().and_then(|v| match v {
             crate::model::http_request::AuthorizationHeader::OauthToken(v) => {
@@ -1777,7 +1775,7 @@ impl HttpRequest {
     /// The value of [authorization_header][crate::model::HttpRequest::authorization_header]
     /// if it holds a `OidcToken`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oidc_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OidcToken>> {
+    pub fn oidc_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::OidcToken>> {
         #[allow(unreachable_patterns)]
         self.authorization_header.as_ref().and_then(|v| match v {
             crate::model::http_request::AuthorizationHeader::OidcToken(v) => {
@@ -2566,7 +2564,7 @@ impl Task {
     /// The value of [message_type][crate::model::Task::message_type]
     /// if it holds a `AppEngineHttpRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_app_engine_http_request(
+    pub fn app_engine_http_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AppEngineHttpRequest>> {
         #[allow(unreachable_patterns)]
@@ -2581,9 +2579,7 @@ impl Task {
     /// The value of [message_type][crate::model::Task::message_type]
     /// if it holds a `HttpRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_http_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HttpRequest>> {
+    pub fn http_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::HttpRequest>> {
         #[allow(unreachable_patterns)]
         self.message_type.as_ref().and_then(|v| match v {
             crate::model::task::MessageType::HttpRequest(v) => std::option::Option::Some(v),

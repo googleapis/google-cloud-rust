@@ -2381,7 +2381,7 @@ pub mod containerd_config {
             /// The value of [certificate_config][crate::model::containerd_config::private_registry_access_config::CertificateAuthorityDomainConfig::certificate_config]
             /// if it holds a `GcpSecretManagerCertificateConfig`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_gcp_secret_manager_certificate_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::GCPSecretManagerCertificateConfig>>{
+            pub fn gcp_secret_manager_certificate_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::GCPSecretManagerCertificateConfig>>{
                 #[allow(unreachable_patterns)]
                 self.certificate_config.as_ref().and_then(|v| match v {
                     crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::CertificateConfig::GcpSecretManagerCertificateConfig(v) => std::option::Option::Some(v),
@@ -8563,7 +8563,7 @@ pub mod operation_progress {
         /// The value of [value][crate::model::operation_progress::Metric::value]
         /// if it holds a `IntValue`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_int_value(&self) -> std::option::Option<&i64> {
+        pub fn int_value(&self) -> std::option::Option<&i64> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
                 crate::model::operation_progress::metric::Value::IntValue(v) => {
@@ -8576,7 +8576,7 @@ pub mod operation_progress {
         /// The value of [value][crate::model::operation_progress::Metric::value]
         /// if it holds a `DoubleValue`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_double_value(&self) -> std::option::Option<&f64> {
+        pub fn double_value(&self) -> std::option::Option<&f64> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
                 crate::model::operation_progress::metric::Value::DoubleValue(v) => {
@@ -8589,7 +8589,7 @@ pub mod operation_progress {
         /// The value of [value][crate::model::operation_progress::Metric::value]
         /// if it holds a `StringValue`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_string_value(&self) -> std::option::Option<&std::string::String> {
+        pub fn string_value(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
                 crate::model::operation_progress::metric::Value::StringValue(v) => {
@@ -11124,7 +11124,7 @@ impl BlueGreenSettings {
     /// The value of [rollout_policy][crate::model::BlueGreenSettings::rollout_policy]
     /// if it holds a `StandardRolloutPolicy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_standard_rollout_policy(
+    pub fn standard_rollout_policy(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::blue_green_settings::StandardRolloutPolicy>,
@@ -11226,7 +11226,7 @@ pub mod blue_green_settings {
         /// The value of [update_batch_size][crate::model::blue_green_settings::StandardRolloutPolicy::update_batch_size]
         /// if it holds a `BatchPercentage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_batch_percentage(&self) -> std::option::Option<&f32> {
+        pub fn batch_percentage(&self) -> std::option::Option<&f32> {
             #[allow(unreachable_patterns)]
             self.update_batch_size.as_ref().and_then(|v| match v {
                 crate::model::blue_green_settings::standard_rollout_policy::UpdateBatchSize::BatchPercentage(v) => std::option::Option::Some(v),
@@ -11237,7 +11237,7 @@ pub mod blue_green_settings {
         /// The value of [update_batch_size][crate::model::blue_green_settings::StandardRolloutPolicy::update_batch_size]
         /// if it holds a `BatchNodeCount`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_batch_node_count(&self) -> std::option::Option<&i32> {
+        pub fn batch_node_count(&self) -> std::option::Option<&i32> {
             #[allow(unreachable_patterns)]
             self.update_batch_size.as_ref().and_then(|v| match v {
                 crate::model::blue_green_settings::standard_rollout_policy::UpdateBatchSize::BatchNodeCount(v) => std::option::Option::Some(v),
@@ -12497,7 +12497,7 @@ impl MaintenanceWindow {
     /// The value of [policy][crate::model::MaintenanceWindow::policy]
     /// if it holds a `DailyMaintenanceWindow`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_daily_maintenance_window(
+    pub fn daily_maintenance_window(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DailyMaintenanceWindow>> {
         #[allow(unreachable_patterns)]
@@ -12512,7 +12512,7 @@ impl MaintenanceWindow {
     /// The value of [policy][crate::model::MaintenanceWindow::policy]
     /// if it holds a `RecurringWindow`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_recurring_window(
+    pub fn recurring_window(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RecurringTimeWindow>> {
         #[allow(unreachable_patterns)]
@@ -12645,7 +12645,7 @@ impl TimeWindow {
     /// The value of [options][crate::model::TimeWindow::options]
     /// if it holds a `MaintenanceExclusionOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_maintenance_exclusion_options(
+    pub fn maintenance_exclusion_options(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MaintenanceExclusionOptions>> {
         #[allow(unreachable_patterns)]

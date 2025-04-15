@@ -384,7 +384,7 @@ pub mod instance {
         /// The value of [info][crate::model::instance::StateInfo::info]
         /// if it holds a `UpdateInfo`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_update_info(
+        pub fn update_info(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::instance::state_info::UpdateInfo>>
         {
@@ -563,7 +563,7 @@ pub mod instance {
         /// The value of [connection][crate::model::instance::ConnectionDetail::connection]
         /// if it holds a `PscAutoConnection`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_psc_auto_connection(
+        pub fn psc_auto_connection(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::PscAutoConnection>> {
             #[allow(unreachable_patterns)]
@@ -578,7 +578,7 @@ pub mod instance {
         /// The value of [connection][crate::model::instance::ConnectionDetail::connection]
         /// if it holds a `PscConnection`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_psc_connection(
+        pub fn psc_connection(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::PscConnection>> {
             #[allow(unreachable_patterns)]
@@ -1109,7 +1109,7 @@ impl PscAutoConnection {
     /// The value of [ports][crate::model::PscAutoConnection::ports]
     /// if it holds a `Port`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_port(&self) -> std::option::Option<&i32> {
+    pub fn port(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.ports.as_ref().and_then(|v| match v {
             crate::model::psc_auto_connection::Ports::Port(v) => std::option::Option::Some(v),
@@ -2324,7 +2324,7 @@ impl CertificateAuthority {
     /// The value of [server_ca][crate::model::CertificateAuthority::server_ca]
     /// if it holds a `ManagedServerCa`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_managed_server_ca(
+    pub fn managed_server_ca(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::certificate_authority::ManagedCertificateAuthority>,

@@ -285,7 +285,7 @@ impl VerifyAttestationRequest {
     /// The value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation]
     /// if it holds a `TdCcel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_td_ccel(
+    pub fn td_ccel(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TdxCcelAttestation>> {
         #[allow(unreachable_patterns)]
@@ -300,7 +300,7 @@ impl VerifyAttestationRequest {
     /// The value of [tee_attestation][crate::model::VerifyAttestationRequest::tee_attestation]
     /// if it holds a `SevSnpAttestation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sev_snp_attestation(
+    pub fn sev_snp_attestation(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SevSnpAttestation>> {
         #[allow(unreachable_patterns)]
@@ -653,7 +653,7 @@ impl TokenOptions {
     /// The value of [token_type_options][crate::model::TokenOptions::token_type_options]
     /// if it holds a `AwsPrincipalTagsOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_aws_principal_tags_options(
+    pub fn aws_principal_tags_options(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::token_options::AwsPrincipalTagsOptions>>
     {

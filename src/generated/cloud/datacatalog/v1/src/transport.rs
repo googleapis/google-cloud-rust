@@ -293,18 +293,15 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+        let builder = req.linked_resource().iter().fold(builder, |builder, p| {
+            builder.query(&[("linkedResource", p)])
+        });
         let builder = req
-            .get_linked_resource()
-            .iter()
-            .fold(builder, |builder, p| {
-                builder.query(&[("linkedResource", p)])
-            });
-        let builder = req
-            .get_sql_resource()
+            .sql_resource()
             .iter()
             .fold(builder, |builder, p| builder.query(&[("sqlResource", p)]));
         let builder = req
-            .get_fully_qualified_name()
+            .fully_qualified_name()
             .iter()
             .fold(builder, |builder, p| {
                 builder.query(&[("fullyQualifiedName", p)])
@@ -1472,7 +1469,7 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
             .iter()
             .fold(builder, |builder, p| builder.query(&[("taxonomies", p)]));
         let builder = req
-            .get_serialized_taxonomies()
+            .serialized_taxonomies()
             .iter()
             .fold(builder, |builder, p| {
                 builder.query(&[("serializedTaxonomies", p)])

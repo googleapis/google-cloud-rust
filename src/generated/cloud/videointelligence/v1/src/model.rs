@@ -2875,7 +2875,7 @@ impl ObjectTrackingAnnotation {
     /// The value of [track_info][crate::model::ObjectTrackingAnnotation::track_info]
     /// if it holds a `Segment`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_segment(&self) -> std::option::Option<&std::boxed::Box<crate::model::VideoSegment>> {
+    pub fn segment(&self) -> std::option::Option<&std::boxed::Box<crate::model::VideoSegment>> {
         #[allow(unreachable_patterns)]
         self.track_info.as_ref().and_then(|v| match v {
             crate::model::object_tracking_annotation::TrackInfo::Segment(v) => {
@@ -2888,7 +2888,7 @@ impl ObjectTrackingAnnotation {
     /// The value of [track_info][crate::model::ObjectTrackingAnnotation::track_info]
     /// if it holds a `TrackId`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_track_id(&self) -> std::option::Option<&i64> {
+    pub fn track_id(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.track_info.as_ref().and_then(|v| match v {
             crate::model::object_tracking_annotation::TrackInfo::TrackId(v) => {

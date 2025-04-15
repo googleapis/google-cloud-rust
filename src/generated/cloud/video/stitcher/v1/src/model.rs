@@ -376,7 +376,7 @@ impl CdnKey {
     /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
     /// if it holds a `GoogleCdnKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_google_cdn_key(
+    pub fn google_cdn_key(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GoogleCdnKey>> {
         #[allow(unreachable_patterns)]
@@ -389,7 +389,7 @@ impl CdnKey {
     /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
     /// if it holds a `AkamaiCdnKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_akamai_cdn_key(
+    pub fn akamai_cdn_key(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AkamaiCdnKey>> {
         #[allow(unreachable_patterns)]
@@ -402,7 +402,7 @@ impl CdnKey {
     /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
     /// if it holds a `MediaCdnKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_media_cdn_key(
+    pub fn media_cdn_key(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MediaCdnKey>> {
         #[allow(unreachable_patterns)]
@@ -915,7 +915,7 @@ impl Companion {
     /// The value of [ad_resource][crate::model::Companion::ad_resource]
     /// if it holds a `IframeAdResource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_iframe_ad_resource(
+    pub fn iframe_ad_resource(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::IframeAdResource>> {
         #[allow(unreachable_patterns)]
@@ -930,7 +930,7 @@ impl Companion {
     /// The value of [ad_resource][crate::model::Companion::ad_resource]
     /// if it holds a `StaticAdResource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_static_ad_resource(
+    pub fn static_ad_resource(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StaticAdResource>> {
         #[allow(unreachable_patterns)]
@@ -945,7 +945,7 @@ impl Companion {
     /// The value of [ad_resource][crate::model::Companion::ad_resource]
     /// if it holds a `HtmlAdResource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_html_ad_resource(
+    pub fn html_ad_resource(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::HtmlAdResource>> {
         #[allow(unreachable_patterns)]

@@ -3479,7 +3479,7 @@ impl IPAllocationPolicy {
     /// The value of [cluster_ip_allocation][crate::model::IPAllocationPolicy::cluster_ip_allocation]
     /// if it holds a `ClusterSecondaryRangeName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cluster_secondary_range_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn cluster_secondary_range_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.cluster_ip_allocation.as_ref().and_then(|v| match v {
             crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterSecondaryRangeName(
@@ -3492,7 +3492,7 @@ impl IPAllocationPolicy {
     /// The value of [cluster_ip_allocation][crate::model::IPAllocationPolicy::cluster_ip_allocation]
     /// if it holds a `ClusterIpv4CidrBlock`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cluster_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
+    pub fn cluster_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.cluster_ip_allocation.as_ref().and_then(|v| match v {
             crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterIpv4CidrBlock(v) => {
@@ -3553,7 +3553,7 @@ impl IPAllocationPolicy {
     /// The value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation]
     /// if it holds a `ServicesSecondaryRangeName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_services_secondary_range_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn services_secondary_range_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.services_ip_allocation.as_ref().and_then(|v| match v {
             crate::model::ip_allocation_policy::ServicesIpAllocation::ServicesSecondaryRangeName(v) => std::option::Option::Some(v),
@@ -3564,7 +3564,7 @@ impl IPAllocationPolicy {
     /// The value of [services_ip_allocation][crate::model::IPAllocationPolicy::services_ip_allocation]
     /// if it holds a `ServicesIpv4CidrBlock`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_services_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
+    pub fn services_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.services_ip_allocation.as_ref().and_then(|v| match v {
             crate::model::ip_allocation_policy::ServicesIpAllocation::ServicesIpv4CidrBlock(v) => {

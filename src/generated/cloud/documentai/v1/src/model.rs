@@ -345,7 +345,7 @@ impl Document {
     /// The value of [source][crate::model::Document::source]
     /// if it holds a `Uri`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_uri(&self) -> std::option::Option<&std::string::String> {
+    pub fn uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::document::Source::Uri(v) => std::option::Option::Some(v),
@@ -356,7 +356,7 @@ impl Document {
     /// The value of [source][crate::model::Document::source]
     /// if it holds a `Content`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_content(&self) -> std::option::Option<&::bytes::Bytes> {
+    pub fn content(&self) -> std::option::Option<&::bytes::Bytes> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::document::Source::Content(v) => std::option::Option::Some(v),
@@ -2867,7 +2867,7 @@ pub mod document {
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `MoneyValue`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_money_value(
+            pub fn money_value(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<gtype::model::Money>> {
                 #[allow(unreachable_patterns)]
@@ -2880,9 +2880,7 @@ pub mod document {
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `DateValue`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_date_value(
-                &self,
-            ) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
+            pub fn date_value(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
                 #[allow(unreachable_patterns)]
                 self.structured_value.as_ref().and_then(|v| match v {
                     crate::model::document::entity::normalized_value::StructuredValue::DateValue(v) => std::option::Option::Some(v),
@@ -2893,7 +2891,7 @@ pub mod document {
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `DatetimeValue`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_datetime_value(
+            pub fn datetime_value(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<gtype::model::DateTime>> {
                 #[allow(unreachable_patterns)]
@@ -2906,7 +2904,7 @@ pub mod document {
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `AddressValue`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_address_value(
+            pub fn address_value(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<gtype::model::PostalAddress>> {
                 #[allow(unreachable_patterns)]
@@ -2919,7 +2917,7 @@ pub mod document {
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `BooleanValue`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_boolean_value(&self) -> std::option::Option<&bool> {
+            pub fn boolean_value(&self) -> std::option::Option<&bool> {
                 #[allow(unreachable_patterns)]
                 self.structured_value.as_ref().and_then(|v| match v {
                     crate::model::document::entity::normalized_value::StructuredValue::BooleanValue(v) => std::option::Option::Some(v),
@@ -2930,7 +2928,7 @@ pub mod document {
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `IntegerValue`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_integer_value(&self) -> std::option::Option<&i32> {
+            pub fn integer_value(&self) -> std::option::Option<&i32> {
                 #[allow(unreachable_patterns)]
                 self.structured_value.as_ref().and_then(|v| match v {
                     crate::model::document::entity::normalized_value::StructuredValue::IntegerValue(v) => std::option::Option::Some(v),
@@ -2941,7 +2939,7 @@ pub mod document {
             /// The value of [structured_value][crate::model::document::entity::NormalizedValue::structured_value]
             /// if it holds a `FloatValue`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_float_value(&self) -> std::option::Option<&f32> {
+            pub fn float_value(&self) -> std::option::Option<&f32> {
                 #[allow(unreachable_patterns)]
                 self.structured_value.as_ref().and_then(|v| match v {
                     crate::model::document::entity::normalized_value::StructuredValue::FloatValue(v) => std::option::Option::Some(v),
@@ -3873,7 +3871,7 @@ pub mod document {
         /// The value of [source][crate::model::document::Revision::source]
         /// if it holds a `Agent`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_agent(&self) -> std::option::Option<&std::string::String> {
+        pub fn agent(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
                 crate::model::document::revision::Source::Agent(v) => std::option::Option::Some(v),
@@ -3884,7 +3882,7 @@ pub mod document {
         /// The value of [source][crate::model::document::Revision::source]
         /// if it holds a `Processor`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_processor(&self) -> std::option::Option<&std::string::String> {
+        pub fn processor(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
                 crate::model::document::revision::Source::Processor(v) => {
@@ -4172,7 +4170,7 @@ pub mod document {
             /// The value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
             /// if it holds a `TextBlock`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_text_block(
+            pub fn text_block(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<
@@ -4189,7 +4187,7 @@ pub mod document {
             /// The value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
             /// if it holds a `TableBlock`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_table_block(&self) -> std::option::Option<&std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTableBlock>>{
+            pub fn table_block(&self) -> std::option::Option<&std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTableBlock>>{
                 #[allow(unreachable_patterns)]
                 self.block.as_ref().and_then(|v| match v {
                     crate::model::document::document_layout::document_layout_block::Block::TableBlock(v) => std::option::Option::Some(v),
@@ -4200,7 +4198,7 @@ pub mod document {
             /// The value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
             /// if it holds a `ListBlock`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_list_block(
+            pub fn list_block(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<
@@ -5196,7 +5194,7 @@ impl BatchDocumentsInputConfig {
     /// The value of [source][crate::model::BatchDocumentsInputConfig::source]
     /// if it holds a `GcsPrefix`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_prefix(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsPrefix>> {
+    pub fn gcs_prefix(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsPrefix>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::batch_documents_input_config::Source::GcsPrefix(v) => {
@@ -5209,7 +5207,7 @@ impl BatchDocumentsInputConfig {
     /// The value of [source][crate::model::BatchDocumentsInputConfig::source]
     /// if it holds a `GcsDocuments`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_documents(
+    pub fn gcs_documents(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDocuments>> {
         #[allow(unreachable_patterns)]
@@ -5313,7 +5311,7 @@ impl DocumentOutputConfig {
     /// The value of [destination][crate::model::DocumentOutputConfig::destination]
     /// if it holds a `GcsOutputConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_output_config(
+    pub fn gcs_output_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::document_output_config::GcsOutputConfig>>
     {
@@ -5806,7 +5804,7 @@ impl ProcessOptions {
     /// The value of [page_range][crate::model::ProcessOptions::page_range]
     /// if it holds a `IndividualPageSelector`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_individual_page_selector(
+    pub fn individual_page_selector(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::process_options::IndividualPageSelector>>
     {
@@ -5822,7 +5820,7 @@ impl ProcessOptions {
     /// The value of [page_range][crate::model::ProcessOptions::page_range]
     /// if it holds a `FromStart`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_from_start(&self) -> std::option::Option<&i32> {
+    pub fn from_start(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.page_range.as_ref().and_then(|v| match v {
             crate::model::process_options::PageRange::FromStart(v) => std::option::Option::Some(v),
@@ -5833,7 +5831,7 @@ impl ProcessOptions {
     /// The value of [page_range][crate::model::ProcessOptions::page_range]
     /// if it holds a `FromEnd`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_from_end(&self) -> std::option::Option<&i32> {
+    pub fn from_end(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.page_range.as_ref().and_then(|v| match v {
             crate::model::process_options::PageRange::FromEnd(v) => std::option::Option::Some(v),
@@ -6184,9 +6182,7 @@ impl ProcessRequest {
     /// The value of [source][crate::model::ProcessRequest::source]
     /// if it holds a `InlineDocument`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_inline_document(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::Document>> {
+    pub fn inline_document(&self) -> std::option::Option<&std::boxed::Box<crate::model::Document>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::process_request::Source::InlineDocument(v) => {
@@ -6199,9 +6195,7 @@ impl ProcessRequest {
     /// The value of [source][crate::model::ProcessRequest::source]
     /// if it holds a `RawDocument`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_raw_document(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RawDocument>> {
+    pub fn raw_document(&self) -> std::option::Option<&std::boxed::Box<crate::model::RawDocument>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::process_request::Source::RawDocument(v) => std::option::Option::Some(v),
@@ -6212,9 +6206,7 @@ impl ProcessRequest {
     /// The value of [source][crate::model::ProcessRequest::source]
     /// if it holds a `GcsDocument`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_document(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDocument>> {
+    pub fn gcs_document(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsDocument>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::process_request::Source::GcsDocument(v) => std::option::Option::Some(v),
@@ -8323,7 +8315,7 @@ impl TrainProcessorVersionRequest {
     /// The value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags]
     /// if it holds a `CustomDocumentExtractionOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_custom_document_extraction_options(
+    pub fn custom_document_extraction_options(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<
@@ -8340,7 +8332,7 @@ impl TrainProcessorVersionRequest {
     /// The value of [processor_flags][crate::model::TrainProcessorVersionRequest::processor_flags]
     /// if it holds a `FoundationModelTuningOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_foundation_model_tuning_options(
+    pub fn foundation_model_tuning_options(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<
@@ -8912,9 +8904,7 @@ impl ReviewDocumentRequest {
     /// The value of [source][crate::model::ReviewDocumentRequest::source]
     /// if it holds a `InlineDocument`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_inline_document(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::Document>> {
+    pub fn inline_document(&self) -> std::option::Option<&std::boxed::Box<crate::model::Document>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::review_document_request::Source::InlineDocument(v) => {
@@ -9670,7 +9660,7 @@ pub mod document_schema {
         /// The value of [value_source][crate::model::document_schema::EntityType::value_source]
         /// if it holds a `EnumValues`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_enum_values(
+        pub fn enum_values(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::document_schema::entity_type::EnumValues>,
@@ -11185,7 +11175,7 @@ pub mod processor_version {
         /// The value of [model_info][crate::model::processor_version::GenAiModelInfo::model_info]
         /// if it holds a `FoundationGenAiModelInfo`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_foundation_gen_ai_model_info(
+        pub fn foundation_gen_ai_model_info(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -11202,7 +11192,7 @@ pub mod processor_version {
         /// The value of [model_info][crate::model::processor_version::GenAiModelInfo::model_info]
         /// if it holds a `CustomGenAiModelInfo`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_custom_gen_ai_model_info(
+        pub fn custom_gen_ai_model_info(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<

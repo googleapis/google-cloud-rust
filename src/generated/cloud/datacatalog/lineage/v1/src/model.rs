@@ -1782,9 +1782,7 @@ impl SearchLinksRequest {
     /// The value of [criteria][crate::model::SearchLinksRequest::criteria]
     /// if it holds a `Source`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::EntityReference>> {
+    pub fn source(&self) -> std::option::Option<&std::boxed::Box<crate::model::EntityReference>> {
         #[allow(unreachable_patterns)]
         self.criteria.as_ref().and_then(|v| match v {
             crate::model::search_links_request::Criteria::Source(v) => std::option::Option::Some(v),
@@ -1795,9 +1793,7 @@ impl SearchLinksRequest {
     /// The value of [criteria][crate::model::SearchLinksRequest::criteria]
     /// if it holds a `Target`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_target(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::EntityReference>> {
+    pub fn target(&self) -> std::option::Option<&std::boxed::Box<crate::model::EntityReference>> {
         #[allow(unreachable_patterns)]
         self.criteria.as_ref().and_then(|v| match v {
             crate::model::search_links_request::Criteria::Target(v) => std::option::Option::Some(v),

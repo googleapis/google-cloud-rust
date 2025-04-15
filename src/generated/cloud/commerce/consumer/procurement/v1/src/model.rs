@@ -68,7 +68,7 @@ impl AssignmentProtocol {
     /// The value of [assignment_type][crate::model::AssignmentProtocol::assignment_type]
     /// if it holds a `ManualAssignmentType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_manual_assignment_type(
+    pub fn manual_assignment_type(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::assignment_protocol::ManualAssignmentType>,
@@ -85,7 +85,7 @@ impl AssignmentProtocol {
     /// The value of [assignment_type][crate::model::AssignmentProtocol::assignment_type]
     /// if it holds a `AutoAssignmentType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_auto_assignment_type(
+    pub fn auto_assignment_type(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::assignment_protocol::AutoAssignmentType>>
     {
@@ -1218,7 +1218,7 @@ pub mod parameter {
         /// The value of [kind][crate::model::parameter::Value::kind]
         /// if it holds a `Int64Value`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_int64_value(&self) -> std::option::Option<&i64> {
+        pub fn int64_value(&self) -> std::option::Option<&i64> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::parameter::value::Kind::Int64Value(v) => std::option::Option::Some(v),
@@ -1229,7 +1229,7 @@ pub mod parameter {
         /// The value of [kind][crate::model::parameter::Value::kind]
         /// if it holds a `StringValue`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_string_value(&self) -> std::option::Option<&std::string::String> {
+        pub fn string_value(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::parameter::value::Kind::StringValue(v) => {
@@ -1242,7 +1242,7 @@ pub mod parameter {
         /// The value of [kind][crate::model::parameter::Value::kind]
         /// if it holds a `DoubleValue`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_double_value(&self) -> std::option::Option<&f64> {
+        pub fn double_value(&self) -> std::option::Option<&f64> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::parameter::value::Kind::DoubleValue(v) => {

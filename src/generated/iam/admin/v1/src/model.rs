@@ -2952,7 +2952,7 @@ impl LintPolicyRequest {
     /// The value of [lint_object][crate::model::LintPolicyRequest::lint_object]
     /// if it holds a `Condition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_condition(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Expr>> {
+    pub fn condition(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Expr>> {
         #[allow(unreachable_patterns)]
         self.lint_object.as_ref().and_then(|v| match v {
             crate::model::lint_policy_request::LintObject::Condition(v) => {

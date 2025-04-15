@@ -372,9 +372,7 @@ impl Payload {
     /// The value of [kind][crate::model::Payload::kind]
     /// if it holds a `HttpRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_http_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HttpRequest>> {
+    pub fn http_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::HttpRequest>> {
         #[allow(unreachable_patterns)]
         self.kind.as_ref().and_then(|v| match v {
             crate::model::payload::Kind::HttpRequest(v) => std::option::Option::Some(v),
@@ -385,9 +383,7 @@ impl Payload {
     /// The value of [kind][crate::model::Payload::kind]
     /// if it holds a `StreamInfo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_stream_info(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StreamInfo>> {
+    pub fn stream_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::StreamInfo>> {
         #[allow(unreachable_patterns)]
         self.kind.as_ref().and_then(|v| match v {
             crate::model::payload::Kind::StreamInfo(v) => std::option::Option::Some(v),
@@ -398,7 +394,7 @@ impl Payload {
     /// The value of [kind][crate::model::Payload::kind]
     /// if it holds a `Action`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_action(&self) -> std::option::Option<&crate::model::Action> {
+    pub fn action(&self) -> std::option::Option<&crate::model::Action> {
         #[allow(unreachable_patterns)]
         self.kind.as_ref().and_then(|v| match v {
             crate::model::payload::Kind::Action(v) => std::option::Option::Some(v),

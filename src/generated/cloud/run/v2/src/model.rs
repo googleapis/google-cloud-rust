@@ -139,7 +139,7 @@ impl SubmitBuildRequest {
     /// The value of [source][crate::model::SubmitBuildRequest::source]
     /// if it holds a `StorageSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_storage_source(
+    pub fn storage_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StorageSource>> {
         #[allow(unreachable_patterns)]
@@ -185,7 +185,7 @@ impl SubmitBuildRequest {
     /// The value of [build_type][crate::model::SubmitBuildRequest::build_type]
     /// if it holds a `BuildpackBuild`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_buildpack_build(
+    pub fn buildpack_build(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::submit_build_request::BuildpacksBuild>>
     {
@@ -201,7 +201,7 @@ impl SubmitBuildRequest {
     /// The value of [build_type][crate::model::SubmitBuildRequest::build_type]
     /// if it holds a `DockerBuild`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_docker_build(
+    pub fn docker_build(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::submit_build_request::DockerBuild>>
     {
@@ -639,7 +639,7 @@ impl Condition {
     /// The value of [reasons][crate::model::Condition::reasons]
     /// if it holds a `Reason`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_reason(&self) -> std::option::Option<&crate::model::condition::CommonReason> {
+    pub fn reason(&self) -> std::option::Option<&crate::model::condition::CommonReason> {
         #[allow(unreachable_patterns)]
         self.reasons.as_ref().and_then(|v| match v {
             crate::model::condition::Reasons::Reason(v) => std::option::Option::Some(v),
@@ -650,9 +650,7 @@ impl Condition {
     /// The value of [reasons][crate::model::Condition::reasons]
     /// if it holds a `RevisionReason`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_revision_reason(
-        &self,
-    ) -> std::option::Option<&crate::model::condition::RevisionReason> {
+    pub fn revision_reason(&self) -> std::option::Option<&crate::model::condition::RevisionReason> {
         #[allow(unreachable_patterns)]
         self.reasons.as_ref().and_then(|v| match v {
             crate::model::condition::Reasons::RevisionReason(v) => std::option::Option::Some(v),
@@ -663,7 +661,7 @@ impl Condition {
     /// The value of [reasons][crate::model::Condition::reasons]
     /// if it holds a `ExecutionReason`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_execution_reason(
+    pub fn execution_reason(
         &self,
     ) -> std::option::Option<&crate::model::condition::ExecutionReason> {
         #[allow(unreachable_patterns)]
@@ -2891,7 +2889,7 @@ impl Job {
     /// The value of [create_execution][crate::model::Job::create_execution]
     /// if it holds a `StartExecutionToken`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_start_execution_token(&self) -> std::option::Option<&std::string::String> {
+    pub fn start_execution_token(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.create_execution.as_ref().and_then(|v| match v {
             crate::model::job::CreateExecution::StartExecutionToken(v) => {
@@ -2904,7 +2902,7 @@ impl Job {
     /// The value of [create_execution][crate::model::Job::create_execution]
     /// if it holds a `RunExecutionToken`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_run_execution_token(&self) -> std::option::Option<&std::string::String> {
+    pub fn run_execution_token(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.create_execution.as_ref().and_then(|v| match v {
             crate::model::job::CreateExecution::RunExecutionToken(v) => {
@@ -3468,7 +3466,7 @@ impl EnvVar {
     /// The value of [values][crate::model::EnvVar::values]
     /// if it holds a `Value`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_value(&self) -> std::option::Option<&std::string::String> {
+    pub fn value(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.values.as_ref().and_then(|v| match v {
             crate::model::env_var::Values::Value(v) => std::option::Option::Some(v),
@@ -3479,7 +3477,7 @@ impl EnvVar {
     /// The value of [values][crate::model::EnvVar::values]
     /// if it holds a `ValueSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_value_source(
+    pub fn value_source(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::EnvVarSource>> {
         #[allow(unreachable_patterns)]
@@ -3756,7 +3754,7 @@ impl Volume {
     /// The value of [volume_type][crate::model::Volume::volume_type]
     /// if it holds a `Secret`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_secret(
+    pub fn secret(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SecretVolumeSource>> {
         #[allow(unreachable_patterns)]
@@ -3769,7 +3767,7 @@ impl Volume {
     /// The value of [volume_type][crate::model::Volume::volume_type]
     /// if it holds a `CloudSqlInstance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_sql_instance(
+    pub fn cloud_sql_instance(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlInstance>> {
         #[allow(unreachable_patterns)]
@@ -3782,7 +3780,7 @@ impl Volume {
     /// The value of [volume_type][crate::model::Volume::volume_type]
     /// if it holds a `EmptyDir`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_empty_dir(
+    pub fn empty_dir(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::EmptyDirVolumeSource>> {
         #[allow(unreachable_patterns)]
@@ -3795,7 +3793,7 @@ impl Volume {
     /// The value of [volume_type][crate::model::Volume::volume_type]
     /// if it holds a `Nfs`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_nfs(&self) -> std::option::Option<&std::boxed::Box<crate::model::NFSVolumeSource>> {
+    pub fn nfs(&self) -> std::option::Option<&std::boxed::Box<crate::model::NFSVolumeSource>> {
         #[allow(unreachable_patterns)]
         self.volume_type.as_ref().and_then(|v| match v {
             crate::model::volume::VolumeType::Nfs(v) => std::option::Option::Some(v),
@@ -3806,7 +3804,7 @@ impl Volume {
     /// The value of [volume_type][crate::model::Volume::volume_type]
     /// if it holds a `Gcs`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs(&self) -> std::option::Option<&std::boxed::Box<crate::model::GCSVolumeSource>> {
+    pub fn gcs(&self) -> std::option::Option<&std::boxed::Box<crate::model::GCSVolumeSource>> {
         #[allow(unreachable_patterns)]
         self.volume_type.as_ref().and_then(|v| match v {
             crate::model::volume::VolumeType::Gcs(v) => std::option::Option::Some(v),
@@ -4415,9 +4413,7 @@ impl Probe {
     /// The value of [probe_type][crate::model::Probe::probe_type]
     /// if it holds a `HttpGet`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_http_get(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HTTPGetAction>> {
+    pub fn http_get(&self) -> std::option::Option<&std::boxed::Box<crate::model::HTTPGetAction>> {
         #[allow(unreachable_patterns)]
         self.probe_type.as_ref().and_then(|v| match v {
             crate::model::probe::ProbeType::HttpGet(v) => std::option::Option::Some(v),
@@ -4428,7 +4424,7 @@ impl Probe {
     /// The value of [probe_type][crate::model::Probe::probe_type]
     /// if it holds a `TcpSocket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tcp_socket(
+    pub fn tcp_socket(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TCPSocketAction>> {
         #[allow(unreachable_patterns)]
@@ -4441,7 +4437,7 @@ impl Probe {
     /// The value of [probe_type][crate::model::Probe::probe_type]
     /// if it holds a `Grpc`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_grpc(&self) -> std::option::Option<&std::boxed::Box<crate::model::GRPCAction>> {
+    pub fn grpc(&self) -> std::option::Option<&std::boxed::Box<crate::model::GRPCAction>> {
         #[allow(unreachable_patterns)]
         self.probe_type.as_ref().and_then(|v| match v {
             crate::model::probe::ProbeType::Grpc(v) => std::option::Option::Some(v),
@@ -7376,7 +7372,7 @@ impl TaskTemplate {
     /// The value of [retries][crate::model::TaskTemplate::retries]
     /// if it holds a `MaxRetries`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_max_retries(&self) -> std::option::Option<&i32> {
+    pub fn max_retries(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.retries.as_ref().and_then(|v| match v {
             crate::model::task_template::Retries::MaxRetries(v) => std::option::Option::Some(v),
@@ -7804,7 +7800,7 @@ impl BinaryAuthorization {
     /// The value of [binauthz_method][crate::model::BinaryAuthorization::binauthz_method]
     /// if it holds a `UseDefault`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_use_default(&self) -> std::option::Option<&bool> {
+    pub fn use_default(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.binauthz_method.as_ref().and_then(|v| match v {
             crate::model::binary_authorization::BinauthzMethod::UseDefault(v) => {
@@ -7817,7 +7813,7 @@ impl BinaryAuthorization {
     /// The value of [binauthz_method][crate::model::BinaryAuthorization::binauthz_method]
     /// if it holds a `Policy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_policy(&self) -> std::option::Option<&std::string::String> {
+    pub fn policy(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.binauthz_method.as_ref().and_then(|v| match v {
             crate::model::binary_authorization::BinauthzMethod::Policy(v) => {

@@ -1964,7 +1964,7 @@ impl StartManualTransferRunsRequest {
     /// The value of [time][crate::model::StartManualTransferRunsRequest::time]
     /// if it holds a `RequestedTimeRange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_requested_time_range(
+    pub fn requested_time_range(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>,
@@ -1981,7 +1981,7 @@ impl StartManualTransferRunsRequest {
     /// The value of [time][crate::model::StartManualTransferRunsRequest::time]
     /// if it holds a `RequestedRunTime`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_requested_run_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+    pub fn requested_run_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.time.as_ref().and_then(|v| match v {
             crate::model::start_manual_transfer_runs_request::Time::RequestedRunTime(v) => {
@@ -2388,7 +2388,7 @@ impl ScheduleOptionsV2 {
     /// The value of [schedule][crate::model::ScheduleOptionsV2::schedule]
     /// if it holds a `TimeBasedSchedule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_time_based_schedule(
+    pub fn time_based_schedule(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TimeBasedSchedule>> {
         #[allow(unreachable_patterns)]
@@ -2403,7 +2403,7 @@ impl ScheduleOptionsV2 {
     /// The value of [schedule][crate::model::ScheduleOptionsV2::schedule]
     /// if it holds a `ManualSchedule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_manual_schedule(
+    pub fn manual_schedule(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ManualSchedule>> {
         #[allow(unreachable_patterns)]
@@ -2418,7 +2418,7 @@ impl ScheduleOptionsV2 {
     /// The value of [schedule][crate::model::ScheduleOptionsV2::schedule]
     /// if it holds a `EventDrivenSchedule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_event_driven_schedule(
+    pub fn event_driven_schedule(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::EventDrivenSchedule>> {
         #[allow(unreachable_patterns)]
@@ -2991,7 +2991,7 @@ impl TransferConfig {
     /// The value of [destination][crate::model::TransferConfig::destination]
     /// if it holds a `DestinationDatasetId`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_dataset_id(&self) -> std::option::Option<&std::string::String> {
+    pub fn destination_dataset_id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::transfer_config::Destination::DestinationDatasetId(v) => {
@@ -3297,7 +3297,7 @@ impl TransferRun {
     /// The value of [destination][crate::model::TransferRun::destination]
     /// if it holds a `DestinationDatasetId`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_destination_dataset_id(&self) -> std::option::Option<&std::string::String> {
+    pub fn destination_dataset_id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
             crate::model::transfer_run::Destination::DestinationDatasetId(v) => {

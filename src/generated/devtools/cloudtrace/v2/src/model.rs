@@ -383,7 +383,7 @@ pub mod span {
         /// The value of [value][crate::model::span::TimeEvent::value]
         /// if it holds a `Annotation`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_annotation(
+        pub fn annotation(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::span::time_event::Annotation>>
         {
@@ -399,7 +399,7 @@ pub mod span {
         /// The value of [value][crate::model::span::TimeEvent::value]
         /// if it holds a `MessageEvent`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_message_event(
+        pub fn message_event(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::span::time_event::MessageEvent>>
         {
@@ -1026,7 +1026,7 @@ impl AttributeValue {
     /// The value of [value][crate::model::AttributeValue::value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_value(
+    pub fn string_value(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TruncatableString>> {
         #[allow(unreachable_patterns)]
@@ -1039,7 +1039,7 @@ impl AttributeValue {
     /// The value of [value][crate::model::AttributeValue::value]
     /// if it holds a `IntValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_int_value(&self) -> std::option::Option<&i64> {
+    pub fn int_value(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::attribute_value::Value::IntValue(v) => std::option::Option::Some(v),
@@ -1050,7 +1050,7 @@ impl AttributeValue {
     /// The value of [value][crate::model::AttributeValue::value]
     /// if it holds a `BoolValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bool_value(&self) -> std::option::Option<&bool> {
+    pub fn bool_value(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::attribute_value::Value::BoolValue(v) => std::option::Option::Some(v),

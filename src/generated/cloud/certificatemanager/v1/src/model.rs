@@ -499,7 +499,7 @@ pub mod certificate_issuance_config {
         /// The value of [kind][crate::model::certificate_issuance_config::CertificateAuthorityConfig::kind]
         /// if it holds a `CertificateAuthorityServiceConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_certificate_authority_service_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::certificate_issuance_config::certificate_authority_config::CertificateAuthorityServiceConfig>>{
+        pub fn certificate_authority_service_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::certificate_issuance_config::certificate_authority_config::CertificateAuthorityServiceConfig>>{
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::certificate_issuance_config::certificate_authority_config::Kind::CertificateAuthorityServiceConfig(v) => std::option::Option::Some(v),
@@ -2222,7 +2222,7 @@ impl Certificate {
     /// The value of [r#type][crate::model::Certificate::r#type]
     /// if it holds a `SelfManaged`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_self_managed(
+    pub fn self_managed(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::certificate::SelfManagedCertificate>>
     {
@@ -2236,7 +2236,7 @@ impl Certificate {
     /// The value of [r#type][crate::model::Certificate::r#type]
     /// if it holds a `Managed`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_managed(
+    pub fn managed(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::certificate::ManagedCertificate>> {
         #[allow(unreachable_patterns)]
@@ -3103,7 +3103,7 @@ pub mod certificate_map {
         /// The value of [target_proxy][crate::model::certificate_map::GclbTarget::target_proxy]
         /// if it holds a `TargetHttpsProxy`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_target_https_proxy(&self) -> std::option::Option<&std::string::String> {
+        pub fn target_https_proxy(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.target_proxy.as_ref().and_then(|v| match v {
                 crate::model::certificate_map::gclb_target::TargetProxy::TargetHttpsProxy(v) => {
@@ -3116,7 +3116,7 @@ pub mod certificate_map {
         /// The value of [target_proxy][crate::model::certificate_map::GclbTarget::target_proxy]
         /// if it holds a `TargetSslProxy`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_target_ssl_proxy(&self) -> std::option::Option<&std::string::String> {
+        pub fn target_ssl_proxy(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.target_proxy.as_ref().and_then(|v| match v {
                 crate::model::certificate_map::gclb_target::TargetProxy::TargetSslProxy(v) => {
@@ -3360,7 +3360,7 @@ impl CertificateMapEntry {
     /// The value of [r#match][crate::model::CertificateMapEntry::r#match]
     /// if it holds a `Hostname`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_hostname(&self) -> std::option::Option<&std::string::String> {
+    pub fn hostname(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.r#match.as_ref().and_then(|v| match v {
             crate::model::certificate_map_entry::Match::Hostname(v) => std::option::Option::Some(v),
@@ -3371,9 +3371,7 @@ impl CertificateMapEntry {
     /// The value of [r#match][crate::model::CertificateMapEntry::r#match]
     /// if it holds a `Matcher`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_matcher(
-        &self,
-    ) -> std::option::Option<&crate::model::certificate_map_entry::Matcher> {
+    pub fn matcher(&self) -> std::option::Option<&crate::model::certificate_map_entry::Matcher> {
         #[allow(unreachable_patterns)]
         self.r#match.as_ref().and_then(|v| match v {
             crate::model::certificate_map_entry::Match::Matcher(v) => std::option::Option::Some(v),
@@ -4243,7 +4241,7 @@ pub mod trust_config {
         /// The value of [kind][crate::model::trust_config::TrustAnchor::kind]
         /// if it holds a `PemCertificate`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_pem_certificate(&self) -> std::option::Option<&std::string::String> {
+        pub fn pem_certificate(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::trust_config::trust_anchor::Kind::PemCertificate(v) => {
@@ -4328,7 +4326,7 @@ pub mod trust_config {
         /// The value of [kind][crate::model::trust_config::IntermediateCA::kind]
         /// if it holds a `PemCertificate`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_pem_certificate(&self) -> std::option::Option<&std::string::String> {
+        pub fn pem_certificate(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::trust_config::intermediate_ca::Kind::PemCertificate(v) => {

@@ -8247,7 +8247,7 @@ impl RestoreParameters {
     /// The value of [source][crate::model::RestoreParameters::source]
     /// if it holds a `SourceSnapshot`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_snapshot(&self) -> std::option::Option<&std::string::String> {
+    pub fn source_snapshot(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::restore_parameters::Source::SourceSnapshot(v) => {
@@ -8260,7 +8260,7 @@ impl RestoreParameters {
     /// The value of [source][crate::model::RestoreParameters::source]
     /// if it holds a `SourceBackup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_backup(&self) -> std::option::Option<&std::string::String> {
+    pub fn source_backup(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::restore_parameters::Source::SourceBackup(v) => {

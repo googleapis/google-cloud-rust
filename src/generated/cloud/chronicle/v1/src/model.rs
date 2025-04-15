@@ -805,7 +805,7 @@ impl DataAccessLabel {
     /// The value of [definition][crate::model::DataAccessLabel::definition]
     /// if it holds a `UdmQuery`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_udm_query(&self) -> std::option::Option<&std::string::String> {
+    pub fn udm_query(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.definition.as_ref().and_then(|v| match v {
             crate::model::data_access_label::Definition::UdmQuery(v) => {
@@ -1058,7 +1058,7 @@ impl DataAccessLabelReference {
     /// The value of [label][crate::model::DataAccessLabelReference::label]
     /// if it holds a `DataAccessLabel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_data_access_label(&self) -> std::option::Option<&std::string::String> {
+    pub fn data_access_label(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.label.as_ref().and_then(|v| match v {
             crate::model::data_access_label_reference::Label::DataAccessLabel(v) => {
@@ -1071,7 +1071,7 @@ impl DataAccessLabelReference {
     /// The value of [label][crate::model::DataAccessLabelReference::label]
     /// if it holds a `LogType`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_log_type(&self) -> std::option::Option<&std::string::String> {
+    pub fn log_type(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.label.as_ref().and_then(|v| match v {
             crate::model::data_access_label_reference::Label::LogType(v) => {
@@ -1084,7 +1084,7 @@ impl DataAccessLabelReference {
     /// The value of [label][crate::model::DataAccessLabelReference::label]
     /// if it holds a `AssetNamespace`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_asset_namespace(&self) -> std::option::Option<&std::string::String> {
+    pub fn asset_namespace(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.label.as_ref().and_then(|v| match v {
             crate::model::data_access_label_reference::Label::AssetNamespace(v) => {
@@ -1097,7 +1097,7 @@ impl DataAccessLabelReference {
     /// The value of [label][crate::model::DataAccessLabelReference::label]
     /// if it holds a `IngestionLabel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ingestion_label(
+    pub fn ingestion_label(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::IngestionLabel>> {
         #[allow(unreachable_patterns)]
@@ -1431,7 +1431,7 @@ pub mod watchlist {
         /// The value of [mechanism][crate::model::watchlist::EntityPopulationMechanism::mechanism]
         /// if it holds a `Manual`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_manual(
+        pub fn manual(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::watchlist::entity_population_mechanism::Manual>,

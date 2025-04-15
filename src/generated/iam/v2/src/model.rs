@@ -413,7 +413,7 @@ impl PolicyRule {
     /// The value of [kind][crate::model::PolicyRule::kind]
     /// if it holds a `DenyRule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_deny_rule(&self) -> std::option::Option<&std::boxed::Box<crate::model::DenyRule>> {
+    pub fn deny_rule(&self) -> std::option::Option<&std::boxed::Box<crate::model::DenyRule>> {
         #[allow(unreachable_patterns)]
         self.kind.as_ref().and_then(|v| match v {
             crate::model::policy_rule::Kind::DenyRule(v) => std::option::Option::Some(v),

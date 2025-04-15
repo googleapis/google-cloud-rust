@@ -92,7 +92,7 @@ impl DiscoverConnectionProfileRequest {
     /// The value of [target][crate::model::DiscoverConnectionProfileRequest::target]
     /// if it holds a `ConnectionProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_connection_profile(
+    pub fn connection_profile(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ConnectionProfile>> {
         #[allow(unreachable_patterns)]
@@ -107,7 +107,7 @@ impl DiscoverConnectionProfileRequest {
     /// The value of [target][crate::model::DiscoverConnectionProfileRequest::target]
     /// if it holds a `ConnectionProfileName`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_connection_profile_name(&self) -> std::option::Option<&std::string::String> {
+    pub fn connection_profile_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.target.as_ref().and_then(|v| match v {
             crate::model::discover_connection_profile_request::Target::ConnectionProfileName(v) => {
@@ -170,7 +170,7 @@ impl DiscoverConnectionProfileRequest {
     /// The value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
     /// if it holds a `FullHierarchy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_full_hierarchy(&self) -> std::option::Option<&bool> {
+    pub fn full_hierarchy(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.hierarchy.as_ref().and_then(|v| match v {
             crate::model::discover_connection_profile_request::Hierarchy::FullHierarchy(v) => {
@@ -183,7 +183,7 @@ impl DiscoverConnectionProfileRequest {
     /// The value of [hierarchy][crate::model::DiscoverConnectionProfileRequest::hierarchy]
     /// if it holds a `HierarchyDepth`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_hierarchy_depth(&self) -> std::option::Option<&i32> {
+    pub fn hierarchy_depth(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.hierarchy.as_ref().and_then(|v| match v {
             crate::model::discover_connection_profile_request::Hierarchy::HierarchyDepth(v) => {
@@ -236,9 +236,7 @@ impl DiscoverConnectionProfileRequest {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// if it holds a `OracleRdbms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oracle_rdbms(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::OracleRdbms>> {
+    pub fn oracle_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::OracleRdbms>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
             crate::model::discover_connection_profile_request::DataObject::OracleRdbms(v) => {
@@ -251,9 +249,7 @@ impl DiscoverConnectionProfileRequest {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// if it holds a `MysqlRdbms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_mysql_rdbms(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
+    pub fn mysql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
             crate::model::discover_connection_profile_request::DataObject::MysqlRdbms(v) => {
@@ -266,7 +262,7 @@ impl DiscoverConnectionProfileRequest {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// if it holds a `PostgresqlRdbms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_postgresql_rdbms(
+    pub fn postgresql_rdbms(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
         #[allow(unreachable_patterns)]
@@ -281,7 +277,7 @@ impl DiscoverConnectionProfileRequest {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileRequest::data_object]
     /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sql_server_rdbms(
+    pub fn sql_server_rdbms(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
         #[allow(unreachable_patterns)]
@@ -449,9 +445,7 @@ impl DiscoverConnectionProfileResponse {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// if it holds a `OracleRdbms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oracle_rdbms(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::OracleRdbms>> {
+    pub fn oracle_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::OracleRdbms>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
             crate::model::discover_connection_profile_response::DataObject::OracleRdbms(v) => {
@@ -464,9 +458,7 @@ impl DiscoverConnectionProfileResponse {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// if it holds a `MysqlRdbms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_mysql_rdbms(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
+    pub fn mysql_rdbms(&self) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
         #[allow(unreachable_patterns)]
         self.data_object.as_ref().and_then(|v| match v {
             crate::model::discover_connection_profile_response::DataObject::MysqlRdbms(v) => {
@@ -479,7 +471,7 @@ impl DiscoverConnectionProfileResponse {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// if it holds a `PostgresqlRdbms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_postgresql_rdbms(
+    pub fn postgresql_rdbms(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
         #[allow(unreachable_patterns)]
@@ -494,7 +486,7 @@ impl DiscoverConnectionProfileResponse {
     /// The value of [data_object][crate::model::DiscoverConnectionProfileResponse::data_object]
     /// if it holds a `SqlServerRdbms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sql_server_rdbms(
+    pub fn sql_server_rdbms(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
         #[allow(unreachable_patterns)]
@@ -3325,7 +3317,7 @@ impl SalesforceProfile {
     /// The value of [credentials][crate::model::SalesforceProfile::credentials]
     /// if it holds a `UserCredentials`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_user_credentials(
+    pub fn user_credentials(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::salesforce_profile::UserCredentials>>
     {
@@ -3341,7 +3333,7 @@ impl SalesforceProfile {
     /// The value of [credentials][crate::model::SalesforceProfile::credentials]
     /// if it holds a `Oauth2ClientCredentials`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oauth2_client_credentials(
+    pub fn oauth2_client_credentials(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::salesforce_profile::Oauth2ClientCredentials>,
@@ -3726,7 +3718,7 @@ impl ForwardSshTunnelConnectivity {
     /// The value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
     /// if it holds a `Password`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_password(&self) -> std::option::Option<&std::string::String> {
+    pub fn password(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.authentication_method.as_ref().and_then(|v| match v {
             crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::Password(v) => {
@@ -3739,7 +3731,7 @@ impl ForwardSshTunnelConnectivity {
     /// The value of [authentication_method][crate::model::ForwardSshTunnelConnectivity::authentication_method]
     /// if it holds a `PrivateKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_private_key(&self) -> std::option::Option<&std::string::String> {
+    pub fn private_key(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.authentication_method.as_ref().and_then(|v| match v {
             crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod::PrivateKey(v) => {
@@ -4388,7 +4380,7 @@ impl PostgresqlSslConfig {
     /// The value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
     /// if it holds a `ServerVerification`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_server_verification(
+    pub fn server_verification(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::postgresql_ssl_config::ServerVerification>,
@@ -4405,7 +4397,7 @@ impl PostgresqlSslConfig {
     /// The value of [encryption_setting][crate::model::PostgresqlSslConfig::encryption_setting]
     /// if it holds a `ServerAndClientVerification`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_server_and_client_verification(
+    pub fn server_and_client_verification(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::postgresql_ssl_config::ServerAndClientVerification>,
@@ -4728,7 +4720,7 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `OracleProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oracle_profile(
+    pub fn oracle_profile(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::OracleProfile>> {
         #[allow(unreachable_patterns)]
@@ -4743,9 +4735,7 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `GcsProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_profile(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsProfile>> {
+    pub fn gcs_profile(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsProfile>> {
         #[allow(unreachable_patterns)]
         self.profile.as_ref().and_then(|v| match v {
             crate::model::connection_profile::Profile::GcsProfile(v) => {
@@ -4758,7 +4748,7 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `MysqlProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_mysql_profile(
+    pub fn mysql_profile(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlProfile>> {
         #[allow(unreachable_patterns)]
@@ -4773,7 +4763,7 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `BigqueryProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigquery_profile(
+    pub fn bigquery_profile(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryProfile>> {
         #[allow(unreachable_patterns)]
@@ -4788,7 +4778,7 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `PostgresqlProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_postgresql_profile(
+    pub fn postgresql_profile(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlProfile>> {
         #[allow(unreachable_patterns)]
@@ -4803,7 +4793,7 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `SqlServerProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sql_server_profile(
+    pub fn sql_server_profile(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerProfile>> {
         #[allow(unreachable_patterns)]
@@ -4818,7 +4808,7 @@ impl ConnectionProfile {
     /// The value of [profile][crate::model::ConnectionProfile::profile]
     /// if it holds a `SalesforceProfile`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_salesforce_profile(
+    pub fn salesforce_profile(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceProfile>> {
         #[allow(unreachable_patterns)]
@@ -4962,7 +4952,7 @@ impl ConnectionProfile {
     /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
     /// if it holds a `StaticServiceIpConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_static_service_ip_connectivity(
+    pub fn static_service_ip_connectivity(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StaticServiceIpConnectivity>> {
         #[allow(unreachable_patterns)]
@@ -4977,7 +4967,7 @@ impl ConnectionProfile {
     /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
     /// if it holds a `ForwardSshConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_forward_ssh_connectivity(
+    pub fn forward_ssh_connectivity(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ForwardSshTunnelConnectivity>> {
         #[allow(unreachable_patterns)]
@@ -4992,7 +4982,7 @@ impl ConnectionProfile {
     /// The value of [connectivity][crate::model::ConnectionProfile::connectivity]
     /// if it holds a `PrivateConnectivity`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_private_connectivity(
+    pub fn private_connectivity(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectivity>> {
         #[allow(unreachable_patterns)]
@@ -5434,7 +5424,7 @@ impl OracleSourceConfig {
     /// The value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
     /// if it holds a `DropLargeObjects`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_drop_large_objects(
+    pub fn drop_large_objects(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::DropLargeObjects>>
     {
@@ -5450,7 +5440,7 @@ impl OracleSourceConfig {
     /// The value of [large_objects_handling][crate::model::OracleSourceConfig::large_objects_handling]
     /// if it holds a `StreamLargeObjects`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_stream_large_objects(
+    pub fn stream_large_objects(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::StreamLargeObjects>>
     {
@@ -5514,7 +5504,7 @@ impl OracleSourceConfig {
     /// The value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
     /// if it holds a `LogMiner`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_log_miner(
+    pub fn log_miner(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::LogMiner>> {
         #[allow(unreachable_patterns)]
@@ -5529,7 +5519,7 @@ impl OracleSourceConfig {
     /// The value of [cdc_method][crate::model::OracleSourceConfig::cdc_method]
     /// if it holds a `BinaryLogParser`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_binary_log_parser(
+    pub fn binary_log_parser(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::oracle_source_config::BinaryLogParser>>
     {
@@ -5696,7 +5686,7 @@ pub mod oracle_source_config {
         /// The value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
         /// if it holds a `OracleAsmLogFileAccess`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_oracle_asm_log_file_access(
+        pub fn oracle_asm_log_file_access(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -5713,7 +5703,7 @@ pub mod oracle_source_config {
         /// The value of [log_file_access][crate::model::oracle_source_config::BinaryLogParser::log_file_access]
         /// if it holds a `LogFileDirectories`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_log_file_directories(
+        pub fn log_file_directories(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<
@@ -6519,7 +6509,7 @@ impl SqlServerSourceConfig {
     /// The value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
     /// if it holds a `TransactionLogs`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_transaction_logs(
+    pub fn transaction_logs(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerTransactionLogs>> {
         #[allow(unreachable_patterns)]
@@ -6534,7 +6524,7 @@ impl SqlServerSourceConfig {
     /// The value of [cdc_method][crate::model::SqlServerSourceConfig::cdc_method]
     /// if it holds a `ChangeTables`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_change_tables(
+    pub fn change_tables(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerChangeTables>> {
         #[allow(unreachable_patterns)]
@@ -6975,7 +6965,7 @@ impl MysqlSourceConfig {
     /// The value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
     /// if it holds a `BinaryLogPosition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_binary_log_position(
+    pub fn binary_log_position(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::mysql_source_config::BinaryLogPosition>>
     {
@@ -6991,7 +6981,7 @@ impl MysqlSourceConfig {
     /// The value of [cdc_method][crate::model::MysqlSourceConfig::cdc_method]
     /// if it holds a `Gtid`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gtid(
+    pub fn gtid(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::mysql_source_config::Gtid>> {
         #[allow(unreachable_patterns)]
@@ -7357,7 +7347,7 @@ impl SourceConfig {
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `OracleSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oracle_source_config(
+    pub fn oracle_source_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::OracleSourceConfig>> {
         #[allow(unreachable_patterns)]
@@ -7372,7 +7362,7 @@ impl SourceConfig {
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `MysqlSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_mysql_source_config(
+    pub fn mysql_source_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlSourceConfig>> {
         #[allow(unreachable_patterns)]
@@ -7387,7 +7377,7 @@ impl SourceConfig {
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `PostgresqlSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_postgresql_source_config(
+    pub fn postgresql_source_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlSourceConfig>> {
         #[allow(unreachable_patterns)]
@@ -7402,7 +7392,7 @@ impl SourceConfig {
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `SqlServerSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sql_server_source_config(
+    pub fn sql_server_source_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerSourceConfig>> {
         #[allow(unreachable_patterns)]
@@ -7417,7 +7407,7 @@ impl SourceConfig {
     /// The value of [source_stream_config][crate::model::SourceConfig::source_stream_config]
     /// if it holds a `SalesforceSourceConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_salesforce_source_config(
+    pub fn salesforce_source_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceSourceConfig>> {
         #[allow(unreachable_patterns)]
@@ -7810,7 +7800,7 @@ impl GcsDestinationConfig {
     /// The value of [file_format][crate::model::GcsDestinationConfig::file_format]
     /// if it holds a `AvroFileFormat`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_avro_file_format(
+    pub fn avro_file_format(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AvroFileFormat>> {
         #[allow(unreachable_patterns)]
@@ -7825,7 +7815,7 @@ impl GcsDestinationConfig {
     /// The value of [file_format][crate::model::GcsDestinationConfig::file_format]
     /// if it holds a `JsonFileFormat`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_json_file_format(
+    pub fn json_file_format(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::JsonFileFormat>> {
         #[allow(unreachable_patterns)]
@@ -7970,7 +7960,7 @@ impl BigQueryDestinationConfig {
     /// The value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
     /// if it holds a `SingleTargetDataset`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_single_target_dataset(
+    pub fn single_target_dataset(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::big_query_destination_config::SingleTargetDataset>,
@@ -7987,7 +7977,7 @@ impl BigQueryDestinationConfig {
     /// The value of [dataset_config][crate::model::BigQueryDestinationConfig::dataset_config]
     /// if it holds a `SourceHierarchyDatasets`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_hierarchy_datasets(
+    pub fn source_hierarchy_datasets(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::big_query_destination_config::SourceHierarchyDatasets>,
@@ -8064,7 +8054,7 @@ impl BigQueryDestinationConfig {
     /// The value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
     /// if it holds a `Merge`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_merge(
+    pub fn merge(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::big_query_destination_config::Merge>>
     {
@@ -8080,7 +8070,7 @@ impl BigQueryDestinationConfig {
     /// The value of [write_mode][crate::model::BigQueryDestinationConfig::write_mode]
     /// if it holds a `AppendOnly`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_append_only(
+    pub fn append_only(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::big_query_destination_config::AppendOnly>>
     {
@@ -8610,7 +8600,7 @@ impl DestinationConfig {
     /// The value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
     /// if it holds a `GcsDestinationConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_destination_config(
+    pub fn gcs_destination_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestinationConfig>> {
         #[allow(unreachable_patterns)]
@@ -8627,7 +8617,7 @@ impl DestinationConfig {
     /// The value of [destination_stream_config][crate::model::DestinationConfig::destination_stream_config]
     /// if it holds a `BigqueryDestinationConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bigquery_destination_config(
+    pub fn bigquery_destination_config(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestinationConfig>> {
         #[allow(unreachable_patterns)]
@@ -8909,7 +8899,7 @@ impl Stream {
     /// The value of [backfill_strategy][crate::model::Stream::backfill_strategy]
     /// if it holds a `BackfillAll`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backfill_all(
+    pub fn backfill_all(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::stream::BackfillAllStrategy>> {
         #[allow(unreachable_patterns)]
@@ -8922,7 +8912,7 @@ impl Stream {
     /// The value of [backfill_strategy][crate::model::Stream::backfill_strategy]
     /// if it holds a `BackfillNone`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_backfill_none(
+    pub fn backfill_none(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::stream::BackfillNoneStrategy>> {
         #[allow(unreachable_patterns)]
@@ -9020,7 +9010,7 @@ pub mod stream {
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `OracleExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_oracle_excluded_objects(
+        pub fn oracle_excluded_objects(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::OracleRdbms>> {
             #[allow(unreachable_patterns)]
@@ -9033,7 +9023,7 @@ pub mod stream {
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `MysqlExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_mysql_excluded_objects(
+        pub fn mysql_excluded_objects(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlRdbms>> {
             #[allow(unreachable_patterns)]
@@ -9046,7 +9036,7 @@ pub mod stream {
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `PostgresqlExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_postgresql_excluded_objects(
+        pub fn postgresql_excluded_objects(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::PostgresqlRdbms>> {
             #[allow(unreachable_patterns)]
@@ -9059,7 +9049,7 @@ pub mod stream {
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `SqlServerExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_sql_server_excluded_objects(
+        pub fn sql_server_excluded_objects(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerRdbms>> {
             #[allow(unreachable_patterns)]
@@ -9072,7 +9062,7 @@ pub mod stream {
         /// The value of [excluded_objects][crate::model::stream::BackfillAllStrategy::excluded_objects]
         /// if it holds a `SalesforceExcludedObjects`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_salesforce_excluded_objects(
+        pub fn salesforce_excluded_objects(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceOrg>> {
             #[allow(unreachable_patterns)]
@@ -9485,7 +9475,7 @@ impl SourceObjectIdentifier {
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `OracleIdentifier`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_oracle_identifier(
+    pub fn oracle_identifier(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::source_object_identifier::OracleObjectIdentifier>,
@@ -9502,7 +9492,7 @@ impl SourceObjectIdentifier {
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `MysqlIdentifier`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_mysql_identifier(
+    pub fn mysql_identifier(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::source_object_identifier::MysqlObjectIdentifier>,
@@ -9519,7 +9509,7 @@ impl SourceObjectIdentifier {
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `PostgresqlIdentifier`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_postgresql_identifier(
+    pub fn postgresql_identifier(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::source_object_identifier::PostgresqlObjectIdentifier>,
@@ -9536,7 +9526,7 @@ impl SourceObjectIdentifier {
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `SqlServerIdentifier`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sql_server_identifier(
+    pub fn sql_server_identifier(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::source_object_identifier::SqlServerObjectIdentifier>,
@@ -9553,7 +9543,7 @@ impl SourceObjectIdentifier {
     /// The value of [source_identifier][crate::model::SourceObjectIdentifier::source_identifier]
     /// if it holds a `SalesforceIdentifier`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_salesforce_identifier(
+    pub fn salesforce_identifier(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::source_object_identifier::SalesforceObjectIdentifier>,
@@ -10575,7 +10565,7 @@ impl CdcStrategy {
     /// The value of [start_position][crate::model::CdcStrategy::start_position]
     /// if it holds a `MostRecentStartPosition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_most_recent_start_position(
+    pub fn most_recent_start_position(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::MostRecentStartPosition>>
     {
@@ -10591,7 +10581,7 @@ impl CdcStrategy {
     /// The value of [start_position][crate::model::CdcStrategy::start_position]
     /// if it holds a `NextAvailableStartPosition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_next_available_start_position(
+    pub fn next_available_start_position(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::NextAvailableStartPosition>>
     {
@@ -10607,7 +10597,7 @@ impl CdcStrategy {
     /// The value of [start_position][crate::model::CdcStrategy::start_position]
     /// if it holds a `SpecificStartPosition`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_specific_start_position(
+    pub fn specific_start_position(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::cdc_strategy::SpecificStartPosition>>
     {
@@ -10769,7 +10759,7 @@ pub mod cdc_strategy {
         /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// if it holds a `MysqlLogPosition`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_mysql_log_position(
+        pub fn mysql_log_position(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlLogPosition>> {
             #[allow(unreachable_patterns)]
@@ -10784,7 +10774,7 @@ pub mod cdc_strategy {
         /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// if it holds a `OracleScnPosition`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_oracle_scn_position(
+        pub fn oracle_scn_position(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::OracleScnPosition>> {
             #[allow(unreachable_patterns)]
@@ -10797,7 +10787,7 @@ pub mod cdc_strategy {
         /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// if it holds a `SqlServerLsnPosition`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_sql_server_lsn_position(
+        pub fn sql_server_lsn_position(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerLsnPosition>> {
             #[allow(unreachable_patterns)]
@@ -10810,7 +10800,7 @@ pub mod cdc_strategy {
         /// The value of [position][crate::model::cdc_strategy::SpecificStartPosition::position]
         /// if it holds a `MysqlGtidPosition`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_mysql_gtid_position(
+        pub fn mysql_gtid_position(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::MysqlGtidPosition>> {
             #[allow(unreachable_patterns)]

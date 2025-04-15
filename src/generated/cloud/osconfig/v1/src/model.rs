@@ -342,7 +342,7 @@ pub mod inventory {
         /// The value of [details][crate::model::inventory::Item::details]
         /// if it holds a `InstalledPackage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_installed_package(
+        pub fn installed_package(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::SoftwarePackage>>
         {
@@ -358,7 +358,7 @@ pub mod inventory {
         /// The value of [details][crate::model::inventory::Item::details]
         /// if it holds a `AvailablePackage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_available_package(
+        pub fn available_package(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::SoftwarePackage>>
         {
@@ -579,7 +579,7 @@ pub mod inventory {
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `YumPackage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_yum_package(
+        pub fn yum_package(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::VersionedPackage>>
         {
@@ -595,7 +595,7 @@ pub mod inventory {
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `AptPackage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_apt_package(
+        pub fn apt_package(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::VersionedPackage>>
         {
@@ -611,7 +611,7 @@ pub mod inventory {
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `ZypperPackage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_zypper_package(
+        pub fn zypper_package(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::VersionedPackage>>
         {
@@ -627,7 +627,7 @@ pub mod inventory {
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `GoogetPackage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_googet_package(
+        pub fn googet_package(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::VersionedPackage>>
         {
@@ -643,7 +643,7 @@ pub mod inventory {
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `ZypperPatch`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_zypper_patch(
+        pub fn zypper_patch(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::ZypperPatch>> {
             #[allow(unreachable_patterns)]
@@ -658,7 +658,7 @@ pub mod inventory {
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `WuaPackage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_wua_package(
+        pub fn wua_package(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::WindowsUpdatePackage>>
         {
@@ -674,7 +674,7 @@ pub mod inventory {
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `QfePackage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_qfe_package(
+        pub fn qfe_package(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::inventory::WindowsQuickFixEngineeringPackage>,
@@ -691,7 +691,7 @@ pub mod inventory {
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `CosPackage`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_cos_package(
+        pub fn cos_package(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::VersionedPackage>>
         {
@@ -707,7 +707,7 @@ pub mod inventory {
         /// The value of [details][crate::model::inventory::SoftwarePackage::details]
         /// if it holds a `WindowsApplication`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_windows_application(
+        pub fn windows_application(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::inventory::WindowsApplication>>
         {
@@ -1789,7 +1789,7 @@ pub mod os_policy {
         /// The value of [resource_type][crate::model::os_policy::Resource::resource_type]
         /// if it holds a `Pkg`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_pkg(
+        pub fn pkg(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::os_policy::resource::PackageResource>>
         {
@@ -1805,7 +1805,7 @@ pub mod os_policy {
         /// The value of [resource_type][crate::model::os_policy::Resource::resource_type]
         /// if it holds a `Repository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_repository(
+        pub fn repository(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::os_policy::resource::RepositoryResource>,
@@ -1822,7 +1822,7 @@ pub mod os_policy {
         /// The value of [resource_type][crate::model::os_policy::Resource::resource_type]
         /// if it holds a `Exec`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_exec(
+        pub fn exec(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::os_policy::resource::ExecResource>>
         {
@@ -1838,7 +1838,7 @@ pub mod os_policy {
         /// The value of [resource_type][crate::model::os_policy::Resource::resource_type]
         /// if it holds a `File`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_file(
+        pub fn file(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::os_policy::resource::FileResource>>
         {
@@ -1984,7 +1984,7 @@ pub mod os_policy {
             /// The value of [r#type][crate::model::os_policy::resource::File::r#type]
             /// if it holds a `Remote`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_remote(
+            pub fn remote(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::os_policy::resource::file::Remote>,
@@ -2001,7 +2001,7 @@ pub mod os_policy {
             /// The value of [r#type][crate::model::os_policy::resource::File::r#type]
             /// if it holds a `Gcs`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_gcs(
+            pub fn gcs(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::os_policy::resource::file::Gcs>>
             {
@@ -2017,7 +2017,7 @@ pub mod os_policy {
             /// The value of [r#type][crate::model::os_policy::resource::File::r#type]
             /// if it holds a `LocalPath`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_local_path(&self) -> std::option::Option<&std::string::String> {
+            pub fn local_path(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.r#type.as_ref().and_then(|v| match v {
                     crate::model::os_policy::resource::file::Type::LocalPath(v) => {
@@ -2266,7 +2266,7 @@ pub mod os_policy {
             /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// if it holds a `Apt`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_apt(
+            pub fn apt(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::os_policy::resource::package_resource::Apt>,
@@ -2283,7 +2283,7 @@ pub mod os_policy {
             /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// if it holds a `Deb`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_deb(
+            pub fn deb(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::os_policy::resource::package_resource::Deb>,
@@ -2300,7 +2300,7 @@ pub mod os_policy {
             /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// if it holds a `Yum`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_yum(
+            pub fn yum(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::os_policy::resource::package_resource::Yum>,
@@ -2317,7 +2317,7 @@ pub mod os_policy {
             /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// if it holds a `Zypper`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_zypper(
+            pub fn zypper(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::os_policy::resource::package_resource::Zypper>,
@@ -2334,7 +2334,7 @@ pub mod os_policy {
             /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// if it holds a `Rpm`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_rpm(
+            pub fn rpm(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::os_policy::resource::package_resource::Rpm>,
@@ -2351,7 +2351,7 @@ pub mod os_policy {
             /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// if it holds a `Googet`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_googet(
+            pub fn googet(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::os_policy::resource::package_resource::GooGet>,
@@ -2368,7 +2368,7 @@ pub mod os_policy {
             /// The value of [system_package][crate::model::os_policy::resource::PackageResource::system_package]
             /// if it holds a `Msi`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_msi(
+            pub fn msi(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::os_policy::resource::package_resource::Msi>,
@@ -2986,7 +2986,7 @@ pub mod os_policy {
             /// The value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
             /// if it holds a `Apt`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_apt(
+            pub fn apt(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<
@@ -3005,7 +3005,7 @@ pub mod os_policy {
             /// The value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
             /// if it holds a `Yum`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_yum(
+            pub fn yum(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<
@@ -3024,7 +3024,7 @@ pub mod os_policy {
             /// The value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
             /// if it holds a `Zypper`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_zypper(
+            pub fn zypper(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<
@@ -3043,7 +3043,7 @@ pub mod os_policy {
             /// The value of [repository][crate::model::os_policy::resource::RepositoryResource::repository]
             /// if it holds a `Goo`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_goo(
+            pub fn goo(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<
@@ -3726,7 +3726,7 @@ pub mod os_policy {
                 /// The value of [source][crate::model::os_policy::resource::exec_resource::Exec::source]
                 /// if it holds a `File`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_file(
+                pub fn file(
                     &self,
                 ) -> std::option::Option<&std::boxed::Box<crate::model::os_policy::resource::File>>
                 {
@@ -3742,7 +3742,7 @@ pub mod os_policy {
                 /// The value of [source][crate::model::os_policy::resource::exec_resource::Exec::source]
                 /// if it holds a `Script`, `None` if the field is not set or
                 /// holds a different branch.
-                pub fn get_script(&self) -> std::option::Option<&std::string::String> {
+                pub fn script(&self) -> std::option::Option<&std::string::String> {
                     #[allow(unreachable_patterns)]
                     self.source.as_ref().and_then(|v| match v {
                         crate::model::os_policy::resource::exec_resource::exec::Source::Script(
@@ -3973,7 +3973,7 @@ pub mod os_policy {
             /// The value of [source][crate::model::os_policy::resource::FileResource::source]
             /// if it holds a `File`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_file(
+            pub fn file(
                 &self,
             ) -> std::option::Option<&std::boxed::Box<crate::model::os_policy::resource::File>>
             {
@@ -3989,7 +3989,7 @@ pub mod os_policy {
             /// The value of [source][crate::model::os_policy::resource::FileResource::source]
             /// if it holds a `Content`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_content(&self) -> std::option::Option<&std::string::String> {
+            pub fn content(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.source.as_ref().and_then(|v| match v {
                     crate::model::os_policy::resource::file_resource::Source::Content(v) => {
@@ -4761,7 +4761,7 @@ pub mod os_policy_assignment_report {
             /// The value of [output][crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance::output]
             /// if it holds a `ExecResourceOutput`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_exec_resource_output(&self) -> std::option::Option<&std::boxed::Box<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ExecResourceOutput>>{
+            pub fn exec_resource_output(&self) -> std::option::Option<&std::boxed::Box<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ExecResourceOutput>>{
                 #[allow(unreachable_patterns)]
                 self.output.as_ref().and_then(|v| match v {
                     crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::Output::ExecResourceOutput(v) => std::option::Option::Some(v),
@@ -6323,7 +6323,7 @@ impl FixedOrPercent {
     /// The value of [mode][crate::model::FixedOrPercent::mode]
     /// if it holds a `Fixed`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_fixed(&self) -> std::option::Option<&i32> {
+    pub fn fixed(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.mode.as_ref().and_then(|v| match v {
             crate::model::fixed_or_percent::Mode::Fixed(v) => std::option::Option::Some(v),
@@ -6334,7 +6334,7 @@ impl FixedOrPercent {
     /// The value of [mode][crate::model::FixedOrPercent::mode]
     /// if it holds a `Percent`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_percent(&self) -> std::option::Option<&i32> {
+    pub fn percent(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.mode.as_ref().and_then(|v| match v {
             crate::model::fixed_or_percent::Mode::Percent(v) => std::option::Option::Some(v),
@@ -6565,7 +6565,7 @@ impl PatchDeployment {
     /// The value of [schedule][crate::model::PatchDeployment::schedule]
     /// if it holds a `OneTimeSchedule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_one_time_schedule(
+    pub fn one_time_schedule(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::OneTimeSchedule>> {
         #[allow(unreachable_patterns)]
@@ -6580,7 +6580,7 @@ impl PatchDeployment {
     /// The value of [schedule][crate::model::PatchDeployment::schedule]
     /// if it holds a `RecurringSchedule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_recurring_schedule(
+    pub fn recurring_schedule(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::RecurringSchedule>> {
         #[allow(unreachable_patterns)]
@@ -6874,9 +6874,7 @@ impl RecurringSchedule {
     /// The value of [schedule_config][crate::model::RecurringSchedule::schedule_config]
     /// if it holds a `Weekly`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_weekly(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::WeeklySchedule>> {
+    pub fn weekly(&self) -> std::option::Option<&std::boxed::Box<crate::model::WeeklySchedule>> {
         #[allow(unreachable_patterns)]
         self.schedule_config.as_ref().and_then(|v| match v {
             crate::model::recurring_schedule::ScheduleConfig::Weekly(v) => {
@@ -6889,9 +6887,7 @@ impl RecurringSchedule {
     /// The value of [schedule_config][crate::model::RecurringSchedule::schedule_config]
     /// if it holds a `Monthly`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_monthly(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MonthlySchedule>> {
+    pub fn monthly(&self) -> std::option::Option<&std::boxed::Box<crate::model::MonthlySchedule>> {
         #[allow(unreachable_patterns)]
         self.schedule_config.as_ref().and_then(|v| match v {
             crate::model::recurring_schedule::ScheduleConfig::Monthly(v) => {
@@ -7089,7 +7085,7 @@ impl MonthlySchedule {
     /// The value of [day_of_month][crate::model::MonthlySchedule::day_of_month]
     /// if it holds a `WeekDayOfMonth`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_week_day_of_month(
+    pub fn week_day_of_month(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::WeekDayOfMonth>> {
         #[allow(unreachable_patterns)]
@@ -7104,7 +7100,7 @@ impl MonthlySchedule {
     /// The value of [day_of_month][crate::model::MonthlySchedule::day_of_month]
     /// if it holds a `MonthDay`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_month_day(&self) -> std::option::Option<&i32> {
+    pub fn month_day(&self) -> std::option::Option<&i32> {
         #[allow(unreachable_patterns)]
         self.day_of_month.as_ref().and_then(|v| match v {
             crate::model::monthly_schedule::DayOfMonth::MonthDay(v) => std::option::Option::Some(v),
@@ -9629,7 +9625,7 @@ impl ExecStepConfig {
     /// The value of [executable][crate::model::ExecStepConfig::executable]
     /// if it holds a `LocalPath`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_local_path(&self) -> std::option::Option<&std::string::String> {
+    pub fn local_path(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.executable.as_ref().and_then(|v| match v {
             crate::model::exec_step_config::Executable::LocalPath(v) => {
@@ -9642,7 +9638,7 @@ impl ExecStepConfig {
     /// The value of [executable][crate::model::ExecStepConfig::executable]
     /// if it holds a `GcsObject`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_object(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsObject>> {
+    pub fn gcs_object(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsObject>> {
         #[allow(unreachable_patterns)]
         self.executable.as_ref().and_then(|v| match v {
             crate::model::exec_step_config::Executable::GcsObject(v) => {

@@ -183,7 +183,7 @@ impl Channel {
     /// The value of [transport][crate::model::Channel::transport]
     /// if it holds a `PubsubTopic`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pubsub_topic(&self) -> std::option::Option<&std::string::String> {
+    pub fn pubsub_topic(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.transport.as_ref().and_then(|v| match v {
             crate::model::channel::Transport::PubsubTopic(v) => std::option::Option::Some(v),
@@ -4664,7 +4664,7 @@ pub mod pipeline {
         /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
         /// if it holds a `Protobuf`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_protobuf(
+        pub fn protobuf(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::pipeline::message_payload_format::ProtobufFormat>,
@@ -4681,7 +4681,7 @@ pub mod pipeline {
         /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
         /// if it holds a `Avro`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_avro(
+        pub fn avro(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>,
@@ -4698,7 +4698,7 @@ pub mod pipeline {
         /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
         /// if it holds a `Json`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_json(
+        pub fn json(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::pipeline::message_payload_format::JsonFormat>,
@@ -4990,7 +4990,7 @@ pub mod pipeline {
         /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
         /// if it holds a `HttpEndpoint`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_http_endpoint(
+        pub fn http_endpoint(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::pipeline::destination::HttpEndpoint>>
         {
@@ -5006,7 +5006,7 @@ pub mod pipeline {
         /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
         /// if it holds a `Workflow`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_workflow(&self) -> std::option::Option<&std::string::String> {
+        pub fn workflow(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.destination_descriptor.as_ref().and_then(|v| match v {
                 crate::model::pipeline::destination::DestinationDescriptor::Workflow(v) => {
@@ -5019,7 +5019,7 @@ pub mod pipeline {
         /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
         /// if it holds a `MessageBus`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_message_bus(&self) -> std::option::Option<&std::string::String> {
+        pub fn message_bus(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.destination_descriptor.as_ref().and_then(|v| match v {
                 crate::model::pipeline::destination::DestinationDescriptor::MessageBus(v) => {
@@ -5032,7 +5032,7 @@ pub mod pipeline {
         /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
         /// if it holds a `Topic`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_topic(&self) -> std::option::Option<&std::string::String> {
+        pub fn topic(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.destination_descriptor.as_ref().and_then(|v| match v {
                 crate::model::pipeline::destination::DestinationDescriptor::Topic(v) => {
@@ -5395,7 +5395,7 @@ pub mod pipeline {
             /// The value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
             /// if it holds a `GoogleOidc`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_google_oidc(
+            pub fn google_oidc(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<
@@ -5412,7 +5412,7 @@ pub mod pipeline {
             /// The value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
             /// if it holds a `OauthToken`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_oauth_token(
+            pub fn oauth_token(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<
@@ -5697,7 +5697,7 @@ pub mod pipeline {
         /// The value of [mediation_descriptor][crate::model::pipeline::Mediation::mediation_descriptor]
         /// if it holds a `Transformation`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_transformation(
+        pub fn transformation(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::pipeline::mediation::Transformation>>
         {
@@ -6303,7 +6303,7 @@ impl Destination {
     /// The value of [descriptor][crate::model::Destination::descriptor]
     /// if it holds a `CloudRun`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudRun>> {
+    pub fn cloud_run(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudRun>> {
         #[allow(unreachable_patterns)]
         self.descriptor.as_ref().and_then(|v| match v {
             crate::model::destination::Descriptor::CloudRun(v) => std::option::Option::Some(v),
@@ -6314,7 +6314,7 @@ impl Destination {
     /// The value of [descriptor][crate::model::Destination::descriptor]
     /// if it holds a `CloudFunction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_function(&self) -> std::option::Option<&std::string::String> {
+    pub fn cloud_function(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.descriptor.as_ref().and_then(|v| match v {
             crate::model::destination::Descriptor::CloudFunction(v) => std::option::Option::Some(v),
@@ -6325,7 +6325,7 @@ impl Destination {
     /// The value of [descriptor][crate::model::Destination::descriptor]
     /// if it holds a `Gke`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gke(&self) -> std::option::Option<&std::boxed::Box<crate::model::Gke>> {
+    pub fn gke(&self) -> std::option::Option<&std::boxed::Box<crate::model::Gke>> {
         #[allow(unreachable_patterns)]
         self.descriptor.as_ref().and_then(|v| match v {
             crate::model::destination::Descriptor::Gke(v) => std::option::Option::Some(v),
@@ -6336,7 +6336,7 @@ impl Destination {
     /// The value of [descriptor][crate::model::Destination::descriptor]
     /// if it holds a `Workflow`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_workflow(&self) -> std::option::Option<&std::string::String> {
+    pub fn workflow(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.descriptor.as_ref().and_then(|v| match v {
             crate::model::destination::Descriptor::Workflow(v) => std::option::Option::Some(v),
@@ -6347,7 +6347,7 @@ impl Destination {
     /// The value of [descriptor][crate::model::Destination::descriptor]
     /// if it holds a `HttpEndpoint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_http_endpoint(
+    pub fn http_endpoint(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::HttpEndpoint>> {
         #[allow(unreachable_patterns)]
@@ -6499,7 +6499,7 @@ impl Transport {
     /// The value of [intermediary][crate::model::Transport::intermediary]
     /// if it holds a `Pubsub`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pubsub(&self) -> std::option::Option<&std::boxed::Box<crate::model::Pubsub>> {
+    pub fn pubsub(&self) -> std::option::Option<&std::boxed::Box<crate::model::Pubsub>> {
         #[allow(unreachable_patterns)]
         self.intermediary.as_ref().and_then(|v| match v {
             crate::model::transport::Intermediary::Pubsub(v) => std::option::Option::Some(v),

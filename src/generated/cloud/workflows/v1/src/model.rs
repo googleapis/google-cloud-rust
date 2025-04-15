@@ -363,7 +363,7 @@ impl Workflow {
     /// The value of [source_code][crate::model::Workflow::source_code]
     /// if it holds a `SourceContents`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_source_contents(&self) -> std::option::Option<&std::string::String> {
+    pub fn source_contents(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source_code.as_ref().and_then(|v| match v {
             crate::model::workflow::SourceCode::SourceContents(v) => std::option::Option::Some(v),

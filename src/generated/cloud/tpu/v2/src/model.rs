@@ -1287,9 +1287,7 @@ impl QueuedResource {
     /// The value of [resource][crate::model::QueuedResource::resource]
     /// if it holds a `Tpu`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_tpu(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource::Tpu>> {
+    pub fn tpu(&self) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource::Tpu>> {
         #[allow(unreachable_patterns)]
         self.resource.as_ref().and_then(|v| match v {
             crate::model::queued_resource::Resource::Tpu(v) => std::option::Option::Some(v),
@@ -1328,7 +1326,7 @@ impl QueuedResource {
     /// The value of [tier][crate::model::QueuedResource::tier]
     /// if it holds a `Spot`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spot(
+    pub fn spot(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource::Spot>> {
         #[allow(unreachable_patterns)]
@@ -1341,7 +1339,7 @@ impl QueuedResource {
     /// The value of [tier][crate::model::QueuedResource::tier]
     /// if it holds a `Guaranteed`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_guaranteed(
+    pub fn guaranteed(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource::Guaranteed>> {
         #[allow(unreachable_patterns)]
@@ -1500,7 +1498,7 @@ pub mod queued_resource {
             /// The value of [name_strategy][crate::model::queued_resource::tpu::NodeSpec::name_strategy]
             /// if it holds a `NodeId`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_node_id(&self) -> std::option::Option<&std::string::String> {
+            pub fn node_id(&self) -> std::option::Option<&std::string::String> {
                 #[allow(unreachable_patterns)]
                 self.name_strategy.as_ref().and_then(|v| match v {
                     crate::model::queued_resource::tpu::node_spec::NameStrategy::NodeId(v) => {
@@ -1513,7 +1511,7 @@ pub mod queued_resource {
             /// The value of [name_strategy][crate::model::queued_resource::tpu::NodeSpec::name_strategy]
             /// if it holds a `MultisliceParams`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn get_multislice_params(
+            pub fn multislice_params(
                 &self,
             ) -> std::option::Option<
                 &std::boxed::Box<crate::model::queued_resource::tpu::node_spec::MultisliceParams>,
@@ -1745,9 +1743,7 @@ pub mod queued_resource {
         /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
         /// if it holds a `ValidUntilDuration`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_valid_until_duration(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        pub fn valid_until_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
             #[allow(unreachable_patterns)]
             self.start_timing_constraints.as_ref().and_then(|v| match v {
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidUntilDuration(v) => std::option::Option::Some(v),
@@ -1758,9 +1754,7 @@ pub mod queued_resource {
         /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
         /// if it holds a `ValidUntilTime`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_valid_until_time(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        pub fn valid_until_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
             #[allow(unreachable_patterns)]
             self.start_timing_constraints.as_ref().and_then(|v| match v {
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidUntilTime(v) => std::option::Option::Some(v),
@@ -1771,9 +1765,7 @@ pub mod queued_resource {
         /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
         /// if it holds a `ValidAfterDuration`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_valid_after_duration(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        pub fn valid_after_duration(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
             #[allow(unreachable_patterns)]
             self.start_timing_constraints.as_ref().and_then(|v| match v {
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidAfterDuration(v) => std::option::Option::Some(v),
@@ -1784,9 +1776,7 @@ pub mod queued_resource {
         /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
         /// if it holds a `ValidAfterTime`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_valid_after_time(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        pub fn valid_after_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
             #[allow(unreachable_patterns)]
             self.start_timing_constraints.as_ref().and_then(|v| match v {
                 crate::model::queued_resource::queueing_policy::StartTimingConstraints::ValidAfterTime(v) => std::option::Option::Some(v),
@@ -1797,7 +1787,7 @@ pub mod queued_resource {
         /// The value of [start_timing_constraints][crate::model::queued_resource::QueueingPolicy::start_timing_constraints]
         /// if it holds a `ValidInterval`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_valid_interval(
+        pub fn valid_interval(
             &self,
         ) -> std::option::Option<&std::boxed::Box<gtype::model::Interval>> {
             #[allow(unreachable_patterns)]
@@ -2014,7 +2004,7 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `CreatingData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_creating_data(
+    pub fn creating_data(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::CreatingData>>
     {
@@ -2030,7 +2020,7 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `AcceptedData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_accepted_data(
+    pub fn accepted_data(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::AcceptedData>>
     {
@@ -2046,7 +2036,7 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `ProvisioningData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_provisioning_data(
+    pub fn provisioning_data(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::ProvisioningData>>
     {
@@ -2062,7 +2052,7 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `FailedData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_failed_data(
+    pub fn failed_data(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::FailedData>>
     {
@@ -2078,7 +2068,7 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `DeletingData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_deleting_data(
+    pub fn deleting_data(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::DeletingData>>
     {
@@ -2094,7 +2084,7 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `ActiveData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_active_data(
+    pub fn active_data(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::ActiveData>>
     {
@@ -2110,7 +2100,7 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `SuspendingData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_suspending_data(
+    pub fn suspending_data(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::SuspendingData>>
     {
@@ -2126,7 +2116,7 @@ impl QueuedResourceState {
     /// The value of [state_data][crate::model::QueuedResourceState::state_data]
     /// if it holds a `SuspendedData`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_suspended_data(
+    pub fn suspended_data(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::queued_resource_state::SuspendedData>>
     {

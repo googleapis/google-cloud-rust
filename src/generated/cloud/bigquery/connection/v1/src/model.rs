@@ -437,7 +437,7 @@ impl Connection {
     /// The value of [properties][crate::model::Connection::properties]
     /// if it holds a `CloudSql`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_sql(
+    pub fn cloud_sql(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlProperties>> {
         #[allow(unreachable_patterns)]
@@ -450,7 +450,7 @@ impl Connection {
     /// The value of [properties][crate::model::Connection::properties]
     /// if it holds a `Aws`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_aws(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsProperties>> {
+    pub fn aws(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsProperties>> {
         #[allow(unreachable_patterns)]
         self.properties.as_ref().and_then(|v| match v {
             crate::model::connection::Properties::Aws(v) => std::option::Option::Some(v),
@@ -461,9 +461,7 @@ impl Connection {
     /// The value of [properties][crate::model::Connection::properties]
     /// if it holds a `Azure`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_azure(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AzureProperties>> {
+    pub fn azure(&self) -> std::option::Option<&std::boxed::Box<crate::model::AzureProperties>> {
         #[allow(unreachable_patterns)]
         self.properties.as_ref().and_then(|v| match v {
             crate::model::connection::Properties::Azure(v) => std::option::Option::Some(v),
@@ -474,7 +472,7 @@ impl Connection {
     /// The value of [properties][crate::model::Connection::properties]
     /// if it holds a `CloudSpanner`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_spanner(
+    pub fn cloud_spanner(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSpannerProperties>> {
         #[allow(unreachable_patterns)]
@@ -487,7 +485,7 @@ impl Connection {
     /// The value of [properties][crate::model::Connection::properties]
     /// if it holds a `CloudResource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cloud_resource(
+    pub fn cloud_resource(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CloudResourceProperties>> {
         #[allow(unreachable_patterns)]
@@ -500,9 +498,7 @@ impl Connection {
     /// The value of [properties][crate::model::Connection::properties]
     /// if it holds a `Spark`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spark(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SparkProperties>> {
+    pub fn spark(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkProperties>> {
         #[allow(unreachable_patterns)]
         self.properties.as_ref().and_then(|v| match v {
             crate::model::connection::Properties::Spark(v) => std::option::Option::Some(v),
@@ -513,7 +509,7 @@ impl Connection {
     /// The value of [properties][crate::model::Connection::properties]
     /// if it holds a `SalesforceDataCloud`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_salesforce_data_cloud(
+    pub fn salesforce_data_cloud(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SalesforceDataCloudProperties>> {
         #[allow(unreachable_patterns)]
@@ -1002,7 +998,7 @@ impl AwsProperties {
     /// The value of [authentication_method][crate::model::AwsProperties::authentication_method]
     /// if it holds a `CrossAccountRole`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cross_account_role(
+    pub fn cross_account_role(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AwsCrossAccountRole>> {
         #[allow(unreachable_patterns)]
@@ -1017,7 +1013,7 @@ impl AwsProperties {
     /// The value of [authentication_method][crate::model::AwsProperties::authentication_method]
     /// if it holds a `AccessRole`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_access_role(
+    pub fn access_role(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AwsAccessRole>> {
         #[allow(unreachable_patterns)]

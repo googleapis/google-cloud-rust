@@ -383,7 +383,7 @@ impl Deployment {
     /// The value of [blueprint][crate::model::Deployment::blueprint]
     /// if it holds a `TerraformBlueprint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_terraform_blueprint(
+    pub fn terraform_blueprint(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TerraformBlueprint>> {
         #[allow(unreachable_patterns)]
@@ -738,7 +738,7 @@ impl TerraformBlueprint {
     /// The value of [source][crate::model::TerraformBlueprint::source]
     /// if it holds a `GcsSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gcs_source(&self) -> std::option::Option<&std::string::String> {
+    pub fn gcs_source(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::terraform_blueprint::Source::GcsSource(v) => std::option::Option::Some(v),
@@ -749,7 +749,7 @@ impl TerraformBlueprint {
     /// The value of [source][crate::model::TerraformBlueprint::source]
     /// if it holds a `GitSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_git_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GitSource>> {
+    pub fn git_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GitSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::terraform_blueprint::Source::GitSource(v) => std::option::Option::Some(v),
@@ -1796,7 +1796,7 @@ impl OperationMetadata {
     /// The value of [resource_metadata][crate::model::OperationMetadata::resource_metadata]
     /// if it holds a `DeploymentMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_deployment_metadata(
+    pub fn deployment_metadata(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::DeploymentOperationMetadata>> {
         #[allow(unreachable_patterns)]
@@ -1811,7 +1811,7 @@ impl OperationMetadata {
     /// The value of [resource_metadata][crate::model::OperationMetadata::resource_metadata]
     /// if it holds a `PreviewMetadata`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_preview_metadata(
+    pub fn preview_metadata(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PreviewOperationMetadata>> {
         #[allow(unreachable_patterns)]
@@ -2160,7 +2160,7 @@ impl Revision {
     /// The value of [blueprint][crate::model::Revision::blueprint]
     /// if it holds a `TerraformBlueprint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_terraform_blueprint(
+    pub fn terraform_blueprint(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TerraformBlueprint>> {
         #[allow(unreachable_patterns)]
@@ -3974,7 +3974,7 @@ impl Preview {
     /// The value of [blueprint][crate::model::Preview::blueprint]
     /// if it holds a `TerraformBlueprint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_terraform_blueprint(
+    pub fn terraform_blueprint(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TerraformBlueprint>> {
         #[allow(unreachable_patterns)]

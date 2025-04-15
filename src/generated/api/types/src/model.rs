@@ -232,7 +232,7 @@ impl JwtLocation {
     /// The value of [r#in][crate::model::JwtLocation::r#in]
     /// if it holds a `Header`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_header(&self) -> std::option::Option<&std::string::String> {
+    pub fn header(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.r#in.as_ref().and_then(|v| match v {
             crate::model::jwt_location::In::Header(v) => std::option::Option::Some(v),
@@ -243,7 +243,7 @@ impl JwtLocation {
     /// The value of [r#in][crate::model::JwtLocation::r#in]
     /// if it holds a `Query`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_query(&self) -> std::option::Option<&std::string::String> {
+    pub fn query(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.r#in.as_ref().and_then(|v| match v {
             crate::model::jwt_location::In::Query(v) => std::option::Option::Some(v),
@@ -254,7 +254,7 @@ impl JwtLocation {
     /// The value of [r#in][crate::model::JwtLocation::r#in]
     /// if it holds a `Cookie`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_cookie(&self) -> std::option::Option<&std::string::String> {
+    pub fn cookie(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.r#in.as_ref().and_then(|v| match v {
             crate::model::jwt_location::In::Cookie(v) => std::option::Option::Some(v),
@@ -828,7 +828,7 @@ impl BackendRule {
     /// The value of [authentication][crate::model::BackendRule::authentication]
     /// if it holds a `JwtAudience`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_jwt_audience(&self) -> std::option::Option<&std::string::String> {
+    pub fn jwt_audience(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.authentication.as_ref().and_then(|v| match v {
             crate::model::backend_rule::Authentication::JwtAudience(v) => {
@@ -841,7 +841,7 @@ impl BackendRule {
     /// The value of [authentication][crate::model::BackendRule::authentication]
     /// if it holds a `DisableAuth`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_disable_auth(&self) -> std::option::Option<&bool> {
+    pub fn disable_auth(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.authentication.as_ref().and_then(|v| match v {
             crate::model::backend_rule::Authentication::DisableAuth(v) => {
@@ -3163,7 +3163,7 @@ pub mod distribution {
         /// The value of [options][crate::model::distribution::BucketOptions::options]
         /// if it holds a `LinearBuckets`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_linear_buckets(
+        pub fn linear_buckets(
             &self,
         ) -> std::option::Option<&std::boxed::Box<crate::model::distribution::bucket_options::Linear>>
         {
@@ -3179,7 +3179,7 @@ pub mod distribution {
         /// The value of [options][crate::model::distribution::BucketOptions::options]
         /// if it holds a `ExponentialBuckets`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_exponential_buckets(
+        pub fn exponential_buckets(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::distribution::bucket_options::Exponential>,
@@ -3196,7 +3196,7 @@ pub mod distribution {
         /// The value of [options][crate::model::distribution::BucketOptions::options]
         /// if it holds a `ExplicitBuckets`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_explicit_buckets(
+        pub fn explicit_buckets(
             &self,
         ) -> std::option::Option<
             &std::boxed::Box<crate::model::distribution::bucket_options::Explicit>,
@@ -4530,7 +4530,7 @@ impl HttpRule {
     /// The value of [pattern][crate::model::HttpRule::pattern]
     /// if it holds a `Get`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_get(&self) -> std::option::Option<&std::string::String> {
+    pub fn get(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.pattern.as_ref().and_then(|v| match v {
             crate::model::http_rule::Pattern::Get(v) => std::option::Option::Some(v),
@@ -4541,7 +4541,7 @@ impl HttpRule {
     /// The value of [pattern][crate::model::HttpRule::pattern]
     /// if it holds a `Put`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_put(&self) -> std::option::Option<&std::string::String> {
+    pub fn put(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.pattern.as_ref().and_then(|v| match v {
             crate::model::http_rule::Pattern::Put(v) => std::option::Option::Some(v),
@@ -4552,7 +4552,7 @@ impl HttpRule {
     /// The value of [pattern][crate::model::HttpRule::pattern]
     /// if it holds a `Post`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_post(&self) -> std::option::Option<&std::string::String> {
+    pub fn post(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.pattern.as_ref().and_then(|v| match v {
             crate::model::http_rule::Pattern::Post(v) => std::option::Option::Some(v),
@@ -4563,7 +4563,7 @@ impl HttpRule {
     /// The value of [pattern][crate::model::HttpRule::pattern]
     /// if it holds a `Delete`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_delete(&self) -> std::option::Option<&std::string::String> {
+    pub fn delete(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.pattern.as_ref().and_then(|v| match v {
             crate::model::http_rule::Pattern::Delete(v) => std::option::Option::Some(v),
@@ -4574,7 +4574,7 @@ impl HttpRule {
     /// The value of [pattern][crate::model::HttpRule::pattern]
     /// if it holds a `Patch`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_patch(&self) -> std::option::Option<&std::string::String> {
+    pub fn patch(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.pattern.as_ref().and_then(|v| match v {
             crate::model::http_rule::Pattern::Patch(v) => std::option::Option::Some(v),
@@ -4585,9 +4585,7 @@ impl HttpRule {
     /// The value of [pattern][crate::model::HttpRule::pattern]
     /// if it holds a `Custom`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_custom(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CustomHttpPattern>> {
+    pub fn custom(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomHttpPattern>> {
         #[allow(unreachable_patterns)]
         self.pattern.as_ref().and_then(|v| match v {
             crate::model::http_rule::Pattern::Custom(v) => std::option::Option::Some(v),

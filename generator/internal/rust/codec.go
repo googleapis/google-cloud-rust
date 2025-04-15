@@ -652,19 +652,19 @@ func addQueryParameter(f *api.Field) string {
 }
 
 func addQueryParameterOneOf(f *api.Field) string {
-	fieldName := toSnakeNoMangling(f.Name)
+	fieldName := toSnake(f.Name)
 	switch f.Typez {
 	case api.ENUM_TYPE:
-		return fmt.Sprintf(`let builder = req.get_%s().iter().fold(builder, |builder, p| builder.query(&[("%s", p.value())]));`, fieldName, f.JSONName)
+		return fmt.Sprintf(`let builder = req.%s().iter().fold(builder, |builder, p| builder.query(&[("%s", p.value())]));`, fieldName, f.JSONName)
 	case api.MESSAGE_TYPE:
 		// Query parameters in nested messages are first converted to a
 		// `serde_json::Value`` and then recursively merged into the request
 		// query. The conversion to `serde_json::Value` is expensive, but very
 		// few requests use nested objects as query parameters. Furthermore,
 		// the conversion is skipped if the object field is `None`.`
-		return fmt.Sprintf(`let builder = req.get_%s().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "%s") });`, fieldName, f.JSONName)
+		return fmt.Sprintf(`let builder = req.%s().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "%s") });`, fieldName, f.JSONName)
 	default:
-		return fmt.Sprintf(`let builder = req.get_%s().iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, fieldName, f.JSONName)
+		return fmt.Sprintf(`let builder = req.%s().iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, fieldName, f.JSONName)
 	}
 }
 

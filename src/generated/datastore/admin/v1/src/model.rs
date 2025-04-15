@@ -1569,7 +1569,7 @@ impl MigrationProgressEvent {
     /// The value of [step_details][crate::model::MigrationProgressEvent::step_details]
     /// if it holds a `PrepareStepDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_prepare_step_details(
+    pub fn prepare_step_details(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::migration_progress_event::PrepareStepDetails>,
@@ -1586,7 +1586,7 @@ impl MigrationProgressEvent {
     /// The value of [step_details][crate::model::MigrationProgressEvent::step_details]
     /// if it holds a `RedirectWritesStepDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_redirect_writes_step_details(
+    pub fn redirect_writes_step_details(
         &self,
     ) -> std::option::Option<
         &std::boxed::Box<crate::model::migration_progress_event::RedirectWritesStepDetails>,

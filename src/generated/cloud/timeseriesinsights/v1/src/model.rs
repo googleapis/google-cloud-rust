@@ -404,7 +404,7 @@ impl EventDimension {
     /// The value of [value][crate::model::EventDimension::value]
     /// if it holds a `StringVal`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_val(&self) -> std::option::Option<&std::string::String> {
+    pub fn string_val(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::event_dimension::Value::StringVal(v) => std::option::Option::Some(v),
@@ -415,7 +415,7 @@ impl EventDimension {
     /// The value of [value][crate::model::EventDimension::value]
     /// if it holds a `LongVal`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_long_val(&self) -> std::option::Option<&i64> {
+    pub fn long_val(&self) -> std::option::Option<&i64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::event_dimension::Value::LongVal(v) => std::option::Option::Some(v),
@@ -426,7 +426,7 @@ impl EventDimension {
     /// The value of [value][crate::model::EventDimension::value]
     /// if it holds a `BoolVal`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bool_val(&self) -> std::option::Option<&bool> {
+    pub fn bool_val(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::event_dimension::Value::BoolVal(v) => std::option::Option::Some(v),
@@ -437,7 +437,7 @@ impl EventDimension {
     /// The value of [value][crate::model::EventDimension::value]
     /// if it holds a `DoubleVal`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_double_val(&self) -> std::option::Option<&f64> {
+    pub fn double_val(&self) -> std::option::Option<&f64> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::event_dimension::Value::DoubleVal(v) => std::option::Option::Some(v),
@@ -951,7 +951,7 @@ impl PinnedDimension {
     /// The value of [value][crate::model::PinnedDimension::value]
     /// if it holds a `StringVal`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_val(&self) -> std::option::Option<&std::string::String> {
+    pub fn string_val(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::pinned_dimension::Value::StringVal(v) => std::option::Option::Some(v),
@@ -962,7 +962,7 @@ impl PinnedDimension {
     /// The value of [value][crate::model::PinnedDimension::value]
     /// if it holds a `BoolVal`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_bool_val(&self) -> std::option::Option<&bool> {
+    pub fn bool_val(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.value.as_ref().and_then(|v| match v {
             crate::model::pinned_dimension::Value::BoolVal(v) => std::option::Option::Some(v),

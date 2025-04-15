@@ -299,7 +299,7 @@ impl CycleStep {
     /// The value of [step][crate::model::CycleStep::step]
     /// if it holds a `InitializingReplication`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_initializing_replication(
+    pub fn initializing_replication(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InitializingReplicationStep>> {
         #[allow(unreachable_patterns)]
@@ -314,7 +314,7 @@ impl CycleStep {
     /// The value of [step][crate::model::CycleStep::step]
     /// if it holds a `Replicating`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_replicating(
+    pub fn replicating(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ReplicatingStep>> {
         #[allow(unreachable_patterns)]
@@ -327,7 +327,7 @@ impl CycleStep {
     /// The value of [step][crate::model::CycleStep::step]
     /// if it holds a `PostProcessing`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_post_processing(
+    pub fn post_processing(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PostProcessingStep>> {
         #[allow(unreachable_patterns)]
@@ -826,7 +826,7 @@ impl MigratingVm {
     /// The value of [target_vm_defaults][crate::model::MigratingVm::target_vm_defaults]
     /// if it holds a `ComputeEngineTargetDefaults`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_compute_engine_target_defaults(
+    pub fn compute_engine_target_defaults(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ComputeEngineTargetDefaults>> {
         #[allow(unreachable_patterns)]
@@ -872,7 +872,7 @@ impl MigratingVm {
     /// The value of [source_vm_details][crate::model::MigratingVm::source_vm_details]
     /// if it holds a `AwsSourceVmDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_aws_source_vm_details(
+    pub fn aws_source_vm_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AwsSourceVmDetails>> {
         #[allow(unreachable_patterns)]
@@ -1179,7 +1179,7 @@ impl CloneJob {
     /// The value of [target_vm_details][crate::model::CloneJob::target_vm_details]
     /// if it holds a `ComputeEngineTargetDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_compute_engine_target_details(
+    pub fn compute_engine_target_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ComputeEngineTargetDetails>> {
         #[allow(unreachable_patterns)]
@@ -1372,7 +1372,7 @@ impl CloneStep {
     /// The value of [step][crate::model::CloneStep::step]
     /// if it holds a `AdaptingOs`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_adapting_os(
+    pub fn adapting_os(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AdaptingOSStep>> {
         #[allow(unreachable_patterns)]
@@ -1385,7 +1385,7 @@ impl CloneStep {
     /// The value of [step][crate::model::CloneStep::step]
     /// if it holds a `PreparingVmDisks`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_preparing_vm_disks(
+    pub fn preparing_vm_disks(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PreparingVMDisksStep>> {
         #[allow(unreachable_patterns)]
@@ -1398,7 +1398,7 @@ impl CloneStep {
     /// The value of [step][crate::model::CloneStep::step]
     /// if it holds a `InstantiatingMigratedVm`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_instantiating_migrated_vm(
+    pub fn instantiating_migrated_vm(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InstantiatingMigratedVMStep>> {
         #[allow(unreachable_patterns)]
@@ -1696,7 +1696,7 @@ impl CutoverJob {
     /// The value of [target_vm_details][crate::model::CutoverJob::target_vm_details]
     /// if it holds a `ComputeEngineTargetDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_compute_engine_target_details(
+    pub fn compute_engine_target_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ComputeEngineTargetDetails>> {
         #[allow(unreachable_patterns)]
@@ -1891,7 +1891,7 @@ impl CutoverStep {
     /// The value of [step][crate::model::CutoverStep::step]
     /// if it holds a `PreviousReplicationCycle`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_previous_replication_cycle(
+    pub fn previous_replication_cycle(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ReplicationCycle>> {
         #[allow(unreachable_patterns)]
@@ -1906,7 +1906,7 @@ impl CutoverStep {
     /// The value of [step][crate::model::CutoverStep::step]
     /// if it holds a `ShuttingDownSourceVm`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_shutting_down_source_vm(
+    pub fn shutting_down_source_vm(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ShuttingDownSourceVMStep>> {
         #[allow(unreachable_patterns)]
@@ -1921,7 +1921,7 @@ impl CutoverStep {
     /// The value of [step][crate::model::CutoverStep::step]
     /// if it holds a `FinalSync`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_final_sync(
+    pub fn final_sync(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ReplicationCycle>> {
         #[allow(unreachable_patterns)]
@@ -1934,7 +1934,7 @@ impl CutoverStep {
     /// The value of [step][crate::model::CutoverStep::step]
     /// if it holds a `PreparingVmDisks`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_preparing_vm_disks(
+    pub fn preparing_vm_disks(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PreparingVMDisksStep>> {
         #[allow(unreachable_patterns)]
@@ -1947,7 +1947,7 @@ impl CutoverStep {
     /// The value of [step][crate::model::CutoverStep::step]
     /// if it holds a `InstantiatingMigratedVm`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_instantiating_migrated_vm(
+    pub fn instantiating_migrated_vm(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::InstantiatingMigratedVMStep>> {
         #[allow(unreachable_patterns)]
@@ -2509,7 +2509,7 @@ impl Source {
     /// The value of [source_details][crate::model::Source::source_details]
     /// if it holds a `Vmware`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vmware(
+    pub fn vmware(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VmwareSourceDetails>> {
         #[allow(unreachable_patterns)]
@@ -2522,7 +2522,7 @@ impl Source {
     /// The value of [source_details][crate::model::Source::source_details]
     /// if it holds a `Aws`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_aws(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsSourceDetails>> {
+    pub fn aws(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsSourceDetails>> {
         #[allow(unreachable_patterns)]
         self.source_details.as_ref().and_then(|v| match v {
             crate::model::source::SourceDetails::Aws(v) => std::option::Option::Some(v),
@@ -2780,7 +2780,7 @@ impl AwsSourceDetails {
     /// The value of [credentials_type][crate::model::AwsSourceDetails::credentials_type]
     /// if it holds a `AccessKeyCreds`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_access_key_creds(
+    pub fn access_key_creds(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::aws_source_details::AccessKeyCredentials>>
     {
@@ -4913,7 +4913,7 @@ impl FetchInventoryResponse {
     /// The value of [source_vms][crate::model::FetchInventoryResponse::source_vms]
     /// if it holds a `VmwareVms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vmware_vms(
+    pub fn vmware_vms(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VmwareVmsDetails>> {
         #[allow(unreachable_patterns)]
@@ -4928,9 +4928,7 @@ impl FetchInventoryResponse {
     /// The value of [source_vms][crate::model::FetchInventoryResponse::source_vms]
     /// if it holds a `AwsVms`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_aws_vms(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AwsVmsDetails>> {
+    pub fn aws_vms(&self) -> std::option::Option<&std::boxed::Box<crate::model::AwsVmsDetails>> {
         #[allow(unreachable_patterns)]
         self.source_vms.as_ref().and_then(|v| match v {
             crate::model::fetch_inventory_response::SourceVms::AwsVms(v) => {
@@ -5336,7 +5334,7 @@ impl VmUtilizationInfo {
     /// The value of [vm_details][crate::model::VmUtilizationInfo::vm_details]
     /// if it holds a `VmwareVmDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vmware_vm_details(
+    pub fn vmware_vm_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VmwareVmDetails>> {
         #[allow(unreachable_patterns)]

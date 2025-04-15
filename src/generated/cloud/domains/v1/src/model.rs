@@ -583,7 +583,7 @@ impl DnsSettings {
     /// The value of [dns_provider][crate::model::DnsSettings::dns_provider]
     /// if it holds a `CustomDns`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_custom_dns(
+    pub fn custom_dns(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::dns_settings::CustomDns>> {
         #[allow(unreachable_patterns)]
@@ -596,7 +596,7 @@ impl DnsSettings {
     /// The value of [dns_provider][crate::model::DnsSettings::dns_provider]
     /// if it holds a `GoogleDomainsDns`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_google_domains_dns(
+    pub fn google_domains_dns(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::dns_settings::GoogleDomainsDns>> {
         #[allow(unreachable_patterns)]

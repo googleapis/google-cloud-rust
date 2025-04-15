@@ -1085,9 +1085,7 @@ impl Dashboard {
     /// The value of [layout][crate::model::Dashboard::layout]
     /// if it holds a `GridLayout`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_grid_layout(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GridLayout>> {
+    pub fn grid_layout(&self) -> std::option::Option<&std::boxed::Box<crate::model::GridLayout>> {
         #[allow(unreachable_patterns)]
         self.layout.as_ref().and_then(|v| match v {
             crate::model::dashboard::Layout::GridLayout(v) => std::option::Option::Some(v),
@@ -1098,7 +1096,7 @@ impl Dashboard {
     /// The value of [layout][crate::model::Dashboard::layout]
     /// if it holds a `MosaicLayout`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_mosaic_layout(
+    pub fn mosaic_layout(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MosaicLayout>> {
         #[allow(unreachable_patterns)]
@@ -1111,7 +1109,7 @@ impl Dashboard {
     /// The value of [layout][crate::model::Dashboard::layout]
     /// if it holds a `RowLayout`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_row_layout(&self) -> std::option::Option<&std::boxed::Box<crate::model::RowLayout>> {
+    pub fn row_layout(&self) -> std::option::Option<&std::boxed::Box<crate::model::RowLayout>> {
         #[allow(unreachable_patterns)]
         self.layout.as_ref().and_then(|v| match v {
             crate::model::dashboard::Layout::RowLayout(v) => std::option::Option::Some(v),
@@ -1122,7 +1120,7 @@ impl Dashboard {
     /// The value of [layout][crate::model::Dashboard::layout]
     /// if it holds a `ColumnLayout`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_column_layout(
+    pub fn column_layout(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ColumnLayout>> {
         #[allow(unreachable_patterns)]
@@ -1293,7 +1291,7 @@ impl DashboardFilter {
     /// The value of [default_value][crate::model::DashboardFilter::default_value]
     /// if it holds a `StringValue`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_string_value(&self) -> std::option::Option<&std::string::String> {
+    pub fn string_value(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.default_value.as_ref().and_then(|v| match v {
             crate::model::dashboard_filter::DefaultValue::StringValue(v) => {
@@ -2336,7 +2334,7 @@ impl TimeSeriesQuery {
     /// The value of [source][crate::model::TimeSeriesQuery::source]
     /// if it holds a `TimeSeriesFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_time_series_filter(
+    pub fn time_series_filter(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TimeSeriesFilter>> {
         #[allow(unreachable_patterns)]
@@ -2351,7 +2349,7 @@ impl TimeSeriesQuery {
     /// The value of [source][crate::model::TimeSeriesQuery::source]
     /// if it holds a `TimeSeriesFilterRatio`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_time_series_filter_ratio(
+    pub fn time_series_filter_ratio(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TimeSeriesFilterRatio>> {
         #[allow(unreachable_patterns)]
@@ -2366,7 +2364,7 @@ impl TimeSeriesQuery {
     /// The value of [source][crate::model::TimeSeriesQuery::source]
     /// if it holds a `TimeSeriesQueryLanguage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_time_series_query_language(&self) -> std::option::Option<&std::string::String> {
+    pub fn time_series_query_language(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::time_series_query::Source::TimeSeriesQueryLanguage(v) => {
@@ -2379,7 +2377,7 @@ impl TimeSeriesQuery {
     /// The value of [source][crate::model::TimeSeriesQuery::source]
     /// if it holds a `PrometheusQuery`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_prometheus_query(&self) -> std::option::Option<&std::string::String> {
+    pub fn prometheus_query(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::time_series_query::Source::PrometheusQuery(v) => {
@@ -2564,7 +2562,7 @@ impl TimeSeriesFilter {
     /// The value of [output_filter][crate::model::TimeSeriesFilter::output_filter]
     /// if it holds a `PickTimeSeriesFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pick_time_series_filter(
+    pub fn pick_time_series_filter(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PickTimeSeriesFilter>> {
         #[allow(unreachable_patterns)]
@@ -2579,7 +2577,7 @@ impl TimeSeriesFilter {
     /// The value of [output_filter][crate::model::TimeSeriesFilter::output_filter]
     /// if it holds a `StatisticalTimeSeriesFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_statistical_time_series_filter(
+    pub fn statistical_time_series_filter(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>> {
         #[allow(unreachable_patterns)]
@@ -2736,7 +2734,7 @@ impl TimeSeriesFilterRatio {
     /// The value of [output_filter][crate::model::TimeSeriesFilterRatio::output_filter]
     /// if it holds a `PickTimeSeriesFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pick_time_series_filter(
+    pub fn pick_time_series_filter(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PickTimeSeriesFilter>> {
         #[allow(unreachable_patterns)]
@@ -2751,7 +2749,7 @@ impl TimeSeriesFilterRatio {
     /// The value of [output_filter][crate::model::TimeSeriesFilterRatio::output_filter]
     /// if it holds a `StatisticalTimeSeriesFilter`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_statistical_time_series_filter(
+    pub fn statistical_time_series_filter(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>> {
         #[allow(unreachable_patterns)]
@@ -3445,7 +3443,7 @@ impl Scorecard {
     /// The value of [data_view][crate::model::Scorecard::data_view]
     /// if it holds a `GaugeView`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_gauge_view(
+    pub fn gauge_view(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::scorecard::GaugeView>> {
         #[allow(unreachable_patterns)]
@@ -3458,7 +3456,7 @@ impl Scorecard {
     /// The value of [data_view][crate::model::Scorecard::data_view]
     /// if it holds a `SparkChartView`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_spark_chart_view(
+    pub fn spark_chart_view(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::scorecard::SparkChartView>> {
         #[allow(unreachable_patterns)]
@@ -3471,7 +3469,7 @@ impl Scorecard {
     /// The value of [data_view][crate::model::Scorecard::data_view]
     /// if it holds a `BlankView`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_blank_view(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
+    pub fn blank_view(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
         #[allow(unreachable_patterns)]
         self.data_view.as_ref().and_then(|v| match v {
             crate::model::scorecard::DataView::BlankView(v) => std::option::Option::Some(v),
@@ -4699,7 +4697,7 @@ impl Widget {
     /// The value of [content][crate::model::Widget::content]
     /// if it holds a `XyChart`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_xy_chart(&self) -> std::option::Option<&std::boxed::Box<crate::model::XyChart>> {
+    pub fn xy_chart(&self) -> std::option::Option<&std::boxed::Box<crate::model::XyChart>> {
         #[allow(unreachable_patterns)]
         self.content.as_ref().and_then(|v| match v {
             crate::model::widget::Content::XyChart(v) => std::option::Option::Some(v),
@@ -4710,7 +4708,7 @@ impl Widget {
     /// The value of [content][crate::model::Widget::content]
     /// if it holds a `Scorecard`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_scorecard(&self) -> std::option::Option<&std::boxed::Box<crate::model::Scorecard>> {
+    pub fn scorecard(&self) -> std::option::Option<&std::boxed::Box<crate::model::Scorecard>> {
         #[allow(unreachable_patterns)]
         self.content.as_ref().and_then(|v| match v {
             crate::model::widget::Content::Scorecard(v) => std::option::Option::Some(v),
@@ -4721,7 +4719,7 @@ impl Widget {
     /// The value of [content][crate::model::Widget::content]
     /// if it holds a `Text`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_text(&self) -> std::option::Option<&std::boxed::Box<crate::model::Text>> {
+    pub fn text(&self) -> std::option::Option<&std::boxed::Box<crate::model::Text>> {
         #[allow(unreachable_patterns)]
         self.content.as_ref().and_then(|v| match v {
             crate::model::widget::Content::Text(v) => std::option::Option::Some(v),
@@ -4732,7 +4730,7 @@ impl Widget {
     /// The value of [content][crate::model::Widget::content]
     /// if it holds a `Blank`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_blank(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
+    pub fn blank(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
         #[allow(unreachable_patterns)]
         self.content.as_ref().and_then(|v| match v {
             crate::model::widget::Content::Blank(v) => std::option::Option::Some(v),
@@ -4743,9 +4741,7 @@ impl Widget {
     /// The value of [content][crate::model::Widget::content]
     /// if it holds a `AlertChart`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_alert_chart(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AlertChart>> {
+    pub fn alert_chart(&self) -> std::option::Option<&std::boxed::Box<crate::model::AlertChart>> {
         #[allow(unreachable_patterns)]
         self.content.as_ref().and_then(|v| match v {
             crate::model::widget::Content::AlertChart(v) => std::option::Option::Some(v),
@@ -4756,7 +4752,7 @@ impl Widget {
     /// The value of [content][crate::model::Widget::content]
     /// if it holds a `TimeSeriesTable`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_time_series_table(
+    pub fn time_series_table(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::TimeSeriesTable>> {
         #[allow(unreachable_patterns)]
@@ -4769,7 +4765,7 @@ impl Widget {
     /// The value of [content][crate::model::Widget::content]
     /// if it holds a `CollapsibleGroup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_collapsible_group(
+    pub fn collapsible_group(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::CollapsibleGroup>> {
         #[allow(unreachable_patterns)]
@@ -4782,7 +4778,7 @@ impl Widget {
     /// The value of [content][crate::model::Widget::content]
     /// if it holds a `LogsPanel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_logs_panel(&self) -> std::option::Option<&std::boxed::Box<crate::model::LogsPanel>> {
+    pub fn logs_panel(&self) -> std::option::Option<&std::boxed::Box<crate::model::LogsPanel>> {
         #[allow(unreachable_patterns)]
         self.content.as_ref().and_then(|v| match v {
             crate::model::widget::Content::LogsPanel(v) => std::option::Option::Some(v),
@@ -4793,7 +4789,7 @@ impl Widget {
     /// The value of [content][crate::model::Widget::content]
     /// if it holds a `IncidentList`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_incident_list(
+    pub fn incident_list(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::IncidentList>> {
         #[allow(unreachable_patterns)]
@@ -4806,7 +4802,7 @@ impl Widget {
     /// The value of [content][crate::model::Widget::content]
     /// if it holds a `PieChart`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_pie_chart(&self) -> std::option::Option<&std::boxed::Box<crate::model::PieChart>> {
+    pub fn pie_chart(&self) -> std::option::Option<&std::boxed::Box<crate::model::PieChart>> {
         #[allow(unreachable_patterns)]
         self.content.as_ref().and_then(|v| match v {
             crate::model::widget::Content::PieChart(v) => std::option::Option::Some(v),
@@ -4817,7 +4813,7 @@ impl Widget {
     /// The value of [content][crate::model::Widget::content]
     /// if it holds a `ErrorReportingPanel`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_error_reporting_panel(
+    pub fn error_reporting_panel(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ErrorReportingPanel>> {
         #[allow(unreachable_patterns)]
@@ -4830,7 +4826,7 @@ impl Widget {
     /// The value of [content][crate::model::Widget::content]
     /// if it holds a `SectionHeader`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_section_header(
+    pub fn section_header(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SectionHeader>> {
         #[allow(unreachable_patterns)]
@@ -4843,7 +4839,7 @@ impl Widget {
     /// The value of [content][crate::model::Widget::content]
     /// if it holds a `SingleViewGroup`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_single_view_group(
+    pub fn single_view_group(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::SingleViewGroup>> {
         #[allow(unreachable_patterns)]

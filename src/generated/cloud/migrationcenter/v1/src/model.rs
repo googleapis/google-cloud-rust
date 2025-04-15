@@ -200,7 +200,7 @@ impl Asset {
     /// The value of [asset_details][crate::model::Asset::asset_details]
     /// if it holds a `MachineDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_machine_details(
+    pub fn machine_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MachineDetails>> {
         #[allow(unreachable_patterns)]
@@ -476,7 +476,7 @@ impl ImportJob {
     /// The value of [report][crate::model::ImportJob::report]
     /// if it holds a `ValidationReport`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_validation_report(
+    pub fn validation_report(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ValidationReport>> {
         #[allow(unreachable_patterns)]
@@ -489,7 +489,7 @@ impl ImportJob {
     /// The value of [report][crate::model::ImportJob::report]
     /// if it holds a `ExecutionReport`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_execution_report(
+    pub fn execution_report(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ExecutionReport>> {
         #[allow(unreachable_patterns)]
@@ -743,7 +743,7 @@ impl ImportDataFile {
     /// The value of [file_info][crate::model::ImportDataFile::file_info]
     /// if it holds a `UploadFileInfo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_upload_file_info(
+    pub fn upload_file_info(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UploadFileInfo>> {
         #[allow(unreachable_patterns)]
@@ -5705,7 +5705,7 @@ impl AssetFrame {
     /// The value of [frame_data][crate::model::AssetFrame::frame_data]
     /// if it holds a `MachineDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_machine_details(
+    pub fn machine_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MachineDetails>> {
         #[allow(unreachable_patterns)]
@@ -6884,9 +6884,7 @@ impl DiskEntry {
     /// The value of [platform_specific][crate::model::DiskEntry::platform_specific]
     /// if it holds a `Vmware`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vmware(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::VmwareDiskConfig>> {
+    pub fn vmware(&self) -> std::option::Option<&std::boxed::Box<crate::model::VmwareDiskConfig>> {
         #[allow(unreachable_patterns)]
         self.platform_specific.as_ref().and_then(|v| match v {
             crate::model::disk_entry::PlatformSpecific::Vmware(v) => std::option::Option::Some(v),
@@ -9005,7 +9003,7 @@ impl PlatformDetails {
     /// The value of [vendor_details][crate::model::PlatformDetails::vendor_details]
     /// if it holds a `VmwareDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vmware_details(
+    pub fn vmware_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::VmwarePlatformDetails>> {
         #[allow(unreachable_patterns)]
@@ -9020,7 +9018,7 @@ impl PlatformDetails {
     /// The value of [vendor_details][crate::model::PlatformDetails::vendor_details]
     /// if it holds a `AwsEc2Details`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_aws_ec2_details(
+    pub fn aws_ec2_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AwsEc2PlatformDetails>> {
         #[allow(unreachable_patterns)]
@@ -9035,7 +9033,7 @@ impl PlatformDetails {
     /// The value of [vendor_details][crate::model::PlatformDetails::vendor_details]
     /// if it holds a `AzureVmDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_azure_vm_details(
+    pub fn azure_vm_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AzureVmPlatformDetails>> {
         #[allow(unreachable_patterns)]
@@ -9050,7 +9048,7 @@ impl PlatformDetails {
     /// The value of [vendor_details][crate::model::PlatformDetails::vendor_details]
     /// if it holds a `GenericDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_generic_details(
+    pub fn generic_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GenericPlatformDetails>> {
         #[allow(unreachable_patterns)]
@@ -9065,7 +9063,7 @@ impl PlatformDetails {
     /// The value of [vendor_details][crate::model::PlatformDetails::vendor_details]
     /// if it holds a `PhysicalDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_physical_details(
+    pub fn physical_details(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::PhysicalPlatformDetails>> {
         #[allow(unreachable_patterns)]
@@ -10140,7 +10138,7 @@ impl Insight {
     /// The value of [insight][crate::model::Insight::insight]
     /// if it holds a `MigrationInsight`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_migration_insight(
+    pub fn migration_insight(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::MigrationInsight>> {
         #[allow(unreachable_patterns)]
@@ -10153,7 +10151,7 @@ impl Insight {
     /// The value of [insight][crate::model::Insight::insight]
     /// if it holds a `GenericInsight`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_generic_insight(
+    pub fn generic_insight(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GenericInsight>> {
         #[allow(unreachable_patterns)]
@@ -10330,7 +10328,7 @@ impl MigrationInsight {
     /// The value of [migration_target][crate::model::MigrationInsight::migration_target]
     /// if it holds a `ComputeEngineTarget`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_compute_engine_target(
+    pub fn compute_engine_target(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::ComputeEngineMigrationTarget>> {
         #[allow(unreachable_patterns)]
@@ -10694,9 +10692,7 @@ impl Aggregation {
     /// The value of [aggregation_function][crate::model::Aggregation::aggregation_function]
     /// if it holds a `Count`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_count(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::aggregation::Count>> {
+    pub fn count(&self) -> std::option::Option<&std::boxed::Box<crate::model::aggregation::Count>> {
         #[allow(unreachable_patterns)]
         self.aggregation_function.as_ref().and_then(|v| match v {
             crate::model::aggregation::AggregationFunction::Count(v) => {
@@ -10709,7 +10705,7 @@ impl Aggregation {
     /// The value of [aggregation_function][crate::model::Aggregation::aggregation_function]
     /// if it holds a `Sum`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sum(&self) -> std::option::Option<&std::boxed::Box<crate::model::aggregation::Sum>> {
+    pub fn sum(&self) -> std::option::Option<&std::boxed::Box<crate::model::aggregation::Sum>> {
         #[allow(unreachable_patterns)]
         self.aggregation_function.as_ref().and_then(|v| match v {
             crate::model::aggregation::AggregationFunction::Sum(v) => std::option::Option::Some(v),
@@ -10720,7 +10716,7 @@ impl Aggregation {
     /// The value of [aggregation_function][crate::model::Aggregation::aggregation_function]
     /// if it holds a `Histogram`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_histogram(
+    pub fn histogram(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::aggregation::Histogram>> {
         #[allow(unreachable_patterns)]
@@ -10735,7 +10731,7 @@ impl Aggregation {
     /// The value of [aggregation_function][crate::model::Aggregation::aggregation_function]
     /// if it holds a `Frequency`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_frequency(
+    pub fn frequency(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::aggregation::Frequency>> {
         #[allow(unreachable_patterns)]
@@ -10993,7 +10989,7 @@ impl AggregationResult {
     /// The value of [result][crate::model::AggregationResult::result]
     /// if it holds a `Count`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_count(
+    pub fn count(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::aggregation_result::Count>> {
         #[allow(unreachable_patterns)]
@@ -11006,7 +11002,7 @@ impl AggregationResult {
     /// The value of [result][crate::model::AggregationResult::result]
     /// if it holds a `Sum`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_sum(
+    pub fn sum(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::aggregation_result::Sum>> {
         #[allow(unreachable_patterns)]
@@ -11019,7 +11015,7 @@ impl AggregationResult {
     /// The value of [result][crate::model::AggregationResult::result]
     /// if it holds a `Histogram`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_histogram(
+    pub fn histogram(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::aggregation_result::Histogram>> {
         #[allow(unreachable_patterns)]
@@ -11032,7 +11028,7 @@ impl AggregationResult {
     /// The value of [result][crate::model::AggregationResult::result]
     /// if it holds a `Frequency`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_frequency(
+    pub fn frequency(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::aggregation_result::Frequency>> {
         #[allow(unreachable_patterns)]

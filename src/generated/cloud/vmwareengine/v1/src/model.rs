@@ -8523,7 +8523,7 @@ pub mod external_access_rule {
         /// The value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
         /// if it holds a `IpAddress`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_ip_address(&self) -> std::option::Option<&std::string::String> {
+        pub fn ip_address(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.ip_range.as_ref().and_then(|v| match v {
                 crate::model::external_access_rule::ip_range::IpRange::IpAddress(v) => {
@@ -8536,7 +8536,7 @@ pub mod external_access_rule {
         /// The value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
         /// if it holds a `IpAddressRange`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_ip_address_range(&self) -> std::option::Option<&std::string::String> {
+        pub fn ip_address_range(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.ip_range.as_ref().and_then(|v| match v {
                 crate::model::external_access_rule::ip_range::IpRange::IpAddressRange(v) => {
@@ -8549,7 +8549,7 @@ pub mod external_access_rule {
         /// The value of [ip_range][crate::model::external_access_rule::IpRange::ip_range]
         /// if it holds a `ExternalAddress`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn get_external_address(&self) -> std::option::Option<&std::string::String> {
+        pub fn external_address(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.ip_range.as_ref().and_then(|v| match v {
                 crate::model::external_access_rule::ip_range::IpRange::ExternalAddress(v) => {
@@ -11285,7 +11285,7 @@ impl ManagementDnsZoneBinding {
     /// The value of [bind_network][crate::model::ManagementDnsZoneBinding::bind_network]
     /// if it holds a `VpcNetwork`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vpc_network(&self) -> std::option::Option<&std::string::String> {
+    pub fn vpc_network(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.bind_network.as_ref().and_then(|v| match v {
             crate::model::management_dns_zone_binding::BindNetwork::VpcNetwork(v) => {
@@ -11298,7 +11298,7 @@ impl ManagementDnsZoneBinding {
     /// The value of [bind_network][crate::model::ManagementDnsZoneBinding::bind_network]
     /// if it holds a `VmwareEngineNetwork`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_vmware_engine_network(&self) -> std::option::Option<&std::string::String> {
+    pub fn vmware_engine_network(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.bind_network.as_ref().and_then(|v| match v {
             crate::model::management_dns_zone_binding::BindNetwork::VmwareEngineNetwork(v) => {
@@ -12505,7 +12505,7 @@ impl Principal {
     /// The value of [principal][crate::model::Principal::principal]
     /// if it holds a `User`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_user(&self) -> std::option::Option<&std::string::String> {
+    pub fn user(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.principal.as_ref().and_then(|v| match v {
             crate::model::principal::Principal::User(v) => std::option::Option::Some(v),
@@ -12516,7 +12516,7 @@ impl Principal {
     /// The value of [principal][crate::model::Principal::principal]
     /// if it holds a `ServiceAccount`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_service_account(&self) -> std::option::Option<&std::string::String> {
+    pub fn service_account(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.principal.as_ref().and_then(|v| match v {
             crate::model::principal::Principal::ServiceAccount(v) => std::option::Option::Some(v),

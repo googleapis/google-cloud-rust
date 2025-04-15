@@ -309,7 +309,7 @@ impl Secret {
     /// The value of [expiration][crate::model::Secret::expiration]
     /// if it holds a `ExpireTime`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_expire_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+    pub fn expire_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.expiration.as_ref().and_then(|v| match v {
             crate::model::secret::Expiration::ExpireTime(v) => std::option::Option::Some(v),
@@ -320,7 +320,7 @@ impl Secret {
     /// The value of [expiration][crate::model::Secret::expiration]
     /// if it holds a `Ttl`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.expiration.as_ref().and_then(|v| match v {
             crate::model::secret::Expiration::Ttl(v) => std::option::Option::Some(v),
@@ -705,7 +705,7 @@ impl Replication {
     /// The value of [replication][crate::model::Replication::replication]
     /// if it holds a `Automatic`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_automatic(
+    pub fn automatic(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::replication::Automatic>> {
         #[allow(unreachable_patterns)]
@@ -718,7 +718,7 @@ impl Replication {
     /// The value of [replication][crate::model::Replication::replication]
     /// if it holds a `UserManaged`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_user_managed(
+    pub fn user_managed(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::replication::UserManaged>> {
         #[allow(unreachable_patterns)]
@@ -1058,7 +1058,7 @@ impl ReplicationStatus {
     /// The value of [replication_status][crate::model::ReplicationStatus::replication_status]
     /// if it holds a `Automatic`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_automatic(
+    pub fn automatic(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::replication_status::AutomaticStatus>>
     {
@@ -1074,7 +1074,7 @@ impl ReplicationStatus {
     /// The value of [replication_status][crate::model::ReplicationStatus::replication_status]
     /// if it holds a `UserManaged`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_user_managed(
+    pub fn user_managed(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::replication_status::UserManagedStatus>>
     {
