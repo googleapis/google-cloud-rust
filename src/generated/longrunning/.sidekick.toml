@@ -14,7 +14,7 @@
 
 [general]
 specification-source = 'google/longrunning'
-service-config = 'google/longrunning/longrunning.yaml'
+service-config       = 'google/longrunning/longrunning.yaml'
 
 [source]
 description-override = """Defines types and an abstract service to handle long-running operations.
@@ -34,6 +34,8 @@ operations.
 [gcloud-longrunning]: https://crates.io/crates/gcloud-longrunning"""
 
 [codec]
-version = "0.22.0" # Match existing version
-copyright-year = '2024'
+# We override the default version for generated crates. We want the latest
+# version of `google-cloud-longrunning` to be this crate.
+version               = "0.23.0"
+copyright-year        = '2024'
 'package:longrunning' = 'ignore=true'
