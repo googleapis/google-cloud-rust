@@ -51,13 +51,15 @@
 //! # use google_cloud_auth::errors::CredentialsError;
 //! # tokio_test::block_on(async {
 //! let service_account_key = serde_json::json!({
-//! "client_email": "test-client-email",
-//! "private_key_id": "test-private-key-id",
-//! "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
-//! "project_id": "test-project-id",
-//! "universe_domain": "test-universe-domain",
+//!     "client_email": "test-client-email",
+//!     "private_key_id": "test-private-key-id",
+//!     "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
+//!     "project_id": "test-project-id",
+//!     "universe_domain": "test-universe-domain",
 //! });
-//! let credentials: Credentials = Builder::new(service_account_key).with_quota_project_id("my-quota-project").build()?;
+//! let credentials: Credentials = Builder::new(service_account_key)
+//!     .with_quota_project_id("my-quota-project")
+//!     .build()?;
 //! let token = credentials.token().await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialsError>(())
@@ -122,13 +124,15 @@ impl ServiceAccountRestrictions {
 /// # use google_cloud_auth::credentials::service_account::Builder;
 /// # tokio_test::block_on(async {
 /// let key = serde_json::json!({
-/// "client_email": "test-client-email",
-/// "private_key_id": "test-private-key-id",
-/// "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
-/// "project_id": "test-project-id",
-/// "universe_domain": "test-universe-domain",
+///     "client_email": "test-client-email",
+///     "private_key_id": "test-private-key-id",
+///     "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
+///     "project_id": "test-project-id",
+///     "universe_domain": "test-universe-domain",
 /// });
-/// let credentials = Builder::new(key).with_aud("https://pubsub.googleapis.com").build();
+/// let credentials = Builder::new(key)
+///     .with_aud("https://pubsub.googleapis.com")
+///     .build();
 /// })
 /// ```
 pub struct Builder {
@@ -166,8 +170,10 @@ impl Builder {
     /// # Example
     /// ```
     /// # use google_cloud_auth::credentials::service_account::Builder;
-    /// let service_account_key = serde_json::json!("{ /* add details here */ }");
-    /// let credentials = Builder::new(service_account_key).with_aud("https://bigtable.googleapis.com/").build();
+    /// let service_account_key = serde_json::json!({ /* add details here */ });
+    /// let credentials = Builder::new(service_account_key)
+    ///     .with_aud("https://bigtable.googleapis.com/")
+    ///     .build();
     /// ```
     ///
     /// [JWT]: https://google.aip.dev/auth/4111
@@ -195,8 +201,10 @@ impl Builder {
     /// # Example
     /// ```
     /// # use google_cloud_auth::credentials::service_account::Builder;
-    /// let service_account_key = serde_json::json!("{ /* add details here */ }");
-    /// let credentials = Builder::new(service_account_key).with_scopes(vec!["https://www.googleapis.com/auth/pubsub"]).build();
+    /// let service_account_key = serde_json::json!({ /* add details here */ });
+    /// let credentials = Builder::new(service_account_key)
+    ///     .with_scopes(["https://www.googleapis.com/auth/pubsub"])
+    ///     .build();
     /// ```
     ///
     /// [JWT]: https://google.aip.dev/auth/4111
