@@ -98,15 +98,6 @@ A simple integration test for this module is found in:
 cat generator/internal/sidekick/sidekick_sample_test.go
 ```
 
-The output from this integration test is here:
-
-```shell
-cat generator/testdata/sample/golden/type/*
-```
-
-The CI builds will detect if these files changed unexpectedly. See [#1500] for
-ideas on how to improve these tests.
-
 ## Unit tests
 
 You can write tests for the codec as usual. There are some helpers to initialize
