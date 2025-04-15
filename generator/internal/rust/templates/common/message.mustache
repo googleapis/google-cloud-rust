@@ -100,7 +100,7 @@ impl {{Codec.Name}} {
     /// The value of [{{Group.Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.FieldName}}]
     /// if it holds a `{{Codec.BranchName}}`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn get_{{Codec.SetterName}}(&self) -> std::option::Option<&{{{Codec.FieldType}}}> {
+    pub fn {{Codec.FieldName}}(&self) -> std::option::Option<&{{{Codec.FieldType}}}> {
         {{! Rarely, oneofs have a single branch and then the `_` case is never matched. }}
         #[allow(unreachable_patterns)]
         self.{{Group.Codec.FieldName}}.as_ref().and_then(|v| match v {

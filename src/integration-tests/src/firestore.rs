@@ -137,7 +137,7 @@ async fn cleanup_stale_documents() -> Result<()> {
             continue;
         }
         if let Some(integration) = doc.fields.get("integration-test") {
-            if let Some(&true) = integration.get_boolean_value() {
+            if let Some(&true) = integration.boolean_value() {
                 stale_documents.push(doc.name);
             }
         }
