@@ -44,12 +44,12 @@
 //! # use google_cloud_auth::errors::CredentialsError;
 //! # tokio_test::block_on(async {
 //! let authorized_user = serde_json::json!({
-//! "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com", // Replace with your actual Client ID
-//! "client_secret": "YOUR_CLIENT_SECRET", // Replace with your actual Client Secret - LOAD SECURELY!
-//! "refresh_token": "YOUR_REFRESH_TOKEN", // Replace with the user's refresh token - LOAD SECURELY!
-//! "type": "authorized_user",
-//! // "quota_project_id": "your-billing-project-id", // Optional: Set if needed
-//! // "token_uri" : "test-token-uri", // Optional: Set if needed
+//!     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com", // Replace with your actual Client ID
+//!     "client_secret": "YOUR_CLIENT_SECRET", // Replace with your actual Client Secret - LOAD SECURELY!
+//!     "refresh_token": "YOUR_REFRESH_TOKEN", // Replace with the user's refresh token - LOAD SECURELY!
+//!     "type": "authorized_user",
+//!     // "quota_project_id": "your-billing-project-id", // Optional: Set if needed
+//!     // "token_uri" : "test-token-uri", // Optional: Set if needed
 //! });
 //! let credentials: Credentials = Builder::new(authorized_user).build()?;
 //! let token = credentials.token().await?;
@@ -90,7 +90,7 @@ pub(crate) fn creds_from(js: Value) -> Result<Credentials> {
 /// ```
 /// # use google_cloud_auth::credentials::user_account::Builder;
 /// # tokio_test::block_on(async {
-/// let authorized_user = serde_json::json!("{ /* add details here */ }");
+/// let authorized_user = serde_json::json!({ /* add details here */ });
 /// let credentials = Builder::new(authorized_user).build();
 /// })
 /// ```
@@ -125,8 +125,10 @@ impl Builder {
     /// # Example
     /// ```
     /// # use google_cloud_auth::credentials::user_account::Builder;
-    /// let authorized_user = serde_json::json!("{ /* add details here */ }");
-    /// let credentials = Builder::new(authorized_user).with_token_uri("https://oauth2-FOOBAR.p.googleapis.com").build();
+    /// let authorized_user = serde_json::json!({ /* add details here */ });
+    /// let credentials = Builder::new(authorized_user)
+    ///     .with_token_uri("https://oauth2-FOOBAR.p.googleapis.com")
+    ///     .build();
     /// ```
     pub fn with_token_uri<S: Into<String>>(mut self, token_uri: S) -> Self {
         self.token_uri = Some(token_uri.into());
@@ -147,8 +149,10 @@ impl Builder {
     /// # Example
     /// ```
     /// # use google_cloud_auth::credentials::user_account::Builder;
-    /// let authorized_user = serde_json::json!("{ /* add details here */ }");
-    /// let credentials = Builder::new(authorized_user).with_scopes(vec!["https://www.googleapis.com/auth/pubsub"]).build();
+    /// let authorized_user = serde_json::json!({ /* add details here */ });
+    /// let credentials = Builder::new(authorized_user)
+    ///     .with_scopes(["https://www.googleapis.com/auth/pubsub"])
+    ///     .build();
     /// ```
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
     pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
@@ -174,7 +178,9 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::user_account::Builder;
     /// let authorized_user = serde_json::json!("{ /* add details here */ }");
-    /// let credentials = Builder::new(authorized_user).with_quota_project_id("my-project").build();
+    /// let credentials = Builder::new(authorized_user)
+    ///     .with_quota_project_id("my-project")
+    ///     .build();
     /// ```
     ///
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project

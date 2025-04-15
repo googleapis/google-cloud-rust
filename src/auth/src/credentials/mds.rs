@@ -37,7 +37,9 @@
 //! # use google_cloud_auth::credentials::Credentials;
 //! # use google_cloud_auth::errors::CredentialsError;
 //! # tokio_test::block_on(async {
-//! let credentials: Credentials = Builder::default().with_quota_project_id("my-quota-project").build();
+//! let credentials: Credentials = Builder::default()
+//!     .with_quota_project_id("my-quota-project")
+//!     .build();
 //! let token = credentials.token().await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialsError>(())
