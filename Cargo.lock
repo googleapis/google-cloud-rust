@@ -1303,6 +1303,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-bigquery"
+version = "0.0.0"
+
+[[package]]
 name = "google-cloud-bigquery-analyticshub-v1"
 version = "0.2.0"
 dependencies = [
@@ -1438,6 +1442,10 @@ dependencies = [
  "tokio-test",
  "tracing",
 ]
+
+[[package]]
+name = "google-cloud-bigtable"
+version = "0.0.0"
 
 [[package]]
 name = "google-cloud-bigtable-admin-v2"
@@ -1868,6 +1876,10 @@ dependencies = [
  "tokio-test",
  "tracing",
 ]
+
+[[package]]
+name = "google-cloud-datastore"
+version = "0.0.0"
 
 [[package]]
 name = "google-cloud-datastore-admin-v1"
@@ -3453,6 +3465,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-pubsub"
+version = "0.0.0"
+
+[[package]]
 name = "google-cloud-rapidmigrationassessment-v1"
 version = "0.2.0"
 dependencies = [
@@ -3865,6 +3881,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-spanner"
+version = "0.0.0"
+
+[[package]]
 name = "google-cloud-spanner-admin-database-v1"
 version = "0.2.0"
 dependencies = [
@@ -3928,6 +3948,10 @@ dependencies = [
  "tokio-test",
  "tracing",
 ]
+
+[[package]]
+name = "google-cloud-storage"
+version = "0.0.0"
 
 [[package]]
 name = "google-cloud-storagebatchoperations-v1"
