@@ -167,6 +167,10 @@ where it originated.
 [Simulating an error starting an LRO](#simulating-an-error-starting-an-lro)
 will yield the simplest test.
 
+Note that the stubbed out client does not have a retry or polling policy. In all
+cases, the polling loop will terminate on the first error, even if the error is
+typically considered transient.
+
 ### Simulating an error starting an LRO
 
 The simplest way to simulate an error is to have the initial request fail with
@@ -226,10 +230,6 @@ branch.
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:polling-error-branch}}
 ```
-
-Note that the stubbed out client does not have an associated polling policy. The
-polling loop will terminate on the first error, even if the error is typically
-considered transient.
 
 ______________________________________________________________________
 

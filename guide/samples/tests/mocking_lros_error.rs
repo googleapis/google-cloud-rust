@@ -128,8 +128,16 @@ mod test {
     async fn error_starting_lro() -> Result<()> {
         let mut mock = MockSpeech::new();
         // ANCHOR: expectation-initial
-        mock.expect_batch_recognize()
-            .return_once(|_, _| Err(Error::other("failed to start operation")));
+        mock.expect_batch_recognize().return_once(|_, _| {
+            use gax::error::rpc::Status;
+            use gax::error::{Error, ServiceError};
+            let s = Status::default()
+                .set_code(429)
+                .set_message("Resource exhausted");
+            Err(Error::rpc(
+                ServiceError::from(s).with_http_status_code(429_u16),
+            ))
+        });
         // ANCHOR_END: expectation-initial
 
         // Create a client, implemented by our mock.
@@ -199,7 +207,16 @@ mod test {
         mock.expect_get_operation()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _| Err(Error::other("could not poll operation")));
+            .returning(|_, _| {
+                use gax::error::rpc::Status;
+                use gax::error::{Error, ServiceError};
+                let s = Status::default()
+                    .set_code(409)
+                    .set_message("Operation was aborted");
+                Err(Error::rpc(
+                    ServiceError::from(s).with_http_status_code(409_u16),
+                ))
+            });
         // ANCHOR_END: expectation-polling-error
 
         // Create a client, implemented by our mock.
