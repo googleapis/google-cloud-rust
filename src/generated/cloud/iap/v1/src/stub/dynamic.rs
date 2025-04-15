@@ -47,6 +47,12 @@ pub trait IdentityAwareProxyAdminService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::IapSettings>>;
 
+    async fn validate_iap_attribute_expression(
+        &self,
+        req: crate::model::ValidateIapAttributeExpressionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>>;
+
     async fn list_tunnel_dest_groups(
         &self,
         req: crate::model::ListTunnelDestGroupsRequest,
@@ -124,6 +130,16 @@ impl<T: super::IdentityAwareProxyAdminService> IdentityAwareProxyAdminService fo
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::IapSettings>> {
         T::update_iap_settings(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn validate_iap_attribute_expression(
+        &self,
+        req: crate::model::ValidateIapAttributeExpressionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>>
+    {
+        T::validate_iap_attribute_expression(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

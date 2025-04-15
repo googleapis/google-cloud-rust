@@ -6734,6 +6734,105 @@ impl wkt::message::Message for RestoreAutonomousDatabaseRequest {
     }
 }
 
+/// The request for `AutonomousDatabase.Stop`.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct StopAutonomousDatabaseRequest {
+    /// Required. The name of the Autonomous Database in the following format:
+    /// projects/{project}/locations/{location}/autonomousDatabases/{autonomous_database}.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StopAutonomousDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::StopAutonomousDatabaseRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for StopAutonomousDatabaseRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.StopAutonomousDatabaseRequest"
+    }
+}
+
+/// The request for `AutonomousDatabase.Start`.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct StartAutonomousDatabaseRequest {
+    /// Required. The name of the Autonomous Database in the following format:
+    /// projects/{project}/locations/{location}/autonomousDatabases/{autonomous_database}.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StartAutonomousDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::StartAutonomousDatabaseRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for StartAutonomousDatabaseRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.StartAutonomousDatabaseRequest"
+    }
+}
+
+/// The request for `AutonomousDatabase.Restart`.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RestartAutonomousDatabaseRequest {
+    /// Required. The name of the Autonomous Database in the following format:
+    /// projects/{project}/locations/{location}/autonomousDatabases/{autonomous_database}.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestartAutonomousDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RestartAutonomousDatabaseRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RestartAutonomousDatabaseRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.RestartAutonomousDatabaseRequest"
+    }
+}
+
 /// The request for `AutonomousDatabase.GenerateWallet`.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]

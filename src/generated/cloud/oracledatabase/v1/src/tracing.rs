@@ -253,6 +253,33 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn stop_autonomous_database(
+        &self,
+        req: crate::model::StopAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.stop_autonomous_database(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn start_autonomous_database(
+        &self,
+        req: crate::model::StartAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.start_autonomous_database(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn restart_autonomous_database(
+        &self,
+        req: crate::model::RestartAutonomousDatabaseRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.restart_autonomous_database(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

@@ -1267,7 +1267,7 @@ pub struct Watchlist {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
-    /// Optional. Weight applied to the risk_score for entities
+    /// Optional. Weight applied to the risk score for entities
     /// in this watchlist.
     /// The default is 1.0 if it is not specified.
     pub multiplying_factor: f32,
@@ -2368,7 +2368,7 @@ impl wkt::message::Message for UpdateReferenceListRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ReferenceList {
-    /// Output only. The resource name of the reference list.
+    /// Identifier. The resource name of the reference list.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/referenceLists/{reference_list}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -2406,7 +2406,7 @@ pub struct ReferenceList {
     /// Output only. The count of self-authored rules using the reference list.
     pub rule_associations_count: i32,
 
-    /// Output only. The scope info of the reference list.
+    /// The scope info of the reference list.
     /// During reference list creation, if this field is not set, the reference
     /// list without scopes (an unscoped list) will be created for an unscoped
     /// user. For a scoped user, this field must be set. During reference list
@@ -2542,7 +2542,7 @@ impl wkt::message::Message for ReferenceListEntry {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Rule {
-    /// Full resource name for the rule.
+    /// Identifier. Full resource name for the rule.
     /// Format:
     /// `projects/{project}/locations/{location}/instances/{instance}/rules/{rule}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]

@@ -4285,7 +4285,7 @@ impl wkt::message::Message for DiagnoseInterconnectResponse {
     }
 }
 
-/// Message for requesting diagnositcs of a router within a specific zone.
+/// Message for requesting diagnostics of a router within a specific zone.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
