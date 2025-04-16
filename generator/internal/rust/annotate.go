@@ -239,7 +239,7 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 			if m.OperationInfo != nil {
 				hasLROs = true
 			}
-			if !generateMethod(m) {
+			if !codec.generateMethod(m) {
 				continue
 			}
 			codec.annotateMethod(m, s, model.State, model.PackageName, packageNamespace)
@@ -255,7 +255,7 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 
 	servicesSubset := language.FilterSlice(model.Services, func(s *api.Service) bool {
 		for _, m := range s.Methods {
-			if generateMethod(m) {
+			if codec.generateMethod(m) {
 				return true
 			}
 		}
@@ -307,7 +307,7 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 func (c *codec) annotateService(s *api.Service, model *api.API) {
 	// Some codecs skip some methods.
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
-		return generateMethod(m)
+		return c.generateMethod(m)
 	})
 	hasLROs := false
 	for _, m := range methods {
@@ -324,8 +324,8 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 		Name:              toPascal(s.Name),
 		PackageModuleName: strings.Join(components, "::"),
 		ModuleName:        toSnake(s.Name),
-		DocLines: formatDocComments(
-			s.Documentation, s.ID, model.State, c.modulePath, []string{s.ID, s.Package}, c.packageMapping),
+		DocLines: c.formatDocComments(
+			s.Documentation, s.ID, model.State, []string{s.ID, s.Package}),
 		Methods:     methods,
 		DefaultHost: s.DefaultHost,
 		HasLROs:     hasLROs,
@@ -400,7 +400,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		QualifiedName:      qualifiedName,
 		RelativeName:       relativeName,
 		SourceFQN:          strings.TrimPrefix(m.ID, "."),
-		DocLines:           formatDocComments(m.Documentation, m.ID, state, c.modulePath, m.Scopes(), c.packageMapping),
+		DocLines:           c.formatDocComments(m.Documentation, m.ID, state, m.Scopes()),
 		MessageAttributes:  messageAttributes(),
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
@@ -422,7 +422,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
 
 	m.PathInfo.Codec = pathInfoAnnotation
-	returnType := methodInOutTypeName(m.OutputTypeID, state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+	returnType := c.methodInOutTypeName(m.OutputTypeID, state, sourceSpecificationPackageName)
 	if m.ReturnsEmpty {
 		returnType = "()"
 	}
@@ -430,7 +430,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
 		BodyAccessor:        bodyAccessor(m),
-		DocLines:            formatDocComments(m.Documentation, m.ID, state, c.modulePath, s.Scopes(), c.packageMapping),
+		DocLines:            c.formatDocComments(m.Documentation, m.ID, state, s.Scopes()),
 		PathInfo:            m.PathInfo,
 		PathParams:          language.PathParams(m, state),
 		QueryParams:         language.QueryParams(m, state),
@@ -441,8 +441,8 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		ReturnType:          returnType,
 	}
 	if m.OperationInfo != nil {
-		metadataType := methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
-		responseType := methodInOutTypeName(m.OperationInfo.ResponseTypeID, state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+		metadataType := c.methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, sourceSpecificationPackageName)
+		responseType := c.methodInOutTypeName(m.OperationInfo.ResponseTypeID, state, sourceSpecificationPackageName)
 		m.OperationInfo.Codec = &operationInfo{
 			MetadataType:       metadataType,
 			ResponseType:       responseType,
@@ -469,7 +469,7 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 		RelativeName:        relativeEnumName,
 		StructQualifiedName: structQualifiedName,
 		FieldType:           fmt.Sprintf("%s::%s", scope, toPascal(oneof.Name)),
-		DocLines:            formatDocComments(oneof.Documentation, oneof.ID, state, c.modulePath, message.Scopes(), c.packageMapping),
+		DocLines:            c.formatDocComments(oneof.Documentation, oneof.ID, state, message.Scopes()),
 		SingularFields:      partition.singularFields,
 		RepeatedFields:      partition.repeatedFields,
 		MapFields:           partition.mapFields,
@@ -482,7 +482,7 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		SetterName:         toSnakeNoMangling(field.Name),
 		FQMessageName:      fullyQualifiedMessageName(message, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		BranchName:         toPascal(field.Name),
-		DocLines:           formatDocComments(field.Documentation, field.ID, state, c.modulePath, message.Scopes(), c.packageMapping),
+		DocLines:           c.formatDocComments(field.Documentation, field.ID, state, message.Scopes()),
 		Attributes:         fieldAttributes(field, state),
 		FieldType:          fieldType(field, state, false, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		PrimitiveFieldType: fieldType(field, state, true, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
@@ -537,7 +537,7 @@ func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificati
 	e.Codec = &enumAnnotation{
 		Name:          enumName(e),
 		ModuleName:    toSnake(enumName(e)),
-		DocLines:      formatDocComments(e.Documentation, e.ID, state, c.modulePath, e.Scopes(), c.packageMapping),
+		DocLines:      c.formatDocComments(e.Documentation, e.ID, state, e.Scopes()),
 		UniqueNames:   unique,
 		QualifiedName: qualifiedName,
 		RelativeName:  relativeName,
@@ -546,7 +546,7 @@ func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificati
 
 func (c *codec) annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState) {
 	ev.Codec = &enumValueAnnotation{
-		DocLines: formatDocComments(ev.Documentation, ev.ID, state, c.modulePath, ev.Scopes(), c.packageMapping),
+		DocLines: c.formatDocComments(ev.Documentation, ev.ID, state, ev.Scopes()),
 		Name:     enumValueName(ev),
 		EnumType: enumName(e),
 	}

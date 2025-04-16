@@ -239,7 +239,7 @@ func TestWellKnownTypesAsMethod(t *testing.T) {
 	loadWellKnownTypes(model.State)
 
 	want := "wkt::Empty"
-	got := methodInOutTypeName(".google.protobuf.Empty", model.State, c.modulePath, model.PackageName, c.packageMapping)
+	got := c.methodInOutTypeName(".google.protobuf.Empty", model.State, model.PackageName)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
 	}
@@ -316,13 +316,13 @@ func TestMethodInOut(t *testing.T) {
 	loadWellKnownTypes(model.State)
 
 	want := "crate::model::Target"
-	got := methodInOutTypeName("..Target", model.State, c.modulePath, model.PackageName, c.packageMapping)
+	got := c.methodInOutTypeName("..Target", model.State, model.PackageName)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
 	}
 
 	want = "crate::model::target::Nested"
-	got = methodInOutTypeName("..Target.Nested", model.State, c.modulePath, model.PackageName, c.packageMapping)
+	got = c.methodInOutTypeName("..Target.Nested", model.State, model.PackageName)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
 	}
@@ -1388,7 +1388,7 @@ Maybe they wanted to show some JSON:
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &codec{}
-	got := formatDocComments(input, "test-only-ID", model.State, c.modulePath, []string{}, c.packageMapping)
+	got := c.formatDocComments(input, "test-only-ID", model.State, []string{})
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1414,7 +1414,7 @@ func TestFormatDocCommentsBullets(t *testing.T) {
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
-	got := formatDocComments(input, "test-only-ID", model.State, c.modulePath, []string{}, c.packageMapping)
+	got := c.formatDocComments(input, "test-only-ID", model.State, []string{})
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1490,7 +1490,7 @@ block:
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &codec{}
-	got := formatDocComments(input, "test-only-ID", model.State, c.modulePath, []string{}, c.packageMapping)
+	got := c.formatDocComments(input, "test-only-ID", model.State, []string{})
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1511,7 +1511,7 @@ func TestFormatDocCommentsImplicitBlockQuoteClosing(t *testing.T) {
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &codec{}
-	got := formatDocComments(input, "test-only-ID", model.State, c.modulePath, []string{}, c.packageMapping)
+	got := c.formatDocComments(input, "test-only-ID", model.State, []string{})
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1538,7 +1538,7 @@ Second [example][].
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &codec{}
-	got := formatDocComments(input, "test-only-ID", model.State, c.modulePath, []string{}, c.packageMapping)
+	got := c.formatDocComments(input, "test-only-ID", model.State, []string{})
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1623,7 +1623,7 @@ func TestFormatDocCommentsCrossLinks(t *testing.T) {
 	model := makeApiForRustFormatDocCommentsCrossLinks()
 	loadWellKnownTypes(model.State)
 
-	got := formatDocComments(input, "test-only-ID", model.State, c.modulePath, []string{"test.v1"}, c.packageMapping)
+	got := c.formatDocComments(input, "test-only-ID", model.State, []string{"test.v1"})
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1685,7 +1685,7 @@ func TestFormatDocCommentsRelativeCrossLinks(t *testing.T) {
 	model := makeApiForRustFormatDocCommentsCrossLinks()
 	loadWellKnownTypes(model.State)
 
-	got := formatDocComments(input, "test-only-ID", model.State, c.modulePath, []string{"test.v1"}, c.packageMapping)
+	got := c.formatDocComments(input, "test-only-ID", model.State, []string{"test.v1"})
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1747,7 +1747,7 @@ implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 	model := makeApiForRustFormatDocCommentsCrossLinks()
 	loadWellKnownTypes(model.State)
 
-	got := formatDocComments(input, "test-only-ID", model.State, c.modulePath, []string{"test.v1.Message", "test.v1"}, c.packageMapping)
+	got := c.formatDocComments(input, "test-only-ID", model.State, []string{"test.v1.Message", "test.v1"})
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1782,7 +1782,7 @@ func TestFormatDocCommentsHTMLTags(t *testing.T) {
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &codec{}
-	got := formatDocComments(input, "test-only-ID", model.State, c.modulePath, []string{}, c.packageMapping)
+	got := c.formatDocComments(input, "test-only-ID", model.State, []string{})
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1940,7 +1940,7 @@ Hyperlink: <a href="https://hyperlink.com">Content</a>`
 	model := makeApiForRustFormatDocCommentsCrossLinks()
 	loadWellKnownTypes(model.State)
 
-	got := formatDocComments(input, "test-only-ID", model.State, c.modulePath, []string{}, c.packageMapping)
+	got := c.formatDocComments(input, "test-only-ID", model.State, []string{})
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}

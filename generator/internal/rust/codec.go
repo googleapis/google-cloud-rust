@@ -668,7 +668,7 @@ func addQueryParameterOneOf(f *api.Field) string {
 	}
 }
 
-func methodInOutTypeName(id string, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) string {
+func (c *codec) methodInOutTypeName(id string, state *api.APIState, sourceSpecificationPackageName string) string {
 	if id == "" {
 		return ""
 	}
@@ -677,7 +677,7 @@ func methodInOutTypeName(id string, state *api.APIState, modulePath, sourceSpeci
 		slog.Error("unable to lookup type", "id", id)
 		return ""
 	}
-	return fullyQualifiedMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping)
+	return fullyQualifiedMessageName(m, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 }
 
 func messageAttributes() []string {
@@ -900,9 +900,8 @@ func toScreamingSnake(symbol string) string {
 // difficult examples.
 //
 // [spec]: https://spec.commonmark.org/0.13/#block-quotes
-func formatDocComments(
-	documentation, elementID string, state *api.APIState, modulePath string, scopes []string,
-	packageMapping map[string]*packagez) []string {
+func (c *codec) formatDocComments(
+	documentation, elementID string, state *api.APIState, scopes []string) []string {
 	var results []string
 	md := goldmark.New(
 		goldmark.WithParserOptions(
@@ -955,7 +954,7 @@ func formatDocComments(
 	})
 
 	for _, link := range protobufLinkMapping(doc, documentationBytes) {
-		rusty := docLink(link, state, modulePath, scopes, packageMapping)
+		rusty := c.docLink(link, state, scopes)
 		if rusty == "" {
 			continue
 		}
@@ -1275,7 +1274,7 @@ func fetchLinkDefinitions(node ast.Node, line string, documentationBytes []byte)
 	return linkDefinitions
 }
 
-func docLink(link string, state *api.APIState, modulePath string, scopes []string, packageMapping map[string]*packagez) string {
+func (c *codec) docLink(link string, state *api.APIState, scopes []string) string {
 	// Sometimes the documentation uses relative links, so instead of saying:
 	//     [google.package.v1.Message]
 	// they just say
@@ -1283,7 +1282,7 @@ func docLink(link string, state *api.APIState, modulePath string, scopes []strin
 	// we need to lookup the local symbols first.
 	for _, s := range scopes {
 		localId := fmt.Sprintf(".%s.%s", s, link)
-		result := tryDocLinkWithId(localId, state, modulePath, s, packageMapping)
+		result := c.tryDocLinkWithId(localId, state, s)
 		if result != "" {
 			return result
 		}
@@ -1293,38 +1292,38 @@ func docLink(link string, state *api.APIState, modulePath string, scopes []strin
 		packageName = scopes[len(scopes)-1]
 	}
 	localId := fmt.Sprintf(".%s", link)
-	return tryDocLinkWithId(localId, state, modulePath, packageName, packageMapping)
+	return c.tryDocLinkWithId(localId, state, packageName)
 }
 
-func tryDocLinkWithId(id string, state *api.APIState, modulePath, scope string, packageMapping map[string]*packagez) string {
+func (c *codec) tryDocLinkWithId(id string, state *api.APIState, scope string) string {
 	m, ok := state.MessageByID[id]
 	if ok {
-		return fullyQualifiedMessageName(m, modulePath, scope, packageMapping)
+		return fullyQualifiedMessageName(m, c.modulePath, scope, c.packageMapping)
 	}
 	e, ok := state.EnumByID[id]
 	if ok {
-		return fullyQualifiedEnumName(e, modulePath, scope, packageMapping)
+		return fullyQualifiedEnumName(e, c.modulePath, scope, c.packageMapping)
 	}
 	me, ok := state.MethodByID[id]
 	if ok {
-		return methodRustdocLink(me, state, packageMapping)
+		return c.methodRustdocLink(me, state)
 	}
 	s, ok := state.ServiceByID[id]
 	if ok {
-		return serviceRustdocLink(s, packageMapping)
+		return c.serviceRustdocLink(s)
 	}
-	rdLink := tryFieldRustdocLink(id, state, modulePath, scope, packageMapping)
+	rdLink := c.tryFieldRustdocLink(id, state, scope)
 	if rdLink != "" {
 		return rdLink
 	}
-	rdLink = tryEnumValueRustdocLink(id, state, modulePath, scope, packageMapping)
+	rdLink = c.tryEnumValueRustdocLink(id, state, scope)
 	if rdLink != "" {
 		return rdLink
 	}
 	return ""
 }
 
-func tryFieldRustdocLink(id string, state *api.APIState, modulePath, scope string, packageMapping map[string]*packagez) string {
+func (c *codec) tryFieldRustdocLink(id string, state *api.APIState, scope string) string {
 	idx := strings.LastIndex(id, ".")
 	if idx == -1 {
 		return ""
@@ -1338,32 +1337,32 @@ func tryFieldRustdocLink(id string, state *api.APIState, modulePath, scope strin
 	for _, f := range m.Fields {
 		if f.Name == fieldName {
 			if !f.IsOneOf {
-				return fmt.Sprintf("%s::%s", fullyQualifiedMessageName(m, modulePath, scope, packageMapping), toSnakeNoMangling(f.Name))
+				return fmt.Sprintf("%s::%s", fullyQualifiedMessageName(m, c.modulePath, scope, c.packageMapping), toSnakeNoMangling(f.Name))
 			} else {
-				return tryOneOfRustdocLink(f, m, modulePath, scope, packageMapping)
+				return c.tryOneOfRustdocLink(f, m, scope)
 			}
 		}
 	}
 	for _, o := range m.OneOfs {
 		if o.Name == fieldName {
-			return fmt.Sprintf("%s::%s", fullyQualifiedMessageName(m, modulePath, scope, packageMapping), toSnakeNoMangling(o.Name))
+			return fmt.Sprintf("%s::%s", fullyQualifiedMessageName(m, c.modulePath, scope, c.packageMapping), toSnakeNoMangling(o.Name))
 		}
 	}
 	return ""
 }
 
-func tryOneOfRustdocLink(field *api.Field, message *api.Message, modulePath, scope string, packageMapping map[string]*packagez) string {
+func (c *codec) tryOneOfRustdocLink(field *api.Field, message *api.Message, scope string) string {
 	for _, o := range message.OneOfs {
 		for _, f := range o.Fields {
 			if f.ID == field.ID {
-				return fmt.Sprintf("%s::%s", fullyQualifiedMessageName(message, modulePath, scope, packageMapping), toSnakeNoMangling(o.Name))
+				return fmt.Sprintf("%s::%s", fullyQualifiedMessageName(message, c.modulePath, scope, c.packageMapping), toSnakeNoMangling(o.Name))
 			}
 		}
 	}
 	return ""
 }
 
-func tryEnumValueRustdocLink(id string, state *api.APIState, modulePath, scope string, packageMapping map[string]*packagez) string {
+func (c *codec) tryEnumValueRustdocLink(id string, state *api.APIState, scope string) string {
 	idx := strings.LastIndex(id, ".")
 	if idx == -1 {
 		return ""
@@ -1376,16 +1375,16 @@ func tryEnumValueRustdocLink(id string, state *api.APIState, modulePath, scope s
 	}
 	for _, v := range e.Values {
 		if v.Name == valueName {
-			return fullyQualifiedEnumValueName(v, modulePath, scope, packageMapping)
+			return fullyQualifiedEnumValueName(v, c.modulePath, scope, c.packageMapping)
 		}
 	}
 	return ""
 }
 
-func methodRustdocLink(m *api.Method, state *api.APIState, packageMapping map[string]*packagez) string {
+func (c *codec) methodRustdocLink(m *api.Method, state *api.APIState) string {
 	// Sometimes we remove methods from a service. In that case we cannot
 	// reference the method.
-	if !generateMethod(m) {
+	if !c.generateMethod(m) {
 		return ""
 	}
 	idx := strings.LastIndex(m.ID, ".")
@@ -1397,11 +1396,11 @@ func methodRustdocLink(m *api.Method, state *api.APIState, packageMapping map[st
 	if !ok {
 		return ""
 	}
-	return fmt.Sprintf("%s::%s", serviceRustdocLink(s, packageMapping), toSnake(m.Name))
+	return fmt.Sprintf("%s::%s", c.serviceRustdocLink(s), toSnake(m.Name))
 }
 
-func serviceRustdocLink(s *api.Service, packageMapping map[string]*packagez) string {
-	mapped, ok := packageMapping[s.Package]
+func (c *codec) serviceRustdocLink(s *api.Service) string {
+	mapped, ok := c.packageMapping[s.Package]
 	if ok {
 		return fmt.Sprintf("%s::client::%s", mapped.name, toPascal(s.Name))
 	}
@@ -1516,7 +1515,7 @@ func PackageName(api *api.API, packageNameOverride string) string {
 	return "google-cloud-" + name
 }
 
-func generateMethod(m *api.Method) bool {
+func (c *codec) generateMethod(m *api.Method) bool {
 	// Ignore methods without HTTP annotations, we cannot generate working
 	// RPCs for them.
 	// TODO(#499) - switch to explicitly excluding such functions. Easier to
