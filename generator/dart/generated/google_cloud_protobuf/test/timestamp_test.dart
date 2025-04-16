@@ -29,13 +29,13 @@ void main() {
   });
 
   test('min seconds', () {
-    final timestamp = TimestampHelper.decode('0001-01-01T00:00:00Z');
+    final timestamp = Timestamp.fromJson('0001-01-01T00:00:00Z');
     expect(timestamp.seconds, TimestampExtension.minSeconds);
     expect(timestamp.nanos, 0);
   });
 
   test('max seconds', () {
-    final timestamp = TimestampHelper.decode('9999-12-31T23:59:59Z');
+    final timestamp = Timestamp.fromJson('9999-12-31T23:59:59Z');
     expect(timestamp.seconds, TimestampExtension.maxSeconds);
     expect(timestamp.nanos, 0);
   });
