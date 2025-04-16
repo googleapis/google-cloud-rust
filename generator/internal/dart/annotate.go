@@ -30,6 +30,7 @@ import (
 
 var omitGeneration = map[string]string{
 	".google.longrunning.Operation": "",
+	".google.protobuf.Value":        "",
 }
 
 type modelAnnotations struct {

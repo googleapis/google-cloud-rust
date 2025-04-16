@@ -29,10 +29,13 @@ class Any extends Message {
     'google.protobuf.FloatValue',
     'google.protobuf.Int32Value',
     'google.protobuf.Int64Value',
+    'google.protobuf.ListValue',
     'google.protobuf.StringValue',
+    'google.protobuf.Struct',
     'google.protobuf.Timestamp',
     'google.protobuf.UInt32Value',
     'google.protobuf.UInt64Value',
+    'google.protobuf.Value',
   };
 
   /// The raw JSON encoding of the underlying value.
@@ -128,6 +131,84 @@ class Any extends Message {
   String toString() => 'Any($typeName)';
 }
 
+/// `Value` represents a dynamically typed value which can be either
+/// null, a number, a string, a boolean, a recursive struct value, or a
+/// list of values. A producer of value is expected to set one of these
+/// variants. Absence of any variant indicates an error.
+///
+/// The JSON representation for `Value` is JSON value.
+class Value extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.Value';
+
+  /// Represents a null value.
+  final NullValue? nullValue;
+
+  /// Represents a double value.
+  final double? numberValue;
+
+  /// Represents a string value.
+  final String? stringValue;
+
+  /// Represents a boolean value.
+  final bool? boolValue;
+
+  /// Represents a structured value.
+  final Struct? structValue;
+
+  /// Represents a repeated `Value`.
+  final ListValue? listValue;
+
+  Value({
+    this.nullValue,
+    this.numberValue,
+    this.stringValue,
+    this.boolValue,
+    this.structValue,
+    this.listValue,
+  }) : super(fullyQualifiedName);
+
+  factory Value.fromJson(Object? json) {
+    switch (json) {
+      case null:
+        return Value(nullValue: NullValue.nullValue);
+      case double d:
+        return Value(numberValue: d);
+      case int i:
+        return Value(numberValue: i.toDouble());
+      case String s:
+        return Value(stringValue: s);
+      case bool b:
+        return Value(boolValue: b);
+      case List l:
+        return Value(listValue: ListValue.fromJson(l));
+      case Map m:
+        return Value(structValue: Struct.fromJson(m));
+      default:
+        return Value(nullValue: NullValue.nullValue);
+    }
+  }
+
+  @override
+  Object? toJson() {
+    return numberValue ??
+        stringValue ??
+        boolValue ??
+        listValue?.toJson() ??
+        structValue?.toJson();
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (nullValue != null) 'nullValue=$nullValue',
+      if (numberValue != null) 'numberValue=$numberValue',
+      if (stringValue != null) 'stringValue=$stringValue',
+      if (boolValue != null) 'boolValue=$boolValue',
+    ].join(',');
+    return 'Value($contents)';
+  }
+}
+
 /// Called from the Duration constructor to validate the construction
 /// parameters.
 extension DurationExtension on Duration {
@@ -145,7 +226,7 @@ extension DurationExtension on Duration {
   }
 }
 
-class DurationHelper {
+class _DurationHelper {
   /// Encode into a decimal representation of the seconds and nanos, suffixed
   /// with 's'.
   ///
@@ -196,7 +277,7 @@ class DurationHelper {
   }
 }
 
-class FieldMaskHelper {
+class _FieldMaskHelper {
   /// Encode the field mask as a single comma-separated string.
   static String encode(FieldMask fieldMask) {
     return fieldMask.paths?.join(',') ?? '';
@@ -226,7 +307,7 @@ extension TimestampExtension on Timestamp {
   }
 }
 
-class TimestampHelper {
+class _TimestampHelper {
   static final RegExp _rfc3339 = RegExp(//
       r'^(\d{4})-' // year
       r'(\d{2})-' // month
@@ -291,7 +372,7 @@ class TimestampHelper {
   }
 }
 
-class DoubleValueHelper {
+class _DoubleValueHelper {
   static double encode(DoubleValue value) {
     return value.value!;
   }
@@ -301,7 +382,7 @@ class DoubleValueHelper {
   }
 }
 
-class FloatValueHelper {
+class _FloatValueHelper {
   static double encode(FloatValue value) {
     return value.value!;
   }
@@ -311,7 +392,7 @@ class FloatValueHelper {
   }
 }
 
-class Int64ValueHelper {
+class _Int64ValueHelper {
   static String encode(Int64Value value) {
     return '${value.value}';
   }
@@ -325,7 +406,7 @@ class Int64ValueHelper {
   }
 }
 
-class Uint64ValueHelper {
+class _Uint64ValueHelper {
   static String encode(Uint64Value value) {
     return '${value.value}';
   }
@@ -339,7 +420,7 @@ class Uint64ValueHelper {
   }
 }
 
-class Int32ValueHelper {
+class _Int32ValueHelper {
   static int encode(Int32Value value) {
     return value.value!;
   }
@@ -349,7 +430,7 @@ class Int32ValueHelper {
   }
 }
 
-class Uint32ValueHelper {
+class _Uint32ValueHelper {
   static int encode(Uint32Value value) {
     return value.value!;
   }
@@ -359,7 +440,7 @@ class Uint32ValueHelper {
   }
 }
 
-class BoolValueHelper {
+class _BoolValueHelper {
   static bool encode(BoolValue value) {
     return value.value!;
   }
@@ -369,7 +450,7 @@ class BoolValueHelper {
   }
 }
 
-class StringValueHelper {
+class _StringValueHelper {
   static String encode(StringValue value) {
     return value.value!;
   }
@@ -379,12 +460,35 @@ class StringValueHelper {
   }
 }
 
-class BytesValueHelper {
+class _BytesValueHelper {
   static String encode(BytesValue value) {
     return encodeBytes(value.value!)!;
   }
 
   static BytesValue decode(Object value) {
     return BytesValue(value: decodeBytes(value as String));
+  }
+}
+
+class _StructHelper {
+  static Map<String, Object?> encode(Struct value) {
+    return value.fields!.map((key, value) => MapEntry(key, value.toJson()));
+  }
+
+  static Struct decode(Object value) {
+    final fields = (value as Map<String, dynamic>)
+        .map((key, value) => MapEntry(key, Value.fromJson(value)));
+    return Struct(fields: fields);
+  }
+}
+
+class _ListValueHelper {
+  static List encode(ListValue value) {
+    return value.values!.map((v) => v.toJson()).toList();
+  }
+
+  static ListValue decode(Object value) {
+    final values = (value as List).map((v) => Value.fromJson(v)).toList();
+    return ListValue(values: values);
   }
 }

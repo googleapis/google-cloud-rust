@@ -47,10 +47,13 @@ var usesCustomEncoding = map[string]string{
 	".google.protobuf.FloatValue":  "",
 	".google.protobuf.Int32Value":  "",
 	".google.protobuf.Int64Value":  "",
+	".google.protobuf.ListValue":   "",
 	".google.protobuf.StringValue": "",
+	".google.protobuf.Struct":      "",
 	".google.protobuf.Timestamp":   "",
 	".google.protobuf.UInt32Value": "",
 	".google.protobuf.UInt64Value": "",
+	".google.protobuf.Value":       "",
 }
 
 // Used to concatenate a message and a child message.
