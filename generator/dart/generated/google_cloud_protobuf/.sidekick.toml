@@ -21,12 +21,12 @@ title-override = 'Core Protobuf Types'
 description-override = 'Core Protobuf types used by most services.'
 # Don't generate 'any.proto'; use the hand-written version in protobuf.p.dart.
 include-list = """\
-    duration.proto\
-    ,empty.proto\
-    ,field_mask.proto\
-    ,struct.proto\
-    ,timestamp.proto\
-    ,wrappers.proto\
+  duration.proto,\
+  empty.proto,\
+  field_mask.proto,\
+  struct.proto,\
+  timestamp.proto,\
+  wrappers.proto\
 """
 
 [codec]
