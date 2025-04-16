@@ -94,7 +94,7 @@ impl Timestamp {
     ///
     /// If either value is out of range it returns an error.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
     /// * `seconds` - the seconds on the timestamp.
     /// * `nanos` - the nanoseconds on the timestamp.
@@ -118,7 +118,7 @@ impl Timestamp {
     /// The function effectively adds the nanoseconds part (with carry) to the
     /// seconds part, with saturation.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
     /// * `seconds` - the seconds on the timestamp.
     /// * `nanos` - the nanoseconds added to the seconds.
