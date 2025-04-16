@@ -24,13 +24,13 @@ mod tests {
         // Verify the calls work from outside the crate. The functionality is
         // verified in the unit tests.
         let throttler = AdaptiveThrottler::default();
-        assert_eq!(false, throttler.throttle_retry_attempt(), "{throttler:?}");
+        assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
 
         let throttler = AdaptiveThrottler::new(1.1)?;
-        assert_eq!(false, throttler.throttle_retry_attempt(), "{throttler:?}");
+        assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
 
         let throttler = AdaptiveThrottler::clamp(1.1);
-        assert_eq!(false, throttler.throttle_retry_attempt(), "{throttler:?}");
+        assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
 
         Ok(())
     }
@@ -40,13 +40,13 @@ mod tests {
         // Verify the calls work from outside the crate. The functionality is
         // verified in the unit tests.
         let throttler = CircuitBreaker::default();
-        assert_eq!(false, throttler.throttle_retry_attempt(), "{throttler:?}");
+        assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
 
         let throttler = CircuitBreaker::new(1000, 250, 10)?;
-        assert_eq!(false, throttler.throttle_retry_attempt(), "{throttler:?}");
+        assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
 
         let throttler = CircuitBreaker::clamp(1000, 250, 10);
-        assert_eq!(false, throttler.throttle_retry_attempt(), "{throttler:?}");
+        assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
 
         Ok(())
     }
