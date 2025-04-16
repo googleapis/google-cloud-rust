@@ -23,7 +23,7 @@ promise to the user and allow the user to check back in later.
 
 The Google Cloud Client Libraries for Rust provide helpers to work with these
 long-running operations (LROs). This guide will show you how to start LROs and
-wait for their complication.
+wait for their completion.
 
 ## Prerequisites
 
@@ -272,7 +272,7 @@ And then poll the operation to get its new status:
 ```
 
 For simplicity, we have chosen to ignore all errors. In your application you
-may chose to treat only a subset of the errors as non-recoverable, and may want
+may choose to treat only a subset of the errors as non-recoverable, and may want
 to limit the number of polling attempts if these fail.
 
 You can find the [full function](#manually-polling-a-long-running-operation-complete-code) below.
