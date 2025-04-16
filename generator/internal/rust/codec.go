@@ -105,6 +105,12 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 			codec.disabledRustdocWarnings = strings.Split(definition, ",")
 		case key == "template-override":
 			codec.templateOverride = definition
+		case key == "include-grpc-only-methods":
+			value, err := strconv.ParseBool(definition)
+			if err != nil {
+				return nil, fmt.Errorf("cannot convert `include-grpc-only-methods` value %q to boolean: %w", definition, err)
+			}
+			codec.includeGrpcOnlyMethods = value
 		default:
 			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
@@ -204,6 +210,9 @@ type codec struct {
 	systemParameters []systemParameter
 	// Overrides the template sudirectory.
 	templateOverride string
+	// If true, this includes gRPC-only methods, such as methods without HTTP
+	// annotations.
+	includeGrpcOnlyMethods bool
 }
 
 type systemParameter struct {
@@ -1520,7 +1529,13 @@ func (c *codec) generateMethod(m *api.Method) bool {
 	// RPCs for them.
 	// TODO(#499) - switch to explicitly excluding such functions. Easier to
 	//     find them and fix them that way.
-	return !m.ClientSideStreaming && !m.ServerSideStreaming && m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
+	if m.ClientSideStreaming || m.ServerSideStreaming {
+		return false
+	}
+	if c.includeGrpcOnlyMethods {
+		return true
+	}
+	return m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
 }
 
 // The list of Rust keywords and reserved words can be found at:

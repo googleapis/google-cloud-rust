@@ -45,13 +45,14 @@ func createRustCodec() *codec {
 
 func TestParseOptionsProtobuf(t *testing.T) {
 	options := map[string]string{
-		"version":               "1.2.3",
-		"package-name-override": "test-only",
-		"copyright-year":        "2035",
-		"module-path":           "alternative::generated",
-		"package:wkt":           "package=types,path=src/wkt,source=google.protobuf,source=test-only",
-		"package:gax":           "package=gax,path=src/gax,feature=unstable-sdk-client",
-		"package:serde_with":    "package=serde_with,version=2.3.4,default-features=false",
+		"version":                   "1.2.3",
+		"package-name-override":     "test-only",
+		"copyright-year":            "2035",
+		"module-path":               "alternative::generated",
+		"package:wkt":               "package=types,path=src/wkt,source=google.protobuf,source=test-only",
+		"package:gax":               "package=gax,path=src/gax,feature=unstable-sdk-client",
+		"package:serde_with":        "package=serde_with,version=2.3.4,default-features=false",
+		"include-grpc-only-methods": "true",
 	}
 	got, err := newCodec(true, options)
 	if err != nil {
@@ -94,6 +95,7 @@ func TestParseOptionsProtobuf(t *testing.T) {
 		systemParameters: []systemParameter{
 			{Name: "$alt", Value: "json;enum-encoding=int"},
 		},
+		includeGrpcOnlyMethods: true,
 	}
 	sort.Slice(want.extraPackages, func(i, j int) bool {
 		return want.extraPackages[i].name < want.extraPackages[j].name
