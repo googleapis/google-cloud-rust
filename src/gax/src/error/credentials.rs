@@ -78,7 +78,7 @@ impl CredentialsError {
     /// assert!(!err.is_retryable());
     /// assert!(format!("{err}").contains("simulated non-retryable error"));
     /// ```
-    /// # Arguments
+    /// # Parameters
     /// * `is_retryable` - A boolean indicating whether the error is retryable.
     /// * `source` - The underlying error that caused the auth failure.
     pub fn new<T: Error + Send + Sync + 'static>(is_retryable: bool, source: T) -> Self {
@@ -104,7 +104,7 @@ impl CredentialsError {
     /// assert!(format!("{err}").contains("simulated retryable error"));
     /// ```
     ///
-    /// # Arguments
+    /// # Parameters
     /// * `is_retryable` - A boolean indicating whether the error is retryable.
     /// * `message` - The underlying error that caused the auth failure.
     pub fn from_str<T: Into<String>>(is_retryable: bool, message: T) -> Self {

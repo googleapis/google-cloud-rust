@@ -30,7 +30,15 @@ int? decodeInt64(Object? value) {
 
 /// Decode a `double` value.
 double? decodeDouble(Object? value) {
-  return (value as num?)?.toDouble();
+  if (value is String) {
+    if (value == 'NaN' || value == 'Infinity' || value == '-Infinity') {
+      return double.parse(value);
+    } else {
+      throw FormatException('String value is not NaN, Infinity, or -Infinity');
+    }
+  } else {
+    return (value as num?)?.toDouble();
+  }
 }
 
 /// Decode a `bytes` value.
@@ -120,6 +128,15 @@ Map<K, V>? decodeMapMessageCustom<K, V extends Message>(
 
 /// Encode an `int64` value into JSON.
 String? encodeInt64(int? value) => value == null ? null : '$value';
+
+/// Encode 'float` and `double` values into JSON.
+Object? encodeDouble(double? value) {
+  if (value == null) {
+    return null;
+  }
+
+  return value.isNaN || value.isInfinite ? '$value' : value;
+}
 
 /// Encode a `bytes` value into JSON.
 String? encodeBytes(Uint8List? value) {

@@ -107,10 +107,10 @@ class Duration extends Message {
     _validate();
   }
 
-  factory Duration.fromJson(Object json) => DurationHelper.decode(json);
+  factory Duration.fromJson(Object json) => _DurationHelper.decode(json);
 
   @override
-  Object toJson() => DurationHelper.encode(this);
+  Object toJson() => _DurationHelper.encode(this);
 
   @override
   String toString() {
@@ -356,13 +356,62 @@ class FieldMask extends Message {
     this.paths,
   }) : super(fullyQualifiedName);
 
-  factory FieldMask.fromJson(Object json) => FieldMaskHelper.decode(json);
+  factory FieldMask.fromJson(Object json) => _FieldMaskHelper.decode(json);
 
   @override
-  Object toJson() => FieldMaskHelper.encode(this);
+  Object toJson() => _FieldMaskHelper.encode(this);
 
   @override
   String toString() => 'FieldMask()';
+}
+
+/// `Struct` represents a structured data value, consisting of fields
+/// which map to dynamically typed values. In some languages, `Struct`
+/// might be supported by a native representation. For example, in
+/// scripting languages like JS a struct is represented as an
+/// object. The details of that representation are described together
+/// with the proto support for the language.
+///
+/// The JSON representation for `Struct` is JSON object.
+class Struct extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.Struct';
+
+  /// Unordered map of dynamically typed values.
+  final Map<String, Value>? fields;
+
+  Struct({
+    this.fields,
+  }) : super(fullyQualifiedName);
+
+  factory Struct.fromJson(Object json) => _StructHelper.decode(json);
+
+  @override
+  Object toJson() => _StructHelper.encode(this);
+
+  @override
+  String toString() => 'Struct()';
+}
+
+/// `ListValue` is a wrapper around a repeated field of values.
+///
+/// The JSON representation for `ListValue` is JSON array.
+class ListValue extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.ListValue';
+
+  /// Repeated field of dynamically typed values.
+  final List<Value>? values;
+
+  ListValue({
+    this.values,
+  }) : super(fullyQualifiedName);
+
+  factory ListValue.fromJson(Object json) => _ListValueHelper.decode(json);
+
+  @override
+  Object toJson() => _ListValueHelper.encode(this);
+
+  @override
+  String toString() => 'ListValue()';
 }
 
 /// A Timestamp represents a point in time independent of any time zone or local
@@ -475,10 +524,10 @@ class Timestamp extends Message {
     _validate();
   }
 
-  factory Timestamp.fromJson(Object json) => TimestampHelper.decode(json);
+  factory Timestamp.fromJson(Object json) => _TimestampHelper.decode(json);
 
   @override
-  Object toJson() => TimestampHelper.encode(this);
+  Object toJson() => _TimestampHelper.encode(this);
 
   @override
   String toString() {
@@ -503,10 +552,10 @@ class DoubleValue extends Message {
     this.value,
   }) : super(fullyQualifiedName);
 
-  factory DoubleValue.fromJson(Object json) => DoubleValueHelper.decode(json);
+  factory DoubleValue.fromJson(Object json) => _DoubleValueHelper.decode(json);
 
   @override
-  Object toJson() => DoubleValueHelper.encode(this);
+  Object toJson() => _DoubleValueHelper.encode(this);
 
   @override
   String toString() {
@@ -530,10 +579,10 @@ class FloatValue extends Message {
     this.value,
   }) : super(fullyQualifiedName);
 
-  factory FloatValue.fromJson(Object json) => FloatValueHelper.decode(json);
+  factory FloatValue.fromJson(Object json) => _FloatValueHelper.decode(json);
 
   @override
-  Object toJson() => FloatValueHelper.encode(this);
+  Object toJson() => _FloatValueHelper.encode(this);
 
   @override
   String toString() {
@@ -557,10 +606,10 @@ class Int64Value extends Message {
     this.value,
   }) : super(fullyQualifiedName);
 
-  factory Int64Value.fromJson(Object json) => Int64ValueHelper.decode(json);
+  factory Int64Value.fromJson(Object json) => _Int64ValueHelper.decode(json);
 
   @override
-  Object toJson() => Int64ValueHelper.encode(this);
+  Object toJson() => _Int64ValueHelper.encode(this);
 
   @override
   String toString() {
@@ -584,10 +633,10 @@ class Uint64Value extends Message {
     this.value,
   }) : super(fullyQualifiedName);
 
-  factory Uint64Value.fromJson(Object json) => Uint64ValueHelper.decode(json);
+  factory Uint64Value.fromJson(Object json) => _Uint64ValueHelper.decode(json);
 
   @override
-  Object toJson() => Uint64ValueHelper.encode(this);
+  Object toJson() => _Uint64ValueHelper.encode(this);
 
   @override
   String toString() {
@@ -611,10 +660,10 @@ class Int32Value extends Message {
     this.value,
   }) : super(fullyQualifiedName);
 
-  factory Int32Value.fromJson(Object json) => Int32ValueHelper.decode(json);
+  factory Int32Value.fromJson(Object json) => _Int32ValueHelper.decode(json);
 
   @override
-  Object toJson() => Int32ValueHelper.encode(this);
+  Object toJson() => _Int32ValueHelper.encode(this);
 
   @override
   String toString() {
@@ -638,10 +687,10 @@ class Uint32Value extends Message {
     this.value,
   }) : super(fullyQualifiedName);
 
-  factory Uint32Value.fromJson(Object json) => Uint32ValueHelper.decode(json);
+  factory Uint32Value.fromJson(Object json) => _Uint32ValueHelper.decode(json);
 
   @override
-  Object toJson() => Uint32ValueHelper.encode(this);
+  Object toJson() => _Uint32ValueHelper.encode(this);
 
   @override
   String toString() {
@@ -665,10 +714,10 @@ class BoolValue extends Message {
     this.value,
   }) : super(fullyQualifiedName);
 
-  factory BoolValue.fromJson(Object json) => BoolValueHelper.decode(json);
+  factory BoolValue.fromJson(Object json) => _BoolValueHelper.decode(json);
 
   @override
-  Object toJson() => BoolValueHelper.encode(this);
+  Object toJson() => _BoolValueHelper.encode(this);
 
   @override
   String toString() {
@@ -692,10 +741,10 @@ class StringValue extends Message {
     this.value,
   }) : super(fullyQualifiedName);
 
-  factory StringValue.fromJson(Object json) => StringValueHelper.decode(json);
+  factory StringValue.fromJson(Object json) => _StringValueHelper.decode(json);
 
   @override
-  Object toJson() => StringValueHelper.encode(this);
+  Object toJson() => _StringValueHelper.encode(this);
 
   @override
   String toString() {
@@ -719,10 +768,10 @@ class BytesValue extends Message {
     this.value,
   }) : super(fullyQualifiedName);
 
-  factory BytesValue.fromJson(Object json) => BytesValueHelper.decode(json);
+  factory BytesValue.fromJson(Object json) => _BytesValueHelper.decode(json);
 
   @override
-  Object toJson() => BytesValueHelper.encode(this);
+  Object toJson() => _BytesValueHelper.encode(this);
 
   @override
   String toString() {
@@ -731,4 +780,20 @@ class BytesValue extends Message {
     ].join(',');
     return 'BytesValue($contents)';
   }
+}
+
+/// `NullValue` is a singleton enumeration to represent the null value for the
+/// `Value` type union.
+///
+/// The JSON representation for `NullValue` is JSON `null`.
+class NullValue extends Enum {
+  /// Null value.
+  static const nullValue = NullValue('NULL_VALUE');
+
+  const NullValue(super.value);
+
+  factory NullValue.fromJson(String json) => NullValue(json);
+
+  @override
+  String toString() => 'NullValue.$value';
 }

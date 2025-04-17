@@ -96,7 +96,7 @@ impl Duration {
     /// Consider using [clamp()][Duration::clamp] to add nanoseconds to seconds
     /// with carry.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
     /// * `seconds` - the seconds in the interval.
     /// * `nanos` - the nanoseconds *added* to the interval.
@@ -123,7 +123,7 @@ impl Duration {
     /// The function effectively adds the nanoseconds part (with carry) to the
     /// seconds part, with saturation.
     ///
-    /// # Arguments
+    /// # Parameters
     ///
     /// * `seconds` - the seconds in the interval.
     /// * `nanos` - the nanoseconds *added* to the interval.

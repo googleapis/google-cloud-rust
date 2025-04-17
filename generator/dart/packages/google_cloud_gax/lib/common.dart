@@ -24,7 +24,7 @@ const String _clientName = 'dart-test-client';
 /// Classes that implement [JsonEncodable] will often have a `fromJson()`
 /// constructor.
 abstract class JsonEncodable {
-  Object toJson();
+  Object? toJson();
 }
 
 /// The abstract common superclass of all messages.

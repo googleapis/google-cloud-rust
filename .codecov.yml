@@ -26,6 +26,7 @@ ignore:
   - src/gax-internal/grpc-server
   - src/wkt/src/generated
   - src/firestore/src/generated
+  - src/storage/src/generated
   - src/integration-tests
   - src/auth/integration-tests
   - generator/testdata

@@ -143,13 +143,14 @@ project.
 
 ### One time set up
 
-We use [Secret Manager], [Workflows], and [Firestore] to run integration tests.
-Follow the [Enable the Secret Manager API] guide to, as it says, enable the API
-and make sure that billing is enabled in your projects. To enable the Workflows
-and Firestore API you can run this command:
+We use [Secret Manager], [Workflows], [Firestore], and [Speech-to-Text] to run
+integration tests. Follow the [Enable the Secret Manager API] guide to, as it
+says, enable the API and make sure that billing is enabled in your projects.
+To enable the Workflows, Firestore, and Speech-to-Text APIs you can run this
+command:
 
 ```bash
-gcloud services enable workflows.googleapis.com firestore.googleapis.com
+gcloud services enable workflows.googleapis.com firestore.googleapis.com speech.googleapis.com
 ```
 
 Verify this is working with something like:
@@ -304,4 +305,5 @@ git ls-files -z -- '*.tf' ':!:**/testdata/**' | xargs -0 terraform fmt
 [install terraform]: https://developer.hashicorp.com/terraform/install
 [mdbook]: https://rust-lang.github.io/mdBook/
 [secret manager]: https://cloud.google.com/secret-manager/
+[speech-to-text]: https://cloud.google.com/speech-to-text
 [workflows]: https://cloud.google.com/workflows/
