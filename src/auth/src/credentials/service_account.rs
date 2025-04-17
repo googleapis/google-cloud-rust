@@ -74,7 +74,7 @@
 mod jws;
 
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{Credentials, Result};
+use crate::credentials::{AccessTokenCredentialBuilder, Credentials, Result};
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::build_bearer_headers;
 use crate::token::{Token, TokenProvider};
@@ -135,6 +135,24 @@ pub struct Builder {
     service_account_key: Value,
     restrictions: ServiceAccountRestrictions,
     quota_project_id: Option<String>,
+}
+
+impl AccessTokenCredentialBuilder for Builder {
+    fn with_quota_project_id<S: Into<String>>(self, quota_project_id: S) -> Self {
+        self.with_quota_project_id(quota_project_id)
+    }
+
+    fn with_scopes<I, S>(self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        self.with_scopes(scopes)
+    }
+
+    fn build(self) -> Result<Credentials> {
+        self.build()
+    }
 }
 
 impl Builder {

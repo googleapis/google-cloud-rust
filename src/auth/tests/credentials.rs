@@ -12,14 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_auth::credentials::Builder as AccessTokenCredentialBuilder;
 use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
 use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::user_account::Builder as UserAccountCredentialBuilder;
 use google_cloud_auth::credentials::{
-    ApiKeyOptions, Credentials, CredentialsTrait, create_access_token_credentials,
-    create_api_key_credentials,
+    ApiKeyOptions, Builder as CredentialsBuilder, Credentials, CredentialsTrait,
+    create_access_token_credentials, create_api_key_credentials,
 };
 use google_cloud_auth::errors::CredentialsError;
 use google_cloud_auth::token::Token;
@@ -123,7 +122,7 @@ mod test {
         let quota_project = "test-quota-project";
         let scopes = vec!["test-scope"];
 
-        let uc = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
+        let uc = CredentialsBuilder::new(serde_json::from_str(contents).unwrap())
             .with_quota_project_id(quota_project)
             .with_scopes(scopes)
             .build()
@@ -170,7 +169,7 @@ mod test {
         let quota_project = "test-quota-project";
         let scopes = vec!["test-scope"];
 
-        let sac = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
+        let sac = CredentialsBuilder::new(serde_json::from_str(contents).unwrap())
             .with_quota_project_id(quota_project)
             .with_scopes(scopes)
             .build()
@@ -238,7 +237,7 @@ mod test {
         let mdcs = MdsBuilder::default()
             .with_quota_project_id(test_quota_project)
             .with_universe_domain(test_universe_domain)
-            .build();
+            .build()?;
         let fmt = format!("{:?}", mdcs);
         assert!(fmt.contains("MDSCredentials"));
         assert!(fmt.contains(test_quota_project));

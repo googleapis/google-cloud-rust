@@ -161,6 +161,15 @@ pub trait CredentialsTrait: std::fmt::Debug {
     fn universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
 }
 
+pub(crate) trait AccessTokenCredentialBuilder: Sized {
+    fn with_quota_project_id<S: Into<String>>(self, quota_project_id: S) -> Self;
+    fn with_scopes<I, S>(self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>;
+    fn build(self) -> Result<Credentials>;
+}
+
 pub(crate) mod dynamic {
     use super::Result;
     use super::{HeaderName, HeaderValue};
@@ -216,12 +225,12 @@ enum CredentialsSource {
 ///
 /// Access token credentials refers to any credentials which can be used to authenticate
 /// with google cloud services. By default (using [`Builder::default`]), it's configured
-/// to load credentials according to the standard [Application Default Credentials (ADC)][adc-link]
-/// strategy. ADC is the recommended approach for most applications and conform to [AIP-4110]. Alternatively, you can
-/// provide specific credential JSON directly using [`Builder::new`].
-/// If you need to load credentials from a non-standard location or source.
+/// to load credentials according to the standard [Application Default Credentials (ADC)]
+/// [adc-link] strategy. ADC is the recommended approach for most applications and
+/// conform to [AIP-4110]. If you need to load credentials from a non-standard location
+/// or source, you can provide specific credential JSON directly using [`Builder::new`].
 ///
-/// Benefits of using ADC:
+/// Common use cases where using ADC would be benefical:
 /// - Your application is deployed to a Google Cloud environment such as
 ///   [Google Compute Engine (GCE)][gce-link],
 ///   [Google Kubernetes Engine (GKE)][gke-link], or [Cloud Run]. Each of these
@@ -399,27 +408,16 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> Result<Credentials> {
-        match self.credentials_source {
-            CredentialsSource::CredentialsJson(json) => {
-                build_credentials(json, self.quota_project_id, self.scopes)
-            }
+        let json_data = match self.credentials_source {
+            CredentialsSource::CredentialsJson(json) => Some(json),
             CredentialsSource::DefaultCredential => match load_adc()? {
                 AdcContents::Contents(contents) => {
-                    let json = serde_json::from_str(&contents).map_err(errors::non_retryable)?;
-                    build_credentials(json, self.quota_project_id, self.scopes)
+                    Some(serde_json::from_str(&contents).map_err(errors::non_retryable)?)
                 }
-                AdcContents::FallbackToMds => {
-                    let mut mds_builder = mds::Builder::default();
-                    if let Some(qp) = self.quota_project_id {
-                        mds_builder = mds_builder.with_quota_project_id(qp);
-                    }
-                    if let Some(sc) = self.scopes {
-                        mds_builder = mds_builder.with_scopes(sc);
-                    }
-                    Ok(mds_builder.build())
-                }
+                AdcContents::FallbackToMds => None,
             },
-        }
+        };
+        build_credentials(json_data, self.quota_project_id, self.scopes)
     }
 }
 
@@ -485,51 +483,60 @@ enum AdcContents {
     FallbackToMds,
 }
 
+fn configure_and_build<T>(
+    mut builder: T,
+    quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
+) -> Result<Credentials>
+where
+    T: AccessTokenCredentialBuilder,
+{
+    if let Some(qp) = quota_project_id {
+        builder = builder.with_quota_project_id(qp);
+    }
+
+    if let Some(s) = scopes {
+        builder = builder.with_scopes(s);
+    }
+
+    builder.build()
+}
+
 fn build_credentials(
-    json: Value,
+    json: Option<Value>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
 ) -> Result<Credentials> {
-    let cred_type = json
-        .get("type")
-        .ok_or_else(|| {
-            errors::non_retryable_from_str(
-                "Failed to parse Credentials Json. No `type` field found.",
-            )
-        })?
-        .as_str()
-        .ok_or_else(|| {
-            errors::non_retryable_from_str(
-                "Failed to parse Credentials Json. `type` field is not a string.",
-            )
-        })?;
-
-    match cred_type {
-        "authorized_user" => {
-            let mut builder = user_account::Builder::new(json);
-
-            if let Some(qp) = quota_project_id {
-                builder = builder.with_quota_project_id(qp);
+    match json {
+        None => configure_and_build(mds::Builder::default(), quota_project_id, scopes),
+        Some(json) => {
+            let cred_type = json
+                .get("type")
+                .ok_or_else(|| {
+                    errors::non_retryable_from_str(
+                        "Failed to parse Credentials Json. No `type` field found.",
+                    )
+                })?
+                .as_str()
+                .ok_or_else(|| {
+                    errors::non_retryable_from_str(
+                        "Failed to parse Credentials Json. `type` field is not a string.",
+                    )
+                })?;
+            match cred_type {
+                "authorized_user" => {
+                    configure_and_build(user_account::Builder::new(json), quota_project_id, scopes)
+                }
+                "service_account" => configure_and_build(
+                    service_account::Builder::new(json),
+                    quota_project_id,
+                    scopes,
+                ),
+                _ => Err(errors::non_retryable_from_str(format!(
+                    "Unimplemented credentials type: {cred_type}"
+                ))),
             }
-            if let Some(sc) = scopes {
-                builder = builder.with_scopes(sc);
-            }
-            builder.build()
         }
-        "service_account" => {
-            let mut builder = service_account::Builder::new(json);
-
-            if let Some(qp) = quota_project_id {
-                builder = builder.with_quota_project_id(qp);
-            }
-            if let Some(sc) = scopes {
-                builder = builder.with_scopes(sc);
-            }
-            builder.build()
-        }
-        _ => Err(errors::non_retryable_from_str(format!(
-            "Unimplemented credentials type: {cred_type}"
-        ))),
     }
 }
 
@@ -665,8 +672,15 @@ pub mod testing {
 mod test {
     use super::*;
     use scoped_env::ScopedEnv;
+    use serde::Deserialize;
     use std::error::Error;
     use test_case::test_case;
+
+    // Define a struct to capture query parameters
+    #[derive(Debug, Clone, Deserialize, PartialEq)]
+    struct TokenQueryParams {
+        scopes: Option<String>,
+    }
 
     // Convenience struct for verifying (HeaderName, HeaderValue) pairs.
     #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
@@ -824,5 +838,21 @@ mod test {
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
         let err = credentials.headers().await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
+    }
+
+    #[tokio::test]
+    #[serial_test::serial]
+    async fn create_access_token_credentials_fallback_to_mds_with_quota_project() {
+        let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _e2 = ScopedEnv::remove("HOME"); // For posix
+        let _e3 = ScopedEnv::remove("APPDATA"); // For windows
+
+        let mds = Builder::default()
+            .with_quota_project_id("test-quota-project")
+            .build()
+            .unwrap();
+        let fmt = format!("{:?}", mds);
+        assert!(fmt.contains("MDSCredentials"));
+        assert!(fmt.contains("test-quota-project"));
     }
 }

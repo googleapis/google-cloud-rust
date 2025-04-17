@@ -39,7 +39,7 @@
 //! # tokio_test::block_on(async {
 //! let credentials: Credentials = Builder::default()
 //!     .with_quota_project_id("my-quota-project")
-//!     .build();
+//!     .build()?;
 //! let token = credentials.token().await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialsError>(())
@@ -53,7 +53,9 @@
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
+use crate::credentials::{
+    AccessTokenCredentialBuilder, Credentials, DEFAULT_UNIVERSE_DOMAIN, Result,
+};
 use crate::errors::{self, CredentialsError, is_retryable};
 use crate::headers_util::build_bearer_headers;
 use crate::token::{Token, TokenProvider};
@@ -96,6 +98,24 @@ pub struct Builder {
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
     universe_domain: Option<String>,
+}
+
+impl AccessTokenCredentialBuilder for Builder {
+    fn with_quota_project_id<S: Into<String>>(self, quota_project_id: S) -> Self {
+        self.with_quota_project_id(quota_project_id)
+    }
+
+    fn with_scopes<I, S>(self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        self.with_scopes(scopes)
+    }
+
+    fn build(self) -> Result<Credentials> {
+        self.build()
+    }
 }
 
 impl Builder {
@@ -149,7 +169,7 @@ impl Builder {
     }
 
     /// Returns a [Credentials] instance with the configured settings.
-    pub fn build(self) -> Credentials {
+    pub fn build(self) -> Result<Credentials> {
         let endpoint = self.endpoint.clone().unwrap_or(METADATA_ROOT.to_string());
 
         let token_provider = MDSAccessTokenProvider::builder()
@@ -163,9 +183,9 @@ impl Builder {
             token_provider: cached_token_provider,
             universe_domain: self.universe_domain,
         };
-        Credentials {
+        Ok(Credentials {
             inner: Arc::new(mdsc),
-        }
+        })
     }
 }
 
@@ -499,7 +519,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn headers_success_with_quota_project() {
+    async fn headers_success_with_quota_project() -> TestResult {
         let scopes = ["scope1".to_string(), "scope2".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
@@ -526,7 +546,7 @@ mod test {
             .with_scopes(["scope1", "scope2"])
             .with_endpoint(endpoint)
             .with_quota_project_id("test-project")
-            .build();
+            .build()?;
 
         let headers: Vec<HV> = HV::from(mdsc.headers().await.unwrap());
         assert_eq!(
@@ -544,6 +564,7 @@ mod test {
                 }
             ]
         );
+        Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
@@ -574,7 +595,7 @@ mod test {
         let mdsc = Builder::default()
             .with_scopes(scopes)
             .with_endpoint(endpoint)
-            .build();
+            .build()?;
         let token = mdsc.token().await?;
         assert_eq!(token.token, "test-access-token");
         let token = mdsc.token().await?;
@@ -614,7 +635,7 @@ mod test {
         let mdsc = Builder::default()
             .with_scopes(scopes)
             .with_endpoint(endpoint)
-            .build();
+            .build()?;
         let now = std::time::Instant::now();
         let token = mdsc.token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -676,7 +697,7 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let mdsc = Builder::default().with_endpoint(endpoint).build();
+        let mdsc = Builder::default().with_endpoint(endpoint).build()?;
         let now = std::time::Instant::now();
         let token = mdsc.token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -717,7 +738,7 @@ mod test {
         let mdsc = Builder::default()
             .with_endpoint(endpoint)
             .with_scopes(scopes)
-            .build();
+            .build()?;
         let token = mdsc.token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
@@ -746,7 +767,7 @@ mod test {
         let mdsc = Builder::default()
             .with_endpoint(endpoint)
             .with_scopes(scopes)
-            .build();
+            .build()?;
         let e = mdsc.token().await.err().unwrap();
         assert!(e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("try again"));
@@ -774,7 +795,7 @@ mod test {
         let mdsc = Builder::default()
             .with_endpoint(endpoint)
             .with_scopes(scopes)
-            .build();
+            .build()?;
 
         let e = mdsc.token().await.err().unwrap();
         assert!(!e.is_retryable());
@@ -803,7 +824,7 @@ mod test {
         let mdsc = Builder::default()
             .with_endpoint(endpoint)
             .with_scopes(scopes)
-            .build();
+            .build()?;
 
         let e = mdsc.token().await.err().unwrap();
         assert!(!e.is_retryable());
@@ -812,20 +833,23 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_default_universe_domain_success() {
-        let universe_domain_response = Builder::default().build().universe_domain().await.unwrap();
+    async fn get_default_universe_domain_success() -> TestResult {
+        let universe_domain_response = Builder::default().build()?.universe_domain().await.unwrap();
         assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
+        Ok(())
     }
 
     #[tokio::test]
-    async fn get_custom_universe_domain_success() {
+    async fn get_custom_universe_domain_success() -> TestResult {
         let universe_domain = "test-universe";
         let universe_domain_response = Builder::default()
             .with_universe_domain(universe_domain)
-            .build()
+            .build()?
             .universe_domain()
             .await
             .unwrap();
         assert_eq!(universe_domain_response, universe_domain);
+
+        Ok(())
     }
 }
