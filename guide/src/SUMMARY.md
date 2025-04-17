@@ -23,6 +23,7 @@ limitations under the License.
 - [Configuring retry policies](configuring_retry_policies.md)
 - [Error handling](error_handling.md)
 - [Examine error details](examine_error_details.md)
+- [How to iterate Google API List methods](pagination.md)
 - [Working with long-running operations](working_with_long_running_operations.md)
 - [Configuring polling policies](configuring_polling_policies.md)
 - [How to write tests using a client](mock_a_client.md)
