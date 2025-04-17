@@ -223,14 +223,13 @@ enum CredentialsSource {
 }
 /// A builder for constructing [`Credentials`] instances.
 ///
-/// Access token credentials refers to any credentials which can be used to authenticate
-/// with google cloud services. By default (using [`Builder::default`]), it's configured
-/// to load credentials according to the standard [Application Default Credentials (ADC)]
+/// By default (using [`Builder::default`]), the builder is configured to load
+/// credentials according to the standard [Application Default Credentials (ADC)]
 /// [adc-link] strategy. ADC is the recommended approach for most applications and
-/// conform to [AIP-4110]. If you need to load credentials from a non-standard location
+/// conforms to [AIP-4110]. If you need to load credentials from a non-standard location
 /// or source, you can provide specific credential JSON directly using [`Builder::new`].
 ///
-/// Common use cases where using ADC would be useful includes:
+/// Common use cases where using ADC would is useful include:
 /// - Your application is deployed to a Google Cloud environment such as
 ///   [Google Compute Engine (GCE)][gce-link],
 ///   [Google Kubernetes Engine (GKE)][gke-link], or [Cloud Run]. Each of these
@@ -247,8 +246,8 @@ enum CredentialsSource {
 ///   service account key file, or a JSON object describing your user
 ///   credentials.
 ///
-///  The access tokens returned by these credentials are to be used in the
-/// `Authorization` HTTP header.
+/// The access tokens returned by these credentials should be used in the
+/// Authorization HTTP header.
 ///
 /// The Google Cloud client libraries for Rust will typically find and use these
 /// credentials automatically if a credentials file exists in the

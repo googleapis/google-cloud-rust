@@ -17,7 +17,7 @@ use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBu
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::user_account::Builder as UserAccountCredentialBuilder;
 use google_cloud_auth::credentials::{
-    ApiKeyOptions, Builder as CredentialsBuilder, Credentials, CredentialsTrait,
+    ApiKeyOptions, Builder as AccessTokenCredentialBuilder, Credentials, CredentialsTrait,
     create_access_token_credentials, create_api_key_credentials,
 };
 use google_cloud_auth::errors::CredentialsError;
@@ -122,7 +122,7 @@ mod test {
         let quota_project = "test-quota-project";
         let scopes = vec!["test-scope"];
 
-        let uc = CredentialsBuilder::new(serde_json::from_str(contents).unwrap())
+        let uc = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
             .with_quota_project_id(quota_project)
             .with_scopes(scopes)
             .build()
@@ -169,7 +169,7 @@ mod test {
         let quota_project = "test-quota-project";
         let scopes = vec!["test-scope"];
 
-        let sac = CredentialsBuilder::new(serde_json::from_str(contents).unwrap())
+        let sac = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
             .with_quota_project_id(quota_project)
             .with_scopes(scopes)
             .build()
