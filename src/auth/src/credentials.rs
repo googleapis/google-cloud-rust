@@ -230,7 +230,7 @@ enum CredentialsSource {
 /// conform to [AIP-4110]. If you need to load credentials from a non-standard location
 /// or source, you can provide specific credential JSON directly using [`Builder::new`].
 ///
-/// Common use cases where using ADC would be benefical:
+/// Common use cases where using ADC would be useful includes:
 /// - Your application is deployed to a Google Cloud environment such as
 ///   [Google Compute Engine (GCE)][gce-link],
 ///   [Google Kubernetes Engine (GKE)][gke-link], or [Cloud Run]. Each of these
@@ -264,7 +264,9 @@ enum CredentialsSource {
 /// # use google_cloud_auth::credentials::Builder;
 /// # use google_cloud_auth::errors::CredentialsError;
 /// # tokio_test::block_on(async {
-/// let creds = Builder::default().with_quota_project_id("my-project").build()?;
+/// let creds = Builder::default()
+///     .with_quota_project_id("my-project")
+///     .build()?;
 /// let token = creds.token().await?;
 /// println!("Token: {}", token.token);
 /// # Ok::<(), CredentialsError>(())
@@ -286,7 +288,9 @@ enum CredentialsSource {
 /// // "token_uri" : "test-token-uri", // Optional: Set if needed
 /// });
 ///
-/// let creds = Builder::new(authorized_user).with_quota_project_id("my-project").build()?;
+/// let creds = Builder::new(authorized_user)
+///     .with_quota_project_id("my-project")
+///     .build()?;
 /// let token = creds.token().await?;
 /// println!("Token: {}", token.token);
 /// # Ok::<(), CredentialsError>(())
@@ -358,7 +362,8 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::Builder;
     /// # tokio_test::block_on(async {
-    /// let credentials = Builder::default().with_quota_project_id("my-project").build();
+    /// let credentials = Builder::default().
+    ///     with_quota_project_id("my-project").build();
     /// });
     /// ```
     ///
@@ -383,7 +388,9 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::Builder;
     /// # tokio_test::block_on(async {
-    /// let credentials = Builder::default().with_scopes(vec!["https://www.googleapis.com/auth/pubsub"]).build();
+    /// let credentials = Builder::default()
+    ///     .with_scopes(vec!["https://www.googleapis.com/auth/pubsub"])
+    ///     .build();
     /// });
     /// ```
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
@@ -671,10 +678,15 @@ pub mod testing {
 #[cfg(test)]
 mod test {
     use super::*;
+    use base64::Engine;
+    use rsa::RsaPrivateKey;
+    use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;
     use serde::Deserialize;
     use std::error::Error;
     use test_case::test_case;
+
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     // Define a struct to capture query parameters
     #[derive(Debug, Clone, Deserialize, PartialEq)]
@@ -706,6 +718,26 @@ mod test {
             hvs.sort();
             hvs
         }
+    }
+
+    fn generate_pkcs8_private_key() -> String {
+        let mut rng = rand::thread_rng();
+        let bits = 2048;
+        let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
+        priv_key
+            .to_pkcs8_pem(LineEnding::LF)
+            .expect("Failed to encode key to PKCS#8 PEM")
+            .to_string()
+    }
+
+    fn b64_decode_to_json(s: String) -> serde_json::Value {
+        let decoded = String::from_utf8(
+            base64::engine::general_purpose::URL_SAFE_NO_PAD
+                .decode(s)
+                .unwrap(),
+        )
+        .unwrap();
+        serde_json::from_str(&decoded).unwrap()
     }
 
     #[cfg(target_os = "windows")]
@@ -854,5 +886,40 @@ mod test {
         let fmt = format!("{:?}", mds);
         assert!(fmt.contains("MDSCredentials"));
         assert!(fmt.contains("test-quota-project"));
+    }
+
+    #[tokio::test]
+    async fn create_access_token_service_account_credentials() -> TestResult {
+        let mut service_account_key = serde_json::json!({
+            "type": "service_account",
+            "project_id": "test-project-id",
+            "private_key_id": "test-private-key-id",
+            "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
+            "client_email": "test-client-email",
+            "universe_domain": "test-universe-domain"
+        });
+
+        let scopes =
+            ["https://www.googleapis.com/auth/pubsub, https://www.googleapis.com/auth/translate"];
+
+        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+
+        let sac = Builder::new(service_account_key)
+            .with_quota_project_id("test-quota-project")
+            .with_scopes(scopes)
+            .build()
+            .unwrap();
+
+        let token = sac.token().await?;
+        let parts: Vec<_> = token.token.split('.').collect();
+        assert_eq!(parts.len(), 3);
+        let claims = b64_decode_to_json(parts.get(1).unwrap().to_string());
+
+        let fmt = format!("{:?}", sac);
+        assert!(fmt.contains("ServiceAccountCredentials"));
+        assert!(fmt.contains("test-quota-project"));
+        assert_eq!(claims["scope"], scopes.join(" "));
+
+        Ok(())
     }
 }
