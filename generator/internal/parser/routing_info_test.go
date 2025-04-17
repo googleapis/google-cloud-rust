@@ -340,7 +340,7 @@ func TestParseVariableSuccess(t *testing.T) {
 				t.Fatal(err)
 			}
 			if gotName != tc.wantName {
-				t.Errorf("mistmatched variable names, want=%s, got=%s", tc.wantName, gotName)
+				t.Errorf("mismatched variable names, want=%s, got=%s", tc.wantName, gotName)
 			}
 			if diff := cmp.Diff(gotSpec, tc.wantSpec); diff != "" {
 				t.Errorf("segments mismatch (-want, +got):\n%s\n", diff)
