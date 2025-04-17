@@ -76,7 +76,7 @@ mod my_application {
                 speech::PollingResult::PollingError(e) => {
                     return BatchRecognizeResult {
                         progress_updates,
-                        billed_duration: Err(Error::from(e)),
+                        billed_duration: Err(e),
                     };
                 }
             }

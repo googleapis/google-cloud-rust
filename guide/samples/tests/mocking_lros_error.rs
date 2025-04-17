@@ -80,7 +80,7 @@ mod my_application {
                     // ANCHOR_END: polling-error-branch
                     return BatchRecognizeResult {
                         progress_updates,
-                        billed_duration: Err(Error::from(e)),
+                        billed_duration: Err(e),
                     };
                 }
             }
