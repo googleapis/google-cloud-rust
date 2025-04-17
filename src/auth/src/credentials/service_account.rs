@@ -812,4 +812,40 @@ mod test {
         assert_eq!(claims["sub"], service_account_key["client_email"]);
         Ok(())
     }
+
+    #[tokio::test]
+    async fn get_access_token_credential_with_custom_scopes() -> TestResult {
+        let mut service_account_key = get_mock_service_key();
+        let scopes = vec![
+            "https://www.googleapis.com/auth/pubsub, https://www.googleapis.com/auth/translate",
+        ];
+        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+        let builder = Builder::new(service_account_key.clone());
+        let token = AccessTokenCredentialBuilder::build(
+            AccessTokenCredentialBuilder::with_scopes(builder, scopes.clone()),
+        )?
+        .token()
+        .await?;
+
+        let re = regex::Regex::new(SSJ_REGEX).unwrap();
+        let captures = re.captures(&token.token).ok_or_else(|| {
+            format!(
+                r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
+                token.token
+            )
+        })?;
+        let header = b64_decode_to_json(captures["header"].to_string());
+        assert_eq!(header["alg"], "RS256");
+        assert_eq!(header["typ"], "JWT");
+        assert_eq!(header["kid"], service_account_key["private_key_id"]);
+
+        let claims = b64_decode_to_json(captures["claims"].to_string());
+        assert_eq!(claims["iss"], service_account_key["client_email"]);
+        assert_eq!(claims["scope"], scopes.join(" "));
+        assert_eq!(claims["aud"], Value::Null);
+        assert!(claims["iat"].is_number());
+        assert!(claims["exp"].is_number());
+        assert_eq!(claims["sub"], service_account_key["client_email"]);
+        Ok(())
+    }
 }

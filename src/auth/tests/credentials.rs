@@ -120,11 +120,9 @@ mod test {
         }"#;
 
         let quota_project = "test-quota-project";
-        let scopes = vec!["test-scope"];
 
         let uc = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
             .with_quota_project_id(quota_project)
-            .with_scopes(scopes)
             .build()
             .unwrap();
 
@@ -167,11 +165,9 @@ mod test {
         }"#;
 
         let quota_project = "test-quota-project";
-        let scopes = vec!["test-scope"];
 
         let sac = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
             .with_quota_project_id(quota_project)
-            .with_scopes(scopes)
             .build()
             .unwrap();
         let fmt = format!("{:?}", sac);

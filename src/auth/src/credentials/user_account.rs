@@ -1012,4 +1012,39 @@ mod test {
 
         Ok(())
     }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn access_token_credentials_with_scopes() -> TestResult {
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: None,
+            refresh_token: None,
+            scope: Some("scope1 scope2".to_string()),
+            token_type: "test-token-type".to_string(),
+        };
+        let response_body = serde_json::to_value(&response).unwrap();
+        let (endpoint, _server) =
+            start(StatusCode::OK, response_body, Arc::new(Mutex::new(0))).await;
+        println!("endpoint = {endpoint}");
+
+        let authorized_user = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "token_uri": "test-endpoint"});
+
+        let builder = Builder::new(authorized_user).with_token_uri(endpoint);
+        let access_token_cred =
+            AccessTokenCredentialBuilder::with_scopes(builder, ["scope1", "scope2"]);
+
+        let cred = AccessTokenCredentialBuilder::build(access_token_cred)?;
+
+        let token = cred.token().await?;
+        assert_eq!(token.token, "test-access-token");
+        assert_eq!(token.token_type, "test-token-type");
+        assert_eq!(token.expires_at, None);
+
+        Ok(())
+    }
 }

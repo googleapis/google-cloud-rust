@@ -880,7 +880,6 @@ mod test {
 
         let mds = Builder::default()
             .with_quota_project_id("test-quota-project")
-            .with_scopes(["test-scope"])
             .build()
             .unwrap();
         let fmt = format!("{:?}", mds);
