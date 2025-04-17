@@ -191,9 +191,9 @@ class Color extends Message {
   @override
   Object toJson() {
     return {
-      if (red != null) 'red': red,
-      if (green != null) 'green': green,
-      if (blue != null) 'blue': blue,
+      if (red != null) 'red': encodeDouble(red),
+      if (green != null) 'green': encodeDouble(green),
+      if (blue != null) 'blue': encodeDouble(blue),
       if (alpha != null) 'alpha': alpha!.toJson(),
     };
   }
@@ -733,8 +733,8 @@ class LatLng extends Message {
   @override
   Object toJson() {
     return {
-      if (latitude != null) 'latitude': latitude,
-      if (longitude != null) 'longitude': longitude,
+      if (latitude != null) 'latitude': encodeDouble(latitude),
+      if (longitude != null) 'longitude': encodeDouble(longitude),
     };
   }
 
@@ -1257,10 +1257,10 @@ class Quaternion extends Message {
   @override
   Object toJson() {
     return {
-      if (x != null) 'x': x,
-      if (y != null) 'y': y,
-      if (z != null) 'z': z,
-      if (w != null) 'w': w,
+      if (x != null) 'x': encodeDouble(x),
+      if (y != null) 'y': encodeDouble(y),
+      if (z != null) 'z': encodeDouble(z),
+      if (w != null) 'w': encodeDouble(w),
     };
   }
 
