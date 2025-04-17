@@ -382,8 +382,8 @@ class Sentiment extends Message {
   @override
   Object toJson() {
     return {
-      if (magnitude != null) 'magnitude': magnitude,
-      if (score != null) 'score': score,
+      if (magnitude != null) 'magnitude': encodeDouble(magnitude),
+      if (score != null) 'score': encodeDouble(score),
     };
   }
 
@@ -443,7 +443,7 @@ class EntityMention extends Message {
       if (text != null) 'text': text!.toJson(),
       if (type != null) 'type': type!.toJson(),
       if (sentiment != null) 'sentiment': sentiment!.toJson(),
-      if (probability != null) 'probability': probability,
+      if (probability != null) 'probability': encodeDouble(probability),
     };
   }
 
@@ -554,8 +554,8 @@ class ClassificationCategory extends Message {
   Object toJson() {
     return {
       if (name != null) 'name': name,
-      if (confidence != null) 'confidence': confidence,
-      if (severity != null) 'severity': severity,
+      if (confidence != null) 'confidence': encodeDouble(confidence),
+      if (severity != null) 'severity': encodeDouble(severity),
     };
   }
 

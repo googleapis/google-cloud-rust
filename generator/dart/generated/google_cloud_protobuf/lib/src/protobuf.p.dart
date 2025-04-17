@@ -373,50 +373,42 @@ class _TimestampHelper {
 }
 
 class _DoubleValueHelper {
-  static double encode(DoubleValue value) {
-    return value.value!;
+  static Object encode(DoubleValue value) {
+    return encodeDouble(value.value)!;
   }
 
   static DoubleValue decode(Object value) {
-    return DoubleValue(value: value as double);
+    return DoubleValue(value: decodeDouble(value)!);
   }
 }
 
 class _FloatValueHelper {
-  static double encode(FloatValue value) {
-    return value.value!;
+  static Object encode(FloatValue value) {
+    return encodeDouble(value.value)!;
   }
 
   static FloatValue decode(Object value) {
-    return FloatValue(value: value as double);
+    return FloatValue(value: decodeDouble(value)!);
   }
 }
 
 class _Int64ValueHelper {
   static String encode(Int64Value value) {
-    return '${value.value}';
+    return encodeInt64(value.value)!;
   }
 
   static Int64Value decode(Object value) {
-    if (value is String) {
-      return Int64Value(value: int.parse(value));
-    } else {
-      return Int64Value(value: value as int);
-    }
+    return Int64Value(value: decodeInt64(value)!);
   }
 }
 
 class _Uint64ValueHelper {
   static String encode(Uint64Value value) {
-    return '${value.value}';
+    return encodeInt64(value.value)!;
   }
 
   static Uint64Value decode(Object value) {
-    if (value is String) {
-      return Uint64Value(value: int.parse(value));
-    } else {
-      return Uint64Value(value: value as int);
-    }
+    return Uint64Value(value: decodeInt64(value)!);
   }
 }
 

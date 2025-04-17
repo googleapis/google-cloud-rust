@@ -646,6 +646,8 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 		return fmt.Sprintf("encodeBytes(%s)", name)
 	case field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE:
 		return fmt.Sprintf("encodeInt64(%s)", name)
+	case field.Typez == api.FLOAT_TYPE || field.Typez == api.DOUBLE_TYPE:
+		return fmt.Sprintf("encodeDouble(%s)", name)
 	default:
 	}
 
