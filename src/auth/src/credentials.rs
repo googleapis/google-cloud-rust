@@ -681,17 +681,10 @@ mod test {
     use rsa::RsaPrivateKey;
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;
-    use serde::Deserialize;
     use std::error::Error;
     use test_case::test_case;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
-
-    // Define a struct to capture query parameters
-    #[derive(Debug, Clone, Deserialize, PartialEq)]
-    struct TokenQueryParams {
-        scopes: Option<String>,
-    }
 
     // Convenience struct for verifying (HeaderName, HeaderValue) pairs.
     #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
@@ -888,7 +881,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn create_access_token_service_account_credentials() -> TestResult {
+    async fn create_access_token_service_account_credentials_with_scopes() -> TestResult {
         let mut service_account_key = serde_json::json!({
             "type": "service_account",
             "project_id": "test-project-id",
