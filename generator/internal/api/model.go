@@ -135,6 +135,8 @@ type Method struct {
 	ServerSideStreaming bool
 	// For methods returning long-running operations
 	OperationInfo *OperationInfo
+	// The routing annotations, if any
+	Routing []*RoutingInfo
 	// The model this method belongs to, mustache templates use this field to
 	// navigate the data structure.
 	Model *API
@@ -185,6 +187,48 @@ type OperationInfo struct {
 	// Language specific annotations
 	Codec any
 }
+
+// Normalize routing info
+//
+// The routing information format is documented in:
+//
+//	https://github.com/googleapis/googleapis/blob/113746270b58d12303e1e4f5eb01bc822aa7d68d/google/api/routing.proto#L406
+//
+// At a high level, it consists of a field name (from the request) that is used
+// to match a certain path template. If the value of the field matches the
+// template, the matching portion is added to `x-goog-request-params`.
+//
+// Of interest to us is the general format of the template. The documentation
+// does not provide a grammar or other specification of the template, just a
+// series of examples, which we won't duplicate here. From these examples we
+// glean that the template must match this grammar:
+//
+// template := [ path_spec "/" ] "{" name "=" path_spec "}" [ "/" patch_spec ]
+// segment := "*" | "**" | literal
+// path_spec := segment ( "/" segment )...
+// literal is a string matching `[a-z][a-z_]*`
+// name is a string matching `[a-z][a-z_]*`
+type RoutingInfo struct {
+	// The name of the field containing the routing information
+	FieldPath []string
+	// The name in `x-goog-request-params`
+	Name     string
+	Matching RoutingPathSpec
+	// The prefix and suffix (maybe empty)
+	Prefix RoutingPathSpec
+	Suffix RoutingPathSpec
+}
+
+type RoutingPathSpec struct {
+	Segments []string
+}
+
+const (
+	// A special routing path segment which indicates "match anything that does not include a `/`"
+	RoutingSegmentSingle = "*"
+	// A special routing path segment which indicates "match anything including `/`"
+	RoutingSegmentMulti = "**"
+)
 
 // A path segment is either a string literal (such as "projects") or a field
 // path (such as "options.version").
