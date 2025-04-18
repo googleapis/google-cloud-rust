@@ -12,8 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//#[cfg(all(test, feature = "_internal_grpc_client"))]
-#[cfg(test)]
+#[cfg(all(test, feature = "_internal_grpc_client"))]
 mod test {
     use auth::credentials::{Credentials, CredentialsTrait};
     use auth::errors::CredentialsError;
