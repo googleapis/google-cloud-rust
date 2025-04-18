@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
 /// let client = AutoscalingPolicyService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -261,7 +261,7 @@ impl AutoscalingPolicyService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dataproc_v1::client::BatchController;
 /// let client = BatchController::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -491,7 +491,7 @@ impl BatchController {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dataproc_v1::client::ClusterController;
 /// let client = ClusterController::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -862,7 +862,7 @@ impl ClusterController {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dataproc_v1::client::JobController;
 /// let client = JobController::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1144,7 +1144,7 @@ impl JobController {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dataproc_v1::client::NodeGroupController;
 /// let client = NodeGroupController::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1386,7 +1386,7 @@ impl NodeGroupController {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
 /// let client = SessionTemplateController::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1616,7 +1616,7 @@ impl SessionTemplateController {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dataproc_v1::client::SessionController;
 /// let client = SessionController::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1877,7 +1877,7 @@ impl SessionController {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
 /// let client = WorkflowTemplateService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

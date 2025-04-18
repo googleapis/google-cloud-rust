@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_servicedirectory_v1::client::LookupService;
 /// let client = LookupService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Service Directory API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -156,7 +156,7 @@ impl LookupService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
 /// let client = RegistrationService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Service Directory API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

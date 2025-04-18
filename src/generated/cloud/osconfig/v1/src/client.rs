@@ -28,7 +28,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_osconfig_v1::client::OsConfigService;
 /// let client = OsConfigService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the OS Config API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -268,7 +268,7 @@ impl OsConfigService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
 /// let client = OsConfigZonalService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the OS Config API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

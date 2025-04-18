@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::CompletionService;
 /// let client = CompletionService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -263,7 +263,7 @@ impl CompletionService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::ControlService;
 /// let client = ControlService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -464,7 +464,7 @@ impl ControlService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
 /// let client = ConversationalSearchService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -756,7 +756,7 @@ impl ConversationalSearchService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
 /// let client = DataStoreService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -979,7 +979,7 @@ impl DataStoreService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::DocumentService;
 /// let client = DocumentService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1251,7 +1251,7 @@ impl DocumentService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::EngineService;
 /// let client = EngineService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1461,7 +1461,7 @@ impl EngineService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
 /// let client = GroundedGenerationService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1617,7 +1617,7 @@ impl GroundedGenerationService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::ProjectService;
 /// let client = ProjectService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1777,7 +1777,7 @@ impl ProjectService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::RankService;
 /// let client = RankService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1917,7 +1917,7 @@ impl RankService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::RecommendationService;
 /// let client = RecommendationService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2062,7 +2062,7 @@ impl RecommendationService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::SchemaService;
 /// let client = SchemaService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2280,7 +2280,7 @@ impl SchemaService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::SearchService;
 /// let client = SearchService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2445,7 +2445,7 @@ impl SearchService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::SearchTuningService;
 /// let client = SearchTuningService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2609,7 +2609,7 @@ impl SearchTuningService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
 /// let client = ServingConfigService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2759,7 +2759,7 @@ impl ServingConfigService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
 /// let client = SiteSearchEngineService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -3164,7 +3164,7 @@ impl SiteSearchEngineService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::UserEventService;
 /// let client = UserEventService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Discovery Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

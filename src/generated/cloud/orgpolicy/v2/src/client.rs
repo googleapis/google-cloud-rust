@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
 /// let client = OrgPolicy::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Organization Policy API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

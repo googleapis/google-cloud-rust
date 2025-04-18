@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
 /// let client = Environments::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Composer API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -485,7 +485,7 @@ impl Environments {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_orchestration_airflow_service_v1::client::ImageVersions;
 /// let client = ImageVersions::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Composer API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

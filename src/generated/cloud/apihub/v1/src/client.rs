@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_apihub_v1::client::ApiHub;
 /// let client = ApiHub::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the API hub API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -677,7 +677,7 @@ impl ApiHub {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
 /// let client = ApiHubDependencies::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the API hub API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -901,7 +901,7 @@ impl ApiHubDependencies {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
 /// let client = HostProjectRegistrationService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the API hub API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1103,7 +1103,7 @@ impl HostProjectRegistrationService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_apihub_v1::client::LintingService;
 /// let client = LintingService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the API hub API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1301,7 +1301,7 @@ impl LintingService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
 /// let client = ApiHubPlugin::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the API hub API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1487,7 +1487,7 @@ impl ApiHubPlugin {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_apihub_v1::client::Provisioning;
 /// let client = Provisioning::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the API hub API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1682,7 +1682,7 @@ impl Provisioning {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
 /// let client = RuntimeProjectAttachmentService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the API hub API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

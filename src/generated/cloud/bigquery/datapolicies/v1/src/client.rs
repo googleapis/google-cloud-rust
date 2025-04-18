@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
 /// let client = DataPolicyService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the BigQuery Data Policy API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

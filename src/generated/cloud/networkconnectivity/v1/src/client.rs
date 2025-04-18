@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
 /// let client = CrossNetworkAutomationService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Network Connectivity API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -527,7 +527,7 @@ impl CrossNetworkAutomationService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_networkconnectivity_v1::client::HubService;
 /// let client = HubService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Network Connectivity API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1030,7 +1030,7 @@ impl HubService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
 /// let client = PolicyBasedRoutingService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Network Connectivity API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

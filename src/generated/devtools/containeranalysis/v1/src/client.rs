@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
 /// let client = ContainerAnalysis::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Container Analysis API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

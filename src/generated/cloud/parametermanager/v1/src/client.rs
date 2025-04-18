@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_parametermanager_v1::client::ParameterManager;
 /// let client = ParameterManager::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Parameter Manager API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

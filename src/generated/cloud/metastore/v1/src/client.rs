@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_metastore_v1::client::DataprocMetastore;
 /// let client = DataprocMetastore::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dataproc Metastore API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -534,7 +534,7 @@ impl DataprocMetastore {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
 /// let client = DataprocMetastoreFederation::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dataproc Metastore API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

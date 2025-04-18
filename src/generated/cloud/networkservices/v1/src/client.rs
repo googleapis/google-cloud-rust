@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_networkservices_v1::client::DepService;
 /// let client = DepService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Network Services API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -372,7 +372,7 @@ impl DepService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_networkservices_v1::client::NetworkServices;
 /// let client = NetworkServices::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Network Services API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

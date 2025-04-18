@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_iam_v3::client::PolicyBindings;
 /// let client = PolicyBindings::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Identity and Access Management (IAM) API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -231,7 +231,7 @@ impl PolicyBindings {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
 /// let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Identity and Access Management (IAM) API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

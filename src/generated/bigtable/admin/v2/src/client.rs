@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
 /// let client = BigtableInstanceAdmin::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Bigtable Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -587,7 +587,7 @@ impl BigtableInstanceAdmin {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
 /// let client = BigtableTableAdmin::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Bigtable Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

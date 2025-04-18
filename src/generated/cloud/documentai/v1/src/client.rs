@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
 /// let client = DocumentProcessorService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Document AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

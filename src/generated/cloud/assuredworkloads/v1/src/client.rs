@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
 /// let client = AssuredWorkloadsService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Assured Workloads API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

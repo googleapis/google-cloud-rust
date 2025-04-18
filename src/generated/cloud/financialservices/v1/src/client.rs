@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_financialservices_v1::client::Aml;
 /// let client = Aml::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Financial Services API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

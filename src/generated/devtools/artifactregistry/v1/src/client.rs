@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
 /// let client = ArtifactRegistry::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Artifact Registry API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_vmmigration_v1::client::VmMigration;
 /// let client = VmMigration::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the VM Migration API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

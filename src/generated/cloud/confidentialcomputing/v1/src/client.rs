@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
 /// let client = ConfidentialComputing::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Confidential Computing API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

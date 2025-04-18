@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
 /// let client = EssentialContactsService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Essential Contacts API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

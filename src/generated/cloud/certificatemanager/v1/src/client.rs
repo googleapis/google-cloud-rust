@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
 /// let client = CertificateManager::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Certificate Manager API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
 /// let client = VideoIntelligenceService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Video Intelligence API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

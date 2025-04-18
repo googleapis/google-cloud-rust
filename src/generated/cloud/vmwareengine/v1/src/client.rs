@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
 /// let client = VmwareEngine::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the VMware Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

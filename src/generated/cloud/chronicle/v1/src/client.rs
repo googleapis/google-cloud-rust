@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
 /// let client = DataAccessControlService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Chronicle API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -276,7 +276,7 @@ impl DataAccessControlService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_chronicle_v1::client::EntityService;
 /// let client = EntityService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Chronicle API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -465,7 +465,7 @@ impl EntityService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_chronicle_v1::client::InstanceService;
 /// let client = InstanceService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Chronicle API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -620,7 +620,7 @@ impl InstanceService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_chronicle_v1::client::ReferenceListService;
 /// let client = ReferenceListService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Chronicle API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -803,7 +803,7 @@ impl ReferenceListService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_chronicle_v1::client::RuleService;
 /// let client = RuleService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Chronicle API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

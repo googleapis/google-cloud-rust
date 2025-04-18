@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
 /// let client = TextToSpeech::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Text-to-Speech API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -159,7 +159,7 @@ impl TextToSpeech {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
 /// let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Text-to-Speech API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

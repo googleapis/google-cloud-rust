@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_recommender_v1::client::Recommender;
 /// let client = Recommender::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Recommender API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
