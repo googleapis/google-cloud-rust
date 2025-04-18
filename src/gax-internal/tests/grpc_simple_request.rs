@@ -124,6 +124,7 @@ mod test {
                 "name=test-only",
             )
             .await
+            .map(tonic::Response::into_inner)
     }
 
     async fn check_simple_request(client: grpc::Client) -> anyhow::Result<()> {
