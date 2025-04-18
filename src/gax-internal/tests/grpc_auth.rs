@@ -12,15 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "_internal_http_client"))]
+//#[cfg(all(test, feature = "_internal_grpc_client"))]
+#[cfg(test)]
 mod test {
     use auth::credentials::{Credentials, CredentialsTrait};
     use auth::errors::CredentialsError;
     use auth::token::Token;
     use gax::options::*;
     use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
+    use google_cloud_gax_internal::grpc;
+    use grpc_server::{builder, google, start_echo_server};
     use http::header::{HeaderName, HeaderValue};
-    use serde_json::json;
 
     type AuthResult<T> = std::result::Result<T, CredentialsError>;
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -38,7 +40,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_auth_headers() -> Result<()> {
-        let (endpoint, _server) = echo_server::start().await?;
+        let (endpoint, _server) = start_echo_server().await?;
 
         // We use mock credentials instead of fake credentials, because
         // 1. we can test that multiple headers are included in the request
@@ -57,31 +59,27 @@ mod test {
             ])
         });
 
-        let client = echo_server::builder(endpoint)
+        let client = builder(endpoint)
             .with_credentials(Credentials::from(mock))
             .build()
             .await?;
 
-        let builder = client.builder(reqwest::Method::GET, "/echo".into());
-        let body = json!({});
-        let response: serde_json::Value = client
-            .execute(builder, Some(body), RequestOptions::default())
-            .await?
-            .into_body();
+        let response = send_request(client, "great success!").await?;
         assert_eq!(
-            get_header_value(&response, "auth-key-1"),
-            Some("auth-value-1".to_string())
+            response.metadata.get("auth-key-1").map(String::as_str),
+            Some("auth-value-1")
         );
         assert_eq!(
-            get_header_value(&response, "auth-key-2"),
-            Some("auth-value-2".to_string())
+            response.metadata.get("auth-key-2").map(String::as_str),
+            Some("auth-value-2")
         );
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn auth_error_retryable() -> Result<()> {
-        let (endpoint, _server) = echo_server::start().await?;
+        let (endpoint, _server) = start_echo_server().await?;
+
         let retry_count = 3;
         let mut mock = MockCredentials::new();
         mock.expect_headers()
@@ -89,20 +87,14 @@ mod test {
             .returning(|| Err(CredentialsError::from_str(true, "mock retryable error")));
 
         let retry_policy = Aip194Strict.with_attempt_limit(retry_count as u32);
-        let client = echo_server::builder(endpoint)
+        let client = builder(endpoint)
             .with_credentials(Credentials::from(mock))
-            .with_backoff_policy(test_backoff())
             .with_retry_policy(retry_policy)
+            .with_backoff_policy(test_backoff())
             .build()
             .await?;
 
-        let builder = client.builder(reqwest::Method::GET, "/echo".into());
-        let body = json!({});
-        let options = RequestOptions::default();
-        let result = client
-            .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
-            .await;
-
+        let result = send_request(client, "auth fail").await;
         assert!(result.is_err());
 
         if let Err(e) = result {
@@ -121,7 +113,8 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn auth_error_non_retryable() -> Result<()> {
-        let (endpoint, _server) = echo_server::start().await?;
+        let (endpoint, _server) = start_echo_server().await?;
+
         let mut mock = MockCredentials::new();
         mock.expect_headers().times(1).returning(|| {
             Err(CredentialsError::from_str(
@@ -130,22 +123,12 @@ mod test {
             ))
         });
 
-        let client = echo_server::builder(endpoint)
+        let client = builder(endpoint)
             .with_credentials(Credentials::from(mock))
             .build()
             .await?;
 
-        let builder = client.builder(reqwest::Method::GET, "/echo".into());
-        let body = serde_json::json!({});
-
-        let result = client
-            .execute::<serde_json::Value, serde_json::Value>(
-                builder,
-                Some(body),
-                RequestOptions::default(),
-            )
-            .await;
-
+        let result = send_request(client, "auth fail").await;
         assert!(result.is_err());
 
         if let Err(e) = result {
@@ -171,15 +154,23 @@ mod test {
             .expect("a valid backoff policy")
     }
 
-    fn get_header_value(response: &serde_json::Value, name: &str) -> Option<String> {
-        response
-            .as_object()
-            .map(|o| o.get("headers"))
-            .flatten()
-            .map(|h| h.get(name))
-            .flatten()
-            .map(|v| v.as_str())
-            .flatten()
-            .map(str::to_string)
+    async fn send_request(
+        client: grpc::Client,
+        msg: &str,
+    ) -> gax::Result<google::test::v1::EchoResponse> {
+        let request = google::test::v1::EchoRequest {
+            message: msg.into(),
+            ..Default::default()
+        };
+        client
+            .execute(
+                tonic::GrpcMethod::new("google.test.v1.EchoServices", "Echo"),
+                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
+                request,
+                RequestOptions::default(),
+                "test-only-api-client/1.0",
+                "name=test-only",
+            )
+            .await
     }
 }
