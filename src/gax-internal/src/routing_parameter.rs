@@ -150,6 +150,7 @@ mod test {
     #[test_case("projects/p/instances/i", "", Some("routing_id=projects/p"); "match #1 wins")]
     #[test_case("projects/p/instances/i/tables/t", "", Some("table_location=instances/i&routing_id=projects/p"); "one field matches 2 vables wins")]
     #[test_case("projects/p/instances/i/tables/t", "profiles/q", Some("table_location=instances/i&routing_id=q"); "multiple variables")]
+    #[test_case("projects/p/instances/i/tables/t", "thingy/q/child/c", Some("table_location=instances/i&routing_id=thingy/q/child/c"); "multiple variables skipping one template")]
     fn simulated_request(table_name: &str, app_profile_id: &str, want: Option<&str>) {
         let got = request_body(Request {
             table_name: table_name.into(),
