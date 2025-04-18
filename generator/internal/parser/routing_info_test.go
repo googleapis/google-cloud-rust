@@ -30,7 +30,7 @@ func TestExamples(t *testing.T) {
 			".test.TestService.Example1",
 			[]*api.RoutingInfo{
 				{
-					FieldName: "app_profile_id",
+					FieldPath: []string{"app_profile_id"},
 					Name:      "app_profile_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"**"}},
 				},
@@ -40,7 +40,7 @@ func TestExamples(t *testing.T) {
 			".test.TestService.Example2",
 			[]*api.RoutingInfo{
 				{
-					FieldName: "app_profile_id",
+					FieldPath: []string{"app_profile_id"},
 					Name:      "routing_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"**"}},
 				},
@@ -50,7 +50,7 @@ func TestExamples(t *testing.T) {
 			".test.TestService.Example3a",
 			[]*api.RoutingInfo{
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "table_name",
 					Matching:  api.RoutingPathSpec{Segments: []string{"projects", "*", "instances", "*", "**"}},
 				},
@@ -60,7 +60,7 @@ func TestExamples(t *testing.T) {
 			".test.TestService.Example3b",
 			[]*api.RoutingInfo{
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "table_name",
 					Matching:  api.RoutingPathSpec{Segments: []string{"regions", "*", "zones", "*", "**"}},
 				},
@@ -70,12 +70,12 @@ func TestExamples(t *testing.T) {
 			".test.TestService.Example3c",
 			[]*api.RoutingInfo{
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "table_name",
 					Matching:  api.RoutingPathSpec{Segments: []string{"regions", "*", "zones", "*", "**"}},
 				},
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "table_name",
 					Matching:  api.RoutingPathSpec{Segments: []string{"projects", "*", "instances", "*", "**"}},
 				},
@@ -85,7 +85,7 @@ func TestExamples(t *testing.T) {
 			".test.TestService.Example4",
 			[]*api.RoutingInfo{
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "routing_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"projects", "*"}},
 					Suffix:    api.RoutingPathSpec{Segments: []string{"**"}},
@@ -96,13 +96,13 @@ func TestExamples(t *testing.T) {
 			".test.TestService.Example5",
 			[]*api.RoutingInfo{
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "routing_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"projects", "*"}},
 					Suffix:    api.RoutingPathSpec{Segments: []string{"**"}},
 				},
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "routing_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"projects", "*", "instances", "*"}},
 					Suffix:    api.RoutingPathSpec{Segments: []string{"**"}},
@@ -113,13 +113,13 @@ func TestExamples(t *testing.T) {
 			".test.TestService.Example6a",
 			[]*api.RoutingInfo{
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "project_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"projects", "*"}},
 					Suffix:    api.RoutingPathSpec{Segments: []string{"instances", "*", "**"}},
 				},
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "instance_id",
 					Prefix:    api.RoutingPathSpec{Segments: []string{"projects", "*"}},
 					Matching:  api.RoutingPathSpec{Segments: []string{"instances", "*"}},
@@ -131,13 +131,13 @@ func TestExamples(t *testing.T) {
 			".test.TestService.Example6b",
 			[]*api.RoutingInfo{
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "project_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"projects", "*"}},
 					Suffix:    api.RoutingPathSpec{Segments: []string{"**"}},
 				},
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "instance_id",
 					Prefix:    api.RoutingPathSpec{Segments: []string{"projects", "*"}},
 					Matching:  api.RoutingPathSpec{Segments: []string{"instances", "*"}},
@@ -149,13 +149,13 @@ func TestExamples(t *testing.T) {
 			".test.TestService.Example7",
 			[]*api.RoutingInfo{
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "project_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"projects", "*"}},
 					Suffix:    api.RoutingPathSpec{Segments: []string{"**"}},
 				},
 				{
-					FieldName: "app_profile_id",
+					FieldPath: []string{"app_profile_id"},
 					Name:      "routing_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"**"}},
 				},
@@ -165,19 +165,19 @@ func TestExamples(t *testing.T) {
 			".test.TestService.Example8",
 			[]*api.RoutingInfo{
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "routing_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"projects", "*"}},
 					Suffix:    api.RoutingPathSpec{Segments: []string{"**"}},
 				},
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "routing_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"regions", "*"}},
 					Suffix:    api.RoutingPathSpec{Segments: []string{"**"}},
 				},
 				{
-					FieldName: "app_profile_id",
+					FieldPath: []string{"app_profile_id"},
 					Name:      "routing_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"**"}},
 				},
@@ -187,31 +187,31 @@ func TestExamples(t *testing.T) {
 			".test.TestService.Example9",
 			[]*api.RoutingInfo{
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "table_location",
 					Prefix:    api.RoutingPathSpec{Segments: []string{"projects", "*"}},
 					Matching:  api.RoutingPathSpec{Segments: []string{"instances", "*"}},
 					Suffix:    api.RoutingPathSpec{Segments: []string{"tables", "*"}},
 				},
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "table_location",
 					Matching:  api.RoutingPathSpec{Segments: []string{"regions", "*", "zones", "*"}},
 					Suffix:    api.RoutingPathSpec{Segments: []string{"tables", "*"}},
 				},
 				{
-					FieldName: "table_name",
+					FieldPath: []string{"table_name"},
 					Name:      "routing_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"projects", "*"}},
 					Suffix:    api.RoutingPathSpec{Segments: []string{"**"}},
 				},
 				{
-					FieldName: "app_profile_id",
+					FieldPath: []string{"app_profile_id"},
 					Name:      "routing_id",
 					Matching:  api.RoutingPathSpec{Segments: []string{"**"}},
 				},
 				{
-					FieldName: "app_profile_id",
+					FieldPath: []string{"app_profile_id"},
 					Name:      "routing_id",
 					Prefix:    api.RoutingPathSpec{Segments: []string{"profiles"}},
 					Matching:  api.RoutingPathSpec{Segments: []string{"*"}},
@@ -236,46 +236,72 @@ func TestExamples(t *testing.T) {
 
 func TestParsePathTemplateSuccess(t *testing.T) {
 	tests := []struct {
-		path string
-		want api.RoutingInfo
+		fieldPath string
+		path      string
+		want      api.RoutingInfo
 	}{
 		{
-			"{**}",
+			"default",
+			"",
 			api.RoutingInfo{
-				FieldName: "default",
+				FieldPath: []string{"default"},
 				Name:      "default",
 				Matching:  api.RoutingPathSpec{Segments: []string{"**"}},
 			},
 		},
 		{
+			"default",
+			"{**}",
+			api.RoutingInfo{
+				FieldPath: []string{"default"},
+				Name:      "default",
+				Matching:  api.RoutingPathSpec{Segments: []string{"**"}},
+			},
+		},
+		{
+			"default",
 			"{routing=**}",
 			api.RoutingInfo{
-				FieldName: "routing",
+				FieldPath: []string{"default"},
 				Name:      "routing",
 				Matching:  api.RoutingPathSpec{Segments: []string{"**"}},
 			},
 		},
 		{
+			"default",
 			"{routing=a/*/b/**}",
 			api.RoutingInfo{
-				FieldName: "routing",
+				FieldPath: []string{"default"},
 				Name:      "routing",
 				Matching:  api.RoutingPathSpec{Segments: []string{"a", "*", "b", "**"}},
 			},
 		},
 		{
+			"default",
 			"p/*/q/*/{routing=a/*/b/**}",
 			api.RoutingInfo{
-				FieldName: "routing",
+				FieldPath: []string{"default"},
 				Name:      "routing",
 				Matching:  api.RoutingPathSpec{Segments: []string{"a", "*", "b", "**"}},
 				Prefix:    api.RoutingPathSpec{Segments: []string{"p", "*", "q", "*"}},
 			},
 		},
 		{
+			"default",
 			"p/*/q/*/{routing=a/*/b/**}/s/*/u/*/v/**",
 			api.RoutingInfo{
-				FieldName: "routing",
+				FieldPath: []string{"default"},
+				Name:      "routing",
+				Matching:  api.RoutingPathSpec{Segments: []string{"a", "*", "b", "**"}},
+				Prefix:    api.RoutingPathSpec{Segments: []string{"p", "*", "q", "*"}},
+				Suffix:    api.RoutingPathSpec{Segments: []string{"s", "*", "u", "*", "v", "**"}},
+			},
+		},
+		{
+			"field.sub_field.child",
+			"p/*/q/*/{routing=a/*/b/**}/s/*/u/*/v/**",
+			api.RoutingInfo{
+				FieldPath: []string{"field", "sub_field", "child"},
 				Name:      "routing",
 				Matching:  api.RoutingPathSpec{Segments: []string{"a", "*", "b", "**"}},
 				Prefix:    api.RoutingPathSpec{Segments: []string{"p", "*", "q", "*"}},
@@ -286,7 +312,7 @@ func TestParsePathTemplateSuccess(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.path, func(t *testing.T) {
-			got, err := parseRoutingPathTemplate("default", tc.path)
+			got, err := parseRoutingPathTemplate(tc.fieldPath, tc.path)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -299,7 +325,6 @@ func TestParsePathTemplateSuccess(t *testing.T) {
 
 func TestParsePathTemplateFailures(t *testing.T) {
 	tests := []string{
-		"",
 		"projects/*",
 		"projects/*}",
 		"projects/*/}",
@@ -316,6 +341,13 @@ func TestParsePathTemplateFailures(t *testing.T) {
 				t.Errorf("expected error for %q, got=%v", path, got)
 			}
 		})
+	}
+}
+
+func TestParsePathTemplateBadFieldPath(t *testing.T) {
+	got, err := parseRoutingPathTemplate("field.child", "")
+	if err == nil {
+		t.Errorf("expected error got=%v", got)
 	}
 }
 

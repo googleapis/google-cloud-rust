@@ -51,9 +51,21 @@ func parseRoutingAnnotations(methodID string, m *descriptorpb.MethodDescriptorPr
 func parseRoutingInfo(methodID string, routing *annotations.RoutingParameter) (*api.RoutingInfo, error) {
 	pathTemplate := routing.GetPathTemplate()
 	fieldName := routing.GetField()
+	info, err := parseRoutingPathTemplate(fieldName, pathTemplate)
+	if err != nil {
+		return nil, fmt.Errorf("%w, method=%s", err, methodID)
+	}
+	return info, nil
+}
+
+func parseRoutingPathTemplate(fieldName, pathTemplate string) (*api.RoutingInfo, error) {
+	fieldPath := strings.Split(fieldName, ".")
 	if pathTemplate == "" {
+		if len(fieldPath) != 1 {
+			return nil, fmt.Errorf("fieldName (%q) cannot have '.' when path_template is empty", fieldName)
+		}
 		info := &api.RoutingInfo{
-			FieldName: fieldName,
+			FieldPath: fieldPath,
 			Name:      fieldName,
 			Matching: api.RoutingPathSpec{
 				Segments: []string{api.RoutingSegmentMulti},
@@ -61,15 +73,6 @@ func parseRoutingInfo(methodID string, routing *annotations.RoutingParameter) (*
 		}
 		return info, nil
 	}
-	info, err := parseRoutingPathTemplate(fieldName, pathTemplate)
-	if err != nil {
-		return nil, fmt.Errorf("%w, method=%s", err, methodID)
-	}
-	info.FieldName = routing.GetField()
-	return info, nil
-}
-
-func parseRoutingPathTemplate(defaultName, pathTemplate string) (*api.RoutingInfo, error) {
 	pos := 0
 	prefix, width := parseRoutingPrefix(pathTemplate[pos:])
 	pos += width
@@ -77,7 +80,7 @@ func parseRoutingPathTemplate(defaultName, pathTemplate string) (*api.RoutingInf
 		return nil, fmt.Errorf("expected '{', found=%s", pathTemplate[pos:])
 	}
 	pos += 1
-	name, match, width, err := parseRoutingVariable(defaultName, pathTemplate[pos:])
+	name, match, width, err := parseRoutingVariable(fieldName, pathTemplate[pos:])
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +99,7 @@ func parseRoutingPathTemplate(defaultName, pathTemplate string) (*api.RoutingInf
 		return nil, fmt.Errorf("unexpected trailer in pathTemplate trailer=%s", pathTemplate[pos:])
 	}
 	info := &api.RoutingInfo{
-		FieldName: name,
+		FieldPath: fieldPath,
 		Name:      name,
 		Prefix:    prefix,
 		Matching:  match,

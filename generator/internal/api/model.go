@@ -210,7 +210,7 @@ type OperationInfo struct {
 // name is a string matching `[a-z][a-z_]*`
 type RoutingInfo struct {
 	// The name of the field containing the routing information
-	FieldName string
+	FieldPath []string
 	// The name in `x-goog-request-params`
 	Name     string
 	Matching RoutingPathSpec
