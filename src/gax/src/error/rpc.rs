@@ -404,28 +404,29 @@ pub enum StatusDetails {
 
 impl From<wkt::Any> for StatusDetails {
     fn from(value: wkt::Any) -> Self {
-        use rpc::model::*;
-        if let Ok(v) = value.try_into_message::<BadRequest>() {
-            return StatusDetails::BadRequest(v);
-        } else if let Ok(v) = value.try_into_message::<DebugInfo>() {
-            return StatusDetails::DebugInfo(v);
-        } else if let Ok(v) = value.try_into_message::<ErrorInfo>() {
-            return StatusDetails::ErrorInfo(v);
-        } else if let Ok(v) = value.try_into_message::<Help>() {
-            return StatusDetails::Help(v);
-        } else if let Ok(v) = value.try_into_message::<LocalizedMessage>() {
-            return StatusDetails::LocalizedMessage(v);
-        } else if let Ok(v) = value.try_into_message::<PreconditionFailure>() {
-            return StatusDetails::PreconditionFailure(v);
-        } else if let Ok(v) = value.try_into_message::<QuotaFailure>() {
-            return StatusDetails::QuotaFailure(v);
-        } else if let Ok(v) = value.try_into_message::<RequestInfo>() {
-            return StatusDetails::RequestInfo(v);
-        } else if let Ok(v) = value.try_into_message::<ResourceInfo>() {
-            return StatusDetails::ResourceInfo(v);
-        } else if let Ok(v) = value.try_into_message::<RetryInfo>() {
-            return StatusDetails::RetryInfo(v);
+        macro_rules! try_convert {
+            ($($variant:ident),*) => {
+                $(
+                    if let Ok(v) = value.try_into_message::<rpc::model::$variant>() {
+                        return StatusDetails::$variant(v);
+                    }
+                )*
+            };
         }
+
+        try_convert!(
+            BadRequest,
+            DebugInfo,
+            ErrorInfo,
+            Help,
+            LocalizedMessage,
+            PreconditionFailure,
+            QuotaFailure,
+            RequestInfo,
+            ResourceInfo,
+            RetryInfo
+        );
+
         StatusDetails::Other(value)
     }
 }
