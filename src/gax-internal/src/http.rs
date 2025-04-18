@@ -129,8 +129,8 @@ impl ReqwestClient {
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
         let auth_headers = self.cred.headers().await.map_err(Error::authentication)?;
-        for header in auth_headers.into_iter() {
-            builder = builder.header(header.0, header.1);
+        for (key, value) in auth_headers.into_iter() {
+            builder = builder.header(key, value);
         }
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {
