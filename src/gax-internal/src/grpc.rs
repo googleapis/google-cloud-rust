@@ -136,6 +136,7 @@ impl Client {
     }
 
     /// Makes a single request attempt.
+    #[allow(clippy::too_many_arguments)]
     async fn request_attempt<Request, Response>(
         inner: &mut InnerClient,
         credentials: &Credentials,
