@@ -61,29 +61,29 @@ mod test {
 
     #[test]
     fn test_oneof_mixed() -> TestResult {
-        let input = MessageWithOneOf::default().set_mixed(Mixed::AnotherMessageValue(
+        let input = MessageWithOneOf::default().set_mixed(Mixed::AnotherMessage(
             Message::default().set_parent("parent-value"),
         ));
         let got = serde_json::to_value(&input)?;
         let want = json!({
-            "anotherMessageValue": { "parent": "parent-value" }
+            "anotherMessage": { "parent": "parent-value" }
         });
         assert_eq!(got, want);
 
         let input =
-            MessageWithOneOf::default().set_mixed(Mixed::StringValue("string-value".to_string()));
+            MessageWithOneOf::default().set_mixed(Mixed::String("string-value".to_string()));
         let got = serde_json::to_value(&input)?;
         let want = json!({
-            "stringValue": "string-value"
+            "string": "string-value"
         });
         assert_eq!(got, want);
 
-        let input = MessageWithOneOf::default().set_mixed(Mixed::DurationValue(
+        let input = MessageWithOneOf::default().set_mixed(Mixed::Duration(
             google_cloud_wkt::Duration::clamp(123, 456_000_000),
         ));
         let got = serde_json::to_value(&input)?;
         let want = json!({
-            "durationValue": "123.456s"
+            "duration": "123.456s"
         });
         assert_eq!(got, want);
 
@@ -157,9 +157,9 @@ mod test {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Mixed {
-        AnotherMessageValue(Message),
-        StringValue(String),
-        DurationValue(google_cloud_wkt::Duration),
+        AnotherMessage(Message),
+        String(String),
+        Duration(google_cloud_wkt::Duration),
     }
 
     #[serde_with::serde_as]
