@@ -15,7 +15,7 @@
 //! Helper functions to match routing parameters.
 
 /// Find a routing parameter in `haytack` using the (decomposed) template.
-/// 
+///
 /// # Example
 /// ```
 /// # use google_cloud_gax_internal::routing_parameter::*;
@@ -29,7 +29,7 @@
 ///
 /// # Parameters
 /// - `haystack` - a string where to find the path template.
-/// - `prefix` - the initial segments in the template that must match, 
+/// - `prefix` - the initial segments in the template that must match,
 ///   and are not included in the result.
 /// - `matching` - the segments in the template that must match and **are**
 ///   included in the result.
@@ -78,7 +78,7 @@ pub fn find_matching<'h>(
 }
 
 /// Format a routing parameter key value pair.
-/// 
+///
 /// This is just a helper to simplify the code generation.
 pub fn format((k, v): (&str, &str)) -> String {
     format!("{k}={v}")
@@ -167,7 +167,12 @@ mod test {
     #[test_case("projects/p/instances/i", None; "missing suffix")]
     #[test_case("instances/i/tables/i", None; "missing prefix")]
     fn single_matches(input: &str, want: Option<&str>) {
-        let got = find_matching(input, &["projects/", "*", "/"], &["instances/", "*"], &["/tables/", "*"]);
+        let got = find_matching(
+            input,
+            &["projects/", "*", "/"],
+            &["instances/", "*"],
+            &["/tables/", "*"],
+        );
         assert_eq!(got, want);
     }
 
@@ -177,7 +182,12 @@ mod test {
     #[test_case("projects/p/instances/i/tables", None; "missing separateor")]
     #[test_case("projects/p/instances/i/tables/", None; "empty segment")]
     fn matching_multi_segment(input: &str, want: Option<&str>) {
-        let got = find_matching(input, &["projects/", "*", "/"], &["instances/", "*", "/tables/", "**"], &[]);
+        let got = find_matching(
+            input,
+            &["projects/", "*", "/"],
+            &["instances/", "*", "/tables/", "**"],
+            &[],
+        );
         assert_eq!(got, want);
     }
 
@@ -187,7 +197,12 @@ mod test {
     #[test_case("projects/p/instances/i/tables", None; "missing separateor")]
     #[test_case("projects/p/instances/i/tables/", None; "empty segment")]
     fn matching_wildcard_then_multi_segment(input: &str, want: Option<&str>) {
-        let got = find_matching(input, &[], &["projects/", "*", "/instances/", "*", "/tables/", "**"], &[]);
+        let got = find_matching(
+            input,
+            &[],
+            &["projects/", "*", "/instances/", "*", "/tables/", "**"],
+            &[],
+        );
         assert_eq!(got, want);
     }
 
