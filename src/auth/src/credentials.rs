@@ -330,7 +330,7 @@ impl Default for Builder {
 }
 
 impl Builder {
-    /// Creates a new builder with given credential json.
+    /// Creates a new builder with given credentials json.
     ///
     /// # Example
     /// ```
@@ -349,13 +349,9 @@ impl Builder {
 
     /// Sets the [quota project] for these credentials.
     ///
-    /// In some services, you can use an account in
-    /// one project for authentication and authorization, and charge
-    /// the usage to a different project. This requires that the
-    /// user has `serviceusage.services.use` permissions on the quota project.
-    ///
-    /// Any value set here overrides a `quota_project_id` value from the
-    /// input `authorized_user` JSON.
+    /// In some services, you can use an account in one project for authentication
+    /// and authorization, and charge the usage to a different project. This requires
+    /// that the user has `serviceusage.services.use` permissions on the quota project.
     ///
     /// # Example
     /// ```
