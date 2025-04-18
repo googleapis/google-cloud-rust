@@ -27,7 +27,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::DatasetService;
 /// let client = DatasetService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -487,7 +487,7 @@ impl DatasetService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
 /// let client = DeploymentResourcePoolService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -799,7 +799,7 @@ impl DeploymentResourcePoolService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::EndpointService;
 /// let client = EndpointService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1156,7 +1156,7 @@ impl EndpointService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::EvaluationService;
 /// let client = EvaluationService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1379,7 +1379,7 @@ impl EvaluationService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
 /// let client = FeatureOnlineStoreAdminService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1796,7 +1796,7 @@ impl FeatureOnlineStoreAdminService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
 /// let client = FeatureOnlineStoreService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2030,7 +2030,7 @@ impl FeatureOnlineStoreService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
 /// let client = FeatureRegistryService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2414,7 +2414,7 @@ impl FeatureRegistryService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
 /// let client = FeaturestoreOnlineServingService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2662,7 +2662,7 @@ impl FeaturestoreOnlineServingService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
 /// let client = FeaturestoreService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -3220,7 +3220,7 @@ impl FeaturestoreService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
 /// let client = GenAiCacheService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -3480,7 +3480,7 @@ impl GenAiCacheService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
 /// let client = GenAiTuningService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -3766,7 +3766,7 @@ impl GenAiTuningService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
 /// let client = IndexEndpointService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -4105,7 +4105,7 @@ impl IndexEndpointService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::IndexService;
 /// let client = IndexService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -4407,7 +4407,7 @@ impl IndexService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::JobService;
 /// let client = JobService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -5068,7 +5068,7 @@ impl JobService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
 /// let client = LlmUtilityService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -5300,7 +5300,7 @@ impl LlmUtilityService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::MatchService;
 /// let client = MatchService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -5527,7 +5527,7 @@ impl MatchService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::MetadataService;
 /// let client = MetadataService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -6122,7 +6122,7 @@ impl MetadataService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::MigrationService;
 /// let client = MigrationService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -6368,7 +6368,7 @@ impl MigrationService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
 /// let client = ModelGardenService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -6591,7 +6591,7 @@ impl ModelGardenService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::ModelService;
 /// let client = ModelService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -7055,7 +7055,7 @@ impl ModelService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::NotebookService;
 /// let client = NotebookService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -7503,7 +7503,7 @@ impl NotebookService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
 /// let client = PersistentResourceService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -7821,7 +7821,7 @@ impl PersistentResourceService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::PipelineService;
 /// let client = PipelineService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -8228,7 +8228,7 @@ impl PipelineService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::PredictionService;
 /// let client = PredictionService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -8525,7 +8525,7 @@ impl PredictionService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
 /// let client = ReasoningEngineExecutionService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -8752,7 +8752,7 @@ impl ReasoningEngineExecutionService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
 /// let client = ReasoningEngineService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -9041,7 +9041,7 @@ impl ReasoningEngineService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::ScheduleService;
 /// let client = ScheduleService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -9349,7 +9349,7 @@ impl ScheduleService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
 /// let client = SpecialistPoolService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -9643,7 +9643,7 @@ impl SpecialistPoolService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::TensorboardService;
 /// let client = TensorboardService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -10195,7 +10195,7 @@ impl TensorboardService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
 /// let client = VertexRagDataService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -10549,7 +10549,7 @@ impl VertexRagDataService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::VertexRagService;
 /// let client = VertexRagService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -10793,7 +10793,7 @@ impl VertexRagService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::VizierService;
 /// let client = VizierService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

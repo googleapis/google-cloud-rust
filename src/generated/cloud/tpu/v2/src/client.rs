@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_tpu_v2::client::Tpu;
 /// let client = Tpu::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud TPU API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

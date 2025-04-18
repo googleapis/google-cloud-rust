@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
 /// let client = TranscoderService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Transcoder API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

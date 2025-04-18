@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_workstations_v1::client::Workstations;
 /// let client = Workstations::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Workstations API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
 /// let client = IAMCredentials::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the IAM Service Account Credentials API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

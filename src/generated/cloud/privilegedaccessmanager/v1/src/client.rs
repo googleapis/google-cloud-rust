@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
 /// let client = PrivilegedAccessManager::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Privileged Access Manager API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

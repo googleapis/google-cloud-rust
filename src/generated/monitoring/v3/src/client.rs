@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
 /// let client = AlertPolicyService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -197,7 +197,7 @@ impl AlertPolicyService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_monitoring_v3::client::GroupService;
 /// let client = GroupService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -359,7 +359,7 @@ impl GroupService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_monitoring_v3::client::MetricService;
 /// let client = MetricService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -565,7 +565,7 @@ impl MetricService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
 /// let client = NotificationChannelService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -827,7 +827,7 @@ impl NotificationChannelService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_monitoring_v3::client::QueryService;
 /// let client = QueryService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -942,7 +942,7 @@ impl QueryService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
 /// let client = ServiceMonitoringService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1148,7 +1148,7 @@ impl ServiceMonitoringService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_monitoring_v3::client::SnoozeService;
 /// let client = SnoozeService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1290,7 +1290,7 @@ impl SnoozeService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
 /// let client = UptimeCheckService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

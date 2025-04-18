@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_talent_v4::client::CompanyService;
 /// let client = CompanyService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Talent Solution API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -182,7 +182,7 @@ impl CompanyService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_talent_v4::client::Completion;
 /// let client = Completion::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Talent Solution API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -302,7 +302,7 @@ impl Completion {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_talent_v4::client::EventService;
 /// let client = EventService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Talent Solution API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -428,7 +428,7 @@ impl EventService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_talent_v4::client::JobService;
 /// let client = JobService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Talent Solution API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -686,7 +686,7 @@ impl JobService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_talent_v4::client::TenantService;
 /// let client = TenantService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Talent Solution API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

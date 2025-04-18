@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_memcache_v1::client::CloudMemcache;
 /// let client = CloudMemcache::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Memorystore for Memcached API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

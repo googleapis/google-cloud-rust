@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
 /// let client = CloudControlsPartnerCore::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Controls Partner API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -204,7 +204,7 @@ impl CloudControlsPartnerCore {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
 /// let client = CloudControlsPartnerMonitoring::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Controls Partner API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

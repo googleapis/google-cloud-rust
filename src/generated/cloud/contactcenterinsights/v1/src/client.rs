@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
 /// let client = ContactCenterInsights::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Contact Center AI Insights API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_ids_v1::client::Ids;
 /// let client = Ids::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud IDS API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

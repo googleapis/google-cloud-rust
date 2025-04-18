@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_resourcemanager_v3::client::Folders;
 /// let client = Folders::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -384,7 +384,7 @@ impl Folders {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_resourcemanager_v3::client::Organizations;
 /// let client = Organizations::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -556,7 +556,7 @@ impl Organizations {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_resourcemanager_v3::client::Projects;
 /// let client = Projects::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -929,7 +929,7 @@ impl Projects {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_resourcemanager_v3::client::TagBindings;
 /// let client = TagBindings::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1090,7 +1090,7 @@ impl TagBindings {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_resourcemanager_v3::client::TagHolds;
 /// let client = TagHolds::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1250,7 +1250,7 @@ impl TagHolds {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_resourcemanager_v3::client::TagKeys;
 /// let client = TagKeys::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1477,7 +1477,7 @@ impl TagKeys {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_resourcemanager_v3::client::TagValues;
 /// let client = TagValues::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

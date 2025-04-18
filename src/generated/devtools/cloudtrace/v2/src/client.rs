@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_trace_v2::client::TraceService;
 /// let client = TraceService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Stackdriver Trace API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

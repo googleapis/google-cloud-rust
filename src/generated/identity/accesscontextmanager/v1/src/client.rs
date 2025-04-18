@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
 /// let client = AccessContextManager::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Access Context Manager API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

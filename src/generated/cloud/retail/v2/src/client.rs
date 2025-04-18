@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::AnalyticsService;
 /// let client = AnalyticsService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI Search for Retail API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -174,7 +174,7 @@ impl AnalyticsService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::CatalogService;
 /// let client = CatalogService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI Search for Retail API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -483,7 +483,7 @@ impl CatalogService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::CompletionService;
 /// let client = CompletionService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI Search for Retail API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -650,7 +650,7 @@ impl CompletionService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::ControlService;
 /// let client = ControlService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI Search for Retail API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -836,7 +836,7 @@ impl ControlService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
 /// let client = GenerativeQuestionService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI Search for Retail API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1018,7 +1018,7 @@ impl GenerativeQuestionService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::ModelService;
 /// let client = ModelService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI Search for Retail API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1238,7 +1238,7 @@ impl ModelService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::PredictionService;
 /// let client = PredictionService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI Search for Retail API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1372,7 +1372,7 @@ impl PredictionService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::ProductService;
 /// let client = ProductService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI Search for Retail API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1918,7 +1918,7 @@ impl ProductService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::SearchService;
 /// let client = SearchService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI Search for Retail API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2055,7 +2055,7 @@ impl SearchService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::ServingConfigService;
 /// let client = ServingConfigService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI Search for Retail API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2263,7 +2263,7 @@ impl ServingConfigService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_retail_v2::client::UserEventService;
 /// let client = UserEventService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI Search for Retail API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

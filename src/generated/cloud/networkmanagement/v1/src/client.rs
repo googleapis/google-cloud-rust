@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
 /// let client = ReachabilityService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Network Management API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -366,7 +366,7 @@ impl ReachabilityService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
 /// let client = VpcFlowLogsService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Network Management API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

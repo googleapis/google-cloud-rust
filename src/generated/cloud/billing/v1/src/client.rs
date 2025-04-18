@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_billing_v1::client::CloudBilling;
 /// let client = CloudBilling::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Billing API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -289,7 +289,7 @@ impl CloudBilling {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_billing_v1::client::CloudCatalog;
 /// let client = CloudCatalog::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Billing API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

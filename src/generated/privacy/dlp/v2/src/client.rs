@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_privacy_dlp_v2::client::DlpService;
 /// let client = DlpService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Sensitive Data Protection (DLP).
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

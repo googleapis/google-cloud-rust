@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
 /// let client = AttachedClusters::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the GKE Multi-Cloud API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -339,7 +339,7 @@ impl AttachedClusters {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
 /// let client = AwsClusters::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the GKE Multi-Cloud API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -764,7 +764,7 @@ impl AwsClusters {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
 /// let client = AzureClusters::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the GKE Multi-Cloud API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
 /// let client = ServiceManager::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Service Management API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

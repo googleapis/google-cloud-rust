@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_translation_v3::client::TranslationService;
 /// let client = TranslationService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Translation API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

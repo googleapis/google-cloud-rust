@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_container_v1::client::ClusterManager;
 /// let client = ClusterManager::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Kubernetes Engine API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_gkehub_v1::client::GkeHub;
 /// let client = GkeHub::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the GKE Hub.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
 /// let client = RecaptchaEnterpriseService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the reCAPTCHA Enterprise API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

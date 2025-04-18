@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_bigquery_v2::client::DatasetService;
 /// let client = DatasetService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the BigQuery API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -211,7 +211,7 @@ impl DatasetService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_bigquery_v2::client::ModelService;
 /// let client = ModelService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the BigQuery API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -364,7 +364,7 @@ impl ModelService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_bigquery_v2::client::ProjectService;
 /// let client = ProjectService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the BigQuery API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -475,7 +475,7 @@ impl ProjectService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_bigquery_v2::client::RoutineService;
 /// let client = RoutineService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the BigQuery API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -639,7 +639,7 @@ impl RoutineService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
 /// let client = RowAccessPolicyService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the BigQuery API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -828,7 +828,7 @@ impl RowAccessPolicyService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_bigquery_v2::client::TableService;
 /// let client = TableService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the BigQuery API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
