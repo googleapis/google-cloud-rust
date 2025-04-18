@@ -41,9 +41,7 @@ macro_rules! config_builder {
             .into_iter()
             .fold(builder, |b, qp| b.with_quota_project_id(qp));
 
-        let builder = $scopes
-            .into_iter()
-            .fold(builder, |b, s| b.with_scopes(s));
+        let builder = $scopes.into_iter().fold(builder, |b, s| b.with_scopes(s));
 
         builder.build()
     }};
@@ -400,7 +398,7 @@ impl Builder {
     /// When a token generated with specific scopes is used, the request must be permitted
     /// by both the the principals's underlying IAM permissions and the scopes requested
     /// for the token.
-    /// 
+    ///
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
     pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
     where
