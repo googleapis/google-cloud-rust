@@ -179,5 +179,6 @@ mod test {
                 "name=test-only",
             )
             .await
+            .map(tonic::Response::into_inner)
     }
 }

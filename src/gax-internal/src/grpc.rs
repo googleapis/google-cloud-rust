@@ -63,7 +63,7 @@ impl Client {
         options: gax::options::RequestOptions,
         api_client_header: &'static str,
         request_params: &'static str,
-    ) -> Result<Response>
+    ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static + Clone,
         Response: prost::Message + Default + 'static,
@@ -94,7 +94,7 @@ impl Client {
         request: Request,
         options: gax::options::RequestOptions,
         headers: HeaderMap,
-    ) -> Result<Response>
+    ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static + Clone,
         Response: prost::Message + Default + 'static,
@@ -136,7 +136,7 @@ impl Client {
         options: &gax::options::RequestOptions,
         remaining_time: Option<std::time::Duration>,
         headers: HeaderMap,
-    ) -> Result<Response>
+    ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static,
         Response: prost::Message + std::default::Default + 'static,
@@ -156,15 +156,13 @@ impl Client {
         {
             request.set_timeout(timeout);
         }
-        let codec = tonic::codec::ProstCodec::default();
+        let codec = tonic::codec::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::rpc)?;
-        let response: tonic::Response<Response> = inner
+        inner
             .unary(request, path, codec)
             .await
-            .map_err(to_gax_error)?;
-        let response = response.into_inner();
-        Ok(response)
+            .map_err(to_gax_error)
     }
 
     async fn make_inner(endpoint: Option<String>, default_endpoint: &str) -> Result<InnerClient> {
