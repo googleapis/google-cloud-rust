@@ -68,13 +68,19 @@ impl Client {
         Request: prost::Message + 'static + Clone,
         Response: prost::Message + Default + 'static,
     {
-        let headers =
-            Self::make_headers(&self.credentials, api_client_header, request_params).await?;
+        let headers = Self::make_headers(api_client_header, request_params).await?;
         match self.get_retry_policy(&options) {
             None => {
                 let mut inner = self.inner.clone();
                 Self::request_attempt::<Request, Response>(
-                    &mut inner, method, path, request, &options, None, headers,
+                    &mut inner,
+                    &self.credentials,
+                    method,
+                    path,
+                    request,
+                    &options,
+                    None,
+                    headers,
                 )
                 .await
             }
@@ -107,6 +113,7 @@ impl Client {
         let inner = async move |remaining_time: Option<Duration>| {
             Self::request_attempt::<Request, Response>(
                 &mut self.inner.clone(),
+                &self.credentials,
                 method.clone(),
                 path.clone(),
                 request.clone(),
@@ -131,6 +138,7 @@ impl Client {
     /// Makes a single request attempt.
     async fn request_attempt<Request, Response>(
         inner: &mut InnerClient,
+        credentials: &Credentials,
         method: tonic::GrpcMethod<'static>,
         path: http::uri::PathAndQuery,
         request: Request,
@@ -142,6 +150,11 @@ impl Client {
         Request: prost::Message + 'static,
         Response: prost::Message + std::default::Default + 'static,
     {
+        let mut headers = headers;
+        let auth_headers = credentials.headers().await.map_err(Error::authentication)?;
+        for (key, value) in auth_headers.into_iter() {
+            headers.append(key, value);
+        }
         let mut extensions = tonic::Extensions::new();
         extensions.insert(method);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
@@ -181,20 +194,19 @@ impl Client {
     }
 
     async fn make_headers(
-        credentials: &Credentials,
         api_client_header: &'static str,
         request_params: &str,
     ) -> Result<http::header::HeaderMap> {
-        let mut headers = credentials.headers().await.map_err(Error::authentication)?;
-        headers.push((
+        let mut headers = HeaderMap::new();
+        headers.append(
             http::header::HeaderName::from_static("x-goog-api-client"),
             http::header::HeaderValue::from_static(api_client_header),
-        ));
-        headers.push((
+        );
+        headers.append(
             http::header::HeaderName::from_static("x-goog-request-params"),
             http::header::HeaderValue::from_str(request_params).map_err(Error::other)?,
-        ));
-        Ok(http::header::HeaderMap::from_iter(headers))
+        );
+        Ok(headers)
     }
 
     fn get_retry_policy(
