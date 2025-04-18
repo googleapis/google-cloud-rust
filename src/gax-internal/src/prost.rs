@@ -176,7 +176,7 @@ mod test {
 
     #[test]
     fn primitive_unit() {
-        assert_eq!((), ().cnv());
+        let _: () = ().cnv();
     }
 
     #[test]
