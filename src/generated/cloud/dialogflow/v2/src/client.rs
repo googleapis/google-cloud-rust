@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::Agents;
 /// let client = Agents::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -378,7 +378,7 @@ impl Agents {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::AnswerRecords;
 /// let client = AnswerRecords::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -549,7 +549,7 @@ impl AnswerRecords {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::Contexts;
 /// let client = Contexts::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -749,7 +749,7 @@ impl Contexts {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::Conversations;
 /// let client = Conversations::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1037,7 +1037,7 @@ impl Conversations {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
 /// let client = ConversationDatasets::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1307,7 +1307,7 @@ impl ConversationDatasets {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::ConversationModels;
 /// let client = ConversationModels::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1648,7 +1648,7 @@ impl ConversationModels {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
 /// let client = ConversationProfiles::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1943,7 +1943,7 @@ impl ConversationProfiles {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::Documents;
 /// let client = Documents::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2295,7 +2295,7 @@ impl Documents {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
 /// let client = EncryptionSpecService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2481,7 +2481,7 @@ impl EncryptionSpecService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::EntityTypes;
 /// let client = EntityTypes::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2850,7 +2850,7 @@ impl EntityTypes {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::Environments;
 /// let client = Environments::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -3063,7 +3063,7 @@ impl Environments {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::Fulfillments;
 /// let client = Fulfillments::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -3229,7 +3229,7 @@ impl Fulfillments {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::Generators;
 /// let client = Generators::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -3423,7 +3423,7 @@ impl Generators {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::Intents;
 /// let client = Intents::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -3690,7 +3690,7 @@ impl Intents {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
 /// let client = KnowledgeBases::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -3888,7 +3888,7 @@ impl KnowledgeBases {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::Participants;
 /// let client = Participants::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -4125,7 +4125,7 @@ impl Participants {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::Sessions;
 /// let client = Sessions::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -4299,7 +4299,7 @@ impl Sessions {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
 /// let client = SessionEntityTypes::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -4524,7 +4524,7 @@ impl SessionEntityTypes {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_dialogflow_v2::client::Versions;
 /// let client = Versions::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Dialogflow API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

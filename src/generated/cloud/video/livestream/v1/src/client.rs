@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_video_livestream_v1::client::LivestreamService;
 /// let client = LivestreamService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Live Stream API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

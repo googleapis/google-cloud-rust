@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
 /// let client = OracleDatabase::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Oracle Database@Google Cloud API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

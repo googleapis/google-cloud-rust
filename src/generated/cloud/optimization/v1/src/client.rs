@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_optimization_v1::client::FleetRouting;
 /// let client = FleetRouting::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Optimization API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_iam_admin_v1::client::Iam;
 /// let client = Iam::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Identity and Access Management (IAM) API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

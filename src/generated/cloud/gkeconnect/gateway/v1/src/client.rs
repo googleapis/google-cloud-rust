@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_gkeconnect_gateway_v1::client::GatewayControl;
 /// let client = GatewayControl::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Connect Gateway API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_apikeys_v2::client::ApiKeys;
 /// let client = ApiKeys::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the API Keys API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

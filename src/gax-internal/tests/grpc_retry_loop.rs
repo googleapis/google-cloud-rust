@@ -120,15 +120,26 @@ mod test {
     }
 
     pub async fn send_request(client: grpc::Client, msg: &str) -> gax::Result<EchoResponse> {
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Echo",
+            ));
+            e
+        };
         let request = google::test::v1::EchoRequest {
             message: msg.into(),
             ..google::test::v1::EchoRequest::default()
         };
-        let mut request_options = RequestOptions::default();
-        request_options.set_idempotency(true);
+        let request_options = {
+            let mut o = RequestOptions::default();
+            o.set_idempotency(true);
+            o
+        };
         client
             .execute(
-                tonic::GrpcMethod::new("google.test.v1.EchoServices", "Echo"),
+                extensions,
                 http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
                 request,
                 request_options,
@@ -136,5 +147,6 @@ mod test {
                 "name=test-only",
             )
             .await
+            .map(tonic::Response::into_inner)
     }
 }

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
 /// let client = BinauthzManagementServiceV1::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Binary Authorization API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -233,7 +233,7 @@ impl BinauthzManagementServiceV1 {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
 /// let client = SystemPolicyV1::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Binary Authorization API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -345,7 +345,7 @@ impl SystemPolicyV1 {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
 /// let client = ValidationHelperV1::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Binary Authorization API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

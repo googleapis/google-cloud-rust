@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_kms_inventory_v1::client::KeyDashboardService;
 /// let client = KeyDashboardService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the KMS Inventory API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -140,7 +140,7 @@ impl KeyDashboardService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
 /// let client = KeyTrackingService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the KMS Inventory API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

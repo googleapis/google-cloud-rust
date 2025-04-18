@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_vision_v1::client::ImageAnnotator;
 /// let client = ImageAnnotator::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Vision API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -202,7 +202,7 @@ impl ImageAnnotator {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_vision_v1::client::ProductSearch;
 /// let client = ProductSearch::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Vision API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_appengine_v1::client::Applications;
 /// let client = Applications::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the App Engine Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -228,7 +228,7 @@ impl Applications {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_appengine_v1::client::Services;
 /// let client = Services::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the App Engine Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -401,7 +401,7 @@ impl Services {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_appengine_v1::client::Versions;
 /// let client = Versions::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the App Engine Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -629,7 +629,7 @@ impl Versions {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_appengine_v1::client::Instances;
 /// let client = Instances::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the App Engine Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -823,7 +823,7 @@ impl Instances {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_appengine_v1::client::Firewall;
 /// let client = Firewall::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the App Engine Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1008,7 +1008,7 @@ impl Firewall {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_appengine_v1::client::AuthorizedDomains;
 /// let client = AuthorizedDomains::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the App Engine Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1144,7 +1144,7 @@ impl AuthorizedDomains {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
 /// let client = AuthorizedCertificates::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the App Engine Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1325,7 +1325,7 @@ impl AuthorizedCertificates {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_appengine_v1::client::DomainMappings;
 /// let client = DomainMappings::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the App Engine Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_profiler_v2::client::ProfilerService;
 /// let client = ProfilerService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Profiler API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -192,7 +192,7 @@ impl ProfilerService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_profiler_v2::client::ExportService;
 /// let client = ExportService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Profiler API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

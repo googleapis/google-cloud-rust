@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_netapp_v1::client::NetApp;
 /// let client = NetApp::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the NetApp API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

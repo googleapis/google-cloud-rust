@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
 /// let client = MigrationService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the BigQuery Migration API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

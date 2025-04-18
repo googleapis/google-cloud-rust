@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_api_serviceusage_v1::client::ServiceUsage;
 /// let client = ServiceUsage::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Service Usage API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

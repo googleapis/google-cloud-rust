@@ -440,6 +440,11 @@ func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, m
 		slog.Error("unsupported http method", "method", m)
 		return nil
 	}
+	routing, err := parseRoutingAnnotations(mFQN, m)
+	if err != nil {
+		slog.Error("cannot parse routing annotations", "method", m, "err", err)
+		return nil
+	}
 	outputTypeID := m.GetOutputType()
 	method := &api.Method{
 		ID:                  mFQN,
@@ -450,6 +455,7 @@ func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, m
 		ClientSideStreaming: m.GetClientStreaming(),
 		ServerSideStreaming: m.GetServerStreaming(),
 		OperationInfo:       parseOperationInfo(packagez, m),
+		Routing:             routing,
 		ReturnsEmpty:        outputTypeID == ".google.protobuf.Empty",
 	}
 	state.MethodByID[mFQN] = method

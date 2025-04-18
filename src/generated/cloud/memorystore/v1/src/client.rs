@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_memorystore_v1::client::Memorystore;
 /// let client = Memorystore::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Memorystore API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

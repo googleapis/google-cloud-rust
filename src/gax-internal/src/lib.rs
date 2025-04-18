@@ -51,3 +51,7 @@ pub mod prost;
 #[cfg(feature = "_internal_common")]
 #[doc(hidden)]
 pub mod options;
+
+#[cfg(feature = "_internal_common")]
+#[doc(hidden)]
+pub mod routing_parameter;

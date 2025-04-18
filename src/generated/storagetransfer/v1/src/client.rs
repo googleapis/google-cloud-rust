@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
 /// let client = StorageTransferService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Storage Transfer API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

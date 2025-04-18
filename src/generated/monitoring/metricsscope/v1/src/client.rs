@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
 /// let client = MetricsScopes::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

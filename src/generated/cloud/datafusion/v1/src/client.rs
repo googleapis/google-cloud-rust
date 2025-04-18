@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_datafusion_v1::client::DataFusion;
 /// let client = DataFusion::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Data Fusion API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

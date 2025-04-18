@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_datacatalog_v1::client::DataCatalog;
 /// let client = DataCatalog::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Google Cloud Data Catalog API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -751,7 +751,7 @@ impl DataCatalog {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
 /// let client = PolicyTagManager::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Google Cloud Data Catalog API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1033,7 +1033,7 @@ impl PolicyTagManager {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
 /// let client = PolicyTagManagerSerialization::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Google Cloud Data Catalog API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

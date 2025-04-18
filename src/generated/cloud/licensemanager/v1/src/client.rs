@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_licensemanager_v1::client::LicenseManager;
 /// let client = LicenseManager::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the License Manager API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

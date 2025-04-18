@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_language_v2::client::LanguageService;
 /// let client = LanguageService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Natural Language API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

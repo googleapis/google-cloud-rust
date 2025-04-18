@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_run_v2::client::Builds;
 /// let client = Builds::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -175,7 +175,7 @@ impl Builds {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_run_v2::client::Executions;
 /// let client = Executions::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -370,7 +370,7 @@ impl Executions {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_run_v2::client::Jobs;
 /// let client = Jobs::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -617,7 +617,7 @@ impl Jobs {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_run_v2::client::Revisions;
 /// let client = Revisions::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -793,7 +793,7 @@ impl Revisions {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_run_v2::client::Services;
 /// let client = Services::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1037,7 +1037,7 @@ impl Services {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_run_v2::client::Tasks;
 /// let client = Tasks::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

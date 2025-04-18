@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_apphub_v1::client::AppHub;
 /// let client = AppHub::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the App Hub API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
