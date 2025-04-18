@@ -61,9 +61,6 @@ func parseRoutingInfo(methodID string, routing *annotations.RoutingParameter) (*
 func parseRoutingPathTemplate(fieldName, pathTemplate string) (*api.RoutingInfo, error) {
 	fieldPath := strings.Split(fieldName, ".")
 	if pathTemplate == "" {
-		if len(fieldPath) != 1 {
-			return nil, fmt.Errorf("fieldName (%q) cannot have '.' when path_template is empty", fieldName)
-		}
 		info := &api.RoutingInfo{
 			FieldPath: fieldPath,
 			Name:      fieldName,
@@ -73,6 +70,10 @@ func parseRoutingPathTemplate(fieldName, pathTemplate string) (*api.RoutingInfo,
 		}
 		return info, nil
 	}
+	if strings.Count(pathTemplate, api.RoutingSegmentMulti) > 1 {
+		return nil, fmt.Errorf("too many `**` matchers in pathTemplate=%q", pathTemplate)
+	}
+
 	pos := 0
 	prefix, width := parseRoutingPrefix(pathTemplate[pos:])
 	pos += width

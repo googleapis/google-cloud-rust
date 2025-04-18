@@ -250,6 +250,15 @@ func TestParsePathTemplateSuccess(t *testing.T) {
 			},
 		},
 		{
+			"field.child",
+			"",
+			api.RoutingInfo{
+				FieldPath: []string{"field", "child"},
+				Name:      "field.child",
+				Matching:  api.RoutingPathSpec{Segments: []string{"**"}},
+			},
+		},
+		{
 			"default",
 			"{**}",
 			api.RoutingInfo{
@@ -288,22 +297,22 @@ func TestParsePathTemplateSuccess(t *testing.T) {
 		},
 		{
 			"default",
-			"p/*/q/*/{routing=a/*/b/**}/s/*/u/*/v/**",
+			"p/*/q/*/{routing=a/*/b/*}/s/*/u/*/v/**",
 			api.RoutingInfo{
 				FieldPath: []string{"default"},
 				Name:      "routing",
-				Matching:  api.RoutingPathSpec{Segments: []string{"a", "*", "b", "**"}},
+				Matching:  api.RoutingPathSpec{Segments: []string{"a", "*", "b", "*"}},
 				Prefix:    api.RoutingPathSpec{Segments: []string{"p", "*", "q", "*"}},
 				Suffix:    api.RoutingPathSpec{Segments: []string{"s", "*", "u", "*", "v", "**"}},
 			},
 		},
 		{
 			"field.sub_field.child",
-			"p/*/q/*/{routing=a/*/b/**}/s/*/u/*/v/**",
+			"p/*/q/*/{routing=a/*/b/*}/s/*/u/*/v/**",
 			api.RoutingInfo{
 				FieldPath: []string{"field", "sub_field", "child"},
 				Name:      "routing",
-				Matching:  api.RoutingPathSpec{Segments: []string{"a", "*", "b", "**"}},
+				Matching:  api.RoutingPathSpec{Segments: []string{"a", "*", "b", "*"}},
 				Prefix:    api.RoutingPathSpec{Segments: []string{"p", "*", "q", "*"}},
 				Suffix:    api.RoutingPathSpec{Segments: []string{"s", "*", "u", "*", "v", "**"}},
 			},
@@ -326,6 +335,7 @@ func TestParsePathTemplateSuccess(t *testing.T) {
 func TestParsePathTemplateFailures(t *testing.T) {
 	tests := []string{
 		"projects/*",
+		"projects/*/{routing_id=**}/**",
 		"projects/*}",
 		"projects/*/}",
 		"projects/*/{",
@@ -341,13 +351,6 @@ func TestParsePathTemplateFailures(t *testing.T) {
 				t.Errorf("expected error for %q, got=%v", path, got)
 			}
 		})
-	}
-}
-
-func TestParsePathTemplateBadFieldPath(t *testing.T) {
-	got, err := parseRoutingPathTemplate("field.child", "")
-	if err == nil {
-		t.Errorf("expected error got=%v", got)
 	}
 }
 
