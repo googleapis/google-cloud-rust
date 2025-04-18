@@ -1711,6 +1711,52 @@ pub mod echo {
         }
     }
 
+    /// The request builder for [Echo::fail_echo_with_details][super::super::client::Echo::fail_echo_with_details] calls.
+    #[derive(Clone, Debug)]
+    pub struct FailEchoWithDetails(RequestBuilder<crate::model::FailEchoWithDetailsRequest>);
+
+    impl FailEchoWithDetails {
+        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Echo>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FailEchoWithDetailsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FailEchoWithDetailsResponse> {
+            (*self.0.stub)
+                .fail_echo_with_details(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [message][crate::model::FailEchoWithDetailsRequest::message].
+        pub fn set_message<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.message = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FailEchoWithDetails {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [Echo::paged_expand][super::super::client::Echo::paged_expand] calls.
     #[derive(Clone, Debug)]
     pub struct PagedExpand(RequestBuilder<crate::model::PagedExpandRequest>);

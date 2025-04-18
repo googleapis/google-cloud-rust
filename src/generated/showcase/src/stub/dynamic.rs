@@ -324,6 +324,12 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::EchoErrorDetailsResponse>>;
 
+    async fn fail_echo_with_details(
+        &self,
+        req: crate::model::FailEchoWithDetailsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::FailEchoWithDetailsResponse>>;
+
     async fn paged_expand(
         &self,
         req: crate::model::PagedExpandRequest,
@@ -438,6 +444,15 @@ impl<T: super::Echo> Echo for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::EchoErrorDetailsResponse>> {
         T::echo_error_details(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn fail_echo_with_details(
+        &self,
+        req: crate::model::FailEchoWithDetailsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::FailEchoWithDetailsResponse>> {
+        T::fail_echo_with_details(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

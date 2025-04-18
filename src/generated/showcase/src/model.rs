@@ -807,7 +807,7 @@ impl wkt::message::Message for ComplianceDataGrandchild {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct EnumRequest {
-    /// Whether the client is requesting a new, unknown enum value or a known enum value already declard in this proto file.
+    /// Whether the client is requesting a new, unknown enum value or a known enum value already declared in this proto file.
     pub unknown_enum: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1344,6 +1344,95 @@ impl ErrorWithMultipleDetails {
 impl wkt::message::Message for ErrorWithMultipleDetails {
     fn typename() -> &'static str {
         "type.googleapis.com/google.showcase.v1beta1.ErrorWithMultipleDetails"
+    }
+}
+
+/// The custom error detail to be included in the error response from the
+/// FailEchoWithDetails method. Client libraries should be able to
+/// surface this custom error detail.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PoetryError {
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub poem: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PoetryError {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [poem][crate::model::PoetryError::poem].
+    pub fn set_poem<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.poem = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PoetryError {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.showcase.v1beta1.PoetryError"
+    }
+}
+
+/// The request message used for the FailEchoWithDetails method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FailEchoWithDetailsRequest {
+    /// Optional message to echo back in the PoetryError. If empty, a value will be
+    /// provided.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FailEchoWithDetailsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [message][crate::model::FailEchoWithDetailsRequest::message].
+    pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.message = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FailEchoWithDetailsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.showcase.v1beta1.FailEchoWithDetailsRequest"
+    }
+}
+
+/// The response message declared (but never used) for the FailEchoWithDetails
+/// method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FailEchoWithDetailsResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FailEchoWithDetailsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for FailEchoWithDetailsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.showcase.v1beta1.FailEchoWithDetailsResponse"
     }
 }
 
@@ -3102,7 +3191,7 @@ pub struct UpdateBlurbRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub blurb: std::option::Option<crate::model::Blurb>,
 
-    /// The field mask to determine wich fields are to be updated. If empty, the
+    /// The field mask to determine which fields are to be updated. If empty, the
     /// server will assume all fields are to be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -3181,7 +3270,7 @@ impl wkt::message::Message for DeleteBlurbRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListBlurbsRequest {
-    /// The resource name of the requested room or profile whos blurbs to list.
+    /// The resource name of the requested room or profile who blurbs to list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
@@ -3789,6 +3878,113 @@ pub mod connect_request {
         Config(std::boxed::Box<crate::model::connect_request::ConnectConfig>),
         /// The blurb to be created.
         Blurb(std::boxed::Box<crate::model::Blurb>),
+    }
+}
+
+/// HTTP/JSON error representation as defined in
+/// <https://google.aip.dev/193#http11json-representation>,
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct RestError {
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub error: std::option::Option<crate::model::rest_error::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestError {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [error][crate::model::RestError::error].
+    pub fn set_error<
+        T: std::convert::Into<std::option::Option<crate::model::rest_error::Status>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.error = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RestError {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.showcase.v1beta1.RestError"
+    }
+}
+
+/// Defines additional types related to [RestError].
+pub mod rest_error {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Status {
+        /// The HTTP status code that corresponds to `google.rpc.Status.code`.
+        pub code: i32,
+
+        /// This corresponds to `google.rpc.Status.message`.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub message: std::string::String,
+
+        /// This is the enum version for `google.rpc.Status.code`.
+        pub status: rpc::model::Code,
+
+        /// This corresponds to `google.rpc.Status.details`.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub details: std::vec::Vec<wkt::Any>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Status {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [code][crate::model::rest_error::Status::code].
+        pub fn set_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.code = v.into();
+            self
+        }
+
+        /// Sets the value of [message][crate::model::rest_error::Status::message].
+        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.message = v.into();
+            self
+        }
+
+        /// Sets the value of [status][crate::model::rest_error::Status::status].
+        pub fn set_status<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
+            self.status = v.into();
+            self
+        }
+
+        /// Sets the value of [details][crate::model::rest_error::Status::details].
+        pub fn set_details<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<wkt::Any>,
+        {
+            use std::iter::Iterator;
+            self.details = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Status {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.showcase.v1beta1.RestError.Status"
+        }
     }
 }
 

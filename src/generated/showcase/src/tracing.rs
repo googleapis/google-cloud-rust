@@ -252,6 +252,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn fail_echo_with_details(
+        &self,
+        req: crate::model::FailEchoWithDetailsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FailEchoWithDetailsResponse>> {
+        self.inner.fail_echo_with_details(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn paged_expand(
         &self,
         req: crate::model::PagedExpandRequest,

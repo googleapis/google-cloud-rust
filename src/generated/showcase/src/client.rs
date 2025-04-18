@@ -180,7 +180,7 @@ impl Compliance {
     }
 
     /// This method requests an enum value from the server. Depending on the contents of EnumRequest, the enum value returned will be a known enum declared in the
-    /// .proto file, or a made-up enum value the is unknown to the client. To verify that clients can round-trip unknown enum vaues they receive, use the
+    /// .proto file, or a made-up enum value the is unknown to the client. To verify that clients can round-trip unknown enum values they receive, use the
     /// response from this RPC as the request to VerifyEnum()
     ///
     /// The values of enums sent by the server when a known or unknown value is requested will be the same within a single Showcase server run (this is needed for
@@ -407,6 +407,17 @@ impl Echo {
     /// google/rpc/error_details.proto.
     pub fn echo_error_details(&self) -> super::builder::echo::EchoErrorDetails {
         super::builder::echo::EchoErrorDetails::new(self.inner.clone())
+    }
+
+    /// This method always fails with a gRPC "Aborted" error status that contains
+    /// multiple error details.  These include one instance of each of the standard
+    /// ones in error_details.proto
+    /// (<https://github.com/googleapis/googleapis/blob/master/google/rpc/error_details.proto>)
+    /// plus a custom, Showcase-defined PoetryError. The intent of this RPC is to
+    /// verify that GAPICs can process these various error details and surface them
+    /// to the user in an idiomatic form.
+    pub fn fail_echo_with_details(&self) -> super::builder::echo::FailEchoWithDetails {
+        super::builder::echo::FailEchoWithDetails::new(self.inner.clone())
     }
 
     /// This is similar to the Expand method but instead of returning a stream of

@@ -710,6 +710,26 @@ impl super::stub::Echo for Echo {
         self.inner.execute(builder, Some(req), options).await
     }
 
+    async fn fail_echo_with_details(
+        &self,
+        req: crate::model::FailEchoWithDetailsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FailEchoWithDetailsResponse>> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                "/v1beta1/echo:failWithDetails".to_string(),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
+
     async fn paged_expand(
         &self,
         req: crate::model::PagedExpandRequest,

@@ -194,11 +194,6 @@ intital = "intital"
 orginates = "orginates"
 # src/generated/type say "Requestor", `typos` recommends `Requester`.
 requestor = "requestor"
-# src/generated/showcase has typos, they need to be fixed upstream.
-declard = "declard"
-vaues   = "vaues"
-whos    = "whos"
-wich    = "wich"
 # src/generated/storagetransfer has typos, they need to be fixed upstream.
 ovewritten   = "ovewritten"
 combintation = "combintation"

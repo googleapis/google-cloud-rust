@@ -323,6 +323,19 @@ pub trait Echo: std::fmt::Debug + Send + Sync {
         >(Err(Error::other("unimplemented")))
     }
 
+    /// Implements [super::client::Echo::fail_echo_with_details].
+    fn fail_echo_with_details(
+        &self,
+        _req: crate::model::FailEchoWithDetailsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FailEchoWithDetailsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::FailEchoWithDetailsResponse>>,
+        >(Err(Error::other("unimplemented")))
+    }
+
     /// Implements [super::client::Echo::paged_expand].
     fn paged_expand(
         &self,
