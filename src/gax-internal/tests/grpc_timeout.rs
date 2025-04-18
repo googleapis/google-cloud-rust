@@ -223,14 +223,24 @@ mod test {
         msg: &str,
         delay: Option<Duration>,
     ) -> gax::Result<google::test::v1::EchoResponse> {
-        let delay_ms = delay.map(|d| u64::try_from(d.as_millis()).unwrap());
-        let request = google::test::v1::EchoRequest {
-            message: msg.into(),
-            delay_ms,
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Echo",
+            ));
+            e
+        };
+        let request = {
+            let delay_ms = delay.map(|d| u64::try_from(d.as_millis()).unwrap());
+            google::test::v1::EchoRequest {
+                message: msg.into(),
+                delay_ms,
+            }
         };
         client
             .execute(
-                tonic::GrpcMethod::new("google.test.v1.EchoServices", "Echo"),
+                extensions,
                 http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
                 request,
                 request_options,

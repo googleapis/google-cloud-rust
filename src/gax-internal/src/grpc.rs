@@ -57,7 +57,7 @@ impl Client {
     /// Sends a request.
     pub async fn execute<Request, Response>(
         &self,
-        method: tonic::GrpcMethod<'static>,
+        extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
         request: Request,
         options: gax::options::RequestOptions,
@@ -75,7 +75,7 @@ impl Client {
                 Self::request_attempt::<Request, Response>(
                     &mut inner,
                     &self.credentials,
-                    method,
+                    extensions,
                     path,
                     request,
                     &options,
@@ -86,7 +86,7 @@ impl Client {
             }
             Some(policy) => {
                 self.retry_loop::<Request, Response>(
-                    policy, method, path, request, options, headers,
+                    policy, extensions, path, request, options, headers,
                 )
                 .await
             }
@@ -97,7 +97,7 @@ impl Client {
     async fn retry_loop<Request, Response>(
         &self,
         retry_policy: Arc<dyn RetryPolicy>,
-        method: tonic::GrpcMethod<'static>,
+        extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
         request: Request,
         options: gax::options::RequestOptions,
@@ -114,7 +114,7 @@ impl Client {
             Self::request_attempt::<Request, Response>(
                 &mut self.inner.clone(),
                 &self.credentials,
-                method.clone(),
+                extensions.clone(),
                 path.clone(),
                 request.clone(),
                 &options,
@@ -140,7 +140,7 @@ impl Client {
     async fn request_attempt<Request, Response>(
         inner: &mut InnerClient,
         credentials: &Credentials,
-        method: tonic::GrpcMethod<'static>,
+        extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
         request: Request,
         options: &gax::options::RequestOptions,
@@ -156,8 +156,6 @@ impl Client {
         for (key, value) in auth_headers.into_iter() {
             headers.append(key, value);
         }
-        let mut extensions = tonic::Extensions::new();
-        extensions.insert(method);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
         let mut request = tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) = gax::retry_loop_internal::effective_timeout(options, remaining_time)
