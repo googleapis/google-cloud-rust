@@ -74,7 +74,7 @@
 mod jws;
 
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{AccessTokenCredentialBuilder, Credentials, Result};
+use crate::credentials::{Credentials, Result};
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::build_bearer_headers;
 use crate::token::{Token, TokenProvider};
@@ -135,24 +135,6 @@ pub struct Builder {
     service_account_key: Value,
     restrictions: ServiceAccountRestrictions,
     quota_project_id: Option<String>,
-}
-
-impl AccessTokenCredentialBuilder for Builder {
-    fn with_quota_project_id<S: Into<String>>(self, quota_project_id: S) -> Self {
-        self.with_quota_project_id(quota_project_id)
-    }
-
-    fn with_scopes<I, S>(self, scopes: I) -> Self
-    where
-        I: IntoIterator<Item = S>,
-        S: Into<String>,
-    {
-        self.with_scopes(scopes)
-    }
-
-    fn build(self) -> Result<Credentials> {
-        self.build()
-    }
 }
 
 impl Builder {
@@ -790,42 +772,6 @@ mod test {
             .build()?
             .token()
             .await?;
-
-        let re = regex::Regex::new(SSJ_REGEX).unwrap();
-        let captures = re.captures(&token.token).ok_or_else(|| {
-            format!(
-                r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
-                token.token
-            )
-        })?;
-        let header = b64_decode_to_json(captures["header"].to_string());
-        assert_eq!(header["alg"], "RS256");
-        assert_eq!(header["typ"], "JWT");
-        assert_eq!(header["kid"], service_account_key["private_key_id"]);
-
-        let claims = b64_decode_to_json(captures["claims"].to_string());
-        assert_eq!(claims["iss"], service_account_key["client_email"]);
-        assert_eq!(claims["scope"], scopes.join(" "));
-        assert_eq!(claims["aud"], Value::Null);
-        assert!(claims["iat"].is_number());
-        assert!(claims["exp"].is_number());
-        assert_eq!(claims["sub"], service_account_key["client_email"]);
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn get_access_token_credential_with_custom_scopes() -> TestResult {
-        let mut service_account_key = get_mock_service_key();
-        let scopes = vec![
-            "https://www.googleapis.com/auth/pubsub, https://www.googleapis.com/auth/translate",
-        ];
-        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
-        let builder = Builder::new(service_account_key.clone());
-        let token = AccessTokenCredentialBuilder::build(
-            AccessTokenCredentialBuilder::with_scopes(builder, scopes.clone()),
-        )?
-        .token()
-        .await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let captures = re.captures(&token.token).ok_or_else(|| {

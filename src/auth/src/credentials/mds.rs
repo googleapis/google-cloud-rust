@@ -53,9 +53,7 @@
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{
-    AccessTokenCredentialBuilder, Credentials, DEFAULT_UNIVERSE_DOMAIN, Result,
-};
+use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
 use crate::headers_util::build_bearer_headers;
 use crate::token::{Token, TokenProvider};
@@ -98,24 +96,6 @@ pub struct Builder {
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
     universe_domain: Option<String>,
-}
-
-impl AccessTokenCredentialBuilder for Builder {
-    fn with_quota_project_id<S: Into<String>>(self, quota_project_id: S) -> Self {
-        self.with_quota_project_id(quota_project_id)
-    }
-
-    fn with_scopes<I, S>(self, scopes: I) -> Self
-    where
-        I: IntoIterator<Item = S>,
-        S: Into<String>,
-    {
-        self.with_scopes(scopes)
-    }
-
-    fn build(self) -> Result<Credentials> {
-        self.build()
-    }
 }
 
 impl Builder {
@@ -849,44 +829,6 @@ mod test {
             .await
             .unwrap();
         assert_eq!(universe_domain_response, universe_domain);
-
-        Ok(())
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn access_token_credentials_with_scopes() -> TestResult {
-        let scopes = vec!["scope1".to_string()];
-        let response = MDSTokenResponse {
-            access_token: "test-access-token".to_string(),
-            expires_in: None,
-            token_type: "test-token-type".to_string(),
-        };
-        let response_body = serde_json::to_value(&response).unwrap();
-        let (endpoint, _server) = start(Handlers::from([(
-            MDS_TOKEN_URI.to_string(),
-            (
-                StatusCode::OK,
-                response_body,
-                TokenQueryParams {
-                    scopes: Some(scopes.join(",")),
-                    recursive: None,
-                },
-                Arc::new(Mutex::new(0)),
-            ),
-        )]))
-        .await;
-        println!("endpoint = {endpoint}");
-
-        let builder = Builder::default().with_endpoint(endpoint);
-
-        let mdsc = AccessTokenCredentialBuilder::build(AccessTokenCredentialBuilder::with_scopes(
-            builder, scopes,
-        ))?;
-
-        let token = mdsc.token().await?;
-        assert_eq!(token.token, "test-access-token");
-        assert_eq!(token.token_type, "test-token-type");
-        assert_eq!(token.expires_at, None);
 
         Ok(())
     }

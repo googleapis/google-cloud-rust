@@ -86,7 +86,7 @@ mod test {
 
         let err = create_access_token_credentials().await.err().unwrap();
         let msg = err.source().unwrap().to_string();
-        assert!(msg.contains("Unimplemented"));
+        assert!(msg.contains("Invalid or unsupported"));
         assert!(msg.contains("some_unknown_credential_type"));
     }
 
