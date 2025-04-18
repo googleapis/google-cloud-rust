@@ -224,10 +224,10 @@ enum CredentialsSource {
 /// A builder for constructing [`Credentials`] instances.
 ///
 /// By default (using [`Builder::default`]), the builder is configured to load
-/// credentials according to the standard [Application Default Credentials (ADC)]
-/// [adc-link] strategy. ADC is the recommended approach for most applications and
-/// conforms to [AIP-4110]. If you need to load credentials from a non-standard location
-/// or source, you can provide specific credential JSON directly using [`Builder::new`].
+/// credentials according to the standard [Application Default Credentials (ADC)][ADC-link]
+/// strategy. ADC is the recommended approach for most applications and conforms to
+/// [AIP-4110]. If you need to load credentials from a non-standard location or source,
+/// you can provide specific credential JSON directly using [`Builder::new`].
 ///
 /// Common use cases where using ADC would is useful include:
 /// - Your application is deployed to a Google Cloud environment such as
