@@ -102,17 +102,24 @@ mod test {
         client: grpc::Client,
         msg: &str,
     ) -> gax::Result<google::test::v1::EchoResponse> {
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Echo",
+            ));
+            e
+        };
         let request = google::test::v1::EchoRequest {
             message: msg.into(),
             ..google::test::v1::EchoRequest::default()
         };
-        let request_options = RequestOptions::default();
         client
             .execute(
-                tonic::GrpcMethod::new("google.test.v1.EchoServices", "Echo"),
+                extensions,
                 http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
                 request,
-                request_options,
+                RequestOptions::default(),
                 "test-only-api-client/1.0",
                 "name=test-only",
             )
