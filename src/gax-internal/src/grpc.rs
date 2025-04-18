@@ -175,10 +175,12 @@ impl Client {
     }
 
     async fn make_inner(endpoint: Option<String>, default_endpoint: &str) -> Result<InnerClient> {
-        let endpoint = tonic::transport::Endpoint::from_shared(
-            endpoint.unwrap_or_else(|| default_endpoint.to_string()),
-        )
-        .map_err(Error::other)?;
+        use tonic::transport::{ClientTlsConfig, Endpoint};
+        let endpoint =
+            Endpoint::from_shared(endpoint.unwrap_or_else(|| default_endpoint.to_string()))
+                .map_err(Error::other)?
+                .tls_config(ClientTlsConfig::new().with_enabled_roots())
+                .map_err(Error::other)?;
         let conn = endpoint.connect().await.map_err(Error::io)?;
         Ok(tonic::client::Grpc::new(conn))
     }
