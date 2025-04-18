@@ -71,16 +71,8 @@ impl Client {
         let headers = Self::make_headers(api_client_header, request_params).await?;
         match self.get_retry_policy(&options) {
             None => {
-                let mut inner = self.inner.clone();
-                Self::request_attempt::<Request, Response>(
-                    &mut inner,
-                    &self.credentials,
-                    extensions,
-                    path,
-                    request,
-                    &options,
-                    None,
-                    headers,
+                self.request_attempt::<Request, Response>(
+                    extensions, path, request, &options, None, headers,
                 )
                 .await
             }
@@ -110,18 +102,18 @@ impl Client {
         let idempotent = options.idempotent().unwrap_or(false);
         let retry_throttler = self.get_retry_throttler(&options);
         let backoff_policy = self.get_backoff_policy(&options);
+        let this = self.clone();
         let inner = async move |remaining_time: Option<Duration>| {
-            Self::request_attempt::<Request, Response>(
-                &mut self.inner.clone(),
-                &self.credentials,
-                extensions.clone(),
-                path.clone(),
-                request.clone(),
-                &options,
-                remaining_time,
-                headers.clone(),
-            )
-            .await
+            this.clone()
+                .request_attempt::<Request, Response>(
+                    extensions.clone(),
+                    path.clone(),
+                    request.clone(),
+                    &options,
+                    remaining_time,
+                    headers.clone(),
+                )
+                .await
         };
         let sleep = async |d| tokio::time::sleep(d).await;
         gax::retry_loop_internal::retry_loop(
@@ -136,10 +128,8 @@ impl Client {
     }
 
     /// Makes a single request attempt.
-    #[allow(clippy::too_many_arguments)]
     async fn request_attempt<Request, Response>(
-        inner: &mut InnerClient,
-        credentials: &Credentials,
+        &self,
         extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
         request: Request,
@@ -152,7 +142,11 @@ impl Client {
         Response: prost::Message + std::default::Default + 'static,
     {
         let mut headers = headers;
-        let auth_headers = credentials.headers().await.map_err(Error::authentication)?;
+        let auth_headers = self
+            .credentials
+            .headers()
+            .await
+            .map_err(Error::authentication)?;
         for (key, value) in auth_headers.into_iter() {
             headers.append(key, value);
         }
@@ -163,6 +157,7 @@ impl Client {
             request.set_timeout(timeout);
         }
         let codec = tonic::codec::ProstCodec::default();
+        let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::rpc)?;
         let response: tonic::Response<Response> = inner
             .unary(request, path, codec)
