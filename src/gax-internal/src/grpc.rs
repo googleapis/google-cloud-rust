@@ -23,6 +23,7 @@ use from_status::to_gax_error;
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::SharedRetryThrottler;
+use http::HeaderMap;
 use std::sync::Arc;
 use std::time::Duration;
 
@@ -67,6 +68,7 @@ impl Client {
         Request: prost::Message + 'static + Clone,
         Response: prost::Message + Default + 'static,
     {
+        let headers = Self::make_headers(api_client_header, request_params).await?;
         match self.get_retry_policy(&options) {
             None => {
                 let mut inner = self.inner.clone();
@@ -78,20 +80,13 @@ impl Client {
                     request,
                     &options,
                     None,
-                    api_client_header,
-                    request_params,
+                    headers,
                 )
                 .await
             }
             Some(policy) => {
                 self.retry_loop::<Request, Response>(
-                    policy,
-                    method,
-                    path,
-                    request,
-                    options,
-                    api_client_header,
-                    request_params,
+                    policy, method, path, request, options, headers,
                 )
                 .await
             }
@@ -99,16 +94,14 @@ impl Client {
     }
 
     /// Runs the retry loop.
-    #[allow(clippy::too_many_arguments)]
-    pub async fn retry_loop<Request, Response>(
+    async fn retry_loop<Request, Response>(
         &self,
         retry_policy: Arc<dyn RetryPolicy>,
         method: tonic::GrpcMethod<'static>,
         path: http::uri::PathAndQuery,
         request: Request,
         options: gax::options::RequestOptions,
-        api_client_header: &'static str,
-        request_params: &'static str,
+        headers: HeaderMap,
     ) -> Result<Response>
     where
         Request: prost::Message + 'static + Clone,
@@ -117,18 +110,16 @@ impl Client {
         let idempotent = options.idempotent().unwrap_or(false);
         let retry_throttler = self.get_retry_throttler(&options);
         let backoff_policy = self.get_backoff_policy(&options);
-        let credentials = self.credentials.clone();
         let inner = async move |remaining_time: Option<Duration>| {
             Self::request_attempt::<Request, Response>(
                 &mut self.inner.clone(),
-                &credentials,
+                &self.credentials,
                 method.clone(),
                 path.clone(),
                 request.clone(),
                 &options,
                 remaining_time,
-                api_client_header,
-                request_params,
+                headers.clone(),
             )
             .await
         };
@@ -146,7 +137,7 @@ impl Client {
 
     /// Makes a single request attempt.
     #[allow(clippy::too_many_arguments)]
-    pub async fn request_attempt<Request, Response>(
+    async fn request_attempt<Request, Response>(
         inner: &mut InnerClient,
         credentials: &Credentials,
         method: tonic::GrpcMethod<'static>,
@@ -154,15 +145,17 @@ impl Client {
         request: Request,
         options: &gax::options::RequestOptions,
         remaining_time: Option<std::time::Duration>,
-        api_client_header: &'static str,
-        request_params: &'static str,
+        headers: HeaderMap,
     ) -> Result<Response>
     where
         Request: prost::Message + 'static,
         Response: prost::Message + std::default::Default + 'static,
     {
-        let headers = Self::make_headers(credentials, api_client_header, request_params).await?;
-
+        let mut headers = headers;
+        let auth_headers = credentials.headers().await.map_err(Error::authentication)?;
+        for (key, value) in auth_headers.into_iter() {
+            headers.append(key, value);
+        }
         let mut extensions = tonic::Extensions::new();
         extensions.insert(method);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
@@ -202,20 +195,19 @@ impl Client {
     }
 
     async fn make_headers(
-        credentials: &Credentials,
         api_client_header: &'static str,
         request_params: &str,
     ) -> Result<http::header::HeaderMap> {
-        let mut headers = credentials.headers().await.map_err(Error::authentication)?;
-        headers.push((
+        let mut headers = HeaderMap::new();
+        headers.append(
             http::header::HeaderName::from_static("x-goog-api-client"),
             http::header::HeaderValue::from_static(api_client_header),
-        ));
-        headers.push((
+        );
+        headers.append(
             http::header::HeaderName::from_static("x-goog-request-params"),
             http::header::HeaderValue::from_str(request_params).map_err(Error::other)?,
-        ));
-        Ok(http::header::HeaderMap::from_iter(headers))
+        );
+        Ok(headers)
     }
 
     fn get_retry_policy(
