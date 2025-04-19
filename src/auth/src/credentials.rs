@@ -27,26 +27,6 @@ use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
 
-/// Applies common optional configurations (quota project ID, scopes) to a
-/// specific credential builder instance and then builds it.
-///
-/// This macro centralizes the logic for optionally calling `.with_quota_project_id()`
-/// and `.with_scopes()` on different underlying credential builders (like
-/// `mds::Builder`, `service_account::Builder`, etc.) before calling `.build()`.
-/// It helps avoid repetitive code in the `build_credentials` function.
-macro_rules! config_builder {
-    ($builder_instance:expr, $quota_project_id:expr, $scopes:expr) => {{
-        let builder = $builder_instance;
-        let builder = $quota_project_id
-            .into_iter()
-            .fold(builder, |b, qp| b.with_quota_project_id(qp));
-
-        let builder = $scopes.into_iter().fold(builder, |b, s| b.with_scopes(s));
-
-        builder.build()
-    }};
-}
-
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
@@ -509,6 +489,26 @@ fn extract_credential_type(json: &Value) -> Result<&str> {
                 "Failed to parse Credentials JSON. `type` field is not a string.",
             )
         })
+}
+
+/// Applies common optional configurations (quota project ID, scopes) to a
+/// specific credential builder instance and then builds it.
+///
+/// This macro centralizes the logic for optionally calling `.with_quota_project_id()`
+/// and `.with_scopes()` on different underlying credential builders (like
+/// `mds::Builder`, `service_account::Builder`, etc.) before calling `.build()`.
+/// It helps avoid repetitive code in the `build_credentials` function.
+macro_rules! config_builder {
+    ($builder_instance:expr, $quota_project_id:expr, $scopes:expr) => {{
+        let builder = $builder_instance;
+        let builder = $quota_project_id
+            .into_iter()
+            .fold(builder, |b, qp| b.with_quota_project_id(qp));
+
+        let builder = $scopes.into_iter().fold(builder, |b, s| b.with_scopes(s));
+
+        builder.build()
+    }};
 }
 
 fn build_credentials(
