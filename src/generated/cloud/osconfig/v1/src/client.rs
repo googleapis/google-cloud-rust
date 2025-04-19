@@ -18,7 +18,9 @@
 #![allow(rustdoc::bare_urls)]
 #![allow(rustdoc::invalid_html_tags)]
 
+#[allow(unused_imports)]
 use crate::Result;
+#[allow(unused_imports)]
 use std::sync::Arc;
 
 /// Implements a client for the OS Config API.

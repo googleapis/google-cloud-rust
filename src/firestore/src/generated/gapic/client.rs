@@ -16,7 +16,9 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
+#[allow(unused_imports)]
 use crate::Result;
+#[allow(unused_imports)]
 use std::sync::Arc;
 
 /// Implements a client for the Cloud Firestore API.

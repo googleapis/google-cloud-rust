@@ -24,7 +24,9 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
+#[allow(unused_imports)]
 use gax::error::Error;
+#[allow(unused_imports)]
 use std::sync::Arc;
 
 pub(crate) mod dynamic;

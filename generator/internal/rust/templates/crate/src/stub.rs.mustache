@@ -30,8 +30,14 @@ limitations under the License.
 {{! TODO(#742) - remove this workaround once the bug is fixed }}
 #![allow(rustdoc::broken_intra_doc_links)]
 
+{{!
+    Disable warnings about unused imports, sometimes all the clients are
+    disabled via features, and the imports go unused.
+}}
+#[allow(unused_imports)]
 use gax::error::Error;
 {{#Codec.HasLROs}}
+#[allow(unused_imports)]
 use std::sync::Arc;
 {{/Codec.HasLROs}}
 
@@ -50,6 +56,9 @@ pub(crate) mod dynamic;
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
     {{#Codec.Methods}}
 

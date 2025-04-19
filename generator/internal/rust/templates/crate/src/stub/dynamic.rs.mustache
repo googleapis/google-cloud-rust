@@ -19,11 +19,19 @@ limitations under the License.
 {{/Codec.BoilerPlate}}
 {{#Codec.HasLROs}}
 
+{{!
+    Disable warnings about unused imports, sometimes all the clients are
+    disabled via features, and the imports go unused.
+}}
+#[allow(unused_imports)]
 use std::sync::Arc;
 {{/Codec.HasLROs}}
 {{#Codec.Services}}
 
 /// A dyn-compatible, crate-private version of [super::{{Codec.Name}}].
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 #[async_trait::async_trait]
 pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
     {{#Codec.Methods}}
@@ -48,6 +56,9 @@ pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
 }
 
 /// All implementations of [super::{{Codec.Name}}] also implement [{{Codec.Name}}].
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 #[async_trait::async_trait]
 impl<T: super::{{Codec.Name}}> {{Codec.Name}} for T {
     {{#Codec.Methods}}

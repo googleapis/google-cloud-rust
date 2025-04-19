@@ -24,6 +24,7 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
+#[allow(unused_imports)]
 use gax::error::Error;
 
 pub(crate) mod dynamic;

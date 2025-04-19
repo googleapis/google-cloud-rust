@@ -19,14 +19,25 @@ limitations under the License.
 {{/Codec.BoilerPlate}}
 {{#Codec.HasServices}}
 
+{{!
+    Disable warnings about unused imports, sometimes all the clients are
+    disabled via features, and the imports go unused.
+}}
+#[allow(unused_imports)]
 use crate::Result;
-{{! Disable warnings about unused imports: sometimes there are no RPCs with query parameters and this goes unused }}
 #[allow(unused_imports)]
 use gax::error::Error;
+#[allow(unused_imports)]
 use std::sync::Arc;
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 const DEFAULT_HOST: &str = "https://{{Codec.DefaultHost}}";
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -45,6 +56,9 @@ mod info {
 {{/Codec.HasServices}}
 {{#Codec.Services}}
 /// Implements [{{Codec.Name}}](super::stub::{{Codec.Name}}) using a Tonic-generated client.
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 #[derive(Clone)]
 pub struct {{Codec.Name}} {
     inner: tonic::client::Grpc<tonic::transport::Channel>,
@@ -54,6 +68,9 @@ pub struct {{Codec.Name}} {
     retry_throttler: gax::retry_throttler::SharedRetryThrottler,
 }
 
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 impl std::fmt::Debug for {{Codec.Name}} {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("{{Codec.Name}}")
@@ -62,6 +79,9 @@ impl std::fmt::Debug for {{Codec.Name}} {
     }
 }
 
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 impl {{Codec.Name}} {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let cred = Self::make_credentials(&config).await?;
@@ -271,6 +291,9 @@ impl {{Codec.Name}} {
     }
 }
 
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
     {{#Codec.Methods}}
     async fn {{Codec.Name}}(

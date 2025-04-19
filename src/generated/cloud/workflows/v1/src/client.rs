@@ -18,7 +18,9 @@
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::bare_urls)]
 
+#[allow(unused_imports)]
 use crate::Result;
+#[allow(unused_imports)]
 use std::sync::Arc;
 
 /// Implements a client for the Workflows API.
