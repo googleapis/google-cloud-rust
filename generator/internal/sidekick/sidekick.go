@@ -72,24 +72,22 @@ func Run(args []string) error {
 		}
 		cmd.printUsage()
 		return nil
-	} else {
-		cmd, found, cmdArgs := cmdSidekick.lookup(args)
-		if !found {
-			return newNotFoundError(
-				cmd,
-				args,
-				cmdArgs,
-				fmt.Sprintf(
-					"Could not find command 'sidekick %s'",
-					strings.Join(args, " ")))
-		} else {
-			var err error
-			if cmdLine, err := cmd.parseCmdLine(cmdArgs); err == nil {
-				return runCommand(cmd, cmdLine)
-			}
-			return err
-		}
 	}
+	cmd, found, cmdArgs := cmdSidekick.lookup(args)
+	if !found {
+		return newNotFoundError(
+			cmd,
+			args,
+			cmdArgs,
+			fmt.Sprintf(
+				"Could not find command 'sidekick %s'",
+				strings.Join(args, " ")))
+	}
+	cmdLine, err := cmd.parseCmdLine(cmdArgs)
+	if err != nil {
+		return err
+	}
+	return runCommand(cmd, cmdLine)
 }
 
 func newNotFoundError(bestMatch *command, allArgs []string, unusedArgs []string, msg string) error {
