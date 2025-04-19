@@ -17,6 +17,8 @@ import 'dart:convert';
 import 'package:google_cloud_rpc/rpc.dart';
 import 'package:http/http.dart' as http;
 
+export 'dart:typed_data' show Uint8List;
+
 const String _clientName = 'dart-test-client';
 
 /// An abstract class that can return a JSON encodable representation of itself.
@@ -28,26 +30,26 @@ abstract class JsonEncodable {
 }
 
 /// The abstract common superclass of all messages.
-abstract class Message implements JsonEncodable {
+abstract class GMessage implements JsonEncodable {
   /// The fully qualified name of this message, i.e., `google.protobuf.Duration`
   /// or `google.rpc.ErrorInfo`
   final String qualifiedName;
 
-  Message(this.qualifiedName);
+  GMessage(this.qualifiedName);
 }
 
 /// The abstract common superclass of all enum values.
-abstract class Enum implements JsonEncodable {
+abstract class GEnum implements JsonEncodable {
   final String value;
 
-  const Enum(this.value);
+  const GEnum(this.value);
 
   @override
   String toJson() => value;
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == runtimeType && value == (other as Enum).value;
+    return other.runtimeType == runtimeType && value == (other as GEnum).value;
   }
 
   @override
