@@ -19,12 +19,12 @@
 /// Additional metadata for operations.
 library;
 
-import 'package:google_cloud_gax/common.dart';
+import 'package:google_cloud_gax/gax.dart';
 import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 
 /// Represents the metadata of the long-running operation.
-class OperationMetadata extends Message {
+class OperationMetadata extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.cloud.common.OperationMetadata';
 

@@ -28,7 +28,7 @@ import (
 
 var typedDataImport = "dart:typed_data"
 var httpImport = "package:http/http.dart as http"
-var commonImport = "package:google_cloud_gax/common.dart"
+var commonImport = "package:google_cloud_gax/gax.dart"
 var commonHelpersImport = "package:google_cloud_gax/src/encoding.dart"
 
 var needsCtorValidation = map[string]string{

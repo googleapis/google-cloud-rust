@@ -386,25 +386,12 @@ func TestFieldType_Bytes(t *testing.T) {
 	annotate := newAnnotateModel(model)
 	annotate.annotateModel(map[string]string{})
 	annotate.imports = map[string]string{}
-	annotate.packageMapping[typedDataImport] = typedDataImport
 
 	{
 		got := annotate.fieldType(field)
 		want := "Uint8List"
 		if got != want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, want)
-		}
-	}
-
-	// verify the  dart:typed_data import
-	if !(len(annotate.imports) > 0) {
-		t.Errorf("unexpected: no  dart:typed_data import added")
-	}
-
-	for _, got := range annotate.imports {
-		want := typedDataImport
-		if got != want {
-			t.Errorf("unexpected import, got: %s want: %s", got, want)
 		}
 	}
 }

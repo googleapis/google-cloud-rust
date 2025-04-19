@@ -21,7 +21,7 @@ limitations under the License.
 ///
 /// This method can be used to get the current status of a long-running
 /// operation.
-Future<Operation<T, S>> getOperation<T extends Message, S extends Message>(Operation<T, S> request) async {
+Future<Operation<T, S>> getOperation<T extends ProtoMessage, S extends ProtoMessage>(Operation<T, S> request) async {
   final url = Uri.https(_host, '{{PathInfo.Codec.PathFmt}}');
   {{#Codec.ReturnsValue}}final response = {{/Codec.ReturnsValue}}await _client.{{Codec.RequestMethod}}(url{{#Codec.HasBody}}, body: {{Codec.BodyMessageName}}{{/Codec.HasBody}});
   return Operation.fromJson(response, request.operationHelper);

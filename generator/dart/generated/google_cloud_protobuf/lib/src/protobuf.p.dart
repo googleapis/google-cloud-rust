@@ -16,7 +16,7 @@ part of '../protobuf.dart';
 
 /// `Any` contains an arbitrary serialized message along with a URL that
 /// describes the type of the serialized message.
-class Any extends Message {
+class Any extends ProtoMessage {
   static const String fullyQualifiedName = 'google.protobuf.Any';
 
   // This list needs to be kept in sync with generator/internal/dart/dart.go.
@@ -46,7 +46,7 @@ class Any extends Message {
         super(fullyQualifiedName);
 
   /// Create an [Any] from an existing [message].
-  Any.from(Message message)
+  Any.from(ProtoMessage message)
       : json = {},
         super(fullyQualifiedName) {
     packInto(message);
@@ -94,7 +94,7 @@ class Any extends Message {
   ///   ...
   /// }
   /// ```
-  T unpackFrom<T extends Message, S>(T Function(S) decoder) {
+  T unpackFrom<T extends ProtoMessage, S>(T Function(S) decoder) {
     final name = typeName;
 
     if (_customEncodedTypes.contains(name)) {
@@ -107,7 +107,7 @@ class Any extends Message {
   }
 
   /// Serialize the given message into this `Any` instance.
-  void packInto(Message message) {
+  void packInto(ProtoMessage message) {
     final qualifiedName = message.qualifiedName;
 
     // @type
@@ -137,7 +137,7 @@ class Any extends Message {
 /// variants. Absence of any variant indicates an error.
 ///
 /// The JSON representation for `Value` is JSON value.
-class Value extends Message {
+class Value extends ProtoMessage {
   static const String fullyQualifiedName = 'google.protobuf.Value';
 
   /// Represents a null value.
