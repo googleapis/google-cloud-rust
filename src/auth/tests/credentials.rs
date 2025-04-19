@@ -17,8 +17,8 @@ use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBu
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::user_account::Builder as UserAccountCredentialBuilder;
 use google_cloud_auth::credentials::{
-    ApiKeyOptions, Credentials, CredentialsTrait, create_access_token_credentials,
-    create_api_key_credentials,
+    ApiKeyOptions, Builder as AccessTokenCredentialBuilder, Credentials, CredentialsTrait,
+    create_access_token_credentials, create_api_key_credentials,
 };
 use google_cloud_auth::errors::CredentialsError;
 use google_cloud_auth::token::Token;
@@ -86,7 +86,7 @@ mod test {
 
         let err = create_access_token_credentials().await.err().unwrap();
         let msg = err.source().unwrap().to_string();
-        assert!(msg.contains("Unimplemented"));
+        assert!(msg.contains("Invalid or unsupported"));
         assert!(msg.contains("some_unknown_credential_type"));
     }
 
@@ -111,6 +111,27 @@ mod test {
     }
 
     #[tokio::test]
+    async fn create_access_token_credentials_json_user_credentials() {
+        let contents = r#"{
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user"
+        }"#;
+
+        let quota_project = "test-quota-project";
+
+        let uc = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
+            .with_quota_project_id(quota_project)
+            .build()
+            .unwrap();
+
+        let fmt = format!("{:?}", uc);
+        assert!(fmt.contains("UserCredentials"));
+        assert!(fmt.contains(quota_project));
+    }
+
+    #[tokio::test]
     #[serial_test::serial]
     async fn create_access_token_credentials_adc_service_account_credentials() {
         let contents = r#"{
@@ -130,6 +151,28 @@ mod test {
         let sac = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", sac);
         assert!(fmt.contains("ServiceAccountCredentials"));
+    }
+
+    #[tokio::test]
+    async fn create_access_token_credentials_json_service_account_credentials() {
+        let contents = r#"{
+            "type": "service_account",
+            "project_id": "test-project-id",
+            "private_key_id": "test-private-key-id",
+            "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
+            "client_email": "test-client-email",
+            "universe_domain": "test-universe-domain"
+        }"#;
+
+        let quota_project = "test-quota-project";
+
+        let sac = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
+            .with_quota_project_id(quota_project)
+            .build()
+            .unwrap();
+        let fmt = format!("{:?}", sac);
+        assert!(fmt.contains("ServiceAccountCredentials"));
+        assert!(fmt.contains(quota_project));
     }
 
     #[tokio::test]
@@ -190,7 +233,7 @@ mod test {
         let mdcs = MdsBuilder::default()
             .with_quota_project_id(test_quota_project)
             .with_universe_domain(test_universe_domain)
-            .build();
+            .build()?;
         let fmt = format!("{:?}", mdcs);
         assert!(fmt.contains("MDSCredentials"));
         assert!(fmt.contains(test_quota_project));

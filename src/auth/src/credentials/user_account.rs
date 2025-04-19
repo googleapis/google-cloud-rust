@@ -80,10 +80,6 @@ use std::time::Duration;
 
 const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
-pub(crate) fn creds_from(js: Value) -> Result<Credentials> {
-    Builder::new(js).build()
-}
-
 /// A builder for constructing `user_account` [Credentials] instance.
 ///
 /// # Example
