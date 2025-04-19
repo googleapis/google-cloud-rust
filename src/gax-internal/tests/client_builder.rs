@@ -51,7 +51,7 @@ mod test {
             gax::client_builder::ClientBuilder<fake_client::Factory, Credentials>;
         // Note the pub(self), the types in this module are not accessible to
         // application developers.
-        pub(self) mod fake_client {
+        mod fake_client {
             use super::gaxi;
             pub struct Factory;
             impl gax::client_builder::internal::ClientFactory for Factory {
@@ -101,7 +101,7 @@ mod test {
             gax::client_builder::ClientBuilder<fake_client::Factory, Credentials>;
         // Note the pub(self), the types in this module are not accessible to
         // application developers.
-        pub(self) mod fake_client {
+        mod fake_client {
             use super::gaxi;
             pub struct Factory;
             impl gax::client_builder::internal::ClientFactory for Factory {

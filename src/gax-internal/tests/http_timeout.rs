@@ -235,7 +235,7 @@ mod test {
 
     fn test_options(timeout: &Duration) -> RequestOptions {
         let mut options = RequestOptions::default();
-        options.set_attempt_timeout(timeout.clone());
+        options.set_attempt_timeout(*timeout);
         options
     }
 
@@ -248,18 +248,16 @@ mod test {
     fn get_query_value(response: &serde_json::Value, name: &str) -> Option<String> {
         response
             .as_object()
-            .map(|o| o.get("query"))
-            .flatten()
-            .map(|h| h.get(name))
-            .flatten()
-            .map(|v| v.as_str())
-            .flatten()
+            .and_then(|o| o.get("query"))
+            .and_then(|h| h.get(name))
+            .and_then(|v| v.as_str())
             .map(str::to_string)
     }
 
     fn test_config() -> ClientConfig {
-        let mut config = ClientConfig::default();
-        config.cred = auth::credentials::testing::test_credentials().into();
-        config
+        ClientConfig {
+            cred: auth::credentials::testing::test_credentials().into(),
+            ..Default::default()
+        }
     }
 }

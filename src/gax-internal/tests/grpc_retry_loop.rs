@@ -81,8 +81,7 @@ mod test {
 
     #[tokio::test]
     async fn retry_policy_exhausted() -> anyhow::Result<()> {
-        let (endpoint, _server) =
-            start_fixed_responses((0..3).into_iter().map(|_| transient())).await?;
+        let (endpoint, _server) = start_fixed_responses((0..3).map(|_| transient())).await?;
 
         let client = builder(endpoint)
             .with_credentials(test_credentials())

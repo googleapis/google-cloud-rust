@@ -174,12 +174,9 @@ mod test {
     fn get_header_value(response: &serde_json::Value, name: &str) -> Option<String> {
         response
             .as_object()
-            .map(|o| o.get("headers"))
-            .flatten()
-            .map(|h| h.get(name))
-            .flatten()
-            .map(|v| v.as_str())
-            .flatten()
+            .and_then(|o| o.get("headers"))
+            .and_then(|h| h.get(name))
+            .and_then(|v| v.as_str())
             .map(str::to_string)
     }
 }
