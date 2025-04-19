@@ -16,7 +16,8 @@ part of '../longrunning.dart';
 
 /// This resource represents a long-running operation that is the result of a
 /// network API call.
-class Operation<T extends GMessage, S extends GMessage> extends GMessage {
+class Operation<T extends ProtoMessage, S extends ProtoMessage>
+    extends ProtoMessage {
   static const String fullyQualifiedName = 'google.longrunning.Operation';
 
   /// The server-assigned name, which is only unique within the same service that
@@ -122,7 +123,7 @@ class Operation<T extends GMessage, S extends GMessage> extends GMessage {
 /// [Operation.response] and [Operation.metadata] fields in order to populate
 /// the typed [Operation.responseAsMessage] and [Operation.metadataAsMessage]
 /// fields.
-final class OperationHelper<T extends GMessage, S extends GMessage> {
+final class OperationHelper<T extends ProtoMessage, S extends ProtoMessage> {
   final T Function(Map<String, dynamic>) responseDecoder;
   final S Function(Map<String, dynamic>)? metadataDecoder;
 

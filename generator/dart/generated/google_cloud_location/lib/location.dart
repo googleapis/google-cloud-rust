@@ -59,7 +59,7 @@ class Locations {
 }
 
 /// The request message for `Locations.ListLocations`.
-class ListLocationsRequest extends GMessage {
+class ListLocationsRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.cloud.location.ListLocationsRequest';
 
@@ -114,7 +114,7 @@ class ListLocationsRequest extends GMessage {
 }
 
 /// The response message for `Locations.ListLocations`.
-class ListLocationsResponse extends GMessage {
+class ListLocationsResponse extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.cloud.location.ListLocationsResponse';
 
@@ -154,7 +154,7 @@ class ListLocationsResponse extends GMessage {
 }
 
 /// The request message for `Locations.GetLocation`.
-class GetLocationRequest extends GMessage {
+class GetLocationRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.cloud.location.GetLocationRequest';
 
@@ -188,7 +188,7 @@ class GetLocationRequest extends GMessage {
 }
 
 /// A resource that represents Google Cloud Platform location.
-class Location extends GMessage {
+class Location extends ProtoMessage {
   static const String fullyQualifiedName = 'google.cloud.location.Location';
 
   /// Resource name for the location, which may vary between implementations.

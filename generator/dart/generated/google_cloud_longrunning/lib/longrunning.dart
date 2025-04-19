@@ -104,7 +104,7 @@ class Operations {
 
 /// The request message for
 /// `Operations.GetOperation`.
-class GetOperationRequest extends GMessage {
+class GetOperationRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.longrunning.GetOperationRequest';
 
@@ -139,7 +139,7 @@ class GetOperationRequest extends GMessage {
 
 /// The request message for
 /// `Operations.ListOperations`.
-class ListOperationsRequest extends GMessage {
+class ListOperationsRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.longrunning.ListOperationsRequest';
 
@@ -195,7 +195,7 @@ class ListOperationsRequest extends GMessage {
 
 /// The response message for
 /// `Operations.ListOperations`.
-class ListOperationsResponse extends GMessage {
+class ListOperationsResponse extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.longrunning.ListOperationsResponse';
 
@@ -236,7 +236,7 @@ class ListOperationsResponse extends GMessage {
 
 /// The request message for
 /// `Operations.CancelOperation`.
-class CancelOperationRequest extends GMessage {
+class CancelOperationRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.longrunning.CancelOperationRequest';
 
@@ -271,7 +271,7 @@ class CancelOperationRequest extends GMessage {
 
 /// The request message for
 /// `Operations.DeleteOperation`.
-class DeleteOperationRequest extends GMessage {
+class DeleteOperationRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.longrunning.DeleteOperationRequest';
 
@@ -306,7 +306,7 @@ class DeleteOperationRequest extends GMessage {
 
 /// The request message for
 /// `Operations.WaitOperation`.
-class WaitOperationRequest extends GMessage {
+class WaitOperationRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.longrunning.WaitOperationRequest';
 
@@ -357,7 +357,7 @@ class WaitOperationRequest extends GMessage {
 ///         metadata_type: "ExportMetadata"
 ///       };
 ///     }
-class OperationInfo extends GMessage {
+class OperationInfo extends ProtoMessage {
   static const String fullyQualifiedName = 'google.longrunning.OperationInfo';
 
   /// Required. The message name of the primary return type for this

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Utility methods for JSON encoding and decoding from [GMessage] objects.
+/// Utility methods for JSON encoding and decoding from [ProtoMessage] objects.
 ///
 /// See https://protobuf.dev/programming-guides/json/ for docs on the JSON
 /// encoding of many of these types.
@@ -45,19 +45,20 @@ Uint8List? decodeBytes(String? value) {
   return value == null ? null : base64Decode(value);
 }
 
-/// Decode an [GEnum].
-T? decodeEnum<T extends GEnum>(String? value, T Function(String) decoder) {
+/// Decode an [ProtoEnum].
+T? decodeEnum<T extends ProtoEnum>(String? value, T Function(String) decoder) {
   return value == null ? null : decoder(value);
 }
 
-/// Decode a [GMessage].
-T? decode<T extends GMessage>(
+/// Decode a [ProtoMessage].
+T? decode<T extends ProtoMessage>(
     Map<String, dynamic>? value, T Function(Map<String, dynamic>) decoder) {
   return value != null ? decoder(value) : null;
 }
 
-/// Decode a [GMessage] which uses a custom JSON encoding.
-T? decodeCustom<T extends GMessage>(Object? value, T Function(Object) decoder) {
+/// Decode a [ProtoMessage] which uses a custom JSON encoding.
+T? decodeCustom<T extends ProtoMessage>(
+    Object? value, T Function(Object) decoder) {
   return value == null ? null : decoder(value);
 }
 
@@ -71,20 +72,20 @@ List<Uint8List>? decodeListBytes(Object? value) {
   return (value as List?)?.map((item) => base64Decode(item)).toList().cast();
 }
 
-/// Decode a list of [GEnum]s.
-List<T>? decodeListEnum<T extends GEnum>(
+/// Decode a list of [ProtoEnum]s.
+List<T>? decodeListEnum<T extends ProtoEnum>(
     Object? value, T Function(String) decoder) {
   return (value as List?)?.map((item) => decoder(item)).toList().cast();
 }
 
 /// Decode a list of [Messages]s.
-List<T>? decodeListMessage<T extends GMessage>(
+List<T>? decodeListMessage<T extends ProtoMessage>(
     Object? value, T Function(Map<String, dynamic>) decoder) {
   return (value as List?)?.map((item) => decoder(item)).toList().cast();
 }
 
 /// Decode a list of [Messages]s which use custom JSON encodings.
-List<T>? decodeListMessageCustom<T extends GMessage>(
+List<T>? decodeListMessageCustom<T extends ProtoMessage>(
     Object? value, T Function(Object) decoder) {
   return (value as List?)?.map((item) => decoder(item)).toList().cast();
 }
@@ -94,8 +95,8 @@ Map<K, V>? decodeMap<K, V>(Object? value) {
   return (value as Map?)?.cast();
 }
 
-/// Decode a map of [GEnum]s.
-Map<K, V>? decodeMapEnum<K, V extends GEnum>(
+/// Decode a map of [ProtoEnum]s.
+Map<K, V>? decodeMapEnum<K, V extends ProtoEnum>(
     Object? value, V Function(String) decoder) {
   return (value as Map?)
       ?.map((key, value) => MapEntry(key, decoder(value)))
@@ -109,16 +110,16 @@ Map<K, Uint8List>? decodeMapBytes<K>(Object? value) {
       .cast();
 }
 
-/// Decode a map of [GMessage]s.
-Map<K, V>? decodeMapMessage<K, V extends GMessage>(
+/// Decode a map of [ProtoMessage]s.
+Map<K, V>? decodeMapMessage<K, V extends ProtoMessage>(
     Object? value, V Function(Map<String, dynamic>) decoder) {
   return (value as Map?)
       ?.map((key, value) => MapEntry(key, decoder(value)))
       .cast();
 }
 
-/// Decode a map of [GMessage]s which use custom JSON encodings.
-Map<K, V>? decodeMapMessageCustom<K, V extends GMessage>(
+/// Decode a map of [ProtoMessage]s which use custom JSON encodings.
+Map<K, V>? decodeMapMessageCustom<K, V extends ProtoMessage>(
     Object? value, V Function(Object) decoder) {
   return (value as Map?)
       ?.map((key, value) => MapEntry(key, decoder(value)))

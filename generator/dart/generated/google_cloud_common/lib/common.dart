@@ -24,7 +24,7 @@ import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 
 /// Represents the metadata of the long-running operation.
-class OperationMetadata extends GMessage {
+class OperationMetadata extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.cloud.common.OperationMetadata';
 

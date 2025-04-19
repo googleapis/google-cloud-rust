@@ -30,26 +30,27 @@ abstract class JsonEncodable {
 }
 
 /// The abstract common superclass of all messages.
-abstract class GMessage implements JsonEncodable {
+abstract class ProtoMessage implements JsonEncodable {
   /// The fully qualified name of this message, i.e., `google.protobuf.Duration`
   /// or `google.rpc.ErrorInfo`
   final String qualifiedName;
 
-  GMessage(this.qualifiedName);
+  ProtoMessage(this.qualifiedName);
 }
 
 /// The abstract common superclass of all enum values.
-abstract class GEnum implements JsonEncodable {
+abstract class ProtoEnum implements JsonEncodable {
   final String value;
 
-  const GEnum(this.value);
+  const ProtoEnum(this.value);
 
   @override
   String toJson() => value;
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == runtimeType && value == (other as GEnum).value;
+    return other.runtimeType == runtimeType &&
+        value == (other as ProtoEnum).value;
   }
 
   @override

@@ -147,7 +147,7 @@ import 'package:google_cloud_protobuf/protobuf.dart';
 ///     };
 ///
 ///     // ...
-class Color extends GMessage {
+class Color extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.Color';
 
   /// The amount of red in the color as a value in the interval [0, 1].
@@ -222,7 +222,7 @@ class Color extends GMessage {
 ///
 /// Related types are `google.type.TimeOfDay` and
 /// `google.protobuf.Timestamp`.
-class Date extends GMessage {
+class Date extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.Date';
 
   /// Year of the date. Must be from 1 to 9999, or 0 to specify a date without
@@ -296,7 +296,7 @@ class Date extends GMessage {
 ///
 /// This type is more flexible than some applications may want. Make sure to
 /// document and validate your application's limitations.
-class DateTime extends GMessage {
+class DateTime extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.DateTime';
 
   /// Optional. Year of date. Must be from 1 to 9999, or 0 if specifying a
@@ -392,7 +392,7 @@ class DateTime extends GMessage {
 
 /// Represents a time zone from the
 /// [IANA Time Zone Database](https://www.iana.org/time-zones).
-class TimeZone extends GMessage {
+class TimeZone extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.TimeZone';
 
   /// IANA Time Zone Database time zone, e.g. "America/New_York".
@@ -438,7 +438,7 @@ class TimeZone extends GMessage {
 /// [BigDecimal]:
 /// https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html
 /// [decimal.Decimal]: https://docs.python.org/3/library/decimal.html
-class Decimal extends GMessage {
+class Decimal extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.Decimal';
 
   /// The decimal value, as a string.
@@ -560,7 +560,7 @@ class Decimal extends GMessage {
 /// The exact variables and functions that may be referenced within an expression
 /// are determined by the service that evaluates it. See the service
 /// documentation for additional information.
-class Expr extends GMessage {
+class Expr extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.Expr';
 
   /// Textual representation of an expression in Common Expression Language
@@ -619,7 +619,7 @@ class Expr extends GMessage {
 }
 
 /// Represents a fraction in terms of a numerator divided by a denominator.
-class Fraction extends GMessage {
+class Fraction extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.Fraction';
 
   /// The numerator in the fraction, e.g. 2 in 2/3.
@@ -665,7 +665,7 @@ class Fraction extends GMessage {
 /// The start must be less than or equal to the end.
 /// When the start equals the end, the interval is empty (matches no time).
 /// When both start and end are unspecified, the interval matches any time.
-class Interval extends GMessage {
+class Interval extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.Interval';
 
   /// Optional. Inclusive start of the interval.
@@ -709,7 +709,7 @@ class Interval extends GMessage {
 /// specified otherwise, this must conform to the
 /// <a href="http://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf">WGS84
 /// standard</a>. Values must be within normalized ranges.
-class LatLng extends GMessage {
+class LatLng extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.LatLng';
 
   /// The latitude in degrees. It must be in the range [-90.0, +90.0].
@@ -749,7 +749,7 @@ class LatLng extends GMessage {
 }
 
 /// Localized variant of a text in a particular language.
-class LocalizedText extends GMessage {
+class LocalizedText extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.LocalizedText';
 
   /// Localized string in the language corresponding to `language_code' below.
@@ -792,7 +792,7 @@ class LocalizedText extends GMessage {
 }
 
 /// Represents an amount of money with its currency type.
-class Money extends GMessage {
+class Money extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.Money';
 
   /// The three-letter currency code defined in ISO 4217.
@@ -870,7 +870,7 @@ class Money extends GMessage {
 ///
 ///  Reference(s):
 ///   - https://github.com/google/libphonenumber
-class PhoneNumber extends GMessage {
+class PhoneNumber extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.PhoneNumber';
 
   /// The phone number, represented as a leading plus sign ('+'), followed by a
@@ -949,7 +949,7 @@ class PhoneNumber extends GMessage {
 /// dialable, which means the same short code can exist in different regions,
 /// with different usage and pricing, even if those regions share the same
 /// country calling code (e.g. US and CA).
-class PhoneNumber_ShortCode extends GMessage {
+class PhoneNumber_ShortCode extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.PhoneNumber.ShortCode';
 
   /// Required. The BCP-47 region code of the location where calls to this
@@ -1010,7 +1010,7 @@ class PhoneNumber_ShortCode extends GMessage {
 ///
 /// For more guidance on how to use this schema, please see:
 /// https://support.google.com/business/answer/6397478
-class PostalAddress extends GMessage {
+class PostalAddress extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.PostalAddress';
 
   /// The schema revision of the `PostalAddress`. This must be set to 0, which is
@@ -1223,7 +1223,7 @@ class PostalAddress extends GMessage {
 /// it would produce a unique representation. It is thus recommended that `w` be
 /// kept positive, which can be achieved by changing all the signs when `w` is
 /// negative.
-class Quaternion extends GMessage {
+class Quaternion extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.Quaternion';
 
   /// The x component.
@@ -1280,7 +1280,7 @@ class Quaternion extends GMessage {
 /// or are specified elsewhere. An API may choose to allow leap seconds. Related
 /// types are `google.type.Date` and
 /// `google.protobuf.Timestamp`.
-class TimeOfDay extends GMessage {
+class TimeOfDay extends ProtoMessage {
   static const String fullyQualifiedName = 'google.type.TimeOfDay';
 
   /// Hours of day in 24 hour format. Should be from 0 to 23. An API may choose
@@ -1338,7 +1338,7 @@ class TimeOfDay extends GMessage {
 /// A `CalendarPeriod` represents the abstract concept of a time period that has
 /// a canonical start. Grammatically, "the start of the current
 /// `CalendarPeriod`." All calendar times begin at midnight UTC.
-class CalendarPeriod extends GEnum {
+class CalendarPeriod extends ProtoEnum {
   /// Undefined period, raises an error.
   static const calendarPeriodUnspecified =
       CalendarPeriod('CALENDAR_PERIOD_UNSPECIFIED');
@@ -1377,7 +1377,7 @@ class CalendarPeriod extends GEnum {
 }
 
 /// Represents a day of the week.
-class DayOfWeek extends GEnum {
+class DayOfWeek extends ProtoEnum {
   /// The day of the week is unspecified.
   static const dayOfWeekUnspecified = DayOfWeek('DAY_OF_WEEK_UNSPECIFIED');
 
@@ -1411,7 +1411,7 @@ class DayOfWeek extends GEnum {
 }
 
 /// Represents a month in the Gregorian calendar.
-class Month extends GEnum {
+class Month extends ProtoEnum {
   /// The unspecified month.
   static const monthUnspecified = Month('MONTH_UNSPECIFIED');
 
