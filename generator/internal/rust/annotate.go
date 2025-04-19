@@ -334,7 +334,7 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 		components[i] = toSnake(c)
 	}
 	moduleName := toSnake(s.Name)
-	featureGates := []string{}
+	var featureGates []string
 	if c.perServiceFeatures {
 		featureGates = append(featureGates, moduleName)
 	}
