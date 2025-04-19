@@ -17,6 +17,7 @@ package rust
 import (
 	"fmt"
 	"log/slog"
+	"slices"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -84,6 +85,18 @@ func (a *serviceAnnotations) HasFeatureGates() bool {
 	return len(a.FeatureGates) > 0
 }
 
+func (a *messageAnnotation) HasFeatureGates() bool {
+	return len(a.FeatureGates) > 0
+}
+
+func (a *enumAnnotation) HasFeatureGates() bool {
+	return len(a.FeatureGates) > 0
+}
+
+func (a *oneOfAnnotation) HasFeatureGates() bool {
+	return len(a.FeatureGates) > 0
+}
+
 type messageAnnotation struct {
 	Name       string
 	ModuleName string
@@ -109,7 +122,7 @@ type messageAnnotation struct {
 	// If true, this is a synthetic message, some generation is skipped for
 	// synthetic messages
 	HasSyntheticFields bool
-	// If set, this enum is only enabled when some features are enabled
+	// If set, this message is only enabled when some features are enabled.
 	FeatureGates []string
 }
 
@@ -171,6 +184,8 @@ type oneOfAnnotation struct {
 	RepeatedFields []*api.Field
 	// The subset of the oneof fields that are maps (`HashMap<K, V>` in Rust).
 	MapFields []*api.Field
+	// If set, this enum is only enabled when some features are enabled.
+	FeatureGates []string
 }
 
 type fieldAnnotations struct {
@@ -311,6 +326,44 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 		IsWktCrate:              model.PackageName == "google.protobuf",
 		DisabledRustdocWarnings: codec.disabledRustdocWarnings,
 		PerServiceFeatures:      codec.perServiceFeatures && len(servicesSubset) > 0,
+	}
+
+	if codec.perServiceFeatures {
+		for _, service := range ann.Services {
+			svcAnn := service.Codec.(*serviceAnnotations)
+			if svcAnn.ModuleName == "gen_ai_tuning_service" {
+				fmt.Printf("deps = %s\n", svcAnn.ModuleName)
+			}
+			deps := api.ServiceDependencies(model, service.ID)
+			for _, id := range deps.Enums {
+				enum, ok := model.State.EnumByID[id]
+				// Some messages are not annotated (e.g. external messages).
+				if !ok || enum.Codec == nil {
+					continue
+				}
+				annotation := enum.Codec.(*enumAnnotation)
+				annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+				slices.Sort(annotation.FeatureGates)
+			}
+			for _, id := range deps.Messages {
+				msg, ok := model.State.MessageByID[id]
+				// Some messages are not annotated (e.g. external messages).
+				if !ok || msg.Codec == nil {
+					continue
+				}
+				annotation := msg.Codec.(*messageAnnotation)
+				annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+				slices.Sort(annotation.FeatureGates)
+				for _, one := range msg.OneOfs {
+					if one.Codec == nil {
+						continue
+					}
+					annotation := one.Codec.(*oneOfAnnotation)
+					annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+					slices.Sort(annotation.FeatureGates)
+				}
+			}
+		}
 	}
 
 	model.Codec = ann

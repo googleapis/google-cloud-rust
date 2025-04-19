@@ -18,6 +18,9 @@ limitations under the License.
 {{#Codec.DocLines}}
 {{{.}}}
 {{/Codec.DocLines}}
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 {{#Codec.MessageAttributes}}
 {{{.}}}
 {{/Codec.MessageAttributes}}
@@ -45,6 +48,9 @@ pub struct {{Codec.Name}} {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 impl {{Codec.Name}} {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -170,6 +176,9 @@ impl {{Codec.Name}} {
 }
 {{^Codec.HasSyntheticFields}}
 
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 impl wkt::message::Message for {{Codec.Name}} {
     fn typename() -> &'static str {
         "type.googleapis.com/{{Codec.SourceFQN}}"
@@ -178,6 +187,9 @@ impl wkt::message::Message for {{Codec.Name}} {
 {{/Codec.HasSyntheticFields}}
 {{#Pagination}}
 
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for {{Name}} {
     {{#PageableItem}}
@@ -204,6 +216,9 @@ impl gax::paginator::internal::PageableResponse for {{Name}} {
 {{#Codec.HasNestedTypes}}
 
 /// Defines additional types related to [{{Name}}].
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 pub mod {{Codec.ModuleName}} {
     {{! Very rarely, this is unused. It is easier to always disable the warning. }}
     #[allow(unused_imports)]
