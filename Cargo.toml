@@ -236,6 +236,7 @@ members = [
   "src/generated/privacy/dlp/v2",
   "src/generated/rpc/context",
   "src/generated/rpc/types",
+  "src/generated/showcase",
   "src/generated/spanner/admin/database/v1",
   "src/generated/spanner/admin/instance/v1",
   "src/generated/storagetransfer/v1",

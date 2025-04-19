@@ -1,0 +1,11 @@
+{
+    "api_id": "localhost:7469",
+    "api_shortname": "localhost:7469",
+    "client_documentation": "https://docs.rs/google-cloud-showcase-v1beta1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Client Libraries Showcase API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
