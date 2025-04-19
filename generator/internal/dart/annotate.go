@@ -424,20 +424,25 @@ func createToStringLines(message *api.Message) []string {
 		codec := field.Codec.(*fieldAnnotation)
 		name := codec.Name
 
-		isList := field.Repeated
-		isMessage := field.Typez == api.MESSAGE_TYPE
-
 		// Don't generate toString() entries for lists, maps, or messages.
-		if isList || isMessage {
+		if field.Repeated || field.Typez == api.MESSAGE_TYPE {
 			continue
+		}
+
+		var value string
+		if strings.Contains(name, "$") {
+			value = "${" + name + "}"
+		} else {
+			value = "$" + name
 		}
 
 		if codec.Required {
 			// 'name=$name',
-			lines = append(lines, fmt.Sprintf("'%s=$%s',", name, name))
+			lines = append(lines, fmt.Sprintf("'%s=%s',", field.JSONName, value))
 		} else {
 			// if (name != null) 'name=$name',
-			lines = append(lines, fmt.Sprintf("if (%s != null) '%s=$%s',", name, name, name))
+			lines = append(lines,
+				fmt.Sprintf("if (%s != null) '%s=%s',", name, field.JSONName, value))
 		}
 	}
 
@@ -530,13 +535,12 @@ func (annotate *annotateModel) annotateField(field *api.Field) {
 }
 
 func createFromJsonLine(field *api.Field, state *api.APIState, required bool) string {
-	name := fieldName(field)
 	message := state.MessageByID[field.TypezID]
 
 	isList := field.Repeated
 	isMap := message != nil && message.IsMap
 
-	data := fmt.Sprintf("json['%s']", name)
+	data := fmt.Sprintf("json['%s']", field.JSONName)
 
 	bang := "!"
 	if !required {
