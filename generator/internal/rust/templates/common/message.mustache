@@ -18,6 +18,7 @@ limitations under the License.
 {{#Codec.DocLines}}
 {{{.}}}
 {{/Codec.DocLines}}
+{{> feature_gate}}
 {{#Codec.MessageAttributes}}
 {{{.}}}
 {{/Codec.MessageAttributes}}
@@ -45,6 +46,7 @@ pub struct {{Codec.Name}} {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+{{> feature_gate}}
 impl {{Codec.Name}} {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -170,6 +172,7 @@ impl {{Codec.Name}} {
 }
 {{^Codec.HasSyntheticFields}}
 
+{{> feature_gate}}
 impl wkt::message::Message for {{Codec.Name}} {
     fn typename() -> &'static str {
         "type.googleapis.com/{{Codec.SourceFQN}}"
@@ -178,6 +181,7 @@ impl wkt::message::Message for {{Codec.Name}} {
 {{/Codec.HasSyntheticFields}}
 {{#Pagination}}
 
+{{> feature_gate}}
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for {{Name}} {
     {{#PageableItem}}
@@ -204,6 +208,7 @@ impl gax::paginator::internal::PageableResponse for {{Name}} {
 {{#Codec.HasNestedTypes}}
 
 /// Defines additional types related to [{{Name}}].
+{{> feature_gate}}
 pub mod {{Codec.ModuleName}} {
     {{! Very rarely, this is unused. It is easier to always disable the warning. }}
     #[allow(unused_imports)]
