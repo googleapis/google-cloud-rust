@@ -15,41 +15,40 @@
 package api
 
 import (
-	"fmt"
 	"maps"
 	"slices"
 )
 
-type Dependencies struct {
+type ServiceDependencies struct {
 	Messages []string
 	Enums    []string
 }
 
-// ServiceDependencies returns the message and enum IDs that are required by
+// FindServiceDependencies returns the message and enum IDs that are required by
 // a given service.
 //
-// The function traverses `model` starting from the definition of `service`.
-//   - Any message used by a method of service is included in the results.
+// The function traverses `model` starting from the definition of `serviceID`.
+//   - Any message used by a method of the service is included in the results.
 //   - Any message used by LROs of the service is included in the results.
 //   - The results are recursively scanned searching for any fields of the
 //     messages included above.
 //   - If a nested message is included in the results, then the parent message
 //     is also included (recursively) in the results.
-func ServiceDependencies(model *API, serviceID string) *Dependencies {
+func FindServiceDependencies(model *API, serviceID string) *ServiceDependencies {
 	service, ok := model.State.ServiceByID[serviceID]
 	if !ok {
-		return &Dependencies{}
+		return &ServiceDependencies{}
 	}
-	state := newSearchState(serviceID, model)
+	state := newFindServicesState(serviceID, model)
 	state.seed(service)
 	state.search()
-	return &Dependencies{
+	return &ServiceDependencies{
 		Messages: slices.Sorted(maps.Keys(state.Messages)),
 		Enums:    slices.Sorted(maps.Keys(state.Enums)),
 	}
 }
 
-type searchState struct {
+type findServiceState struct {
 	// The message IDs that have already been visited
 	Visited map[string]bool
 	// The enums already included in these results
@@ -61,8 +60,8 @@ type searchState struct {
 	serviceID  string
 }
 
-func newSearchState(serviceID string, model *API) *searchState {
-	return &searchState{
+func newFindServicesState(serviceID string, model *API) *findServiceState {
+	return &findServiceState{
 		Visited:   map[string]bool{},
 		Enums:     map[string]bool{},
 		Messages:  map[string]bool{},
@@ -71,7 +70,7 @@ func newSearchState(serviceID string, model *API) *searchState {
 	}
 }
 
-func (state *searchState) seed(service *Service) {
+func (state *findServiceState) seed(service *Service) {
 	for _, method := range service.Methods {
 		state.addCandidate(method.InputTypeID)
 		state.addCandidate(method.OutputTypeID)
@@ -82,32 +81,22 @@ func (state *searchState) seed(service *Service) {
 	}
 }
 
-func (state *searchState) search() {
+func (state *findServiceState) search() {
 	for len(state.candidates) > 0 {
 		candidate := state.candidates[len(state.candidates)-1]
 		state.candidates = state.candidates[0 : len(state.candidates)-1]
 
 		if _, ok := state.Visited[candidate.ID]; ok {
-			if state.serviceID == ".google.cloud.aiplatform.v1.GenAiTuningService" {
-				fmt.Printf("search(%s) - skip %s\n", state.serviceID, candidate.ID)
-			}
 			continue
 		}
 		state.Messages[candidate.ID] = true
 		state.recurse(candidate)
 	}
-	// Some APIs include messages that are not used by any of its services.
 }
 
-func (state *searchState) recurse(msg *Message) {
-	if state.serviceID == ".google.cloud.aiplatform.v1.GenAiTuningService" {
-		fmt.Printf("search(%s) - recurse %s\n", state.serviceID, msg.ID)
-	}
+func (state *findServiceState) recurse(msg *Message) {
 	state.Visited[msg.ID] = true
 	for _, field := range msg.Fields {
-		if state.serviceID == ".google.cloud.aiplatform.v1.GenAiTuningService" && field.TypezID != "" {
-			fmt.Printf("    search(%s) - recurse %s / %s\n", state.serviceID, msg.ID, field.TypezID)
-		}
 		switch field.Typez {
 		case ENUM_TYPE:
 			state.addEnum(field.TypezID)
@@ -118,7 +107,7 @@ func (state *searchState) recurse(msg *Message) {
 	}
 }
 
-func (state *searchState) addEnum(id string) {
+func (state *findServiceState) addEnum(id string) {
 	if e, ok := state.model.State.EnumByID[id]; ok {
 		if e.Parent != nil {
 			state.addCandidate(e.Parent.ID)
@@ -127,7 +116,7 @@ func (state *searchState) addEnum(id string) {
 	}
 }
 
-func (state *searchState) addMessage(id string) {
+func (state *findServiceState) addMessage(id string) {
 	state.addCandidate(id)
 	if m, ok := state.model.State.MessageByID[id]; ok {
 		if m.Parent != nil {
@@ -139,7 +128,7 @@ func (state *searchState) addMessage(id string) {
 	}
 }
 
-func (state *searchState) addCandidate(id string) {
+func (state *findServiceState) addCandidate(id string) {
 	msg, ok := state.model.State.MessageByID[id]
 	if !ok {
 		return

@@ -19,7 +19,7 @@ limitations under the License.
 {{{.}}}
 {{/Codec.DocLines}}
 {{#Codec.HasFeatureGates}}
-#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+#[cfg({{Codec.FeatureGatesOp}} ( {{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}} ) )]
 {{/Codec.HasFeatureGates}}
 {{#Codec.MessageAttributes}}
 {{{.}}}
@@ -49,7 +49,7 @@ pub struct {{Codec.Name}} {
 }
 
 {{#Codec.HasFeatureGates}}
-#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+#[cfg({{Codec.FeatureGatesOp}} ( {{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}} ) )]
 {{/Codec.HasFeatureGates}}
 impl {{Codec.Name}} {
     pub fn new() -> Self {
@@ -177,7 +177,7 @@ impl {{Codec.Name}} {
 {{^Codec.HasSyntheticFields}}
 
 {{#Codec.HasFeatureGates}}
-#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+#[cfg({{Codec.FeatureGatesOp}} ( {{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}} ) )]
 {{/Codec.HasFeatureGates}}
 impl wkt::message::Message for {{Codec.Name}} {
     fn typename() -> &'static str {
@@ -188,7 +188,7 @@ impl wkt::message::Message for {{Codec.Name}} {
 {{#Pagination}}
 
 {{#Codec.HasFeatureGates}}
-#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+#[cfg({{Codec.FeatureGatesOp}} ( {{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}} ) )]
 {{/Codec.HasFeatureGates}}
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for {{Name}} {
@@ -217,7 +217,7 @@ impl gax::paginator::internal::PageableResponse for {{Name}} {
 
 /// Defines additional types related to [{{Name}}].
 {{#Codec.HasFeatureGates}}
-#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+#[cfg({{Codec.FeatureGatesOp}} ( {{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}} ) )]
 {{/Codec.HasFeatureGates}}
 pub mod {{Codec.ModuleName}} {
     {{! Very rarely, this is unused. It is easier to always disable the warning. }}

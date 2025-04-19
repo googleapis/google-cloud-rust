@@ -123,7 +123,8 @@ type messageAnnotation struct {
 	// synthetic messages
 	HasSyntheticFields bool
 	// If set, this message is only enabled when some features are enabled.
-	FeatureGates []string
+	FeatureGates   []string
+	FeatureGatesOp string
 }
 
 type methodAnnotation struct {
@@ -185,7 +186,8 @@ type oneOfAnnotation struct {
 	// The subset of the oneof fields that are maps (`HashMap<K, V>` in Rust).
 	MapFields []*api.Field
 	// If set, this enum is only enabled when some features are enabled.
-	FeatureGates []string
+	FeatureGates   []string
+	FeatureGatesOp string
 }
 
 type fieldAnnotations struct {
@@ -231,7 +233,8 @@ type enumAnnotation struct {
 	// is the `QualifiedName` with the `crate::model::` prefix removed.
 	RelativeName string
 	// If set, this enum is only enabled when some features are enabled
-	FeatureGates []string
+	FeatureGates   []string
+	FeatureGatesOp string
 }
 
 type enumValueAnnotation struct {
@@ -328,46 +331,79 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 		PerServiceFeatures:      codec.perServiceFeatures && len(servicesSubset) > 0,
 	}
 
-	if codec.perServiceFeatures {
-		for _, service := range ann.Services {
-			svcAnn := service.Codec.(*serviceAnnotations)
-			if svcAnn.ModuleName == "gen_ai_tuning_service" {
-				fmt.Printf("deps = %s\n", svcAnn.ModuleName)
-			}
-			deps := api.ServiceDependencies(model, service.ID)
-			for _, id := range deps.Enums {
-				enum, ok := model.State.EnumByID[id]
-				// Some messages are not annotated (e.g. external messages).
-				if !ok || enum.Codec == nil {
-					continue
-				}
-				annotation := enum.Codec.(*enumAnnotation)
-				annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
-				slices.Sort(annotation.FeatureGates)
-			}
-			for _, id := range deps.Messages {
-				msg, ok := model.State.MessageByID[id]
-				// Some messages are not annotated (e.g. external messages).
-				if !ok || msg.Codec == nil {
-					continue
-				}
-				annotation := msg.Codec.(*messageAnnotation)
-				annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
-				slices.Sort(annotation.FeatureGates)
-				for _, one := range msg.OneOfs {
-					if one.Codec == nil {
-						continue
-					}
-					annotation := one.Codec.(*oneOfAnnotation)
-					annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
-					slices.Sort(annotation.FeatureGates)
-				}
-			}
-		}
-	}
+	codec.addFeatureAnnotations(model, ann)
 
 	model.Codec = ann
 	return ann
+}
+
+func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
+	if !c.perServiceFeatures {
+		return
+	}
+	var allFeatures []string
+	for _, service := range ann.Services {
+		svcAnn := service.Codec.(*serviceAnnotations)
+		allFeatures = append(allFeatures, svcAnn.ModuleName)
+		deps := api.FindServiceDependencies(model, service.ID)
+		for _, id := range deps.Enums {
+			enum, ok := model.State.EnumByID[id]
+			// Some messages are not annotated (e.g. external messages).
+			if !ok || enum.Codec == nil {
+				continue
+			}
+			annotation := enum.Codec.(*enumAnnotation)
+			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+			slices.Sort(annotation.FeatureGates)
+			annotation.FeatureGatesOp = "any"
+		}
+		for _, id := range deps.Messages {
+			msg, ok := model.State.MessageByID[id]
+			// Some messages are not annotated (e.g. external messages).
+			if !ok || msg.Codec == nil {
+				continue
+			}
+			annotation := msg.Codec.(*messageAnnotation)
+			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+			slices.Sort(annotation.FeatureGates)
+			annotation.FeatureGatesOp = "any"
+			for _, one := range msg.OneOfs {
+				if one.Codec == nil {
+					continue
+				}
+				annotation := one.Codec.(*oneOfAnnotation)
+				annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+				slices.Sort(annotation.FeatureGates)
+				annotation.FeatureGatesOp = "any"
+			}
+		}
+	}
+	// Rarely, some messages and enums are not used by any service. These
+	// will lack any feature gates, but may depend on messages that do.
+	// Change them to work only if all features are enabled.
+	slices.Sort(allFeatures)
+	for _, msg := range model.State.MessageByID {
+		if msg.Codec == nil {
+			continue
+		}
+		annotation := msg.Codec.(*messageAnnotation)
+		if len(annotation.FeatureGates) > 0 {
+			continue
+		}
+		annotation.FeatureGatesOp = "all"
+		annotation.FeatureGates = allFeatures
+	}
+	for _, enum := range model.State.EnumByID {
+		if enum.Codec == nil {
+			continue
+		}
+		annotation := enum.Codec.(*enumAnnotation)
+		if len(annotation.FeatureGates) > 0 {
+			continue
+		}
+		annotation.FeatureGatesOp = "all"
+		annotation.FeatureGates = allFeatures
+	}
 }
 
 func (c *codec) annotateService(s *api.Service, model *api.API) {

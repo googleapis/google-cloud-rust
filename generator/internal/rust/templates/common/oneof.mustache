@@ -18,7 +18,7 @@ limitations under the License.
 {{{.}}}
 {{/Codec.DocLines}}
 {{#Codec.HasFeatureGates}}
-#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+#[cfg({{Codec.FeatureGatesOp}} ( {{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}} ) )]
 {{/Codec.HasFeatureGates}}
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
