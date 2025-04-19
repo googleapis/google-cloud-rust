@@ -16,6 +16,7 @@
 use crate::Result;
 
 /// Implements a [DatasetService](super::stub::DatasetService) decorator for logging and tracing.
+#[cfg(any(feature = "dataset_service",))]
 #[derive(Clone, Debug)]
 pub struct DatasetService<T>
 where
@@ -24,6 +25,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "dataset_service",))]
 impl<T> DatasetService<T>
 where
     T: super::stub::DatasetService + std::fmt::Debug + Send + Sync,
@@ -33,6 +35,7 @@ where
     }
 }
 
+#[cfg(any(feature = "dataset_service",))]
 impl<T> super::stub::DatasetService for DatasetService<T>
 where
     T: super::stub::DatasetService + std::fmt::Debug + Send + Sync,
@@ -314,6 +317,7 @@ where
 }
 
 /// Implements a [DeploymentResourcePoolService](super::stub::DeploymentResourcePoolService) decorator for logging and tracing.
+#[cfg(any(feature = "deployment_resource_pool_service",))]
 #[derive(Clone, Debug)]
 pub struct DeploymentResourcePoolService<T>
 where
@@ -322,6 +326,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "deployment_resource_pool_service",))]
 impl<T> DeploymentResourcePoolService<T>
 where
     T: super::stub::DeploymentResourcePoolService + std::fmt::Debug + Send + Sync,
@@ -331,6 +336,7 @@ where
     }
 }
 
+#[cfg(any(feature = "deployment_resource_pool_service",))]
 impl<T> super::stub::DeploymentResourcePoolService for DeploymentResourcePoolService<T>
 where
     T: super::stub::DeploymentResourcePoolService + std::fmt::Debug + Send + Sync,
@@ -503,6 +509,7 @@ where
 }
 
 /// Implements a [EndpointService](super::stub::EndpointService) decorator for logging and tracing.
+#[cfg(any(feature = "endpoint_service",))]
 #[derive(Clone, Debug)]
 pub struct EndpointService<T>
 where
@@ -511,6 +518,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "endpoint_service",))]
 impl<T> EndpointService<T>
 where
     T: super::stub::EndpointService + std::fmt::Debug + Send + Sync,
@@ -520,6 +528,7 @@ where
     }
 }
 
+#[cfg(any(feature = "endpoint_service",))]
 impl<T> super::stub::EndpointService for EndpointService<T>
 where
     T: super::stub::EndpointService + std::fmt::Debug + Send + Sync,
@@ -711,6 +720,7 @@ where
 }
 
 /// Implements a [EvaluationService](super::stub::EvaluationService) decorator for logging and tracing.
+#[cfg(any(feature = "evaluation_service",))]
 #[derive(Clone, Debug)]
 pub struct EvaluationService<T>
 where
@@ -719,6 +729,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "evaluation_service",))]
 impl<T> EvaluationService<T>
 where
     T: super::stub::EvaluationService + std::fmt::Debug + Send + Sync,
@@ -728,6 +739,7 @@ where
     }
 }
 
+#[cfg(any(feature = "evaluation_service",))]
 impl<T> super::stub::EvaluationService for EvaluationService<T>
 where
     T: super::stub::EvaluationService + std::fmt::Debug + Send + Sync,
@@ -833,6 +845,7 @@ where
 }
 
 /// Implements a [FeatureOnlineStoreAdminService](super::stub::FeatureOnlineStoreAdminService) decorator for logging and tracing.
+#[cfg(any(feature = "feature_online_store_admin_service",))]
 #[derive(Clone, Debug)]
 pub struct FeatureOnlineStoreAdminService<T>
 where
@@ -841,6 +854,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "feature_online_store_admin_service",))]
 impl<T> FeatureOnlineStoreAdminService<T>
 where
     T: super::stub::FeatureOnlineStoreAdminService + std::fmt::Debug + Send + Sync,
@@ -850,6 +864,7 @@ where
     }
 }
 
+#[cfg(any(feature = "feature_online_store_admin_service",))]
 impl<T> super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminService<T>
 where
     T: super::stub::FeatureOnlineStoreAdminService + std::fmt::Debug + Send + Sync,
@@ -1077,6 +1092,7 @@ where
 }
 
 /// Implements a [FeatureOnlineStoreService](super::stub::FeatureOnlineStoreService) decorator for logging and tracing.
+#[cfg(any(feature = "feature_online_store_service",))]
 #[derive(Clone, Debug)]
 pub struct FeatureOnlineStoreService<T>
 where
@@ -1085,6 +1101,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "feature_online_store_service",))]
 impl<T> FeatureOnlineStoreService<T>
 where
     T: super::stub::FeatureOnlineStoreService + std::fmt::Debug + Send + Sync,
@@ -1094,6 +1111,7 @@ where
     }
 }
 
+#[cfg(any(feature = "feature_online_store_service",))]
 impl<T> super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService<T>
 where
     T: super::stub::FeatureOnlineStoreService + std::fmt::Debug + Send + Sync,
@@ -1208,6 +1226,7 @@ where
 }
 
 /// Implements a [FeatureRegistryService](super::stub::FeatureRegistryService) decorator for logging and tracing.
+#[cfg(any(feature = "feature_registry_service",))]
 #[derive(Clone, Debug)]
 pub struct FeatureRegistryService<T>
 where
@@ -1216,6 +1235,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "feature_registry_service",))]
 impl<T> FeatureRegistryService<T>
 where
     T: super::stub::FeatureRegistryService + std::fmt::Debug + Send + Sync,
@@ -1225,6 +1245,7 @@ where
     }
 }
 
+#[cfg(any(feature = "feature_registry_service",))]
 impl<T> super::stub::FeatureRegistryService for FeatureRegistryService<T>
 where
     T: super::stub::FeatureRegistryService + std::fmt::Debug + Send + Sync,
@@ -1434,6 +1455,7 @@ where
 }
 
 /// Implements a [FeaturestoreOnlineServingService](super::stub::FeaturestoreOnlineServingService) decorator for logging and tracing.
+#[cfg(any(feature = "featurestore_online_serving_service",))]
 #[derive(Clone, Debug)]
 pub struct FeaturestoreOnlineServingService<T>
 where
@@ -1442,6 +1464,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "featurestore_online_serving_service",))]
 impl<T> FeaturestoreOnlineServingService<T>
 where
     T: super::stub::FeaturestoreOnlineServingService + std::fmt::Debug + Send + Sync,
@@ -1451,6 +1474,7 @@ where
     }
 }
 
+#[cfg(any(feature = "featurestore_online_serving_service",))]
 impl<T> super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServingService<T>
 where
     T: super::stub::FeaturestoreOnlineServingService + std::fmt::Debug + Send + Sync,
@@ -1565,6 +1589,7 @@ where
 }
 
 /// Implements a [FeaturestoreService](super::stub::FeaturestoreService) decorator for logging and tracing.
+#[cfg(any(feature = "featurestore_service",))]
 #[derive(Clone, Debug)]
 pub struct FeaturestoreService<T>
 where
@@ -1573,6 +1598,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "featurestore_service",))]
 impl<T> FeaturestoreService<T>
 where
     T: super::stub::FeaturestoreService + std::fmt::Debug + Send + Sync,
@@ -1582,6 +1608,7 @@ where
     }
 }
 
+#[cfg(any(feature = "featurestore_service",))]
 impl<T> super::stub::FeaturestoreService for FeaturestoreService<T>
 where
     T: super::stub::FeaturestoreService + std::fmt::Debug + Send + Sync,
@@ -1881,6 +1908,7 @@ where
 }
 
 /// Implements a [GenAiCacheService](super::stub::GenAiCacheService) decorator for logging and tracing.
+#[cfg(any(feature = "gen_ai_cache_service",))]
 #[derive(Clone, Debug)]
 pub struct GenAiCacheService<T>
 where
@@ -1889,6 +1917,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "gen_ai_cache_service",))]
 impl<T> GenAiCacheService<T>
 where
     T: super::stub::GenAiCacheService + std::fmt::Debug + Send + Sync,
@@ -1898,6 +1927,7 @@ where
     }
 }
 
+#[cfg(any(feature = "gen_ai_cache_service",))]
 impl<T> super::stub::GenAiCacheService for GenAiCacheService<T>
 where
     T: super::stub::GenAiCacheService + std::fmt::Debug + Send + Sync,
@@ -2039,6 +2069,7 @@ where
 }
 
 /// Implements a [GenAiTuningService](super::stub::GenAiTuningService) decorator for logging and tracing.
+#[cfg(any(feature = "gen_ai_tuning_service",))]
 #[derive(Clone, Debug)]
 pub struct GenAiTuningService<T>
 where
@@ -2047,6 +2078,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "gen_ai_tuning_service",))]
 impl<T> GenAiTuningService<T>
 where
     T: super::stub::GenAiTuningService + std::fmt::Debug + Send + Sync,
@@ -2056,6 +2088,7 @@ where
     }
 }
 
+#[cfg(any(feature = "gen_ai_tuning_service",))]
 impl<T> super::stub::GenAiTuningService for GenAiTuningService<T>
 where
     T: super::stub::GenAiTuningService + std::fmt::Debug + Send + Sync,
@@ -2211,6 +2244,7 @@ where
 }
 
 /// Implements a [IndexEndpointService](super::stub::IndexEndpointService) decorator for logging and tracing.
+#[cfg(any(feature = "index_endpoint_service",))]
 #[derive(Clone, Debug)]
 pub struct IndexEndpointService<T>
 where
@@ -2219,6 +2253,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "index_endpoint_service",))]
 impl<T> IndexEndpointService<T>
 where
     T: super::stub::IndexEndpointService + std::fmt::Debug + Send + Sync,
@@ -2228,6 +2263,7 @@ where
     }
 }
 
+#[cfg(any(feature = "index_endpoint_service",))]
 impl<T> super::stub::IndexEndpointService for IndexEndpointService<T>
 where
     T: super::stub::IndexEndpointService + std::fmt::Debug + Send + Sync,
@@ -2410,6 +2446,7 @@ where
 }
 
 /// Implements a [IndexService](super::stub::IndexService) decorator for logging and tracing.
+#[cfg(any(feature = "index_service",))]
 #[derive(Clone, Debug)]
 pub struct IndexService<T>
 where
@@ -2418,6 +2455,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "index_service",))]
 impl<T> IndexService<T>
 where
     T: super::stub::IndexService + std::fmt::Debug + Send + Sync,
@@ -2427,6 +2465,7 @@ where
     }
 }
 
+#[cfg(any(feature = "index_service",))]
 impl<T> super::stub::IndexService for IndexService<T>
 where
     T: super::stub::IndexService + std::fmt::Debug + Send + Sync,
@@ -2600,6 +2639,7 @@ where
 }
 
 /// Implements a [JobService](super::stub::JobService) decorator for logging and tracing.
+#[cfg(any(feature = "job_service",))]
 #[derive(Clone, Debug)]
 pub struct JobService<T>
 where
@@ -2608,6 +2648,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "job_service",))]
 impl<T> JobService<T>
 where
     T: super::stub::JobService + std::fmt::Debug + Send + Sync,
@@ -2617,6 +2658,7 @@ where
     }
 }
 
+#[cfg(any(feature = "job_service",))]
 impl<T> super::stub::JobService for JobService<T>
 where
     T: super::stub::JobService + std::fmt::Debug + Send + Sync,
@@ -3071,6 +3113,7 @@ where
 }
 
 /// Implements a [LlmUtilityService](super::stub::LlmUtilityService) decorator for logging and tracing.
+#[cfg(any(feature = "llm_utility_service",))]
 #[derive(Clone, Debug)]
 pub struct LlmUtilityService<T>
 where
@@ -3079,6 +3122,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "llm_utility_service",))]
 impl<T> LlmUtilityService<T>
 where
     T: super::stub::LlmUtilityService + std::fmt::Debug + Send + Sync,
@@ -3088,6 +3132,7 @@ where
     }
 }
 
+#[cfg(any(feature = "llm_utility_service",))]
 impl<T> super::stub::LlmUtilityService for LlmUtilityService<T>
 where
     T: super::stub::LlmUtilityService + std::fmt::Debug + Send + Sync,
@@ -3202,6 +3247,7 @@ where
 }
 
 /// Implements a [MatchService](super::stub::MatchService) decorator for logging and tracing.
+#[cfg(any(feature = "match_service",))]
 #[derive(Clone, Debug)]
 pub struct MatchService<T>
 where
@@ -3210,6 +3256,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "match_service",))]
 impl<T> MatchService<T>
 where
     T: super::stub::MatchService + std::fmt::Debug + Send + Sync,
@@ -3219,6 +3266,7 @@ where
     }
 }
 
+#[cfg(any(feature = "match_service",))]
 impl<T> super::stub::MatchService for MatchService<T>
 where
     T: super::stub::MatchService + std::fmt::Debug + Send + Sync,
@@ -3333,6 +3381,7 @@ where
 }
 
 /// Implements a [MetadataService](super::stub::MetadataService) decorator for logging and tracing.
+#[cfg(any(feature = "metadata_service",))]
 #[derive(Clone, Debug)]
 pub struct MetadataService<T>
 where
@@ -3341,6 +3390,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "metadata_service",))]
 impl<T> MetadataService<T>
 where
     T: super::stub::MetadataService + std::fmt::Debug + Send + Sync,
@@ -3350,6 +3400,7 @@ where
     }
 }
 
+#[cfg(any(feature = "metadata_service",))]
 impl<T> super::stub::MetadataService for MetadataService<T>
 where
     T: super::stub::MetadataService + std::fmt::Debug + Send + Sync,
@@ -3757,6 +3808,7 @@ where
 }
 
 /// Implements a [MigrationService](super::stub::MigrationService) decorator for logging and tracing.
+#[cfg(any(feature = "migration_service",))]
 #[derive(Clone, Debug)]
 pub struct MigrationService<T>
 where
@@ -3765,6 +3817,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "migration_service",))]
 impl<T> MigrationService<T>
 where
     T: super::stub::MigrationService + std::fmt::Debug + Send + Sync,
@@ -3774,6 +3827,7 @@ where
     }
 }
 
+#[cfg(any(feature = "migration_service",))]
 impl<T> super::stub::MigrationService for MigrationService<T>
 where
     T: super::stub::MigrationService + std::fmt::Debug + Send + Sync,
@@ -3902,6 +3956,7 @@ where
 }
 
 /// Implements a [ModelGardenService](super::stub::ModelGardenService) decorator for logging and tracing.
+#[cfg(any(feature = "model_garden_service",))]
 #[derive(Clone, Debug)]
 pub struct ModelGardenService<T>
 where
@@ -3910,6 +3965,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "model_garden_service",))]
 impl<T> ModelGardenService<T>
 where
     T: super::stub::ModelGardenService + std::fmt::Debug + Send + Sync,
@@ -3919,6 +3975,7 @@ where
     }
 }
 
+#[cfg(any(feature = "model_garden_service",))]
 impl<T> super::stub::ModelGardenService for ModelGardenService<T>
 where
     T: super::stub::ModelGardenService + std::fmt::Debug + Send + Sync,
@@ -4024,6 +4081,7 @@ where
 }
 
 /// Implements a [ModelService](super::stub::ModelService) decorator for logging and tracing.
+#[cfg(any(feature = "model_service",))]
 #[derive(Clone, Debug)]
 pub struct ModelService<T>
 where
@@ -4032,6 +4090,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "model_service",))]
 impl<T> ModelService<T>
 where
     T: super::stub::ModelService + std::fmt::Debug + Send + Sync,
@@ -4041,6 +4100,7 @@ where
     }
 }
 
+#[cfg(any(feature = "model_service",))]
 impl<T> super::stub::ModelService for ModelService<T>
 where
     T: super::stub::ModelService + std::fmt::Debug + Send + Sync,
@@ -4330,6 +4390,7 @@ where
 }
 
 /// Implements a [NotebookService](super::stub::NotebookService) decorator for logging and tracing.
+#[cfg(any(feature = "notebook_service",))]
 #[derive(Clone, Debug)]
 pub struct NotebookService<T>
 where
@@ -4338,6 +4399,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "notebook_service",))]
 impl<T> NotebookService<T>
 where
     T: super::stub::NotebookService + std::fmt::Debug + Send + Sync,
@@ -4347,6 +4409,7 @@ where
     }
 }
 
+#[cfg(any(feature = "notebook_service",))]
 impl<T> super::stub::NotebookService for NotebookService<T>
 where
     T: super::stub::NotebookService + std::fmt::Debug + Send + Sync,
@@ -4609,6 +4672,7 @@ where
 }
 
 /// Implements a [PersistentResourceService](super::stub::PersistentResourceService) decorator for logging and tracing.
+#[cfg(any(feature = "persistent_resource_service",))]
 #[derive(Clone, Debug)]
 pub struct PersistentResourceService<T>
 where
@@ -4617,6 +4681,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "persistent_resource_service",))]
 impl<T> PersistentResourceService<T>
 where
     T: super::stub::PersistentResourceService + std::fmt::Debug + Send + Sync,
@@ -4626,6 +4691,7 @@ where
     }
 }
 
+#[cfg(any(feature = "persistent_resource_service",))]
 impl<T> super::stub::PersistentResourceService for PersistentResourceService<T>
 where
     T: super::stub::PersistentResourceService + std::fmt::Debug + Send + Sync,
@@ -4790,6 +4856,7 @@ where
 }
 
 /// Implements a [PipelineService](super::stub::PipelineService) decorator for logging and tracing.
+#[cfg(any(feature = "pipeline_service",))]
 #[derive(Clone, Debug)]
 pub struct PipelineService<T>
 where
@@ -4798,6 +4865,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "pipeline_service",))]
 impl<T> PipelineService<T>
 where
     T: super::stub::PipelineService + std::fmt::Debug + Send + Sync,
@@ -4807,6 +4875,7 @@ where
     }
 }
 
+#[cfg(any(feature = "pipeline_service",))]
 impl<T> super::stub::PipelineService for PipelineService<T>
 where
     T: super::stub::PipelineService + std::fmt::Debug + Send + Sync,
@@ -5025,6 +5094,7 @@ where
 }
 
 /// Implements a [PredictionService](super::stub::PredictionService) decorator for logging and tracing.
+#[cfg(any(feature = "prediction_service",))]
 #[derive(Clone, Debug)]
 pub struct PredictionService<T>
 where
@@ -5033,6 +5103,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "prediction_service",))]
 impl<T> PredictionService<T>
 where
     T: super::stub::PredictionService + std::fmt::Debug + Send + Sync,
@@ -5042,6 +5113,7 @@ where
     }
 }
 
+#[cfg(any(feature = "prediction_service",))]
 impl<T> super::stub::PredictionService for PredictionService<T>
 where
     T: super::stub::PredictionService + std::fmt::Debug + Send + Sync,
@@ -5192,6 +5264,7 @@ where
 }
 
 /// Implements a [ReasoningEngineExecutionService](super::stub::ReasoningEngineExecutionService) decorator for logging and tracing.
+#[cfg(any(feature = "reasoning_engine_execution_service",))]
 #[derive(Clone, Debug)]
 pub struct ReasoningEngineExecutionService<T>
 where
@@ -5200,6 +5273,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "reasoning_engine_execution_service",))]
 impl<T> ReasoningEngineExecutionService<T>
 where
     T: super::stub::ReasoningEngineExecutionService + std::fmt::Debug + Send + Sync,
@@ -5209,6 +5283,7 @@ where
     }
 }
 
+#[cfg(any(feature = "reasoning_engine_execution_service",))]
 impl<T> super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionService<T>
 where
     T: super::stub::ReasoningEngineExecutionService + std::fmt::Debug + Send + Sync,
@@ -5314,6 +5389,7 @@ where
 }
 
 /// Implements a [ReasoningEngineService](super::stub::ReasoningEngineService) decorator for logging and tracing.
+#[cfg(any(feature = "reasoning_engine_service",))]
 #[derive(Clone, Debug)]
 pub struct ReasoningEngineService<T>
 where
@@ -5322,6 +5398,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "reasoning_engine_service",))]
 impl<T> ReasoningEngineService<T>
 where
     T: super::stub::ReasoningEngineService + std::fmt::Debug + Send + Sync,
@@ -5331,6 +5408,7 @@ where
     }
 }
 
+#[cfg(any(feature = "reasoning_engine_service",))]
 impl<T> super::stub::ReasoningEngineService for ReasoningEngineService<T>
 where
     T: super::stub::ReasoningEngineService + std::fmt::Debug + Send + Sync,
@@ -5486,6 +5564,7 @@ where
 }
 
 /// Implements a [ScheduleService](super::stub::ScheduleService) decorator for logging and tracing.
+#[cfg(any(feature = "schedule_service",))]
 #[derive(Clone, Debug)]
 pub struct ScheduleService<T>
 where
@@ -5494,6 +5573,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "schedule_service",))]
 impl<T> ScheduleService<T>
 where
     T: super::stub::ScheduleService + std::fmt::Debug + Send + Sync,
@@ -5503,6 +5583,7 @@ where
     }
 }
 
+#[cfg(any(feature = "schedule_service",))]
 impl<T> super::stub::ScheduleService for ScheduleService<T>
 where
     T: super::stub::ScheduleService + std::fmt::Debug + Send + Sync,
@@ -5676,6 +5757,7 @@ where
 }
 
 /// Implements a [SpecialistPoolService](super::stub::SpecialistPoolService) decorator for logging and tracing.
+#[cfg(any(feature = "specialist_pool_service",))]
 #[derive(Clone, Debug)]
 pub struct SpecialistPoolService<T>
 where
@@ -5684,6 +5766,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "specialist_pool_service",))]
 impl<T> SpecialistPoolService<T>
 where
     T: super::stub::SpecialistPoolService + std::fmt::Debug + Send + Sync,
@@ -5693,6 +5776,7 @@ where
     }
 }
 
+#[cfg(any(feature = "specialist_pool_service",))]
 impl<T> super::stub::SpecialistPoolService for SpecialistPoolService<T>
 where
     T: super::stub::SpecialistPoolService + std::fmt::Debug + Send + Sync,
@@ -5848,6 +5932,7 @@ where
 }
 
 /// Implements a [TensorboardService](super::stub::TensorboardService) decorator for logging and tracing.
+#[cfg(any(feature = "tensorboard_service",))]
 #[derive(Clone, Debug)]
 pub struct TensorboardService<T>
 where
@@ -5856,6 +5941,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "tensorboard_service",))]
 impl<T> TensorboardService<T>
 where
     T: super::stub::TensorboardService + std::fmt::Debug + Send + Sync,
@@ -5865,6 +5951,7 @@ where
     }
 }
 
+#[cfg(any(feature = "tensorboard_service",))]
 impl<T> super::stub::TensorboardService for TensorboardService<T>
 where
     T: super::stub::TensorboardService + std::fmt::Debug + Send + Sync,
@@ -6255,6 +6342,7 @@ where
 }
 
 /// Implements a [VertexRagDataService](super::stub::VertexRagDataService) decorator for logging and tracing.
+#[cfg(any(feature = "vertex_rag_data_service",))]
 #[derive(Clone, Debug)]
 pub struct VertexRagDataService<T>
 where
@@ -6263,6 +6351,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "vertex_rag_data_service",))]
 impl<T> VertexRagDataService<T>
 where
     T: super::stub::VertexRagDataService + std::fmt::Debug + Send + Sync,
@@ -6272,6 +6361,7 @@ where
     }
 }
 
+#[cfg(any(feature = "vertex_rag_data_service",))]
 impl<T> super::stub::VertexRagDataService for VertexRagDataService<T>
 where
     T: super::stub::VertexRagDataService + std::fmt::Debug + Send + Sync,
@@ -6472,6 +6562,7 @@ where
 }
 
 /// Implements a [VertexRagService](super::stub::VertexRagService) decorator for logging and tracing.
+#[cfg(any(feature = "vertex_rag_service",))]
 #[derive(Clone, Debug)]
 pub struct VertexRagService<T>
 where
@@ -6480,6 +6571,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "vertex_rag_service",))]
 impl<T> VertexRagService<T>
 where
     T: super::stub::VertexRagService + std::fmt::Debug + Send + Sync,
@@ -6489,6 +6581,7 @@ where
     }
 }
 
+#[cfg(any(feature = "vertex_rag_service",))]
 impl<T> super::stub::VertexRagService for VertexRagService<T>
 where
     T: super::stub::VertexRagService + std::fmt::Debug + Send + Sync,
@@ -6612,6 +6705,7 @@ where
 }
 
 /// Implements a [VizierService](super::stub::VizierService) decorator for logging and tracing.
+#[cfg(any(feature = "vizier_service",))]
 #[derive(Clone, Debug)]
 pub struct VizierService<T>
 where
@@ -6620,6 +6714,7 @@ where
     inner: T,
 }
 
+#[cfg(any(feature = "vizier_service",))]
 impl<T> VizierService<T>
 where
     T: super::stub::VizierService + std::fmt::Debug + Send + Sync,
@@ -6629,6 +6724,7 @@ where
     }
 }
 
+#[cfg(any(feature = "vizier_service",))]
 impl<T> super::stub::VizierService for VizierService<T>
 where
     T: super::stub::VizierService + std::fmt::Debug + Send + Sync,

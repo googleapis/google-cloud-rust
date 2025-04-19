@@ -24,6 +24,9 @@ use std::sync::Arc;
 {{#Codec.Services}}
 
 /// A dyn-compatible, crate-private version of [super::{{Codec.Name}}].
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 #[async_trait::async_trait]
 pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
     {{#Codec.Methods}}
@@ -48,6 +51,9 @@ pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
 }
 
 /// All implementations of [super::{{Codec.Name}}] also implement [{{Codec.Name}}].
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 #[async_trait::async_trait]
 impl<T: super::{{Codec.Name}}> {{Codec.Name}} for T {
     {{#Codec.Methods}}

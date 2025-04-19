@@ -27,11 +27,17 @@ use gax::error::Error;
 {{/Codec.HasServices}}
 {{#Codec.Services}}
 /// Implements [{{Codec.Name}}](super::stub::{{Codec.Name}}) using a [gaxi::http::ReqwestClient].
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 #[derive(Clone)]
 pub struct {{Codec.Name}} {
     inner: gaxi::http::ReqwestClient,
 }
 
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 impl std::fmt::Debug for {{Codec.Name}} {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("{{Codec.Name}}")
@@ -40,6 +46,9 @@ impl std::fmt::Debug for {{Codec.Name}} {
     }
 }
 
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 impl {{Codec.Name}} {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -47,6 +56,9 @@ impl {{Codec.Name}} {
     }
 }
 
+{{#Codec.HasFeatureGates}}
+#[cfg(any({{#Codec.FeatureGates}}feature = "{{{.}}}",{{/Codec.FeatureGates}}))]
+{{/Codec.HasFeatureGates}}
 impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
     {{#Codec.Methods}}
     async fn {{Codec.Name}}(

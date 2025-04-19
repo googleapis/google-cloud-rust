@@ -76,6 +76,12 @@ type serviceAnnotations struct {
 	// If true, this service includes methods that return long-running operations.
 	HasLROs  bool
 	APITitle string
+	// If set, this enum is only enabled when some features are enabled.
+	FeatureGates []string
+}
+
+func (a *serviceAnnotations) HasFeatureGates() bool {
+	return len(a.FeatureGates) > 0
 }
 
 type messageAnnotation struct {
@@ -103,6 +109,8 @@ type messageAnnotation struct {
 	// If true, this is a synthetic message, some generation is skipped for
 	// synthetic messages
 	HasSyntheticFields bool
+	// If set, this enum is only enabled when some features are enabled
+	FeatureGates []string
 }
 
 type methodAnnotation struct {
@@ -207,6 +215,8 @@ type enumAnnotation struct {
 	// The fully qualified name, relative to `codec.modulePath`. Typically this
 	// is the `QualifiedName` with the `crate::model::` prefix removed.
 	RelativeName string
+	// If set, this enum is only enabled when some features are enabled
+	FeatureGates []string
 }
 
 type enumValueAnnotation struct {
@@ -323,16 +333,22 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 	for i, c := range components {
 		components[i] = toSnake(c)
 	}
+	moduleName := toSnake(s.Name)
+	featureGates := []string{}
+	if c.perServiceFeatures {
+		featureGates = append(featureGates, moduleName)
+	}
 	ann := &serviceAnnotations{
 		Name:              toPascal(s.Name),
 		PackageModuleName: strings.Join(components, "::"),
-		ModuleName:        toSnake(s.Name),
+		ModuleName:        moduleName,
 		DocLines: c.formatDocComments(
 			s.Documentation, s.ID, model.State, []string{s.ID, s.Package}),
-		Methods:     methods,
-		DefaultHost: s.DefaultHost,
-		HasLROs:     hasLROs,
-		APITitle:    model.Title,
+		Methods:      methods,
+		DefaultHost:  s.DefaultHost,
+		HasLROs:      hasLROs,
+		APITitle:     model.Title,
+		FeatureGates: featureGates,
 	}
 	s.Codec = ann
 }

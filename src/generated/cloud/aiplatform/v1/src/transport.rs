@@ -19,11 +19,13 @@ use crate::Result;
 use gax::error::Error;
 
 /// Implements [DatasetService](super::stub::DatasetService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "dataset_service",))]
 #[derive(Clone)]
 pub struct DatasetService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "dataset_service",))]
 impl std::fmt::Debug for DatasetService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("DatasetService")
@@ -32,6 +34,7 @@ impl std::fmt::Debug for DatasetService {
     }
 }
 
+#[cfg(any(feature = "dataset_service",))]
 impl DatasetService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -39,6 +42,7 @@ impl DatasetService {
     }
 }
 
+#[cfg(any(feature = "dataset_service",))]
 impl super::stub::DatasetService for DatasetService {
     async fn create_dataset(
         &self,
@@ -796,11 +800,13 @@ impl super::stub::DatasetService for DatasetService {
 }
 
 /// Implements [DeploymentResourcePoolService](super::stub::DeploymentResourcePoolService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "deployment_resource_pool_service",))]
 #[derive(Clone)]
 pub struct DeploymentResourcePoolService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "deployment_resource_pool_service",))]
 impl std::fmt::Debug for DeploymentResourcePoolService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("DeploymentResourcePoolService")
@@ -809,6 +815,7 @@ impl std::fmt::Debug for DeploymentResourcePoolService {
     }
 }
 
+#[cfg(any(feature = "deployment_resource_pool_service",))]
 impl DeploymentResourcePoolService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -816,6 +823,7 @@ impl DeploymentResourcePoolService {
     }
 }
 
+#[cfg(any(feature = "deployment_resource_pool_service",))]
 impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolService {
     async fn create_deployment_resource_pool(
         &self,
@@ -1208,11 +1216,13 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
 }
 
 /// Implements [EndpointService](super::stub::EndpointService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "endpoint_service",))]
 #[derive(Clone)]
 pub struct EndpointService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "endpoint_service",))]
 impl std::fmt::Debug for EndpointService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("EndpointService")
@@ -1221,6 +1231,7 @@ impl std::fmt::Debug for EndpointService {
     }
 }
 
+#[cfg(any(feature = "endpoint_service",))]
 impl EndpointService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -1228,6 +1239,7 @@ impl EndpointService {
     }
 }
 
+#[cfg(any(feature = "endpoint_service",))]
 impl super::stub::EndpointService for EndpointService {
     async fn create_endpoint(
         &self,
@@ -1693,11 +1705,13 @@ impl super::stub::EndpointService for EndpointService {
 }
 
 /// Implements [EvaluationService](super::stub::EvaluationService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "evaluation_service",))]
 #[derive(Clone)]
 pub struct EvaluationService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "evaluation_service",))]
 impl std::fmt::Debug for EvaluationService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("EvaluationService")
@@ -1706,6 +1720,7 @@ impl std::fmt::Debug for EvaluationService {
     }
 }
 
+#[cfg(any(feature = "evaluation_service",))]
 impl EvaluationService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -1713,6 +1728,7 @@ impl EvaluationService {
     }
 }
 
+#[cfg(any(feature = "evaluation_service",))]
 impl super::stub::EvaluationService for EvaluationService {
     async fn evaluate_instances(
         &self,
@@ -1971,11 +1987,13 @@ impl super::stub::EvaluationService for EvaluationService {
 }
 
 /// Implements [FeatureOnlineStoreAdminService](super::stub::FeatureOnlineStoreAdminService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "feature_online_store_admin_service",))]
 #[derive(Clone)]
 pub struct FeatureOnlineStoreAdminService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "feature_online_store_admin_service",))]
 impl std::fmt::Debug for FeatureOnlineStoreAdminService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("FeatureOnlineStoreAdminService")
@@ -1984,6 +2002,7 @@ impl std::fmt::Debug for FeatureOnlineStoreAdminService {
     }
 }
 
+#[cfg(any(feature = "feature_online_store_admin_service",))]
 impl FeatureOnlineStoreAdminService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -1991,6 +2010,7 @@ impl FeatureOnlineStoreAdminService {
     }
 }
 
+#[cfg(any(feature = "feature_online_store_admin_service",))]
 impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminService {
     async fn create_feature_online_store(
         &self,
@@ -2552,11 +2572,13 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
 }
 
 /// Implements [FeatureOnlineStoreService](super::stub::FeatureOnlineStoreService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "feature_online_store_service",))]
 #[derive(Clone)]
 pub struct FeatureOnlineStoreService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "feature_online_store_service",))]
 impl std::fmt::Debug for FeatureOnlineStoreService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("FeatureOnlineStoreService")
@@ -2565,6 +2587,7 @@ impl std::fmt::Debug for FeatureOnlineStoreService {
     }
 }
 
+#[cfg(any(feature = "feature_online_store_service",))]
 impl FeatureOnlineStoreService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -2572,6 +2595,7 @@ impl FeatureOnlineStoreService {
     }
 }
 
+#[cfg(any(feature = "feature_online_store_service",))]
 impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
     async fn fetch_feature_values(
         &self,
@@ -2850,11 +2874,13 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
 }
 
 /// Implements [FeatureRegistryService](super::stub::FeatureRegistryService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "feature_registry_service",))]
 #[derive(Clone)]
 pub struct FeatureRegistryService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "feature_registry_service",))]
 impl std::fmt::Debug for FeatureRegistryService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("FeatureRegistryService")
@@ -2863,6 +2889,7 @@ impl std::fmt::Debug for FeatureRegistryService {
     }
 }
 
+#[cfg(any(feature = "feature_registry_service",))]
 impl FeatureRegistryService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -2870,6 +2897,7 @@ impl FeatureRegistryService {
     }
 }
 
+#[cfg(any(feature = "feature_registry_service",))]
 impl super::stub::FeatureRegistryService for FeatureRegistryService {
     async fn create_feature_group(
         &self,
@@ -3389,11 +3417,13 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
 }
 
 /// Implements [FeaturestoreOnlineServingService](super::stub::FeaturestoreOnlineServingService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "featurestore_online_serving_service",))]
 #[derive(Clone)]
 pub struct FeaturestoreOnlineServingService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "featurestore_online_serving_service",))]
 impl std::fmt::Debug for FeaturestoreOnlineServingService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("FeaturestoreOnlineServingService")
@@ -3402,6 +3432,7 @@ impl std::fmt::Debug for FeaturestoreOnlineServingService {
     }
 }
 
+#[cfg(any(feature = "featurestore_online_serving_service",))]
 impl FeaturestoreOnlineServingService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -3409,6 +3440,7 @@ impl FeaturestoreOnlineServingService {
     }
 }
 
+#[cfg(any(feature = "featurestore_online_serving_service",))]
 impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServingService {
     async fn read_feature_values(
         &self,
@@ -3687,11 +3719,13 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
 }
 
 /// Implements [FeaturestoreService](super::stub::FeaturestoreService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "featurestore_service",))]
 #[derive(Clone)]
 pub struct FeaturestoreService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "featurestore_service",))]
 impl std::fmt::Debug for FeaturestoreService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("FeaturestoreService")
@@ -3700,6 +3734,7 @@ impl std::fmt::Debug for FeaturestoreService {
     }
 }
 
+#[cfg(any(feature = "featurestore_service",))]
 impl FeaturestoreService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -3707,6 +3742,7 @@ impl FeaturestoreService {
     }
 }
 
+#[cfg(any(feature = "featurestore_service",))]
 impl super::stub::FeaturestoreService for FeaturestoreService {
     async fn create_featurestore(
         &self,
@@ -4465,11 +4501,13 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
 }
 
 /// Implements [GenAiCacheService](super::stub::GenAiCacheService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "gen_ai_cache_service",))]
 #[derive(Clone)]
 pub struct GenAiCacheService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "gen_ai_cache_service",))]
 impl std::fmt::Debug for GenAiCacheService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("GenAiCacheService")
@@ -4478,6 +4516,7 @@ impl std::fmt::Debug for GenAiCacheService {
     }
 }
 
+#[cfg(any(feature = "gen_ai_cache_service",))]
 impl GenAiCacheService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -4485,6 +4524,7 @@ impl GenAiCacheService {
     }
 }
 
+#[cfg(any(feature = "gen_ai_cache_service",))]
 impl super::stub::GenAiCacheService for GenAiCacheService {
     async fn create_cached_content(
         &self,
@@ -4845,11 +4885,13 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
 }
 
 /// Implements [GenAiTuningService](super::stub::GenAiTuningService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "gen_ai_tuning_service",))]
 #[derive(Clone)]
 pub struct GenAiTuningService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "gen_ai_tuning_service",))]
 impl std::fmt::Debug for GenAiTuningService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("GenAiTuningService")
@@ -4858,6 +4900,7 @@ impl std::fmt::Debug for GenAiTuningService {
     }
 }
 
+#[cfg(any(feature = "gen_ai_tuning_service",))]
 impl GenAiTuningService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -4865,6 +4908,7 @@ impl GenAiTuningService {
     }
 }
 
+#[cfg(any(feature = "gen_ai_tuning_service",))]
 impl super::stub::GenAiTuningService for GenAiTuningService {
     async fn create_tuning_job(
         &self,
@@ -5225,11 +5269,13 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
 }
 
 /// Implements [IndexEndpointService](super::stub::IndexEndpointService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "index_endpoint_service",))]
 #[derive(Clone)]
 pub struct IndexEndpointService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "index_endpoint_service",))]
 impl std::fmt::Debug for IndexEndpointService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("IndexEndpointService")
@@ -5238,6 +5284,7 @@ impl std::fmt::Debug for IndexEndpointService {
     }
 }
 
+#[cfg(any(feature = "index_endpoint_service",))]
 impl IndexEndpointService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -5245,6 +5292,7 @@ impl IndexEndpointService {
     }
 }
 
+#[cfg(any(feature = "index_endpoint_service",))]
 impl super::stub::IndexEndpointService for IndexEndpointService {
     async fn create_index_endpoint(
         &self,
@@ -5684,11 +5732,13 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
 }
 
 /// Implements [IndexService](super::stub::IndexService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "index_service",))]
 #[derive(Clone)]
 pub struct IndexService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "index_service",))]
 impl std::fmt::Debug for IndexService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("IndexService")
@@ -5697,6 +5747,7 @@ impl std::fmt::Debug for IndexService {
     }
 }
 
+#[cfg(any(feature = "index_service",))]
 impl IndexService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -5704,6 +5755,7 @@ impl IndexService {
     }
 }
 
+#[cfg(any(feature = "index_service",))]
 impl super::stub::IndexService for IndexService {
     async fn create_index(
         &self,
@@ -6111,11 +6163,13 @@ impl super::stub::IndexService for IndexService {
 }
 
 /// Implements [JobService](super::stub::JobService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "job_service",))]
 #[derive(Clone)]
 pub struct JobService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "job_service",))]
 impl std::fmt::Debug for JobService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("JobService")
@@ -6124,6 +6178,7 @@ impl std::fmt::Debug for JobService {
     }
 }
 
+#[cfg(any(feature = "job_service",))]
 impl JobService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -6131,6 +6186,7 @@ impl JobService {
     }
 }
 
+#[cfg(any(feature = "job_service",))]
 impl super::stub::JobService for JobService {
     async fn create_custom_job(
         &self,
@@ -7185,11 +7241,13 @@ impl super::stub::JobService for JobService {
 }
 
 /// Implements [LlmUtilityService](super::stub::LlmUtilityService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "llm_utility_service",))]
 #[derive(Clone)]
 pub struct LlmUtilityService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "llm_utility_service",))]
 impl std::fmt::Debug for LlmUtilityService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("LlmUtilityService")
@@ -7198,6 +7256,7 @@ impl std::fmt::Debug for LlmUtilityService {
     }
 }
 
+#[cfg(any(feature = "llm_utility_service",))]
 impl LlmUtilityService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -7205,6 +7264,7 @@ impl LlmUtilityService {
     }
 }
 
+#[cfg(any(feature = "llm_utility_service",))]
 impl super::stub::LlmUtilityService for LlmUtilityService {
     async fn count_tokens(
         &self,
@@ -7483,11 +7543,13 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
 }
 
 /// Implements [MatchService](super::stub::MatchService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "match_service",))]
 #[derive(Clone)]
 pub struct MatchService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "match_service",))]
 impl std::fmt::Debug for MatchService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("MatchService")
@@ -7496,6 +7558,7 @@ impl std::fmt::Debug for MatchService {
     }
 }
 
+#[cfg(any(feature = "match_service",))]
 impl MatchService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -7503,6 +7566,7 @@ impl MatchService {
     }
 }
 
+#[cfg(any(feature = "match_service",))]
 impl super::stub::MatchService for MatchService {
     async fn find_neighbors(
         &self,
@@ -7781,11 +7845,13 @@ impl super::stub::MatchService for MatchService {
 }
 
 /// Implements [MetadataService](super::stub::MetadataService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "metadata_service",))]
 #[derive(Clone)]
 pub struct MetadataService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "metadata_service",))]
 impl std::fmt::Debug for MetadataService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("MetadataService")
@@ -7794,6 +7860,7 @@ impl std::fmt::Debug for MetadataService {
     }
 }
 
+#[cfg(any(feature = "metadata_service",))]
 impl MetadataService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -7801,6 +7868,7 @@ impl MetadataService {
     }
 }
 
+#[cfg(any(feature = "metadata_service",))]
 impl super::stub::MetadataService for MetadataService {
     async fn create_metadata_store(
         &self,
@@ -8782,11 +8850,13 @@ impl super::stub::MetadataService for MetadataService {
 }
 
 /// Implements [MigrationService](super::stub::MigrationService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "migration_service",))]
 #[derive(Clone)]
 pub struct MigrationService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "migration_service",))]
 impl std::fmt::Debug for MigrationService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("MigrationService")
@@ -8795,6 +8865,7 @@ impl std::fmt::Debug for MigrationService {
     }
 }
 
+#[cfg(any(feature = "migration_service",))]
 impl MigrationService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -8802,6 +8873,7 @@ impl MigrationService {
     }
 }
 
+#[cfg(any(feature = "migration_service",))]
 impl super::stub::MigrationService for MigrationService {
     async fn search_migratable_resources(
         &self,
@@ -9094,11 +9166,13 @@ impl super::stub::MigrationService for MigrationService {
 }
 
 /// Implements [ModelGardenService](super::stub::ModelGardenService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "model_garden_service",))]
 #[derive(Clone)]
 pub struct ModelGardenService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "model_garden_service",))]
 impl std::fmt::Debug for ModelGardenService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("ModelGardenService")
@@ -9107,6 +9181,7 @@ impl std::fmt::Debug for ModelGardenService {
     }
 }
 
+#[cfg(any(feature = "model_garden_service",))]
 impl ModelGardenService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -9114,6 +9189,7 @@ impl ModelGardenService {
     }
 }
 
+#[cfg(any(feature = "model_garden_service",))]
 impl super::stub::ModelGardenService for ModelGardenService {
     async fn get_publisher_model(
         &self,
@@ -9375,11 +9451,13 @@ impl super::stub::ModelGardenService for ModelGardenService {
 }
 
 /// Implements [ModelService](super::stub::ModelService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "model_service",))]
 #[derive(Clone)]
 pub struct ModelService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "model_service",))]
 impl std::fmt::Debug for ModelService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("ModelService")
@@ -9388,6 +9466,7 @@ impl std::fmt::Debug for ModelService {
     }
 }
 
+#[cfg(any(feature = "model_service",))]
 impl ModelService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -9395,6 +9474,7 @@ impl ModelService {
     }
 }
 
+#[cfg(any(feature = "model_service",))]
 impl super::stub::ModelService for ModelService {
     async fn upload_model(
         &self,
@@ -10080,11 +10160,13 @@ impl super::stub::ModelService for ModelService {
 }
 
 /// Implements [NotebookService](super::stub::NotebookService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "notebook_service",))]
 #[derive(Clone)]
 pub struct NotebookService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "notebook_service",))]
 impl std::fmt::Debug for NotebookService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("NotebookService")
@@ -10093,6 +10175,7 @@ impl std::fmt::Debug for NotebookService {
     }
 }
 
+#[cfg(any(feature = "notebook_service",))]
 impl NotebookService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -10100,6 +10183,7 @@ impl NotebookService {
     }
 }
 
+#[cfg(any(feature = "notebook_service",))]
 impl super::stub::NotebookService for NotebookService {
     async fn create_notebook_runtime_template(
         &self,
@@ -10712,11 +10796,13 @@ impl super::stub::NotebookService for NotebookService {
 }
 
 /// Implements [PersistentResourceService](super::stub::PersistentResourceService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "persistent_resource_service",))]
 #[derive(Clone)]
 pub struct PersistentResourceService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "persistent_resource_service",))]
 impl std::fmt::Debug for PersistentResourceService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("PersistentResourceService")
@@ -10725,6 +10811,7 @@ impl std::fmt::Debug for PersistentResourceService {
     }
 }
 
+#[cfg(any(feature = "persistent_resource_service",))]
 impl PersistentResourceService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -10732,6 +10819,7 @@ impl PersistentResourceService {
     }
 }
 
+#[cfg(any(feature = "persistent_resource_service",))]
 impl super::stub::PersistentResourceService for PersistentResourceService {
     async fn create_persistent_resource(
         &self,
@@ -11120,11 +11208,13 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
 }
 
 /// Implements [PipelineService](super::stub::PipelineService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "pipeline_service",))]
 #[derive(Clone)]
 pub struct PipelineService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "pipeline_service",))]
 impl std::fmt::Debug for PipelineService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("PipelineService")
@@ -11133,6 +11223,7 @@ impl std::fmt::Debug for PipelineService {
     }
 }
 
+#[cfg(any(feature = "pipeline_service",))]
 impl PipelineService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -11140,6 +11231,7 @@ impl PipelineService {
     }
 }
 
+#[cfg(any(feature = "pipeline_service",))]
 impl super::stub::PipelineService for PipelineService {
     async fn create_training_pipeline(
         &self,
@@ -11660,11 +11752,13 @@ impl super::stub::PipelineService for PipelineService {
 }
 
 /// Implements [PredictionService](super::stub::PredictionService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "prediction_service",))]
 #[derive(Clone)]
 pub struct PredictionService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "prediction_service",))]
 impl std::fmt::Debug for PredictionService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("PredictionService")
@@ -11673,6 +11767,7 @@ impl std::fmt::Debug for PredictionService {
     }
 }
 
+#[cfg(any(feature = "prediction_service",))]
 impl PredictionService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -11680,6 +11775,7 @@ impl PredictionService {
     }
 }
 
+#[cfg(any(feature = "prediction_service",))]
 impl super::stub::PredictionService for PredictionService {
     async fn predict(
         &self,
@@ -12038,11 +12134,13 @@ impl super::stub::PredictionService for PredictionService {
 }
 
 /// Implements [ReasoningEngineExecutionService](super::stub::ReasoningEngineExecutionService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "reasoning_engine_execution_service",))]
 #[derive(Clone)]
 pub struct ReasoningEngineExecutionService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "reasoning_engine_execution_service",))]
 impl std::fmt::Debug for ReasoningEngineExecutionService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("ReasoningEngineExecutionService")
@@ -12051,6 +12149,7 @@ impl std::fmt::Debug for ReasoningEngineExecutionService {
     }
 }
 
+#[cfg(any(feature = "reasoning_engine_execution_service",))]
 impl ReasoningEngineExecutionService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -12058,6 +12157,7 @@ impl ReasoningEngineExecutionService {
     }
 }
 
+#[cfg(any(feature = "reasoning_engine_execution_service",))]
 impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionService {
     async fn query_reasoning_engine(
         &self,
@@ -12313,11 +12413,13 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
 }
 
 /// Implements [ReasoningEngineService](super::stub::ReasoningEngineService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "reasoning_engine_service",))]
 #[derive(Clone)]
 pub struct ReasoningEngineService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "reasoning_engine_service",))]
 impl std::fmt::Debug for ReasoningEngineService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("ReasoningEngineService")
@@ -12326,6 +12428,7 @@ impl std::fmt::Debug for ReasoningEngineService {
     }
 }
 
+#[cfg(any(feature = "reasoning_engine_service",))]
 impl ReasoningEngineService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -12333,6 +12436,7 @@ impl ReasoningEngineService {
     }
 }
 
+#[cfg(any(feature = "reasoning_engine_service",))]
 impl super::stub::ReasoningEngineService for ReasoningEngineService {
     async fn create_reasoning_engine(
         &self,
@@ -12705,11 +12809,13 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
 }
 
 /// Implements [ScheduleService](super::stub::ScheduleService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "schedule_service",))]
 #[derive(Clone)]
 pub struct ScheduleService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "schedule_service",))]
 impl std::fmt::Debug for ScheduleService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("ScheduleService")
@@ -12718,6 +12824,7 @@ impl std::fmt::Debug for ScheduleService {
     }
 }
 
+#[cfg(any(feature = "schedule_service",))]
 impl ScheduleService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -12725,6 +12832,7 @@ impl ScheduleService {
     }
 }
 
+#[cfg(any(feature = "schedule_service",))]
 impl super::stub::ScheduleService for ScheduleService {
     async fn create_schedule(
         &self,
@@ -13141,11 +13249,13 @@ impl super::stub::ScheduleService for ScheduleService {
 }
 
 /// Implements [SpecialistPoolService](super::stub::SpecialistPoolService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "specialist_pool_service",))]
 #[derive(Clone)]
 pub struct SpecialistPoolService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "specialist_pool_service",))]
 impl std::fmt::Debug for SpecialistPoolService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("SpecialistPoolService")
@@ -13154,6 +13264,7 @@ impl std::fmt::Debug for SpecialistPoolService {
     }
 }
 
+#[cfg(any(feature = "specialist_pool_service",))]
 impl SpecialistPoolService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -13161,6 +13272,7 @@ impl SpecialistPoolService {
     }
 }
 
+#[cfg(any(feature = "specialist_pool_service",))]
 impl super::stub::SpecialistPoolService for SpecialistPoolService {
     async fn create_specialist_pool(
         &self,
@@ -13538,11 +13650,13 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
 }
 
 /// Implements [TensorboardService](super::stub::TensorboardService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "tensorboard_service",))]
 #[derive(Clone)]
 pub struct TensorboardService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "tensorboard_service",))]
 impl std::fmt::Debug for TensorboardService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("TensorboardService")
@@ -13551,6 +13665,7 @@ impl std::fmt::Debug for TensorboardService {
     }
 }
 
+#[cfg(any(feature = "tensorboard_service",))]
 impl TensorboardService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -13558,6 +13673,7 @@ impl TensorboardService {
     }
 }
 
+#[cfg(any(feature = "tensorboard_service",))]
 impl super::stub::TensorboardService for TensorboardService {
     async fn create_tensorboard(
         &self,
@@ -14512,11 +14628,13 @@ impl super::stub::TensorboardService for TensorboardService {
 }
 
 /// Implements [VertexRagDataService](super::stub::VertexRagDataService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "vertex_rag_data_service",))]
 #[derive(Clone)]
 pub struct VertexRagDataService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "vertex_rag_data_service",))]
 impl std::fmt::Debug for VertexRagDataService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("VertexRagDataService")
@@ -14525,6 +14643,7 @@ impl std::fmt::Debug for VertexRagDataService {
     }
 }
 
+#[cfg(any(feature = "vertex_rag_data_service",))]
 impl VertexRagDataService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -14532,6 +14651,7 @@ impl VertexRagDataService {
     }
 }
 
+#[cfg(any(feature = "vertex_rag_data_service",))]
 impl super::stub::VertexRagDataService for VertexRagDataService {
     async fn create_rag_corpus(
         &self,
@@ -14996,11 +15116,13 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
 }
 
 /// Implements [VertexRagService](super::stub::VertexRagService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "vertex_rag_service",))]
 #[derive(Clone)]
 pub struct VertexRagService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "vertex_rag_service",))]
 impl std::fmt::Debug for VertexRagService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("VertexRagService")
@@ -15009,6 +15131,7 @@ impl std::fmt::Debug for VertexRagService {
     }
 }
 
+#[cfg(any(feature = "vertex_rag_service",))]
 impl VertexRagService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -15016,6 +15139,7 @@ impl VertexRagService {
     }
 }
 
+#[cfg(any(feature = "vertex_rag_service",))]
 impl super::stub::VertexRagService for VertexRagService {
     async fn retrieve_contexts(
         &self,
@@ -15314,11 +15438,13 @@ impl super::stub::VertexRagService for VertexRagService {
 }
 
 /// Implements [VizierService](super::stub::VizierService) using a [gaxi::http::ReqwestClient].
+#[cfg(any(feature = "vizier_service",))]
 #[derive(Clone)]
 pub struct VizierService {
     inner: gaxi::http::ReqwestClient,
 }
 
+#[cfg(any(feature = "vizier_service",))]
 impl std::fmt::Debug for VizierService {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("VizierService")
@@ -15327,6 +15453,7 @@ impl std::fmt::Debug for VizierService {
     }
 }
 
+#[cfg(any(feature = "vizier_service",))]
 impl VizierService {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
@@ -15334,6 +15461,7 @@ impl VizierService {
     }
 }
 
+#[cfg(any(feature = "vizier_service",))]
 impl super::stub::VizierService for VizierService {
     async fn create_study(
         &self,
