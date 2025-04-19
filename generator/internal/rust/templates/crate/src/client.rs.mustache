@@ -23,13 +23,9 @@ limitations under the License.
 #![allow(rustdoc::{{.}})]
 {{/Codec.DisabledRustdocWarnings}}
 
-{{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
-{{/Codec.PerServiceFeatures}}
+#[allow(unused_imports)]
 use crate::Result;
-{{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
-{{/Codec.PerServiceFeatures}}
+#[allow(unused_imports)]
 use std::sync::Arc;
 {{/Codec.HasServices}}
 {{#Codec.Services}}

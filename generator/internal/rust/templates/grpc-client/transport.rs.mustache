@@ -19,14 +19,25 @@ limitations under the License.
 {{/Codec.BoilerPlate}}
 {{#Codec.HasServices}}
 
+{{!
+    Disable warnings about unused imports, sometimes all the clients are
+    disabled via features, and the imports go unused.
+}}
+#[allow(unused_imports)]
 use crate::Result;
-{{! Disable warnings about unused imports: sometimes there are no RPCs with query parameters and this goes unused }}
 #[allow(unused_imports)]
 use gax::error::Error;
+#[allow(unused_imports)]
 use std::sync::Arc;
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 const DEFAULT_HOST: &str = "https://{{Codec.DefaultHost}}";
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");

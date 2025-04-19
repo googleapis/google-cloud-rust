@@ -18,6 +18,11 @@ limitations under the License.
 //{{{.}}}
 {{/Codec.BoilerPlate}}
 {{#Codec.HasServices}}
+{{!
+    Disable warnings about unused imports, sometimes all the clients are
+    disabled via features, and the imports go unused.
+}}
+#[allow(unused_imports)]
 use crate::Result;
 
 {{/Codec.HasServices}}

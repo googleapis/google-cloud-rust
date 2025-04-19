@@ -19,6 +19,11 @@ limitations under the License.
 {{/Codec.BoilerPlate}}
 {{#Codec.HasLROs}}
 
+{{!
+    Disable warnings about unused imports, sometimes all the clients are
+    disabled via features, and the imports go unused.
+}}
+#[allow(unused_imports)]
 use std::sync::Arc;
 {{/Codec.HasLROs}}
 {{#Codec.Services}}
