@@ -35,7 +35,9 @@
 #[allow(clippy::module_inception)]
 pub mod model;
 
+#[allow(unused_imports)]
 pub use gax::Result;
+#[allow(unused_imports)]
 pub use gax::error::Error;
 
 #[allow(rustdoc::invalid_html_tags)]
