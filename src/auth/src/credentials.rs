@@ -23,6 +23,7 @@ pub mod user_account;
 use crate::Result;
 use crate::errors::{self, CredentialsError};
 use http::header::{HeaderName, HeaderValue};
+use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
 
@@ -270,6 +271,113 @@ pub async fn create_access_token_credentials() -> Result<Credentials> {
         _ => Err(errors::non_retryable_from_str(format!(
             "Unimplemented credentials type: {cred_type}"
         ))),
+    }
+}
+
+pub(crate) struct AccessTokenCredentialOptions {
+    quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
+}
+
+#[derive(Debug, Clone)]
+enum CredentialsSource {
+    CredentialsJson(Value),
+    DefaultCredential,
+}
+
+pub struct Builder {
+    credentials_source: CredentialsSource,
+    quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
+}
+
+impl Builder {
+    pub fn detect_default() -> Self {
+        Builder {
+            credentials_source: CredentialsSource::DefaultCredential,
+            quota_project_id: None,
+            scopes: None,
+        }
+    }
+
+    pub fn from_json(json: Value) -> Self {
+        Builder {
+            credentials_source: CredentialsSource::CredentialsJson(json),
+            quota_project_id: None,
+            scopes: None,
+        }
+    }
+
+    pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+        self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
+        self
+    }
+
+    pub async fn build(self) -> Result<Credentials> {
+        let access_token_credentials_options = AccessTokenCredentialOptions {
+            quota_project_id: self.quota_project_id.clone(),
+            scopes: self.scopes.clone(),
+        };
+
+        match self.credentials_source {
+            CredentialsSource::CredentialsJson(ref json) => {
+                self.build_credentials(json.clone(), access_token_credentials_options)
+            }
+            CredentialsSource::DefaultCredential => {
+                let contents = match load_adc()? {
+                    AdcContents::Contents(contents) => contents,
+                    AdcContents::FallbackToMds => {
+                        return Ok(mds::Builder::default()
+                            .with_access_token_options(access_token_credentials_options)
+                            .build());
+                    }
+                };
+                let json: serde_json::Value =
+                    serde_json::from_str(&contents).map_err(errors::non_retryable)?;
+                self.build_credentials(json, access_token_credentials_options)
+            }
+        }
+    }
+
+    fn build_credentials(
+        &self,
+        json: Value,
+        access_token_credentials_options: AccessTokenCredentialOptions,
+    ) -> Result<Credentials> {
+        let cred_type = json
+            .get("type")
+            .ok_or_else(|| {
+                errors::non_retryable_from_str(
+                    "Failed to parse Credentials Json. No `type` field found.",
+                )
+            })?
+            .as_str()
+            .ok_or_else(|| {
+                errors::non_retryable_from_str(
+                    "Failed to parse Credentials Json. `type` field is not a string.",
+                )
+            })?;
+
+        match cred_type {
+            "authorized_user" => user_account::Builder::new(json)
+                .with_access_token_options(access_token_credentials_options)
+                .build(),
+            "service_account" => service_account::Builder::new(json)
+                .with_access_token_options(access_token_credentials_options)
+                .build(),
+            _ => Err(errors::non_retryable_from_str(format!(
+                "Unimplemented credentials type: {cred_type}"
+            ))),
+        }
     }
 }
 
