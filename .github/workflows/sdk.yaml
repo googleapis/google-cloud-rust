@@ -51,10 +51,12 @@ jobs:
       - name: Running tests for key crates
         run: cargo clean && cargo test
       - name: Build full workspace
-        run: cargo clean && cargo build --workspace
+        # See Cargo.toml for the definition and motivation of this profile
+        run: cargo clean && cargo build --profile=ci --workspace
       - name: Running tests for full workspace
-        run: cargo clean && cargo test --workspace
-        if: github.event_name == 'push'
+        # See Cargo.toml for the definition and motivation of this profile
+        run: cargo clean && cargo test --profile=ci --workspace
+        # if: github.event_name == 'push'
   features:
     strategy:
       matrix:
