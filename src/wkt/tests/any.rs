@@ -31,6 +31,8 @@ impl google_cloud_wkt::message::Message for TestOnly {
     }
 }
 
+impl google_cloud_wkt::message::testing::SerializableMessage for TestOnly { }
+
 #[test]
 fn roundtrip_generic() -> Result {
     let input = TestOnly {

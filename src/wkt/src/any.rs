@@ -101,7 +101,7 @@ impl Any {
     /// also supports serialization to JSON.
     pub fn try_from<T>(message: &T) -> Result<Self, Error>
     where
-        T: serde::ser::Serialize + crate::message::Message,
+        T: serde::ser::Serialize + crate::message::Message + crate::message::internal::SerializableMessage,
     {
         let value = message.to_map()?;
         Ok(Any(value))
@@ -110,7 +110,7 @@ impl Any {
     /// Extracts (if possible) a `T` value from the [Any].
     pub fn try_into_message<T>(&self) -> Result<T, Error>
     where
-        T: serde::de::DeserializeOwned + crate::message::Message,
+        T: serde::de::DeserializeOwned + crate::message::Message + crate::message::internal::SerializableMessage,
     {
         let map = &self.0;
         let r#type = map
@@ -136,10 +136,15 @@ impl crate::message::Message for Any {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Any"
     }
+}
+
+#[doc(hidden)]
+impl crate::message::internal::SerializableMessage for Any {
     fn to_map(&self) -> Result<crate::message::Map, AnyError> {
         use serde_json::Value;
+        use crate::message::Message;
         let map = [
-            ("@type", Value::String(Self::typename().into())),
+            ("@type", Value::String(<Self as Message>::typename().into())),
             ("value", Value::Object(self.0.clone())),
         ]
         .into_iter()
@@ -147,6 +152,7 @@ impl crate::message::Message for Any {
         .collect::<crate::message::Map>();
         Ok(map)
     }
+
     fn from_map(map: &crate::message::Map) -> Result<Self, AnyError> {
         crate::message::from_value(map)
     }
@@ -198,6 +204,8 @@ mod test {
             "type.googleapis.com/wkt.test.Stored"
         }
     }
+
+    impl crate::message::internal::SerializableMessage for Stored {}
 
     #[test]
     fn serialize_any() -> Result {
@@ -397,6 +405,8 @@ mod test {
             "not used"
         }
     }
+
+    impl crate::message::internal::SerializableMessage for DetectBadMessages {}
 
     #[test]
     fn try_from_error() -> Result {

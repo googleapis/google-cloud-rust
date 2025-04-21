@@ -263,6 +263,9 @@ impl crate::message::Message for FieldMask {
     }
 }
 
+#[doc(hidden)]
+impl crate::message::internal::SerializableMessage for FieldMask {}
+
 /// Implement [`serde`](::serde) serialization for [FieldMask]
 impl serde::ser::Serialize for FieldMask {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>

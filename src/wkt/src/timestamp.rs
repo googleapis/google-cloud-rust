@@ -169,6 +169,10 @@ impl crate::message::Message for Timestamp {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Timestamp"
     }
+}
+
+#[doc(hidden)]
+impl crate::message::internal::SerializableMessage for Timestamp {
     fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
         crate::message::to_json_string(self)
     }

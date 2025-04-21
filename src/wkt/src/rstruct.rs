@@ -44,12 +44,17 @@ impl crate::message::Message for Struct {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Struct"
     }
+}
+
+#[doc(hidden)]
+impl crate::message::internal::SerializableMessage for Struct {
     fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
     where
         Self: serde::ser::Serialize + Sized,
     {
+        use crate::message::Message;
         let map: crate::message::Map = [
-            ("@type", Value::String(Self::typename().to_string())),
+            ("@type", Value::String(<Self as Message>::typename().to_string())),
             ("value", Value::Object(self.clone())),
         ]
         .into_iter()
@@ -72,12 +77,17 @@ impl crate::message::Message for Value {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Value"
     }
+}
+
+#[doc(hidden)]
+impl crate::message::internal::SerializableMessage for Value {
     fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
     where
         Self: serde::ser::Serialize + Sized,
     {
+        use crate::message::Message;
         let map: crate::message::Map = [
-            ("@type", Value::String(Self::typename().to_string())),
+            ("@type", Value::String(<Self as Message>::typename().to_string())),
             ("value", self.clone()),
         ]
         .into_iter()
@@ -99,12 +109,17 @@ impl crate::message::Message for ListValue {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.ListValue"
     }
+}
+
+#[doc(hidden)]
+impl crate::message::internal::SerializableMessage for ListValue {
     fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
     where
         Self: serde::ser::Serialize + Sized,
     {
+        use crate::message::Message;
         let map: crate::message::Map = [
-            ("@type", Value::String(Self::typename().to_string())),
+            ("@type", Value::String(<Self as Message>::typename().to_string())),
             ("value", Value::Array(self.clone())),
         ]
         .into_iter()

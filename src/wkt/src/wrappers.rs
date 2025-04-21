@@ -113,20 +113,24 @@ pub type StringValue = String;
 /// The JSON representation for `BytesValue` is JSON string.
 pub type BytesValue = bytes::Bytes;
 
-macro_rules! impl_message {
+macro_rules! impl_message_traits {
     ($t: ty) => {
         impl crate::message::Message for $t {
             fn typename() -> &'static str {
                 concat!("type.googleapis.com/google.protobuf.", stringify!($t))
             }
+        }
+
+        impl crate::message::internal::MessageSerializer for $t {
             fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
             where
                 Self: serde::ser::Serialize + Sized,
             {
+                use crate::message::Message;
                 let map: crate::message::Map = [
                     (
                         "@type",
-                        serde_json::Value::String(Self::typename().to_string()),
+                        serde_json::Value::String(<Self as Message>::typename().to_string()),
                     ),
                     ("value", serde_json::json!(self)),
                 ]
@@ -135,6 +139,7 @@ macro_rules! impl_message {
                 .collect();
                 Ok(map)
             }
+            
             fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError>
             where
                 Self: serde::de::DeserializeOwned,
@@ -145,12 +150,12 @@ macro_rules! impl_message {
     };
 }
 
-impl_message!(DoubleValue);
-impl_message!(FloatValue);
-impl_message!(Int32Value);
-impl_message!(UInt32Value);
-impl_message!(BoolValue);
-impl_message!(StringValue);
+impl_message_traits!(DoubleValue);
+impl_message_traits!(FloatValue);
+impl_message_traits!(Int32Value);
+impl_message_traits!(UInt32Value);
+impl_message_traits!(BoolValue);
+impl_message_traits!(StringValue);
 
 fn encode_string<T>(value: String) -> Result<crate::message::Map, crate::AnyError>
 where
@@ -173,6 +178,10 @@ impl crate::message::Message for UInt64Value {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.UInt64Value"
     }
+}
+
+#[doc(hidden)]
+impl crate::message::internal::SerializableMessage for UInt64Value {
     fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
     where
         Self: serde::ser::Serialize + Sized,
@@ -196,6 +205,10 @@ impl crate::message::Message for Int64Value {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Int64Value"
     }
+}
+
+#[doc(hidden)]
+impl crate::message::internal::SerializableMessage for Int64Value {
     fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
     where
         Self: serde::ser::Serialize + Sized,
@@ -219,6 +232,10 @@ impl crate::message::Message for BytesValue {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.BytesValue"
     }
+}
+
+#[doc(hidden)]
+impl crate::message::internal::SerializableMessage for BytesValue {
     fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
     where
         Self: serde::ser::Serialize + Sized,
@@ -249,7 +266,7 @@ fn expected_string_value() -> crate::AnyError {
 mod test {
     use super::*;
     use crate::Any;
-    use crate::message::Message;
+    use crate::message::{Message, internal::SerializableMessage};
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
     use test_case::test_case;
 
@@ -268,6 +285,7 @@ mod test {
     fn test_wrapper_in_any<I, V>(input: I, value: V, typename: &str) -> Result
     where
         I: crate::message::Message
+            + crate::message::internal::SerializableMessage
             + std::fmt::Debug
             + PartialEq
             + serde::de::DeserializeOwned
@@ -297,8 +315,8 @@ mod test {
     #[test_case(DoubleValue::default(), BytesValue::default())]
     fn test_wrapper_in_any_with_bad_typenames<T, U>(from: T, _into: U) -> Result
     where
-        T: Message + std::fmt::Debug + serde::ser::Serialize,
-        U: Message + std::fmt::Debug + serde::de::DeserializeOwned,
+        T: Message + SerializableMessage + std::fmt::Debug + serde::ser::Serialize,
+        U: Message + SerializableMessage + std::fmt::Debug + serde::de::DeserializeOwned,
     {
         let any = Any::try_from(&from)?;
         assert!(any.try_into_message::<U>().is_err());
@@ -309,7 +327,7 @@ mod test {
     #[test_case(UInt64Value::default(), "UInt64Value")]
     fn test_wrapper_bad_encoding<T>(_input: T, typename: &str) -> Result
     where
-        T: Message + std::fmt::Debug + serde::ser::Serialize + serde::de::DeserializeOwned,
+        T: Message + SerializableMessage + std::fmt::Debug + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
         let map = serde_json::json!({
             "@type": format!("type.googleapis.com/google.protobuf.{}", typename),

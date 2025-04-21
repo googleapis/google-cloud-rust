@@ -20,35 +20,45 @@ use crate::AnyError as Error;
 /// A trait that must be implemented by all messages.
 ///
 /// Messages sent to and received from Google Cloud services may be wrapped in
-/// [Any][crate::any::Any]. `Any` uses a `@type` field to encoding the type
+/// [Any][crate::any::Any]. `Any` uses a `@type` field to encode the type
 /// name and then validates extraction and insertion against this type.
 pub trait Message {
     /// The typename of this message.
     fn typename() -> &'static str;
+}
 
-    /// Store the value into a JSON object.
-    fn to_map(&self) -> Result<Map, Error>
-    where
-        Self: serde::ser::Serialize + Sized,
-    {
-        to_json_object(self)
-    }
+/// This module is private to the wkt crate. It is not part of the public
+/// API. Types inside may only be used by other types in the wkt crate.
+#[doc(hidden)]
+pub(crate) mod internal {
+    use super::*;
 
-    /// Extract the value from a JSON object.
-    fn from_map(map: &Map) -> Result<Self, Error>
-    where
-        Self: serde::de::DeserializeOwned,
-    {
-        let map: Map = map
-            .iter()
-            .filter_map(|(k, v)| {
-                if k == "@type" {
-                    return None;
-                }
-                Some((k.clone(), v.clone()))
-            })
-            .collect();
-        serde_json::from_value::<Self>(serde_json::Value::Object(map)).map_err(Error::deser)
+    /// Describes a type that is serializable when used with [super::Message].
+    pub trait SerializableMessage {
+        /// Store the value into a JSON object.
+        fn to_map(&self) -> Result<Map, Error>
+        where
+            Self: serde::ser::Serialize + Sized + Message,
+        {
+            to_json_object(self)
+        }
+    
+        /// Extract the value from a JSON object.
+        fn from_map(map: &Map) -> Result<Self, Error>
+        where
+            Self: serde::de::DeserializeOwned,
+        {
+            let map: Map = map
+                .iter()
+                .filter_map(|(k, v)| {
+                    if k == "@type" {
+                        return None;
+                    }
+                    Some((k.clone(), v.clone()))
+                })
+                .collect();
+            serde_json::from_value::<Self>(serde_json::Value::Object(map)).map_err(Error::deser)
+        }
     }
 }
 
@@ -110,9 +120,14 @@ fn unexpected_json_type() -> Error {
     Error::ser("unexpected JSON type, only Object and String are supported")
 }
 
+pub mod testing {
+    pub use super::internal::SerializableMessage;
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::message::internal::SerializableMessage;
     use serde_json::json;
 
     #[derive(Clone, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -126,6 +141,8 @@ mod test {
             "TestMessage"
         }
     }
+
+    impl SerializableMessage for TestMessage { }
 
     #[test]
     fn drop_type_field() {

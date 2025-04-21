@@ -168,6 +168,10 @@ impl crate::message::Message for Duration {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Duration"
     }
+}
+
+#[doc(hidden)]
+impl crate::message::internal::SerializableMessage for Duration {
     fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
         crate::message::to_json_string(self)
     }

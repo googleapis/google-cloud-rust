@@ -31,6 +31,9 @@ impl crate::message::Message for Empty {
     }
 }
 
+#[doc(hidden)]
+impl crate::message::internal::SerializableMessage for Empty {}
+
 #[cfg(test)]
 mod tests {
     use super::*;
