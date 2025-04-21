@@ -210,7 +210,7 @@ pub(crate) mod dynamic {
 #[derive(Debug, Clone)]
 enum CredentialsSource {
     CredentialsJson(Value),
-    DefaultCredential,
+    DefaultCredentials,
 }
 
 /// A builder for constructing [`Credentials`] instances.
@@ -315,7 +315,7 @@ impl Default for Builder {
     /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
     fn default() -> Self {
         Self {
-            credentials_source: CredentialsSource::DefaultCredential,
+            credentials_source: CredentialsSource::DefaultCredentials,
             quota_project_id: None,
             scopes: None,
         }
@@ -404,7 +404,7 @@ impl Builder {
     pub fn build(self) -> Result<Credentials> {
         let json_data = match self.credentials_source {
             CredentialsSource::CredentialsJson(json) => Some(json),
-            CredentialsSource::DefaultCredential => match load_adc()? {
+            CredentialsSource::DefaultCredentials => match load_adc()? {
                 AdcContents::Contents(contents) => {
                     Some(serde_json::from_str(&contents).map_err(errors::non_retryable)?)
                 }
