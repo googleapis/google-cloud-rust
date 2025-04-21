@@ -34,7 +34,7 @@ tokio  = { version = "1", features = ["full", "macros"] }
 google-cloud-longrunning = { version = "0.23", path = "../../src/generated/longrunning" }
 # ANCHOR_END: longrunning
 # ANCHOR: gax
-google-cloud-gax = { version = "0.21", path = "../../src/gax" }
+google-cloud-gax = { version = "0.22", path = "../../src/gax" }
 # ANCHOR_END: gax
 # ANCHOR: speech
 google-cloud-speech-v2 = { version = "0.2", path = "../../src/generated/cloud/speech/v2" }
