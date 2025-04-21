@@ -1097,7 +1097,7 @@ class SecretPayload extends Message {
   factory SecretPayload.fromJson(Map<String, dynamic> json) {
     return SecretPayload(
       data: decodeBytes(json['data']),
-      dataCrc32C: decodeInt64(json['dataCrc32C']),
+      dataCrc32C: decodeInt64(json['dataCrc32c']),
     );
   }
 
@@ -1105,7 +1105,7 @@ class SecretPayload extends Message {
   Object toJson() {
     return {
       if (data != null) 'data': encodeBytes(data),
-      if (dataCrc32C != null) 'dataCrc32C': encodeInt64(dataCrc32C),
+      if (dataCrc32C != null) 'dataCrc32c': encodeInt64(dataCrc32C),
     };
   }
 
@@ -1113,7 +1113,7 @@ class SecretPayload extends Message {
   String toString() {
     final contents = [
       if (data != null) 'data=$data',
-      if (dataCrc32C != null) 'dataCrc32C=$dataCrc32C',
+      if (dataCrc32C != null) 'dataCrc32c=$dataCrc32C',
     ].join(',');
     return 'SecretPayload($contents)';
   }
