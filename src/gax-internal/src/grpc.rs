@@ -234,3 +234,16 @@ impl Client {
             .unwrap_or_else(|| self.retry_throttler.clone())
     }
 }
+
+/// Convert a `tonic::Response` wrapping a prost message into a
+/// `gax::response::Response` wrapping our equivalent message
+pub fn to_gax_response<T, G>(response: tonic::Response<T>) -> gax::response::Response<G>
+where
+    T: crate::prost::Convert<G>,
+{
+    let (metadata, body, _extensions) = response.into_parts();
+    gax::response::Response::from_parts(
+        gax::response::Parts::new().set_headers(metadata.into_headers()),
+        body.cnv(),
+    )
+}
