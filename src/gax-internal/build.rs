@@ -12,6 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use std::fs::File;
+use std::io::Write;
+use std::path::Path;
+
 fn main() {
-    built::write_built_file().expect("Failed to acquire build-time information");
+    let out_dir = std::env::var_os("OUT_DIR").expect("OUT_DIR not specified");
+    let out_path = Path::new(&out_dir).to_owned();
+
+    let rust_version = rustc_version::version().expect("Could not retrieve rustc version");
+    let mut f =
+        File::create(out_path.join("build_env.rs")).expect("Could not create build environment");
+    f.write_all(
+        format!(
+            "pub(crate) const RUSTC_VERSION: &str = \"{}\";",
+            rust_version
+        )
+        .as_bytes(),
+    )
+    .expect("Unable to write rust version");
+    f.flush().expect("failed to flush");
 }

@@ -27,9 +27,11 @@ pub struct XGoogApiClient {
 pub const GAPIC: &str = "gapic";
 pub const GCCL: &str = "gccl";
 
-mod built_info {
+mod build_info {
     // The file has been placed there by the build script.
-    include!(concat!(env!("OUT_DIR"), "/built.rs"));
+    include!(concat!(env!("OUT_DIR"), "/build_env.rs"));
+
+    pub(crate) const PKG_VERSION: &str = env!("CARGO_PKG_VERSION");
 }
 
 impl XGoogApiClient {
@@ -37,13 +39,13 @@ impl XGoogApiClient {
     pub fn header_value(&self) -> String {
         // Strip out the initial "rustc " string from `RUSTC_VERSION`. If not
         // found, leave RUSTC_VERSION unchanged.
-        let rustc_version = built_info::RUSTC_VERSION;
+        let rustc_version = build_info::RUSTC_VERSION;
         let rustc_version = rustc_version
             .strip_prefix("rustc ")
-            .unwrap_or(built_info::RUSTC_VERSION);
+            .unwrap_or(build_info::RUSTC_VERSION);
 
         // Capture the gax version too.
-        let gax_version = built_info::PKG_VERSION;
+        let gax_version = build_info::PKG_VERSION;
 
         format!(
             "gl-rust/{rustc_version} gax/{gax_version} {}/{}",
@@ -79,10 +81,10 @@ mod test {
         assert_eq!(got.as_deref(), Some("1.2.3"));
 
         let got = fields.get("gax").map(String::to_owned);
-        assert_eq!(got.as_deref(), Some(built_info::PKG_VERSION));
+        assert_eq!(got.as_deref(), Some(build_info::PKG_VERSION));
 
         let got = fields.get("gl-rust").map(String::to_owned);
-        let want = built_info::RUSTC_VERSION;
+        let want = build_info::RUSTC_VERSION;
         assert!(
             got.as_ref()
                 .map(|s| want.contains(s) && !s.is_empty())

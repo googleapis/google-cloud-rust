@@ -84,4 +84,4 @@ echo-server = { path = "echo-server" }
 grpc-server = { path = "grpc-server" }
 
 [build-dependencies]
-built = "0.7"
+rustc_version = "0.4"
