@@ -294,6 +294,7 @@ enum CredentialsSource {
 /// [gce-link]: https://cloud.google.com/products/compute
 /// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
 /// [gke-link]: https://cloud.google.com/kubernetes-engine
+#[derive(Debug)]
 pub struct Builder {
     credentials_source: CredentialsSource,
     quota_project_id: Option<String>,
