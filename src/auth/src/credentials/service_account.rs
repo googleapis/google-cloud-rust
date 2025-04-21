@@ -91,10 +91,6 @@ use time::OffsetDateTime;
 
 const DEFAULT_SCOPE: &str = "https://www.googleapis.com/auth/cloud-platform";
 
-pub(crate) fn creds_from(js: Value) -> Result<Credentials> {
-    Builder::new(js).build()
-}
-
 #[derive(Debug)]
 enum ServiceAccountRestrictions {
     Audience(String),
@@ -653,7 +649,8 @@ mod test {
             "universe_domain": "test-universe-domain"
         });
 
-        let credentials = creds_from(json_value)?;
+        let credentials = Builder::new(json_value).build()?;
+
         let token = credentials.token().await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
