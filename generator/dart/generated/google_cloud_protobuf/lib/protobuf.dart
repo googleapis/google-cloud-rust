@@ -24,6 +24,297 @@ import 'package:google_cloud_gax/src/encoding.dart';
 
 part 'src/protobuf.p.dart';
 
+/// Api is a light-weight descriptor for an API Interface.
+///
+/// Interfaces are also described as "protocol buffer services" in some contexts,
+/// such as by the "service" keyword in a .proto file, but they are different
+/// from API Services, which represent a concrete implementation of an interface
+/// as opposed to simply a description of methods and bindings. They are also
+/// sometimes simply referred to as "APIs" in other contexts, such as the name of
+/// this message itself. See https://cloud.google.com/apis/design/glossary for
+/// detailed terminology.
+class Api extends ProtoMessage {
+  static const String fullyQualifiedName = 'google.protobuf.Api';
+
+  /// The fully qualified name of this interface, including package name
+  /// followed by the interface's simple name.
+  final String? name;
+
+  /// The methods of this interface, in unspecified order.
+  final List<Method>? methods;
+
+  /// Any metadata attached to the interface.
+  final List<Option>? options;
+
+  /// A version string for this interface. If specified, must have the form
+  /// `major-version.minor-version`, as in `1.10`. If the minor version is
+  /// omitted, it defaults to zero. If the entire version field is empty, the
+  /// major version is derived from the package name, as outlined below. If the
+  /// field is not empty, the version in the package name will be verified to be
+  /// consistent with what is provided here.
+  ///
+  /// The versioning schema uses [semantic
+  /// versioning](http://semver.org) where the major version number
+  /// indicates a breaking change and the minor version an additive,
+  /// non-breaking change. Both version numbers are signals to users
+  /// what to expect from different versions, and should be carefully
+  /// chosen based on the product plan.
+  ///
+  /// The major version is also reflected in the package name of the
+  /// interface, which must end in `v<major-version>`, as in
+  /// `google.feature.v1`. For major versions 0 and 1, the suffix can
+  /// be omitted. Zero major versions must only be used for
+  /// experimental, non-GA interfaces.
+  final String? version;
+
+  /// Source context for the protocol buffer service represented by this
+  /// message.
+  final SourceContext? sourceContext;
+
+  /// Included interfaces. See `Mixin`.
+  final List<Mixin>? mixins;
+
+  /// The source syntax of the service.
+  final Syntax? syntax;
+
+  Api({
+    this.name,
+    this.methods,
+    this.options,
+    this.version,
+    this.sourceContext,
+    this.mixins,
+    this.syntax,
+  }) : super(fullyQualifiedName);
+
+  factory Api.fromJson(Map<String, dynamic> json) {
+    return Api(
+      name: json['name'],
+      methods: decodeListMessage(json['methods'], Method.fromJson),
+      options: decodeListMessage(json['options'], Option.fromJson),
+      version: json['version'],
+      sourceContext: decode(json['sourceContext'], SourceContext.fromJson),
+      mixins: decodeListMessage(json['mixins'], Mixin.fromJson),
+      syntax: decodeEnum(json['syntax'], Syntax.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (name != null) 'name': name,
+      if (methods != null) 'methods': encodeList(methods),
+      if (options != null) 'options': encodeList(options),
+      if (version != null) 'version': version,
+      if (sourceContext != null) 'sourceContext': sourceContext!.toJson(),
+      if (mixins != null) 'mixins': encodeList(mixins),
+      if (syntax != null) 'syntax': syntax!.toJson(),
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+      if (version != null) 'version=$version',
+      if (syntax != null) 'syntax=$syntax',
+    ].join(',');
+    return 'Api($contents)';
+  }
+}
+
+/// Method represents a method of an API interface.
+class Method extends ProtoMessage {
+  static const String fullyQualifiedName = 'google.protobuf.Method';
+
+  /// The simple name of this method.
+  final String? name;
+
+  /// A URL of the input message type.
+  final String? requestTypeUrl;
+
+  /// If true, the request is streamed.
+  final bool? requestStreaming;
+
+  /// The URL of the output message type.
+  final String? responseTypeUrl;
+
+  /// If true, the response is streamed.
+  final bool? responseStreaming;
+
+  /// Any metadata attached to the method.
+  final List<Option>? options;
+
+  /// The source syntax of this method.
+  final Syntax? syntax;
+
+  Method({
+    this.name,
+    this.requestTypeUrl,
+    this.requestStreaming,
+    this.responseTypeUrl,
+    this.responseStreaming,
+    this.options,
+    this.syntax,
+  }) : super(fullyQualifiedName);
+
+  factory Method.fromJson(Map<String, dynamic> json) {
+    return Method(
+      name: json['name'],
+      requestTypeUrl: json['requestTypeUrl'],
+      requestStreaming: json['requestStreaming'],
+      responseTypeUrl: json['responseTypeUrl'],
+      responseStreaming: json['responseStreaming'],
+      options: decodeListMessage(json['options'], Option.fromJson),
+      syntax: decodeEnum(json['syntax'], Syntax.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (name != null) 'name': name,
+      if (requestTypeUrl != null) 'requestTypeUrl': requestTypeUrl,
+      if (requestStreaming != null) 'requestStreaming': requestStreaming,
+      if (responseTypeUrl != null) 'responseTypeUrl': responseTypeUrl,
+      if (responseStreaming != null) 'responseStreaming': responseStreaming,
+      if (options != null) 'options': encodeList(options),
+      if (syntax != null) 'syntax': syntax!.toJson(),
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+      if (requestTypeUrl != null) 'requestTypeUrl=$requestTypeUrl',
+      if (requestStreaming != null) 'requestStreaming=$requestStreaming',
+      if (responseTypeUrl != null) 'responseTypeUrl=$responseTypeUrl',
+      if (responseStreaming != null) 'responseStreaming=$responseStreaming',
+      if (syntax != null) 'syntax=$syntax',
+    ].join(',');
+    return 'Method($contents)';
+  }
+}
+
+/// Declares an API Interface to be included in this interface. The including
+/// interface must redeclare all the methods from the included interface, but
+/// documentation and options are inherited as follows:
+///
+/// - If after comment and whitespace stripping, the documentation
+///   string of the redeclared method is empty, it will be inherited
+///   from the original method.
+///
+/// - Each annotation belonging to the service config (http,
+///   visibility) which is not set in the redeclared method will be
+///   inherited.
+///
+/// - If an http annotation is inherited, the path pattern will be
+///   modified as follows. Any version prefix will be replaced by the
+///   version of the including interface plus the `root` path if
+///   specified.
+///
+/// Example of a simple mixin:
+///
+///     package google.acl.v1;
+///     service AccessControl {
+///       // Get the underlying ACL object.
+///       rpc GetAcl(GetAclRequest) returns (Acl) {
+///         option (google.api.http).get = "/v1/{resource=**}:getAcl";
+///       }
+///     }
+///
+///     package google.storage.v2;
+///     service Storage {
+///       rpc GetAcl(GetAclRequest) returns (Acl);
+///
+///       // Get a data record.
+///       rpc GetData(GetDataRequest) returns (Data) {
+///         option (google.api.http).get = "/v2/{resource=**}";
+///       }
+///     }
+///
+/// Example of a mixin configuration:
+///
+///     apis:
+///     - name: google.storage.v2.Storage
+///       mixins:
+///       - name: google.acl.v1.AccessControl
+///
+/// The mixin construct implies that all methods in `AccessControl` are
+/// also declared with same name and request/response types in
+/// `Storage`. A documentation generator or annotation processor will
+/// see the effective `Storage.GetAcl` method after inheriting
+/// documentation and annotations as follows:
+///
+///     service Storage {
+///       // Get the underlying ACL object.
+///       rpc GetAcl(GetAclRequest) returns (Acl) {
+///         option (google.api.http).get = "/v2/{resource=**}:getAcl";
+///       }
+///       ...
+///     }
+///
+/// Note how the version in the path pattern changed from `v1` to `v2`.
+///
+/// If the `root` field in the mixin is specified, it should be a
+/// relative path under which inherited HTTP paths are placed. Example:
+///
+///     apis:
+///     - name: google.storage.v2.Storage
+///       mixins:
+///       - name: google.acl.v1.AccessControl
+///         root: acls
+///
+/// This implies the following inherited HTTP annotation:
+///
+///     service Storage {
+///       // Get the underlying ACL object.
+///       rpc GetAcl(GetAclRequest) returns (Acl) {
+///         option (google.api.http).get = "/v2/acls/{resource=**}:getAcl";
+///       }
+///       ...
+///     }
+class Mixin extends ProtoMessage {
+  static const String fullyQualifiedName = 'google.protobuf.Mixin';
+
+  /// The fully qualified name of the interface which is included.
+  final String? name;
+
+  /// If non-empty specifies a path under which inherited HTTP paths
+  /// are rooted.
+  final String? root;
+
+  Mixin({
+    this.name,
+    this.root,
+  }) : super(fullyQualifiedName);
+
+  factory Mixin.fromJson(Map<String, dynamic> json) {
+    return Mixin(
+      name: json['name'],
+      root: json['root'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (name != null) 'name': name,
+      if (root != null) 'root': root,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+      if (root != null) 'root=$root',
+    ].join(',');
+    return 'Mixin($contents)';
+  }
+}
+
 /// A Duration represents a signed, fixed-length span of time represented
 /// as a count of seconds and fractions of seconds at nanosecond
 /// resolution. It is independent of any calendar and concepts like "day"
@@ -363,6 +654,41 @@ class FieldMask extends ProtoMessage {
   String toString() => 'FieldMask()';
 }
 
+/// `SourceContext` represents information about the source of a
+/// protobuf element, like the file in which it is defined.
+class SourceContext extends ProtoMessage {
+  static const String fullyQualifiedName = 'google.protobuf.SourceContext';
+
+  /// The path-qualified name of the .proto file that contained the associated
+  /// protobuf element.  For example: `"google/protobuf/source_context.proto"`.
+  final String? fileName;
+
+  SourceContext({
+    this.fileName,
+  }) : super(fullyQualifiedName);
+
+  factory SourceContext.fromJson(Map<String, dynamic> json) {
+    return SourceContext(
+      fileName: json['fileName'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (fileName != null) 'fileName': fileName,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (fileName != null) 'fileName=$fileName',
+    ].join(',');
+    return 'SourceContext($contents)';
+  }
+}
+
 /// `Struct` represents a structured data value, consisting of fields
 /// which map to dynamically typed values. In some languages, `Struct`
 /// might be supported by a native representation. For example, in
@@ -534,6 +860,420 @@ class Timestamp extends ProtoMessage {
       if (nanos != null) 'nanos=$nanos',
     ].join(',');
     return 'Timestamp($contents)';
+  }
+}
+
+/// A protocol buffer message type.
+class Type extends ProtoMessage {
+  static const String fullyQualifiedName = 'google.protobuf.Type';
+
+  /// The fully qualified message name.
+  final String? name;
+
+  /// The list of fields.
+  final List<Field>? fields;
+
+  /// The list of types appearing in `oneof` definitions in this type.
+  final List<String>? oneofs;
+
+  /// The protocol buffer options.
+  final List<Option>? options;
+
+  /// The source context.
+  final SourceContext? sourceContext;
+
+  /// The source syntax.
+  final Syntax? syntax;
+
+  /// The source edition string, only valid when syntax is SYNTAX_EDITIONS.
+  final String? edition;
+
+  Type({
+    this.name,
+    this.fields,
+    this.oneofs,
+    this.options,
+    this.sourceContext,
+    this.syntax,
+    this.edition,
+  }) : super(fullyQualifiedName);
+
+  factory Type.fromJson(Map<String, dynamic> json) {
+    return Type(
+      name: json['name'],
+      fields: decodeListMessage(json['fields'], Field.fromJson),
+      oneofs: decodeList(json['oneofs']),
+      options: decodeListMessage(json['options'], Option.fromJson),
+      sourceContext: decode(json['sourceContext'], SourceContext.fromJson),
+      syntax: decodeEnum(json['syntax'], Syntax.fromJson),
+      edition: json['edition'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (name != null) 'name': name,
+      if (fields != null) 'fields': encodeList(fields),
+      if (oneofs != null) 'oneofs': oneofs,
+      if (options != null) 'options': encodeList(options),
+      if (sourceContext != null) 'sourceContext': sourceContext!.toJson(),
+      if (syntax != null) 'syntax': syntax!.toJson(),
+      if (edition != null) 'edition': edition,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+      if (syntax != null) 'syntax=$syntax',
+      if (edition != null) 'edition=$edition',
+    ].join(',');
+    return 'Type($contents)';
+  }
+}
+
+/// A single field of a message type.
+class Field extends ProtoMessage {
+  static const String fullyQualifiedName = 'google.protobuf.Field';
+
+  /// The field type.
+  final Field_Kind? kind;
+
+  /// The field cardinality.
+  final Field_Cardinality? cardinality;
+
+  /// The field number.
+  final int? number;
+
+  /// The field name.
+  final String? name;
+
+  /// The field type URL, without the scheme, for message or enumeration
+  /// types. Example: `"type.googleapis.com/google.protobuf.Timestamp"`.
+  final String? typeUrl;
+
+  /// The index of the field type in `Type.oneofs`, for message or enumeration
+  /// types. The first type has index 1; zero means the type is not in the list.
+  final int? oneofIndex;
+
+  /// Whether to use alternative packed wire representation.
+  final bool? packed;
+
+  /// The protocol buffer options.
+  final List<Option>? options;
+
+  /// The field JSON name.
+  final String? jsonName;
+
+  /// The string value of the default value of this field. Proto2 syntax only.
+  final String? defaultValue;
+
+  Field({
+    this.kind,
+    this.cardinality,
+    this.number,
+    this.name,
+    this.typeUrl,
+    this.oneofIndex,
+    this.packed,
+    this.options,
+    this.jsonName,
+    this.defaultValue,
+  }) : super(fullyQualifiedName);
+
+  factory Field.fromJson(Map<String, dynamic> json) {
+    return Field(
+      kind: decodeEnum(json['kind'], Field_Kind.fromJson),
+      cardinality: decodeEnum(json['cardinality'], Field_Cardinality.fromJson),
+      number: json['number'],
+      name: json['name'],
+      typeUrl: json['typeUrl'],
+      oneofIndex: json['oneofIndex'],
+      packed: json['packed'],
+      options: decodeListMessage(json['options'], Option.fromJson),
+      jsonName: json['jsonName'],
+      defaultValue: json['defaultValue'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (kind != null) 'kind': kind!.toJson(),
+      if (cardinality != null) 'cardinality': cardinality!.toJson(),
+      if (number != null) 'number': number,
+      if (name != null) 'name': name,
+      if (typeUrl != null) 'typeUrl': typeUrl,
+      if (oneofIndex != null) 'oneofIndex': oneofIndex,
+      if (packed != null) 'packed': packed,
+      if (options != null) 'options': encodeList(options),
+      if (jsonName != null) 'jsonName': jsonName,
+      if (defaultValue != null) 'defaultValue': defaultValue,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (kind != null) 'kind=$kind',
+      if (cardinality != null) 'cardinality=$cardinality',
+      if (number != null) 'number=$number',
+      if (name != null) 'name=$name',
+      if (typeUrl != null) 'typeUrl=$typeUrl',
+      if (oneofIndex != null) 'oneofIndex=$oneofIndex',
+      if (packed != null) 'packed=$packed',
+      if (jsonName != null) 'jsonName=$jsonName',
+      if (defaultValue != null) 'defaultValue=$defaultValue',
+    ].join(',');
+    return 'Field($contents)';
+  }
+}
+
+/// Basic field types.
+class Field_Kind extends ProtoEnum {
+  /// Field type unknown.
+  static const typeUnknown = Field_Kind('TYPE_UNKNOWN');
+
+  /// Field type double.
+  static const typeDouble = Field_Kind('TYPE_DOUBLE');
+
+  /// Field type float.
+  static const typeFloat = Field_Kind('TYPE_FLOAT');
+
+  /// Field type int64.
+  static const typeInt64 = Field_Kind('TYPE_INT64');
+
+  /// Field type uint64.
+  static const typeUint64 = Field_Kind('TYPE_UINT64');
+
+  /// Field type int32.
+  static const typeInt32 = Field_Kind('TYPE_INT32');
+
+  /// Field type fixed64.
+  static const typeFixed64 = Field_Kind('TYPE_FIXED64');
+
+  /// Field type fixed32.
+  static const typeFixed32 = Field_Kind('TYPE_FIXED32');
+
+  /// Field type bool.
+  static const typeBool = Field_Kind('TYPE_BOOL');
+
+  /// Field type string.
+  static const typeString = Field_Kind('TYPE_STRING');
+
+  /// Field type group. Proto2 syntax only, and deprecated.
+  static const typeGroup = Field_Kind('TYPE_GROUP');
+
+  /// Field type message.
+  static const typeMessage = Field_Kind('TYPE_MESSAGE');
+
+  /// Field type bytes.
+  static const typeBytes = Field_Kind('TYPE_BYTES');
+
+  /// Field type uint32.
+  static const typeUint32 = Field_Kind('TYPE_UINT32');
+
+  /// Field type enum.
+  static const typeEnum = Field_Kind('TYPE_ENUM');
+
+  /// Field type sfixed32.
+  static const typeSfixed32 = Field_Kind('TYPE_SFIXED32');
+
+  /// Field type sfixed64.
+  static const typeSfixed64 = Field_Kind('TYPE_SFIXED64');
+
+  /// Field type sint32.
+  static const typeSint32 = Field_Kind('TYPE_SINT32');
+
+  /// Field type sint64.
+  static const typeSint64 = Field_Kind('TYPE_SINT64');
+
+  const Field_Kind(super.value);
+
+  factory Field_Kind.fromJson(String json) => Field_Kind(json);
+
+  @override
+  String toString() => 'Kind.$value';
+}
+
+/// Whether a field is optional, required, or repeated.
+class Field_Cardinality extends ProtoEnum {
+  /// For fields with unknown cardinality.
+  static const cardinalityUnknown = Field_Cardinality('CARDINALITY_UNKNOWN');
+
+  /// For optional fields.
+  static const cardinalityOptional = Field_Cardinality('CARDINALITY_OPTIONAL');
+
+  /// For required fields. Proto2 syntax only.
+  static const cardinalityRequired = Field_Cardinality('CARDINALITY_REQUIRED');
+
+  /// For repeated fields.
+  static const cardinalityRepeated = Field_Cardinality('CARDINALITY_REPEATED');
+
+  const Field_Cardinality(super.value);
+
+  factory Field_Cardinality.fromJson(String json) => Field_Cardinality(json);
+
+  @override
+  String toString() => 'Cardinality.$value';
+}
+
+/// Enum type definition.
+class Enum extends ProtoMessage {
+  static const String fullyQualifiedName = 'google.protobuf.Enum';
+
+  /// Enum type name.
+  final String? name;
+
+  /// Enum value definitions.
+  final List<EnumValue>? enumvalue;
+
+  /// Protocol buffer options.
+  final List<Option>? options;
+
+  /// The source context.
+  final SourceContext? sourceContext;
+
+  /// The source syntax.
+  final Syntax? syntax;
+
+  /// The source edition string, only valid when syntax is SYNTAX_EDITIONS.
+  final String? edition;
+
+  Enum({
+    this.name,
+    this.enumvalue,
+    this.options,
+    this.sourceContext,
+    this.syntax,
+    this.edition,
+  }) : super(fullyQualifiedName);
+
+  factory Enum.fromJson(Map<String, dynamic> json) {
+    return Enum(
+      name: json['name'],
+      enumvalue: decodeListMessage(json['enumvalue'], EnumValue.fromJson),
+      options: decodeListMessage(json['options'], Option.fromJson),
+      sourceContext: decode(json['sourceContext'], SourceContext.fromJson),
+      syntax: decodeEnum(json['syntax'], Syntax.fromJson),
+      edition: json['edition'],
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (name != null) 'name': name,
+      if (enumvalue != null) 'enumvalue': encodeList(enumvalue),
+      if (options != null) 'options': encodeList(options),
+      if (sourceContext != null) 'sourceContext': sourceContext!.toJson(),
+      if (syntax != null) 'syntax': syntax!.toJson(),
+      if (edition != null) 'edition': edition,
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+      if (syntax != null) 'syntax=$syntax',
+      if (edition != null) 'edition=$edition',
+    ].join(',');
+    return 'Enum($contents)';
+  }
+}
+
+/// Enum value definition.
+class EnumValue extends ProtoMessage {
+  static const String fullyQualifiedName = 'google.protobuf.EnumValue';
+
+  /// Enum value name.
+  final String? name;
+
+  /// Enum value number.
+  final int? number;
+
+  /// Protocol buffer options.
+  final List<Option>? options;
+
+  EnumValue({
+    this.name,
+    this.number,
+    this.options,
+  }) : super(fullyQualifiedName);
+
+  factory EnumValue.fromJson(Map<String, dynamic> json) {
+    return EnumValue(
+      name: json['name'],
+      number: json['number'],
+      options: decodeListMessage(json['options'], Option.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (name != null) 'name': name,
+      if (number != null) 'number': number,
+      if (options != null) 'options': encodeList(options),
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+      if (number != null) 'number=$number',
+    ].join(',');
+    return 'EnumValue($contents)';
+  }
+}
+
+/// A protocol buffer option, which can be attached to a message, field,
+/// enumeration, etc.
+class Option extends ProtoMessage {
+  static const String fullyQualifiedName = 'google.protobuf.Option';
+
+  /// The option's name. For protobuf built-in options (options defined in
+  /// descriptor.proto), this is the short name. For example, `"map_entry"`.
+  /// For custom options, it should be the fully-qualified name. For example,
+  /// `"google.api.http"`.
+  final String? name;
+
+  /// The option's value packed in an Any message. If the value is a primitive,
+  /// the corresponding wrapper type defined in google/protobuf/wrappers.proto
+  /// should be used. If the value is an enum, it should be stored as an int32
+  /// value using the google.protobuf.Int32Value type.
+  final Any? value;
+
+  Option({
+    this.name,
+    this.value,
+  }) : super(fullyQualifiedName);
+
+  factory Option.fromJson(Map<String, dynamic> json) {
+    return Option(
+      name: json['name'],
+      value: decode(json['value'], Any.fromJson),
+    );
+  }
+
+  @override
+  Object toJson() {
+    return {
+      if (name != null) 'name': name,
+      if (value != null) 'value': value!.toJson(),
+    };
+  }
+
+  @override
+  String toString() {
+    final contents = [
+      if (name != null) 'name=$name',
+    ].join(',');
+    return 'Option($contents)';
   }
 }
 
@@ -794,4 +1534,23 @@ class NullValue extends ProtoEnum {
 
   @override
   String toString() => 'NullValue.$value';
+}
+
+/// The syntax in which a protocol buffer element is defined.
+class Syntax extends ProtoEnum {
+  /// Syntax `proto2`.
+  static const syntaxProto2 = Syntax('SYNTAX_PROTO2');
+
+  /// Syntax `proto3`.
+  static const syntaxProto3 = Syntax('SYNTAX_PROTO3');
+
+  /// Syntax `editions`.
+  static const syntaxEditions = Syntax('SYNTAX_EDITIONS');
+
+  const Syntax(super.value);
+
+  factory Syntax.fromJson(String json) => Syntax(json);
+
+  @override
+  String toString() => 'Syntax.$value';
 }
