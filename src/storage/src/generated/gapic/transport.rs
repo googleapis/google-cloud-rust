@@ -17,7 +17,7 @@
 use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
-use std::sync::Arc;
+use gaxi::prost::Convert;
 
 const DEFAULT_HOST: &str = "https://storage.googleapis.com";
 
@@ -39,11 +39,7 @@ mod info {
 /// Implements [Storage](super::stub::Storage) using a Tonic-generated client.
 #[derive(Clone)]
 pub struct Storage {
-    inner: tonic::client::Grpc<tonic::transport::Channel>,
-    cred: auth::credentials::Credentials,
-    retry_policy: Option<Arc<dyn gax::retry_policy::RetryPolicy>>,
-    backoff_policy: Option<Arc<dyn gax::backoff_policy::BackoffPolicy>>,
-    retry_throttler: gax::retry_throttler::SharedRetryThrottler,
+    inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Storage {
@@ -56,215 +52,8 @@ impl std::fmt::Debug for Storage {
 
 impl Storage {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
-        let cred = Self::make_credentials(&config).await?;
-        let inner = Self::make_inner(config.endpoint).await?;
-        Ok(Self {
-            inner,
-            cred,
-            retry_policy: config.retry_policy,
-            backoff_policy: config.backoff_policy,
-            retry_throttler: config.retry_throttler,
-        })
-    }
-
-    async fn make_inner(
-        endpoint: Option<String>,
-    ) -> Result<tonic::client::Grpc<tonic::transport::Channel>> {
-        let endpoint =
-            tonic::transport::Endpoint::new(endpoint.unwrap_or_else(|| DEFAULT_HOST.to_string()))
-                .map_err(Error::other)?;
-        let conn = endpoint.connect().await.map_err(Error::other)?;
-        Ok(tonic::client::Grpc::new(conn))
-    }
-
-    async fn make_credentials(
-        config: &gaxi::options::ClientConfig,
-    ) -> Result<auth::credentials::Credentials> {
-        if let Some(c) = config.cred.clone() {
-            return Ok(c);
-        }
-        auth::credentials::create_access_token_credentials()
-            .await
-            .map_err(Error::authentication)
-    }
-
-    async fn make_headers(
-        &self,
-        options: &gax::options::RequestOptions,
-        request_params: &str,
-    ) -> Result<http::header::HeaderMap> {
-        let mut headers = self.cred.headers().await.map_err(Error::authentication)?;
-        headers.push((
-            http::header::HeaderName::from_static("x-goog-api-client"),
-            http::header::HeaderValue::from_static(&info::X_GOOG_API_CLIENT_HEADER),
-        ));
-        headers.push((
-            http::header::HeaderName::from_static("x-goog-request-params"),
-            http::header::HeaderValue::from_str(request_params).map_err(Error::other)?,
-        ));
-        if let Some(user_agent) = options.user_agent() {
-            headers.push((
-                http::header::USER_AGENT,
-                http::header::HeaderValue::from_str(user_agent).map_err(Error::other)?,
-            ));
-        }
-        Ok(http::header::HeaderMap::from_iter(headers))
-    }
-
-    async fn execute<Request, Response, F, RF>(
-        &self,
-        call: F,
-        req: Request,
-        options: &gax::options::RequestOptions,
-        request_params: String,
-    ) -> Result<Response>
-    where
-        F: Fn(Request, http::header::HeaderMap) -> RF + Send + Sync,
-        RF: std::future::Future<Output = Result<Response>>,
-        Request: std::clone::Clone,
-    {
-        match self.get_retry_policy(options) {
-            None => {
-                let headers = self.make_headers(options, &request_params).await?;
-                call(req, headers).await
-            }
-            Some(policy) => {
-                self.retry_loop(call, req, options, request_params, policy)
-                    .await
-            }
-        }
-    }
-
-    async fn retry_loop<Request, Response, F, RF>(
-        &self,
-        call: F,
-        req: Request,
-        options: &gax::options::RequestOptions,
-        request_params: String,
-        retry_policy: Arc<dyn gax::retry_policy::RetryPolicy>,
-    ) -> Result<Response>
-    where
-        F: Fn(Request, http::header::HeaderMap) -> RF + Send + Sync,
-        RF: std::future::Future<Output = Result<Response>>,
-        Request: std::clone::Clone,
-    {
-        let loop_start = std::time::Instant::now();
-        let throttler = self.get_retry_throttler(options);
-        let backoff = self.get_backoff_policy(options);
-        let mut attempt_count = 0;
-        loop {
-            let request = req.clone();
-            let remaining_time = retry_policy.remaining_time(loop_start, attempt_count);
-            let throttle = if attempt_count == 0 {
-                false
-            } else {
-                let t = throttler.lock().expect("retry throttler lock is poisoned");
-                t.throttle_retry_attempt()
-            };
-            if throttle {
-                // This counts as an error for the purposes of the retry policy.
-                if let Some(error) = retry_policy.on_throttle(loop_start, attempt_count) {
-                    return Err(error);
-                }
-                let delay = backoff.on_failure(loop_start, attempt_count);
-                tokio::time::sleep(delay).await;
-                continue;
-            }
-            attempt_count += 1;
-            match self
-                .request_attempt(&call, request, options, &request_params, remaining_time)
-                .await
-            {
-                Ok(r) => {
-                    throttler
-                        .lock()
-                        .expect("retry throttler lock is poisoned")
-                        .on_success();
-                    return Ok(r);
-                }
-                Err(e) => {
-                    let flow = retry_policy.on_error(
-                        loop_start,
-                        attempt_count,
-                        options.idempotent().unwrap_or(false),
-                        e,
-                    );
-                    let delay = backoff.on_failure(loop_start, attempt_count);
-                    {
-                        throttler
-                            .lock()
-                            .expect("retry throttler lock is poisoned")
-                            .on_retry_failure(&flow);
-                    };
-                    self.on_error(flow, delay).await?;
-                }
-            };
-        }
-    }
-
-    async fn request_attempt<Request, Response, F, RF>(
-        &self,
-        call: &F,
-        req: Request,
-        options: &gax::options::RequestOptions,
-        request_params: &str,
-        _remaining_time: Option<std::time::Duration>,
-    ) -> Result<Response>
-    where
-        F: Fn(Request, http::header::HeaderMap) -> RF + Send + Sync,
-        RF: std::future::Future<Output = Result<Response>>,
-        Request: std::clone::Clone,
-    {
-        let headers = self.make_headers(options, request_params).await?;
-        call(req, headers).await
-    }
-
-    async fn on_error(
-        &self,
-        retry_flow: gax::loop_state::LoopState,
-        backoff_delay: std::time::Duration,
-    ) -> Result<()> {
-        use gax::loop_state::LoopState;
-        match retry_flow {
-            LoopState::Permanent(e) | LoopState::Exhausted(e) => {
-                return Err(e);
-            }
-            LoopState::Continue(_e) => {
-                tokio::time::sleep(backoff_delay).await;
-            }
-        }
-        Ok(())
-    }
-
-    fn get_retry_policy(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> Option<Arc<dyn gax::retry_policy::RetryPolicy>> {
-        options
-            .retry_policy()
-            .clone()
-            .or_else(|| self.retry_policy.clone())
-    }
-
-    fn get_backoff_policy(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::backoff_policy::BackoffPolicy> {
-        options
-            .backoff_policy()
-            .clone()
-            .or_else(|| self.backoff_policy.clone())
-            .unwrap_or_else(|| Arc::new(gax::exponential_backoff::ExponentialBackoff::default()))
-    }
-
-    fn get_retry_throttler(
-        &self,
-        options: &gax::options::RequestOptions,
-    ) -> gax::retry_throttler::SharedRetryThrottler {
-        options
-            .retry_throttler()
-            .clone()
-            .unwrap_or_else(|| self.retry_throttler.clone())
+        let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
+        Ok(Self { inner })
     }
 }
 
@@ -274,38 +63,28 @@ impl super::stub::Storage for Storage {
         req: crate::model::DeleteBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::DeleteBucketRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "DeleteBucket",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/DeleteBucket");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<()> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, _body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                (),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "DeleteBucket",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/DeleteBucket");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(gaxi::grpc::to_gax_response::<(), ()>)
     }
 
     async fn get_bucket(
@@ -313,37 +92,33 @@ impl super::stub::Storage for Storage {
         req: crate::model::GetBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::GetBucketRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "GetBucket",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/GetBucket");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::Bucket> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "GetBucket",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/GetBucket");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::Bucket,
+                    crate::model::Bucket,
+                >,
+            )
     }
 
     async fn create_bucket(
@@ -351,38 +126,33 @@ impl super::stub::Storage for Storage {
         req: crate::model::CreateBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::CreateBucketRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "CreateBucket",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/CreateBucket");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::Bucket> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "CreateBucket",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/CreateBucket");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::Bucket,
+                    crate::model::Bucket,
+                >,
+            )
     }
 
     async fn list_buckets(
@@ -390,38 +160,33 @@ impl super::stub::Storage for Storage {
         req: crate::model::ListBucketsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBucketsResponse>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::ListBucketsRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "ListBuckets",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/ListBuckets");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::ListBucketsResponse> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "ListBuckets",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/ListBuckets");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::ListBucketsResponse,
+                    crate::model::ListBucketsResponse,
+                >,
+            )
     }
 
     async fn lock_bucket_retention_policy(
@@ -429,40 +194,35 @@ impl super::stub::Storage for Storage {
         req: crate::model::LockBucketRetentionPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::LockBucketRetentionPolicyRequest,
-                    h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "LockBucketRetentionPolicy",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.storage.v2.Storage/LockBucketRetentionPolicy",
-            );
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::Bucket> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "LockBucketRetentionPolicy",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.v2.Storage/LockBucketRetentionPolicy",
+        );
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::Bucket,
+                    crate::model::Bucket,
+                >,
+            )
     }
 
     async fn update_bucket(
@@ -470,38 +230,33 @@ impl super::stub::Storage for Storage {
         req: crate::model::UpdateBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::UpdateBucketRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "UpdateBucket",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/UpdateBucket");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::Bucket> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "UpdateBucket",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/UpdateBucket");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::Bucket,
+                    crate::model::Bucket,
+                >,
+            )
     }
 
     async fn compose_object(
@@ -509,38 +264,33 @@ impl super::stub::Storage for Storage {
         req: crate::model::ComposeObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::ComposeObjectRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "ComposeObject",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/ComposeObject");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::Object> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "ComposeObject",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/ComposeObject");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::Object,
+                    crate::model::Object,
+                >,
+            )
     }
 
     async fn delete_object(
@@ -548,38 +298,28 @@ impl super::stub::Storage for Storage {
         req: crate::model::DeleteObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::DeleteObjectRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "DeleteObject",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/DeleteObject");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<()> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, _body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                (),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "DeleteObject",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/DeleteObject");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(gaxi::grpc::to_gax_response::<(), ()>)
     }
 
     async fn restore_object(
@@ -587,38 +327,33 @@ impl super::stub::Storage for Storage {
         req: crate::model::RestoreObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::RestoreObjectRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "RestoreObject",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/RestoreObject");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::Object> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "RestoreObject",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/RestoreObject");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::Object,
+                    crate::model::Object,
+                >,
+            )
     }
 
     async fn cancel_resumable_write(
@@ -626,41 +361,34 @@ impl super::stub::Storage for Storage {
         req: crate::model::CancelResumableWriteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CancelResumableWriteResponse>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::CancelResumableWriteRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "CancelResumableWrite",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.storage.v2.Storage/CancelResumableWrite",
-            );
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<
-                crate::google::storage::v2::CancelResumableWriteResponse,
-            > = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "CancelResumableWrite",
+            ));
+            e
         };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/CancelResumableWrite");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::CancelResumableWriteResponse,
+                    crate::model::CancelResumableWriteResponse,
+                >,
+            )
     }
 
     async fn get_object(
@@ -668,37 +396,33 @@ impl super::stub::Storage for Storage {
         req: crate::model::GetObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::GetObjectRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "GetObject",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/GetObject");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::Object> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "GetObject",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/GetObject");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::Object,
+                    crate::model::Object,
+                >,
+            )
     }
 
     async fn update_object(
@@ -706,38 +430,33 @@ impl super::stub::Storage for Storage {
         req: crate::model::UpdateObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::UpdateObjectRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "UpdateObject",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/UpdateObject");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::Object> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "UpdateObject",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/UpdateObject");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::Object,
+                    crate::model::Object,
+                >,
+            )
     }
 
     async fn list_objects(
@@ -745,38 +464,33 @@ impl super::stub::Storage for Storage {
         req: crate::model::ListObjectsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListObjectsResponse>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::ListObjectsRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "ListObjects",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/ListObjects");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::ListObjectsResponse> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "ListObjects",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/ListObjects");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::ListObjectsResponse,
+                    crate::model::ListObjectsResponse,
+                >,
+            )
     }
 
     async fn rewrite_object(
@@ -784,38 +498,33 @@ impl super::stub::Storage for Storage {
         req: crate::model::RewriteObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RewriteResponse>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::RewriteObjectRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "RewriteObject",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/RewriteObject");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::RewriteResponse> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "RewriteObject",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/RewriteObject");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::RewriteResponse,
+                    crate::model::RewriteResponse,
+                >,
+            )
     }
 
     async fn start_resumable_write(
@@ -823,40 +532,34 @@ impl super::stub::Storage for Storage {
         req: crate::model::StartResumableWriteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::StartResumableWriteResponse>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::StartResumableWriteRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "StartResumableWrite",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.storage.v2.Storage/StartResumableWrite",
-            );
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::StartResumableWriteResponse> =
-                inner
-                    .unary(request, path, codec)
-                    .await
-                    .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "StartResumableWrite",
+            ));
+            e
         };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/StartResumableWrite");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::StartResumableWriteResponse,
+                    crate::model::StartResumableWriteResponse,
+                >,
+            )
     }
 
     async fn query_write_status(
@@ -864,39 +567,34 @@ impl super::stub::Storage for Storage {
         req: crate::model::QueryWriteStatusRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QueryWriteStatusResponse>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::QueryWriteStatusRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "QueryWriteStatus",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/QueryWriteStatus");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::QueryWriteStatusResponse> =
-                inner
-                    .unary(request, path, codec)
-                    .await
-                    .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "QueryWriteStatus",
+            ));
+            e
         };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/QueryWriteStatus");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::QueryWriteStatusResponse,
+                    crate::model::QueryWriteStatusResponse,
+                >,
+            )
     }
 
     async fn move_object(
@@ -904,37 +602,32 @@ impl super::stub::Storage for Storage {
         req: crate::model::MoveObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
-        use gaxi::prost::Convert;
-        let inner = self.inner.clone();
-        let call = |r: crate::model::MoveObjectRequest, h: http::header::HeaderMap| async {
-            let extensions = {
-                let mut e = tonic::Extensions::new();
-                e.insert(tonic::GrpcMethod::new(
-                    "google.storage.v2.Storage",
-                    "MoveObject",
-                ));
-                e
-            };
-            let metadata = tonic::metadata::MetadataMap::from_headers(h);
-            let request = tonic::Request::from_parts(metadata, extensions, r.cnv());
-            let codec = tonic::codec::ProstCodec::default();
-            let path =
-                http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/MoveObject");
-            let mut inner = inner.clone();
-            inner.ready().await.map_err(Error::rpc)?;
-            let response: tonic::Response<crate::google::storage::v2::Object> = inner
-                .unary(request, path, codec)
-                .await
-                .map_err(Error::rpc)?;
-            let (metadata, body, _extensions) = response.into_parts();
-            Ok(gax::response::Response::from_parts(
-                gax::response::Parts::new().set_headers(metadata.into_headers()),
-                body.cnv(),
-            ))
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "MoveObject",
+            ));
+            e
         };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/MoveObject");
         let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
 
-        self.execute(call, req, &options, x_goog_request_params)
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
             .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::storage::v2::Object,
+                    crate::model::Object,
+                >,
+            )
     }
 }
