@@ -32,6 +32,18 @@ rust-version.workspace = true
 {{#Codec.NotForPublication}}
 publish                = false
 {{/Codec.NotForPublication}}
+{{#Codec.PerServiceFeatures}}
+
+[features]
+default = [
+    {{#Codec.Services}}
+    "{{Codec.ModuleName}}",
+    {{/Codec.Services}}
+]
+{{#Codec.Services}}
+{{Codec.ModuleName}} = []
+{{/Codec.Services}}
+{{/Codec.PerServiceFeatures}}
 
 [dependencies]
 {{#Codec.RequiredPackages}}

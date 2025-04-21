@@ -28,14 +28,28 @@ func TestPackageNames(t *testing.T) {
 		[]*api.Service{{Name: "Workflows", Package: "google.cloud.workflows.v1"}})
 	// Override the default name for test APIs ("Test").
 	model.Name = "workflows-v1"
-	codec, err := newCodec(true, map[string]string{})
+	codec, err := newCodec(true, map[string]string{
+		"per-service-features": "true",
+		"copyright-year":       "2035",
+	})
 	if err != nil {
 		t.Fatal(err)
 	}
 	got := annotateModel(model, codec)
-	want := "google_cloud_workflows_v1"
-	if got.PackageNamespace != want {
-		t.Errorf("mismatched package namespace, want=%s, got=%s", want, got.PackageNamespace)
+	want := &modelAnnotations{
+		PackageName:        "google-cloud-workflows-v1",
+		PackageNamespace:   "google_cloud_workflows_v1",
+		PackageVersion:     "0.0.0",
+		ReleaseLevel:       "preview",
+		RequiredPackages:   []string{},
+		ExternPackages:     []string{},
+		CopyrightYear:      "2035",
+		Services:           []*api.Service{},
+		NameToLower:        "workflows-v1",
+		PerServiceFeatures: false,
+	}
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(modelAnnotations{}, "BoilerPlate")); diff != "" {
+		t.Errorf("mismatch in modelAnnotations list (-want, +got)\n:%s", diff)
 	}
 }
 

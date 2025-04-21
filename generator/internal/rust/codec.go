@@ -111,6 +111,12 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 				return nil, fmt.Errorf("cannot convert `include-grpc-only-methods` value %q to boolean: %w", definition, err)
 			}
 			codec.includeGrpcOnlyMethods = value
+		case key == "per-service-features":
+			value, err := strconv.ParseBool(definition)
+			if err != nil {
+				return nil, fmt.Errorf("cannot convert `per-service-features` value %q to boolean: %w", definition, err)
+			}
+			codec.perServiceFeatures = value
 		default:
 			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
@@ -213,6 +219,8 @@ type codec struct {
 	// If true, this includes gRPC-only methods, such as methods without HTTP
 	// annotations.
 	includeGrpcOnlyMethods bool
+	// If true, the generator will produce per-client features
+	perServiceFeatures bool
 }
 
 type systemParameter struct {

@@ -53,6 +53,8 @@ type modelAnnotations struct {
 	DisabledRustdocWarnings []string
 	// Sets the default system parameters
 	DefaultSystemParameters []systemParameter
+	// Enables per-service features
+	PerServiceFeatures bool
 }
 
 // HasServices returns true if there are any services in the model
@@ -301,6 +303,7 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 		NotForPublication:       codec.doNotPublish,
 		IsWktCrate:              model.PackageName == "google.protobuf",
 		DisabledRustdocWarnings: codec.disabledRustdocWarnings,
+		PerServiceFeatures:      codec.perServiceFeatures && len(servicesSubset) > 0,
 	}
 
 	model.Codec = ann
