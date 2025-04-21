@@ -45,7 +45,10 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         req: crate::model::CreateContactRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Contact>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -67,7 +70,10 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         req: crate::model::UpdateContactRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Contact>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::PATCH.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -101,7 +107,10 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         req: crate::model::ListContactsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListContactsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/contacts", req.parent))
@@ -122,7 +131,10 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         req: crate::model::GetContactRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Contact>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -141,7 +153,10 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         req: crate::model::DeleteContactRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::DELETE.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -164,7 +179,10 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         req: crate::model::ComputeContactsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ComputeContactsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -194,7 +212,10 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         req: crate::model::SendTestMessageRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(

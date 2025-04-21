@@ -45,7 +45,10 @@ impl super::stub::GatewayControl for GatewayControl {
         req: crate::model::GenerateCredentialsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateCredentialsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(

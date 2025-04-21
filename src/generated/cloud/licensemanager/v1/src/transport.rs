@@ -45,7 +45,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::ListConfigurationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListConfigurationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -71,7 +74,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::GetConfigurationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Configuration>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -90,7 +96,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::CreateConfigurationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -114,7 +123,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::UpdateConfigurationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::PATCH.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -149,7 +161,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::DeleteConfigurationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::DELETE.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -169,7 +184,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListInstancesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -195,7 +213,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Instance>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -214,7 +235,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::DeactivateConfigurationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -234,7 +258,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::ReactivateConfigurationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -254,7 +281,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::QueryConfigurationLicenseUsageRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QueryConfigurationLicenseUsageResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -296,7 +326,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::AggregateUsageRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AggregateUsageResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -342,7 +375,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::ListProductsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListProductsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/products", req.parent))
@@ -365,7 +401,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::GetProductRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Product>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -384,7 +423,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -406,7 +448,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -425,7 +470,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -447,7 +495,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -466,7 +517,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::DELETE.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -489,7 +543,10 @@ impl super::stub::LicenseManager for LicenseManager {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))

@@ -45,7 +45,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServicesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, "/v1/services".to_string())
@@ -68,7 +71,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ManagedService>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -90,7 +96,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: crate::model::CreateServiceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::POST, "/v1/services".to_string())
@@ -109,7 +118,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::DELETE.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -131,7 +143,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: crate::model::UndeleteServiceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -153,7 +168,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: crate::model::ListServiceConfigsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServiceConfigsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -177,7 +195,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: crate::model::GetServiceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<api::model::Service>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -203,7 +224,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: crate::model::CreateServiceConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<api::model::Service>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -225,7 +249,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: crate::model::SubmitConfigSourceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -245,7 +272,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: crate::model::ListServiceRolloutsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServiceRolloutsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -270,7 +300,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: crate::model::GetServiceRolloutRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Rollout>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -295,7 +328,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: crate::model::CreateServiceRolloutRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -317,7 +353,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: crate::model::GenerateConfigReportRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateConfigReportResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -337,7 +376,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -357,7 +399,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -377,7 +422,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -397,7 +445,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, "/v1/operations".to_string())
@@ -420,7 +471,10 @@ impl super::stub::ServiceManager for ServiceManager {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))

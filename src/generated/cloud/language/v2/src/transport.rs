@@ -45,7 +45,10 @@ impl super::stub::LanguageService for LanguageService {
         req: crate::model::AnalyzeSentimentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeSentimentResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -65,7 +68,10 @@ impl super::stub::LanguageService for LanguageService {
         req: crate::model::AnalyzeEntitiesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeEntitiesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -85,7 +91,10 @@ impl super::stub::LanguageService for LanguageService {
         req: crate::model::ClassifyTextRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ClassifyTextResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -105,7 +114,10 @@ impl super::stub::LanguageService for LanguageService {
         req: crate::model::ModerateTextRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ModerateTextResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -125,7 +137,10 @@ impl super::stub::LanguageService for LanguageService {
         req: crate::model::AnnotateTextRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnnotateTextResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(

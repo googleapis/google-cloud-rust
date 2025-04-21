@@ -45,7 +45,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -65,7 +68,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -85,7 +91,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -105,7 +114,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         req: crate::model::GetIapSettingsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IapSettings>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -127,7 +139,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         req: crate::model::UpdateIapSettingsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IapSettings>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::PATCH.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -161,7 +176,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         req: crate::model::ValidateIapAttributeExpressionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -184,7 +202,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         req: crate::model::ListTunnelDestGroupsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListTunnelDestGroupsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -208,7 +229,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         req: crate::model::CreateTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -231,7 +255,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         req: crate::model::GetTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -250,7 +277,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         req: crate::model::DeleteTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::DELETE.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -273,7 +303,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         req: crate::model::UpdateTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::PATCH.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -330,7 +363,10 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         req: crate::model::ListBrandsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBrandsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/brands", req.parent))
@@ -349,7 +385,10 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         req: crate::model::CreateBrandRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Brand>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/brands", req.parent))
@@ -366,7 +405,10 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         req: crate::model::GetBrandRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Brand>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -385,7 +427,10 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         req: crate::model::CreateIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -407,7 +452,10 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         req: crate::model::ListIdentityAwareProxyClientsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListIdentityAwareProxyClientsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -431,7 +479,10 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         req: crate::model::GetIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -450,7 +501,10 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         req: crate::model::ResetIdentityAwareProxyClientSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -470,7 +524,10 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::DELETE.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
