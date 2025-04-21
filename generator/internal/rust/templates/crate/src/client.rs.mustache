@@ -23,7 +23,13 @@ limitations under the License.
 #![allow(rustdoc::{{.}})]
 {{/Codec.DisabledRustdocWarnings}}
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 use crate::Result;
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 use std::sync::Arc;
 {{/Codec.HasServices}}
 {{#Codec.Services}}
@@ -71,11 +77,17 @@ use std::sync::Arc;
 /// create one and the reuse it.  You do not need to wrap `{{Codec.Name}}` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+{{#Codec.PerServiceFeatures}}
+#[cfg(feature = "{{Codec.ModuleName}}")]
+{{/Codec.PerServiceFeatures}}
 #[derive(Clone, Debug)]
 pub struct {{Codec.Name}} {
     inner: Arc<dyn super::stub::dynamic::{{Codec.Name}}>,
 }
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(feature = "{{Codec.ModuleName}}")]
+{{/Codec.PerServiceFeatures}}
 impl {{Codec.Name}} {
     /// Returns a builder for [{{Codec.Name}}].
     ///
