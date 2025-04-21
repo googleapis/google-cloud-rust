@@ -21,7 +21,7 @@
 /// zones, regions, and countries.
 library;
 
-import 'package:google_cloud_gax/common.dart';
+import 'package:google_cloud_gax/gax.dart';
 import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:http/http.dart' as http;
@@ -59,7 +59,7 @@ class Locations {
 }
 
 /// The request message for `Locations.ListLocations`.
-class ListLocationsRequest extends Message {
+class ListLocationsRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.cloud.location.ListLocationsRequest';
 
@@ -114,7 +114,7 @@ class ListLocationsRequest extends Message {
 }
 
 /// The response message for `Locations.ListLocations`.
-class ListLocationsResponse extends Message {
+class ListLocationsResponse extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.cloud.location.ListLocationsResponse';
 
@@ -154,7 +154,7 @@ class ListLocationsResponse extends Message {
 }
 
 /// The request message for `Locations.GetLocation`.
-class GetLocationRequest extends Message {
+class GetLocationRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.cloud.location.GetLocationRequest';
 
@@ -188,7 +188,7 @@ class GetLocationRequest extends Message {
 }
 
 /// A resource that represents Google Cloud Platform location.
-class Location extends Message {
+class Location extends ProtoMessage {
   static const String fullyQualifiedName = 'google.cloud.location.Location';
 
   /// Resource name for the location, which may vary between implementations.

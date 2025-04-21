@@ -33,4 +33,3 @@ include-list = """\
 copyright-year = '2025'
 part-file = "src/protobuf.p.dart"
 dev-dependencies = "test"
-extra-imports = "dart:typed_data"

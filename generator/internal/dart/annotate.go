@@ -697,7 +697,6 @@ func (annotate *annotateModel) fieldType(f *api.Field) string {
 	case api.STRING_TYPE:
 		out = "String"
 	case api.BYTES_TYPE:
-		annotate.imports[typedDataImport] = typedDataImport
 		out = "Uint8List"
 	case api.MESSAGE_TYPE:
 		message, ok := annotate.state.MessageByID[f.TypezID]
