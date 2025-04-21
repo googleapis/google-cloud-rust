@@ -236,6 +236,7 @@ members = [
   "src/generated/privacy/dlp/v2",
   "src/generated/rpc/context",
   "src/generated/rpc/types",
+  "src/generated/showcase",
   "src/generated/spanner/admin/database/v1",
   "src/generated/spanner/admin/instance/v1",
   "src/generated/storagetransfer/v1",
@@ -259,6 +260,15 @@ repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
 keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
 categories   = ["network-programming"]
 rust-version = "1.85.0"
+
+# Define a custom profile for builds on GHA. The standard profiles exhaust the
+# available disk space on the free GHA runners. The GHA builds cannot take
+# advantage of incremental builds, and such builds require significant more
+# disk space. As of 2025-04-20 disabling incremental builds changes the disk
+# requirements from about 13 GiB to about 5 GiB.
+[profile.ci]
+inherits    = "dev"
+incremental = false
 
 [workspace.dependencies]
 async-trait = { version = "0.1" }

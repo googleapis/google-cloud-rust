@@ -51,10 +51,12 @@ func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 	}
 
 	var params []*api.Field
+	duplicate := map[string]bool{}
 	for _, name := range pathNames {
 		for _, field := range msg.Fields {
-			if field.Name == name {
+			if field.Name == name && !duplicate[name] {
 				params = append(params, field)
+				duplicate[name] = true
 				break
 			}
 		}
