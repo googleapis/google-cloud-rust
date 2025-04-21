@@ -32,7 +32,6 @@ type modelAnnotations struct {
 	PackageNamespace string
 	RequiredPackages []string
 	ExternPackages   []string
-	HasServices      bool
 	HasLROs          bool
 	CopyrightYear    string
 	BoilerPlate      []string
@@ -54,6 +53,11 @@ type modelAnnotations struct {
 	DisabledRustdocWarnings []string
 	// Sets the default system parameters
 	DefaultSystemParameters []systemParameter
+}
+
+// HasServices returns true if there are any services in the model
+func (m *modelAnnotations) HasServices() bool {
+	return len(m.Services) > 0
 }
 
 type serviceAnnotations struct {
@@ -285,7 +289,6 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 		ReleaseLevel:     codec.releaseLevel,
 		RequiredPackages: requiredPackages(codec.extraPackages),
 		ExternPackages:   externPackages(codec.extraPackages),
-		HasServices:      len(servicesSubset) > 0,
 		HasLROs:          hasLROs,
 		CopyrightYear:    codec.generationYear,
 		BoilerPlate: append(license.LicenseHeaderBulk(),
