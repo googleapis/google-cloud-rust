@@ -2236,7 +2236,6 @@ version = "0.0.0"
 dependencies = [
  "async-trait",
  "bytes",
- "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-rpc",
@@ -4000,7 +3999,6 @@ version = "0.0.0"
 dependencies = [
  "async-trait",
  "bytes",
- "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",

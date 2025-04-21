@@ -62,7 +62,7 @@ impl Client {
         request: Request,
         options: gax::options::RequestOptions,
         api_client_header: &'static str,
-        request_params: &'static str,
+        request_params: &str,
     ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static + Clone,
