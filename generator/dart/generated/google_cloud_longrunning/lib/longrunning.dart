@@ -28,7 +28,7 @@
 /// [Long-running operations]: https://google.aip.dev/151
 library;
 
-import 'package:google_cloud_gax/common.dart';
+import 'package:google_cloud_gax/gax.dart';
 import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 import 'package:google_cloud_rpc/rpc.dart';
@@ -104,7 +104,7 @@ class Operations {
 
 /// The request message for
 /// `Operations.GetOperation`.
-class GetOperationRequest extends Message {
+class GetOperationRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.longrunning.GetOperationRequest';
 
@@ -139,7 +139,7 @@ class GetOperationRequest extends Message {
 
 /// The request message for
 /// `Operations.ListOperations`.
-class ListOperationsRequest extends Message {
+class ListOperationsRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.longrunning.ListOperationsRequest';
 
@@ -195,7 +195,7 @@ class ListOperationsRequest extends Message {
 
 /// The response message for
 /// `Operations.ListOperations`.
-class ListOperationsResponse extends Message {
+class ListOperationsResponse extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.longrunning.ListOperationsResponse';
 
@@ -236,7 +236,7 @@ class ListOperationsResponse extends Message {
 
 /// The request message for
 /// `Operations.CancelOperation`.
-class CancelOperationRequest extends Message {
+class CancelOperationRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.longrunning.CancelOperationRequest';
 
@@ -271,7 +271,7 @@ class CancelOperationRequest extends Message {
 
 /// The request message for
 /// `Operations.DeleteOperation`.
-class DeleteOperationRequest extends Message {
+class DeleteOperationRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.longrunning.DeleteOperationRequest';
 
@@ -306,7 +306,7 @@ class DeleteOperationRequest extends Message {
 
 /// The request message for
 /// `Operations.WaitOperation`.
-class WaitOperationRequest extends Message {
+class WaitOperationRequest extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.longrunning.WaitOperationRequest';
 
@@ -357,7 +357,7 @@ class WaitOperationRequest extends Message {
 ///         metadata_type: "ExportMetadata"
 ///       };
 ///     }
-class OperationInfo extends Message {
+class OperationInfo extends ProtoMessage {
   static const String fullyQualifiedName = 'google.longrunning.OperationInfo';
 
   /// Required. The message name of the primary return type for this

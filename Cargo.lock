@@ -201,9 +201,9 @@ checksum = "5c8214115b7bf84099f1309324e63141d4c5d7cc26862f97a0a857dbefe165bd"
 
 [[package]]
 name = "bon"
-version = "3.6.0"
+version = "3.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8baa8e2f74b721b16b14e6b8e0516c8df35708273d5e89ca7be391cb9a419ff9"
+checksum = "ced38439e7a86a4761f7f7d5ded5ff009135939ecb464a24452eaa4c1696af7d"
 dependencies = [
  "bon-macros",
  "rustversion",
@@ -211,9 +211,9 @@ dependencies = [
 
 [[package]]
 name = "bon-macros"
-version = "3.6.0"
+version = "3.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bff68fc8bb0a7a05683bc799f9c50ec05379c4a6104446eb1fed7b07341eebc5"
+checksum = "0ce61d2d3844c6b8d31b2353d9f66cf5e632b3e9549583fe3cac2f4f6136725e"
 dependencies = [
  "darling",
  "ident_case",
@@ -3892,6 +3892,29 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-longrunning",
  "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-showcase-v1beta1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",

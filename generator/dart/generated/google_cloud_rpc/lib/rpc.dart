@@ -19,9 +19,7 @@
 /// Defines RPC types.
 library;
 
-import 'dart:typed_data';
-
-import 'package:google_cloud_gax/common.dart';
+import 'package:google_cloud_gax/gax.dart';
 import 'package:google_cloud_gax/src/encoding.dart';
 import 'package:google_cloud_protobuf/protobuf.dart';
 
@@ -51,7 +49,7 @@ part 'src/rpc.p.dart';
 ///         "availableRegions": "us-central1,us-east2"
 ///       }
 ///     }
-class ErrorInfo extends Message {
+class ErrorInfo extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.ErrorInfo';
 
   /// The reason of the error. This is a constant value that identifies the
@@ -126,7 +124,7 @@ class ErrorInfo extends Message {
 /// the delay between retries based on `retry_delay`, until either a maximum
 /// number of retries have been reached or a maximum retry delay cap has been
 /// reached.
-class RetryInfo extends Message {
+class RetryInfo extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.RetryInfo';
 
   /// Clients should wait at least this long between retrying the same request.
@@ -154,7 +152,7 @@ class RetryInfo extends Message {
 }
 
 /// Describes additional debugging info.
-class DebugInfo extends Message {
+class DebugInfo extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.DebugInfo';
 
   /// The stack trace entries indicating where the error occurred.
@@ -203,7 +201,7 @@ class DebugInfo extends Message {
 ///
 /// Also see RetryInfo and Help types for other details about handling a
 /// quota failure.
-class QuotaFailure extends Message {
+class QuotaFailure extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.QuotaFailure';
 
   /// Describes all quota violations.
@@ -233,7 +231,7 @@ class QuotaFailure extends Message {
 
 /// A message type used to describe a single quota violation.  For example, a
 /// daily quota or a custom quota that was exceeded.
-class QuotaFailure_Violation extends Message {
+class QuotaFailure_Violation extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.QuotaFailure.Violation';
 
   /// The subject on which the quota check failed.
@@ -285,7 +283,7 @@ class QuotaFailure_Violation extends Message {
 /// For example, if an RPC failed because it required the Terms of Service to be
 /// acknowledged, it could list the terms of service violation in the
 /// PreconditionFailure message.
-class PreconditionFailure extends Message {
+class PreconditionFailure extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.PreconditionFailure';
 
   /// Describes all precondition violations.
@@ -314,7 +312,7 @@ class PreconditionFailure extends Message {
 }
 
 /// A message type used to describe a single precondition failure.
-class PreconditionFailure_Violation extends Message {
+class PreconditionFailure_Violation extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.rpc.PreconditionFailure.Violation';
 
@@ -370,7 +368,7 @@ class PreconditionFailure_Violation extends Message {
 
 /// Describes violations in a client request. This error type focuses on the
 /// syntactic aspects of the request.
-class BadRequest extends Message {
+class BadRequest extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.BadRequest';
 
   /// Describes all violations in a client request.
@@ -400,7 +398,7 @@ class BadRequest extends Message {
 }
 
 /// A message type used to describe a single bad request field.
-class BadRequest_FieldViolation extends Message {
+class BadRequest_FieldViolation extends ProtoMessage {
   static const String fullyQualifiedName =
       'google.rpc.BadRequest.FieldViolation';
 
@@ -499,7 +497,7 @@ class BadRequest_FieldViolation extends Message {
 
 /// Contains metadata about the request that clients can attach when filing a bug
 /// or providing other forms of feedback.
-class RequestInfo extends Message {
+class RequestInfo extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.RequestInfo';
 
   /// An opaque string that should only be interpreted by the service generating
@@ -541,7 +539,7 @@ class RequestInfo extends Message {
 }
 
 /// Describes the resource that is being accessed.
-class ResourceInfo extends Message {
+class ResourceInfo extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.ResourceInfo';
 
   /// A name for the type of resource being accessed, e.g. "sql table",
@@ -608,7 +606,7 @@ class ResourceInfo extends Message {
 /// For example, if a quota check failed with an error indicating the calling
 /// project hasn't enabled the accessed service, this can contain a URL pointing
 /// directly to the right place in the developer console to flip the bit.
-class Help extends Message {
+class Help extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.Help';
 
   /// URL(s) pointing to additional information on handling the current error.
@@ -636,7 +634,7 @@ class Help extends Message {
 }
 
 /// Describes a URL link.
-class Help_Link extends Message {
+class Help_Link extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.Help.Link';
 
   /// Describes what the link offers.
@@ -677,7 +675,7 @@ class Help_Link extends Message {
 
 /// Provides a localized error message that is safe to return to the user
 /// which can be attached to an RPC error.
-class LocalizedMessage extends Message {
+class LocalizedMessage extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.LocalizedMessage';
 
   /// The locale used following the specification defined at
@@ -719,7 +717,7 @@ class LocalizedMessage extends Message {
 }
 
 /// Represents an HTTP request.
-class HttpRequest extends Message {
+class HttpRequest extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.HttpRequest';
 
   /// The HTTP request method.
@@ -773,7 +771,7 @@ class HttpRequest extends Message {
 }
 
 /// Represents an HTTP response.
-class HttpResponse extends Message {
+class HttpResponse extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.HttpResponse';
 
   /// The HTTP status code, such as 200 or 404.
@@ -827,7 +825,7 @@ class HttpResponse extends Message {
 }
 
 /// Represents an HTTP header.
-class HttpHeader extends Message {
+class HttpHeader extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.HttpHeader';
 
   /// The HTTP header key. It is case insensitive.
@@ -873,7 +871,7 @@ class HttpHeader extends Message {
 ///
 /// You can find out more about this error model and how to work with it in the
 /// [API Design Guide](https://cloud.google.com/apis/design/errors).
-class Status extends Message {
+class Status extends ProtoMessage {
   static const String fullyQualifiedName = 'google.rpc.Status';
 
   /// The status code, which should be an enum value of
@@ -930,7 +928,7 @@ class Status extends Message {
 /// the most specific error code that applies.  For example, prefer
 /// `OUT_OF_RANGE` over `FAILED_PRECONDITION` if both codes apply.
 /// Similarly prefer `NOT_FOUND` or `ALREADY_EXISTS` over `FAILED_PRECONDITION`.
-class Code extends Enum {
+class Code extends ProtoEnum {
   /// Not an error; returned on success.
   ///
   /// HTTP Mapping: 200 OK
