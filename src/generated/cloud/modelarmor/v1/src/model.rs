@@ -3875,7 +3875,7 @@ impl std::default::Default for RaiFilterType {
 pub struct DetectionConfidenceLevel(i32);
 
 impl DetectionConfidenceLevel {
-    /// Same as LOW_AND_ABOVE.
+    /// Same as MEDIUM_AND_ABOVE.
     pub const DETECTION_CONFIDENCE_LEVEL_UNSPECIFIED: DetectionConfidenceLevel =
         DetectionConfidenceLevel::new(0);
 

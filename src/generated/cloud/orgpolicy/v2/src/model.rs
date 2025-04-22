@@ -39,12 +39,14 @@ extern crate wkt;
 /// organization by setting a policy that includes constraints at different
 /// locations in the organization's resource hierarchy. Policies are inherited
 /// down the resource hierarchy from higher levels, but can also be overridden.
-/// For details about the inheritance rules please read about
-/// [`policies`][google.cloud.OrgPolicy.v2.Policy].
+/// For details about the inheritance rules, see
+/// [`Policy`][google.cloud.orgpolicy.v2.Policy].
 ///
 /// Constraints have a default behavior determined by the `constraint_default`
 /// field, which is the enforcement behavior that is used in the absence of a
 /// policy being defined or inherited for the resource in question.
+///
+/// [google.cloud.orgpolicy.v2.Policy]: crate::model::Policy
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -79,6 +81,14 @@ pub struct Constraint {
 
     /// Shows if dry run is supported for this constraint or not.
     pub supports_dry_run: bool,
+
+    /// Managed constraint and canned constraint sometimes can have
+    /// equivalents. This field is used to store the equivalent constraint name.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub equivalent_constraint: std::string::String,
+
+    /// Shows if simulation is supported for this constraint or not.
+    pub supports_simulation: bool,
 
     /// The type of restrictions for this `Constraint`.
     ///
@@ -127,6 +137,21 @@ impl Constraint {
     /// Sets the value of [supports_dry_run][crate::model::Constraint::supports_dry_run].
     pub fn set_supports_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.supports_dry_run = v.into();
+        self
+    }
+
+    /// Sets the value of [equivalent_constraint][crate::model::Constraint::equivalent_constraint].
+    pub fn set_equivalent_constraint<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.equivalent_constraint = v.into();
+        self
+    }
+
+    /// Sets the value of [supports_simulation][crate::model::Constraint::supports_simulation].
+    pub fn set_supports_simulation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.supports_simulation = v.into();
         self
     }
 
@@ -220,8 +245,11 @@ pub mod constraint {
     #[allow(unused_imports)]
     use super::*;
 
-    /// A constraint that allows or disallows a list of string values, which are
-    /// configured by an Organization Policy administrator with a policy.
+    /// A constraint type that allows or disallows a list of string values, which
+    /// are configured in the
+    /// [`PolicyRule`][google.cloud.orgpolicy.v2.PolicySpec.PolicyRule].
+    ///
+    /// [google.cloud.orgpolicy.v2.PolicySpec.PolicyRule]: crate::model::policy_spec::PolicyRule
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -266,16 +294,486 @@ pub mod constraint {
         }
     }
 
-    /// A constraint that is either enforced or not.
+    /// Custom constraint definition. Defines this as a managed constraint.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct CustomConstraintDefinition {
+        /// The resource instance type on which this policy applies. Format will be
+        /// of the form : `<service name>/<type>` Example:
+        ///
+        /// * `compute.googleapis.com/Instance`.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub resource_types: std::vec::Vec<std::string::String>,
+
+        /// All the operations being applied for this constraint.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub method_types:
+            std::vec::Vec<crate::model::constraint::custom_constraint_definition::MethodType>,
+
+        /// Org policy condition/expression. For example:
+        /// `resource.instanceName.matches("[production|test]_.*_(\d)+")` or,
+        /// `resource.management.auto_upgrade == true`
+        ///
+        /// The max length of the condition is 1000 characters.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub condition: std::string::String,
+
+        /// Allow or deny type.
+        pub action_type: crate::model::constraint::custom_constraint_definition::ActionType,
+
+        /// Stores the structure of
+        /// [`Parameters`][google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition.Parameter]
+        /// used by the constraint condition. The key of `map` represents the name of
+        /// the parameter.
+        ///
+        /// [google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition.Parameter]: crate::model::constraint::custom_constraint_definition::Parameter
+        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        pub parameters: std::collections::HashMap<
+            std::string::String,
+            crate::model::constraint::custom_constraint_definition::Parameter,
+        >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CustomConstraintDefinition {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [condition][crate::model::constraint::CustomConstraintDefinition::condition].
+        pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.condition = v.into();
+            self
+        }
+
+        /// Sets the value of [action_type][crate::model::constraint::CustomConstraintDefinition::action_type].
+        pub fn set_action_type<
+            T: std::convert::Into<crate::model::constraint::custom_constraint_definition::ActionType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.action_type = v.into();
+            self
+        }
+
+        /// Sets the value of [resource_types][crate::model::constraint::CustomConstraintDefinition::resource_types].
+        pub fn set_resource_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.resource_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [method_types][crate::model::constraint::CustomConstraintDefinition::method_types].
+        pub fn set_method_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::constraint::custom_constraint_definition::MethodType,
+                >,
+        {
+            use std::iter::Iterator;
+            self.method_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parameters][crate::model::constraint::CustomConstraintDefinition::parameters].
+        pub fn set_parameters<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<
+                    crate::model::constraint::custom_constraint_definition::Parameter,
+                >,
+        {
+            use std::iter::Iterator;
+            self.parameters = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CustomConstraintDefinition {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition"
+        }
+    }
+
+    /// Defines additional types related to [CustomConstraintDefinition].
+    pub mod custom_constraint_definition {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Defines a parameter structure.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct Parameter {
+            /// Type of the parameter.
+            #[serde(rename = "type")]
+            pub r#type: crate::model::constraint::custom_constraint_definition::parameter::Type,
+
+            /// Sets the value of the parameter in an assignment if no value is given.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub default_value: std::option::Option<wkt::Value>,
+
+            /// Provides a CEL expression to specify the acceptable parameter values
+            /// during assignment.
+            /// For example, parameterName in ("parameterValue1", "parameterValue2")
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub valid_values_expr: std::string::String,
+
+            /// Defines subproperties primarily used by the UI to display user-friendly
+            /// information.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub metadata: std::option::Option<
+                crate::model::constraint::custom_constraint_definition::parameter::Metadata,
+            >,
+
+            /// Determines the parameter's value structure.
+            /// For example, `LIST<STRING>` can be specified by defining `type: LIST`,
+            /// and `item: STRING`.
+            pub item: crate::model::constraint::custom_constraint_definition::parameter::Type,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Parameter {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [r#type][crate::model::constraint::custom_constraint_definition::Parameter::type].
+            pub fn set_type<
+                T: std::convert::Into<
+                        crate::model::constraint::custom_constraint_definition::parameter::Type,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.r#type = v.into();
+                self
+            }
+
+            /// Sets the value of [default_value][crate::model::constraint::custom_constraint_definition::Parameter::default_value].
+            pub fn set_default_value<T: std::convert::Into<std::option::Option<wkt::Value>>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.default_value = v.into();
+                self
+            }
+
+            /// Sets the value of [valid_values_expr][crate::model::constraint::custom_constraint_definition::Parameter::valid_values_expr].
+            pub fn set_valid_values_expr<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.valid_values_expr = v.into();
+                self
+            }
+
+            /// Sets the value of [metadata][crate::model::constraint::custom_constraint_definition::Parameter::metadata].
+            pub fn set_metadata<T: std::convert::Into<std::option::Option<crate::model::constraint::custom_constraint_definition::parameter::Metadata>>>(mut self, v: T) -> Self{
+                self.metadata = v.into();
+                self
+            }
+
+            /// Sets the value of [item][crate::model::constraint::custom_constraint_definition::Parameter::item].
+            pub fn set_item<
+                T: std::convert::Into<
+                        crate::model::constraint::custom_constraint_definition::parameter::Type,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.item = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for Parameter {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition.Parameter"
+            }
+        }
+
+        /// Defines additional types related to [Parameter].
+        pub mod parameter {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Defines Metadata structure.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(default, rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub struct Metadata {
+                /// Detailed description of what this `parameter` is and use of it.
+                /// Mutable.
+                #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                pub description: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl Metadata {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [description][crate::model::constraint::custom_constraint_definition::parameter::Metadata::description].
+                pub fn set_description<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.description = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for Metadata {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.orgpolicy.v2.Constraint.CustomConstraintDefinition.Parameter.Metadata"
+                }
+            }
+
+            /// All valid types of parameter.
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            pub struct Type(i32);
+
+            impl Type {
+                /// This is only used for distinguishing unset values and should never be
+                /// used. Results in an error.
+                pub const TYPE_UNSPECIFIED: Type = Type::new(0);
+
+                /// List parameter type.
+                pub const LIST: Type = Type::new(1);
+
+                /// String parameter type.
+                pub const STRING: Type = Type::new(2);
+
+                /// Boolean parameter type.
+                pub const BOOLEAN: Type = Type::new(3);
+
+                /// Creates a new Type instance.
+                pub(crate) const fn new(value: i32) -> Self {
+                    Self(value)
+                }
+
+                /// Gets the enum value.
+                pub fn value(&self) -> i32 {
+                    self.0
+                }
+
+                /// Gets the enum value as a string.
+                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                    match self.0 {
+                        0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
+                        1 => std::borrow::Cow::Borrowed("LIST"),
+                        2 => std::borrow::Cow::Borrowed("STRING"),
+                        3 => std::borrow::Cow::Borrowed("BOOLEAN"),
+                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                    }
+                }
+
+                /// Creates an enum value from the value name.
+                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                    match name {
+                        "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
+                        "LIST" => std::option::Option::Some(Self::LIST),
+                        "STRING" => std::option::Option::Some(Self::STRING),
+                        "BOOLEAN" => std::option::Option::Some(Self::BOOLEAN),
+                        _ => std::option::Option::None,
+                    }
+                }
+            }
+
+            impl std::convert::From<i32> for Type {
+                fn from(value: i32) -> Self {
+                    Self::new(value)
+                }
+            }
+
+            impl std::default::Default for Type {
+                fn default() -> Self {
+                    Self::new(0)
+                }
+            }
+        }
+
+        /// The operation for which this constraint will be applied. To apply this
+        /// constraint only when creating new resources, the `method_types` should be
+        /// `CREATE` only. To apply this constraint when creating or deleting
+        /// resources, the `method_types` should be `CREATE` and `DELETE`.
+        ///
+        /// `UPDATE`-only custom constraints are not supported. Use `CREATE` or
+        /// `CREATE, UPDATE`.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct MethodType(i32);
+
+        impl MethodType {
+            /// This is only used for distinguishing unset values and should never be
+            /// used. Results in an error.
+            pub const METHOD_TYPE_UNSPECIFIED: MethodType = MethodType::new(0);
+
+            /// Constraint applied when creating the resource.
+            pub const CREATE: MethodType = MethodType::new(1);
+
+            /// Constraint applied when updating the resource.
+            pub const UPDATE: MethodType = MethodType::new(2);
+
+            /// Constraint applied when deleting the resource.
+            /// Not currently supported.
+            pub const DELETE: MethodType = MethodType::new(3);
+
+            /// Constraint applied when removing an IAM grant.
+            pub const REMOVE_GRANT: MethodType = MethodType::new(4);
+
+            /// Constraint applied when enforcing forced tagging.
+            pub const GOVERN_TAGS: MethodType = MethodType::new(5);
+
+            /// Creates a new MethodType instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("METHOD_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("CREATE"),
+                    2 => std::borrow::Cow::Borrowed("UPDATE"),
+                    3 => std::borrow::Cow::Borrowed("DELETE"),
+                    4 => std::borrow::Cow::Borrowed("REMOVE_GRANT"),
+                    5 => std::borrow::Cow::Borrowed("GOVERN_TAGS"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "METHOD_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::METHOD_TYPE_UNSPECIFIED)
+                    }
+                    "CREATE" => std::option::Option::Some(Self::CREATE),
+                    "UPDATE" => std::option::Option::Some(Self::UPDATE),
+                    "DELETE" => std::option::Option::Some(Self::DELETE),
+                    "REMOVE_GRANT" => std::option::Option::Some(Self::REMOVE_GRANT),
+                    "GOVERN_TAGS" => std::option::Option::Some(Self::GOVERN_TAGS),
+                    _ => std::option::Option::None,
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for MethodType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for MethodType {
+            fn default() -> Self {
+                Self::new(0)
+            }
+        }
+
+        /// Allow or deny type.
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        pub struct ActionType(i32);
+
+        impl ActionType {
+            /// This is only used for distinguishing unset values and should never be
+            /// used. Results in an error.
+            pub const ACTION_TYPE_UNSPECIFIED: ActionType = ActionType::new(0);
+
+            /// Allowed action type.
+            pub const ALLOW: ActionType = ActionType::new(1);
+
+            /// Deny action type.
+            pub const DENY: ActionType = ActionType::new(2);
+
+            /// Creates a new ActionType instance.
+            pub(crate) const fn new(value: i32) -> Self {
+                Self(value)
+            }
+
+            /// Gets the enum value.
+            pub fn value(&self) -> i32 {
+                self.0
+            }
+
+            /// Gets the enum value as a string.
+            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+                match self.0 {
+                    0 => std::borrow::Cow::Borrowed("ACTION_TYPE_UNSPECIFIED"),
+                    1 => std::borrow::Cow::Borrowed("ALLOW"),
+                    2 => std::borrow::Cow::Borrowed("DENY"),
+                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                }
+            }
+
+            /// Creates an enum value from the value name.
+            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+                match name {
+                    "ACTION_TYPE_UNSPECIFIED" => {
+                        std::option::Option::Some(Self::ACTION_TYPE_UNSPECIFIED)
+                    }
+                    "ALLOW" => std::option::Option::Some(Self::ALLOW),
+                    "DENY" => std::option::Option::Some(Self::DENY),
+                    _ => std::option::Option::None,
+                }
+            }
+        }
+
+        impl std::convert::From<i32> for ActionType {
+            fn from(value: i32) -> Self {
+                Self::new(value)
+            }
+        }
+
+        impl std::default::Default for ActionType {
+            fn default() -> Self {
+                Self::new(0)
+            }
+        }
+    }
+
+    /// A constraint type is enforced or not enforced, which is configured in the
+    /// [`PolicyRule`][google.cloud.orgpolicy.v2.PolicySpec.PolicyRule].
     ///
-    /// For example, a constraint `constraints/compute.disableSerialPortAccess`.
-    /// If it is enforced on a VM instance, serial port connections will not be
-    /// opened to that instance.
+    /// If `customConstraintDefinition` is defined, this constraint is a managed
+    /// constraint.
+    ///
+    /// [google.cloud.orgpolicy.v2.PolicySpec.PolicyRule]: crate::model::policy_spec::PolicyRule
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct BooleanConstraint {
+        /// Custom constraint definition. Defines this as a managed constraint.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub custom_constraint_definition:
+            std::option::Option<crate::model::constraint::CustomConstraintDefinition>,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -283,6 +781,19 @@ pub mod constraint {
     impl BooleanConstraint {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [custom_constraint_definition][crate::model::constraint::BooleanConstraint::custom_constraint_definition].
+        pub fn set_custom_constraint_definition<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::constraint::CustomConstraintDefinition>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.custom_constraint_definition = v.into();
+            self
         }
     }
 
@@ -301,7 +812,7 @@ pub mod constraint {
 
     impl ConstraintDefault {
         /// This is only used for distinguishing unset values and should never be
-        /// used.
+        /// used. Results in an error.
         pub const CONSTRAINT_DEFAULT_UNSPECIFIED: ConstraintDefault = ConstraintDefault::new(0);
 
         /// Indicate that all values are allowed for list constraints.
@@ -364,9 +875,9 @@ pub mod constraint {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum ConstraintType {
-        /// Defines this constraint as being a ListConstraint.
+        /// Defines this constraint as being a list constraint.
         ListConstraint(std::boxed::Box<crate::model::constraint::ListConstraint>),
-        /// Defines this constraint as being a BooleanConstraint.
+        /// Defines this constraint as being a boolean constraint.
         BooleanConstraint(std::boxed::Box<crate::model::constraint::BooleanConstraint>),
     }
 }
@@ -395,7 +906,7 @@ pub struct CustomConstraint {
     pub name: std::string::String,
 
     /// Immutable. The resource instance type on which this policy applies. Format
-    /// will be of the form : `<canonical service name>/<type>` Example:
+    /// will be of the form : `<service name>/<type>` Example:
     ///
     /// * `compute.googleapis.com/Instance`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -405,7 +916,8 @@ pub struct CustomConstraint {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub method_types: std::vec::Vec<crate::model::custom_constraint::MethodType>,
 
-    /// Org policy condition/expression. For example:
+    /// A Common Expression Language (CEL) condition which is used in the
+    /// evaluation of the constraint. For example:
     /// `resource.instanceName.matches("[production|test]_.*_(\d)+")` or,
     /// `resource.management.auto_upgrade == true`
     ///
@@ -428,7 +940,7 @@ pub struct CustomConstraint {
 
     /// Output only. The last time this custom constraint was updated. This
     /// represents the last time that the `CreateCustomConstraint` or
-    /// `UpdateCustomConstraint` RPC was called
+    /// `UpdateCustomConstraint` methods were called.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
@@ -518,9 +1030,9 @@ pub mod custom_constraint {
     use super::*;
 
     /// The operation for which this constraint will be applied. To apply this
-    /// constraint only when creating new VMs, the `method_types` should be
+    /// constraint only when creating new resources, the `method_types` should be
     /// `CREATE` only. To apply this constraint when creating or deleting
-    /// VMs, the `method_types` should be `CREATE` and `DELETE`.
+    /// resources, the `method_types` should be `CREATE` and `DELETE`.
     ///
     /// `UPDATE` only custom constraints are not supported. Use `CREATE` or
     /// `CREATE, UPDATE`.
@@ -528,7 +1040,8 @@ pub mod custom_constraint {
     pub struct MethodType(i32);
 
     impl MethodType {
-        /// Unspecified. Results in an error.
+        /// This is only used for distinguishing unset values and should never be
+        /// used. Results in an error.
         pub const METHOD_TYPE_UNSPECIFIED: MethodType = MethodType::new(0);
 
         /// Constraint applied when creating the resource.
@@ -538,7 +1051,7 @@ pub mod custom_constraint {
         pub const UPDATE: MethodType = MethodType::new(2);
 
         /// Constraint applied when deleting the resource.
-        /// Not supported yet.
+        /// Not currently supported.
         pub const DELETE: MethodType = MethodType::new(3);
 
         /// Constraint applied when removing an IAM grant.
@@ -603,7 +1116,8 @@ pub mod custom_constraint {
     pub struct ActionType(i32);
 
     impl ActionType {
-        /// Unspecified. Results in an error.
+        /// This is only used for distinguishing unset values and should never be
+        /// used. Results in an error.
         pub const ACTION_TYPE_UNSPECIFIED: ActionType = ActionType::new(0);
 
         /// Allowed action type.
@@ -681,7 +1195,7 @@ pub struct Policy {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    /// Basic information about the Organization Policy.
+    /// Basic information about the organization policy.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub spec: std::option::Option<crate::model::PolicySpec>,
 
@@ -762,7 +1276,7 @@ impl wkt::message::Message for Policy {
 }
 
 /// Similar to PolicySpec but with an extra 'launch' field for launch reference.
-/// The PolicySpec here is specific for dry-run/darklaunch.
+/// The PolicySpec here is specific for dry-run.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -943,6 +1457,17 @@ pub mod policy_spec {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub condition: std::option::Option<gtype::model::Expr>,
 
+        /// Optional. Required for managed constraints if parameters are defined.
+        /// Passes parameter values when policy enforcement is enabled. Ensure that
+        /// parameter value types match those defined in the constraint definition.
+        /// For example:
+        /// {
+        /// "allowedLocations" : ["us-east1", "us-west1"],
+        /// "allowAll" : true
+        /// }
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub parameters: std::option::Option<wkt::Struct>,
+
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub kind: std::option::Option<crate::model::policy_spec::policy_rule::Kind>,
 
@@ -961,6 +1486,15 @@ pub mod policy_spec {
             v: T,
         ) -> Self {
             self.condition = v.into();
+            self
+        }
+
+        /// Sets the value of [parameters][crate::model::policy_spec::PolicyRule::parameters].
+        pub fn set_parameters<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.parameters = v.into();
             self
         }
 
@@ -1718,8 +2252,8 @@ impl wkt::message::Message for CreateCustomConstraintRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetCustomConstraintRequest {
-    /// Required. Resource name of the custom constraint. See the custom constraint
-    /// entry for naming requirements.
+    /// Required. Resource name of the custom or managed constraint. See the custom
+    /// constraint entry for naming requirements.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -1806,14 +2340,15 @@ impl wkt::message::Message for ListCustomConstraintsRequest {
 
 /// The response returned from the [ListCustomConstraints]
 /// [google.cloud.orgpolicy.v2.OrgPolicy.ListCustomConstraints] method. It will
-/// be empty if no custom constraints are set on the organization resource.
+/// be empty if no custom or managed constraints are set on the organization
+/// resource.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListCustomConstraintsResponse {
-    /// All custom constraints that exist on the organization resource. It will be
-    /// empty if no custom constraints are set.
+    /// All custom and managed constraints that exist on the organization resource.
+    /// It will be empty if no custom constraints are set.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub custom_constraints: std::vec::Vec<crate::model::CustomConstraint>,
 
