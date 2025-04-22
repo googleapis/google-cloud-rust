@@ -63,6 +63,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::GetDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -100,6 +101,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::ListDocumentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -140,6 +142,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::UpdateDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -183,6 +186,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -215,6 +219,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::BeginTransactionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BeginTransactionResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -252,6 +257,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::CommitRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CommitResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -288,6 +294,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::RollbackRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -319,6 +326,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::PartitionQueryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PartitionQueryResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -356,6 +364,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::ListCollectionIdsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCollectionIdsResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -394,6 +403,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::BatchWriteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchWriteResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -431,6 +441,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::CreateDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
