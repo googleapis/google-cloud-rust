@@ -53,6 +53,7 @@ func TestParseOptionsProtobuf(t *testing.T) {
 		"package:gax":               "package=gax,path=src/gax,feature=unstable-sdk-client",
 		"package:serde_with":        "package=serde_with,version=2.3.4,default-features=false",
 		"include-grpc-only-methods": "true",
+		"per-service-features":      "true",
 	}
 	got, err := newCodec(true, options)
 	if err != nil {
@@ -96,6 +97,7 @@ func TestParseOptionsProtobuf(t *testing.T) {
 			{Name: "$alt", Value: "json;enum-encoding=int"},
 		},
 		includeGrpcOnlyMethods: true,
+		perServiceFeatures:     true,
 	}
 	sort.Slice(want.extraPackages, func(i, j int) bool {
 		return want.extraPackages[i].name < want.extraPackages[j].name
