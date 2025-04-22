@@ -130,7 +130,6 @@ macro_rules! impl_message {
 }
 
 impl_message!(DoubleValue);
-impl_message!(FloatValue);
 impl_message!(Int32Value);
 impl_message!(UInt32Value);
 impl_message!(BoolValue);
@@ -187,6 +186,56 @@ impl crate::message::Message for Int64Value {
     }
 }
 
+impl crate::message::Message for FloatValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.FloatValue"
+    }
+    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
+    where
+        Self: serde::ser::Serialize + Sized,
+    {
+        if self.is_nan() {
+            return encode_string::<Self>("NaN".to_string());
+        }
+        if self.is_infinite() && self.is_sign_positive() {
+            return encode_string::<Self>("Infinity".to_string());
+        }
+        if self.is_infinite() && self.is_sign_negative() {
+            return encode_string::<Self>("-Infinity".to_string());
+        }
+
+        let map: crate::message::Map = [
+            (
+                "@type",
+                serde_json::Value::String(Self::typename().to_string()),
+            ),
+            ("value", serde_json::json!(self)),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
+        .collect();
+        Ok(map)
+    }
+    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError>
+    where
+        Self: serde::de::DeserializeOwned,
+    {
+        let val = map
+            .get("value")
+            .ok_or_else(crate::message::missing_value_field)?;
+        match val {
+            serde_json::Value::String(string) => match string.as_str() {
+                "Infinity" => return Ok(f32::INFINITY),
+                "-Infinity" => return Ok(f32::NEG_INFINITY),
+                "NaN" => return Ok(f32::NAN),
+                _ => return Err(crate::AnyError::deser("expected a float")),
+            },
+            serde_json::Value::Number(_) => return crate::message::from_value::<Self>(map),
+            _ => return Err(crate::AnyError::deser("expected a float")),
+        };
+    }
+}
+
 impl crate::message::Message for BytesValue {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.BytesValue"
@@ -223,7 +272,6 @@ mod test {
     const HELLO_WORLD_BASE64: &str = "SGVsbG8sIFdvcmxkIQ==";
 
     #[test_case(1234.5 as DoubleValue, 1234.5, "DoubleValue")]
-    #[test_case(9876.5 as FloatValue, 9876.5, "FloatValue")]
     #[test_case(-123 as Int64Value, "-123", "Int64Value")]
     #[test_case(123 as UInt64Value, "123", "UInt64Value")]
     #[test_case(-123 as Int32Value, -123, "Int32Value")]
@@ -249,6 +297,30 @@ mod test {
         assert_eq!(got, want);
         let output = any.try_into_message::<I>()?;
         assert_eq!(output, input);
+        Ok(())
+    }
+
+    #[test_case(f32::INFINITY as FloatValue, "Infinity", "FloatValue")]
+    #[test_case(f32::NEG_INFINITY as FloatValue, "-Infinity", "FloatValue")]
+    #[test_case(f32::NAN as FloatValue, "NaN", "FloatValue")]
+    #[test_case(9876.5 as FloatValue, 9876.5, "FloatValue")]
+    fn test_wrapper_in_any_float32<V>(input: FloatValue, value: V, typename: &str) -> Result
+    where
+        V: serde::ser::Serialize,
+    {
+        let any = Any::try_from(&input)?;
+        let got = serde_json::to_value(&any)?;
+        let want = serde_json::json!({
+            "@type": format!("type.googleapis.com/google.protobuf.{}", typename),
+            "value": value,
+        });
+        assert_eq!(got, want);
+        let output = any.try_into_message::<FloatValue>()?;
+        if input.is_nan() {
+            assert!(output.is_nan(), "expected NaN, got: {output}")
+        } else {
+            assert_eq!(output, input);
+        }
         Ok(())
     }
 
