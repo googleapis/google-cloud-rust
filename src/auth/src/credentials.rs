@@ -353,7 +353,7 @@ impl Builder {
     /// let credentials = Builder::default()
     ///     .with_quota_project_id("my-project")
     ///     .build();
-    /// });
+    /// # });
     /// ```
     ///
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
