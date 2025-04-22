@@ -49,8 +49,6 @@ func FindServiceDependencies(model *API, serviceID string) *ServiceDependencies 
 }
 
 type findServiceState struct {
-	// The message IDs that have already been visited
-	Visited map[string]bool
 	// The enums already included in these results
 	Enums map[string]bool
 	// The messages already included in these results
@@ -62,7 +60,6 @@ type findServiceState struct {
 
 func newFindServicesState(serviceID string, model *API) *findServiceState {
 	return &findServiceState{
-		Visited:   map[string]bool{},
 		Enums:     map[string]bool{},
 		Messages:  map[string]bool{},
 		model:     model,
@@ -85,17 +82,15 @@ func (state *findServiceState) search() {
 	for len(state.candidates) > 0 {
 		candidate := state.candidates[len(state.candidates)-1]
 		state.candidates = state.candidates[0 : len(state.candidates)-1]
-
-		if _, ok := state.Visited[candidate.ID]; ok {
-			continue
-		}
-		state.Messages[candidate.ID] = true
 		state.recurse(candidate)
 	}
 }
 
 func (state *findServiceState) recurse(msg *Message) {
-	state.Visited[msg.ID] = true
+	if _, ok := state.Messages[msg.ID]; ok {
+		return
+	}
+	state.Messages[msg.ID] = true
 	for _, field := range msg.Fields {
 		switch field.Typez {
 		case ENUM_TYPE:
@@ -122,9 +117,6 @@ func (state *findServiceState) addMessage(id string) {
 		if m.Parent != nil {
 			state.addCandidate(m.Parent.ID)
 		}
-		if !m.IsMap {
-			state.Messages[id] = true
-		}
 	}
 }
 
@@ -133,7 +125,7 @@ func (state *findServiceState) addCandidate(id string) {
 	if !ok {
 		return
 	}
-	if _, ok := state.Visited[msg.ID]; ok {
+	if _, ok := state.Messages[msg.ID]; ok {
 		return
 	}
 	state.candidates = append(state.candidates, msg)
