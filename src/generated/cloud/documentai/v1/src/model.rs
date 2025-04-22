@@ -129,6 +129,10 @@ impl wkt::message::Message for Barcode {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Document {
+    /// Optional. An internal identifier for document. Should be loggable (no PII).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub docid: std::string::String,
+
     /// An IANA published [media type (MIME
     /// type)](https://www.iana.org/assignments/media-types/media-types.xhtml).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -206,6 +210,12 @@ pub struct Document {
 impl Document {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [docid][crate::model::Document::docid].
+    pub fn set_docid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.docid = v.into();
+        self
     }
 
     /// Sets the value of [mime_type][crate::model::Document::mime_type].
@@ -4120,6 +4130,10 @@ pub mod document {
                 crate::model::document::document_layout::document_layout_block::LayoutPageSpan,
             >,
 
+            /// Identifies the bounding box for the block.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub bounding_box: std::option::Option<crate::model::BoundingPoly>,
+
             #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
             pub block: std::option::Option<
                 crate::model::document::document_layout::document_layout_block::Block,
@@ -4146,6 +4160,17 @@ pub mod document {
             /// Sets the value of [page_span][crate::model::document::document_layout::DocumentLayoutBlock::page_span].
             pub fn set_page_span<T: std::convert::Into<std::option::Option<crate::model::document::document_layout::document_layout_block::LayoutPageSpan>>>(mut self, v: T) -> Self{
                 self.page_span = v.into();
+                self
+            }
+
+            /// Sets the value of [bounding_box][crate::model::document::document_layout::DocumentLayoutBlock::bounding_box].
+            pub fn set_bounding_box<
+                T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.bounding_box = v.into();
                 self
             }
 
@@ -5902,6 +5927,13 @@ pub mod process_options {
         pub chunking_config:
             std::option::Option<crate::model::process_options::layout_config::ChunkingConfig>,
 
+        /// Optional. Whether to include images in layout parser processor response.
+        pub return_images: bool,
+
+        /// Optional. Whether to include bounding boxes in layout parser processor
+        /// response.
+        pub return_bounding_boxes: bool,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -5923,6 +5955,18 @@ pub mod process_options {
             v: T,
         ) -> Self {
             self.chunking_config = v.into();
+            self
+        }
+
+        /// Sets the value of [return_images][crate::model::process_options::LayoutConfig::return_images].
+        pub fn set_return_images<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.return_images = v.into();
+            self
+        }
+
+        /// Sets the value of [return_bounding_boxes][crate::model::process_options::LayoutConfig::return_bounding_boxes].
+        pub fn set_return_bounding_boxes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.return_bounding_boxes = v.into();
             self
         }
     }

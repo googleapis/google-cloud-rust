@@ -8413,7 +8413,7 @@ pub struct TieringPolicy {
     pub tier_action: std::option::Option<crate::model::tiering_policy::TierAction>,
 
     /// Optional. Time in days to mark the volume's data block as cold and make it
-    /// eligible for tiering, can be range from 7-183. Default is 31.
+    /// eligible for tiering, can be range from 2-183. Default is 31.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cooling_threshold_days: std::option::Option<i32>,
 

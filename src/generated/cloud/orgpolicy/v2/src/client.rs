@@ -250,10 +250,10 @@ impl OrgPolicy {
             .set_custom_constraint(custom_constraint.into())
     }
 
-    /// Gets a custom constraint.
+    /// Gets a custom or managed constraint.
     ///
     /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
-    /// custom constraint does not exist.
+    /// custom or managed constraint does not exist.
     pub fn get_custom_constraint(
         &self,
         name: impl Into<std::string::String>,

@@ -6725,6 +6725,11 @@ pub struct MigrationConfig {
     /// Opt-in status for the UI switch to Dataplex.
     pub catalog_ui_experience: crate::model::CatalogUIExperience,
 
+    /// The time when the Tag Template migration was enabled.
+    /// If the Tag Template migration is not enabled, this field is not set.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub template_migration_enabled_time: std::option::Option<wkt::Timestamp>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6749,6 +6754,17 @@ impl MigrationConfig {
         v: T,
     ) -> Self {
         self.catalog_ui_experience = v.into();
+        self
+    }
+
+    /// Sets the value of [template_migration_enabled_time][crate::model::MigrationConfig::template_migration_enabled_time].
+    pub fn set_template_migration_enabled_time<
+        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.template_migration_enabled_time = v.into();
         self
     }
 }

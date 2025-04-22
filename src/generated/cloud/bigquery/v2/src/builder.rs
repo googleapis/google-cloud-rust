@@ -242,6 +242,17 @@ pub mod dataset_service {
             self
         }
 
+        /// Sets the value of [update_mode][crate::model::UpdateOrPatchDatasetRequest::update_mode].
+        pub fn set_update_mode<
+            T: Into<crate::model::update_or_patch_dataset_request::UpdateMode>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.update_mode = v.into();
+            self
+        }
+
         /// Sets the value of [access_policy_version][crate::model::UpdateOrPatchDatasetRequest::access_policy_version].
         pub fn set_access_policy_version<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.access_policy_version = v.into();
@@ -306,6 +317,17 @@ pub mod dataset_service {
             v: T,
         ) -> Self {
             self.0.request.dataset = v.into();
+            self
+        }
+
+        /// Sets the value of [update_mode][crate::model::UpdateOrPatchDatasetRequest::update_mode].
+        pub fn set_update_mode<
+            T: Into<crate::model::update_or_patch_dataset_request::UpdateMode>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.update_mode = v.into();
             self
         }
 
