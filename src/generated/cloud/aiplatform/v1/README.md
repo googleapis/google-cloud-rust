@@ -14,38 +14,38 @@ learning expertise and effort.
 
 The main types to work with this crate are the clients:
 
-- [DatasetService]
-- [DeploymentResourcePoolService]
-- [EndpointService]
-- [EvaluationService]
-- [FeatureOnlineStoreAdminService]
-- [FeatureOnlineStoreService]
-- [FeatureRegistryService]
-- [FeaturestoreOnlineServingService]
-- [FeaturestoreService]
-- [GenAiCacheService]
-- [GenAiTuningService]
-- [IndexEndpointService]
-- [IndexService]
-- [JobService]
-- [LlmUtilityService]
-- [MatchService]
-- [MetadataService]
-- [MigrationService]
-- [ModelGardenService]
-- [ModelService]
-- [NotebookService]
-- [PersistentResourceService]
-- [PipelineService]
-- [PredictionService]
-- [ReasoningEngineExecutionService]
-- [ReasoningEngineService]
-- [ScheduleService]
-- [SpecialistPoolService]
-- [TensorboardService]
-- [VertexRagDataService]
-- [VertexRagService]
-- [VizierService]
+- [DatasetService]: enabled by the `dataset_service` feature
+- [DeploymentResourcePoolService]: enabled by the `deployment_resource_pool_service` feature
+- [EndpointService]: enabled by the `endpoint_service` feature
+- [EvaluationService]: enabled by the `evaluation_service` feature
+- [FeatureOnlineStoreAdminService]: enabled by the `feature_online_store_admin_service` feature
+- [FeatureOnlineStoreService]: enabled by the `feature_online_store_service` feature
+- [FeatureRegistryService]: enabled by the `feature_registry_service` feature
+- [FeaturestoreOnlineServingService]: enabled by the `featurestore_online_serving_service` feature
+- [FeaturestoreService]: enabled by the `featurestore_service` feature
+- [GenAiCacheService]: enabled by the `gen_ai_cache_service` feature
+- [GenAiTuningService]: enabled by the `gen_ai_tuning_service` feature
+- [IndexEndpointService]: enabled by the `index_endpoint_service` feature
+- [IndexService]: enabled by the `index_service` feature
+- [JobService]: enabled by the `job_service` feature
+- [LlmUtilityService]: enabled by the `llm_utility_service` feature
+- [MatchService]: enabled by the `match_service` feature
+- [MetadataService]: enabled by the `metadata_service` feature
+- [MigrationService]: enabled by the `migration_service` feature
+- [ModelGardenService]: enabled by the `model_garden_service` feature
+- [ModelService]: enabled by the `model_service` feature
+- [NotebookService]: enabled by the `notebook_service` feature
+- [PersistentResourceService]: enabled by the `persistent_resource_service` feature
+- [PipelineService]: enabled by the `pipeline_service` feature
+- [PredictionService]: enabled by the `prediction_service` feature
+- [ReasoningEngineExecutionService]: enabled by the `reasoning_engine_execution_service` feature
+- [ReasoningEngineService]: enabled by the `reasoning_engine_service` feature
+- [ScheduleService]: enabled by the `schedule_service` feature
+- [SpecialistPoolService]: enabled by the `specialist_pool_service` feature
+- [TensorboardService]: enabled by the `tensorboard_service` feature
+- [VertexRagDataService]: enabled by the `vertex_rag_data_service` feature
+- [VertexRagService]: enabled by the `vertex_rag_service` feature
+- [VizierService]: enabled by the `vizier_service` feature
 
 ## More Information
 
