@@ -98,6 +98,10 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<{{Codec.ReturnType}}>> {
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            {{PathInfo.Codec.IsIdempotent}},
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new("{{Service.Package}}.{{Service.Name}}", "{{Name}}"));

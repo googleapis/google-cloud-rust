@@ -63,6 +63,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::DeleteBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -92,6 +93,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::GetBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -126,6 +128,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::CreateBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -160,6 +163,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::ListBucketsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBucketsResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -194,6 +198,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::LockBucketRetentionPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -230,6 +235,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::UpdateBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -264,6 +270,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::ComposeObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -298,6 +305,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::DeleteObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -327,6 +335,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::RestoreObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -361,6 +370,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::CancelResumableWriteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CancelResumableWriteResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -396,6 +406,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::GetObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -430,6 +441,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::UpdateObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -464,6 +476,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::ListObjectsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListObjectsResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -498,6 +511,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::RewriteObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RewriteResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -532,6 +546,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::StartResumableWriteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::StartResumableWriteResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -567,6 +582,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::QueryWriteStatusRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QueryWriteStatusResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -602,6 +618,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::MoveObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
