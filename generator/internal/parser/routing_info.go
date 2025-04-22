@@ -158,7 +158,7 @@ func parseRoutingPrefix(pathTemplate string) (api.RoutingPathSpec, int) {
 	return parseRoutingPathSpec(pathTemplate)
 }
 
-func isRoutingWilcard(segment string) bool {
+func isRoutingWildcard(segment string) bool {
 	return segment == api.RoutingSingleSegmentWildcard || segment == api.RoutingMultiSegmentWildcard
 }
 
@@ -167,14 +167,14 @@ func parseRoutingVariable(defaultName, pathTemplate string) (string, api.Routing
 	if strings.HasPrefix(pathTemplate[width:], "=") {
 		pos := width + 1
 		// The initial spec must be a simple name.
-		if len(spec.Segments) != 1 || isRoutingWilcard(spec.Segments[0]) {
+		if len(spec.Segments) != 1 || isRoutingWildcard(spec.Segments[0]) {
 			return "", api.RoutingPathSpec{}, 0, fmt.Errorf("expected name=pathspec, but the name format is invalid name=%v", spec.Segments)
 		}
 		name := spec.Segments[0]
 		spec, width := parseRoutingPathSpec(pathTemplate[pos:])
 		return name, spec, pos + width, nil
 	}
-	if len(spec.Segments) == 1 && !isRoutingWilcard(spec.Segments[0]) {
+	if len(spec.Segments) == 1 && !isRoutingWildcard(spec.Segments[0]) {
 		// AIP-4222: It is acceptable to omit the pattern in the resource ID
 		// segment, `{parent}` for example, is equivalent to `{parent=*}`.
 		return spec.Segments[0], api.RoutingPathSpec{Segments: []string{"*"}}, width, nil
