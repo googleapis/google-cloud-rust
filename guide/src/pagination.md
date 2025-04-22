@@ -45,6 +45,13 @@ As it is usual with Rust, you must declare the dependency in your
 {{#include ../samples/Cargo.toml:secretmanager}}
 ```
 
+This guide also requires the optional feature `unstable-stream` in the
+`google-cloud-gax` depedency.
+
+```toml
+{{#include ../samples/Cargo.toml:gax}}
+```
+
 ## Iterating List methods
 
 To iterate the pages of a List method, we use the provided Paginator `next`
@@ -55,7 +62,8 @@ needed.
 {{#include ../samples/src/pagination.rs:paginator-iterate-pages}}
 ```
 
-To iterate as a stream, we use the provided `into_stream` function.
+To iterate as a stream, we use the provided optional feature `into_stream`
+function.
 
 ```rust,ignore
 {{#include ../samples/src/pagination.rs:paginator-stream-pages}}
