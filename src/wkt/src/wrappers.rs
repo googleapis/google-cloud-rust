@@ -135,7 +135,7 @@ impl_message!(UInt32Value);
 impl_message!(BoolValue);
 impl_message!(StringValue);
 
-fn encode_string<T>(value: String) -> Result<crate::message::Map, crate::AnyError>
+fn encode_value<T>(value: serde_json::Value) -> Result<crate::message::Map, crate::AnyError>
 where
     T: crate::message::Message,
 {
@@ -144,12 +144,19 @@ where
             "@type",
             serde_json::Value::String(T::typename().to_string()),
         ),
-        ("value", serde_json::Value::String(value)),
+        ("value", value),
     ]
     .into_iter()
     .map(|(k, v)| (k.to_string(), v))
     .collect();
     Ok(map)
+}
+
+fn encode_string<T>(value: String) -> Result<crate::message::Map, crate::AnyError>
+where
+    T: crate::message::Message,
+{
+    encode_value::<T>(serde_json::Value::String(value))
 }
 
 impl crate::message::Message for UInt64Value {
@@ -194,6 +201,7 @@ impl crate::message::Message for FloatValue {
     where
         Self: serde::ser::Serialize + Sized,
     {
+        // Encode special strings, see https://protobuf.dev/programming-guides/json/.
         if self.is_nan() {
             return encode_string::<Self>("NaN".to_string());
         }
@@ -204,17 +212,7 @@ impl crate::message::Message for FloatValue {
             return encode_string::<Self>("-Infinity".to_string());
         }
 
-        let map: crate::message::Map = [
-            (
-                "@type",
-                serde_json::Value::String(Self::typename().to_string()),
-            ),
-            ("value", serde_json::json!(self)),
-        ]
-        .into_iter()
-        .map(|(k, v)| (k.to_string(), v))
-        .collect();
-        Ok(map)
+        encode_value::<Self>(serde_json::json!(self))
     }
     fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError>
     where
@@ -224,6 +222,7 @@ impl crate::message::Message for FloatValue {
             .get("value")
             .ok_or_else(crate::message::missing_value_field)?;
         match val {
+            // Decode special strings, see https://protobuf.dev/programming-guides/json/.
             serde_json::Value::String(string) => match string.as_str() {
                 "Infinity" => Ok(f32::INFINITY),
                 "-Infinity" => Ok(f32::NEG_INFINITY),
@@ -303,7 +302,7 @@ mod test {
     #[test_case(f32::NEG_INFINITY as FloatValue, "-Infinity", "FloatValue")]
     #[test_case(f32::NAN as FloatValue, "NaN", "FloatValue")]
     #[test_case(9876.5 as FloatValue, 9876.5, "FloatValue")]
-    fn test_wrapper_in_any_float32<V>(input: FloatValue, value: V, typename: &str) -> Result
+    fn test_wrapper_float<V>(input: FloatValue, value: V, typename: &str) -> Result
     where
         V: serde::ser::Serialize,
     {
@@ -315,11 +314,12 @@ mod test {
         });
         assert_eq!(got, want);
         let output = any.try_into_message::<FloatValue>()?;
-        if input.is_nan() {
-            assert!(output.is_nan(), "expected NaN, got: {output}")
-        } else {
-            assert_eq!(output, input);
-        }
+        // Using assert_eq does not work with NaN, as they are not considered equal,
+        // use total_cmp instead.
+        assert!(
+            output.total_cmp(&input) == std::cmp::Ordering::Equal,
+            "expected: {input}, got: {output}"
+        );
         Ok(())
     }
 
