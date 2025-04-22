@@ -1135,6 +1135,7 @@ dependencies = [
  "time",
  "tokio",
  "tokio-test",
+ "url",
 ]
 
 [[package]]

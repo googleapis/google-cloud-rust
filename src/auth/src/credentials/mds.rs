@@ -67,7 +67,8 @@ use std::time::Duration;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
-const METADATA_ROOT: &str = "http://metadata.google.internal/";
+const METADATA_ROOT: &str = "http://metadata.google.internal";
+const MDS_DEFAULT_URI: &str = "/computeMetadata/v1/instance/service-accounts/default";
 
 #[derive(Debug)]
 struct MDSCredentials<T>
@@ -217,10 +218,7 @@ struct MDSAccessTokenProvider {
 impl MDSAccessTokenProvider {
     async fn get_service_account_info(&self, client: &Client) -> Result<ServiceAccountInfo> {
         let request = client
-            .get(format!(
-                "{}/computeMetadata/v1/instance/service-accounts/default/",
-                self.endpoint
-            ))
+            .get(format!("{}{}", self.endpoint, MDS_DEFAULT_URI))
             .query(&[("recursive", "true")])
             .header(
                 METADATA_FLAVOR,
@@ -250,10 +248,7 @@ impl TokenProvider for MDSAccessTokenProvider {
         };
 
         let request = client
-            .get(format!(
-                "{}/computeMetadata/v1/instance/service-accounts/default/token",
-                self.endpoint
-            ))
+            .get(format!("{}{}/token", self.endpoint, MDS_DEFAULT_URI))
             .query(&[("scopes", scopes)])
             .header(
                 METADATA_FLAVOR,
@@ -306,15 +301,25 @@ mod test {
     use std::error::Error;
     use std::sync::Mutex;
     use tokio::task::JoinHandle;
+    use url::Url;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
-    const MDS_TOKEN_URI: &str = "/computeMetadata/v1/instance/service-accounts/default/token";
 
     // Define a struct to capture query parameters
     #[derive(Debug, Clone, Deserialize, PartialEq)]
     struct TokenQueryParams {
         scopes: Option<String>,
         recursive: Option<String>,
+    }
+
+    #[test]
+    fn validate_token_url() {
+        let default_endpoint_address = Url::parse(&format!("{}{}", METADATA_ROOT, MDS_DEFAULT_URI));
+        assert!(default_endpoint_address.is_ok());
+
+        let token_endpoint_address =
+            Url::parse(&format!("{}{}/token", METADATA_ROOT, MDS_DEFAULT_URI));
+        assert!(token_endpoint_address.is_ok());
     }
 
     #[tokio::test]
@@ -440,11 +445,6 @@ mod test {
 
     #[tokio::test]
     async fn get_default_service_account_info_success() {
-        let service_account = "default";
-        let path = format!(
-            "/computeMetadata/v1/instance/service-accounts/{}/",
-            service_account
-        );
         let service_account_info = ServiceAccountInfo {
             email: "test@test.com".to_string(),
             scopes: Some(vec!["scope 1".to_string(), "scope 2".to_string()]),
@@ -452,7 +452,7 @@ mod test {
         };
         let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
         let (endpoint, _server) = start(Handlers::from([(
-            path,
+            MDS_DEFAULT_URI.to_string(),
             (
                 StatusCode::OK,
                 service_account_info_json,
@@ -476,9 +476,8 @@ mod test {
 
     #[tokio::test]
     async fn get_service_account_info_server_error() {
-        let path = "/computeMetadata/v1/instance/service-accounts/default/".to_string();
         let (endpoint, _server) = start(Handlers::from([(
-            path,
+            MDS_DEFAULT_URI.to_string(),
             (
                 StatusCode::SERVICE_UNAVAILABLE,
                 serde_json::to_value("try again").unwrap(),
@@ -509,7 +508,7 @@ mod test {
         let response_body = serde_json::to_value(&response).unwrap();
 
         let (endpoint, _server) = start(Handlers::from([(
-            MDS_TOKEN_URI.to_string(),
+            format!("{}/token", MDS_DEFAULT_URI),
             (
                 StatusCode::OK,
                 response_body,
@@ -559,7 +558,7 @@ mod test {
 
         let call_count = Arc::new(Mutex::new(0));
         let (endpoint, _server) = start(Handlers::from([(
-            MDS_TOKEN_URI.to_string(),
+            format!("{}/token", MDS_DEFAULT_URI),
             (
                 StatusCode::OK,
                 response_body,
@@ -598,7 +597,7 @@ mod test {
         let response_body = serde_json::to_value(&response).unwrap();
 
         let (endpoint, _server) = start(Handlers::from([(
-            MDS_TOKEN_URI.to_string(),
+            format!("{}/token", MDS_DEFAULT_URI),
             (
                 StatusCode::OK,
                 response_body,
@@ -631,8 +630,6 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_full_no_scopes() -> TestResult {
-        let service_account_info_path =
-            "/computeMetadata/v1/instance/service-accounts/default/".to_string();
         let scopes = vec!["scope 1".to_string(), "scope 2".to_string()];
         let service_account_info = ServiceAccountInfo {
             email: "test@test.com".to_string(),
@@ -650,7 +647,7 @@ mod test {
 
         let (endpoint, _server) = start(Handlers::from([
             (
-                service_account_info_path,
+                MDS_DEFAULT_URI.to_string(),
                 (
                     StatusCode::OK,
                     service_account_info_json,
@@ -662,7 +659,7 @@ mod test {
                 ),
             ),
             (
-                MDS_TOKEN_URI.to_string(),
+                format!("{}/token", MDS_DEFAULT_URI),
                 (
                     StatusCode::OK,
                     response_body,
@@ -701,7 +698,7 @@ mod test {
         };
         let response_body = serde_json::to_value(&response).unwrap();
         let (endpoint, _server) = start(Handlers::from([(
-            MDS_TOKEN_URI.to_string(),
+            format!("{}/token", MDS_DEFAULT_URI),
             (
                 StatusCode::OK,
                 response_body,
@@ -731,7 +728,7 @@ mod test {
     async fn token_provider_retryable_error() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(Handlers::from([(
-            MDS_TOKEN_URI.to_string(),
+            format!("{}/token", MDS_DEFAULT_URI),
             (
                 StatusCode::SERVICE_UNAVAILABLE,
                 serde_json::to_value("try again")?,
@@ -759,7 +756,7 @@ mod test {
     async fn token_provider_nonretryable_error() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(Handlers::from([(
-            MDS_TOKEN_URI.to_string(),
+            format!("{}/token", MDS_DEFAULT_URI),
             (
                 StatusCode::UNAUTHORIZED,
                 serde_json::to_value("epic fail".to_string())?,
@@ -788,7 +785,7 @@ mod test {
     async fn token_provider_malformed_response_is_nonretryable() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(Handlers::from([(
-            MDS_TOKEN_URI.to_string(),
+            format!("{}/token", MDS_DEFAULT_URI),
             (
                 StatusCode::OK,
                 serde_json::to_value("bad json".to_string())?,
