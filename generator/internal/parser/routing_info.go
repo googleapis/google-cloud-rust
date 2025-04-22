@@ -17,6 +17,8 @@ package parser
 import (
 	"errors"
 	"fmt"
+	"maps"
+	"slices"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -26,24 +28,33 @@ import (
 )
 
 func parseRoutingAnnotations(methodID string, m *descriptorpb.MethodDescriptorProto) ([]*api.RoutingInfo, error) {
-	var info []*api.RoutingInfo
 	extensionId := annotations.E_Routing
 	if !proto.HasExtension(m.GetOptions(), extensionId) {
-		return info, nil
+		return nil, nil
 	}
 
 	rule := proto.GetExtension(m.GetOptions(), extensionId).(*annotations.RoutingRule)
 	var errs []error
+	collect := map[string]*api.RoutingInfo{}
 	for _, routing := range rule.GetRoutingParameters() {
 		new, err := parseRoutingInfo(methodID, routing)
 		if err != nil {
 			errs = append(errs, err)
 			continue
 		}
-		info = append(info, new)
+		current, ok := collect[new.Name]
+		if !ok {
+			collect[new.Name] = new
+			continue
+		}
+		current.Variants = append(new.Variants, current.Variants...)
 	}
 	if len(errs) != 0 {
 		return nil, errors.Join(errs...)
+	}
+	var info []*api.RoutingInfo
+	for _, k := range slices.Sorted(maps.Keys(collect)) {
+		info = append(info, collect[k])
 	}
 	return info, nil
 }
@@ -59,18 +70,33 @@ func parseRoutingInfo(methodID string, routing *annotations.RoutingParameter) (*
 }
 
 func parseRoutingPathTemplate(fieldName, pathTemplate string) (*api.RoutingInfo, error) {
-	fieldPath := strings.Split(fieldName, ".")
-	if pathTemplate == "" {
+	if fieldName == "" && pathTemplate == "" {
+		// AIP-4222: empty routing infos mean something special.
 		info := &api.RoutingInfo{
-			FieldPath: fieldPath,
-			Name:      fieldName,
-			Matching: api.RoutingPathSpec{
-				Segments: []string{api.RoutingSegmentMulti},
-			},
+			Name: fieldName,
+			Variants: []*api.RoutingInfoVariant{{
+				FieldPath: []string{},
+				Matching: api.RoutingPathSpec{
+					Segments: []string{},
+				},
+			}},
 		}
 		return info, nil
 	}
-	if strings.Count(pathTemplate, api.RoutingSegmentMulti) > 1 {
+	fieldPath := strings.Split(fieldName, ".")
+	if pathTemplate == "" {
+		info := &api.RoutingInfo{
+			Name: fieldName,
+			Variants: []*api.RoutingInfoVariant{{
+				FieldPath: fieldPath,
+				Matching: api.RoutingPathSpec{
+					Segments: []string{api.RoutingMultiSegmentWildcard},
+				},
+			}},
+		}
+		return info, nil
+	}
+	if strings.Count(pathTemplate, api.RoutingMultiSegmentWildcard) > 1 {
 		return nil, fmt.Errorf("too many `**` matchers in pathTemplate=%q", pathTemplate)
 	}
 
@@ -96,15 +122,28 @@ func parseRoutingPathTemplate(fieldName, pathTemplate string) (*api.RoutingInfo,
 		suffix, width = parseRoutingSuffix(pathTemplate[pos:])
 		pos += width
 	}
+	index := slices.Index(prefix.Segments, api.RoutingMultiSegmentWildcard)
+	if index != -1 {
+		return nil, fmt.Errorf("multi segment wildcards may not appear in the prefix portion of a path template, template=%s", pathTemplate)
+	}
+	for _, spec := range []*api.RoutingPathSpec{&match, &suffix} {
+		index := slices.Index(spec.Segments, api.RoutingMultiSegmentWildcard)
+		if index == -1 || index == len(spec.Segments)-1 {
+			continue
+		}
+		return nil, fmt.Errorf("multi segment wildcards may only appear at the end of a path template, template=%s", pathTemplate)
+	}
 	if pathTemplate[pos:] != "" {
 		return nil, fmt.Errorf("unexpected trailer in pathTemplate trailer=%s", pathTemplate[pos:])
 	}
 	info := &api.RoutingInfo{
-		FieldPath: fieldPath,
-		Name:      name,
-		Prefix:    prefix,
-		Matching:  match,
-		Suffix:    suffix,
+		Name: name,
+		Variants: []*api.RoutingInfoVariant{{
+			FieldPath: fieldPath,
+			Prefix:    prefix,
+			Matching:  match,
+			Suffix:    suffix,
+		}},
 	}
 	return info, nil
 }
@@ -113,17 +152,26 @@ func parseRoutingPrefix(pathTemplate string) (api.RoutingPathSpec, int) {
 	return parseRoutingPathSpec(pathTemplate)
 }
 
+func isRoutingWildcard(segment string) bool {
+	return segment == api.RoutingSingleSegmentWildcard || segment == api.RoutingMultiSegmentWildcard
+}
+
 func parseRoutingVariable(defaultName, pathTemplate string) (string, api.RoutingPathSpec, int, error) {
 	spec, width := parseRoutingPathSpec(pathTemplate)
 	if strings.HasPrefix(pathTemplate[width:], "=") {
 		pos := width + 1
 		// The initial spec must be a simple name.
-		if len(spec.Segments) != 1 || spec.Segments[0] == api.RoutingSegmentMulti || spec.Segments[0] == api.RoutingSegmentSingle {
+		if len(spec.Segments) != 1 || isRoutingWildcard(spec.Segments[0]) {
 			return "", api.RoutingPathSpec{}, 0, fmt.Errorf("expected name=pathspec, but the name format is invalid name=%v", spec.Segments)
 		}
 		name := spec.Segments[0]
 		spec, width := parseRoutingPathSpec(pathTemplate[pos:])
 		return name, spec, pos + width, nil
+	}
+	if len(spec.Segments) == 1 && !isRoutingWildcard(spec.Segments[0]) {
+		// AIP-4222: It is acceptable to omit the pattern in the resource ID
+		// segment, `{parent}` for example, is equivalent to `{parent=*}`.
+		return spec.Segments[0], api.RoutingPathSpec{Segments: []string{"*"}}, width, nil
 	}
 	return defaultName, spec, width, nil
 }
@@ -147,11 +195,11 @@ func parseRoutingPathSpec(pathTemplate string) (api.RoutingPathSpec, int) {
 }
 
 func parseRoutingSegment(pathTemplate string) (string, int) {
-	if strings.HasPrefix(pathTemplate, api.RoutingSegmentMulti) {
-		return api.RoutingSegmentMulti, len(api.RoutingSegmentMulti)
+	if strings.HasPrefix(pathTemplate, api.RoutingMultiSegmentWildcard) {
+		return api.RoutingMultiSegmentWildcard, len(api.RoutingMultiSegmentWildcard)
 	}
-	if strings.HasPrefix(pathTemplate, api.RoutingSegmentSingle) {
-		return api.RoutingSegmentSingle, len(api.RoutingSegmentSingle)
+	if strings.HasPrefix(pathTemplate, api.RoutingSingleSegmentWildcard) {
+		return api.RoutingSingleSegmentWildcard, len(api.RoutingSingleSegmentWildcard)
 	}
 	index := strings.IndexAny(pathTemplate, "=/{}")
 	if index == -1 {

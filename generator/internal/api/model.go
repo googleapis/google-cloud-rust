@@ -188,46 +188,64 @@ type OperationInfo struct {
 	Codec any
 }
 
-// Normalize routing info
+// Normalize routing info.
 //
 // The routing information format is documented in:
 //
-//	https://github.com/googleapis/googleapis/blob/113746270b58d12303e1e4f5eb01bc822aa7d68d/google/api/routing.proto#L406
+// https://google.aip.dev/client-libraries/4222
 //
 // At a high level, it consists of a field name (from the request) that is used
 // to match a certain path template. If the value of the field matches the
 // template, the matching portion is added to `x-goog-request-params`.
 //
-// Of interest to us is the general format of the template. The documentation
-// does not provide a grammar or other specification of the template, just a
-// series of examples, which we won't duplicate here. From these examples we
-// glean that the template must match this grammar:
+// An empty `Name` field is used as the special marker to cover this case in
+// AIP-4222:
 //
-// template := [ path_spec "/" ] "{" name "=" path_spec "}" [ "/" patch_spec ]
-// segment := "*" | "**" | literal
-// path_spec := segment ( "/" segment )...
-// literal is a string matching `[a-z][a-z_]*`
-// name is a string matching `[a-z][a-z_]*`
+//	An empty google.api.routing annotation is acceptable. It means that no
+//	routing headers should be generated for the RPC, when they otherwise
+//	would be e.g. implicitly from the google.api.http annotation.
 type RoutingInfo struct {
-	// The name of the field containing the routing information
+	// The name in `x-goog-request-params`.
+	Name string
+	// Group the possible variants for the given name.
+	//
+	// The variants are parsed into the reverse order of definition. AIP-4222
+	// declares:
+	//
+	//   In cases when multiple routing parameters have the same resource ID
+	//   path segment name, thus referencing the same header key, the
+	//   "last one wins" rule is used to determine which value to send.
+	//
+	// Reversing the order allows us to implement "the first match wins". That
+	// is easier and more efficient in most languages.
+	Variants []*RoutingInfoVariant
+}
+
+// The routing information stripped of its name.
+type RoutingInfoVariant struct {
+	// The sequence of field names accessed to get the routing information.
 	FieldPath []string
-	// The name in `x-goog-request-params`
-	Name     string
-	Matching RoutingPathSpec
-	// The prefix and suffix (maybe empty)
+	// A path template that must match the beginning of the field value.
 	Prefix RoutingPathSpec
+	// A path template that, if matching, is used in the `x-goog-request-params`.
+	Matching RoutingPathSpec
+	// A path template that must match the end of the field value.
 	Suffix RoutingPathSpec
 }
 
 type RoutingPathSpec struct {
+	// A sequence of matching segments.
+	//
+	// A template like `projects/*/location/*/**` maps to
+	// `["projects", "*", "locations", "*", "**"]`.
 	Segments []string
 }
 
 const (
 	// A special routing path segment which indicates "match anything that does not include a `/`"
-	RoutingSegmentSingle = "*"
+	RoutingSingleSegmentWildcard = "*"
 	// A special routing path segment which indicates "match anything including `/`"
-	RoutingSegmentMulti = "**"
+	RoutingMultiSegmentWildcard = "**"
 )
 
 // A path segment is either a string literal (such as "projects") or a field
