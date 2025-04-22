@@ -121,7 +121,7 @@ macro_rules! impl_message_traits {
             }
         }
 
-        impl crate::message::internal::MessageSerializer for $t {
+        impl crate::message::internal::SerializableMessage for $t {
             fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
             where
                 Self: serde::ser::Serialize + Sized,
