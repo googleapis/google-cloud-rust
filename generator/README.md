@@ -14,11 +14,11 @@ options should be already configured in a `.sidekick.toml` file.
 
 ```bash
 cd generator
-go run github.com/googleapis/google-cloud-rust/generator/sidekick@latest generate -project-root=.. \
+go run cmd/sidekick/main.go generate -project-root=.. \
   -specification-format protobuf \
   -specification-source generator/testdata/googleapis/google/cloud/secretmanager/v1 \
   -service-config generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml \
-  -parser-option googleapis-root=generator/testdata/googleapis \
+  -source-option googleapis-root=generator/testdata/googleapis \
   -language rust \
   -output generator/testdata/rust/protobuf/golden/secretmanager \
   -codec-option package-name-override=secretmanager-golden-protobuf \
