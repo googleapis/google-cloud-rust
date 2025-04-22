@@ -70,7 +70,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
     ) -> Result<gax::response::Response<{{Codec.ReturnType}}>> {
         let options = gax::options::internal::set_default_idempotency(
             options,
-            reqwest::Method::{{PathInfo.Codec.Method}}.is_idempotent(),
+            {{PathInfo.Codec.IsIdempotent}},
         );
         let builder = self
             .inner

@@ -45,10 +45,7 @@ impl super::stub::OsLoginService for OsLoginService {
         req: crate::model::CreateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -70,10 +67,7 @@ impl super::stub::OsLoginService for OsLoginService {
         req: crate::model::DeletePosixAccountRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -96,10 +90,7 @@ impl super::stub::OsLoginService for OsLoginService {
         req: crate::model::DeleteSshPublicKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -122,10 +113,7 @@ impl super::stub::OsLoginService for OsLoginService {
         req: crate::model::GetLoginProfileRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::LoginProfile>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -149,10 +137,7 @@ impl super::stub::OsLoginService for OsLoginService {
         req: crate::model::GetSshPublicKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -171,10 +156,7 @@ impl super::stub::OsLoginService for OsLoginService {
         req: crate::model::ImportSshPublicKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ImportSshPublicKeyResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -201,10 +183,7 @@ impl super::stub::OsLoginService for OsLoginService {
         req: crate::model::UpdateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, format!("/v1/{}", req.name))

@@ -45,10 +45,7 @@ impl super::stub::DashboardsService for DashboardsService {
         req: crate::model::CreateDashboardRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dashboard>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -71,10 +68,7 @@ impl super::stub::DashboardsService for DashboardsService {
         req: crate::model::ListDashboardsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDashboardsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -98,10 +92,7 @@ impl super::stub::DashboardsService for DashboardsService {
         req: crate::model::GetDashboardRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dashboard>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -120,10 +111,7 @@ impl super::stub::DashboardsService for DashboardsService {
         req: crate::model::DeleteDashboardRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -146,10 +134,7 @@ impl super::stub::DashboardsService for DashboardsService {
         req: crate::model::UpdateDashboardRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dashboard>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
