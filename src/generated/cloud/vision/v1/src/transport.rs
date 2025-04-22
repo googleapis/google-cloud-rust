@@ -45,10 +45,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
         req: crate::model::BatchAnnotateImagesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchAnnotateImagesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, "/v1/images:annotate".to_string())
@@ -65,10 +62,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
         req: crate::model::BatchAnnotateFilesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchAnnotateFilesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, "/v1/files:annotate".to_string())
@@ -85,10 +79,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
         req: crate::model::AsyncBatchAnnotateImagesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -108,10 +99,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
         req: crate::model::AsyncBatchAnnotateFilesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -131,10 +119,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -190,10 +175,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::CreateProductSetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ProductSet>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -216,10 +198,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::ListProductSetsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListProductSetsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -243,10 +222,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::GetProductSetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ProductSet>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -265,10 +241,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::UpdateProductSetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ProductSet>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -302,10 +275,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::DeleteProductSetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -328,10 +298,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::CreateProductRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Product>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -354,10 +321,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::ListProductsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListProductsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/products", req.parent))
@@ -378,10 +342,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::GetProductRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Product>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -400,10 +361,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::UpdateProductRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Product>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -437,10 +395,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::DeleteProductRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -463,10 +418,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::CreateReferenceImageRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ReferenceImage>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -489,10 +441,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::DeleteReferenceImageRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -515,10 +464,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::ListReferenceImagesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListReferenceImagesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -542,10 +488,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::GetReferenceImageRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ReferenceImage>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -564,10 +507,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::AddProductToProductSetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -592,10 +532,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::RemoveProductFromProductSetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -620,10 +557,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::ListProductsInProductSetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListProductsInProductSetResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/products", req.name))
@@ -644,10 +578,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::ImportProductSetsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -667,10 +598,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: crate::model::PurgeProductsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -690,10 +618,7 @@ impl super::stub::ProductSearch for ProductSearch {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))

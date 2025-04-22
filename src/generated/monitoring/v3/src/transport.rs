@@ -45,10 +45,7 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
         req: crate::model::ListAlertPoliciesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAlertPoliciesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -74,10 +71,7 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
         req: crate::model::GetAlertPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AlertPolicy>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -96,10 +90,7 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
         req: crate::model::CreateAlertPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AlertPolicy>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -121,10 +112,7 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
         req: crate::model::DeleteAlertPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -147,10 +135,7 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
         req: crate::model::UpdateAlertPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AlertPolicy>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -207,10 +192,7 @@ impl super::stub::GroupService for GroupService {
         req: crate::model::ListGroupsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListGroupsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}/groups", req.name))
@@ -243,10 +225,7 @@ impl super::stub::GroupService for GroupService {
         req: crate::model::GetGroupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Group>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -265,10 +244,7 @@ impl super::stub::GroupService for GroupService {
         req: crate::model::CreateGroupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Group>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v3/{}/groups", req.name))
@@ -286,10 +262,7 @@ impl super::stub::GroupService for GroupService {
         req: crate::model::UpdateGroupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Group>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PUT.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -316,10 +289,7 @@ impl super::stub::GroupService for GroupService {
         req: crate::model::DeleteGroupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -343,10 +313,7 @@ impl super::stub::GroupService for GroupService {
         req: crate::model::ListGroupMembersRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListGroupMembersResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}/members", req.name))
@@ -402,10 +369,7 @@ impl super::stub::MetricService for MetricService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>>
     {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -430,10 +394,7 @@ impl super::stub::MetricService for MetricService {
         req: crate::model::GetMonitoredResourceDescriptorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<api::model::MonitoredResourceDescriptor>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -452,10 +413,7 @@ impl super::stub::MetricService for MetricService {
         req: crate::model::ListMetricDescriptorsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListMetricDescriptorsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -481,10 +439,7 @@ impl super::stub::MetricService for MetricService {
         req: crate::model::GetMetricDescriptorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<api::model::MetricDescriptor>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -503,10 +458,7 @@ impl super::stub::MetricService for MetricService {
         req: crate::model::CreateMetricDescriptorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<api::model::MetricDescriptor>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -528,10 +480,7 @@ impl super::stub::MetricService for MetricService {
         req: crate::model::DeleteMetricDescriptorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -554,10 +503,7 @@ impl super::stub::MetricService for MetricService {
         req: crate::model::ListTimeSeriesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListTimeSeriesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}/timeSeries", req.name))
@@ -611,10 +557,7 @@ impl super::stub::MetricService for MetricService {
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -639,10 +582,7 @@ impl super::stub::MetricService for MetricService {
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -691,10 +631,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListNotificationChannelDescriptorsResponse>>
     {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -718,10 +655,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         req: crate::model::GetNotificationChannelDescriptorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NotificationChannelDescriptor>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -740,10 +674,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         req: crate::model::ListNotificationChannelsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListNotificationChannelsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -769,10 +700,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         req: crate::model::GetNotificationChannelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NotificationChannel>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -791,10 +719,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         req: crate::model::CreateNotificationChannelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NotificationChannel>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -816,10 +741,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         req: crate::model::UpdateNotificationChannelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NotificationChannel>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -853,10 +775,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         req: crate::model::DeleteNotificationChannelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -880,10 +799,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         req: crate::model::SendNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -909,10 +825,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GetNotificationChannelVerificationCodeResponse>>
     {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -932,10 +845,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         req: crate::model::VerifyNotificationChannelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NotificationChannel>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v3/{}:verify", req.name))
@@ -975,10 +885,7 @@ impl super::stub::QueryService for QueryService {
         req: crate::model::QueryTimeSeriesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QueryTimeSeriesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1021,10 +928,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         req: crate::model::CreateServiceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Service>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1047,10 +951,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Service>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -1069,10 +970,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServicesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}/services", req.parent))
@@ -1094,10 +992,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         req: crate::model::UpdateServiceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Service>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1131,10 +1026,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -1157,10 +1049,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         req: crate::model::CreateServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServiceLevelObjective>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1184,10 +1073,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         req: crate::model::GetServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServiceLevelObjective>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -1207,10 +1093,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         req: crate::model::ListServiceLevelObjectivesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServiceLevelObjectivesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -1236,10 +1119,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         req: crate::model::UpdateServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServiceLevelObjective>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1273,10 +1153,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         req: crate::model::DeleteServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -1322,10 +1199,7 @@ impl super::stub::SnoozeService for SnoozeService {
         req: crate::model::CreateSnoozeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Snooze>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v3/{}/snoozes", req.parent))
@@ -1342,10 +1216,7 @@ impl super::stub::SnoozeService for SnoozeService {
         req: crate::model::ListSnoozesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSnoozesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}/snoozes", req.parent))
@@ -1367,10 +1238,7 @@ impl super::stub::SnoozeService for SnoozeService {
         req: crate::model::GetSnoozeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Snooze>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -1389,10 +1257,7 @@ impl super::stub::SnoozeService for SnoozeService {
         req: crate::model::UpdateSnoozeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Snooze>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1447,10 +1312,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
         req: crate::model::ListUptimeCheckConfigsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUptimeCheckConfigsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -1475,10 +1337,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
         req: crate::model::GetUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UptimeCheckConfig>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -1497,10 +1356,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
         req: crate::model::CreateUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UptimeCheckConfig>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1522,10 +1378,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
         req: crate::model::UpdateUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UptimeCheckConfig>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1559,10 +1412,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
         req: crate::model::DeleteUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -1585,10 +1435,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
         req: crate::model::ListUptimeCheckIpsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUptimeCheckIpsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, "/v3/uptimeCheckIps".to_string())

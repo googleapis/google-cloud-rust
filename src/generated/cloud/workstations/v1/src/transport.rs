@@ -45,10 +45,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::GetWorkstationClusterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::WorkstationCluster>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -67,10 +64,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::ListWorkstationClustersRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListWorkstationClustersResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -94,10 +88,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::CreateWorkstationClusterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -121,10 +112,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::UpdateWorkstationClusterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -160,10 +148,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::DeleteWorkstationClusterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -185,10 +170,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::GetWorkstationConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::WorkstationConfig>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -207,10 +189,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::ListWorkstationConfigsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListWorkstationConfigsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -234,10 +213,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::ListUsableWorkstationConfigsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUsableWorkstationConfigsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -261,10 +237,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::CreateWorkstationConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -288,10 +261,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::UpdateWorkstationConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -327,10 +297,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::DeleteWorkstationConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -352,10 +319,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::GetWorkstationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Workstation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -374,10 +338,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::ListWorkstationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListWorkstationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -401,10 +362,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::ListUsableWorkstationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUsableWorkstationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -428,10 +386,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::CreateWorkstationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -455,10 +410,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::UpdateWorkstationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -494,10 +446,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::DeleteWorkstationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -518,10 +467,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::StartWorkstationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:start", req.name))
@@ -538,10 +484,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::StopWorkstationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:stop", req.name))
@@ -558,10 +501,7 @@ impl super::stub::Workstations for Workstations {
         req: crate::model::GenerateAccessTokenRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -581,10 +521,7 @@ impl super::stub::Workstations for Workstations {
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -604,10 +541,7 @@ impl super::stub::Workstations for Workstations {
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -639,10 +573,7 @@ impl super::stub::Workstations for Workstations {
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -662,10 +593,7 @@ impl super::stub::Workstations for Workstations {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -687,10 +615,7 @@ impl super::stub::Workstations for Workstations {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -709,10 +634,7 @@ impl super::stub::Workstations for Workstations {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -735,10 +657,7 @@ impl super::stub::Workstations for Workstations {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))

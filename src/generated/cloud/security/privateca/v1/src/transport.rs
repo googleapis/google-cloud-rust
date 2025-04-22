@@ -45,10 +45,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::CreateCertificateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Certificate>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -77,10 +74,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::GetCertificateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Certificate>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -99,10 +93,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::ListCertificatesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCertificatesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -128,10 +119,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::RevokeCertificateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Certificate>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:revoke", req.name))
@@ -148,10 +136,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::UpdateCertificateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Certificate>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -186,10 +171,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::ActivateCertificateAuthorityRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:activate", req.name))
@@ -206,10 +188,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::CreateCertificateAuthorityRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -233,10 +212,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::DisableCertificateAuthorityRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:disable", req.name))
@@ -253,10 +229,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::EnableCertificateAuthorityRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:enable", req.name))
@@ -273,10 +246,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::FetchCertificateAuthorityCsrRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FetchCertificateAuthorityCsrResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}:fetch", req.name))
@@ -295,10 +265,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::GetCertificateAuthorityRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CertificateAuthority>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -317,10 +284,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::ListCertificateAuthoritiesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCertificateAuthoritiesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -346,10 +310,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::UndeleteCertificateAuthorityRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:undelete", req.name))
@@ -366,10 +327,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::DeleteCertificateAuthorityRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -394,10 +352,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::UpdateCertificateAuthorityRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -432,10 +387,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::CreateCaPoolRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/caPools", req.parent))
@@ -456,10 +408,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::UpdateCaPoolRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -494,10 +443,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::GetCaPoolRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CaPool>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -516,10 +462,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::ListCaPoolsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCaPoolsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/caPools", req.parent))
@@ -542,10 +485,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::DeleteCaPoolRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -567,10 +507,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::FetchCaCertsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FetchCaCertsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -590,10 +527,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::GetCertificateRevocationListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CertificateRevocationList>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -612,10 +546,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::ListCertificateRevocationListsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCertificateRevocationListsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -641,10 +572,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::UpdateCertificateRevocationListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -681,10 +609,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::CreateCertificateTemplateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -708,10 +633,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::DeleteCertificateTemplateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -731,10 +653,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::GetCertificateTemplateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CertificateTemplate>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -753,10 +672,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::ListCertificateTemplatesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCertificateTemplatesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -782,10 +698,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: crate::model::UpdateCertificateTemplateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -820,10 +733,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -845,10 +755,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -867,10 +774,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -890,10 +794,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -925,10 +826,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -948,10 +846,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -973,10 +868,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -995,10 +887,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -1021,10 +910,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))

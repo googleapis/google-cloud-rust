@@ -45,10 +45,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::CheckOnboardingStatusRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CheckOnboardingStatusResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -70,10 +67,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::ListEntitlementsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListEntitlementsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -99,10 +93,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::SearchEntitlementsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchEntitlementsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -128,10 +119,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::GetEntitlementRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Entitlement>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -150,10 +138,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::CreateEntitlementRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -177,10 +162,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::DeleteEntitlementRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -201,10 +183,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::UpdateEntitlementRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -238,10 +217,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::ListGrantsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListGrantsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/grants", req.parent))
@@ -264,10 +240,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::SearchGrantsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchGrantsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -293,10 +266,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::GetGrantRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Grant>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -315,10 +285,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::CreateGrantRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Grant>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/grants", req.parent))
@@ -336,10 +303,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::ApproveGrantRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Grant>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:approve", req.name))
@@ -356,10 +320,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::DenyGrantRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Grant>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:deny", req.name))
@@ -376,10 +337,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::RevokeGrantRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:revoke", req.name))
@@ -396,10 +354,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -421,10 +376,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -443,10 +395,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -468,10 +417,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -490,10 +436,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::DELETE.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))

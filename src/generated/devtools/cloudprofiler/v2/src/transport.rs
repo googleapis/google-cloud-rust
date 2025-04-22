@@ -45,10 +45,7 @@ impl super::stub::ProfilerService for ProfilerService {
         req: crate::model::CreateProfileRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Profile>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -68,10 +65,7 @@ impl super::stub::ProfilerService for ProfilerService {
         req: crate::model::CreateOfflineProfileRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Profile>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::POST.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -93,10 +87,7 @@ impl super::stub::ProfilerService for ProfilerService {
         req: crate::model::UpdateProfileRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Profile>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::PATCH.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -153,10 +144,7 @@ impl super::stub::ExportService for ExportService {
         req: crate::model::ListProfilesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListProfilesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            reqwest::Method::GET.is_idempotent(),
-        );
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/profiles", req.parent))
