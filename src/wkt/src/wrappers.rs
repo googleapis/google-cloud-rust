@@ -225,14 +225,13 @@ impl crate::message::Message for FloatValue {
             .ok_or_else(crate::message::missing_value_field)?;
         match val {
             serde_json::Value::String(string) => match string.as_str() {
-                "Infinity" => return Ok(f32::INFINITY),
-                "-Infinity" => return Ok(f32::NEG_INFINITY),
-                "NaN" => return Ok(f32::NAN),
-                _ => return Err(crate::AnyError::deser("expected a float")),
+                "Infinity" => Ok(f32::INFINITY),
+                "-Infinity" => Ok(f32::NEG_INFINITY),
+                "NaN" => Ok(f32::NAN),
+                _ => crate::message::from_value::<Self>(map),
             },
-            serde_json::Value::Number(_) => return crate::message::from_value::<Self>(map),
-            _ => return Err(crate::AnyError::deser("expected a float")),
-        };
+            _ => crate::message::from_value::<Self>(map),
+        }
     }
 }
 
