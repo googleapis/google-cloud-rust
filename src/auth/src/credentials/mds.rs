@@ -313,7 +313,7 @@ mod test {
     }
 
     #[test]
-    fn validate_token_url() {
+    fn validate_default_endpoint_urls() {
         let default_endpoint_address = Url::parse(&format!("{}{}", METADATA_ROOT, MDS_DEFAULT_URI));
         assert!(default_endpoint_address.is_ok());
 
