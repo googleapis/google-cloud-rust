@@ -45,7 +45,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::CreateReservationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Reservation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -68,7 +71,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::ListReservationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListReservationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -92,7 +98,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::GetReservationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Reservation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -111,7 +120,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::DeleteReservationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::DELETE.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -134,7 +146,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::UpdateReservationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Reservation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::PATCH.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -168,7 +183,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::FailoverReservationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Reservation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -188,7 +206,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::CreateCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -215,7 +236,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::ListCapacityCommitmentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCapacityCommitmentsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -239,7 +263,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::GetCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -258,7 +285,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::DeleteCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::DELETE.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -282,7 +312,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::UpdateCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::PATCH.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -316,7 +349,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::SplitCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SplitCapacityCommitmentResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:split", req.name))
@@ -333,7 +369,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::MergeCapacityCommitmentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -353,7 +392,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::CreateAssignmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Assignment>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -376,7 +418,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::ListAssignmentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAssignmentsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -400,7 +445,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::DeleteAssignmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::DELETE.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -423,7 +471,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::SearchAssignmentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchAssignmentsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -448,7 +499,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::SearchAllAssignmentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchAllAssignmentsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -473,7 +527,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::MoveAssignmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Assignment>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:move", req.name))
@@ -490,7 +547,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::UpdateAssignmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Assignment>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::PATCH.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -524,7 +584,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::GetBiReservationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BiReservation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -543,7 +606,10 @@ impl super::stub::ReservationService for ReservationService {
         req: crate::model::UpdateBiReservationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BiReservation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::PATCH.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(

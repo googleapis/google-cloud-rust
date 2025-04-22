@@ -45,7 +45,10 @@ impl super::stub::TraceService for TraceService {
         req: crate::model::BatchWriteSpansRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -70,7 +73,10 @@ impl super::stub::TraceService for TraceService {
         req: crate::model::Span,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Span>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}", req.name))

@@ -45,7 +45,10 @@ impl super::stub::QuotaController for QuotaController {
         req: crate::model::AllocateQuotaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AllocateQuotaResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -88,7 +91,10 @@ impl super::stub::ServiceController for ServiceController {
         req: crate::model::CheckRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CheckResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -108,7 +114,10 @@ impl super::stub::ServiceController for ServiceController {
         req: crate::model::ReportRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ReportResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(

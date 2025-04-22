@@ -45,7 +45,10 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::ListInsightsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListInsightsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/insights", req.parent))
@@ -67,7 +70,10 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::GetInsightRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Insight>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -86,7 +92,10 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::MarkInsightAcceptedRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Insight>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -106,7 +115,10 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::ListRecommendationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRecommendationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -131,7 +143,10 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::GetRecommendationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -150,7 +165,10 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::MarkRecommendationDismissedRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -170,7 +188,10 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::MarkRecommendationClaimedRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -190,7 +211,10 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::MarkRecommendationSucceededRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -210,7 +234,10 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::MarkRecommendationFailedRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -230,7 +257,10 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::GetRecommenderConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -249,7 +279,10 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::UpdateRecommenderConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::PATCH.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -284,7 +317,10 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::GetInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -303,7 +339,10 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::UpdateInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::PATCH.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(

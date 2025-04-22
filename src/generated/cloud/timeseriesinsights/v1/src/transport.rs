@@ -45,7 +45,10 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         req: crate::model::ListDataSetsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDataSetsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::GET.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/datasets", req.parent))
@@ -66,7 +69,10 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         req: crate::model::CreateDataSetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DataSet>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -88,7 +94,10 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         req: crate::model::DeleteDataSetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::DELETE.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -111,7 +120,10 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         req: crate::model::AppendEventsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AppendEventsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -131,7 +143,10 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         req: crate::model::QueryDataSetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QueryDataSetResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:query", req.name))
@@ -148,7 +163,10 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         req: crate::model::EvaluateSliceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(
@@ -168,7 +186,10 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         req: crate::model::EvaluateTimeseriesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            reqwest::Method::POST.is_idempotent(),
+        );
         let builder = self
             .inner
             .builder(

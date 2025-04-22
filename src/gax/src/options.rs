@@ -77,9 +77,8 @@ impl RequestOptions {
     /// If [set_idempotency][Self::set_idempotency] was already called this
     /// method has no effect. Otherwise it sets the idempotency. The client
     /// libraries use this to provide a default idempotency value.
-    pub fn set_default_idempotency(mut self, default: bool) -> Self {
+    pub(crate) fn set_default_idempotency(&mut self, default: bool) {
         self.idempotent.get_or_insert(default);
-        self
     }
 
     /// Prepends this prefix to the user agent header value.
@@ -196,13 +195,20 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
 /// should not use any types contained within.
 #[doc(hidden)]
 pub mod internal {
+    use super::RequestOptions;
+
     /// Simplify implementation of the [super::RequestOptionsBuilder] trait in
     /// generated code.
     ///
     /// This is an implementation detail, most applications have little need to
     /// worry about or use this trait.
     pub trait RequestBuilder {
-        fn request_options(&mut self) -> &mut super::RequestOptions;
+        fn request_options(&mut self) -> &mut RequestOptions;
+    }
+
+    pub fn set_default_idempotency(mut options: RequestOptions, default: bool) -> RequestOptions {
+        options.set_default_idempotency(default);
+        options
     }
 }
 
@@ -310,14 +316,14 @@ mod test {
 
     #[test]
     fn request_options_idempotency() {
-        let opts = RequestOptions::default().set_default_idempotency(true);
+        let opts = set_default_idempotency(RequestOptions::default(), true);
         assert_eq!(opts.idempotent(), Some(true));
-        let opts = opts.set_default_idempotency(false);
+        let opts = set_default_idempotency(opts, false);
         assert_eq!(opts.idempotent(), Some(true));
 
-        let opts = RequestOptions::default().set_default_idempotency(false);
+        let opts = set_default_idempotency(RequestOptions::default(), false);
         assert_eq!(opts.idempotent(), Some(false));
-        let opts = opts.set_default_idempotency(true);
+        let opts = set_default_idempotency(opts, true);
         assert_eq!(opts.idempotent(), Some(false));
     }
 
