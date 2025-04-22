@@ -208,6 +208,16 @@ type RoutingInfo struct {
 	// The name in `x-goog-request-params`.
 	Name string
 	// Group the possible variants for the given name.
+	//
+	// The variants are parsed into the reverse order of definition. AIP-4222
+	// declares:
+	//
+	//   In cases when multiple routing parameters have the same resource ID
+	//   path segment name, thus referencing the same header key, the
+	//   "last one wins" rule is used to determine which value to send.
+	//
+	// Reversing the order allows us to implement "the first match wins". That
+	// is easier and more efficient in most languages.
 	Variants []*RoutingInfoVariant
 }
 
