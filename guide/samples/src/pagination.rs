@@ -111,9 +111,7 @@ pub async fn paginator_stream_items(project_id: &str) -> crate::Result<()> {
 }
 
 pub async fn pagination_page_token(project_id: &str) -> crate::Result<()> {
-    use google_cloud_gax::paginator::Paginator as _;
     use google_cloud_secretmanager_v1 as secret_manager;
-    use google_cloud_secretmanager_v1::model::ListSecretsResponse;
 
     let client = secret_manager::client::SecretManagerService::builder()
         .build()

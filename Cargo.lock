@@ -6422,6 +6422,7 @@ name = "user-guide-samples"
 version = "0.0.0"
 dependencies = [
  "crc32c",
+ "futures",
  "google-cloud-gax",
  "google-cloud-language-v2",
  "google-cloud-longrunning",
