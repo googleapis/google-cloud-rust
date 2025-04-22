@@ -17,11 +17,11 @@ limitations under the License.
 {{#Codec.DocLines}}
 {{{.}}}
 {{/Codec.DocLines}}
-{{> feature_gate}}
+{{> /templates/common/feature_gate}}
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct {{Codec.Name}}(i32);
 
-{{> feature_gate}}
+{{> /templates/common/feature_gate}}
 impl {{Codec.Name}} {
     {{#Codec.UniqueNames}}
 
@@ -62,14 +62,14 @@ impl {{Codec.Name}} {
     }
 }
 
-{{> feature_gate}}
+{{> /templates/common/feature_gate}}
 impl std::convert::From<i32> for {{Codec.Name}} {
     fn from(value: i32) -> Self {
         Self::new(value)
     }
 }
 
-{{> feature_gate}}
+{{> /templates/common/feature_gate}}
 impl std::default::Default for {{Codec.Name}} {
     fn default() -> Self {
         Self::new(0)
