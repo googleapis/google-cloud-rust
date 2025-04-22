@@ -41,7 +41,7 @@ google-cloud-gax = { version = "0.21", path = "../../src/gax" }
 google-cloud-speech-v2 = { version = "0.2", path = "../../src/generated/cloud/speech/v2" }
 # ANCHOR_END: speech
 # ANCHOR: secretmanager
-google-cloud-secretmanager-v1 = { version = "0.2", path = "../../src/generated/cloud/secretmanager/v1" }
+google-cloud-secretmanager-v1 = { version = "0.2", features = ["unstable-stream"], path = "../../src/generated/cloud/secretmanager/v1" }
 # ANCHOR_END: secretmanager
 # ANCHOR: language
 google-cloud-language-v2 = { version = "0.2", path = "../../src/generated/cloud/language/v2" }
