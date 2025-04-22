@@ -557,3 +557,11 @@ func (c *codec) annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.API
 		EnumType: enumName(e),
 	}
 }
+
+// Returns "true" if the method is idempotent by default, and "false", if not.
+func (p *pathInfoAnnotation) IsIdempotent() string {
+	if p.Method == "GET" || p.Method == "PUT" || p.Method == "DELETE" {
+		return "true"
+	}
+	return "false"
+}

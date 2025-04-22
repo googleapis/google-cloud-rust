@@ -929,3 +929,63 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
 }
+
+func TestPathInfoAnnotations(t *testing.T) {
+	type TestCase struct {
+		Verb               string
+		DefaultIdempotency string
+	}
+	testCases := []TestCase{
+		{"GET", "true"},
+		{"PUT", "true"},
+		{"DELETE", "true"},
+		{"POST", "false"},
+		{"PATCH", "false"},
+	}
+	for _, testCase := range testCases {
+		request := &api.Message{
+			Name:    "Request",
+			Package: "test.v1",
+			ID:      ".test.v1.Request",
+		}
+		response := &api.Message{
+			Name:    "Response",
+			Package: "test.v1",
+			ID:      ".test.v1.Response",
+		}
+		method := &api.Method{
+			Name:         "GetResource",
+			ID:           ".test.v1.Service.GetResource",
+			InputTypeID:  ".test.v1.Request",
+			OutputTypeID: ".test.v1.Response",
+			PathInfo: &api.PathInfo{
+				Verb: testCase.Verb,
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("/v1/resource"),
+				},
+			},
+		}
+		service := &api.Service{
+			Name:    "ResourceService",
+			ID:      ".test.v1.ResourceService",
+			Package: "test.v1",
+			Methods: []*api.Method{method},
+		}
+
+		model := api.NewTestAPI(
+			[]*api.Message{request, response},
+			[]*api.Enum{},
+			[]*api.Service{service})
+		api.CrossReference(model)
+		codec, err := newCodec(true, map[string]string{})
+		if err != nil {
+			t.Fatal(err)
+		}
+		annotateModel(model, codec)
+
+		pathInfoAnn := method.PathInfo.Codec.(*pathInfoAnnotation)
+		if pathInfoAnn.IsIdempotent() != testCase.DefaultIdempotency {
+			t.Errorf("fail")
+		}
+	}
+}
