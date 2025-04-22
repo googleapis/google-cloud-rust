@@ -46,7 +46,7 @@ As it is usual with Rust, you must declare the dependency in your
 ```
 
 This guide also requires the optional feature `unstable-stream` in the
-`google-cloud-gax` depedency.
+`google-cloud-gax` dependency.
 
 ```toml
 {{#include ../samples/Cargo.toml:gax}}
