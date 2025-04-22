@@ -45,7 +45,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::ListClustersRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListClustersResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/clusters", req.parent))
@@ -68,7 +68,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::GetClusterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Cluster>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -88,7 +88,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::CreateClusterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -113,7 +113,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::UpdateClusterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -150,7 +150,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -173,7 +173,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::PromoteClusterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:promote", req.name))
@@ -190,7 +190,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::SwitchoverClusterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -210,7 +210,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::RestoreClusterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -230,7 +230,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::CreateSecondaryClusterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -255,7 +255,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListInstancesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -281,7 +281,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Instance>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -301,7 +301,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::CreateInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -326,7 +326,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::CreateSecondaryInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -351,7 +351,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::BatchCreateInstancesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -374,7 +374,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::UpdateInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -411,7 +411,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -433,7 +433,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::FailoverInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:failover", req.name))
@@ -450,7 +450,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::InjectFaultRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -470,7 +470,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::RestartInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:restart", req.name))
@@ -487,7 +487,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::ExecuteSqlRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ExecuteSqlResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -507,7 +507,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::ListBackupsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBackupsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/backups", req.parent))
@@ -530,7 +530,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::GetBackupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Backup>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -549,7 +549,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::CreateBackupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/backups", req.parent))
@@ -569,7 +569,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::UpdateBackupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -604,7 +604,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -626,7 +626,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::ListSupportedDatabaseFlagsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSupportedDatabaseFlagsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -650,7 +650,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::GenerateClientCertificateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateClientCertificateResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -670,7 +670,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::GetConnectionInfoRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ConnectionInfo>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -693,7 +693,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::ListUsersRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUsersResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/users", req.parent))
@@ -716,7 +716,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::GetUserRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::User>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -735,7 +735,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::CreateUserRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::User>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/users", req.parent))
@@ -755,7 +755,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::UpdateUserRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::User>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -790,7 +790,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::DeleteUserRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -815,7 +815,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: crate::model::ListDatabasesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDatabasesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -840,7 +840,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -862,7 +862,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -881,7 +881,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -903,7 +903,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -922,7 +922,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -945,7 +945,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))

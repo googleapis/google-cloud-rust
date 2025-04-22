@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_support_v2::client::CaseAttachmentService;
 /// let client = CaseAttachmentService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Google Cloud Support API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -138,7 +138,7 @@ impl CaseAttachmentService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_support_v2::client::CaseService;
 /// let client = CaseService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Google Cloud Support API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -318,7 +318,7 @@ impl CaseService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_support_v2::client::CommentService;
 /// let client = CommentService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Google Cloud Support API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

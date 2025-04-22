@@ -45,7 +45,7 @@ impl super::stub::AccessApproval for AccessApproval {
         req: crate::model::ListApprovalRequestsMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListApprovalRequestsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -70,7 +70,7 @@ impl super::stub::AccessApproval for AccessApproval {
         req: crate::model::GetApprovalRequestMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -89,7 +89,7 @@ impl super::stub::AccessApproval for AccessApproval {
         req: crate::model::ApproveApprovalRequestMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:approve", req.name))
@@ -106,7 +106,7 @@ impl super::stub::AccessApproval for AccessApproval {
         req: crate::model::DismissApprovalRequestMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:dismiss", req.name))
@@ -123,7 +123,7 @@ impl super::stub::AccessApproval for AccessApproval {
         req: crate::model::InvalidateApprovalRequestMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -143,7 +143,7 @@ impl super::stub::AccessApproval for AccessApproval {
         req: crate::model::GetAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -162,7 +162,7 @@ impl super::stub::AccessApproval for AccessApproval {
         req: crate::model::UpdateAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -196,7 +196,7 @@ impl super::stub::AccessApproval for AccessApproval {
         req: crate::model::DeleteAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -219,7 +219,7 @@ impl super::stub::AccessApproval for AccessApproval {
         req: crate::model::GetAccessApprovalServiceAccountMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessApprovalServiceAccount>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))

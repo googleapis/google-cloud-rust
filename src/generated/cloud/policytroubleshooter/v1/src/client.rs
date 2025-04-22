@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_policytroubleshooter_v1::client::IamChecker;
 /// let client = IamChecker::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Policy Troubleshooter API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

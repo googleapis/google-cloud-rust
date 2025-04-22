@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_backupdr_v1::client::BackupDR;
 /// let client = BackupDR::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Backup and DR Service API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

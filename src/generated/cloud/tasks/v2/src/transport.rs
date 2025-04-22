@@ -45,7 +45,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: crate::model::ListQueuesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListQueuesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/queues", req.parent))
@@ -67,7 +67,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: crate::model::GetQueueRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Queue>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
@@ -86,7 +86,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: crate::model::CreateQueueRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Queue>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}/queues", req.parent))
@@ -103,7 +103,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: crate::model::UpdateQueueRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Queue>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -135,7 +135,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: crate::model::DeleteQueueRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
@@ -158,7 +158,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: crate::model::PurgeQueueRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Queue>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:purge", req.name))
@@ -175,7 +175,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: crate::model::PauseQueueRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Queue>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:pause", req.name))
@@ -192,7 +192,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: crate::model::ResumeQueueRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Queue>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:resume", req.name))
@@ -209,7 +209,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -229,7 +229,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -249,7 +249,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -269,7 +269,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: crate::model::ListTasksRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListTasksResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/tasks", req.parent))
@@ -291,7 +291,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: crate::model::GetTaskRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Task>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
@@ -311,7 +311,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: crate::model::CreateTaskRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Task>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}/tasks", req.parent))
@@ -328,7 +328,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: crate::model::DeleteTaskRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
@@ -351,7 +351,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: crate::model::RunTaskRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Task>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:run", req.name))
@@ -368,7 +368,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/locations", req.name))
@@ -390,7 +390,7 @@ impl super::stub::CloudTasks for CloudTasks {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))

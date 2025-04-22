@@ -45,7 +45,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::CreateAssessmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Assessment>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -67,7 +67,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::AnnotateAssessmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnnotateAssessmentResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:annotate", req.name))
@@ -84,7 +84,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::CreateKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Key>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/keys", req.parent))
@@ -101,7 +101,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::ListKeysRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListKeysResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/keys", req.parent))
@@ -122,7 +122,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::RetrieveLegacySecretKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RetrieveLegacySecretKeyResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -144,7 +144,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::GetKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Key>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -163,7 +163,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::UpdateKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Key>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -195,7 +195,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -218,7 +218,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::MigrateKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Key>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:migrate", req.name))
@@ -235,7 +235,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::AddIpOverrideRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AddIpOverrideResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -255,7 +255,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::RemoveIpOverrideRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RemoveIpOverrideResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -275,7 +275,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::ListIpOverridesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListIpOverridesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -299,7 +299,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::GetMetricsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Metrics>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -318,7 +318,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::CreateFirewallPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FirewallPolicy>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -340,7 +340,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::ListFirewallPoliciesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListFirewallPoliciesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -364,7 +364,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::GetFirewallPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FirewallPolicy>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -383,7 +383,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::UpdateFirewallPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FirewallPolicy>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -417,7 +417,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::DeleteFirewallPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -440,7 +440,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::ReorderFirewallPoliciesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ReorderFirewallPoliciesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -460,7 +460,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         req: crate::model::ListRelatedAccountGroupsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRelatedAccountGroupsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -485,7 +485,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>>
     {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -510,7 +510,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>>
     {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(

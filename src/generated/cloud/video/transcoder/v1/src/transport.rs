@@ -45,7 +45,7 @@ impl super::stub::TranscoderService for TranscoderService {
         req: crate::model::CreateJobRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Job>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/jobs", req.parent))
@@ -62,7 +62,7 @@ impl super::stub::TranscoderService for TranscoderService {
         req: crate::model::ListJobsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListJobsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/jobs", req.parent))
@@ -85,7 +85,7 @@ impl super::stub::TranscoderService for TranscoderService {
         req: crate::model::GetJobRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Job>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -104,7 +104,7 @@ impl super::stub::TranscoderService for TranscoderService {
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -128,7 +128,7 @@ impl super::stub::TranscoderService for TranscoderService {
         req: crate::model::CreateJobTemplateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::JobTemplate>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -151,7 +151,7 @@ impl super::stub::TranscoderService for TranscoderService {
         req: crate::model::ListJobTemplatesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListJobTemplatesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -177,7 +177,7 @@ impl super::stub::TranscoderService for TranscoderService {
         req: crate::model::GetJobTemplateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::JobTemplate>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -196,7 +196,7 @@ impl super::stub::TranscoderService for TranscoderService {
         req: crate::model::DeleteJobTemplateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))

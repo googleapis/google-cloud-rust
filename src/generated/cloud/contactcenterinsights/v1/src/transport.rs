@@ -45,7 +45,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::CreateConversationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -68,7 +68,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::UploadConversationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -88,7 +88,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::UpdateConversationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -122,7 +122,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::GetConversationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -142,7 +142,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ListConversationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListConversationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -169,7 +169,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::DeleteConversationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -193,7 +193,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::CreateAnalysisRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -215,7 +215,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::GetAnalysisRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Analysis>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -234,7 +234,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ListAnalysesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAnalysesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/analyses", req.parent))
@@ -256,7 +256,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::DeleteAnalysisRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -279,7 +279,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::BulkAnalyzeConversationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -299,7 +299,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::BulkDeleteConversationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -319,7 +319,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::IngestConversationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -339,7 +339,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ExportInsightsDataRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -359,7 +359,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::CreateIssueModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -381,7 +381,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::UpdateIssueModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IssueModel>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -415,7 +415,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::GetIssueModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IssueModel>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -434,7 +434,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ListIssueModelsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListIssueModelsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -456,7 +456,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::DeleteIssueModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -475,7 +475,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::DeployIssueModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:deploy", req.name))
@@ -492,7 +492,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::UndeployIssueModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:undeploy", req.name))
@@ -509,7 +509,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ExportIssueModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:export", req.name))
@@ -526,7 +526,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ImportIssueModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -546,7 +546,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::GetIssueRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Issue>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -565,7 +565,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ListIssuesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListIssuesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/issues", req.parent))
@@ -584,7 +584,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::UpdateIssueRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Issue>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -616,7 +616,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::DeleteIssueRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -639,7 +639,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::CalculateIssueModelStatsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CalculateIssueModelStatsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -661,7 +661,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::CreatePhraseMatcherRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PhraseMatcher>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -683,7 +683,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::GetPhraseMatcherRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PhraseMatcher>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -702,7 +702,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ListPhraseMatchersRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListPhraseMatchersResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -727,7 +727,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::DeletePhraseMatcherRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -750,7 +750,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::UpdatePhraseMatcherRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PhraseMatcher>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -784,7 +784,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::CalculateStatsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CalculateStatsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -807,7 +807,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::GetSettingsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Settings>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -826,7 +826,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::UpdateSettingsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Settings>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -860,7 +860,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::CreateAnalysisRuleRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalysisRule>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -882,7 +882,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::GetAnalysisRuleRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalysisRule>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -901,7 +901,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ListAnalysisRulesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAnalysisRulesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -925,7 +925,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::UpdateAnalysisRuleRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalysisRule>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -959,7 +959,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::DeleteAnalysisRuleRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -982,7 +982,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::GetEncryptionSpecRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EncryptionSpec>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1001,7 +1001,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::InitializeEncryptionSpecRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1027,7 +1027,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::CreateViewRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::View>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/views", req.parent))
@@ -1044,7 +1044,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::GetViewRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::View>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1063,7 +1063,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ListViewsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListViewsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/views", req.parent))
@@ -1084,7 +1084,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::UpdateViewRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::View>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1116,7 +1116,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::DeleteViewRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -1139,7 +1139,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::QueryMetricsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1159,7 +1159,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::CreateQaQuestionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QaQuestion>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1182,7 +1182,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::GetQaQuestionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QaQuestion>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1201,7 +1201,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::UpdateQaQuestionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QaQuestion>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1235,7 +1235,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::DeleteQaQuestionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -1258,7 +1258,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ListQaQuestionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListQaQuestionsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -1282,7 +1282,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::CreateQaScorecardRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QaScorecard>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1305,7 +1305,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::GetQaScorecardRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QaScorecard>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1324,7 +1324,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::UpdateQaScorecardRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QaScorecard>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1358,7 +1358,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::DeleteQaScorecardRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -1382,7 +1382,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ListQaScorecardsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListQaScorecardsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -1406,7 +1406,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::CreateQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QaScorecardRevision>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1429,7 +1429,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::GetQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QaScorecardRevision>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1448,7 +1448,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::TuneQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1468,7 +1468,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::DeployQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QaScorecardRevision>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:deploy", req.name))
@@ -1485,7 +1485,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::UndeployQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QaScorecardRevision>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:undeploy", req.name))
@@ -1502,7 +1502,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::DeleteQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -1526,7 +1526,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ListQaScorecardRevisionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListQaScorecardRevisionsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -1551,7 +1551,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::CreateFeedbackLabelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FeedbackLabel>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1574,7 +1574,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ListFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListFeedbackLabelsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -1599,7 +1599,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::GetFeedbackLabelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FeedbackLabel>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1618,7 +1618,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::UpdateFeedbackLabelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FeedbackLabel>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1652,7 +1652,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::DeleteFeedbackLabelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -1675,7 +1675,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::ListAllFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAllFeedbackLabelsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -1700,7 +1700,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::BulkUploadFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1720,7 +1720,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: crate::model::BulkDownloadFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1740,7 +1740,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -1762,7 +1762,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1781,7 +1781,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))

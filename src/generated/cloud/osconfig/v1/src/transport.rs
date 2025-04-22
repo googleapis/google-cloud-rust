@@ -45,7 +45,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: crate::model::ExecutePatchJobRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PatchJob>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -65,7 +65,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: crate::model::GetPatchJobRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PatchJob>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -84,7 +84,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: crate::model::CancelPatchJobRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PatchJob>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
@@ -101,7 +101,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: crate::model::ListPatchJobsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListPatchJobsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -126,7 +126,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: crate::model::ListPatchJobInstanceDetailsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -151,7 +151,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: crate::model::CreatePatchDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -174,7 +174,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: crate::model::GetPatchDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -193,7 +193,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: crate::model::ListPatchDeploymentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListPatchDeploymentsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -217,7 +217,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: crate::model::DeletePatchDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -240,7 +240,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: crate::model::UpdatePatchDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -274,7 +274,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: crate::model::PausePatchDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:pause", req.name))
@@ -291,7 +291,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: crate::model::ResumePatchDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:resume", req.name))
@@ -308,7 +308,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -327,7 +327,7 @@ impl super::stub::OsConfigService for OsConfigService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
@@ -372,7 +372,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         req: crate::model::CreateOSPolicyAssignmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -395,7 +395,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         req: crate::model::UpdateOSPolicyAssignmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -429,7 +429,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         req: crate::model::GetOSPolicyAssignmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::OSPolicyAssignment>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -448,7 +448,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         req: crate::model::ListOSPolicyAssignmentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -473,7 +473,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>>
     {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -497,7 +497,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         req: crate::model::DeleteOSPolicyAssignmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -516,7 +516,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         req: crate::model::GetOSPolicyAssignmentReportRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::OSPolicyAssignmentReport>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -535,7 +535,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         req: crate::model::ListOSPolicyAssignmentReportsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentReportsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/reports", req.parent))
@@ -557,7 +557,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         req: crate::model::GetInventoryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Inventory>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -577,7 +577,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         req: crate::model::ListInventoriesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListInventoriesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -603,7 +603,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         req: crate::model::GetVulnerabilityReportRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::VulnerabilityReport>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -622,7 +622,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         req: crate::model::ListVulnerabilityReportsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListVulnerabilityReportsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -647,7 +647,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -666,7 +666,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))

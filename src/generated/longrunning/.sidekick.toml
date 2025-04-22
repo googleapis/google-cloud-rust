@@ -36,6 +36,6 @@ operations.
 [codec]
 # We override the default version for generated crates. We want the latest
 # version of `google-cloud-longrunning` to be this crate.
-version               = "0.23.0"
+version               = "0.24.0"
 copyright-year        = '2024'
 'package:longrunning' = 'ignore=true'

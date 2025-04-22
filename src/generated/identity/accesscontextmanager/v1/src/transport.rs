@@ -45,7 +45,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::ListAccessPoliciesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAccessPoliciesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, "/v1/accessPolicies".to_string())
@@ -67,7 +67,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::GetAccessPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessPolicy>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -86,7 +86,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::AccessPolicy,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, "/v1/accessPolicies".to_string())
@@ -103,7 +103,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::UpdateAccessPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -135,7 +135,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::DeleteAccessPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -154,7 +154,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::ListAccessLevelsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAccessLevelsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -179,7 +179,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::GetAccessLevelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessLevel>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -199,7 +199,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::CreateAccessLevelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -221,7 +221,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::UpdateAccessLevelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -255,7 +255,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::DeleteAccessLevelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -274,7 +274,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::ReplaceAccessLevelsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -294,7 +294,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::ListServicePerimetersRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServicePerimetersResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -318,7 +318,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::GetServicePerimeterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServicePerimeter>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -337,7 +337,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::CreateServicePerimeterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -359,7 +359,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::UpdateServicePerimeterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -393,7 +393,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::DeleteServicePerimeterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -412,7 +412,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::ReplaceServicePerimetersRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -432,7 +432,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::CommitServicePerimetersRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -452,7 +452,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::ListGcpUserAccessBindingsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListGcpUserAccessBindingsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -476,7 +476,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::GetGcpUserAccessBindingRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GcpUserAccessBinding>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -495,7 +495,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::CreateGcpUserAccessBindingRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -517,7 +517,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::UpdateGcpUserAccessBindingRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -551,7 +551,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: crate::model::DeleteGcpUserAccessBindingRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -570,7 +570,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -590,7 +590,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -610,7 +610,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -630,7 +630,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))

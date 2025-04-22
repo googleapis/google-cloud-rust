@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_sql_v1::client::SqlBackupRunsService;
 /// let client = SqlBackupRunsService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud SQL Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -169,7 +169,7 @@ impl SqlBackupRunsService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_sql_v1::client::SqlConnectService;
 /// let client = SqlConnectService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud SQL Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -285,7 +285,7 @@ impl SqlConnectService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_sql_v1::client::SqlDatabasesService;
 /// let client = SqlDatabasesService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud SQL Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -460,7 +460,7 @@ impl SqlDatabasesService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_sql_v1::client::SqlFlagsService;
 /// let client = SqlFlagsService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud SQL Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -557,7 +557,7 @@ impl SqlFlagsService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_sql_v1::client::SqlInstancesService;
 /// let client = SqlInstancesService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud SQL Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1086,7 +1086,7 @@ impl SqlInstancesService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_sql_v1::client::SqlOperationsService;
 /// let client = SqlOperationsService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud SQL Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1210,7 +1210,7 @@ impl SqlOperationsService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_sql_v1::client::SqlSslCertsService;
 /// let client = SqlSslCertsService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud SQL Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1356,7 +1356,7 @@ impl SqlSslCertsService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_sql_v1::client::SqlTiersService;
 /// let client = SqlTiersService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud SQL Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1457,7 +1457,7 @@ impl SqlTiersService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_sql_v1::client::SqlUsersService;
 /// let client = SqlUsersService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud SQL Admin API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

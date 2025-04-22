@@ -45,7 +45,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         req: crate::model::CreateScanConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ScanConfig>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -67,7 +67,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         req: crate::model::DeleteScanConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -90,7 +90,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         req: crate::model::GetScanConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ScanConfig>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -109,7 +109,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         req: crate::model::ListScanConfigsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListScanConfigsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -133,7 +133,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         req: crate::model::UpdateScanConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ScanConfig>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -167,7 +167,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         req: crate::model::StartScanRunRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ScanRun>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:start", req.name))
@@ -184,7 +184,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         req: crate::model::GetScanRunRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ScanRun>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -203,7 +203,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         req: crate::model::ListScanRunsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListScanRunsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/scanRuns", req.parent))
@@ -224,7 +224,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         req: crate::model::StopScanRunRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ScanRun>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:stop", req.name))
@@ -241,7 +241,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         req: crate::model::ListCrawledUrlsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCrawledUrlsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -265,7 +265,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         req: crate::model::GetFindingRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Finding>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -284,7 +284,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         req: crate::model::ListFindingsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListFindingsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/findings", req.parent))
@@ -306,7 +306,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         req: crate::model::ListFindingTypeStatsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(

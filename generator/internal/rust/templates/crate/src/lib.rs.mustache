@@ -60,8 +60,14 @@ pub(crate) mod tracing;
 pub(crate) mod transport;
 
 /// The default host used by the service.
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 const DEFAULT_HOST: &str = "https://{{Codec.DefaultHost}}/";
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");

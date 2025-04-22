@@ -92,6 +92,10 @@ vaiable   = "vaiable"
 telphony = "telphony"
 analyis  = "analyis"
 abolute  = "abolute"
+# src/generated/dataplex/v1 has typos, they need to be fixed upstream
+autorization = "autorization"
+delele       = "delele"
+createed     = "createed"
 # src/generated/cloud/dialogflow/cx/v3 has typos, they need to be fixed
 # upstream.
 verion = "verion"
@@ -226,6 +230,8 @@ extend-ignore-re = [
   # src/generated/cloud/dialogflow/v2 has some typos, ignoring "whe" everywhere
   # seems too broad.
   " whe ",
+  # src/generated/cloud/dataplex/v1 has a typo in a field name. Cannot be fixed.
+  "evalution_type",
   # src/generated/cloud/dialogflow/v2 uses enums that look like typos.
   "GOST R 34",
   "GOST3411",

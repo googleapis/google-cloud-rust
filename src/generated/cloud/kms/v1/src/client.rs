@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_kms_v1::client::Autokey;
 /// let client = Autokey::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -258,7 +258,7 @@ impl Autokey {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_kms_v1::client::AutokeyAdmin;
 /// let client = AutokeyAdmin::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -472,7 +472,7 @@ impl AutokeyAdmin {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_kms_v1::client::EkmService;
 /// let client = EkmService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -727,7 +727,7 @@ impl EkmService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_kms_v1::client::KeyManagementService;
 /// let client = KeyManagementService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

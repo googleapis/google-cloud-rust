@@ -45,7 +45,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::GetOccurrenceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Occurrence>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -64,7 +64,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::ListOccurrencesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListOccurrencesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -89,7 +89,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::DeleteOccurrenceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -112,7 +112,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::CreateOccurrenceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Occurrence>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -134,7 +134,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::BatchCreateOccurrencesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchCreateOccurrencesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -154,7 +154,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::UpdateOccurrenceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Occurrence>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, format!("/v1/{}", req.name))
@@ -179,7 +179,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::GetOccurrenceNoteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Note>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/notes", req.name))
@@ -198,7 +198,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::GetNoteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Note>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -217,7 +217,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::ListNotesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListNotesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/notes", req.parent))
@@ -239,7 +239,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::DeleteNoteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -262,7 +262,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::CreateNoteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Note>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/notes", req.parent))
@@ -280,7 +280,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::BatchCreateNotesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchCreateNotesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -300,7 +300,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::UpdateNoteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Note>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, format!("/v1/{}", req.name))
@@ -323,7 +323,7 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::ListNoteOccurrencesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(

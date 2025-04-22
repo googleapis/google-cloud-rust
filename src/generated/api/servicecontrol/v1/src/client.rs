@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_api_servicecontrol_v1::client::QuotaController;
 /// let client = QuotaController::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Service Control API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -151,7 +151,7 @@ impl QuotaController {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_api_servicecontrol_v1::client::ServiceController;
 /// let client = ServiceController::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Service Control API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

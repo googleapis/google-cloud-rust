@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
 /// let client = WebSecurityScanner::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Web Security Scanner API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

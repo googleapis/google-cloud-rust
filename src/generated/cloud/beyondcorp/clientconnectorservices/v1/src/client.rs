@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_beyondcorp_clientconnectorservices_v1::client::ClientConnectorServicesService;
 /// let client = ClientConnectorServicesService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the BeyondCorp API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

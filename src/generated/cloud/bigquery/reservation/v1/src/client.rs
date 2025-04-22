@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
 /// let client = ReservationService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the BigQuery Reservation API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

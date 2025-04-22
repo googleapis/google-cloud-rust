@@ -33,6 +33,7 @@ version = "0.1.0"
 'package:http'             = '^1.3.0'
 
 # A mapping from protobuf packages to Dart imports.
+'proto:google.api'            = 'package:google_cloud_api/api.dart'
 'proto:google.cloud.common'   = 'package:google_cloud_common/common.dart'
 'proto:google.cloud.location' = 'package:google_cloud_location/location.dart'
 'proto:google.iam.v1'         = 'package:google_cloud_iam_v1/iam.dart'

@@ -45,7 +45,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::ProcessRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ProcessResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:process", req.name))
@@ -62,7 +62,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::BatchProcessRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -82,7 +82,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::FetchProcessorTypesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FetchProcessorTypesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -104,7 +104,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::ListProcessorTypesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListProcessorTypesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -128,7 +128,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::GetProcessorTypeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ProcessorType>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -147,7 +147,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::ListProcessorsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListProcessorsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -171,7 +171,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::GetProcessorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Processor>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -190,7 +190,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::TrainProcessorVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -210,7 +210,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::GetProcessorVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ProcessorVersion>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -229,7 +229,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::ListProcessorVersionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListProcessorVersionsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -253,7 +253,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::DeleteProcessorVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -272,7 +272,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::DeployProcessorVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:deploy", req.name))
@@ -289,7 +289,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::UndeployProcessorVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:undeploy", req.name))
@@ -306,7 +306,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::CreateProcessorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Processor>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -328,7 +328,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::DeleteProcessorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -347,7 +347,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::EnableProcessorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:enable", req.name))
@@ -364,7 +364,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::DisableProcessorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:disable", req.name))
@@ -381,7 +381,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::SetDefaultProcessorVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -401,7 +401,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::ReviewDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -421,7 +421,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::EvaluateProcessorVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -441,7 +441,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::GetEvaluationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Evaluation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -460,7 +460,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: crate::model::ListEvaluationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListEvaluationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -484,7 +484,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -506,7 +506,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -525,7 +525,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -547,7 +547,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -566,7 +566,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))

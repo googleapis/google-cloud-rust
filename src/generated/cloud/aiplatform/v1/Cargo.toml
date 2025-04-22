@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-aiplatform-v1"
-version                = "0.2.0"
+version                = "0.3.0"
 description            = "Google Cloud Client Libraries for Rust - Vertex AI API"
 edition.workspace      = true
 authors.workspace      = true
@@ -25,6 +25,74 @@ repository.workspace   = true
 keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
+
+[features]
+default = [
+    "dataset_service",
+    "deployment_resource_pool_service",
+    "endpoint_service",
+    "evaluation_service",
+    "feature_online_store_admin_service",
+    "feature_online_store_service",
+    "feature_registry_service",
+    "featurestore_online_serving_service",
+    "featurestore_service",
+    "gen_ai_cache_service",
+    "gen_ai_tuning_service",
+    "index_endpoint_service",
+    "index_service",
+    "job_service",
+    "llm_utility_service",
+    "match_service",
+    "metadata_service",
+    "migration_service",
+    "model_garden_service",
+    "model_service",
+    "notebook_service",
+    "persistent_resource_service",
+    "pipeline_service",
+    "prediction_service",
+    "reasoning_engine_execution_service",
+    "reasoning_engine_service",
+    "schedule_service",
+    "specialist_pool_service",
+    "tensorboard_service",
+    "vertex_rag_data_service",
+    "vertex_rag_service",
+    "vizier_service",
+]
+dataset_service = []
+deployment_resource_pool_service = []
+endpoint_service = []
+evaluation_service = []
+feature_online_store_admin_service = []
+feature_online_store_service = []
+feature_registry_service = []
+featurestore_online_serving_service = []
+featurestore_service = []
+gen_ai_cache_service = []
+gen_ai_tuning_service = []
+index_endpoint_service = []
+index_service = []
+job_service = []
+llm_utility_service = []
+match_service = []
+metadata_service = []
+migration_service = []
+model_garden_service = []
+model_service = []
+notebook_service = []
+persistent_resource_service = []
+pipeline_service = []
+prediction_service = []
+reasoning_engine_execution_service = []
+reasoning_engine_service = []
+schedule_service = []
+specialist_pool_service = []
+tensorboard_service = []
+vertex_rag_data_service = []
+vertex_rag_service = []
+vizier_service = []
 
 [dependencies]
 api.workspace        = true

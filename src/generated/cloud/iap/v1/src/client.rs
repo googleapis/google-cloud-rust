@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
 /// let client = IdentityAwareProxyAdminService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Identity-Aware Proxy API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -256,7 +256,7 @@ impl IdentityAwareProxyAdminService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
 /// let client = IdentityAwareProxyOAuthService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Identity-Aware Proxy API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

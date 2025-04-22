@@ -45,7 +45,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         req: crate::model::GetAuthorizationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Authorization>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -64,7 +64,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         req: crate::model::CreateDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -87,7 +87,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         req: crate::model::ReplaceDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
-        let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -115,7 +115,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         req: crate::model::GetDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -134,7 +134,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         req: crate::model::ListDeploymentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDeploymentsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -158,7 +158,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         req: crate::model::DeleteDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -182,7 +182,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         req: crate::model::InstallDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:install", req.name))
@@ -204,7 +204,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         req: crate::model::UninstallDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:uninstall", req.name))
@@ -226,7 +226,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         req: crate::model::GetInstallStatusRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InstallStatus>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
 /// let client = BareMetalSolution::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Bare Metal Solution API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

@@ -30,6 +30,7 @@ macro_rules! impl_primitive {
     };
 }
 
+impl_primitive!(());
 impl_primitive!(bool);
 impl_primitive!(f32);
 impl_primitive!(i32);
@@ -172,6 +173,11 @@ mod test {
     use super::*;
     use serde_json::json;
     use test_case::test_case;
+
+    #[test]
+    fn primitive_unit() {
+        let _: () = ().cnv();
+    }
 
     #[test]
     fn primitive_bool() {

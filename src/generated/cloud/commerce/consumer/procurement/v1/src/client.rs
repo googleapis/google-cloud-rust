@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
 /// let client = LicenseManagementService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Commerce Consumer Procurement API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -185,7 +185,7 @@ impl LicenseManagementService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
 /// let client = ConsumerProcurementService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Commerce Consumer Procurement API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

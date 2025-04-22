@@ -29,12 +29,44 @@ void main() {
     var expected = FloatValue(value: 0.5);
     var actual = FloatValue.fromJson(encodeDecode(expected.toJson()));
     expect(actual.value, expected.value);
+
+    expect(FloatValue.fromJson(1).value, 1.0);
   });
 
   test('DoubleValue', () {
     var expected = DoubleValue(value: 0.5);
     var actual = DoubleValue.fromJson(encodeDecode(expected.toJson()));
     expect(actual.value, expected.value);
+
+    expect(DoubleValue.fromJson(1).value, 1.0);
+  });
+
+  group('NaN and Infinity', () {
+    test('FloatValue', () {
+      expect(FloatValue.fromJson('NaN').value, isNaN);
+      expect(FloatValue.fromJson('Infinity').value, double.infinity);
+      expect(FloatValue.fromJson('-Infinity').value, double.negativeInfinity);
+
+      // don't allow arbitrary strings for floats
+      expect(() => FloatValue.fromJson('1.0').value, throwsFormatException);
+
+      expect(FloatValue(value: double.nan).toJson(), 'NaN');
+      expect(FloatValue(value: double.infinity).toJson(), 'Infinity');
+      expect(FloatValue(value: double.negativeInfinity).toJson(), '-Infinity');
+    });
+
+    test('DoubleValue', () {
+      expect(DoubleValue.fromJson('NaN').value, isNaN);
+      expect(DoubleValue.fromJson('Infinity').value, double.infinity);
+      expect(DoubleValue.fromJson('-Infinity').value, double.negativeInfinity);
+
+      // don't allow arbitrary strings for doubles
+      expect(() => DoubleValue.fromJson('1.0').value, throwsFormatException);
+
+      expect(DoubleValue(value: double.nan).toJson(), 'NaN');
+      expect(DoubleValue(value: double.infinity).toJson(), 'Infinity');
+      expect(DoubleValue(value: double.negativeInfinity).toJson(), '-Infinity');
+    });
   });
 
   test('Int64Value', () {

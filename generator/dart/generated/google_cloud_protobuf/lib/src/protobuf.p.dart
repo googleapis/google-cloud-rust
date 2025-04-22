@@ -16,7 +16,7 @@ part of '../protobuf.dart';
 
 /// `Any` contains an arbitrary serialized message along with a URL that
 /// describes the type of the serialized message.
-class Any extends Message {
+class Any extends ProtoMessage {
   static const String fullyQualifiedName = 'google.protobuf.Any';
 
   // This list needs to be kept in sync with generator/internal/dart/dart.go.
@@ -46,7 +46,7 @@ class Any extends Message {
         super(fullyQualifiedName);
 
   /// Create an [Any] from an existing [message].
-  Any.from(Message message)
+  Any.from(ProtoMessage message)
       : json = {},
         super(fullyQualifiedName) {
     packInto(message);
@@ -94,7 +94,7 @@ class Any extends Message {
   ///   ...
   /// }
   /// ```
-  T unpackFrom<T extends Message, S>(T Function(S) decoder) {
+  T unpackFrom<T extends ProtoMessage, S>(T Function(S) decoder) {
     final name = typeName;
 
     if (_customEncodedTypes.contains(name)) {
@@ -107,7 +107,7 @@ class Any extends Message {
   }
 
   /// Serialize the given message into this `Any` instance.
-  void packInto(Message message) {
+  void packInto(ProtoMessage message) {
     final qualifiedName = message.qualifiedName;
 
     // @type
@@ -137,7 +137,7 @@ class Any extends Message {
 /// variants. Absence of any variant indicates an error.
 ///
 /// The JSON representation for `Value` is JSON value.
-class Value extends Message {
+class Value extends ProtoMessage {
   static const String fullyQualifiedName = 'google.protobuf.Value';
 
   /// Represents a null value.
@@ -373,50 +373,42 @@ class _TimestampHelper {
 }
 
 class _DoubleValueHelper {
-  static double encode(DoubleValue value) {
-    return value.value!;
+  static Object encode(DoubleValue value) {
+    return encodeDouble(value.value)!;
   }
 
   static DoubleValue decode(Object value) {
-    return DoubleValue(value: value as double);
+    return DoubleValue(value: decodeDouble(value)!);
   }
 }
 
 class _FloatValueHelper {
-  static double encode(FloatValue value) {
-    return value.value!;
+  static Object encode(FloatValue value) {
+    return encodeDouble(value.value)!;
   }
 
   static FloatValue decode(Object value) {
-    return FloatValue(value: value as double);
+    return FloatValue(value: decodeDouble(value)!);
   }
 }
 
 class _Int64ValueHelper {
   static String encode(Int64Value value) {
-    return '${value.value}';
+    return encodeInt64(value.value)!;
   }
 
   static Int64Value decode(Object value) {
-    if (value is String) {
-      return Int64Value(value: int.parse(value));
-    } else {
-      return Int64Value(value: value as int);
-    }
+    return Int64Value(value: decodeInt64(value)!);
   }
 }
 
 class _Uint64ValueHelper {
   static String encode(Uint64Value value) {
-    return '${value.value}';
+    return encodeInt64(value.value)!;
   }
 
   static Uint64Value decode(Object value) {
-    if (value is String) {
-      return Uint64Value(value: int.parse(value));
-    } else {
-      return Uint64Value(value: value as int);
-    }
+    return Uint64Value(value: decodeInt64(value)!);
   }
 }
 

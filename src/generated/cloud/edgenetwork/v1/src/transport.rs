@@ -45,7 +45,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::InitializeZoneRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InitializeZoneResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -65,7 +65,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::ListZonesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListZonesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/zones", req.parent))
@@ -88,7 +88,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::GetZoneRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Zone>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -107,7 +107,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::ListNetworksRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListNetworksResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/networks", req.parent))
@@ -130,7 +130,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::GetNetworkRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Network>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -149,7 +149,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::DiagnoseNetworkRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DiagnoseNetworkResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}:diagnose", req.name))
@@ -168,7 +168,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::CreateNetworkRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -192,7 +192,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::DeleteNetworkRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -212,7 +212,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::ListSubnetsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSubnetsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/subnets", req.parent))
@@ -235,7 +235,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::GetSubnetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Subnet>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -254,7 +254,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::CreateSubnetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/subnets", req.parent))
@@ -273,7 +273,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::UpdateSubnetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -306,7 +306,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::DeleteSubnetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -326,7 +326,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::ListInterconnectsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListInterconnectsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -352,7 +352,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::GetInterconnectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Interconnect>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -371,7 +371,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::DiagnoseInterconnectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DiagnoseInterconnectResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}:diagnose", req.name))
@@ -390,7 +390,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::ListInterconnectAttachmentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListInterconnectAttachmentsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -416,7 +416,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::GetInterconnectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InterconnectAttachment>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -435,7 +435,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::CreateInterconnectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -460,7 +460,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::DeleteInterconnectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -480,7 +480,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::ListRoutersRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRoutersResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/routers", req.parent))
@@ -503,7 +503,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::GetRouterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Router>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -522,7 +522,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::DiagnoseRouterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DiagnoseRouterResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}:diagnose", req.name))
@@ -541,7 +541,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::CreateRouterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/routers", req.parent))
@@ -560,7 +560,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::UpdateRouterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -593,7 +593,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: crate::model::DeleteRouterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -613,7 +613,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -635,7 +635,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -654,7 +654,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -676,7 +676,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -695,7 +695,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -718,7 +718,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))

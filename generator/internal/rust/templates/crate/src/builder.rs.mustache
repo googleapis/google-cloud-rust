@@ -19,6 +19,9 @@ limitations under the License.
 {{/Codec.BoilerPlate}}
 {{#Codec.Services}}
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(feature = "{{Codec.ModuleName}}")]
+{{/Codec.PerServiceFeatures}}
 pub mod {{Codec.ModuleName}} {
     use crate::Result;
     use std::sync::Arc;

@@ -45,7 +45,7 @@ impl super::stub::DatasetService for DatasetService {
         req: crate::model::GetDatasetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -72,7 +72,7 @@ impl super::stub::DatasetService for DatasetService {
         req: crate::model::InsertDatasetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -95,7 +95,7 @@ impl super::stub::DatasetService for DatasetService {
         req: crate::model::UpdateOrPatchDatasetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -121,7 +121,7 @@ impl super::stub::DatasetService for DatasetService {
         req: crate::model::UpdateOrPatchDatasetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
-        let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -147,7 +147,7 @@ impl super::stub::DatasetService for DatasetService {
         req: crate::model::DeleteDatasetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -177,7 +177,7 @@ impl super::stub::DatasetService for DatasetService {
         req: crate::model::ListDatasetsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DatasetList>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -212,7 +212,7 @@ impl super::stub::DatasetService for DatasetService {
         req: crate::model::UndeleteDatasetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -258,7 +258,7 @@ impl super::stub::ModelService for ModelService {
         req: crate::model::GetModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Model>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -283,7 +283,7 @@ impl super::stub::ModelService for ModelService {
         req: crate::model::ListModelsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListModelsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -319,7 +319,7 @@ impl super::stub::ModelService for ModelService {
         req: crate::model::PatchModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Model>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -342,7 +342,7 @@ impl super::stub::ModelService for ModelService {
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -394,7 +394,7 @@ impl super::stub::ProjectService for ProjectService {
         req: crate::model::GetServiceAccountRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GetServiceAccountResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -439,7 +439,7 @@ impl super::stub::RoutineService for RoutineService {
         req: crate::model::GetRoutineRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Routine>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -464,7 +464,7 @@ impl super::stub::RoutineService for RoutineService {
         req: crate::model::InsertRoutineRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Routine>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -489,7 +489,7 @@ impl super::stub::RoutineService for RoutineService {
         req: crate::model::UpdateRoutineRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Routine>> {
-        let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -514,7 +514,7 @@ impl super::stub::RoutineService for RoutineService {
         req: crate::model::DeleteRoutineRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -543,7 +543,7 @@ impl super::stub::RoutineService for RoutineService {
         req: crate::model::ListRoutinesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRoutinesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -603,7 +603,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         req: crate::model::ListRowAccessPoliciesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRowAccessPoliciesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -630,7 +630,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         req: crate::model::GetRowAccessPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -655,7 +655,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         req: crate::model::CreateRowAccessPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -680,7 +680,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         req: crate::model::UpdateRowAccessPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
-        let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -705,7 +705,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         req: crate::model::DeleteRowAccessPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -738,7 +738,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         req: crate::model::BatchDeleteRowAccessPoliciesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -789,7 +789,7 @@ impl super::stub::TableService for TableService {
         req: crate::model::GetTableRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Table>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -816,7 +816,7 @@ impl super::stub::TableService for TableService {
         req: crate::model::InsertTableRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Table>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -839,7 +839,7 @@ impl super::stub::TableService for TableService {
         req: crate::model::UpdateOrPatchTableRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Table>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -863,7 +863,7 @@ impl super::stub::TableService for TableService {
         req: crate::model::UpdateOrPatchTableRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Table>> {
-        let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -887,7 +887,7 @@ impl super::stub::TableService for TableService {
         req: crate::model::DeleteTableRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -916,7 +916,7 @@ impl super::stub::TableService for TableService {
         req: crate::model::ListTablesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TableList>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_eventarc_v1::client::Eventarc;
 /// let client = Eventarc::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Eventarc API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

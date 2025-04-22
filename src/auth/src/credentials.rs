@@ -23,6 +23,7 @@ pub mod user_account;
 use crate::Result;
 use crate::errors::{self, CredentialsError};
 use http::header::{HeaderName, HeaderValue};
+use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
 
@@ -206,6 +207,214 @@ pub(crate) mod dynamic {
     }
 }
 
+#[derive(Debug, Clone)]
+enum CredentialsSource {
+    CredentialsJson(Value),
+    DefaultCredentials,
+}
+
+/// A builder for constructing [`Credentials`] instances.
+///
+/// By default (using [`Builder::default`]), the builder is configured to load
+/// credentials according to the standard [Application Default Credentials (ADC)][ADC-link]
+/// strategy. ADC is the recommended approach for most applications and conforms to
+/// [AIP-4110]. If you need to load credentials from a non-standard location or source,
+/// you can provide specific credential JSON directly using [`Builder::new`].
+///
+/// Common use cases where using ADC would is useful include:
+/// - Your application is deployed to a Google Cloud environment such as
+///   [Google Compute Engine (GCE)][gce-link],
+///   [Google Kubernetes Engine (GKE)][gke-link], or [Cloud Run]. Each of these
+///   deployment environments provides a default service account to the
+///   application, and offers mechanisms to change this default service account
+///   without any code changes to your application.
+/// - You are testing or developing the application on a workstation (physical or
+///   virtual). These credentials will use your preferences as set with
+///   [gcloud auth application-default]. These preferences can be your own Gooogle
+///   Cloud user credentials, or some service account.
+/// - Regardless of where your application is running, you can use the
+///   `GOOGLE_APPLICATION_CREDENTIALS` environment variable to override the
+///   defaults. This environment variable should point to a file containing a
+///   service account key file, or a JSON object describing your user
+///   credentials.
+///
+/// The access tokens returned by these credentials should be used in the
+/// Authorization HTTP header.
+///
+/// The Google Cloud client libraries for Rust will typically find and use these
+/// credentials automatically if a credentials file exists in the
+/// standard ADC search paths. You might instantiate these credentials either
+/// via ADC or a specific JSON file, if you need to:
+/// * Override the OAuth 2.0 **scopes** being requested for the access token.
+/// * Override the **quota project ID** for billing and quota management.
+///
+/// Example usage:
+///
+/// Fetching token using ADC
+/// ```
+/// # use google_cloud_auth::credentials::Builder;
+/// # use google_cloud_auth::errors::CredentialsError;
+/// # tokio_test::block_on(async {
+/// let creds = Builder::default()
+///     .with_quota_project_id("my-project")
+///     .build()?;
+/// let token = creds.token().await?;
+/// println!("Token: {}", token.token);
+/// # Ok::<(), CredentialsError>(())
+/// # });
+/// ```
+///
+/// Fetching token using custom JSON
+/// ```
+/// # use google_cloud_auth::credentials::Builder;
+/// # use google_cloud_auth::errors::CredentialsError;
+/// # tokio_test::block_on(async {
+/// # use google_cloud_auth::credentials::Builder;
+/// let authorized_user = serde_json::json!({
+///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com", // Replace with your actual Client ID
+///     "client_secret": "YOUR_CLIENT_SECRET", // Replace with your actual Client Secret - LOAD SECURELY!
+///     "refresh_token": "YOUR_REFRESH_TOKEN", // Replace with the user's refresh token - LOAD SECURELY!
+///     "type": "authorized_user",
+///     // "quota_project_id": "your-billing-project-id", // Optional: Set if needed
+///     // "token_uri" : "test-token-uri", // Optional: Set if needed
+/// });
+///
+/// let creds = Builder::new(authorized_user)
+///     .with_quota_project_id("my-project")
+///     .build()?;
+/// let token = creds.token().await?;
+/// println!("Token: {}", token.token);
+/// # Ok::<(), CredentialsError>(())
+/// # });
+/// ```
+///
+/// [ADC-link]: https://cloud.google.com/docs/authentication/application-default-credentials
+/// [AIP-4110]: https://google.aip.dev/auth/4110
+/// [Cloud Run]: https://cloud.google.com/run
+/// [gce-link]: https://cloud.google.com/products/compute
+/// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
+/// [gke-link]: https://cloud.google.com/kubernetes-engine
+#[derive(Debug)]
+pub struct Builder {
+    credentials_source: CredentialsSource,
+    quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
+}
+
+impl Default for Builder {
+    /// Creates a new builder where credentials will be obtained via [application-default login].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::Builder;
+    /// # tokio_test::block_on(async {
+    /// let credentials = Builder::default().build();
+    /// # });
+    /// ```
+    ///
+    /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
+    fn default() -> Self {
+        Self {
+            credentials_source: CredentialsSource::DefaultCredentials,
+            quota_project_id: None,
+            scopes: None,
+        }
+    }
+}
+
+impl Builder {
+    /// Creates a new builder with given credentials json.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::Builder;
+    /// let authorized_user = serde_json::json!({ /* add details here */ });
+    /// let credentials = Builder::new(authorized_user).build();
+    ///```
+    ///
+    pub fn new(json: serde_json::Value) -> Self {
+        Self {
+            credentials_source: CredentialsSource::CredentialsJson(json),
+            quota_project_id: None,
+            scopes: None,
+        }
+    }
+
+    /// Sets the [quota project] for these credentials.
+    ///
+    /// In some services, you can use an account in one project for authentication
+    /// and authorization, and charge the usage to a different project. This requires
+    /// that the user has `serviceusage.services.use` permissions on the quota project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::Builder;
+    /// # tokio_test::block_on(async {
+    /// let credentials = Builder::default()
+    ///     .with_quota_project_id("my-project")
+    ///     .build();
+    /// });
+    /// ```
+    ///
+    /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
+    pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+        self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    /// Sets the [scopes] for these credentials.
+    ///
+    /// `scopes` act as an additional restriction in addition to the IAM permissions
+    /// granted to the principal (user or service account) that creates the token.
+    ///
+    /// `scopes` define the *permissions being requested* for this specific access token
+    /// when interacting with a service. For example,
+    /// `https://www.googleapis.com/auth/devstorage.read_write`.
+    ///
+    /// IAM permissions, on the other hand, define the *underlying capabilities*
+    /// the principal possesses within a system. For example, `storage.buckets.delete`.
+    ///
+    /// The credentials certify that a particular token was created by a certain principal.
+    ///
+    /// When a token generated with specific scopes is used, the request must be permitted
+    /// by both the the principals's underlying IAM permissions and the scopes requested
+    /// for the token.
+    ///
+    /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
+    pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
+        self
+    }
+
+    /// Returns a [Credentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [CredentialsError] if a unsupported credential type is provided
+    /// or if the `json` provided to [Builder::new] cannot be successfully deserialized
+    /// into the expected format. This typically happens if the JSON value is malformed
+    /// or missing required fields. For more information, on how to generate
+    /// json, consult the relevant section in the [application-default credentials] guide.
+    ///
+    /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+    pub fn build(self) -> Result<Credentials> {
+        let json_data = match self.credentials_source {
+            CredentialsSource::CredentialsJson(json) => Some(json),
+            CredentialsSource::DefaultCredentials => match load_adc()? {
+                AdcContents::Contents(contents) => {
+                    Some(serde_json::from_str(&contents).map_err(errors::non_retryable)?)
+                }
+                AdcContents::FallbackToMds => None,
+            },
+        };
+        build_credentials(json_data, self.quota_project_id, self.scopes)
+    }
+}
+
 /// Create access token credentials.
 ///
 /// Returns [Application Default Credentials (ADC)][ADC-link]. These are the
@@ -225,8 +434,8 @@ pub(crate) mod dynamic {
 ///   without any code changes to your application.
 /// - You are testing or developing the application on a workstation (physical or
 ///   virtual). These credentials will use your preferences as set with
-///   [gcloud auth application-default]. These preferences can be your own GCP
-///   user credentials, or some service account.
+///   [gcloud auth application-default]. These preferences can be your own Google
+///   Cloud user credentials, or some service account.
 /// - Regardless of where your application is running, you can use the
 ///   `GOOGLE_APPLICATION_CREDENTIALS` environment variable to override the
 ///   defaults. This environment variable should point to a file containing a
@@ -253,24 +462,7 @@ pub(crate) mod dynamic {
 /// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
 /// [gke-link]: https://cloud.google.com/kubernetes-engine
 pub async fn create_access_token_credentials() -> Result<Credentials> {
-    let contents = match load_adc()? {
-        AdcContents::Contents(contents) => contents,
-        AdcContents::FallbackToMds => return Ok(mds::new()),
-    };
-    let js: serde_json::Value = serde_json::from_str(&contents).map_err(errors::non_retryable)?;
-    let cred_type = js
-        .get("type")
-        .ok_or_else(|| errors::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). No `type` field found."))?
-        .as_str()
-        .ok_or_else(|| errors::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). `type` field is not a string.")
-        )?;
-    match cred_type {
-        "authorized_user" => user_account::creds_from(js),
-        "service_account" => service_account::creds_from(js),
-        _ => Err(errors::non_retryable_from_str(format!(
-            "Unimplemented credentials type: {cred_type}"
-        ))),
-    }
+    Builder::default().build()
 }
 
 #[derive(Debug, PartialEq)]
@@ -283,6 +475,67 @@ enum AdcPath {
 enum AdcContents {
     Contents(String),
     FallbackToMds,
+}
+
+fn extract_credential_type(json: &Value) -> Result<&str> {
+    json.get("type")
+        .ok_or_else(|| {
+            errors::non_retryable_from_str(
+                "Failed to parse Credentials JSON. No `type` field found.",
+            )
+        })?
+        .as_str()
+        .ok_or_else(|| {
+            errors::non_retryable_from_str(
+                "Failed to parse Credentials JSON. `type` field is not a string.",
+            )
+        })
+}
+
+/// Applies common optional configurations (quota project ID, scopes) to a
+/// specific credential builder instance and then builds it.
+///
+/// This macro centralizes the logic for optionally calling `.with_quota_project_id()`
+/// and `.with_scopes()` on different underlying credential builders (like
+/// `mds::Builder`, `service_account::Builder`, etc.) before calling `.build()`.
+/// It helps avoid repetitive code in the `build_credentials` function.
+macro_rules! config_builder {
+    ($builder_instance:expr, $quota_project_id:expr, $scopes:expr) => {{
+        let builder = $builder_instance;
+        let builder = $quota_project_id
+            .into_iter()
+            .fold(builder, |b, qp| b.with_quota_project_id(qp));
+
+        let builder = $scopes.into_iter().fold(builder, |b, s| b.with_scopes(s));
+
+        builder.build()
+    }};
+}
+
+fn build_credentials(
+    json: Option<Value>,
+    quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
+) -> Result<Credentials> {
+    match json {
+        None => config_builder!(mds::Builder::default(), quota_project_id, scopes),
+        Some(json) => {
+            let cred_type = extract_credential_type(&json)?;
+            match cred_type {
+                "authorized_user" => {
+                    config_builder!(user_account::Builder::new(json), quota_project_id, scopes)
+                }
+                "service_account" => config_builder!(
+                    service_account::Builder::new(json),
+                    quota_project_id,
+                    scopes
+                ),
+                _ => Err(errors::non_retryable_from_str(format!(
+                    "Invalid or unsupported credentials type found in JSON: {cred_type}"
+                ))),
+            }
+        }
+    }
 }
 
 fn path_not_found(path: String) -> CredentialsError {
@@ -416,9 +669,14 @@ pub mod testing {
 #[cfg(test)]
 mod test {
     use super::*;
+    use base64::Engine;
+    use rsa::RsaPrivateKey;
+    use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;
     use std::error::Error;
     use test_case::test_case;
+
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     // Convenience struct for verifying (HeaderName, HeaderValue) pairs.
     #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
@@ -444,6 +702,26 @@ mod test {
             hvs.sort();
             hvs
         }
+    }
+
+    fn generate_pkcs8_private_key() -> String {
+        let mut rng = rand::thread_rng();
+        let bits = 2048;
+        let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
+        priv_key
+            .to_pkcs8_pem(LineEnding::LF)
+            .expect("Failed to encode key to PKCS#8 PEM")
+            .to_string()
+    }
+
+    fn b64_decode_to_json(s: String) -> serde_json::Value {
+        let decoded = String::from_utf8(
+            base64::engine::general_purpose::URL_SAFE_NO_PAD
+                .decode(s)
+                .unwrap(),
+        )
+        .unwrap();
+        serde_json::from_str(&decoded).unwrap()
     }
 
     #[cfg(target_os = "windows")]
@@ -576,5 +854,56 @@ mod test {
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
         let err = credentials.headers().await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
+    }
+
+    #[tokio::test]
+    #[serial_test::serial]
+    async fn create_access_token_credentials_fallback_to_mds_with_quota_project() {
+        let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _e2 = ScopedEnv::remove("HOME"); // For posix
+        let _e3 = ScopedEnv::remove("APPDATA"); // For windows
+
+        let mds = Builder::default()
+            .with_quota_project_id("test-quota-project")
+            .build()
+            .unwrap();
+        let fmt = format!("{:?}", mds);
+        assert!(fmt.contains("MDSCredentials"));
+        assert!(fmt.contains("test-quota-project"));
+    }
+
+    #[tokio::test]
+    async fn create_access_token_service_account_credentials_with_scopes() -> TestResult {
+        let mut service_account_key = serde_json::json!({
+            "type": "service_account",
+            "project_id": "test-project-id",
+            "private_key_id": "test-private-key-id",
+            "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
+            "client_email": "test-client-email",
+            "universe_domain": "test-universe-domain"
+        });
+
+        let scopes =
+            ["https://www.googleapis.com/auth/pubsub, https://www.googleapis.com/auth/translate"];
+
+        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+
+        let sac = Builder::new(service_account_key)
+            .with_quota_project_id("test-quota-project")
+            .with_scopes(scopes)
+            .build()
+            .unwrap();
+
+        let token = sac.token().await?;
+        let parts: Vec<_> = token.token.split('.').collect();
+        assert_eq!(parts.len(), 3);
+        let claims = b64_decode_to_json(parts.get(1).unwrap().to_string());
+
+        let fmt = format!("{:?}", sac);
+        assert!(fmt.contains("ServiceAccountCredentials"));
+        assert!(fmt.contains("test-quota-project"));
+        assert_eq!(claims["scope"], scopes.join(" "));
+
+        Ok(())
     }
 }

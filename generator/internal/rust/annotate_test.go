@@ -28,18 +28,32 @@ func TestPackageNames(t *testing.T) {
 		[]*api.Service{{Name: "Workflows", Package: "google.cloud.workflows.v1"}})
 	// Override the default name for test APIs ("Test").
 	model.Name = "workflows-v1"
-	codec, err := newCodec(true, map[string]string{})
+	codec, err := newCodec(true, map[string]string{
+		"per-service-features": "true",
+		"copyright-year":       "2035",
+	})
 	if err != nil {
 		t.Fatal(err)
 	}
 	got := annotateModel(model, codec)
-	want := "google_cloud_workflows_v1"
-	if got.PackageNamespace != want {
-		t.Errorf("mismatched package namespace, want=%s, got=%s", want, got.PackageNamespace)
+	want := &modelAnnotations{
+		PackageName:        "google-cloud-workflows-v1",
+		PackageNamespace:   "google_cloud_workflows_v1",
+		PackageVersion:     "0.0.0",
+		ReleaseLevel:       "preview",
+		RequiredPackages:   []string{},
+		ExternPackages:     []string{},
+		CopyrightYear:      "2035",
+		Services:           []*api.Service{},
+		NameToLower:        "workflows-v1",
+		PerServiceFeatures: false,
+	}
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(modelAnnotations{}, "BoilerPlate")); diff != "" {
+		t.Errorf("mismatch in modelAnnotations list (-want, +got)\n:%s", diff)
 	}
 }
 
-func TestServiceAnnotations(t *testing.T) {
+func serviceAnnotationsModel() *api.API {
 	request := &api.Message{
 		Name:    "Request",
 		Package: "test.v1",
@@ -52,7 +66,7 @@ func TestServiceAnnotations(t *testing.T) {
 	}
 	method := &api.Method{
 		Name:         "GetResource",
-		ID:           ".test.v1.Service.GetResource",
+		ID:           ".test.v1.ResourceService.GetResource",
 		InputTypeID:  ".test.v1.Request",
 		OutputTypeID: ".test.v1.Response",
 		PathInfo: &api.PathInfo{
@@ -64,7 +78,7 @@ func TestServiceAnnotations(t *testing.T) {
 	}
 	emptyMethod := &api.Method{
 		Name:         "DeleteResource",
-		ID:           ".test.v1.Service.DeleteResource",
+		ID:           ".test.v1.ResourceService.DeleteResource",
 		InputTypeID:  ".test.v1.Request",
 		OutputTypeID: ".google.protobuf.Empty",
 		PathInfo: &api.PathInfo{
@@ -77,7 +91,7 @@ func TestServiceAnnotations(t *testing.T) {
 	}
 	noHttpMethod := &api.Method{
 		Name:         "DoAThing",
-		ID:           ".test.v1.Service.DoAThing",
+		ID:           ".test.v1.ResourceService.DoAThing",
 		InputTypeID:  ".test.v1.Request",
 		OutputTypeID: ".test.v1.Response",
 	}
@@ -93,6 +107,23 @@ func TestServiceAnnotations(t *testing.T) {
 		[]*api.Enum{},
 		[]*api.Service{service})
 	api.CrossReference(model)
+	return model
+}
+
+func TestServiceAnnotations(t *testing.T) {
+	model := serviceAnnotationsModel()
+	service, ok := model.State.ServiceByID[".test.v1.ResourceService"]
+	if !ok {
+		t.Fatal("cannot find .test.v1.ResourceService")
+	}
+	method, ok := model.State.MethodByID[".test.v1.ResourceService.GetResource"]
+	if !ok {
+		t.Fatal("cannot find .test.v1.ResourceService.GetResource")
+	}
+	emptyMethod, ok := model.State.MethodByID[".test.v1.ResourceService.DeleteResource"]
+	if !ok {
+		t.Fatal("cannot find .test.v1.ResourceService.DeleteResource")
+	}
 	codec, err := newCodec(true, map[string]string{})
 	if err != nil {
 		t.Fatal(err)
@@ -148,6 +179,31 @@ func TestServiceAnnotations(t *testing.T) {
 	}
 	if diff := cmp.Diff(wantMethod, emptyMethod.Codec); diff != "" {
 		t.Errorf("mismatch in method annotations (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestServiceAnnotationsPerServiceFeatures(t *testing.T) {
+	model := serviceAnnotationsModel()
+	service, ok := model.State.ServiceByID[".test.v1.ResourceService"]
+	if !ok {
+		t.Fatal("cannot find .test.v1.ResourceService")
+	}
+	codec, err := newCodec(true, map[string]string{
+		"per-service-features": "true",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotateModel(model, codec)
+	wantService := &serviceAnnotations{
+		Name:               "ResourceService",
+		PackageModuleName:  "test::v1",
+		ModuleName:         "resource_service",
+		HasLROs:            false,
+		PerServiceFeatures: true,
+	}
+	if diff := cmp.Diff(wantService, service.Codec, cmpopts.IgnoreFields(serviceAnnotations{}, "Methods")); diff != "" {
+		t.Errorf("mismatch in service annotations (-want, +got)\n:%s", diff)
 	}
 }
 
@@ -913,5 +969,65 @@ func TestEnumFieldAnnotations(t *testing.T) {
 	}
 	if diff := cmp.Diff(wantField, map_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestPathInfoAnnotations(t *testing.T) {
+	type TestCase struct {
+		Verb               string
+		DefaultIdempotency string
+	}
+	testCases := []TestCase{
+		{"GET", "true"},
+		{"PUT", "true"},
+		{"DELETE", "true"},
+		{"POST", "false"},
+		{"PATCH", "false"},
+	}
+	for _, testCase := range testCases {
+		request := &api.Message{
+			Name:    "Request",
+			Package: "test.v1",
+			ID:      ".test.v1.Request",
+		}
+		response := &api.Message{
+			Name:    "Response",
+			Package: "test.v1",
+			ID:      ".test.v1.Response",
+		}
+		method := &api.Method{
+			Name:         "GetResource",
+			ID:           ".test.v1.Service.GetResource",
+			InputTypeID:  ".test.v1.Request",
+			OutputTypeID: ".test.v1.Response",
+			PathInfo: &api.PathInfo{
+				Verb: testCase.Verb,
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("/v1/resource"),
+				},
+			},
+		}
+		service := &api.Service{
+			Name:    "ResourceService",
+			ID:      ".test.v1.ResourceService",
+			Package: "test.v1",
+			Methods: []*api.Method{method},
+		}
+
+		model := api.NewTestAPI(
+			[]*api.Message{request, response},
+			[]*api.Enum{},
+			[]*api.Service{service})
+		api.CrossReference(model)
+		codec, err := newCodec(true, map[string]string{})
+		if err != nil {
+			t.Fatal(err)
+		}
+		annotateModel(model, codec)
+
+		pathInfoAnn := method.PathInfo.Codec.(*pathInfoAnnotation)
+		if pathInfoAnn.IsIdempotent() != testCase.DefaultIdempotency {
+			t.Errorf("fail")
+		}
 	}
 }

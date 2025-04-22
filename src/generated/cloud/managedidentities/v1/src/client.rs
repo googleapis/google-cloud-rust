@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
 /// let client = ManagedIdentitiesService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Managed Service for Microsoft Active Directory API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_workflows_executions_v1::client::Executions;
 /// let client = Executions::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Workflow Executions API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

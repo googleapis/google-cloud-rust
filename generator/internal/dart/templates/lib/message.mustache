@@ -18,7 +18,7 @@ limitations under the License.
 {{#Codec.DocLines}}
 {{{.}}}
 {{/Codec.DocLines}}
-class {{Codec.Name}} extends Message {
+class {{Codec.Name}} extends ProtoMessage {
   static const String fullyQualifiedName = '{{Codec.QualifiedName}}';
 
   {{#Fields}}
@@ -51,7 +51,7 @@ class {{Codec.Name}} extends Message {
   Object toJson() {
     return {
       {{#Fields}}
-      {{#Codec.Nullable}}if ({{{Codec.Name}}} != null) {{/Codec.Nullable}}'{{{Codec.Name}}}': {{{Codec.ToJson}}},
+      {{#Codec.Nullable}}if ({{{Codec.Name}}} != null) {{/Codec.Nullable}}'{{{JSONName}}}': {{{Codec.ToJson}}},
       {{/Fields}}
     };
   }

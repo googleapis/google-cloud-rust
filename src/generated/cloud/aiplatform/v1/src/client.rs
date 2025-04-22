@@ -17,7 +17,75 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 #![allow(rustdoc::invalid_html_tags)]
 
+#[cfg(any(
+    feature = "dataset_service",
+    feature = "deployment_resource_pool_service",
+    feature = "endpoint_service",
+    feature = "evaluation_service",
+    feature = "feature_online_store_admin_service",
+    feature = "feature_online_store_service",
+    feature = "feature_registry_service",
+    feature = "featurestore_online_serving_service",
+    feature = "featurestore_service",
+    feature = "gen_ai_cache_service",
+    feature = "gen_ai_tuning_service",
+    feature = "index_endpoint_service",
+    feature = "index_service",
+    feature = "job_service",
+    feature = "llm_utility_service",
+    feature = "match_service",
+    feature = "metadata_service",
+    feature = "migration_service",
+    feature = "model_garden_service",
+    feature = "model_service",
+    feature = "notebook_service",
+    feature = "persistent_resource_service",
+    feature = "pipeline_service",
+    feature = "prediction_service",
+    feature = "reasoning_engine_execution_service",
+    feature = "reasoning_engine_service",
+    feature = "schedule_service",
+    feature = "specialist_pool_service",
+    feature = "tensorboard_service",
+    feature = "vertex_rag_data_service",
+    feature = "vertex_rag_service",
+    feature = "vizier_service",
+))]
 use crate::Result;
+#[cfg(any(
+    feature = "dataset_service",
+    feature = "deployment_resource_pool_service",
+    feature = "endpoint_service",
+    feature = "evaluation_service",
+    feature = "feature_online_store_admin_service",
+    feature = "feature_online_store_service",
+    feature = "feature_registry_service",
+    feature = "featurestore_online_serving_service",
+    feature = "featurestore_service",
+    feature = "gen_ai_cache_service",
+    feature = "gen_ai_tuning_service",
+    feature = "index_endpoint_service",
+    feature = "index_service",
+    feature = "job_service",
+    feature = "llm_utility_service",
+    feature = "match_service",
+    feature = "metadata_service",
+    feature = "migration_service",
+    feature = "model_garden_service",
+    feature = "model_service",
+    feature = "notebook_service",
+    feature = "persistent_resource_service",
+    feature = "pipeline_service",
+    feature = "prediction_service",
+    feature = "reasoning_engine_execution_service",
+    feature = "reasoning_engine_service",
+    feature = "schedule_service",
+    feature = "specialist_pool_service",
+    feature = "tensorboard_service",
+    feature = "vertex_rag_data_service",
+    feature = "vertex_rag_service",
+    feature = "vizier_service",
+))]
 use std::sync::Arc;
 
 /// Implements a client for the Vertex AI API.
@@ -27,7 +95,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::DatasetService;
 /// let client = DatasetService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -61,11 +129,13 @@ use std::sync::Arc;
 /// create one and the reuse it.  You do not need to wrap `DatasetService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "dataset_service")]
 #[derive(Clone, Debug)]
 pub struct DatasetService {
     inner: Arc<dyn super::stub::dynamic::DatasetService>,
 }
 
+#[cfg(feature = "dataset_service")]
 impl DatasetService {
     /// Returns a builder for [DatasetService].
     ///
@@ -487,7 +557,7 @@ impl DatasetService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
 /// let client = DeploymentResourcePoolService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -521,11 +591,13 @@ impl DatasetService {
 /// create one and the reuse it.  You do not need to wrap `DeploymentResourcePoolService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "deployment_resource_pool_service")]
 #[derive(Clone, Debug)]
 pub struct DeploymentResourcePoolService {
     inner: Arc<dyn super::stub::dynamic::DeploymentResourcePoolService>,
 }
 
+#[cfg(feature = "deployment_resource_pool_service")]
 impl DeploymentResourcePoolService {
     /// Returns a builder for [DeploymentResourcePoolService].
     ///
@@ -799,7 +871,7 @@ impl DeploymentResourcePoolService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::EndpointService;
 /// let client = EndpointService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -833,11 +905,13 @@ impl DeploymentResourcePoolService {
 /// create one and the reuse it.  You do not need to wrap `EndpointService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "endpoint_service")]
 #[derive(Clone, Debug)]
 pub struct EndpointService {
     inner: Arc<dyn super::stub::dynamic::EndpointService>,
 }
 
+#[cfg(feature = "endpoint_service")]
 impl EndpointService {
     /// Returns a builder for [EndpointService].
     ///
@@ -1156,7 +1230,7 @@ impl EndpointService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::EvaluationService;
 /// let client = EvaluationService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1190,11 +1264,13 @@ impl EndpointService {
 /// create one and the reuse it.  You do not need to wrap `EvaluationService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "evaluation_service")]
 #[derive(Clone, Debug)]
 pub struct EvaluationService {
     inner: Arc<dyn super::stub::dynamic::EvaluationService>,
 }
 
+#[cfg(feature = "evaluation_service")]
 impl EvaluationService {
     /// Returns a builder for [EvaluationService].
     ///
@@ -1379,7 +1455,7 @@ impl EvaluationService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
 /// let client = FeatureOnlineStoreAdminService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1414,11 +1490,13 @@ impl EvaluationService {
 /// create one and the reuse it.  You do not need to wrap `FeatureOnlineStoreAdminService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "feature_online_store_admin_service")]
 #[derive(Clone, Debug)]
 pub struct FeatureOnlineStoreAdminService {
     inner: Arc<dyn super::stub::dynamic::FeatureOnlineStoreAdminService>,
 }
 
+#[cfg(feature = "feature_online_store_admin_service")]
 impl FeatureOnlineStoreAdminService {
     /// Returns a builder for [FeatureOnlineStoreAdminService].
     ///
@@ -1796,7 +1874,7 @@ impl FeatureOnlineStoreAdminService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
 /// let client = FeatureOnlineStoreService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -1830,11 +1908,13 @@ impl FeatureOnlineStoreAdminService {
 /// create one and the reuse it.  You do not need to wrap `FeatureOnlineStoreService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "feature_online_store_service")]
 #[derive(Clone, Debug)]
 pub struct FeatureOnlineStoreService {
     inner: Arc<dyn super::stub::dynamic::FeatureOnlineStoreService>,
 }
 
+#[cfg(feature = "feature_online_store_service")]
 impl FeatureOnlineStoreService {
     /// Returns a builder for [FeatureOnlineStoreService].
     ///
@@ -2030,7 +2110,7 @@ impl FeatureOnlineStoreService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
 /// let client = FeatureRegistryService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2065,11 +2145,13 @@ impl FeatureOnlineStoreService {
 /// create one and the reuse it.  You do not need to wrap `FeatureRegistryService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "feature_registry_service")]
 #[derive(Clone, Debug)]
 pub struct FeatureRegistryService {
     inner: Arc<dyn super::stub::dynamic::FeatureRegistryService>,
 }
 
+#[cfg(feature = "feature_registry_service")]
 impl FeatureRegistryService {
     /// Returns a builder for [FeatureRegistryService].
     ///
@@ -2414,7 +2496,7 @@ impl FeatureRegistryService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
 /// let client = FeaturestoreOnlineServingService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2448,11 +2530,13 @@ impl FeatureRegistryService {
 /// create one and the reuse it.  You do not need to wrap `FeaturestoreOnlineServingService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "featurestore_online_serving_service")]
 #[derive(Clone, Debug)]
 pub struct FeaturestoreOnlineServingService {
     inner: Arc<dyn super::stub::dynamic::FeaturestoreOnlineServingService>,
 }
 
+#[cfg(feature = "featurestore_online_serving_service")]
 impl FeaturestoreOnlineServingService {
     /// Returns a builder for [FeaturestoreOnlineServingService].
     ///
@@ -2662,7 +2746,7 @@ impl FeaturestoreOnlineServingService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
 /// let client = FeaturestoreService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -2696,11 +2780,13 @@ impl FeaturestoreOnlineServingService {
 /// create one and the reuse it.  You do not need to wrap `FeaturestoreService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "featurestore_service")]
 #[derive(Clone, Debug)]
 pub struct FeaturestoreService {
     inner: Arc<dyn super::stub::dynamic::FeaturestoreService>,
 }
 
+#[cfg(feature = "featurestore_service")]
 impl FeaturestoreService {
     /// Returns a builder for [FeaturestoreService].
     ///
@@ -3220,7 +3306,7 @@ impl FeaturestoreService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
 /// let client = GenAiCacheService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -3254,11 +3340,13 @@ impl FeaturestoreService {
 /// create one and the reuse it.  You do not need to wrap `GenAiCacheService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "gen_ai_cache_service")]
 #[derive(Clone, Debug)]
 pub struct GenAiCacheService {
     inner: Arc<dyn super::stub::dynamic::GenAiCacheService>,
 }
 
+#[cfg(feature = "gen_ai_cache_service")]
 impl GenAiCacheService {
     /// Returns a builder for [GenAiCacheService].
     ///
@@ -3480,7 +3568,7 @@ impl GenAiCacheService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
 /// let client = GenAiTuningService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -3514,11 +3602,13 @@ impl GenAiCacheService {
 /// create one and the reuse it.  You do not need to wrap `GenAiTuningService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "gen_ai_tuning_service")]
 #[derive(Clone, Debug)]
 pub struct GenAiTuningService {
     inner: Arc<dyn super::stub::dynamic::GenAiTuningService>,
 }
 
+#[cfg(feature = "gen_ai_tuning_service")]
 impl GenAiTuningService {
     /// Returns a builder for [GenAiTuningService].
     ///
@@ -3766,7 +3856,7 @@ impl GenAiTuningService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
 /// let client = IndexEndpointService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -3800,11 +3890,13 @@ impl GenAiTuningService {
 /// create one and the reuse it.  You do not need to wrap `IndexEndpointService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "index_endpoint_service")]
 #[derive(Clone, Debug)]
 pub struct IndexEndpointService {
     inner: Arc<dyn super::stub::dynamic::IndexEndpointService>,
 }
 
+#[cfg(feature = "index_endpoint_service")]
 impl IndexEndpointService {
     /// Returns a builder for [IndexEndpointService].
     ///
@@ -4105,7 +4197,7 @@ impl IndexEndpointService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::IndexService;
 /// let client = IndexService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -4139,11 +4231,13 @@ impl IndexEndpointService {
 /// create one and the reuse it.  You do not need to wrap `IndexService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "index_service")]
 #[derive(Clone, Debug)]
 pub struct IndexService {
     inner: Arc<dyn super::stub::dynamic::IndexService>,
 }
 
+#[cfg(feature = "index_service")]
 impl IndexService {
     /// Returns a builder for [IndexService].
     ///
@@ -4407,7 +4501,7 @@ impl IndexService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::JobService;
 /// let client = JobService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -4441,11 +4535,13 @@ impl IndexService {
 /// create one and the reuse it.  You do not need to wrap `JobService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "job_service")]
 #[derive(Clone, Debug)]
 pub struct JobService {
     inner: Arc<dyn super::stub::dynamic::JobService>,
 }
 
+#[cfg(feature = "job_service")]
 impl JobService {
     /// Returns a builder for [JobService].
     ///
@@ -5068,7 +5164,7 @@ impl JobService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
 /// let client = LlmUtilityService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -5102,11 +5198,13 @@ impl JobService {
 /// create one and the reuse it.  You do not need to wrap `LlmUtilityService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "llm_utility_service")]
 #[derive(Clone, Debug)]
 pub struct LlmUtilityService {
     inner: Arc<dyn super::stub::dynamic::LlmUtilityService>,
 }
 
+#[cfg(feature = "llm_utility_service")]
 impl LlmUtilityService {
     /// Returns a builder for [LlmUtilityService].
     ///
@@ -5300,7 +5398,7 @@ impl LlmUtilityService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::MatchService;
 /// let client = MatchService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -5335,11 +5433,13 @@ impl LlmUtilityService {
 /// create one and the reuse it.  You do not need to wrap `MatchService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "match_service")]
 #[derive(Clone, Debug)]
 pub struct MatchService {
     inner: Arc<dyn super::stub::dynamic::MatchService>,
 }
 
+#[cfg(feature = "match_service")]
 impl MatchService {
     /// Returns a builder for [MatchService].
     ///
@@ -5527,7 +5627,7 @@ impl MatchService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::MetadataService;
 /// let client = MetadataService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -5561,11 +5661,13 @@ impl MatchService {
 /// create one and the reuse it.  You do not need to wrap `MetadataService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "metadata_service")]
 #[derive(Clone, Debug)]
 pub struct MetadataService {
     inner: Arc<dyn super::stub::dynamic::MetadataService>,
 }
 
+#[cfg(feature = "metadata_service")]
 impl MetadataService {
     /// Returns a builder for [MetadataService].
     ///
@@ -6122,7 +6224,7 @@ impl MetadataService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::MigrationService;
 /// let client = MigrationService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -6157,11 +6259,13 @@ impl MetadataService {
 /// create one and the reuse it.  You do not need to wrap `MigrationService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "migration_service")]
 #[derive(Clone, Debug)]
 pub struct MigrationService {
     inner: Arc<dyn super::stub::dynamic::MigrationService>,
 }
 
+#[cfg(feature = "migration_service")]
 impl MigrationService {
     /// Returns a builder for [MigrationService].
     ///
@@ -6368,7 +6472,7 @@ impl MigrationService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
 /// let client = ModelGardenService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -6402,11 +6506,13 @@ impl MigrationService {
 /// create one and the reuse it.  You do not need to wrap `ModelGardenService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "model_garden_service")]
 #[derive(Clone, Debug)]
 pub struct ModelGardenService {
     inner: Arc<dyn super::stub::dynamic::ModelGardenService>,
 }
 
+#[cfg(feature = "model_garden_service")]
 impl ModelGardenService {
     /// Returns a builder for [ModelGardenService].
     ///
@@ -6591,7 +6697,7 @@ impl ModelGardenService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::ModelService;
 /// let client = ModelService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -6625,11 +6731,13 @@ impl ModelGardenService {
 /// create one and the reuse it.  You do not need to wrap `ModelService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "model_service")]
 #[derive(Clone, Debug)]
 pub struct ModelService {
     inner: Arc<dyn super::stub::dynamic::ModelService>,
 }
 
+#[cfg(feature = "model_service")]
 impl ModelService {
     /// Returns a builder for [ModelService].
     ///
@@ -7055,7 +7163,7 @@ impl ModelService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::NotebookService;
 /// let client = NotebookService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -7089,11 +7197,13 @@ impl ModelService {
 /// create one and the reuse it.  You do not need to wrap `NotebookService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "notebook_service")]
 #[derive(Clone, Debug)]
 pub struct NotebookService {
     inner: Arc<dyn super::stub::dynamic::NotebookService>,
 }
 
+#[cfg(feature = "notebook_service")]
 impl NotebookService {
     /// Returns a builder for [NotebookService].
     ///
@@ -7503,7 +7613,7 @@ impl NotebookService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
 /// let client = PersistentResourceService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -7537,11 +7647,13 @@ impl NotebookService {
 /// create one and the reuse it.  You do not need to wrap `PersistentResourceService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "persistent_resource_service")]
 #[derive(Clone, Debug)]
 pub struct PersistentResourceService {
     inner: Arc<dyn super::stub::dynamic::PersistentResourceService>,
 }
 
+#[cfg(feature = "persistent_resource_service")]
 impl PersistentResourceService {
     /// Returns a builder for [PersistentResourceService].
     ///
@@ -7821,7 +7933,7 @@ impl PersistentResourceService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::PipelineService;
 /// let client = PipelineService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -7857,11 +7969,13 @@ impl PersistentResourceService {
 /// create one and the reuse it.  You do not need to wrap `PipelineService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "pipeline_service")]
 #[derive(Clone, Debug)]
 pub struct PipelineService {
     inner: Arc<dyn super::stub::dynamic::PipelineService>,
 }
 
+#[cfg(feature = "pipeline_service")]
 impl PipelineService {
     /// Returns a builder for [PipelineService].
     ///
@@ -8228,7 +8342,7 @@ impl PipelineService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::PredictionService;
 /// let client = PredictionService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -8262,11 +8376,13 @@ impl PipelineService {
 /// create one and the reuse it.  You do not need to wrap `PredictionService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "prediction_service")]
 #[derive(Clone, Debug)]
 pub struct PredictionService {
     inner: Arc<dyn super::stub::dynamic::PredictionService>,
 }
 
+#[cfg(feature = "prediction_service")]
 impl PredictionService {
     /// Returns a builder for [PredictionService].
     ///
@@ -8525,7 +8641,7 @@ impl PredictionService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
 /// let client = ReasoningEngineExecutionService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -8559,11 +8675,13 @@ impl PredictionService {
 /// create one and the reuse it.  You do not need to wrap `ReasoningEngineExecutionService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "reasoning_engine_execution_service")]
 #[derive(Clone, Debug)]
 pub struct ReasoningEngineExecutionService {
     inner: Arc<dyn super::stub::dynamic::ReasoningEngineExecutionService>,
 }
 
+#[cfg(feature = "reasoning_engine_execution_service")]
 impl ReasoningEngineExecutionService {
     /// Returns a builder for [ReasoningEngineExecutionService].
     ///
@@ -8752,7 +8870,7 @@ impl ReasoningEngineExecutionService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
 /// let client = ReasoningEngineService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -8786,11 +8904,13 @@ impl ReasoningEngineExecutionService {
 /// create one and the reuse it.  You do not need to wrap `ReasoningEngineService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "reasoning_engine_service")]
 #[derive(Clone, Debug)]
 pub struct ReasoningEngineService {
     inner: Arc<dyn super::stub::dynamic::ReasoningEngineService>,
 }
 
+#[cfg(feature = "reasoning_engine_service")]
 impl ReasoningEngineService {
     /// Returns a builder for [ReasoningEngineService].
     ///
@@ -9041,7 +9161,7 @@ impl ReasoningEngineService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::ScheduleService;
 /// let client = ScheduleService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -9076,11 +9196,13 @@ impl ReasoningEngineService {
 /// create one and the reuse it.  You do not need to wrap `ScheduleService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "schedule_service")]
 #[derive(Clone, Debug)]
 pub struct ScheduleService {
     inner: Arc<dyn super::stub::dynamic::ScheduleService>,
 }
 
+#[cfg(feature = "schedule_service")]
 impl ScheduleService {
     /// Returns a builder for [ScheduleService].
     ///
@@ -9349,7 +9471,7 @@ impl ScheduleService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
 /// let client = SpecialistPoolService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -9388,11 +9510,13 @@ impl ScheduleService {
 /// create one and the reuse it.  You do not need to wrap `SpecialistPoolService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "specialist_pool_service")]
 #[derive(Clone, Debug)]
 pub struct SpecialistPoolService {
     inner: Arc<dyn super::stub::dynamic::SpecialistPoolService>,
 }
 
+#[cfg(feature = "specialist_pool_service")]
 impl SpecialistPoolService {
     /// Returns a builder for [SpecialistPoolService].
     ///
@@ -9643,7 +9767,7 @@ impl SpecialistPoolService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::TensorboardService;
 /// let client = TensorboardService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -9677,11 +9801,13 @@ impl SpecialistPoolService {
 /// create one and the reuse it.  You do not need to wrap `TensorboardService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "tensorboard_service")]
 #[derive(Clone, Debug)]
 pub struct TensorboardService {
     inner: Arc<dyn super::stub::dynamic::TensorboardService>,
 }
 
+#[cfg(feature = "tensorboard_service")]
 impl TensorboardService {
     /// Returns a builder for [TensorboardService].
     ///
@@ -10195,7 +10321,7 @@ impl TensorboardService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
 /// let client = VertexRagDataService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -10229,11 +10355,13 @@ impl TensorboardService {
 /// create one and the reuse it.  You do not need to wrap `VertexRagDataService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "vertex_rag_data_service")]
 #[derive(Clone, Debug)]
 pub struct VertexRagDataService {
     inner: Arc<dyn super::stub::dynamic::VertexRagDataService>,
 }
 
+#[cfg(feature = "vertex_rag_data_service")]
 impl VertexRagDataService {
     /// Returns a builder for [VertexRagDataService].
     ///
@@ -10549,7 +10677,7 @@ impl VertexRagDataService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::VertexRagService;
 /// let client = VertexRagService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -10583,11 +10711,13 @@ impl VertexRagDataService {
 /// create one and the reuse it.  You do not need to wrap `VertexRagService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "vertex_rag_service")]
 #[derive(Clone, Debug)]
 pub struct VertexRagService {
     inner: Arc<dyn super::stub::dynamic::VertexRagService>,
 }
 
+#[cfg(feature = "vertex_rag_service")]
 impl VertexRagService {
     /// Returns a builder for [VertexRagService].
     ///
@@ -10793,7 +10923,7 @@ impl VertexRagService {
 /// # tokio_test::block_on(async {
 /// # use google_cloud_aiplatform_v1::client::VizierService;
 /// let client = VizierService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Vertex AI API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -10831,11 +10961,13 @@ impl VertexRagService {
 /// create one and the reuse it.  You do not need to wrap `VizierService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
+#[cfg(feature = "vizier_service")]
 #[derive(Clone, Debug)]
 pub struct VizierService {
     inner: Arc<dyn super::stub::dynamic::VizierService>,
 }
 
+#[cfg(feature = "vizier_service")]
 impl VizierService {
     /// Returns a builder for [VizierService].
     ///

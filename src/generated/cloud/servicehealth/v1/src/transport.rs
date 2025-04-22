@@ -45,7 +45,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         req: crate::model::ListEventsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListEventsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/events", req.parent))
@@ -68,7 +68,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         req: crate::model::GetEventRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Event>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -87,7 +87,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         req: crate::model::ListOrganizationEventsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListOrganizationEventsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -113,7 +113,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         req: crate::model::GetOrganizationEventRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::OrganizationEvent>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -132,7 +132,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         req: crate::model::ListOrganizationImpactsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListOrganizationImpactsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -157,7 +157,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         req: crate::model::GetOrganizationImpactRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::OrganizationImpact>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -176,7 +176,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -198,7 +198,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))

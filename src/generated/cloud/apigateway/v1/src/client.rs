@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
 /// let client = ApiGatewayService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the API Gateway API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

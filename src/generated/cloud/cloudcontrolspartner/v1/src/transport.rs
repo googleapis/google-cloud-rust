@@ -45,7 +45,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         req: crate::model::GetWorkloadRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Workload>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -64,7 +64,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         req: crate::model::ListWorkloadsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListWorkloadsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -90,7 +90,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         req: crate::model::GetCustomerRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Customer>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -109,7 +109,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         req: crate::model::ListCustomersRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCustomersResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -135,7 +135,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         req: crate::model::GetEkmConnectionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EkmConnections>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -154,7 +154,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         req: crate::model::GetPartnerPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PartnerPermissions>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -173,7 +173,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         req: crate::model::ListAccessApprovalRequestsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAccessApprovalRequestsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -199,7 +199,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         req: crate::model::GetPartnerRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Partner>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -241,7 +241,7 @@ impl super::stub::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitor
         req: crate::model::ListViolationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListViolationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -277,7 +277,7 @@ impl super::stub::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitor
         req: crate::model::GetViolationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Violation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))

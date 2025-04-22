@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
 /// let client = Lineage::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Data Lineage API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

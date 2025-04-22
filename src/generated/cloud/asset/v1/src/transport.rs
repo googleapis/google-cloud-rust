@@ -45,7 +45,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::ExportAssetsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -65,7 +65,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::ListAssetsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAssetsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/assets", req.parent))
@@ -104,7 +104,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::BatchGetAssetsHistoryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchGetAssetsHistoryResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -144,7 +144,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::CreateFeedRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Feed>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/feeds", req.parent))
@@ -161,7 +161,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::GetFeedRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Feed>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -180,7 +180,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::ListFeedsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListFeedsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/feeds", req.parent))
@@ -199,7 +199,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::UpdateFeedRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Feed>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -225,7 +225,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::DeleteFeedRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -248,7 +248,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::SearchAllResourcesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchAllResourcesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -284,7 +284,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::SearchAllIamPoliciesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchAllIamPoliciesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -314,7 +314,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::AnalyzeIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeIamPolicyResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -363,7 +363,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::AnalyzeIamPolicyLongrunningRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -389,7 +389,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::AnalyzeMoveRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeMoveResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -413,7 +413,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::QueryAssetsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QueryAssetsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -433,7 +433,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::CreateSavedQueryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SavedQuery>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -456,7 +456,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::GetSavedQueryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SavedQuery>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -475,7 +475,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::ListSavedQueriesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSavedQueriesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -500,7 +500,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::UpdateSavedQueryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SavedQuery>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -534,7 +534,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::DeleteSavedQueryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -557,7 +557,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::BatchGetEffectiveIamPoliciesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchGetEffectiveIamPoliciesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -583,7 +583,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::AnalyzeOrgPoliciesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPoliciesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -613,7 +613,7 @@ impl super::stub::AssetService for AssetService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>>
     {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -642,7 +642,7 @@ impl super::stub::AssetService for AssetService {
         req: crate::model::AnalyzeOrgPolicyGovernedAssetsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -671,7 +671,7 @@ impl super::stub::AssetService for AssetService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))

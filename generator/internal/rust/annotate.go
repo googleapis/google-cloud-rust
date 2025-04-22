@@ -32,7 +32,6 @@ type modelAnnotations struct {
 	PackageNamespace string
 	RequiredPackages []string
 	ExternPackages   []string
-	HasServices      bool
 	HasLROs          bool
 	CopyrightYear    string
 	BoilerPlate      []string
@@ -54,6 +53,13 @@ type modelAnnotations struct {
 	DisabledRustdocWarnings []string
 	// Sets the default system parameters
 	DefaultSystemParameters []systemParameter
+	// Enables per-service features
+	PerServiceFeatures bool
+}
+
+// HasServices returns true if there are any services in the model
+func (m *modelAnnotations) HasServices() bool {
+	return len(m.Services) > 0
 }
 
 type serviceAnnotations struct {
@@ -74,6 +80,8 @@ type serviceAnnotations struct {
 	// If true, this service includes methods that return long-running operations.
 	HasLROs  bool
 	APITitle string
+	// If set, gate this service under a feature named `ModuleName`.
+	PerServiceFeatures bool
 }
 
 type messageAnnotation struct {
@@ -285,7 +293,6 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 		ReleaseLevel:     codec.releaseLevel,
 		RequiredPackages: requiredPackages(codec.extraPackages),
 		ExternPackages:   externPackages(codec.extraPackages),
-		HasServices:      len(servicesSubset) > 0,
 		HasLROs:          hasLROs,
 		CopyrightYear:    codec.generationYear,
 		BoilerPlate: append(license.LicenseHeaderBulk(),
@@ -298,6 +305,7 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 		NotForPublication:       codec.doNotPublish,
 		IsWktCrate:              model.PackageName == "google.protobuf",
 		DisabledRustdocWarnings: codec.disabledRustdocWarnings,
+		PerServiceFeatures:      codec.perServiceFeatures && len(servicesSubset) > 0,
 	}
 
 	model.Codec = ann
@@ -326,10 +334,11 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 		ModuleName:        toSnake(s.Name),
 		DocLines: c.formatDocComments(
 			s.Documentation, s.ID, model.State, []string{s.ID, s.Package}),
-		Methods:     methods,
-		DefaultHost: s.DefaultHost,
-		HasLROs:     hasLROs,
-		APITitle:    model.Title,
+		Methods:            methods,
+		DefaultHost:        s.DefaultHost,
+		HasLROs:            hasLROs,
+		APITitle:           model.Title,
+		PerServiceFeatures: c.perServiceFeatures,
 	}
 	s.Codec = ann
 }
@@ -550,4 +559,12 @@ func (c *codec) annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.API
 		Name:     enumValueName(ev),
 		EnumType: enumName(e),
 	}
+}
+
+// Returns "true" if the method is idempotent by default, and "false", if not.
+func (p *pathInfoAnnotation) IsIdempotent() string {
+	if p.Method == "GET" || p.Method == "PUT" || p.Method == "DELETE" {
+		return "true"
+	}
+	return "false"
 }

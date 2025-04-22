@@ -45,7 +45,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::CreateApiRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Api>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/apis", req.parent))
@@ -63,7 +63,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::GetApiRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Api>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -82,7 +82,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::ListApisRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListApisResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/apis", req.parent))
@@ -104,7 +104,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::UpdateApiRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Api>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -136,7 +136,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::DeleteApiRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -160,7 +160,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::CreateVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Version>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -183,7 +183,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::GetVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Version>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -202,7 +202,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::ListVersionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListVersionsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/versions", req.parent))
@@ -224,7 +224,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::UpdateVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Version>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -258,7 +258,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -282,7 +282,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::CreateSpecRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Spec>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}/specs", req.parent))
@@ -300,7 +300,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::GetSpecRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Spec>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -319,7 +319,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::GetSpecContentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SpecContents>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}:contents", req.name))
@@ -338,7 +338,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::ListSpecsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSpecsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/specs", req.parent))
@@ -360,7 +360,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::UpdateSpecRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Spec>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -392,7 +392,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::DeleteSpecRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -415,7 +415,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::GetApiOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ApiOperation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -434,7 +434,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::ListApiOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListApiOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -459,7 +459,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::GetDefinitionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Definition>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -478,7 +478,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::CreateDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -501,7 +501,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::GetDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -520,7 +520,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::ListDeploymentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDeploymentsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -545,7 +545,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::UpdateDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Deployment>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -579,7 +579,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::DeleteDeploymentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -602,7 +602,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::CreateAttributeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Attribute>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -625,7 +625,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::GetAttributeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Attribute>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -644,7 +644,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::UpdateAttributeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Attribute>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -678,7 +678,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::DeleteAttributeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -701,7 +701,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::ListAttributesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAttributesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -726,7 +726,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::SearchResourcesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchResourcesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -746,7 +746,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::CreateExternalApiRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ExternalApi>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -769,7 +769,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::GetExternalApiRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ExternalApi>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -788,7 +788,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::UpdateExternalApiRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ExternalApi>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -822,7 +822,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::DeleteExternalApiRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -845,7 +845,7 @@ impl super::stub::ApiHub for ApiHub {
         req: crate::model::ListExternalApisRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListExternalApisResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -869,7 +869,7 @@ impl super::stub::ApiHub for ApiHub {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -891,7 +891,7 @@ impl super::stub::ApiHub for ApiHub {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -910,7 +910,7 @@ impl super::stub::ApiHub for ApiHub {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -932,7 +932,7 @@ impl super::stub::ApiHub for ApiHub {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -951,7 +951,7 @@ impl super::stub::ApiHub for ApiHub {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -974,7 +974,7 @@ impl super::stub::ApiHub for ApiHub {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
@@ -1019,7 +1019,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         req: crate::model::CreateDependencyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dependency>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1042,7 +1042,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         req: crate::model::GetDependencyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dependency>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1061,7 +1061,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         req: crate::model::UpdateDependencyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dependency>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1095,7 +1095,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         req: crate::model::DeleteDependencyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -1118,7 +1118,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         req: crate::model::ListDependenciesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDependenciesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -1143,7 +1143,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -1165,7 +1165,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1184,7 +1184,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -1206,7 +1206,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1225,7 +1225,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -1248,7 +1248,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
@@ -1293,7 +1293,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         req: crate::model::CreateHostProjectRegistrationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::HostProjectRegistration>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1319,7 +1319,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         req: crate::model::GetHostProjectRegistrationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::HostProjectRegistration>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1338,7 +1338,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         req: crate::model::ListHostProjectRegistrationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListHostProjectRegistrationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -1364,7 +1364,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -1386,7 +1386,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1405,7 +1405,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -1427,7 +1427,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1446,7 +1446,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -1469,7 +1469,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
@@ -1514,7 +1514,7 @@ impl super::stub::LintingService for LintingService {
         req: crate::model::GetStyleGuideRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::StyleGuide>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1533,7 +1533,7 @@ impl super::stub::LintingService for LintingService {
         req: crate::model::UpdateStyleGuideRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::StyleGuide>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1567,7 +1567,7 @@ impl super::stub::LintingService for LintingService {
         req: crate::model::GetStyleGuideContentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::StyleGuideContents>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}:contents", req.name))
@@ -1586,7 +1586,7 @@ impl super::stub::LintingService for LintingService {
         req: crate::model::LintSpecRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:lint", req.name))
@@ -1608,7 +1608,7 @@ impl super::stub::LintingService for LintingService {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -1630,7 +1630,7 @@ impl super::stub::LintingService for LintingService {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1649,7 +1649,7 @@ impl super::stub::LintingService for LintingService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -1671,7 +1671,7 @@ impl super::stub::LintingService for LintingService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1690,7 +1690,7 @@ impl super::stub::LintingService for LintingService {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -1713,7 +1713,7 @@ impl super::stub::LintingService for LintingService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
@@ -1758,7 +1758,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         req: crate::model::GetPluginRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Plugin>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1777,7 +1777,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         req: crate::model::EnablePluginRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Plugin>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:enable", req.name))
@@ -1794,7 +1794,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         req: crate::model::DisablePluginRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Plugin>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:disable", req.name))
@@ -1811,7 +1811,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -1833,7 +1833,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1852,7 +1852,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -1874,7 +1874,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -1893,7 +1893,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -1916,7 +1916,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
@@ -1961,7 +1961,7 @@ impl super::stub::Provisioning for Provisioning {
         req: crate::model::CreateApiHubInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -1984,7 +1984,7 @@ impl super::stub::Provisioning for Provisioning {
         req: crate::model::GetApiHubInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ApiHubInstance>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -2003,7 +2003,7 @@ impl super::stub::Provisioning for Provisioning {
         req: crate::model::LookupApiHubInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::LookupApiHubInstanceResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -2025,7 +2025,7 @@ impl super::stub::Provisioning for Provisioning {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -2047,7 +2047,7 @@ impl super::stub::Provisioning for Provisioning {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -2066,7 +2066,7 @@ impl super::stub::Provisioning for Provisioning {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -2088,7 +2088,7 @@ impl super::stub::Provisioning for Provisioning {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -2107,7 +2107,7 @@ impl super::stub::Provisioning for Provisioning {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -2130,7 +2130,7 @@ impl super::stub::Provisioning for Provisioning {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))
@@ -2189,7 +2189,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         req: crate::model::CreateRuntimeProjectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RuntimeProjectAttachment>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -2215,7 +2215,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         req: crate::model::GetRuntimeProjectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RuntimeProjectAttachment>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -2234,7 +2234,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         req: crate::model::ListRuntimeProjectAttachmentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRuntimeProjectAttachmentsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -2260,7 +2260,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         req: crate::model::DeleteRuntimeProjectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -2283,7 +2283,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         req: crate::model::LookupRuntimeProjectAttachmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::LookupRuntimeProjectAttachmentResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -2305,7 +2305,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -2327,7 +2327,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -2346,7 +2346,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -2368,7 +2368,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -2387,7 +2387,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -2410,7 +2410,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))

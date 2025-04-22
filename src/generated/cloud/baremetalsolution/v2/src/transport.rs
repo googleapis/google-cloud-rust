@@ -45,7 +45,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListInstancesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -70,7 +70,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Instance>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
@@ -89,7 +89,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::UpdateInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -123,7 +123,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::RenameInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Instance>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:rename", req.name))
@@ -140,7 +140,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::ResetInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:reset", req.name))
@@ -157,7 +157,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::StartInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:start", req.name))
@@ -174,7 +174,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::StopInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:stop", req.name))
@@ -191,7 +191,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::EnableInteractiveSerialConsoleRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -211,7 +211,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::DisableInteractiveSerialConsoleRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -231,7 +231,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::DetachLunRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -251,7 +251,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::ListSSHKeysRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSSHKeysResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/sshKeys", req.parent))
@@ -272,7 +272,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::CreateSSHKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SSHKey>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}/sshKeys", req.parent))
@@ -292,7 +292,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::DeleteSSHKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
@@ -315,7 +315,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::ListVolumesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListVolumesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/volumes", req.parent))
@@ -337,7 +337,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::GetVolumeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Volume>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
@@ -356,7 +356,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::UpdateVolumeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -388,7 +388,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::RenameVolumeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Volume>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:rename", req.name))
@@ -405,7 +405,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::EvictVolumeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:evict", req.name))
@@ -422,7 +422,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::ResizeVolumeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:resize", req.volume))
@@ -439,7 +439,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::ListNetworksRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListNetworksResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/networks", req.parent))
@@ -461,7 +461,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::ListNetworkUsageRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListNetworkUsageResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -483,7 +483,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::GetNetworkRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Network>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
@@ -502,7 +502,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::UpdateNetworkRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -536,7 +536,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::CreateVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::VolumeSnapshot>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -558,7 +558,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::RestoreVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -578,7 +578,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::DeleteVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
@@ -601,7 +601,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::GetVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::VolumeSnapshot>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
@@ -620,7 +620,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::ListVolumeSnapshotsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListVolumeSnapshotsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -644,7 +644,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::GetLunRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Lun>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
@@ -663,7 +663,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::ListLunsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListLunsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/luns", req.parent))
@@ -684,7 +684,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::EvictLunRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:evict", req.name))
@@ -701,7 +701,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::GetNfsShareRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NfsShare>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
@@ -720,7 +720,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::ListNfsSharesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListNfsSharesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -745,7 +745,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::UpdateNfsShareRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -779,7 +779,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::CreateNfsShareRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -801,7 +801,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::RenameNfsShareRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NfsShare>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:rename", req.name))
@@ -818,7 +818,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::DeleteNfsShareRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
@@ -837,7 +837,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::ListProvisioningQuotasRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListProvisioningQuotasResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -861,7 +861,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::SubmitProvisioningConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SubmitProvisioningConfigResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -881,7 +881,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::GetProvisioningConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ProvisioningConfig>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
@@ -900,7 +900,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::CreateProvisioningConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ProvisioningConfig>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -923,7 +923,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::UpdateProvisioningConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ProvisioningConfig>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -958,7 +958,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::RenameNetworkRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Network>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:rename", req.name))
@@ -975,7 +975,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: crate::model::ListOSImagesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListOSImagesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/osImages", req.parent))
@@ -996,7 +996,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/locations", req.name))
@@ -1018,7 +1018,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
@@ -1037,7 +1037,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))

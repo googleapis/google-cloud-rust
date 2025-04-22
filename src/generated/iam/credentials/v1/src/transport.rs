@@ -45,7 +45,7 @@ impl super::stub::IAMCredentials for IAMCredentials {
         req: crate::model::GenerateAccessTokenRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -65,7 +65,7 @@ impl super::stub::IAMCredentials for IAMCredentials {
         req: crate::model::GenerateIdTokenRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateIdTokenResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -85,7 +85,7 @@ impl super::stub::IAMCredentials for IAMCredentials {
         req: crate::model::SignBlobRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SignBlobResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:signBlob", req.name))
@@ -102,7 +102,7 @@ impl super::stub::IAMCredentials for IAMCredentials {
         req: crate::model::SignJwtRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SignJwtResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:signJwt", req.name))

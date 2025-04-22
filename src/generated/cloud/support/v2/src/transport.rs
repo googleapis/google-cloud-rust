@@ -45,7 +45,7 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
         req: crate::model::ListAttachmentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAttachmentsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -92,7 +92,7 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::GetCaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
@@ -111,7 +111,7 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::ListCasesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCasesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/cases", req.parent))
@@ -133,7 +133,7 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::SearchCasesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchCasesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -158,7 +158,7 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::CreateCaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}/cases", req.parent))
@@ -175,7 +175,7 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::UpdateCaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -207,7 +207,7 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::EscalateCaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:escalate", req.name))
@@ -224,7 +224,7 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::CloseCaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:close", req.name))
@@ -241,7 +241,7 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::SearchCaseClassificationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchCaseClassificationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -289,7 +289,7 @@ impl super::stub::CommentService for CommentService {
         req: crate::model::ListCommentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCommentsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/comments", req.parent))
@@ -310,7 +310,7 @@ impl super::stub::CommentService for CommentService {
         req: crate::model::CreateCommentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Comment>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(

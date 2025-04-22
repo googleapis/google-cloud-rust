@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
 /// let client = StorageBatchOperations::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Storage Batch Operations API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

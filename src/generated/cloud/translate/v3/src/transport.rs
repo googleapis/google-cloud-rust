@@ -45,7 +45,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::TranslateTextRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TranslateTextResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -65,7 +65,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::RomanizeTextRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RomanizeTextResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -85,7 +85,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::DetectLanguageRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DetectLanguageResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -105,7 +105,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::GetSupportedLanguagesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SupportedLanguages>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -129,7 +129,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::TranslateDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TranslateDocumentResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -149,7 +149,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::BatchTranslateTextRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -169,7 +169,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::BatchTranslateDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -189,7 +189,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::CreateGlossaryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -211,7 +211,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::UpdateGlossaryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -245,7 +245,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::ListGlossariesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListGlossariesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -270,7 +270,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::GetGlossaryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Glossary>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -289,7 +289,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::DeleteGlossaryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -308,7 +308,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::GetGlossaryEntryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GlossaryEntry>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -327,7 +327,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::ListGlossaryEntriesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListGlossaryEntriesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -351,7 +351,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::CreateGlossaryEntryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GlossaryEntry>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -373,7 +373,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::UpdateGlossaryEntryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GlossaryEntry>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -401,7 +401,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::DeleteGlossaryEntryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -424,7 +424,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::CreateDatasetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -446,7 +446,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::GetDatasetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Dataset>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -465,7 +465,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::ListDatasetsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDatasetsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}/datasets", req.parent))
@@ -486,7 +486,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::DeleteDatasetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -505,7 +505,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::CreateAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AdaptiveMtDataset>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -527,7 +527,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::DeleteAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -550,7 +550,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::GetAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AdaptiveMtDataset>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -569,7 +569,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::ListAdaptiveMtDatasetsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAdaptiveMtDatasetsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -594,7 +594,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::AdaptiveMtTranslateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AdaptiveMtTranslateResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -614,7 +614,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::GetAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AdaptiveMtFile>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -633,7 +633,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::DeleteAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -656,7 +656,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::ImportAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ImportAdaptiveMtFileResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -676,7 +676,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::ListAdaptiveMtFilesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAdaptiveMtFilesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -700,7 +700,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::ListAdaptiveMtSentencesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAdaptiveMtSentencesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -724,7 +724,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::ImportDataRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -744,7 +744,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::ExportDataRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -764,7 +764,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::ListExamplesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListExamplesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}/examples", req.parent))
@@ -786,7 +786,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::CreateModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v3/{}/models", req.parent))
@@ -803,7 +803,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::ListModelsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListModelsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}/models", req.parent))
@@ -825,7 +825,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::GetModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Model>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -844,7 +844,7 @@ impl super::stub::TranslationService for TranslationService {
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -863,7 +863,7 @@ impl super::stub::TranslationService for TranslationService {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}/locations", req.name))
@@ -885,7 +885,7 @@ impl super::stub::TranslationService for TranslationService {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -904,7 +904,7 @@ impl super::stub::TranslationService for TranslationService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}/operations", req.name))
@@ -926,7 +926,7 @@ impl super::stub::TranslationService for TranslationService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v3/{}", req.name))
@@ -945,7 +945,7 @@ impl super::stub::TranslationService for TranslationService {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v3/{}", req.name))
@@ -968,7 +968,7 @@ impl super::stub::TranslationService for TranslationService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v3/{}:cancel", req.name))
@@ -990,7 +990,7 @@ impl super::stub::TranslationService for TranslationService {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v3/{}:wait", req.name))

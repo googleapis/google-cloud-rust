@@ -91,6 +91,7 @@ mod test {
         let retry_policy = Aip194Strict.with_attempt_limit(retry_count as u32);
         let client = echo_server::builder(endpoint)
             .with_credentials(Credentials::from(mock))
+            .with_backoff_policy(test_backoff())
             .with_retry_policy(retry_policy)
             .build()
             .await?;
@@ -161,15 +162,21 @@ mod test {
         Ok(())
     }
 
+    fn test_backoff() -> impl gax::backoff_policy::BackoffPolicy {
+        use std::time::Duration;
+        gax::exponential_backoff::ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_micros(1))
+            .with_maximum_delay(Duration::from_micros(1))
+            .build()
+            .expect("a valid backoff policy")
+    }
+
     fn get_header_value(response: &serde_json::Value, name: &str) -> Option<String> {
         response
             .as_object()
-            .map(|o| o.get("headers"))
-            .flatten()
-            .map(|h| h.get(name))
-            .flatten()
-            .map(|v| v.as_str())
-            .flatten()
+            .and_then(|o| o.get("headers"))
+            .and_then(|h| h.get(name))
+            .and_then(|v| v.as_str())
             .map(str::to_string)
     }
 }

@@ -45,7 +45,7 @@ impl super::stub::CloudBilling for CloudBilling {
         req: crate::model::GetBillingAccountRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -64,7 +64,7 @@ impl super::stub::CloudBilling for CloudBilling {
         req: crate::model::ListBillingAccountsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBillingAccountsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, "/v1/billingAccounts".to_string())
@@ -87,7 +87,7 @@ impl super::stub::CloudBilling for CloudBilling {
         req: crate::model::UpdateBillingAccountRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, format!("/v1/{}", req.name))
@@ -112,7 +112,7 @@ impl super::stub::CloudBilling for CloudBilling {
         req: crate::model::CreateBillingAccountRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, "/v1/billingAccounts".to_string())
@@ -132,7 +132,7 @@ impl super::stub::CloudBilling for CloudBilling {
         req: crate::model::ListProjectBillingInfoRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListProjectBillingInfoResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/projects", req.name))
@@ -153,7 +153,7 @@ impl super::stub::CloudBilling for CloudBilling {
         req: crate::model::GetProjectBillingInfoRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ProjectBillingInfo>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -175,7 +175,7 @@ impl super::stub::CloudBilling for CloudBilling {
         req: crate::model::UpdateProjectBillingInfoRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ProjectBillingInfo>> {
-        let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -197,7 +197,7 @@ impl super::stub::CloudBilling for CloudBilling {
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -229,7 +229,7 @@ impl super::stub::CloudBilling for CloudBilling {
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -249,7 +249,7 @@ impl super::stub::CloudBilling for CloudBilling {
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -269,7 +269,7 @@ impl super::stub::CloudBilling for CloudBilling {
         req: crate::model::MoveBillingAccountRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:move", req.name))
@@ -309,7 +309,7 @@ impl super::stub::CloudCatalog for CloudCatalog {
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListServicesResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, "/v1/services".to_string())
@@ -330,7 +330,7 @@ impl super::stub::CloudCatalog for CloudCatalog {
         req: crate::model::ListSkusRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSkusResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/skus", req.parent))

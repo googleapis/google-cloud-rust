@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_deploy_v1::client::CloudDeploy;
 /// let client = CloudDeploy::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Cloud Deploy API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

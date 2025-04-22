@@ -45,7 +45,7 @@ impl super::stub::ConnectionService for ConnectionService {
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Connection>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -68,7 +68,7 @@ impl super::stub::ConnectionService for ConnectionService {
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Connection>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -87,7 +87,7 @@ impl super::stub::ConnectionService for ConnectionService {
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -111,7 +111,7 @@ impl super::stub::ConnectionService for ConnectionService {
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Connection>> {
-        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::PATCH, format!("/v1/{}", req.name))
@@ -136,7 +136,7 @@ impl super::stub::ConnectionService for ConnectionService {
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -159,7 +159,7 @@ impl super::stub::ConnectionService for ConnectionService {
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -179,7 +179,7 @@ impl super::stub::ConnectionService for ConnectionService {
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -199,7 +199,7 @@ impl super::stub::ConnectionService for ConnectionService {
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(

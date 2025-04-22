@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_accessapproval_v1::client::AccessApproval;
 /// let client = AccessApproval::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Access Approval API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

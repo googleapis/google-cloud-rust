@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
 /// let client = DataTransferService::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the BigQuery Data Transfer API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

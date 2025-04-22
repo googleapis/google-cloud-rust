@@ -45,7 +45,7 @@ impl super::stub::MigrationService for MigrationService {
         req: crate::model::CreateMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::MigrationWorkflow>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -67,7 +67,7 @@ impl super::stub::MigrationService for MigrationService {
         req: crate::model::GetMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::MigrationWorkflow>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
@@ -92,7 +92,7 @@ impl super::stub::MigrationService for MigrationService {
         req: crate::model::ListMigrationWorkflowsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListMigrationWorkflowsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -122,7 +122,7 @@ impl super::stub::MigrationService for MigrationService {
         req: crate::model::DeleteMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v2/{}", req.name))
@@ -145,7 +145,7 @@ impl super::stub::MigrationService for MigrationService {
         req: crate::model::StartMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v2/{}:start", req.name))
@@ -167,7 +167,7 @@ impl super::stub::MigrationService for MigrationService {
         req: crate::model::GetMigrationSubtaskRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::MigrationSubtask>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}", req.name))
@@ -192,7 +192,7 @@ impl super::stub::MigrationService for MigrationService {
         req: crate::model::ListMigrationSubtasksRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListMigrationSubtasksResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v2/{}/subtasks", req.parent))

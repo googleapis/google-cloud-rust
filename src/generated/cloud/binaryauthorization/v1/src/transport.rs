@@ -45,7 +45,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         req: crate::model::GetPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -64,7 +64,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         req: crate::model::UpdatePolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -90,7 +90,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         req: crate::model::CreateAttestorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Attestor>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(
@@ -113,7 +113,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         req: crate::model::GetAttestorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Attestor>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -132,7 +132,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         req: crate::model::UpdateAttestorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Attestor>> {
-        let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -160,7 +160,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         req: crate::model::ListAttestorsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAttestorsResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(
@@ -184,7 +184,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         req: crate::model::DeleteAttestorRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -230,7 +230,7 @@ impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
         req: crate::model::GetSystemPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Policy>> {
-        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -272,7 +272,7 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
         req: crate::model::ValidateAttestationOccurrenceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>> {
-        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let options = gax::options::internal::set_default_idempotency(options, false);
         let builder = self
             .inner
             .builder(

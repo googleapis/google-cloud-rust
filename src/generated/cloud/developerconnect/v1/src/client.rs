@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
 /// let client = DeveloperConnect::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Developer Connect API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

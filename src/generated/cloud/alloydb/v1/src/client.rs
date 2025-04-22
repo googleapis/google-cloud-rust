@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
 /// let client = AlloyDBAdmin::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the AlloyDB API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///

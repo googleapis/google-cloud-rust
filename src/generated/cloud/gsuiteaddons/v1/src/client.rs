@@ -26,7 +26,7 @@ use std::sync::Arc;
 /// # tokio_test::block_on(async {
 /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
 /// let client = GSuiteAddOns::builder().build().await?;
-/// // use `client` to make requests to the {Codec.APITitle}}.
+/// // use `client` to make requests to the Google Workspace add-ons API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
