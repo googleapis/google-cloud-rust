@@ -102,7 +102,18 @@ pub struct Builder {
 impl Builder {
     /// Sets the endpoint for this credentials.
     ///
-    /// If not set, the credentials use `http://metadata.google.internal/`.
+    /// A trailing slash is significant, so specify the base URL without a trailing  
+    /// slash. If not set, the credentials use `http://metadata.google.internal`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::mds::Builder;
+    /// # tokio_test::block_on(async {
+    /// let credentials = Builder::default()
+    ///     .with_endpoint("https://metadata.google.foobar")
+    ///     .build();
+    /// # });
+    /// ```
     pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
         self
