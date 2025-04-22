@@ -47,7 +47,7 @@ func parseRoutingAnnotations(methodID string, m *descriptorpb.MethodDescriptorPr
 			collect[new.Name] = new
 			continue
 		}
-		current.Variants = append(current.Variants, new.Variants...)
+		current.Variants = append(new.Variants, current.Variants...)
 	}
 	if len(errs) != 0 {
 		return nil, errors.Join(errs...)
@@ -74,14 +74,12 @@ func parseRoutingPathTemplate(fieldName, pathTemplate string) (*api.RoutingInfo,
 		// AIP-4222: empty routing infos mean something special.
 		info := &api.RoutingInfo{
 			Name: fieldName,
-			Variants: []*api.RoutingInfoVariant{
-				{
-					FieldPath: []string{},
-					Matching: api.RoutingPathSpec{
-						Segments: []string{},
-					},
+			Variants: []*api.RoutingInfoVariant{{
+				FieldPath: []string{},
+				Matching: api.RoutingPathSpec{
+					Segments: []string{},
 				},
-			},
+			}},
 		}
 		return info, nil
 	}
@@ -89,14 +87,12 @@ func parseRoutingPathTemplate(fieldName, pathTemplate string) (*api.RoutingInfo,
 	if pathTemplate == "" {
 		info := &api.RoutingInfo{
 			Name: fieldName,
-			Variants: []*api.RoutingInfoVariant{
-				{
-					FieldPath: fieldPath,
-					Matching: api.RoutingPathSpec{
-						Segments: []string{api.RoutingMultiSegmentWildcard},
-					},
+			Variants: []*api.RoutingInfoVariant{{
+				FieldPath: fieldPath,
+				Matching: api.RoutingPathSpec{
+					Segments: []string{api.RoutingMultiSegmentWildcard},
 				},
-			},
+			}},
 		}
 		return info, nil
 	}
@@ -142,14 +138,12 @@ func parseRoutingPathTemplate(fieldName, pathTemplate string) (*api.RoutingInfo,
 	}
 	info := &api.RoutingInfo{
 		Name: name,
-		Variants: []*api.RoutingInfoVariant{
-			{
-				FieldPath: fieldPath,
-				Prefix:    prefix,
-				Matching:  match,
-				Suffix:    suffix,
-			},
-		},
+		Variants: []*api.RoutingInfoVariant{{
+			FieldPath: fieldPath,
+			Prefix:    prefix,
+			Matching:  match,
+			Suffix:    suffix,
+		}},
 	}
 	return info, nil
 }
