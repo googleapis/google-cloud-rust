@@ -4943,6 +4943,7 @@ dependencies = [
 name = "integration-tests"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
  "bytes",
  "crc32c",
  "futures",
