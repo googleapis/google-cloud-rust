@@ -19,11 +19,18 @@ limitations under the License.
 {{/Codec.BoilerPlate}}
 {{#Codec.HasLROs}}
 
+{{#Codec.PerServiceFeatures}}
+{{! When using per-service features this may be used or not depending on what services use LROs }}
+#[allow(unused_imports)]
+{{/Codec.PerServiceFeatures}}
 use std::sync::Arc;
 {{/Codec.HasLROs}}
 {{#Codec.Services}}
 
 /// A dyn-compatible, crate-private version of [super::{{Codec.Name}}].
+{{#Codec.PerServiceFeatures}}
+#[cfg(feature = "{{Codec.ModuleName}}")]
+{{/Codec.PerServiceFeatures}}
 #[async_trait::async_trait]
 pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
     {{#Codec.Methods}}
@@ -48,6 +55,9 @@ pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
 }
 
 /// All implementations of [super::{{Codec.Name}}] also implement [{{Codec.Name}}].
+{{#Codec.PerServiceFeatures}}
+#[cfg(feature = "{{Codec.ModuleName}}")]
+{{/Codec.PerServiceFeatures}}
 #[async_trait::async_trait]
 impl<T: super::{{Codec.Name}}> {{Codec.Name}} for T {
     {{#Codec.Methods}}

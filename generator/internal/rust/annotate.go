@@ -80,6 +80,8 @@ type serviceAnnotations struct {
 	// If true, this service includes methods that return long-running operations.
 	HasLROs  bool
 	APITitle string
+	// If set, gate this service under a feature named `ModuleName`.
+	PerServiceFeatures bool
 }
 
 type messageAnnotation struct {
@@ -332,10 +334,11 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 		ModuleName:        toSnake(s.Name),
 		DocLines: c.formatDocComments(
 			s.Documentation, s.ID, model.State, []string{s.ID, s.Package}),
-		Methods:     methods,
-		DefaultHost: s.DefaultHost,
-		HasLROs:     hasLROs,
-		APITitle:    model.Title,
+		Methods:            methods,
+		DefaultHost:        s.DefaultHost,
+		HasLROs:            hasLROs,
+		APITitle:           model.Title,
+		PerServiceFeatures: c.perServiceFeatures,
 	}
 	s.Codec = ann
 }

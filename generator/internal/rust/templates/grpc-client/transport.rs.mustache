@@ -19,14 +19,28 @@ limitations under the License.
 {{/Codec.BoilerPlate}}
 {{#Codec.HasServices}}
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 use crate::Result;
-{{! Disable warnings about unused imports: sometimes there are no RPCs with query parameters and this goes unused }}
 #[allow(unused_imports)]
 use gax::error::Error;
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 use gaxi::prost::Convert;
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 const DEFAULT_HOST: &str = "https://{{Codec.DefaultHost}}";
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -45,11 +59,17 @@ mod info {
 {{/Codec.HasServices}}
 {{#Codec.Services}}
 /// Implements [{{Codec.Name}}](super::stub::{{Codec.Name}}) using a Tonic-generated client.
+{{#Codec.PerServiceFeatures}}
+#[cfg(feature = "{{Codec.ModuleName}}")]
+{{/Codec.PerServiceFeatures}}
 #[derive(Clone)]
 pub struct {{Codec.Name}} {
     inner: gaxi::grpc::Client,
 }
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 impl std::fmt::Debug for {{Codec.Name}} {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("{{Codec.Name}}")
@@ -58,6 +78,9 @@ impl std::fmt::Debug for {{Codec.Name}} {
     }
 }
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 impl {{Codec.Name}} {
     pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
@@ -65,6 +88,9 @@ impl {{Codec.Name}} {
     }
 }
 
+{{#Codec.PerServiceFeatures}}
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+{{/Codec.PerServiceFeatures}}
 impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
     {{#Codec.Methods}}
     async fn {{Codec.Name}}(

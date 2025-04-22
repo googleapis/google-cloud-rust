@@ -87,6 +87,7 @@ jobs:
         run: |
           set -e
           cargo clean
+          echo "==== google-cloud-wkt ===="
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-wkt --no-default-features
             cargo "${sub}" --package google-cloud-wkt --no-default-features --features chrono
@@ -96,6 +97,7 @@ jobs:
           cargo clippy --no-deps --package google-cloud-wkt --all-features --profile=test -- --deny warnings
 
           cargo clean
+          echo "==== google-cloud-gax ===="
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-gax --no-default-features
             cargo "${sub}" --package google-cloud-gax --no-default-features --features unstable-sdk-client
@@ -104,6 +106,7 @@ jobs:
           cargo clippy --no-deps --package google-cloud-gax --all-features --profile=test -- --deny warnings
 
           cargo clean
+          echo "==== google-cloud-gax-internal ===="
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-gax-internal --no-default-features
             cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_common
@@ -114,12 +117,23 @@ jobs:
           cargo clippy --no-deps --package google-cloud-gax-internal --all-features --profile=test -- --deny warnings
 
           cargo clean
+          echo "==== google-cloud-lro ===="
           for sub in test doc; do
-            cargo "${sub}" --package google-cloud-lro --no-default-features
-            cargo "${sub}" --package google-cloud-lro --no-default-features --features unstable-stream
-            cargo "${sub}" --package google-cloud-lro --all-features
+            cargo "${sub}" --profile=ci --package google-cloud-lro --no-default-features
+            cargo "${sub}" --profile=ci --package google-cloud-lro --no-default-features --features unstable-stream
+            cargo "${sub}" --profile=ci --package google-cloud-lro --all-features
           done
           cargo clippy --no-deps --package google-cloud-lro --all-features --profile=test -- --deny warnings
+
+          cargo clean
+          echo "==== google-cloud-aiplatform-v1 ===="
+          cargo build -p google-cloud-aiplatform-v1 --no-default-features
+          mapfile -t features < <(sed -n -e '/^default = \[/,/^\]/ p' src/generated/cloud/aiplatform/v1/Cargo.toml | sed -n -e '/",/ s/ *"\(.*\)",/\1/p')
+          for feature in "${features[@]}"; do
+            echo "==== google-cloud-aiplatform-v1 + ${feature} ===="
+            cargo build --profile=ci -p google-cloud-aiplatform-v1 --no-default-features --features "${feature}"
+          done
+
   coverage:
     runs-on: ubuntu-24.04
     strategy:
