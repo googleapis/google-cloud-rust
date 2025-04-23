@@ -11,10 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [CertificateManager]
+- [CertificateManager]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-certificatemanager-v1/latest/google-cloud-certificatemanager-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-certificatemanager-v1/latest/google-cloud-certificatemanager-v1)
 
 [CertificateManager]: https://docs.rs/google-cloud-certificatemanager-v1/latest/google_cloud_certificatemanager_v1/client/struct.CertificateManager.html

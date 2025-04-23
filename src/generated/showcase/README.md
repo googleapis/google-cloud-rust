@@ -14,16 +14,16 @@ client library generator consumption.
 
 The main types to work with this crate are the clients:
 
-* [Compliance]
-* [Echo]
-* [Identity]
-* [Messaging]
-* [SequenceService]
-* [Testing]
+- [Compliance]
+- [Echo]
+- [Identity]
+- [Messaging]
+- [SequenceService]
+- [Testing]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-showcase-v1beta1/latest/google-cloud-showcase-v1beta1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-showcase-v1beta1/latest/google-cloud-showcase-v1beta1)
 
 [Compliance]: https://docs.rs/google-cloud-showcase-v1beta1/latest/google_cloud_showcase_v1beta1/client/struct.Compliance.html
 [Echo]: https://docs.rs/google-cloud-showcase-v1beta1/latest/google_cloud_showcase_v1beta1/client/struct.Echo.html

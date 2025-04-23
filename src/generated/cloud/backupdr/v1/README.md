@@ -11,10 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [BackupDR]
+- [BackupDR]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-backupdr-v1/latest/google-cloud-backupdr-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-backupdr-v1/latest/google-cloud-backupdr-v1)
 
 [BackupDR]: https://docs.rs/google-cloud-backupdr-v1/latest/google_cloud_backupdr_v1/client/struct.BackupDR.html

@@ -9,5 +9,5 @@ APIs, documentation, missing features, bugs, etc.
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-recommender-logging-v1/latest/google-cloud-recommender-logging-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-recommender-logging-v1/latest/google-cloud-recommender-logging-v1)
 

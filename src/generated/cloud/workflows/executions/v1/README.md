@@ -13,10 +13,10 @@ Execute workflows created with Workflows API.
 
 The main types to work with this crate are the clients:
 
-* [Executions]
+- [Executions]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-workflows-executions-v1/latest/google-cloud-workflows-executions-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-workflows-executions-v1/latest/google-cloud-workflows-executions-v1)
 
 [Executions]: https://docs.rs/google-cloud-workflows-executions-v1/latest/google_cloud_workflows_executions_v1/client/struct.Executions.html

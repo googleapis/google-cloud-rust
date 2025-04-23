@@ -14,27 +14,27 @@ apps and devices).
 
 The main types to work with this crate are the clients:
 
-* [Agents]
-* [Changelogs]
-* [Deployments]
-* [EntityTypes]
-* [Environments]
-* [Experiments]
-* [Flows]
-* [Generators]
-* [Intents]
-* [Pages]
-* [SecuritySettingsService]
-* [Sessions]
-* [SessionEntityTypes]
-* [TestCases]
-* [TransitionRouteGroups]
-* [Versions]
-* [Webhooks]
+- [Agents]
+- [Changelogs]
+- [Deployments]
+- [EntityTypes]
+- [Environments]
+- [Experiments]
+- [Flows]
+- [Generators]
+- [Intents]
+- [Pages]
+- [SecuritySettingsService]
+- [Sessions]
+- [SessionEntityTypes]
+- [TestCases]
+- [TransitionRouteGroups]
+- [Versions]
+- [Webhooks]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-dialogflow-cx-v3/latest/google-cloud-dialogflow-cx-v3)
+- Read the [crate's documentation](https://docs.rs/google-cloud-dialogflow-cx-v3/latest/google-cloud-dialogflow-cx-v3)
 
 [Agents]: https://docs.rs/google-cloud-dialogflow-cx-v3/latest/google_cloud_dialogflow_cx_v3/client/struct.Agents.html
 [Changelogs]: https://docs.rs/google-cloud-dialogflow-cx-v3/latest/google_cloud_dialogflow_cx_v3/client/struct.Changelogs.html

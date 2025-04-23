@@ -13,15 +13,15 @@ The Chronicle API serves all customer endpoints.
 
 The main types to work with this crate are the clients:
 
-* [DataAccessControlService]
-* [EntityService]
-* [InstanceService]
-* [ReferenceListService]
-* [RuleService]
+- [DataAccessControlService]
+- [EntityService]
+- [InstanceService]
+- [ReferenceListService]
+- [RuleService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-chronicle-v1/latest/google-cloud-chronicle-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-chronicle-v1/latest/google-cloud-chronicle-v1)
 
 [DataAccessControlService]: https://docs.rs/google-cloud-chronicle-v1/latest/google_cloud_chronicle_v1/client/struct.DataAccessControlService.html
 [EntityService]: https://docs.rs/google-cloud-chronicle-v1/latest/google_cloud_chronicle_v1/client/struct.EntityService.html

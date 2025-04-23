@@ -16,10 +16,10 @@ private keys.
 
 The main types to work with this crate are the clients:
 
-* [CertificateAuthorityService]
+- [CertificateAuthorityService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-security-privateca-v1/latest/google-cloud-security-privateca-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-security-privateca-v1/latest/google-cloud-security-privateca-v1)
 
 [CertificateAuthorityService]: https://docs.rs/google-cloud-security-privateca-v1/latest/google_cloud_security_privateca_v1/client/struct.CertificateAuthorityService.html

@@ -14,10 +14,10 @@ Google Cloud.
 
 The main types to work with this crate are the clients:
 
-* [SecureSourceManager]
+- [SecureSourceManager]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-securesourcemanager-v1/latest/google-cloud-securesourcemanager-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-securesourcemanager-v1/latest/google-cloud-securesourcemanager-v1)
 
 [SecureSourceManager]: https://docs.rs/google-cloud-securesourcemanager-v1/latest/google_cloud_securesourcemanager_v1/client/struct.SecureSourceManager.html

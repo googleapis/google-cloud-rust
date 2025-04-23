@@ -14,10 +14,10 @@ retrieval of critical metadata about all of your software artifacts.
 
 The main types to work with this crate are the clients:
 
-* [Grafeas]
+- [Grafeas]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-grafeas-v1/latest/google-cloud-grafeas-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-grafeas-v1/latest/google-cloud-grafeas-v1)
 
 [Grafeas]: https://docs.rs/google-cloud-grafeas-v1/latest/google_cloud_grafeas_v1/client/struct.Grafeas.html

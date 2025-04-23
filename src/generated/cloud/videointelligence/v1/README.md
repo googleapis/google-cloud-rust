@@ -15,10 +15,10 @@ Supports both asynchronous API and streaming API.
 
 The main types to work with this crate are the clients:
 
-* [VideoIntelligenceService]
+- [VideoIntelligenceService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-videointelligence-v1/latest/google-cloud-videointelligence-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-videointelligence-v1/latest/google-cloud-videointelligence-v1)
 
 [VideoIntelligenceService]: https://docs.rs/google-cloud-videointelligence-v1/latest/google_cloud_videointelligence_v1/client/struct.VideoIntelligenceService.html

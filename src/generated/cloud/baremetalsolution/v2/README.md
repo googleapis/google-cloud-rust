@@ -14,10 +14,10 @@ regional extension located near a Google Cloud data center.
 
 The main types to work with this crate are the clients:
 
-* [BareMetalSolution]
+- [BareMetalSolution]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-baremetalsolution-v2/latest/google-cloud-baremetalsolution-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-baremetalsolution-v2/latest/google-cloud-baremetalsolution-v2)
 
 [BareMetalSolution]: https://docs.rs/google-cloud-baremetalsolution-v2/latest/google_cloud_baremetalsolution_v2/client/struct.BareMetalSolution.html

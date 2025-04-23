@@ -14,10 +14,10 @@ workloads.
 
 The main types to work with this crate are the clients:
 
-* [VmMigration]
+- [VmMigration]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-vmmigration-v1/latest/google-cloud-vmmigration-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-vmmigration-v1/latest/google-cloud-vmmigration-v1)
 
 [VmMigration]: https://docs.rs/google-cloud-vmmigration-v1/latest/google_cloud_vmmigration_v1/client/struct.VmMigration.html

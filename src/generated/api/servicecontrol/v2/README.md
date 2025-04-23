@@ -14,10 +14,10 @@ with Service Infrastructure.
 
 The main types to work with this crate are the clients:
 
-* [ServiceController]
+- [ServiceController]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-api-servicecontrol-v2/latest/google-cloud-api-servicecontrol-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-api-servicecontrol-v2/latest/google-cloud-api-servicecontrol-v2)
 
 [ServiceController]: https://docs.rs/google-cloud-api-servicecontrol-v2/latest/google_cloud_api_servicecontrol_v2/client/struct.ServiceController.html

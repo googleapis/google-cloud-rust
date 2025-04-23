@@ -9,5 +9,5 @@ APIs, documentation, missing features, bugs, etc.
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-identity-accesscontextmanager-type/latest/google-cloud-identity-accesscontextmanager-type)
+- Read the [crate's documentation](https://docs.rs/google-cloud-identity-accesscontextmanager-type/latest/google-cloud-identity-accesscontextmanager-type)
 

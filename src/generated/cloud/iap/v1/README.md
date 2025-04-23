@@ -13,12 +13,12 @@ Controls access to cloud applications running on Google Cloud Platform.
 
 The main types to work with this crate are the clients:
 
-* [IdentityAwareProxyAdminService]
-* [IdentityAwareProxyOAuthService]
+- [IdentityAwareProxyAdminService]
+- [IdentityAwareProxyOAuthService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-iap-v1/latest/google-cloud-iap-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-iap-v1/latest/google-cloud-iap-v1)
 
 [IdentityAwareProxyAdminService]: https://docs.rs/google-cloud-iap-v1/latest/google_cloud_iap_v1/client/struct.IdentityAwareProxyAdminService.html
 [IdentityAwareProxyOAuthService]: https://docs.rs/google-cloud-iap-v1/latest/google_cloud_iap_v1/client/struct.IdentityAwareProxyOAuthService.html

@@ -13,17 +13,17 @@ Dataplex API is used to manage the lifecycle of data lakes.
 
 The main types to work with this crate are the clients:
 
-* [CatalogService]
-* [CmekService]
-* [ContentService]
-* [DataTaxonomyService]
-* [DataScanService]
-* [MetadataService]
-* [DataplexService]
+- [CatalogService]
+- [CmekService]
+- [ContentService]
+- [DataTaxonomyService]
+- [DataScanService]
+- [MetadataService]
+- [DataplexService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-dataplex-v1/latest/google-cloud-dataplex-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-dataplex-v1/latest/google-cloud-dataplex-v1)
 
 [CatalogService]: https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.CatalogService.html
 [CmekService]: https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.CmekService.html

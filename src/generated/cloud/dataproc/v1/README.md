@@ -13,18 +13,18 @@ Manages Hadoop-based clusters and jobs on Google Cloud Platform.
 
 The main types to work with this crate are the clients:
 
-* [AutoscalingPolicyService]
-* [BatchController]
-* [ClusterController]
-* [JobController]
-* [NodeGroupController]
-* [SessionTemplateController]
-* [SessionController]
-* [WorkflowTemplateService]
+- [AutoscalingPolicyService]
+- [BatchController]
+- [ClusterController]
+- [JobController]
+- [NodeGroupController]
+- [SessionTemplateController]
+- [SessionController]
+- [WorkflowTemplateService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-dataproc-v1/latest/google-cloud-dataproc-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-dataproc-v1/latest/google-cloud-dataproc-v1)
 
 [AutoscalingPolicyService]: https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.AutoscalingPolicyService.html
 [BatchController]: https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.BatchController.html

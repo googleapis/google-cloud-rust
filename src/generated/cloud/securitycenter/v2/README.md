@@ -14,10 +14,10 @@ findings within an organization.
 
 The main types to work with this crate are the clients:
 
-* [SecurityCenter]
+- [SecurityCenter]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-securitycenter-v2/latest/google-cloud-securitycenter-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-securitycenter-v2/latest/google-cloud-securitycenter-v2)
 
 [SecurityCenter]: https://docs.rs/google-cloud-securitycenter-v2/latest/google_cloud_securitycenter_v2/client/struct.SecurityCenter.html

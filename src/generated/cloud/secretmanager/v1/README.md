@@ -14,10 +14,10 @@ Provides convenience while improving security.
 
 The main types to work with this crate are the clients:
 
-* [SecretManagerService]
+- [SecretManagerService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-secretmanager-v1/latest/google-cloud-secretmanager-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-secretmanager-v1/latest/google-cloud-secretmanager-v1)
 
 [SecretManagerService]: https://docs.rs/google-cloud-secretmanager-v1/latest/google_cloud_secretmanager_v1/client/struct.SecretManagerService.html

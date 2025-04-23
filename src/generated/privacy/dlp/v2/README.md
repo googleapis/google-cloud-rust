@@ -15,10 +15,10 @@ ease.
 
 The main types to work with this crate are the clients:
 
-* [DlpService]
+- [DlpService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-privacy-dlp-v2/latest/google-cloud-privacy-dlp-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-privacy-dlp-v2/latest/google-cloud-privacy-dlp-v2)
 
 [DlpService]: https://docs.rs/google-cloud-privacy-dlp-v2/latest/google_cloud_privacy_dlp_v2/client/struct.DlpService.html

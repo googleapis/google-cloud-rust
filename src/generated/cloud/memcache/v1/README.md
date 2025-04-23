@@ -14,10 +14,10 @@ managing Memcached instances in GCP.
 
 The main types to work with this crate are the clients:
 
-* [CloudMemcache]
+- [CloudMemcache]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-memcache-v1/latest/google-cloud-memcache-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-memcache-v1/latest/google-cloud-memcache-v1)
 
 [CloudMemcache]: https://docs.rs/google-cloud-memcache-v1/latest/google_cloud_memcache_v1/client/struct.CloudMemcache.html

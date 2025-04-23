@@ -9,5 +9,5 @@ APIs, documentation, missing features, bugs, etc.
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-oslogin-common/latest/google-cloud-oslogin-common)
+- Read the [crate's documentation](https://docs.rs/google-cloud-oslogin-common/latest/google-cloud-oslogin-common)
 

@@ -13,10 +13,10 @@ Manages the execution of large numbers of distributed requests.
 
 The main types to work with this crate are the clients:
 
-* [CloudTasks]
+- [CloudTasks]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-tasks-v2/latest/google-cloud-tasks-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-tasks-v2/latest/google-cloud-tasks-v2)
 
 [CloudTasks]: https://docs.rs/google-cloud-tasks-v2/latest/google_cloud_tasks_v2/client/struct.CloudTasks.html

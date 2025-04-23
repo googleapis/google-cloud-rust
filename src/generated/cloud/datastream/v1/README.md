@@ -11,10 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [Datastream]
+- [Datastream]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-datastream-v1/latest/google-cloud-datastream-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-datastream-v1/latest/google-cloud-datastream-v1)
 
 [Datastream]: https://docs.rs/google-cloud-datastream-v1/latest/google_cloud_datastream_v1/client/struct.Datastream.html

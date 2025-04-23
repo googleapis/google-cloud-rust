@@ -11,10 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [IamChecker]
+- [IamChecker]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-policytroubleshooter-v1/latest/google-cloud-policytroubleshooter-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-policytroubleshooter-v1/latest/google-cloud-policytroubleshooter-v1)
 
 [IamChecker]: https://docs.rs/google-cloud-policytroubleshooter-v1/latest/google_cloud_policytroubleshooter_v1/client/struct.IamChecker.html

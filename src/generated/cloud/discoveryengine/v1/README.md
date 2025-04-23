@@ -13,26 +13,26 @@ Discovery Engine API.
 
 The main types to work with this crate are the clients:
 
-* [CompletionService]
-* [ControlService]
-* [ConversationalSearchService]
-* [DataStoreService]
-* [DocumentService]
-* [EngineService]
-* [GroundedGenerationService]
-* [ProjectService]
-* [RankService]
-* [RecommendationService]
-* [SchemaService]
-* [SearchService]
-* [SearchTuningService]
-* [ServingConfigService]
-* [SiteSearchEngineService]
-* [UserEventService]
+- [CompletionService]
+- [ControlService]
+- [ConversationalSearchService]
+- [DataStoreService]
+- [DocumentService]
+- [EngineService]
+- [GroundedGenerationService]
+- [ProjectService]
+- [RankService]
+- [RecommendationService]
+- [SchemaService]
+- [SearchService]
+- [SearchTuningService]
+- [ServingConfigService]
+- [SiteSearchEngineService]
+- [UserEventService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-discoveryengine-v1/latest/google-cloud-discoveryengine-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-discoveryengine-v1/latest/google-cloud-discoveryengine-v1)
 
 [CompletionService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.CompletionService.html
 [ControlService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ControlService.html

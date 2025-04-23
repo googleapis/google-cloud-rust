@@ -14,29 +14,29 @@ apps and devices).
 
 The main types to work with this crate are the clients:
 
-* [Agents]
-* [AnswerRecords]
-* [Contexts]
-* [Conversations]
-* [ConversationDatasets]
-* [ConversationModels]
-* [ConversationProfiles]
-* [Documents]
-* [EncryptionSpecService]
-* [EntityTypes]
-* [Environments]
-* [Fulfillments]
-* [Generators]
-* [Intents]
-* [KnowledgeBases]
-* [Participants]
-* [Sessions]
-* [SessionEntityTypes]
-* [Versions]
+- [Agents]
+- [AnswerRecords]
+- [Contexts]
+- [Conversations]
+- [ConversationDatasets]
+- [ConversationModels]
+- [ConversationProfiles]
+- [Documents]
+- [EncryptionSpecService]
+- [EntityTypes]
+- [Environments]
+- [Fulfillments]
+- [Generators]
+- [Intents]
+- [KnowledgeBases]
+- [Participants]
+- [Sessions]
+- [SessionEntityTypes]
+- [Versions]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-dialogflow-v2/latest/google-cloud-dialogflow-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-dialogflow-v2/latest/google-cloud-dialogflow-v2)
 
 [Agents]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Agents.html
 [AnswerRecords]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.AnswerRecords.html

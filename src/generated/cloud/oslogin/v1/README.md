@@ -13,10 +13,10 @@ You can use OS Login to manage access to your VM instances using IAM roles.
 
 The main types to work with this crate are the clients:
 
-* [OsLoginService]
+- [OsLoginService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-oslogin-v1/latest/google-cloud-oslogin-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-oslogin-v1/latest/google-cloud-oslogin-v1)
 
 [OsLoginService]: https://docs.rs/google-cloud-oslogin-v1/latest/google_cloud_oslogin_v1/client/struct.OsLoginService.html

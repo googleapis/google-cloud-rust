@@ -16,21 +16,21 @@ models, across your websites and mobile applications.
 
 The main types to work with this crate are the clients:
 
-* [AnalyticsService]
-* [CatalogService]
-* [CompletionService]
-* [ControlService]
-* [GenerativeQuestionService]
-* [ModelService]
-* [PredictionService]
-* [ProductService]
-* [SearchService]
-* [ServingConfigService]
-* [UserEventService]
+- [AnalyticsService]
+- [CatalogService]
+- [CompletionService]
+- [ControlService]
+- [GenerativeQuestionService]
+- [ModelService]
+- [PredictionService]
+- [ProductService]
+- [SearchService]
+- [ServingConfigService]
+- [UserEventService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-retail-v2/latest/google-cloud-retail-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-retail-v2/latest/google-cloud-retail-v2)
 
 [AnalyticsService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.AnalyticsService.html
 [CatalogService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.CatalogService.html

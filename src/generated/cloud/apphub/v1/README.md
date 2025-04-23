@@ -11,10 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [AppHub]
+- [AppHub]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-apphub-v1/latest/google-cloud-apphub-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-apphub-v1/latest/google-cloud-apphub-v1)
 
 [AppHub]: https://docs.rs/google-cloud-apphub-v1/latest/google_cloud_apphub_v1/client/struct.AppHub.html

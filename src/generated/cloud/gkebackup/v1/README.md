@@ -14,10 +14,10 @@ service for GKE clusters.
 
 The main types to work with this crate are the clients:
 
-* [BackupForGKE]
+- [BackupForGKE]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-gkebackup-v1/latest/google-cloud-gkebackup-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-gkebackup-v1/latest/google-cloud-gkebackup-v1)
 
 [BackupForGKE]: https://docs.rs/google-cloud-gkebackup-v1/latest/google_cloud_gkebackup_v1/client/struct.BackupForGKE.html

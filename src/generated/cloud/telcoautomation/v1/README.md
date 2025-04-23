@@ -13,10 +13,10 @@ APIs to automate management of cloud infrastructure for network functions.
 
 The main types to work with this crate are the clients:
 
-* [TelcoAutomation]
+- [TelcoAutomation]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-telcoautomation-v1/latest/google-cloud-telcoautomation-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-telcoautomation-v1/latest/google-cloud-telcoautomation-v1)
 
 [TelcoAutomation]: https://docs.rs/google-cloud-telcoautomation-v1/latest/google_cloud_telcoautomation_v1/client/struct.TelcoAutomation.html

@@ -11,10 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [GkeHub]
+- [GkeHub]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-gkehub-v1/latest/google-cloud-gkehub-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-gkehub-v1/latest/google-cloud-gkehub-v1)
 
 [GkeHub]: https://docs.rs/google-cloud-gkehub-v1/latest/google_cloud_gkehub_v1/client/struct.GkeHub.html

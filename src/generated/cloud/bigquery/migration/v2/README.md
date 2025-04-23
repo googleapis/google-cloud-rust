@@ -14,10 +14,10 @@ agent management.
 
 The main types to work with this crate are the clients:
 
-* [MigrationService]
+- [MigrationService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-migration-v2/latest/google-cloud-bigquery-migration-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-migration-v2/latest/google-cloud-bigquery-migration-v2)
 
 [MigrationService]: https://docs.rs/google-cloud-bigquery-migration-v2/latest/google_cloud_bigquery_migration_v2/client/struct.MigrationService.html

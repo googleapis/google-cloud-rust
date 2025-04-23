@@ -14,10 +14,10 @@ on Google infrastructure.
 
 The main types to work with this crate are the clients:
 
-* [ArtifactRegistry]
+- [ArtifactRegistry]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-artifactregistry-v1/latest/google-cloud-artifactregistry-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-artifactregistry-v1/latest/google-cloud-artifactregistry-v1)
 
 [ArtifactRegistry]: https://docs.rs/google-cloud-artifactregistry-v1/latest/google_cloud_artifactregistry_v1/client/struct.ArtifactRegistry.html

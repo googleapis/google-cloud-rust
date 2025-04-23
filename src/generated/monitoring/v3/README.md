@@ -13,18 +13,18 @@ Manages your Cloud Monitoring data and configurations.
 
 The main types to work with this crate are the clients:
 
-* [AlertPolicyService]
-* [GroupService]
-* [MetricService]
-* [NotificationChannelService]
-* [QueryService]
-* [ServiceMonitoringService]
-* [SnoozeService]
-* [UptimeCheckService]
+- [AlertPolicyService]
+- [GroupService]
+- [MetricService]
+- [NotificationChannelService]
+- [QueryService]
+- [ServiceMonitoringService]
+- [SnoozeService]
+- [UptimeCheckService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-monitoring-v3/latest/google-cloud-monitoring-v3)
+- Read the [crate's documentation](https://docs.rs/google-cloud-monitoring-v3/latest/google-cloud-monitoring-v3)
 
 [AlertPolicyService]: https://docs.rs/google-cloud-monitoring-v3/latest/google_cloud_monitoring_v3/client/struct.AlertPolicyService.html
 [GroupService]: https://docs.rs/google-cloud-monitoring-v3/latest/google_cloud_monitoring_v3/client/struct.GroupService.html

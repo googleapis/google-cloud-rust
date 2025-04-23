@@ -13,10 +13,10 @@ Attestation verifier for Confidential Space.
 
 The main types to work with this crate are the clients:
 
-* [ConfidentialComputing]
+- [ConfidentialComputing]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-confidentialcomputing-v1/latest/google-cloud-confidentialcomputing-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-confidentialcomputing-v1/latest/google-cloud-confidentialcomputing-v1)
 
 [ConfidentialComputing]: https://docs.rs/google-cloud-confidentialcomputing-v1/latest/google_cloud_confidentialcomputing_v1/client/struct.ConfidentialComputing.html

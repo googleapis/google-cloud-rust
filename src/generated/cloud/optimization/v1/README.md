@@ -15,10 +15,10 @@ fleets.
 
 The main types to work with this crate are the clients:
 
-* [FleetRouting]
+- [FleetRouting]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-optimization-v1/latest/google-cloud-optimization-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-optimization-v1/latest/google-cloud-optimization-v1)
 
 [FleetRouting]: https://docs.rs/google-cloud-optimization-v1/latest/google_cloud_optimization_v1/client/struct.FleetRouting.html

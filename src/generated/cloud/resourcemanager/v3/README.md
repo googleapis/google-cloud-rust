@@ -14,17 +14,17 @@ containers.
 
 The main types to work with this crate are the clients:
 
-* [Folders]
-* [Organizations]
-* [Projects]
-* [TagBindings]
-* [TagHolds]
-* [TagKeys]
-* [TagValues]
+- [Folders]
+- [Organizations]
+- [Projects]
+- [TagBindings]
+- [TagHolds]
+- [TagKeys]
+- [TagValues]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-resourcemanager-v3/latest/google-cloud-resourcemanager-v3)
+- Read the [crate's documentation](https://docs.rs/google-cloud-resourcemanager-v3/latest/google-cloud-resourcemanager-v3)
 
 [Folders]: https://docs.rs/google-cloud-resourcemanager-v3/latest/google_cloud_resourcemanager_v3/client/struct.Folders.html
 [Organizations]: https://docs.rs/google-cloud-resourcemanager-v3/latest/google_cloud_resourcemanager_v3/client/struct.Organizations.html

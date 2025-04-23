@@ -11,10 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [LivestreamService]
+- [LivestreamService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-video-livestream-v1/latest/google-cloud-video-livestream-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-video-livestream-v1/latest/google-cloud-video-livestream-v1)
 
 [LivestreamService]: https://docs.rs/google-cloud-video-livestream-v1/latest/google_cloud_video_livestream_v1/client/struct.LivestreamService.html

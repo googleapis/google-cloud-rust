@@ -9,5 +9,5 @@ APIs, documentation, missing features, bugs, etc.
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-apps-script-type-gmail/latest/google-cloud-apps-script-type-gmail)
+- Read the [crate's documentation](https://docs.rs/google-cloud-apps-script-type-gmail/latest/google-cloud-apps-script-type-gmail)
 

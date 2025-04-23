@@ -9,5 +9,5 @@ APIs, documentation, missing features, bugs, etc.
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-gkehub-multiclusteringress-v1/latest/google-cloud-gkehub-multiclusteringress-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-gkehub-multiclusteringress-v1/latest/google-cloud-gkehub-multiclusteringress-v1)
 

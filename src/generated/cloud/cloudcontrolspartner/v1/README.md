@@ -14,12 +14,12 @@ your Sovereign Controls by Partners offering.
 
 The main types to work with this crate are the clients:
 
-* [CloudControlsPartnerCore]
-* [CloudControlsPartnerMonitoring]
+- [CloudControlsPartnerCore]
+- [CloudControlsPartnerMonitoring]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-cloudcontrolspartner-v1/latest/google-cloud-cloudcontrolspartner-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-cloudcontrolspartner-v1/latest/google-cloud-cloudcontrolspartner-v1)
 
 [CloudControlsPartnerCore]: https://docs.rs/google-cloud-cloudcontrolspartner-v1/latest/google_cloud_cloudcontrolspartner_v1/client/struct.CloudControlsPartnerCore.html
 [CloudControlsPartnerMonitoring]: https://docs.rs/google-cloud-cloudcontrolspartner-v1/latest/google_cloud_cloudcontrolspartner_v1/client/struct.CloudControlsPartnerMonitoring.html

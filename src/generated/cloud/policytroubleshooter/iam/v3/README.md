@@ -11,10 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [PolicyTroubleshooter]
+- [PolicyTroubleshooter]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-policytroubleshooter-iam-v3/latest/google-cloud-policytroubleshooter-iam-v3)
+- Read the [crate's documentation](https://docs.rs/google-cloud-policytroubleshooter-iam-v3/latest/google-cloud-policytroubleshooter-iam-v3)
 
 [PolicyTroubleshooter]: https://docs.rs/google-cloud-policytroubleshooter-iam-v3/latest/google_cloud_policytroubleshooter_iam_v3/client/struct.PolicyTroubleshooter.html

@@ -16,16 +16,16 @@ API standards, as described in https://google.aip.dev/.
 
 The main types to work with this crate are the clients:
 
-* [Builds]
-* [Executions]
-* [Jobs]
-* [Revisions]
-* [Services]
-* [Tasks]
+- [Builds]
+- [Executions]
+- [Jobs]
+- [Revisions]
+- [Services]
+- [Tasks]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-run-v2/latest/google-cloud-run-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-run-v2/latest/google-cloud-run-v2)
 
 [Builds]: https://docs.rs/google-cloud-run-v2/latest/google_cloud_run_v2/client/struct.Builds.html
 [Executions]: https://docs.rs/google-cloud-run-v2/latest/google_cloud_run_v2/client/struct.Executions.html

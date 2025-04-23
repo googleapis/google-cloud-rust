@@ -13,10 +13,10 @@ Network management API for Distributed Cloud Edge.
 
 The main types to work with this crate are the clients:
 
-* [EdgeNetwork]
+- [EdgeNetwork]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-edgenetwork-v1/latest/google-cloud-edgenetwork-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-edgenetwork-v1/latest/google-cloud-edgenetwork-v1)
 
 [EdgeNetwork]: https://docs.rs/google-cloud-edgenetwork-v1/latest/google_cloud_edgenetwork_v1/client/struct.EdgeNetwork.html

@@ -21,13 +21,13 @@ command-line tools.
 
 The main types to work with this crate are the clients:
 
-* [AttachedClusters]
-* [AwsClusters]
-* [AzureClusters]
+- [AttachedClusters]
+- [AwsClusters]
+- [AzureClusters]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-gkemulticloud-v1/latest/google-cloud-gkemulticloud-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-gkemulticloud-v1/latest/google-cloud-gkemulticloud-v1)
 
 [AttachedClusters]: https://docs.rs/google-cloud-gkemulticloud-v1/latest/google_cloud_gkemulticloud_v1/client/struct.AttachedClusters.html
 [AwsClusters]: https://docs.rs/google-cloud-gkemulticloud-v1/latest/google_cloud_gkemulticloud_v1/client/struct.AwsClusters.html

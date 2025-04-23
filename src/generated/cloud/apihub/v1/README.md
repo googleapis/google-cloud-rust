@@ -11,17 +11,17 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [ApiHub]
-* [ApiHubDependencies]
-* [HostProjectRegistrationService]
-* [LintingService]
-* [ApiHubPlugin]
-* [Provisioning]
-* [RuntimeProjectAttachmentService]
+- [ApiHub]
+- [ApiHubDependencies]
+- [HostProjectRegistrationService]
+- [LintingService]
+- [ApiHubPlugin]
+- [Provisioning]
+- [RuntimeProjectAttachmentService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-apihub-v1/latest/google-cloud-apihub-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-apihub-v1/latest/google-cloud-apihub-v1)
 
 [ApiHub]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHub.html
 [ApiHubDependencies]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHubDependencies.html

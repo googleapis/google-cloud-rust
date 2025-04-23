@@ -13,16 +13,16 @@ A data platform for customers to create, manage, share and query data.
 
 The main types to work with this crate are the clients:
 
-* [DatasetService]
-* [ModelService]
-* [ProjectService]
-* [RoutineService]
-* [RowAccessPolicyService]
-* [TableService]
+- [DatasetService]
+- [ModelService]
+- [ProjectService]
+- [RoutineService]
+- [RowAccessPolicyService]
+- [TableService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-v2/latest/google-cloud-bigquery-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-v2/latest/google-cloud-bigquery-v2)
 
 [DatasetService]: https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.DatasetService.html
 [ModelService]: https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.ModelService.html

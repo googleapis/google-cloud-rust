@@ -13,10 +13,10 @@ An API for accessing Advisory Notifications in Google Cloud
 
 The main types to work with this crate are the clients:
 
-* [AdvisoryNotificationsService]
+- [AdvisoryNotificationsService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-advisorynotifications-v1/latest/google-cloud-advisorynotifications-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-advisorynotifications-v1/latest/google-cloud-advisorynotifications-v1)
 
 [AdvisoryNotificationsService]: https://docs.rs/google-cloud-advisorynotifications-v1/latest/google_cloud_advisorynotifications_v1/client/struct.AdvisoryNotificationsService.html

@@ -13,18 +13,18 @@ Provisions and manages developers' App Engine applications.
 
 The main types to work with this crate are the clients:
 
-* [Applications]
-* [Services]
-* [Versions]
-* [Instances]
-* [Firewall]
-* [AuthorizedDomains]
-* [AuthorizedCertificates]
-* [DomainMappings]
+- [Applications]
+- [Services]
+- [Versions]
+- [Instances]
+- [Firewall]
+- [AuthorizedDomains]
+- [AuthorizedCertificates]
+- [DomainMappings]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-appengine-v1/latest/google-cloud-appengine-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-appengine-v1/latest/google-cloud-appengine-v1)
 
 [Applications]: https://docs.rs/google-cloud-appengine-v1/latest/google_cloud_appengine_v1/client/struct.Applications.html
 [Services]: https://docs.rs/google-cloud-appengine-v1/latest/google_cloud_appengine_v1/client/struct.Services.html

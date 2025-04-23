@@ -16,10 +16,10 @@ without diminishing focus on security.
 
 The main types to work with this crate are the clients:
 
-* [ParameterManager]
+- [ParameterManager]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-parametermanager-v1/latest/google-cloud-parametermanager-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-parametermanager-v1/latest/google-cloud-parametermanager-v1)
 
 [ParameterManager]: https://docs.rs/google-cloud-parametermanager-v1/latest/google_cloud_parametermanager_v1/client/struct.ParameterManager.html

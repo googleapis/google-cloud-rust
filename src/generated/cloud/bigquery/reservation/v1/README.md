@@ -13,10 +13,10 @@ A service to modify your BigQuery flat-rate reservations.
 
 The main types to work with this crate are the clients:
 
-* [ReservationService]
+- [ReservationService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-reservation-v1/latest/google-cloud-bigquery-reservation-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-reservation-v1/latest/google-cloud-bigquery-reservation-v1)
 
 [ReservationService]: https://docs.rs/google-cloud-bigquery-reservation-v1/latest/google_cloud_bigquery_reservation_v1/client/struct.ReservationService.html

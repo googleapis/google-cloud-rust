@@ -11,10 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [Parallelstore]
+- [Parallelstore]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-parallelstore-v1/latest/google-cloud-parallelstore-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-parallelstore-v1/latest/google-cloud-parallelstore-v1)
 
 [Parallelstore]: https://docs.rs/google-cloud-parallelstore-v1/latest/google_cloud_parallelstore_v1/client/struct.Parallelstore.html

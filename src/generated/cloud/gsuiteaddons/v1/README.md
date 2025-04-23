@@ -11,10 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [GSuiteAddOns]
+- [GSuiteAddOns]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-gsuiteaddons-v1/latest/google-cloud-gsuiteaddons-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-gsuiteaddons-v1/latest/google-cloud-gsuiteaddons-v1)
 
 [GSuiteAddOns]: https://docs.rs/google-cloud-gsuiteaddons-v1/latest/google_cloud_gsuiteaddons_v1/client/struct.GSuiteAddOns.html
