@@ -3,7 +3,7 @@ module github.com/googleapis/google-cloud-rust/generator
 go 1.23.6
 
 require (
-	cloud.google.com/go/iam v1.5.0
+	cloud.google.com/go/iam v1.5.2
 	cloud.google.com/go/longrunning v0.6.7
 	github.com/cbroglie/mustache v1.4.0
 	github.com/ghodss/yaml v1.0.0
