@@ -19,6 +19,6 @@ Manages access control for Google Cloud Platform resources.
 
 ## Quickstart
 
-The main services for this package are:
+The main clients for this package are:
 
 - `IAMPolicy`

@@ -19,6 +19,6 @@ Manages lightweight user-provided functions executed in response to events.
 
 ## Quickstart
 
-The main services for this package are:
+The main clients for this package are:
 
 - `FunctionService`
