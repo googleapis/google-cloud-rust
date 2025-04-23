@@ -13,5 +13,38 @@ We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
 ## What's this?
 
+The Google Cloud client library for the Core Protobuf Types.
+
 Core Protobuf types used by most services.
 
+## Quickstart
+
+The main types for this package are:
+
+- `Api`
+- `Method`
+- `Mixin`
+- `Duration`
+- `Empty`
+- `FieldMask`
+- `SourceContext`
+- `Struct`
+- `Value`
+- `ListValue`
+- `Timestamp`
+- `Type`
+- `Field`
+- `Enum`
+- `EnumValue`
+- `Option`
+- `DoubleValue`
+- `FloatValue`
+- `Int64Value`
+- `Uint64Value`
+- `Int32Value`
+- `Uint32Value`
+- `BoolValue`
+- `StringValue`
+- `BytesValue`
+- `NullValue`
+- `Syntax`

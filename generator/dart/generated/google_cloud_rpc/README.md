@@ -13,5 +13,26 @@ We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
 ## What's this?
 
+The Google Cloud client library for the Google RPC Types.
+
 Defines RPC types.
 
+## Quickstart
+
+The main types for this package are:
+
+- `ErrorInfo`
+- `RetryInfo`
+- `DebugInfo`
+- `QuotaFailure`
+- `PreconditionFailure`
+- `BadRequest`
+- `RequestInfo`
+- `ResourceInfo`
+- `Help`
+- `LocalizedMessage`
+- `HttpRequest`
+- `HttpResponse`
+- `HttpHeader`
+- `Status`
+- `Code`

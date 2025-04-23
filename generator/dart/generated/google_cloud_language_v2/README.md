@@ -13,12 +13,14 @@ We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
 ## What's this?
 
+The Google Cloud client library for the Cloud Natural Language API.
+
 Provides natural language understanding technologies, such as sentiment
 analysis, entity recognition, entity sentiment analysis, and other text
 annotations, to developers.
 
 ## Quickstart
 
-The main types for this package are:
+The main clients for this package are:
 
 - `LanguageService`

@@ -13,10 +13,12 @@ We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
 ## What's this?
 
+The Google Cloud client library for the IAM Meta API.
+
 Manages access control for Google Cloud Platform resources.
 
 ## Quickstart
 
-The main types for this package are:
+The main clients for this package are:
 
 - `IAMPolicy`

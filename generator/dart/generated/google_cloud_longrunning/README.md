@@ -13,6 +13,8 @@ We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
 ## What's this?
 
+The Google Cloud client library for the Long Running Operations API.
+
 Defines types and an abstract service to handle long-running operations.
 
 [Long-running operations] are a common pattern to handle methods that may take
@@ -26,6 +28,6 @@ operations.
 
 ## Quickstart
 
-The main types for this package are:
+The main clients for this package are:
 
 - `Operations`
