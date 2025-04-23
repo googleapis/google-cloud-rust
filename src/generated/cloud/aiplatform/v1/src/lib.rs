@@ -58,6 +58,8 @@
 //! * [VertexRagService](client/struct.VertexRagService.html)
 //! * [VizierService](client/struct.VizierService.html)
 
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
 pub mod model;
