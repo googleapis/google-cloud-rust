@@ -14,8 +14,10 @@ Oracle database services, such as Exadata and Autonomous Databases.
 
 The main types to work with this crate are the clients:
 
-* [OracleDatabase](https://docs.rs/google-cloud-oracledatabase-v1/latest/google_cloud_oracledatabase_v1/client/struct.OracleDatabase.html)
+- [OracleDatabase]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-oracledatabase-v1/latest/google-cloud-oracledatabase-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-oracledatabase-v1/latest/google-cloud-oracledatabase-v1)
+
+[OracleDatabase]: https://docs.rs/google-cloud-oracledatabase-v1/latest/google_cloud_oracledatabase_v1/client/struct.OracleDatabase.html

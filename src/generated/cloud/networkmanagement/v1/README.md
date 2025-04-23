@@ -14,9 +14,12 @@ monitoring and diagnostic capabilities.
 
 The main types to work with this crate are the clients:
 
-* [ReachabilityService](https://docs.rs/google-cloud-networkmanagement-v1/latest/google_cloud_networkmanagement_v1/client/struct.ReachabilityService.html)
-* [VpcFlowLogsService](https://docs.rs/google-cloud-networkmanagement-v1/latest/google_cloud_networkmanagement_v1/client/struct.VpcFlowLogsService.html)
+- [ReachabilityService]
+- [VpcFlowLogsService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-networkmanagement-v1/latest/google-cloud-networkmanagement-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-networkmanagement-v1/latest/google-cloud-networkmanagement-v1)
+
+[ReachabilityService]: https://docs.rs/google-cloud-networkmanagement-v1/latest/google_cloud_networkmanagement_v1/client/struct.ReachabilityService.html
+[VpcFlowLogsService]: https://docs.rs/google-cloud-networkmanagement-v1/latest/google_cloud_networkmanagement_v1/client/struct.VpcFlowLogsService.html

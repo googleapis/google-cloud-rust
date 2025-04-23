@@ -14,8 +14,10 @@ BigQuery on a regular basis.
 
 The main types to work with this crate are the clients:
 
-* [DataTransferService](https://docs.rs/google-cloud-bigquery-datatransfer-v1/latest/google_cloud_bigquery_datatransfer_v1/client/struct.DataTransferService.html)
+- [DataTransferService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-datatransfer-v1/latest/google-cloud-bigquery-datatransfer-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-datatransfer-v1/latest/google-cloud-bigquery-datatransfer-v1)
+
+[DataTransferService]: https://docs.rs/google-cloud-bigquery-datatransfer-v1/latest/google_cloud_bigquery_datatransfer_v1/client/struct.DataTransferService.html

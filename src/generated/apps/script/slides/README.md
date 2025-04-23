@@ -9,4 +9,5 @@ APIs, documentation, missing features, bugs, etc.
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-apps-script-type-slides/latest/google-cloud-apps-script-type-slides)
+- Read the [crate's documentation](https://docs.rs/google-cloud-apps-script-type-slides/latest/google-cloud-apps-script-type-slides)
+

@@ -18,8 +18,10 @@ documentation](https://cloud.google.com/monitoring/docs).
 
 The main types to work with this crate are the clients:
 
-* [MetricsScopes](https://docs.rs/google-cloud-monitoring-metricsscope-v1/latest/google_cloud_monitoring_metricsscope_v1/client/struct.MetricsScopes.html)
+- [MetricsScopes]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-monitoring-metricsscope-v1/latest/google-cloud-monitoring-metricsscope-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-monitoring-metricsscope-v1/latest/google-cloud-monitoring-metricsscope-v1)
+
+[MetricsScopes]: https://docs.rs/google-cloud-monitoring-metricsscope-v1/latest/google_cloud_monitoring_metricsscope_v1/client/struct.MetricsScopes.html

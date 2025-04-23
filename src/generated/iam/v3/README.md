@@ -18,9 +18,12 @@ API.
 
 The main types to work with this crate are the clients:
 
-* [PolicyBindings](https://docs.rs/google-cloud-iam-v3/latest/google_cloud_iam_v3/client/struct.PolicyBindings.html)
-* [PrincipalAccessBoundaryPolicies](https://docs.rs/google-cloud-iam-v3/latest/google_cloud_iam_v3/client/struct.PrincipalAccessBoundaryPolicies.html)
+- [PolicyBindings]
+- [PrincipalAccessBoundaryPolicies]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-iam-v3/latest/google-cloud-iam-v3)
+- Read the [crate's documentation](https://docs.rs/google-cloud-iam-v3/latest/google-cloud-iam-v3)
+
+[PolicyBindings]: https://docs.rs/google-cloud-iam-v3/latest/google_cloud_iam_v3/client/struct.PolicyBindings.html
+[PrincipalAccessBoundaryPolicies]: https://docs.rs/google-cloud-iam-v3/latest/google_cloud_iam_v3/client/struct.PrincipalAccessBoundaryPolicies.html

@@ -25,8 +25,10 @@ to service accounts for automated tasks, and more.
 
 The main types to work with this crate are the clients:
 
-* [PrivilegedAccessManager](https://docs.rs/google-cloud-privilegedaccessmanager-v1/latest/google_cloud_privilegedaccessmanager_v1/client/struct.PrivilegedAccessManager.html)
+- [PrivilegedAccessManager]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-privilegedaccessmanager-v1/latest/google-cloud-privilegedaccessmanager-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-privilegedaccessmanager-v1/latest/google-cloud-privilegedaccessmanager-v1)
+
+[PrivilegedAccessManager]: https://docs.rs/google-cloud-privilegedaccessmanager-v1/latest/google_cloud_privilegedaccessmanager_v1/client/struct.PrivilegedAccessManager.html

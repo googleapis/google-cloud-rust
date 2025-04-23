@@ -13,8 +13,10 @@ Creates and manages Redis instances on the Google Cloud Platform.
 
 The main types to work with this crate are the clients:
 
-* [CloudRedis](https://docs.rs/google-cloud-redis-v1/latest/google_cloud_redis_v1/client/struct.CloudRedis.html)
+- [CloudRedis]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-redis-v1/latest/google-cloud-redis-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-redis-v1/latest/google-cloud-redis-v1)
+
+[CloudRedis]: https://docs.rs/google-cloud-redis-v1/latest/google_cloud_redis_v1/client/struct.CloudRedis.html

@@ -14,8 +14,10 @@ performance, and ease of application development.
 
 The main types to work with this crate are the clients:
 
-* [FirestoreAdmin](https://docs.rs/google-cloud-firestore-admin-v1/latest/google_cloud_firestore_admin_v1/client/struct.FirestoreAdmin.html)
+- [FirestoreAdmin]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-firestore-admin-v1/latest/google-cloud-firestore-admin-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-firestore-admin-v1/latest/google-cloud-firestore-admin-v1)
+
+[FirestoreAdmin]: https://docs.rs/google-cloud-firestore-admin-v1/latest/google_cloud_firestore_admin_v1/client/struct.FirestoreAdmin.html

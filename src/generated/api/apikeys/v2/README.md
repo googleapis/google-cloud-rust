@@ -13,8 +13,10 @@ Manages the API keys associated with developer projects.
 
 The main types to work with this crate are the clients:
 
-* [ApiKeys](https://docs.rs/google-cloud-apikeys-v2/latest/google_cloud_apikeys_v2/client/struct.ApiKeys.html)
+- [ApiKeys]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-apikeys-v2/latest/google-cloud-apikeys-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-apikeys-v2/latest/google-cloud-apikeys-v2)
+
+[ApiKeys]: https://docs.rs/google-cloud-apikeys-v2/latest/google_cloud_apikeys_v2/client/struct.ApiKeys.html

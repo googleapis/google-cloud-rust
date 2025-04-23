@@ -13,8 +13,10 @@ Manages your Cloud Monitoring data and configurations.
 
 The main types to work with this crate are the clients:
 
-* [DashboardsService](https://docs.rs/google-cloud-monitoring-dashboard-v1/latest/google_cloud_monitoring_dashboard_v1/client/struct.DashboardsService.html)
+- [DashboardsService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-monitoring-dashboard-v1/latest/google-cloud-monitoring-dashboard-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-monitoring-dashboard-v1/latest/google-cloud-monitoring-dashboard-v1)
+
+[DashboardsService]: https://docs.rs/google-cloud-monitoring-dashboard-v1/latest/google_cloud_monitoring_dashboard_v1/client/struct.DashboardsService.html

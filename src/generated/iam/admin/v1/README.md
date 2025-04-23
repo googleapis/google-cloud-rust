@@ -15,8 +15,10 @@ authenticate to Google and make API calls.
 
 The main types to work with this crate are the clients:
 
-* [Iam](https://docs.rs/google-cloud-iam-admin-v1/latest/google_cloud_iam_admin_v1/client/struct.Iam.html)
+- [Iam]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-iam-admin-v1/latest/google-cloud-iam-admin-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-iam-admin-v1/latest/google-cloud-iam-admin-v1)
+
+[Iam]: https://docs.rs/google-cloud-iam-admin-v1/latest/google_cloud_iam_admin_v1/client/struct.Iam.html
