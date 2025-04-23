@@ -32,6 +32,10 @@ limitations under the License.
 {{#Codec.Services}}
 //! * [{{Codec.Name}}](client/struct.{{Codec.Name}}.html)
 {{/Codec.Services}}
+{{#Codec.PerServiceFeatures}}
+
+#![cfg_attr(docsrs, feature(doc_cfg))]
+{{/Codec.PerServiceFeatures}}
 
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]

@@ -130,6 +130,7 @@ use std::sync::Arc;
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "dataset_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "dataset_service")))]
 #[derive(Clone, Debug)]
 pub struct DatasetService {
     inner: Arc<dyn super::stub::dynamic::DatasetService>,
@@ -592,6 +593,7 @@ impl DatasetService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "deployment_resource_pool_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "deployment_resource_pool_service")))]
 #[derive(Clone, Debug)]
 pub struct DeploymentResourcePoolService {
     inner: Arc<dyn super::stub::dynamic::DeploymentResourcePoolService>,
@@ -906,6 +908,7 @@ impl DeploymentResourcePoolService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "endpoint_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "endpoint_service")))]
 #[derive(Clone, Debug)]
 pub struct EndpointService {
     inner: Arc<dyn super::stub::dynamic::EndpointService>,
@@ -1265,6 +1268,7 @@ impl EndpointService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "evaluation_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "evaluation_service")))]
 #[derive(Clone, Debug)]
 pub struct EvaluationService {
     inner: Arc<dyn super::stub::dynamic::EvaluationService>,
@@ -1491,6 +1495,7 @@ impl EvaluationService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "feature_online_store_admin_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "feature_online_store_admin_service")))]
 #[derive(Clone, Debug)]
 pub struct FeatureOnlineStoreAdminService {
     inner: Arc<dyn super::stub::dynamic::FeatureOnlineStoreAdminService>,
@@ -1909,6 +1914,7 @@ impl FeatureOnlineStoreAdminService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "feature_online_store_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "feature_online_store_service")))]
 #[derive(Clone, Debug)]
 pub struct FeatureOnlineStoreService {
     inner: Arc<dyn super::stub::dynamic::FeatureOnlineStoreService>,
@@ -2146,6 +2152,7 @@ impl FeatureOnlineStoreService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "feature_registry_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "feature_registry_service")))]
 #[derive(Clone, Debug)]
 pub struct FeatureRegistryService {
     inner: Arc<dyn super::stub::dynamic::FeatureRegistryService>,
@@ -2531,6 +2538,7 @@ impl FeatureRegistryService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "featurestore_online_serving_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "featurestore_online_serving_service")))]
 #[derive(Clone, Debug)]
 pub struct FeaturestoreOnlineServingService {
     inner: Arc<dyn super::stub::dynamic::FeaturestoreOnlineServingService>,
@@ -2781,6 +2789,7 @@ impl FeaturestoreOnlineServingService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "featurestore_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "featurestore_service")))]
 #[derive(Clone, Debug)]
 pub struct FeaturestoreService {
     inner: Arc<dyn super::stub::dynamic::FeaturestoreService>,
@@ -3341,6 +3350,7 @@ impl FeaturestoreService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "gen_ai_cache_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "gen_ai_cache_service")))]
 #[derive(Clone, Debug)]
 pub struct GenAiCacheService {
     inner: Arc<dyn super::stub::dynamic::GenAiCacheService>,
@@ -3603,6 +3613,7 @@ impl GenAiCacheService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "gen_ai_tuning_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "gen_ai_tuning_service")))]
 #[derive(Clone, Debug)]
 pub struct GenAiTuningService {
     inner: Arc<dyn super::stub::dynamic::GenAiTuningService>,
@@ -3891,6 +3902,7 @@ impl GenAiTuningService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "index_endpoint_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "index_endpoint_service")))]
 #[derive(Clone, Debug)]
 pub struct IndexEndpointService {
     inner: Arc<dyn super::stub::dynamic::IndexEndpointService>,
@@ -4232,6 +4244,7 @@ impl IndexEndpointService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "index_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "index_service")))]
 #[derive(Clone, Debug)]
 pub struct IndexService {
     inner: Arc<dyn super::stub::dynamic::IndexService>,
@@ -4536,6 +4549,7 @@ impl IndexService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "job_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "job_service")))]
 #[derive(Clone, Debug)]
 pub struct JobService {
     inner: Arc<dyn super::stub::dynamic::JobService>,
@@ -5199,6 +5213,7 @@ impl JobService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "llm_utility_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "llm_utility_service")))]
 #[derive(Clone, Debug)]
 pub struct LlmUtilityService {
     inner: Arc<dyn super::stub::dynamic::LlmUtilityService>,
@@ -5434,6 +5449,7 @@ impl LlmUtilityService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "match_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "match_service")))]
 #[derive(Clone, Debug)]
 pub struct MatchService {
     inner: Arc<dyn super::stub::dynamic::MatchService>,
@@ -5662,6 +5678,7 @@ impl MatchService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "metadata_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "metadata_service")))]
 #[derive(Clone, Debug)]
 pub struct MetadataService {
     inner: Arc<dyn super::stub::dynamic::MetadataService>,
@@ -6260,6 +6277,7 @@ impl MetadataService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "migration_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "migration_service")))]
 #[derive(Clone, Debug)]
 pub struct MigrationService {
     inner: Arc<dyn super::stub::dynamic::MigrationService>,
@@ -6507,6 +6525,7 @@ impl MigrationService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "model_garden_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "model_garden_service")))]
 #[derive(Clone, Debug)]
 pub struct ModelGardenService {
     inner: Arc<dyn super::stub::dynamic::ModelGardenService>,
@@ -6732,6 +6751,7 @@ impl ModelGardenService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "model_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "model_service")))]
 #[derive(Clone, Debug)]
 pub struct ModelService {
     inner: Arc<dyn super::stub::dynamic::ModelService>,
@@ -7198,6 +7218,7 @@ impl ModelService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "notebook_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "notebook_service")))]
 #[derive(Clone, Debug)]
 pub struct NotebookService {
     inner: Arc<dyn super::stub::dynamic::NotebookService>,
@@ -7648,6 +7669,7 @@ impl NotebookService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "persistent_resource_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "persistent_resource_service")))]
 #[derive(Clone, Debug)]
 pub struct PersistentResourceService {
     inner: Arc<dyn super::stub::dynamic::PersistentResourceService>,
@@ -7970,6 +7992,7 @@ impl PersistentResourceService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "pipeline_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "pipeline_service")))]
 #[derive(Clone, Debug)]
 pub struct PipelineService {
     inner: Arc<dyn super::stub::dynamic::PipelineService>,
@@ -8377,6 +8400,7 @@ impl PipelineService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "prediction_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "prediction_service")))]
 #[derive(Clone, Debug)]
 pub struct PredictionService {
     inner: Arc<dyn super::stub::dynamic::PredictionService>,
@@ -8676,6 +8700,7 @@ impl PredictionService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "reasoning_engine_execution_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "reasoning_engine_execution_service")))]
 #[derive(Clone, Debug)]
 pub struct ReasoningEngineExecutionService {
     inner: Arc<dyn super::stub::dynamic::ReasoningEngineExecutionService>,
@@ -8905,6 +8930,7 @@ impl ReasoningEngineExecutionService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "reasoning_engine_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "reasoning_engine_service")))]
 #[derive(Clone, Debug)]
 pub struct ReasoningEngineService {
     inner: Arc<dyn super::stub::dynamic::ReasoningEngineService>,
@@ -9197,6 +9223,7 @@ impl ReasoningEngineService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "schedule_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "schedule_service")))]
 #[derive(Clone, Debug)]
 pub struct ScheduleService {
     inner: Arc<dyn super::stub::dynamic::ScheduleService>,
@@ -9511,6 +9538,7 @@ impl ScheduleService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "specialist_pool_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "specialist_pool_service")))]
 #[derive(Clone, Debug)]
 pub struct SpecialistPoolService {
     inner: Arc<dyn super::stub::dynamic::SpecialistPoolService>,
@@ -9802,6 +9830,7 @@ impl SpecialistPoolService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "tensorboard_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "tensorboard_service")))]
 #[derive(Clone, Debug)]
 pub struct TensorboardService {
     inner: Arc<dyn super::stub::dynamic::TensorboardService>,
@@ -10356,6 +10385,7 @@ impl TensorboardService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "vertex_rag_data_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "vertex_rag_data_service")))]
 #[derive(Clone, Debug)]
 pub struct VertexRagDataService {
     inner: Arc<dyn super::stub::dynamic::VertexRagDataService>,
@@ -10712,6 +10742,7 @@ impl VertexRagDataService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "vertex_rag_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "vertex_rag_service")))]
 #[derive(Clone, Debug)]
 pub struct VertexRagService {
     inner: Arc<dyn super::stub::dynamic::VertexRagService>,
@@ -10962,6 +10993,7 @@ impl VertexRagService {
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[cfg(feature = "vizier_service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "vizier_service")))]
 #[derive(Clone, Debug)]
 pub struct VizierService {
     inner: Arc<dyn super::stub::dynamic::VizierService>,

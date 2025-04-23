@@ -59,6 +59,7 @@ pub(crate) mod dynamic;
 /// error.
 {{#Codec.PerServiceFeatures}}
 #[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.ModuleName}}")))]
 {{/Codec.PerServiceFeatures}}
 pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
     {{#Codec.Methods}}
