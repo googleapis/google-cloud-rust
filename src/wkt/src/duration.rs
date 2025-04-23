@@ -63,10 +63,6 @@ pub enum DurationError {
     #[error("if seconds and nanoseconds are not zero, they must have the same sign")]
     MismatchedSigns(),
 
-    /// Cannot serialize the duration.
-    #[error("cannot serialize the duration")]
-    Serializate(),
-
     /// Cannot deserialize the duration.
     #[error("cannot deserialize the duration: {0:?}")]
     Deserialize(String),
