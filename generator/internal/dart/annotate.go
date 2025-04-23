@@ -34,6 +34,7 @@ var omitGeneration = map[string]string{
 }
 
 type modelAnnotations struct {
+	Parent *api.API
 	// The Dart package name (e.g. google_cloud_secretmanager).
 	PackageName string
 	// The version of the generated package.
@@ -41,20 +42,29 @@ type modelAnnotations struct {
 	// Name of the API in snake_format (e.g. secretmanager).
 	MainFileName      string
 	SourcePackageName string
-	HasServices       bool
 	CopyrightYear     string
 	BoilerPlate       []string
 	DefaultHost       string
 	DocLines          []string
-	HasDependencies   bool
 	// A reference to an optional hand-written part file.
 	PartFileReference   string
 	PackageDependencies []packageDependency
 	Imports             []string
-	// Whether the generated package specified any dev_dependencies.
-	HasDevDependencies bool
-	DevDependencies    []string
-	DoNotPublish       bool
+	DevDependencies     []string
+	DoNotPublish        bool
+}
+
+func (m *modelAnnotations) HasServices() bool {
+	return len(m.Parent.Services) > 0
+}
+
+func (m *modelAnnotations) HasDependencies() bool {
+	return len(m.PackageDependencies) > 0
+}
+
+// Whether the generated package specified any dev_dependencies.
+func (m *modelAnnotations) HasDevDependencies() bool {
+	return len(m.DevDependencies) > 0
 }
 
 type serviceAnnotations struct {
@@ -68,30 +78,46 @@ type serviceAnnotations struct {
 }
 
 type messageAnnotation struct {
-	Name              string
-	QualifiedName     string
-	DocLines          []string
-	OmitGeneration    bool
-	ConstructorBody   string // A custom body for the message's constructor.
-	HasFields         bool
-	HasCustomEncoding bool
-	HasToStringLines  bool
-	ToStringLines     []string
+	Parent         *api.Message
+	Name           string
+	QualifiedName  string
+	DocLines       []string
+	OmitGeneration bool
+	// A custom body for the message's constructor.
+	ConstructorBody string
+	ToStringLines   []string
+}
+
+func (m *messageAnnotation) HasFields() bool {
+	return len(m.Parent.Fields) > 0
+}
+
+func (m *messageAnnotation) HasCustomEncoding() bool {
+	_, hasCustomEncoding := usesCustomEncoding[m.Parent.ID]
+	return hasCustomEncoding
+}
+
+func (m *messageAnnotation) HasToStringLines() bool {
+	return len(m.ToStringLines) > 0
 }
 
 type methodAnnotation struct {
+	Parent *api.Method
 	// The method name using Dart naming conventions.
 	Name              string
 	RequestMethod     string
 	RequestType       string
 	ResponseType      string
 	DocLines          []string
-	HasBody           bool
 	ReturnsValue      bool
 	BodyMessageName   string
 	PathParams        []*api.Field
 	QueryParams       []*api.Field
 	IsLROGetOperation bool
+}
+
+func (m *methodAnnotation) HasBody() bool {
+	return m.Parent.PathInfo.BodyFieldPath != ""
 }
 
 type pathInfoAnnotation struct {
@@ -242,10 +268,10 @@ func (annotate *annotateModel) annotateModel(options map[string]string) (*modelA
 	packageDependencies := calculateDependencies(annotate.imports)
 
 	ann := &modelAnnotations{
+		Parent:         model,
 		PackageName:    packageName(model, packageNameOverride),
 		PackageVersion: packageVersion,
 		MainFileName:   strcase.ToSnake(model.Name),
-		HasServices:    len(model.Services) > 0,
 		CopyrightYear:  generationYear,
 		BoilerPlate: append(license.LicenseHeaderBulk(),
 			"",
@@ -259,9 +285,7 @@ func (annotate *annotateModel) annotateModel(options map[string]string) (*modelA
 		DocLines:            formatDocComments(model.Description, model.State),
 		Imports:             calculateImports(annotate.imports),
 		PartFileReference:   partFileReference,
-		HasDependencies:     len(packageDependencies) > 0,
 		PackageDependencies: packageDependencies,
-		HasDevDependencies:  len(devDependencies) > 0,
 		DevDependencies:     devDependencies,
 		DoNotPublish:        doNotPublish,
 	}
@@ -399,21 +423,18 @@ func (annotate *annotateModel) annotateMessage(m *api.Message, imports map[strin
 			"  }"
 	}
 
-	_, hasCustomEncoding := usesCustomEncoding[m.ID]
 	toStringLines := createToStringLines(m)
 
 	_, omit := omitGeneration[m.ID]
 
 	m.Codec = &messageAnnotation{
-		Name:              messageName(m),
-		QualifiedName:     qualifiedName(m),
-		DocLines:          formatDocComments(m.Documentation, annotate.state),
-		OmitGeneration:    omit || m.IsMap,
-		ConstructorBody:   constructorBody,
-		HasFields:         len(m.Fields) > 0,
-		HasCustomEncoding: hasCustomEncoding,
-		HasToStringLines:  len(toStringLines) > 0,
-		ToStringLines:     toStringLines,
+		Parent:          m,
+		Name:            messageName(m),
+		QualifiedName:   qualifiedName(m),
+		DocLines:        formatDocComments(m.Documentation, annotate.state),
+		OmitGeneration:  omit || m.IsMap,
+		ConstructorBody: constructorBody,
+		ToStringLines:   toStringLines,
 	}
 }
 
@@ -487,12 +508,12 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 	}
 
 	annotation := &methodAnnotation{
+		Parent:            method,
 		Name:              strcase.ToLowerCamel(method.Name),
 		RequestMethod:     strings.ToLower(method.PathInfo.Verb),
 		RequestType:       annotate.resolveTypeName(state.MessageByID[method.InputTypeID]),
 		ResponseType:      annotate.resolveTypeName(state.MessageByID[method.OutputTypeID]),
 		DocLines:          formatDocComments(method.Documentation, state),
-		HasBody:           method.PathInfo.BodyFieldPath != "",
 		ReturnsValue:      method.OutputTypeID != ".google.protobuf.Empty",
 		BodyMessageName:   bodyMessageName,
 		PathParams:        language.PathParams(method, state),
