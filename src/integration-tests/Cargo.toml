@@ -58,6 +58,7 @@ package = "google-cloud-workflows-v1"
 path    = "../../src/generated/cloud/workflows/v1"
 
 [dev-dependencies]
+anyhow     = "1"
 mockall    = "0.13"
 serde      = { version = "1", features = ["serde_derive"] }
 serde_with = { version = "3", features = ["base64"] }
