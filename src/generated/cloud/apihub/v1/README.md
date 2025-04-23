@@ -11,14 +11,22 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [ApiHub](https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHub.html)
-* [ApiHubDependencies](https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHubDependencies.html)
-* [HostProjectRegistrationService](https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.HostProjectRegistrationService.html)
-* [LintingService](https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.LintingService.html)
-* [ApiHubPlugin](https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHubPlugin.html)
-* [Provisioning](https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.Provisioning.html)
-* [RuntimeProjectAttachmentService](https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.RuntimeProjectAttachmentService.html)
+* [ApiHub]
+* [ApiHubDependencies]
+* [HostProjectRegistrationService]
+* [LintingService]
+* [ApiHubPlugin]
+* [Provisioning]
+* [RuntimeProjectAttachmentService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-apihub-v1/latest/google-cloud-apihub-v1)
+
+[ApiHub]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHub.html
+[ApiHubDependencies]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHubDependencies.html
+[HostProjectRegistrationService]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.HostProjectRegistrationService.html
+[LintingService]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.LintingService.html
+[ApiHubPlugin]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.ApiHubPlugin.html
+[Provisioning]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.Provisioning.html
+[RuntimeProjectAttachmentService]: https://docs.rs/google-cloud-apihub-v1/latest/google_cloud_apihub_v1/client/struct.RuntimeProjectAttachmentService.html

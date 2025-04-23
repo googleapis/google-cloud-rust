@@ -14,9 +14,12 @@ services.
 
 The main types to work with this crate are the clients:
 
-* [LookupService](https://docs.rs/google-cloud-servicedirectory-v1/latest/google_cloud_servicedirectory_v1/client/struct.LookupService.html)
-* [RegistrationService](https://docs.rs/google-cloud-servicedirectory-v1/latest/google_cloud_servicedirectory_v1/client/struct.RegistrationService.html)
+* [LookupService]
+* [RegistrationService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-servicedirectory-v1/latest/google-cloud-servicedirectory-v1)
+
+[LookupService]: https://docs.rs/google-cloud-servicedirectory-v1/latest/google_cloud_servicedirectory_v1/client/struct.LookupService.html
+[RegistrationService]: https://docs.rs/google-cloud-servicedirectory-v1/latest/google_cloud_servicedirectory_v1/client/struct.RegistrationService.html

@@ -13,8 +13,10 @@ TPU API provides customers with access to Google TPU technology.
 
 The main types to work with this crate are the clients:
 
-* [Tpu](https://docs.rs/google-cloud-tpu-v2/latest/google_cloud_tpu_v2/client/struct.Tpu.html)
+* [Tpu]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-tpu-v2/latest/google-cloud-tpu-v2)
+
+[Tpu]: https://docs.rs/google-cloud-tpu-v2/latest/google_cloud_tpu_v2/client/struct.Tpu.html

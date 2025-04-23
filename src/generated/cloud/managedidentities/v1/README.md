@@ -15,8 +15,10 @@ a highly available, hardened service running Microsoft Active Directory
 
 The main types to work with this crate are the clients:
 
-* [ManagedIdentitiesService](https://docs.rs/google-cloud-managedidentities-v1/latest/google_cloud_managedidentities_v1/client/struct.ManagedIdentitiesService.html)
+* [ManagedIdentitiesService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-managedidentities-v1/latest/google-cloud-managedidentities-v1)
+
+[ManagedIdentitiesService]: https://docs.rs/google-cloud-managedidentities-v1/latest/google_cloud_managedidentities_v1/client/struct.ManagedIdentitiesService.html

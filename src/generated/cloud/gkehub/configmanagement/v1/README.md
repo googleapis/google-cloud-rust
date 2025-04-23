@@ -10,3 +10,4 @@ APIs, documentation, missing features, bugs, etc.
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-gkehub-configmanagement-v1/latest/google-cloud-gkehub-configmanagement-v1)
+

@@ -14,8 +14,10 @@ environments.
 
 The main types to work with this crate are the clients:
 
-* [VmwareEngine](https://docs.rs/google-cloud-vmwareengine-v1/latest/google_cloud_vmwareengine_v1/client/struct.VmwareEngine.html)
+* [VmwareEngine]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-vmwareengine-v1/latest/google-cloud-vmwareengine-v1)
+
+[VmwareEngine]: https://docs.rs/google-cloud-vmwareengine-v1/latest/google_cloud_vmwareengine_v1/client/struct.VmwareEngine.html

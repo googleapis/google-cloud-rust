@@ -18,8 +18,10 @@ applications.
 
 The main types to work with this crate are the clients:
 
-* [TimeseriesInsightsController](https://docs.rs/google-cloud-timeseriesinsights-v1/latest/google_cloud_timeseriesinsights_v1/client/struct.TimeseriesInsightsController.html)
+* [TimeseriesInsightsController]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-timeseriesinsights-v1/latest/google-cloud-timeseriesinsights-v1)
+
+[TimeseriesInsightsController]: https://docs.rs/google-cloud-timeseriesinsights-v1/latest/google_cloud_timeseriesinsights_v1/client/struct.TimeseriesInsightsController.html

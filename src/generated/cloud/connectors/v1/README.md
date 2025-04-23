@@ -14,8 +14,10 @@ and third-party business applications using the Connectors interface.
 
 The main types to work with this crate are the clients:
 
-* [Connectors](https://docs.rs/google-cloud-connectors-v1/latest/google_cloud_connectors_v1/client/struct.Connectors.html)
+* [Connectors]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-connectors-v1/latest/google-cloud-connectors-v1)
+
+[Connectors]: https://docs.rs/google-cloud-connectors-v1/latest/google_cloud_connectors_v1/client/struct.Connectors.html

@@ -16,8 +16,10 @@ connectivity using the App Connector hybrid connectivity solution.
 
 The main types to work with this crate are the clients:
 
-* [ClientGatewaysService](https://docs.rs/google-cloud-beyondcorp-clientgateways-v1/latest/google_cloud_beyondcorp_clientgateways_v1/client/struct.ClientGatewaysService.html)
+* [ClientGatewaysService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-beyondcorp-clientgateways-v1/latest/google-cloud-beyondcorp-clientgateways-v1)
+
+[ClientGatewaysService]: https://docs.rs/google-cloud-beyondcorp-clientgateways-v1/latest/google_cloud_beyondcorp_clientgateways_v1/client/struct.ClientGatewaysService.html

@@ -13,8 +13,10 @@ Manage Cloud Database Migration Service resources on Google Cloud Platform.
 
 The main types to work with this crate are the clients:
 
-* [DataMigrationService](https://docs.rs/google-cloud-clouddms-v1/latest/google_cloud_clouddms_v1/client/struct.DataMigrationService.html)
+* [DataMigrationService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-clouddms-v1/latest/google-cloud-clouddms-v1)
+
+[DataMigrationService]: https://docs.rs/google-cloud-clouddms-v1/latest/google_cloud_clouddms_v1/client/struct.DataMigrationService.html

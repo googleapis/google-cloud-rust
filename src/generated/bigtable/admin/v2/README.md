@@ -13,9 +13,12 @@ Administer your Cloud Bigtable tables and instances.
 
 The main types to work with this crate are the clients:
 
-* [BigtableInstanceAdmin](https://docs.rs/google-cloud-bigtable-admin-v2/latest/google_cloud_bigtable_admin_v2/client/struct.BigtableInstanceAdmin.html)
-* [BigtableTableAdmin](https://docs.rs/google-cloud-bigtable-admin-v2/latest/google_cloud_bigtable_admin_v2/client/struct.BigtableTableAdmin.html)
+* [BigtableInstanceAdmin]
+* [BigtableTableAdmin]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-bigtable-admin-v2/latest/google-cloud-bigtable-admin-v2)
+
+[BigtableInstanceAdmin]: https://docs.rs/google-cloud-bigtable-admin-v2/latest/google_cloud_bigtable_admin_v2/client/struct.BigtableInstanceAdmin.html
+[BigtableTableAdmin]: https://docs.rs/google-cloud-bigtable-admin-v2/latest/google_cloud_bigtable_admin_v2/client/struct.BigtableTableAdmin.html

@@ -13,8 +13,10 @@ Security Posture is a comprehensive framework of policy sets that empowers organ
 
 The main types to work with this crate are the clients:
 
-* [SecurityPosture](https://docs.rs/google-cloud-securityposture-v1/latest/google_cloud_securityposture_v1/client/struct.SecurityPosture.html)
+* [SecurityPosture]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-securityposture-v1/latest/google-cloud-securityposture-v1)
+
+[SecurityPosture]: https://docs.rs/google-cloud-securityposture-v1/latest/google_cloud_securityposture_v1/client/struct.SecurityPosture.html

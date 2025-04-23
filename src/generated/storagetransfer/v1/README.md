@@ -14,8 +14,10 @@ or between Google Cloud Storage buckets.
 
 The main types to work with this crate are the clients:
 
-* [StorageTransferService](https://docs.rs/google-cloud-storagetransfer-v1/latest/google_cloud_storagetransfer_v1/client/struct.StorageTransferService.html)
+* [StorageTransferService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-storagetransfer-v1/latest/google-cloud-storagetransfer-v1)
+
+[StorageTransferService]: https://docs.rs/google-cloud-storagetransfer-v1/latest/google_cloud_storagetransfer_v1/client/struct.StorageTransferService.html

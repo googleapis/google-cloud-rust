@@ -13,8 +13,10 @@ Creates and manages Google Cloud Platform resources and infrastructure.
 
 The main types to work with this crate are the clients:
 
-* [Config](https://docs.rs/google-cloud-config-v1/latest/google_cloud_config_v1/client/struct.Config.html)
+* [Config]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-config-v1/latest/google-cloud-config-v1)
+
+[Config]: https://docs.rs/google-cloud-config-v1/latest/google_cloud_config_v1/client/struct.Config.html

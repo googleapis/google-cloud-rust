@@ -13,8 +13,10 @@ Allows users to manage BigQuery connections to external data sources.
 
 The main types to work with this crate are the clients:
 
-* [ConnectionService](https://docs.rs/google-cloud-bigquery-connection-v1/latest/google_cloud_bigquery_connection_v1/client/struct.ConnectionService.html)
+* [ConnectionService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-connection-v1/latest/google-cloud-bigquery-connection-v1)
+
+[ConnectionService]: https://docs.rs/google-cloud-bigquery-connection-v1/latest/google_cloud_bigquery_connection_v1/client/struct.ConnectionService.html

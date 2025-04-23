@@ -13,15 +13,24 @@ Manages Hadoop-based clusters and jobs on Google Cloud Platform.
 
 The main types to work with this crate are the clients:
 
-* [AutoscalingPolicyService](https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.AutoscalingPolicyService.html)
-* [BatchController](https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.BatchController.html)
-* [ClusterController](https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.ClusterController.html)
-* [JobController](https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.JobController.html)
-* [NodeGroupController](https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.NodeGroupController.html)
-* [SessionTemplateController](https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.SessionTemplateController.html)
-* [SessionController](https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.SessionController.html)
-* [WorkflowTemplateService](https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.WorkflowTemplateService.html)
+* [AutoscalingPolicyService]
+* [BatchController]
+* [ClusterController]
+* [JobController]
+* [NodeGroupController]
+* [SessionTemplateController]
+* [SessionController]
+* [WorkflowTemplateService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-dataproc-v1/latest/google-cloud-dataproc-v1)
+
+[AutoscalingPolicyService]: https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.AutoscalingPolicyService.html
+[BatchController]: https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.BatchController.html
+[ClusterController]: https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.ClusterController.html
+[JobController]: https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.JobController.html
+[NodeGroupController]: https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.NodeGroupController.html
+[SessionTemplateController]: https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.SessionTemplateController.html
+[SessionController]: https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.SessionController.html
+[WorkflowTemplateService]: https://docs.rs/google-cloud-dataproc-v1/latest/google_cloud_dataproc_v1/client/struct.WorkflowTemplateService.html

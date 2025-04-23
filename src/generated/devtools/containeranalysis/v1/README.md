@@ -20,8 +20,10 @@ about all of your software artifacts.
 
 The main types to work with this crate are the clients:
 
-* [ContainerAnalysis](https://docs.rs/google-cloud-containeranalysis-v1/latest/google_cloud_containeranalysis_v1/client/struct.ContainerAnalysis.html)
+* [ContainerAnalysis]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-containeranalysis-v1/latest/google-cloud-containeranalysis-v1)
+
+[ContainerAnalysis]: https://docs.rs/google-cloud-containeranalysis-v1/latest/google_cloud_containeranalysis_v1/client/struct.ContainerAnalysis.html

@@ -13,13 +13,20 @@ A data platform for customers to create, manage, share and query data.
 
 The main types to work with this crate are the clients:
 
-* [DatasetService](https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.DatasetService.html)
-* [ModelService](https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.ModelService.html)
-* [ProjectService](https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.ProjectService.html)
-* [RoutineService](https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.RoutineService.html)
-* [RowAccessPolicyService](https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.RowAccessPolicyService.html)
-* [TableService](https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.TableService.html)
+* [DatasetService]
+* [ModelService]
+* [ProjectService]
+* [RoutineService]
+* [RowAccessPolicyService]
+* [TableService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-v2/latest/google-cloud-bigquery-v2)
+
+[DatasetService]: https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.DatasetService.html
+[ModelService]: https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.ModelService.html
+[ProjectService]: https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.ProjectService.html
+[RoutineService]: https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.RoutineService.html
+[RowAccessPolicyService]: https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.RowAccessPolicyService.html
+[TableService]: https://docs.rs/google-cloud-bigquery-v2/latest/google_cloud_bigquery_v2/client/struct.TableService.html

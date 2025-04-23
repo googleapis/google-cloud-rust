@@ -13,8 +13,10 @@ Creates short-lived, limited-privilege credentials for IAM service accounts.
 
 The main types to work with this crate are the clients:
 
-* [IAMCredentials](https://docs.rs/google-cloud-iam-credentials-v1/latest/google_cloud_iam_credentials_v1/client/struct.IAMCredentials.html)
+* [IAMCredentials]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-iam-credentials-v1/latest/google-cloud-iam-credentials-v1)
+
+[IAMCredentials]: https://docs.rs/google-cloud-iam-credentials-v1/latest/google_cloud_iam_credentials_v1/client/struct.IAMCredentials.html

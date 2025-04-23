@@ -13,8 +13,10 @@ Converts audio to text by applying powerful neural network models.
 
 The main types to work with this crate are the clients:
 
-* [Speech](https://docs.rs/google-cloud-speech-v2/latest/google_cloud_speech_v2/client/struct.Speech.html)
+* [Speech]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-speech-v2/latest/google-cloud-speech-v2)
+
+[Speech]: https://docs.rs/google-cloud-speech-v2/latest/google_cloud_speech_v2/client/struct.Speech.html

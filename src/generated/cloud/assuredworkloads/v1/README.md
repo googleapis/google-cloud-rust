@@ -11,8 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [AssuredWorkloadsService](https://docs.rs/google-cloud-assuredworkloads-v1/latest/google_cloud_assuredworkloads_v1/client/struct.AssuredWorkloadsService.html)
+* [AssuredWorkloadsService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-assuredworkloads-v1/latest/google-cloud-assuredworkloads-v1)
+
+[AssuredWorkloadsService]: https://docs.rs/google-cloud-assuredworkloads-v1/latest/google_cloud_assuredworkloads_v1/client/struct.AssuredWorkloadsService.html

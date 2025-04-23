@@ -13,14 +13,22 @@ Dataplex API is used to manage the lifecycle of data lakes.
 
 The main types to work with this crate are the clients:
 
-* [CatalogService](https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.CatalogService.html)
-* [CmekService](https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.CmekService.html)
-* [ContentService](https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.ContentService.html)
-* [DataTaxonomyService](https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.DataTaxonomyService.html)
-* [DataScanService](https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.DataScanService.html)
-* [MetadataService](https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.MetadataService.html)
-* [DataplexService](https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.DataplexService.html)
+* [CatalogService]
+* [CmekService]
+* [ContentService]
+* [DataTaxonomyService]
+* [DataScanService]
+* [MetadataService]
+* [DataplexService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-dataplex-v1/latest/google-cloud-dataplex-v1)
+
+[CatalogService]: https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.CatalogService.html
+[CmekService]: https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.CmekService.html
+[ContentService]: https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.ContentService.html
+[DataTaxonomyService]: https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.DataTaxonomyService.html
+[DataScanService]: https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.DataScanService.html
+[MetadataService]: https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.MetadataService.html
+[DataplexService]: https://docs.rs/google-cloud-dataplex-v1/latest/google_cloud_dataplex_v1/client/struct.DataplexService.html

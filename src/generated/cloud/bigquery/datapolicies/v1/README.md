@@ -13,8 +13,10 @@ Allows users to manage BigQuery data policies.
 
 The main types to work with this crate are the clients:
 
-* [DataPolicyService](https://docs.rs/google-cloud-bigquery-datapolicies-v1/latest/google_cloud_bigquery_datapolicies_v1/client/struct.DataPolicyService.html)
+* [DataPolicyService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-datapolicies-v1/latest/google-cloud-bigquery-datapolicies-v1)
+
+[DataPolicyService]: https://docs.rs/google-cloud-bigquery-datapolicies-v1/latest/google_cloud_bigquery_datapolicies_v1/client/struct.DataPolicyService.html

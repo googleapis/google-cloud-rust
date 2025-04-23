@@ -15,8 +15,10 @@ define policies that filter user prompts and model responses.
 
 The main types to work with this crate are the clients:
 
-* [ModelArmor](https://docs.rs/google-cloud-modelarmor-v1/latest/google_cloud_modelarmor_v1/client/struct.ModelArmor.html)
+* [ModelArmor]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-modelarmor-v1/latest/google-cloud-modelarmor-v1)
+
+[ModelArmor]: https://docs.rs/google-cloud-modelarmor-v1/latest/google_cloud_modelarmor_v1/client/struct.ModelArmor.html

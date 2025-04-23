@@ -12,3 +12,4 @@ Defines common types for Google APIs.
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-type/latest/google-cloud-type)
+

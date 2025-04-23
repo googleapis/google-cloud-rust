@@ -13,8 +13,10 @@ Creates and manages builds on Google Cloud Platform.
 
 The main types to work with this crate are the clients:
 
-* [CloudBuild](https://docs.rs/google-cloud-build-v1/latest/google_cloud_build_v1/client/struct.CloudBuild.html)
+* [CloudBuild]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-build-v1/latest/google-cloud-build-v1)
+
+[CloudBuild]: https://docs.rs/google-cloud-build-v1/latest/google_cloud_build_v1/client/struct.CloudBuild.html

@@ -15,8 +15,10 @@ language, computer vision, translation, and AutoML.
 
 The main types to work with this crate are the clients:
 
-* [DocumentProcessorService](https://docs.rs/google-cloud-documentai-v1/latest/google_cloud_documentai_v1/client/struct.DocumentProcessorService.html)
+* [DocumentProcessorService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-documentai-v1/latest/google-cloud-documentai-v1)
+
+[DocumentProcessorService]: https://docs.rs/google-cloud-documentai-v1/latest/google_cloud_documentai_v1/client/struct.DocumentProcessorService.html

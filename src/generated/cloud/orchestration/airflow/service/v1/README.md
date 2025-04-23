@@ -13,9 +13,12 @@ Manages Apache Airflow environments on Google Cloud Platform.
 
 The main types to work with this crate are the clients:
 
-* [Environments](https://docs.rs/google-cloud-orchestration-airflow-service-v1/latest/google_cloud_orchestration_airflow_service_v1/client/struct.Environments.html)
-* [ImageVersions](https://docs.rs/google-cloud-orchestration-airflow-service-v1/latest/google_cloud_orchestration_airflow_service_v1/client/struct.ImageVersions.html)
+* [Environments]
+* [ImageVersions]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-orchestration-airflow-service-v1/latest/google-cloud-orchestration-airflow-service-v1)
+
+[Environments]: https://docs.rs/google-cloud-orchestration-airflow-service-v1/latest/google_cloud_orchestration_airflow_service_v1/client/struct.Environments.html
+[ImageVersions]: https://docs.rs/google-cloud-orchestration-airflow-service-v1/latest/google_cloud_orchestration_airflow_service_v1/client/struct.ImageVersions.html

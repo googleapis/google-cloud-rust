@@ -13,8 +13,10 @@ An API for controlling access to data by Google personnel.
 
 The main types to work with this crate are the clients:
 
-* [AccessApproval](https://docs.rs/google-cloud-accessapproval-v1/latest/google_cloud_accessapproval_v1/client/struct.AccessApproval.html)
+* [AccessApproval]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-accessapproval-v1/latest/google-cloud-accessapproval-v1)
+
+[AccessApproval]: https://docs.rs/google-cloud-accessapproval-v1/latest/google_cloud_accessapproval_v1/client/struct.AccessApproval.html

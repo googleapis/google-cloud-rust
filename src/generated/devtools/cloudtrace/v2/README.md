@@ -17,8 +17,10 @@ your application for Stackdriver Trace, we recommend using OpenTelemetry.
 
 The main types to work with this crate are the clients:
 
-* [TraceService](https://docs.rs/google-cloud-trace-v2/latest/google_cloud_trace_v2/client/struct.TraceService.html)
+* [TraceService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-trace-v2/latest/google-cloud-trace-v2)
+
+[TraceService]: https://docs.rs/google-cloud-trace-v2/latest/google_cloud_trace_v2/client/struct.TraceService.html

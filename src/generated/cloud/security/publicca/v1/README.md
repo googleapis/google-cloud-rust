@@ -15,8 +15,10 @@ publicly trusted certificate authority.
 
 The main types to work with this crate are the clients:
 
-* [PublicCertificateAuthorityService](https://docs.rs/google-cloud-security-publicca-v1/latest/google_cloud_security_publicca_v1/client/struct.PublicCertificateAuthorityService.html)
+* [PublicCertificateAuthorityService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-security-publicca-v1/latest/google-cloud-security-publicca-v1)
+
+[PublicCertificateAuthorityService]: https://docs.rs/google-cloud-security-publicca-v1/latest/google_cloud_security_publicca_v1/client/struct.PublicCertificateAuthorityService.html

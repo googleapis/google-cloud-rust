@@ -14,8 +14,10 @@ events impacting Google Cloud products.
 
 The main types to work with this crate are the clients:
 
-* [ServiceHealth](https://docs.rs/google-cloud-servicehealth-v1/latest/google_cloud_servicehealth_v1/client/struct.ServiceHealth.html)
+* [ServiceHealth]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-servicehealth-v1/latest/google-cloud-servicehealth-v1)
+
+[ServiceHealth]: https://docs.rs/google-cloud-servicehealth-v1/latest/google_cloud_servicehealth_v1/client/struct.ServiceHealth.html

@@ -23,8 +23,10 @@ application changes; and modernize legacy proprietary databases.
 
 The main types to work with this crate are the clients:
 
-* [AlloyDBAdmin](https://docs.rs/google-cloud-alloydb-v1/latest/google_cloud_alloydb_v1/client/struct.AlloyDBAdmin.html)
+* [AlloyDBAdmin]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-alloydb-v1/latest/google-cloud-alloydb-v1)
+
+[AlloyDBAdmin]: https://docs.rs/google-cloud-alloydb-v1/latest/google_cloud_alloydb_v1/client/struct.AlloyDBAdmin.html

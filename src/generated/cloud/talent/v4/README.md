@@ -14,12 +14,18 @@ delete job postings, as well as search jobs based on keywords and filters.
 
 The main types to work with this crate are the clients:
 
-* [CompanyService](https://docs.rs/google-cloud-talent-v4/latest/google_cloud_talent_v4/client/struct.CompanyService.html)
-* [Completion](https://docs.rs/google-cloud-talent-v4/latest/google_cloud_talent_v4/client/struct.Completion.html)
-* [EventService](https://docs.rs/google-cloud-talent-v4/latest/google_cloud_talent_v4/client/struct.EventService.html)
-* [JobService](https://docs.rs/google-cloud-talent-v4/latest/google_cloud_talent_v4/client/struct.JobService.html)
-* [TenantService](https://docs.rs/google-cloud-talent-v4/latest/google_cloud_talent_v4/client/struct.TenantService.html)
+* [CompanyService]
+* [Completion]
+* [EventService]
+* [JobService]
+* [TenantService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-talent-v4/latest/google-cloud-talent-v4)
+
+[CompanyService]: https://docs.rs/google-cloud-talent-v4/latest/google_cloud_talent_v4/client/struct.CompanyService.html
+[Completion]: https://docs.rs/google-cloud-talent-v4/latest/google_cloud_talent_v4/client/struct.Completion.html
+[EventService]: https://docs.rs/google-cloud-talent-v4/latest/google_cloud_talent_v4/client/struct.EventService.html
+[JobService]: https://docs.rs/google-cloud-talent-v4/latest/google_cloud_talent_v4/client/struct.JobService.html
+[TenantService]: https://docs.rs/google-cloud-talent-v4/latest/google_cloud_talent_v4/client/struct.TenantService.html

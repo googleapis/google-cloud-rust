@@ -27,8 +27,10 @@ operations.
 
 The main types to work with this crate are the clients:
 
-* [Operations](https://docs.rs/google-cloud-longrunning/latest/google_cloud_longrunning/client/struct.Operations.html)
+* [Operations]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-longrunning/latest/google-cloud-longrunning)
+
+[Operations]: https://docs.rs/google-cloud-longrunning/latest/google_cloud_longrunning/client/struct.Operations.html

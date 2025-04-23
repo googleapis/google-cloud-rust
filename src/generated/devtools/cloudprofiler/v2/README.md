@@ -13,9 +13,12 @@ Manages continuous profiling information.
 
 The main types to work with this crate are the clients:
 
-* [ProfilerService](https://docs.rs/google-cloud-profiler-v2/latest/google_cloud_profiler_v2/client/struct.ProfilerService.html)
-* [ExportService](https://docs.rs/google-cloud-profiler-v2/latest/google_cloud_profiler_v2/client/struct.ExportService.html)
+* [ProfilerService]
+* [ExportService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-profiler-v2/latest/google-cloud-profiler-v2)
+
+[ProfilerService]: https://docs.rs/google-cloud-profiler-v2/latest/google_cloud_profiler_v2/client/struct.ProfilerService.html
+[ExportService]: https://docs.rs/google-cloud-profiler-v2/latest/google_cloud_profiler_v2/client/struct.ExportService.html

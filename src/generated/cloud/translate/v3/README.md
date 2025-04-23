@@ -13,8 +13,10 @@ Integrates text translation into your website or application.
 
 The main types to work with this crate are the clients:
 
-* [TranslationService](https://docs.rs/google-cloud-translation-v3/latest/google_cloud_translation_v3/client/struct.TranslationService.html)
+* [TranslationService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-translation-v3/latest/google-cloud-translation-v3)
+
+[TranslationService]: https://docs.rs/google-cloud-translation-v3/latest/google_cloud_translation_v3/client/struct.TranslationService.html

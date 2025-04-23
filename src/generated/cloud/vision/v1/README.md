@@ -15,9 +15,12 @@ of explicit content, into applications.
 
 The main types to work with this crate are the clients:
 
-* [ImageAnnotator](https://docs.rs/google-cloud-vision-v1/latest/google_cloud_vision_v1/client/struct.ImageAnnotator.html)
-* [ProductSearch](https://docs.rs/google-cloud-vision-v1/latest/google_cloud_vision_v1/client/struct.ProductSearch.html)
+* [ImageAnnotator]
+* [ProductSearch]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-vision-v1/latest/google-cloud-vision-v1)
+
+[ImageAnnotator]: https://docs.rs/google-cloud-vision-v1/latest/google_cloud_vision_v1/client/struct.ImageAnnotator.html
+[ProductSearch]: https://docs.rs/google-cloud-vision-v1/latest/google_cloud_vision_v1/client/struct.ProductSearch.html

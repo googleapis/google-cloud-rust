@@ -17,8 +17,10 @@ will be shared with Palo Alto Networks.
 
 The main types to work with this crate are the clients:
 
-* [Ids](https://docs.rs/google-cloud-ids-v1/latest/google_cloud_ids_v1/client/struct.Ids.html)
+* [Ids]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-ids-v1/latest/google-cloud-ids-v1)
+
+[Ids]: https://docs.rs/google-cloud-ids-v1/latest/google_cloud_ids_v1/client/struct.Ids.html

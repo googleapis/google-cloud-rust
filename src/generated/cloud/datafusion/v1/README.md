@@ -19,8 +19,10 @@ without having to wrestle with infrastructure.
 
 The main types to work with this crate are the clients:
 
-* [DataFusion](https://docs.rs/google-cloud-datafusion-v1/latest/google_cloud_datafusion_v1/client/struct.DataFusion.html)
+* [DataFusion]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-datafusion-v1/latest/google-cloud-datafusion-v1)
+
+[DataFusion]: https://docs.rs/google-cloud-datafusion-v1/latest/google_cloud_datafusion_v1/client/struct.DataFusion.html

@@ -14,9 +14,12 @@ compliance, and configuration management on VM instances.
 
 The main types to work with this crate are the clients:
 
-* [OsConfigService](https://docs.rs/google-cloud-osconfig-v1/latest/google_cloud_osconfig_v1/client/struct.OsConfigService.html)
-* [OsConfigZonalService](https://docs.rs/google-cloud-osconfig-v1/latest/google_cloud_osconfig_v1/client/struct.OsConfigZonalService.html)
+* [OsConfigService]
+* [OsConfigZonalService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-osconfig-v1/latest/google-cloud-osconfig-v1)
+
+[OsConfigService]: https://docs.rs/google-cloud-osconfig-v1/latest/google_cloud_osconfig_v1/client/struct.OsConfigService.html
+[OsConfigZonalService]: https://docs.rs/google-cloud-osconfig-v1/latest/google_cloud_osconfig_v1/client/struct.OsConfigZonalService.html

@@ -16,18 +16,30 @@ models, across your websites and mobile applications.
 
 The main types to work with this crate are the clients:
 
-* [AnalyticsService](https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.AnalyticsService.html)
-* [CatalogService](https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.CatalogService.html)
-* [CompletionService](https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.CompletionService.html)
-* [ControlService](https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.ControlService.html)
-* [GenerativeQuestionService](https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.GenerativeQuestionService.html)
-* [ModelService](https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.ModelService.html)
-* [PredictionService](https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.PredictionService.html)
-* [ProductService](https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.ProductService.html)
-* [SearchService](https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.SearchService.html)
-* [ServingConfigService](https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.ServingConfigService.html)
-* [UserEventService](https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.UserEventService.html)
+* [AnalyticsService]
+* [CatalogService]
+* [CompletionService]
+* [ControlService]
+* [GenerativeQuestionService]
+* [ModelService]
+* [PredictionService]
+* [ProductService]
+* [SearchService]
+* [ServingConfigService]
+* [UserEventService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-retail-v2/latest/google-cloud-retail-v2)
+
+[AnalyticsService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.AnalyticsService.html
+[CatalogService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.CatalogService.html
+[CompletionService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.CompletionService.html
+[ControlService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.ControlService.html
+[GenerativeQuestionService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.GenerativeQuestionService.html
+[ModelService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.ModelService.html
+[PredictionService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.PredictionService.html
+[ProductService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.ProductService.html
+[SearchService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.SearchService.html
+[ServingConfigService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.ServingConfigService.html
+[UserEventService]: https://docs.rs/google-cloud-retail-v2/latest/google_cloud_retail_v2/client/struct.UserEventService.html

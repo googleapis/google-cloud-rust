@@ -13,23 +13,40 @@ Discovery Engine API.
 
 The main types to work with this crate are the clients:
 
-* [CompletionService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.CompletionService.html)
-* [ControlService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ControlService.html)
-* [ConversationalSearchService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ConversationalSearchService.html)
-* [DataStoreService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.DataStoreService.html)
-* [DocumentService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.DocumentService.html)
-* [EngineService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.EngineService.html)
-* [GroundedGenerationService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.GroundedGenerationService.html)
-* [ProjectService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ProjectService.html)
-* [RankService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.RankService.html)
-* [RecommendationService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.RecommendationService.html)
-* [SchemaService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SchemaService.html)
-* [SearchService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SearchService.html)
-* [SearchTuningService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SearchTuningService.html)
-* [ServingConfigService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ServingConfigService.html)
-* [SiteSearchEngineService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SiteSearchEngineService.html)
-* [UserEventService](https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.UserEventService.html)
+* [CompletionService]
+* [ControlService]
+* [ConversationalSearchService]
+* [DataStoreService]
+* [DocumentService]
+* [EngineService]
+* [GroundedGenerationService]
+* [ProjectService]
+* [RankService]
+* [RecommendationService]
+* [SchemaService]
+* [SearchService]
+* [SearchTuningService]
+* [ServingConfigService]
+* [SiteSearchEngineService]
+* [UserEventService]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-discoveryengine-v1/latest/google-cloud-discoveryengine-v1)
+
+[CompletionService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.CompletionService.html
+[ControlService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ControlService.html
+[ConversationalSearchService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ConversationalSearchService.html
+[DataStoreService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.DataStoreService.html
+[DocumentService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.DocumentService.html
+[EngineService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.EngineService.html
+[GroundedGenerationService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.GroundedGenerationService.html
+[ProjectService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ProjectService.html
+[RankService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.RankService.html
+[RecommendationService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.RecommendationService.html
+[SchemaService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SchemaService.html
+[SearchService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SearchService.html
+[SearchTuningService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SearchTuningService.html
+[ServingConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ServingConfigService.html
+[SiteSearchEngineService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SiteSearchEngineService.html
+[UserEventService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.UserEventService.html

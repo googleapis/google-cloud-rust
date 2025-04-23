@@ -13,8 +13,10 @@ Provides insights capability on Google Cloud Storage
 
 The main types to work with this crate are the clients:
 
-* [StorageInsights](https://docs.rs/google-cloud-storageinsights-v1/latest/google_cloud_storageinsights_v1/client/struct.StorageInsights.html)
+* [StorageInsights]
 
 ## More Information
 
 * Read the [crate's documentation](https://docs.rs/google-cloud-storageinsights-v1/latest/google-cloud-storageinsights-v1)
+
+[StorageInsights]: https://docs.rs/google-cloud-storageinsights-v1/latest/google_cloud_storageinsights_v1/client/struct.StorageInsights.html
