@@ -44,7 +44,11 @@ class SecretManagerService {
 
   /// Lists `Secrets`.
   Future<ListSecretsResponse> listSecrets(ListSecretsRequest request) async {
-    final url = Uri.https(_host, '/v1/${request.parent}/secrets');
+    final url = Uri.https(_host, '/v1/${request.parent}/secrets', {
+      if (request.pageSize != null) 'pageSize': '${request.pageSize}',
+      if (request.pageToken != null) 'pageToken': request.pageToken!,
+      if (request.filter != null) 'filter': request.filter!,
+    });
     final response = await _client.get(url);
     return ListSecretsResponse.fromJson(response);
   }
@@ -52,7 +56,9 @@ class SecretManagerService {
   /// Creates a new `Secret` containing no
   /// `SecretVersions`.
   Future<Secret> createSecret(CreateSecretRequest request) async {
-    final url = Uri.https(_host, '/v1/${request.parent}/secrets');
+    final url = Uri.https(_host, '/v1/${request.parent}/secrets', {
+      if (request.secretId != null) 'secretId': request.secretId!,
+    });
     final response = await _client.post(url, body: request.secret);
     return Secret.fromJson(response);
   }
@@ -77,14 +83,19 @@ class SecretManagerService {
   /// Updates metadata of an existing
   /// `Secret`.
   Future<Secret> updateSecret(UpdateSecretRequest request) async {
-    final url = Uri.https(_host, '/v1/${request.secret.name}');
+    final url = Uri.https(_host, '/v1/${request.secret.name}', {
+      if (request.updateMask?.paths != null)
+        'updateMask.paths': request.updateMask?.paths!,
+    });
     final response = await _client.patch(url, body: request.secret);
     return Secret.fromJson(response);
   }
 
   /// Deletes a `Secret`.
   Future<void> deleteSecret(DeleteSecretRequest request) async {
-    final url = Uri.https(_host, '/v1/${request.name}');
+    final url = Uri.https(_host, '/v1/${request.name}', {
+      if (request.etag != null) 'etag': request.etag!,
+    });
     await _client.delete(url);
   }
 
@@ -92,7 +103,11 @@ class SecretManagerService {
   /// call does not return secret data.
   Future<ListSecretVersionsResponse> listSecretVersions(
       ListSecretVersionsRequest request) async {
-    final url = Uri.https(_host, '/v1/${request.parent}/versions');
+    final url = Uri.https(_host, '/v1/${request.parent}/versions', {
+      if (request.pageSize != null) 'pageSize': '${request.pageSize}',
+      if (request.pageToken != null) 'pageToken': request.pageToken!,
+      if (request.filter != null) 'filter': request.filter!,
+    });
     final response = await _client.get(url);
     return ListSecretVersionsResponse.fromJson(response);
   }
@@ -174,7 +189,11 @@ class SecretManagerService {
   /// Gets the access control policy for a secret.
   /// Returns empty policy if the secret exists and does not have a policy set.
   Future<Policy> getIamPolicy(GetIamPolicyRequest request) async {
-    final url = Uri.https(_host, '/v1/${request.resource}:getIamPolicy');
+    final url = Uri.https(_host, '/v1/${request.resource}:getIamPolicy', {
+      if (request.options?.requestedPolicyVersion != null)
+        'options.requestedPolicyVersion':
+            '${request.options?.requestedPolicyVersion}',
+    });
     final response = await _client.get(url);
     return Policy.fromJson(response);
   }
@@ -196,7 +215,11 @@ class SecretManagerService {
   /// Lists information about the supported locations for this service.
   Future<ListLocationsResponse> listLocations(
       ListLocationsRequest request) async {
-    final url = Uri.https(_host, '/v1/${request.name}/locations');
+    final url = Uri.https(_host, '/v1/${request.name}/locations', {
+      if (request.filter != null) 'filter': request.filter!,
+      if (request.pageSize != null) 'pageSize': '${request.pageSize}',
+      if (request.pageToken != null) 'pageToken': request.pageToken!,
+    });
     final response = await _client.get(url);
     return ListLocationsResponse.fromJson(response);
   }
