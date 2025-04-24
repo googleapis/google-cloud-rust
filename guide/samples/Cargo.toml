@@ -48,6 +48,14 @@ google-cloud-language-v2 = { version = "0.3", path = "../../src/generated/cloud/
 google-cloud-rpc = { version = "0.3", path = "../../src/generated/rpc/types" }
 google-cloud-wkt = { version = "0.4", path = "../../src/wkt" }
 
+# ANCHOR: aiplatform
+[dependencies.google-cloud-aiplatform-v1]
+version = "0.3"
+default-features = false
+features = ["prediction_service"]
+# ANCHOR_END: aiplatform
+path = "../../src/generated/cloud/aiplatform/v1"
+
 # ANCHOR: mockall
 [dev-dependencies]
 mockall = "0.13"
