@@ -38,7 +38,7 @@ mod test {
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        let creds = create_access_token_credentials().await.unwrap();
+        let creds = Builder::default().build().unwrap();
         let fmt = format!("{:?}", creds);
         assert!(fmt.contains("ServiceAccountCredentials"));
 

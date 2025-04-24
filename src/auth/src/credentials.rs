@@ -415,56 +415,6 @@ impl Builder {
     }
 }
 
-/// Create access token credentials.
-///
-/// Returns [Application Default Credentials (ADC)][ADC-link]. These are the
-/// most commonly used credentials, and are expected to meet the needs of most
-/// applications. They conform to [AIP-4110].
-///
-/// The access tokens returned by these credentials are to be used in the
-/// `Authorization` HTTP header.
-///
-/// Consider using these credentials when:
-///
-/// - Your application is deployed to a Google Cloud environment such as
-///   [Google Compute Engine (GCE)][gce-link],
-///   [Google Kubernetes Engine (GKE)][gke-link], or [Cloud Run]. Each of these
-///   deployment environments provides a default service account to the
-///   application, and offers mechanisms to change this default service account
-///   without any code changes to your application.
-/// - You are testing or developing the application on a workstation (physical or
-///   virtual). These credentials will use your preferences as set with
-///   [gcloud auth application-default]. These preferences can be your own Google
-///   Cloud user credentials, or some service account.
-/// - Regardless of where your application is running, you can use the
-///   `GOOGLE_APPLICATION_CREDENTIALS` environment variable to override the
-///   defaults. This environment variable should point to a file containing a
-///   service account key file, or a JSON object describing your user
-///   credentials.
-///
-/// Example usage:
-///
-/// ```
-/// # use google_cloud_auth::credentials::create_access_token_credentials;
-/// # use google_cloud_auth::errors::CredentialsError;
-/// # tokio_test::block_on(async {
-/// let mut creds = create_access_token_credentials().await?;
-/// let token = creds.token().await?;
-/// println!("Token: {}", token.token);
-/// # Ok::<(), CredentialsError>(())
-/// # });
-/// ```
-///
-/// [ADC-link]: https://cloud.google.com/docs/authentication/application-default-credentials
-/// [AIP-4110]: https://google.aip.dev/auth/4110
-/// [Cloud Run]: https://cloud.google.com/run
-/// [gce-link]: https://cloud.google.com/products/compute
-/// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
-/// [gke-link]: https://cloud.google.com/kubernetes-engine
-pub async fn create_access_token_credentials() -> Result<Credentials> {
-    Builder::default().build()
-}
-
 #[derive(Debug, PartialEq)]
 enum AdcPath {
     FromEnv(String),
