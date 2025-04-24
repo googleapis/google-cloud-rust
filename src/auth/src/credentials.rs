@@ -548,6 +548,7 @@ fn adc_well_known_path() -> Option<String> {
 /// This module is mainly relevant to other `google-cloud-*` crates, but some
 /// external developers (i.e. consumers, not developers of `google-cloud-rust`)
 /// may find it useful.
+#[cfg_attr(test, mutants::skip)]
 pub mod testing {
     use crate::Result;
     use crate::credentials::Credentials;
@@ -675,6 +676,7 @@ mod test {
     }
 
     #[cfg(target_os = "windows")]
+    #[cfg_attr(all(test, not(target_os = "windows")), mutants::skip)]
     #[test]
     #[serial_test::serial]
     fn adc_well_known_path_windows() {
@@ -693,6 +695,7 @@ mod test {
     }
 
     #[cfg(target_os = "windows")]
+    #[cfg_attr(all(test, not(target_os = "windows")), mutants::skip)]
     #[test]
     #[serial_test::serial]
     fn adc_well_known_path_windows_no_appdata() {
@@ -703,6 +706,7 @@ mod test {
     }
 
     #[cfg(not(target_os = "windows"))]
+    #[cfg_attr(all(test, target_os = "windows"), mutants::skip)]
     #[test]
     #[serial_test::serial]
     fn adc_well_known_path_posix() {
@@ -721,6 +725,7 @@ mod test {
     }
 
     #[cfg(not(target_os = "windows"))]
+    #[cfg_attr(all(test, target_os = "windows"), mutants::skip)]
     #[test]
     #[serial_test::serial]
     fn adc_well_known_path_posix_no_home() {
