@@ -44,12 +44,12 @@ First, initialize the client using the default settings:
 ```
 
 We need to build the model name. For simplicity, this example receives the
-project id as an argument and uses a fixed location (`global`) and model id
+project ID as an argument and uses a fixed location (`global`) and model id
 (`gemini-2.0-flash-001`).
 
 If you want to run this function in your own code, use the project id (without
 any `projects/` prefix) of the project you selected while going through the
-prerequisites.
+prerequisites:
 
 ```rust,ignore,noplayground
 {{#include ../samples/src/gemini.rs:text-prompt-model}}
@@ -62,14 +62,13 @@ With the client initialized we can send the request:
 ```
 
 And then print the response. We use the `:#?` format specifier to prettify the
-nested response objects.
+nested response objects:
 
 ```rust,ignore,noplayground
 {{#include ../samples/src/gemini.rs:text-prompt-response}}
 ```
 
-See [below](#text-prompt-complete-code)
-for the complete code.
+See [below](#text-prompt-complete-code) for the complete code:
 
 ## Send a prompt and an image to the Vertex AI Gemini API
 
@@ -79,7 +78,7 @@ As in the previous example, initialize the client using the default settings:
 {{#include ../samples/src/gemini.rs:prompt-and-image-client}}
 ```
 
-And then build the model name.
+And then build the model name:
 
 ```rust,ignore,noplayground
 {{#include ../samples/src/gemini.rs:prompt-and-image-model}}
@@ -91,26 +90,27 @@ The new request includes an image part:
 {{#include ../samples/src/gemini.rs:prompt-and-image-image-part}}
 ```
 
-and the prompt part:
+And the prompt part:
 
 ```rust,ignore,noplayground
 {{#include ../samples/src/gemini.rs:prompt-and-image-prompt-part}}
 ```
 
-The full request is constructed thus:
+We send the full request:
 
 ```rust,ignore,noplayground
 {{#include ../samples/src/gemini.rs:prompt-and-image-request}}
 ```
 
-As in the previous example, we print the full response.
+As in the previous example, we print the full response:
 
 ```rust,ignore,noplayground
 {{#include ../samples/src/gemini.rs:prompt-and-image-response}}
 ```
 
-See [below](#prompt-and-image-complete-code)
-for the complete code.
+See [below](#prompt-and-image-complete-code) for the complete code.
+
+______________________________________________________________________
 
 ## Text Prompt: complete code
 
