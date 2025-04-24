@@ -314,20 +314,20 @@ mod test {
 
     #[test]
     fn example1() {
-        let matched = value(Some(&APP_PROFILE_ID), &[], &[MultiWildcard], &[]);
+        let matched = value(Some(APP_PROFILE_ID), &[], &[MultiWildcard], &[]);
         assert_eq!(matched, Some("profiles/prof_qux"));
     }
 
     #[test]
     fn example2() {
-        let matched = value(Some(&APP_PROFILE_ID), &[], &[MultiWildcard], &[]);
+        let matched = value(Some(APP_PROFILE_ID), &[], &[MultiWildcard], &[]);
         assert_eq!(matched, Some("profiles/prof_qux"));
     }
 
     #[test]
     fn example3a() {
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[
                 Literal("projects"),
@@ -350,7 +350,7 @@ mod test {
     #[test]
     fn example3b() {
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[
                 Literal("regions"),
@@ -369,7 +369,7 @@ mod test {
     #[test]
     fn example3c() {
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[
                 Literal("regions"),
@@ -384,7 +384,7 @@ mod test {
         );
         assert_eq!(matched, None);
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[
                 Literal("projects"),
@@ -407,7 +407,7 @@ mod test {
     #[test]
     fn example4() {
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[Literal("projects"), Literal("/"), SingleWildcard],
             &[TrailingMultiWildcard],
@@ -418,14 +418,14 @@ mod test {
     #[test]
     fn example5() {
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[Literal("projects"), Literal("/"), SingleWildcard],
             &[TrailingMultiWildcard],
         );
         assert_eq!(matched, Some("projects/proj_foo"));
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[
                 Literal("projects"),
@@ -444,7 +444,7 @@ mod test {
     #[test]
     fn example6a() {
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[Literal("projects"), Literal("/"), SingleWildcard],
             &[
@@ -457,7 +457,7 @@ mod test {
         );
         assert_eq!(matched, Some("projects/proj_foo"));
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[
                 Literal("projects"),
                 Literal("/"),
@@ -473,14 +473,14 @@ mod test {
     #[test]
     fn example6b() {
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[Literal("projects"), Literal("/"), SingleWildcard],
             &[TrailingMultiWildcard],
         );
         assert_eq!(matched, Some("projects/proj_foo"));
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[
                 Literal("projects"),
                 Literal("/"),
@@ -496,40 +496,40 @@ mod test {
     #[test]
     fn example7() {
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[Literal("projects"), Literal("/"), SingleWildcard],
             &[TrailingMultiWildcard],
         );
         assert_eq!(matched, Some("projects/proj_foo"));
-        let matched = value(Some(&APP_PROFILE_ID), &[], &[MultiWildcard], &[]);
+        let matched = value(Some(APP_PROFILE_ID), &[], &[MultiWildcard], &[]);
         assert_eq!(matched, Some("profiles/prof_qux"));
     }
 
     #[test]
     fn example8() {
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[Literal("projects"), Literal("/"), SingleWildcard],
             &[TrailingMultiWildcard],
         );
         assert_eq!(matched, Some("projects/proj_foo"));
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[Literal("regions"), Literal("/"), SingleWildcard],
             &[TrailingMultiWildcard],
         );
         assert_eq!(matched, None);
-        let matched = value(Some(&APP_PROFILE_ID), &[], &[MultiWildcard], &[]);
+        let matched = value(Some(APP_PROFILE_ID), &[], &[MultiWildcard], &[]);
         assert_eq!(matched, Some("profiles/prof_qux"));
     }
 
     #[test]
     fn example9() {
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[
                 Literal("projects"),
                 Literal("/"),
@@ -541,7 +541,7 @@ mod test {
         );
         assert_eq!(matched, Some("instances/instance_bar"));
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[
                 Literal("regions"),
@@ -556,16 +556,16 @@ mod test {
         );
         assert_eq!(matched, None);
         let matched = value(
-            Some(&TABLE_NAME),
+            Some(TABLE_NAME),
             &[],
             &[Literal("projects"), Literal("/"), SingleWildcard],
             &[TrailingMultiWildcard],
         );
         assert_eq!(matched, Some("projects/proj_foo"));
-        let matched = value(Some(&APP_PROFILE_ID), &[], &[MultiWildcard], &[]);
+        let matched = value(Some(APP_PROFILE_ID), &[], &[MultiWildcard], &[]);
         assert_eq!(matched, Some("profiles/prof_qux"));
         let matched = value(
-            Some(&APP_PROFILE_ID),
+            Some(APP_PROFILE_ID),
             &[Literal("profiles"), Literal("/")],
             &[SingleWildcard],
             &[],
