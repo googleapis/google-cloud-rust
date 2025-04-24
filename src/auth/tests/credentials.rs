@@ -17,7 +17,7 @@ use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBu
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::user_account::Builder as UserAccountCredentialBuilder;
 use google_cloud_auth::credentials::{
-    ApiKeyOptions, Builder as AccessTokenCredentialBuilder, Credentials, CredentialsTrait,
+    ApiKeyOptions, Builder as AccessTokenCredentialBuilder, Credentials, CredentialsProvider,
     create_api_key_credentials,
 };
 use google_cloud_auth::errors::CredentialsError;
@@ -197,7 +197,7 @@ mod test {
         #[derive(Debug)]
         Credentials {}
 
-        impl CredentialsTrait for Credentials {
+        impl CredentialsProvider for Credentials {
             async fn token(&self) -> Result<Token>;
             async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
             async fn universe_domain(&self) -> Option<String>;
