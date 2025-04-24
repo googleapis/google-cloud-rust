@@ -45,11 +45,10 @@ pub trait Message {
 
 /// Write the serialization of `T` flatly into a map.
 ///
-/// This is used for types where the JSON serialization of `T` is an object.
+/// We use this for types that do not have special encodings, as defined in:
+/// https://protobuf.dev/programming-guides/json/
 ///
-/// `T` is a message with fields that cannot be named `@type`, so flattening the
-/// object saves some bytes over the wire (as compared with encoding the
-/// serialization into a `value` field).
+/// That typically means that `T` is an object.
 pub(crate) fn to_json_object<T>(message: &T) -> Result<Map, Error>
 where
     T: Message + serde::ser::Serialize,
@@ -71,11 +70,11 @@ where
 
 /// Write the serialization of `T` into the `value` field of a map.
 ///
-/// This is used for types where the JSON serialization of `T` is not an
-/// object (e.g. bool, number, string, etc.). The encoding is a map, and these
-/// values need a key.
+/// We use this for types that have special encodings, as defined in:
+/// https://protobuf.dev/programming-guides/json/
 ///
-/// It is also used for `Any`. Flatly serializing an `Any` would have
+/// Typically this means that the JSON serialization of `T` is not an object. It
+/// is also used for `Any`, as flatly serializing an `Any` would have
 /// conflicting `@type` fields.
 pub(crate) fn to_json_other<T>(message: &T) -> Result<Map, Error>
 where
