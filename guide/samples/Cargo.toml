@@ -50,9 +50,9 @@ google-cloud-wkt = { version = "0.4", path = "../../src/wkt" }
 
 # ANCHOR: aiplatform
 [dependencies.google-cloud-aiplatform-v1]
-version = "0.3"
+version          = "0.3"
 default-features = false
-features = ["prediction_service"]
+features         = ["prediction_service"]
 # ANCHOR_END: aiplatform
 path = "../../src/generated/cloud/aiplatform/v1"
 
