@@ -31,6 +31,18 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread")]
+    async fn gemini_text_prompt() -> user_guide_samples::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        user_guide_samples::gemini::text_prompt(&project_id).await
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn gemini_prompt_and_image() -> user_guide_samples::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        user_guide_samples::gemini::prompt_and_image(&project_id).await
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
     async fn lro_polling() -> user_guide_samples::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         user_guide_samples::lro::polling(&project_id).await

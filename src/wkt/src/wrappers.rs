@@ -119,27 +119,11 @@ macro_rules! impl_message {
             fn typename() -> &'static str {
                 concat!("type.googleapis.com/google.protobuf.", stringify!($t))
             }
-            fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
-            where
-                Self: serde::ser::Serialize + Sized,
-            {
-                let map: crate::message::Map = [
-                    (
-                        "@type",
-                        serde_json::Value::String(Self::typename().to_string()),
-                    ),
-                    ("value", serde_json::json!(self)),
-                ]
-                .into_iter()
-                .map(|(k, v)| (k.to_string(), v))
-                .collect();
-                Ok(map)
+            fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
+                crate::message::to_json_other(self)
             }
-            fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError>
-            where
-                Self: serde::de::DeserializeOwned,
-            {
-                crate::message::from_value::<Self>(map)
+            fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
+                crate::message::from_other(map)
             }
         }
     };
@@ -173,16 +157,10 @@ impl crate::message::Message for UInt64Value {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.UInt64Value"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
-    where
-        Self: serde::ser::Serialize + Sized,
-    {
+    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
         encode_string::<Self>(self.to_string())
     }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError>
-    where
-        Self: serde::de::DeserializeOwned,
-    {
+    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
         map.get("value")
             .ok_or_else(crate::message::missing_value_field)?
             .as_str()
@@ -196,16 +174,10 @@ impl crate::message::Message for Int64Value {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Int64Value"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
-    where
-        Self: serde::ser::Serialize + Sized,
-    {
+    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
         encode_string::<Self>(self.to_string())
     }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError>
-    where
-        Self: serde::de::DeserializeOwned,
-    {
+    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
         map.get("value")
             .ok_or_else(crate::message::missing_value_field)?
             .as_str()
@@ -219,16 +191,10 @@ impl crate::message::Message for BytesValue {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.BytesValue"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
-    where
-        Self: serde::ser::Serialize + Sized,
-    {
+    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
         encode_string::<Self>(STANDARD.encode(self))
     }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError>
-    where
-        Self: serde::de::DeserializeOwned,
-    {
+    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
         let s = map
             .get("value")
             .ok_or_else(crate::message::missing_value_field)?

@@ -182,8 +182,8 @@ impl Client {
         if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
-        auth::credentials::create_access_token_credentials()
-            .await
+        auth::credentials::Builder::default()
+            .build()
             .map_err(Error::authentication)
     }
 
