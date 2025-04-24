@@ -66,7 +66,7 @@
 //! [User Account]: https://cloud.google.com/docs/authentication#user-accounts
 //! [Workforce Identity Federation]: https://cloud.google.com/iam/docs/workforce-identity-federation
 
-use crate::credentials::dynamic::CredentialsTrait;
+use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{Credentials, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
 use crate::headers_util::build_bearer_headers;
@@ -306,7 +306,7 @@ where
 }
 
 #[async_trait::async_trait]
-impl<T> CredentialsTrait for UserCredentials<T>
+impl<T> CredentialsProvider for UserCredentials<T>
 where
     T: TokenProvider,
 {

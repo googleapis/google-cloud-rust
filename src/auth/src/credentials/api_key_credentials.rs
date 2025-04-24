@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::dynamic::CredentialsTrait;
+use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{Credentials, Result};
 use crate::headers_util::build_api_key_headers;
 use crate::token::{Token, TokenProvider};
@@ -107,7 +107,7 @@ where
 }
 
 #[async_trait::async_trait]
-impl<T> CredentialsTrait for ApiKeyCredentials<T>
+impl<T> CredentialsProvider for ApiKeyCredentials<T>
 where
     T: TokenProvider,
 {
