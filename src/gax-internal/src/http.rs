@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use auth::credentials::{Credentials, create_access_token_credentials};
+use auth::credentials::{Builder as AccessTokenCredentialBuilder, Credentials};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
 use gax::error::Error;
@@ -46,8 +46,8 @@ impl ReqwestClient {
         let cred = if let Some(c) = config.cred.clone() {
             c
         } else {
-            create_access_token_credentials()
-                .await
+            AccessTokenCredentialBuilder::default()
+                .build()
                 .map_err(Error::authentication)?
         };
         let endpoint = config

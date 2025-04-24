@@ -288,7 +288,7 @@ tonic       = { version = "0.13", default-features = false, features = ["prost",
 tonic-build = { version = "0.13", default-features = false }
 tracing     = { version = "0.1" }
 # Local packages used as dependencies
-auth                          = { version = "0.19", path = "src/auth", package = "google-cloud-auth" }
+auth                          = { version = "0.20", path = "src/auth", package = "google-cloud-auth" }
 gax                           = { version = "0.22", path = "src/gax", package = "google-cloud-gax" }
 gaxi                          = { version = "0.1", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "0.3", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
