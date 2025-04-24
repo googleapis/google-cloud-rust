@@ -39,19 +39,17 @@ pub trait Message {
     where
         Self: serde::de::DeserializeOwned,
     {
-        let map: Map = map
-            .iter()
-            .filter_map(|(k, v)| {
-                if k == "@type" {
-                    return None;
-                }
-                Some((k.clone(), v.clone()))
-            })
-            .collect();
-        serde_json::from_value::<Self>(serde_json::Value::Object(map)).map_err(Error::deser)
+        from_object(map)
     }
 }
 
+/// Write the serialization of `T` flatly into a map.
+///
+/// This is used for types where the JSON serialization of `T` is an object.
+///
+/// `T` is a message with fields that cannot be named `@type`, so flattening the
+/// object saves some bytes over the wire (as compared with encoding the
+/// serialization into a `value` field).
 pub(crate) fn to_json_object<T>(message: &T) -> Result<Map, Error>
 where
     T: Message + serde::ser::Serialize,
@@ -71,28 +69,44 @@ where
     }
 }
 
-pub(crate) fn to_json_string<T>(message: &T) -> Result<Map, Error>
+/// Write the serialization of `T` into the `value` field of a map.
+///
+/// This is used for types where the JSON serialization of `T` is not an
+/// object (e.g. bool, number, string, etc.). The encoding is a map, and these
+/// values need a key.
+///
+/// It is also used for `Any`. Flatly serializing an `Any` would have
+/// conflicting `@type` fields.
+pub(crate) fn to_json_other<T>(message: &T) -> Result<Map, Error>
 where
     T: Message + serde::ser::Serialize,
 {
-    use serde_json::Value;
     let value = serde_json::to_value(message).map_err(Error::ser)?;
-    match value {
-        Value::String(s) => {
-            // Only a few well-known messages are serialized into something
-            // other than a object. In all cases, they are serialized using
-            // a small JSON object, with the string in the `value` field.
-            let map: Map = [("@type", T::typename().to_string()), ("value", s)]
-                .into_iter()
-                .map(|(k, v)| (k.to_string(), Value::String(v)))
-                .collect();
-            Ok(map)
-        }
-        _ => Err(unexpected_json_type()),
-    }
+    let mut map = crate::message::Map::new();
+    map.insert("@type".to_string(), T::typename().into());
+    map.insert("value".to_string(), value);
+    Ok(map)
 }
 
-pub(crate) fn from_value<T>(map: &Map) -> Result<T, Error>
+/// The analog of `to_json_object()`
+pub(crate) fn from_object<T>(map: &Map) -> Result<T, Error>
+where
+    T: serde::de::DeserializeOwned,
+{
+    let map = map
+        .iter()
+        .filter_map(|(k, v)| {
+            if k == "@type" {
+                return None;
+            }
+            Some((k.clone(), v.clone()))
+        })
+        .collect();
+    serde_json::from_value::<T>(serde_json::Value::Object(map)).map_err(Error::deser)
+}
+
+/// The analog of `to_json_other()`
+pub(crate) fn from_other<T>(map: &Map) -> Result<T, Error>
 where
     T: serde::de::DeserializeOwned,
 {
