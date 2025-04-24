@@ -112,12 +112,16 @@ type methodAnnotation struct {
 	ReturnsValue      bool
 	BodyMessageName   string
 	PathParams        []*api.Field
-	QueryParams       []*api.Field
+	QueryLines        []string
 	IsLROGetOperation bool
 }
 
 func (m *methodAnnotation) HasBody() bool {
 	return m.Parent.PathInfo.BodyFieldPath != ""
+}
+
+func (m *methodAnnotation) HasQueryLines() bool {
+	return len(m.QueryLines) > 0
 }
 
 type pathInfoAnnotation struct {
@@ -507,6 +511,12 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 		annotate.annotateOperationInfo(method.OperationInfo)
 	}
 
+	queryParams := language.QueryParams(method, state)
+	queryLines := []string{}
+	for _, field := range queryParams {
+		queryLines = buildQueryLines(queryLines, "request.", "", field, state)
+	}
+
 	annotation := &methodAnnotation{
 		Parent:            method,
 		Name:              strcase.ToLowerCamel(method.Name),
@@ -517,7 +527,7 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 		ReturnsValue:      method.OutputTypeID != ".google.protobuf.Empty",
 		BodyMessageName:   bodyMessageName,
 		PathParams:        language.PathParams(method, state),
-		QueryParams:       language.QueryParams(method, state),
+		QueryLines:        queryLines,
 		IsLROGetOperation: isGetOperation,
 	}
 	method.Codec = annotation
@@ -680,6 +690,73 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 	return name
 }
 
+// Build a string or strings representing query parameters for the given field.
+//
+// Docs on the format are at
+// https://github.com/googleapis/googleapis/blob/master/google/api/http.proto.
+//
+// Generally:
+//   - primitives, lists of primitives and enums are supported
+//   - repeated fields are passed as lists
+//   - messages need to be unrolled and fields passed individually
+func buildQueryLines(
+	result []string, refPrefix string, paramPrefix string,
+	field *api.Field, state *api.APIState,
+) []string {
+	message := state.MessageByID[field.TypezID]
+	isMap := message != nil && message.IsMap
+
+	ref := fmt.Sprintf("%s%s", refPrefix, fieldName(field))
+	param := fmt.Sprintf("%s%s", paramPrefix, field.JSONName)
+	preable := fmt.Sprintf("if (%s != null) '%s'", ref, param)
+
+	switch {
+	case field.Repeated:
+		// Handle lists; these should be lists of strings or other primitives.
+		switch {
+		case field.Typez == api.STRING_TYPE:
+			return append(result, fmt.Sprintf("%s: %s!", preable, ref))
+		case field.Typez == api.ENUM_TYPE:
+			return append(result, fmt.Sprintf("%s: %s!.map((e) => e.value)", preable, ref))
+		case field.Typez == api.BOOL_TYPE ||
+			field.Typez == api.INT32_TYPE || field.Typez == api.UINT32_TYPE ||
+			field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE ||
+			field.Typez == api.FLOAT_TYPE || field.Typez == api.DOUBLE_TYPE:
+			return append(result, fmt.Sprintf("%s: %s!.map((e) => '$e')", preable, ref))
+		default:
+			slog.Error("unhandled list query param", "type", field.Typez)
+			return append(result, fmt.Sprintf("/* unhandled list query param type: %d */", field.Typez))
+		}
+
+	case isMap:
+		// Maps are not supported.
+		slog.Error("unhandled query param", "type", "map")
+		return append(result, fmt.Sprintf("/* unhandled query param type: %d */", field.Typez))
+
+	case field.Typez == api.MESSAGE_TYPE:
+		// Unroll the fields for messages.
+		for _, field := range message.Fields {
+			result = buildQueryLines(result, ref+"?.", param+".", field, state)
+		}
+		return result
+
+	case field.Typez == api.STRING_TYPE:
+		return append(result, fmt.Sprintf("%s: %s!", preable, ref))
+	case field.Typez == api.ENUM_TYPE:
+		return append(result, fmt.Sprintf("%s: %s!.value", preable, ref))
+	case field.Typez == api.BOOL_TYPE ||
+		field.Typez == api.INT32_TYPE || field.Typez == api.UINT32_TYPE ||
+		field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE ||
+		field.Typez == api.FLOAT_TYPE || field.Typez == api.DOUBLE_TYPE:
+		return append(result, fmt.Sprintf("%s: '${%s}'", preable, ref))
+	case field.Typez == api.BYTES_TYPE:
+		return append(result, fmt.Sprintf("%s: encodeBytes(%s)!", preable, ref))
+	default:
+		slog.Error("unhandled query param", "type", field.Typez)
+		return append(result, fmt.Sprintf("/* unhandled query param type: %d */", field.Typez))
+	}
+}
+
 func (annotate *annotateModel) annotateEnum(enum *api.Enum) {
 	for _, ev := range enum.Values {
 		annotate.annotateEnumValue(ev)
@@ -773,8 +850,6 @@ func (annotate *annotateModel) updateUsedPackages(packageName string) {
 		dartImport, ok := annotate.packageMapping[packageName]
 		if ok {
 			annotate.imports[packageName] = dartImport
-		} else {
-			println("missing proto package mapping: " + packageName)
 		}
 	}
 }

@@ -57,7 +57,11 @@ class Operations {
   /// server doesn't support this method, it returns `UNIMPLEMENTED`.
   Future<ListOperationsResponse> listOperations(
       ListOperationsRequest request) async {
-    final url = Uri.https(_host, '/v1/${request.name}');
+    final url = Uri.https(_host, '/v1/${request.name}', {
+      if (request.filter != null) 'filter': request.filter!,
+      if (request.pageSize != null) 'pageSize': '${request.pageSize}',
+      if (request.pageToken != null) 'pageToken': request.pageToken!,
+    });
     final response = await _client.get(url);
     return ListOperationsResponse.fromJson(response);
   }

@@ -37,7 +37,14 @@ Future<Operation<T, S>> getOperation<T extends ProtoMessage, S extends ProtoMess
 /// [Operation.responseAsMessage] will contain the operation's result.
 {{/OperationInfo}}
 Future<{{Codec.ResponseType}}{{#OperationInfo}}<{{Codec.ResponseType}}, {{Codec.MetadataType}}>{{/OperationInfo}}> {{Codec.Name}}({{Codec.RequestType}} request) async {
-  final url = Uri.https(_host, '{{PathInfo.Codec.PathFmt}}');
+  final url = Uri.https(_host, '{{PathInfo.Codec.PathFmt}}'
+    {{#Codec.HasQueryLines}}, {
+      {{#Codec.QueryLines}}
+        {{{.}}},
+      {{/Codec.QueryLines}}
+    }
+    {{/Codec.HasQueryLines}}
+  );
   {{#Codec.ReturnsValue}}final response = {{/Codec.ReturnsValue}}await _client.{{Codec.RequestMethod}}(url{{#Codec.HasBody}}, body: {{Codec.BodyMessageName}}{{/Codec.HasBody}});
   {{#Codec.ReturnsValue}}
     return {{Codec.ResponseType}}.fromJson(response{{#OperationInfo}}, OperationHelper({{Codec.ResponseType}}.fromJson, {{Codec.MetadataType}}.fromJson),{{/OperationInfo}});
