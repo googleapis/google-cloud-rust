@@ -85,7 +85,7 @@ pub fn value<'h>(
 ///     "bucket=projects%2F_%2Fbuckets%2Fd&source_bucket=projects%2F_%2Fbuckets%2Fs");
 /// ```
 pub fn format(matches: &[Option<(&str, &str)>]) -> String {
-    let matches: Vec<_> = matches.into_iter().flatten().collect();
+    let matches: Vec<_> = matches.iter().flatten().collect();
     if matches.is_empty() {
         return String::new();
     }
