@@ -2332,6 +2332,7 @@ dependencies = [
  "http",
  "http-body-util",
  "mockall",
+ "percent-encoding",
  "prost",
  "prost-types",
  "reqwest",
