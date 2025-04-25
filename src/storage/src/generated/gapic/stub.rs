@@ -153,19 +153,6 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Implements [super::client::Storage::cancel_resumable_write].
-    fn cancel_resumable_write(
-        &self,
-        _req: crate::model::CancelResumableWriteRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::CancelResumableWriteResponse>>,
-    > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::CancelResumableWriteResponse>>,
-        >(Err(Error::other("unimplemented")))
-    }
-
     /// Implements [super::client::Storage::get_object].
     fn get_object(
         &self,
@@ -216,32 +203,6 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<gax::response::Response<crate::model::RewriteResponse>>>(
             Err(Error::other("unimplemented")),
         )
-    }
-
-    /// Implements [super::client::Storage::start_resumable_write].
-    fn start_resumable_write(
-        &self,
-        _req: crate::model::StartResumableWriteRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::StartResumableWriteResponse>>,
-    > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::StartResumableWriteResponse>>,
-        >(Err(Error::other("unimplemented")))
-    }
-
-    /// Implements [super::client::Storage::query_write_status].
-    fn query_write_status(
-        &self,
-        _req: crate::model::QueryWriteStatusRequest,
-        _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::QueryWriteStatusResponse>>,
-    > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::QueryWriteStatusResponse>>,
-        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Storage::move_object].
