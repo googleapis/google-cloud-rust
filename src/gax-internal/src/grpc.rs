@@ -202,7 +202,7 @@ impl Client {
             //
             //     If none of the routing parameters matched their respective
             //     fields, the routing header **must not** be sent.
-            // 
+            //
             headers.append(
                 http::header::HeaderName::from_static("x-goog-request-params"),
                 http::header::HeaderValue::from_str(request_params).map_err(Error::other)?,
