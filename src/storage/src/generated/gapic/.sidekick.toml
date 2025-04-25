@@ -30,3 +30,5 @@ copyright-year            = '2025'
 template-override         = 'templates/grpc-client'
 package-name-override     = 'google-cloud-storage'
 include-grpc-only-methods = 'true'
+# TODO(#1813) - temporarily disable the docs because they don't compile.
+skip-builder-docs         = 'true'

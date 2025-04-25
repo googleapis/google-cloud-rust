@@ -83,6 +83,8 @@ type serviceAnnotations struct {
 	APITitle string
 	// If set, gate this service under a feature named `ModuleName`.
 	PerServiceFeatures bool
+	// If set, skip the builder documentation.
+	SkipBuilderDocs bool
 }
 
 func (a *messageAnnotation) MultiFeatureGates() bool {
@@ -153,6 +155,7 @@ type methodAnnotation struct {
 	OperationInfo       *operationInfo
 	SystemParameters    []systemParameter
 	ReturnType          string
+	SkipBuilderDocs     bool
 }
 
 type pathInfoAnnotation struct {
@@ -453,6 +456,7 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 		HasLROs:            hasLROs,
 		APITitle:           model.Title,
 		PerServiceFeatures: c.perServiceFeatures,
+		SkipBuilderDocs:    c.skipBuilderDocs,
 	}
 	s.Codec = ann
 }
@@ -575,6 +579,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		ServiceNameToSnake:  toSnake(s.Name),
 		SystemParameters:    c.systemParameters,
 		ReturnType:          returnType,
+		SkipBuilderDocs:     c.skipBuilderDocs,
 	}
 	if m.OperationInfo != nil {
 		metadataType := c.methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, sourceSpecificationPackageName)
