@@ -28,7 +28,7 @@ pub mod internal {
     /// Describes a type that can be iterated over asynchronously when used with
     /// [super::Paginator].
     pub trait PageableResponse {
-        type PageItem;
+        type PageItem: Send;
 
         // Consumes the [PageableResponse] and returns the items associated with the
         // current page.
@@ -54,7 +54,7 @@ pub mod internal {
 
 /// An adapter that converts list RPCs as defined by [AIP-4233](https://google.aip.dev/client-libraries/4233)
 /// into a [futures::Stream] that can be iterated over in an async fashion.
-pub trait Paginator<T, E>
+pub trait Paginator<T, E>: Send
 where
     T: internal::PageableResponse,
 {
@@ -155,7 +155,7 @@ impl<T, E> std::fmt::Debug for PaginatorImpl<T, E> {
     }
 }
 
-pub trait ItemPaginator<T, E>
+pub trait ItemPaginator<T, E>: Send
 where
     T: internal::PageableResponse,
 {
