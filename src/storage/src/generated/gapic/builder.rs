@@ -18,19 +18,6 @@ pub mod storage {
     use crate::Result;
     use std::sync::Arc;
 
-    /// A builder for [Storage][super::super::client::Storage].
-    ///
-    /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage::*;
-    /// # use builder::storage::ClientBuilder;
-    /// # use client::Storage;
-    /// let builder : ClientBuilder = Storage::builder();
-    /// let client = builder
-    ///     .with_endpoint("https://storage.googleapis.com")
-    ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
-    /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
@@ -67,7 +54,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::delete_bucket][super::super::client::Storage::delete_bucket] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBucket(RequestBuilder<crate::model::DeleteBucketRequest>);
 
@@ -128,7 +114,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::get_bucket][super::super::client::Storage::get_bucket] calls.
     #[derive(Clone, Debug)]
     pub struct GetBucket(RequestBuilder<crate::model::GetBucketRequest>);
 
@@ -195,7 +180,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::create_bucket][super::super::client::Storage::create_bucket] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBucket(RequestBuilder<crate::model::CreateBucketRequest>);
 
@@ -268,7 +252,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::list_buckets][super::super::client::Storage::list_buckets] calls.
     #[derive(Clone, Debug)]
     pub struct ListBuckets(RequestBuilder<crate::model::ListBucketsRequest>);
 
@@ -350,7 +333,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::lock_bucket_retention_policy][super::super::client::Storage::lock_bucket_retention_policy] calls.
     #[derive(Clone, Debug)]
     pub struct LockBucketRetentionPolicy(
         RequestBuilder<crate::model::LockBucketRetentionPolicyRequest>,
@@ -404,7 +386,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::update_bucket][super::super::client::Storage::update_bucket] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBucket(RequestBuilder<crate::model::UpdateBucketRequest>);
 
@@ -492,7 +473,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::compose_object][super::super::client::Storage::compose_object] calls.
     #[derive(Clone, Debug)]
     pub struct ComposeObject(RequestBuilder<crate::model::ComposeObjectRequest>);
 
@@ -599,7 +579,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::delete_object][super::super::client::Storage::delete_object] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteObject(RequestBuilder<crate::model::DeleteObjectRequest>);
 
@@ -698,7 +677,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::restore_object][super::super::client::Storage::restore_object] calls.
     #[derive(Clone, Debug)]
     pub struct RestoreObject(RequestBuilder<crate::model::RestoreObjectRequest>);
 
@@ -809,7 +787,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::cancel_resumable_write][super::super::client::Storage::cancel_resumable_write] calls.
     #[derive(Clone, Debug)]
     pub struct CancelResumableWrite(RequestBuilder<crate::model::CancelResumableWriteRequest>);
 
@@ -855,7 +832,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::get_object][super::super::client::Storage::get_object] calls.
     #[derive(Clone, Debug)]
     pub struct GetObject(RequestBuilder<crate::model::GetObjectRequest>);
 
@@ -972,7 +948,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::update_object][super::super::client::Storage::update_object] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateObject(RequestBuilder<crate::model::UpdateObjectRequest>);
 
@@ -1077,7 +1052,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::list_objects][super::super::client::Storage::list_objects] calls.
     #[derive(Clone, Debug)]
     pub struct ListObjects(RequestBuilder<crate::model::ListObjectsRequest>);
 
@@ -1207,7 +1181,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::rewrite_object][super::super::client::Storage::rewrite_object] calls.
     #[derive(Clone, Debug)]
     pub struct RewriteObject(RequestBuilder<crate::model::RewriteObjectRequest>);
 
@@ -1426,7 +1399,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::start_resumable_write][super::super::client::Storage::start_resumable_write] calls.
     #[derive(Clone, Debug)]
     pub struct StartResumableWrite(RequestBuilder<crate::model::StartResumableWriteRequest>);
 
@@ -1497,7 +1469,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::query_write_status][super::super::client::Storage::query_write_status] calls.
     #[derive(Clone, Debug)]
     pub struct QueryWriteStatus(RequestBuilder<crate::model::QueryWriteStatusRequest>);
 
@@ -1554,7 +1525,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::move_object][super::super::client::Storage::move_object] calls.
     #[derive(Clone, Debug)]
     pub struct MoveObject(RequestBuilder<crate::model::MoveObjectRequest>);
 
