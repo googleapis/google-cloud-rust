@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use serde::{Deserialize, Deserializer, Serialize, de::IntoDeserializer};
+
 /// A generic empty message that you can re-use to avoid defining duplicated
 /// empty messages in your APIs. A typical example is to use it as the request
 /// or the response type of an API method. For instance:
@@ -21,9 +23,22 @@
 ///   rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
 /// }
 /// ```
-///
-#[derive(Clone, Debug, Default, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Debug, Default, PartialEq, Serialize)]
 pub struct Empty {}
+
+impl<'de> Deserialize<'de> for Empty {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let input = String::deserialize(deserializer).unwrap_or(String::default());
+        if input.trim().is_empty() || input.trim().eq("null") {
+            return Ok(Empty::default());
+        }
+        let string_deserializer = String::into_deserializer(input);
+        Ok(Option::<Empty>::deserialize(string_deserializer)?.unwrap())
+    }
+}
 
 impl crate::message::Message for Empty {
     fn typename() -> &'static str {
@@ -48,6 +63,20 @@ mod tests {
     #[test]
     fn deserialize() -> Result {
         let got = serde_json::from_value(json!({}))?;
+        assert_eq!(Empty::default(), got);
+        Ok(())
+    }
+
+    #[test]
+    fn deserialize_null() -> Result {
+        let got = serde_json::from_value(json!(null))?;
+        assert_eq!(Empty::default(), got);
+        Ok(())
+    }
+
+    #[test]
+    fn deserialize_empty() -> Result {
+        let got = serde_json::from_str("")?;
         assert_eq!(Empty::default(), got);
         Ok(())
     }
