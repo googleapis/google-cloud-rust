@@ -71,12 +71,6 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Object>>;
 
-    async fn cancel_resumable_write(
-        &self,
-        req: crate::model::CancelResumableWriteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CancelResumableWriteResponse>>;
-
     async fn get_object(
         &self,
         req: crate::model::GetObjectRequest,
@@ -100,18 +94,6 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         req: crate::model::RewriteObjectRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::RewriteResponse>>;
-
-    async fn start_resumable_write(
-        &self,
-        req: crate::model::StartResumableWriteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::StartResumableWriteResponse>>;
-
-    async fn query_write_status(
-        &self,
-        req: crate::model::QueryWriteStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryWriteStatusResponse>>;
 
     async fn move_object(
         &self,
@@ -205,15 +187,6 @@ impl<T: super::Storage> Storage for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    async fn cancel_resumable_write(
-        &self,
-        req: crate::model::CancelResumableWriteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CancelResumableWriteResponse>> {
-        T::cancel_resumable_write(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
     async fn get_object(
         &self,
         req: crate::model::GetObjectRequest,
@@ -247,24 +220,6 @@ impl<T: super::Storage> Storage for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::RewriteResponse>> {
         T::rewrite_object(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn start_resumable_write(
-        &self,
-        req: crate::model::StartResumableWriteRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::StartResumableWriteResponse>> {
-        T::start_resumable_write(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn query_write_status(
-        &self,
-        req: crate::model::QueryWriteStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryWriteStatusResponse>> {
-        T::query_write_status(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
