@@ -35,6 +35,77 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn until_done_is_send() -> TestResult {
+        let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
+        let poll = vec![];
+        let (endpoint, _server) = start(ServerState {
+            create: create.into(),
+            poll: poll.into(),
+        })
+        .await?;
+
+        async fn task(client: client::Client) -> gax::Result<()> {
+            let response = client
+                .create_resource("test-p", "r-001")
+                .poller()
+                .until_done()
+                .await?;
+            assert_eq!(
+                response,
+                model::Resource {
+                    name: "p/test-p/r/r-001".into()
+                }
+            );
+            Ok(())
+        }
+
+        let client = new_client(endpoint).await?;
+        let join = tokio::spawn(async move { task(client).await });
+        join.await??;
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn poller_is_send() -> TestResult {
+        let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
+        let poll = vec![];
+        let (endpoint, _server) = start(ServerState {
+            create: create.into(),
+            poll: poll.into(),
+        })
+        .await?;
+
+        async fn task(client: client::Client) -> gax::Result<()> {
+            let mut poller = client.create_resource("test-p", "r-001").poller();
+            while let Some(status) = poller.poll().await {
+                match status {
+                    lro::PollingResult::InProgress(_) => {
+                        assert!(false, "unexpected InProgress {status:?}")
+                    }
+                    lro::PollingResult::PollingError(_) => { /* ignored */ }
+                    lro::PollingResult::Completed(result) => {
+                        let response = result?;
+                        assert_eq!(
+                            response,
+                            model::Resource {
+                                name: "p/test-p/r/r-001".into()
+                            }
+                        );
+                    }
+                }
+            }
+            Ok(())
+        }
+
+        let client = new_client(endpoint).await?;
+        let join = tokio::spawn(async move { task(client).await });
+        join.await??;
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn until_done_immediate_success() -> TestResult {
         let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
         let poll = vec![];
