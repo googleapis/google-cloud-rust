@@ -147,6 +147,10 @@ type Method struct {
 	Codec any
 }
 
+func (m *Method) HasRouting() bool {
+	return len(m.Routing) != 0
+}
+
 // Normalized request path information.
 type PathInfo struct {
 	// HTTP Verb.
@@ -231,6 +235,8 @@ type RoutingInfoVariant struct {
 	Matching RoutingPathSpec
 	// A path template that must match the end of the field value.
 	Suffix RoutingPathSpec
+	// Language specific information
+	Codec any
 }
 
 type RoutingPathSpec struct {
