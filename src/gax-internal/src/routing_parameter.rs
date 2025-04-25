@@ -16,7 +16,7 @@
 
 use percent_encoding::NON_ALPHANUMERIC;
 
-/// Find a routing parameter value in `haytack` using the (decomposed) template.
+/// Find a routing parameter value in `haystack` using the (decomposed) template.
 ///
 /// # Example
 /// ```
@@ -70,7 +70,7 @@ pub fn value<'h>(
     Some(&haystack[start..end])
 }
 
-/// Format a list of routing parameter key value pair.
+/// Format a list of routing parameter key value pairs.
 ///
 /// ```
 /// # use google_cloud_gax_internal::routing_parameter::*;
@@ -239,7 +239,7 @@ mod test {
     #[test_case("", "profiles/q", "routing_id=q"; "match #3 wins")]
     #[test_case("", "thingy/q/child/c", "routing_id=thingy%2Fq%2Fchild%2Fc"; "match #2 wins")]
     #[test_case("projects/p/instances/i", "", "routing_id=projects%2Fp"; "match #1 wins")]
-    #[test_case("projects/p/instances/i/tables/t", "", "table_location=instances%2Fi&routing_id=projects%2Fp"; "one field matches 2 vables wins")]
+    #[test_case("projects/p/instances/i/tables/t", "", "table_location=instances%2Fi&routing_id=projects%2Fp"; "one field matches 2 variables")]
     #[test_case("projects/p/instances/i/tables/t", "profiles/q", "table_location=instances%2Fi&routing_id=q"; "multiple variables")]
     #[test_case("projects/p/instances/i/tables/t", "thingy/q/child/c", "table_location=instances%2Fi&routing_id=thingy%2Fq%2Fchild%2Fc"; "multiple variables skipping one template")]
     fn simulated_request(table_name: &str, app_profile_id: &str, want: &str) {
