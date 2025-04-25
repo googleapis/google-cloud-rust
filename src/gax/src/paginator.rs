@@ -62,7 +62,7 @@ where
     fn items(self) -> impl ItemPaginator<T, E>;
 
     /// Returns the next mutation of the wrapped stream.
-    fn next(&mut self) -> impl Future<Output = Option<Result<T, E>>>;
+    fn next(&mut self) -> impl Future<Output = Option<Result<T, E>>> + Send;
 
     #[cfg(feature = "unstable-stream")]
     /// Convert the paginator to a stream.
@@ -164,7 +164,7 @@ where
     /// Enable the `unstable-stream` feature to interact with a [`futures::stream::Stream`].
     ///
     /// [`futures::stream::Stream`]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
-    fn next(&mut self) -> impl Future<Output = Option<Result<T::PageItem, E>>>;
+    fn next(&mut self) -> impl Future<Output = Option<Result<T::PageItem, E>>> + Send;
 
     #[cfg(feature = "unstable-stream")]
     /// Convert the paginator to a stream.
