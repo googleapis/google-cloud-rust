@@ -344,7 +344,7 @@ func makeRequestMessage(a *api.API, operation *v3.Operation, packageName, templa
 			TypezID:       typezID,
 			Synthetic:     true,
 		}
-		if typez == api.STRING_TYPE && schema.Format == "uuid" && !field.Optional {
+		if typez == api.STRING_TYPE && schema.Format == "uuid" && field.Optional {
 			field.AutoPopulated = true
 		}
 		addFieldIfNew(message, field)

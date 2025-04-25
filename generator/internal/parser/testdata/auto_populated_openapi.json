@@ -30,7 +30,16 @@
                         "name": "requestId",
                         "description": "Test-only Description",
                         "in": "query",
-                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "requestIdExplicitlyNotRequired",
+                        "description": "Test-only Description",
+                        "in": "query",
+                        "required": false,
                         "schema": {
                             "type": "string",
                             "format": "uuid"
@@ -40,15 +49,15 @@
                         "name": "notRequestIdMissingFormat",
                         "description": "Test-only Description",
                         "in": "query",
-                        "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "notRequestIdOptional",
+                        "name": "notRequestIdRequired",
                         "description": "Test-only Description",
                         "in": "query",
+                        "required": true,
                         "schema": {
                             "type": "string",
                             "format": "uuid"
@@ -58,7 +67,6 @@
                         "name": "notRequestIdMissingServiceConfig",
                         "description": "Test-only Description",
                         "in": "query",
-                        "required": true,
                         "schema": {
                             "type": "string",
                             "format": "uuid"
