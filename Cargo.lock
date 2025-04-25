@@ -97,6 +97,7 @@ name = "auth-integration-tests"
 version = "0.0.0"
 dependencies = [
  "google-cloud-auth",
+ "google-cloud-bigquery-v2",
  "google-cloud-gax",
  "google-cloud-language-v2",
  "google-cloud-secretmanager-v1",
@@ -4948,6 +4949,7 @@ dependencies = [
  "bytes",
  "crc32c",
  "futures",
+ "google-cloud-bigquery-v2",
  "google-cloud-firestore",
  "google-cloud-gax",
  "google-cloud-iam-v1",
