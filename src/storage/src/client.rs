@@ -46,13 +46,13 @@
 /// create one and the reuse it.  You do not need to wrap `Storage` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
-/// 
+///
 /// # Service Description
 ///
 /// The Cloud Storage API allows applications to read and write data through
 /// the abstractions of buckets and objects. For a description of these
 /// abstractions please see <https://cloud.google.com/storage/docs>.
-/// 
+///
 /// This client is used to perform metadata operations, such as creating
 /// buckets, deleting objects, listing objects, etc. It does not expose any
 /// functions to write or read data in objects.
