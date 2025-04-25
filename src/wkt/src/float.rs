@@ -64,7 +64,7 @@ impl serde::de::Visitor<'_> for FloatVisitor {
         Ok(value)
     }
 
-    // Serialized f32 with the serde_json serializer is then f64 when we try to deserialize.
+    // Floats in serde_json are f64.
     fn visit_f64<E>(self, value: f64) -> std::result::Result<Self::Value, E>
     where
         E: serde::de::Error,
