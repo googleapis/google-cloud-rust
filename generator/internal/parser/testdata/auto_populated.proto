@@ -67,49 +67,49 @@ message CreateFooRequest {
   // Required. A [Foo][test.Foo] with initial field values.
   Foo foo = 3 [(google.api.field_behavior) = REQUIRED];
 
-  // Required. This is an auto-populated field. The remaining fields almost
-  // meet the requirements to be auto-populated, but fail for the reasons
-  // implied by their name.
+  // This is an auto-populated field. The remaining fields almost meet the
+  // requirements to be auto-populated, but fail for the reasons implied by
+  // their name.
   string request_id = 4 [
-    (google.api.field_behavior) = REQUIRED,
     (google.api.field_info).format = UUID4
   ];
 
   optional string request_id_optional = 5 [
-    (google.api.field_behavior) = REQUIRED,
     (google.api.field_info).format = UUID4
   ];
 
-  bytes not_request_id_bad_type = 6 [
-    (google.api.field_behavior) = REQUIRED,
-    (google.api.field_info).format = UUID4
-  ];
-
-  string not_request_id_missing_field_behavior = 7 [
-    (google.api.field_info).format = UUID4
-  ];
-
-  string not_request_id_bad_field_behavior = 8 [
+  string request_id_with_field_behavior = 6 [
     (google.api.field_behavior) = OPTIONAL,
+    (google.api.field_behavior) = INPUT_ONLY,
     (google.api.field_info).format = UUID4
   ];
 
-  string not_request_id_missing_field_info = 9 [
-    (google.api.field_behavior) = REQUIRED
+  bytes not_request_id_bad_type = 7 [
+    (google.api.field_info).format = UUID4
   ];
 
-  string not_request_id_missing_field_info_format = 10 [
+  string not_request_id_required = 8 [
     (google.api.field_behavior) = REQUIRED,
+    (google.api.field_info).format = UUID4
+  ];
+
+  string not_request_id_required_with_other_field_behavior = 9 [
+    (google.api.field_behavior) = INPUT_ONLY,
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.field_info).format = UUID4
+  ];
+
+  string not_request_id_missing_field_info = 10;
+
+  string not_request_id_missing_field_info_format = 11 [
     (google.api.field_info).referenced_types = {type_name: "*"}
   ];
 
-  string not_request_id_bad_field_info_format = 11 [
-    (google.api.field_behavior) = REQUIRED,
+  string not_request_id_bad_field_info_format = 12 [
     (google.api.field_info).format = IPV6
   ];
 
-  string not_request_id_missing_service_config = 12 [
-    (google.api.field_behavior) = REQUIRED,
+  string not_request_id_missing_service_config = 13 [
     (google.api.field_info).format = UUID4
   ];
 }
