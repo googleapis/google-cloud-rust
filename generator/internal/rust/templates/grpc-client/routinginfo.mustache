@@ -22,7 +22,7 @@ let x_goog_request_params = {
         .or_else(||
         {{/Codec.FirstVariant}}
         gaxi::routing_parameter::value(
-            Some(&req){{#Codec.FieldAccessors}}.and_then(|v| {{{.}}}){{/Codec.FieldAccessors}},
+            Some(&req){{#Codec.FieldAccessors}}{{{.}}}{{/Codec.FieldAccessors}},
             &[ {{#Codec.PrefixSegments}}{{{.}}}, {{/Codec.PrefixSegments}} ],
             &[ {{#Codec.MatchingSegments}}{{{.}}}, {{/Codec.MatchingSegments}} ],
             &[ {{#Codec.SuffixSegments}}{{{.}}}, {{/Codec.SuffixSegments}} ],

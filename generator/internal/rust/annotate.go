@@ -609,11 +609,11 @@ func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api
 		}
 		switch {
 		case field.Optional:
-			accessors = append(accessors, fmt.Sprintf("v.%s.as_ref()", name))
+			accessors = append(accessors, fmt.Sprintf(".and_then(|v| v.%s.as_ref())", name))
 		case field.Typez == api.STRING_TYPE:
-			accessors = append(accessors, fmt.Sprintf("Some(v.%s.as_str())", name))
+			accessors = append(accessors, fmt.Sprintf(".map(|v| v.%s.as_str())", name))
 		default:
-			accessors = append(accessors, fmt.Sprintf("Some(&v.%s)", name))
+			accessors = append(accessors, fmt.Sprintf(".map(|v| &v.%s)", name))
 		}
 		if field.Typez == api.MESSAGE_TYPE {
 			if fieldMessage, ok := state.MessageByID[field.TypezID]; ok {
