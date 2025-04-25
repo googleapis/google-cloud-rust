@@ -14,10 +14,6 @@
 
 //! Contains the Storage client and related types.
 
-// TODO(#1813) - remove this once we documentation links work correctly.
-#[doc(hidden)]
-pub use super::generated::gapic::client::Storage as StorageV2Client;
-
 /// Implements a client for the Cloud Storage API.
 ///
 /// # Example
@@ -94,7 +90,7 @@ impl Storage {
     /// # gax::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> ClientBuilder {
-        gax::client_builder::internal::new_builder(client::Factory)
+        gax::client_builder::internal::new_builder(client_builder::Factory)
     }
 
     /// Permanently deletes an empty bucket.
@@ -286,9 +282,9 @@ impl Storage {
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 pub type ClientBuilder =
-    gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+    gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
 
-pub(crate) mod client {
+pub(crate) mod client_builder {
     use super::Storage;
     pub struct Factory;
     impl gax::client_builder::internal::ClientFactory for Factory {
