@@ -130,12 +130,13 @@ macro_rules! impl_message {
 }
 
 impl_message!(DoubleValue);
+impl_message!(FloatValue);
 impl_message!(Int32Value);
 impl_message!(UInt32Value);
 impl_message!(BoolValue);
 impl_message!(StringValue);
 
-fn encode_value<T>(value: serde_json::Value) -> Result<crate::message::Map, crate::AnyError>
+fn encode_string<T>(value: String) -> Result<crate::message::Map, crate::AnyError>
 where
     T: crate::message::Message,
 {
@@ -144,19 +145,12 @@ where
             "@type",
             serde_json::Value::String(T::typename().to_string()),
         ),
-        ("value", value),
+        ("value", serde_json::Value::String(value)),
     ]
     .into_iter()
     .map(|(k, v)| (k.to_string(), v))
     .collect();
     Ok(map)
-}
-
-fn encode_string<T>(value: String) -> Result<crate::message::Map, crate::AnyError>
-where
-    T: crate::message::Message,
-{
-    encode_value::<T>(serde_json::Value::String(value))
 }
 
 impl crate::message::Message for UInt64Value {
@@ -190,47 +184,6 @@ impl crate::message::Message for Int64Value {
             .ok_or_else(expected_string_value)?
             .parse::<Int64Value>()
             .map_err(crate::AnyError::deser)
-    }
-}
-
-impl crate::message::Message for FloatValue {
-    fn typename() -> &'static str {
-        "type.googleapis.com/google.protobuf.FloatValue"
-    }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError>
-    where
-        Self: serde::ser::Serialize + Sized,
-    {
-        // Encode special strings, see https://protobuf.dev/programming-guides/json/.
-        if self.is_nan() {
-            return encode_string::<Self>("NaN".to_string());
-        }
-        if self.is_infinite() && self.is_sign_positive() {
-            return encode_string::<Self>("Infinity".to_string());
-        }
-        if self.is_infinite() && self.is_sign_negative() {
-            return encode_string::<Self>("-Infinity".to_string());
-        }
-
-        encode_value::<Self>(serde_json::json!(self))
-    }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError>
-    where
-        Self: serde::de::DeserializeOwned,
-    {
-        let val = map
-            .get("value")
-            .ok_or_else(crate::message::missing_value_field)?;
-        match val {
-            // Decode special strings, see https://protobuf.dev/programming-guides/json/.
-            serde_json::Value::String(string) => match string.as_str() {
-                "Infinity" => Ok(f32::INFINITY),
-                "-Infinity" => Ok(f32::NEG_INFINITY),
-                "NaN" => Ok(f32::NAN),
-                _ => crate::message::from_value::<Self>(map),
-            },
-            _ => crate::message::from_value::<Self>(map),
-        }
     }
 }
 
@@ -270,6 +223,7 @@ mod test {
     const HELLO_WORLD_BASE64: &str = "SGVsbG8sIFdvcmxkIQ==";
 
     #[test_case(1234.5 as DoubleValue, 1234.5, "DoubleValue")]
+    #[test_case(9876.5 as FloatValue, 9876.5, "FloatValue")]
     #[test_case(-123 as Int64Value, "-123", "Int64Value")]
     #[test_case(123 as UInt64Value, "123", "UInt64Value")]
     #[test_case(-123 as Int32Value, -123, "Int32Value")]
@@ -295,31 +249,6 @@ mod test {
         assert_eq!(got, want);
         let output = any.try_into_message::<I>()?;
         assert_eq!(output, input);
-        Ok(())
-    }
-
-    #[test_case(f32::INFINITY as FloatValue, "Infinity", "FloatValue")]
-    #[test_case(f32::NEG_INFINITY as FloatValue, "-Infinity", "FloatValue")]
-    #[test_case(f32::NAN as FloatValue, "NaN", "FloatValue")]
-    #[test_case(9876.5 as FloatValue, 9876.5, "FloatValue")]
-    fn test_wrapper_float<V>(input: FloatValue, value: V, typename: &str) -> Result
-    where
-        V: serde::ser::Serialize,
-    {
-        let any = Any::try_from(&input)?;
-        let got = serde_json::to_value(&any)?;
-        let want = serde_json::json!({
-            "@type": format!("type.googleapis.com/google.protobuf.{}", typename),
-            "value": value,
-        });
-        assert_eq!(got, want);
-        let output = any.try_into_message::<FloatValue>()?;
-        // Using assert_eq does not work with NaN, as they are not considered equal,
-        // use total_cmp instead.
-        assert!(
-            output.total_cmp(&input) == std::cmp::Ordering::Equal,
-            "expected: {input}, got: {output}"
-        );
         Ok(())
     }
 
