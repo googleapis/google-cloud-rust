@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[allow(dead_code)]
 fn float_serialize<S>(x: &f32, s: S) -> std::result::Result<S::Ok, S::Error>
 where
     S: serde::ser::Serializer,
@@ -29,8 +30,10 @@ where
     s.serialize_f32(*x)
 }
 
+#[allow(dead_code)]
 struct FloatVisitor;
 
+#[allow(dead_code)]
 fn float_deserialize<'de, D>(deserializer: D) -> std::result::Result<f32, D::Error>
 where
     D: serde::de::Deserializer<'de>,
@@ -51,7 +54,7 @@ impl serde::de::Visitor<'_> for FloatVisitor {
             "Infinity" => Ok(f32::INFINITY),
             "-Infinity" => Ok(f32::NEG_INFINITY),
             _ => Err(serde::de::Error::invalid_value(
-                serde::de::Unexpected::Other(&value.to_string()),
+                serde::de::Unexpected::Other(value),
                 &"a valid ProtoJSON string for f32 (NaN, Infinity, -Infinity)",
             )),
         }
