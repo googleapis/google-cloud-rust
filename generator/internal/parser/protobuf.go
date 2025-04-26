@@ -502,6 +502,7 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 			Repeated:      mf.Label != nil && *mf.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
 			IsOneOf:       mf.OneofIndex != nil && !isProtoOptional,
 			AutoPopulated: protobufIsAutoPopulated(mf),
+			Behavior:      protobufFieldBehavior(mf),
 		}
 		normalizeTypes(state, mf, field)
 		message.Fields = append(message.Fields, field)

@@ -22,6 +22,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/google/go-cmp/cmp"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/pb33f/libopenapi"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
@@ -339,24 +340,31 @@ func makeRequestMessage(a *api.API, operation *v3.Operation, packageName, templa
 			Name:          p.Name,
 			JSONName:      p.Name, // OpenAPI fields are already camelCase
 			Documentation: documentation,
-			Optional:      p.Required == nil || !*p.Required,
+			Optional:      openapiFieldIsOptional(p),
 			Typez:         typez,
 			TypezID:       typezID,
 			Synthetic:     true,
-		}
-		if typez == api.STRING_TYPE && schema.Format == "uuid" && field.Optional {
-			field.AutoPopulated = true
+			AutoPopulated: openapiIsAutoPopulated(typez, schema, p),
+			Behavior:      openapiParameterBehavior(p),
 		}
 		addFieldIfNew(message, field)
 	}
 	return message, bodyFieldPath, nil
 }
 
+func openapiFieldIsOptional(p *v3.Parameter) bool {
+	return p.Required == nil || !*p.Required
+}
+
+func openapiIsAutoPopulated(typez api.Typez, schema *base.Schema, p *v3.Parameter) bool {
+	return typez == api.STRING_TYPE && schema.Format == "uuid" && openapiFieldIsOptional(p)
+}
+
 func addFieldIfNew(message *api.Message, field *api.Field) bool {
 	for _, f := range message.Fields {
 		if f.Name == field.Name {
 			// If the exact same field exists, treat that as a success.
-			return *f == *field
+			return cmp.Equal(f, field)
 		}
 	}
 	message.Fields = append(message.Fields, field)
