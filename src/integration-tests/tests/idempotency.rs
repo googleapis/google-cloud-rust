@@ -91,7 +91,7 @@ mod default_idempotency {
             // We are calling `AddSecretVersion`, which is a `POST`. This
             // request should not be idempotent.
             let _ = client
-                .add_secret_version("invalid")
+                .add_secret_version("invalid", sm::model::SecretPayload::new())
                 .with_retry_policy(expect_non_idempotent())
                 .send()
                 .await;

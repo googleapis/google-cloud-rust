@@ -51,14 +51,15 @@ main:
     let workflow_id = crate::random_workflow_id();
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
+    let workflow = wf::model::Workflow::new()
+        .set_labels([("integration-test", "true")])
+        .set_service_account(&workflows_runner)
+        .set_source_code(source_code);
     let response = client
-        .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
-        .set_workflow_id(&workflow_id)
-        .set_workflow(
-            wf::model::Workflow::new()
-                .set_labels([("integration-test", "true")])
-                .set_service_account(&workflows_runner)
-                .set_source_code(source_code),
+        .create_workflow(
+            format!("projects/{project_id}/locations/{location_id}"),
+            workflow,
+            &workflow_id,
         )
         .with_polling_backoff_policy(test_backoff()?)
         .poller()
@@ -111,14 +112,15 @@ main:
     let workflow_id = crate::random_workflow_id();
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
+    let workflow = wf::model::Workflow::new()
+        .set_labels([("integration-test", "true")])
+        .set_service_account(&workflows_runner)
+        .set_source_code(source_code);
     let mut create = client
-        .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
-        .set_workflow_id(&workflow_id)
-        .set_workflow(
-            wf::model::Workflow::new()
-                .set_labels([("integration-test", "true")])
-                .set_service_account(&workflows_runner)
-                .set_source_code(source_code),
+        .create_workflow(
+            format!("projects/{project_id}/locations/{location_id}"),
+            workflow,
+            &workflow_id,
         )
         .poller();
     let mut backoff = Duration::from_millis(100);
@@ -228,9 +230,11 @@ pub async fn manual(
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
     let create = client
-        .create_workflow(format!("projects/{project_id}/locations/{region_id}"))
-        .set_workflow_id(&workflow_id)
-        .set_workflow(workflow)
+        .create_workflow(
+            format!("projects/{project_id}/locations/{region_id}"),
+            workflow,
+            &workflow_id,
+        )
         .send()
         .await?;
     if create.done {

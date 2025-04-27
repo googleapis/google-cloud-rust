@@ -89,6 +89,10 @@ func serviceAnnotationsModel() *api.API {
 		},
 		ReturnsEmpty: true,
 	}
+	empty := &api.Message{
+		Name: "Empty",
+		ID:   ".google.protobuf.Empty",
+	}
 	noHttpMethod := &api.Method{
 		Name:         "DoAThing",
 		ID:           ".test.v1.ResourceService.DoAThing",
@@ -106,6 +110,7 @@ func serviceAnnotationsModel() *api.API {
 		[]*api.Message{request, response},
 		[]*api.Enum{},
 		[]*api.Service{service})
+	model.State.MessageByID[empty.ID] = empty
 	api.CrossReference(model)
 	return model
 }

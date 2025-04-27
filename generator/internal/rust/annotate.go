@@ -142,12 +142,16 @@ type messageAnnotation struct {
 }
 
 type methodAnnotation struct {
-	Name                string
-	BuilderName         string
-	DocLines            []string
-	PathInfo            *api.PathInfo
-	PathParams          []*api.Field
-	QueryParams         []*api.Field
+	Name        string
+	BuilderName string
+	DocLines    []string
+	PathInfo    *api.PathInfo
+	PathParams  []*api.Field
+	QueryParams []*api.Field
+	// RequiredInRequest are those fields in the message that are required for
+	// the request. These include all PathParams, and any non-synthetic field
+	// with FIELD_BEHAVIOR_REQUIRED.
+	RequiredInRequest   []*api.Field
 	BodyAccessor        string
 	ServiceNameToPascal string
 	ServiceNameToCamel  string
@@ -566,14 +570,27 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	if m.ReturnsEmpty {
 		returnType = "()"
 	}
+	pathParams := language.PathParams(m, state)
+	var requiredInRequest []*api.Field
+	for _, f := range m.InputType.Fields {
+		switch {
+		case slices.Contains(pathParams, f):
+			requiredInRequest = append(requiredInRequest, f)
+		case !f.Synthetic && slices.Contains(f.Behavior, api.FIELD_BEHAVIOR_REQUIRED):
+			requiredInRequest = append(requiredInRequest, f)
+		default:
+		}
+	}
+
 	annotation := &methodAnnotation{
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
 		BodyAccessor:        bodyAccessor(m),
 		DocLines:            c.formatDocComments(m.Documentation, m.ID, state, s.Scopes()),
 		PathInfo:            m.PathInfo,
-		PathParams:          language.PathParams(m, state),
+		PathParams:          pathParams,
 		QueryParams:         language.QueryParams(m, state),
+		RequiredInRequest:   requiredInRequest,
 		ServiceNameToPascal: toPascal(s.Name),
 		ServiceNameToCamel:  toCamel(s.Name),
 		ServiceNameToSnake:  toSnake(s.Name),

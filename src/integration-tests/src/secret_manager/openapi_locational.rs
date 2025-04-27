@@ -115,8 +115,9 @@ async fn run_iam(
     println!("POLICY = {policy:?}");
 
     println!("\nTesting test_iam_permissions_by_project_and_location_and_secret()");
+    // TODO(#1942) - the parameter order is not ideal, separate request message by request should fix that.
     let response = client
-        .test_iam_permissions_by_project_and_location_and_secret(project_id, location_id, secret_id)
+        .test_iam_permissions_by_project_and_location_and_secret(project_id, secret_id, location_id)
         .set_permissions(
             ["secretmanager.versions.access"]
                 .map(str::to_string)
@@ -147,8 +148,9 @@ async fn run_iam(
                 .set_members([format!("serviceAccount:{service_account}")].to_vec()),
         );
     }
+    // TODO(#1942) - the parameter order is not ideal, separate request message by request should fix that.
     let response = client
-        .set_iam_policy_by_project_and_location_and_secret(project_id, location_id, secret_id)
+        .set_iam_policy_by_project_and_location_and_secret(project_id, secret_id, location_id)
         .set_update_mask(
             wkt::FieldMask::default().set_paths(["bindings"].map(str::to_string).to_vec()),
         )
@@ -169,8 +171,9 @@ async fn run_secret_versions(
     println!("\nTesting add_secret_version_by_project_and_location_and_secret()");
     let data = "The quick brown fox jumps over the lazy dog".as_bytes();
     let checksum = crc32c::crc32c(data);
+    // TODO(#1942) - the parameter order is not ideal, separate request message by request should fix that.
     let create = client
-        .add_secret_version_by_project_and_location_and_secret(project_id, location_id, secret_id)
+        .add_secret_version_by_project_and_location_and_secret(project_id, secret_id, location_id)
         .set_payload(
             smo::model::SecretPayload::default()
                 .set_data(bytes::Bytes::from(data))
@@ -235,36 +238,39 @@ async fn run_secret_versions(
     );
 
     println!("\nTesting disable_secret_version_by_project_and_location_and_secret_and_version()");
+    // TODO(#1942) - the parameter order is not ideal, separate request message by request should fix that.
     let disable = client
         .disable_secret_version_by_project_and_location_and_secret_and_version(
             project_id,
-            location_id,
             secret_id,
             version_id,
+            location_id,
         )
         .send()
         .await?;
     println!("DISABLE_SECRET_VERSION = {disable:?}");
 
     println!("\nTesting enable_secret_version_by_project_and_location_and_secret_and_version()");
+    // TODO(#1942) - the parameter order is not ideal, separate request message by request should fix that.
     let enable = client
         .enable_secret_version_by_project_and_location_and_secret_and_version(
             project_id,
-            location_id,
             secret_id,
             version_id,
+            location_id,
         )
         .send()
         .await?;
     println!("ENABLE_SECRET_VERSION = {enable:?}");
 
     println!("\nTesting destroy_secret_version_by_project_and_location_and_secret_and_version()");
+    // TODO(#1942) - the parameter order is not ideal, separate request message by request should fix that.
     let delete = client
         .destroy_secret_version_by_project_and_location_and_secret_and_version(
             project_id,
-            location_id,
             secret_id,
             version_id,
+            location_id,
         )
         .send()
         .await?;

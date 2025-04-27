@@ -32,8 +32,11 @@ mod mocking {
         id: &str,
     ) -> gax::Result<sm::model::Secret> {
         client
-            .create_secret(format!("projects/{project}/locations/{region}"))
-            .set_secret_id(id)
+            .create_secret(
+                format!("projects/{project}/locations/{region}"),
+                id,
+                sm::model::Secret::new(),
+            )
             .send()
             .await
     }
@@ -45,7 +48,7 @@ mod mocking {
             .withf(|r, _| {
                 r.parent == "projects/my-project/locations/us-central1"
                     && r.secret_id == "my-secret-id"
-                    && r.secret.is_none()
+                    && r.secret.is_some()
             })
             .return_once(|_, _| Err(gax::error::Error::other("simulated failure")));
 

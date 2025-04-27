@@ -45,10 +45,9 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
     println!("\nTesting create_secret()");
     use gax::options::RequestOptionsBuilder;
     let create = client
-        .create_secret(format!("projects/{project_id}"))
-        .with_user_agent("test/1.2.3")
-        .set_secret_id(&secret_id)
-        .set_secret(
+        .create_secret(
+            format!("projects/{project_id}"),
+            &secret_id,
             sm::model::Secret::new()
                 .set_replication(sm::model::Replication::new().set_replication(
                     sm::model::replication::Replication::Automatic(
@@ -57,6 +56,7 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
                 ))
                 .set_labels([("integration-test", "true")]),
         )
+        .with_user_agent("test/1.2.3")
         .send()
         .await?;
     println!("CREATE = {create:?}");
@@ -90,8 +90,6 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
                 .set_etag(get.etag)
                 .set_labels(tag(get.labels.clone(), "test-1"))
                 .set_annotations(tag(get.annotations.clone(), "test-1")),
-        )
-        .set_update_mask(
             wkt::FieldMask::default()
                 .set_paths(["annotations", "labels"].map(str::to_string).to_vec()),
         )
@@ -117,8 +115,6 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
                 .set_etag(update.etag.clone())
                 .set_labels(tag(get.labels.clone(), "test-2"))
                 .set_annotations(tag(get.annotations.clone(), "test-2")),
-        )
-        .set_update_mask(
             wkt::FieldMask::default().set_paths(["annotations"].map(str::to_string).to_vec()),
         )
         // Avoid flakes, safe to retry because of the etag.
@@ -198,12 +194,7 @@ async fn run_iam(client: &sm::client::SecretManagerService, secret_name: &str) -
 
     println!("\nTesting test_iam_permissions()");
     let response = client
-        .test_iam_permissions(secret_name)
-        .set_permissions(
-            ["secretmanager.versions.access"]
-                .map(str::to_string)
-                .to_vec(),
-        )
+        .test_iam_permissions(secret_name, ["secretmanager.versions.access"])
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -230,11 +221,8 @@ async fn run_iam(client: &sm::client::SecretManagerService, secret_name: &str) -
         );
     }
     let response = client
-        .set_iam_policy(secret_name)
-        .set_update_mask(
-            wkt::FieldMask::default().set_paths(["bindings"].map(str::to_string).to_vec()),
-        )
-        .set_policy(new_policy)
+        .set_iam_policy(secret_name, new_policy)
+        .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -250,8 +238,8 @@ async fn run_secret_versions(
     let data = "The quick brown fox jumps over the lazy dog".as_bytes();
     let checksum = crc32c::crc32c(data);
     let create_secret_version = client
-        .add_secret_version(secret_name)
-        .set_payload(
+        .add_secret_version(
+            secret_name,
             sm::model::SecretPayload::new()
                 .set_data(bytes::Bytes::from(data))
                 .set_data_crc32c(checksum as i64),
@@ -326,8 +314,8 @@ async fn run_many_secret_versions(
         let data = "The quick brown fox jumps over the lazy dog".as_bytes();
         let checksum = crc32c::crc32c(data);
         let create_secret_version = client
-            .add_secret_version(secret_name)
-            .set_payload(
+            .add_secret_version(
+                secret_name,
                 sm::model::SecretPayload::new()
                     .set_data(bytes::Bytes::from(data))
                     .set_data_crc32c(checksum as i64),

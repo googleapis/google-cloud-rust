@@ -55,17 +55,17 @@ pub async fn basic(builder: firestore::builder::firestore::ClientBuilder) -> Res
         .create_document(
             format!("projects/{project_id}/databases/(default)/documents"),
             &collection_id,
+            model::Document::new().set_fields([
+                (
+                    "greeting",
+                    model::Value::new().set_string_value("Hello World!"),
+                ),
+                (
+                    "integration-test",
+                    model::Value::new().set_boolean_value(true),
+                ),
+            ]),
         )
-        .set_document(model::Document::new().set_fields([
-            (
-                "greeting",
-                model::Value::new().set_string_value("Hello World!"),
-            ),
-            (
-                "integration-test",
-                model::Value::new().set_boolean_value(true),
-            ),
-        ]))
         .send()
         .await?;
     println!("SUCCESS on create_document: {response:?}");

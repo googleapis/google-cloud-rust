@@ -23,8 +23,7 @@ pub async fn examine_error_details() -> crate::Result<()> {
 
     // ANCHOR: examine-error-details-request
     let result = client
-        .analyze_sentiment()
-        .set_document(
+        .analyze_sentiment(
             lang::model::Document::new()
                 // Missing document contents
                 // .set_content("Hello World!")

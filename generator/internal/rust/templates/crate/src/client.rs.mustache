@@ -149,15 +149,31 @@ impl {{Codec.Name}} {
     {{/OperationInfo}}
     pub fn {{Codec.Name}}(
         &self,
-        {{#Codec.PathParams}}
+        {{#Codec.RequiredInRequest}}
+        {{#Map}}
+        {{{Codec.FieldName}}}: impl IntoIterator<Item = (impl Into<{{{Codec.KeyType}}}>, impl Into<{{{Codec.ValueType}}}>)>,
+        {{/Map}}
+        {{#Repeated}}
+        {{{Codec.FieldName}}}: impl IntoIterator<Item = impl Into<{{{Codec.PrimitiveFieldType}}}>>,
+        {{/Repeated}}
+        {{#Singular}}
         {{{Codec.FieldName}}}: impl Into<{{{Codec.PrimitiveFieldType}}}>,
-        {{/Codec.PathParams}}
+        {{/Singular}}
+        {{/Codec.RequiredInRequest}}
     ) -> super::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}
     {
         super::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}::new(self.inner.clone())
-        {{#Codec.PathParams}}
+        {{#Codec.RequiredInRequest}}
+            {{#Map}}
+            .set_{{Codec.SetterName}} ( {{Codec.FieldName}}.into_iter().map(|(k, v)| (k.into(), v.into())) )
+            {{/Map}}
+            {{#Repeated}}
+            .set_{{Codec.SetterName}} ( {{Codec.FieldName}}.into_iter().map(|v| v.into()) )
+            {{/Repeated}}
+            {{#Singular}}
             .set_{{Codec.SetterName}} ( {{Codec.FieldName}}.into() )
-        {{/Codec.PathParams}}
+            {{/Singular}}
+        {{/Codec.RequiredInRequest}}
     }
     {{/Codec.Methods}}
 }
