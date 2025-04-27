@@ -143,17 +143,21 @@ impl StorageInsights {
     pub fn create_report_config(
         &self,
         parent: impl Into<std::string::String>,
+        report_config: impl Into<crate::model::ReportConfig>,
     ) -> super::builder::storage_insights::CreateReportConfig {
         super::builder::storage_insights::CreateReportConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_report_config(report_config.into())
     }
 
     /// Updates the parameters of a single ReportConfig.
     pub fn update_report_config(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         report_config: impl Into<crate::model::ReportConfig>,
     ) -> super::builder::storage_insights::UpdateReportConfig {
         super::builder::storage_insights::UpdateReportConfig::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_report_config(report_config.into())
     }
 

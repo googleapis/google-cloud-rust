@@ -130,9 +130,11 @@ impl TranscoderService {
     pub fn create_job(
         &self,
         parent: impl Into<std::string::String>,
+        job: impl Into<crate::model::Job>,
     ) -> super::builder::transcoder_service::CreateJob {
         super::builder::transcoder_service::CreateJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_job(job.into())
     }
 
     /// Lists jobs in the specified region.
@@ -164,9 +166,13 @@ impl TranscoderService {
     pub fn create_job_template(
         &self,
         parent: impl Into<std::string::String>,
+        job_template: impl Into<crate::model::JobTemplate>,
+        job_template_id: impl Into<std::string::String>,
     ) -> super::builder::transcoder_service::CreateJobTemplate {
         super::builder::transcoder_service::CreateJobTemplate::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_job_template(job_template.into())
+            .set_job_template_id(job_template_id.into())
     }
 
     /// Lists job templates in the specified region.

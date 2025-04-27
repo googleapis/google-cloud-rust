@@ -167,9 +167,13 @@ impl ManagedIdentitiesService {
     pub fn create_microsoft_ad_domain(
         &self,
         parent: impl Into<std::string::String>,
+        domain_name: impl Into<std::string::String>,
+        domain: impl Into<crate::model::Domain>,
     ) -> super::builder::managed_identities_service::CreateMicrosoftAdDomain {
         super::builder::managed_identities_service::CreateMicrosoftAdDomain::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_domain_name(domain_name.into())
+            .set_domain(domain.into())
     }
 
     /// Resets a domain's administrator password.
@@ -212,9 +216,11 @@ impl ManagedIdentitiesService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_domain(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         domain: impl Into<crate::model::Domain>,
     ) -> super::builder::managed_identities_service::UpdateDomain {
         super::builder::managed_identities_service::UpdateDomain::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_domain(domain.into())
     }
 
@@ -251,9 +257,11 @@ impl ManagedIdentitiesService {
     pub fn attach_trust(
         &self,
         name: impl Into<std::string::String>,
+        trust: impl Into<crate::model::Trust>,
     ) -> super::builder::managed_identities_service::AttachTrust {
         super::builder::managed_identities_service::AttachTrust::new(self.inner.clone())
             .set_name(name.into())
+            .set_trust(trust.into())
     }
 
     /// Updates the DNS conditional forwarder.
@@ -270,9 +278,13 @@ impl ManagedIdentitiesService {
     pub fn reconfigure_trust(
         &self,
         name: impl Into<std::string::String>,
+        target_domain_name: impl Into<std::string::String>,
+        target_dns_ip_addresses: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::managed_identities_service::ReconfigureTrust {
         super::builder::managed_identities_service::ReconfigureTrust::new(self.inner.clone())
             .set_name(name.into())
+            .set_target_domain_name(target_domain_name.into())
+            .set_target_dns_ip_addresses(target_dns_ip_addresses.into_iter().map(|v| v.into()))
     }
 
     /// Removes an AD trust.
@@ -289,9 +301,11 @@ impl ManagedIdentitiesService {
     pub fn detach_trust(
         &self,
         name: impl Into<std::string::String>,
+        trust: impl Into<crate::model::Trust>,
     ) -> super::builder::managed_identities_service::DetachTrust {
         super::builder::managed_identities_service::DetachTrust::new(self.inner.clone())
             .set_name(name.into())
+            .set_trust(trust.into())
     }
 
     /// Validates a trust state, that the target domain is reachable, and that the
@@ -309,9 +323,11 @@ impl ManagedIdentitiesService {
     pub fn validate_trust(
         &self,
         name: impl Into<std::string::String>,
+        trust: impl Into<crate::model::Trust>,
     ) -> super::builder::managed_identities_service::ValidateTrust {
         super::builder::managed_identities_service::ValidateTrust::new(self.inner.clone())
             .set_name(name.into())
+            .set_trust(trust.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

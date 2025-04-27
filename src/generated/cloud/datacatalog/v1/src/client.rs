@@ -137,8 +137,11 @@ impl DataCatalog {
     ///
     /// For more information, see [Data Catalog search syntax]
     /// (<https://cloud.google.com/data-catalog/docs/how-to/search-reference>).
-    pub fn search_catalog(&self) -> super::builder::data_catalog::SearchCatalog {
-        super::builder::data_catalog::SearchCatalog::new(self.inner.clone())
+    pub fn search_catalog(
+        &self,
+        scope: impl Into<crate::model::search_catalog_request::Scope>,
+    ) -> super::builder::data_catalog::SearchCatalog {
+        super::builder::data_catalog::SearchCatalog::new(self.inner.clone()).set_scope(scope.into())
     }
 
     /// Creates an entry group.
@@ -171,9 +174,11 @@ impl DataCatalog {
     pub fn create_entry_group(
         &self,
         parent: impl Into<std::string::String>,
+        entry_group_id: impl Into<std::string::String>,
     ) -> super::builder::data_catalog::CreateEntryGroup {
         super::builder::data_catalog::CreateEntryGroup::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entry_group_id(entry_group_id.into())
     }
 
     /// Gets an entry group.
@@ -235,8 +240,13 @@ impl DataCatalog {
     pub fn create_entry(
         &self,
         parent: impl Into<std::string::String>,
+        entry_id: impl Into<std::string::String>,
+        entry: impl Into<crate::model::Entry>,
     ) -> super::builder::data_catalog::CreateEntry {
-        super::builder::data_catalog::CreateEntry::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::data_catalog::CreateEntry::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_entry_id(entry_id.into())
+            .set_entry(entry.into())
     }
 
     /// Updates an existing entry.
@@ -310,9 +320,11 @@ impl DataCatalog {
     pub fn modify_entry_overview(
         &self,
         name: impl Into<std::string::String>,
+        entry_overview: impl Into<crate::model::EntryOverview>,
     ) -> super::builder::data_catalog::ModifyEntryOverview {
         super::builder::data_catalog::ModifyEntryOverview::new(self.inner.clone())
             .set_name(name.into())
+            .set_entry_overview(entry_overview.into())
     }
 
     /// Modifies contacts, part of the business context of an
@@ -325,9 +337,11 @@ impl DataCatalog {
     pub fn modify_entry_contacts(
         &self,
         name: impl Into<std::string::String>,
+        contacts: impl Into<crate::model::Contacts>,
     ) -> super::builder::data_catalog::ModifyEntryContacts {
         super::builder::data_catalog::ModifyEntryContacts::new(self.inner.clone())
             .set_name(name.into())
+            .set_contacts(contacts.into())
     }
 
     /// Creates a tag template.
@@ -339,9 +353,13 @@ impl DataCatalog {
     pub fn create_tag_template(
         &self,
         parent: impl Into<std::string::String>,
+        tag_template_id: impl Into<std::string::String>,
+        tag_template: impl Into<crate::model::TagTemplate>,
     ) -> super::builder::data_catalog::CreateTagTemplate {
         super::builder::data_catalog::CreateTagTemplate::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_tag_template_id(tag_template_id.into())
+            .set_tag_template(tag_template.into())
     }
 
     /// Gets a tag template.
@@ -377,9 +395,11 @@ impl DataCatalog {
     pub fn delete_tag_template(
         &self,
         name: impl Into<std::string::String>,
+        force: impl Into<bool>,
     ) -> super::builder::data_catalog::DeleteTagTemplate {
         super::builder::data_catalog::DeleteTagTemplate::new(self.inner.clone())
             .set_name(name.into())
+            .set_force(force.into())
     }
 
     /// Creates a field in a tag template.
@@ -390,9 +410,13 @@ impl DataCatalog {
     pub fn create_tag_template_field(
         &self,
         parent: impl Into<std::string::String>,
+        tag_template_field_id: impl Into<std::string::String>,
+        tag_template_field: impl Into<crate::model::TagTemplateField>,
     ) -> super::builder::data_catalog::CreateTagTemplateField {
         super::builder::data_catalog::CreateTagTemplateField::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_tag_template_field_id(tag_template_field_id.into())
+            .set_tag_template_field(tag_template_field.into())
     }
 
     /// Updates a field in a tag template.
@@ -406,9 +430,11 @@ impl DataCatalog {
     pub fn update_tag_template_field(
         &self,
         name: impl Into<std::string::String>,
+        tag_template_field: impl Into<crate::model::TagTemplateField>,
     ) -> super::builder::data_catalog::UpdateTagTemplateField {
         super::builder::data_catalog::UpdateTagTemplateField::new(self.inner.clone())
             .set_name(name.into())
+            .set_tag_template_field(tag_template_field.into())
     }
 
     /// Renames a field in a tag template.
@@ -419,9 +445,11 @@ impl DataCatalog {
     pub fn rename_tag_template_field(
         &self,
         name: impl Into<std::string::String>,
+        new_tag_template_field_id: impl Into<std::string::String>,
     ) -> super::builder::data_catalog::RenameTagTemplateField {
         super::builder::data_catalog::RenameTagTemplateField::new(self.inner.clone())
             .set_name(name.into())
+            .set_new_tag_template_field_id(new_tag_template_field_id.into())
     }
 
     /// Renames an enum value in a tag template.
@@ -430,9 +458,11 @@ impl DataCatalog {
     pub fn rename_tag_template_field_enum_value(
         &self,
         name: impl Into<std::string::String>,
+        new_enum_value_display_name: impl Into<std::string::String>,
     ) -> super::builder::data_catalog::RenameTagTemplateFieldEnumValue {
         super::builder::data_catalog::RenameTagTemplateFieldEnumValue::new(self.inner.clone())
             .set_name(name.into())
+            .set_new_enum_value_display_name(new_enum_value_display_name.into())
     }
 
     /// Deletes a field in a tag template and all uses of this field from the tags
@@ -444,9 +474,11 @@ impl DataCatalog {
     pub fn delete_tag_template_field(
         &self,
         name: impl Into<std::string::String>,
+        force: impl Into<bool>,
     ) -> super::builder::data_catalog::DeleteTagTemplateField {
         super::builder::data_catalog::DeleteTagTemplateField::new(self.inner.clone())
             .set_name(name.into())
+            .set_force(force.into())
     }
 
     /// Creates a tag and assigns it to:
@@ -467,8 +499,11 @@ impl DataCatalog {
     pub fn create_tag(
         &self,
         parent: impl Into<std::string::String>,
+        tag: impl Into<crate::model::Tag>,
     ) -> super::builder::data_catalog::CreateTag {
-        super::builder::data_catalog::CreateTag::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::data_catalog::CreateTag::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_tag(tag.into())
     }
 
     /// Updates an existing tag.
@@ -528,9 +563,11 @@ impl DataCatalog {
     pub fn reconcile_tags(
         &self,
         parent: impl Into<std::string::String>,
+        tag_template: impl Into<std::string::String>,
     ) -> super::builder::data_catalog::ReconcileTags {
         super::builder::data_catalog::ReconcileTags::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_tag_template(tag_template.into())
     }
 
     /// Marks an [Entry][google.cloud.datacatalog.v1.Entry] as starred by
@@ -575,9 +612,11 @@ impl DataCatalog {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::data_catalog::SetIamPolicy {
         super::builder::data_catalog::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource.
@@ -626,9 +665,11 @@ impl DataCatalog {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::data_catalog::TestIamPermissions {
         super::builder::data_catalog::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Imports entries from a source, such as data previously dumped into a
@@ -966,9 +1007,11 @@ impl PolicyTagManager {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::policy_tag_manager::SetIamPolicy {
         super::builder::policy_tag_manager::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns your permissions on a specified policy tag or
@@ -976,9 +1019,11 @@ impl PolicyTagManager {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::policy_tag_manager::TestIamPermissions {
         super::builder::policy_tag_manager::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1147,9 +1192,11 @@ impl PolicyTagManagerSerialization {
     pub fn replace_taxonomy(
         &self,
         name: impl Into<std::string::String>,
+        serialized_taxonomy: impl Into<crate::model::SerializedTaxonomy>,
     ) -> super::builder::policy_tag_manager_serialization::ReplaceTaxonomy {
         super::builder::policy_tag_manager_serialization::ReplaceTaxonomy::new(self.inner.clone())
             .set_name(name.into())
+            .set_serialized_taxonomy(serialized_taxonomy.into())
     }
 
     /// Creates new taxonomies (including their policy tags) in a given project
@@ -1177,9 +1224,11 @@ impl PolicyTagManagerSerialization {
     pub fn export_taxonomies(
         &self,
         parent: impl Into<std::string::String>,
+        taxonomies: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::policy_tag_manager_serialization::ExportTaxonomies {
         super::builder::policy_tag_manager_serialization::ExportTaxonomies::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_taxonomies(taxonomies.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

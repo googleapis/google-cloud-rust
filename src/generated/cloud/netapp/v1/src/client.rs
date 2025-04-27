@@ -141,9 +141,13 @@ impl NetApp {
     pub fn create_storage_pool(
         &self,
         parent: impl Into<std::string::String>,
+        storage_pool_id: impl Into<std::string::String>,
+        storage_pool: impl Into<crate::model::StoragePool>,
     ) -> super::builder::net_app::CreateStoragePool {
         super::builder::net_app::CreateStoragePool::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_storage_pool_id(storage_pool_id.into())
+            .set_storage_pool(storage_pool.into())
     }
 
     /// Returns the description of the specified storage pool by poolId.
@@ -167,9 +171,11 @@ impl NetApp {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_storage_pool(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         storage_pool: impl Into<crate::model::StoragePool>,
     ) -> super::builder::net_app::UpdateStoragePool {
         super::builder::net_app::UpdateStoragePool::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_storage_pool(storage_pool.into())
     }
 
@@ -261,8 +267,13 @@ impl NetApp {
     pub fn create_volume(
         &self,
         parent: impl Into<std::string::String>,
+        volume_id: impl Into<std::string::String>,
+        volume: impl Into<crate::model::Volume>,
     ) -> super::builder::net_app::CreateVolume {
-        super::builder::net_app::CreateVolume::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::net_app::CreateVolume::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_volume_id(volume_id.into())
+            .set_volume(volume.into())
     }
 
     /// Updates the parameters of a single Volume.
@@ -278,9 +289,12 @@ impl NetApp {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_volume(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         volume: impl Into<crate::model::Volume>,
     ) -> super::builder::net_app::UpdateVolume {
-        super::builder::net_app::UpdateVolume::new(self.inner.clone()).set_volume(volume.into())
+        super::builder::net_app::UpdateVolume::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
+            .set_volume(volume.into())
     }
 
     /// Deletes a single Volume.
@@ -317,8 +331,11 @@ impl NetApp {
     pub fn revert_volume(
         &self,
         name: impl Into<std::string::String>,
+        snapshot_id: impl Into<std::string::String>,
     ) -> super::builder::net_app::RevertVolume {
-        super::builder::net_app::RevertVolume::new(self.inner.clone()).set_name(name.into())
+        super::builder::net_app::RevertVolume::new(self.inner.clone())
+            .set_name(name.into())
+            .set_snapshot_id(snapshot_id.into())
     }
 
     /// Returns descriptions of all snapshots for a volume.
@@ -351,8 +368,13 @@ impl NetApp {
     pub fn create_snapshot(
         &self,
         parent: impl Into<std::string::String>,
+        snapshot: impl Into<crate::model::Snapshot>,
+        snapshot_id: impl Into<std::string::String>,
     ) -> super::builder::net_app::CreateSnapshot {
-        super::builder::net_app::CreateSnapshot::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::net_app::CreateSnapshot::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_snapshot(snapshot.into())
+            .set_snapshot_id(snapshot_id.into())
     }
 
     /// Deletes a snapshot.
@@ -386,9 +408,11 @@ impl NetApp {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_snapshot(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         snapshot: impl Into<crate::model::Snapshot>,
     ) -> super::builder::net_app::UpdateSnapshot {
         super::builder::net_app::UpdateSnapshot::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_snapshot(snapshot.into())
     }
 
@@ -424,9 +448,13 @@ impl NetApp {
     pub fn create_active_directory(
         &self,
         parent: impl Into<std::string::String>,
+        active_directory: impl Into<crate::model::ActiveDirectory>,
+        active_directory_id: impl Into<std::string::String>,
     ) -> super::builder::net_app::CreateActiveDirectory {
         super::builder::net_app::CreateActiveDirectory::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_active_directory(active_directory.into())
+            .set_active_directory_id(active_directory_id.into())
     }
 
     /// Update the parameters of an active directories.
@@ -442,9 +470,11 @@ impl NetApp {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_active_directory(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         active_directory: impl Into<crate::model::ActiveDirectory>,
     ) -> super::builder::net_app::UpdateActiveDirectory {
         super::builder::net_app::UpdateActiveDirectory::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_active_directory(active_directory.into())
     }
 
@@ -489,8 +519,13 @@ impl NetApp {
     pub fn create_kms_config(
         &self,
         parent: impl Into<std::string::String>,
+        kms_config_id: impl Into<std::string::String>,
+        kms_config: impl Into<crate::model::KmsConfig>,
     ) -> super::builder::net_app::CreateKmsConfig {
-        super::builder::net_app::CreateKmsConfig::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::net_app::CreateKmsConfig::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_kms_config_id(kms_config_id.into())
+            .set_kms_config(kms_config.into())
     }
 
     /// Returns the description of the specified KMS config by kms_config_id.
@@ -514,9 +549,11 @@ impl NetApp {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_kms_config(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         kms_config: impl Into<crate::model::KmsConfig>,
     ) -> super::builder::net_app::UpdateKmsConfig {
         super::builder::net_app::UpdateKmsConfig::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_kms_config(kms_config.into())
     }
 
@@ -595,9 +632,13 @@ impl NetApp {
     pub fn create_replication(
         &self,
         parent: impl Into<std::string::String>,
+        replication: impl Into<crate::model::Replication>,
+        replication_id: impl Into<std::string::String>,
     ) -> super::builder::net_app::CreateReplication {
         super::builder::net_app::CreateReplication::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_replication(replication.into())
+            .set_replication_id(replication_id.into())
     }
 
     /// Deletes a replication.
@@ -631,9 +672,11 @@ impl NetApp {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_replication(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         replication: impl Into<crate::model::Replication>,
     ) -> super::builder::net_app::UpdateReplication {
         super::builder::net_app::UpdateReplication::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_replication(replication.into())
     }
 
@@ -707,8 +750,15 @@ impl NetApp {
     pub fn establish_peering(
         &self,
         name: impl Into<std::string::String>,
+        peer_cluster_name: impl Into<std::string::String>,
+        peer_svm_name: impl Into<std::string::String>,
+        peer_volume_name: impl Into<std::string::String>,
     ) -> super::builder::net_app::EstablishPeering {
-        super::builder::net_app::EstablishPeering::new(self.inner.clone()).set_name(name.into())
+        super::builder::net_app::EstablishPeering::new(self.inner.clone())
+            .set_name(name.into())
+            .set_peer_cluster_name(peer_cluster_name.into())
+            .set_peer_svm_name(peer_svm_name.into())
+            .set_peer_volume_name(peer_volume_name.into())
     }
 
     /// Syncs the replication. This will invoke one time volume data transfer from
@@ -744,9 +794,13 @@ impl NetApp {
     pub fn create_backup_vault(
         &self,
         parent: impl Into<std::string::String>,
+        backup_vault_id: impl Into<std::string::String>,
+        backup_vault: impl Into<crate::model::BackupVault>,
     ) -> super::builder::net_app::CreateBackupVault {
         super::builder::net_app::CreateBackupVault::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_vault_id(backup_vault_id.into())
+            .set_backup_vault(backup_vault.into())
     }
 
     /// Returns the description of the specified backup vault
@@ -778,9 +832,11 @@ impl NetApp {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_backup_vault(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         backup_vault: impl Into<crate::model::BackupVault>,
     ) -> super::builder::net_app::UpdateBackupVault {
         super::builder::net_app::UpdateBackupVault::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_backup_vault(backup_vault.into())
     }
 
@@ -819,8 +875,13 @@ impl NetApp {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
+        backup_id: impl Into<std::string::String>,
+        backup: impl Into<crate::model::Backup>,
     ) -> super::builder::net_app::CreateBackup {
-        super::builder::net_app::CreateBackup::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::net_app::CreateBackup::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_backup_id(backup_id.into())
+            .set_backup(backup.into())
     }
 
     /// Returns the description of the specified backup
@@ -870,9 +931,12 @@ impl NetApp {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_backup(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         backup: impl Into<crate::model::Backup>,
     ) -> super::builder::net_app::UpdateBackup {
-        super::builder::net_app::UpdateBackup::new(self.inner.clone()).set_backup(backup.into())
+        super::builder::net_app::UpdateBackup::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
+            .set_backup(backup.into())
     }
 
     /// Creates new backup policy
@@ -889,9 +953,13 @@ impl NetApp {
     pub fn create_backup_policy(
         &self,
         parent: impl Into<std::string::String>,
+        backup_policy: impl Into<crate::model::BackupPolicy>,
+        backup_policy_id: impl Into<std::string::String>,
     ) -> super::builder::net_app::CreateBackupPolicy {
         super::builder::net_app::CreateBackupPolicy::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_policy(backup_policy.into())
+            .set_backup_policy_id(backup_policy_id.into())
     }
 
     /// Returns the description of the specified backup policy by backup_policy_id.
@@ -924,9 +992,11 @@ impl NetApp {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_backup_policy(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         backup_policy: impl Into<crate::model::BackupPolicy>,
     ) -> super::builder::net_app::UpdateBackupPolicy {
         super::builder::net_app::UpdateBackupPolicy::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_backup_policy(backup_policy.into())
     }
 
@@ -978,8 +1048,13 @@ impl NetApp {
     pub fn create_quota_rule(
         &self,
         parent: impl Into<std::string::String>,
+        quota_rule: impl Into<crate::model::QuotaRule>,
+        quota_rule_id: impl Into<std::string::String>,
     ) -> super::builder::net_app::CreateQuotaRule {
-        super::builder::net_app::CreateQuotaRule::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::net_app::CreateQuotaRule::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_quota_rule(quota_rule.into())
+            .set_quota_rule_id(quota_rule_id.into())
     }
 
     /// Updates a quota rule.

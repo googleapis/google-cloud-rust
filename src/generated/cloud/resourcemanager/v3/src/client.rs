@@ -140,8 +140,11 @@ impl Folders {
     /// of their display_name.
     /// The caller must have `resourcemanager.folders.list` permission on the
     /// identified parent.
-    pub fn list_folders(&self) -> super::builder::folders::ListFolders {
-        super::builder::folders::ListFolders::new(self.inner.clone())
+    pub fn list_folders(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::folders::ListFolders {
+        super::builder::folders::ListFolders::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Search for folders that match specific filter criteria.
@@ -191,8 +194,11 @@ impl Folders {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_folder(&self) -> super::builder::folders::CreateFolder {
-        super::builder::folders::CreateFolder::new(self.inner.clone())
+    pub fn create_folder(
+        &self,
+        folder: impl Into<crate::model::Folder>,
+    ) -> super::builder::folders::CreateFolder {
+        super::builder::folders::CreateFolder::new(self.inner.clone()).set_folder(folder.into())
     }
 
     /// Updates a folder, changing its `display_name`.
@@ -227,8 +233,11 @@ impl Folders {
     pub fn update_folder(
         &self,
         folder: impl Into<crate::model::Folder>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::folders::UpdateFolder {
-        super::builder::folders::UpdateFolder::new(self.inner.clone()).set_folder(folder.into())
+        super::builder::folders::UpdateFolder::new(self.inner.clone())
+            .set_folder(folder.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Moves a folder under a new resource parent.
@@ -263,8 +272,11 @@ impl Folders {
     pub fn move_folder(
         &self,
         name: impl Into<std::string::String>,
+        destination_parent: impl Into<std::string::String>,
     ) -> super::builder::folders::MoveFolder {
-        super::builder::folders::MoveFolder::new(self.inner.clone()).set_name(name.into())
+        super::builder::folders::MoveFolder::new(self.inner.clone())
+            .set_name(name.into())
+            .set_destination_parent(destination_parent.into())
     }
 
     /// Requests deletion of a folder. The folder is moved into the
@@ -349,8 +361,11 @@ impl Folders {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::folders::SetIamPolicy {
-        super::builder::folders::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+        super::builder::folders::SetIamPolicy::new(self.inner.clone())
+            .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns permissions that a caller has on the specified folder.
@@ -361,9 +376,11 @@ impl Folders {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::folders::TestIamPermissions {
         super::builder::folders::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -520,9 +537,11 @@ impl Organizations {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::organizations::SetIamPolicy {
         super::builder::organizations::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns the permissions that a caller has on the specified organization.
@@ -533,9 +552,11 @@ impl Organizations {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::organizations::TestIamPermissions {
         super::builder::organizations::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -667,8 +688,11 @@ impl Projects {
     /// projects sorted based upon the (ascending) lexical ordering of their
     /// `display_name`. The caller must have `resourcemanager.projects.list`
     /// permission on the identified parent.
-    pub fn list_projects(&self) -> super::builder::projects::ListProjects {
-        super::builder::projects::ListProjects::new(self.inner.clone())
+    pub fn list_projects(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::projects::ListProjects {
+        super::builder::projects::ListProjects::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Search for projects that the caller has both `resourcemanager.projects.get`
@@ -702,8 +726,11 @@ impl Projects {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_project(&self) -> super::builder::projects::CreateProject {
-        super::builder::projects::CreateProject::new(self.inner.clone())
+    pub fn create_project(
+        &self,
+        project: impl Into<crate::model::Project>,
+    ) -> super::builder::projects::CreateProject {
+        super::builder::projects::CreateProject::new(self.inner.clone()).set_project(project.into())
     }
 
     /// Updates the `display_name` and labels of the project identified by the
@@ -756,8 +783,11 @@ impl Projects {
     pub fn move_project(
         &self,
         name: impl Into<std::string::String>,
+        destination_parent: impl Into<std::string::String>,
     ) -> super::builder::projects::MoveProject {
-        super::builder::projects::MoveProject::new(self.inner.clone()).set_name(name.into())
+        super::builder::projects::MoveProject::new(self.inner.clone())
+            .set_name(name.into())
+            .set_destination_parent(destination_parent.into())
     }
 
     /// Marks the project identified by the specified
@@ -896,9 +926,11 @@ impl Projects {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::projects::SetIamPolicy {
         super::builder::projects::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns permissions that a caller has on the specified project, in the
@@ -906,9 +938,11 @@ impl Projects {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::projects::TestIamPermissions {
         super::builder::projects::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1028,8 +1062,12 @@ impl TagBindings {
     ///
     /// NOTE: The `parent` field is expected to be a full resource name:
     /// <https://cloud.google.com/apis/design/resource_names#full_resource_name>
-    pub fn list_tag_bindings(&self) -> super::builder::tag_bindings::ListTagBindings {
+    pub fn list_tag_bindings(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::tag_bindings::ListTagBindings {
         super::builder::tag_bindings::ListTagBindings::new(self.inner.clone())
+            .set_parent(parent.into())
     }
 
     /// Creates a TagBinding between a TagValue and a Google Cloud resource.
@@ -1043,8 +1081,12 @@ impl TagBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_tag_binding(&self) -> super::builder::tag_bindings::CreateTagBinding {
+    pub fn create_tag_binding(
+        &self,
+        tag_binding: impl Into<crate::model::TagBinding>,
+    ) -> super::builder::tag_bindings::CreateTagBinding {
         super::builder::tag_bindings::CreateTagBinding::new(self.inner.clone())
+            .set_tag_binding(tag_binding.into())
     }
 
     /// Deletes a TagBinding.
@@ -1068,8 +1110,12 @@ impl TagBindings {
 
     /// Return a list of effective tags for the given Google Cloud resource, as
     /// specified in `parent`.
-    pub fn list_effective_tags(&self) -> super::builder::tag_bindings::ListEffectiveTags {
+    pub fn list_effective_tags(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::tag_bindings::ListEffectiveTags {
         super::builder::tag_bindings::ListEffectiveTags::new(self.inner.clone())
+            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1202,8 +1248,11 @@ impl TagHolds {
     pub fn create_tag_hold(
         &self,
         parent: impl Into<std::string::String>,
+        tag_hold: impl Into<crate::model::TagHold>,
     ) -> super::builder::tag_holds::CreateTagHold {
-        super::builder::tag_holds::CreateTagHold::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::tag_holds::CreateTagHold::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_tag_hold(tag_hold.into())
     }
 
     /// Deletes a TagHold.
@@ -1344,8 +1393,11 @@ impl TagKeys {
     }
 
     /// Lists all TagKeys for a parent resource.
-    pub fn list_tag_keys(&self) -> super::builder::tag_keys::ListTagKeys {
-        super::builder::tag_keys::ListTagKeys::new(self.inner.clone())
+    pub fn list_tag_keys(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::tag_keys::ListTagKeys {
+        super::builder::tag_keys::ListTagKeys::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Retrieves a TagKey. This method will return `PERMISSION_DENIED` if the
@@ -1360,8 +1412,11 @@ impl TagKeys {
     /// Retrieves a TagKey by its namespaced name.
     /// This method will return `PERMISSION_DENIED` if the key does not exist
     /// or the user does not have permission to view it.
-    pub fn get_namespaced_tag_key(&self) -> super::builder::tag_keys::GetNamespacedTagKey {
-        super::builder::tag_keys::GetNamespacedTagKey::new(self.inner.clone())
+    pub fn get_namespaced_tag_key(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::tag_keys::GetNamespacedTagKey {
+        super::builder::tag_keys::GetNamespacedTagKey::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new TagKey. If another request with the same parameters is
@@ -1378,8 +1433,11 @@ impl TagKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_tag_key(&self) -> super::builder::tag_keys::CreateTagKey {
-        super::builder::tag_keys::CreateTagKey::new(self.inner.clone())
+    pub fn create_tag_key(
+        &self,
+        tag_key: impl Into<crate::model::TagKey>,
+    ) -> super::builder::tag_keys::CreateTagKey {
+        super::builder::tag_keys::CreateTagKey::new(self.inner.clone()).set_tag_key(tag_key.into())
     }
 
     /// Updates the attributes of the TagKey resource.
@@ -1441,9 +1499,11 @@ impl TagKeys {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::tag_keys::SetIamPolicy {
         super::builder::tag_keys::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns permissions that a caller has on the specified TagKey.
@@ -1454,9 +1514,11 @@ impl TagKeys {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::tag_keys::TestIamPermissions {
         super::builder::tag_keys::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1571,8 +1633,11 @@ impl TagValues {
     }
 
     /// Lists all TagValues for a specific TagKey.
-    pub fn list_tag_values(&self) -> super::builder::tag_values::ListTagValues {
-        super::builder::tag_values::ListTagValues::new(self.inner.clone())
+    pub fn list_tag_values(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::tag_values::ListTagValues {
+        super::builder::tag_values::ListTagValues::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Retrieves a TagValue. This method will return `PERMISSION_DENIED` if the
@@ -1587,8 +1652,12 @@ impl TagValues {
     /// Retrieves a TagValue by its namespaced name.
     /// This method will return `PERMISSION_DENIED` if the value does not exist
     /// or the user does not have permission to view it.
-    pub fn get_namespaced_tag_value(&self) -> super::builder::tag_values::GetNamespacedTagValue {
+    pub fn get_namespaced_tag_value(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::tag_values::GetNamespacedTagValue {
         super::builder::tag_values::GetNamespacedTagValue::new(self.inner.clone())
+            .set_name(name.into())
     }
 
     /// Creates a TagValue as a child of the specified TagKey. If a another
@@ -1605,8 +1674,12 @@ impl TagValues {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_tag_value(&self) -> super::builder::tag_values::CreateTagValue {
+    pub fn create_tag_value(
+        &self,
+        tag_value: impl Into<crate::model::TagValue>,
+    ) -> super::builder::tag_values::CreateTagValue {
         super::builder::tag_values::CreateTagValue::new(self.inner.clone())
+            .set_tag_value(tag_value.into())
     }
 
     /// Updates the attributes of the TagValue resource.
@@ -1669,9 +1742,11 @@ impl TagValues {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::tag_values::SetIamPolicy {
         super::builder::tag_values::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns permissions that a caller has on the specified TagValue.
@@ -1682,9 +1757,11 @@ impl TagValues {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::tag_values::TestIamPermissions {
         super::builder::tag_values::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

@@ -152,9 +152,13 @@ impl AppHub {
     pub fn create_service_project_attachment(
         &self,
         parent: impl Into<std::string::String>,
+        service_project_attachment_id: impl Into<std::string::String>,
+        service_project_attachment: impl Into<crate::model::ServiceProjectAttachment>,
     ) -> super::builder::app_hub::CreateServiceProjectAttachment {
         super::builder::app_hub::CreateServiceProjectAttachment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_service_project_attachment_id(service_project_attachment_id.into())
+            .set_service_project_attachment(service_project_attachment.into())
     }
 
     /// Gets a service project attachment.
@@ -219,9 +223,11 @@ impl AppHub {
     pub fn lookup_discovered_service(
         &self,
         parent: impl Into<std::string::String>,
+        uri: impl Into<std::string::String>,
     ) -> super::builder::app_hub::LookupDiscoveredService {
         super::builder::app_hub::LookupDiscoveredService::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_uri(uri.into())
     }
 
     /// Lists Services in an Application.
@@ -246,8 +252,13 @@ impl AppHub {
     pub fn create_service(
         &self,
         parent: impl Into<std::string::String>,
+        service_id: impl Into<std::string::String>,
+        service: impl Into<crate::model::Service>,
     ) -> super::builder::app_hub::CreateService {
-        super::builder::app_hub::CreateService::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::app_hub::CreateService::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_service_id(service_id.into())
+            .set_service(service.into())
     }
 
     /// Gets a Service in an Application.
@@ -271,9 +282,12 @@ impl AppHub {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_service(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         service: impl Into<crate::model::Service>,
     ) -> super::builder::app_hub::UpdateService {
-        super::builder::app_hub::UpdateService::new(self.inner.clone()).set_service(service.into())
+        super::builder::app_hub::UpdateService::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
+            .set_service(service.into())
     }
 
     /// Deletes a Service from an Application.
@@ -318,9 +332,11 @@ impl AppHub {
     pub fn lookup_discovered_workload(
         &self,
         parent: impl Into<std::string::String>,
+        uri: impl Into<std::string::String>,
     ) -> super::builder::app_hub::LookupDiscoveredWorkload {
         super::builder::app_hub::LookupDiscoveredWorkload::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_uri(uri.into())
     }
 
     /// Lists Workloads in an Application.
@@ -345,8 +361,13 @@ impl AppHub {
     pub fn create_workload(
         &self,
         parent: impl Into<std::string::String>,
+        workload_id: impl Into<std::string::String>,
+        workload: impl Into<crate::model::Workload>,
     ) -> super::builder::app_hub::CreateWorkload {
-        super::builder::app_hub::CreateWorkload::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::app_hub::CreateWorkload::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_workload_id(workload_id.into())
+            .set_workload(workload.into())
     }
 
     /// Gets a Workload in an Application.
@@ -370,9 +391,11 @@ impl AppHub {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_workload(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         workload: impl Into<crate::model::Workload>,
     ) -> super::builder::app_hub::UpdateWorkload {
         super::builder::app_hub::UpdateWorkload::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_workload(workload.into())
     }
 
@@ -416,9 +439,13 @@ impl AppHub {
     pub fn create_application(
         &self,
         parent: impl Into<std::string::String>,
+        application_id: impl Into<std::string::String>,
+        application: impl Into<crate::model::Application>,
     ) -> super::builder::app_hub::CreateApplication {
         super::builder::app_hub::CreateApplication::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_application_id(application_id.into())
+            .set_application(application.into())
     }
 
     /// Gets an Application in a host project and location.
@@ -442,9 +469,11 @@ impl AppHub {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_application(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         application: impl Into<crate::model::Application>,
     ) -> super::builder::app_hub::UpdateApplication {
         super::builder::app_hub::UpdateApplication::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_application(application.into())
     }
 
@@ -490,8 +519,11 @@ impl AppHub {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::app_hub::SetIamPolicy {
-        super::builder::app_hub::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+        super::builder::app_hub::SetIamPolicy::new(self.inner.clone())
+            .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -513,9 +545,11 @@ impl AppHub {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::app_hub::TestIamPermissions {
         super::builder::app_hub::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

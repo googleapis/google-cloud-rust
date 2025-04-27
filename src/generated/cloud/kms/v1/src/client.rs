@@ -164,8 +164,11 @@ impl Autokey {
     pub fn create_key_handle(
         &self,
         parent: impl Into<std::string::String>,
+        key_handle: impl Into<crate::model::KeyHandle>,
     ) -> super::builder::autokey::CreateKeyHandle {
-        super::builder::autokey::CreateKeyHandle::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::autokey::CreateKeyHandle::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_key_handle(key_handle.into())
     }
 
     /// Returns the [KeyHandle][google.cloud.kms.v1.KeyHandle].
@@ -212,8 +215,11 @@ impl Autokey {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::autokey::SetIamPolicy {
-        super::builder::autokey::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+        super::builder::autokey::SetIamPolicy::new(self.inner.clone())
+            .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -235,9 +241,11 @@ impl Autokey {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::autokey::TestIamPermissions {
         super::builder::autokey::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -374,9 +382,11 @@ impl AutokeyAdmin {
     pub fn update_autokey_config(
         &self,
         autokey_config: impl Into<crate::model::AutokeyConfig>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::autokey_admin::UpdateAutokeyConfig {
         super::builder::autokey_admin::UpdateAutokeyConfig::new(self.inner.clone())
             .set_autokey_config(autokey_config.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Returns the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig] for a
@@ -424,9 +434,11 @@ impl AutokeyAdmin {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::autokey_admin::SetIamPolicy {
         super::builder::autokey_admin::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -449,9 +461,11 @@ impl AutokeyAdmin {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::autokey_admin::TestIamPermissions {
         super::builder::autokey_admin::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -601,9 +615,13 @@ impl EkmService {
     pub fn create_ekm_connection(
         &self,
         parent: impl Into<std::string::String>,
+        ekm_connection_id: impl Into<std::string::String>,
+        ekm_connection: impl Into<crate::model::EkmConnection>,
     ) -> super::builder::ekm_service::CreateEkmConnection {
         super::builder::ekm_service::CreateEkmConnection::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_ekm_connection_id(ekm_connection_id.into())
+            .set_ekm_connection(ekm_connection.into())
     }
 
     /// Updates an [EkmConnection][google.cloud.kms.v1.EkmConnection]'s metadata.
@@ -612,9 +630,11 @@ impl EkmService {
     pub fn update_ekm_connection(
         &self,
         ekm_connection: impl Into<crate::model::EkmConnection>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::ekm_service::UpdateEkmConnection {
         super::builder::ekm_service::UpdateEkmConnection::new(self.inner.clone())
             .set_ekm_connection(ekm_connection.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Returns the [EkmConfig][google.cloud.kms.v1.EkmConfig] singleton resource
@@ -635,9 +655,11 @@ impl EkmService {
     pub fn update_ekm_config(
         &self,
         ekm_config: impl Into<crate::model::EkmConfig>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::ekm_service::UpdateEkmConfig {
         super::builder::ekm_service::UpdateEkmConfig::new(self.inner.clone())
             .set_ekm_config(ekm_config.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Verifies that Cloud KMS can successfully connect to the external key
@@ -679,9 +701,11 @@ impl EkmService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::ekm_service::SetIamPolicy {
         super::builder::ekm_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -704,9 +728,11 @@ impl EkmService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::ekm_service::TestIamPermissions {
         super::builder::ekm_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -957,9 +983,13 @@ impl KeyManagementService {
     pub fn create_key_ring(
         &self,
         parent: impl Into<std::string::String>,
+        key_ring_id: impl Into<std::string::String>,
+        key_ring: impl Into<crate::model::KeyRing>,
     ) -> super::builder::key_management_service::CreateKeyRing {
         super::builder::key_management_service::CreateKeyRing::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_key_ring_id(key_ring_id.into())
+            .set_key_ring(key_ring.into())
     }
 
     /// Create a new [CryptoKey][google.cloud.kms.v1.CryptoKey] within a
@@ -976,9 +1006,13 @@ impl KeyManagementService {
     pub fn create_crypto_key(
         &self,
         parent: impl Into<std::string::String>,
+        crypto_key_id: impl Into<std::string::String>,
+        crypto_key: impl Into<crate::model::CryptoKey>,
     ) -> super::builder::key_management_service::CreateCryptoKey {
         super::builder::key_management_service::CreateCryptoKey::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_crypto_key_id(crypto_key_id.into())
+            .set_crypto_key(crypto_key.into())
     }
 
     /// Create a new [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] in a
@@ -995,9 +1029,11 @@ impl KeyManagementService {
     pub fn create_crypto_key_version(
         &self,
         parent: impl Into<std::string::String>,
+        crypto_key_version: impl Into<crate::model::CryptoKeyVersion>,
     ) -> super::builder::key_management_service::CreateCryptoKeyVersion {
         super::builder::key_management_service::CreateCryptoKeyVersion::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_crypto_key_version(crypto_key_version.into())
     }
 
     /// Import wrapped key material into a
@@ -1014,9 +1050,13 @@ impl KeyManagementService {
     pub fn import_crypto_key_version(
         &self,
         parent: impl Into<std::string::String>,
+        algorithm: impl Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
+        import_job: impl Into<std::string::String>,
     ) -> super::builder::key_management_service::ImportCryptoKeyVersion {
         super::builder::key_management_service::ImportCryptoKeyVersion::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_algorithm(algorithm.into())
+            .set_import_job(import_job.into())
     }
 
     /// Create a new [ImportJob][google.cloud.kms.v1.ImportJob] within a
@@ -1031,9 +1071,13 @@ impl KeyManagementService {
     pub fn create_import_job(
         &self,
         parent: impl Into<std::string::String>,
+        import_job_id: impl Into<std::string::String>,
+        import_job: impl Into<crate::model::ImportJob>,
     ) -> super::builder::key_management_service::CreateImportJob {
         super::builder::key_management_service::CreateImportJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_import_job_id(import_job_id.into())
+            .set_import_job(import_job.into())
     }
 
     /// Update a [CryptoKey][google.cloud.kms.v1.CryptoKey].
@@ -1042,9 +1086,11 @@ impl KeyManagementService {
     pub fn update_crypto_key(
         &self,
         crypto_key: impl Into<crate::model::CryptoKey>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::key_management_service::UpdateCryptoKey {
         super::builder::key_management_service::UpdateCryptoKey::new(self.inner.clone())
             .set_crypto_key(crypto_key.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Update a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]'s
@@ -1069,9 +1115,11 @@ impl KeyManagementService {
     pub fn update_crypto_key_version(
         &self,
         crypto_key_version: impl Into<crate::model::CryptoKeyVersion>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::key_management_service::UpdateCryptoKeyVersion {
         super::builder::key_management_service::UpdateCryptoKeyVersion::new(self.inner.clone())
             .set_crypto_key_version(crypto_key_version.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Update the version of a [CryptoKey][google.cloud.kms.v1.CryptoKey] that
@@ -1087,11 +1135,13 @@ impl KeyManagementService {
     pub fn update_crypto_key_primary_version(
         &self,
         name: impl Into<std::string::String>,
+        crypto_key_version_id: impl Into<std::string::String>,
     ) -> super::builder::key_management_service::UpdateCryptoKeyPrimaryVersion {
         super::builder::key_management_service::UpdateCryptoKeyPrimaryVersion::new(
             self.inner.clone(),
         )
         .set_name(name.into())
+        .set_crypto_key_version_id(crypto_key_version_id.into())
     }
 
     /// Schedule a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] for
@@ -1165,9 +1215,11 @@ impl KeyManagementService {
     pub fn encrypt(
         &self,
         name: impl Into<std::string::String>,
+        plaintext: impl Into<::bytes::Bytes>,
     ) -> super::builder::key_management_service::Encrypt {
         super::builder::key_management_service::Encrypt::new(self.inner.clone())
             .set_name(name.into())
+            .set_plaintext(plaintext.into())
     }
 
     /// Decrypts data that was protected by
@@ -1181,9 +1233,11 @@ impl KeyManagementService {
     pub fn decrypt(
         &self,
         name: impl Into<std::string::String>,
+        ciphertext: impl Into<::bytes::Bytes>,
     ) -> super::builder::key_management_service::Decrypt {
         super::builder::key_management_service::Decrypt::new(self.inner.clone())
             .set_name(name.into())
+            .set_ciphertext(ciphertext.into())
     }
 
     /// Encrypts data using portable cryptographic primitives. Most users should
@@ -1200,9 +1254,11 @@ impl KeyManagementService {
     pub fn raw_encrypt(
         &self,
         name: impl Into<std::string::String>,
+        plaintext: impl Into<::bytes::Bytes>,
     ) -> super::builder::key_management_service::RawEncrypt {
         super::builder::key_management_service::RawEncrypt::new(self.inner.clone())
             .set_name(name.into())
+            .set_plaintext(plaintext.into())
     }
 
     /// Decrypts data that was originally encrypted using a raw cryptographic
@@ -1215,9 +1271,13 @@ impl KeyManagementService {
     pub fn raw_decrypt(
         &self,
         name: impl Into<std::string::String>,
+        ciphertext: impl Into<::bytes::Bytes>,
+        initialization_vector: impl Into<::bytes::Bytes>,
     ) -> super::builder::key_management_service::RawDecrypt {
         super::builder::key_management_service::RawDecrypt::new(self.inner.clone())
             .set_name(name.into())
+            .set_ciphertext(ciphertext.into())
+            .set_initialization_vector(initialization_vector.into())
     }
 
     /// Signs data using a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]
@@ -1249,9 +1309,11 @@ impl KeyManagementService {
     pub fn asymmetric_decrypt(
         &self,
         name: impl Into<std::string::String>,
+        ciphertext: impl Into<::bytes::Bytes>,
     ) -> super::builder::key_management_service::AsymmetricDecrypt {
         super::builder::key_management_service::AsymmetricDecrypt::new(self.inner.clone())
             .set_name(name.into())
+            .set_ciphertext(ciphertext.into())
     }
 
     /// Signs data using a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]
@@ -1263,9 +1325,11 @@ impl KeyManagementService {
     pub fn mac_sign(
         &self,
         name: impl Into<std::string::String>,
+        data: impl Into<::bytes::Bytes>,
     ) -> super::builder::key_management_service::MacSign {
         super::builder::key_management_service::MacSign::new(self.inner.clone())
             .set_name(name.into())
+            .set_data(data.into())
     }
 
     /// Verifies MAC tag using a
@@ -1278,9 +1342,13 @@ impl KeyManagementService {
     pub fn mac_verify(
         &self,
         name: impl Into<std::string::String>,
+        data: impl Into<::bytes::Bytes>,
+        mac: impl Into<::bytes::Bytes>,
     ) -> super::builder::key_management_service::MacVerify {
         super::builder::key_management_service::MacVerify::new(self.inner.clone())
             .set_name(name.into())
+            .set_data(data.into())
+            .set_mac(mac.into())
     }
 
     /// Generate random bytes using the Cloud KMS randomness source in the provided
@@ -1319,9 +1387,11 @@ impl KeyManagementService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::key_management_service::SetIamPolicy {
         super::builder::key_management_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -1344,9 +1414,11 @@ impl KeyManagementService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::key_management_service::TestIamPermissions {
         super::builder::key_management_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

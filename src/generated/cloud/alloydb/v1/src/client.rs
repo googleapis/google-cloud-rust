@@ -150,9 +150,13 @@ impl AlloyDBAdmin {
     pub fn create_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        cluster_id: impl Into<std::string::String>,
+        cluster: impl Into<crate::model::Cluster>,
     ) -> super::builder::alloy_db_admin::CreateCluster {
         super::builder::alloy_db_admin::CreateCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_cluster_id(cluster_id.into())
+            .set_cluster(cluster.into())
     }
 
     /// Updates the parameters of a single Cluster.
@@ -251,9 +255,13 @@ impl AlloyDBAdmin {
     pub fn restore_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        cluster_id: impl Into<std::string::String>,
+        cluster: impl Into<crate::model::Cluster>,
     ) -> super::builder::alloy_db_admin::RestoreCluster {
         super::builder::alloy_db_admin::RestoreCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_cluster_id(cluster_id.into())
+            .set_cluster(cluster.into())
     }
 
     /// Creates a cluster of type SECONDARY in the given location using
@@ -271,9 +279,13 @@ impl AlloyDBAdmin {
     pub fn create_secondary_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        cluster_id: impl Into<std::string::String>,
+        cluster: impl Into<crate::model::Cluster>,
     ) -> super::builder::alloy_db_admin::CreateSecondaryCluster {
         super::builder::alloy_db_admin::CreateSecondaryCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_cluster_id(cluster_id.into())
+            .set_cluster(cluster.into())
     }
 
     /// Lists Instances in a given project and location.
@@ -307,9 +319,13 @@ impl AlloyDBAdmin {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
+        instance_id: impl Into<std::string::String>,
+        instance: impl Into<crate::model::Instance>,
     ) -> super::builder::alloy_db_admin::CreateInstance {
         super::builder::alloy_db_admin::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_id(instance_id.into())
+            .set_instance(instance.into())
     }
 
     /// Creates a new SECONDARY Instance in a given project and location.
@@ -326,9 +342,13 @@ impl AlloyDBAdmin {
     pub fn create_secondary_instance(
         &self,
         parent: impl Into<std::string::String>,
+        instance_id: impl Into<std::string::String>,
+        instance: impl Into<crate::model::Instance>,
     ) -> super::builder::alloy_db_admin::CreateSecondaryInstance {
         super::builder::alloy_db_admin::CreateSecondaryInstance::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_id(instance_id.into())
+            .set_instance(instance.into())
     }
 
     /// Creates new instances under the given project, location and cluster.
@@ -354,9 +374,11 @@ impl AlloyDBAdmin {
     pub fn batch_create_instances(
         &self,
         parent: impl Into<std::string::String>,
+        requests: impl Into<crate::model::CreateInstanceRequests>,
     ) -> super::builder::alloy_db_admin::BatchCreateInstances {
         super::builder::alloy_db_admin::BatchCreateInstances::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_requests(requests.into())
     }
 
     /// Updates the parameters of a single Instance.
@@ -432,9 +454,12 @@ impl AlloyDBAdmin {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn inject_fault(
         &self,
+        fault_type: impl Into<crate::model::inject_fault_request::FaultType>,
         name: impl Into<std::string::String>,
     ) -> super::builder::alloy_db_admin::InjectFault {
-        super::builder::alloy_db_admin::InjectFault::new(self.inner.clone()).set_name(name.into())
+        super::builder::alloy_db_admin::InjectFault::new(self.inner.clone())
+            .set_fault_type(fault_type.into())
+            .set_name(name.into())
     }
 
     /// Restart an Instance in a cluster.
@@ -461,9 +486,15 @@ impl AlloyDBAdmin {
     pub fn execute_sql(
         &self,
         instance: impl Into<std::string::String>,
+        database: impl Into<std::string::String>,
+        user: impl Into<std::string::String>,
+        sql_statement: impl Into<std::string::String>,
     ) -> super::builder::alloy_db_admin::ExecuteSql {
         super::builder::alloy_db_admin::ExecuteSql::new(self.inner.clone())
             .set_instance(instance.into())
+            .set_database(database.into())
+            .set_user(user.into())
+            .set_sql_statement(sql_statement.into())
     }
 
     /// Lists Backups in a given project and location.
@@ -497,9 +528,13 @@ impl AlloyDBAdmin {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
+        backup_id: impl Into<std::string::String>,
+        backup: impl Into<crate::model::Backup>,
     ) -> super::builder::alloy_db_admin::CreateBackup {
         super::builder::alloy_db_admin::CreateBackup::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_id(backup_id.into())
+            .set_backup(backup.into())
     }
 
     /// Updates the parameters of a single Backup.
@@ -590,9 +625,13 @@ impl AlloyDBAdmin {
     pub fn create_user(
         &self,
         parent: impl Into<std::string::String>,
+        user_id: impl Into<std::string::String>,
+        user: impl Into<crate::model::User>,
     ) -> super::builder::alloy_db_admin::CreateUser {
         super::builder::alloy_db_admin::CreateUser::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_user_id(user_id.into())
+            .set_user(user.into())
     }
 
     /// Updates the parameters of a single User.

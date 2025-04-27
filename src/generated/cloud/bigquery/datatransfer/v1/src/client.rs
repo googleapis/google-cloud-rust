@@ -143,9 +143,11 @@ impl DataTransferService {
     pub fn create_transfer_config(
         &self,
         parent: impl Into<std::string::String>,
+        transfer_config: impl Into<crate::model::TransferConfig>,
     ) -> super::builder::data_transfer_service::CreateTransferConfig {
         super::builder::data_transfer_service::CreateTransferConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_transfer_config(transfer_config.into())
     }
 
     /// Updates a data transfer configuration.
@@ -153,9 +155,11 @@ impl DataTransferService {
     pub fn update_transfer_config(
         &self,
         transfer_config: impl Into<crate::model::TransferConfig>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::data_transfer_service::UpdateTransferConfig {
         super::builder::data_transfer_service::UpdateTransferConfig::new(self.inner.clone())
             .set_transfer_config(transfer_config.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a data transfer configuration, including any associated transfer
@@ -195,9 +199,13 @@ impl DataTransferService {
     pub fn schedule_transfer_runs(
         &self,
         parent: impl Into<std::string::String>,
+        start_time: impl Into<wkt::Timestamp>,
+        end_time: impl Into<wkt::Timestamp>,
     ) -> super::builder::data_transfer_service::ScheduleTransferRuns {
         super::builder::data_transfer_service::ScheduleTransferRuns::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_start_time(start_time.into())
+            .set_end_time(end_time.into())
     }
 
     /// Start manual transfer runs to be executed now with schedule_time equal to

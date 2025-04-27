@@ -151,9 +151,13 @@ impl BackupDR {
     pub fn create_management_server(
         &self,
         parent: impl Into<std::string::String>,
+        management_server_id: impl Into<std::string::String>,
+        management_server: impl Into<crate::model::ManagementServer>,
     ) -> super::builder::backup_dr::CreateManagementServer {
         super::builder::backup_dr::CreateManagementServer::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_management_server_id(management_server_id.into())
+            .set_management_server(management_server.into())
     }
 
     /// Deletes a single ManagementServer.
@@ -189,9 +193,13 @@ impl BackupDR {
     pub fn create_backup_vault(
         &self,
         parent: impl Into<std::string::String>,
+        backup_vault_id: impl Into<std::string::String>,
+        backup_vault: impl Into<crate::model::BackupVault>,
     ) -> super::builder::backup_dr::CreateBackupVault {
         super::builder::backup_dr::CreateBackupVault::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_vault_id(backup_vault_id.into())
+            .set_backup_vault(backup_vault.into())
     }
 
     /// Lists BackupVaults in a given project and location.
@@ -235,9 +243,11 @@ impl BackupDR {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_backup_vault(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         backup_vault: impl Into<crate::model::BackupVault>,
     ) -> super::builder::backup_dr::UpdateBackupVault {
         super::builder::backup_dr::UpdateBackupVault::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_backup_vault(backup_vault.into())
     }
 
@@ -289,9 +299,11 @@ impl BackupDR {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_data_source(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         data_source: impl Into<crate::model::DataSource>,
     ) -> super::builder::backup_dr::UpdateDataSource {
         super::builder::backup_dr::UpdateDataSource::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_data_source(data_source.into())
     }
 
@@ -324,9 +336,12 @@ impl BackupDR {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_backup(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         backup: impl Into<crate::model::Backup>,
     ) -> super::builder::backup_dr::UpdateBackup {
-        super::builder::backup_dr::UpdateBackup::new(self.inner.clone()).set_backup(backup.into())
+        super::builder::backup_dr::UpdateBackup::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
+            .set_backup(backup.into())
     }
 
     /// Deletes a Backup.
@@ -379,9 +394,13 @@ impl BackupDR {
     pub fn create_backup_plan(
         &self,
         parent: impl Into<std::string::String>,
+        backup_plan_id: impl Into<std::string::String>,
+        backup_plan: impl Into<crate::model::BackupPlan>,
     ) -> super::builder::backup_dr::CreateBackupPlan {
         super::builder::backup_dr::CreateBackupPlan::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_plan_id(backup_plan_id.into())
+            .set_backup_plan(backup_plan.into())
     }
 
     /// Gets details of a single BackupPlan.
@@ -433,9 +452,13 @@ impl BackupDR {
     pub fn create_backup_plan_association(
         &self,
         parent: impl Into<std::string::String>,
+        backup_plan_association_id: impl Into<std::string::String>,
+        backup_plan_association: impl Into<crate::model::BackupPlanAssociation>,
     ) -> super::builder::backup_dr::CreateBackupPlanAssociation {
         super::builder::backup_dr::CreateBackupPlanAssociation::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_plan_association_id(backup_plan_association_id.into())
+            .set_backup_plan_association(backup_plan_association.into())
     }
 
     /// Gets details of a single BackupPlanAssociation.
@@ -489,8 +512,11 @@ impl BackupDR {
     pub fn trigger_backup(
         &self,
         name: impl Into<std::string::String>,
+        rule_id: impl Into<std::string::String>,
     ) -> super::builder::backup_dr::TriggerBackup {
-        super::builder::backup_dr::TriggerBackup::new(self.inner.clone()).set_name(name.into())
+        super::builder::backup_dr::TriggerBackup::new(self.inner.clone())
+            .set_name(name.into())
+            .set_rule_id(rule_id.into())
     }
 
     /// Initializes the service related config for a project.
@@ -507,8 +533,11 @@ impl BackupDR {
     pub fn initialize_service(
         &self,
         name: impl Into<std::string::String>,
+        resource_type: impl Into<std::string::String>,
     ) -> super::builder::backup_dr::InitializeService {
-        super::builder::backup_dr::InitializeService::new(self.inner.clone()).set_name(name.into())
+        super::builder::backup_dr::InitializeService::new(self.inner.clone())
+            .set_name(name.into())
+            .set_resource_type(resource_type.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -535,9 +564,11 @@ impl BackupDR {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::backup_dr::SetIamPolicy {
         super::builder::backup_dr::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -560,9 +591,11 @@ impl BackupDR {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::backup_dr::TestIamPermissions {
         super::builder::backup_dr::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

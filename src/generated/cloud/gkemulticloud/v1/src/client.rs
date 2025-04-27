@@ -146,9 +146,13 @@ impl AttachedClusters {
     pub fn create_attached_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        attached_cluster: impl Into<crate::model::AttachedCluster>,
+        attached_cluster_id: impl Into<std::string::String>,
     ) -> super::builder::attached_clusters::CreateAttachedCluster {
         super::builder::attached_clusters::CreateAttachedCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_attached_cluster(attached_cluster.into())
+            .set_attached_cluster_id(attached_cluster_id.into())
     }
 
     /// Updates an
@@ -168,9 +172,11 @@ impl AttachedClusters {
     pub fn update_attached_cluster(
         &self,
         attached_cluster: impl Into<crate::model::AttachedCluster>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::attached_clusters::UpdateAttachedCluster {
         super::builder::attached_clusters::UpdateAttachedCluster::new(self.inner.clone())
             .set_attached_cluster(attached_cluster.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Imports creates a new
@@ -199,9 +205,15 @@ impl AttachedClusters {
     pub fn import_attached_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        fleet_membership: impl Into<std::string::String>,
+        platform_version: impl Into<std::string::String>,
+        distribution: impl Into<std::string::String>,
     ) -> super::builder::attached_clusters::ImportAttachedCluster {
         super::builder::attached_clusters::ImportAttachedCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_fleet_membership(fleet_membership.into())
+            .set_platform_version(platform_version.into())
+            .set_distribution(distribution.into())
     }
 
     /// Describes a specific
@@ -269,22 +281,32 @@ impl AttachedClusters {
     pub fn generate_attached_cluster_install_manifest(
         &self,
         parent: impl Into<std::string::String>,
+        attached_cluster_id: impl Into<std::string::String>,
+        platform_version: impl Into<std::string::String>,
     ) -> super::builder::attached_clusters::GenerateAttachedClusterInstallManifest {
         super::builder::attached_clusters::GenerateAttachedClusterInstallManifest::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_attached_cluster_id(attached_cluster_id.into())
+        .set_platform_version(platform_version.into())
     }
 
     /// Generates an access token for a cluster agent.
     pub fn generate_attached_cluster_agent_token(
         &self,
         attached_cluster: impl Into<std::string::String>,
+        subject_token: impl Into<std::string::String>,
+        subject_token_type: impl Into<std::string::String>,
+        version: impl Into<std::string::String>,
     ) -> super::builder::attached_clusters::GenerateAttachedClusterAgentToken {
         super::builder::attached_clusters::GenerateAttachedClusterAgentToken::new(
             self.inner.clone(),
         )
         .set_attached_cluster(attached_cluster.into())
+        .set_subject_token(subject_token.into())
+        .set_subject_token_type(subject_token_type.into())
+        .set_version(version.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -455,9 +477,13 @@ impl AwsClusters {
     pub fn create_aws_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        aws_cluster: impl Into<crate::model::AwsCluster>,
+        aws_cluster_id: impl Into<std::string::String>,
     ) -> super::builder::aws_clusters::CreateAwsCluster {
         super::builder::aws_clusters::CreateAwsCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_aws_cluster(aws_cluster.into())
+            .set_aws_cluster_id(aws_cluster_id.into())
     }
 
     /// Updates an [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster].
@@ -476,9 +502,11 @@ impl AwsClusters {
     pub fn update_aws_cluster(
         &self,
         aws_cluster: impl Into<crate::model::AwsCluster>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::aws_clusters::UpdateAwsCluster {
         super::builder::aws_clusters::UpdateAwsCluster::new(self.inner.clone())
             .set_aws_cluster(aws_cluster.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Describes a specific [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
@@ -539,9 +567,15 @@ impl AwsClusters {
     pub fn generate_aws_cluster_agent_token(
         &self,
         aws_cluster: impl Into<std::string::String>,
+        subject_token: impl Into<std::string::String>,
+        subject_token_type: impl Into<std::string::String>,
+        version: impl Into<std::string::String>,
     ) -> super::builder::aws_clusters::GenerateAwsClusterAgentToken {
         super::builder::aws_clusters::GenerateAwsClusterAgentToken::new(self.inner.clone())
             .set_aws_cluster(aws_cluster.into())
+            .set_subject_token(subject_token.into())
+            .set_subject_token_type(subject_token_type.into())
+            .set_version(version.into())
     }
 
     /// Generates a short-lived access token to authenticate to a given
@@ -579,9 +613,13 @@ impl AwsClusters {
     pub fn create_aws_node_pool(
         &self,
         parent: impl Into<std::string::String>,
+        aws_node_pool: impl Into<crate::model::AwsNodePool>,
+        aws_node_pool_id: impl Into<std::string::String>,
     ) -> super::builder::aws_clusters::CreateAwsNodePool {
         super::builder::aws_clusters::CreateAwsNodePool::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_aws_node_pool(aws_node_pool.into())
+            .set_aws_node_pool_id(aws_node_pool_id.into())
     }
 
     /// Updates an [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool].
@@ -600,9 +638,11 @@ impl AwsClusters {
     pub fn update_aws_node_pool(
         &self,
         aws_node_pool: impl Into<crate::model::AwsNodePool>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::aws_clusters::UpdateAwsNodePool {
         super::builder::aws_clusters::UpdateAwsNodePool::new(self.inner.clone())
             .set_aws_node_pool(aws_node_pool.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Rolls back a previously aborted or failed
@@ -884,9 +924,13 @@ impl AzureClusters {
     pub fn create_azure_client(
         &self,
         parent: impl Into<std::string::String>,
+        azure_client: impl Into<crate::model::AzureClient>,
+        azure_client_id: impl Into<std::string::String>,
     ) -> super::builder::azure_clusters::CreateAzureClient {
         super::builder::azure_clusters::CreateAzureClient::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_azure_client(azure_client.into())
+            .set_azure_client_id(azure_client_id.into())
     }
 
     /// Describes a specific
@@ -965,9 +1009,13 @@ impl AzureClusters {
     pub fn create_azure_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        azure_cluster: impl Into<crate::model::AzureCluster>,
+        azure_cluster_id: impl Into<std::string::String>,
     ) -> super::builder::azure_clusters::CreateAzureCluster {
         super::builder::azure_clusters::CreateAzureCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_azure_cluster(azure_cluster.into())
+            .set_azure_cluster_id(azure_cluster_id.into())
     }
 
     /// Updates an [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster].
@@ -986,9 +1034,11 @@ impl AzureClusters {
     pub fn update_azure_cluster(
         &self,
         azure_cluster: impl Into<crate::model::AzureCluster>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::azure_clusters::UpdateAzureCluster {
         super::builder::azure_clusters::UpdateAzureCluster::new(self.inner.clone())
             .set_azure_cluster(azure_cluster.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Describes a specific
@@ -1050,9 +1100,15 @@ impl AzureClusters {
     pub fn generate_azure_cluster_agent_token(
         &self,
         azure_cluster: impl Into<std::string::String>,
+        subject_token: impl Into<std::string::String>,
+        subject_token_type: impl Into<std::string::String>,
+        version: impl Into<std::string::String>,
     ) -> super::builder::azure_clusters::GenerateAzureClusterAgentToken {
         super::builder::azure_clusters::GenerateAzureClusterAgentToken::new(self.inner.clone())
             .set_azure_cluster(azure_cluster.into())
+            .set_subject_token(subject_token.into())
+            .set_subject_token_type(subject_token_type.into())
+            .set_version(version.into())
     }
 
     /// Generates a short-lived access token to authenticate to a given
@@ -1091,9 +1147,13 @@ impl AzureClusters {
     pub fn create_azure_node_pool(
         &self,
         parent: impl Into<std::string::String>,
+        azure_node_pool: impl Into<crate::model::AzureNodePool>,
+        azure_node_pool_id: impl Into<std::string::String>,
     ) -> super::builder::azure_clusters::CreateAzureNodePool {
         super::builder::azure_clusters::CreateAzureNodePool::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_azure_node_pool(azure_node_pool.into())
+            .set_azure_node_pool_id(azure_node_pool_id.into())
     }
 
     /// Updates an [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool].
@@ -1112,9 +1172,11 @@ impl AzureClusters {
     pub fn update_azure_node_pool(
         &self,
         azure_node_pool: impl Into<crate::model::AzureNodePool>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::azure_clusters::UpdateAzureNodePool {
         super::builder::azure_clusters::UpdateAzureNodePool::new(self.inner.clone())
             .set_azure_node_pool(azure_node_pool.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Describes a specific

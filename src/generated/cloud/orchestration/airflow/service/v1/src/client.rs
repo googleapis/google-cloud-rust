@@ -261,9 +261,11 @@ impl Environments {
     pub fn create_user_workloads_secret(
         &self,
         parent: impl Into<std::string::String>,
+        user_workloads_secret: impl Into<crate::model::UserWorkloadsSecret>,
     ) -> super::builder::environments::CreateUserWorkloadsSecret {
         super::builder::environments::CreateUserWorkloadsSecret::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_user_workloads_secret(user_workloads_secret.into())
     }
 
     /// Gets an existing user workloads Secret.
@@ -322,9 +324,11 @@ impl Environments {
     pub fn create_user_workloads_config_map(
         &self,
         parent: impl Into<std::string::String>,
+        user_workloads_config_map: impl Into<crate::model::UserWorkloadsConfigMap>,
     ) -> super::builder::environments::CreateUserWorkloadsConfigMap {
         super::builder::environments::CreateUserWorkloadsConfigMap::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_user_workloads_config_map(user_workloads_config_map.into())
     }
 
     /// Gets an existing user workloads ConfigMap.

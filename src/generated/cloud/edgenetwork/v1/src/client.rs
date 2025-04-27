@@ -187,9 +187,13 @@ impl EdgeNetwork {
     pub fn create_network(
         &self,
         parent: impl Into<std::string::String>,
+        network_id: impl Into<std::string::String>,
+        network: impl Into<crate::model::Network>,
     ) -> super::builder::edge_network::CreateNetwork {
         super::builder::edge_network::CreateNetwork::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_network_id(network_id.into())
+            .set_network(network.into())
     }
 
     /// Deletes a single Network.
@@ -240,9 +244,13 @@ impl EdgeNetwork {
     pub fn create_subnet(
         &self,
         parent: impl Into<std::string::String>,
+        subnet_id: impl Into<std::string::String>,
+        subnet: impl Into<crate::model::Subnet>,
     ) -> super::builder::edge_network::CreateSubnet {
         super::builder::edge_network::CreateSubnet::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_subnet_id(subnet_id.into())
+            .set_subnet(subnet.into())
     }
 
     /// Updates the parameters of a single Subnet.
@@ -258,9 +266,11 @@ impl EdgeNetwork {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_subnet(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         subnet: impl Into<crate::model::Subnet>,
     ) -> super::builder::edge_network::UpdateSubnet {
         super::builder::edge_network::UpdateSubnet::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_subnet(subnet.into())
     }
 
@@ -340,9 +350,13 @@ impl EdgeNetwork {
     pub fn create_interconnect_attachment(
         &self,
         parent: impl Into<std::string::String>,
+        interconnect_attachment_id: impl Into<std::string::String>,
+        interconnect_attachment: impl Into<crate::model::InterconnectAttachment>,
     ) -> super::builder::edge_network::CreateInterconnectAttachment {
         super::builder::edge_network::CreateInterconnectAttachment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_interconnect_attachment_id(interconnect_attachment_id.into())
+            .set_interconnect_attachment(interconnect_attachment.into())
     }
 
     /// Deletes a single InterconnectAttachment.
@@ -402,9 +416,13 @@ impl EdgeNetwork {
     pub fn create_router(
         &self,
         parent: impl Into<std::string::String>,
+        router_id: impl Into<std::string::String>,
+        router: impl Into<crate::model::Router>,
     ) -> super::builder::edge_network::CreateRouter {
         super::builder::edge_network::CreateRouter::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_router_id(router_id.into())
+            .set_router(router.into())
     }
 
     /// Updates the parameters of a single Router.
@@ -420,9 +438,11 @@ impl EdgeNetwork {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_router(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         router: impl Into<crate::model::Router>,
     ) -> super::builder::edge_network::UpdateRouter {
         super::builder::edge_network::UpdateRouter::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_router(router.into())
     }
 

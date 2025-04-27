@@ -125,9 +125,11 @@ impl MigrationService {
     pub fn create_migration_workflow(
         &self,
         parent: impl Into<std::string::String>,
+        migration_workflow: impl Into<crate::model::MigrationWorkflow>,
     ) -> super::builder::migration_service::CreateMigrationWorkflow {
         super::builder::migration_service::CreateMigrationWorkflow::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_migration_workflow(migration_workflow.into())
     }
 
     /// Gets a previously created migration workflow.

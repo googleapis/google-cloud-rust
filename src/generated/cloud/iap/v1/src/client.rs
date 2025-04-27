@@ -128,9 +128,11 @@ impl IdentityAwareProxyAdminService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::identity_aware_proxy_admin_service::SetIamPolicy {
         super::builder::identity_aware_proxy_admin_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for an Identity-Aware Proxy protected
@@ -152,11 +154,13 @@ impl IdentityAwareProxyAdminService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::identity_aware_proxy_admin_service::TestIamPermissions {
         super::builder::identity_aware_proxy_admin_service::TestIamPermissions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
+        .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Gets the IAP settings on a particular IAP protected resource.
@@ -184,11 +188,13 @@ impl IdentityAwareProxyAdminService {
     pub fn validate_iap_attribute_expression(
         &self,
         name: impl Into<std::string::String>,
+        expression: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_admin_service::ValidateIapAttributeExpression {
         super::builder::identity_aware_proxy_admin_service::ValidateIapAttributeExpression::new(
             self.inner.clone(),
         )
         .set_name(name.into())
+        .set_expression(expression.into())
     }
 
     /// Lists the existing TunnelDestGroups. To group across all locations, use a
@@ -208,11 +214,15 @@ impl IdentityAwareProxyAdminService {
     pub fn create_tunnel_dest_group(
         &self,
         parent: impl Into<std::string::String>,
+        tunnel_dest_group: impl Into<crate::model::TunnelDestGroup>,
+        tunnel_dest_group_id: impl Into<std::string::String>,
     ) -> super::builder::identity_aware_proxy_admin_service::CreateTunnelDestGroup {
         super::builder::identity_aware_proxy_admin_service::CreateTunnelDestGroup::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_tunnel_dest_group(tunnel_dest_group.into())
+        .set_tunnel_dest_group_id(tunnel_dest_group_id.into())
     }
 
     /// Retrieves an existing TunnelDestGroup.
@@ -373,9 +383,11 @@ impl IdentityAwareProxyOAuthService {
     pub fn create_brand(
         &self,
         parent: impl Into<std::string::String>,
+        brand: impl Into<crate::model::Brand>,
     ) -> super::builder::identity_aware_proxy_o_auth_service::CreateBrand {
         super::builder::identity_aware_proxy_o_auth_service::CreateBrand::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_brand(brand.into())
     }
 
     /// Retrieves the OAuth brand of the project.
@@ -393,11 +405,13 @@ impl IdentityAwareProxyOAuthService {
     pub fn create_identity_aware_proxy_client(
         &self,
         parent: impl Into<std::string::String>,
+        identity_aware_proxy_client: impl Into<crate::model::IdentityAwareProxyClient>,
     ) -> super::builder::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient {
         super::builder::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_identity_aware_proxy_client(identity_aware_proxy_client.into())
     }
 
     /// Lists the existing clients for the brand.

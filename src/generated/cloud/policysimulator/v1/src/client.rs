@@ -161,8 +161,11 @@ impl Simulator {
     pub fn create_replay(
         &self,
         parent: impl Into<std::string::String>,
+        replay: impl Into<crate::model::Replay>,
     ) -> super::builder::simulator::CreateReplay {
-        super::builder::simulator::CreateReplay::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::simulator::CreateReplay::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_replay(replay.into())
     }
 
     /// Lists the results of running a

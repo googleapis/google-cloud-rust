@@ -134,9 +134,13 @@ impl BackupForGKE {
     pub fn create_backup_plan(
         &self,
         parent: impl Into<std::string::String>,
+        backup_plan: impl Into<crate::model::BackupPlan>,
+        backup_plan_id: impl Into<std::string::String>,
     ) -> super::builder::backup_for_gke::CreateBackupPlan {
         super::builder::backup_for_gke::CreateBackupPlan::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_plan(backup_plan.into())
+            .set_backup_plan_id(backup_plan_id.into())
     }
 
     /// Lists BackupPlans in a given location.
@@ -299,9 +303,13 @@ impl BackupForGKE {
     pub fn create_restore_plan(
         &self,
         parent: impl Into<std::string::String>,
+        restore_plan: impl Into<crate::model::RestorePlan>,
+        restore_plan_id: impl Into<std::string::String>,
     ) -> super::builder::backup_for_gke::CreateRestorePlan {
         super::builder::backup_for_gke::CreateRestorePlan::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_restore_plan(restore_plan.into())
+            .set_restore_plan_id(restore_plan_id.into())
     }
 
     /// Lists RestorePlans in a given location.
@@ -374,9 +382,13 @@ impl BackupForGKE {
     pub fn create_restore(
         &self,
         parent: impl Into<std::string::String>,
+        restore: impl Into<crate::model::Restore>,
+        restore_id: impl Into<std::string::String>,
     ) -> super::builder::backup_for_gke::CreateRestore {
         super::builder::backup_for_gke::CreateRestore::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_restore(restore.into())
+            .set_restore_id(restore_id.into())
     }
 
     /// Lists the Restores for a given RestorePlan.
@@ -484,9 +496,11 @@ impl BackupForGKE {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::backup_for_gke::SetIamPolicy {
         super::builder::backup_for_gke::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -509,9 +523,11 @@ impl BackupForGKE {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::backup_for_gke::TestIamPermissions {
         super::builder::backup_for_gke::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

@@ -122,8 +122,12 @@ impl ImageAnnotator {
     }
 
     /// Run image detection and annotation for a batch of images.
-    pub fn batch_annotate_images(&self) -> super::builder::image_annotator::BatchAnnotateImages {
+    pub fn batch_annotate_images(
+        &self,
+        requests: impl IntoIterator<Item = impl Into<crate::model::AnnotateImageRequest>>,
+    ) -> super::builder::image_annotator::BatchAnnotateImages {
         super::builder::image_annotator::BatchAnnotateImages::new(self.inner.clone())
+            .set_requests(requests.into_iter().map(|v| v.into()))
     }
 
     /// Service that performs image detection and annotation for a batch of files.
@@ -133,8 +137,12 @@ impl ImageAnnotator {
     /// AnnotateFileRequest.pages) frames (gif) or pages (pdf or tiff) from each
     /// file provided and perform detection and annotation for each image
     /// extracted.
-    pub fn batch_annotate_files(&self) -> super::builder::image_annotator::BatchAnnotateFiles {
+    pub fn batch_annotate_files(
+        &self,
+        requests: impl IntoIterator<Item = impl Into<crate::model::AnnotateFileRequest>>,
+    ) -> super::builder::image_annotator::BatchAnnotateFiles {
         super::builder::image_annotator::BatchAnnotateFiles::new(self.inner.clone())
+            .set_requests(requests.into_iter().map(|v| v.into()))
     }
 
     /// Run asynchronous image detection and annotation for a list of images.
@@ -158,8 +166,12 @@ impl ImageAnnotator {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn async_batch_annotate_images(
         &self,
+        requests: impl IntoIterator<Item = impl Into<crate::model::AnnotateImageRequest>>,
+        output_config: impl Into<crate::model::OutputConfig>,
     ) -> super::builder::image_annotator::AsyncBatchAnnotateImages {
         super::builder::image_annotator::AsyncBatchAnnotateImages::new(self.inner.clone())
+            .set_requests(requests.into_iter().map(|v| v.into()))
+            .set_output_config(output_config.into())
     }
 
     /// Run asynchronous image detection and annotation for a list of generic
@@ -180,8 +192,10 @@ impl ImageAnnotator {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn async_batch_annotate_files(
         &self,
+        requests: impl IntoIterator<Item = impl Into<crate::model::AsyncAnnotateFileRequest>>,
     ) -> super::builder::image_annotator::AsyncBatchAnnotateFiles {
         super::builder::image_annotator::AsyncBatchAnnotateFiles::new(self.inner.clone())
+            .set_requests(requests.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -324,9 +338,11 @@ impl ProductSearch {
     pub fn create_product_set(
         &self,
         parent: impl Into<std::string::String>,
+        product_set: impl Into<crate::model::ProductSet>,
     ) -> super::builder::product_search::CreateProductSet {
         super::builder::product_search::CreateProductSet::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_product_set(product_set.into())
     }
 
     /// Lists ProductSets in an unspecified order.
@@ -394,9 +410,11 @@ impl ProductSearch {
     pub fn create_product(
         &self,
         parent: impl Into<std::string::String>,
+        product: impl Into<crate::model::Product>,
     ) -> super::builder::product_search::CreateProduct {
         super::builder::product_search::CreateProduct::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_product(product.into())
     }
 
     /// Lists products in an unspecified order.
@@ -481,9 +499,11 @@ impl ProductSearch {
     pub fn create_reference_image(
         &self,
         parent: impl Into<std::string::String>,
+        reference_image: impl Into<crate::model::ReferenceImage>,
     ) -> super::builder::product_search::CreateReferenceImage {
         super::builder::product_search::CreateReferenceImage::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_reference_image(reference_image.into())
     }
 
     /// Permanently deletes a reference image.
@@ -540,18 +560,22 @@ impl ProductSearch {
     pub fn add_product_to_product_set(
         &self,
         name: impl Into<std::string::String>,
+        product: impl Into<std::string::String>,
     ) -> super::builder::product_search::AddProductToProductSet {
         super::builder::product_search::AddProductToProductSet::new(self.inner.clone())
             .set_name(name.into())
+            .set_product(product.into())
     }
 
     /// Removes a Product from the specified ProductSet.
     pub fn remove_product_from_product_set(
         &self,
         name: impl Into<std::string::String>,
+        product: impl Into<std::string::String>,
     ) -> super::builder::product_search::RemoveProductFromProductSet {
         super::builder::product_search::RemoveProductFromProductSet::new(self.inner.clone())
             .set_name(name.into())
+            .set_product(product.into())
     }
 
     /// Lists the Products in a ProductSet, in an unspecified order. If the
@@ -596,9 +620,11 @@ impl ProductSearch {
     pub fn import_product_sets(
         &self,
         parent: impl Into<std::string::String>,
+        input_config: impl Into<crate::model::ImportProductSetsInputConfig>,
     ) -> super::builder::product_search::ImportProductSets {
         super::builder::product_search::ImportProductSets::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_input_config(input_config.into())
     }
 
     /// Asynchronous API to delete all Products in a ProductSet or all Products

@@ -125,9 +125,11 @@ impl CompletionService {
     pub fn complete_query(
         &self,
         data_store: impl Into<std::string::String>,
+        query: impl Into<std::string::String>,
     ) -> super::builder::completion_service::CompleteQuery {
         super::builder::completion_service::CompleteQuery::new(self.inner.clone())
             .set_data_store(data_store.into())
+            .set_query(query.into())
     }
 
     /// Imports all
@@ -370,9 +372,13 @@ impl ControlService {
     pub fn create_control(
         &self,
         parent: impl Into<std::string::String>,
+        control: impl Into<crate::model::Control>,
+        control_id: impl Into<std::string::String>,
     ) -> super::builder::control_service::CreateControl {
         super::builder::control_service::CreateControl::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_control(control.into())
+            .set_control_id(control_id.into())
     }
 
     /// Deletes a Control.
@@ -563,9 +569,11 @@ impl ConversationalSearchService {
     pub fn converse_conversation(
         &self,
         name: impl Into<std::string::String>,
+        query: impl Into<crate::model::TextInput>,
     ) -> super::builder::conversational_search_service::ConverseConversation {
         super::builder::conversational_search_service::ConverseConversation::new(self.inner.clone())
             .set_name(name.into())
+            .set_query(query.into())
     }
 
     /// Creates a Conversation.
@@ -577,9 +585,11 @@ impl ConversationalSearchService {
     pub fn create_conversation(
         &self,
         parent: impl Into<std::string::String>,
+        conversation: impl Into<crate::model::Conversation>,
     ) -> super::builder::conversational_search_service::CreateConversation {
         super::builder::conversational_search_service::CreateConversation::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_conversation(conversation.into())
     }
 
     /// Deletes a Conversation.
@@ -637,9 +647,11 @@ impl ConversationalSearchService {
     pub fn answer_query(
         &self,
         serving_config: impl Into<std::string::String>,
+        query: impl Into<crate::model::Query>,
     ) -> super::builder::conversational_search_service::AnswerQuery {
         super::builder::conversational_search_service::AnswerQuery::new(self.inner.clone())
             .set_serving_config(serving_config.into())
+            .set_query(query.into())
     }
 
     /// Gets a Answer.
@@ -660,9 +672,11 @@ impl ConversationalSearchService {
     pub fn create_session(
         &self,
         parent: impl Into<std::string::String>,
+        session: impl Into<crate::model::Session>,
     ) -> super::builder::conversational_search_service::CreateSession {
         super::builder::conversational_search_service::CreateSession::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_session(session.into())
     }
 
     /// Deletes a Session.
@@ -878,9 +892,13 @@ impl DataStoreService {
     pub fn create_data_store(
         &self,
         parent: impl Into<std::string::String>,
+        data_store: impl Into<crate::model::DataStore>,
+        data_store_id: impl Into<std::string::String>,
     ) -> super::builder::data_store_service::CreateDataStore {
         super::builder::data_store_service::CreateDataStore::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_data_store(data_store.into())
+            .set_data_store_id(data_store_id.into())
     }
 
     /// Gets a [DataStore][google.cloud.discoveryengine.v1.DataStore].
@@ -1104,9 +1122,13 @@ impl DocumentService {
     pub fn create_document(
         &self,
         parent: impl Into<std::string::String>,
+        document: impl Into<crate::model::Document>,
+        document_id: impl Into<std::string::String>,
     ) -> super::builder::document_service::CreateDocument {
         super::builder::document_service::CreateDocument::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_document(document.into())
+            .set_document_id(document_id.into())
     }
 
     /// Updates a [Document][google.cloud.discoveryengine.v1.Document].
@@ -1192,9 +1214,11 @@ impl DocumentService {
     pub fn purge_documents(
         &self,
         parent: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
     ) -> super::builder::document_service::PurgeDocuments {
         super::builder::document_service::PurgeDocuments::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_filter(filter.into())
     }
 
     /// Gets index freshness metadata for
@@ -1205,9 +1229,11 @@ impl DocumentService {
     pub fn batch_get_documents_metadata(
         &self,
         parent: impl Into<std::string::String>,
+        matcher: impl Into<crate::model::batch_get_documents_metadata_request::Matcher>,
     ) -> super::builder::document_service::BatchGetDocumentsMetadata {
         super::builder::document_service::BatchGetDocumentsMetadata::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_matcher(matcher.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1363,9 +1389,13 @@ impl EngineService {
     pub fn create_engine(
         &self,
         parent: impl Into<std::string::String>,
+        engine: impl Into<crate::model::Engine>,
+        engine_id: impl Into<std::string::String>,
     ) -> super::builder::engine_service::CreateEngine {
         super::builder::engine_service::CreateEngine::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_engine(engine.into())
+            .set_engine_id(engine_id.into())
     }
 
     /// Deletes a [Engine][google.cloud.discoveryengine.v1.Engine].
@@ -1732,9 +1762,13 @@ impl ProjectService {
     pub fn provision_project(
         &self,
         name: impl Into<std::string::String>,
+        accept_data_use_terms: impl Into<bool>,
+        data_use_terms_version: impl Into<std::string::String>,
     ) -> super::builder::project_service::ProvisionProject {
         super::builder::project_service::ProvisionProject::new(self.inner.clone())
             .set_name(name.into())
+            .set_accept_data_use_terms(accept_data_use_terms.into())
+            .set_data_use_terms_version(data_use_terms_version.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1874,9 +1908,11 @@ impl RankService {
     pub fn rank(
         &self,
         ranking_config: impl Into<std::string::String>,
+        records: impl IntoIterator<Item = impl Into<crate::model::RankingRecord>>,
     ) -> super::builder::rank_service::Rank {
         super::builder::rank_service::Rank::new(self.inner.clone())
             .set_ranking_config(ranking_config.into())
+            .set_records(records.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2016,9 +2052,11 @@ impl RecommendationService {
     pub fn recommend(
         &self,
         serving_config: impl Into<std::string::String>,
+        user_event: impl Into<crate::model::UserEvent>,
     ) -> super::builder::recommendation_service::Recommend {
         super::builder::recommendation_service::Recommend::new(self.inner.clone())
             .set_serving_config(serving_config.into())
+            .set_user_event(user_event.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2194,9 +2232,13 @@ impl SchemaService {
     pub fn create_schema(
         &self,
         parent: impl Into<std::string::String>,
+        schema: impl Into<crate::model::Schema>,
+        schema_id: impl Into<std::string::String>,
     ) -> super::builder::schema_service::CreateSchema {
         super::builder::schema_service::CreateSchema::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_schema(schema.into())
+            .set_schema_id(schema_id.into())
     }
 
     /// Updates a [Schema][google.cloud.discoveryengine.v1.Schema].
@@ -2882,9 +2924,11 @@ impl SiteSearchEngineService {
     pub fn create_target_site(
         &self,
         parent: impl Into<std::string::String>,
+        target_site: impl Into<crate::model::TargetSite>,
     ) -> super::builder::site_search_engine_service::CreateTargetSite {
         super::builder::site_search_engine_service::CreateTargetSite::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_target_site(target_site.into())
     }
 
     /// Creates [TargetSite][google.cloud.discoveryengine.v1.TargetSite] in a
@@ -2904,9 +2948,11 @@ impl SiteSearchEngineService {
     pub fn batch_create_target_sites(
         &self,
         parent: impl Into<std::string::String>,
+        requests: impl IntoIterator<Item = impl Into<crate::model::CreateTargetSiteRequest>>,
     ) -> super::builder::site_search_engine_service::BatchCreateTargetSites {
         super::builder::site_search_engine_service::BatchCreateTargetSites::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_requests(requests.into_iter().map(|v| v.into()))
     }
 
     /// Gets a [TargetSite][google.cloud.discoveryengine.v1.TargetSite].
@@ -2989,9 +3035,11 @@ impl SiteSearchEngineService {
     pub fn create_sitemap(
         &self,
         parent: impl Into<std::string::String>,
+        sitemap: impl Into<crate::model::Sitemap>,
     ) -> super::builder::site_search_engine_service::CreateSitemap {
         super::builder::site_search_engine_service::CreateSitemap::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_sitemap(sitemap.into())
     }
 
     /// Deletes a [Sitemap][google.cloud.discoveryengine.v1.Sitemap].
@@ -3084,9 +3132,11 @@ impl SiteSearchEngineService {
     pub fn recrawl_uris(
         &self,
         site_search_engine: impl Into<std::string::String>,
+        uris: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::site_search_engine_service::RecrawlUris {
         super::builder::site_search_engine_service::RecrawlUris::new(self.inner.clone())
             .set_site_search_engine(site_search_engine.into())
+            .set_uris(uris.into_iter().map(|v| v.into()))
     }
 
     /// Verify target sites' ownership and validity.
@@ -3263,9 +3313,11 @@ impl UserEventService {
     pub fn write_user_event(
         &self,
         parent: impl Into<std::string::String>,
+        user_event: impl Into<crate::model::UserEvent>,
     ) -> super::builder::user_event_service::WriteUserEvent {
         super::builder::user_event_service::WriteUserEvent::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_user_event(user_event.into())
     }
 
     /// Writes a single user event from the browser. This uses a GET request to
@@ -3276,9 +3328,11 @@ impl UserEventService {
     pub fn collect_user_event(
         &self,
         parent: impl Into<std::string::String>,
+        user_event: impl Into<std::string::String>,
     ) -> super::builder::user_event_service::CollectUserEvent {
         super::builder::user_event_service::CollectUserEvent::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_user_event(user_event.into())
     }
 
     /// Deletes permanently all user events specified by the filter provided.
@@ -3298,9 +3352,11 @@ impl UserEventService {
     pub fn purge_user_events(
         &self,
         parent: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
     ) -> super::builder::user_event_service::PurgeUserEvents {
         super::builder::user_event_service::PurgeUserEvents::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_filter(filter.into())
     }
 
     /// Bulk import of user events. Request processing might be

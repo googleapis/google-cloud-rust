@@ -123,8 +123,13 @@ impl Builds {
     pub fn submit_build(
         &self,
         parent: impl Into<std::string::String>,
+        storage_source: impl Into<crate::model::StorageSource>,
+        image_uri: impl Into<std::string::String>,
     ) -> super::builder::builds::SubmitBuild {
-        super::builder::builds::SubmitBuild::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::builds::SubmitBuild::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_storage_source(storage_source.into())
+            .set_image_uri(image_uri.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -475,8 +480,13 @@ impl Jobs {
     pub fn create_job(
         &self,
         parent: impl Into<std::string::String>,
+        job: impl Into<crate::model::Job>,
+        job_id: impl Into<std::string::String>,
     ) -> super::builder::jobs::CreateJob {
-        super::builder::jobs::CreateJob::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::jobs::CreateJob::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_job(job.into())
+            .set_job_id(job_id.into())
     }
 
     /// Gets information about a Job.
@@ -554,8 +564,11 @@ impl Jobs {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::jobs::SetIamPolicy {
-        super::builder::jobs::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+        super::builder::jobs::SetIamPolicy::new(self.inner.clone())
+            .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns permissions that a caller has on the specified Project.
@@ -564,9 +577,11 @@ impl Jobs {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::jobs::TestIamPermissions {
         super::builder::jobs::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -900,8 +915,13 @@ impl Services {
     pub fn create_service(
         &self,
         parent: impl Into<std::string::String>,
+        service: impl Into<crate::model::Service>,
+        service_id: impl Into<std::string::String>,
     ) -> super::builder::services::CreateService {
-        super::builder::services::CreateService::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::services::CreateService::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_service(service.into())
+            .set_service_id(service_id.into())
     }
 
     /// Gets information about a Service.
@@ -973,9 +993,11 @@ impl Services {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::services::SetIamPolicy {
         super::builder::services::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns permissions that a caller has on the specified Project.
@@ -984,9 +1006,11 @@ impl Services {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::services::TestIamPermissions {
         super::builder::services::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

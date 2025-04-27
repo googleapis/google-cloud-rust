@@ -134,9 +134,12 @@ impl Speech {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_recognizer(
         &self,
+        recognizer: impl Into<crate::model::Recognizer>,
         parent: impl Into<std::string::String>,
     ) -> super::builder::speech::CreateRecognizer {
-        super::builder::speech::CreateRecognizer::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::speech::CreateRecognizer::new(self.inner.clone())
+            .set_recognizer(recognizer.into())
+            .set_parent(parent.into())
     }
 
     /// Lists Recognizers.
@@ -286,9 +289,12 @@ impl Speech {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_custom_class(
         &self,
+        custom_class: impl Into<crate::model::CustomClass>,
         parent: impl Into<std::string::String>,
     ) -> super::builder::speech::CreateCustomClass {
-        super::builder::speech::CreateCustomClass::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::speech::CreateCustomClass::new(self.inner.clone())
+            .set_custom_class(custom_class.into())
+            .set_parent(parent.into())
     }
 
     /// Lists CustomClasses.
@@ -386,9 +392,12 @@ impl Speech {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_phrase_set(
         &self,
+        phrase_set: impl Into<crate::model::PhraseSet>,
         parent: impl Into<std::string::String>,
     ) -> super::builder::speech::CreatePhraseSet {
-        super::builder::speech::CreatePhraseSet::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::speech::CreatePhraseSet::new(self.inner.clone())
+            .set_phrase_set(phrase_set.into())
+            .set_parent(parent.into())
     }
 
     /// Lists PhraseSets.

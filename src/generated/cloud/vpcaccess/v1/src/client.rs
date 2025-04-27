@@ -137,9 +137,13 @@ impl VpcAccessService {
     pub fn create_connector(
         &self,
         parent: impl Into<std::string::String>,
+        connector_id: impl Into<std::string::String>,
+        connector: impl Into<crate::model::Connector>,
     ) -> super::builder::vpc_access_service::CreateConnector {
         super::builder::vpc_access_service::CreateConnector::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_connector_id(connector_id.into())
+            .set_connector(connector.into())
     }
 
     /// Gets a Serverless VPC Access connector. Returns NOT_FOUND if the resource

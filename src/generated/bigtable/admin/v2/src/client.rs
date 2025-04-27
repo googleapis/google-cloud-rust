@@ -143,9 +143,20 @@ impl BigtableInstanceAdmin {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
+        instance_id: impl Into<std::string::String>,
+        instance: impl Into<crate::model::Instance>,
+        clusters: impl IntoIterator<
+            Item = (
+                impl Into<std::string::String>,
+                impl Into<crate::model::Cluster>,
+            ),
+        >,
     ) -> super::builder::bigtable_instance_admin::CreateInstance {
         super::builder::bigtable_instance_admin::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_id(instance_id.into())
+            .set_instance(instance.into())
+            .set_clusters(clusters.into_iter().map(|(k, v)| (k.into(), v.into())))
     }
 
     /// Gets information about an instance.
@@ -172,9 +183,11 @@ impl BigtableInstanceAdmin {
     pub fn update_instance(
         &self,
         name: impl Into<std::string::String>,
+        display_name: impl Into<std::string::String>,
     ) -> super::builder::bigtable_instance_admin::UpdateInstance {
         super::builder::bigtable_instance_admin::UpdateInstance::new(self.inner.clone())
             .set_name(name.into())
+            .set_display_name(display_name.into())
     }
 
     /// Partially updates an instance within a project. This method can modify all
@@ -192,9 +205,11 @@ impl BigtableInstanceAdmin {
     pub fn partial_update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::bigtable_instance_admin::PartialUpdateInstance {
         super::builder::bigtable_instance_admin::PartialUpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Delete an instance from a project.
@@ -226,9 +241,13 @@ impl BigtableInstanceAdmin {
     pub fn create_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        cluster_id: impl Into<std::string::String>,
+        cluster: impl Into<crate::model::Cluster>,
     ) -> super::builder::bigtable_instance_admin::CreateCluster {
         super::builder::bigtable_instance_admin::CreateCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_cluster_id(cluster_id.into())
+            .set_cluster(cluster.into())
     }
 
     /// Gets information about a cluster.
@@ -297,9 +316,11 @@ impl BigtableInstanceAdmin {
     pub fn partial_update_cluster(
         &self,
         cluster: impl Into<crate::model::Cluster>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::bigtable_instance_admin::PartialUpdateCluster {
         super::builder::bigtable_instance_admin::PartialUpdateCluster::new(self.inner.clone())
             .set_cluster(cluster.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a cluster from an instance.
@@ -315,9 +336,13 @@ impl BigtableInstanceAdmin {
     pub fn create_app_profile(
         &self,
         parent: impl Into<std::string::String>,
+        app_profile_id: impl Into<std::string::String>,
+        app_profile: impl Into<crate::model::AppProfile>,
     ) -> super::builder::bigtable_instance_admin::CreateAppProfile {
         super::builder::bigtable_instance_admin::CreateAppProfile::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_app_profile_id(app_profile_id.into())
+            .set_app_profile(app_profile.into())
     }
 
     /// Gets information about an app profile.
@@ -352,18 +377,22 @@ impl BigtableInstanceAdmin {
     pub fn update_app_profile(
         &self,
         app_profile: impl Into<crate::model::AppProfile>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::bigtable_instance_admin::UpdateAppProfile {
         super::builder::bigtable_instance_admin::UpdateAppProfile::new(self.inner.clone())
             .set_app_profile(app_profile.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes an app profile from an instance.
     pub fn delete_app_profile(
         &self,
         name: impl Into<std::string::String>,
+        ignore_warnings: impl Into<bool>,
     ) -> super::builder::bigtable_instance_admin::DeleteAppProfile {
         super::builder::bigtable_instance_admin::DeleteAppProfile::new(self.inner.clone())
             .set_name(name.into())
+            .set_ignore_warnings(ignore_warnings.into())
     }
 
     /// Gets the access control policy for an instance resource. Returns an empty
@@ -381,18 +410,22 @@ impl BigtableInstanceAdmin {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::bigtable_instance_admin::SetIamPolicy {
         super::builder::bigtable_instance_admin::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns permissions that the caller has on the specified instance resource.
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::bigtable_instance_admin::TestIamPermissions {
         super::builder::bigtable_instance_admin::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Lists hot tablets in a cluster, within the time range provided. Hot
@@ -419,9 +452,13 @@ impl BigtableInstanceAdmin {
     pub fn create_logical_view(
         &self,
         parent: impl Into<std::string::String>,
+        logical_view_id: impl Into<std::string::String>,
+        logical_view: impl Into<crate::model::LogicalView>,
     ) -> super::builder::bigtable_instance_admin::CreateLogicalView {
         super::builder::bigtable_instance_admin::CreateLogicalView::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_logical_view_id(logical_view_id.into())
+            .set_logical_view(logical_view.into())
     }
 
     /// Gets information about a logical view.
@@ -484,9 +521,13 @@ impl BigtableInstanceAdmin {
     pub fn create_materialized_view(
         &self,
         parent: impl Into<std::string::String>,
+        materialized_view_id: impl Into<std::string::String>,
+        materialized_view: impl Into<crate::model::MaterializedView>,
     ) -> super::builder::bigtable_instance_admin::CreateMaterializedView {
         super::builder::bigtable_instance_admin::CreateMaterializedView::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_materialized_view_id(materialized_view_id.into())
+            .set_materialized_view(materialized_view.into())
     }
 
     /// Gets information about a materialized view.
@@ -691,9 +732,13 @@ impl BigtableTableAdmin {
     pub fn create_table(
         &self,
         parent: impl Into<std::string::String>,
+        table_id: impl Into<std::string::String>,
+        table: impl Into<crate::model::Table>,
     ) -> super::builder::bigtable_table_admin::CreateTable {
         super::builder::bigtable_table_admin::CreateTable::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_table_id(table_id.into())
+            .set_table(table.into())
     }
 
     /// Creates a new table from the specified snapshot. The target table must
@@ -717,9 +762,13 @@ impl BigtableTableAdmin {
     pub fn create_table_from_snapshot(
         &self,
         parent: impl Into<std::string::String>,
+        table_id: impl Into<std::string::String>,
+        source_snapshot: impl Into<std::string::String>,
     ) -> super::builder::bigtable_table_admin::CreateTableFromSnapshot {
         super::builder::bigtable_table_admin::CreateTableFromSnapshot::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_table_id(table_id.into())
+            .set_source_snapshot(source_snapshot.into())
     }
 
     /// Lists all tables served from a specified instance.
@@ -754,9 +803,11 @@ impl BigtableTableAdmin {
     pub fn update_table(
         &self,
         table: impl Into<crate::model::Table>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::bigtable_table_admin::UpdateTable {
         super::builder::bigtable_table_admin::UpdateTable::new(self.inner.clone())
             .set_table(table.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Permanently deletes a specified table and all of its data.
@@ -801,9 +852,13 @@ impl BigtableTableAdmin {
     pub fn create_authorized_view(
         &self,
         parent: impl Into<std::string::String>,
+        authorized_view_id: impl Into<std::string::String>,
+        authorized_view: impl Into<crate::model::AuthorizedView>,
     ) -> super::builder::bigtable_table_admin::CreateAuthorizedView {
         super::builder::bigtable_table_admin::CreateAuthorizedView::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_authorized_view_id(authorized_view_id.into())
+            .set_authorized_view(authorized_view.into())
     }
 
     /// Lists all AuthorizedViews from a specific table.
@@ -859,9 +914,13 @@ impl BigtableTableAdmin {
     pub fn modify_column_families(
         &self,
         name: impl Into<std::string::String>,
+        modifications: impl IntoIterator<
+            Item = impl Into<crate::model::modify_column_families_request::Modification>,
+        >,
     ) -> super::builder::bigtable_table_admin::ModifyColumnFamilies {
         super::builder::bigtable_table_admin::ModifyColumnFamilies::new(self.inner.clone())
             .set_name(name.into())
+            .set_modifications(modifications.into_iter().map(|v| v.into()))
     }
 
     /// Permanently drop/delete a row range from a specified table. The request can
@@ -893,9 +952,11 @@ impl BigtableTableAdmin {
     pub fn check_consistency(
         &self,
         name: impl Into<std::string::String>,
+        consistency_token: impl Into<std::string::String>,
     ) -> super::builder::bigtable_table_admin::CheckConsistency {
         super::builder::bigtable_table_admin::CheckConsistency::new(self.inner.clone())
             .set_name(name.into())
+            .set_consistency_token(consistency_token.into())
     }
 
     /// Creates a new snapshot in the specified cluster from the specified
@@ -919,9 +980,13 @@ impl BigtableTableAdmin {
     pub fn snapshot_table(
         &self,
         name: impl Into<std::string::String>,
+        cluster: impl Into<std::string::String>,
+        snapshot_id: impl Into<std::string::String>,
     ) -> super::builder::bigtable_table_admin::SnapshotTable {
         super::builder::bigtable_table_admin::SnapshotTable::new(self.inner.clone())
             .set_name(name.into())
+            .set_cluster(cluster.into())
+            .set_snapshot_id(snapshot_id.into())
     }
 
     /// Gets metadata information about the specified snapshot.
@@ -996,9 +1061,13 @@ impl BigtableTableAdmin {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
+        backup_id: impl Into<std::string::String>,
+        backup: impl Into<crate::model::Backup>,
     ) -> super::builder::bigtable_table_admin::CreateBackup {
         super::builder::bigtable_table_admin::CreateBackup::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_id(backup_id.into())
+            .set_backup(backup.into())
     }
 
     /// Gets metadata on a pending or completed Cloud Bigtable Backup.
@@ -1014,9 +1083,11 @@ impl BigtableTableAdmin {
     pub fn update_backup(
         &self,
         backup: impl Into<crate::model::Backup>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::bigtable_table_admin::UpdateBackup {
         super::builder::bigtable_table_admin::UpdateBackup::new(self.inner.clone())
             .set_backup(backup.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a pending or completed Cloud Bigtable backup.
@@ -1064,9 +1135,11 @@ impl BigtableTableAdmin {
     pub fn restore_table(
         &self,
         parent: impl Into<std::string::String>,
+        table_id: impl Into<std::string::String>,
     ) -> super::builder::bigtable_table_admin::RestoreTable {
         super::builder::bigtable_table_admin::RestoreTable::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_table_id(table_id.into())
     }
 
     /// Copy a Cloud Bigtable backup to a new backup in the destination cluster
@@ -1084,9 +1157,15 @@ impl BigtableTableAdmin {
     pub fn copy_backup(
         &self,
         parent: impl Into<std::string::String>,
+        backup_id: impl Into<std::string::String>,
+        source_backup: impl Into<std::string::String>,
+        expire_time: impl Into<wkt::Timestamp>,
     ) -> super::builder::bigtable_table_admin::CopyBackup {
         super::builder::bigtable_table_admin::CopyBackup::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_id(backup_id.into())
+            .set_source_backup(source_backup.into())
+            .set_expire_time(expire_time.into())
     }
 
     /// Gets the access control policy for a Table or Backup resource.
@@ -1105,9 +1184,11 @@ impl BigtableTableAdmin {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::bigtable_table_admin::SetIamPolicy {
         super::builder::bigtable_table_admin::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns permissions that the caller has on the specified Table or Backup
@@ -1115,9 +1196,11 @@ impl BigtableTableAdmin {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::bigtable_table_admin::TestIamPermissions {
         super::builder::bigtable_table_admin::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

@@ -125,9 +125,11 @@ impl RecaptchaEnterpriseService {
     pub fn create_assessment(
         &self,
         parent: impl Into<std::string::String>,
+        assessment: impl Into<crate::model::Assessment>,
     ) -> super::builder::recaptcha_enterprise_service::CreateAssessment {
         super::builder::recaptcha_enterprise_service::CreateAssessment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_assessment(assessment.into())
     }
 
     /// Annotates a previously created Assessment to provide additional information
@@ -144,9 +146,11 @@ impl RecaptchaEnterpriseService {
     pub fn create_key(
         &self,
         parent: impl Into<std::string::String>,
+        key: impl Into<crate::model::Key>,
     ) -> super::builder::recaptcha_enterprise_service::CreateKey {
         super::builder::recaptcha_enterprise_service::CreateKey::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_key(key.into())
     }
 
     /// Returns the list of all keys that belong to a project.
@@ -220,9 +224,11 @@ impl RecaptchaEnterpriseService {
     pub fn add_ip_override(
         &self,
         name: impl Into<std::string::String>,
+        ip_override_data: impl Into<crate::model::IpOverrideData>,
     ) -> super::builder::recaptcha_enterprise_service::AddIpOverride {
         super::builder::recaptcha_enterprise_service::AddIpOverride::new(self.inner.clone())
             .set_name(name.into())
+            .set_ip_override_data(ip_override_data.into())
     }
 
     /// Removes an IP override from a key. The following restrictions hold:
@@ -234,9 +240,11 @@ impl RecaptchaEnterpriseService {
     pub fn remove_ip_override(
         &self,
         name: impl Into<std::string::String>,
+        ip_override_data: impl Into<crate::model::IpOverrideData>,
     ) -> super::builder::recaptcha_enterprise_service::RemoveIpOverride {
         super::builder::recaptcha_enterprise_service::RemoveIpOverride::new(self.inner.clone())
             .set_name(name.into())
+            .set_ip_override_data(ip_override_data.into())
     }
 
     /// Lists all IP overrides for a key.
@@ -264,9 +272,11 @@ impl RecaptchaEnterpriseService {
     pub fn create_firewall_policy(
         &self,
         parent: impl Into<std::string::String>,
+        firewall_policy: impl Into<crate::model::FirewallPolicy>,
     ) -> super::builder::recaptcha_enterprise_service::CreateFirewallPolicy {
         super::builder::recaptcha_enterprise_service::CreateFirewallPolicy::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_firewall_policy(firewall_policy.into())
     }
 
     /// Returns the list of all firewall policies that belong to a project.
@@ -309,11 +319,13 @@ impl RecaptchaEnterpriseService {
     pub fn reorder_firewall_policies(
         &self,
         parent: impl Into<std::string::String>,
+        names: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::recaptcha_enterprise_service::ReorderFirewallPolicies {
         super::builder::recaptcha_enterprise_service::ReorderFirewallPolicies::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_names(names.into_iter().map(|v| v.into()))
     }
 
     /// List groups of related accounts.

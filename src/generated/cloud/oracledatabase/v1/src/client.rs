@@ -151,9 +151,13 @@ impl OracleDatabase {
     pub fn create_cloud_exadata_infrastructure(
         &self,
         parent: impl Into<std::string::String>,
+        cloud_exadata_infrastructure_id: impl Into<std::string::String>,
+        cloud_exadata_infrastructure: impl Into<crate::model::CloudExadataInfrastructure>,
     ) -> super::builder::oracle_database::CreateCloudExadataInfrastructure {
         super::builder::oracle_database::CreateCloudExadataInfrastructure::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_cloud_exadata_infrastructure_id(cloud_exadata_infrastructure_id.into())
+            .set_cloud_exadata_infrastructure(cloud_exadata_infrastructure.into())
     }
 
     /// Deletes a single Exadata Infrastructure.
@@ -207,9 +211,13 @@ impl OracleDatabase {
     pub fn create_cloud_vm_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        cloud_vm_cluster_id: impl Into<std::string::String>,
+        cloud_vm_cluster: impl Into<crate::model::CloudVmCluster>,
     ) -> super::builder::oracle_database::CreateCloudVmCluster {
         super::builder::oracle_database::CreateCloudVmCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_cloud_vm_cluster_id(cloud_vm_cluster_id.into())
+            .set_cloud_vm_cluster(cloud_vm_cluster.into())
     }
 
     /// Deletes a single VM Cluster.
@@ -309,9 +317,13 @@ impl OracleDatabase {
     pub fn create_autonomous_database(
         &self,
         parent: impl Into<std::string::String>,
+        autonomous_database_id: impl Into<std::string::String>,
+        autonomous_database: impl Into<crate::model::AutonomousDatabase>,
     ) -> super::builder::oracle_database::CreateAutonomousDatabase {
         super::builder::oracle_database::CreateAutonomousDatabase::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_autonomous_database_id(autonomous_database_id.into())
+            .set_autonomous_database(autonomous_database.into())
     }
 
     /// Deletes a single Autonomous Database.
@@ -347,18 +359,22 @@ impl OracleDatabase {
     pub fn restore_autonomous_database(
         &self,
         name: impl Into<std::string::String>,
+        restore_time: impl Into<wkt::Timestamp>,
     ) -> super::builder::oracle_database::RestoreAutonomousDatabase {
         super::builder::oracle_database::RestoreAutonomousDatabase::new(self.inner.clone())
             .set_name(name.into())
+            .set_restore_time(restore_time.into())
     }
 
     /// Generates a wallet for an Autonomous Database.
     pub fn generate_autonomous_database_wallet(
         &self,
         name: impl Into<std::string::String>,
+        password: impl Into<std::string::String>,
     ) -> super::builder::oracle_database::GenerateAutonomousDatabaseWallet {
         super::builder::oracle_database::GenerateAutonomousDatabaseWallet::new(self.inner.clone())
             .set_name(name.into())
+            .set_password(password.into())
     }
 
     /// Lists all the available Autonomous Database versions for a project and

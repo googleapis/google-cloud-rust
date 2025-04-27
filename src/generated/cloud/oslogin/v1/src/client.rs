@@ -128,9 +128,11 @@ impl OsLoginService {
     pub fn create_ssh_public_key(
         &self,
         parent: impl Into<std::string::String>,
+        ssh_public_key: impl Into<oslogin_common::model::SshPublicKey>,
     ) -> super::builder::os_login_service::CreateSshPublicKey {
         super::builder::os_login_service::CreateSshPublicKey::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_ssh_public_key(ssh_public_key.into())
     }
 
     /// Deletes a POSIX account.
@@ -186,8 +188,10 @@ impl OsLoginService {
     pub fn update_ssh_public_key(
         &self,
         name: impl Into<std::string::String>,
+        ssh_public_key: impl Into<oslogin_common::model::SshPublicKey>,
     ) -> super::builder::os_login_service::UpdateSshPublicKey {
         super::builder::os_login_service::UpdateSshPublicKey::new(self.inner.clone())
             .set_name(name.into())
+            .set_ssh_public_key(ssh_public_key.into())
     }
 }

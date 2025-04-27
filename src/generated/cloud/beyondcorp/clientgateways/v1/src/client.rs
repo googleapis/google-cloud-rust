@@ -163,9 +163,11 @@ impl ClientGatewaysService {
     pub fn create_client_gateway(
         &self,
         parent: impl Into<std::string::String>,
+        client_gateway: impl Into<crate::model::ClientGateway>,
     ) -> super::builder::client_gateways_service::CreateClientGateway {
         super::builder::client_gateways_service::CreateClientGateway::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_client_gateway(client_gateway.into())
     }
 
     /// Deletes a single ClientGateway.
@@ -213,9 +215,11 @@ impl ClientGatewaysService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::client_gateways_service::SetIamPolicy {
         super::builder::client_gateways_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -238,9 +242,11 @@ impl ClientGatewaysService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::client_gateways_service::TestIamPermissions {
         super::builder::client_gateways_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

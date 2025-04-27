@@ -162,25 +162,33 @@ impl Grafeas {
     pub fn create_occurrence(
         &self,
         parent: impl Into<std::string::String>,
+        occurrence: impl Into<crate::model::Occurrence>,
     ) -> super::builder::grafeas::CreateOccurrence {
-        super::builder::grafeas::CreateOccurrence::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::grafeas::CreateOccurrence::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_occurrence(occurrence.into())
     }
 
     /// Creates new occurrences in batch.
     pub fn batch_create_occurrences(
         &self,
         parent: impl Into<std::string::String>,
+        occurrences: impl IntoIterator<Item = impl Into<crate::model::Occurrence>>,
     ) -> super::builder::grafeas::BatchCreateOccurrences {
         super::builder::grafeas::BatchCreateOccurrences::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_occurrences(occurrences.into_iter().map(|v| v.into()))
     }
 
     /// Updates the specified occurrence.
     pub fn update_occurrence(
         &self,
         name: impl Into<std::string::String>,
+        occurrence: impl Into<crate::model::Occurrence>,
     ) -> super::builder::grafeas::UpdateOccurrence {
-        super::builder::grafeas::UpdateOccurrence::new(self.inner.clone()).set_name(name.into())
+        super::builder::grafeas::UpdateOccurrence::new(self.inner.clone())
+            .set_name(name.into())
+            .set_occurrence(occurrence.into())
     }
 
     /// Gets the note attached to the specified occurrence. Consumer projects can
@@ -220,24 +228,40 @@ impl Grafeas {
     pub fn create_note(
         &self,
         parent: impl Into<std::string::String>,
+        note_id: impl Into<std::string::String>,
+        note: impl Into<crate::model::Note>,
     ) -> super::builder::grafeas::CreateNote {
-        super::builder::grafeas::CreateNote::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::grafeas::CreateNote::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_note_id(note_id.into())
+            .set_note(note.into())
     }
 
     /// Creates new notes in batch.
     pub fn batch_create_notes(
         &self,
         parent: impl Into<std::string::String>,
+        notes: impl IntoIterator<
+            Item = (
+                impl Into<std::string::String>,
+                impl Into<crate::model::Note>,
+            ),
+        >,
     ) -> super::builder::grafeas::BatchCreateNotes {
-        super::builder::grafeas::BatchCreateNotes::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::grafeas::BatchCreateNotes::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_notes(notes.into_iter().map(|(k, v)| (k.into(), v.into())))
     }
 
     /// Updates the specified note.
     pub fn update_note(
         &self,
         name: impl Into<std::string::String>,
+        note: impl Into<crate::model::Note>,
     ) -> super::builder::grafeas::UpdateNote {
-        super::builder::grafeas::UpdateNote::new(self.inner.clone()).set_name(name.into())
+        super::builder::grafeas::UpdateNote::new(self.inner.clone())
+            .set_name(name.into())
+            .set_note(note.into())
     }
 
     /// Lists occurrences referencing the specified note. Provider projects can use

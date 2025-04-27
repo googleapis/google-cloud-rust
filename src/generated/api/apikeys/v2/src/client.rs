@@ -136,8 +136,11 @@ impl ApiKeys {
     pub fn create_key(
         &self,
         parent: impl Into<std::string::String>,
+        key: impl Into<crate::model::Key>,
     ) -> super::builder::api_keys::CreateKey {
-        super::builder::api_keys::CreateKey::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::api_keys::CreateKey::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_key(key.into())
     }
 
     /// Lists the API keys owned by a project. The key string of the API key
@@ -245,8 +248,12 @@ impl ApiKeys {
     /// purged, resource name will not be set.
     /// The service account must have the `apikeys.keys.lookup` permission
     /// on the parent project.
-    pub fn lookup_key(&self) -> super::builder::api_keys::LookupKey {
+    pub fn lookup_key(
+        &self,
+        key_string: impl Into<std::string::String>,
+    ) -> super::builder::api_keys::LookupKey {
         super::builder::api_keys::LookupKey::new(self.inner.clone())
+            .set_key_string(key_string.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

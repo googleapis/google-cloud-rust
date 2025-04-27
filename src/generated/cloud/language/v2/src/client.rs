@@ -123,29 +123,51 @@ impl LanguageService {
     }
 
     /// Analyzes the sentiment of the provided text.
-    pub fn analyze_sentiment(&self) -> super::builder::language_service::AnalyzeSentiment {
+    pub fn analyze_sentiment(
+        &self,
+        document: impl Into<crate::model::Document>,
+    ) -> super::builder::language_service::AnalyzeSentiment {
         super::builder::language_service::AnalyzeSentiment::new(self.inner.clone())
+            .set_document(document.into())
     }
 
     /// Finds named entities (currently proper names and common nouns) in the text
     /// along with entity types, probability, mentions for each entity, and
     /// other properties.
-    pub fn analyze_entities(&self) -> super::builder::language_service::AnalyzeEntities {
+    pub fn analyze_entities(
+        &self,
+        document: impl Into<crate::model::Document>,
+    ) -> super::builder::language_service::AnalyzeEntities {
         super::builder::language_service::AnalyzeEntities::new(self.inner.clone())
+            .set_document(document.into())
     }
 
     /// Classifies a document into categories.
-    pub fn classify_text(&self) -> super::builder::language_service::ClassifyText {
+    pub fn classify_text(
+        &self,
+        document: impl Into<crate::model::Document>,
+    ) -> super::builder::language_service::ClassifyText {
         super::builder::language_service::ClassifyText::new(self.inner.clone())
+            .set_document(document.into())
     }
 
     /// Moderates a document for harmful and sensitive categories.
-    pub fn moderate_text(&self) -> super::builder::language_service::ModerateText {
+    pub fn moderate_text(
+        &self,
+        document: impl Into<crate::model::Document>,
+    ) -> super::builder::language_service::ModerateText {
         super::builder::language_service::ModerateText::new(self.inner.clone())
+            .set_document(document.into())
     }
 
     /// A convenience method that provides all features in one call.
-    pub fn annotate_text(&self) -> super::builder::language_service::AnnotateText {
+    pub fn annotate_text(
+        &self,
+        document: impl Into<crate::model::Document>,
+        features: impl Into<crate::model::annotate_text_request::Features>,
+    ) -> super::builder::language_service::AnnotateText {
         super::builder::language_service::AnnotateText::new(self.inner.clone())
+            .set_document(document.into())
+            .set_features(features.into())
     }
 }

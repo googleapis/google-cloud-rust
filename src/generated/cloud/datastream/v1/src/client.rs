@@ -152,9 +152,13 @@ impl Datastream {
     pub fn create_connection_profile(
         &self,
         parent: impl Into<std::string::String>,
+        connection_profile_id: impl Into<std::string::String>,
+        connection_profile: impl Into<crate::model::ConnectionProfile>,
     ) -> super::builder::datastream::CreateConnectionProfile {
         super::builder::datastream::CreateConnectionProfile::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_connection_profile_id(connection_profile_id.into())
+            .set_connection_profile(connection_profile.into())
     }
 
     /// Use this method to update the parameters of a connection profile.
@@ -237,8 +241,13 @@ impl Datastream {
     pub fn create_stream(
         &self,
         parent: impl Into<std::string::String>,
+        stream_id: impl Into<std::string::String>,
+        stream: impl Into<crate::model::Stream>,
     ) -> super::builder::datastream::CreateStream {
-        super::builder::datastream::CreateStream::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::datastream::CreateStream::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_stream_id(stream_id.into())
+            .set_stream(stream.into())
     }
 
     /// Use this method to update the configuration of a stream.
@@ -308,9 +317,11 @@ impl Datastream {
     pub fn lookup_stream_object(
         &self,
         parent: impl Into<std::string::String>,
+        source_object_identifier: impl Into<crate::model::SourceObjectIdentifier>,
     ) -> super::builder::datastream::LookupStreamObject {
         super::builder::datastream::LookupStreamObject::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_source_object_identifier(source_object_identifier.into())
     }
 
     /// Use this method to list the objects of a specific stream.
@@ -363,9 +374,13 @@ impl Datastream {
     pub fn create_private_connection(
         &self,
         parent: impl Into<std::string::String>,
+        private_connection_id: impl Into<std::string::String>,
+        private_connection: impl Into<crate::model::PrivateConnection>,
     ) -> super::builder::datastream::CreatePrivateConnection {
         super::builder::datastream::CreatePrivateConnection::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_private_connection_id(private_connection_id.into())
+            .set_private_connection(private_connection.into())
     }
 
     /// Use this method to get details about a private connectivity configuration.
@@ -421,8 +436,13 @@ impl Datastream {
     pub fn create_route(
         &self,
         parent: impl Into<std::string::String>,
+        route_id: impl Into<std::string::String>,
+        route: impl Into<crate::model::Route>,
     ) -> super::builder::datastream::CreateRoute {
-        super::builder::datastream::CreateRoute::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::datastream::CreateRoute::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_route_id(route_id.into())
+            .set_route(route.into())
     }
 
     /// Use this method to get details about a route.

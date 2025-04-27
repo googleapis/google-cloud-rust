@@ -158,17 +158,23 @@ impl AnalyticsHubService {
     pub fn create_data_exchange(
         &self,
         parent: impl Into<std::string::String>,
+        data_exchange_id: impl Into<std::string::String>,
+        data_exchange: impl Into<crate::model::DataExchange>,
     ) -> super::builder::analytics_hub_service::CreateDataExchange {
         super::builder::analytics_hub_service::CreateDataExchange::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_data_exchange_id(data_exchange_id.into())
+            .set_data_exchange(data_exchange.into())
     }
 
     /// Updates an existing data exchange.
     pub fn update_data_exchange(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         data_exchange: impl Into<crate::model::DataExchange>,
     ) -> super::builder::analytics_hub_service::UpdateDataExchange {
         super::builder::analytics_hub_service::UpdateDataExchange::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_data_exchange(data_exchange.into())
     }
 
@@ -203,17 +209,23 @@ impl AnalyticsHubService {
     pub fn create_listing(
         &self,
         parent: impl Into<std::string::String>,
+        listing_id: impl Into<std::string::String>,
+        listing: impl Into<crate::model::Listing>,
     ) -> super::builder::analytics_hub_service::CreateListing {
         super::builder::analytics_hub_service::CreateListing::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_listing_id(listing_id.into())
+            .set_listing(listing.into())
     }
 
     /// Updates an existing listing.
     pub fn update_listing(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         listing: impl Into<crate::model::Listing>,
     ) -> super::builder::analytics_hub_service::UpdateListing {
         super::builder::analytics_hub_service::UpdateListing::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_listing(listing.into())
     }
 
@@ -255,9 +267,13 @@ impl AnalyticsHubService {
     pub fn subscribe_data_exchange(
         &self,
         name: impl Into<std::string::String>,
+        destination: impl Into<std::string::String>,
+        subscription: impl Into<std::string::String>,
     ) -> super::builder::analytics_hub_service::SubscribeDataExchange {
         super::builder::analytics_hub_service::SubscribeDataExchange::new(self.inner.clone())
             .set_name(name.into())
+            .set_destination(destination.into())
+            .set_subscription(subscription.into())
     }
 
     /// Refreshes a Subscription to a Data Exchange. A Data Exchange can become
@@ -351,18 +367,22 @@ impl AnalyticsHubService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::analytics_hub_service::SetIamPolicy {
         super::builder::analytics_hub_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns the permissions that a caller has.
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::analytics_hub_service::TestIamPermissions {
         super::builder::analytics_hub_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

@@ -144,9 +144,11 @@ impl ContainerAnalysis {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::container_analysis::SetIamPolicy {
         super::builder::container_analysis::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a note or an occurrence resource.
@@ -175,9 +177,11 @@ impl ContainerAnalysis {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::container_analysis::TestIamPermissions {
         super::builder::container_analysis::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Gets a summary of the number and severity of occurrences.

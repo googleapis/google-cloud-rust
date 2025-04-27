@@ -126,9 +126,11 @@ impl AutoscalingPolicyService {
     pub fn create_autoscaling_policy(
         &self,
         parent: impl Into<std::string::String>,
+        policy: impl Into<crate::model::AutoscalingPolicy>,
     ) -> super::builder::autoscaling_policy_service::CreateAutoscalingPolicy {
         super::builder::autoscaling_policy_service::CreateAutoscalingPolicy::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_policy(policy.into())
     }
 
     /// Updates (replaces) autoscaling policy.
@@ -179,9 +181,11 @@ impl AutoscalingPolicyService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::autoscaling_policy_service::SetIamPolicy {
         super::builder::autoscaling_policy_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -204,9 +208,11 @@ impl AutoscalingPolicyService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::autoscaling_policy_service::TestIamPermissions {
         super::builder::autoscaling_policy_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -370,9 +376,11 @@ impl BatchController {
     pub fn create_batch(
         &self,
         parent: impl Into<std::string::String>,
+        batch: impl Into<crate::model::Batch>,
     ) -> super::builder::batch_controller::CreateBatch {
         super::builder::batch_controller::CreateBatch::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_batch(batch.into())
     }
 
     /// Gets the batch workload resource representation.
@@ -409,9 +417,11 @@ impl BatchController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::batch_controller::SetIamPolicy {
         super::builder::batch_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -434,9 +444,11 @@ impl BatchController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::batch_controller::TestIamPermissions {
         super::builder::batch_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -606,10 +618,12 @@ impl ClusterController {
         &self,
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
+        cluster: impl Into<crate::model::Cluster>,
     ) -> super::builder::cluster_controller::CreateCluster {
         super::builder::cluster_controller::CreateCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
+            .set_cluster(cluster.into())
     }
 
     /// Updates a cluster in a project. The returned
@@ -636,11 +650,15 @@ impl ClusterController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         cluster_name: impl Into<std::string::String>,
+        cluster: impl Into<crate::model::Cluster>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::cluster_controller::UpdateCluster {
         super::builder::cluster_controller::UpdateCluster::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_cluster_name(cluster_name.into())
+            .set_cluster(cluster.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Stops a cluster in a project.
@@ -780,9 +798,11 @@ impl ClusterController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::cluster_controller::SetIamPolicy {
         super::builder::cluster_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -805,9 +825,11 @@ impl ClusterController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::cluster_controller::TestIamPermissions {
         super::builder::cluster_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -960,10 +982,12 @@ impl JobController {
         &self,
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
+        job: impl Into<crate::model::Job>,
     ) -> super::builder::job_controller::SubmitJob {
         super::builder::job_controller::SubmitJob::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
+            .set_job(job.into())
     }
 
     /// Submits job to a cluster.
@@ -981,10 +1005,12 @@ impl JobController {
         &self,
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
+        job: impl Into<crate::model::Job>,
     ) -> super::builder::job_controller::SubmitJobAsOperation {
         super::builder::job_controller::SubmitJobAsOperation::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
+            .set_job(job.into())
     }
 
     /// Gets the resource representation for a job in a project.
@@ -1017,11 +1043,15 @@ impl JobController {
         project_id: impl Into<std::string::String>,
         region: impl Into<std::string::String>,
         job_id: impl Into<std::string::String>,
+        job: impl Into<crate::model::Job>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::job_controller::UpdateJob {
         super::builder::job_controller::UpdateJob::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_region(region.into())
             .set_job_id(job_id.into())
+            .set_job(job.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Starts a job cancellation request. To access the job resource
@@ -1063,9 +1093,11 @@ impl JobController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::job_controller::SetIamPolicy {
         super::builder::job_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -1088,9 +1120,11 @@ impl JobController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::job_controller::TestIamPermissions {
         super::builder::job_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1258,9 +1292,11 @@ impl NodeGroupController {
     pub fn create_node_group(
         &self,
         parent: impl Into<std::string::String>,
+        node_group: impl Into<crate::model::NodeGroup>,
     ) -> super::builder::node_group_controller::CreateNodeGroup {
         super::builder::node_group_controller::CreateNodeGroup::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_node_group(node_group.into())
     }
 
     /// Resizes a node group in a cluster. The returned
@@ -1281,9 +1317,11 @@ impl NodeGroupController {
     pub fn resize_node_group(
         &self,
         name: impl Into<std::string::String>,
+        size: impl Into<i32>,
     ) -> super::builder::node_group_controller::ResizeNodeGroup {
         super::builder::node_group_controller::ResizeNodeGroup::new(self.inner.clone())
             .set_name(name.into())
+            .set_size(size.into())
     }
 
     /// Gets the resource representation for a node group in a
@@ -1304,9 +1342,11 @@ impl NodeGroupController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::node_group_controller::SetIamPolicy {
         super::builder::node_group_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -1329,9 +1369,11 @@ impl NodeGroupController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::node_group_controller::TestIamPermissions {
         super::builder::node_group_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1485,9 +1527,11 @@ impl SessionTemplateController {
     pub fn create_session_template(
         &self,
         parent: impl Into<std::string::String>,
+        session_template: impl Into<crate::model::SessionTemplate>,
     ) -> super::builder::session_template_controller::CreateSessionTemplate {
         super::builder::session_template_controller::CreateSessionTemplate::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_session_template(session_template.into())
     }
 
     /// Updates the session template synchronously.
@@ -1534,9 +1578,11 @@ impl SessionTemplateController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::session_template_controller::SetIamPolicy {
         super::builder::session_template_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -1559,9 +1605,11 @@ impl SessionTemplateController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::session_template_controller::TestIamPermissions {
         super::builder::session_template_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1725,9 +1773,13 @@ impl SessionController {
     pub fn create_session(
         &self,
         parent: impl Into<std::string::String>,
+        session: impl Into<crate::model::Session>,
+        session_id: impl Into<std::string::String>,
     ) -> super::builder::session_controller::CreateSession {
         super::builder::session_controller::CreateSession::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_session(session.into())
+            .set_session_id(session_id.into())
     }
 
     /// Gets the resource representation for an interactive session.
@@ -1795,9 +1847,11 @@ impl SessionController {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::session_controller::SetIamPolicy {
         super::builder::session_controller::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -1820,9 +1874,11 @@ impl SessionController {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::session_controller::TestIamPermissions {
         super::builder::session_controller::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1977,9 +2033,11 @@ impl WorkflowTemplateService {
     pub fn create_workflow_template(
         &self,
         parent: impl Into<std::string::String>,
+        template: impl Into<crate::model::WorkflowTemplate>,
     ) -> super::builder::workflow_template_service::CreateWorkflowTemplate {
         super::builder::workflow_template_service::CreateWorkflowTemplate::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_template(template.into())
     }
 
     /// Retrieves the latest workflow template.
@@ -2083,11 +2141,13 @@ impl WorkflowTemplateService {
     pub fn instantiate_inline_workflow_template(
         &self,
         parent: impl Into<std::string::String>,
+        template: impl Into<crate::model::WorkflowTemplate>,
     ) -> super::builder::workflow_template_service::InstantiateInlineWorkflowTemplate {
         super::builder::workflow_template_service::InstantiateInlineWorkflowTemplate::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_template(template.into())
     }
 
     /// Updates (replaces) workflow template. The updated template
@@ -2126,9 +2186,11 @@ impl WorkflowTemplateService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::workflow_template_service::SetIamPolicy {
         super::builder::workflow_template_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -2151,9 +2213,11 @@ impl WorkflowTemplateService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::workflow_template_service::TestIamPermissions {
         super::builder::workflow_template_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

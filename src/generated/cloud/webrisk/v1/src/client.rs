@@ -130,8 +130,12 @@ impl WebRiskService {
     /// for each list.
     pub fn compute_threat_list_diff(
         &self,
+        threat_type: impl Into<crate::model::ThreatType>,
+        constraints: impl Into<crate::model::compute_threat_list_diff_request::Constraints>,
     ) -> super::builder::web_risk_service::ComputeThreatListDiff {
         super::builder::web_risk_service::ComputeThreatListDiff::new(self.inner.clone())
+            .set_threat_type(threat_type.into())
+            .set_constraints(constraints.into())
     }
 
     /// This method is used to check whether a URI is on a given threatList.
@@ -139,8 +143,14 @@ impl WebRiskService {
     /// The response will list all requested threatLists the URI was found to
     /// match. If the URI is not found on any of the requested ThreatList an
     /// empty response will be returned.
-    pub fn search_uris(&self) -> super::builder::web_risk_service::SearchUris {
+    pub fn search_uris(
+        &self,
+        uri: impl Into<std::string::String>,
+        threat_types: impl IntoIterator<Item = impl Into<crate::model::ThreatType>>,
+    ) -> super::builder::web_risk_service::SearchUris {
         super::builder::web_risk_service::SearchUris::new(self.inner.clone())
+            .set_uri(uri.into())
+            .set_threat_types(threat_types.into_iter().map(|v| v.into()))
     }
 
     /// Gets the full hashes that match the requested hash prefix.
@@ -148,8 +158,12 @@ impl WebRiskService {
     /// and there is a match. The client side threatList only holds partial hashes
     /// so the client must query this method to determine if there is a full
     /// hash match of a threat.
-    pub fn search_hashes(&self) -> super::builder::web_risk_service::SearchHashes {
+    pub fn search_hashes(
+        &self,
+        threat_types: impl IntoIterator<Item = impl Into<crate::model::ThreatType>>,
+    ) -> super::builder::web_risk_service::SearchHashes {
         super::builder::web_risk_service::SearchHashes::new(self.inner.clone())
+            .set_threat_types(threat_types.into_iter().map(|v| v.into()))
     }
 
     /// Creates a Submission of a URI suspected of containing phishing content to
@@ -162,9 +176,11 @@ impl WebRiskService {
     pub fn create_submission(
         &self,
         parent: impl Into<std::string::String>,
+        submission: impl Into<crate::model::Submission>,
     ) -> super::builder::web_risk_service::CreateSubmission {
         super::builder::web_risk_service::CreateSubmission::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_submission(submission.into())
     }
 
     /// Submits a URI suspected of containing malicious content to be reviewed.
@@ -190,9 +206,11 @@ impl WebRiskService {
     pub fn submit_uri(
         &self,
         parent: impl Into<std::string::String>,
+        submission: impl Into<crate::model::Submission>,
     ) -> super::builder::web_risk_service::SubmitUri {
         super::builder::web_risk_service::SubmitUri::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_submission(submission.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

@@ -186,9 +186,11 @@ impl DatastoreAdmin {
     pub fn export_entities(
         &self,
         project_id: impl Into<std::string::String>,
+        output_url_prefix: impl Into<std::string::String>,
     ) -> super::builder::datastore_admin::ExportEntities {
         super::builder::datastore_admin::ExportEntities::new(self.inner.clone())
             .set_project_id(project_id.into())
+            .set_output_url_prefix(output_url_prefix.into())
     }
 
     /// Imports entities into Google Cloud Datastore. Existing entities with the
@@ -209,9 +211,11 @@ impl DatastoreAdmin {
     pub fn import_entities(
         &self,
         project_id: impl Into<std::string::String>,
+        input_url: impl Into<std::string::String>,
     ) -> super::builder::datastore_admin::ImportEntities {
         super::builder::datastore_admin::ImportEntities::new(self.inner.clone())
             .set_project_id(project_id.into())
+            .set_input_url(input_url.into())
     }
 
     /// Creates the specified index.

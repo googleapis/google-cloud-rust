@@ -136,9 +136,13 @@ impl PolicyBindings {
     pub fn create_policy_binding(
         &self,
         parent: impl Into<std::string::String>,
+        policy_binding_id: impl Into<std::string::String>,
+        policy_binding: impl Into<crate::model::PolicyBinding>,
     ) -> super::builder::policy_bindings::CreatePolicyBinding {
         super::builder::policy_bindings::CreatePolicyBinding::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_policy_binding_id(policy_binding_id.into())
+            .set_policy_binding(policy_binding.into())
     }
 
     /// Gets a policy binding.
@@ -207,9 +211,11 @@ impl PolicyBindings {
     /// directly to target.
     pub fn search_target_policy_bindings(
         &self,
+        target: impl Into<std::string::String>,
         parent: impl Into<std::string::String>,
     ) -> super::builder::policy_bindings::SearchTargetPolicyBindings {
         super::builder::policy_bindings::SearchTargetPolicyBindings::new(self.inner.clone())
+            .set_target(target.into())
             .set_parent(parent.into())
     }
 
@@ -342,10 +348,14 @@ impl PrincipalAccessBoundaryPolicies {
     pub fn create_principal_access_boundary_policy(
         &self,
         parent: impl Into<std::string::String>,
+        principal_access_boundary_policy_id: impl Into<std::string::String>,
+        principal_access_boundary_policy: impl Into<crate::model::PrincipalAccessBoundaryPolicy>,
     ) -> super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy
     {
         super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
             .set_parent ( parent.into() )
+            .set_principal_access_boundary_policy_id ( principal_access_boundary_policy_id.into() )
+            .set_principal_access_boundary_policy ( principal_access_boundary_policy.into() )
     }
 
     /// Gets a principal access boundary policy.

@@ -126,8 +126,16 @@ impl TextToSpeech {
 
     /// Synthesizes speech synchronously: receive results after all text input
     /// has been processed.
-    pub fn synthesize_speech(&self) -> super::builder::text_to_speech::SynthesizeSpeech {
+    pub fn synthesize_speech(
+        &self,
+        input: impl Into<crate::model::SynthesisInput>,
+        voice: impl Into<crate::model::VoiceSelectionParams>,
+        audio_config: impl Into<crate::model::AudioConfig>,
+    ) -> super::builder::text_to_speech::SynthesizeSpeech {
         super::builder::text_to_speech::SynthesizeSpeech::new(self.inner.clone())
+            .set_input(input.into())
+            .set_voice(voice.into())
+            .set_audio_config(audio_config.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -268,11 +276,19 @@ impl TextToSpeechLongAudioSynthesize {
     pub fn synthesize_long_audio(
         &self,
         parent: impl Into<std::string::String>,
+        input: impl Into<crate::model::SynthesisInput>,
+        audio_config: impl Into<crate::model::AudioConfig>,
+        output_gcs_uri: impl Into<std::string::String>,
+        voice: impl Into<crate::model::VoiceSelectionParams>,
     ) -> super::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio {
         super::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_input(input.into())
+        .set_audio_config(audio_config.into())
+        .set_output_gcs_uri(output_gcs_uri.into())
+        .set_voice(voice.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

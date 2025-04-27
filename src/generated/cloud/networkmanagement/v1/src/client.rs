@@ -172,9 +172,13 @@ impl ReachabilityService {
     pub fn create_connectivity_test(
         &self,
         parent: impl Into<std::string::String>,
+        test_id: impl Into<std::string::String>,
+        resource: impl Into<crate::model::ConnectivityTest>,
     ) -> super::builder::reachability_service::CreateConnectivityTest {
         super::builder::reachability_service::CreateConnectivityTest::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_test_id(test_id.into())
+            .set_resource(resource.into())
     }
 
     /// Updates the configuration of an existing `ConnectivityTest`.
@@ -203,9 +207,11 @@ impl ReachabilityService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_connectivity_test(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         resource: impl Into<crate::model::ConnectivityTest>,
     ) -> super::builder::reachability_service::UpdateConnectivityTest {
         super::builder::reachability_service::UpdateConnectivityTest::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_resource(resource.into())
     }
 
@@ -284,9 +290,11 @@ impl ReachabilityService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::reachability_service::SetIamPolicy {
         super::builder::reachability_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -309,9 +317,11 @@ impl ReachabilityService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::reachability_service::TestIamPermissions {
         super::builder::reachability_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -509,9 +519,13 @@ impl VpcFlowLogsService {
     pub fn create_vpc_flow_logs_config(
         &self,
         parent: impl Into<std::string::String>,
+        vpc_flow_logs_config_id: impl Into<std::string::String>,
+        vpc_flow_logs_config: impl Into<crate::model::VpcFlowLogsConfig>,
     ) -> super::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig {
         super::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_vpc_flow_logs_config_id(vpc_flow_logs_config_id.into())
+            .set_vpc_flow_logs_config(vpc_flow_logs_config.into())
     }
 
     /// Updates an existing `VpcFlowLogsConfig`.
@@ -541,9 +555,11 @@ impl VpcFlowLogsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_vpc_flow_logs_config(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         vpc_flow_logs_config: impl Into<crate::model::VpcFlowLogsConfig>,
     ) -> super::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig {
         super::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_vpc_flow_logs_config(vpc_flow_logs_config.into())
     }
 
@@ -592,9 +608,11 @@ impl VpcFlowLogsService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::vpc_flow_logs_service::SetIamPolicy {
         super::builder::vpc_flow_logs_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -617,9 +635,11 @@ impl VpcFlowLogsService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::vpc_flow_logs_service::TestIamPermissions {
         super::builder::vpc_flow_logs_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

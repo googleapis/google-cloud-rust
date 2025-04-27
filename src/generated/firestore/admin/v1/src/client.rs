@@ -167,9 +167,11 @@ impl FirestoreAdmin {
     pub fn create_index(
         &self,
         parent: impl Into<std::string::String>,
+        index: impl Into<crate::model::Index>,
     ) -> super::builder::firestore_admin::CreateIndex {
         super::builder::firestore_admin::CreateIndex::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_index(index.into())
     }
 
     /// Lists composite indexes.
@@ -354,9 +356,13 @@ impl FirestoreAdmin {
     pub fn create_database(
         &self,
         parent: impl Into<std::string::String>,
+        database: impl Into<crate::model::Database>,
+        database_id: impl Into<std::string::String>,
     ) -> super::builder::firestore_admin::CreateDatabase {
         super::builder::firestore_admin::CreateDatabase::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_database(database.into())
+            .set_database_id(database_id.into())
     }
 
     /// Gets information about a database.
@@ -418,9 +424,13 @@ impl FirestoreAdmin {
     pub fn create_user_creds(
         &self,
         parent: impl Into<std::string::String>,
+        user_creds: impl Into<crate::model::UserCreds>,
+        user_creds_id: impl Into<std::string::String>,
     ) -> super::builder::firestore_admin::CreateUserCreds {
         super::builder::firestore_admin::CreateUserCreds::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_user_creds(user_creds.into())
+            .set_user_creds_id(user_creds_id.into())
     }
 
     /// Gets a user creds resource. Note that the returned resource does not
@@ -540,9 +550,13 @@ impl FirestoreAdmin {
     pub fn restore_database(
         &self,
         parent: impl Into<std::string::String>,
+        database_id: impl Into<std::string::String>,
+        backup: impl Into<std::string::String>,
     ) -> super::builder::firestore_admin::RestoreDatabase {
         super::builder::firestore_admin::RestoreDatabase::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_database_id(database_id.into())
+            .set_backup(backup.into())
     }
 
     /// Creates a backup schedule on a database.
@@ -551,9 +565,11 @@ impl FirestoreAdmin {
     pub fn create_backup_schedule(
         &self,
         parent: impl Into<std::string::String>,
+        backup_schedule: impl Into<crate::model::BackupSchedule>,
     ) -> super::builder::firestore_admin::CreateBackupSchedule {
         super::builder::firestore_admin::CreateBackupSchedule::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_schedule(backup_schedule.into())
     }
 
     /// Gets information about a backup schedule.

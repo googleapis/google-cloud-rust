@@ -124,8 +124,11 @@ impl ApiHub {
     pub fn create_api(
         &self,
         parent: impl Into<std::string::String>,
+        api: impl Into<crate::model::Api>,
     ) -> super::builder::api_hub::CreateApi {
-        super::builder::api_hub::CreateApi::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::api_hub::CreateApi::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_api(api.into())
     }
 
     /// Get API resource details including the API versions contained in it.
@@ -174,8 +177,11 @@ impl ApiHub {
     pub fn update_api(
         &self,
         api: impl Into<crate::model::Api>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::api_hub::UpdateApi {
-        super::builder::api_hub::UpdateApi::new(self.inner.clone()).set_api(api.into())
+        super::builder::api_hub::UpdateApi::new(self.inner.clone())
+            .set_api(api.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Delete an API resource in the API hub. API can only be deleted if all
@@ -191,8 +197,11 @@ impl ApiHub {
     pub fn create_version(
         &self,
         parent: impl Into<std::string::String>,
+        version: impl Into<crate::model::Version>,
     ) -> super::builder::api_hub::CreateVersion {
-        super::builder::api_hub::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::api_hub::CreateVersion::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_version(version.into())
     }
 
     /// Get details about the API version of an API resource. This will include
@@ -242,8 +251,11 @@ impl ApiHub {
     pub fn update_version(
         &self,
         version: impl Into<crate::model::Version>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::api_hub::UpdateVersion {
-        super::builder::api_hub::UpdateVersion::new(self.inner.clone()).set_version(version.into())
+        super::builder::api_hub::UpdateVersion::new(self.inner.clone())
+            .set_version(version.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Delete an API version. Version can only be deleted if all underlying specs,
@@ -283,8 +295,11 @@ impl ApiHub {
     pub fn create_spec(
         &self,
         parent: impl Into<std::string::String>,
+        spec: impl Into<crate::model::Spec>,
     ) -> super::builder::api_hub::CreateSpec {
-        super::builder::api_hub::CreateSpec::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::api_hub::CreateSpec::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_spec(spec.into())
     }
 
     /// Get details about the information parsed from a spec.
@@ -351,8 +366,11 @@ impl ApiHub {
     pub fn update_spec(
         &self,
         spec: impl Into<crate::model::Spec>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::api_hub::UpdateSpec {
-        super::builder::api_hub::UpdateSpec::new(self.inner.clone()).set_spec(spec.into())
+        super::builder::api_hub::UpdateSpec::new(self.inner.clone())
+            .set_spec(spec.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Delete a spec.
@@ -396,8 +414,11 @@ impl ApiHub {
     pub fn create_deployment(
         &self,
         parent: impl Into<std::string::String>,
+        deployment: impl Into<crate::model::Deployment>,
     ) -> super::builder::api_hub::CreateDeployment {
-        super::builder::api_hub::CreateDeployment::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::api_hub::CreateDeployment::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_deployment(deployment.into())
     }
 
     /// Get details about a deployment and the API versions linked to it.
@@ -448,9 +469,11 @@ impl ApiHub {
     pub fn update_deployment(
         &self,
         deployment: impl Into<crate::model::Deployment>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::api_hub::UpdateDeployment {
         super::builder::api_hub::UpdateDeployment::new(self.inner.clone())
             .set_deployment(deployment.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Delete a deployment resource in the API hub.
@@ -474,8 +497,11 @@ impl ApiHub {
     pub fn create_attribute(
         &self,
         parent: impl Into<std::string::String>,
+        attribute: impl Into<crate::model::Attribute>,
     ) -> super::builder::api_hub::CreateAttribute {
-        super::builder::api_hub::CreateAttribute::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::api_hub::CreateAttribute::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_attribute(attribute.into())
     }
 
     /// Get details about the attribute.
@@ -519,9 +545,11 @@ impl ApiHub {
     pub fn update_attribute(
         &self,
         attribute: impl Into<crate::model::Attribute>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::api_hub::UpdateAttribute {
         super::builder::api_hub::UpdateAttribute::new(self.inner.clone())
             .set_attribute(attribute.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Delete an attribute.
@@ -548,18 +576,22 @@ impl ApiHub {
     pub fn search_resources(
         &self,
         location: impl Into<std::string::String>,
+        query: impl Into<std::string::String>,
     ) -> super::builder::api_hub::SearchResources {
         super::builder::api_hub::SearchResources::new(self.inner.clone())
             .set_location(location.into())
+            .set_query(query.into())
     }
 
     /// Create an External API resource in the API hub.
     pub fn create_external_api(
         &self,
         parent: impl Into<std::string::String>,
+        external_api: impl Into<crate::model::ExternalApi>,
     ) -> super::builder::api_hub::CreateExternalApi {
         super::builder::api_hub::CreateExternalApi::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_external_api(external_api.into())
     }
 
     /// Get details about an External API resource in the API hub.
@@ -592,9 +624,11 @@ impl ApiHub {
     pub fn update_external_api(
         &self,
         external_api: impl Into<crate::model::ExternalApi>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::api_hub::UpdateExternalApi {
         super::builder::api_hub::UpdateExternalApi::new(self.inner.clone())
             .set_external_api(external_api.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Delete an External API resource in the API hub.
@@ -779,9 +813,11 @@ impl ApiHubDependencies {
     pub fn create_dependency(
         &self,
         parent: impl Into<std::string::String>,
+        dependency: impl Into<crate::model::Dependency>,
     ) -> super::builder::api_hub_dependencies::CreateDependency {
         super::builder::api_hub_dependencies::CreateDependency::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_dependency(dependency.into())
     }
 
     /// Get details about a dependency resource in the API hub.
@@ -808,9 +844,11 @@ impl ApiHubDependencies {
     pub fn update_dependency(
         &self,
         dependency: impl Into<crate::model::Dependency>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::api_hub_dependencies::UpdateDependency {
         super::builder::api_hub_dependencies::UpdateDependency::new(self.inner.clone())
             .set_dependency(dependency.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Delete the dependency resource.
@@ -1004,11 +1042,15 @@ impl HostProjectRegistrationService {
     pub fn create_host_project_registration(
         &self,
         parent: impl Into<std::string::String>,
+        host_project_registration_id: impl Into<std::string::String>,
+        host_project_registration: impl Into<crate::model::HostProjectRegistration>,
     ) -> super::builder::host_project_registration_service::CreateHostProjectRegistration {
         super::builder::host_project_registration_service::CreateHostProjectRegistration::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_host_project_registration_id(host_project_registration_id.into())
+        .set_host_project_registration(host_project_registration.into())
     }
 
     /// Get a host project registration.
@@ -1594,9 +1636,11 @@ impl Provisioning {
     pub fn create_api_hub_instance(
         &self,
         parent: impl Into<std::string::String>,
+        api_hub_instance: impl Into<crate::model::ApiHubInstance>,
     ) -> super::builder::provisioning::CreateApiHubInstance {
         super::builder::provisioning::CreateApiHubInstance::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_api_hub_instance(api_hub_instance.into())
     }
 
     /// Gets details of a single API Hub instance.
@@ -1781,11 +1825,15 @@ impl RuntimeProjectAttachmentService {
     pub fn create_runtime_project_attachment(
         &self,
         parent: impl Into<std::string::String>,
+        runtime_project_attachment_id: impl Into<std::string::String>,
+        runtime_project_attachment: impl Into<crate::model::RuntimeProjectAttachment>,
     ) -> super::builder::runtime_project_attachment_service::CreateRuntimeProjectAttachment {
         super::builder::runtime_project_attachment_service::CreateRuntimeProjectAttachment::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_runtime_project_attachment_id(runtime_project_attachment_id.into())
+        .set_runtime_project_attachment(runtime_project_attachment.into())
     }
 
     /// Gets a runtime project attachment.

@@ -131,10 +131,12 @@ impl PublicCertificateAuthorityService {
     pub fn create_external_account_key(
         &self,
         parent: impl Into<std::string::String>,
+        external_account_key: impl Into<crate::model::ExternalAccountKey>,
     ) -> super::builder::public_certificate_authority_service::CreateExternalAccountKey {
         super::builder::public_certificate_authority_service::CreateExternalAccountKey::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_external_account_key(external_account_key.into())
     }
 }

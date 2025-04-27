@@ -125,18 +125,22 @@ impl ConfidentialComputing {
     pub fn create_challenge(
         &self,
         parent: impl Into<std::string::String>,
+        challenge: impl Into<crate::model::Challenge>,
     ) -> super::builder::confidential_computing::CreateChallenge {
         super::builder::confidential_computing::CreateChallenge::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_challenge(challenge.into())
     }
 
     /// Verifies the provided attestation info, returning a signed OIDC token.
     pub fn verify_attestation(
         &self,
         challenge: impl Into<std::string::String>,
+        tpm_attestation: impl Into<crate::model::TpmAttestation>,
     ) -> super::builder::confidential_computing::VerifyAttestation {
         super::builder::confidential_computing::VerifyAttestation::new(self.inner.clone())
             .set_challenge(challenge.into())
+            .set_tpm_attestation(tpm_attestation.into())
     }
 
     /// Lists information about the supported locations for this service.

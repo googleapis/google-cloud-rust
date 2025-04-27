@@ -149,8 +149,13 @@ impl Lustre {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
+        instance_id: impl Into<std::string::String>,
+        instance: impl Into<crate::model::Instance>,
     ) -> super::builder::lustre::CreateInstance {
-        super::builder::lustre::CreateInstance::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::lustre::CreateInstance::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_instance_id(instance_id.into())
+            .set_instance(instance.into())
     }
 
     /// Updates the parameters of a single instance.

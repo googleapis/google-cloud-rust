@@ -152,9 +152,13 @@ impl CloudDeploy {
     pub fn create_delivery_pipeline(
         &self,
         parent: impl Into<std::string::String>,
+        delivery_pipeline_id: impl Into<std::string::String>,
+        delivery_pipeline: impl Into<crate::model::DeliveryPipeline>,
     ) -> super::builder::cloud_deploy::CreateDeliveryPipeline {
         super::builder::cloud_deploy::CreateDeliveryPipeline::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_delivery_pipeline_id(delivery_pipeline_id.into())
+            .set_delivery_pipeline(delivery_pipeline.into())
     }
 
     /// Updates the parameters of a single DeliveryPipeline.
@@ -170,9 +174,11 @@ impl CloudDeploy {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_delivery_pipeline(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         delivery_pipeline: impl Into<crate::model::DeliveryPipeline>,
     ) -> super::builder::cloud_deploy::UpdateDeliveryPipeline {
         super::builder::cloud_deploy::UpdateDeliveryPipeline::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_delivery_pipeline(delivery_pipeline.into())
     }
 
@@ -207,8 +213,13 @@ impl CloudDeploy {
     pub fn rollback_target(
         &self,
         name: impl Into<std::string::String>,
+        target_id: impl Into<std::string::String>,
+        rollout_id: impl Into<std::string::String>,
     ) -> super::builder::cloud_deploy::RollbackTarget {
-        super::builder::cloud_deploy::RollbackTarget::new(self.inner.clone()).set_name(name.into())
+        super::builder::cloud_deploy::RollbackTarget::new(self.inner.clone())
+            .set_name(name.into())
+            .set_target_id(target_id.into())
+            .set_rollout_id(rollout_id.into())
     }
 
     /// Gets details of a single Target.
@@ -233,9 +244,13 @@ impl CloudDeploy {
     pub fn create_target(
         &self,
         parent: impl Into<std::string::String>,
+        target_id: impl Into<std::string::String>,
+        target: impl Into<crate::model::Target>,
     ) -> super::builder::cloud_deploy::CreateTarget {
         super::builder::cloud_deploy::CreateTarget::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_target_id(target_id.into())
+            .set_target(target.into())
     }
 
     /// Updates the parameters of a single Target.
@@ -251,9 +266,11 @@ impl CloudDeploy {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_target(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         target: impl Into<crate::model::Target>,
     ) -> super::builder::cloud_deploy::UpdateTarget {
         super::builder::cloud_deploy::UpdateTarget::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_target(target.into())
     }
 
@@ -307,9 +324,13 @@ impl CloudDeploy {
     pub fn create_custom_target_type(
         &self,
         parent: impl Into<std::string::String>,
+        custom_target_type_id: impl Into<std::string::String>,
+        custom_target_type: impl Into<crate::model::CustomTargetType>,
     ) -> super::builder::cloud_deploy::CreateCustomTargetType {
         super::builder::cloud_deploy::CreateCustomTargetType::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_custom_target_type_id(custom_target_type_id.into())
+            .set_custom_target_type(custom_target_type.into())
     }
 
     /// Updates a single CustomTargetType.
@@ -325,9 +346,11 @@ impl CloudDeploy {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_custom_target_type(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         custom_target_type: impl Into<crate::model::CustomTargetType>,
     ) -> super::builder::cloud_deploy::UpdateCustomTargetType {
         super::builder::cloud_deploy::UpdateCustomTargetType::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_custom_target_type(custom_target_type.into())
     }
 
@@ -381,9 +404,13 @@ impl CloudDeploy {
     pub fn create_release(
         &self,
         parent: impl Into<std::string::String>,
+        release_id: impl Into<std::string::String>,
+        release: impl Into<crate::model::Release>,
     ) -> super::builder::cloud_deploy::CreateRelease {
         super::builder::cloud_deploy::CreateRelease::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_release_id(release_id.into())
+            .set_release(release.into())
     }
 
     /// Abandons a Release in the Delivery Pipeline.
@@ -408,9 +435,13 @@ impl CloudDeploy {
     pub fn create_deploy_policy(
         &self,
         parent: impl Into<std::string::String>,
+        deploy_policy_id: impl Into<std::string::String>,
+        deploy_policy: impl Into<crate::model::DeployPolicy>,
     ) -> super::builder::cloud_deploy::CreateDeployPolicy {
         super::builder::cloud_deploy::CreateDeployPolicy::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_deploy_policy_id(deploy_policy_id.into())
+            .set_deploy_policy(deploy_policy.into())
     }
 
     /// Updates the parameters of a single DeployPolicy.
@@ -426,9 +457,11 @@ impl CloudDeploy {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_deploy_policy(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         deploy_policy: impl Into<crate::model::DeployPolicy>,
     ) -> super::builder::cloud_deploy::UpdateDeployPolicy {
         super::builder::cloud_deploy::UpdateDeployPolicy::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_deploy_policy(deploy_policy.into())
     }
 
@@ -472,16 +505,22 @@ impl CloudDeploy {
     pub fn approve_rollout(
         &self,
         name: impl Into<std::string::String>,
+        approved: impl Into<bool>,
     ) -> super::builder::cloud_deploy::ApproveRollout {
-        super::builder::cloud_deploy::ApproveRollout::new(self.inner.clone()).set_name(name.into())
+        super::builder::cloud_deploy::ApproveRollout::new(self.inner.clone())
+            .set_name(name.into())
+            .set_approved(approved.into())
     }
 
     /// Advances a Rollout in a given project and location.
     pub fn advance_rollout(
         &self,
         name: impl Into<std::string::String>,
+        phase_id: impl Into<std::string::String>,
     ) -> super::builder::cloud_deploy::AdvanceRollout {
-        super::builder::cloud_deploy::AdvanceRollout::new(self.inner.clone()).set_name(name.into())
+        super::builder::cloud_deploy::AdvanceRollout::new(self.inner.clone())
+            .set_name(name.into())
+            .set_phase_id(phase_id.into())
     }
 
     /// Cancels a Rollout in a given project and location.
@@ -523,25 +562,39 @@ impl CloudDeploy {
     pub fn create_rollout(
         &self,
         parent: impl Into<std::string::String>,
+        rollout_id: impl Into<std::string::String>,
+        rollout: impl Into<crate::model::Rollout>,
     ) -> super::builder::cloud_deploy::CreateRollout {
         super::builder::cloud_deploy::CreateRollout::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_rollout_id(rollout_id.into())
+            .set_rollout(rollout.into())
     }
 
     /// Ignores the specified Job in a Rollout.
     pub fn ignore_job(
         &self,
         rollout: impl Into<std::string::String>,
+        phase_id: impl Into<std::string::String>,
+        job_id: impl Into<std::string::String>,
     ) -> super::builder::cloud_deploy::IgnoreJob {
-        super::builder::cloud_deploy::IgnoreJob::new(self.inner.clone()).set_rollout(rollout.into())
+        super::builder::cloud_deploy::IgnoreJob::new(self.inner.clone())
+            .set_rollout(rollout.into())
+            .set_phase_id(phase_id.into())
+            .set_job_id(job_id.into())
     }
 
     /// Retries the specified Job in a Rollout.
     pub fn retry_job(
         &self,
         rollout: impl Into<std::string::String>,
+        phase_id: impl Into<std::string::String>,
+        job_id: impl Into<std::string::String>,
     ) -> super::builder::cloud_deploy::RetryJob {
-        super::builder::cloud_deploy::RetryJob::new(self.inner.clone()).set_rollout(rollout.into())
+        super::builder::cloud_deploy::RetryJob::new(self.inner.clone())
+            .set_rollout(rollout.into())
+            .set_phase_id(phase_id.into())
+            .set_job_id(job_id.into())
     }
 
     /// Lists JobRuns in a given project and location.
@@ -590,9 +643,13 @@ impl CloudDeploy {
     pub fn create_automation(
         &self,
         parent: impl Into<std::string::String>,
+        automation_id: impl Into<std::string::String>,
+        automation: impl Into<crate::model::Automation>,
     ) -> super::builder::cloud_deploy::CreateAutomation {
         super::builder::cloud_deploy::CreateAutomation::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_automation_id(automation_id.into())
+            .set_automation(automation.into())
     }
 
     /// Updates the parameters of a single Automation resource.
@@ -608,9 +665,11 @@ impl CloudDeploy {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_automation(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         automation: impl Into<crate::model::Automation>,
     ) -> super::builder::cloud_deploy::UpdateAutomation {
         super::builder::cloud_deploy::UpdateAutomation::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_automation(automation.into())
     }
 
@@ -704,9 +763,11 @@ impl CloudDeploy {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::cloud_deploy::SetIamPolicy {
         super::builder::cloud_deploy::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -729,9 +790,11 @@ impl CloudDeploy {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::cloud_deploy::TestIamPermissions {
         super::builder::cloud_deploy::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

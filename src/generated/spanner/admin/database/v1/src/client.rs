@@ -162,9 +162,11 @@ impl DatabaseAdmin {
     pub fn create_database(
         &self,
         parent: impl Into<std::string::String>,
+        create_statement: impl Into<std::string::String>,
     ) -> super::builder::database_admin::CreateDatabase {
         super::builder::database_admin::CreateDatabase::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_create_statement(create_statement.into())
     }
 
     /// Gets the state of a Cloud Spanner database.
@@ -232,9 +234,11 @@ impl DatabaseAdmin {
     pub fn update_database(
         &self,
         database: impl Into<crate::model::Database>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::database_admin::UpdateDatabase {
         super::builder::database_admin::UpdateDatabase::new(self.inner.clone())
             .set_database(database.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Updates the schema of a Cloud Spanner database by
@@ -262,9 +266,11 @@ impl DatabaseAdmin {
     pub fn update_database_ddl(
         &self,
         database: impl Into<std::string::String>,
+        statements: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::database_admin::UpdateDatabaseDdl {
         super::builder::database_admin::UpdateDatabaseDdl::new(self.inner.clone())
             .set_database(database.into())
+            .set_statements(statements.into_iter().map(|v| v.into()))
     }
 
     /// Drops (aka deletes) a Cloud Spanner database.
@@ -305,9 +311,11 @@ impl DatabaseAdmin {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::database_admin::SetIamPolicy {
         super::builder::database_admin::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a database or backup resource.
@@ -341,9 +349,11 @@ impl DatabaseAdmin {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::database_admin::TestIamPermissions {
         super::builder::database_admin::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Starts creating a new Cloud Spanner Backup.
@@ -377,9 +387,13 @@ impl DatabaseAdmin {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
+        backup_id: impl Into<std::string::String>,
+        backup: impl Into<crate::model::Backup>,
     ) -> super::builder::database_admin::CreateBackup {
         super::builder::database_admin::CreateBackup::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_id(backup_id.into())
+            .set_backup(backup.into())
     }
 
     /// Starts copying a Cloud Spanner Backup.
@@ -414,9 +428,15 @@ impl DatabaseAdmin {
     pub fn copy_backup(
         &self,
         parent: impl Into<std::string::String>,
+        backup_id: impl Into<std::string::String>,
+        source_backup: impl Into<std::string::String>,
+        expire_time: impl Into<wkt::Timestamp>,
     ) -> super::builder::database_admin::CopyBackup {
         super::builder::database_admin::CopyBackup::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_id(backup_id.into())
+            .set_source_backup(source_backup.into())
+            .set_expire_time(expire_time.into())
     }
 
     /// Gets metadata on a pending or completed
@@ -437,9 +457,11 @@ impl DatabaseAdmin {
     pub fn update_backup(
         &self,
         backup: impl Into<crate::model::Backup>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::database_admin::UpdateBackup {
         super::builder::database_admin::UpdateBackup::new(self.inner.clone())
             .set_backup(backup.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a pending or completed
@@ -500,9 +522,11 @@ impl DatabaseAdmin {
     pub fn restore_database(
         &self,
         parent: impl Into<std::string::String>,
+        database_id: impl Into<std::string::String>,
     ) -> super::builder::database_admin::RestoreDatabase {
         super::builder::database_admin::RestoreDatabase::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_database_id(database_id.into())
     }
 
     /// Lists database [longrunning-operations][google.longrunning.Operation].
@@ -558,18 +582,24 @@ impl DatabaseAdmin {
     pub fn add_split_points(
         &self,
         database: impl Into<std::string::String>,
+        split_points: impl IntoIterator<Item = impl Into<crate::model::SplitPoints>>,
     ) -> super::builder::database_admin::AddSplitPoints {
         super::builder::database_admin::AddSplitPoints::new(self.inner.clone())
             .set_database(database.into())
+            .set_split_points(split_points.into_iter().map(|v| v.into()))
     }
 
     /// Creates a new backup schedule.
     pub fn create_backup_schedule(
         &self,
         parent: impl Into<std::string::String>,
+        backup_schedule_id: impl Into<std::string::String>,
+        backup_schedule: impl Into<crate::model::BackupSchedule>,
     ) -> super::builder::database_admin::CreateBackupSchedule {
         super::builder::database_admin::CreateBackupSchedule::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_schedule_id(backup_schedule_id.into())
+            .set_backup_schedule(backup_schedule.into())
     }
 
     /// Gets backup schedule for the input schedule name.
@@ -585,9 +615,11 @@ impl DatabaseAdmin {
     pub fn update_backup_schedule(
         &self,
         backup_schedule: impl Into<crate::model::BackupSchedule>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::database_admin::UpdateBackupSchedule {
         super::builder::database_admin::UpdateBackupSchedule::new(self.inner.clone())
             .set_backup_schedule(backup_schedule.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a backup schedule.

@@ -125,9 +125,11 @@ impl ConnectionService {
     pub fn create_connection(
         &self,
         parent: impl Into<std::string::String>,
+        connection: impl Into<crate::model::Connection>,
     ) -> super::builder::connection_service::CreateConnection {
         super::builder::connection_service::CreateConnection::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_connection(connection.into())
     }
 
     /// Returns specified connection.
@@ -143,9 +145,11 @@ impl ConnectionService {
     pub fn list_connections(
         &self,
         parent: impl Into<std::string::String>,
+        page_size: impl Into<i32>,
     ) -> super::builder::connection_service::ListConnections {
         super::builder::connection_service::ListConnections::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_page_size(page_size.into())
     }
 
     /// Updates the specified connection. For security reasons, also resets
@@ -153,9 +157,13 @@ impl ConnectionService {
     pub fn update_connection(
         &self,
         name: impl Into<std::string::String>,
+        connection: impl Into<crate::model::Connection>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::connection_service::UpdateConnection {
         super::builder::connection_service::UpdateConnection::new(self.inner.clone())
             .set_name(name.into())
+            .set_connection(connection.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes connection and associated credential.
@@ -185,9 +193,11 @@ impl ConnectionService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::connection_service::SetIamPolicy {
         super::builder::connection_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns permissions that a caller has on the specified resource.
@@ -200,8 +210,10 @@ impl ConnectionService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::connection_service::TestIamPermissions {
         super::builder::connection_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 }

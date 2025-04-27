@@ -153,8 +153,11 @@ impl Policies {
     pub fn create_policy(
         &self,
         parent: impl Into<std::string::String>,
+        policy: impl Into<crate::model::Policy>,
     ) -> super::builder::policies::CreatePolicy {
-        super::builder::policies::CreatePolicy::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::policies::CreatePolicy::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_policy(policy.into())
     }
 
     /// Updates the specified policy.

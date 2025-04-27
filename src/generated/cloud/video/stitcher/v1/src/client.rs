@@ -139,9 +139,13 @@ impl VideoStitcherService {
     pub fn create_cdn_key(
         &self,
         parent: impl Into<std::string::String>,
+        cdn_key: impl Into<crate::model::CdnKey>,
+        cdn_key_id: impl Into<std::string::String>,
     ) -> super::builder::video_stitcher_service::CreateCdnKey {
         super::builder::video_stitcher_service::CreateCdnKey::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_cdn_key(cdn_key.into())
+            .set_cdn_key_id(cdn_key_id.into())
     }
 
     /// Lists all CDN keys in the specified project and location.
@@ -196,9 +200,11 @@ impl VideoStitcherService {
     pub fn update_cdn_key(
         &self,
         cdn_key: impl Into<crate::model::CdnKey>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::video_stitcher_service::UpdateCdnKey {
         super::builder::video_stitcher_service::UpdateCdnKey::new(self.inner.clone())
             .set_cdn_key(cdn_key.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Creates a client side playback VOD session and returns the full
@@ -206,9 +212,11 @@ impl VideoStitcherService {
     pub fn create_vod_session(
         &self,
         parent: impl Into<std::string::String>,
+        vod_session: impl Into<crate::model::VodSession>,
     ) -> super::builder::video_stitcher_service::CreateVodSession {
         super::builder::video_stitcher_service::CreateVodSession::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_vod_session(vod_session.into())
     }
 
     /// Returns the full tracking, playback metadata, and relevant ad-ops
@@ -290,9 +298,13 @@ impl VideoStitcherService {
     pub fn create_slate(
         &self,
         parent: impl Into<std::string::String>,
+        slate_id: impl Into<std::string::String>,
+        slate: impl Into<crate::model::Slate>,
     ) -> super::builder::video_stitcher_service::CreateSlate {
         super::builder::video_stitcher_service::CreateSlate::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_slate_id(slate_id.into())
+            .set_slate(slate.into())
     }
 
     /// Lists all slates in the specified project and location.
@@ -327,9 +339,11 @@ impl VideoStitcherService {
     pub fn update_slate(
         &self,
         slate: impl Into<crate::model::Slate>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::video_stitcher_service::UpdateSlate {
         super::builder::video_stitcher_service::UpdateSlate::new(self.inner.clone())
             .set_slate(slate.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes the specified slate.
@@ -355,9 +369,11 @@ impl VideoStitcherService {
     pub fn create_live_session(
         &self,
         parent: impl Into<std::string::String>,
+        live_session: impl Into<crate::model::LiveSession>,
     ) -> super::builder::video_stitcher_service::CreateLiveSession {
         super::builder::video_stitcher_service::CreateLiveSession::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_live_session(live_session.into())
     }
 
     /// Returns the details for the specified live session.
@@ -384,9 +400,13 @@ impl VideoStitcherService {
     pub fn create_live_config(
         &self,
         parent: impl Into<std::string::String>,
+        live_config_id: impl Into<std::string::String>,
+        live_config: impl Into<crate::model::LiveConfig>,
     ) -> super::builder::video_stitcher_service::CreateLiveConfig {
         super::builder::video_stitcher_service::CreateLiveConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_live_config_id(live_config_id.into())
+            .set_live_config(live_config.into())
     }
 
     /// Lists all live configs managed by the Video Stitcher that
@@ -443,9 +463,11 @@ impl VideoStitcherService {
     pub fn update_live_config(
         &self,
         live_config: impl Into<crate::model::LiveConfig>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::video_stitcher_service::UpdateLiveConfig {
         super::builder::video_stitcher_service::UpdateLiveConfig::new(self.inner.clone())
             .set_live_config(live_config.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Registers the VOD config with the provided unique ID in
@@ -463,9 +485,13 @@ impl VideoStitcherService {
     pub fn create_vod_config(
         &self,
         parent: impl Into<std::string::String>,
+        vod_config_id: impl Into<std::string::String>,
+        vod_config: impl Into<crate::model::VodConfig>,
     ) -> super::builder::video_stitcher_service::CreateVodConfig {
         super::builder::video_stitcher_service::CreateVodConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_vod_config_id(vod_config_id.into())
+            .set_vod_config(vod_config.into())
     }
 
     /// Lists all VOD configs managed by the Video Stitcher API that
@@ -522,9 +548,11 @@ impl VideoStitcherService {
     pub fn update_vod_config(
         &self,
         vod_config: impl Into<crate::model::VodConfig>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::video_stitcher_service::UpdateVodConfig {
         super::builder::video_stitcher_service::UpdateVodConfig::new(self.inner.clone())
             .set_vod_config(vod_config.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

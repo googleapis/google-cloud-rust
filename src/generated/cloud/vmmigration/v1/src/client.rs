@@ -123,8 +123,11 @@ impl VmMigration {
     pub fn list_sources(
         &self,
         parent: impl Into<std::string::String>,
+        page_token: impl Into<std::string::String>,
     ) -> super::builder::vm_migration::ListSources {
-        super::builder::vm_migration::ListSources::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::vm_migration::ListSources::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_page_token(page_token.into())
     }
 
     /// Gets details of a single Source.
@@ -149,9 +152,13 @@ impl VmMigration {
     pub fn create_source(
         &self,
         parent: impl Into<std::string::String>,
+        source_id: impl Into<std::string::String>,
+        source: impl Into<crate::model::Source>,
     ) -> super::builder::vm_migration::CreateSource {
         super::builder::vm_migration::CreateSource::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_source_id(source_id.into())
+            .set_source(source.into())
     }
 
     /// Updates the parameters of a single Source.
@@ -208,9 +215,11 @@ impl VmMigration {
     pub fn list_utilization_reports(
         &self,
         parent: impl Into<std::string::String>,
+        page_token: impl Into<std::string::String>,
     ) -> super::builder::vm_migration::ListUtilizationReports {
         super::builder::vm_migration::ListUtilizationReports::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_page_token(page_token.into())
     }
 
     /// Gets a single Utilization Report.
@@ -236,9 +245,13 @@ impl VmMigration {
     pub fn create_utilization_report(
         &self,
         parent: impl Into<std::string::String>,
+        utilization_report: impl Into<crate::model::UtilizationReport>,
+        utilization_report_id: impl Into<std::string::String>,
     ) -> super::builder::vm_migration::CreateUtilizationReport {
         super::builder::vm_migration::CreateUtilizationReport::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_utilization_report(utilization_report.into())
+            .set_utilization_report_id(utilization_report_id.into())
     }
 
     /// Deletes a single Utilization Report.
@@ -264,9 +277,11 @@ impl VmMigration {
     pub fn list_datacenter_connectors(
         &self,
         parent: impl Into<std::string::String>,
+        page_token: impl Into<std::string::String>,
     ) -> super::builder::vm_migration::ListDatacenterConnectors {
         super::builder::vm_migration::ListDatacenterConnectors::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_page_token(page_token.into())
     }
 
     /// Gets details of a single DatacenterConnector.
@@ -292,9 +307,13 @@ impl VmMigration {
     pub fn create_datacenter_connector(
         &self,
         parent: impl Into<std::string::String>,
+        datacenter_connector_id: impl Into<std::string::String>,
+        datacenter_connector: impl Into<crate::model::DatacenterConnector>,
     ) -> super::builder::vm_migration::CreateDatacenterConnector {
         super::builder::vm_migration::CreateDatacenterConnector::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_datacenter_connector_id(datacenter_connector_id.into())
+            .set_datacenter_connector(datacenter_connector.into())
     }
 
     /// Deletes a single DatacenterConnector.
@@ -350,18 +369,24 @@ impl VmMigration {
     pub fn create_migrating_vm(
         &self,
         parent: impl Into<std::string::String>,
+        migrating_vm_id: impl Into<std::string::String>,
+        migrating_vm: impl Into<crate::model::MigratingVm>,
     ) -> super::builder::vm_migration::CreateMigratingVm {
         super::builder::vm_migration::CreateMigratingVm::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_migrating_vm_id(migrating_vm_id.into())
+            .set_migrating_vm(migrating_vm.into())
     }
 
     /// Lists MigratingVms in a given Source.
     pub fn list_migrating_vms(
         &self,
         parent: impl Into<std::string::String>,
+        page_token: impl Into<std::string::String>,
     ) -> super::builder::vm_migration::ListMigratingVms {
         super::builder::vm_migration::ListMigratingVms::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_page_token(page_token.into())
     }
 
     /// Gets details of a single MigratingVm.
@@ -507,9 +532,13 @@ impl VmMigration {
     pub fn create_clone_job(
         &self,
         parent: impl Into<std::string::String>,
+        clone_job_id: impl Into<std::string::String>,
+        clone_job: impl Into<crate::model::CloneJob>,
     ) -> super::builder::vm_migration::CreateCloneJob {
         super::builder::vm_migration::CreateCloneJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_clone_job_id(clone_job_id.into())
+            .set_clone_job(clone_job.into())
     }
 
     /// Initiates the cancellation of a running clone job.
@@ -534,9 +563,11 @@ impl VmMigration {
     pub fn list_clone_jobs(
         &self,
         parent: impl Into<std::string::String>,
+        page_token: impl Into<std::string::String>,
     ) -> super::builder::vm_migration::ListCloneJobs {
         super::builder::vm_migration::ListCloneJobs::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_page_token(page_token.into())
     }
 
     /// Gets details of a single CloneJob.
@@ -563,9 +594,13 @@ impl VmMigration {
     pub fn create_cutover_job(
         &self,
         parent: impl Into<std::string::String>,
+        cutover_job_id: impl Into<std::string::String>,
+        cutover_job: impl Into<crate::model::CutoverJob>,
     ) -> super::builder::vm_migration::CreateCutoverJob {
         super::builder::vm_migration::CreateCutoverJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_cutover_job_id(cutover_job_id.into())
+            .set_cutover_job(cutover_job.into())
     }
 
     /// Initiates the cancellation of a running cutover job.
@@ -591,9 +626,11 @@ impl VmMigration {
     pub fn list_cutover_jobs(
         &self,
         parent: impl Into<std::string::String>,
+        page_token: impl Into<std::string::String>,
     ) -> super::builder::vm_migration::ListCutoverJobs {
         super::builder::vm_migration::ListCutoverJobs::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_page_token(page_token.into())
     }
 
     /// Gets details of a single CutoverJob.
@@ -608,8 +645,11 @@ impl VmMigration {
     pub fn list_groups(
         &self,
         parent: impl Into<std::string::String>,
+        page_token: impl Into<std::string::String>,
     ) -> super::builder::vm_migration::ListGroups {
-        super::builder::vm_migration::ListGroups::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::vm_migration::ListGroups::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_page_token(page_token.into())
     }
 
     /// Gets details of a single Group.
@@ -634,8 +674,13 @@ impl VmMigration {
     pub fn create_group(
         &self,
         parent: impl Into<std::string::String>,
+        group_id: impl Into<std::string::String>,
+        group: impl Into<crate::model::Group>,
     ) -> super::builder::vm_migration::CreateGroup {
-        super::builder::vm_migration::CreateGroup::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::vm_migration::CreateGroup::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_group_id(group_id.into())
+            .set_group(group.into())
     }
 
     /// Updates the parameters of a single Group.
@@ -719,9 +764,11 @@ impl VmMigration {
     pub fn list_target_projects(
         &self,
         parent: impl Into<std::string::String>,
+        page_token: impl Into<std::string::String>,
     ) -> super::builder::vm_migration::ListTargetProjects {
         super::builder::vm_migration::ListTargetProjects::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_page_token(page_token.into())
     }
 
     /// Gets details of a single TargetProject.
@@ -753,9 +800,13 @@ impl VmMigration {
     pub fn create_target_project(
         &self,
         parent: impl Into<std::string::String>,
+        target_project_id: impl Into<std::string::String>,
+        target_project: impl Into<crate::model::TargetProject>,
     ) -> super::builder::vm_migration::CreateTargetProject {
         super::builder::vm_migration::CreateTargetProject::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_target_project_id(target_project_id.into())
+            .set_target_project(target_project.into())
     }
 
     /// Updates the parameters of a single TargetProject.
@@ -806,9 +857,11 @@ impl VmMigration {
     pub fn list_replication_cycles(
         &self,
         parent: impl Into<std::string::String>,
+        page_token: impl Into<std::string::String>,
     ) -> super::builder::vm_migration::ListReplicationCycles {
         super::builder::vm_migration::ListReplicationCycles::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_page_token(page_token.into())
     }
 
     /// Gets details of a single ReplicationCycle.

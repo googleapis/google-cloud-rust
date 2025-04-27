@@ -134,9 +134,11 @@ impl DatasetService {
     pub fn insert_dataset(
         &self,
         project_id: impl Into<std::string::String>,
+        dataset: impl Into<crate::model::Dataset>,
     ) -> super::builder::dataset_service::InsertDataset {
         super::builder::dataset_service::InsertDataset::new(self.inner.clone())
             .set_project_id(project_id.into())
+            .set_dataset(dataset.into())
     }
 
     /// Updates information in an existing dataset. The update method replaces the
@@ -147,10 +149,12 @@ impl DatasetService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
+        dataset: impl Into<crate::model::Dataset>,
     ) -> super::builder::dataset_service::PatchDataset {
         super::builder::dataset_service::PatchDataset::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
+            .set_dataset(dataset.into())
     }
 
     /// Updates information in an existing dataset. The update method replaces the
@@ -160,10 +164,12 @@ impl DatasetService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
+        dataset: impl Into<crate::model::Dataset>,
     ) -> super::builder::dataset_service::UpdateDataset {
         super::builder::dataset_service::UpdateDataset::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
+            .set_dataset(dataset.into())
     }
 
     /// Deletes the dataset specified by the datasetId value. Before you can delete
@@ -336,11 +342,13 @@ impl ModelService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         model_id: impl Into<std::string::String>,
+        model: impl Into<crate::model::Model>,
     ) -> super::builder::model_service::PatchModel {
         super::builder::model_service::PatchModel::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_model_id(model_id.into())
+            .set_model(model.into())
     }
 
     /// Deletes the model specified by modelId from the dataset.
@@ -586,10 +594,12 @@ impl RoutineService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
+        routine: impl Into<crate::model::Routine>,
     ) -> super::builder::routine_service::InsertRoutine {
         super::builder::routine_service::InsertRoutine::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
+            .set_routine(routine.into())
     }
 
     /// Updates information in an existing routine. The update method replaces the
@@ -599,11 +609,13 @@ impl RoutineService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         routine_id: impl Into<std::string::String>,
+        routine: impl Into<crate::model::Routine>,
     ) -> super::builder::routine_service::UpdateRoutine {
         super::builder::routine_service::UpdateRoutine::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_routine_id(routine_id.into())
+            .set_routine(routine.into())
     }
 
     /// Deletes the routine specified by routineId from the dataset.
@@ -768,11 +780,13 @@ impl RowAccessPolicyService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
+        row_access_policy: impl Into<crate::model::RowAccessPolicy>,
     ) -> super::builder::row_access_policy_service::CreateRowAccessPolicy {
         super::builder::row_access_policy_service::CreateRowAccessPolicy::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_table_id(table_id.into())
+            .set_row_access_policy(row_access_policy.into())
     }
 
     /// Updates a row access policy.
@@ -782,12 +796,14 @@ impl RowAccessPolicyService {
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
         policy_id: impl Into<std::string::String>,
+        row_access_policy: impl Into<crate::model::RowAccessPolicy>,
     ) -> super::builder::row_access_policy_service::UpdateRowAccessPolicy {
         super::builder::row_access_policy_service::UpdateRowAccessPolicy::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_table_id(table_id.into())
             .set_policy_id(policy_id.into())
+            .set_row_access_policy(row_access_policy.into())
     }
 
     /// Deletes a row access policy.
@@ -811,6 +827,7 @@ impl RowAccessPolicyService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
+        policy_ids: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::row_access_policy_service::BatchDeleteRowAccessPolicies {
         super::builder::row_access_policy_service::BatchDeleteRowAccessPolicies::new(
             self.inner.clone(),
@@ -818,6 +835,7 @@ impl RowAccessPolicyService {
         .set_project_id(project_id.into())
         .set_dataset_id(dataset_id.into())
         .set_table_id(table_id.into())
+        .set_policy_ids(policy_ids.into_iter().map(|v| v.into()))
     }
 }
 
@@ -942,10 +960,12 @@ impl TableService {
         &self,
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
+        table: impl Into<crate::model::Table>,
     ) -> super::builder::table_service::InsertTable {
         super::builder::table_service::InsertTable::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
+            .set_table(table.into())
     }
 
     /// Updates information in an existing table. The update method replaces the
@@ -957,11 +977,13 @@ impl TableService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
+        table: impl Into<crate::model::Table>,
     ) -> super::builder::table_service::PatchTable {
         super::builder::table_service::PatchTable::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_table_id(table_id.into())
+            .set_table(table.into())
     }
 
     /// Updates information in an existing table. The update method replaces the
@@ -972,11 +994,13 @@ impl TableService {
         project_id: impl Into<std::string::String>,
         dataset_id: impl Into<std::string::String>,
         table_id: impl Into<std::string::String>,
+        table: impl Into<crate::model::Table>,
     ) -> super::builder::table_service::UpdateTable {
         super::builder::table_service::UpdateTable::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_dataset_id(dataset_id.into())
             .set_table_id(table_id.into())
+            .set_table(table.into())
     }
 
     /// Deletes the table specified by tableId from the dataset.

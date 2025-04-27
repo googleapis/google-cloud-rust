@@ -160,8 +160,12 @@ impl ServiceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_service(&self) -> super::builder::service_manager::CreateService {
+    pub fn create_service(
+        &self,
+        service: impl Into<crate::model::ManagedService>,
+    ) -> super::builder::service_manager::CreateService {
         super::builder::service_manager::CreateService::new(self.inner.clone())
+            .set_service(service.into())
     }
 
     /// Deletes a managed service. This method will change the service to the
@@ -250,9 +254,11 @@ impl ServiceManager {
     pub fn create_service_config(
         &self,
         service_name: impl Into<std::string::String>,
+        service_config: impl Into<api::model::Service>,
     ) -> super::builder::service_manager::CreateServiceConfig {
         super::builder::service_manager::CreateServiceConfig::new(self.inner.clone())
             .set_service_name(service_name.into())
+            .set_service_config(service_config.into())
     }
 
     /// Creates a new service configuration (version) for a managed service based
@@ -284,9 +290,11 @@ impl ServiceManager {
     pub fn submit_config_source(
         &self,
         service_name: impl Into<std::string::String>,
+        config_source: impl Into<crate::model::ConfigSource>,
     ) -> super::builder::service_manager::SubmitConfigSource {
         super::builder::service_manager::SubmitConfigSource::new(self.inner.clone())
             .set_service_name(service_name.into())
+            .set_config_source(config_source.into())
     }
 
     /// Lists the history of the service configuration rollouts for a managed
@@ -294,9 +302,11 @@ impl ServiceManager {
     pub fn list_service_rollouts(
         &self,
         service_name: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
     ) -> super::builder::service_manager::ListServiceRollouts {
         super::builder::service_manager::ListServiceRollouts::new(self.inner.clone())
             .set_service_name(service_name.into())
+            .set_filter(filter.into())
     }
 
     /// Gets a service configuration
@@ -340,9 +350,11 @@ impl ServiceManager {
     pub fn create_service_rollout(
         &self,
         service_name: impl Into<std::string::String>,
+        rollout: impl Into<crate::model::Rollout>,
     ) -> super::builder::service_manager::CreateServiceRollout {
         super::builder::service_manager::CreateServiceRollout::new(self.inner.clone())
             .set_service_name(service_name.into())
+            .set_rollout(rollout.into())
     }
 
     /// Generates and returns a report (errors, warnings and changes from
@@ -356,8 +368,12 @@ impl ServiceManager {
     /// If GenerateConfigReportRequest.old_value is not specified, this method
     /// will compare GenerateConfigReportRequest.new_value with the last pushed
     /// service configuration.
-    pub fn generate_config_report(&self) -> super::builder::service_manager::GenerateConfigReport {
+    pub fn generate_config_report(
+        &self,
+        new_config: impl Into<wkt::Any>,
+    ) -> super::builder::service_manager::GenerateConfigReport {
         super::builder::service_manager::GenerateConfigReport::new(self.inner.clone())
+            .set_new_config(new_config.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -368,9 +384,11 @@ impl ServiceManager {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::service_manager::SetIamPolicy {
         super::builder::service_manager::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -393,9 +411,11 @@ impl ServiceManager {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::service_manager::TestIamPermissions {
         super::builder::service_manager::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Lists service operations that match the specified filter in the request.

@@ -150,9 +150,13 @@ impl Connectors {
     pub fn create_connection(
         &self,
         parent: impl Into<std::string::String>,
+        connection_id: impl Into<std::string::String>,
+        connection: impl Into<crate::model::Connection>,
     ) -> super::builder::connectors::CreateConnection {
         super::builder::connectors::CreateConnection::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_connection_id(connection_id.into())
+            .set_connection(connection.into())
     }
 
     /// Updates the parameters of a single Connection.
@@ -169,9 +173,11 @@ impl Connectors {
     pub fn update_connection(
         &self,
         connection: impl Into<crate::model::Connection>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::connectors::UpdateConnection {
         super::builder::connectors::UpdateConnection::new(self.inner.clone())
             .set_connection(connection.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a single Connection.
@@ -276,18 +282,22 @@ impl Connectors {
     pub fn list_runtime_entity_schemas(
         &self,
         parent: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
     ) -> super::builder::connectors::ListRuntimeEntitySchemas {
         super::builder::connectors::ListRuntimeEntitySchemas::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_filter(filter.into())
     }
 
     /// List schema of a runtime actions filtered by action name.
     pub fn list_runtime_action_schemas(
         &self,
         parent: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
     ) -> super::builder::connectors::ListRuntimeActionSchemas {
         super::builder::connectors::ListRuntimeActionSchemas::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_filter(filter.into())
     }
 
     /// Gets the runtimeConfig of a location.
@@ -332,9 +342,11 @@ impl Connectors {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::connectors::SetIamPolicy {
         super::builder::connectors::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -357,9 +369,11 @@ impl Connectors {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::connectors::TestIamPermissions {
         super::builder::connectors::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Lists operations that match the specified filter in the request. If

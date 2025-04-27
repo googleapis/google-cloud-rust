@@ -131,17 +131,22 @@ impl Lineage {
     pub fn process_open_lineage_run_event(
         &self,
         parent: impl Into<std::string::String>,
+        open_lineage: impl Into<wkt::Struct>,
     ) -> super::builder::lineage::ProcessOpenLineageRunEvent {
         super::builder::lineage::ProcessOpenLineageRunEvent::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_open_lineage(open_lineage.into())
     }
 
     /// Creates a new process.
     pub fn create_process(
         &self,
         parent: impl Into<std::string::String>,
+        process: impl Into<crate::model::Process>,
     ) -> super::builder::lineage::CreateProcess {
-        super::builder::lineage::CreateProcess::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::lineage::CreateProcess::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_process(process.into())
     }
 
     /// Updates a process.
@@ -191,8 +196,11 @@ impl Lineage {
     pub fn create_run(
         &self,
         parent: impl Into<std::string::String>,
+        run: impl Into<crate::model::Run>,
     ) -> super::builder::lineage::CreateRun {
-        super::builder::lineage::CreateRun::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::lineage::CreateRun::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_run(run.into())
     }
 
     /// Updates a run.
@@ -239,9 +247,11 @@ impl Lineage {
     pub fn create_lineage_event(
         &self,
         parent: impl Into<std::string::String>,
+        lineage_event: impl Into<crate::model::LineageEvent>,
     ) -> super::builder::lineage::CreateLineageEvent {
         super::builder::lineage::CreateLineageEvent::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_lineage_event(lineage_event.into())
     }
 
     /// Gets details of a specified lineage event.
@@ -305,9 +315,11 @@ impl Lineage {
     pub fn batch_search_link_processes(
         &self,
         parent: impl Into<std::string::String>,
+        links: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::lineage::BatchSearchLinkProcesses {
         super::builder::lineage::BatchSearchLinkProcesses::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_links(links.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

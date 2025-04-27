@@ -274,9 +274,13 @@ impl RegistrationService {
     pub fn create_namespace(
         &self,
         parent: impl Into<std::string::String>,
+        namespace_id: impl Into<std::string::String>,
+        namespace: impl Into<crate::model::Namespace>,
     ) -> super::builder::registration_service::CreateNamespace {
         super::builder::registration_service::CreateNamespace::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_namespace_id(namespace_id.into())
+            .set_namespace(namespace.into())
     }
 
     /// Lists all namespaces.
@@ -301,9 +305,11 @@ impl RegistrationService {
     pub fn update_namespace(
         &self,
         namespace: impl Into<crate::model::Namespace>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::registration_service::UpdateNamespace {
         super::builder::registration_service::UpdateNamespace::new(self.inner.clone())
             .set_namespace(namespace.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a namespace. This also deletes all services and endpoints in
@@ -320,9 +326,13 @@ impl RegistrationService {
     pub fn create_service(
         &self,
         parent: impl Into<std::string::String>,
+        service_id: impl Into<std::string::String>,
+        service: impl Into<crate::model::Service>,
     ) -> super::builder::registration_service::CreateService {
         super::builder::registration_service::CreateService::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_service_id(service_id.into())
+            .set_service(service.into())
     }
 
     /// Lists all services belonging to a namespace.
@@ -347,9 +357,11 @@ impl RegistrationService {
     pub fn update_service(
         &self,
         service: impl Into<crate::model::Service>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::registration_service::UpdateService {
         super::builder::registration_service::UpdateService::new(self.inner.clone())
             .set_service(service.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a service. This also deletes all endpoints associated with
@@ -366,9 +378,13 @@ impl RegistrationService {
     pub fn create_endpoint(
         &self,
         parent: impl Into<std::string::String>,
+        endpoint_id: impl Into<std::string::String>,
+        endpoint: impl Into<crate::model::Endpoint>,
     ) -> super::builder::registration_service::CreateEndpoint {
         super::builder::registration_service::CreateEndpoint::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_endpoint_id(endpoint_id.into())
+            .set_endpoint(endpoint.into())
     }
 
     /// Lists all endpoints.
@@ -393,9 +409,11 @@ impl RegistrationService {
     pub fn update_endpoint(
         &self,
         endpoint: impl Into<crate::model::Endpoint>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::registration_service::UpdateEndpoint {
         super::builder::registration_service::UpdateEndpoint::new(self.inner.clone())
             .set_endpoint(endpoint.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes an endpoint.
@@ -420,18 +438,22 @@ impl RegistrationService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::registration_service::SetIamPolicy {
         super::builder::registration_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Tests IAM permissions for a resource (namespace or service only).
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::registration_service::TestIamPermissions {
         super::builder::registration_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Lists information about the supported locations for this service.

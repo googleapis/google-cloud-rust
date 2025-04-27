@@ -147,9 +147,11 @@ impl CloudBilling {
     pub fn update_billing_account(
         &self,
         name: impl Into<std::string::String>,
+        account: impl Into<crate::model::BillingAccount>,
     ) -> super::builder::cloud_billing::UpdateBillingAccount {
         super::builder::cloud_billing::UpdateBillingAccount::new(self.inner.clone())
             .set_name(name.into())
+            .set_account(account.into())
     }
 
     /// This method creates [billing
@@ -167,8 +169,12 @@ impl CloudBilling {
     /// [administrators](https://cloud.google.com/billing/docs/how-to/billing-access).
     /// This method will return an error if the parent account has not been
     /// provisioned for subaccounts.
-    pub fn create_billing_account(&self) -> super::builder::cloud_billing::CreateBillingAccount {
+    pub fn create_billing_account(
+        &self,
+        billing_account: impl Into<crate::model::BillingAccount>,
+    ) -> super::builder::cloud_billing::CreateBillingAccount {
         super::builder::cloud_billing::CreateBillingAccount::new(self.inner.clone())
+            .set_billing_account(billing_account.into())
     }
 
     /// Lists the projects associated with a billing account. The current
@@ -256,9 +262,11 @@ impl CloudBilling {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::cloud_billing::SetIamPolicy {
         super::builder::cloud_billing::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Tests the access control policy for a billing account. This method takes
@@ -267,18 +275,22 @@ impl CloudBilling {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::cloud_billing::TestIamPermissions {
         super::builder::cloud_billing::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Changes which parent organization a billing account belongs to.
     pub fn move_billing_account(
         &self,
         name: impl Into<std::string::String>,
+        destination_parent: impl Into<std::string::String>,
     ) -> super::builder::cloud_billing::MoveBillingAccount {
         super::builder::cloud_billing::MoveBillingAccount::new(self.inner.clone())
             .set_name(name.into())
+            .set_destination_parent(destination_parent.into())
     }
 }
 

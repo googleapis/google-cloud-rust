@@ -220,9 +220,11 @@ impl DocumentProcessorService {
     pub fn train_processor_version(
         &self,
         parent: impl Into<std::string::String>,
+        processor_version: impl Into<crate::model::ProcessorVersion>,
     ) -> super::builder::document_processor_service::TrainProcessorVersion {
         super::builder::document_processor_service::TrainProcessorVersion::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_processor_version(processor_version.into())
     }
 
     /// Gets a processor version detail.
@@ -315,9 +317,11 @@ impl DocumentProcessorService {
     pub fn create_processor(
         &self,
         parent: impl Into<std::string::String>,
+        processor: impl Into<crate::model::Processor>,
     ) -> super::builder::document_processor_service::CreateProcessor {
         super::builder::document_processor_service::CreateProcessor::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_processor(processor.into())
     }
 
     /// Deletes the processor, unloads all deployed model artifacts if it was
@@ -400,11 +404,13 @@ impl DocumentProcessorService {
     pub fn set_default_processor_version(
         &self,
         processor: impl Into<std::string::String>,
+        default_processor_version: impl Into<std::string::String>,
     ) -> super::builder::document_processor_service::SetDefaultProcessorVersion {
         super::builder::document_processor_service::SetDefaultProcessorVersion::new(
             self.inner.clone(),
         )
         .set_processor(processor.into())
+        .set_default_processor_version(default_processor_version.into())
     }
 
     /// Send a document for Human Review. The input document should be processed by

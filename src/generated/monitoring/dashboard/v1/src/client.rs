@@ -131,9 +131,11 @@ impl DashboardsService {
     pub fn create_dashboard(
         &self,
         parent: impl Into<std::string::String>,
+        dashboard: impl Into<crate::model::Dashboard>,
     ) -> super::builder::dashboards_service::CreateDashboard {
         super::builder::dashboards_service::CreateDashboard::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_dashboard(dashboard.into())
     }
 
     /// Lists the existing dashboards.

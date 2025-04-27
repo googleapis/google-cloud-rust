@@ -153,63 +153,79 @@ impl ClusterManager {
     /// which CIDR range the cluster is using.
     pub fn create_cluster(
         &self,
+        cluster: impl Into<crate::model::Cluster>,
         parent: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::CreateCluster {
         super::builder::cluster_manager::CreateCluster::new(self.inner.clone())
+            .set_cluster(cluster.into())
             .set_parent(parent.into())
     }
 
     /// Updates the settings of a specific cluster.
     pub fn update_cluster(
         &self,
+        update: impl Into<crate::model::ClusterUpdate>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::UpdateCluster {
         super::builder::cluster_manager::UpdateCluster::new(self.inner.clone())
+            .set_update(update.into())
             .set_name(name.into())
     }
 
     /// Updates the version and/or image type for the specified node pool.
     pub fn update_node_pool(
         &self,
+        node_version: impl Into<std::string::String>,
+        image_type: impl Into<std::string::String>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::UpdateNodePool {
         super::builder::cluster_manager::UpdateNodePool::new(self.inner.clone())
+            .set_node_version(node_version.into())
+            .set_image_type(image_type.into())
             .set_name(name.into())
     }
 
     /// Sets the autoscaling settings for the specified node pool.
     pub fn set_node_pool_autoscaling(
         &self,
+        autoscaling: impl Into<crate::model::NodePoolAutoscaling>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::SetNodePoolAutoscaling {
         super::builder::cluster_manager::SetNodePoolAutoscaling::new(self.inner.clone())
+            .set_autoscaling(autoscaling.into())
             .set_name(name.into())
     }
 
     /// Sets the logging service for a specific cluster.
     pub fn set_logging_service(
         &self,
+        logging_service: impl Into<std::string::String>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::SetLoggingService {
         super::builder::cluster_manager::SetLoggingService::new(self.inner.clone())
+            .set_logging_service(logging_service.into())
             .set_name(name.into())
     }
 
     /// Sets the monitoring service for a specific cluster.
     pub fn set_monitoring_service(
         &self,
+        monitoring_service: impl Into<std::string::String>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::SetMonitoringService {
         super::builder::cluster_manager::SetMonitoringService::new(self.inner.clone())
+            .set_monitoring_service(monitoring_service.into())
             .set_name(name.into())
     }
 
     /// Sets the addons for a specific cluster.
     pub fn set_addons_config(
         &self,
+        addons_config: impl Into<crate::model::AddonsConfig>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::SetAddonsConfig {
         super::builder::cluster_manager::SetAddonsConfig::new(self.inner.clone())
+            .set_addons_config(addons_config.into())
             .set_name(name.into())
     }
 
@@ -219,17 +235,23 @@ impl ClusterManager {
     /// instead.
     pub fn set_locations(
         &self,
+        locations: impl IntoIterator<Item = impl Into<std::string::String>>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::SetLocations {
-        super::builder::cluster_manager::SetLocations::new(self.inner.clone()).set_name(name.into())
+        super::builder::cluster_manager::SetLocations::new(self.inner.clone())
+            .set_locations(locations.into_iter().map(|v| v.into()))
+            .set_name(name.into())
     }
 
     /// Updates the master for a specific cluster.
     pub fn update_master(
         &self,
+        master_version: impl Into<std::string::String>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::UpdateMaster {
-        super::builder::cluster_manager::UpdateMaster::new(self.inner.clone()).set_name(name.into())
+        super::builder::cluster_manager::UpdateMaster::new(self.inner.clone())
+            .set_master_version(master_version.into())
+            .set_name(name.into())
     }
 
     /// Sets master auth materials. Currently supports changing the admin password
@@ -237,9 +259,13 @@ impl ClusterManager {
     /// the password.
     pub fn set_master_auth(
         &self,
+        action: impl Into<crate::model::set_master_auth_request::Action>,
+        update: impl Into<crate::model::MasterAuth>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::SetMasterAuth {
         super::builder::cluster_manager::SetMasterAuth::new(self.inner.clone())
+            .set_action(action.into())
+            .set_update(update.into())
             .set_name(name.into())
     }
 
@@ -325,9 +351,11 @@ impl ClusterManager {
     /// Creates a node pool for a cluster.
     pub fn create_node_pool(
         &self,
+        node_pool: impl Into<crate::model::NodePool>,
         parent: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::CreateNodePool {
         super::builder::cluster_manager::CreateNodePool::new(self.inner.clone())
+            .set_node_pool(node_pool.into())
             .set_parent(parent.into())
     }
 
@@ -363,26 +391,44 @@ impl ClusterManager {
     /// Sets the NodeManagement options for a node pool.
     pub fn set_node_pool_management(
         &self,
+        management: impl Into<crate::model::NodeManagement>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::SetNodePoolManagement {
         super::builder::cluster_manager::SetNodePoolManagement::new(self.inner.clone())
+            .set_management(management.into())
             .set_name(name.into())
     }
 
     /// Sets labels on a cluster.
     pub fn set_labels(
         &self,
+        resource_labels: impl IntoIterator<
+            Item = (
+                impl Into<std::string::String>,
+                impl Into<std::string::String>,
+            ),
+        >,
+        label_fingerprint: impl Into<std::string::String>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::SetLabels {
-        super::builder::cluster_manager::SetLabels::new(self.inner.clone()).set_name(name.into())
+        super::builder::cluster_manager::SetLabels::new(self.inner.clone())
+            .set_resource_labels(
+                resource_labels
+                    .into_iter()
+                    .map(|(k, v)| (k.into(), v.into())),
+            )
+            .set_label_fingerprint(label_fingerprint.into())
+            .set_name(name.into())
     }
 
     /// Enables or disables the ABAC authorization mechanism on a cluster.
     pub fn set_legacy_abac(
         &self,
+        enabled: impl Into<bool>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::SetLegacyAbac {
         super::builder::cluster_manager::SetLegacyAbac::new(self.inner.clone())
+            .set_enabled(enabled.into())
             .set_name(name.into())
     }
 
@@ -411,27 +457,39 @@ impl ClusterManager {
     /// [google.container.v1.NodePool.locations]: crate::model::NodePool::locations
     pub fn set_node_pool_size(
         &self,
+        node_count: impl Into<i32>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::SetNodePoolSize {
         super::builder::cluster_manager::SetNodePoolSize::new(self.inner.clone())
+            .set_node_count(node_count.into())
             .set_name(name.into())
     }
 
     /// Enables or disables Network Policy for a cluster.
     pub fn set_network_policy(
         &self,
+        network_policy: impl Into<crate::model::NetworkPolicy>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::SetNetworkPolicy {
         super::builder::cluster_manager::SetNetworkPolicy::new(self.inner.clone())
+            .set_network_policy(network_policy.into())
             .set_name(name.into())
     }
 
     /// Sets the maintenance policy for a cluster.
     pub fn set_maintenance_policy(
         &self,
+        project_id: impl Into<std::string::String>,
+        zone: impl Into<std::string::String>,
+        cluster_id: impl Into<std::string::String>,
+        maintenance_policy: impl Into<crate::model::MaintenancePolicy>,
         name: impl Into<std::string::String>,
     ) -> super::builder::cluster_manager::SetMaintenancePolicy {
         super::builder::cluster_manager::SetMaintenancePolicy::new(self.inner.clone())
+            .set_project_id(project_id.into())
+            .set_zone(zone.into())
+            .set_cluster_id(cluster_id.into())
+            .set_maintenance_policy(maintenance_policy.into())
             .set_name(name.into())
     }
 

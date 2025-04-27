@@ -156,8 +156,13 @@ impl Workflows {
     pub fn create_workflow(
         &self,
         parent: impl Into<std::string::String>,
+        workflow: impl Into<crate::model::Workflow>,
+        workflow_id: impl Into<std::string::String>,
     ) -> super::builder::workflows::CreateWorkflow {
-        super::builder::workflows::CreateWorkflow::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::workflows::CreateWorkflow::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_workflow(workflow.into())
+            .set_workflow_id(workflow_id.into())
     }
 
     /// Deletes a workflow with the specified name.

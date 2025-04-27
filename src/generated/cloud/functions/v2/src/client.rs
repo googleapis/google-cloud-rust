@@ -159,9 +159,11 @@ impl FunctionService {
     pub fn create_function(
         &self,
         parent: impl Into<std::string::String>,
+        function: impl Into<crate::model::Function>,
     ) -> super::builder::function_service::CreateFunction {
         super::builder::function_service::CreateFunction::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_function(function.into())
     }
 
     /// Updates existing function.
@@ -274,9 +276,11 @@ impl FunctionService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::function_service::SetIamPolicy {
         super::builder::function_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -299,9 +303,11 @@ impl FunctionService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::function_service::TestIamPermissions {
         super::builder::function_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

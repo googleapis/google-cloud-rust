@@ -130,16 +130,27 @@ impl TraceService {
     pub fn batch_write_spans(
         &self,
         name: impl Into<std::string::String>,
+        spans: impl IntoIterator<Item = impl Into<crate::model::Span>>,
     ) -> super::builder::trace_service::BatchWriteSpans {
         super::builder::trace_service::BatchWriteSpans::new(self.inner.clone())
             .set_name(name.into())
+            .set_spans(spans.into_iter().map(|v| v.into()))
     }
 
     /// Creates a new span.
     pub fn create_span(
         &self,
         name: impl Into<std::string::String>,
+        span_id: impl Into<std::string::String>,
+        display_name: impl Into<crate::model::TruncatableString>,
+        start_time: impl Into<wkt::Timestamp>,
+        end_time: impl Into<wkt::Timestamp>,
     ) -> super::builder::trace_service::CreateSpan {
-        super::builder::trace_service::CreateSpan::new(self.inner.clone()).set_name(name.into())
+        super::builder::trace_service::CreateSpan::new(self.inner.clone())
+            .set_name(name.into())
+            .set_span_id(span_id.into())
+            .set_display_name(display_name.into())
+            .set_start_time(start_time.into())
+            .set_end_time(end_time.into())
     }
 }

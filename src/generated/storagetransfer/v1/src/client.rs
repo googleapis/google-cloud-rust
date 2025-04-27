@@ -142,8 +142,10 @@ impl StorageTransferService {
     /// Creates a transfer job that runs periodically.
     pub fn create_transfer_job(
         &self,
+        transfer_job: impl Into<crate::model::TransferJob>,
     ) -> super::builder::storage_transfer_service::CreateTransferJob {
         super::builder::storage_transfer_service::CreateTransferJob::new(self.inner.clone())
+            .set_transfer_job(transfer_job.into())
     }
 
     /// Updates a transfer job. Updating a job's transfer spec does not affect
@@ -162,23 +164,33 @@ impl StorageTransferService {
     pub fn update_transfer_job(
         &self,
         job_name: impl Into<std::string::String>,
+        project_id: impl Into<std::string::String>,
+        transfer_job: impl Into<crate::model::TransferJob>,
     ) -> super::builder::storage_transfer_service::UpdateTransferJob {
         super::builder::storage_transfer_service::UpdateTransferJob::new(self.inner.clone())
             .set_job_name(job_name.into())
+            .set_project_id(project_id.into())
+            .set_transfer_job(transfer_job.into())
     }
 
     /// Gets a transfer job.
     pub fn get_transfer_job(
         &self,
         job_name: impl Into<std::string::String>,
+        project_id: impl Into<std::string::String>,
     ) -> super::builder::storage_transfer_service::GetTransferJob {
         super::builder::storage_transfer_service::GetTransferJob::new(self.inner.clone())
             .set_job_name(job_name.into())
+            .set_project_id(project_id.into())
     }
 
     /// Lists transfer jobs.
-    pub fn list_transfer_jobs(&self) -> super::builder::storage_transfer_service::ListTransferJobs {
+    pub fn list_transfer_jobs(
+        &self,
+        filter: impl Into<std::string::String>,
+    ) -> super::builder::storage_transfer_service::ListTransferJobs {
         super::builder::storage_transfer_service::ListTransferJobs::new(self.inner.clone())
+            .set_filter(filter.into())
     }
 
     /// Pauses a transfer operation.
@@ -216,9 +228,11 @@ impl StorageTransferService {
     pub fn run_transfer_job(
         &self,
         job_name: impl Into<std::string::String>,
+        project_id: impl Into<std::string::String>,
     ) -> super::builder::storage_transfer_service::RunTransferJob {
         super::builder::storage_transfer_service::RunTransferJob::new(self.inner.clone())
             .set_job_name(job_name.into())
+            .set_project_id(project_id.into())
     }
 
     /// Deletes a transfer job. Deleting a transfer job sets its status to
@@ -228,18 +242,24 @@ impl StorageTransferService {
     pub fn delete_transfer_job(
         &self,
         job_name: impl Into<std::string::String>,
+        project_id: impl Into<std::string::String>,
     ) -> super::builder::storage_transfer_service::DeleteTransferJob {
         super::builder::storage_transfer_service::DeleteTransferJob::new(self.inner.clone())
             .set_job_name(job_name.into())
+            .set_project_id(project_id.into())
     }
 
     /// Creates an agent pool resource.
     pub fn create_agent_pool(
         &self,
         project_id: impl Into<std::string::String>,
+        agent_pool: impl Into<crate::model::AgentPool>,
+        agent_pool_id: impl Into<std::string::String>,
     ) -> super::builder::storage_transfer_service::CreateAgentPool {
         super::builder::storage_transfer_service::CreateAgentPool::new(self.inner.clone())
             .set_project_id(project_id.into())
+            .set_agent_pool(agent_pool.into())
+            .set_agent_pool_id(agent_pool_id.into())
     }
 
     /// Updates an existing agent pool resource.

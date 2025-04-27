@@ -155,9 +155,11 @@ impl AlertPolicyService {
     pub fn create_alert_policy(
         &self,
         name: impl Into<std::string::String>,
+        alert_policy: impl Into<crate::model::AlertPolicy>,
     ) -> super::builder::alert_policy_service::CreateAlertPolicy {
         super::builder::alert_policy_service::CreateAlertPolicy::new(self.inner.clone())
             .set_name(name.into())
+            .set_alert_policy(alert_policy.into())
     }
 
     /// Deletes an alerting policy.
@@ -321,8 +323,11 @@ impl GroupService {
     pub fn create_group(
         &self,
         name: impl Into<std::string::String>,
+        group: impl Into<crate::model::Group>,
     ) -> super::builder::group_service::CreateGroup {
-        super::builder::group_service::CreateGroup::new(self.inner.clone()).set_name(name.into())
+        super::builder::group_service::CreateGroup::new(self.inner.clone())
+            .set_name(name.into())
+            .set_group(group.into())
     }
 
     /// Updates an existing group.
@@ -498,9 +503,11 @@ impl MetricService {
     pub fn create_metric_descriptor(
         &self,
         name: impl Into<std::string::String>,
+        metric_descriptor: impl Into<api::model::MetricDescriptor>,
     ) -> super::builder::metric_service::CreateMetricDescriptor {
         super::builder::metric_service::CreateMetricDescriptor::new(self.inner.clone())
             .set_name(name.into())
+            .set_metric_descriptor(metric_descriptor.into())
     }
 
     /// Deletes a metric descriptor. Only user-created
@@ -518,9 +525,15 @@ impl MetricService {
     pub fn list_time_series(
         &self,
         name: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
+        interval: impl Into<crate::model::TimeInterval>,
+        view: impl Into<crate::model::list_time_series_request::TimeSeriesView>,
     ) -> super::builder::metric_service::ListTimeSeries {
         super::builder::metric_service::ListTimeSeries::new(self.inner.clone())
             .set_name(name.into())
+            .set_filter(filter.into())
+            .set_interval(interval.into())
+            .set_view(view.into())
     }
 
     /// Creates or adds data to one or more time series.
@@ -533,9 +546,11 @@ impl MetricService {
     pub fn create_time_series(
         &self,
         name: impl Into<std::string::String>,
+        time_series: impl IntoIterator<Item = impl Into<crate::model::TimeSeries>>,
     ) -> super::builder::metric_service::CreateTimeSeries {
         super::builder::metric_service::CreateTimeSeries::new(self.inner.clone())
             .set_name(name.into())
+            .set_time_series(time_series.into_iter().map(|v| v.into()))
     }
 
     /// Creates or adds data to one or more service time series. A service time
@@ -552,9 +567,11 @@ impl MetricService {
     pub fn create_service_time_series(
         &self,
         name: impl Into<std::string::String>,
+        time_series: impl IntoIterator<Item = impl Into<crate::model::TimeSeries>>,
     ) -> super::builder::metric_service::CreateServiceTimeSeries {
         super::builder::metric_service::CreateServiceTimeSeries::new(self.inner.clone())
             .set_name(name.into())
+            .set_time_series(time_series.into_iter().map(|v| v.into()))
     }
 }
 
@@ -723,11 +740,13 @@ impl NotificationChannelService {
     pub fn create_notification_channel(
         &self,
         name: impl Into<std::string::String>,
+        notification_channel: impl Into<crate::model::NotificationChannel>,
     ) -> super::builder::notification_channel_service::CreateNotificationChannel {
         super::builder::notification_channel_service::CreateNotificationChannel::new(
             self.inner.clone(),
         )
         .set_name(name.into())
+        .set_notification_channel(notification_channel.into())
     }
 
     /// Updates a notification channel. Fields not specified in the field mask
@@ -812,11 +831,13 @@ impl NotificationChannelService {
     pub fn verify_notification_channel(
         &self,
         name: impl Into<std::string::String>,
+        code: impl Into<std::string::String>,
     ) -> super::builder::notification_channel_service::VerifyNotificationChannel {
         super::builder::notification_channel_service::VerifyNotificationChannel::new(
             self.inner.clone(),
         )
         .set_name(name.into())
+        .set_code(code.into())
     }
 }
 
@@ -929,9 +950,11 @@ impl QueryService {
     pub fn query_time_series(
         &self,
         name: impl Into<std::string::String>,
+        query: impl Into<std::string::String>,
     ) -> super::builder::query_service::QueryTimeSeries {
         super::builder::query_service::QueryTimeSeries::new(self.inner.clone())
             .set_name(name.into())
+            .set_query(query.into())
     }
 }
 
@@ -1044,9 +1067,11 @@ impl ServiceMonitoringService {
     pub fn create_service(
         &self,
         parent: impl Into<std::string::String>,
+        service: impl Into<crate::model::Service>,
     ) -> super::builder::service_monitoring_service::CreateService {
         super::builder::service_monitoring_service::CreateService::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_service(service.into())
     }
 
     /// Get the named `Service`.
@@ -1089,11 +1114,13 @@ impl ServiceMonitoringService {
     pub fn create_service_level_objective(
         &self,
         parent: impl Into<std::string::String>,
+        service_level_objective: impl Into<crate::model::ServiceLevelObjective>,
     ) -> super::builder::service_monitoring_service::CreateServiceLevelObjective {
         super::builder::service_monitoring_service::CreateServiceLevelObjective::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_service_level_objective(service_level_objective.into())
     }
 
     /// Get a `ServiceLevelObjective` by name.
@@ -1249,9 +1276,11 @@ impl SnoozeService {
     pub fn create_snooze(
         &self,
         parent: impl Into<std::string::String>,
+        snooze: impl Into<crate::model::Snooze>,
     ) -> super::builder::snooze_service::CreateSnooze {
         super::builder::snooze_service::CreateSnooze::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_snooze(snooze.into())
     }
 
     /// Lists the `Snooze`s associated with a project. Can optionally pass in
@@ -1277,9 +1306,11 @@ impl SnoozeService {
     pub fn update_snooze(
         &self,
         snooze: impl Into<crate::model::Snooze>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::snooze_service::UpdateSnooze {
         super::builder::snooze_service::UpdateSnooze::new(self.inner.clone())
             .set_snooze(snooze.into())
+            .set_update_mask(update_mask.into())
     }
 }
 
@@ -1415,9 +1446,11 @@ impl UptimeCheckService {
     pub fn create_uptime_check_config(
         &self,
         parent: impl Into<std::string::String>,
+        uptime_check_config: impl Into<crate::model::UptimeCheckConfig>,
     ) -> super::builder::uptime_check_service::CreateUptimeCheckConfig {
         super::builder::uptime_check_service::CreateUptimeCheckConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_uptime_check_config(uptime_check_config.into())
     }
 
     /// Updates an Uptime check configuration. You can either replace the entire

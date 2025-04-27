@@ -149,9 +149,11 @@ impl Recommender {
     pub fn mark_insight_accepted(
         &self,
         name: impl Into<std::string::String>,
+        etag: impl Into<std::string::String>,
     ) -> super::builder::recommender::MarkInsightAccepted {
         super::builder::recommender::MarkInsightAccepted::new(self.inner.clone())
             .set_name(name.into())
+            .set_etag(etag.into())
     }
 
     /// Lists recommendations for the specified Cloud Resource. Requires the
@@ -204,9 +206,11 @@ impl Recommender {
     pub fn mark_recommendation_claimed(
         &self,
         name: impl Into<std::string::String>,
+        etag: impl Into<std::string::String>,
     ) -> super::builder::recommender::MarkRecommendationClaimed {
         super::builder::recommender::MarkRecommendationClaimed::new(self.inner.clone())
             .set_name(name.into())
+            .set_etag(etag.into())
     }
 
     /// Marks the Recommendation State as Succeeded. Users can use this method to
@@ -223,9 +227,11 @@ impl Recommender {
     pub fn mark_recommendation_succeeded(
         &self,
         name: impl Into<std::string::String>,
+        etag: impl Into<std::string::String>,
     ) -> super::builder::recommender::MarkRecommendationSucceeded {
         super::builder::recommender::MarkRecommendationSucceeded::new(self.inner.clone())
             .set_name(name.into())
+            .set_etag(etag.into())
     }
 
     /// Marks the Recommendation State as Failed. Users can use this method to
@@ -242,9 +248,11 @@ impl Recommender {
     pub fn mark_recommendation_failed(
         &self,
         name: impl Into<std::string::String>,
+        etag: impl Into<std::string::String>,
     ) -> super::builder::recommender::MarkRecommendationFailed {
         super::builder::recommender::MarkRecommendationFailed::new(self.inner.clone())
             .set_name(name.into())
+            .set_etag(etag.into())
     }
 
     /// Gets the requested Recommender Config. There is only one instance of the

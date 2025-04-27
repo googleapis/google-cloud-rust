@@ -190,8 +190,11 @@ impl OrgPolicy {
     pub fn create_policy(
         &self,
         parent: impl Into<std::string::String>,
+        policy: impl Into<crate::model::Policy>,
     ) -> super::builder::org_policy::CreatePolicy {
-        super::builder::org_policy::CreatePolicy::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::org_policy::CreatePolicy::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_policy(policy.into())
     }
 
     /// Updates a policy.
@@ -230,9 +233,11 @@ impl OrgPolicy {
     pub fn create_custom_constraint(
         &self,
         parent: impl Into<std::string::String>,
+        custom_constraint: impl Into<crate::model::CustomConstraint>,
     ) -> super::builder::org_policy::CreateCustomConstraint {
         super::builder::org_policy::CreateCustomConstraint::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_custom_constraint(custom_constraint.into())
     }
 
     /// Updates a custom constraint.

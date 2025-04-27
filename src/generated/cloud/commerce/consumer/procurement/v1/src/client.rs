@@ -134,27 +134,33 @@ impl LicenseManagementService {
     pub fn update_license_pool(
         &self,
         license_pool: impl Into<crate::model::LicensePool>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::license_management_service::UpdateLicensePool {
         super::builder::license_management_service::UpdateLicensePool::new(self.inner.clone())
             .set_license_pool(license_pool.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Assigns a license to a user.
     pub fn assign(
         &self,
         parent: impl Into<std::string::String>,
+        usernames: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::license_management_service::Assign {
         super::builder::license_management_service::Assign::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_usernames(usernames.into_iter().map(|v| v.into()))
     }
 
     /// Unassigns a license from a user.
     pub fn unassign(
         &self,
         parent: impl Into<std::string::String>,
+        usernames: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::license_management_service::Unassign {
         super::builder::license_management_service::Unassign::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_usernames(usernames.into_iter().map(|v| v.into()))
     }
 
     /// Enumerates all users assigned a license.
@@ -314,9 +320,11 @@ impl ConsumerProcurementService {
     pub fn place_order(
         &self,
         parent: impl Into<std::string::String>,
+        display_name: impl Into<std::string::String>,
     ) -> super::builder::consumer_procurement_service::PlaceOrder {
         super::builder::consumer_procurement_service::PlaceOrder::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_display_name(display_name.into())
     }
 
     /// Returns the requested

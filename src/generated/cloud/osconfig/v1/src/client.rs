@@ -130,9 +130,11 @@ impl OsConfigService {
     pub fn execute_patch_job(
         &self,
         parent: impl Into<std::string::String>,
+        instance_filter: impl Into<crate::model::PatchInstanceFilter>,
     ) -> super::builder::os_config_service::ExecutePatchJob {
         super::builder::os_config_service::ExecutePatchJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_filter(instance_filter.into())
     }
 
     /// Get the patch job. This can be used to track the progress of an
@@ -177,9 +179,13 @@ impl OsConfigService {
     pub fn create_patch_deployment(
         &self,
         parent: impl Into<std::string::String>,
+        patch_deployment_id: impl Into<std::string::String>,
+        patch_deployment: impl Into<crate::model::PatchDeployment>,
     ) -> super::builder::os_config_service::CreatePatchDeployment {
         super::builder::os_config_service::CreatePatchDeployment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_patch_deployment_id(patch_deployment_id.into())
+            .set_patch_deployment(patch_deployment.into())
     }
 
     /// Get an OS Config patch deployment.
@@ -388,9 +394,13 @@ impl OsConfigZonalService {
     pub fn create_os_policy_assignment(
         &self,
         parent: impl Into<std::string::String>,
+        os_policy_assignment: impl Into<crate::model::OSPolicyAssignment>,
+        os_policy_assignment_id: impl Into<std::string::String>,
     ) -> super::builder::os_config_zonal_service::CreateOSPolicyAssignment {
         super::builder::os_config_zonal_service::CreateOSPolicyAssignment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_os_policy_assignment(os_policy_assignment.into())
+            .set_os_policy_assignment_id(os_policy_assignment_id.into())
     }
 
     /// Update an existing OS policy assignment.

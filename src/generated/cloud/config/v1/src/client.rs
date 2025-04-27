@@ -157,8 +157,13 @@ impl Config {
     pub fn create_deployment(
         &self,
         parent: impl Into<std::string::String>,
+        deployment_id: impl Into<std::string::String>,
+        deployment: impl Into<crate::model::Deployment>,
     ) -> super::builder::config::CreateDeployment {
-        super::builder::config::CreateDeployment::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::config::CreateDeployment::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_deployment_id(deployment_id.into())
+            .set_deployment(deployment.into())
     }
 
     /// Updates a [Deployment][google.cloud.config.v1.Deployment].
@@ -266,16 +271,22 @@ impl Config {
     pub fn import_statefile(
         &self,
         parent: impl Into<std::string::String>,
+        lock_id: impl Into<i64>,
     ) -> super::builder::config::ImportStatefile {
-        super::builder::config::ImportStatefile::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::config::ImportStatefile::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_lock_id(lock_id.into())
     }
 
     /// Deletes Terraform state file in a given deployment.
     pub fn delete_statefile(
         &self,
         name: impl Into<std::string::String>,
+        lock_id: impl Into<i64>,
     ) -> super::builder::config::DeleteStatefile {
-        super::builder::config::DeleteStatefile::new(self.inner.clone()).set_name(name.into())
+        super::builder::config::DeleteStatefile::new(self.inner.clone())
+            .set_name(name.into())
+            .set_lock_id(lock_id.into())
     }
 
     /// Locks a deployment.
@@ -310,8 +321,11 @@ impl Config {
     pub fn unlock_deployment(
         &self,
         name: impl Into<std::string::String>,
+        lock_id: impl Into<i64>,
     ) -> super::builder::config::UnlockDeployment {
-        super::builder::config::UnlockDeployment::new(self.inner.clone()).set_name(name.into())
+        super::builder::config::UnlockDeployment::new(self.inner.clone())
+            .set_name(name.into())
+            .set_lock_id(lock_id.into())
     }
 
     /// Exports the lock info on a locked deployment.
@@ -338,8 +352,11 @@ impl Config {
     pub fn create_preview(
         &self,
         parent: impl Into<std::string::String>,
+        preview: impl Into<crate::model::Preview>,
     ) -> super::builder::config::CreatePreview {
-        super::builder::config::CreatePreview::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::config::CreatePreview::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_preview(preview.into())
     }
 
     /// Gets details about a [Preview][google.cloud.config.v1.Preview].
@@ -441,8 +458,11 @@ impl Config {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::config::SetIamPolicy {
-        super::builder::config::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+        super::builder::config::SetIamPolicy::new(self.inner.clone())
+            .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -464,9 +484,11 @@ impl Config {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::config::TestIamPermissions {
         super::builder::config::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

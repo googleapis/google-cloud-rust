@@ -153,9 +153,13 @@ impl DataMigrationService {
     pub fn create_migration_job(
         &self,
         parent: impl Into<std::string::String>,
+        migration_job_id: impl Into<std::string::String>,
+        migration_job: impl Into<crate::model::MigrationJob>,
     ) -> super::builder::data_migration_service::CreateMigrationJob {
         super::builder::data_migration_service::CreateMigrationJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_migration_job_id(migration_job_id.into())
+            .set_migration_job(migration_job.into())
     }
 
     /// Updates the parameters of a single migration job.
@@ -171,9 +175,11 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_migration_job(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         migration_job: impl Into<crate::model::MigrationJob>,
     ) -> super::builder::data_migration_service::UpdateMigrationJob {
         super::builder::data_migration_service::UpdateMigrationJob::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_migration_job(migration_job.into())
     }
 
@@ -320,9 +326,11 @@ impl DataMigrationService {
     pub fn generate_ssh_script(
         &self,
         migration_job: impl Into<std::string::String>,
+        vm: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::GenerateSshScript {
         super::builder::data_migration_service::GenerateSshScript::new(self.inner.clone())
             .set_migration_job(migration_job.into())
+            .set_vm(vm.into())
     }
 
     /// Generate a TCP Proxy configuration script to configure a cloud-hosted VM
@@ -330,9 +338,15 @@ impl DataMigrationService {
     pub fn generate_tcp_proxy_script(
         &self,
         migration_job: impl Into<std::string::String>,
+        vm_name: impl Into<std::string::String>,
+        vm_machine_type: impl Into<std::string::String>,
+        vm_subnet: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::GenerateTcpProxyScript {
         super::builder::data_migration_service::GenerateTcpProxyScript::new(self.inner.clone())
             .set_migration_job(migration_job.into())
+            .set_vm_name(vm_name.into())
+            .set_vm_machine_type(vm_machine_type.into())
+            .set_vm_subnet(vm_subnet.into())
     }
 
     /// Retrieves a list of all connection profiles in a given project and
@@ -368,9 +382,13 @@ impl DataMigrationService {
     pub fn create_connection_profile(
         &self,
         parent: impl Into<std::string::String>,
+        connection_profile_id: impl Into<std::string::String>,
+        connection_profile: impl Into<crate::model::ConnectionProfile>,
     ) -> super::builder::data_migration_service::CreateConnectionProfile {
         super::builder::data_migration_service::CreateConnectionProfile::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_connection_profile_id(connection_profile_id.into())
+            .set_connection_profile(connection_profile.into())
     }
 
     /// Update the configuration of a single connection profile.
@@ -386,9 +404,11 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_connection_profile(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         connection_profile: impl Into<crate::model::ConnectionProfile>,
     ) -> super::builder::data_migration_service::UpdateConnectionProfile {
         super::builder::data_migration_service::UpdateConnectionProfile::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_connection_profile(connection_profile.into())
     }
 
@@ -427,9 +447,13 @@ impl DataMigrationService {
     pub fn create_private_connection(
         &self,
         parent: impl Into<std::string::String>,
+        private_connection_id: impl Into<std::string::String>,
+        private_connection: impl Into<crate::model::PrivateConnection>,
     ) -> super::builder::data_migration_service::CreatePrivateConnection {
         super::builder::data_migration_service::CreatePrivateConnection::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_private_connection_id(private_connection_id.into())
+            .set_private_connection(private_connection.into())
     }
 
     /// Gets details of a single private connection.
@@ -501,9 +525,13 @@ impl DataMigrationService {
     pub fn create_conversion_workspace(
         &self,
         parent: impl Into<std::string::String>,
+        conversion_workspace_id: impl Into<std::string::String>,
+        conversion_workspace: impl Into<crate::model::ConversionWorkspace>,
     ) -> super::builder::data_migration_service::CreateConversionWorkspace {
         super::builder::data_migration_service::CreateConversionWorkspace::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_conversion_workspace_id(conversion_workspace_id.into())
+            .set_conversion_workspace(conversion_workspace.into())
     }
 
     /// Updates the parameters of a single conversion workspace.
@@ -519,9 +547,11 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_conversion_workspace(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         conversion_workspace: impl Into<crate::model::ConversionWorkspace>,
     ) -> super::builder::data_migration_service::UpdateConversionWorkspace {
         super::builder::data_migration_service::UpdateConversionWorkspace::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_conversion_workspace(conversion_workspace.into())
     }
 
@@ -548,9 +578,13 @@ impl DataMigrationService {
     pub fn create_mapping_rule(
         &self,
         parent: impl Into<std::string::String>,
+        mapping_rule_id: impl Into<std::string::String>,
+        mapping_rule: impl Into<crate::model::MappingRule>,
     ) -> super::builder::data_migration_service::CreateMappingRule {
         super::builder::data_migration_service::CreateMappingRule::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_mapping_rule_id(mapping_rule_id.into())
+            .set_mapping_rule(mapping_rule.into())
     }
 
     /// Deletes a single mapping rule.
@@ -615,9 +649,17 @@ impl DataMigrationService {
     pub fn import_mapping_rules(
         &self,
         parent: impl Into<std::string::String>,
+        rules_format: impl Into<crate::model::ImportRulesFileFormat>,
+        rules_files: impl IntoIterator<
+            Item = impl Into<crate::model::import_mapping_rules_request::RulesFile>,
+        >,
+        auto_commit: impl Into<bool>,
     ) -> super::builder::data_migration_service::ImportMappingRules {
         super::builder::data_migration_service::ImportMappingRules::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_rules_format(rules_format.into())
+            .set_rules_files(rules_files.into_iter().map(|v| v.into()))
+            .set_auto_commit(auto_commit.into())
     }
 
     /// Creates a draft tree schema for the destination database.
@@ -705,9 +747,11 @@ impl DataMigrationService {
     pub fn describe_database_entities(
         &self,
         conversion_workspace: impl Into<std::string::String>,
+        tree: impl Into<crate::model::describe_database_entities_request::DBTreeType>,
     ) -> super::builder::data_migration_service::DescribeDatabaseEntities {
         super::builder::data_migration_service::DescribeDatabaseEntities::new(self.inner.clone())
             .set_conversion_workspace(conversion_workspace.into())
+            .set_tree(tree.into())
     }
 
     /// Searches/lists the background jobs for a specific
@@ -772,9 +816,11 @@ impl DataMigrationService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::data_migration_service::SetIamPolicy {
         super::builder::data_migration_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -797,9 +843,11 @@ impl DataMigrationService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::data_migration_service::TestIamPermissions {
         super::builder::data_migration_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

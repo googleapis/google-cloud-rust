@@ -125,9 +125,11 @@ impl EssentialContactsService {
     pub fn create_contact(
         &self,
         parent: impl Into<std::string::String>,
+        contact: impl Into<crate::model::Contact>,
     ) -> super::builder::essential_contacts_service::CreateContact {
         super::builder::essential_contacts_service::CreateContact::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_contact(contact.into())
     }
 
     /// Updates a contact.
@@ -182,9 +184,13 @@ impl EssentialContactsService {
     /// has been configured correctly.
     pub fn send_test_message(
         &self,
+        contacts: impl IntoIterator<Item = impl Into<std::string::String>>,
         resource: impl Into<std::string::String>,
+        notification_category: impl Into<crate::model::NotificationCategory>,
     ) -> super::builder::essential_contacts_service::SendTestMessage {
         super::builder::essential_contacts_service::SendTestMessage::new(self.inner.clone())
+            .set_contacts(contacts.into_iter().map(|v| v.into()))
             .set_resource(resource.into())
+            .set_notification_category(notification_category.into())
     }
 }

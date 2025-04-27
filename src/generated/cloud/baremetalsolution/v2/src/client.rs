@@ -170,9 +170,11 @@ impl BareMetalSolution {
     pub fn rename_instance(
         &self,
         name: impl Into<std::string::String>,
+        new_instance_id: impl Into<std::string::String>,
     ) -> super::builder::bare_metal_solution::RenameInstance {
         super::builder::bare_metal_solution::RenameInstance::new(self.inner.clone())
             .set_name(name.into())
+            .set_new_instance_id(new_instance_id.into())
     }
 
     /// Perform an ungraceful, hard reset on a server. Equivalent to shutting the
@@ -287,9 +289,11 @@ impl BareMetalSolution {
     pub fn detach_lun(
         &self,
         instance: impl Into<std::string::String>,
+        lun: impl Into<std::string::String>,
     ) -> super::builder::bare_metal_solution::DetachLun {
         super::builder::bare_metal_solution::DetachLun::new(self.inner.clone())
             .set_instance(instance.into())
+            .set_lun(lun.into())
     }
 
     /// Lists the public SSH keys registered for the specified project.
@@ -307,9 +311,13 @@ impl BareMetalSolution {
     pub fn create_ssh_key(
         &self,
         parent: impl Into<std::string::String>,
+        ssh_key: impl Into<crate::model::SSHKey>,
+        ssh_key_id: impl Into<std::string::String>,
     ) -> super::builder::bare_metal_solution::CreateSSHKey {
         super::builder::bare_metal_solution::CreateSSHKey::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_ssh_key(ssh_key.into())
+            .set_ssh_key_id(ssh_key_id.into())
     }
 
     /// Deletes a public SSH key registered in the specified project.
@@ -363,9 +371,11 @@ impl BareMetalSolution {
     pub fn rename_volume(
         &self,
         name: impl Into<std::string::String>,
+        new_volume_id: impl Into<std::string::String>,
     ) -> super::builder::bare_metal_solution::RenameVolume {
         super::builder::bare_metal_solution::RenameVolume::new(self.inner.clone())
             .set_name(name.into())
+            .set_new_volume_id(new_volume_id.into())
     }
 
     /// Skips volume's cooloff and deletes it now.
@@ -459,9 +469,11 @@ impl BareMetalSolution {
     pub fn create_volume_snapshot(
         &self,
         parent: impl Into<std::string::String>,
+        volume_snapshot: impl Into<crate::model::VolumeSnapshot>,
     ) -> super::builder::bare_metal_solution::CreateVolumeSnapshot {
         super::builder::bare_metal_solution::CreateVolumeSnapshot::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_volume_snapshot(volume_snapshot.into())
     }
 
     /// Uses the specified snapshot to restore its parent volume.
@@ -602,9 +614,11 @@ impl BareMetalSolution {
     pub fn create_nfs_share(
         &self,
         parent: impl Into<std::string::String>,
+        nfs_share: impl Into<crate::model::NfsShare>,
     ) -> super::builder::bare_metal_solution::CreateNfsShare {
         super::builder::bare_metal_solution::CreateNfsShare::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_nfs_share(nfs_share.into())
     }
 
     /// RenameNfsShare sets a new name for an nfsshare.
@@ -612,9 +626,11 @@ impl BareMetalSolution {
     pub fn rename_nfs_share(
         &self,
         name: impl Into<std::string::String>,
+        new_nfsshare_id: impl Into<std::string::String>,
     ) -> super::builder::bare_metal_solution::RenameNfsShare {
         super::builder::bare_metal_solution::RenameNfsShare::new(self.inner.clone())
             .set_name(name.into())
+            .set_new_nfsshare_id(new_nfsshare_id.into())
     }
 
     /// Delete an NFS share. The underlying volume is automatically deleted.
@@ -649,9 +665,11 @@ impl BareMetalSolution {
     pub fn submit_provisioning_config(
         &self,
         parent: impl Into<std::string::String>,
+        provisioning_config: impl Into<crate::model::ProvisioningConfig>,
     ) -> super::builder::bare_metal_solution::SubmitProvisioningConfig {
         super::builder::bare_metal_solution::SubmitProvisioningConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_provisioning_config(provisioning_config.into())
     }
 
     /// Get ProvisioningConfig by name.
@@ -667,18 +685,22 @@ impl BareMetalSolution {
     pub fn create_provisioning_config(
         &self,
         parent: impl Into<std::string::String>,
+        provisioning_config: impl Into<crate::model::ProvisioningConfig>,
     ) -> super::builder::bare_metal_solution::CreateProvisioningConfig {
         super::builder::bare_metal_solution::CreateProvisioningConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_provisioning_config(provisioning_config.into())
     }
 
     /// Update existing ProvisioningConfig.
     pub fn update_provisioning_config(
         &self,
         provisioning_config: impl Into<crate::model::ProvisioningConfig>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::bare_metal_solution::UpdateProvisioningConfig {
         super::builder::bare_metal_solution::UpdateProvisioningConfig::new(self.inner.clone())
             .set_provisioning_config(provisioning_config.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// RenameNetwork sets a new name for a network.
@@ -686,9 +708,11 @@ impl BareMetalSolution {
     pub fn rename_network(
         &self,
         name: impl Into<std::string::String>,
+        new_network_id: impl Into<std::string::String>,
     ) -> super::builder::bare_metal_solution::RenameNetwork {
         super::builder::bare_metal_solution::RenameNetwork::new(self.inner.clone())
             .set_name(name.into())
+            .set_new_network_id(new_network_id.into())
     }
 
     /// Retrieves the list of OS images which are currently approved.

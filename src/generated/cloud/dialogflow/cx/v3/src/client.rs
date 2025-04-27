@@ -145,8 +145,11 @@ impl Agents {
     pub fn create_agent(
         &self,
         parent: impl Into<std::string::String>,
+        agent: impl Into<crate::model::Agent>,
     ) -> super::builder::agents::CreateAgent {
-        super::builder::agents::CreateAgent::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::agents::CreateAgent::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_agent(agent.into())
     }
 
     /// Updates the specified agent.
@@ -256,8 +259,11 @@ impl Agents {
     pub fn get_generative_settings(
         &self,
         name: impl Into<std::string::String>,
+        language_code: impl Into<std::string::String>,
     ) -> super::builder::agents::GetGenerativeSettings {
-        super::builder::agents::GetGenerativeSettings::new(self.inner.clone()).set_name(name.into())
+        super::builder::agents::GetGenerativeSettings::new(self.inner.clone())
+            .set_name(name.into())
+            .set_language_code(language_code.into())
     }
 
     /// Updates the generative settings for the agent.
@@ -772,9 +778,11 @@ impl EntityTypes {
     pub fn create_entity_type(
         &self,
         parent: impl Into<std::string::String>,
+        entity_type: impl Into<crate::model::EntityType>,
     ) -> super::builder::entity_types::CreateEntityType {
         super::builder::entity_types::CreateEntityType::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entity_type(entity_type.into())
     }
 
     /// Updates the specified entity type.
@@ -826,9 +834,11 @@ impl EntityTypes {
     pub fn export_entity_types(
         &self,
         parent: impl Into<std::string::String>,
+        entity_types: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::entity_types::ExportEntityTypes {
         super::builder::entity_types::ExportEntityTypes::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entity_types(entity_types.into_iter().map(|v| v.into()))
     }
 
     /// Imports the specified entitytypes into the agent.
@@ -845,9 +855,11 @@ impl EntityTypes {
     pub fn import_entity_types(
         &self,
         parent: impl Into<std::string::String>,
+        merge_option: impl Into<crate::model::import_entity_types_request::MergeOption>,
     ) -> super::builder::entity_types::ImportEntityTypes {
         super::builder::entity_types::ImportEntityTypes::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_merge_option(merge_option.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -1049,9 +1061,11 @@ impl Environments {
     pub fn create_environment(
         &self,
         parent: impl Into<std::string::String>,
+        environment: impl Into<crate::model::Environment>,
     ) -> super::builder::environments::CreateEnvironment {
         super::builder::environments::CreateEnvironment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_environment(environment.into())
     }
 
     /// Updates the specified
@@ -1079,9 +1093,11 @@ impl Environments {
     pub fn update_environment(
         &self,
         environment: impl Into<crate::model::Environment>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::environments::UpdateEnvironment {
         super::builder::environments::UpdateEnvironment::new(self.inner.clone())
             .set_environment(environment.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes the specified
@@ -1178,9 +1194,11 @@ impl Environments {
     pub fn deploy_flow(
         &self,
         environment: impl Into<std::string::String>,
+        flow_version: impl Into<std::string::String>,
     ) -> super::builder::environments::DeployFlow {
         super::builder::environments::DeployFlow::new(self.inner.clone())
             .set_environment(environment.into())
+            .set_flow_version(flow_version.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -1363,9 +1381,11 @@ impl Experiments {
     pub fn create_experiment(
         &self,
         parent: impl Into<std::string::String>,
+        experiment: impl Into<crate::model::Experiment>,
     ) -> super::builder::experiments::CreateExperiment {
         super::builder::experiments::CreateExperiment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_experiment(experiment.into())
     }
 
     /// Updates the specified
@@ -1375,9 +1395,11 @@ impl Experiments {
     pub fn update_experiment(
         &self,
         experiment: impl Into<crate::model::Experiment>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::experiments::UpdateExperiment {
         super::builder::experiments::UpdateExperiment::new(self.inner.clone())
             .set_experiment(experiment.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes the specified
@@ -1569,8 +1591,11 @@ impl Flows {
     pub fn create_flow(
         &self,
         parent: impl Into<std::string::String>,
+        flow: impl Into<crate::model::Flow>,
     ) -> super::builder::flows::CreateFlow {
-        super::builder::flows::CreateFlow::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::flows::CreateFlow::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_flow(flow.into())
     }
 
     /// Deletes a specified flow.
@@ -1893,9 +1918,11 @@ impl Generators {
     pub fn create_generator(
         &self,
         parent: impl Into<std::string::String>,
+        generator: impl Into<crate::model::Generator>,
     ) -> super::builder::generators::CreateGenerator {
         super::builder::generators::CreateGenerator::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_generator(generator.into())
     }
 
     /// Update the specified generator.
@@ -2088,8 +2115,11 @@ impl Intents {
     pub fn create_intent(
         &self,
         parent: impl Into<std::string::String>,
+        intent: impl Into<crate::model::Intent>,
     ) -> super::builder::intents::CreateIntent {
-        super::builder::intents::CreateIntent::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::intents::CreateIntent::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_intent(intent.into())
     }
 
     /// Updates the specified intent.
@@ -2172,8 +2202,11 @@ impl Intents {
     pub fn export_intents(
         &self,
         parent: impl Into<std::string::String>,
+        intents: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::intents::ExportIntents {
-        super::builder::intents::ExportIntents::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::intents::ExportIntents::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_intents(intents.into_iter().map(|v| v.into()))
     }
 
     /// Lists information about the supported locations for this service.
@@ -2344,8 +2377,11 @@ impl Pages {
     pub fn create_page(
         &self,
         parent: impl Into<std::string::String>,
+        page: impl Into<crate::model::Page>,
     ) -> super::builder::pages::CreatePage {
-        super::builder::pages::CreatePage::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::pages::CreatePage::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_page(page.into())
     }
 
     /// Updates the specified page.
@@ -2525,9 +2561,11 @@ impl SecuritySettingsService {
     pub fn create_security_settings(
         &self,
         parent: impl Into<std::string::String>,
+        security_settings: impl Into<crate::model::SecuritySettings>,
     ) -> super::builder::security_settings_service::CreateSecuritySettings {
         super::builder::security_settings_service::CreateSecuritySettings::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_security_settings(security_settings.into())
     }
 
     /// Retrieves the specified
@@ -2550,9 +2588,11 @@ impl SecuritySettingsService {
     pub fn update_security_settings(
         &self,
         security_settings: impl Into<crate::model::SecuritySettings>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::security_settings_service::UpdateSecuritySettings {
         super::builder::security_settings_service::UpdateSecuritySettings::new(self.inner.clone())
             .set_security_settings(security_settings.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Returns the list of all security settings in the specified location.
@@ -2744,8 +2784,11 @@ impl Sessions {
     pub fn detect_intent(
         &self,
         session: impl Into<std::string::String>,
+        query_input: impl Into<crate::model::QueryInput>,
     ) -> super::builder::sessions::DetectIntent {
-        super::builder::sessions::DetectIntent::new(self.inner.clone()).set_session(session.into())
+        super::builder::sessions::DetectIntent::new(self.inner.clone())
+            .set_session(session.into())
+            .set_query_input(query_input.into())
     }
 
     /// Returns preliminary intent match results, doesn't change the session
@@ -2753,8 +2796,11 @@ impl Sessions {
     pub fn match_intent(
         &self,
         session: impl Into<std::string::String>,
+        query_input: impl Into<crate::model::QueryInput>,
     ) -> super::builder::sessions::MatchIntent {
-        super::builder::sessions::MatchIntent::new(self.inner.clone()).set_session(session.into())
+        super::builder::sessions::MatchIntent::new(self.inner.clone())
+            .set_session(session.into())
+            .set_query_input(query_input.into())
     }
 
     /// Fulfills a matched intent returned by
@@ -2780,9 +2826,13 @@ impl Sessions {
     pub fn submit_answer_feedback(
         &self,
         session: impl Into<std::string::String>,
+        response_id: impl Into<std::string::String>,
+        answer_feedback: impl Into<crate::model::AnswerFeedback>,
     ) -> super::builder::sessions::SubmitAnswerFeedback {
         super::builder::sessions::SubmitAnswerFeedback::new(self.inner.clone())
             .set_session(session.into())
+            .set_response_id(response_id.into())
+            .set_answer_feedback(answer_feedback.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -2959,9 +3009,11 @@ impl SessionEntityTypes {
     pub fn create_session_entity_type(
         &self,
         parent: impl Into<std::string::String>,
+        session_entity_type: impl Into<crate::model::SessionEntityType>,
     ) -> super::builder::session_entity_types::CreateSessionEntityType {
         super::builder::session_entity_types::CreateSessionEntityType::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_session_entity_type(session_entity_type.into())
     }
 
     /// Updates the specified session entity type.
@@ -3150,9 +3202,11 @@ impl TestCases {
     pub fn batch_delete_test_cases(
         &self,
         parent: impl Into<std::string::String>,
+        names: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::test_cases::BatchDeleteTestCases {
         super::builder::test_cases::BatchDeleteTestCases::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_names(names.into_iter().map(|v| v.into()))
     }
 
     /// Gets a test case.
@@ -3167,18 +3221,22 @@ impl TestCases {
     pub fn create_test_case(
         &self,
         parent: impl Into<std::string::String>,
+        test_case: impl Into<crate::model::TestCase>,
     ) -> super::builder::test_cases::CreateTestCase {
         super::builder::test_cases::CreateTestCase::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_test_case(test_case.into())
     }
 
     /// Updates the specified test case.
     pub fn update_test_case(
         &self,
         test_case: impl Into<crate::model::TestCase>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::test_cases::UpdateTestCase {
         super::builder::test_cases::UpdateTestCase::new(self.inner.clone())
             .set_test_case(test_case.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Kicks off a test case run.
@@ -3237,18 +3295,22 @@ impl TestCases {
     pub fn batch_run_test_cases(
         &self,
         parent: impl Into<std::string::String>,
+        test_cases: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::test_cases::BatchRunTestCases {
         super::builder::test_cases::BatchRunTestCases::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_test_cases(test_cases.into_iter().map(|v| v.into()))
     }
 
     /// Calculates the test coverage for an agent.
     pub fn calculate_coverage(
         &self,
         agent: impl Into<std::string::String>,
+        r#type: impl Into<crate::model::calculate_coverage_request::CoverageType>,
     ) -> super::builder::test_cases::CalculateCoverage {
         super::builder::test_cases::CalculateCoverage::new(self.inner.clone())
             .set_agent(agent.into())
+            .set_type(r#type.into())
     }
 
     /// Imports the test cases from a Cloud Storage bucket or a local file. It
@@ -3519,9 +3581,11 @@ impl TransitionRouteGroups {
     pub fn create_transition_route_group(
         &self,
         parent: impl Into<std::string::String>,
+        transition_route_group: impl Into<crate::model::TransitionRouteGroup>,
     ) -> super::builder::transition_route_groups::CreateTransitionRouteGroup {
         super::builder::transition_route_groups::CreateTransitionRouteGroup::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_transition_route_group(transition_route_group.into())
     }
 
     /// Updates the specified
@@ -3758,8 +3822,11 @@ impl Versions {
     pub fn create_version(
         &self,
         parent: impl Into<std::string::String>,
+        version: impl Into<crate::model::Version>,
     ) -> super::builder::versions::CreateVersion {
-        super::builder::versions::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::versions::CreateVersion::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_version(version.into())
     }
 
     /// Updates the specified [Version][google.cloud.dialogflow.cx.v3.Version].
@@ -3768,8 +3835,11 @@ impl Versions {
     pub fn update_version(
         &self,
         version: impl Into<crate::model::Version>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::versions::UpdateVersion {
-        super::builder::versions::UpdateVersion::new(self.inner.clone()).set_version(version.into())
+        super::builder::versions::UpdateVersion::new(self.inner.clone())
+            .set_version(version.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes the specified [Version][google.cloud.dialogflow.cx.v3.Version].
@@ -3813,9 +3883,11 @@ impl Versions {
     pub fn compare_versions(
         &self,
         base_version: impl Into<std::string::String>,
+        target_version: impl Into<std::string::String>,
     ) -> super::builder::versions::CompareVersions {
         super::builder::versions::CompareVersions::new(self.inner.clone())
             .set_base_version(base_version.into())
+            .set_target_version(target_version.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -3987,8 +4059,11 @@ impl Webhooks {
     pub fn create_webhook(
         &self,
         parent: impl Into<std::string::String>,
+        webhook: impl Into<crate::model::Webhook>,
     ) -> super::builder::webhooks::CreateWebhook {
-        super::builder::webhooks::CreateWebhook::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::webhooks::CreateWebhook::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_webhook(webhook.into())
     }
 
     /// Updates the specified webhook.

@@ -127,9 +127,11 @@ impl ContactCenterInsights {
     pub fn create_conversation(
         &self,
         parent: impl Into<std::string::String>,
+        conversation: impl Into<crate::model::Conversation>,
     ) -> super::builder::contact_center_insights::CreateConversation {
         super::builder::contact_center_insights::CreateConversation::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_conversation(conversation.into())
     }
 
     /// Create a long-running conversation upload operation. This method differs
@@ -148,9 +150,11 @@ impl ContactCenterInsights {
     pub fn upload_conversation(
         &self,
         parent: impl Into<std::string::String>,
+        conversation: impl Into<crate::model::Conversation>,
     ) -> super::builder::contact_center_insights::UploadConversation {
         super::builder::contact_center_insights::UploadConversation::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_conversation(conversation.into())
     }
 
     /// Updates a conversation.
@@ -204,9 +208,11 @@ impl ContactCenterInsights {
     pub fn create_analysis(
         &self,
         parent: impl Into<std::string::String>,
+        analysis: impl Into<crate::model::Analysis>,
     ) -> super::builder::contact_center_insights::CreateAnalysis {
         super::builder::contact_center_insights::CreateAnalysis::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_analysis(analysis.into())
     }
 
     /// Gets an analysis.
@@ -250,9 +256,13 @@ impl ContactCenterInsights {
     pub fn bulk_analyze_conversations(
         &self,
         parent: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
+        analysis_percentage: impl Into<f32>,
     ) -> super::builder::contact_center_insights::BulkAnalyzeConversations {
         super::builder::contact_center_insights::BulkAnalyzeConversations::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_filter(filter.into())
+            .set_analysis_percentage(analysis_percentage.into())
     }
 
     /// Deletes multiple conversations in a single request.
@@ -327,9 +337,11 @@ impl ContactCenterInsights {
     pub fn create_issue_model(
         &self,
         parent: impl Into<std::string::String>,
+        issue_model: impl Into<crate::model::IssueModel>,
     ) -> super::builder::contact_center_insights::CreateIssueModel {
         super::builder::contact_center_insights::CreateIssueModel::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_issue_model(issue_model.into())
     }
 
     /// Updates an issue model.
@@ -505,9 +517,11 @@ impl ContactCenterInsights {
     pub fn create_phrase_matcher(
         &self,
         parent: impl Into<std::string::String>,
+        phrase_matcher: impl Into<crate::model::PhraseMatcher>,
     ) -> super::builder::contact_center_insights::CreatePhraseMatcher {
         super::builder::contact_center_insights::CreatePhraseMatcher::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_phrase_matcher(phrase_matcher.into())
     }
 
     /// Gets a phrase matcher.
@@ -568,18 +582,22 @@ impl ContactCenterInsights {
     pub fn update_settings(
         &self,
         settings: impl Into<crate::model::Settings>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::contact_center_insights::UpdateSettings {
         super::builder::contact_center_insights::UpdateSettings::new(self.inner.clone())
             .set_settings(settings.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Creates a analysis rule.
     pub fn create_analysis_rule(
         &self,
         parent: impl Into<std::string::String>,
+        analysis_rule: impl Into<crate::model::AnalysisRule>,
     ) -> super::builder::contact_center_insights::CreateAnalysisRule {
         super::builder::contact_center_insights::CreateAnalysisRule::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_analysis_rule(analysis_rule.into())
     }
 
     /// Get a analysis rule.
@@ -654,9 +672,11 @@ impl ContactCenterInsights {
     pub fn create_view(
         &self,
         parent: impl Into<std::string::String>,
+        view: impl Into<crate::model::View>,
     ) -> super::builder::contact_center_insights::CreateView {
         super::builder::contact_center_insights::CreateView::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_view(view.into())
     }
 
     /// Gets a view.
@@ -709,18 +729,22 @@ impl ContactCenterInsights {
     pub fn query_metrics(
         &self,
         location: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::QueryMetrics {
         super::builder::contact_center_insights::QueryMetrics::new(self.inner.clone())
             .set_location(location.into())
+            .set_filter(filter.into())
     }
 
     /// Create a QaQuestion.
     pub fn create_qa_question(
         &self,
         parent: impl Into<std::string::String>,
+        qa_question: impl Into<crate::model::QaQuestion>,
     ) -> super::builder::contact_center_insights::CreateQaQuestion {
         super::builder::contact_center_insights::CreateQaQuestion::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_qa_question(qa_question.into())
     }
 
     /// Gets a QaQuestion.
@@ -736,9 +760,11 @@ impl ContactCenterInsights {
     pub fn update_qa_question(
         &self,
         qa_question: impl Into<crate::model::QaQuestion>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::contact_center_insights::UpdateQaQuestion {
         super::builder::contact_center_insights::UpdateQaQuestion::new(self.inner.clone())
             .set_qa_question(qa_question.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a QaQuestion.
@@ -763,9 +789,11 @@ impl ContactCenterInsights {
     pub fn create_qa_scorecard(
         &self,
         parent: impl Into<std::string::String>,
+        qa_scorecard: impl Into<crate::model::QaScorecard>,
     ) -> super::builder::contact_center_insights::CreateQaScorecard {
         super::builder::contact_center_insights::CreateQaScorecard::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_qa_scorecard(qa_scorecard.into())
     }
 
     /// Gets a QaScorecard.
@@ -781,9 +809,11 @@ impl ContactCenterInsights {
     pub fn update_qa_scorecard(
         &self,
         qa_scorecard: impl Into<crate::model::QaScorecard>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::contact_center_insights::UpdateQaScorecard {
         super::builder::contact_center_insights::UpdateQaScorecard::new(self.inner.clone())
             .set_qa_scorecard(qa_scorecard.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a QaScorecard.
@@ -808,9 +838,11 @@ impl ContactCenterInsights {
     pub fn create_qa_scorecard_revision(
         &self,
         parent: impl Into<std::string::String>,
+        qa_scorecard_revision: impl Into<crate::model::QaScorecardRevision>,
     ) -> super::builder::contact_center_insights::CreateQaScorecardRevision {
         super::builder::contact_center_insights::CreateQaScorecardRevision::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_qa_scorecard_revision(qa_scorecard_revision.into())
     }
 
     /// Gets a QaScorecardRevision.
@@ -836,9 +868,11 @@ impl ContactCenterInsights {
     pub fn tune_qa_scorecard_revision(
         &self,
         parent: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::TuneQaScorecardRevision {
         super::builder::contact_center_insights::TuneQaScorecardRevision::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_filter(filter.into())
     }
 
     /// Deploy a QaScorecardRevision.
@@ -883,9 +917,11 @@ impl ContactCenterInsights {
     pub fn create_feedback_label(
         &self,
         parent: impl Into<std::string::String>,
+        feedback_label: impl Into<crate::model::FeedbackLabel>,
     ) -> super::builder::contact_center_insights::CreateFeedbackLabel {
         super::builder::contact_center_insights::CreateFeedbackLabel::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_feedback_label(feedback_label.into())
     }
 
     /// List feedback labels.
@@ -910,9 +946,11 @@ impl ContactCenterInsights {
     pub fn update_feedback_label(
         &self,
         feedback_label: impl Into<crate::model::FeedbackLabel>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::contact_center_insights::UpdateFeedbackLabel {
         super::builder::contact_center_insights::UpdateFeedbackLabel::new(self.inner.clone())
             .set_feedback_label(feedback_label.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Delete feedback label.

@@ -157,11 +157,13 @@ impl CrossNetworkAutomationService {
     pub fn create_service_connection_map(
         &self,
         parent: impl Into<std::string::String>,
+        service_connection_map: impl Into<crate::model::ServiceConnectionMap>,
     ) -> super::builder::cross_network_automation_service::CreateServiceConnectionMap {
         super::builder::cross_network_automation_service::CreateServiceConnectionMap::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_service_connection_map(service_connection_map.into())
     }
 
     /// Updates the parameters of a single ServiceConnectionMap.
@@ -242,11 +244,13 @@ impl CrossNetworkAutomationService {
     pub fn create_service_connection_policy(
         &self,
         parent: impl Into<std::string::String>,
+        service_connection_policy: impl Into<crate::model::ServiceConnectionPolicy>,
     ) -> super::builder::cross_network_automation_service::CreateServiceConnectionPolicy {
         super::builder::cross_network_automation_service::CreateServiceConnectionPolicy::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_service_connection_policy(service_connection_policy.into())
     }
 
     /// Updates the parameters of a single ServiceConnectionPolicy.
@@ -389,11 +393,13 @@ impl CrossNetworkAutomationService {
     pub fn create_service_connection_token(
         &self,
         parent: impl Into<std::string::String>,
+        service_connection_token: impl Into<crate::model::ServiceConnectionToken>,
     ) -> super::builder::cross_network_automation_service::CreateServiceConnectionToken {
         super::builder::cross_network_automation_service::CreateServiceConnectionToken::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_service_connection_token(service_connection_token.into())
     }
 
     /// Deletes a single ServiceConnectionToken.
@@ -443,9 +449,11 @@ impl CrossNetworkAutomationService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::cross_network_automation_service::SetIamPolicy {
         super::builder::cross_network_automation_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -468,11 +476,13 @@ impl CrossNetworkAutomationService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::cross_network_automation_service::TestIamPermissions {
         super::builder::cross_network_automation_service::TestIamPermissions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
+        .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -652,8 +662,13 @@ impl HubService {
     pub fn create_hub(
         &self,
         parent: impl Into<std::string::String>,
+        hub_id: impl Into<std::string::String>,
+        hub: impl Into<crate::model::Hub>,
     ) -> super::builder::hub_service::CreateHub {
-        super::builder::hub_service::CreateHub::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::hub_service::CreateHub::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_hub_id(hub_id.into())
+            .set_hub(hub.into())
     }
 
     /// Updates the description and/or labels of a Network Connectivity Center
@@ -743,8 +758,13 @@ impl HubService {
     pub fn create_spoke(
         &self,
         parent: impl Into<std::string::String>,
+        spoke_id: impl Into<std::string::String>,
+        spoke: impl Into<crate::model::Spoke>,
     ) -> super::builder::hub_service::CreateSpoke {
-        super::builder::hub_service::CreateSpoke::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::hub_service::CreateSpoke::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_spoke_id(spoke_id.into())
+            .set_spoke(spoke.into())
     }
 
     /// Updates the parameters of a Network Connectivity Center spoke.
@@ -782,8 +802,11 @@ impl HubService {
     pub fn reject_hub_spoke(
         &self,
         name: impl Into<std::string::String>,
+        spoke_uri: impl Into<std::string::String>,
     ) -> super::builder::hub_service::RejectHubSpoke {
-        super::builder::hub_service::RejectHubSpoke::new(self.inner.clone()).set_name(name.into())
+        super::builder::hub_service::RejectHubSpoke::new(self.inner.clone())
+            .set_name(name.into())
+            .set_spoke_uri(spoke_uri.into())
     }
 
     /// Accepts a proposal to attach a Network Connectivity Center spoke
@@ -801,8 +824,11 @@ impl HubService {
     pub fn accept_hub_spoke(
         &self,
         name: impl Into<std::string::String>,
+        spoke_uri: impl Into<std::string::String>,
     ) -> super::builder::hub_service::AcceptHubSpoke {
-        super::builder::hub_service::AcceptHubSpoke::new(self.inner.clone()).set_name(name.into())
+        super::builder::hub_service::AcceptHubSpoke::new(self.inner.clone())
+            .set_name(name.into())
+            .set_spoke_uri(spoke_uri.into())
     }
 
     /// Accepts a proposal to update a Network Connectivity Center spoke in a hub.
@@ -819,9 +845,13 @@ impl HubService {
     pub fn accept_spoke_update(
         &self,
         name: impl Into<std::string::String>,
+        spoke_uri: impl Into<std::string::String>,
+        spoke_etag: impl Into<std::string::String>,
     ) -> super::builder::hub_service::AcceptSpokeUpdate {
         super::builder::hub_service::AcceptSpokeUpdate::new(self.inner.clone())
             .set_name(name.into())
+            .set_spoke_uri(spoke_uri.into())
+            .set_spoke_etag(spoke_etag.into())
     }
 
     /// Rejects a proposal to update a Network Connectivity Center spoke in a hub.
@@ -838,9 +868,13 @@ impl HubService {
     pub fn reject_spoke_update(
         &self,
         name: impl Into<std::string::String>,
+        spoke_uri: impl Into<std::string::String>,
+        spoke_etag: impl Into<std::string::String>,
     ) -> super::builder::hub_service::RejectSpokeUpdate {
         super::builder::hub_service::RejectSpokeUpdate::new(self.inner.clone())
             .set_name(name.into())
+            .set_spoke_uri(spoke_uri.into())
+            .set_spoke_etag(spoke_etag.into())
     }
 
     /// Deletes a Network Connectivity Center spoke.
@@ -952,9 +986,11 @@ impl HubService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::hub_service::SetIamPolicy {
         super::builder::hub_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -977,9 +1013,11 @@ impl HubService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::hub_service::TestIamPermissions {
         super::builder::hub_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1158,11 +1196,15 @@ impl PolicyBasedRoutingService {
     pub fn create_policy_based_route(
         &self,
         parent: impl Into<std::string::String>,
+        policy_based_route_id: impl Into<std::string::String>,
+        policy_based_route: impl Into<crate::model::PolicyBasedRoute>,
     ) -> super::builder::policy_based_routing_service::CreatePolicyBasedRoute {
         super::builder::policy_based_routing_service::CreatePolicyBasedRoute::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_policy_based_route_id(policy_based_route_id.into())
+        .set_policy_based_route(policy_based_route.into())
     }
 
     /// Deletes a single policy-based route.
@@ -1212,9 +1254,11 @@ impl PolicyBasedRoutingService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::policy_based_routing_service::SetIamPolicy {
         super::builder::policy_based_routing_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -1237,9 +1281,11 @@ impl PolicyBasedRoutingService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::policy_based_routing_service::TestIamPermissions {
         super::builder::policy_based_routing_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

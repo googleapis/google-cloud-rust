@@ -150,9 +150,11 @@ impl IAMPolicy {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<crate::model::Policy>,
     ) -> super::builder::iam_policy::SetIamPolicy {
         super::builder::iam_policy::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource.
@@ -176,8 +178,10 @@ impl IAMPolicy {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::iam_policy::TestIamPermissions {
         super::builder::iam_policy::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 }

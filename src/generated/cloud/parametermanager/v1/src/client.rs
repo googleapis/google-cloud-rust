@@ -143,9 +143,13 @@ impl ParameterManager {
     pub fn create_parameter(
         &self,
         parent: impl Into<std::string::String>,
+        parameter_id: impl Into<std::string::String>,
+        parameter: impl Into<crate::model::Parameter>,
     ) -> super::builder::parameter_manager::CreateParameter {
         super::builder::parameter_manager::CreateParameter::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_parameter_id(parameter_id.into())
+            .set_parameter(parameter.into())
     }
 
     /// Updates a single Parameter.
@@ -197,9 +201,13 @@ impl ParameterManager {
     pub fn create_parameter_version(
         &self,
         parent: impl Into<std::string::String>,
+        parameter_version_id: impl Into<std::string::String>,
+        parameter_version: impl Into<crate::model::ParameterVersion>,
     ) -> super::builder::parameter_manager::CreateParameterVersion {
         super::builder::parameter_manager::CreateParameterVersion::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_parameter_version_id(parameter_version_id.into())
+            .set_parameter_version(parameter_version.into())
     }
 
     /// Updates a single ParameterVersion.

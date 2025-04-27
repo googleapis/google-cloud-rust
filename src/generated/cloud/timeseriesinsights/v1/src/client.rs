@@ -146,9 +146,11 @@ impl TimeseriesInsightsController {
     pub fn create_data_set(
         &self,
         parent: impl Into<std::string::String>,
+        dataset: impl Into<crate::model::DataSet>,
     ) -> super::builder::timeseries_insights_controller::CreateDataSet {
         super::builder::timeseries_insights_controller::CreateDataSet::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_dataset(dataset.into())
     }
 
     /// Delete a [DataSet][google.cloud.timeseriesinsights.v1.DataSet] from the system.
@@ -183,9 +185,11 @@ impl TimeseriesInsightsController {
     pub fn query_data_set(
         &self,
         name: impl Into<std::string::String>,
+        detection_time: impl Into<wkt::Timestamp>,
     ) -> super::builder::timeseries_insights_controller::QueryDataSet {
         super::builder::timeseries_insights_controller::QueryDataSet::new(self.inner.clone())
             .set_name(name.into())
+            .set_detection_time(detection_time.into())
     }
 
     /// Evaluate an explicit slice from a loaded [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
@@ -194,9 +198,13 @@ impl TimeseriesInsightsController {
     pub fn evaluate_slice(
         &self,
         dataset: impl Into<std::string::String>,
+        pinned_dimensions: impl IntoIterator<Item = impl Into<crate::model::PinnedDimension>>,
+        detection_time: impl Into<wkt::Timestamp>,
     ) -> super::builder::timeseries_insights_controller::EvaluateSlice {
         super::builder::timeseries_insights_controller::EvaluateSlice::new(self.inner.clone())
             .set_dataset(dataset.into())
+            .set_pinned_dimensions(pinned_dimensions.into_iter().map(|v| v.into()))
+            .set_detection_time(detection_time.into())
     }
 
     /// Evaluate an explicit timeseries.

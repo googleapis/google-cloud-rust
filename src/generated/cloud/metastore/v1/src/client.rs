@@ -173,9 +173,13 @@ impl DataprocMetastore {
     pub fn create_service(
         &self,
         parent: impl Into<std::string::String>,
+        service_id: impl Into<std::string::String>,
+        service: impl Into<crate::model::Service>,
     ) -> super::builder::dataproc_metastore::CreateService {
         super::builder::dataproc_metastore::CreateService::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_service_id(service_id.into())
+            .set_service(service.into())
     }
 
     /// Updates the parameters of a single service.
@@ -191,9 +195,11 @@ impl DataprocMetastore {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_service(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         service: impl Into<crate::model::Service>,
     ) -> super::builder::dataproc_metastore::UpdateService {
         super::builder::dataproc_metastore::UpdateService::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_service(service.into())
     }
 
@@ -248,9 +254,13 @@ impl DataprocMetastore {
     pub fn create_metadata_import(
         &self,
         parent: impl Into<std::string::String>,
+        metadata_import_id: impl Into<std::string::String>,
+        metadata_import: impl Into<crate::model::MetadataImport>,
     ) -> super::builder::dataproc_metastore::CreateMetadataImport {
         super::builder::dataproc_metastore::CreateMetadataImport::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_metadata_import_id(metadata_import_id.into())
+            .set_metadata_import(metadata_import.into())
     }
 
     /// Updates a single import.
@@ -267,9 +277,11 @@ impl DataprocMetastore {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_metadata_import(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         metadata_import: impl Into<crate::model::MetadataImport>,
     ) -> super::builder::dataproc_metastore::UpdateMetadataImport {
         super::builder::dataproc_metastore::UpdateMetadataImport::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_metadata_import(metadata_import.into())
     }
 
@@ -306,9 +318,11 @@ impl DataprocMetastore {
     pub fn restore_service(
         &self,
         service: impl Into<std::string::String>,
+        backup: impl Into<std::string::String>,
     ) -> super::builder::dataproc_metastore::RestoreService {
         super::builder::dataproc_metastore::RestoreService::new(self.inner.clone())
             .set_service(service.into())
+            .set_backup(backup.into())
     }
 
     /// Lists backups in a service.
@@ -342,9 +356,13 @@ impl DataprocMetastore {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
+        backup_id: impl Into<std::string::String>,
+        backup: impl Into<crate::model::Backup>,
     ) -> super::builder::dataproc_metastore::CreateBackup {
         super::builder::dataproc_metastore::CreateBackup::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup_id(backup_id.into())
+            .set_backup(backup.into())
     }
 
     /// Deletes a single backup.
@@ -380,9 +398,11 @@ impl DataprocMetastore {
     pub fn query_metadata(
         &self,
         service: impl Into<std::string::String>,
+        query: impl Into<std::string::String>,
     ) -> super::builder::dataproc_metastore::QueryMetadata {
         super::builder::dataproc_metastore::QueryMetadata::new(self.inner.clone())
             .set_service(service.into())
+            .set_query(query.into())
     }
 
     /// Move a table to another database.
@@ -399,9 +419,15 @@ impl DataprocMetastore {
     pub fn move_table_to_database(
         &self,
         service: impl Into<std::string::String>,
+        table_name: impl Into<std::string::String>,
+        db_name: impl Into<std::string::String>,
+        destination_db_name: impl Into<std::string::String>,
     ) -> super::builder::dataproc_metastore::MoveTableToDatabase {
         super::builder::dataproc_metastore::MoveTableToDatabase::new(self.inner.clone())
             .set_service(service.into())
+            .set_table_name(table_name.into())
+            .set_db_name(db_name.into())
+            .set_destination_db_name(destination_db_name.into())
     }
 
     /// Alter metadata resource location. The metadata resource can be a database,
@@ -421,9 +447,13 @@ impl DataprocMetastore {
     pub fn alter_metadata_resource_location(
         &self,
         service: impl Into<std::string::String>,
+        resource_name: impl Into<std::string::String>,
+        location_uri: impl Into<std::string::String>,
     ) -> super::builder::dataproc_metastore::AlterMetadataResourceLocation {
         super::builder::dataproc_metastore::AlterMetadataResourceLocation::new(self.inner.clone())
             .set_service(service.into())
+            .set_resource_name(resource_name.into())
+            .set_location_uri(location_uri.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -452,9 +482,11 @@ impl DataprocMetastore {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::dataproc_metastore::SetIamPolicy {
         super::builder::dataproc_metastore::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -477,9 +509,11 @@ impl DataprocMetastore {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::dataproc_metastore::TestIamPermissions {
         super::builder::dataproc_metastore::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -674,9 +708,13 @@ impl DataprocMetastoreFederation {
     pub fn create_federation(
         &self,
         parent: impl Into<std::string::String>,
+        federation_id: impl Into<std::string::String>,
+        federation: impl Into<crate::model::Federation>,
     ) -> super::builder::dataproc_metastore_federation::CreateFederation {
         super::builder::dataproc_metastore_federation::CreateFederation::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_federation_id(federation_id.into())
+            .set_federation(federation.into())
     }
 
     /// Updates the fields of a federation.
@@ -692,9 +730,11 @@ impl DataprocMetastoreFederation {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_federation(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         federation: impl Into<crate::model::Federation>,
     ) -> super::builder::dataproc_metastore_federation::UpdateFederation {
         super::builder::dataproc_metastore_federation::UpdateFederation::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_federation(federation.into())
     }
 
@@ -743,9 +783,11 @@ impl DataprocMetastoreFederation {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::dataproc_metastore_federation::SetIamPolicy {
         super::builder::dataproc_metastore_federation::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -768,9 +810,11 @@ impl DataprocMetastoreFederation {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::dataproc_metastore_federation::TestIamPermissions {
         super::builder::dataproc_metastore_federation::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

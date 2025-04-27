@@ -153,8 +153,11 @@ impl CloudTasks {
     pub fn create_queue(
         &self,
         parent: impl Into<std::string::String>,
+        queue: impl Into<crate::model::Queue>,
     ) -> super::builder::cloud_tasks::CreateQueue {
-        super::builder::cloud_tasks::CreateQueue::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::cloud_tasks::CreateQueue::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_queue(queue.into())
     }
 
     /// Updates a queue.
@@ -292,9 +295,11 @@ impl CloudTasks {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::cloud_tasks::SetIamPolicy {
         super::builder::cloud_tasks::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns permissions that a caller has on a
@@ -310,9 +315,11 @@ impl CloudTasks {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::cloud_tasks::TestIamPermissions {
         super::builder::cloud_tasks::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Lists the tasks in a queue.
@@ -350,8 +357,11 @@ impl CloudTasks {
     pub fn create_task(
         &self,
         parent: impl Into<std::string::String>,
+        task: impl Into<crate::model::Task>,
     ) -> super::builder::cloud_tasks::CreateTask {
-        super::builder::cloud_tasks::CreateTask::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::cloud_tasks::CreateTask::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_task(task.into())
     }
 
     /// Deletes a task.

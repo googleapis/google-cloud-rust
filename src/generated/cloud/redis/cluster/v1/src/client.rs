@@ -180,9 +180,11 @@ impl CloudRedisCluster {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_cluster(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         cluster: impl Into<crate::model::Cluster>,
     ) -> super::builder::cloud_redis_cluster::UpdateCluster {
         super::builder::cloud_redis_cluster::UpdateCluster::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_cluster(cluster.into())
     }
 
@@ -227,9 +229,13 @@ impl CloudRedisCluster {
     pub fn create_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        cluster_id: impl Into<std::string::String>,
+        cluster: impl Into<crate::model::Cluster>,
     ) -> super::builder::cloud_redis_cluster::CreateCluster {
         super::builder::cloud_redis_cluster::CreateCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_cluster_id(cluster_id.into())
+            .set_cluster(cluster.into())
     }
 
     /// Gets the details of certificate authority information for Redis cluster.
@@ -255,9 +261,11 @@ impl CloudRedisCluster {
     pub fn reschedule_cluster_maintenance(
         &self,
         name: impl Into<std::string::String>,
+        reschedule_type: impl Into<crate::model::reschedule_cluster_maintenance_request::RescheduleType>,
     ) -> super::builder::cloud_redis_cluster::RescheduleClusterMaintenance {
         super::builder::cloud_redis_cluster::RescheduleClusterMaintenance::new(self.inner.clone())
             .set_name(name.into())
+            .set_reschedule_type(reschedule_type.into())
     }
 
     /// Lists all backup collections owned by a consumer project in either the

@@ -165,9 +165,11 @@ impl PrivilegedAccessManager {
     pub fn search_entitlements(
         &self,
         parent: impl Into<std::string::String>,
+        caller_access_type: impl Into<crate::model::search_entitlements_request::CallerAccessType>,
     ) -> super::builder::privileged_access_manager::SearchEntitlements {
         super::builder::privileged_access_manager::SearchEntitlements::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_caller_access_type(caller_access_type.into())
     }
 
     /// Gets details of a single entitlement.
@@ -194,9 +196,13 @@ impl PrivilegedAccessManager {
     pub fn create_entitlement(
         &self,
         parent: impl Into<std::string::String>,
+        entitlement_id: impl Into<std::string::String>,
+        entitlement: impl Into<crate::model::Entitlement>,
     ) -> super::builder::privileged_access_manager::CreateEntitlement {
         super::builder::privileged_access_manager::CreateEntitlement::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entitlement_id(entitlement_id.into())
+            .set_entitlement(entitlement.into())
     }
 
     /// Deletes a single entitlement. This method can only be called when there
@@ -253,9 +259,11 @@ impl PrivilegedAccessManager {
     pub fn update_entitlement(
         &self,
         entitlement: impl Into<crate::model::Entitlement>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::privileged_access_manager::UpdateEntitlement {
         super::builder::privileged_access_manager::UpdateEntitlement::new(self.inner.clone())
             .set_entitlement(entitlement.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Lists grants for a given entitlement.
@@ -272,9 +280,11 @@ impl PrivilegedAccessManager {
     pub fn search_grants(
         &self,
         parent: impl Into<std::string::String>,
+        caller_relationship: impl Into<crate::model::search_grants_request::CallerRelationshipType>,
     ) -> super::builder::privileged_access_manager::SearchGrants {
         super::builder::privileged_access_manager::SearchGrants::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_caller_relationship(caller_relationship.into())
     }
 
     /// Get details of a single grant.
@@ -291,9 +301,11 @@ impl PrivilegedAccessManager {
     pub fn create_grant(
         &self,
         parent: impl Into<std::string::String>,
+        grant: impl Into<crate::model::Grant>,
     ) -> super::builder::privileged_access_manager::CreateGrant {
         super::builder::privileged_access_manager::CreateGrant::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_grant(grant.into())
     }
 
     /// `ApproveGrant` is used to approve a grant. This method can only be called

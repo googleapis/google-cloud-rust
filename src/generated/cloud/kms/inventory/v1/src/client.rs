@@ -258,8 +258,10 @@ impl KeyTrackingService {
     pub fn search_protected_resources(
         &self,
         scope: impl Into<std::string::String>,
+        crypto_key: impl Into<std::string::String>,
     ) -> super::builder::key_tracking_service::SearchProtectedResources {
         super::builder::key_tracking_service::SearchProtectedResources::new(self.inner.clone())
             .set_scope(scope.into())
+            .set_crypto_key(crypto_key.into())
     }
 }

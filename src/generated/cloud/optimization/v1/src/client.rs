@@ -180,9 +180,13 @@ impl FleetRouting {
     pub fn batch_optimize_tours(
         &self,
         parent: impl Into<std::string::String>,
+        model_configs: impl IntoIterator<
+            Item = impl Into<crate::model::batch_optimize_tours_request::AsyncModelConfig>,
+        >,
     ) -> super::builder::fleet_routing::BatchOptimizeTours {
         super::builder::fleet_routing::BatchOptimizeTours::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_model_configs(model_configs.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

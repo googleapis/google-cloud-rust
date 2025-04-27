@@ -159,9 +159,13 @@ impl GSuiteAddOns {
     pub fn create_deployment(
         &self,
         parent: impl Into<std::string::String>,
+        deployment_id: impl Into<std::string::String>,
+        deployment: impl Into<crate::model::Deployment>,
     ) -> super::builder::g_suite_add_ons::CreateDeployment {
         super::builder::g_suite_add_ons::CreateDeployment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_deployment_id(deployment_id.into())
+            .set_deployment(deployment.into())
     }
 
     /// Creates or replaces a deployment with the specified name.

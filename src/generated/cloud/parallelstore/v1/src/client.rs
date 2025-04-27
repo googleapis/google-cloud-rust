@@ -166,9 +166,13 @@ impl Parallelstore {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
+        instance_id: impl Into<std::string::String>,
+        instance: impl Into<crate::model::Instance>,
     ) -> super::builder::parallelstore::CreateInstance {
         super::builder::parallelstore::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_id(instance_id.into())
+            .set_instance(instance.into())
     }
 
     /// Updates the parameters of a single instance.
@@ -184,9 +188,11 @@ impl Parallelstore {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_instance(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         instance: impl Into<crate::model::Instance>,
     ) -> super::builder::parallelstore::UpdateInstance {
         super::builder::parallelstore::UpdateInstance::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_instance(instance.into())
     }
 

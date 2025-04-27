@@ -152,9 +152,13 @@ impl DepService {
     pub fn create_lb_traffic_extension(
         &self,
         parent: impl Into<std::string::String>,
+        lb_traffic_extension_id: impl Into<std::string::String>,
+        lb_traffic_extension: impl Into<crate::model::LbTrafficExtension>,
     ) -> super::builder::dep_service::CreateLbTrafficExtension {
         super::builder::dep_service::CreateLbTrafficExtension::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_lb_traffic_extension_id(lb_traffic_extension_id.into())
+            .set_lb_traffic_extension(lb_traffic_extension.into())
     }
 
     /// Updates the parameters of the specified `LbTrafficExtension` resource.
@@ -227,9 +231,13 @@ impl DepService {
     pub fn create_lb_route_extension(
         &self,
         parent: impl Into<std::string::String>,
+        lb_route_extension_id: impl Into<std::string::String>,
+        lb_route_extension: impl Into<crate::model::LbRouteExtension>,
     ) -> super::builder::dep_service::CreateLbRouteExtension {
         super::builder::dep_service::CreateLbRouteExtension::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_lb_route_extension_id(lb_route_extension_id.into())
+            .set_lb_route_extension(lb_route_extension.into())
     }
 
     /// Updates the parameters of the specified `LbRouteExtension` resource.
@@ -294,9 +302,11 @@ impl DepService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::dep_service::SetIamPolicy {
         super::builder::dep_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -319,9 +329,11 @@ impl DepService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::dep_service::TestIamPermissions {
         super::builder::dep_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -499,9 +511,13 @@ impl NetworkServices {
     pub fn create_endpoint_policy(
         &self,
         parent: impl Into<std::string::String>,
+        endpoint_policy_id: impl Into<std::string::String>,
+        endpoint_policy: impl Into<crate::model::EndpointPolicy>,
     ) -> super::builder::network_services::CreateEndpointPolicy {
         super::builder::network_services::CreateEndpointPolicy::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_endpoint_policy_id(endpoint_policy_id.into())
+            .set_endpoint_policy(endpoint_policy.into())
     }
 
     /// Updates the parameters of a single EndpointPolicy.
@@ -573,9 +589,13 @@ impl NetworkServices {
     pub fn create_gateway(
         &self,
         parent: impl Into<std::string::String>,
+        gateway_id: impl Into<std::string::String>,
+        gateway: impl Into<crate::model::Gateway>,
     ) -> super::builder::network_services::CreateGateway {
         super::builder::network_services::CreateGateway::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_gateway_id(gateway_id.into())
+            .set_gateway(gateway.into())
     }
 
     /// Updates the parameters of a single Gateway.
@@ -648,9 +668,13 @@ impl NetworkServices {
     pub fn create_grpc_route(
         &self,
         parent: impl Into<std::string::String>,
+        grpc_route_id: impl Into<std::string::String>,
+        grpc_route: impl Into<crate::model::GrpcRoute>,
     ) -> super::builder::network_services::CreateGrpcRoute {
         super::builder::network_services::CreateGrpcRoute::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_grpc_route_id(grpc_route_id.into())
+            .set_grpc_route(grpc_route.into())
     }
 
     /// Updates the parameters of a single GrpcRoute.
@@ -723,9 +747,13 @@ impl NetworkServices {
     pub fn create_http_route(
         &self,
         parent: impl Into<std::string::String>,
+        http_route_id: impl Into<std::string::String>,
+        http_route: impl Into<crate::model::HttpRoute>,
     ) -> super::builder::network_services::CreateHttpRoute {
         super::builder::network_services::CreateHttpRoute::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_http_route_id(http_route_id.into())
+            .set_http_route(http_route.into())
     }
 
     /// Updates the parameters of a single HttpRoute.
@@ -797,9 +825,13 @@ impl NetworkServices {
     pub fn create_tcp_route(
         &self,
         parent: impl Into<std::string::String>,
+        tcp_route_id: impl Into<std::string::String>,
+        tcp_route: impl Into<crate::model::TcpRoute>,
     ) -> super::builder::network_services::CreateTcpRoute {
         super::builder::network_services::CreateTcpRoute::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_tcp_route_id(tcp_route_id.into())
+            .set_tcp_route(tcp_route.into())
     }
 
     /// Updates the parameters of a single TcpRoute.
@@ -871,9 +903,13 @@ impl NetworkServices {
     pub fn create_tls_route(
         &self,
         parent: impl Into<std::string::String>,
+        tls_route_id: impl Into<std::string::String>,
+        tls_route: impl Into<crate::model::TlsRoute>,
     ) -> super::builder::network_services::CreateTlsRoute {
         super::builder::network_services::CreateTlsRoute::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_tls_route_id(tls_route_id.into())
+            .set_tls_route(tls_route.into())
     }
 
     /// Updates the parameters of a single TlsRoute.
@@ -946,9 +982,13 @@ impl NetworkServices {
     pub fn create_service_binding(
         &self,
         parent: impl Into<std::string::String>,
+        service_binding_id: impl Into<std::string::String>,
+        service_binding: impl Into<crate::model::ServiceBinding>,
     ) -> super::builder::network_services::CreateServiceBinding {
         super::builder::network_services::CreateServiceBinding::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_service_binding_id(service_binding_id.into())
+            .set_service_binding(service_binding.into())
     }
 
     /// Deletes a single ServiceBinding.
@@ -1001,9 +1041,13 @@ impl NetworkServices {
     pub fn create_mesh(
         &self,
         parent: impl Into<std::string::String>,
+        mesh_id: impl Into<std::string::String>,
+        mesh: impl Into<crate::model::Mesh>,
     ) -> super::builder::network_services::CreateMesh {
         super::builder::network_services::CreateMesh::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_mesh_id(mesh_id.into())
+            .set_mesh(mesh.into())
     }
 
     /// Updates the parameters of a single Mesh.
@@ -1067,9 +1111,11 @@ impl NetworkServices {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::network_services::SetIamPolicy {
         super::builder::network_services::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -1092,9 +1138,11 @@ impl NetworkServices {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::network_services::TestIamPermissions {
         super::builder::network_services::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

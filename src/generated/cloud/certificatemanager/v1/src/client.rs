@@ -179,9 +179,13 @@ impl CertificateManager {
     pub fn create_certificate(
         &self,
         parent: impl Into<std::string::String>,
+        certificate_id: impl Into<std::string::String>,
+        certificate: impl Into<crate::model::Certificate>,
     ) -> super::builder::certificate_manager::CreateCertificate {
         super::builder::certificate_manager::CreateCertificate::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_certificate_id(certificate_id.into())
+            .set_certificate(certificate.into())
     }
 
     /// Updates a Certificate.
@@ -198,9 +202,11 @@ impl CertificateManager {
     pub fn update_certificate(
         &self,
         certificate: impl Into<crate::model::Certificate>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::certificate_manager::UpdateCertificate {
         super::builder::certificate_manager::UpdateCertificate::new(self.inner.clone())
             .set_certificate(certificate.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a single Certificate.
@@ -254,9 +260,13 @@ impl CertificateManager {
     pub fn create_certificate_map(
         &self,
         parent: impl Into<std::string::String>,
+        certificate_map_id: impl Into<std::string::String>,
+        certificate_map: impl Into<crate::model::CertificateMap>,
     ) -> super::builder::certificate_manager::CreateCertificateMap {
         super::builder::certificate_manager::CreateCertificateMap::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_certificate_map_id(certificate_map_id.into())
+            .set_certificate_map(certificate_map.into())
     }
 
     /// Updates a CertificateMap.
@@ -273,9 +283,11 @@ impl CertificateManager {
     pub fn update_certificate_map(
         &self,
         certificate_map: impl Into<crate::model::CertificateMap>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::certificate_manager::UpdateCertificateMap {
         super::builder::certificate_manager::UpdateCertificateMap::new(self.inner.clone())
             .set_certificate_map(certificate_map.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a single CertificateMap. A Certificate Map can't be deleted
@@ -331,9 +343,13 @@ impl CertificateManager {
     pub fn create_certificate_map_entry(
         &self,
         parent: impl Into<std::string::String>,
+        certificate_map_entry_id: impl Into<std::string::String>,
+        certificate_map_entry: impl Into<crate::model::CertificateMapEntry>,
     ) -> super::builder::certificate_manager::CreateCertificateMapEntry {
         super::builder::certificate_manager::CreateCertificateMapEntry::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_certificate_map_entry_id(certificate_map_entry_id.into())
+            .set_certificate_map_entry(certificate_map_entry.into())
     }
 
     /// Updates a CertificateMapEntry.
@@ -350,9 +366,11 @@ impl CertificateManager {
     pub fn update_certificate_map_entry(
         &self,
         certificate_map_entry: impl Into<crate::model::CertificateMapEntry>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::certificate_manager::UpdateCertificateMapEntry {
         super::builder::certificate_manager::UpdateCertificateMapEntry::new(self.inner.clone())
             .set_certificate_map_entry(certificate_map_entry.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a single CertificateMapEntry.
@@ -406,9 +424,13 @@ impl CertificateManager {
     pub fn create_dns_authorization(
         &self,
         parent: impl Into<std::string::String>,
+        dns_authorization_id: impl Into<std::string::String>,
+        dns_authorization: impl Into<crate::model::DnsAuthorization>,
     ) -> super::builder::certificate_manager::CreateDnsAuthorization {
         super::builder::certificate_manager::CreateDnsAuthorization::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_dns_authorization_id(dns_authorization_id.into())
+            .set_dns_authorization(dns_authorization.into())
     }
 
     /// Updates a DnsAuthorization.
@@ -425,9 +447,11 @@ impl CertificateManager {
     pub fn update_dns_authorization(
         &self,
         dns_authorization: impl Into<crate::model::DnsAuthorization>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::certificate_manager::UpdateDnsAuthorization {
         super::builder::certificate_manager::UpdateDnsAuthorization::new(self.inner.clone())
             .set_dns_authorization(dns_authorization.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a single DnsAuthorization.
@@ -481,11 +505,15 @@ impl CertificateManager {
     pub fn create_certificate_issuance_config(
         &self,
         parent: impl Into<std::string::String>,
+        certificate_issuance_config_id: impl Into<std::string::String>,
+        certificate_issuance_config: impl Into<crate::model::CertificateIssuanceConfig>,
     ) -> super::builder::certificate_manager::CreateCertificateIssuanceConfig {
         super::builder::certificate_manager::CreateCertificateIssuanceConfig::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_certificate_issuance_config_id(certificate_issuance_config_id.into())
+        .set_certificate_issuance_config(certificate_issuance_config.into())
     }
 
     /// Deletes a single CertificateIssuanceConfig.
@@ -541,9 +569,13 @@ impl CertificateManager {
     pub fn create_trust_config(
         &self,
         parent: impl Into<std::string::String>,
+        trust_config_id: impl Into<std::string::String>,
+        trust_config: impl Into<crate::model::TrustConfig>,
     ) -> super::builder::certificate_manager::CreateTrustConfig {
         super::builder::certificate_manager::CreateTrustConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_trust_config_id(trust_config_id.into())
+            .set_trust_config(trust_config.into())
     }
 
     /// Updates a TrustConfig.
@@ -560,9 +592,11 @@ impl CertificateManager {
     pub fn update_trust_config(
         &self,
         trust_config: impl Into<crate::model::TrustConfig>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::certificate_manager::UpdateTrustConfig {
         super::builder::certificate_manager::UpdateTrustConfig::new(self.inner.clone())
             .set_trust_config(trust_config.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a single TrustConfig.

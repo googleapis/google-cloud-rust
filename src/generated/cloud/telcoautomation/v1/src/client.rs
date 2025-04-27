@@ -157,9 +157,13 @@ impl TelcoAutomation {
     pub fn create_orchestration_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        orchestration_cluster_id: impl Into<std::string::String>,
+        orchestration_cluster: impl Into<crate::model::OrchestrationCluster>,
     ) -> super::builder::telco_automation::CreateOrchestrationCluster {
         super::builder::telco_automation::CreateOrchestrationCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_orchestration_cluster_id(orchestration_cluster_id.into())
+            .set_orchestration_cluster(orchestration_cluster.into())
     }
 
     /// Deletes a single OrchestrationCluster.
@@ -212,9 +216,13 @@ impl TelcoAutomation {
     pub fn create_edge_slm(
         &self,
         parent: impl Into<std::string::String>,
+        edge_slm_id: impl Into<std::string::String>,
+        edge_slm: impl Into<crate::model::EdgeSlm>,
     ) -> super::builder::telco_automation::CreateEdgeSlm {
         super::builder::telco_automation::CreateEdgeSlm::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_edge_slm_id(edge_slm_id.into())
+            .set_edge_slm(edge_slm.into())
     }
 
     /// Deletes a single EdgeSlm.
@@ -240,18 +248,22 @@ impl TelcoAutomation {
     pub fn create_blueprint(
         &self,
         parent: impl Into<std::string::String>,
+        blueprint: impl Into<crate::model::Blueprint>,
     ) -> super::builder::telco_automation::CreateBlueprint {
         super::builder::telco_automation::CreateBlueprint::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_blueprint(blueprint.into())
     }
 
     /// Updates a blueprint.
     pub fn update_blueprint(
         &self,
         blueprint: impl Into<crate::model::Blueprint>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::telco_automation::UpdateBlueprint {
         super::builder::telco_automation::UpdateBlueprint::new(self.inner.clone())
             .set_blueprint(blueprint.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Returns the requested blueprint.
@@ -321,18 +333,22 @@ impl TelcoAutomation {
     pub fn search_blueprint_revisions(
         &self,
         parent: impl Into<std::string::String>,
+        query: impl Into<std::string::String>,
     ) -> super::builder::telco_automation::SearchBlueprintRevisions {
         super::builder::telco_automation::SearchBlueprintRevisions::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_query(query.into())
     }
 
     /// Searches across deployment revisions.
     pub fn search_deployment_revisions(
         &self,
         parent: impl Into<std::string::String>,
+        query: impl Into<std::string::String>,
     ) -> super::builder::telco_automation::SearchDeploymentRevisions {
         super::builder::telco_automation::SearchDeploymentRevisions::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_query(query.into())
     }
 
     /// Discards the changes in a blueprint and reverts the blueprint to the last
@@ -369,18 +385,22 @@ impl TelcoAutomation {
     pub fn create_deployment(
         &self,
         parent: impl Into<std::string::String>,
+        deployment: impl Into<crate::model::Deployment>,
     ) -> super::builder::telco_automation::CreateDeployment {
         super::builder::telco_automation::CreateDeployment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_deployment(deployment.into())
     }
 
     /// Updates a deployment.
     pub fn update_deployment(
         &self,
         deployment: impl Into<crate::model::Deployment>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::telco_automation::UpdateDeployment {
         super::builder::telco_automation::UpdateDeployment::new(self.inner.clone())
             .set_deployment(deployment.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Returns the requested deployment.
@@ -454,9 +474,11 @@ impl TelcoAutomation {
     pub fn rollback_deployment(
         &self,
         name: impl Into<std::string::String>,
+        revision_id: impl Into<std::string::String>,
     ) -> super::builder::telco_automation::RollbackDeployment {
         super::builder::telco_automation::RollbackDeployment::new(self.inner.clone())
             .set_name(name.into())
+            .set_revision_id(revision_id.into())
     }
 
     /// Returns the requested hydrated deployment.
@@ -481,9 +503,11 @@ impl TelcoAutomation {
     pub fn update_hydrated_deployment(
         &self,
         hydrated_deployment: impl Into<crate::model::HydratedDeployment>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::telco_automation::UpdateHydratedDeployment {
         super::builder::telco_automation::UpdateHydratedDeployment::new(self.inner.clone())
             .set_hydrated_deployment(hydrated_deployment.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Applies a hydrated deployment to a workload cluster.

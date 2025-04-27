@@ -136,8 +136,10 @@ impl AccessContextManager {
     /// organization.
     pub fn list_access_policies(
         &self,
+        parent: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::ListAccessPolicies {
         super::builder::access_context_manager::ListAccessPolicies::new(self.inner.clone())
+            .set_parent(parent.into())
     }
 
     /// Returns an [access policy]
@@ -190,9 +192,11 @@ impl AccessContextManager {
     pub fn update_access_policy(
         &self,
         policy: impl Into<crate::model::AccessPolicy>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::access_context_manager::UpdateAccessPolicy {
         super::builder::access_context_manager::UpdateAccessPolicy::new(self.inner.clone())
             .set_policy(policy.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes an [access policy]
@@ -260,9 +264,11 @@ impl AccessContextManager {
     pub fn create_access_level(
         &self,
         parent: impl Into<std::string::String>,
+        access_level: impl Into<crate::model::AccessLevel>,
     ) -> super::builder::access_context_manager::CreateAccessLevel {
         super::builder::access_context_manager::CreateAccessLevel::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_access_level(access_level.into())
     }
 
     /// Updates an [access level]
@@ -286,9 +292,11 @@ impl AccessContextManager {
     pub fn update_access_level(
         &self,
         access_level: impl Into<crate::model::AccessLevel>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::access_context_manager::UpdateAccessLevel {
         super::builder::access_context_manager::UpdateAccessLevel::new(self.inner.clone())
             .set_access_level(access_level.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes an [access level]
@@ -345,9 +353,11 @@ impl AccessContextManager {
     pub fn replace_access_levels(
         &self,
         parent: impl Into<std::string::String>,
+        access_levels: impl IntoIterator<Item = impl Into<crate::model::AccessLevel>>,
     ) -> super::builder::access_context_manager::ReplaceAccessLevels {
         super::builder::access_context_manager::ReplaceAccessLevels::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_access_levels(access_levels.into_iter().map(|v| v.into()))
     }
 
     /// Lists all [service perimeters]
@@ -393,9 +403,11 @@ impl AccessContextManager {
     pub fn create_service_perimeter(
         &self,
         parent: impl Into<std::string::String>,
+        service_perimeter: impl Into<crate::model::ServicePerimeter>,
     ) -> super::builder::access_context_manager::CreateServicePerimeter {
         super::builder::access_context_manager::CreateServicePerimeter::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_service_perimeter(service_perimeter.into())
     }
 
     /// Updates a [service perimeter]
@@ -419,9 +431,11 @@ impl AccessContextManager {
     pub fn update_service_perimeter(
         &self,
         service_perimeter: impl Into<crate::model::ServicePerimeter>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::access_context_manager::UpdateServicePerimeter {
         super::builder::access_context_manager::UpdateServicePerimeter::new(self.inner.clone())
             .set_service_perimeter(service_perimeter.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a [service perimeter]
@@ -474,9 +488,11 @@ impl AccessContextManager {
     pub fn replace_service_perimeters(
         &self,
         parent: impl Into<std::string::String>,
+        service_perimeters: impl IntoIterator<Item = impl Into<crate::model::ServicePerimeter>>,
     ) -> super::builder::access_context_manager::ReplaceServicePerimeters {
         super::builder::access_context_manager::ReplaceServicePerimeters::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_service_perimeters(service_perimeters.into_iter().map(|v| v.into()))
     }
 
     /// Commits the dry-run specification for all the [service perimeters]
@@ -559,9 +575,11 @@ impl AccessContextManager {
     pub fn create_gcp_user_access_binding(
         &self,
         parent: impl Into<std::string::String>,
+        gcp_user_access_binding: impl Into<crate::model::GcpUserAccessBinding>,
     ) -> super::builder::access_context_manager::CreateGcpUserAccessBinding {
         super::builder::access_context_manager::CreateGcpUserAccessBinding::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_gcp_user_access_binding(gcp_user_access_binding.into())
     }
 
     /// Updates a [GcpUserAccessBinding]
@@ -582,9 +600,11 @@ impl AccessContextManager {
     pub fn update_gcp_user_access_binding(
         &self,
         gcp_user_access_binding: impl Into<crate::model::GcpUserAccessBinding>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::access_context_manager::UpdateGcpUserAccessBinding {
         super::builder::access_context_manager::UpdateGcpUserAccessBinding::new(self.inner.clone())
             .set_gcp_user_access_binding(gcp_user_access_binding.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a [GcpUserAccessBinding]
@@ -621,9 +641,11 @@ impl AccessContextManager {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::access_context_manager::SetIamPolicy {
         super::builder::access_context_manager::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the IAM policy for the specified Access Context Manager
@@ -650,9 +672,11 @@ impl AccessContextManager {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::access_context_manager::TestIamPermissions {
         super::builder::access_context_manager::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

@@ -153,9 +153,13 @@ impl ApiGatewayService {
     pub fn create_gateway(
         &self,
         parent: impl Into<std::string::String>,
+        gateway_id: impl Into<std::string::String>,
+        gateway: impl Into<crate::model::Gateway>,
     ) -> super::builder::api_gateway_service::CreateGateway {
         super::builder::api_gateway_service::CreateGateway::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_gateway_id(gateway_id.into())
+            .set_gateway(gateway.into())
     }
 
     /// Updates the parameters of a single Gateway.
@@ -227,9 +231,13 @@ impl ApiGatewayService {
     pub fn create_api(
         &self,
         parent: impl Into<std::string::String>,
+        api_id: impl Into<std::string::String>,
+        api: impl Into<crate::model::Api>,
     ) -> super::builder::api_gateway_service::CreateApi {
         super::builder::api_gateway_service::CreateApi::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_api_id(api_id.into())
+            .set_api(api.into())
     }
 
     /// Updates the parameters of a single Api.
@@ -301,9 +309,13 @@ impl ApiGatewayService {
     pub fn create_api_config(
         &self,
         parent: impl Into<std::string::String>,
+        api_config_id: impl Into<std::string::String>,
+        api_config: impl Into<crate::model::ApiConfig>,
     ) -> super::builder::api_gateway_service::CreateApiConfig {
         super::builder::api_gateway_service::CreateApiConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_api_config_id(api_config_id.into())
+            .set_api_config(api_config.into())
     }
 
     /// Updates the parameters of a single ApiConfig.

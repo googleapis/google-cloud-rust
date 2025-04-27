@@ -203,15 +203,15 @@ impl SecretManagerService {
     pub fn add_secret_version_by_project_and_location_and_secret(
         &self,
         project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
+        location: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret {
         super::builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
-        .set_location(location.into())
         .set_secret(secret.into())
+        .set_location(location.into())
     }
 
     /// Gets metadata for a given Secret.
@@ -412,16 +412,16 @@ impl SecretManagerService {
     pub fn disable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
+        location: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion
     {
         super::builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
-            .set_location ( location.into() )
             .set_secret ( secret.into() )
             .set_version ( version.into() )
+            .set_location ( location.into() )
     }
 
     /// Enables a SecretVersion.
@@ -447,16 +447,16 @@ impl SecretManagerService {
     pub fn enable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
+        location: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion
     {
         super::builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
-            .set_location ( location.into() )
             .set_secret ( secret.into() )
             .set_version ( version.into() )
+            .set_location ( location.into() )
     }
 
     /// Destroys a SecretVersion.
@@ -484,16 +484,16 @@ impl SecretManagerService {
     pub fn destroy_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
         version: impl Into<std::string::String>,
+        location: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion
     {
         super::builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
-            .set_location ( location.into() )
             .set_secret ( secret.into() )
             .set_version ( version.into() )
+            .set_location ( location.into() )
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -519,15 +519,15 @@ impl SecretManagerService {
     pub fn set_iam_policy_by_project_and_location_and_secret(
         &self,
         project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
+        location: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret {
         super::builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret::new(
             self.inner.clone(),
         )
         .set_project(project.into())
-        .set_location(location.into())
         .set_secret(secret.into())
+        .set_location(location.into())
     }
 
     /// Gets the access control policy for a secret.
@@ -585,13 +585,13 @@ impl SecretManagerService {
     pub fn test_iam_permissions_by_project_and_location_and_secret(
         &self,
         project: impl Into<std::string::String>,
-        location: impl Into<std::string::String>,
         secret: impl Into<std::string::String>,
+        location: impl Into<std::string::String>,
     ) -> super::builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret
     {
         super::builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret::new(self.inner.clone())
             .set_project ( project.into() )
-            .set_location ( location.into() )
             .set_secret ( secret.into() )
+            .set_location ( location.into() )
     }
 }

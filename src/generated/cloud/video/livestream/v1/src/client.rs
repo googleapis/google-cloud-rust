@@ -140,9 +140,13 @@ impl LivestreamService {
     pub fn create_channel(
         &self,
         parent: impl Into<std::string::String>,
+        channel: impl Into<crate::model::Channel>,
+        channel_id: impl Into<std::string::String>,
     ) -> super::builder::livestream_service::CreateChannel {
         super::builder::livestream_service::CreateChannel::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_channel(channel.into())
+            .set_channel_id(channel_id.into())
     }
 
     /// Returns a list of all channels in the specified region.
@@ -255,9 +259,13 @@ impl LivestreamService {
     pub fn create_input(
         &self,
         parent: impl Into<std::string::String>,
+        input: impl Into<crate::model::Input>,
+        input_id: impl Into<std::string::String>,
     ) -> super::builder::livestream_service::CreateInput {
         super::builder::livestream_service::CreateInput::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_input(input.into())
+            .set_input_id(input_id.into())
     }
 
     /// Returns a list of all inputs in the specified region.
@@ -319,9 +327,13 @@ impl LivestreamService {
     pub fn create_event(
         &self,
         parent: impl Into<std::string::String>,
+        event: impl Into<crate::model::Event>,
+        event_id: impl Into<std::string::String>,
     ) -> super::builder::livestream_service::CreateEvent {
         super::builder::livestream_service::CreateEvent::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_event(event.into())
+            .set_event_id(event_id.into())
     }
 
     /// Returns a list of all events in the specified channel.
@@ -381,9 +393,13 @@ impl LivestreamService {
     pub fn create_clip(
         &self,
         parent: impl Into<std::string::String>,
+        clip_id: impl Into<std::string::String>,
+        clip: impl Into<crate::model::Clip>,
     ) -> super::builder::livestream_service::CreateClip {
         super::builder::livestream_service::CreateClip::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_clip_id(clip_id.into())
+            .set_clip(clip.into())
     }
 
     /// Deletes the specified clip job resource. This method only deletes the clip
@@ -421,9 +437,13 @@ impl LivestreamService {
     pub fn create_asset(
         &self,
         parent: impl Into<std::string::String>,
+        asset: impl Into<crate::model::Asset>,
+        asset_id: impl Into<std::string::String>,
     ) -> super::builder::livestream_service::CreateAsset {
         super::builder::livestream_service::CreateAsset::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_asset(asset.into())
+            .set_asset_id(asset_id.into())
     }
 
     /// Deletes the specified asset if it is not used.

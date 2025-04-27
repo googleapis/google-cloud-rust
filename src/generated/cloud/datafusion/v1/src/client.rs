@@ -162,9 +162,11 @@ impl DataFusion {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
+        instance_id: impl Into<std::string::String>,
     ) -> super::builder::data_fusion::CreateInstance {
         super::builder::data_fusion::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_id(instance_id.into())
     }
 
     /// Deletes a single Date Fusion instance.

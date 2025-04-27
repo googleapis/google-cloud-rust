@@ -266,8 +266,11 @@ impl CaseService {
     pub fn create_case(
         &self,
         parent: impl Into<std::string::String>,
+        case: impl Into<crate::model::Case>,
     ) -> super::builder::case_service::CreateCase {
-        super::builder::case_service::CreateCase::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::case_service::CreateCase::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_case(case.into())
     }
 
     /// Update the specified case. Only a subset of fields can be updated.
@@ -425,8 +428,10 @@ impl CommentService {
     pub fn create_comment(
         &self,
         parent: impl Into<std::string::String>,
+        comment: impl Into<crate::model::Comment>,
     ) -> super::builder::comment_service::CreateComment {
         super::builder::comment_service::CreateComment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_comment(comment.into())
     }
 }

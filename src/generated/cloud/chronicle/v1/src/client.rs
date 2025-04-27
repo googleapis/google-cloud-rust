@@ -131,9 +131,13 @@ impl DataAccessControlService {
     pub fn create_data_access_label(
         &self,
         parent: impl Into<std::string::String>,
+        data_access_label: impl Into<crate::model::DataAccessLabel>,
+        data_access_label_id: impl Into<std::string::String>,
     ) -> super::builder::data_access_control_service::CreateDataAccessLabel {
         super::builder::data_access_control_service::CreateDataAccessLabel::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_data_access_label(data_access_label.into())
+            .set_data_access_label_id(data_access_label_id.into())
     }
 
     /// Gets a data access label.
@@ -183,9 +187,13 @@ impl DataAccessControlService {
     pub fn create_data_access_scope(
         &self,
         parent: impl Into<std::string::String>,
+        data_access_scope: impl Into<crate::model::DataAccessScope>,
+        data_access_scope_id: impl Into<std::string::String>,
     ) -> super::builder::data_access_control_service::CreateDataAccessScope {
         super::builder::data_access_control_service::CreateDataAccessScope::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_data_access_scope(data_access_scope.into())
+            .set_data_access_scope_id(data_access_scope_id.into())
     }
 
     /// Retrieves an existing data access scope.
@@ -391,9 +399,11 @@ impl EntityService {
     pub fn create_watchlist(
         &self,
         parent: impl Into<std::string::String>,
+        watchlist: impl Into<crate::model::Watchlist>,
     ) -> super::builder::entity_service::CreateWatchlist {
         super::builder::entity_service::CreateWatchlist::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_watchlist(watchlist.into())
     }
 
     /// Updates the watchlist for the given instance.
@@ -737,9 +747,13 @@ impl ReferenceListService {
     pub fn create_reference_list(
         &self,
         parent: impl Into<std::string::String>,
+        reference_list: impl Into<crate::model::ReferenceList>,
+        reference_list_id: impl Into<std::string::String>,
     ) -> super::builder::reference_list_service::CreateReferenceList {
         super::builder::reference_list_service::CreateReferenceList::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_reference_list(reference_list.into())
+            .set_reference_list_id(reference_list_id.into())
     }
 
     /// Updates an existing reference list.
@@ -900,8 +914,11 @@ impl RuleService {
     pub fn create_rule(
         &self,
         parent: impl Into<std::string::String>,
+        rule: impl Into<crate::model::Rule>,
     ) -> super::builder::rule_service::CreateRule {
-        super::builder::rule_service::CreateRule::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::rule_service::CreateRule::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_rule(rule.into())
     }
 
     /// Gets a Rule.
@@ -959,9 +976,11 @@ impl RuleService {
     pub fn create_retrohunt(
         &self,
         parent: impl Into<std::string::String>,
+        retrohunt: impl Into<crate::model::Retrohunt>,
     ) -> super::builder::rule_service::CreateRetrohunt {
         super::builder::rule_service::CreateRetrohunt::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_retrohunt(retrohunt.into())
     }
 
     /// Get a Retrohunt.
@@ -1006,9 +1025,11 @@ impl RuleService {
     pub fn update_rule_deployment(
         &self,
         rule_deployment: impl Into<crate::model::RuleDeployment>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::rule_service::UpdateRuleDeployment {
         super::builder::rule_service::UpdateRuleDeployment::new(self.inner.clone())
             .set_rule_deployment(rule_deployment.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

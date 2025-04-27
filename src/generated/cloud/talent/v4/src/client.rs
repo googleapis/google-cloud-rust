@@ -123,9 +123,11 @@ impl CompanyService {
     pub fn create_company(
         &self,
         parent: impl Into<std::string::String>,
+        company: impl Into<crate::model::Company>,
     ) -> super::builder::company_service::CreateCompany {
         super::builder::company_service::CreateCompany::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_company(company.into())
     }
 
     /// Retrieves specified company.
@@ -280,8 +282,13 @@ impl Completion {
     pub fn complete_query(
         &self,
         tenant: impl Into<std::string::String>,
+        query: impl Into<std::string::String>,
+        page_size: impl Into<i32>,
     ) -> super::builder::completion::CompleteQuery {
-        super::builder::completion::CompleteQuery::new(self.inner.clone()).set_tenant(tenant.into())
+        super::builder::completion::CompleteQuery::new(self.inner.clone())
+            .set_tenant(tenant.into())
+            .set_query(query.into())
+            .set_page_size(page_size.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -405,9 +412,11 @@ impl EventService {
     pub fn create_client_event(
         &self,
         parent: impl Into<std::string::String>,
+        client_event: impl Into<crate::model::ClientEvent>,
     ) -> super::builder::event_service::CreateClientEvent {
         super::builder::event_service::CreateClientEvent::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_client_event(client_event.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -528,8 +537,11 @@ impl JobService {
     pub fn create_job(
         &self,
         parent: impl Into<std::string::String>,
+        job: impl Into<crate::model::Job>,
     ) -> super::builder::job_service::CreateJob {
-        super::builder::job_service::CreateJob::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::job_service::CreateJob::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_job(job.into())
     }
 
     /// Begins executing a batch create jobs operation.
@@ -546,9 +558,11 @@ impl JobService {
     pub fn batch_create_jobs(
         &self,
         parent: impl Into<std::string::String>,
+        jobs: impl IntoIterator<Item = impl Into<crate::model::Job>>,
     ) -> super::builder::job_service::BatchCreateJobs {
         super::builder::job_service::BatchCreateJobs::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_jobs(jobs.into_iter().map(|v| v.into()))
     }
 
     /// Retrieves the specified job, whose status is OPEN or recently EXPIRED
@@ -585,9 +599,11 @@ impl JobService {
     pub fn batch_update_jobs(
         &self,
         parent: impl Into<std::string::String>,
+        jobs: impl IntoIterator<Item = impl Into<crate::model::Job>>,
     ) -> super::builder::job_service::BatchUpdateJobs {
         super::builder::job_service::BatchUpdateJobs::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_jobs(jobs.into_iter().map(|v| v.into()))
     }
 
     /// Deletes the specified job.
@@ -624,8 +640,11 @@ impl JobService {
     pub fn list_jobs(
         &self,
         parent: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
     ) -> super::builder::job_service::ListJobs {
-        super::builder::job_service::ListJobs::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::job_service::ListJobs::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_filter(filter.into())
     }
 
     /// Searches for jobs using the provided
@@ -641,8 +660,11 @@ impl JobService {
     pub fn search_jobs(
         &self,
         parent: impl Into<std::string::String>,
+        request_metadata: impl Into<crate::model::RequestMetadata>,
     ) -> super::builder::job_service::SearchJobs {
-        super::builder::job_service::SearchJobs::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::job_service::SearchJobs::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_request_metadata(request_metadata.into())
     }
 
     /// Searches for jobs using the provided
@@ -663,9 +685,11 @@ impl JobService {
     pub fn search_jobs_for_alert(
         &self,
         parent: impl Into<std::string::String>,
+        request_metadata: impl Into<crate::model::RequestMetadata>,
     ) -> super::builder::job_service::SearchJobsForAlert {
         super::builder::job_service::SearchJobsForAlert::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_request_metadata(request_metadata.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -783,9 +807,11 @@ impl TenantService {
     pub fn create_tenant(
         &self,
         parent: impl Into<std::string::String>,
+        tenant: impl Into<crate::model::Tenant>,
     ) -> super::builder::tenant_service::CreateTenant {
         super::builder::tenant_service::CreateTenant::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_tenant(tenant.into())
     }
 
     /// Retrieves specified tenant.

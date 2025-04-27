@@ -126,9 +126,11 @@ impl Domains {
     /// availability.
     pub fn search_domains(
         &self,
+        query: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
     ) -> super::builder::domains::SearchDomains {
         super::builder::domains::SearchDomains::new(self.inner.clone())
+            .set_query(query.into())
             .set_location(location.into())
     }
 
@@ -136,9 +138,11 @@ impl Domains {
     /// up-to-date availability. Use the returned values to call `RegisterDomain`.
     pub fn retrieve_register_parameters(
         &self,
+        domain_name: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
     ) -> super::builder::domains::RetrieveRegisterParameters {
         super::builder::domains::RetrieveRegisterParameters::new(self.inner.clone())
+            .set_domain_name(domain_name.into())
             .set_location(location.into())
     }
 
@@ -168,8 +172,13 @@ impl Domains {
     pub fn register_domain(
         &self,
         parent: impl Into<std::string::String>,
+        registration: impl Into<crate::model::Registration>,
+        yearly_price: impl Into<gtype::model::Money>,
     ) -> super::builder::domains::RegisterDomain {
-        super::builder::domains::RegisterDomain::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::domains::RegisterDomain::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_registration(registration.into())
+            .set_yearly_price(yearly_price.into())
     }
 
     /// Gets parameters needed to transfer a domain name from another registrar to
@@ -179,9 +188,11 @@ impl Domains {
     /// Use the returned values to call `TransferDomain`.
     pub fn retrieve_transfer_parameters(
         &self,
+        domain_name: impl Into<std::string::String>,
         location: impl Into<std::string::String>,
     ) -> super::builder::domains::RetrieveTransferParameters {
         super::builder::domains::RetrieveTransferParameters::new(self.inner.clone())
+            .set_domain_name(domain_name.into())
             .set_location(location.into())
     }
 
@@ -218,8 +229,13 @@ impl Domains {
     pub fn transfer_domain(
         &self,
         parent: impl Into<std::string::String>,
+        registration: impl Into<crate::model::Registration>,
+        yearly_price: impl Into<gtype::model::Money>,
     ) -> super::builder::domains::TransferDomain {
-        super::builder::domains::TransferDomain::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::domains::TransferDomain::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_registration(registration.into())
+            .set_yearly_price(yearly_price.into())
     }
 
     /// Lists the `Registration` resources in a project.
@@ -258,9 +274,11 @@ impl Domains {
     pub fn update_registration(
         &self,
         registration: impl Into<crate::model::Registration>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::domains::UpdateRegistration {
         super::builder::domains::UpdateRegistration::new(self.inner.clone())
             .set_registration(registration.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Updates a `Registration`'s management settings.
@@ -277,9 +295,11 @@ impl Domains {
     pub fn configure_management_settings(
         &self,
         registration: impl Into<std::string::String>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::domains::ConfigureManagementSettings {
         super::builder::domains::ConfigureManagementSettings::new(self.inner.clone())
             .set_registration(registration.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Updates a `Registration`'s DNS settings.
@@ -296,9 +316,11 @@ impl Domains {
     pub fn configure_dns_settings(
         &self,
         registration: impl Into<std::string::String>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::domains::ConfigureDnsSettings {
         super::builder::domains::ConfigureDnsSettings::new(self.inner.clone())
             .set_registration(registration.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Updates a `Registration`'s contact settings. Some changes require
@@ -316,9 +338,11 @@ impl Domains {
     pub fn configure_contact_settings(
         &self,
         registration: impl Into<std::string::String>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::domains::ConfigureContactSettings {
         super::builder::domains::ConfigureContactSettings::new(self.inner.clone())
             .set_registration(registration.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Exports a `Registration` resource, such that it is no longer managed by

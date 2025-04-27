@@ -146,9 +146,11 @@ impl AssetService {
     pub fn export_assets(
         &self,
         parent: impl Into<std::string::String>,
+        output_config: impl Into<crate::model::OutputConfig>,
     ) -> super::builder::asset_service::ExportAssets {
         super::builder::asset_service::ExportAssets::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_output_config(output_config.into())
     }
 
     /// Lists assets with time and resource types and returns paged results in
@@ -180,8 +182,13 @@ impl AssetService {
     pub fn create_feed(
         &self,
         parent: impl Into<std::string::String>,
+        feed_id: impl Into<std::string::String>,
+        feed: impl Into<crate::model::Feed>,
     ) -> super::builder::asset_service::CreateFeed {
-        super::builder::asset_service::CreateFeed::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::asset_service::CreateFeed::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_feed_id(feed_id.into())
+            .set_feed(feed.into())
     }
 
     /// Gets details about an asset feed.
@@ -204,8 +211,11 @@ impl AssetService {
     pub fn update_feed(
         &self,
         feed: impl Into<crate::model::Feed>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::asset_service::UpdateFeed {
-        super::builder::asset_service::UpdateFeed::new(self.inner.clone()).set_feed(feed.into())
+        super::builder::asset_service::UpdateFeed::new(self.inner.clone())
+            .set_feed(feed.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes an asset feed.
@@ -276,9 +286,11 @@ impl AssetService {
     pub fn analyze_iam_policy_longrunning(
         &self,
         analysis_query: impl Into<crate::model::IamPolicyAnalysisQuery>,
+        output_config: impl Into<crate::model::IamPolicyAnalysisOutputConfig>,
     ) -> super::builder::asset_service::AnalyzeIamPolicyLongrunning {
         super::builder::asset_service::AnalyzeIamPolicyLongrunning::new(self.inner.clone())
             .set_analysis_query(analysis_query.into())
+            .set_output_config(output_config.into())
     }
 
     /// Analyze moving a resource to a specified destination without kicking off
@@ -289,9 +301,11 @@ impl AssetService {
     pub fn analyze_move(
         &self,
         resource: impl Into<std::string::String>,
+        destination_parent: impl Into<std::string::String>,
     ) -> super::builder::asset_service::AnalyzeMove {
         super::builder::asset_service::AnalyzeMove::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_destination_parent(destination_parent.into())
     }
 
     /// Issue a job that queries assets using a SQL statement compatible with
@@ -318,9 +332,13 @@ impl AssetService {
     pub fn create_saved_query(
         &self,
         parent: impl Into<std::string::String>,
+        saved_query: impl Into<crate::model::SavedQuery>,
+        saved_query_id: impl Into<std::string::String>,
     ) -> super::builder::asset_service::CreateSavedQuery {
         super::builder::asset_service::CreateSavedQuery::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_saved_query(saved_query.into())
+            .set_saved_query_id(saved_query_id.into())
     }
 
     /// Gets details about a saved query.
@@ -344,9 +362,11 @@ impl AssetService {
     pub fn update_saved_query(
         &self,
         saved_query: impl Into<crate::model::SavedQuery>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::asset_service::UpdateSavedQuery {
         super::builder::asset_service::UpdateSavedQuery::new(self.inner.clone())
             .set_saved_query(saved_query.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a saved query.
@@ -362,18 +382,22 @@ impl AssetService {
     pub fn batch_get_effective_iam_policies(
         &self,
         scope: impl Into<std::string::String>,
+        names: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::asset_service::BatchGetEffectiveIamPolicies {
         super::builder::asset_service::BatchGetEffectiveIamPolicies::new(self.inner.clone())
             .set_scope(scope.into())
+            .set_names(names.into_iter().map(|v| v.into()))
     }
 
     /// Analyzes organization policies under a scope.
     pub fn analyze_org_policies(
         &self,
         scope: impl Into<std::string::String>,
+        constraint: impl Into<std::string::String>,
     ) -> super::builder::asset_service::AnalyzeOrgPolicies {
         super::builder::asset_service::AnalyzeOrgPolicies::new(self.inner.clone())
             .set_scope(scope.into())
+            .set_constraint(constraint.into())
     }
 
     /// Analyzes organization policies governed containers (projects, folders or
@@ -381,9 +405,11 @@ impl AssetService {
     pub fn analyze_org_policy_governed_containers(
         &self,
         scope: impl Into<std::string::String>,
+        constraint: impl Into<std::string::String>,
     ) -> super::builder::asset_service::AnalyzeOrgPolicyGovernedContainers {
         super::builder::asset_service::AnalyzeOrgPolicyGovernedContainers::new(self.inner.clone())
             .set_scope(scope.into())
+            .set_constraint(constraint.into())
     }
 
     /// Analyzes organization policies governed assets (Google Cloud resources or
@@ -438,9 +464,11 @@ impl AssetService {
     pub fn analyze_org_policy_governed_assets(
         &self,
         scope: impl Into<std::string::String>,
+        constraint: impl Into<std::string::String>,
     ) -> super::builder::asset_service::AnalyzeOrgPolicyGovernedAssets {
         super::builder::asset_service::AnalyzeOrgPolicyGovernedAssets::new(self.inner.clone())
             .set_scope(scope.into())
+            .set_constraint(constraint.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

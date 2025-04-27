@@ -135,9 +135,13 @@ impl RepositoryManager {
     pub fn create_connection(
         &self,
         parent: impl Into<std::string::String>,
+        connection: impl Into<crate::model::Connection>,
+        connection_id: impl Into<std::string::String>,
     ) -> super::builder::repository_manager::CreateConnection {
         super::builder::repository_manager::CreateConnection::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_connection(connection.into())
+            .set_connection_id(connection_id.into())
     }
 
     /// Gets details of a single connection.
@@ -210,9 +214,13 @@ impl RepositoryManager {
     pub fn create_repository(
         &self,
         parent: impl Into<std::string::String>,
+        repository: impl Into<crate::model::Repository>,
+        repository_id: impl Into<std::string::String>,
     ) -> super::builder::repository_manager::CreateRepository {
         super::builder::repository_manager::CreateRepository::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_repository(repository.into())
+            .set_repository_id(repository_id.into())
     }
 
     /// Creates multiple repositories inside a connection.
@@ -229,9 +237,11 @@ impl RepositoryManager {
     pub fn batch_create_repositories(
         &self,
         parent: impl Into<std::string::String>,
+        requests: impl IntoIterator<Item = impl Into<crate::model::CreateRepositoryRequest>>,
     ) -> super::builder::repository_manager::BatchCreateRepositories {
         super::builder::repository_manager::BatchCreateRepositories::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_requests(requests.into_iter().map(|v| v.into()))
     }
 
     /// Gets details of a single repository.
@@ -316,9 +326,11 @@ impl RepositoryManager {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::repository_manager::SetIamPolicy {
         super::builder::repository_manager::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -341,9 +353,11 @@ impl RepositoryManager {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::repository_manager::TestIamPermissions {
         super::builder::repository_manager::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

@@ -144,41 +144,70 @@ impl Storage {
     }
 
     /// Permanently deletes an empty bucket.
-    pub fn delete_bucket(&self) -> super::builder::storage::DeleteBucket {
-        super::builder::storage::DeleteBucket::new(self.inner.clone())
+    pub fn delete_bucket(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::storage::DeleteBucket {
+        super::builder::storage::DeleteBucket::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Returns metadata for the specified bucket.
-    pub fn get_bucket(&self) -> super::builder::storage::GetBucket {
-        super::builder::storage::GetBucket::new(self.inner.clone())
+    pub fn get_bucket(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::storage::GetBucket {
+        super::builder::storage::GetBucket::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new bucket.
-    pub fn create_bucket(&self) -> super::builder::storage::CreateBucket {
+    pub fn create_bucket(
+        &self,
+        parent: impl Into<std::string::String>,
+        bucket_id: impl Into<std::string::String>,
+    ) -> super::builder::storage::CreateBucket {
         super::builder::storage::CreateBucket::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_bucket_id(bucket_id.into())
     }
 
     /// Retrieves a list of buckets for a given project.
-    pub fn list_buckets(&self) -> super::builder::storage::ListBuckets {
-        super::builder::storage::ListBuckets::new(self.inner.clone())
+    pub fn list_buckets(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::storage::ListBuckets {
+        super::builder::storage::ListBuckets::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Locks retention policy on a bucket.
     pub fn lock_bucket_retention_policy(
         &self,
+        bucket: impl Into<std::string::String>,
+        if_metageneration_match: impl Into<i64>,
     ) -> super::builder::storage::LockBucketRetentionPolicy {
         super::builder::storage::LockBucketRetentionPolicy::new(self.inner.clone())
+            .set_bucket(bucket.into())
+            .set_if_metageneration_match(if_metageneration_match.into())
     }
 
     /// Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
-    pub fn update_bucket(&self) -> super::builder::storage::UpdateBucket {
+    pub fn update_bucket(
+        &self,
+        bucket: impl Into<crate::model::Bucket>,
+        update_mask: impl Into<wkt::FieldMask>,
+    ) -> super::builder::storage::UpdateBucket {
         super::builder::storage::UpdateBucket::new(self.inner.clone())
+            .set_bucket(bucket.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Concatenates a list of existing objects into a new object in the same
     /// bucket.
-    pub fn compose_object(&self) -> super::builder::storage::ComposeObject {
+    pub fn compose_object(
+        &self,
+        destination: impl Into<crate::model::Object>,
+    ) -> super::builder::storage::ComposeObject {
         super::builder::storage::ComposeObject::new(self.inner.clone())
+            .set_destination(destination.into())
     }
 
     /// Deletes an object and its metadata. Deletions are permanent if versioning
@@ -203,13 +232,27 @@ impl Storage {
     /// the bucket.
     ///
     /// [google.storage.v2.Storage.RestoreObject]: crate::client::Storage::restore_object
-    pub fn delete_object(&self) -> super::builder::storage::DeleteObject {
+    pub fn delete_object(
+        &self,
+        bucket: impl Into<std::string::String>,
+        object: impl Into<std::string::String>,
+    ) -> super::builder::storage::DeleteObject {
         super::builder::storage::DeleteObject::new(self.inner.clone())
+            .set_bucket(bucket.into())
+            .set_object(object.into())
     }
 
     /// Restores a soft-deleted object.
-    pub fn restore_object(&self) -> super::builder::storage::RestoreObject {
+    pub fn restore_object(
+        &self,
+        bucket: impl Into<std::string::String>,
+        object: impl Into<std::string::String>,
+        generation: impl Into<i64>,
+    ) -> super::builder::storage::RestoreObject {
         super::builder::storage::RestoreObject::new(self.inner.clone())
+            .set_bucket(bucket.into())
+            .set_object(object.into())
+            .set_generation(generation.into())
     }
 
     /// Retrieves object metadata.
@@ -220,14 +263,26 @@ impl Storage {
     /// [IAM permission](https://cloud.google.com/iam/docs/overview#permissions) on
     /// the bucket. To return object ACLs, the authenticated user must also have
     /// the `storage.objects.getIamPolicy` permission.
-    pub fn get_object(&self) -> super::builder::storage::GetObject {
+    pub fn get_object(
+        &self,
+        bucket: impl Into<std::string::String>,
+        object: impl Into<std::string::String>,
+    ) -> super::builder::storage::GetObject {
         super::builder::storage::GetObject::new(self.inner.clone())
+            .set_bucket(bucket.into())
+            .set_object(object.into())
     }
 
     /// Updates an object's metadata.
     /// Equivalent to JSON API's storage.objects.patch.
-    pub fn update_object(&self) -> super::builder::storage::UpdateObject {
+    pub fn update_object(
+        &self,
+        object: impl Into<crate::model::Object>,
+        update_mask: impl Into<wkt::FieldMask>,
+    ) -> super::builder::storage::UpdateObject {
         super::builder::storage::UpdateObject::new(self.inner.clone())
+            .set_object(object.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Retrieves a list of objects matching the criteria.
@@ -238,18 +293,39 @@ impl Storage {
     /// [IAM permission](https://cloud.google.com/iam/docs/overview#permissions)
     /// to use this method. To return object ACLs, the authenticated user must also
     /// have the `storage.objects.getIamPolicy` permission.
-    pub fn list_objects(&self) -> super::builder::storage::ListObjects {
-        super::builder::storage::ListObjects::new(self.inner.clone())
+    pub fn list_objects(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::storage::ListObjects {
+        super::builder::storage::ListObjects::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Rewrites a source object to a destination object. Optionally overrides
     /// metadata.
-    pub fn rewrite_object(&self) -> super::builder::storage::RewriteObject {
+    pub fn rewrite_object(
+        &self,
+        destination_name: impl Into<std::string::String>,
+        destination_bucket: impl Into<std::string::String>,
+        source_bucket: impl Into<std::string::String>,
+        source_object: impl Into<std::string::String>,
+    ) -> super::builder::storage::RewriteObject {
         super::builder::storage::RewriteObject::new(self.inner.clone())
+            .set_destination_name(destination_name.into())
+            .set_destination_bucket(destination_bucket.into())
+            .set_source_bucket(source_bucket.into())
+            .set_source_object(source_object.into())
     }
 
     /// Moves the source object to the destination object in the same bucket.
-    pub fn move_object(&self) -> super::builder::storage::MoveObject {
+    pub fn move_object(
+        &self,
+        bucket: impl Into<std::string::String>,
+        source_object: impl Into<std::string::String>,
+        destination_object: impl Into<std::string::String>,
+    ) -> super::builder::storage::MoveObject {
         super::builder::storage::MoveObject::new(self.inner.clone())
+            .set_bucket(bucket.into())
+            .set_source_object(source_object.into())
+            .set_destination_object(destination_object.into())
     }
 }

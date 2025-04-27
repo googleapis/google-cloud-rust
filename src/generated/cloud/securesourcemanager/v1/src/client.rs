@@ -172,9 +172,13 @@ impl SecureSourceManager {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
+        instance_id: impl Into<std::string::String>,
+        instance: impl Into<crate::model::Instance>,
     ) -> super::builder::secure_source_manager::CreateInstance {
         super::builder::secure_source_manager::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_id(instance_id.into())
+            .set_instance(instance.into())
     }
 
     /// Deletes a single instance.
@@ -234,9 +238,13 @@ impl SecureSourceManager {
     pub fn create_repository(
         &self,
         parent: impl Into<std::string::String>,
+        repository: impl Into<crate::model::Repository>,
+        repository_id: impl Into<std::string::String>,
     ) -> super::builder::secure_source_manager::CreateRepository {
         super::builder::secure_source_manager::CreateRepository::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_repository(repository.into())
+            .set_repository_id(repository_id.into())
     }
 
     /// Deletes a Repository.
@@ -273,9 +281,11 @@ impl SecureSourceManager {
     pub fn set_iam_policy_repo(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::secure_source_manager::SetIamPolicyRepo {
         super::builder::secure_source_manager::SetIamPolicyRepo::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Test IAM permissions on a repository.
@@ -283,9 +293,11 @@ impl SecureSourceManager {
     pub fn test_iam_permissions_repo(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::secure_source_manager::TestIamPermissionsRepo {
         super::builder::secure_source_manager::TestIamPermissionsRepo::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// CreateBranchRule creates a branch rule in a given repository.
@@ -302,9 +314,13 @@ impl SecureSourceManager {
     pub fn create_branch_rule(
         &self,
         parent: impl Into<std::string::String>,
+        branch_rule: impl Into<crate::model::BranchRule>,
+        branch_rule_id: impl Into<std::string::String>,
     ) -> super::builder::secure_source_manager::CreateBranchRule {
         super::builder::secure_source_manager::CreateBranchRule::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_branch_rule(branch_rule.into())
+            .set_branch_rule_id(branch_rule_id.into())
     }
 
     /// ListBranchRules lists branch rules in a given repository.
@@ -339,9 +355,11 @@ impl SecureSourceManager {
     pub fn update_branch_rule(
         &self,
         branch_rule: impl Into<crate::model::BranchRule>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::secure_source_manager::UpdateBranchRule {
         super::builder::secure_source_manager::UpdateBranchRule::new(self.inner.clone())
             .set_branch_rule(branch_rule.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// DeleteBranchRule deletes a branch rule.
@@ -389,9 +407,11 @@ impl SecureSourceManager {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::secure_source_manager::SetIamPolicy {
         super::builder::secure_source_manager::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -414,9 +434,11 @@ impl SecureSourceManager {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::secure_source_manager::TestIamPermissions {
         super::builder::secure_source_manager::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

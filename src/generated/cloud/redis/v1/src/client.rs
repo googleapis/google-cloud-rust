@@ -196,9 +196,13 @@ impl CloudRedis {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
+        instance_id: impl Into<std::string::String>,
+        instance: impl Into<crate::model::Instance>,
     ) -> super::builder::cloud_redis::CreateInstance {
         super::builder::cloud_redis::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_id(instance_id.into())
+            .set_instance(instance.into())
     }
 
     /// Updates the metadata and configuration of a specific Redis instance.
@@ -218,9 +222,11 @@ impl CloudRedis {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_instance(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         instance: impl Into<crate::model::Instance>,
     ) -> super::builder::cloud_redis::UpdateInstance {
         super::builder::cloud_redis::UpdateInstance::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_instance(instance.into())
     }
 
@@ -239,8 +245,11 @@ impl CloudRedis {
     pub fn upgrade_instance(
         &self,
         name: impl Into<std::string::String>,
+        redis_version: impl Into<std::string::String>,
     ) -> super::builder::cloud_redis::UpgradeInstance {
-        super::builder::cloud_redis::UpgradeInstance::new(self.inner.clone()).set_name(name.into())
+        super::builder::cloud_redis::UpgradeInstance::new(self.inner.clone())
+            .set_name(name.into())
+            .set_redis_version(redis_version.into())
     }
 
     /// Import a Redis RDB snapshot file from Cloud Storage into a Redis instance.
@@ -264,8 +273,11 @@ impl CloudRedis {
     pub fn import_instance(
         &self,
         name: impl Into<std::string::String>,
+        input_config: impl Into<crate::model::InputConfig>,
     ) -> super::builder::cloud_redis::ImportInstance {
-        super::builder::cloud_redis::ImportInstance::new(self.inner.clone()).set_name(name.into())
+        super::builder::cloud_redis::ImportInstance::new(self.inner.clone())
+            .set_name(name.into())
+            .set_input_config(input_config.into())
     }
 
     /// Export Redis instance data into a Redis RDB format file in Cloud Storage.
@@ -287,8 +299,11 @@ impl CloudRedis {
     pub fn export_instance(
         &self,
         name: impl Into<std::string::String>,
+        output_config: impl Into<crate::model::OutputConfig>,
     ) -> super::builder::cloud_redis::ExportInstance {
-        super::builder::cloud_redis::ExportInstance::new(self.inner.clone()).set_name(name.into())
+        super::builder::cloud_redis::ExportInstance::new(self.inner.clone())
+            .set_name(name.into())
+            .set_output_config(output_config.into())
     }
 
     /// Initiates a failover of the primary node to current replica node for a
@@ -344,9 +359,11 @@ impl CloudRedis {
     pub fn reschedule_maintenance(
         &self,
         name: impl Into<std::string::String>,
+        reschedule_type: impl Into<crate::model::reschedule_maintenance_request::RescheduleType>,
     ) -> super::builder::cloud_redis::RescheduleMaintenance {
         super::builder::cloud_redis::RescheduleMaintenance::new(self.inner.clone())
             .set_name(name.into())
+            .set_reschedule_type(reschedule_type.into())
     }
 
     /// Lists information about the supported locations for this service.

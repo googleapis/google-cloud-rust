@@ -167,11 +167,13 @@ impl ClientConnectorServicesService {
     pub fn create_client_connector_service(
         &self,
         parent: impl Into<std::string::String>,
+        client_connector_service: impl Into<crate::model::ClientConnectorService>,
     ) -> super::builder::client_connector_services_service::CreateClientConnectorService {
         super::builder::client_connector_services_service::CreateClientConnectorService::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_client_connector_service(client_connector_service.into())
     }
 
     /// Updates the parameters of a single ClientConnectorService.
@@ -187,11 +189,13 @@ impl ClientConnectorServicesService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_client_connector_service(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         client_connector_service: impl Into<crate::model::ClientConnectorService>,
     ) -> super::builder::client_connector_services_service::UpdateClientConnectorService {
         super::builder::client_connector_services_service::UpdateClientConnectorService::new(
             self.inner.clone(),
         )
+        .set_update_mask(update_mask.into())
         .set_client_connector_service(client_connector_service.into())
     }
 
@@ -242,9 +246,11 @@ impl ClientConnectorServicesService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::client_connector_services_service::SetIamPolicy {
         super::builder::client_connector_services_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -267,11 +273,13 @@ impl ClientConnectorServicesService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::client_connector_services_service::TestIamPermissions {
         super::builder::client_connector_services_service::TestIamPermissions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
+        .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

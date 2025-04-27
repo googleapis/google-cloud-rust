@@ -157,9 +157,13 @@ impl VmwareEngine {
     pub fn create_private_cloud(
         &self,
         parent: impl Into<std::string::String>,
+        private_cloud_id: impl Into<std::string::String>,
+        private_cloud: impl Into<crate::model::PrivateCloud>,
     ) -> super::builder::vmware_engine::CreatePrivateCloud {
         super::builder::vmware_engine::CreatePrivateCloud::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_private_cloud_id(private_cloud_id.into())
+            .set_private_cloud(private_cloud.into())
     }
 
     /// Modifies a `PrivateCloud` resource. Only the following fields can be
@@ -183,9 +187,11 @@ impl VmwareEngine {
     pub fn update_private_cloud(
         &self,
         private_cloud: impl Into<crate::model::PrivateCloud>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::vmware_engine::UpdatePrivateCloud {
         super::builder::vmware_engine::UpdatePrivateCloud::new(self.inner.clone())
             .set_private_cloud(private_cloud.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Schedules a `PrivateCloud` resource for deletion.
@@ -277,9 +283,13 @@ impl VmwareEngine {
     pub fn create_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        cluster_id: impl Into<std::string::String>,
+        cluster: impl Into<crate::model::Cluster>,
     ) -> super::builder::vmware_engine::CreateCluster {
         super::builder::vmware_engine::CreateCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_cluster_id(cluster_id.into())
+            .set_cluster(cluster.into())
     }
 
     /// Modifies a `Cluster` resource. Only fields specified in `updateMask` are
@@ -301,9 +311,11 @@ impl VmwareEngine {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_cluster(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         cluster: impl Into<crate::model::Cluster>,
     ) -> super::builder::vmware_engine::UpdateCluster {
         super::builder::vmware_engine::UpdateCluster::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_cluster(cluster.into())
     }
 
@@ -389,9 +401,13 @@ impl VmwareEngine {
     pub fn create_external_address(
         &self,
         parent: impl Into<std::string::String>,
+        external_address: impl Into<crate::model::ExternalAddress>,
+        external_address_id: impl Into<std::string::String>,
     ) -> super::builder::vmware_engine::CreateExternalAddress {
         super::builder::vmware_engine::CreateExternalAddress::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_external_address(external_address.into())
+            .set_external_address_id(external_address_id.into())
     }
 
     /// Updates the parameters of a single external IP address.
@@ -413,9 +429,11 @@ impl VmwareEngine {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_external_address(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         external_address: impl Into<crate::model::ExternalAddress>,
     ) -> super::builder::vmware_engine::UpdateExternalAddress {
         super::builder::vmware_engine::UpdateExternalAddress::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_external_address(external_address.into())
     }
 
@@ -475,9 +493,11 @@ impl VmwareEngine {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_subnet(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         subnet: impl Into<crate::model::Subnet>,
     ) -> super::builder::vmware_engine::UpdateSubnet {
         super::builder::vmware_engine::UpdateSubnet::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_subnet(subnet.into())
     }
 
@@ -513,9 +533,13 @@ impl VmwareEngine {
     pub fn create_external_access_rule(
         &self,
         parent: impl Into<std::string::String>,
+        external_access_rule: impl Into<crate::model::ExternalAccessRule>,
+        external_access_rule_id: impl Into<std::string::String>,
     ) -> super::builder::vmware_engine::CreateExternalAccessRule {
         super::builder::vmware_engine::CreateExternalAccessRule::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_external_access_rule(external_access_rule.into())
+            .set_external_access_rule_id(external_access_rule_id.into())
     }
 
     /// Updates the parameters of a single external access rule.
@@ -532,9 +556,11 @@ impl VmwareEngine {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_external_access_rule(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         external_access_rule: impl Into<crate::model::ExternalAccessRule>,
     ) -> super::builder::vmware_engine::UpdateExternalAccessRule {
         super::builder::vmware_engine::UpdateExternalAccessRule::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_external_access_rule(external_access_rule.into())
     }
 
@@ -590,9 +616,13 @@ impl VmwareEngine {
     pub fn create_logging_server(
         &self,
         parent: impl Into<std::string::String>,
+        logging_server: impl Into<crate::model::LoggingServer>,
+        logging_server_id: impl Into<std::string::String>,
     ) -> super::builder::vmware_engine::CreateLoggingServer {
         super::builder::vmware_engine::CreateLoggingServer::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_logging_server(logging_server.into())
+            .set_logging_server_id(logging_server_id.into())
     }
 
     /// Updates the parameters of a single logging server.
@@ -609,9 +639,11 @@ impl VmwareEngine {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_logging_server(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         logging_server: impl Into<crate::model::LoggingServer>,
     ) -> super::builder::vmware_engine::UpdateLoggingServer {
         super::builder::vmware_engine::UpdateLoggingServer::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_logging_server(logging_server.into())
     }
 
@@ -731,9 +763,11 @@ impl VmwareEngine {
     pub fn update_dns_forwarding(
         &self,
         dns_forwarding: impl Into<crate::model::DnsForwarding>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::vmware_engine::UpdateDnsForwarding {
         super::builder::vmware_engine::UpdateDnsForwarding::new(self.inner.clone())
             .set_dns_forwarding(dns_forwarding.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Retrieves a `NetworkPeering` resource by its resource name. The resource
@@ -774,9 +808,13 @@ impl VmwareEngine {
     pub fn create_network_peering(
         &self,
         parent: impl Into<std::string::String>,
+        network_peering_id: impl Into<std::string::String>,
+        network_peering: impl Into<crate::model::NetworkPeering>,
     ) -> super::builder::vmware_engine::CreateNetworkPeering {
         super::builder::vmware_engine::CreateNetworkPeering::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_network_peering_id(network_peering_id.into())
+            .set_network_peering(network_peering.into())
     }
 
     /// Deletes a `NetworkPeering` resource. When a network peering is deleted for
@@ -817,9 +855,11 @@ impl VmwareEngine {
     pub fn update_network_peering(
         &self,
         network_peering: impl Into<crate::model::NetworkPeering>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::vmware_engine::UpdateNetworkPeering {
         super::builder::vmware_engine::UpdateNetworkPeering::new(self.inner.clone())
             .set_network_peering(network_peering.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Lists the network peering routes exchanged over a peering connection.
@@ -846,9 +886,13 @@ impl VmwareEngine {
     pub fn create_hcx_activation_key(
         &self,
         parent: impl Into<std::string::String>,
+        hcx_activation_key: impl Into<crate::model::HcxActivationKey>,
+        hcx_activation_key_id: impl Into<std::string::String>,
     ) -> super::builder::vmware_engine::CreateHcxActivationKey {
         super::builder::vmware_engine::CreateHcxActivationKey::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_hcx_activation_key(hcx_activation_key.into())
+            .set_hcx_activation_key_id(hcx_activation_key_id.into())
     }
 
     /// Lists `HcxActivationKey` resources in a given private cloud.
@@ -903,9 +947,13 @@ impl VmwareEngine {
     pub fn create_network_policy(
         &self,
         parent: impl Into<std::string::String>,
+        network_policy_id: impl Into<std::string::String>,
+        network_policy: impl Into<crate::model::NetworkPolicy>,
     ) -> super::builder::vmware_engine::CreateNetworkPolicy {
         super::builder::vmware_engine::CreateNetworkPolicy::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_network_policy_id(network_policy_id.into())
+            .set_network_policy(network_policy.into())
     }
 
     /// Modifies a `NetworkPolicy` resource. Only the following fields can be
@@ -933,9 +981,11 @@ impl VmwareEngine {
     pub fn update_network_policy(
         &self,
         network_policy: impl Into<crate::model::NetworkPolicy>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::vmware_engine::UpdateNetworkPolicy {
         super::builder::vmware_engine::UpdateNetworkPolicy::new(self.inner.clone())
             .set_network_policy(network_policy.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a `NetworkPolicy` resource. A network policy cannot be deleted
@@ -997,9 +1047,13 @@ impl VmwareEngine {
     pub fn create_management_dns_zone_binding(
         &self,
         parent: impl Into<std::string::String>,
+        management_dns_zone_binding: impl Into<crate::model::ManagementDnsZoneBinding>,
+        management_dns_zone_binding_id: impl Into<std::string::String>,
     ) -> super::builder::vmware_engine::CreateManagementDnsZoneBinding {
         super::builder::vmware_engine::CreateManagementDnsZoneBinding::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_management_dns_zone_binding(management_dns_zone_binding.into())
+            .set_management_dns_zone_binding_id(management_dns_zone_binding_id.into())
     }
 
     /// Updates a `ManagementDnsZoneBinding` resource.
@@ -1016,9 +1070,11 @@ impl VmwareEngine {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_management_dns_zone_binding(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         management_dns_zone_binding: impl Into<crate::model::ManagementDnsZoneBinding>,
     ) -> super::builder::vmware_engine::UpdateManagementDnsZoneBinding {
         super::builder::vmware_engine::UpdateManagementDnsZoneBinding::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_management_dns_zone_binding(management_dns_zone_binding.into())
     }
 
@@ -1077,9 +1133,13 @@ impl VmwareEngine {
     pub fn create_vmware_engine_network(
         &self,
         parent: impl Into<std::string::String>,
+        vmware_engine_network_id: impl Into<std::string::String>,
+        vmware_engine_network: impl Into<crate::model::VmwareEngineNetwork>,
     ) -> super::builder::vmware_engine::CreateVmwareEngineNetwork {
         super::builder::vmware_engine::CreateVmwareEngineNetwork::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_vmware_engine_network_id(vmware_engine_network_id.into())
+            .set_vmware_engine_network(vmware_engine_network.into())
     }
 
     /// Modifies a VMware Engine network resource. Only the following fields can be
@@ -1098,9 +1158,11 @@ impl VmwareEngine {
     pub fn update_vmware_engine_network(
         &self,
         vmware_engine_network: impl Into<crate::model::VmwareEngineNetwork>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::vmware_engine::UpdateVmwareEngineNetwork {
         super::builder::vmware_engine::UpdateVmwareEngineNetwork::new(self.inner.clone())
             .set_vmware_engine_network(vmware_engine_network.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a `VmwareEngineNetwork` resource. You can only delete a VMware
@@ -1161,9 +1223,13 @@ impl VmwareEngine {
     pub fn create_private_connection(
         &self,
         parent: impl Into<std::string::String>,
+        private_connection_id: impl Into<std::string::String>,
+        private_connection: impl Into<crate::model::PrivateConnection>,
     ) -> super::builder::vmware_engine::CreatePrivateConnection {
         super::builder::vmware_engine::CreatePrivateConnection::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_private_connection_id(private_connection_id.into())
+            .set_private_connection(private_connection.into())
     }
 
     /// Retrieves a `PrivateConnection` resource by its resource name. The resource
@@ -1202,9 +1268,11 @@ impl VmwareEngine {
     pub fn update_private_connection(
         &self,
         private_connection: impl Into<crate::model::PrivateConnection>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::vmware_engine::UpdatePrivateConnection {
         super::builder::vmware_engine::UpdatePrivateConnection::new(self.inner.clone())
             .set_private_connection(private_connection.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a `PrivateConnection` resource. When a private connection is
@@ -1254,9 +1322,11 @@ impl VmwareEngine {
     pub fn grant_dns_bind_permission(
         &self,
         name: impl Into<std::string::String>,
+        principal: impl Into<crate::model::Principal>,
     ) -> super::builder::vmware_engine::GrantDnsBindPermission {
         super::builder::vmware_engine::GrantDnsBindPermission::new(self.inner.clone())
             .set_name(name.into())
+            .set_principal(principal.into())
     }
 
     /// Gets all the principals having bind permission on the intranet VPC
@@ -1286,9 +1356,11 @@ impl VmwareEngine {
     pub fn revoke_dns_bind_permission(
         &self,
         name: impl Into<std::string::String>,
+        principal: impl Into<crate::model::Principal>,
     ) -> super::builder::vmware_engine::RevokeDnsBindPermission {
         super::builder::vmware_engine::RevokeDnsBindPermission::new(self.inner.clone())
             .set_name(name.into())
+            .set_principal(principal.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -1315,9 +1387,11 @@ impl VmwareEngine {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::vmware_engine::SetIamPolicy {
         super::builder::vmware_engine::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -1340,9 +1414,11 @@ impl VmwareEngine {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::vmware_engine::TestIamPermissions {
         super::builder::vmware_engine::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

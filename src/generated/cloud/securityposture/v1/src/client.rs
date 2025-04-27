@@ -175,9 +175,13 @@ impl SecurityPosture {
     pub fn create_posture(
         &self,
         parent: impl Into<std::string::String>,
+        posture_id: impl Into<std::string::String>,
+        posture: impl Into<crate::model::Posture>,
     ) -> super::builder::security_posture::CreatePosture {
         super::builder::security_posture::CreatePosture::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_posture_id(posture_id.into())
+            .set_posture(posture.into())
     }
 
     /// Updates an existing Posture.
@@ -204,10 +208,14 @@ impl SecurityPosture {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_posture(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         posture: impl Into<crate::model::Posture>,
+        revision_id: impl Into<std::string::String>,
     ) -> super::builder::security_posture::UpdatePosture {
         super::builder::security_posture::UpdatePosture::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_posture(posture.into())
+            .set_revision_id(revision_id.into())
     }
 
     /// Deletes all the revisions of a resource.
@@ -247,9 +255,13 @@ impl SecurityPosture {
     pub fn extract_posture(
         &self,
         parent: impl Into<std::string::String>,
+        posture_id: impl Into<std::string::String>,
+        workload: impl Into<std::string::String>,
     ) -> super::builder::security_posture::ExtractPosture {
         super::builder::security_posture::ExtractPosture::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_posture_id(posture_id.into())
+            .set_workload(workload.into())
     }
 
     /// PostureDeployments
@@ -285,9 +297,13 @@ impl SecurityPosture {
     pub fn create_posture_deployment(
         &self,
         parent: impl Into<std::string::String>,
+        posture_deployment_id: impl Into<std::string::String>,
+        posture_deployment: impl Into<crate::model::PostureDeployment>,
     ) -> super::builder::security_posture::CreatePostureDeployment {
         super::builder::security_posture::CreatePostureDeployment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_posture_deployment_id(posture_deployment_id.into())
+            .set_posture_deployment(posture_deployment.into())
     }
 
     /// Updates the parameters of a single PostureDeployment.
@@ -303,9 +319,11 @@ impl SecurityPosture {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_posture_deployment(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         posture_deployment: impl Into<crate::model::PostureDeployment>,
     ) -> super::builder::security_posture::UpdatePostureDeployment {
         super::builder::security_posture::UpdatePostureDeployment::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_posture_deployment(posture_deployment.into())
     }
 

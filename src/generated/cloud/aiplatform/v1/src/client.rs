@@ -205,9 +205,11 @@ impl DatasetService {
     pub fn create_dataset(
         &self,
         parent: impl Into<std::string::String>,
+        dataset: impl Into<crate::model::Dataset>,
     ) -> super::builder::dataset_service::CreateDataset {
         super::builder::dataset_service::CreateDataset::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_dataset(dataset.into())
     }
 
     /// Gets a Dataset.
@@ -222,9 +224,11 @@ impl DatasetService {
     pub fn update_dataset(
         &self,
         dataset: impl Into<crate::model::Dataset>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::dataset_service::UpdateDataset {
         super::builder::dataset_service::UpdateDataset::new(self.inner.clone())
             .set_dataset(dataset.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Lists Datasets in a Location.
@@ -269,8 +273,11 @@ impl DatasetService {
     pub fn import_data(
         &self,
         name: impl Into<std::string::String>,
+        import_configs: impl IntoIterator<Item = impl Into<crate::model::ImportDataConfig>>,
     ) -> super::builder::dataset_service::ImportData {
-        super::builder::dataset_service::ImportData::new(self.inner.clone()).set_name(name.into())
+        super::builder::dataset_service::ImportData::new(self.inner.clone())
+            .set_name(name.into())
+            .set_import_configs(import_configs.into_iter().map(|v| v.into()))
     }
 
     /// Exports data from a Dataset.
@@ -287,8 +294,11 @@ impl DatasetService {
     pub fn export_data(
         &self,
         name: impl Into<std::string::String>,
+        export_config: impl Into<crate::model::ExportDataConfig>,
     ) -> super::builder::dataset_service::ExportData {
-        super::builder::dataset_service::ExportData::new(self.inner.clone()).set_name(name.into())
+        super::builder::dataset_service::ExportData::new(self.inner.clone())
+            .set_name(name.into())
+            .set_export_config(export_config.into())
     }
 
     /// Create a version from a Dataset.
@@ -305,18 +315,22 @@ impl DatasetService {
     pub fn create_dataset_version(
         &self,
         parent: impl Into<std::string::String>,
+        dataset_version: impl Into<crate::model::DatasetVersion>,
     ) -> super::builder::dataset_service::CreateDatasetVersion {
         super::builder::dataset_service::CreateDatasetVersion::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_dataset_version(dataset_version.into())
     }
 
     /// Updates a DatasetVersion.
     pub fn update_dataset_version(
         &self,
         dataset_version: impl Into<crate::model::DatasetVersion>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::dataset_service::UpdateDatasetVersion {
         super::builder::dataset_service::UpdateDatasetVersion::new(self.inner.clone())
             .set_dataset_version(dataset_version.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a Dataset version.
@@ -466,9 +480,11 @@ impl DatasetService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::dataset_service::SetIamPolicy {
         super::builder::dataset_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -491,9 +507,11 @@ impl DatasetService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::dataset_service::TestIamPermissions {
         super::builder::dataset_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -670,11 +688,15 @@ impl DeploymentResourcePoolService {
     pub fn create_deployment_resource_pool(
         &self,
         parent: impl Into<std::string::String>,
+        deployment_resource_pool: impl Into<crate::model::DeploymentResourcePool>,
+        deployment_resource_pool_id: impl Into<std::string::String>,
     ) -> super::builder::deployment_resource_pool_service::CreateDeploymentResourcePool {
         super::builder::deployment_resource_pool_service::CreateDeploymentResourcePool::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_deployment_resource_pool(deployment_resource_pool.into())
+        .set_deployment_resource_pool_id(deployment_resource_pool_id.into())
     }
 
     /// Get a DeploymentResourcePool.
@@ -713,11 +735,13 @@ impl DeploymentResourcePoolService {
     pub fn update_deployment_resource_pool(
         &self,
         deployment_resource_pool: impl Into<crate::model::DeploymentResourcePool>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::deployment_resource_pool_service::UpdateDeploymentResourcePool {
         super::builder::deployment_resource_pool_service::UpdateDeploymentResourcePool::new(
             self.inner.clone(),
         )
         .set_deployment_resource_pool(deployment_resource_pool.into())
+        .set_update_mask(update_mask.into())
     }
 
     /// Delete a DeploymentResourcePool.
@@ -778,9 +802,11 @@ impl DeploymentResourcePoolService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::deployment_resource_pool_service::SetIamPolicy {
         super::builder::deployment_resource_pool_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -803,11 +829,13 @@ impl DeploymentResourcePoolService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::deployment_resource_pool_service::TestIamPermissions {
         super::builder::deployment_resource_pool_service::TestIamPermissions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
+        .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -985,9 +1013,11 @@ impl EndpointService {
     pub fn create_endpoint(
         &self,
         parent: impl Into<std::string::String>,
+        endpoint: impl Into<crate::model::Endpoint>,
     ) -> super::builder::endpoint_service::CreateEndpoint {
         super::builder::endpoint_service::CreateEndpoint::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_endpoint(endpoint.into())
     }
 
     /// Gets an Endpoint.
@@ -1011,9 +1041,11 @@ impl EndpointService {
     pub fn update_endpoint(
         &self,
         endpoint: impl Into<crate::model::Endpoint>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::endpoint_service::UpdateEndpoint {
         super::builder::endpoint_service::UpdateEndpoint::new(self.inner.clone())
             .set_endpoint(endpoint.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Updates an Endpoint with a long running operation.
@@ -1068,9 +1100,11 @@ impl EndpointService {
     pub fn deploy_model(
         &self,
         endpoint: impl Into<std::string::String>,
+        deployed_model: impl Into<crate::model::DeployedModel>,
     ) -> super::builder::endpoint_service::DeployModel {
         super::builder::endpoint_service::DeployModel::new(self.inner.clone())
             .set_endpoint(endpoint.into())
+            .set_deployed_model(deployed_model.into())
     }
 
     /// Undeploys a Model from an Endpoint, removing a DeployedModel from it, and
@@ -1088,9 +1122,11 @@ impl EndpointService {
     pub fn undeploy_model(
         &self,
         endpoint: impl Into<std::string::String>,
+        deployed_model_id: impl Into<std::string::String>,
     ) -> super::builder::endpoint_service::UndeployModel {
         super::builder::endpoint_service::UndeployModel::new(self.inner.clone())
             .set_endpoint(endpoint.into())
+            .set_deployed_model_id(deployed_model_id.into())
     }
 
     /// Updates an existing deployed model. Updatable fields include
@@ -1110,9 +1146,13 @@ impl EndpointService {
     pub fn mutate_deployed_model(
         &self,
         endpoint: impl Into<std::string::String>,
+        deployed_model: impl Into<crate::model::DeployedModel>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::endpoint_service::MutateDeployedModel {
         super::builder::endpoint_service::MutateDeployedModel::new(self.inner.clone())
             .set_endpoint(endpoint.into())
+            .set_deployed_model(deployed_model.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -1140,9 +1180,11 @@ impl EndpointService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::endpoint_service::SetIamPolicy {
         super::builder::endpoint_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -1165,9 +1207,11 @@ impl EndpointService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::endpoint_service::TestIamPermissions {
         super::builder::endpoint_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1366,9 +1410,11 @@ impl EvaluationService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::evaluation_service::SetIamPolicy {
         super::builder::evaluation_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -1391,9 +1437,11 @@ impl EvaluationService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::evaluation_service::TestIamPermissions {
         super::builder::evaluation_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1572,11 +1620,15 @@ impl FeatureOnlineStoreAdminService {
     pub fn create_feature_online_store(
         &self,
         parent: impl Into<std::string::String>,
+        feature_online_store: impl Into<crate::model::FeatureOnlineStore>,
+        feature_online_store_id: impl Into<std::string::String>,
     ) -> super::builder::feature_online_store_admin_service::CreateFeatureOnlineStore {
         super::builder::feature_online_store_admin_service::CreateFeatureOnlineStore::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_feature_online_store(feature_online_store.into())
+        .set_feature_online_store_id(feature_online_store_id.into())
     }
 
     /// Gets details of a single FeatureOnlineStore.
@@ -1658,11 +1710,15 @@ impl FeatureOnlineStoreAdminService {
     pub fn create_feature_view(
         &self,
         parent: impl Into<std::string::String>,
+        feature_view: impl Into<crate::model::FeatureView>,
+        feature_view_id: impl Into<std::string::String>,
     ) -> super::builder::feature_online_store_admin_service::CreateFeatureView {
         super::builder::feature_online_store_admin_service::CreateFeatureView::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_feature_view(feature_view.into())
+        .set_feature_view_id(feature_view_id.into())
     }
 
     /// Gets details of a single FeatureView.
@@ -1784,9 +1840,11 @@ impl FeatureOnlineStoreAdminService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::feature_online_store_admin_service::SetIamPolicy {
         super::builder::feature_online_store_admin_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -1809,11 +1867,13 @@ impl FeatureOnlineStoreAdminService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::feature_online_store_admin_service::TestIamPermissions {
         super::builder::feature_online_store_admin_service::TestIamPermissions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
+        .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1992,9 +2052,11 @@ impl FeatureOnlineStoreService {
     pub fn search_nearest_entities(
         &self,
         feature_view: impl Into<std::string::String>,
+        query: impl Into<crate::model::NearestNeighborQuery>,
     ) -> super::builder::feature_online_store_service::SearchNearestEntities {
         super::builder::feature_online_store_service::SearchNearestEntities::new(self.inner.clone())
             .set_feature_view(feature_view.into())
+            .set_query(query.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -2023,9 +2085,11 @@ impl FeatureOnlineStoreService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::feature_online_store_service::SetIamPolicy {
         super::builder::feature_online_store_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -2048,9 +2112,11 @@ impl FeatureOnlineStoreService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::feature_online_store_service::TestIamPermissions {
         super::builder::feature_online_store_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2229,9 +2295,13 @@ impl FeatureRegistryService {
     pub fn create_feature_group(
         &self,
         parent: impl Into<std::string::String>,
+        feature_group: impl Into<crate::model::FeatureGroup>,
+        feature_group_id: impl Into<std::string::String>,
     ) -> super::builder::feature_registry_service::CreateFeatureGroup {
         super::builder::feature_registry_service::CreateFeatureGroup::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_feature_group(feature_group.into())
+            .set_feature_group_id(feature_group_id.into())
     }
 
     /// Gets details of a single FeatureGroup.
@@ -2304,9 +2374,13 @@ impl FeatureRegistryService {
     pub fn create_feature(
         &self,
         parent: impl Into<std::string::String>,
+        feature: impl Into<crate::model::Feature>,
+        feature_id: impl Into<std::string::String>,
     ) -> super::builder::feature_registry_service::CreateFeature {
         super::builder::feature_registry_service::CreateFeature::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_feature(feature.into())
+            .set_feature_id(feature_id.into())
     }
 
     /// Creates a batch of Features in a given FeatureGroup.
@@ -2323,9 +2397,11 @@ impl FeatureRegistryService {
     pub fn batch_create_features(
         &self,
         parent: impl Into<std::string::String>,
+        requests: impl IntoIterator<Item = impl Into<crate::model::CreateFeatureRequest>>,
     ) -> super::builder::feature_registry_service::BatchCreateFeatures {
         super::builder::feature_registry_service::BatchCreateFeatures::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_requests(requests.into_iter().map(|v| v.into()))
     }
 
     /// Gets details of a single Feature.
@@ -2410,9 +2486,11 @@ impl FeatureRegistryService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::feature_registry_service::SetIamPolicy {
         super::builder::feature_registry_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -2435,9 +2513,11 @@ impl FeatureRegistryService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::feature_registry_service::TestIamPermissions {
         super::builder::feature_registry_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2607,11 +2687,15 @@ impl FeaturestoreOnlineServingService {
     pub fn read_feature_values(
         &self,
         entity_type: impl Into<std::string::String>,
+        entity_id: impl Into<std::string::String>,
+        feature_selector: impl Into<crate::model::FeatureSelector>,
     ) -> super::builder::featurestore_online_serving_service::ReadFeatureValues {
         super::builder::featurestore_online_serving_service::ReadFeatureValues::new(
             self.inner.clone(),
         )
         .set_entity_type(entity_type.into())
+        .set_entity_id(entity_id.into())
+        .set_feature_selector(feature_selector.into())
     }
 
     /// Writes Feature values of one or more entities of an EntityType.
@@ -2622,11 +2706,13 @@ impl FeaturestoreOnlineServingService {
     pub fn write_feature_values(
         &self,
         entity_type: impl Into<std::string::String>,
+        payloads: impl IntoIterator<Item = impl Into<crate::model::WriteFeatureValuesPayload>>,
     ) -> super::builder::featurestore_online_serving_service::WriteFeatureValues {
         super::builder::featurestore_online_serving_service::WriteFeatureValues::new(
             self.inner.clone(),
         )
         .set_entity_type(entity_type.into())
+        .set_payloads(payloads.into_iter().map(|v| v.into()))
     }
 
     /// Lists information about the supported locations for this service.
@@ -2655,9 +2741,11 @@ impl FeaturestoreOnlineServingService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::featurestore_online_serving_service::SetIamPolicy {
         super::builder::featurestore_online_serving_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -2680,11 +2768,13 @@ impl FeaturestoreOnlineServingService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::featurestore_online_serving_service::TestIamPermissions {
         super::builder::featurestore_online_serving_service::TestIamPermissions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
+        .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2866,9 +2956,13 @@ impl FeaturestoreService {
     pub fn create_featurestore(
         &self,
         parent: impl Into<std::string::String>,
+        featurestore: impl Into<crate::model::Featurestore>,
+        featurestore_id: impl Into<std::string::String>,
     ) -> super::builder::featurestore_service::CreateFeaturestore {
         super::builder::featurestore_service::CreateFeaturestore::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_featurestore(featurestore.into())
+            .set_featurestore_id(featurestore_id.into())
     }
 
     /// Gets details of a single Featurestore.
@@ -2942,9 +3036,11 @@ impl FeaturestoreService {
     pub fn create_entity_type(
         &self,
         parent: impl Into<std::string::String>,
+        entity_type_id: impl Into<std::string::String>,
     ) -> super::builder::featurestore_service::CreateEntityType {
         super::builder::featurestore_service::CreateEntityType::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entity_type_id(entity_type_id.into())
     }
 
     /// Gets details of a single EntityType.
@@ -3008,9 +3104,13 @@ impl FeaturestoreService {
     pub fn create_feature(
         &self,
         parent: impl Into<std::string::String>,
+        feature: impl Into<crate::model::Feature>,
+        feature_id: impl Into<std::string::String>,
     ) -> super::builder::featurestore_service::CreateFeature {
         super::builder::featurestore_service::CreateFeature::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_feature(feature.into())
+            .set_feature_id(feature_id.into())
     }
 
     /// Creates a batch of Features in a given EntityType.
@@ -3027,9 +3127,11 @@ impl FeaturestoreService {
     pub fn batch_create_features(
         &self,
         parent: impl Into<std::string::String>,
+        requests: impl IntoIterator<Item = impl Into<crate::model::CreateFeatureRequest>>,
     ) -> super::builder::featurestore_service::BatchCreateFeatures {
         super::builder::featurestore_service::BatchCreateFeatures::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_requests(requests.into_iter().map(|v| v.into()))
     }
 
     /// Gets details of a single Feature.
@@ -3111,9 +3213,13 @@ impl FeaturestoreService {
     pub fn import_feature_values(
         &self,
         entity_type: impl Into<std::string::String>,
+        feature_specs: impl IntoIterator<
+            Item = impl Into<crate::model::import_feature_values_request::FeatureSpec>,
+        >,
     ) -> super::builder::featurestore_service::ImportFeatureValues {
         super::builder::featurestore_service::ImportFeatureValues::new(self.inner.clone())
             .set_entity_type(entity_type.into())
+            .set_feature_specs(feature_specs.into_iter().map(|v| v.into()))
     }
 
     /// Batch reads Feature values from a Featurestore.
@@ -3135,9 +3241,15 @@ impl FeaturestoreService {
     pub fn batch_read_feature_values(
         &self,
         featurestore: impl Into<std::string::String>,
+        destination: impl Into<crate::model::FeatureValueDestination>,
+        entity_type_specs: impl IntoIterator<
+            Item = impl Into<crate::model::batch_read_feature_values_request::EntityTypeSpec>,
+        >,
     ) -> super::builder::featurestore_service::BatchReadFeatureValues {
         super::builder::featurestore_service::BatchReadFeatureValues::new(self.inner.clone())
             .set_featurestore(featurestore.into())
+            .set_destination(destination.into())
+            .set_entity_type_specs(entity_type_specs.into_iter().map(|v| v.into()))
     }
 
     /// Exports Feature values from all the entities of a target EntityType.
@@ -3154,9 +3266,13 @@ impl FeaturestoreService {
     pub fn export_feature_values(
         &self,
         entity_type: impl Into<std::string::String>,
+        destination: impl Into<crate::model::FeatureValueDestination>,
+        feature_selector: impl Into<crate::model::FeatureSelector>,
     ) -> super::builder::featurestore_service::ExportFeatureValues {
         super::builder::featurestore_service::ExportFeatureValues::new(self.inner.clone())
             .set_entity_type(entity_type.into())
+            .set_destination(destination.into())
+            .set_feature_selector(feature_selector.into())
     }
 
     /// Delete Feature values from Featurestore.
@@ -3222,9 +3338,11 @@ impl FeaturestoreService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::featurestore_service::SetIamPolicy {
         super::builder::featurestore_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -3247,9 +3365,11 @@ impl FeaturestoreService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::featurestore_service::TestIamPermissions {
         super::builder::featurestore_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3418,9 +3538,11 @@ impl GenAiCacheService {
     pub fn create_cached_content(
         &self,
         parent: impl Into<std::string::String>,
+        cached_content: impl Into<crate::model::CachedContent>,
     ) -> super::builder::gen_ai_cache_service::CreateCachedContent {
         super::builder::gen_ai_cache_service::CreateCachedContent::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_cached_content(cached_content.into())
     }
 
     /// Gets cached content configurations
@@ -3436,9 +3558,11 @@ impl GenAiCacheService {
     pub fn update_cached_content(
         &self,
         cached_content: impl Into<crate::model::CachedContent>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::gen_ai_cache_service::UpdateCachedContent {
         super::builder::gen_ai_cache_service::UpdateCachedContent::new(self.inner.clone())
             .set_cached_content(cached_content.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes cached content
@@ -3485,9 +3609,11 @@ impl GenAiCacheService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::gen_ai_cache_service::SetIamPolicy {
         super::builder::gen_ai_cache_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -3510,9 +3636,11 @@ impl GenAiCacheService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::gen_ai_cache_service::TestIamPermissions {
         super::builder::gen_ai_cache_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3681,9 +3809,11 @@ impl GenAiTuningService {
     pub fn create_tuning_job(
         &self,
         parent: impl Into<std::string::String>,
+        tuning_job: impl Into<crate::model::TuningJob>,
     ) -> super::builder::gen_ai_tuning_service::CreateTuningJob {
         super::builder::gen_ai_tuning_service::CreateTuningJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_tuning_job(tuning_job.into())
     }
 
     /// Gets a TuningJob.
@@ -3743,9 +3873,11 @@ impl GenAiTuningService {
     pub fn rebase_tuned_model(
         &self,
         parent: impl Into<std::string::String>,
+        tuned_model_ref: impl Into<crate::model::TunedModelRef>,
     ) -> super::builder::gen_ai_tuning_service::RebaseTunedModel {
         super::builder::gen_ai_tuning_service::RebaseTunedModel::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_tuned_model_ref(tuned_model_ref.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -3774,9 +3906,11 @@ impl GenAiTuningService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::gen_ai_tuning_service::SetIamPolicy {
         super::builder::gen_ai_tuning_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -3799,9 +3933,11 @@ impl GenAiTuningService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::gen_ai_tuning_service::TestIamPermissions {
         super::builder::gen_ai_tuning_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3979,9 +4115,11 @@ impl IndexEndpointService {
     pub fn create_index_endpoint(
         &self,
         parent: impl Into<std::string::String>,
+        index_endpoint: impl Into<crate::model::IndexEndpoint>,
     ) -> super::builder::index_endpoint_service::CreateIndexEndpoint {
         super::builder::index_endpoint_service::CreateIndexEndpoint::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_index_endpoint(index_endpoint.into())
     }
 
     /// Gets an IndexEndpoint.
@@ -4006,9 +4144,11 @@ impl IndexEndpointService {
     pub fn update_index_endpoint(
         &self,
         index_endpoint: impl Into<crate::model::IndexEndpoint>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::index_endpoint_service::UpdateIndexEndpoint {
         super::builder::index_endpoint_service::UpdateIndexEndpoint::new(self.inner.clone())
             .set_index_endpoint(index_endpoint.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes an IndexEndpoint.
@@ -4046,9 +4186,11 @@ impl IndexEndpointService {
     pub fn deploy_index(
         &self,
         index_endpoint: impl Into<std::string::String>,
+        deployed_index: impl Into<crate::model::DeployedIndex>,
     ) -> super::builder::index_endpoint_service::DeployIndex {
         super::builder::index_endpoint_service::DeployIndex::new(self.inner.clone())
             .set_index_endpoint(index_endpoint.into())
+            .set_deployed_index(deployed_index.into())
     }
 
     /// Undeploys an Index from an IndexEndpoint, removing a DeployedIndex from it,
@@ -4066,9 +4208,11 @@ impl IndexEndpointService {
     pub fn undeploy_index(
         &self,
         index_endpoint: impl Into<std::string::String>,
+        deployed_index_id: impl Into<std::string::String>,
     ) -> super::builder::index_endpoint_service::UndeployIndex {
         super::builder::index_endpoint_service::UndeployIndex::new(self.inner.clone())
             .set_index_endpoint(index_endpoint.into())
+            .set_deployed_index_id(deployed_index_id.into())
     }
 
     /// Update an existing DeployedIndex under an IndexEndpoint.
@@ -4085,9 +4229,11 @@ impl IndexEndpointService {
     pub fn mutate_deployed_index(
         &self,
         index_endpoint: impl Into<std::string::String>,
+        deployed_index: impl Into<crate::model::DeployedIndex>,
     ) -> super::builder::index_endpoint_service::MutateDeployedIndex {
         super::builder::index_endpoint_service::MutateDeployedIndex::new(self.inner.clone())
             .set_index_endpoint(index_endpoint.into())
+            .set_deployed_index(deployed_index.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -4116,9 +4262,11 @@ impl IndexEndpointService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::index_endpoint_service::SetIamPolicy {
         super::builder::index_endpoint_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -4141,9 +4289,11 @@ impl IndexEndpointService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::index_endpoint_service::TestIamPermissions {
         super::builder::index_endpoint_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -4319,9 +4469,11 @@ impl IndexService {
     pub fn create_index(
         &self,
         parent: impl Into<std::string::String>,
+        index: impl Into<crate::model::Index>,
     ) -> super::builder::index_service::CreateIndex {
         super::builder::index_service::CreateIndex::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_index(index.into())
     }
 
     /// Gets an Index.
@@ -4424,9 +4576,11 @@ impl IndexService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::index_service::SetIamPolicy {
         super::builder::index_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -4449,9 +4603,11 @@ impl IndexService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::index_service::TestIamPermissions {
         super::builder::index_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -4615,9 +4771,11 @@ impl JobService {
     pub fn create_custom_job(
         &self,
         parent: impl Into<std::string::String>,
+        custom_job: impl Into<crate::model::CustomJob>,
     ) -> super::builder::job_service::CreateCustomJob {
         super::builder::job_service::CreateCustomJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_custom_job(custom_job.into())
     }
 
     /// Gets a CustomJob.
@@ -4684,9 +4842,11 @@ impl JobService {
     pub fn create_data_labeling_job(
         &self,
         parent: impl Into<std::string::String>,
+        data_labeling_job: impl Into<crate::model::DataLabelingJob>,
     ) -> super::builder::job_service::CreateDataLabelingJob {
         super::builder::job_service::CreateDataLabelingJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_data_labeling_job(data_labeling_job.into())
     }
 
     /// Gets a DataLabelingJob.
@@ -4739,9 +4899,11 @@ impl JobService {
     pub fn create_hyperparameter_tuning_job(
         &self,
         parent: impl Into<std::string::String>,
+        hyperparameter_tuning_job: impl Into<crate::model::HyperparameterTuningJob>,
     ) -> super::builder::job_service::CreateHyperparameterTuningJob {
         super::builder::job_service::CreateHyperparameterTuningJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_hyperparameter_tuning_job(hyperparameter_tuning_job.into())
     }
 
     /// Gets a HyperparameterTuningJob
@@ -4812,8 +4974,11 @@ impl JobService {
     pub fn create_nas_job(
         &self,
         parent: impl Into<std::string::String>,
+        nas_job: impl Into<crate::model::NasJob>,
     ) -> super::builder::job_service::CreateNasJob {
-        super::builder::job_service::CreateNasJob::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::job_service::CreateNasJob::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_nas_job(nas_job.into())
     }
 
     /// Gets a NasJob
@@ -4898,9 +5063,11 @@ impl JobService {
     pub fn create_batch_prediction_job(
         &self,
         parent: impl Into<std::string::String>,
+        batch_prediction_job: impl Into<crate::model::BatchPredictionJob>,
     ) -> super::builder::job_service::CreateBatchPredictionJob {
         super::builder::job_service::CreateBatchPredictionJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_batch_prediction_job(batch_prediction_job.into())
     }
 
     /// Gets a BatchPredictionJob
@@ -4969,20 +5136,26 @@ impl JobService {
     pub fn create_model_deployment_monitoring_job(
         &self,
         parent: impl Into<std::string::String>,
+        model_deployment_monitoring_job: impl Into<crate::model::ModelDeploymentMonitoringJob>,
     ) -> super::builder::job_service::CreateModelDeploymentMonitoringJob {
         super::builder::job_service::CreateModelDeploymentMonitoringJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_model_deployment_monitoring_job(model_deployment_monitoring_job.into())
     }
 
     /// Searches Model Monitoring Statistics generated within a given time window.
     pub fn search_model_deployment_monitoring_stats_anomalies(
         &self,
         model_deployment_monitoring_job: impl Into<std::string::String>,
+        deployed_model_id: impl Into<std::string::String>,
+        objectives: impl IntoIterator<Item = impl Into<crate::model::search_model_deployment_monitoring_stats_anomalies_request::StatsAnomaliesObjective>>,
     ) -> super::builder::job_service::SearchModelDeploymentMonitoringStatsAnomalies {
         super::builder::job_service::SearchModelDeploymentMonitoringStatsAnomalies::new(
             self.inner.clone(),
         )
         .set_model_deployment_monitoring_job(model_deployment_monitoring_job.into())
+        .set_deployed_model_id(deployed_model_id.into())
+        .set_objectives(objectives.into_iter().map(|v| v.into()))
     }
 
     /// Gets a ModelDeploymentMonitoringJob.
@@ -5017,9 +5190,11 @@ impl JobService {
     pub fn update_model_deployment_monitoring_job(
         &self,
         model_deployment_monitoring_job: impl Into<crate::model::ModelDeploymentMonitoringJob>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::job_service::UpdateModelDeploymentMonitoringJob {
         super::builder::job_service::UpdateModelDeploymentMonitoringJob::new(self.inner.clone())
             .set_model_deployment_monitoring_job(model_deployment_monitoring_job.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a ModelDeploymentMonitoringJob.
@@ -5090,9 +5265,11 @@ impl JobService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::job_service::SetIamPolicy {
         super::builder::job_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -5115,9 +5292,11 @@ impl JobService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::job_service::TestIamPermissions {
         super::builder::job_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -5320,9 +5499,11 @@ impl LlmUtilityService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::llm_utility_service::SetIamPolicy {
         super::builder::llm_utility_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -5345,9 +5526,11 @@ impl LlmUtilityService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::llm_utility_service::TestIamPermissions {
         super::builder::llm_utility_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -5553,9 +5736,11 @@ impl MatchService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::match_service::SetIamPolicy {
         super::builder::match_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -5578,9 +5763,11 @@ impl MatchService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::match_service::TestIamPermissions {
         super::builder::match_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -5755,9 +5942,11 @@ impl MetadataService {
     pub fn create_metadata_store(
         &self,
         parent: impl Into<std::string::String>,
+        metadata_store: impl Into<crate::model::MetadataStore>,
     ) -> super::builder::metadata_service::CreateMetadataStore {
         super::builder::metadata_service::CreateMetadataStore::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_metadata_store(metadata_store.into())
     }
 
     /// Retrieves a specific MetadataStore.
@@ -5802,9 +5991,11 @@ impl MetadataService {
     pub fn create_artifact(
         &self,
         parent: impl Into<std::string::String>,
+        artifact: impl Into<crate::model::Artifact>,
     ) -> super::builder::metadata_service::CreateArtifact {
         super::builder::metadata_service::CreateArtifact::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_artifact(artifact.into())
     }
 
     /// Retrieves a specific Artifact.
@@ -5866,18 +6057,22 @@ impl MetadataService {
     pub fn purge_artifacts(
         &self,
         parent: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
     ) -> super::builder::metadata_service::PurgeArtifacts {
         super::builder::metadata_service::PurgeArtifacts::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_filter(filter.into())
     }
 
     /// Creates a Context associated with a MetadataStore.
     pub fn create_context(
         &self,
         parent: impl Into<std::string::String>,
+        context: impl Into<crate::model::Context>,
     ) -> super::builder::metadata_service::CreateContext {
         super::builder::metadata_service::CreateContext::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_context(context.into())
     }
 
     /// Retrieves a specific Context.
@@ -5939,9 +6134,11 @@ impl MetadataService {
     pub fn purge_contexts(
         &self,
         parent: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
     ) -> super::builder::metadata_service::PurgeContexts {
         super::builder::metadata_service::PurgeContexts::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_filter(filter.into())
     }
 
     /// Adds a set of Artifacts and Executions to a Context. If any of the
@@ -5993,9 +6190,11 @@ impl MetadataService {
     pub fn create_execution(
         &self,
         parent: impl Into<std::string::String>,
+        execution: impl Into<crate::model::Execution>,
     ) -> super::builder::metadata_service::CreateExecution {
         super::builder::metadata_service::CreateExecution::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_execution(execution.into())
     }
 
     /// Retrieves a specific Execution.
@@ -6058,9 +6257,11 @@ impl MetadataService {
     pub fn purge_executions(
         &self,
         parent: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
     ) -> super::builder::metadata_service::PurgeExecutions {
         super::builder::metadata_service::PurgeExecutions::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_filter(filter.into())
     }
 
     /// Adds Events to the specified Execution. An Event indicates whether an
@@ -6090,9 +6291,11 @@ impl MetadataService {
     pub fn create_metadata_schema(
         &self,
         parent: impl Into<std::string::String>,
+        metadata_schema: impl Into<crate::model::MetadataSchema>,
     ) -> super::builder::metadata_service::CreateMetadataSchema {
         super::builder::metadata_service::CreateMetadataSchema::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_metadata_schema(metadata_schema.into())
     }
 
     /// Retrieves a specific MetadataSchema.
@@ -6148,9 +6351,11 @@ impl MetadataService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::metadata_service::SetIamPolicy {
         super::builder::metadata_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -6173,9 +6378,11 @@ impl MetadataService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::metadata_service::TestIamPermissions {
         super::builder::metadata_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -6366,9 +6573,13 @@ impl MigrationService {
     pub fn batch_migrate_resources(
         &self,
         parent: impl Into<std::string::String>,
+        migrate_resource_requests: impl IntoIterator<
+            Item = impl Into<crate::model::MigrateResourceRequest>,
+        >,
     ) -> super::builder::migration_service::BatchMigrateResources {
         super::builder::migration_service::BatchMigrateResources::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_migrate_resource_requests(migrate_resource_requests.into_iter().map(|v| v.into()))
     }
 
     /// Lists information about the supported locations for this service.
@@ -6397,9 +6608,11 @@ impl MigrationService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::migration_service::SetIamPolicy {
         super::builder::migration_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -6422,9 +6635,11 @@ impl MigrationService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::migration_service::TestIamPermissions {
         super::builder::migration_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -6623,9 +6838,11 @@ impl ModelGardenService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::model_garden_service::SetIamPolicy {
         super::builder::model_garden_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -6648,9 +6865,11 @@ impl ModelGardenService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::model_garden_service::TestIamPermissions {
         super::builder::model_garden_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -6826,9 +7045,11 @@ impl ModelService {
     pub fn upload_model(
         &self,
         parent: impl Into<std::string::String>,
+        model: impl Into<crate::model::Model>,
     ) -> super::builder::model_service::UploadModel {
         super::builder::model_service::UploadModel::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_model(model.into())
     }
 
     /// Gets a Model.
@@ -6869,8 +7090,11 @@ impl ModelService {
     pub fn update_model(
         &self,
         model: impl Into<crate::model::Model>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::model_service::UpdateModel {
-        super::builder::model_service::UpdateModel::new(self.inner.clone()).set_model(model.into())
+        super::builder::model_service::UpdateModel::new(self.inner.clone())
+            .set_model(model.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Incrementally update the dataset used for an examples model.
@@ -6953,9 +7177,11 @@ impl ModelService {
     pub fn merge_version_aliases(
         &self,
         name: impl Into<std::string::String>,
+        version_aliases: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::model_service::MergeVersionAliases {
         super::builder::model_service::MergeVersionAliases::new(self.inner.clone())
             .set_name(name.into())
+            .set_version_aliases(version_aliases.into_iter().map(|v| v.into()))
     }
 
     /// Exports a trained, exportable Model to a location specified by the
@@ -6977,8 +7203,11 @@ impl ModelService {
     pub fn export_model(
         &self,
         name: impl Into<std::string::String>,
+        output_config: impl Into<crate::model::export_model_request::OutputConfig>,
     ) -> super::builder::model_service::ExportModel {
-        super::builder::model_service::ExportModel::new(self.inner.clone()).set_name(name.into())
+        super::builder::model_service::ExportModel::new(self.inner.clone())
+            .set_name(name.into())
+            .set_output_config(output_config.into())
     }
 
     /// Copies an already existing Vertex AI Model into the specified Location.
@@ -7002,35 +7231,44 @@ impl ModelService {
     pub fn copy_model(
         &self,
         parent: impl Into<std::string::String>,
+        source_model: impl Into<std::string::String>,
     ) -> super::builder::model_service::CopyModel {
-        super::builder::model_service::CopyModel::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::model_service::CopyModel::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_source_model(source_model.into())
     }
 
     /// Imports an externally generated ModelEvaluation.
     pub fn import_model_evaluation(
         &self,
         parent: impl Into<std::string::String>,
+        model_evaluation: impl Into<crate::model::ModelEvaluation>,
     ) -> super::builder::model_service::ImportModelEvaluation {
         super::builder::model_service::ImportModelEvaluation::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_model_evaluation(model_evaluation.into())
     }
 
     /// Imports a list of externally generated ModelEvaluationSlice.
     pub fn batch_import_model_evaluation_slices(
         &self,
         parent: impl Into<std::string::String>,
+        model_evaluation_slices: impl IntoIterator<Item = impl Into<crate::model::ModelEvaluationSlice>>,
     ) -> super::builder::model_service::BatchImportModelEvaluationSlices {
         super::builder::model_service::BatchImportModelEvaluationSlices::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_model_evaluation_slices(model_evaluation_slices.into_iter().map(|v| v.into()))
     }
 
     /// Imports a list of externally generated EvaluatedAnnotations.
     pub fn batch_import_evaluated_annotations(
         &self,
         parent: impl Into<std::string::String>,
+        evaluated_annotations: impl IntoIterator<Item = impl Into<crate::model::EvaluatedAnnotation>>,
     ) -> super::builder::model_service::BatchImportEvaluatedAnnotations {
         super::builder::model_service::BatchImportEvaluatedAnnotations::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_evaluated_annotations(evaluated_annotations.into_iter().map(|v| v.into()))
     }
 
     /// Gets a ModelEvaluation.
@@ -7093,9 +7331,11 @@ impl ModelService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::model_service::SetIamPolicy {
         super::builder::model_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -7118,9 +7358,11 @@ impl ModelService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::model_service::TestIamPermissions {
         super::builder::model_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -7295,9 +7537,11 @@ impl NotebookService {
     pub fn create_notebook_runtime_template(
         &self,
         parent: impl Into<std::string::String>,
+        notebook_runtime_template: impl Into<crate::model::NotebookRuntimeTemplate>,
     ) -> super::builder::notebook_service::CreateNotebookRuntimeTemplate {
         super::builder::notebook_service::CreateNotebookRuntimeTemplate::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_notebook_runtime_template(notebook_runtime_template.into())
     }
 
     /// Gets a NotebookRuntimeTemplate.
@@ -7341,9 +7585,11 @@ impl NotebookService {
     pub fn update_notebook_runtime_template(
         &self,
         notebook_runtime_template: impl Into<crate::model::NotebookRuntimeTemplate>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::notebook_service::UpdateNotebookRuntimeTemplate {
         super::builder::notebook_service::UpdateNotebookRuntimeTemplate::new(self.inner.clone())
             .set_notebook_runtime_template(notebook_runtime_template.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Assigns a NotebookRuntime to a user for a particular Notebook file. This
@@ -7361,9 +7607,13 @@ impl NotebookService {
     pub fn assign_notebook_runtime(
         &self,
         parent: impl Into<std::string::String>,
+        notebook_runtime_template: impl Into<std::string::String>,
+        notebook_runtime: impl Into<crate::model::NotebookRuntime>,
     ) -> super::builder::notebook_service::AssignNotebookRuntime {
         super::builder::notebook_service::AssignNotebookRuntime::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_notebook_runtime_template(notebook_runtime_template.into())
+            .set_notebook_runtime(notebook_runtime.into())
     }
 
     /// Gets a NotebookRuntime.
@@ -7474,9 +7724,11 @@ impl NotebookService {
     pub fn create_notebook_execution_job(
         &self,
         parent: impl Into<std::string::String>,
+        notebook_execution_job: impl Into<crate::model::NotebookExecutionJob>,
     ) -> super::builder::notebook_service::CreateNotebookExecutionJob {
         super::builder::notebook_service::CreateNotebookExecutionJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_notebook_execution_job(notebook_execution_job.into())
     }
 
     /// Gets a NotebookExecutionJob.
@@ -7541,9 +7793,11 @@ impl NotebookService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::notebook_service::SetIamPolicy {
         super::builder::notebook_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -7566,9 +7820,11 @@ impl NotebookService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::notebook_service::TestIamPermissions {
         super::builder::notebook_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -7746,11 +8002,15 @@ impl PersistentResourceService {
     pub fn create_persistent_resource(
         &self,
         parent: impl Into<std::string::String>,
+        persistent_resource: impl Into<crate::model::PersistentResource>,
+        persistent_resource_id: impl Into<std::string::String>,
     ) -> super::builder::persistent_resource_service::CreatePersistentResource {
         super::builder::persistent_resource_service::CreatePersistentResource::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_persistent_resource(persistent_resource.into())
+        .set_persistent_resource_id(persistent_resource_id.into())
     }
 
     /// Gets a PersistentResource.
@@ -7808,11 +8068,13 @@ impl PersistentResourceService {
     pub fn update_persistent_resource(
         &self,
         persistent_resource: impl Into<crate::model::PersistentResource>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::persistent_resource_service::UpdatePersistentResource {
         super::builder::persistent_resource_service::UpdatePersistentResource::new(
             self.inner.clone(),
         )
         .set_persistent_resource(persistent_resource.into())
+        .set_update_mask(update_mask.into())
     }
 
     /// Reboots a PersistentResource.
@@ -7862,9 +8124,11 @@ impl PersistentResourceService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::persistent_resource_service::SetIamPolicy {
         super::builder::persistent_resource_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -7887,9 +8151,11 @@ impl PersistentResourceService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::persistent_resource_service::TestIamPermissions {
         super::builder::persistent_resource_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -8060,9 +8326,11 @@ impl PipelineService {
     pub fn create_training_pipeline(
         &self,
         parent: impl Into<std::string::String>,
+        training_pipeline: impl Into<crate::model::TrainingPipeline>,
     ) -> super::builder::pipeline_service::CreateTrainingPipeline {
         super::builder::pipeline_service::CreateTrainingPipeline::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_training_pipeline(training_pipeline.into())
     }
 
     /// Gets a TrainingPipeline.
@@ -8133,9 +8401,11 @@ impl PipelineService {
     pub fn create_pipeline_job(
         &self,
         parent: impl Into<std::string::String>,
+        pipeline_job: impl Into<crate::model::PipelineJob>,
     ) -> super::builder::pipeline_service::CreatePipelineJob {
         super::builder::pipeline_service::CreatePipelineJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_pipeline_job(pipeline_job.into())
     }
 
     /// Gets a PipelineJob.
@@ -8191,9 +8461,11 @@ impl PipelineService {
     pub fn batch_delete_pipeline_jobs(
         &self,
         parent: impl Into<std::string::String>,
+        names: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::pipeline_service::BatchDeletePipelineJobs {
         super::builder::pipeline_service::BatchDeletePipelineJobs::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_names(names.into_iter().map(|v| v.into()))
     }
 
     /// Cancels a PipelineJob.
@@ -8242,9 +8514,11 @@ impl PipelineService {
     pub fn batch_cancel_pipeline_jobs(
         &self,
         parent: impl Into<std::string::String>,
+        names: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::pipeline_service::BatchCancelPipelineJobs {
         super::builder::pipeline_service::BatchCancelPipelineJobs::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_names(names.into_iter().map(|v| v.into()))
     }
 
     /// Lists information about the supported locations for this service.
@@ -8272,9 +8546,11 @@ impl PipelineService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::pipeline_service::SetIamPolicy {
         super::builder::pipeline_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -8297,9 +8573,11 @@ impl PipelineService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::pipeline_service::TestIamPermissions {
         super::builder::pipeline_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -8467,9 +8745,11 @@ impl PredictionService {
     pub fn predict(
         &self,
         endpoint: impl Into<std::string::String>,
+        instances: impl IntoIterator<Item = impl Into<wkt::Value>>,
     ) -> super::builder::prediction_service::Predict {
         super::builder::prediction_service::Predict::new(self.inner.clone())
             .set_endpoint(endpoint.into())
+            .set_instances(instances.into_iter().map(|v| v.into()))
     }
 
     /// Perform an online prediction with an arbitrary HTTP payload.
@@ -8532,18 +8812,22 @@ impl PredictionService {
     pub fn explain(
         &self,
         endpoint: impl Into<std::string::String>,
+        instances: impl IntoIterator<Item = impl Into<wkt::Value>>,
     ) -> super::builder::prediction_service::Explain {
         super::builder::prediction_service::Explain::new(self.inner.clone())
             .set_endpoint(endpoint.into())
+            .set_instances(instances.into_iter().map(|v| v.into()))
     }
 
     /// Generate content with multimodal inputs.
     pub fn generate_content(
         &self,
         model: impl Into<std::string::String>,
+        contents: impl IntoIterator<Item = impl Into<crate::model::Content>>,
     ) -> super::builder::prediction_service::GenerateContent {
         super::builder::prediction_service::GenerateContent::new(self.inner.clone())
             .set_model(model.into())
+            .set_contents(contents.into_iter().map(|v| v.into()))
     }
 
     /// Lists information about the supported locations for this service.
@@ -8572,9 +8856,11 @@ impl PredictionService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::prediction_service::SetIamPolicy {
         super::builder::prediction_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -8597,9 +8883,11 @@ impl PredictionService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::prediction_service::TestIamPermissions {
         super::builder::prediction_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -8800,9 +9088,11 @@ impl ReasoningEngineExecutionService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::reasoning_engine_execution_service::SetIamPolicy {
         super::builder::reasoning_engine_execution_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -8825,11 +9115,13 @@ impl ReasoningEngineExecutionService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::reasoning_engine_execution_service::TestIamPermissions {
         super::builder::reasoning_engine_execution_service::TestIamPermissions::new(
             self.inner.clone(),
         )
         .set_resource(resource.into())
+        .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -9007,9 +9299,11 @@ impl ReasoningEngineService {
     pub fn create_reasoning_engine(
         &self,
         parent: impl Into<std::string::String>,
+        reasoning_engine: impl Into<crate::model::ReasoningEngine>,
     ) -> super::builder::reasoning_engine_service::CreateReasoningEngine {
         super::builder::reasoning_engine_service::CreateReasoningEngine::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_reasoning_engine(reasoning_engine.into())
     }
 
     /// Gets a reasoning engine.
@@ -9094,9 +9388,11 @@ impl ReasoningEngineService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::reasoning_engine_service::SetIamPolicy {
         super::builder::reasoning_engine_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -9119,9 +9415,11 @@ impl ReasoningEngineService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::reasoning_engine_service::TestIamPermissions {
         super::builder::reasoning_engine_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -9290,9 +9588,11 @@ impl ScheduleService {
     pub fn create_schedule(
         &self,
         parent: impl Into<std::string::String>,
+        schedule: impl Into<crate::model::Schedule>,
     ) -> super::builder::schedule_service::CreateSchedule {
         super::builder::schedule_service::CreateSchedule::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_schedule(schedule.into())
     }
 
     /// Deletes a Schedule.
@@ -9375,9 +9675,11 @@ impl ScheduleService {
     pub fn update_schedule(
         &self,
         schedule: impl Into<crate::model::Schedule>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::schedule_service::UpdateSchedule {
         super::builder::schedule_service::UpdateSchedule::new(self.inner.clone())
             .set_schedule(schedule.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -9405,9 +9707,11 @@ impl ScheduleService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::schedule_service::SetIamPolicy {
         super::builder::schedule_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -9430,9 +9734,11 @@ impl ScheduleService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::schedule_service::TestIamPermissions {
         super::builder::schedule_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -9615,9 +9921,11 @@ impl SpecialistPoolService {
     pub fn create_specialist_pool(
         &self,
         parent: impl Into<std::string::String>,
+        specialist_pool: impl Into<crate::model::SpecialistPool>,
     ) -> super::builder::specialist_pool_service::CreateSpecialistPool {
         super::builder::specialist_pool_service::CreateSpecialistPool::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_specialist_pool(specialist_pool.into())
     }
 
     /// Gets a SpecialistPool.
@@ -9671,9 +9979,11 @@ impl SpecialistPoolService {
     pub fn update_specialist_pool(
         &self,
         specialist_pool: impl Into<crate::model::SpecialistPool>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::specialist_pool_service::UpdateSpecialistPool {
         super::builder::specialist_pool_service::UpdateSpecialistPool::new(self.inner.clone())
             .set_specialist_pool(specialist_pool.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -9702,9 +10012,11 @@ impl SpecialistPoolService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::specialist_pool_service::SetIamPolicy {
         super::builder::specialist_pool_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -9727,9 +10039,11 @@ impl SpecialistPoolService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::specialist_pool_service::TestIamPermissions {
         super::builder::specialist_pool_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -9907,9 +10221,11 @@ impl TensorboardService {
     pub fn create_tensorboard(
         &self,
         parent: impl Into<std::string::String>,
+        tensorboard: impl Into<crate::model::Tensorboard>,
     ) -> super::builder::tensorboard_service::CreateTensorboard {
         super::builder::tensorboard_service::CreateTensorboard::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_tensorboard(tensorboard.into())
     }
 
     /// Gets a Tensorboard.
@@ -9934,9 +10250,11 @@ impl TensorboardService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_tensorboard(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         tensorboard: impl Into<crate::model::Tensorboard>,
     ) -> super::builder::tensorboard_service::UpdateTensorboard {
         super::builder::tensorboard_service::UpdateTensorboard::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_tensorboard(tensorboard.into())
     }
 
@@ -9990,9 +10308,11 @@ impl TensorboardService {
     pub fn create_tensorboard_experiment(
         &self,
         parent: impl Into<std::string::String>,
+        tensorboard_experiment_id: impl Into<std::string::String>,
     ) -> super::builder::tensorboard_service::CreateTensorboardExperiment {
         super::builder::tensorboard_service::CreateTensorboardExperiment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_tensorboard_experiment_id(tensorboard_experiment_id.into())
     }
 
     /// Gets a TensorboardExperiment.
@@ -10007,9 +10327,11 @@ impl TensorboardService {
     /// Updates a TensorboardExperiment.
     pub fn update_tensorboard_experiment(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         tensorboard_experiment: impl Into<crate::model::TensorboardExperiment>,
     ) -> super::builder::tensorboard_service::UpdateTensorboardExperiment {
         super::builder::tensorboard_service::UpdateTensorboardExperiment::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_tensorboard_experiment(tensorboard_experiment.into())
     }
 
@@ -10045,18 +10367,24 @@ impl TensorboardService {
     pub fn create_tensorboard_run(
         &self,
         parent: impl Into<std::string::String>,
+        tensorboard_run: impl Into<crate::model::TensorboardRun>,
+        tensorboard_run_id: impl Into<std::string::String>,
     ) -> super::builder::tensorboard_service::CreateTensorboardRun {
         super::builder::tensorboard_service::CreateTensorboardRun::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_tensorboard_run(tensorboard_run.into())
+            .set_tensorboard_run_id(tensorboard_run_id.into())
     }
 
     /// Batch create TensorboardRuns.
     pub fn batch_create_tensorboard_runs(
         &self,
         parent: impl Into<std::string::String>,
+        requests: impl IntoIterator<Item = impl Into<crate::model::CreateTensorboardRunRequest>>,
     ) -> super::builder::tensorboard_service::BatchCreateTensorboardRuns {
         super::builder::tensorboard_service::BatchCreateTensorboardRuns::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_requests(requests.into_iter().map(|v| v.into()))
     }
 
     /// Gets a TensorboardRun.
@@ -10071,9 +10399,11 @@ impl TensorboardService {
     /// Updates a TensorboardRun.
     pub fn update_tensorboard_run(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         tensorboard_run: impl Into<crate::model::TensorboardRun>,
     ) -> super::builder::tensorboard_service::UpdateTensorboardRun {
         super::builder::tensorboard_service::UpdateTensorboardRun::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_tensorboard_run(tensorboard_run.into())
     }
 
@@ -10109,20 +10439,24 @@ impl TensorboardService {
     pub fn batch_create_tensorboard_time_series(
         &self,
         parent: impl Into<std::string::String>,
+        requests: impl IntoIterator<Item = impl Into<crate::model::CreateTensorboardTimeSeriesRequest>>,
     ) -> super::builder::tensorboard_service::BatchCreateTensorboardTimeSeries {
         super::builder::tensorboard_service::BatchCreateTensorboardTimeSeries::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_requests(requests.into_iter().map(|v| v.into()))
     }
 
     /// Creates a TensorboardTimeSeries.
     pub fn create_tensorboard_time_series(
         &self,
         parent: impl Into<std::string::String>,
+        tensorboard_time_series: impl Into<crate::model::TensorboardTimeSeries>,
     ) -> super::builder::tensorboard_service::CreateTensorboardTimeSeries {
         super::builder::tensorboard_service::CreateTensorboardTimeSeries::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_tensorboard_time_series(tensorboard_time_series.into())
     }
 
     /// Gets a TensorboardTimeSeries.
@@ -10137,9 +10471,11 @@ impl TensorboardService {
     /// Updates a TensorboardTimeSeries.
     pub fn update_tensorboard_time_series(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         tensorboard_time_series: impl Into<crate::model::TensorboardTimeSeries>,
     ) -> super::builder::tensorboard_service::UpdateTensorboardTimeSeries {
         super::builder::tensorboard_service::UpdateTensorboardTimeSeries::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_tensorboard_time_series(tensorboard_time_series.into())
     }
 
@@ -10179,11 +10515,13 @@ impl TensorboardService {
     pub fn batch_read_tensorboard_time_series_data(
         &self,
         tensorboard: impl Into<std::string::String>,
+        time_series: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::tensorboard_service::BatchReadTensorboardTimeSeriesData {
         super::builder::tensorboard_service::BatchReadTensorboardTimeSeriesData::new(
             self.inner.clone(),
         )
         .set_tensorboard(tensorboard.into())
+        .set_time_series(time_series.into_iter().map(|v| v.into()))
     }
 
     /// Reads a TensorboardTimeSeries' data. By default, if the number of data
@@ -10204,9 +10542,13 @@ impl TensorboardService {
     pub fn write_tensorboard_experiment_data(
         &self,
         tensorboard_experiment: impl Into<std::string::String>,
+        write_run_data_requests: impl IntoIterator<
+            Item = impl Into<crate::model::WriteTensorboardRunDataRequest>,
+        >,
     ) -> super::builder::tensorboard_service::WriteTensorboardExperimentData {
         super::builder::tensorboard_service::WriteTensorboardExperimentData::new(self.inner.clone())
             .set_tensorboard_experiment(tensorboard_experiment.into())
+            .set_write_run_data_requests(write_run_data_requests.into_iter().map(|v| v.into()))
     }
 
     /// Write time series data points into multiple TensorboardTimeSeries under
@@ -10214,9 +10556,11 @@ impl TensorboardService {
     pub fn write_tensorboard_run_data(
         &self,
         tensorboard_run: impl Into<std::string::String>,
+        time_series_data: impl IntoIterator<Item = impl Into<crate::model::TimeSeriesData>>,
     ) -> super::builder::tensorboard_service::WriteTensorboardRunData {
         super::builder::tensorboard_service::WriteTensorboardRunData::new(self.inner.clone())
             .set_tensorboard_run(tensorboard_run.into())
+            .set_time_series_data(time_series_data.into_iter().map(|v| v.into()))
     }
 
     /// Exports a TensorboardTimeSeries' data. Data is returned in paginated
@@ -10257,9 +10601,11 @@ impl TensorboardService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::tensorboard_service::SetIamPolicy {
         super::builder::tensorboard_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -10282,9 +10628,11 @@ impl TensorboardService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::tensorboard_service::TestIamPermissions {
         super::builder::tensorboard_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -10462,9 +10810,11 @@ impl VertexRagDataService {
     pub fn create_rag_corpus(
         &self,
         parent: impl Into<std::string::String>,
+        rag_corpus: impl Into<crate::model::RagCorpus>,
     ) -> super::builder::vertex_rag_data_service::CreateRagCorpus {
         super::builder::vertex_rag_data_service::CreateRagCorpus::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_rag_corpus(rag_corpus.into())
     }
 
     /// Updates a RagCorpus.
@@ -10527,9 +10877,13 @@ impl VertexRagDataService {
     pub fn upload_rag_file(
         &self,
         parent: impl Into<std::string::String>,
+        rag_file: impl Into<crate::model::RagFile>,
+        upload_rag_file_config: impl Into<crate::model::UploadRagFileConfig>,
     ) -> super::builder::vertex_rag_data_service::UploadRagFile {
         super::builder::vertex_rag_data_service::UploadRagFile::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_rag_file(rag_file.into())
+            .set_upload_rag_file_config(upload_rag_file_config.into())
     }
 
     /// Import files from Google Cloud Storage or Google Drive into a RagCorpus.
@@ -10546,9 +10900,11 @@ impl VertexRagDataService {
     pub fn import_rag_files(
         &self,
         parent: impl Into<std::string::String>,
+        import_rag_files_config: impl Into<crate::model::ImportRagFilesConfig>,
     ) -> super::builder::vertex_rag_data_service::ImportRagFiles {
         super::builder::vertex_rag_data_service::ImportRagFiles::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_import_rag_files_config(import_rag_files_config.into())
     }
 
     /// Gets a RagFile.
@@ -10614,9 +10970,11 @@ impl VertexRagDataService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::vertex_rag_data_service::SetIamPolicy {
         super::builder::vertex_rag_data_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -10639,9 +10997,11 @@ impl VertexRagDataService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::vertex_rag_data_service::TestIamPermissions {
         super::builder::vertex_rag_data_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -10809,9 +11169,11 @@ impl VertexRagService {
     pub fn retrieve_contexts(
         &self,
         parent: impl Into<std::string::String>,
+        query: impl Into<crate::model::RagQuery>,
     ) -> super::builder::vertex_rag_service::RetrieveContexts {
         super::builder::vertex_rag_service::RetrieveContexts::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_query(query.into())
     }
 
     /// Given an input prompt, it returns augmented prompt from vertex rag store
@@ -10861,9 +11223,11 @@ impl VertexRagService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::vertex_rag_service::SetIamPolicy {
         super::builder::vertex_rag_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -10886,9 +11250,11 @@ impl VertexRagService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::vertex_rag_service::TestIamPermissions {
         super::builder::vertex_rag_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -11059,9 +11425,11 @@ impl VizierService {
     pub fn create_study(
         &self,
         parent: impl Into<std::string::String>,
+        study: impl Into<crate::model::Study>,
     ) -> super::builder::vizier_service::CreateStudy {
         super::builder::vizier_service::CreateStudy::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_study(study.into())
     }
 
     /// Gets a Study by name.
@@ -11094,9 +11462,11 @@ impl VizierService {
     pub fn lookup_study(
         &self,
         parent: impl Into<std::string::String>,
+        display_name: impl Into<std::string::String>,
     ) -> super::builder::vizier_service::LookupStudy {
         super::builder::vizier_service::LookupStudy::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_display_name(display_name.into())
     }
 
     /// Adds one or more Trials to a Study, with parameter values
@@ -11120,18 +11490,24 @@ impl VizierService {
     pub fn suggest_trials(
         &self,
         parent: impl Into<std::string::String>,
+        suggestion_count: impl Into<i32>,
+        client_id: impl Into<std::string::String>,
     ) -> super::builder::vizier_service::SuggestTrials {
         super::builder::vizier_service::SuggestTrials::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_suggestion_count(suggestion_count.into())
+            .set_client_id(client_id.into())
     }
 
     /// Adds a user provided Trial to a Study.
     pub fn create_trial(
         &self,
         parent: impl Into<std::string::String>,
+        trial: impl Into<crate::model::Trial>,
     ) -> super::builder::vizier_service::CreateTrial {
         super::builder::vizier_service::CreateTrial::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_trial(trial.into())
     }
 
     /// Gets a Trial.
@@ -11156,9 +11532,11 @@ impl VizierService {
     pub fn add_trial_measurement(
         &self,
         trial_name: impl Into<std::string::String>,
+        measurement: impl Into<crate::model::Measurement>,
     ) -> super::builder::vizier_service::AddTrialMeasurement {
         super::builder::vizier_service::AddTrialMeasurement::new(self.inner.clone())
             .set_trial_name(trial_name.into())
+            .set_measurement(measurement.into())
     }
 
     /// Marks a Trial as complete.
@@ -11245,9 +11623,11 @@ impl VizierService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::vizier_service::SetIamPolicy {
         super::builder::vizier_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -11270,9 +11650,11 @@ impl VizierService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::vizier_service::TestIamPermissions {
         super::builder::vizier_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

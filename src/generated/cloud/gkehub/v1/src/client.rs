@@ -188,8 +188,13 @@ impl GkeHub {
     pub fn create_membership(
         &self,
         parent: impl Into<std::string::String>,
+        membership_id: impl Into<std::string::String>,
+        resource: impl Into<crate::model::Membership>,
     ) -> super::builder::gke_hub::CreateMembership {
-        super::builder::gke_hub::CreateMembership::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::gke_hub::CreateMembership::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_membership_id(membership_id.into())
+            .set_resource(resource.into())
     }
 
     /// Adds a new Feature.
@@ -264,8 +269,13 @@ impl GkeHub {
     pub fn update_membership(
         &self,
         name: impl Into<std::string::String>,
+        update_mask: impl Into<wkt::FieldMask>,
+        resource: impl Into<crate::model::Membership>,
     ) -> super::builder::gke_hub::UpdateMembership {
-        super::builder::gke_hub::UpdateMembership::new(self.inner.clone()).set_name(name.into())
+        super::builder::gke_hub::UpdateMembership::new(self.inner.clone())
+            .set_name(name.into())
+            .set_update_mask(update_mask.into())
+            .set_resource(resource.into())
     }
 
     /// Updates an existing Feature.

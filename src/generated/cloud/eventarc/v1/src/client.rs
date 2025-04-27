@@ -150,8 +150,13 @@ impl Eventarc {
     pub fn create_trigger(
         &self,
         parent: impl Into<std::string::String>,
+        trigger: impl Into<crate::model::Trigger>,
+        trigger_id: impl Into<std::string::String>,
     ) -> super::builder::eventarc::CreateTrigger {
-        super::builder::eventarc::CreateTrigger::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::eventarc::CreateTrigger::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_trigger(trigger.into())
+            .set_trigger_id(trigger_id.into())
     }
 
     /// Update a single trigger.
@@ -220,8 +225,13 @@ impl Eventarc {
     pub fn create_channel(
         &self,
         parent: impl Into<std::string::String>,
+        channel: impl Into<crate::model::Channel>,
+        channel_id: impl Into<std::string::String>,
     ) -> super::builder::eventarc::CreateChannel {
-        super::builder::eventarc::CreateChannel::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::eventarc::CreateChannel::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_channel(channel.into())
+            .set_channel_id(channel_id.into())
     }
 
     /// Update a single channel.
@@ -308,9 +318,13 @@ impl Eventarc {
     pub fn create_channel_connection(
         &self,
         parent: impl Into<std::string::String>,
+        channel_connection: impl Into<crate::model::ChannelConnection>,
+        channel_connection_id: impl Into<std::string::String>,
     ) -> super::builder::eventarc::CreateChannelConnection {
         super::builder::eventarc::CreateChannelConnection::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_channel_connection(channel_connection.into())
+            .set_channel_connection_id(channel_connection_id.into())
     }
 
     /// Delete a single ChannelConnection.
@@ -390,9 +404,13 @@ impl Eventarc {
     pub fn create_message_bus(
         &self,
         parent: impl Into<std::string::String>,
+        message_bus: impl Into<crate::model::MessageBus>,
+        message_bus_id: impl Into<std::string::String>,
     ) -> super::builder::eventarc::CreateMessageBus {
         super::builder::eventarc::CreateMessageBus::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_message_bus(message_bus.into())
+            .set_message_bus_id(message_bus_id.into())
     }
 
     /// Update a single message bus.
@@ -462,9 +480,13 @@ impl Eventarc {
     pub fn create_enrollment(
         &self,
         parent: impl Into<std::string::String>,
+        enrollment: impl Into<crate::model::Enrollment>,
+        enrollment_id: impl Into<std::string::String>,
     ) -> super::builder::eventarc::CreateEnrollment {
         super::builder::eventarc::CreateEnrollment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_enrollment(enrollment.into())
+            .set_enrollment_id(enrollment_id.into())
     }
 
     /// Update a single Enrollment.
@@ -534,8 +556,13 @@ impl Eventarc {
     pub fn create_pipeline(
         &self,
         parent: impl Into<std::string::String>,
+        pipeline: impl Into<crate::model::Pipeline>,
+        pipeline_id: impl Into<std::string::String>,
     ) -> super::builder::eventarc::CreatePipeline {
-        super::builder::eventarc::CreatePipeline::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::eventarc::CreatePipeline::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_pipeline(pipeline.into())
+            .set_pipeline_id(pipeline_id.into())
     }
 
     /// Update a single pipeline.
@@ -606,9 +633,13 @@ impl Eventarc {
     pub fn create_google_api_source(
         &self,
         parent: impl Into<std::string::String>,
+        google_api_source: impl Into<crate::model::GoogleApiSource>,
+        google_api_source_id: impl Into<std::string::String>,
     ) -> super::builder::eventarc::CreateGoogleApiSource {
         super::builder::eventarc::CreateGoogleApiSource::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_google_api_source(google_api_source.into())
+            .set_google_api_source_id(google_api_source_id.into())
     }
 
     /// Update a single GoogleApiSource.
@@ -673,9 +704,11 @@ impl Eventarc {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::eventarc::SetIamPolicy {
         super::builder::eventarc::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -698,9 +731,11 @@ impl Eventarc {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::eventarc::TestIamPermissions {
         super::builder::eventarc::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

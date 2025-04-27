@@ -172,9 +172,13 @@ impl BinauthzManagementServiceV1 {
     pub fn create_attestor(
         &self,
         parent: impl Into<std::string::String>,
+        attestor_id: impl Into<std::string::String>,
+        attestor: impl Into<crate::model::Attestor>,
     ) -> super::builder::binauthz_management_service_v_1::CreateAttestor {
         super::builder::binauthz_management_service_v_1::CreateAttestor::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_attestor_id(attestor_id.into())
+            .set_attestor(attestor.into())
     }
 
     /// Gets an [attestor][google.cloud.binaryauthorization.v1.Attestor].
@@ -445,10 +449,16 @@ impl ValidationHelperV1 {
     pub fn validate_attestation_occurrence(
         &self,
         attestor: impl Into<std::string::String>,
+        attestation: impl Into<grafeas::model::AttestationOccurrence>,
+        occurrence_note: impl Into<std::string::String>,
+        occurrence_resource_uri: impl Into<std::string::String>,
     ) -> super::builder::validation_helper_v_1::ValidateAttestationOccurrence {
         super::builder::validation_helper_v_1::ValidateAttestationOccurrence::new(
             self.inner.clone(),
         )
         .set_attestor(attestor.into())
+        .set_attestation(attestation.into())
+        .set_occurrence_note(occurrence_note.into())
+        .set_occurrence_resource_uri(occurrence_resource_uri.into())
     }
 }

@@ -124,9 +124,13 @@ impl TranslationService {
     /// Translates input text and returns translated text.
     pub fn translate_text(
         &self,
+        contents: impl IntoIterator<Item = impl Into<std::string::String>>,
+        target_language_code: impl Into<std::string::String>,
         parent: impl Into<std::string::String>,
     ) -> super::builder::translation_service::TranslateText {
         super::builder::translation_service::TranslateText::new(self.inner.clone())
+            .set_contents(contents.into_iter().map(|v| v.into()))
+            .set_target_language_code(target_language_code.into())
             .set_parent(parent.into())
     }
 
@@ -134,9 +138,11 @@ impl TranslationService {
     pub fn romanize_text(
         &self,
         parent: impl Into<std::string::String>,
+        contents: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::translation_service::RomanizeText {
         super::builder::translation_service::RomanizeText::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_contents(contents.into_iter().map(|v| v.into()))
     }
 
     /// Detects the language of text within a request.
@@ -161,9 +167,13 @@ impl TranslationService {
     pub fn translate_document(
         &self,
         parent: impl Into<std::string::String>,
+        target_language_code: impl Into<std::string::String>,
+        document_input_config: impl Into<crate::model::DocumentInputConfig>,
     ) -> super::builder::translation_service::TranslateDocument {
         super::builder::translation_service::TranslateDocument::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_target_language_code(target_language_code.into())
+            .set_document_input_config(document_input_config.into())
     }
 
     /// Translates a large volume of text in asynchronous batch mode.
@@ -186,9 +196,17 @@ impl TranslationService {
     pub fn batch_translate_text(
         &self,
         parent: impl Into<std::string::String>,
+        source_language_code: impl Into<std::string::String>,
+        target_language_codes: impl IntoIterator<Item = impl Into<std::string::String>>,
+        input_configs: impl IntoIterator<Item = impl Into<crate::model::InputConfig>>,
+        output_config: impl Into<crate::model::OutputConfig>,
     ) -> super::builder::translation_service::BatchTranslateText {
         super::builder::translation_service::BatchTranslateText::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_source_language_code(source_language_code.into())
+            .set_target_language_codes(target_language_codes.into_iter().map(|v| v.into()))
+            .set_input_configs(input_configs.into_iter().map(|v| v.into()))
+            .set_output_config(output_config.into())
     }
 
     /// Translates a large volume of document in asynchronous batch mode.
@@ -211,9 +229,17 @@ impl TranslationService {
     pub fn batch_translate_document(
         &self,
         parent: impl Into<std::string::String>,
+        source_language_code: impl Into<std::string::String>,
+        target_language_codes: impl IntoIterator<Item = impl Into<std::string::String>>,
+        input_configs: impl IntoIterator<Item = impl Into<crate::model::BatchDocumentInputConfig>>,
+        output_config: impl Into<crate::model::BatchDocumentOutputConfig>,
     ) -> super::builder::translation_service::BatchTranslateDocument {
         super::builder::translation_service::BatchTranslateDocument::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_source_language_code(source_language_code.into())
+            .set_target_language_codes(target_language_codes.into_iter().map(|v| v.into()))
+            .set_input_configs(input_configs.into_iter().map(|v| v.into()))
+            .set_output_config(output_config.into())
     }
 
     /// Creates a glossary and returns the long-running operation. Returns
@@ -231,9 +257,11 @@ impl TranslationService {
     pub fn create_glossary(
         &self,
         parent: impl Into<std::string::String>,
+        glossary: impl Into<crate::model::Glossary>,
     ) -> super::builder::translation_service::CreateGlossary {
         super::builder::translation_service::CreateGlossary::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_glossary(glossary.into())
     }
 
     /// Updates a glossary. A LRO is used since the update can be async if the
@@ -319,9 +347,11 @@ impl TranslationService {
     pub fn create_glossary_entry(
         &self,
         parent: impl Into<std::string::String>,
+        glossary_entry: impl Into<crate::model::GlossaryEntry>,
     ) -> super::builder::translation_service::CreateGlossaryEntry {
         super::builder::translation_service::CreateGlossaryEntry::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_glossary_entry(glossary_entry.into())
     }
 
     /// Updates a glossary entry.
@@ -356,9 +386,11 @@ impl TranslationService {
     pub fn create_dataset(
         &self,
         parent: impl Into<std::string::String>,
+        dataset: impl Into<crate::model::Dataset>,
     ) -> super::builder::translation_service::CreateDataset {
         super::builder::translation_service::CreateDataset::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_dataset(dataset.into())
     }
 
     /// Gets a Dataset.
@@ -402,9 +434,11 @@ impl TranslationService {
     pub fn create_adaptive_mt_dataset(
         &self,
         parent: impl Into<std::string::String>,
+        adaptive_mt_dataset: impl Into<crate::model::AdaptiveMtDataset>,
     ) -> super::builder::translation_service::CreateAdaptiveMtDataset {
         super::builder::translation_service::CreateAdaptiveMtDataset::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_adaptive_mt_dataset(adaptive_mt_dataset.into())
     }
 
     /// Deletes an Adaptive MT dataset, including all its entries and associated
@@ -439,9 +473,13 @@ impl TranslationService {
     pub fn adaptive_mt_translate(
         &self,
         parent: impl Into<std::string::String>,
+        dataset: impl Into<std::string::String>,
+        content: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::translation_service::AdaptiveMtTranslate {
         super::builder::translation_service::AdaptiveMtTranslate::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_dataset(dataset.into())
+            .set_content(content.into_iter().map(|v| v.into()))
     }
 
     /// Gets and AdaptiveMtFile
@@ -504,9 +542,11 @@ impl TranslationService {
     pub fn import_data(
         &self,
         dataset: impl Into<std::string::String>,
+        input_config: impl Into<crate::model::DatasetInputConfig>,
     ) -> super::builder::translation_service::ImportData {
         super::builder::translation_service::ImportData::new(self.inner.clone())
             .set_dataset(dataset.into())
+            .set_input_config(input_config.into())
     }
 
     /// Exports dataset's data to the provided output location.
@@ -523,9 +563,11 @@ impl TranslationService {
     pub fn export_data(
         &self,
         dataset: impl Into<std::string::String>,
+        output_config: impl Into<crate::model::DatasetOutputConfig>,
     ) -> super::builder::translation_service::ExportData {
         super::builder::translation_service::ExportData::new(self.inner.clone())
             .set_dataset(dataset.into())
+            .set_output_config(output_config.into())
     }
 
     /// Lists sentence pairs in the dataset.
@@ -551,9 +593,11 @@ impl TranslationService {
     pub fn create_model(
         &self,
         parent: impl Into<std::string::String>,
+        model: impl Into<crate::model::Model>,
     ) -> super::builder::translation_service::CreateModel {
         super::builder::translation_service::CreateModel::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_model(model.into())
     }
 
     /// Lists models.

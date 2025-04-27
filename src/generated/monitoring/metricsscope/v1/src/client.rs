@@ -134,8 +134,10 @@ impl MetricsScopes {
     /// project will always be the first entry in the response.
     pub fn list_metrics_scopes_by_monitored_project(
         &self,
+        monitored_resource_container: impl Into<std::string::String>,
     ) -> super::builder::metrics_scopes::ListMetricsScopesByMonitoredProject {
         super::builder::metrics_scopes::ListMetricsScopesByMonitoredProject::new(self.inner.clone())
+            .set_monitored_resource_container(monitored_resource_container.into())
     }
 
     /// Adds a `MonitoredProject` with the given project ID
@@ -153,9 +155,11 @@ impl MetricsScopes {
     pub fn create_monitored_project(
         &self,
         parent: impl Into<std::string::String>,
+        monitored_project: impl Into<crate::model::MonitoredProject>,
     ) -> super::builder::metrics_scopes::CreateMonitoredProject {
         super::builder::metrics_scopes::CreateMonitoredProject::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_monitored_project(monitored_project.into())
     }
 
     /// Deletes a `MonitoredProject` from the specified `Metrics Scope`.

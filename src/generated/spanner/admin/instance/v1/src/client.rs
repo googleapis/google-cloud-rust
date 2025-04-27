@@ -219,9 +219,13 @@ impl InstanceAdmin {
     pub fn create_instance_config(
         &self,
         parent: impl Into<std::string::String>,
+        instance_config_id: impl Into<std::string::String>,
+        instance_config: impl Into<crate::model::InstanceConfig>,
     ) -> super::builder::instance_admin::CreateInstanceConfig {
         super::builder::instance_admin::CreateInstanceConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_config_id(instance_config_id.into())
+            .set_instance_config(instance_config.into())
     }
 
     /// Updates an instance configuration. The returned
@@ -287,9 +291,11 @@ impl InstanceAdmin {
     pub fn update_instance_config(
         &self,
         instance_config: impl Into<crate::model::InstanceConfig>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::instance_admin::UpdateInstanceConfig {
         super::builder::instance_admin::UpdateInstanceConfig::new(self.inner.clone())
             .set_instance_config(instance_config.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes the instance configuration. Deletion is only allowed when no
@@ -405,9 +411,13 @@ impl InstanceAdmin {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
+        instance_id: impl Into<std::string::String>,
+        instance: impl Into<crate::model::Instance>,
     ) -> super::builder::instance_admin::CreateInstance {
         super::builder::instance_admin::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_id(instance_id.into())
+            .set_instance(instance.into())
     }
 
     /// Updates an instance, and begins allocating or releasing resources
@@ -467,9 +477,11 @@ impl InstanceAdmin {
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
+        field_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::instance_admin::UpdateInstance {
         super::builder::instance_admin::UpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
+            .set_field_mask(field_mask.into())
     }
 
     /// Deletes an instance.
@@ -501,9 +513,11 @@ impl InstanceAdmin {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::instance_admin::SetIamPolicy {
         super::builder::instance_admin::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for an instance resource. Returns an empty
@@ -530,9 +544,11 @@ impl InstanceAdmin {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::instance_admin::TestIamPermissions {
         super::builder::instance_admin::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Gets information about a particular instance partition.
@@ -597,9 +613,13 @@ impl InstanceAdmin {
     pub fn create_instance_partition(
         &self,
         parent: impl Into<std::string::String>,
+        instance_partition_id: impl Into<std::string::String>,
+        instance_partition: impl Into<crate::model::InstancePartition>,
     ) -> super::builder::instance_admin::CreateInstancePartition {
         super::builder::instance_admin::CreateInstancePartition::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_partition_id(instance_partition_id.into())
+            .set_instance_partition(instance_partition.into())
     }
 
     /// Deletes an existing instance partition. Requires that the
@@ -680,9 +700,11 @@ impl InstanceAdmin {
     pub fn update_instance_partition(
         &self,
         instance_partition: impl Into<crate::model::InstancePartition>,
+        field_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::instance_admin::UpdateInstancePartition {
         super::builder::instance_admin::UpdateInstancePartition::new(self.inner.clone())
             .set_instance_partition(instance_partition.into())
+            .set_field_mask(field_mask.into())
     }
 
     /// Lists instance partition long-running operations in the given instance.
@@ -789,8 +811,11 @@ impl InstanceAdmin {
     pub fn move_instance(
         &self,
         name: impl Into<std::string::String>,
+        target_config: impl Into<std::string::String>,
     ) -> super::builder::instance_admin::MoveInstance {
-        super::builder::instance_admin::MoveInstance::new(self.inner.clone()).set_name(name.into())
+        super::builder::instance_admin::MoveInstance::new(self.inner.clone())
+            .set_name(name.into())
+            .set_target_config(target_config.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

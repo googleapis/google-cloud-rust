@@ -135,9 +135,11 @@ impl AssuredWorkloadsService {
     pub fn create_workload(
         &self,
         parent: impl Into<std::string::String>,
+        workload: impl Into<crate::model::Workload>,
     ) -> super::builder::assured_workloads_service::CreateWorkload {
         super::builder::assured_workloads_service::CreateWorkload::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_workload(workload.into())
     }
 
     /// Updates an existing workload.
@@ -147,9 +149,11 @@ impl AssuredWorkloadsService {
     pub fn update_workload(
         &self,
         workload: impl Into<crate::model::Workload>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::assured_workloads_service::UpdateWorkload {
         super::builder::assured_workloads_service::UpdateWorkload::new(self.inner.clone())
             .set_workload(workload.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Restrict the list of resources allowed in the Workload environment.
@@ -161,9 +165,11 @@ impl AssuredWorkloadsService {
     pub fn restrict_allowed_resources(
         &self,
         name: impl Into<std::string::String>,
+        restriction_type: impl Into<crate::model::restrict_allowed_resources_request::RestrictionType>,
     ) -> super::builder::assured_workloads_service::RestrictAllowedResources {
         super::builder::assured_workloads_service::RestrictAllowedResources::new(self.inner.clone())
             .set_name(name.into())
+            .set_restriction_type(restriction_type.into())
     }
 
     /// Deletes the workload. Make sure that workload's direct children are already

@@ -151,9 +151,13 @@ impl EdgeContainer {
     pub fn create_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        cluster_id: impl Into<std::string::String>,
+        cluster: impl Into<crate::model::Cluster>,
     ) -> super::builder::edge_container::CreateCluster {
         super::builder::edge_container::CreateCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_cluster_id(cluster_id.into())
+            .set_cluster(cluster.into())
     }
 
     /// Updates the parameters of a single Cluster.
@@ -189,9 +193,11 @@ impl EdgeContainer {
     pub fn upgrade_cluster(
         &self,
         name: impl Into<std::string::String>,
+        target_version: impl Into<std::string::String>,
     ) -> super::builder::edge_container::UpgradeCluster {
         super::builder::edge_container::UpgradeCluster::new(self.inner.clone())
             .set_name(name.into())
+            .set_target_version(target_version.into())
     }
 
     /// Deletes a single Cluster.
@@ -261,9 +267,13 @@ impl EdgeContainer {
     pub fn create_node_pool(
         &self,
         parent: impl Into<std::string::String>,
+        node_pool_id: impl Into<std::string::String>,
+        node_pool: impl Into<crate::model::NodePool>,
     ) -> super::builder::edge_container::CreateNodePool {
         super::builder::edge_container::CreateNodePool::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_node_pool_id(node_pool_id.into())
+            .set_node_pool(node_pool.into())
     }
 
     /// Updates the parameters of a single NodePool.
@@ -353,9 +363,13 @@ impl EdgeContainer {
     pub fn create_vpn_connection(
         &self,
         parent: impl Into<std::string::String>,
+        vpn_connection_id: impl Into<std::string::String>,
+        vpn_connection: impl Into<crate::model::VpnConnection>,
     ) -> super::builder::edge_container::CreateVpnConnection {
         super::builder::edge_container::CreateVpnConnection::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_vpn_connection_id(vpn_connection_id.into())
+            .set_vpn_connection(vpn_connection.into())
     }
 
     /// Deletes a single VPN connection.

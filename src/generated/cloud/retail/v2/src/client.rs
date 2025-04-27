@@ -139,9 +139,11 @@ impl AnalyticsService {
     pub fn export_analytics_metrics(
         &self,
         catalog: impl Into<std::string::String>,
+        output_config: impl Into<crate::model::OutputConfig>,
     ) -> super::builder::analytics_service::ExportAnalyticsMetrics {
         super::builder::analytics_service::ExportAnalyticsMetrics::new(self.inner.clone())
             .set_catalog(catalog.into())
+            .set_output_config(output_config.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -412,9 +414,11 @@ impl CatalogService {
     pub fn add_catalog_attribute(
         &self,
         attributes_config: impl Into<std::string::String>,
+        catalog_attribute: impl Into<crate::model::CatalogAttribute>,
     ) -> super::builder::catalog_service::AddCatalogAttribute {
         super::builder::catalog_service::AddCatalogAttribute::new(self.inner.clone())
             .set_attributes_config(attributes_config.into())
+            .set_catalog_attribute(catalog_attribute.into())
     }
 
     /// Removes the specified
@@ -429,9 +433,11 @@ impl CatalogService {
     pub fn remove_catalog_attribute(
         &self,
         attributes_config: impl Into<std::string::String>,
+        key: impl Into<std::string::String>,
     ) -> super::builder::catalog_service::RemoveCatalogAttribute {
         super::builder::catalog_service::RemoveCatalogAttribute::new(self.inner.clone())
             .set_attributes_config(attributes_config.into())
+            .set_key(key.into())
     }
 
     /// Replaces the specified
@@ -449,9 +455,11 @@ impl CatalogService {
     pub fn replace_catalog_attribute(
         &self,
         attributes_config: impl Into<std::string::String>,
+        catalog_attribute: impl Into<crate::model::CatalogAttribute>,
     ) -> super::builder::catalog_service::ReplaceCatalogAttribute {
         super::builder::catalog_service::ReplaceCatalogAttribute::new(self.inner.clone())
             .set_attributes_config(attributes_config.into())
+            .set_catalog_attribute(catalog_attribute.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -588,9 +596,11 @@ impl CompletionService {
     pub fn complete_query(
         &self,
         catalog: impl Into<std::string::String>,
+        query: impl Into<std::string::String>,
     ) -> super::builder::completion_service::CompleteQuery {
         super::builder::completion_service::CompleteQuery::new(self.inner.clone())
             .set_catalog(catalog.into())
+            .set_query(query.into())
     }
 
     /// Bulk import of processed completion dataset.
@@ -615,9 +625,11 @@ impl CompletionService {
     pub fn import_completion_data(
         &self,
         parent: impl Into<std::string::String>,
+        input_config: impl Into<crate::model::CompletionDataInputConfig>,
     ) -> super::builder::completion_service::ImportCompletionData {
         super::builder::completion_service::ImportCompletionData::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_input_config(input_config.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -752,9 +764,13 @@ impl ControlService {
     pub fn create_control(
         &self,
         parent: impl Into<std::string::String>,
+        control: impl Into<crate::model::Control>,
+        control_id: impl Into<std::string::String>,
     ) -> super::builder::control_service::CreateControl {
         super::builder::control_service::CreateControl::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_control(control.into())
+            .set_control_id(control_id.into())
     }
 
     /// Deletes a Control.
@@ -981,11 +997,15 @@ impl GenerativeQuestionService {
     pub fn batch_update_generative_question_configs(
         &self,
         parent: impl Into<std::string::String>,
+        requests: impl IntoIterator<
+            Item = impl Into<crate::model::UpdateGenerativeQuestionConfigRequest>,
+        >,
     ) -> super::builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs {
         super::builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_requests(requests.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1136,9 +1156,11 @@ impl ModelService {
     pub fn create_model(
         &self,
         parent: impl Into<std::string::String>,
+        model: impl Into<crate::model::Model>,
     ) -> super::builder::model_service::CreateModel {
         super::builder::model_service::CreateModel::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_model(model.into())
     }
 
     /// Gets a model.
@@ -1337,9 +1359,11 @@ impl PredictionService {
     pub fn predict(
         &self,
         placement: impl Into<std::string::String>,
+        user_event: impl Into<crate::model::UserEvent>,
     ) -> super::builder::prediction_service::Predict {
         super::builder::prediction_service::Predict::new(self.inner.clone())
             .set_placement(placement.into())
+            .set_user_event(user_event.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1474,9 +1498,13 @@ impl ProductService {
     pub fn create_product(
         &self,
         parent: impl Into<std::string::String>,
+        product: impl Into<crate::model::Product>,
+        product_id: impl Into<std::string::String>,
     ) -> super::builder::product_service::CreateProduct {
         super::builder::product_service::CreateProduct::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_product(product.into())
+            .set_product_id(product_id.into())
     }
 
     /// Gets a [Product][google.cloud.retail.v2.Product].
@@ -1557,9 +1585,11 @@ impl ProductService {
     pub fn purge_products(
         &self,
         parent: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
     ) -> super::builder::product_service::PurgeProducts {
         super::builder::product_service::PurgeProducts::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_filter(filter.into())
     }
 
     /// Bulk import of multiple [Product][google.cloud.retail.v2.Product]s.
@@ -1584,9 +1614,11 @@ impl ProductService {
     pub fn import_products(
         &self,
         parent: impl Into<std::string::String>,
+        input_config: impl Into<crate::model::ProductInputConfig>,
     ) -> super::builder::product_service::ImportProducts {
         super::builder::product_service::ImportProducts::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_input_config(input_config.into())
     }
 
     /// Updates inventory information for a
@@ -1721,9 +1753,13 @@ impl ProductService {
     pub fn add_fulfillment_places(
         &self,
         product: impl Into<std::string::String>,
+        r#type: impl Into<std::string::String>,
+        place_ids: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::product_service::AddFulfillmentPlaces {
         super::builder::product_service::AddFulfillmentPlaces::new(self.inner.clone())
             .set_product(product.into())
+            .set_type(r#type.into())
+            .set_place_ids(place_ids.into_iter().map(|v| v.into()))
     }
 
     /// We recommend that you use the
@@ -1778,9 +1814,13 @@ impl ProductService {
     pub fn remove_fulfillment_places(
         &self,
         product: impl Into<std::string::String>,
+        r#type: impl Into<std::string::String>,
+        place_ids: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::product_service::RemoveFulfillmentPlaces {
         super::builder::product_service::RemoveFulfillmentPlaces::new(self.inner.clone())
             .set_product(product.into())
+            .set_type(r#type.into())
+            .set_place_ids(place_ids.into_iter().map(|v| v.into()))
     }
 
     /// Updates local inventory information for a
@@ -1832,9 +1872,11 @@ impl ProductService {
     pub fn add_local_inventories(
         &self,
         product: impl Into<std::string::String>,
+        local_inventories: impl IntoIterator<Item = impl Into<crate::model::LocalInventory>>,
     ) -> super::builder::product_service::AddLocalInventories {
         super::builder::product_service::AddLocalInventories::new(self.inner.clone())
             .set_product(product.into())
+            .set_local_inventories(local_inventories.into_iter().map(|v| v.into()))
     }
 
     /// Remove local inventory information for a
@@ -1884,9 +1926,11 @@ impl ProductService {
     pub fn remove_local_inventories(
         &self,
         product: impl Into<std::string::String>,
+        place_ids: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::product_service::RemoveLocalInventories {
         super::builder::product_service::RemoveLocalInventories::new(self.inner.clone())
             .set_product(product.into())
+            .set_place_ids(place_ids.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2021,9 +2065,11 @@ impl SearchService {
     pub fn search(
         &self,
         placement: impl Into<std::string::String>,
+        visitor_id: impl Into<std::string::String>,
     ) -> super::builder::search_service::Search {
         super::builder::search_service::Search::new(self.inner.clone())
             .set_placement(placement.into())
+            .set_visitor_id(visitor_id.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2161,9 +2207,13 @@ impl ServingConfigService {
     pub fn create_serving_config(
         &self,
         parent: impl Into<std::string::String>,
+        serving_config: impl Into<crate::model::ServingConfig>,
+        serving_config_id: impl Into<std::string::String>,
     ) -> super::builder::serving_config_service::CreateServingConfig {
         super::builder::serving_config_service::CreateServingConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_serving_config(serving_config.into())
+            .set_serving_config_id(serving_config_id.into())
     }
 
     /// Deletes a ServingConfig.
@@ -2216,9 +2266,11 @@ impl ServingConfigService {
     pub fn add_control(
         &self,
         serving_config: impl Into<std::string::String>,
+        control_id: impl Into<std::string::String>,
     ) -> super::builder::serving_config_service::AddControl {
         super::builder::serving_config_service::AddControl::new(self.inner.clone())
             .set_serving_config(serving_config.into())
+            .set_control_id(control_id.into())
     }
 
     /// Disables a Control on the specified ServingConfig.
@@ -2228,9 +2280,11 @@ impl ServingConfigService {
     pub fn remove_control(
         &self,
         serving_config: impl Into<std::string::String>,
+        control_id: impl Into<std::string::String>,
     ) -> super::builder::serving_config_service::RemoveControl {
         super::builder::serving_config_service::RemoveControl::new(self.inner.clone())
             .set_serving_config(serving_config.into())
+            .set_control_id(control_id.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2362,9 +2416,11 @@ impl UserEventService {
     pub fn write_user_event(
         &self,
         parent: impl Into<std::string::String>,
+        user_event: impl Into<crate::model::UserEvent>,
     ) -> super::builder::user_event_service::WriteUserEvent {
         super::builder::user_event_service::WriteUserEvent::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_user_event(user_event.into())
     }
 
     /// Writes a single user event from the browser. This uses a GET request to
@@ -2375,9 +2431,11 @@ impl UserEventService {
     pub fn collect_user_event(
         &self,
         parent: impl Into<std::string::String>,
+        user_event: impl Into<std::string::String>,
     ) -> super::builder::user_event_service::CollectUserEvent {
         super::builder::user_event_service::CollectUserEvent::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_user_event(user_event.into())
     }
 
     /// Deletes permanently all user events specified by the filter provided.
@@ -2397,9 +2455,11 @@ impl UserEventService {
     pub fn purge_user_events(
         &self,
         parent: impl Into<std::string::String>,
+        filter: impl Into<std::string::String>,
     ) -> super::builder::user_event_service::PurgeUserEvents {
         super::builder::user_event_service::PurgeUserEvents::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_filter(filter.into())
     }
 
     /// Bulk import of User events. Request processing might be
@@ -2422,9 +2482,11 @@ impl UserEventService {
     pub fn import_user_events(
         &self,
         parent: impl Into<std::string::String>,
+        input_config: impl Into<crate::model::UserEventInputConfig>,
     ) -> super::builder::user_event_service::ImportUserEvents {
         super::builder::user_event_service::ImportUserEvents::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_input_config(input_config.into())
     }
 
     /// Starts a user-event rejoin operation with latest product catalog. Events

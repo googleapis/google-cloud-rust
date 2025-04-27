@@ -126,9 +126,11 @@ impl DataPolicyService {
     pub fn create_data_policy(
         &self,
         parent: impl Into<std::string::String>,
+        data_policy: impl Into<crate::model::DataPolicy>,
     ) -> super::builder::data_policy_service::CreateDataPolicy {
         super::builder::data_policy_service::CreateDataPolicy::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_data_policy(data_policy.into())
     }
 
     /// Updates the metadata for an existing data policy. The target data policy
@@ -145,9 +147,11 @@ impl DataPolicyService {
     pub fn rename_data_policy(
         &self,
         name: impl Into<std::string::String>,
+        new_data_policy_id: impl Into<std::string::String>,
     ) -> super::builder::data_policy_service::RenameDataPolicy {
         super::builder::data_policy_service::RenameDataPolicy::new(self.inner.clone())
             .set_name(name.into())
+            .set_new_data_policy_id(new_data_policy_id.into())
     }
 
     /// Deletes the data policy specified by its resource name.
@@ -190,17 +194,21 @@ impl DataPolicyService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::data_policy_service::SetIamPolicy {
         super::builder::data_policy_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns the caller's permission on the specified data policy resource.
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::data_policy_service::TestIamPermissions {
         super::builder::data_policy_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 }

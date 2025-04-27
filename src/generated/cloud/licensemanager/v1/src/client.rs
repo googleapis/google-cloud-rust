@@ -151,9 +151,13 @@ impl LicenseManager {
     pub fn create_configuration(
         &self,
         parent: impl Into<std::string::String>,
+        configuration_id: impl Into<std::string::String>,
+        configuration: impl Into<crate::model::Configuration>,
     ) -> super::builder::license_manager::CreateConfiguration {
         super::builder::license_manager::CreateConfiguration::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_configuration_id(configuration_id.into())
+            .set_configuration(configuration.into())
     }
 
     /// Updates the parameters of a single Configuration.
@@ -253,18 +257,26 @@ impl LicenseManager {
     pub fn query_configuration_license_usage(
         &self,
         name: impl Into<std::string::String>,
+        start_time: impl Into<wkt::Timestamp>,
+        end_time: impl Into<wkt::Timestamp>,
     ) -> super::builder::license_manager::QueryConfigurationLicenseUsage {
         super::builder::license_manager::QueryConfigurationLicenseUsage::new(self.inner.clone())
             .set_name(name.into())
+            .set_start_time(start_time.into())
+            .set_end_time(end_time.into())
     }
 
     /// Aggregates Usage per Instance for a Configuration.
     pub fn aggregate_usage(
         &self,
         name: impl Into<std::string::String>,
+        start_time: impl Into<wkt::Timestamp>,
+        end_time: impl Into<wkt::Timestamp>,
     ) -> super::builder::license_manager::AggregateUsage {
         super::builder::license_manager::AggregateUsage::new(self.inner.clone())
             .set_name(name.into())
+            .set_start_time(start_time.into())
+            .set_end_time(end_time.into())
     }
 
     /// Lists Products in a given project and location.

@@ -152,9 +152,13 @@ impl NotebookService {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
+        instance_id: impl Into<std::string::String>,
+        instance: impl Into<crate::model::Instance>,
     ) -> super::builder::notebook_service::CreateInstance {
         super::builder::notebook_service::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_id(instance_id.into())
+            .set_instance(instance.into())
     }
 
     /// UpdateInstance updates an Instance.
@@ -171,9 +175,11 @@ impl NotebookService {
     pub fn update_instance(
         &self,
         instance: impl Into<crate::model::Instance>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::notebook_service::UpdateInstance {
         super::builder::notebook_service::UpdateInstance::new(self.inner.clone())
             .set_instance(instance.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a single Instance.
@@ -294,9 +300,13 @@ impl NotebookService {
     pub fn rollback_instance(
         &self,
         name: impl Into<std::string::String>,
+        target_snapshot: impl Into<std::string::String>,
+        revision_id: impl Into<std::string::String>,
     ) -> super::builder::notebook_service::RollbackInstance {
         super::builder::notebook_service::RollbackInstance::new(self.inner.clone())
             .set_name(name.into())
+            .set_target_snapshot(target_snapshot.into())
+            .set_revision_id(revision_id.into())
     }
 
     /// Creates a Diagnostic File and runs Diagnostic Tool given an Instance.
@@ -313,9 +323,11 @@ impl NotebookService {
     pub fn diagnose_instance(
         &self,
         name: impl Into<std::string::String>,
+        diagnostic_config: impl Into<crate::model::DiagnosticConfig>,
     ) -> super::builder::notebook_service::DiagnoseInstance {
         super::builder::notebook_service::DiagnoseInstance::new(self.inner.clone())
             .set_name(name.into())
+            .set_diagnostic_config(diagnostic_config.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -343,9 +355,11 @@ impl NotebookService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::notebook_service::SetIamPolicy {
         super::builder::notebook_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -368,9 +382,11 @@ impl NotebookService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::notebook_service::TestIamPermissions {
         super::builder::notebook_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

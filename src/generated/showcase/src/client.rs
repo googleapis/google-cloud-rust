@@ -225,9 +225,11 @@ impl Compliance {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::compliance::SetIamPolicy {
         super::builder::compliance::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
@@ -247,9 +249,11 @@ impl Compliance {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::compliance::TestIamPermissions {
         super::builder::compliance::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -422,15 +426,21 @@ impl Echo {
 
     /// This is similar to the Expand method but instead of returning a stream of
     /// expanded words, this method returns a paged list of expanded words.
-    pub fn paged_expand(&self) -> super::builder::echo::PagedExpand {
-        super::builder::echo::PagedExpand::new(self.inner.clone())
+    pub fn paged_expand(
+        &self,
+        content: impl Into<std::string::String>,
+    ) -> super::builder::echo::PagedExpand {
+        super::builder::echo::PagedExpand::new(self.inner.clone()).set_content(content.into())
     }
 
     /// This is similar to the PagedExpand except that it uses
     /// max_results instead of page_size, as some legacy APIs still
     /// do. New APIs should NOT use this pattern.
-    pub fn paged_expand_legacy(&self) -> super::builder::echo::PagedExpandLegacy {
-        super::builder::echo::PagedExpandLegacy::new(self.inner.clone())
+    pub fn paged_expand_legacy(
+        &self,
+        content: impl Into<std::string::String>,
+    ) -> super::builder::echo::PagedExpandLegacy {
+        super::builder::echo::PagedExpandLegacy::new(self.inner.clone()).set_content(content.into())
     }
 
     /// This method returns a map containing lists of words that appear in the input, keyed by their
@@ -438,8 +448,12 @@ impl Echo {
     /// as determined by page_token and page_size, which both refer to the word indices in the
     /// input. This paging result consisting of a map of lists is a pattern used by some legacy
     /// APIs. New APIs should NOT use this pattern.
-    pub fn paged_expand_legacy_mapped(&self) -> super::builder::echo::PagedExpandLegacyMapped {
+    pub fn paged_expand_legacy_mapped(
+        &self,
+        content: impl Into<std::string::String>,
+    ) -> super::builder::echo::PagedExpandLegacyMapped {
         super::builder::echo::PagedExpandLegacyMapped::new(self.inner.clone())
+            .set_content(content.into())
     }
 
     /// This method will wait for the requested amount of time and then return.
@@ -491,8 +505,11 @@ impl Echo {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::echo::SetIamPolicy {
-        super::builder::echo::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+        super::builder::echo::SetIamPolicy::new(self.inner.clone())
+            .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
@@ -511,9 +528,11 @@ impl Echo {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::echo::TestIamPermissions {
         super::builder::echo::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -714,9 +733,11 @@ impl Identity {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::identity::SetIamPolicy {
         super::builder::identity::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
@@ -736,9 +757,11 @@ impl Identity {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::identity::TestIamPermissions {
         super::builder::identity::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -974,9 +997,12 @@ impl Messaging {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn search_blurbs(
         &self,
+        query: impl Into<std::string::String>,
         parent: impl Into<std::string::String>,
     ) -> super::builder::messaging::SearchBlurbs {
-        super::builder::messaging::SearchBlurbs::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::messaging::SearchBlurbs::new(self.inner.clone())
+            .set_query(query.into())
+            .set_parent(parent.into())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
@@ -1005,9 +1031,11 @@ impl Messaging {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::messaging::SetIamPolicy {
         super::builder::messaging::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
@@ -1027,9 +1055,11 @@ impl Messaging {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::messaging::TestIamPermissions {
         super::builder::messaging::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1237,9 +1267,11 @@ impl SequenceService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::sequence_service::SetIamPolicy {
         super::builder::sequence_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
@@ -1259,9 +1291,11 @@ impl SequenceService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::sequence_service::TestIamPermissions {
         super::builder::sequence_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1510,8 +1544,11 @@ impl Testing {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::testing::SetIamPolicy {
-        super::builder::testing::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+        super::builder::testing::SetIamPolicy::new(self.inner.clone())
+            .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
@@ -1530,9 +1567,11 @@ impl Testing {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::testing::TestIamPermissions {
         super::builder::testing::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

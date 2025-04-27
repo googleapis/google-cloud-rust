@@ -140,17 +140,23 @@ impl ModelArmor {
     pub fn create_template(
         &self,
         parent: impl Into<std::string::String>,
+        template_id: impl Into<std::string::String>,
+        template: impl Into<crate::model::Template>,
     ) -> super::builder::model_armor::CreateTemplate {
         super::builder::model_armor::CreateTemplate::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_template_id(template_id.into())
+            .set_template(template.into())
     }
 
     /// Updates the parameters of a single Template.
     pub fn update_template(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         template: impl Into<crate::model::Template>,
     ) -> super::builder::model_armor::UpdateTemplate {
         super::builder::model_armor::UpdateTemplate::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_template(template.into())
     }
 
@@ -183,18 +189,22 @@ impl ModelArmor {
     pub fn sanitize_user_prompt(
         &self,
         name: impl Into<std::string::String>,
+        user_prompt_data: impl Into<crate::model::DataItem>,
     ) -> super::builder::model_armor::SanitizeUserPrompt {
         super::builder::model_armor::SanitizeUserPrompt::new(self.inner.clone())
             .set_name(name.into())
+            .set_user_prompt_data(user_prompt_data.into())
     }
 
     /// Sanitizes Model Response.
     pub fn sanitize_model_response(
         &self,
         name: impl Into<std::string::String>,
+        model_response_data: impl Into<crate::model::DataItem>,
     ) -> super::builder::model_armor::SanitizeModelResponse {
         super::builder::model_armor::SanitizeModelResponse::new(self.inner.clone())
             .set_name(name.into())
+            .set_model_response_data(model_response_data.into())
     }
 
     /// Lists information about the supported locations for this service.

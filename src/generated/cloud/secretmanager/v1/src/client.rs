@@ -149,9 +149,13 @@ impl SecretManagerService {
     pub fn create_secret(
         &self,
         parent: impl Into<std::string::String>,
+        secret_id: impl Into<std::string::String>,
+        secret: impl Into<crate::model::Secret>,
     ) -> super::builder::secret_manager_service::CreateSecret {
         super::builder::secret_manager_service::CreateSecret::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_secret_id(secret_id.into())
+            .set_secret(secret.into())
     }
 
     /// Creates a new [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
@@ -163,9 +167,11 @@ impl SecretManagerService {
     pub fn add_secret_version(
         &self,
         parent: impl Into<std::string::String>,
+        payload: impl Into<crate::model::SecretPayload>,
     ) -> super::builder::secret_manager_service::AddSecretVersion {
         super::builder::secret_manager_service::AddSecretVersion::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_payload(payload.into())
     }
 
     /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
@@ -186,9 +192,11 @@ impl SecretManagerService {
     pub fn update_secret(
         &self,
         secret: impl Into<crate::model::Secret>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::secret_manager_service::UpdateSecret {
         super::builder::secret_manager_service::UpdateSecret::new(self.inner.clone())
             .set_secret(secret.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
@@ -309,9 +317,11 @@ impl SecretManagerService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::secret_manager_service::SetIamPolicy {
         super::builder::secret_manager_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a secret.
@@ -334,9 +344,11 @@ impl SecretManagerService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::secret_manager_service::TestIamPermissions {
         super::builder::secret_manager_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Lists information about the supported locations for this service.

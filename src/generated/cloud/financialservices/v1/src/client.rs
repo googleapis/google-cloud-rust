@@ -148,8 +148,13 @@ impl Aml {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
+        instance_id: impl Into<std::string::String>,
+        instance: impl Into<crate::model::Instance>,
     ) -> super::builder::aml::CreateInstance {
-        super::builder::aml::CreateInstance::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::aml::CreateInstance::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_instance_id(instance_id.into())
+            .set_instance(instance.into())
     }
 
     /// Updates the parameters of a single Instance.
@@ -205,8 +210,13 @@ impl Aml {
     pub fn import_registered_parties(
         &self,
         name: impl Into<std::string::String>,
+        mode: impl Into<crate::model::import_registered_parties_request::UpdateMode>,
+        line_of_business: impl Into<crate::model::LineOfBusiness>,
     ) -> super::builder::aml::ImportRegisteredParties {
-        super::builder::aml::ImportRegisteredParties::new(self.inner.clone()).set_name(name.into())
+        super::builder::aml::ImportRegisteredParties::new(self.inner.clone())
+            .set_name(name.into())
+            .set_mode(mode.into())
+            .set_line_of_business(line_of_business.into())
     }
 
     /// Exports the list of registered parties. See
@@ -226,8 +236,13 @@ impl Aml {
     pub fn export_registered_parties(
         &self,
         name: impl Into<std::string::String>,
+        dataset: impl Into<crate::model::BigQueryDestination>,
+        line_of_business: impl Into<crate::model::LineOfBusiness>,
     ) -> super::builder::aml::ExportRegisteredParties {
-        super::builder::aml::ExportRegisteredParties::new(self.inner.clone()).set_name(name.into())
+        super::builder::aml::ExportRegisteredParties::new(self.inner.clone())
+            .set_name(name.into())
+            .set_dataset(dataset.into())
+            .set_line_of_business(line_of_business.into())
     }
 
     /// Lists datasets.
@@ -260,8 +275,13 @@ impl Aml {
     pub fn create_dataset(
         &self,
         parent: impl Into<std::string::String>,
+        dataset_id: impl Into<std::string::String>,
+        dataset: impl Into<crate::model::Dataset>,
     ) -> super::builder::aml::CreateDataset {
-        super::builder::aml::CreateDataset::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::aml::CreateDataset::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_dataset_id(dataset_id.into())
+            .set_dataset(dataset.into())
     }
 
     /// Updates the parameters of a single Dataset.
@@ -327,8 +347,13 @@ impl Aml {
     pub fn create_model(
         &self,
         parent: impl Into<std::string::String>,
+        model_id: impl Into<std::string::String>,
+        model: impl Into<crate::model::Model>,
     ) -> super::builder::aml::CreateModel {
-        super::builder::aml::CreateModel::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::aml::CreateModel::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_model_id(model_id.into())
+            .set_model(model.into())
     }
 
     /// Updates the parameters of a single Model.
@@ -366,8 +391,11 @@ impl Aml {
     pub fn export_model_metadata(
         &self,
         model: impl Into<std::string::String>,
+        structured_metadata_destination: impl Into<crate::model::BigQueryDestination>,
     ) -> super::builder::aml::ExportModelMetadata {
-        super::builder::aml::ExportModelMetadata::new(self.inner.clone()).set_model(model.into())
+        super::builder::aml::ExportModelMetadata::new(self.inner.clone())
+            .set_model(model.into())
+            .set_structured_metadata_destination(structured_metadata_destination.into())
     }
 
     /// Deletes a model.
@@ -418,8 +446,13 @@ impl Aml {
     pub fn create_engine_config(
         &self,
         parent: impl Into<std::string::String>,
+        engine_config_id: impl Into<std::string::String>,
+        engine_config: impl Into<crate::model::EngineConfig>,
     ) -> super::builder::aml::CreateEngineConfig {
-        super::builder::aml::CreateEngineConfig::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::aml::CreateEngineConfig::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_engine_config_id(engine_config_id.into())
+            .set_engine_config(engine_config.into())
     }
 
     /// Updates the parameters of a single EngineConfig.
@@ -458,9 +491,11 @@ impl Aml {
     pub fn export_engine_config_metadata(
         &self,
         engine_config: impl Into<std::string::String>,
+        structured_metadata_destination: impl Into<crate::model::BigQueryDestination>,
     ) -> super::builder::aml::ExportEngineConfigMetadata {
         super::builder::aml::ExportEngineConfigMetadata::new(self.inner.clone())
             .set_engine_config(engine_config.into())
+            .set_structured_metadata_destination(structured_metadata_destination.into())
     }
 
     /// Deletes an engine config.
@@ -528,9 +563,13 @@ impl Aml {
     pub fn create_prediction_result(
         &self,
         parent: impl Into<std::string::String>,
+        prediction_result_id: impl Into<std::string::String>,
+        prediction_result: impl Into<crate::model::PredictionResult>,
     ) -> super::builder::aml::CreatePredictionResult {
         super::builder::aml::CreatePredictionResult::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_prediction_result_id(prediction_result_id.into())
+            .set_prediction_result(prediction_result.into())
     }
 
     /// Updates the parameters of a single PredictionResult.
@@ -569,9 +608,11 @@ impl Aml {
     pub fn export_prediction_result_metadata(
         &self,
         prediction_result: impl Into<std::string::String>,
+        structured_metadata_destination: impl Into<crate::model::BigQueryDestination>,
     ) -> super::builder::aml::ExportPredictionResultMetadata {
         super::builder::aml::ExportPredictionResultMetadata::new(self.inner.clone())
             .set_prediction_result(prediction_result.into())
+            .set_structured_metadata_destination(structured_metadata_destination.into())
     }
 
     /// Deletes a PredictionResult.
@@ -622,8 +663,13 @@ impl Aml {
     pub fn create_backtest_result(
         &self,
         parent: impl Into<std::string::String>,
+        backtest_result_id: impl Into<std::string::String>,
+        backtest_result: impl Into<crate::model::BacktestResult>,
     ) -> super::builder::aml::CreateBacktestResult {
-        super::builder::aml::CreateBacktestResult::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::aml::CreateBacktestResult::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_backtest_result_id(backtest_result_id.into())
+            .set_backtest_result(backtest_result.into())
     }
 
     /// Updates the parameters of a single BacktestResult.
@@ -662,9 +708,11 @@ impl Aml {
     pub fn export_backtest_result_metadata(
         &self,
         backtest_result: impl Into<std::string::String>,
+        structured_metadata_destination: impl Into<crate::model::BigQueryDestination>,
     ) -> super::builder::aml::ExportBacktestResultMetadata {
         super::builder::aml::ExportBacktestResultMetadata::new(self.inner.clone())
             .set_backtest_result(backtest_result.into())
+            .set_structured_metadata_destination(structured_metadata_destination.into())
     }
 
     /// Deletes a BacktestResult.

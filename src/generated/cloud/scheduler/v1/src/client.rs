@@ -140,9 +140,11 @@ impl CloudScheduler {
     pub fn create_job(
         &self,
         parent: impl Into<std::string::String>,
+        job: impl Into<crate::model::Job>,
     ) -> super::builder::cloud_scheduler::CreateJob {
         super::builder::cloud_scheduler::CreateJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_job(job.into())
     }
 
     /// Updates a job.

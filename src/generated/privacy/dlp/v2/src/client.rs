@@ -206,9 +206,11 @@ impl DlpService {
     pub fn create_inspect_template(
         &self,
         parent: impl Into<std::string::String>,
+        inspect_template: impl Into<crate::model::InspectTemplate>,
     ) -> super::builder::dlp_service::CreateInspectTemplate {
         super::builder::dlp_service::CreateInspectTemplate::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_inspect_template(inspect_template.into())
     }
 
     /// Updates the InspectTemplate.
@@ -267,9 +269,11 @@ impl DlpService {
     pub fn create_deidentify_template(
         &self,
         parent: impl Into<std::string::String>,
+        deidentify_template: impl Into<crate::model::DeidentifyTemplate>,
     ) -> super::builder::dlp_service::CreateDeidentifyTemplate {
         super::builder::dlp_service::CreateDeidentifyTemplate::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_deidentify_template(deidentify_template.into())
     }
 
     /// Updates the DeidentifyTemplate.
@@ -328,9 +332,11 @@ impl DlpService {
     pub fn create_job_trigger(
         &self,
         parent: impl Into<std::string::String>,
+        job_trigger: impl Into<crate::model::JobTrigger>,
     ) -> super::builder::dlp_service::CreateJobTrigger {
         super::builder::dlp_service::CreateJobTrigger::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_job_trigger(job_trigger.into())
     }
 
     /// Updates a job trigger.
@@ -403,18 +409,22 @@ impl DlpService {
     pub fn create_discovery_config(
         &self,
         parent: impl Into<std::string::String>,
+        discovery_config: impl Into<crate::model::DiscoveryConfig>,
     ) -> super::builder::dlp_service::CreateDiscoveryConfig {
         super::builder::dlp_service::CreateDiscoveryConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_discovery_config(discovery_config.into())
     }
 
     /// Updates a discovery configuration.
     pub fn update_discovery_config(
         &self,
         name: impl Into<std::string::String>,
+        discovery_config: impl Into<crate::model::DiscoveryConfig>,
     ) -> super::builder::dlp_service::UpdateDiscoveryConfig {
         super::builder::dlp_service::UpdateDiscoveryConfig::new(self.inner.clone())
             .set_name(name.into())
+            .set_discovery_config(discovery_config.into())
     }
 
     /// Gets a discovery configuration.
@@ -524,9 +534,11 @@ impl DlpService {
     pub fn create_stored_info_type(
         &self,
         parent: impl Into<std::string::String>,
+        config: impl Into<crate::model::StoredInfoTypeConfig>,
     ) -> super::builder::dlp_service::CreateStoredInfoType {
         super::builder::dlp_service::CreateStoredInfoType::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_config(config.into())
     }
 
     /// Updates the stored infoType by creating a new version. The existing version
@@ -694,9 +706,11 @@ impl DlpService {
     pub fn create_connection(
         &self,
         parent: impl Into<std::string::String>,
+        connection: impl Into<crate::model::Connection>,
     ) -> super::builder::dlp_service::CreateConnection {
         super::builder::dlp_service::CreateConnection::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_connection(connection.into())
     }
 
     /// Get a Connection by name.
@@ -738,7 +752,10 @@ impl DlpService {
     pub fn update_connection(
         &self,
         name: impl Into<std::string::String>,
+        connection: impl Into<crate::model::Connection>,
     ) -> super::builder::dlp_service::UpdateConnection {
-        super::builder::dlp_service::UpdateConnection::new(self.inner.clone()).set_name(name.into())
+        super::builder::dlp_service::UpdateConnection::new(self.inner.clone())
+            .set_name(name.into())
+            .set_connection(connection.into())
     }
 }

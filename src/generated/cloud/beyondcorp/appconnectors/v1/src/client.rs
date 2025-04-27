@@ -166,9 +166,11 @@ impl AppConnectorsService {
     pub fn create_app_connector(
         &self,
         parent: impl Into<std::string::String>,
+        app_connector: impl Into<crate::model::AppConnector>,
     ) -> super::builder::app_connectors_service::CreateAppConnector {
         super::builder::app_connectors_service::CreateAppConnector::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_app_connector(app_connector.into())
     }
 
     /// Updates the parameters of a single AppConnector.
@@ -184,9 +186,11 @@ impl AppConnectorsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_app_connector(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         app_connector: impl Into<crate::model::AppConnector>,
     ) -> super::builder::app_connectors_service::UpdateAppConnector {
         super::builder::app_connectors_service::UpdateAppConnector::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_app_connector(app_connector.into())
     }
 
@@ -223,9 +227,11 @@ impl AppConnectorsService {
     pub fn report_status(
         &self,
         app_connector: impl Into<std::string::String>,
+        resource_info: impl Into<crate::model::ResourceInfo>,
     ) -> super::builder::app_connectors_service::ReportStatus {
         super::builder::app_connectors_service::ReportStatus::new(self.inner.clone())
             .set_app_connector(app_connector.into())
+            .set_resource_info(resource_info.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -254,9 +260,11 @@ impl AppConnectorsService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::app_connectors_service::SetIamPolicy {
         super::builder::app_connectors_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -279,9 +287,11 @@ impl AppConnectorsService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::app_connectors_service::TestIamPermissions {
         super::builder::app_connectors_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

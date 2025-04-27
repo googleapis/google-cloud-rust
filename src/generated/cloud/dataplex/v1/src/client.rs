@@ -137,9 +137,13 @@ impl CatalogService {
     pub fn create_entry_type(
         &self,
         parent: impl Into<std::string::String>,
+        entry_type_id: impl Into<std::string::String>,
+        entry_type: impl Into<crate::model::EntryType>,
     ) -> super::builder::catalog_service::CreateEntryType {
         super::builder::catalog_service::CreateEntryType::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entry_type_id(entry_type_id.into())
+            .set_entry_type(entry_type.into())
     }
 
     /// Updates an EntryType.
@@ -156,9 +160,11 @@ impl CatalogService {
     pub fn update_entry_type(
         &self,
         entry_type: impl Into<crate::model::EntryType>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::catalog_service::UpdateEntryType {
         super::builder::catalog_service::UpdateEntryType::new(self.inner.clone())
             .set_entry_type(entry_type.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes an EntryType.
@@ -211,9 +217,13 @@ impl CatalogService {
     pub fn create_aspect_type(
         &self,
         parent: impl Into<std::string::String>,
+        aspect_type_id: impl Into<std::string::String>,
+        aspect_type: impl Into<crate::model::AspectType>,
     ) -> super::builder::catalog_service::CreateAspectType {
         super::builder::catalog_service::CreateAspectType::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_aspect_type_id(aspect_type_id.into())
+            .set_aspect_type(aspect_type.into())
     }
 
     /// Updates an AspectType.
@@ -230,9 +240,11 @@ impl CatalogService {
     pub fn update_aspect_type(
         &self,
         aspect_type: impl Into<crate::model::AspectType>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::catalog_service::UpdateAspectType {
         super::builder::catalog_service::UpdateAspectType::new(self.inner.clone())
             .set_aspect_type(aspect_type.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes an AspectType.
@@ -286,9 +298,13 @@ impl CatalogService {
     pub fn create_entry_group(
         &self,
         parent: impl Into<std::string::String>,
+        entry_group_id: impl Into<std::string::String>,
+        entry_group: impl Into<crate::model::EntryGroup>,
     ) -> super::builder::catalog_service::CreateEntryGroup {
         super::builder::catalog_service::CreateEntryGroup::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entry_group_id(entry_group_id.into())
+            .set_entry_group(entry_group.into())
     }
 
     /// Updates an EntryGroup.
@@ -305,9 +321,11 @@ impl CatalogService {
     pub fn update_entry_group(
         &self,
         entry_group: impl Into<crate::model::EntryGroup>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::catalog_service::UpdateEntryGroup {
         super::builder::catalog_service::UpdateEntryGroup::new(self.inner.clone())
             .set_entry_group(entry_group.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes an EntryGroup.
@@ -351,9 +369,13 @@ impl CatalogService {
     pub fn create_entry(
         &self,
         parent: impl Into<std::string::String>,
+        entry_id: impl Into<std::string::String>,
+        entry: impl Into<crate::model::Entry>,
     ) -> super::builder::catalog_service::CreateEntry {
         super::builder::catalog_service::CreateEntry::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entry_id(entry_id.into())
+            .set_entry(entry.into())
     }
 
     /// Updates an Entry.
@@ -394,17 +416,22 @@ impl CatalogService {
     pub fn lookup_entry(
         &self,
         name: impl Into<std::string::String>,
+        entry: impl Into<std::string::String>,
     ) -> super::builder::catalog_service::LookupEntry {
-        super::builder::catalog_service::LookupEntry::new(self.inner.clone()).set_name(name.into())
+        super::builder::catalog_service::LookupEntry::new(self.inner.clone())
+            .set_name(name.into())
+            .set_entry(entry.into())
     }
 
     /// Searches for Entries matching the given query and scope.
     pub fn search_entries(
         &self,
         name: impl Into<std::string::String>,
+        query: impl Into<std::string::String>,
     ) -> super::builder::catalog_service::SearchEntries {
         super::builder::catalog_service::SearchEntries::new(self.inner.clone())
             .set_name(name.into())
+            .set_query(query.into())
     }
 
     /// Creates a metadata job. For example, use a metadata job to import Dataplex
@@ -422,9 +449,11 @@ impl CatalogService {
     pub fn create_metadata_job(
         &self,
         parent: impl Into<std::string::String>,
+        metadata_job: impl Into<crate::model::MetadataJob>,
     ) -> super::builder::catalog_service::CreateMetadataJob {
         super::builder::catalog_service::CreateMetadataJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_metadata_job(metadata_job.into())
     }
 
     /// Gets a metadata job.
@@ -484,9 +513,11 @@ impl CatalogService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::catalog_service::SetIamPolicy {
         super::builder::catalog_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -509,9 +540,11 @@ impl CatalogService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::catalog_service::TestIamPermissions {
         super::builder::catalog_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -672,9 +705,13 @@ impl CmekService {
     pub fn create_encryption_config(
         &self,
         parent: impl Into<std::string::String>,
+        encryption_config_id: impl Into<std::string::String>,
+        encryption_config: impl Into<crate::model::EncryptionConfig>,
     ) -> super::builder::cmek_service::CreateEncryptionConfig {
         super::builder::cmek_service::CreateEncryptionConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_encryption_config_id(encryption_config_id.into())
+            .set_encryption_config(encryption_config.into())
     }
 
     /// Update an EncryptionConfig.
@@ -757,9 +794,11 @@ impl CmekService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::cmek_service::SetIamPolicy {
         super::builder::cmek_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -782,9 +821,11 @@ impl CmekService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::cmek_service::TestIamPermissions {
         super::builder::cmek_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -932,17 +973,21 @@ impl ContentService {
     pub fn create_content(
         &self,
         parent: impl Into<std::string::String>,
+        content: impl Into<crate::model::Content>,
     ) -> super::builder::content_service::CreateContent {
         super::builder::content_service::CreateContent::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_content(content.into())
     }
 
     /// Update a content. Only supports full resource update.
     pub fn update_content(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         content: impl Into<crate::model::Content>,
     ) -> super::builder::content_service::UpdateContent {
         super::builder::content_service::UpdateContent::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_content(content.into())
     }
 
@@ -985,9 +1030,11 @@ impl ContentService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::content_service::SetIamPolicy {
         super::builder::content_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Returns the caller's permissions on a resource.
@@ -1003,9 +1050,11 @@ impl ContentService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::content_service::TestIamPermissions {
         super::builder::content_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// List content.
@@ -1195,9 +1244,13 @@ impl DataTaxonomyService {
     pub fn create_data_taxonomy(
         &self,
         parent: impl Into<std::string::String>,
+        data_taxonomy_id: impl Into<std::string::String>,
+        data_taxonomy: impl Into<crate::model::DataTaxonomy>,
     ) -> super::builder::data_taxonomy_service::CreateDataTaxonomy {
         super::builder::data_taxonomy_service::CreateDataTaxonomy::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_data_taxonomy_id(data_taxonomy_id.into())
+            .set_data_taxonomy(data_taxonomy.into())
     }
 
     /// Updates a DataTaxonomy resource.
@@ -1213,9 +1266,11 @@ impl DataTaxonomyService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_data_taxonomy(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         data_taxonomy: impl Into<crate::model::DataTaxonomy>,
     ) -> super::builder::data_taxonomy_service::UpdateDataTaxonomy {
         super::builder::data_taxonomy_service::UpdateDataTaxonomy::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_data_taxonomy(data_taxonomy.into())
     }
 
@@ -1271,9 +1326,13 @@ impl DataTaxonomyService {
     pub fn create_data_attribute_binding(
         &self,
         parent: impl Into<std::string::String>,
+        data_attribute_binding_id: impl Into<std::string::String>,
+        data_attribute_binding: impl Into<crate::model::DataAttributeBinding>,
     ) -> super::builder::data_taxonomy_service::CreateDataAttributeBinding {
         super::builder::data_taxonomy_service::CreateDataAttributeBinding::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_data_attribute_binding_id(data_attribute_binding_id.into())
+            .set_data_attribute_binding(data_attribute_binding.into())
     }
 
     /// Updates a DataAttributeBinding resource.
@@ -1289,9 +1348,11 @@ impl DataTaxonomyService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_data_attribute_binding(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         data_attribute_binding: impl Into<crate::model::DataAttributeBinding>,
     ) -> super::builder::data_taxonomy_service::UpdateDataAttributeBinding {
         super::builder::data_taxonomy_service::UpdateDataAttributeBinding::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_data_attribute_binding(data_attribute_binding.into())
     }
 
@@ -1311,9 +1372,11 @@ impl DataTaxonomyService {
     pub fn delete_data_attribute_binding(
         &self,
         name: impl Into<std::string::String>,
+        etag: impl Into<std::string::String>,
     ) -> super::builder::data_taxonomy_service::DeleteDataAttributeBinding {
         super::builder::data_taxonomy_service::DeleteDataAttributeBinding::new(self.inner.clone())
             .set_name(name.into())
+            .set_etag(etag.into())
     }
 
     /// Lists DataAttributeBinding resources in a project and location.
@@ -1348,9 +1411,13 @@ impl DataTaxonomyService {
     pub fn create_data_attribute(
         &self,
         parent: impl Into<std::string::String>,
+        data_attribute_id: impl Into<std::string::String>,
+        data_attribute: impl Into<crate::model::DataAttribute>,
     ) -> super::builder::data_taxonomy_service::CreateDataAttribute {
         super::builder::data_taxonomy_service::CreateDataAttribute::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_data_attribute_id(data_attribute_id.into())
+            .set_data_attribute(data_attribute.into())
     }
 
     /// Updates a DataAttribute resource.
@@ -1366,9 +1433,11 @@ impl DataTaxonomyService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_data_attribute(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         data_attribute: impl Into<crate::model::DataAttribute>,
     ) -> super::builder::data_taxonomy_service::UpdateDataAttribute {
         super::builder::data_taxonomy_service::UpdateDataAttribute::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_data_attribute(data_attribute.into())
     }
 
@@ -1435,9 +1504,11 @@ impl DataTaxonomyService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::data_taxonomy_service::SetIamPolicy {
         super::builder::data_taxonomy_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -1460,9 +1531,11 @@ impl DataTaxonomyService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::data_taxonomy_service::TestIamPermissions {
         super::builder::data_taxonomy_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1628,9 +1701,13 @@ impl DataScanService {
     pub fn create_data_scan(
         &self,
         parent: impl Into<std::string::String>,
+        data_scan: impl Into<crate::model::DataScan>,
+        data_scan_id: impl Into<std::string::String>,
     ) -> super::builder::data_scan_service::CreateDataScan {
         super::builder::data_scan_service::CreateDataScan::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_data_scan(data_scan.into())
+            .set_data_scan_id(data_scan_id.into())
     }
 
     /// Updates a DataScan resource.
@@ -1754,9 +1831,11 @@ impl DataScanService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::data_scan_service::SetIamPolicy {
         super::builder::data_scan_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -1779,9 +1858,11 @@ impl DataScanService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::data_scan_service::TestIamPermissions {
         super::builder::data_scan_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1936,9 +2017,11 @@ impl MetadataService {
     pub fn create_entity(
         &self,
         parent: impl Into<std::string::String>,
+        entity: impl Into<crate::model::Entity>,
     ) -> super::builder::metadata_service::CreateEntity {
         super::builder::metadata_service::CreateEntity::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entity(entity.into())
     }
 
     /// Update a metadata entity. Only supports full resource update.
@@ -1954,9 +2037,11 @@ impl MetadataService {
     pub fn delete_entity(
         &self,
         name: impl Into<std::string::String>,
+        etag: impl Into<std::string::String>,
     ) -> super::builder::metadata_service::DeleteEntity {
         super::builder::metadata_service::DeleteEntity::new(self.inner.clone())
             .set_name(name.into())
+            .set_etag(etag.into())
     }
 
     /// Get a metadata entity.
@@ -1971,18 +2056,22 @@ impl MetadataService {
     pub fn list_entities(
         &self,
         parent: impl Into<std::string::String>,
+        view: impl Into<crate::model::list_entities_request::EntityView>,
     ) -> super::builder::metadata_service::ListEntities {
         super::builder::metadata_service::ListEntities::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_view(view.into())
     }
 
     /// Create a metadata partition.
     pub fn create_partition(
         &self,
         parent: impl Into<std::string::String>,
+        partition: impl Into<crate::model::Partition>,
     ) -> super::builder::metadata_service::CreatePartition {
         super::builder::metadata_service::CreatePartition::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_partition(partition.into())
     }
 
     /// Delete a metadata partition.
@@ -2037,9 +2126,11 @@ impl MetadataService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::metadata_service::SetIamPolicy {
         super::builder::metadata_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -2062,9 +2153,11 @@ impl MetadataService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::metadata_service::TestIamPermissions {
         super::builder::metadata_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2232,9 +2325,13 @@ impl DataplexService {
     pub fn create_lake(
         &self,
         parent: impl Into<std::string::String>,
+        lake_id: impl Into<std::string::String>,
+        lake: impl Into<crate::model::Lake>,
     ) -> super::builder::dataplex_service::CreateLake {
         super::builder::dataplex_service::CreateLake::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_lake_id(lake_id.into())
+            .set_lake(lake.into())
     }
 
     /// Updates a lake resource.
@@ -2250,9 +2347,12 @@ impl DataplexService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_lake(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         lake: impl Into<crate::model::Lake>,
     ) -> super::builder::dataplex_service::UpdateLake {
-        super::builder::dataplex_service::UpdateLake::new(self.inner.clone()).set_lake(lake.into())
+        super::builder::dataplex_service::UpdateLake::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
+            .set_lake(lake.into())
     }
 
     /// Deletes a lake resource. All zones within the lake must be deleted before
@@ -2314,9 +2414,13 @@ impl DataplexService {
     pub fn create_zone(
         &self,
         parent: impl Into<std::string::String>,
+        zone_id: impl Into<std::string::String>,
+        zone: impl Into<crate::model::Zone>,
     ) -> super::builder::dataplex_service::CreateZone {
         super::builder::dataplex_service::CreateZone::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_zone_id(zone_id.into())
+            .set_zone(zone.into())
     }
 
     /// Updates a zone resource.
@@ -2332,9 +2436,12 @@ impl DataplexService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_zone(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         zone: impl Into<crate::model::Zone>,
     ) -> super::builder::dataplex_service::UpdateZone {
-        super::builder::dataplex_service::UpdateZone::new(self.inner.clone()).set_zone(zone.into())
+        super::builder::dataplex_service::UpdateZone::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
+            .set_zone(zone.into())
     }
 
     /// Deletes a zone resource. All assets within a zone must be deleted before
@@ -2396,9 +2503,13 @@ impl DataplexService {
     pub fn create_asset(
         &self,
         parent: impl Into<std::string::String>,
+        asset_id: impl Into<std::string::String>,
+        asset: impl Into<crate::model::Asset>,
     ) -> super::builder::dataplex_service::CreateAsset {
         super::builder::dataplex_service::CreateAsset::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_asset_id(asset_id.into())
+            .set_asset(asset.into())
     }
 
     /// Updates an asset resource.
@@ -2414,9 +2525,11 @@ impl DataplexService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_asset(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         asset: impl Into<crate::model::Asset>,
     ) -> super::builder::dataplex_service::UpdateAsset {
         super::builder::dataplex_service::UpdateAsset::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_asset(asset.into())
     }
 
@@ -2479,9 +2592,13 @@ impl DataplexService {
     pub fn create_task(
         &self,
         parent: impl Into<std::string::String>,
+        task_id: impl Into<std::string::String>,
+        task: impl Into<crate::model::Task>,
     ) -> super::builder::dataplex_service::CreateTask {
         super::builder::dataplex_service::CreateTask::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_task_id(task_id.into())
+            .set_task(task.into())
     }
 
     /// Update the task resource.
@@ -2497,9 +2614,12 @@ impl DataplexService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_task(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         task: impl Into<crate::model::Task>,
     ) -> super::builder::dataplex_service::UpdateTask {
-        super::builder::dataplex_service::UpdateTask::new(self.inner.clone()).set_task(task.into())
+        super::builder::dataplex_service::UpdateTask::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
+            .set_task(task.into())
     }
 
     /// Delete the task resource.
@@ -2584,9 +2704,13 @@ impl DataplexService {
     pub fn create_environment(
         &self,
         parent: impl Into<std::string::String>,
+        environment_id: impl Into<std::string::String>,
+        environment: impl Into<crate::model::Environment>,
     ) -> super::builder::dataplex_service::CreateEnvironment {
         super::builder::dataplex_service::CreateEnvironment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_environment_id(environment_id.into())
+            .set_environment(environment.into())
     }
 
     /// Update the environment resource.
@@ -2602,9 +2726,11 @@ impl DataplexService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_environment(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         environment: impl Into<crate::model::Environment>,
     ) -> super::builder::dataplex_service::UpdateEnvironment {
         super::builder::dataplex_service::UpdateEnvironment::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_environment(environment.into())
     }
 
@@ -2680,9 +2806,11 @@ impl DataplexService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::dataplex_service::SetIamPolicy {
         super::builder::dataplex_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -2705,9 +2833,11 @@ impl DataplexService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::dataplex_service::TestIamPermissions {
         super::builder::dataplex_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

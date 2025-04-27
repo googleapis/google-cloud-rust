@@ -136,9 +136,11 @@ impl Executions {
     pub fn create_execution(
         &self,
         parent: impl Into<std::string::String>,
+        execution: impl Into<crate::model::Execution>,
     ) -> super::builder::executions::CreateExecution {
         super::builder::executions::CreateExecution::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_execution(execution.into())
     }
 
     /// Returns an execution of the given name.

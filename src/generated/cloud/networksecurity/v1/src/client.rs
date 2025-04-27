@@ -155,9 +155,13 @@ impl NetworkSecurity {
     pub fn create_authorization_policy(
         &self,
         parent: impl Into<std::string::String>,
+        authorization_policy_id: impl Into<std::string::String>,
+        authorization_policy: impl Into<crate::model::AuthorizationPolicy>,
     ) -> super::builder::network_security::CreateAuthorizationPolicy {
         super::builder::network_security::CreateAuthorizationPolicy::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_authorization_policy_id(authorization_policy_id.into())
+            .set_authorization_policy(authorization_policy.into())
     }
 
     /// Updates the parameters of a single AuthorizationPolicy.
@@ -230,9 +234,13 @@ impl NetworkSecurity {
     pub fn create_server_tls_policy(
         &self,
         parent: impl Into<std::string::String>,
+        server_tls_policy_id: impl Into<std::string::String>,
+        server_tls_policy: impl Into<crate::model::ServerTlsPolicy>,
     ) -> super::builder::network_security::CreateServerTlsPolicy {
         super::builder::network_security::CreateServerTlsPolicy::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_server_tls_policy_id(server_tls_policy_id.into())
+            .set_server_tls_policy(server_tls_policy.into())
     }
 
     /// Updates the parameters of a single ServerTlsPolicy.
@@ -305,9 +313,13 @@ impl NetworkSecurity {
     pub fn create_client_tls_policy(
         &self,
         parent: impl Into<std::string::String>,
+        client_tls_policy_id: impl Into<std::string::String>,
+        client_tls_policy: impl Into<crate::model::ClientTlsPolicy>,
     ) -> super::builder::network_security::CreateClientTlsPolicy {
         super::builder::network_security::CreateClientTlsPolicy::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_client_tls_policy_id(client_tls_policy_id.into())
+            .set_client_tls_policy(client_tls_policy.into())
     }
 
     /// Updates the parameters of a single ClientTlsPolicy.
@@ -373,9 +385,11 @@ impl NetworkSecurity {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::network_security::SetIamPolicy {
         super::builder::network_security::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -398,9 +412,11 @@ impl NetworkSecurity {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::network_security::TestIamPermissions {
         super::builder::network_security::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

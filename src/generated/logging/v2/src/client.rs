@@ -140,16 +140,24 @@ impl LoggingServiceV2 {
     /// A single request may contain log entries for a maximum of 1000
     /// different resources (projects, organizations, billing accounts or
     /// folders)
-    pub fn write_log_entries(&self) -> super::builder::logging_service_v_2::WriteLogEntries {
+    pub fn write_log_entries(
+        &self,
+        entries: impl IntoIterator<Item = impl Into<crate::model::LogEntry>>,
+    ) -> super::builder::logging_service_v_2::WriteLogEntries {
         super::builder::logging_service_v_2::WriteLogEntries::new(self.inner.clone())
+            .set_entries(entries.into_iter().map(|v| v.into()))
     }
 
     /// Lists log entries.  Use this method to retrieve log entries that originated
     /// from a project/folder/organization/billing account.  For ways to export log
     /// entries, see [Exporting
     /// Logs](https://cloud.google.com/logging/docs/export).
-    pub fn list_log_entries(&self) -> super::builder::logging_service_v_2::ListLogEntries {
+    pub fn list_log_entries(
+        &self,
+        resource_names: impl IntoIterator<Item = impl Into<std::string::String>>,
+    ) -> super::builder::logging_service_v_2::ListLogEntries {
         super::builder::logging_service_v_2::ListLogEntries::new(self.inner.clone())
+            .set_resource_names(resource_names.into_iter().map(|v| v.into()))
     }
 
     /// Lists the descriptors for monitored resource types used by Logging.
@@ -340,9 +348,13 @@ impl ConfigServiceV2 {
     pub fn create_bucket_async(
         &self,
         parent: impl Into<std::string::String>,
+        bucket_id: impl Into<std::string::String>,
+        bucket: impl Into<crate::model::LogBucket>,
     ) -> super::builder::config_service_v_2::CreateBucketAsync {
         super::builder::config_service_v_2::CreateBucketAsync::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_bucket_id(bucket_id.into())
+            .set_bucket(bucket.into())
     }
 
     /// Updates a log bucket asynchronously.
@@ -364,9 +376,13 @@ impl ConfigServiceV2 {
     pub fn update_bucket_async(
         &self,
         name: impl Into<std::string::String>,
+        bucket: impl Into<crate::model::LogBucket>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::config_service_v_2::UpdateBucketAsync {
         super::builder::config_service_v_2::UpdateBucketAsync::new(self.inner.clone())
             .set_name(name.into())
+            .set_bucket(bucket.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Creates a log bucket that can be used to store log entries. After a bucket
@@ -374,9 +390,13 @@ impl ConfigServiceV2 {
     pub fn create_bucket(
         &self,
         parent: impl Into<std::string::String>,
+        bucket_id: impl Into<std::string::String>,
+        bucket: impl Into<crate::model::LogBucket>,
     ) -> super::builder::config_service_v_2::CreateBucket {
         super::builder::config_service_v_2::CreateBucket::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_bucket_id(bucket_id.into())
+            .set_bucket(bucket.into())
     }
 
     /// Updates a log bucket.
@@ -388,9 +408,13 @@ impl ConfigServiceV2 {
     pub fn update_bucket(
         &self,
         name: impl Into<std::string::String>,
+        bucket: impl Into<crate::model::LogBucket>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::config_service_v_2::UpdateBucket {
         super::builder::config_service_v_2::UpdateBucket::new(self.inner.clone())
             .set_name(name.into())
+            .set_bucket(bucket.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a log bucket.
@@ -438,9 +462,13 @@ impl ConfigServiceV2 {
     pub fn create_view(
         &self,
         parent: impl Into<std::string::String>,
+        view_id: impl Into<std::string::String>,
+        view: impl Into<crate::model::LogView>,
     ) -> super::builder::config_service_v_2::CreateView {
         super::builder::config_service_v_2::CreateView::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_view_id(view_id.into())
+            .set_view(view.into())
     }
 
     /// Updates a view on a log bucket. This method replaces the following fields
@@ -451,9 +479,11 @@ impl ConfigServiceV2 {
     pub fn update_view(
         &self,
         name: impl Into<std::string::String>,
+        view: impl Into<crate::model::LogView>,
     ) -> super::builder::config_service_v_2::UpdateView {
         super::builder::config_service_v_2::UpdateView::new(self.inner.clone())
             .set_name(name.into())
+            .set_view(view.into())
     }
 
     /// Deletes a view on a log bucket.
@@ -493,9 +523,11 @@ impl ConfigServiceV2 {
     pub fn create_sink(
         &self,
         parent: impl Into<std::string::String>,
+        sink: impl Into<crate::model::LogSink>,
     ) -> super::builder::config_service_v_2::CreateSink {
         super::builder::config_service_v_2::CreateSink::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_sink(sink.into())
     }
 
     /// Updates a sink. This method replaces the following fields in the existing
@@ -506,9 +538,11 @@ impl ConfigServiceV2 {
     pub fn update_sink(
         &self,
         sink_name: impl Into<std::string::String>,
+        sink: impl Into<crate::model::LogSink>,
     ) -> super::builder::config_service_v_2::UpdateSink {
         super::builder::config_service_v_2::UpdateSink::new(self.inner.clone())
             .set_sink_name(sink_name.into())
+            .set_sink(sink.into())
     }
 
     /// Deletes a sink. If the sink has a unique `writer_identity`, then that
@@ -537,9 +571,13 @@ impl ConfigServiceV2 {
     pub fn create_link(
         &self,
         parent: impl Into<std::string::String>,
+        link: impl Into<crate::model::Link>,
+        link_id: impl Into<std::string::String>,
     ) -> super::builder::config_service_v_2::CreateLink {
         super::builder::config_service_v_2::CreateLink::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_link(link.into())
+            .set_link_id(link_id.into())
     }
 
     /// Deletes a link. This will also delete the corresponding BigQuery linked
@@ -603,9 +641,11 @@ impl ConfigServiceV2 {
     pub fn create_exclusion(
         &self,
         parent: impl Into<std::string::String>,
+        exclusion: impl Into<crate::model::LogExclusion>,
     ) -> super::builder::config_service_v_2::CreateExclusion {
         super::builder::config_service_v_2::CreateExclusion::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_exclusion(exclusion.into())
     }
 
     /// Changes one or more properties of an existing exclusion in the _Default
@@ -613,9 +653,13 @@ impl ConfigServiceV2 {
     pub fn update_exclusion(
         &self,
         name: impl Into<std::string::String>,
+        exclusion: impl Into<crate::model::LogExclusion>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::config_service_v_2::UpdateExclusion {
         super::builder::config_service_v_2::UpdateExclusion::new(self.inner.clone())
             .set_name(name.into())
+            .set_exclusion(exclusion.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes an exclusion in the _Default sink.
@@ -665,9 +709,11 @@ impl ConfigServiceV2 {
     pub fn update_cmek_settings(
         &self,
         name: impl Into<std::string::String>,
+        cmek_settings: impl Into<crate::model::CmekSettings>,
     ) -> super::builder::config_service_v_2::UpdateCmekSettings {
         super::builder::config_service_v_2::UpdateCmekSettings::new(self.inner.clone())
             .set_name(name.into())
+            .set_cmek_settings(cmek_settings.into())
     }
 
     /// Gets the Log Router settings for the given resource.
@@ -709,9 +755,11 @@ impl ConfigServiceV2 {
     pub fn update_settings(
         &self,
         name: impl Into<std::string::String>,
+        settings: impl Into<crate::model::Settings>,
     ) -> super::builder::config_service_v_2::UpdateSettings {
         super::builder::config_service_v_2::UpdateSettings::new(self.inner.clone())
             .set_name(name.into())
+            .set_settings(settings.into())
     }
 
     /// Copies a set of log entries from a log bucket to a Cloud Storage bucket.
@@ -725,8 +773,14 @@ impl ConfigServiceV2 {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn copy_log_entries(&self) -> super::builder::config_service_v_2::CopyLogEntries {
+    pub fn copy_log_entries(
+        &self,
+        name: impl Into<std::string::String>,
+        destination: impl Into<std::string::String>,
+    ) -> super::builder::config_service_v_2::CopyLogEntries {
         super::builder::config_service_v_2::CopyLogEntries::new(self.inner.clone())
+            .set_name(name.into())
+            .set_destination(destination.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -887,18 +941,22 @@ impl MetricsServiceV2 {
     pub fn create_log_metric(
         &self,
         parent: impl Into<std::string::String>,
+        metric: impl Into<crate::model::LogMetric>,
     ) -> super::builder::metrics_service_v_2::CreateLogMetric {
         super::builder::metrics_service_v_2::CreateLogMetric::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_metric(metric.into())
     }
 
     /// Creates or updates a logs-based metric.
     pub fn update_log_metric(
         &self,
         metric_name: impl Into<std::string::String>,
+        metric: impl Into<crate::model::LogMetric>,
     ) -> super::builder::metrics_service_v_2::UpdateLogMetric {
         super::builder::metrics_service_v_2::UpdateLogMetric::new(self.inner.clone())
             .set_metric_name(metric_name.into())
+            .set_metric(metric.into())
     }
 
     /// Deletes a logs-based metric.

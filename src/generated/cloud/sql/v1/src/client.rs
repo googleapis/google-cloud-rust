@@ -110,41 +110,41 @@ impl SqlBackupRunsService {
     /// Deletes the backup taken by a backup run.
     pub fn delete(
         &self,
-        project: impl Into<std::string::String>,
-        instance: impl Into<std::string::String>,
         id: impl Into<i64>,
+        instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_backup_runs_service::Delete
     {
         super::builder::sql_backup_runs_service::Delete::new(self.inner.clone())
-            .set_project ( project.into() )
-            .set_instance ( instance.into() )
             .set_id ( id.into() )
+            .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Retrieves a resource containing information about a backup run.
     pub fn get(
         &self,
-        project: impl Into<std::string::String>,
-        instance: impl Into<std::string::String>,
         id: impl Into<i64>,
+        instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_backup_runs_service::Get
     {
         super::builder::sql_backup_runs_service::Get::new(self.inner.clone())
-            .set_project ( project.into() )
-            .set_instance ( instance.into() )
             .set_id ( id.into() )
+            .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Creates a new backup run on demand.
     pub fn insert(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_backup_runs_service::Insert
     {
         super::builder::sql_backup_runs_service::Insert::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Lists all backup runs associated with the project or a given instance
@@ -152,13 +152,13 @@ impl SqlBackupRunsService {
     /// initiation time.
     pub fn list(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_backup_runs_service::List
     {
         super::builder::sql_backup_runs_service::List::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 }
 
@@ -253,13 +253,13 @@ impl SqlConnectService {
     /// Retrieves connect settings about a Cloud SQL instance.
     pub fn get_connect_settings(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_connect_service::GetConnectSettings
     {
         super::builder::sql_connect_service::GetConnectSettings::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Generates a short-lived X509 certificate containing the provided public key
@@ -268,13 +268,13 @@ impl SqlConnectService {
     /// database.
     pub fn generate_ephemeral_cert(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_connect_service::GenerateEphemeralCert
     {
         super::builder::sql_connect_service::GenerateEphemeralCert::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 }
 
@@ -369,30 +369,30 @@ impl SqlDatabasesService {
     /// Deletes a database from a Cloud SQL instance.
     pub fn delete(
         &self,
-        project: impl Into<std::string::String>,
-        instance: impl Into<std::string::String>,
         database: impl Into<std::string::String>,
+        instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_databases_service::Delete
     {
         super::builder::sql_databases_service::Delete::new(self.inner.clone())
-            .set_project ( project.into() )
-            .set_instance ( instance.into() )
             .set_database ( database.into() )
+            .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Retrieves a resource containing information about a database inside a Cloud
     /// SQL instance.
     pub fn get(
         &self,
-        project: impl Into<std::string::String>,
-        instance: impl Into<std::string::String>,
         database: impl Into<std::string::String>,
+        instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_databases_service::Get
     {
         super::builder::sql_databases_service::Get::new(self.inner.clone())
-            .set_project ( project.into() )
-            .set_instance ( instance.into() )
             .set_database ( database.into() )
+            .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Inserts a resource containing information about a database inside a Cloud
@@ -401,55 +401,55 @@ impl SqlDatabasesService {
     /// **Note:** You can't modify the default character set and collation.
     pub fn insert(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_databases_service::Insert
     {
         super::builder::sql_databases_service::Insert::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Lists databases in the specified Cloud SQL instance.
     pub fn list(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_databases_service::List
     {
         super::builder::sql_databases_service::List::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Partially updates a resource containing information about a database inside
     /// a Cloud SQL instance. This method supports patch semantics.
     pub fn patch(
         &self,
-        project: impl Into<std::string::String>,
-        instance: impl Into<std::string::String>,
         database: impl Into<std::string::String>,
+        instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_databases_service::Patch
     {
         super::builder::sql_databases_service::Patch::new(self.inner.clone())
-            .set_project ( project.into() )
-            .set_instance ( instance.into() )
             .set_database ( database.into() )
+            .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Updates a resource containing information about a database inside a Cloud
     /// SQL instance.
     pub fn update(
         &self,
-        project: impl Into<std::string::String>,
-        instance: impl Into<std::string::String>,
         database: impl Into<std::string::String>,
+        instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_databases_service::Update
     {
         super::builder::sql_databases_service::Update::new(self.inner.clone())
-            .set_project ( project.into() )
-            .set_instance ( instance.into() )
             .set_database ( database.into() )
+            .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 }
 
@@ -647,77 +647,79 @@ impl SqlInstancesService {
     /// add a new server certificate.
     pub fn add_server_ca(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::AddServerCa
     {
         super::builder::sql_instances_service::AddServerCa::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Creates a Cloud SQL instance as a clone of the source instance. Using this
     /// operation might cause your instance to restart.
     pub fn clone(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::Clone
     {
         super::builder::sql_instances_service::Clone::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Deletes a Cloud SQL instance.
     pub fn delete(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::Delete
     {
         super::builder::sql_instances_service::Delete::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Demotes the stand-alone instance to be a Cloud SQL read replica for an
     /// external database server.
     pub fn demote_master(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::DemoteMaster
     {
         super::builder::sql_instances_service::DemoteMaster::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Demotes an existing standalone instance to be a Cloud SQL read replica
     /// for an external database server.
     pub fn demote(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
+        body: impl Into<crate::model::InstancesDemoteRequest>,
     ) -> super::builder::sql_instances_service::Demote
     {
         super::builder::sql_instances_service::Demote::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
+            .set_body ( body.into() )
     }
 
     /// Exports data from a Cloud SQL instance to a Cloud Storage bucket as a SQL
     /// dump or CSV file.
     pub fn export(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::Export
     {
         super::builder::sql_instances_service::Export::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Initiates a manual failover of a high availability (HA) primary instance
@@ -730,50 +732,50 @@ impl SqlInstancesService {
     /// its failover replica instance.
     pub fn failover(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::Failover
     {
         super::builder::sql_instances_service::Failover::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Reencrypt CMEK instance with latest key version.
     pub fn reencrypt(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::Reencrypt
     {
         super::builder::sql_instances_service::Reencrypt::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Retrieves a resource containing information about a Cloud SQL instance.
     pub fn get(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::Get
     {
         super::builder::sql_instances_service::Get::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Imports data into a Cloud SQL instance from a SQL dump  or CSV file in
     /// Cloud Storage.
     pub fn import(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::Import
     {
         super::builder::sql_instances_service::Import::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Creates a new Cloud SQL instance.
@@ -803,26 +805,26 @@ impl SqlInstancesService {
     /// has previously rotated out.
     pub fn list_server_cas(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::ListServerCas
     {
         super::builder::sql_instances_service::ListServerCas::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Partially updates settings of a Cloud SQL instance by merging the request
     /// with the current configuration. This method supports patch semantics.
     pub fn patch(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::Patch
     {
         super::builder::sql_instances_service::Patch::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Promotes the read replica instance to be an independent Cloud SQL
@@ -830,64 +832,64 @@ impl SqlInstancesService {
     /// Using this operation might cause your instance to restart.
     pub fn promote_replica(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::PromoteReplica
     {
         super::builder::sql_instances_service::PromoteReplica::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Switches over from the primary instance to the designated DR replica
     /// instance.
     pub fn switchover(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::Switchover
     {
         super::builder::sql_instances_service::Switchover::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Deletes all client certificates and generates a new server SSL certificate
     /// for the instance.
     pub fn reset_ssl_config(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::ResetSslConfig
     {
         super::builder::sql_instances_service::ResetSslConfig::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Restarts a Cloud SQL instance.
     pub fn restart(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::Restart
     {
         super::builder::sql_instances_service::Restart::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Restores a backup of a Cloud SQL instance. Using this operation might cause
     /// your instance to restart.
     pub fn restore_backup(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::RestoreBackup
     {
         super::builder::sql_instances_service::RestoreBackup::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Rotates the server certificate to one signed by the Certificate Authority
@@ -896,63 +898,63 @@ impl SqlInstancesService {
     /// please use RotateServerCertificate to rotate the server certificate.
     pub fn rotate_server_ca(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::RotateServerCa
     {
         super::builder::sql_instances_service::RotateServerCa::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Starts the replication in the read replica instance.
     pub fn start_replica(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::StartReplica
     {
         super::builder::sql_instances_service::StartReplica::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Stops the replication in the read replica instance.
     pub fn stop_replica(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::StopReplica
     {
         super::builder::sql_instances_service::StopReplica::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Truncate MySQL general and slow query log tables
     /// MySQL only.
     pub fn truncate_log(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::TruncateLog
     {
         super::builder::sql_instances_service::TruncateLog::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Updates settings of a Cloud SQL instance. Using this operation might cause
     /// your instance to restart.
     pub fn update(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::Update
     {
         super::builder::sql_instances_service::Update::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Generates a short-lived X509 certificate containing the provided public key
@@ -961,121 +963,123 @@ impl SqlInstancesService {
     /// database.
     pub fn create_ephemeral(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::CreateEphemeral
     {
         super::builder::sql_instances_service::CreateEphemeral::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Reschedules the maintenance on the given instance.
     pub fn reschedule_maintenance(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::RescheduleMaintenance
     {
         super::builder::sql_instances_service::RescheduleMaintenance::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Verify External primary instance external sync settings.
     pub fn verify_external_sync_settings(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::VerifyExternalSyncSettings
     {
         super::builder::sql_instances_service::VerifyExternalSyncSettings::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Start External primary instance migration.
     pub fn start_external_sync(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::StartExternalSync
     {
         super::builder::sql_instances_service::StartExternalSync::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Perform Disk Shrink on primary instance.
     pub fn perform_disk_shrink(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::PerformDiskShrink
     {
         super::builder::sql_instances_service::PerformDiskShrink::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Get Disk Shrink Config for a given instance.
     pub fn get_disk_shrink_config(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::GetDiskShrinkConfig
     {
         super::builder::sql_instances_service::GetDiskShrinkConfig::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Reset Replica Size to primary instance disk size.
     pub fn reset_replica_size(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::ResetReplicaSize
     {
         super::builder::sql_instances_service::ResetReplicaSize::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Get Latest Recovery Time for a given instance.
     pub fn get_latest_recovery_time(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::GetLatestRecoveryTime
     {
         super::builder::sql_instances_service::GetLatestRecoveryTime::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Acquire a lease for the setup of SQL Server Reporting Services (SSRS).
     pub fn acquire_ssrs_lease(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
+        body: impl Into<crate::model::InstancesAcquireSsrsLeaseRequest>,
     ) -> super::builder::sql_instances_service::AcquireSsrsLease
     {
         super::builder::sql_instances_service::AcquireSsrsLease::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
+            .set_body ( body.into() )
     }
 
     /// Release a lease for the setup of SQL Server Reporting Services (SSRS).
     pub fn release_ssrs_lease(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_instances_service::ReleaseSsrsLease
     {
         super::builder::sql_instances_service::ReleaseSsrsLease::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 }
 
@@ -1170,13 +1174,13 @@ impl SqlOperationsService {
     /// Retrieves an instance operation that has been performed on an instance.
     pub fn get(
         &self,
-        project: impl Into<std::string::String>,
         operation: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_operations_service::Get
     {
         super::builder::sql_operations_service::Get::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_operation ( operation.into() )
+            .set_project ( project.into() )
     }
 
     /// Lists all instance operations that have been performed on the given Cloud
@@ -1193,13 +1197,13 @@ impl SqlOperationsService {
     /// Cancels an instance operation that has been performed on an instance.
     pub fn cancel(
         &self,
-        project: impl Into<std::string::String>,
         operation: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_operations_service::Cancel
     {
         super::builder::sql_operations_service::Cancel::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_operation ( operation.into() )
+            .set_project ( project.into() )
     }
 }
 
@@ -1295,14 +1299,14 @@ impl SqlSslCertsService {
     /// certificate remains valid until the instance is restarted.
     pub fn delete(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
         sha1_fingerprint: impl Into<std::string::String>,
     ) -> super::builder::sql_ssl_certs_service::Delete
     {
         super::builder::sql_ssl_certs_service::Delete::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
             .set_sha1_fingerprint ( sha1_fingerprint.into() )
     }
 
@@ -1311,14 +1315,14 @@ impl SqlSslCertsService {
     /// initial creation.
     pub fn get(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
         sha1_fingerprint: impl Into<std::string::String>,
     ) -> super::builder::sql_ssl_certs_service::Get
     {
         super::builder::sql_ssl_certs_service::Get::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
             .set_sha1_fingerprint ( sha1_fingerprint.into() )
     }
 
@@ -1327,25 +1331,25 @@ impl SqlSslCertsService {
     /// the instance is restarted.
     pub fn insert(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_ssl_certs_service::Insert
     {
         super::builder::sql_ssl_certs_service::Insert::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Lists all of the current SSL certificates for the instance.
     pub fn list(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_ssl_certs_service::List
     {
         super::builder::sql_ssl_certs_service::List::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 }
 
@@ -1541,62 +1545,62 @@ impl SqlUsersService {
     /// Deletes a user from a Cloud SQL instance.
     pub fn delete(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_users_service::Delete
     {
         super::builder::sql_users_service::Delete::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Retrieves a resource containing information about a user.
     pub fn get(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
         name: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_users_service::Get
     {
         super::builder::sql_users_service::Get::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
             .set_name ( name.into() )
+            .set_project ( project.into() )
     }
 
     /// Creates a new user in a Cloud SQL instance.
     pub fn insert(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_users_service::Insert
     {
         super::builder::sql_users_service::Insert::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Lists users in the specified Cloud SQL instance.
     pub fn list(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_users_service::List
     {
         super::builder::sql_users_service::List::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 
     /// Updates an existing user in a Cloud SQL instance.
     pub fn update(
         &self,
-        project: impl Into<std::string::String>,
         instance: impl Into<std::string::String>,
+        project: impl Into<std::string::String>,
     ) -> super::builder::sql_users_service::Update
     {
         super::builder::sql_users_service::Update::new(self.inner.clone())
-            .set_project ( project.into() )
             .set_instance ( instance.into() )
+            .set_project ( project.into() )
     }
 }

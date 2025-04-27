@@ -151,9 +151,13 @@ impl Workstations {
     pub fn create_workstation_cluster(
         &self,
         parent: impl Into<std::string::String>,
+        workstation_cluster_id: impl Into<std::string::String>,
+        workstation_cluster: impl Into<crate::model::WorkstationCluster>,
     ) -> super::builder::workstations::CreateWorkstationCluster {
         super::builder::workstations::CreateWorkstationCluster::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_workstation_cluster_id(workstation_cluster_id.into())
+            .set_workstation_cluster(workstation_cluster.into())
     }
 
     /// Updates an existing workstation cluster.
@@ -170,9 +174,11 @@ impl Workstations {
     pub fn update_workstation_cluster(
         &self,
         workstation_cluster: impl Into<crate::model::WorkstationCluster>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::workstations::UpdateWorkstationCluster {
         super::builder::workstations::UpdateWorkstationCluster::new(self.inner.clone())
             .set_workstation_cluster(workstation_cluster.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes the specified workstation cluster.
@@ -236,9 +242,13 @@ impl Workstations {
     pub fn create_workstation_config(
         &self,
         parent: impl Into<std::string::String>,
+        workstation_config_id: impl Into<std::string::String>,
+        workstation_config: impl Into<crate::model::WorkstationConfig>,
     ) -> super::builder::workstations::CreateWorkstationConfig {
         super::builder::workstations::CreateWorkstationConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_workstation_config_id(workstation_config_id.into())
+            .set_workstation_config(workstation_config.into())
     }
 
     /// Updates an existing workstation configuration.
@@ -255,9 +265,11 @@ impl Workstations {
     pub fn update_workstation_config(
         &self,
         workstation_config: impl Into<crate::model::WorkstationConfig>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::workstations::UpdateWorkstationConfig {
         super::builder::workstations::UpdateWorkstationConfig::new(self.inner.clone())
             .set_workstation_config(workstation_config.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes the specified workstation configuration.
@@ -320,9 +332,13 @@ impl Workstations {
     pub fn create_workstation(
         &self,
         parent: impl Into<std::string::String>,
+        workstation_id: impl Into<std::string::String>,
+        workstation: impl Into<crate::model::Workstation>,
     ) -> super::builder::workstations::CreateWorkstation {
         super::builder::workstations::CreateWorkstation::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_workstation_id(workstation_id.into())
+            .set_workstation(workstation.into())
     }
 
     /// Updates an existing workstation.
@@ -339,9 +355,11 @@ impl Workstations {
     pub fn update_workstation(
         &self,
         workstation: impl Into<crate::model::Workstation>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::workstations::UpdateWorkstation {
         super::builder::workstations::UpdateWorkstation::new(self.inner.clone())
             .set_workstation(workstation.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes the specified workstation.
@@ -418,9 +436,11 @@ impl Workstations {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::workstations::SetIamPolicy {
         super::builder::workstations::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -443,9 +463,11 @@ impl Workstations {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::workstations::TestIamPermissions {
         super::builder::workstations::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

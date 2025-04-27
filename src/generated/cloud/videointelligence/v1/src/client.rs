@@ -135,8 +135,12 @@ impl VideoIntelligenceService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn annotate_video(&self) -> super::builder::video_intelligence_service::AnnotateVideo {
+    pub fn annotate_video(
+        &self,
+        features: impl IntoIterator<Item = impl Into<crate::model::Feature>>,
+    ) -> super::builder::video_intelligence_service::AnnotateVideo {
         super::builder::video_intelligence_service::AnnotateVideo::new(self.inner.clone())
+            .set_features(features.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

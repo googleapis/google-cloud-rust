@@ -124,9 +124,11 @@ impl SecurityCenter {
     pub fn batch_create_resource_value_configs(
         &self,
         parent: impl Into<std::string::String>,
+        requests: impl IntoIterator<Item = impl Into<crate::model::CreateResourceValueConfigRequest>>,
     ) -> super::builder::security_center::BatchCreateResourceValueConfigs {
         super::builder::security_center::BatchCreateResourceValueConfigs::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_requests(requests.into_iter().map(|v| v.into()))
     }
 
     /// Kicks off an LRO to bulk mute findings for a parent based on a filter. If
@@ -155,9 +157,13 @@ impl SecurityCenter {
     pub fn create_big_query_export(
         &self,
         parent: impl Into<std::string::String>,
+        big_query_export: impl Into<crate::model::BigQueryExport>,
+        big_query_export_id: impl Into<std::string::String>,
     ) -> super::builder::security_center::CreateBigQueryExport {
         super::builder::security_center::CreateBigQueryExport::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_big_query_export(big_query_export.into())
+            .set_big_query_export_id(big_query_export_id.into())
     }
 
     /// Creates a finding in a location. The corresponding source must exist for
@@ -165,36 +171,50 @@ impl SecurityCenter {
     pub fn create_finding(
         &self,
         parent: impl Into<std::string::String>,
+        finding_id: impl Into<std::string::String>,
+        finding: impl Into<crate::model::Finding>,
     ) -> super::builder::security_center::CreateFinding {
         super::builder::security_center::CreateFinding::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_finding_id(finding_id.into())
+            .set_finding(finding.into())
     }
 
     /// Creates a mute config.
     pub fn create_mute_config(
         &self,
         parent: impl Into<std::string::String>,
+        mute_config: impl Into<crate::model::MuteConfig>,
+        mute_config_id: impl Into<std::string::String>,
     ) -> super::builder::security_center::CreateMuteConfig {
         super::builder::security_center::CreateMuteConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_mute_config(mute_config.into())
+            .set_mute_config_id(mute_config_id.into())
     }
 
     /// Creates a notification config.
     pub fn create_notification_config(
         &self,
         parent: impl Into<std::string::String>,
+        config_id: impl Into<std::string::String>,
+        notification_config: impl Into<crate::model::NotificationConfig>,
     ) -> super::builder::security_center::CreateNotificationConfig {
         super::builder::security_center::CreateNotificationConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_config_id(config_id.into())
+            .set_notification_config(notification_config.into())
     }
 
     /// Creates a source.
     pub fn create_source(
         &self,
         parent: impl Into<std::string::String>,
+        source: impl Into<crate::model::Source>,
     ) -> super::builder::security_center::CreateSource {
         super::builder::security_center::CreateSource::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_source(source.into())
     }
 
     /// Deletes an existing BigQuery export.
@@ -325,9 +345,11 @@ impl SecurityCenter {
     pub fn group_findings(
         &self,
         parent: impl Into<std::string::String>,
+        group_by: impl Into<std::string::String>,
     ) -> super::builder::security_center::GroupFindings {
         super::builder::security_center::GroupFindings::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_group_by(group_by.into())
     }
 
     /// Lists the attack paths for a set of simulation results or valued resources
@@ -421,18 +443,22 @@ impl SecurityCenter {
     pub fn set_finding_state(
         &self,
         name: impl Into<std::string::String>,
+        state: impl Into<crate::model::finding::State>,
     ) -> super::builder::security_center::SetFindingState {
         super::builder::security_center::SetFindingState::new(self.inner.clone())
             .set_name(name.into())
+            .set_state(state.into())
     }
 
     /// Sets the access control policy on the specified Source.
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::security_center::SetIamPolicy {
         super::builder::security_center::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Updates the mute state of a finding. If no location is specified, finding
@@ -440,17 +466,22 @@ impl SecurityCenter {
     pub fn set_mute(
         &self,
         name: impl Into<std::string::String>,
+        mute: impl Into<crate::model::finding::Mute>,
     ) -> super::builder::security_center::SetMute {
-        super::builder::security_center::SetMute::new(self.inner.clone()).set_name(name.into())
+        super::builder::security_center::SetMute::new(self.inner.clone())
+            .set_name(name.into())
+            .set_mute(mute.into())
     }
 
     /// Returns the permissions that a caller has on the specified source.
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::security_center::TestIamPermissions {
         super::builder::security_center::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Updates a BigQuery export.

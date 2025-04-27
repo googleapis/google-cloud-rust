@@ -134,9 +134,11 @@ impl CertificateAuthorityService {
     pub fn create_certificate(
         &self,
         parent: impl Into<std::string::String>,
+        certificate: impl Into<crate::model::Certificate>,
     ) -> super::builder::certificate_authority_service::CreateCertificate {
         super::builder::certificate_authority_service::CreateCertificate::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_certificate(certificate.into())
     }
 
     /// Returns a [Certificate][google.cloud.security.privateca.v1.Certificate].
@@ -167,9 +169,11 @@ impl CertificateAuthorityService {
     pub fn revoke_certificate(
         &self,
         name: impl Into<std::string::String>,
+        reason: impl Into<crate::model::RevocationReason>,
     ) -> super::builder::certificate_authority_service::RevokeCertificate {
         super::builder::certificate_authority_service::RevokeCertificate::new(self.inner.clone())
             .set_name(name.into())
+            .set_reason(reason.into())
     }
 
     /// Update a [Certificate][google.cloud.security.privateca.v1.Certificate].
@@ -181,9 +185,11 @@ impl CertificateAuthorityService {
     pub fn update_certificate(
         &self,
         certificate: impl Into<crate::model::Certificate>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::certificate_authority_service::UpdateCertificate {
         super::builder::certificate_authority_service::UpdateCertificate::new(self.inner.clone())
             .set_certificate(certificate.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Activate a
@@ -214,11 +220,15 @@ impl CertificateAuthorityService {
     pub fn activate_certificate_authority(
         &self,
         name: impl Into<std::string::String>,
+        pem_ca_certificate: impl Into<std::string::String>,
+        subordinate_config: impl Into<crate::model::SubordinateConfig>,
     ) -> super::builder::certificate_authority_service::ActivateCertificateAuthority {
         super::builder::certificate_authority_service::ActivateCertificateAuthority::new(
             self.inner.clone(),
         )
         .set_name(name.into())
+        .set_pem_ca_certificate(pem_ca_certificate.into())
+        .set_subordinate_config(subordinate_config.into())
     }
 
     /// Create a new
@@ -239,11 +249,15 @@ impl CertificateAuthorityService {
     pub fn create_certificate_authority(
         &self,
         parent: impl Into<std::string::String>,
+        certificate_authority_id: impl Into<std::string::String>,
+        certificate_authority: impl Into<crate::model::CertificateAuthority>,
     ) -> super::builder::certificate_authority_service::CreateCertificateAuthority {
         super::builder::certificate_authority_service::CreateCertificateAuthority::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_certificate_authority_id(certificate_authority_id.into())
+        .set_certificate_authority(certificate_authority.into())
     }
 
     /// Disable a
@@ -414,11 +428,13 @@ impl CertificateAuthorityService {
     pub fn update_certificate_authority(
         &self,
         certificate_authority: impl Into<crate::model::CertificateAuthority>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::certificate_authority_service::UpdateCertificateAuthority {
         super::builder::certificate_authority_service::UpdateCertificateAuthority::new(
             self.inner.clone(),
         )
         .set_certificate_authority(certificate_authority.into())
+        .set_update_mask(update_mask.into())
     }
 
     /// Create a [CaPool][google.cloud.security.privateca.v1.CaPool].
@@ -437,9 +453,13 @@ impl CertificateAuthorityService {
     pub fn create_ca_pool(
         &self,
         parent: impl Into<std::string::String>,
+        ca_pool_id: impl Into<std::string::String>,
+        ca_pool: impl Into<crate::model::CaPool>,
     ) -> super::builder::certificate_authority_service::CreateCaPool {
         super::builder::certificate_authority_service::CreateCaPool::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_ca_pool_id(ca_pool_id.into())
+            .set_ca_pool(ca_pool.into())
     }
 
     /// Update a [CaPool][google.cloud.security.privateca.v1.CaPool].
@@ -458,9 +478,11 @@ impl CertificateAuthorityService {
     pub fn update_ca_pool(
         &self,
         ca_pool: impl Into<crate::model::CaPool>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::certificate_authority_service::UpdateCaPool {
         super::builder::certificate_authority_service::UpdateCaPool::new(self.inner.clone())
             .set_ca_pool(ca_pool.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Returns a [CaPool][google.cloud.security.privateca.v1.CaPool].
@@ -565,11 +587,13 @@ impl CertificateAuthorityService {
     pub fn update_certificate_revocation_list(
         &self,
         certificate_revocation_list: impl Into<crate::model::CertificateRevocationList>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::certificate_authority_service::UpdateCertificateRevocationList {
         super::builder::certificate_authority_service::UpdateCertificateRevocationList::new(
             self.inner.clone(),
         )
         .set_certificate_revocation_list(certificate_revocation_list.into())
+        .set_update_mask(update_mask.into())
     }
 
     /// Create a new
@@ -590,11 +614,15 @@ impl CertificateAuthorityService {
     pub fn create_certificate_template(
         &self,
         parent: impl Into<std::string::String>,
+        certificate_template_id: impl Into<std::string::String>,
+        certificate_template: impl Into<crate::model::CertificateTemplate>,
     ) -> super::builder::certificate_authority_service::CreateCertificateTemplate {
         super::builder::certificate_authority_service::CreateCertificateTemplate::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_certificate_template_id(certificate_template_id.into())
+        .set_certificate_template(certificate_template.into())
     }
 
     /// DeleteCertificateTemplate deletes a
@@ -666,11 +694,13 @@ impl CertificateAuthorityService {
     pub fn update_certificate_template(
         &self,
         certificate_template: impl Into<crate::model::CertificateTemplate>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::certificate_authority_service::UpdateCertificateTemplate {
         super::builder::certificate_authority_service::UpdateCertificateTemplate::new(
             self.inner.clone(),
         )
         .set_certificate_template(certificate_template.into())
+        .set_update_mask(update_mask.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -699,9 +729,11 @@ impl CertificateAuthorityService {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::certificate_authority_service::SetIamPolicy {
         super::builder::certificate_authority_service::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -724,9 +756,11 @@ impl CertificateAuthorityService {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::certificate_authority_service::TestIamPermissions {
         super::builder::certificate_authority_service::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

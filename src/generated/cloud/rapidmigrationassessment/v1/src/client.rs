@@ -136,9 +136,13 @@ impl RapidMigrationAssessment {
     pub fn create_collector(
         &self,
         parent: impl Into<std::string::String>,
+        collector_id: impl Into<std::string::String>,
+        collector: impl Into<crate::model::Collector>,
     ) -> super::builder::rapid_migration_assessment::CreateCollector {
         super::builder::rapid_migration_assessment::CreateCollector::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_collector_id(collector_id.into())
+            .set_collector(collector.into())
     }
 
     /// Creates an Annotation
@@ -155,9 +159,11 @@ impl RapidMigrationAssessment {
     pub fn create_annotation(
         &self,
         parent: impl Into<std::string::String>,
+        annotation: impl Into<crate::model::Annotation>,
     ) -> super::builder::rapid_migration_assessment::CreateAnnotation {
         super::builder::rapid_migration_assessment::CreateAnnotation::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_annotation(annotation.into())
     }
 
     /// Gets details of a single Annotation.
@@ -200,9 +206,11 @@ impl RapidMigrationAssessment {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_collector(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         collector: impl Into<crate::model::Collector>,
     ) -> super::builder::rapid_migration_assessment::UpdateCollector {
         super::builder::rapid_migration_assessment::UpdateCollector::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_collector(collector.into())
     }
 

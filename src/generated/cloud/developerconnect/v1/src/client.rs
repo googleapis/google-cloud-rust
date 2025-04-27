@@ -153,9 +153,13 @@ impl DeveloperConnect {
     pub fn create_connection(
         &self,
         parent: impl Into<std::string::String>,
+        connection_id: impl Into<std::string::String>,
+        connection: impl Into<crate::model::Connection>,
     ) -> super::builder::developer_connect::CreateConnection {
         super::builder::developer_connect::CreateConnection::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_connection_id(connection_id.into())
+            .set_connection(connection.into())
     }
 
     /// Updates the parameters of a single Connection.
@@ -171,9 +175,11 @@ impl DeveloperConnect {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_connection(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         connection: impl Into<crate::model::Connection>,
     ) -> super::builder::developer_connect::UpdateConnection {
         super::builder::developer_connect::UpdateConnection::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_connection(connection.into())
     }
 
@@ -214,9 +220,13 @@ impl DeveloperConnect {
     pub fn create_git_repository_link(
         &self,
         parent: impl Into<std::string::String>,
+        git_repository_link: impl Into<crate::model::GitRepositoryLink>,
+        git_repository_link_id: impl Into<std::string::String>,
     ) -> super::builder::developer_connect::CreateGitRepositoryLink {
         super::builder::developer_connect::CreateGitRepositoryLink::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_git_repository_link(git_repository_link.into())
+            .set_git_repository_link_id(git_repository_link_id.into())
     }
 
     /// Deletes a single GitRepositoryLink.
@@ -300,9 +310,11 @@ impl DeveloperConnect {
     pub fn fetch_git_refs(
         &self,
         git_repository_link: impl Into<std::string::String>,
+        ref_type: impl Into<crate::model::fetch_git_refs_request::RefType>,
     ) -> super::builder::developer_connect::FetchGitRefs {
         super::builder::developer_connect::FetchGitRefs::new(self.inner.clone())
             .set_git_repository_link(git_repository_link.into())
+            .set_ref_type(ref_type.into())
     }
 
     /// Lists information about the supported locations for this service.

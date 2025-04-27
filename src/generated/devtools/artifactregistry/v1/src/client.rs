@@ -282,9 +282,13 @@ impl ArtifactRegistry {
     pub fn create_repository(
         &self,
         parent: impl Into<std::string::String>,
+        repository_id: impl Into<std::string::String>,
+        repository: impl Into<crate::model::Repository>,
     ) -> super::builder::artifact_registry::CreateRepository {
         super::builder::artifact_registry::CreateRepository::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_repository_id(repository_id.into())
+            .set_repository(repository.into())
     }
 
     /// Updates a repository.
@@ -406,9 +410,11 @@ impl ArtifactRegistry {
     pub fn batch_delete_versions(
         &self,
         parent: impl Into<std::string::String>,
+        names: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::artifact_registry::BatchDeleteVersions {
         super::builder::artifact_registry::BatchDeleteVersions::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_names(names.into_iter().map(|v| v.into()))
     }
 
     /// Updates a version.
@@ -461,8 +467,11 @@ impl ArtifactRegistry {
     pub fn update_file(
         &self,
         file: impl Into<crate::model::File>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::artifact_registry::UpdateFile {
-        super::builder::artifact_registry::UpdateFile::new(self.inner.clone()).set_file(file.into())
+        super::builder::artifact_registry::UpdateFile::new(self.inner.clone())
+            .set_file(file.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Lists tags.
@@ -553,9 +562,11 @@ impl ArtifactRegistry {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::artifact_registry::SetIamPolicy {
         super::builder::artifact_registry::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Gets the IAM policy for a given resource.
@@ -571,9 +582,11 @@ impl ArtifactRegistry {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::artifact_registry::TestIamPermissions {
         super::builder::artifact_registry::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Retrieves the Settings for the Project.
@@ -654,9 +667,13 @@ impl ArtifactRegistry {
     pub fn create_attachment(
         &self,
         parent: impl Into<std::string::String>,
+        attachment_id: impl Into<std::string::String>,
+        attachment: impl Into<crate::model::Attachment>,
     ) -> super::builder::artifact_registry::CreateAttachment {
         super::builder::artifact_registry::CreateAttachment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_attachment_id(attachment_id.into())
+            .set_attachment(attachment.into())
     }
 
     /// Deletes an attachment. The returned Operation will

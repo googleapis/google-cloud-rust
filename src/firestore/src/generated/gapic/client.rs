@@ -183,8 +183,11 @@ impl Firestore {
     pub fn rollback(
         &self,
         database: impl Into<std::string::String>,
+        transaction: impl Into<::bytes::Bytes>,
     ) -> super::builder::firestore::Rollback {
-        super::builder::firestore::Rollback::new(self.inner.clone()).set_database(database.into())
+        super::builder::firestore::Rollback::new(self.inner.clone())
+            .set_database(database.into())
+            .set_transaction(transaction.into())
     }
 
     /// Partitions a query by returning partition cursors that can be used to run
@@ -231,9 +234,11 @@ impl Firestore {
         &self,
         parent: impl Into<std::string::String>,
         collection_id: impl Into<std::string::String>,
+        document: impl Into<crate::model::Document>,
     ) -> super::builder::firestore::CreateDocument {
         super::builder::firestore::CreateDocument::new(self.inner.clone())
             .set_parent(parent.into())
             .set_collection_id(collection_id.into())
+            .set_document(document.into())
     }
 }

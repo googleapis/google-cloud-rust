@@ -147,8 +147,13 @@ impl Ids {
     pub fn create_endpoint(
         &self,
         parent: impl Into<std::string::String>,
+        endpoint_id: impl Into<std::string::String>,
+        endpoint: impl Into<crate::model::Endpoint>,
     ) -> super::builder::ids::CreateEndpoint {
-        super::builder::ids::CreateEndpoint::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::ids::CreateEndpoint::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_endpoint_id(endpoint_id.into())
+            .set_endpoint(endpoint.into())
     }
 
     /// Deletes a single Endpoint.

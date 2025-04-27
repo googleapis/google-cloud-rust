@@ -219,8 +219,11 @@ impl Agents {
     pub fn export_agent(
         &self,
         parent: impl Into<std::string::String>,
+        agent_uri: impl Into<std::string::String>,
     ) -> super::builder::agents::ExportAgent {
-        super::builder::agents::ExportAgent::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::agents::ExportAgent::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_agent_uri(agent_uri.into())
     }
 
     /// Imports the specified agent from a ZIP file.
@@ -488,9 +491,11 @@ impl AnswerRecords {
     pub fn update_answer_record(
         &self,
         answer_record: impl Into<crate::model::AnswerRecord>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::answer_records::UpdateAnswerRecord {
         super::builder::answer_records::UpdateAnswerRecord::new(self.inner.clone())
             .set_answer_record(answer_record.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -666,8 +671,11 @@ impl Contexts {
     pub fn create_context(
         &self,
         parent: impl Into<std::string::String>,
+        context: impl Into<crate::model::Context>,
     ) -> super::builder::contexts::CreateContext {
-        super::builder::contexts::CreateContext::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::contexts::CreateContext::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_context(context.into())
     }
 
     /// Updates the specified context.
@@ -873,9 +881,11 @@ impl Conversations {
     pub fn create_conversation(
         &self,
         parent: impl Into<std::string::String>,
+        conversation: impl Into<crate::model::Conversation>,
     ) -> super::builder::conversations::CreateConversation {
         super::builder::conversations::CreateConversation::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_conversation(conversation.into())
     }
 
     /// Returns the list of all conversations in the specified project.
@@ -911,9 +921,20 @@ impl Conversations {
     pub fn ingest_context_references(
         &self,
         conversation: impl Into<std::string::String>,
+        context_references: impl IntoIterator<
+            Item = (
+                impl Into<std::string::String>,
+                impl Into<crate::model::conversation::ContextReference>,
+            ),
+        >,
     ) -> super::builder::conversations::IngestContextReferences {
         super::builder::conversations::IngestContextReferences::new(self.inner.clone())
             .set_conversation(conversation.into())
+            .set_context_references(
+                context_references
+                    .into_iter()
+                    .map(|(k, v)| (k.into(), v.into())),
+            )
     }
 
     /// Lists messages that belong to a given conversation.
@@ -947,9 +968,11 @@ impl Conversations {
         stateless_conversation: impl Into<
             crate::model::generate_stateless_summary_request::MinimalConversation,
         >,
+        conversation_profile: impl Into<crate::model::ConversationProfile>,
     ) -> super::builder::conversations::GenerateStatelessSummary {
         super::builder::conversations::GenerateStatelessSummary::new(self.inner.clone())
             .set_stateless_conversation(stateless_conversation.into())
+            .set_conversation_profile(conversation_profile.into())
     }
 
     /// Generates and returns a suggestion for a conversation that does not have a
@@ -966,9 +989,15 @@ impl Conversations {
     pub fn search_knowledge(
         &self,
         parent: impl Into<std::string::String>,
+        query: impl Into<crate::model::TextInput>,
+        conversation_profile: impl Into<std::string::String>,
+        session_id: impl Into<std::string::String>,
     ) -> super::builder::conversations::SearchKnowledge {
         super::builder::conversations::SearchKnowledge::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_query(query.into())
+            .set_conversation_profile(conversation_profile.into())
+            .set_session_id(session_id.into())
     }
 
     /// Generates all the suggestions using generators configured in the
@@ -1161,9 +1190,11 @@ impl ConversationDatasets {
     pub fn create_conversation_dataset(
         &self,
         parent: impl Into<std::string::String>,
+        conversation_dataset: impl Into<crate::model::ConversationDataset>,
     ) -> super::builder::conversation_datasets::CreateConversationDataset {
         super::builder::conversation_datasets::CreateConversationDataset::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_conversation_dataset(conversation_dataset.into())
     }
 
     /// Retrieves the specified conversation dataset.
@@ -1243,9 +1274,11 @@ impl ConversationDatasets {
     pub fn import_conversation_data(
         &self,
         name: impl Into<std::string::String>,
+        input_config: impl Into<crate::model::InputConfig>,
     ) -> super::builder::conversation_datasets::ImportConversationData {
         super::builder::conversation_datasets::ImportConversationData::new(self.inner.clone())
             .set_name(name.into())
+            .set_input_config(input_config.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -1428,9 +1461,11 @@ impl ConversationModels {
     pub fn create_conversation_model(
         &self,
         parent: impl Into<std::string::String>,
+        conversation_model: impl Into<crate::model::ConversationModel>,
     ) -> super::builder::conversation_models::CreateConversationModel {
         super::builder::conversation_models::CreateConversationModel::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_conversation_model(conversation_model.into())
     }
 
     /// Gets conversation model.
@@ -1582,11 +1617,13 @@ impl ConversationModels {
     pub fn create_conversation_model_evaluation(
         &self,
         parent: impl Into<std::string::String>,
+        conversation_model_evaluation: impl Into<crate::model::ConversationModelEvaluation>,
     ) -> super::builder::conversation_models::CreateConversationModelEvaluation {
         super::builder::conversation_models::CreateConversationModelEvaluation::new(
             self.inner.clone(),
         )
         .set_parent(parent.into())
+        .set_conversation_model_evaluation(conversation_model_evaluation.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -1779,9 +1816,11 @@ impl ConversationProfiles {
     pub fn create_conversation_profile(
         &self,
         parent: impl Into<std::string::String>,
+        conversation_profile: impl Into<crate::model::ConversationProfile>,
     ) -> super::builder::conversation_profiles::CreateConversationProfile {
         super::builder::conversation_profiles::CreateConversationProfile::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_conversation_profile(conversation_profile.into())
     }
 
     /// Updates the specified conversation profile.
@@ -1799,9 +1838,11 @@ impl ConversationProfiles {
     pub fn update_conversation_profile(
         &self,
         conversation_profile: impl Into<crate::model::ConversationProfile>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::conversation_profiles::UpdateConversationProfile {
         super::builder::conversation_profiles::UpdateConversationProfile::new(self.inner.clone())
             .set_conversation_profile(conversation_profile.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes the specified conversation profile.
@@ -1847,9 +1888,15 @@ impl ConversationProfiles {
     pub fn set_suggestion_feature_config(
         &self,
         conversation_profile: impl Into<std::string::String>,
+        participant_role: impl Into<crate::model::participant::Role>,
+        suggestion_feature_config: impl Into<
+            crate::model::human_agent_assistant_config::SuggestionFeatureConfig,
+        >,
     ) -> super::builder::conversation_profiles::SetSuggestionFeatureConfig {
         super::builder::conversation_profiles::SetSuggestionFeatureConfig::new(self.inner.clone())
             .set_conversation_profile(conversation_profile.into())
+            .set_participant_role(participant_role.into())
+            .set_suggestion_feature_config(suggestion_feature_config.into())
     }
 
     /// Clears a suggestion feature from a conversation profile for the given
@@ -1879,9 +1926,13 @@ impl ConversationProfiles {
     pub fn clear_suggestion_feature_config(
         &self,
         conversation_profile: impl Into<std::string::String>,
+        participant_role: impl Into<crate::model::participant::Role>,
+        suggestion_feature_type: impl Into<crate::model::suggestion_feature::Type>,
     ) -> super::builder::conversation_profiles::ClearSuggestionFeatureConfig {
         super::builder::conversation_profiles::ClearSuggestionFeatureConfig::new(self.inner.clone())
             .set_conversation_profile(conversation_profile.into())
+            .set_participant_role(participant_role.into())
+            .set_suggestion_feature_type(suggestion_feature_type.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -2080,8 +2131,11 @@ impl Documents {
     pub fn create_document(
         &self,
         parent: impl Into<std::string::String>,
+        document: impl Into<crate::model::Document>,
     ) -> super::builder::documents::CreateDocument {
-        super::builder::documents::CreateDocument::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::documents::CreateDocument::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_document(document.into())
     }
 
     /// Creates documents by importing data from external sources.
@@ -2112,9 +2166,11 @@ impl Documents {
     pub fn import_documents(
         &self,
         parent: impl Into<std::string::String>,
+        document_template: impl Into<crate::model::ImportDocumentTemplate>,
     ) -> super::builder::documents::ImportDocuments {
         super::builder::documents::ImportDocuments::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_document_template(document_template.into())
     }
 
     /// Deletes the specified document.
@@ -2601,9 +2657,11 @@ impl EntityTypes {
     pub fn create_entity_type(
         &self,
         parent: impl Into<std::string::String>,
+        entity_type: impl Into<crate::model::EntityType>,
     ) -> super::builder::entity_types::CreateEntityType {
         super::builder::entity_types::CreateEntityType::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entity_type(entity_type.into())
     }
 
     /// Updates the specified entity type.
@@ -2693,9 +2751,11 @@ impl EntityTypes {
     pub fn batch_delete_entity_types(
         &self,
         parent: impl Into<std::string::String>,
+        entity_type_names: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::entity_types::BatchDeleteEntityTypes {
         super::builder::entity_types::BatchDeleteEntityTypes::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entity_type_names(entity_type_names.into_iter().map(|v| v.into()))
     }
 
     /// Creates multiple new entities in the specified entity type.
@@ -2725,9 +2785,11 @@ impl EntityTypes {
     pub fn batch_create_entities(
         &self,
         parent: impl Into<std::string::String>,
+        entities: impl IntoIterator<Item = impl Into<crate::model::entity_type::Entity>>,
     ) -> super::builder::entity_types::BatchCreateEntities {
         super::builder::entity_types::BatchCreateEntities::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entities(entities.into_iter().map(|v| v.into()))
     }
 
     /// Updates or creates multiple entities in the specified entity type. This
@@ -2759,9 +2821,11 @@ impl EntityTypes {
     pub fn batch_update_entities(
         &self,
         parent: impl Into<std::string::String>,
+        entities: impl IntoIterator<Item = impl Into<crate::model::entity_type::Entity>>,
     ) -> super::builder::entity_types::BatchUpdateEntities {
         super::builder::entity_types::BatchUpdateEntities::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entities(entities.into_iter().map(|v| v.into()))
     }
 
     /// Deletes entities in the specified entity type.
@@ -2791,9 +2855,11 @@ impl EntityTypes {
     pub fn batch_delete_entities(
         &self,
         parent: impl Into<std::string::String>,
+        entity_values: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::entity_types::BatchDeleteEntities {
         super::builder::entity_types::BatchDeleteEntities::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_entity_values(entity_values.into_iter().map(|v| v.into()))
     }
 
     /// Lists information about the supported locations for this service.
@@ -2966,9 +3032,13 @@ impl Environments {
     pub fn create_environment(
         &self,
         parent: impl Into<std::string::String>,
+        environment: impl Into<crate::model::Environment>,
+        environment_id: impl Into<std::string::String>,
     ) -> super::builder::environments::CreateEnvironment {
         super::builder::environments::CreateEnvironment::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_environment(environment.into())
+            .set_environment_id(environment_id.into())
     }
 
     /// Updates the specified agent environment.
@@ -2986,9 +3056,11 @@ impl Environments {
     pub fn update_environment(
         &self,
         environment: impl Into<crate::model::Environment>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::environments::UpdateEnvironment {
         super::builder::environments::UpdateEnvironment::new(self.inner.clone())
             .set_environment(environment.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes the specified agent environment.
@@ -3170,9 +3242,11 @@ impl Fulfillments {
     pub fn update_fulfillment(
         &self,
         fulfillment: impl Into<crate::model::Fulfillment>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::fulfillments::UpdateFulfillment {
         super::builder::fulfillments::UpdateFulfillment::new(self.inner.clone())
             .set_fulfillment(fulfillment.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -3330,9 +3404,11 @@ impl Generators {
     pub fn create_generator(
         &self,
         parent: impl Into<std::string::String>,
+        generator: impl Into<crate::model::Generator>,
     ) -> super::builder::generators::CreateGenerator {
         super::builder::generators::CreateGenerator::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_generator(generator.into())
     }
 
     /// Retrieves a generator.
@@ -3542,8 +3618,11 @@ impl Intents {
     pub fn create_intent(
         &self,
         parent: impl Into<std::string::String>,
+        intent: impl Into<crate::model::Intent>,
     ) -> super::builder::intents::CreateIntent {
-        super::builder::intents::CreateIntent::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::intents::CreateIntent::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_intent(intent.into())
     }
 
     /// Updates the specified intent.
@@ -3631,9 +3710,11 @@ impl Intents {
     pub fn batch_delete_intents(
         &self,
         parent: impl Into<std::string::String>,
+        intents: impl IntoIterator<Item = impl Into<crate::model::Intent>>,
     ) -> super::builder::intents::BatchDeleteIntents {
         super::builder::intents::BatchDeleteIntents::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_intents(intents.into_iter().map(|v| v.into()))
     }
 
     /// Lists information about the supported locations for this service.
@@ -3808,9 +3889,11 @@ impl KnowledgeBases {
     pub fn create_knowledge_base(
         &self,
         parent: impl Into<std::string::String>,
+        knowledge_base: impl Into<crate::model::KnowledgeBase>,
     ) -> super::builder::knowledge_bases::CreateKnowledgeBase {
         super::builder::knowledge_bases::CreateKnowledgeBase::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_knowledge_base(knowledge_base.into())
     }
 
     /// Deletes the specified knowledge base.
@@ -3987,9 +4070,11 @@ impl Participants {
     pub fn create_participant(
         &self,
         parent: impl Into<std::string::String>,
+        participant: impl Into<crate::model::Participant>,
     ) -> super::builder::participants::CreateParticipant {
         super::builder::participants::CreateParticipant::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_participant(participant.into())
     }
 
     /// Retrieves a conversation participant.
@@ -4013,9 +4098,11 @@ impl Participants {
     pub fn update_participant(
         &self,
         participant: impl Into<crate::model::Participant>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::participants::UpdateParticipant {
         super::builder::participants::UpdateParticipant::new(self.inner.clone())
             .set_participant(participant.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Adds a text (chat, for example), or audio (phone recording, for example)
@@ -4241,8 +4328,11 @@ impl Sessions {
     pub fn detect_intent(
         &self,
         session: impl Into<std::string::String>,
+        query_input: impl Into<crate::model::QueryInput>,
     ) -> super::builder::sessions::DetectIntent {
-        super::builder::sessions::DetectIntent::new(self.inner.clone()).set_session(session.into())
+        super::builder::sessions::DetectIntent::new(self.inner.clone())
+            .set_session(session.into())
+            .set_query_input(query_input.into())
     }
 
     /// Lists information about the supported locations for this service.
@@ -4434,9 +4524,11 @@ impl SessionEntityTypes {
     pub fn create_session_entity_type(
         &self,
         parent: impl Into<std::string::String>,
+        session_entity_type: impl Into<crate::model::SessionEntityType>,
     ) -> super::builder::session_entity_types::CreateSessionEntityType {
         super::builder::session_entity_types::CreateSessionEntityType::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_session_entity_type(session_entity_type.into())
     }
 
     /// Updates the specified session entity type.
@@ -4641,8 +4733,11 @@ impl Versions {
     pub fn create_version(
         &self,
         parent: impl Into<std::string::String>,
+        version: impl Into<crate::model::Version>,
     ) -> super::builder::versions::CreateVersion {
-        super::builder::versions::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::versions::CreateVersion::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_version(version.into())
     }
 
     /// Updates the specified agent version.
@@ -4653,8 +4748,11 @@ impl Versions {
     pub fn update_version(
         &self,
         version: impl Into<crate::model::Version>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::versions::UpdateVersion {
-        super::builder::versions::UpdateVersion::new(self.inner.clone()).set_version(version.into())
+        super::builder::versions::UpdateVersion::new(self.inner.clone())
+            .set_version(version.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Delete the specified agent version.

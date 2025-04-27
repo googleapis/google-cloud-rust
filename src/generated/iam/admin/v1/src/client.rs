@@ -171,8 +171,11 @@ impl Iam {
     pub fn create_service_account(
         &self,
         name: impl Into<std::string::String>,
+        account_id: impl Into<std::string::String>,
     ) -> super::builder::iam::CreateServiceAccount {
-        super::builder::iam::CreateServiceAccount::new(self.inner.clone()).set_name(name.into())
+        super::builder::iam::CreateServiceAccount::new(self.inner.clone())
+            .set_name(name.into())
+            .set_account_id(account_id.into())
     }
 
     /// **Note:** We are in the process of deprecating this method. Use
@@ -377,8 +380,14 @@ impl Iam {
     /// Signs a blob using the system-managed private key for a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn sign_blob(&self, name: impl Into<std::string::String>) -> super::builder::iam::SignBlob {
-        super::builder::iam::SignBlob::new(self.inner.clone()).set_name(name.into())
+    pub fn sign_blob(
+        &self,
+        name: impl Into<std::string::String>,
+        bytes_to_sign: impl Into<::bytes::Bytes>,
+    ) -> super::builder::iam::SignBlob {
+        super::builder::iam::SignBlob::new(self.inner.clone())
+            .set_name(name.into())
+            .set_bytes_to_sign(bytes_to_sign.into())
     }
 
     /// **Note:** This method is deprecated. Use the
@@ -392,8 +401,14 @@ impl Iam {
     /// [ServiceAccount][google.iam.admin.v1.ServiceAccount].
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
-    pub fn sign_jwt(&self, name: impl Into<std::string::String>) -> super::builder::iam::SignJwt {
-        super::builder::iam::SignJwt::new(self.inner.clone()).set_name(name.into())
+    pub fn sign_jwt(
+        &self,
+        name: impl Into<std::string::String>,
+        payload: impl Into<std::string::String>,
+    ) -> super::builder::iam::SignJwt {
+        super::builder::iam::SignJwt::new(self.inner.clone())
+            .set_name(name.into())
+            .set_payload(payload.into())
     }
 
     /// Gets the IAM policy that is attached to a [ServiceAccount][google.iam.admin.v1.ServiceAccount]. This IAM
@@ -439,8 +454,11 @@ impl Iam {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<std::string::String>,
+        policy: impl Into<iam_v1::model::Policy>,
     ) -> super::builder::iam::SetIamPolicy {
-        super::builder::iam::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+        super::builder::iam::SetIamPolicy::new(self.inner.clone())
+            .set_resource(resource.into())
+            .set_policy(policy.into())
     }
 
     /// Tests whether the caller has the specified permissions on a
@@ -450,16 +468,22 @@ impl Iam {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<std::string::String>,
+        permissions: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::iam::TestIamPermissions {
         super::builder::iam::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
+            .set_permissions(permissions.into_iter().map(|v| v.into()))
     }
 
     /// Lists roles that can be granted on a Google Cloud resource. A role is
     /// grantable if the IAM policy for the resource can contain bindings to the
     /// role.
-    pub fn query_grantable_roles(&self) -> super::builder::iam::QueryGrantableRoles {
+    pub fn query_grantable_roles(
+        &self,
+        full_resource_name: impl Into<std::string::String>,
+    ) -> super::builder::iam::QueryGrantableRoles {
         super::builder::iam::QueryGrantableRoles::new(self.inner.clone())
+            .set_full_resource_name(full_resource_name.into())
     }
 
     /// Lists every predefined [Role][google.iam.admin.v1.Role] that IAM supports, or every custom role

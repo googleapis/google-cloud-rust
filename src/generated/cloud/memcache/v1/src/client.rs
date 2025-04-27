@@ -165,9 +165,13 @@ impl CloudMemcache {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
+        instance_id: impl Into<std::string::String>,
+        instance: impl Into<crate::model::Instance>,
     ) -> super::builder::cloud_memcache::CreateInstance {
         super::builder::cloud_memcache::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_id(instance_id.into())
+            .set_instance(instance.into())
     }
 
     /// Updates an existing Instance in a given project and location.
@@ -183,9 +187,11 @@ impl CloudMemcache {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_instance(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         instance: impl Into<crate::model::Instance>,
     ) -> super::builder::cloud_memcache::UpdateInstance {
         super::builder::cloud_memcache::UpdateInstance::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_instance(instance.into())
     }
 
@@ -206,9 +212,11 @@ impl CloudMemcache {
     pub fn update_parameters(
         &self,
         name: impl Into<std::string::String>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::cloud_memcache::UpdateParameters {
         super::builder::cloud_memcache::UpdateParameters::new(self.inner.clone())
             .set_name(name.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Deletes a single Instance.
@@ -264,9 +272,11 @@ impl CloudMemcache {
     pub fn reschedule_maintenance(
         &self,
         instance: impl Into<std::string::String>,
+        reschedule_type: impl Into<crate::model::reschedule_maintenance_request::RescheduleType>,
     ) -> super::builder::cloud_memcache::RescheduleMaintenance {
         super::builder::cloud_memcache::RescheduleMaintenance::new(self.inner.clone())
             .set_instance(instance.into())
+            .set_reschedule_type(reschedule_type.into())
     }
 
     /// Lists information about the supported locations for this service.

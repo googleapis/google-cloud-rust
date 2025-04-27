@@ -141,9 +141,11 @@ impl MigrationCenter {
     /// Updates the parameters of an asset.
     pub fn update_asset(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         asset: impl Into<crate::model::Asset>,
     ) -> super::builder::migration_center::UpdateAsset {
         super::builder::migration_center::UpdateAsset::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_asset(asset.into())
     }
 
@@ -151,9 +153,11 @@ impl MigrationCenter {
     pub fn batch_update_assets(
         &self,
         parent: impl Into<std::string::String>,
+        requests: impl IntoIterator<Item = impl Into<crate::model::UpdateAssetRequest>>,
     ) -> super::builder::migration_center::BatchUpdateAssets {
         super::builder::migration_center::BatchUpdateAssets::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_requests(requests.into_iter().map(|v| v.into()))
     }
 
     /// Deletes an asset.
@@ -168,18 +172,22 @@ impl MigrationCenter {
     pub fn batch_delete_assets(
         &self,
         parent: impl Into<std::string::String>,
+        names: impl IntoIterator<Item = impl Into<std::string::String>>,
     ) -> super::builder::migration_center::BatchDeleteAssets {
         super::builder::migration_center::BatchDeleteAssets::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_names(names.into_iter().map(|v| v.into()))
     }
 
     /// Reports a set of frames.
     pub fn report_asset_frames(
         &self,
         parent: impl Into<std::string::String>,
+        source: impl Into<std::string::String>,
     ) -> super::builder::migration_center::ReportAssetFrames {
         super::builder::migration_center::ReportAssetFrames::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_source(source.into())
     }
 
     /// Aggregates the requested fields based on provided function.
@@ -205,9 +213,13 @@ impl MigrationCenter {
     pub fn create_import_job(
         &self,
         parent: impl Into<std::string::String>,
+        import_job_id: impl Into<std::string::String>,
+        import_job: impl Into<crate::model::ImportJob>,
     ) -> super::builder::migration_center::CreateImportJob {
         super::builder::migration_center::CreateImportJob::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_import_job_id(import_job_id.into())
+            .set_import_job(import_job.into())
     }
 
     /// Lists all import jobs.
@@ -260,9 +272,11 @@ impl MigrationCenter {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_import_job(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         import_job: impl Into<crate::model::ImportJob>,
     ) -> super::builder::migration_center::UpdateImportJob {
         super::builder::migration_center::UpdateImportJob::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_import_job(import_job.into())
     }
 
@@ -336,9 +350,13 @@ impl MigrationCenter {
     pub fn create_import_data_file(
         &self,
         parent: impl Into<std::string::String>,
+        import_data_file_id: impl Into<std::string::String>,
+        import_data_file: impl Into<crate::model::ImportDataFile>,
     ) -> super::builder::migration_center::CreateImportDataFile {
         super::builder::migration_center::CreateImportDataFile::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_import_data_file_id(import_data_file_id.into())
+            .set_import_data_file(import_data_file.into())
     }
 
     /// Delete an import data file.
@@ -391,9 +409,13 @@ impl MigrationCenter {
     pub fn create_group(
         &self,
         parent: impl Into<std::string::String>,
+        group_id: impl Into<std::string::String>,
+        group: impl Into<crate::model::Group>,
     ) -> super::builder::migration_center::CreateGroup {
         super::builder::migration_center::CreateGroup::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_group_id(group_id.into())
+            .set_group(group.into())
     }
 
     /// Updates the parameters of a group.
@@ -409,9 +431,11 @@ impl MigrationCenter {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_group(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         group: impl Into<crate::model::Group>,
     ) -> super::builder::migration_center::UpdateGroup {
         super::builder::migration_center::UpdateGroup::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_group(group.into())
     }
 
@@ -447,9 +471,11 @@ impl MigrationCenter {
     pub fn add_assets_to_group(
         &self,
         group: impl Into<std::string::String>,
+        assets: impl Into<crate::model::AssetList>,
     ) -> super::builder::migration_center::AddAssetsToGroup {
         super::builder::migration_center::AddAssetsToGroup::new(self.inner.clone())
             .set_group(group.into())
+            .set_assets(assets.into())
     }
 
     /// Removes assets from a group.
@@ -466,9 +492,11 @@ impl MigrationCenter {
     pub fn remove_assets_from_group(
         &self,
         group: impl Into<std::string::String>,
+        assets: impl Into<crate::model::AssetList>,
     ) -> super::builder::migration_center::RemoveAssetsFromGroup {
         super::builder::migration_center::RemoveAssetsFromGroup::new(self.inner.clone())
             .set_group(group.into())
+            .set_assets(assets.into())
     }
 
     /// Lists all error frames in a given source and location.
@@ -520,9 +548,13 @@ impl MigrationCenter {
     pub fn create_source(
         &self,
         parent: impl Into<std::string::String>,
+        source_id: impl Into<std::string::String>,
+        source: impl Into<crate::model::Source>,
     ) -> super::builder::migration_center::CreateSource {
         super::builder::migration_center::CreateSource::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_source_id(source_id.into())
+            .set_source(source.into())
     }
 
     /// Updates the parameters of a source.
@@ -538,9 +570,11 @@ impl MigrationCenter {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_source(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         source: impl Into<crate::model::Source>,
     ) -> super::builder::migration_center::UpdateSource {
         super::builder::migration_center::UpdateSource::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_source(source.into())
     }
 
@@ -595,9 +629,13 @@ impl MigrationCenter {
     pub fn create_preference_set(
         &self,
         parent: impl Into<std::string::String>,
+        preference_set_id: impl Into<std::string::String>,
+        preference_set: impl Into<crate::model::PreferenceSet>,
     ) -> super::builder::migration_center::CreatePreferenceSet {
         super::builder::migration_center::CreatePreferenceSet::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_preference_set_id(preference_set_id.into())
+            .set_preference_set(preference_set.into())
     }
 
     /// Updates the parameters of a preference set.
@@ -613,9 +651,11 @@ impl MigrationCenter {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_preference_set(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         preference_set: impl Into<crate::model::PreferenceSet>,
     ) -> super::builder::migration_center::UpdatePreferenceSet {
         super::builder::migration_center::UpdatePreferenceSet::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_preference_set(preference_set.into())
     }
 
@@ -659,9 +699,11 @@ impl MigrationCenter {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_settings(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         settings: impl Into<crate::model::Settings>,
     ) -> super::builder::migration_center::UpdateSettings {
         super::builder::migration_center::UpdateSettings::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_settings(settings.into())
     }
 
@@ -679,9 +721,13 @@ impl MigrationCenter {
     pub fn create_report_config(
         &self,
         parent: impl Into<std::string::String>,
+        report_config_id: impl Into<std::string::String>,
+        report_config: impl Into<crate::model::ReportConfig>,
     ) -> super::builder::migration_center::CreateReportConfig {
         super::builder::migration_center::CreateReportConfig::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_report_config_id(report_config_id.into())
+            .set_report_config(report_config.into())
     }
 
     /// Gets details of a single ReportConfig.
@@ -735,9 +781,13 @@ impl MigrationCenter {
     pub fn create_report(
         &self,
         parent: impl Into<std::string::String>,
+        report_id: impl Into<std::string::String>,
+        report: impl Into<crate::model::Report>,
     ) -> super::builder::migration_center::CreateReport {
         super::builder::migration_center::CreateReport::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_report_id(report_id.into())
+            .set_report(report.into())
     }
 
     /// Gets details of a single Report.

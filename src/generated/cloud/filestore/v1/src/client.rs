@@ -177,9 +177,13 @@ impl CloudFilestoreManager {
     pub fn create_instance(
         &self,
         parent: impl Into<std::string::String>,
+        instance_id: impl Into<std::string::String>,
+        instance: impl Into<crate::model::Instance>,
     ) -> super::builder::cloud_filestore_manager::CreateInstance {
         super::builder::cloud_filestore_manager::CreateInstance::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_instance_id(instance_id.into())
+            .set_instance(instance.into())
     }
 
     /// Updates the settings of a specific instance.
@@ -219,9 +223,11 @@ impl CloudFilestoreManager {
     pub fn restore_instance(
         &self,
         name: impl Into<std::string::String>,
+        file_share: impl Into<std::string::String>,
     ) -> super::builder::cloud_filestore_manager::RestoreInstance {
         super::builder::cloud_filestore_manager::RestoreInstance::new(self.inner.clone())
             .set_name(name.into())
+            .set_file_share(file_share.into())
     }
 
     /// Revert an existing instance's file system to a specified snapshot.
@@ -238,9 +244,11 @@ impl CloudFilestoreManager {
     pub fn revert_instance(
         &self,
         name: impl Into<std::string::String>,
+        target_snapshot_id: impl Into<std::string::String>,
     ) -> super::builder::cloud_filestore_manager::RevertInstance {
         super::builder::cloud_filestore_manager::RevertInstance::new(self.inner.clone())
             .set_name(name.into())
+            .set_target_snapshot_id(target_snapshot_id.into())
     }
 
     /// Deletes an instance.
@@ -295,9 +303,13 @@ impl CloudFilestoreManager {
     pub fn create_snapshot(
         &self,
         parent: impl Into<std::string::String>,
+        snapshot_id: impl Into<std::string::String>,
+        snapshot: impl Into<crate::model::Snapshot>,
     ) -> super::builder::cloud_filestore_manager::CreateSnapshot {
         super::builder::cloud_filestore_manager::CreateSnapshot::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_snapshot_id(snapshot_id.into())
+            .set_snapshot(snapshot.into())
     }
 
     /// Deletes a snapshot.
@@ -332,9 +344,11 @@ impl CloudFilestoreManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_snapshot(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         snapshot: impl Into<crate::model::Snapshot>,
     ) -> super::builder::cloud_filestore_manager::UpdateSnapshot {
         super::builder::cloud_filestore_manager::UpdateSnapshot::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
             .set_snapshot(snapshot.into())
     }
 
@@ -371,9 +385,13 @@ impl CloudFilestoreManager {
     pub fn create_backup(
         &self,
         parent: impl Into<std::string::String>,
+        backup: impl Into<crate::model::Backup>,
+        backup_id: impl Into<std::string::String>,
     ) -> super::builder::cloud_filestore_manager::CreateBackup {
         super::builder::cloud_filestore_manager::CreateBackup::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_backup(backup.into())
+            .set_backup_id(backup_id.into())
     }
 
     /// Deletes a backup.
@@ -409,9 +427,11 @@ impl CloudFilestoreManager {
     pub fn update_backup(
         &self,
         backup: impl Into<crate::model::Backup>,
+        update_mask: impl Into<wkt::FieldMask>,
     ) -> super::builder::cloud_filestore_manager::UpdateBackup {
         super::builder::cloud_filestore_manager::UpdateBackup::new(self.inner.clone())
             .set_backup(backup.into())
+            .set_update_mask(update_mask.into())
     }
 
     /// Promote the standby instance (replica).

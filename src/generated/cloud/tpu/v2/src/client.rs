@@ -146,8 +146,11 @@ impl Tpu {
     pub fn create_node(
         &self,
         parent: impl Into<std::string::String>,
+        node: impl Into<crate::model::Node>,
     ) -> super::builder::tpu::CreateNode {
-        super::builder::tpu::CreateNode::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::tpu::CreateNode::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_node(node.into())
     }
 
     /// Deletes a node.
@@ -214,9 +217,12 @@ impl Tpu {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_node(
         &self,
+        update_mask: impl Into<wkt::FieldMask>,
         node: impl Into<crate::model::Node>,
     ) -> super::builder::tpu::UpdateNode {
-        super::builder::tpu::UpdateNode::new(self.inner.clone()).set_node(node.into())
+        super::builder::tpu::UpdateNode::new(self.inner.clone())
+            .set_update_mask(update_mask.into())
+            .set_node(node.into())
     }
 
     /// Lists queued resources.
@@ -249,8 +255,11 @@ impl Tpu {
     pub fn create_queued_resource(
         &self,
         parent: impl Into<std::string::String>,
+        queued_resource: impl Into<crate::model::QueuedResource>,
     ) -> super::builder::tpu::CreateQueuedResource {
-        super::builder::tpu::CreateQueuedResource::new(self.inner.clone()).set_parent(parent.into())
+        super::builder::tpu::CreateQueuedResource::new(self.inner.clone())
+            .set_parent(parent.into())
+            .set_queued_resource(queued_resource.into())
     }
 
     /// Deletes a QueuedResource TPU instance.

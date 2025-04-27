@@ -144,9 +144,11 @@ impl CloudBuild {
     pub fn create_build(
         &self,
         project_id: impl Into<std::string::String>,
+        build: impl Into<crate::model::Build>,
     ) -> super::builder::cloud_build::CreateBuild {
         super::builder::cloud_build::CreateBuild::new(self.inner.clone())
             .set_project_id(project_id.into())
+            .set_build(build.into())
     }
 
     /// Returns information about a previously requested build.
@@ -262,9 +264,11 @@ impl CloudBuild {
     pub fn create_build_trigger(
         &self,
         project_id: impl Into<std::string::String>,
+        trigger: impl Into<crate::model::BuildTrigger>,
     ) -> super::builder::cloud_build::CreateBuildTrigger {
         super::builder::cloud_build::CreateBuildTrigger::new(self.inner.clone())
             .set_project_id(project_id.into())
+            .set_trigger(trigger.into())
     }
 
     /// Returns information about a `BuildTrigger`.
@@ -311,10 +315,12 @@ impl CloudBuild {
         &self,
         project_id: impl Into<std::string::String>,
         trigger_id: impl Into<std::string::String>,
+        trigger: impl Into<crate::model::BuildTrigger>,
     ) -> super::builder::cloud_build::UpdateBuildTrigger {
         super::builder::cloud_build::UpdateBuildTrigger::new(self.inner.clone())
             .set_project_id(project_id.into())
             .set_trigger_id(trigger_id.into())
+            .set_trigger(trigger.into())
     }
 
     /// Runs a `BuildTrigger` at a particular source revision.
@@ -370,9 +376,13 @@ impl CloudBuild {
     pub fn create_worker_pool(
         &self,
         parent: impl Into<std::string::String>,
+        worker_pool: impl Into<crate::model::WorkerPool>,
+        worker_pool_id: impl Into<std::string::String>,
     ) -> super::builder::cloud_build::CreateWorkerPool {
         super::builder::cloud_build::CreateWorkerPool::new(self.inner.clone())
             .set_parent(parent.into())
+            .set_worker_pool(worker_pool.into())
+            .set_worker_pool_id(worker_pool_id.into())
     }
 
     /// Returns details of a `WorkerPool`.
