@@ -46,8 +46,8 @@ package = "google-cloud-storage"
 path    = "../../src/storage"
 
 [dependencies.sm]
-package          = "google-cloud-secretmanager-v1"
-path             = "../../src/generated/cloud/secretmanager/v1"
+package = "google-cloud-secretmanager-v1"
+path    = "../../src/generated/cloud/secretmanager/v1"
 
 [dependencies.smo]
 package = "secretmanager-openapi-v1"
