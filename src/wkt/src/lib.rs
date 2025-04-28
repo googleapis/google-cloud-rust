@@ -32,7 +32,6 @@ pub use crate::empty::*;
 mod field_mask;
 pub use crate::field_mask::*;
 mod float;
-// pub use crate::float::*;
 mod generated;
 pub use crate::generated::*;
 mod timestamp;
