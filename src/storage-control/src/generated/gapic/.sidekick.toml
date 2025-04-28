@@ -58,7 +58,7 @@ skipped-ids    = """\
 [codec]
 copyright-year            = '2025'
 template-override         = 'templates/grpc-client'
-package-name-override     = 'google-cloud-storage'
+package-name-override     = 'google-cloud-storage-control'
 include-grpc-only-methods = 'true'
 # TODO(#1813) - temporarily disable the docs because they don't compile.
 skip-builder-docs         = 'true'

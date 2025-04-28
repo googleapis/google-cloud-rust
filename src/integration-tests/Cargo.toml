@@ -42,8 +42,8 @@ package = "google-cloud-firestore"
 path    = "../../src/firestore"
 
 [dependencies.storage]
-package = "google-cloud-storage"
-path    = "../../src/storage"
+package = "google-cloud-storage-control"
+path    = "../../src/storage-control"
 
 [dependencies.sm]
 package = "google-cloud-secretmanager-v1"

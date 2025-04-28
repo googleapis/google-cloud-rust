@@ -4012,7 +4012,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "google-cloud-storage"
+name = "google-cloud-storage-control"
 version = "0.0.0"
 dependencies = [
  "async-trait",
@@ -4976,7 +4976,7 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-secretmanager-v1",
- "google-cloud-storage",
+ "google-cloud-storage-control",
  "google-cloud-telcoautomation-v1",
  "google-cloud-wkt",
  "google-cloud-workflows-executions-v1",

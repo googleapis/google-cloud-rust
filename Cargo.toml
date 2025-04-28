@@ -31,7 +31,7 @@ default-members = [
   "src/pubsub",
   "src/root",
   "src/spanner",
-  "src/storage",
+  "src/storage-control",
   "src/wkt",
   "tools/check-copyright",
   # We need `cargo test` to run at least some documentation tests for generated
@@ -247,7 +247,7 @@ members = [
   "src/pubsub",
   "src/root",
   "src/spanner",
-  "src/storage",
+  "src/storage-control",
   "src/wkt",
   "tools/check-copyright",
 ]
