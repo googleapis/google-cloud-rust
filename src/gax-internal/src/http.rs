@@ -137,7 +137,7 @@ impl ReqwestClient {
             return Self::to_http_error(response).await;
         }
 
-        return Self::to_http_response(response).await;
+        Self::to_http_response(response).await
     }
 
     async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
@@ -168,7 +168,7 @@ impl ReqwestClient {
             .map_err(Error::io)?;
 
         let response = match body.to_bytes() {
-            content if (content.len() == 0 && is204ok) => O::default(), // 204 No Content has no body, throws EOF error if we try to parse
+            content if (content.is_empty() && is204ok) => O::default(), // 204 No Content has no body, throws EOF error if we try to parse
             content => serde_json::from_slice::<O>(&content).map_err(Error::serde)?,
         };
 
