@@ -134,4 +134,14 @@ mod driver {
             .await
             .map_err(report)
     }
+
+    #[test_case(wfe::client::Executions::builder().with_retry_policy(retry_policy()).with_tracing(); "with tracing and retry enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn workflows_executions(
+        builder: wfe::builder::executions::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::workflows_executions::list(builder)
+            .await
+            .map_err(report)
+    }
 }
