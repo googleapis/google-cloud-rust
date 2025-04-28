@@ -50,11 +50,10 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
         .set_secret_id(&secret_id)
         .set_secret(
             sm::model::Secret::new()
-                .set_replication(sm::model::Replication::new().set_replication(
-                    sm::model::replication::Replication::Automatic(
-                        sm::model::replication::Automatic::new().into(),
-                    ),
-                ))
+                .set_replication(
+                    sm::model::Replication::new()
+                        .set_automatic(sm::model::replication::Automatic::new()),
+                )
                 .set_labels([("integration-test", "true")]),
         )
         .send()
@@ -91,10 +90,7 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
                 .set_labels(tag(get.labels.clone(), "test-1"))
                 .set_annotations(tag(get.annotations.clone(), "test-1")),
         )
-        .set_update_mask(
-            wkt::FieldMask::default()
-                .set_paths(["annotations", "labels"].map(str::to_string).to_vec()),
-        )
+        .set_update_mask(wkt::FieldMask::default().set_paths(["annotations", "labels"]))
         // Avoid flakes, safe to retry because of the etag.
         .with_retry_policy(gax::retry_policy::AlwaysRetry.with_attempt_limit(3))
         .send()
@@ -118,9 +114,7 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
                 .set_labels(tag(get.labels.clone(), "test-2"))
                 .set_annotations(tag(get.annotations.clone(), "test-2")),
         )
-        .set_update_mask(
-            wkt::FieldMask::default().set_paths(["annotations"].map(str::to_string).to_vec()),
-        )
+        .set_update_mask(wkt::FieldMask::default().set_paths(["annotations"]))
         // Avoid flakes, safe to retry because of the etag.
         .with_retry_policy(gax::retry_policy::AlwaysRetry.with_attempt_limit(3))
         .send()
@@ -199,11 +193,7 @@ async fn run_iam(client: &sm::client::SecretManagerService, secret_name: &str) -
     println!("\nTesting test_iam_permissions()");
     let response = client
         .test_iam_permissions(secret_name)
-        .set_permissions(
-            ["secretmanager.versions.access"]
-                .map(str::to_string)
-                .to_vec(),
-        )
+        .set_permissions(["secretmanager.versions.access"])
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -226,14 +216,12 @@ async fn run_iam(client: &sm::client::SecretManagerService, secret_name: &str) -
         new_policy.bindings.push(
             iam_v1::model::Binding::new()
                 .set_role(ROLE)
-                .set_members([format!("serviceAccount:{service_account}")].to_vec()),
+                .set_members([format!("serviceAccount:{service_account}")]),
         );
     }
     let response = client
         .set_iam_policy(secret_name)
-        .set_update_mask(
-            wkt::FieldMask::default().set_paths(["bindings"].map(str::to_string).to_vec()),
-        )
+        .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
         .set_policy(new_policy)
         .send()
         .await?;
