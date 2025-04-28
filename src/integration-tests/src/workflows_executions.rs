@@ -20,7 +20,7 @@ use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
 use std::time::Duration;
 use wf::Poller;
 
-// Verify enum query parameters are serialize correctly.
+// Verify enum query parameters are serialized correctly.
 pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
@@ -36,7 +36,7 @@ pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()
         tracing::subscriber::set_default(subscriber)
     };
 
-    // Create a workflow so we can list its executions. We rely on the existing
+    // Create a workflow so we can list its executions. We rely on the other
     // workflows integration tests to delete it if something fails or crashes
     // in this test.
     let parent = create_test_workflow().await?;
@@ -132,9 +132,10 @@ async fn workflow_client() -> Result<wf::client::Workflows> {
         .await
 }
 
-fn test_backoff() -> Result<ExponentialBackoff> {
+fn test_backoff() -> ExponentialBackoff {
     ExponentialBackoffBuilder::new()
         .with_initial_delay(Duration::from_millis(100))
         .with_maximum_delay(Duration::from_secs(1))
         .build()
+        .unwrap()
 }
