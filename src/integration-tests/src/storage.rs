@@ -15,8 +15,10 @@
 use crate::Error;
 use crate::Result;
 use gax::paginator::{ItemPaginator, Paginator};
+use rand::Rng;
+use storage::model::Bucket;
 
-pub const BUCKET_ID_LENGTH: usize = 32;
+pub const BUCKET_ID_LENGTH: usize = 63;
 
 pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
@@ -37,6 +39,48 @@ pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
     let client = builder.build().await?;
 
     cleanup_stale_buckets(&client, &project_id).await?;
+
+    let bucket_id = random_bucket_id();
+    let bucket_name = format!("projects/_/buckets/{bucket_id}");
+
+    println!("\nTesting create_bucket()");
+    let create = client
+        .create_bucket("projects/_", bucket_id)
+        .set_bucket(
+            Bucket::new()
+                .set_project(format!("projects/{project_id}"))
+                .set_labels([("integration-test", "true")]),
+        )
+        .send()
+        .await?;
+    println!("SUCCESS on create_bucket: {create:?}");
+    assert_eq!(create.name, bucket_name);
+
+    println!("\nTesting get_bucket()");
+    let get = client.get_bucket(&bucket_name).send().await?;
+    println!("SUCCESS on get_bucket: {get:?}");
+    assert_eq!(get.name, bucket_name);
+
+    println!("\nTesting list_buckets()");
+    let mut paginator = client
+        .list_buckets(format!("projects/{project_id}"))
+        .paginator()
+        .await
+        .items();
+    let mut bucket_names = Vec::new();
+    while let Some(bucket) = paginator.next().await {
+        bucket_names.push(bucket?.name);
+    }
+    println!("SUCCESS on list_buckets");
+    assert!(
+        bucket_names.iter().any(|name| name == &bucket_name),
+        "missing bucket name {} in {bucket_names:?}",
+        &bucket_name
+    );
+
+    println!("\nTesting delete_bucket()");
+    client.delete_bucket(bucket_name).send().await?;
+    println!("SUCCESS on delete_bucket");
 
     Ok(())
 }
@@ -101,4 +145,15 @@ async fn cleanup_bucket(client: storage::client::Storage, name: String) -> Resul
     }
     let _ = futures::future::join_all(pending).await;
     client.delete_bucket(&name).send().await
+}
+
+pub(crate) fn random_bucket_id() -> String {
+    const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
+    const PREFIX: &str = "rust-sdk-testing-";
+    let mut bucket_id = String::new();
+    for _ in 0..(BUCKET_ID_LENGTH - PREFIX.len()) {
+        let idx = rand::rng().random_range(0..CHARSET.len());
+        bucket_id.push(CHARSET[idx] as char);
+    }
+    format!("{PREFIX}{bucket_id}")
 }
