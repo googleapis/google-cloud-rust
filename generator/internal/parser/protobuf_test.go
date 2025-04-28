@@ -1043,6 +1043,7 @@ func TestProtobuf_Pagination(t *testing.T) {
 					ID:       ".test.ListFooRequest.page_token",
 					Typez:    9,
 					JSONName: "pageToken",
+					Behavior: []api.FieldBehavior{api.FIELD_BEHAVIOR_OPTIONAL},
 				},
 			},
 			{
@@ -1322,6 +1323,7 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 				ID:            ".test.CreateFooRequest.parent",
 				Documentation: "Required. The resource name of the project.",
 				Typez:         api.STRING_TYPE,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:          "foo_id",
@@ -1329,6 +1331,7 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 				ID:            ".test.CreateFooRequest.foo_id",
 				Documentation: "Required. This must be unique within the project.",
 				Typez:         api.STRING_TYPE,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:          "foo",
@@ -1338,6 +1341,7 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 				Typez:         api.MESSAGE_TYPE,
 				TypezID:       ".test.Foo",
 				Optional:      true,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:     "request_id",
@@ -1363,6 +1367,7 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 				Typez:         api.STRING_TYPE,
 				JSONName:      "requestIdWithFieldBehavior",
 				AutoPopulated: true,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_OPTIONAL, api.FIELD_BEHAVIOR_INPUT_ONLY},
 			},
 
 			{
@@ -1376,12 +1381,14 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 				ID:       ".test.CreateFooRequest.not_request_id_required",
 				Typez:    api.STRING_TYPE,
 				JSONName: "notRequestIdRequired",
+				Behavior: []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:     "not_request_id_required_with_other_field_behavior",
 				ID:       ".test.CreateFooRequest.not_request_id_required_with_other_field_behavior",
 				Typez:    api.STRING_TYPE,
 				JSONName: "notRequestIdRequiredWithOtherFieldBehavior",
+				Behavior: []api.FieldBehavior{api.FIELD_BEHAVIOR_INPUT_ONLY, api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:     "not_request_id_missing_field_info",
