@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// A helper to serialize `f32` fom ProtoJSON format.
+/// A helper to serialize `f32` to ProtoJSON format.
 // TODO(#1767): use float_serialize from generated code.
 #[allow(dead_code)]
 fn float_serialize<S>(x: &f32, s: S) -> std::result::Result<S::Ok, S::Error>
