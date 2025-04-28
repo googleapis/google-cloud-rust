@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/// A helper to serialize `f32` fom ProtoJSON format.
+// TODO(#1767): use float_serialize from generated code.
 #[allow(dead_code)]
 fn float_serialize<S>(x: &f32, s: S) -> std::result::Result<S::Ok, S::Error>
 where
@@ -33,6 +35,8 @@ where
 #[allow(dead_code)]
 struct FloatVisitor;
 
+/// A helper to deserialize `f32` from ProtoJSON format.
+// TODO(#1767): use float_serialize from generated code.
 #[allow(dead_code)]
 fn float_deserialize<'de, D>(deserializer: D) -> std::result::Result<f32, D::Error>
 where
@@ -64,6 +68,8 @@ impl serde::de::Visitor<'_> for FloatVisitor {
     where
         E: serde::de::Error,
     {
+        // TODO: Find a way to test this code path, serde_json floats
+        // stored as f64.
         Ok(value)
     }
 
