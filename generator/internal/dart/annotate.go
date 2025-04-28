@@ -111,7 +111,6 @@ type methodAnnotation struct {
 	DocLines          []string
 	ReturnsValue      bool
 	BodyMessageName   string
-	PathParams        []*api.Field
 	QueryLines        []string
 	IsLROGetOperation bool
 }
@@ -125,8 +124,7 @@ func (m *methodAnnotation) HasQueryLines() bool {
 }
 
 type pathInfoAnnotation struct {
-	PathFmt  string
-	PathArgs []string
+	PathFmt string
 }
 
 type oneOfAnnotation struct {
@@ -173,16 +171,20 @@ type annotateModel struct {
 	imports map[string]string
 	// The mapping from protobuf packages to Dart import statements.
 	packageMapping map[string]string
+	// The protobuf packages that need to be imported with prefixes.
+	packagePrefixes map[string]string
 	// A mapping from field IDs to fields for the fields we know to be required.
 	requiredFields map[string]*api.Field
 }
 
 func newAnnotateModel(model *api.API) *annotateModel {
 	return &annotateModel{
-		model:          model,
-		state:          model.State,
-		imports:        map[string]string{},
-		packageMapping: map[string]string{},
+		model:           model,
+		state:           model.State,
+		imports:         map[string]string{},
+		packageMapping:  map[string]string{},
+		packagePrefixes: map[string]string{},
+		requiredFields:  map[string]*api.Field{},
 	}
 }
 
@@ -230,11 +232,14 @@ func (annotate *annotateModel) annotateModel(options map[string]string) (*modelA
 			}
 			protoPackage := keys[1]
 			annotate.packageMapping[protoPackage] = definition
-		case key == "extra-imports":
-			extraImports := strings.Split(definition, ",")
-			for _, item := range extraImports {
-				annotate.imports[item] = item
+		case strings.HasPrefix(key, "prefix:"):
+			// 'prefix:google.protobuf' = 'protobuf'
+			keys := strings.Split(key, ":")
+			if len(keys) != 2 {
+				return nil, fmt.Errorf("key should be in the format prefix:<proto-package>, got=%q", key)
 			}
+			protoPackage := keys[1]
+			annotate.packagePrefixes[protoPackage] = definition
 		}
 	}
 
@@ -485,8 +490,7 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 	}
 
 	pathInfoAnnotation := &pathInfoAnnotation{
-		PathFmt:  httpPathFmt(method.PathInfo),
-		PathArgs: httpPathArgs(method.PathInfo),
+		PathFmt: httpPathFmt(method.PathInfo),
 	}
 	method.PathInfo.Codec = pathInfoAnnotation
 
@@ -521,12 +525,11 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 		Parent:            method,
 		Name:              strcase.ToLowerCamel(method.Name),
 		RequestMethod:     strings.ToLower(method.PathInfo.Verb),
-		RequestType:       annotate.resolveTypeName(state.MessageByID[method.InputTypeID]),
-		ResponseType:      annotate.resolveTypeName(state.MessageByID[method.OutputTypeID]),
+		RequestType:       annotate.resolveTypeName(state.MessageByID[method.InputTypeID], true),
+		ResponseType:      annotate.resolveTypeName(state.MessageByID[method.OutputTypeID], true),
 		DocLines:          formatDocComments(method.Documentation, state),
-		ReturnsValue:      method.OutputTypeID != ".google.protobuf.Empty",
+		ReturnsValue:      !method.ReturnsEmpty,
 		BodyMessageName:   bodyMessageName,
-		PathParams:        language.PathParams(method, state),
 		QueryLines:        queryLines,
 		IsLROGetOperation: isGetOperation,
 	}
@@ -538,8 +541,8 @@ func (annotate *annotateModel) annotateOperationInfo(operationInfo *api.Operatio
 	metadata := annotate.state.MessageByID[operationInfo.MetadataTypeID]
 
 	operationInfo.Codec = &operationInfoAnnotation{
-		ResponseType: messageName(response),
-		MetadataType: messageName(metadata),
+		ResponseType: annotate.resolveTypeName(response, false),
+		MetadataType: annotate.resolveTypeName(metadata, false),
 	}
 }
 
@@ -560,12 +563,12 @@ func (annotate *annotateModel) annotateField(field *api.Field) {
 		DocLines: formatDocComments(field.Documentation, state),
 		Required: required,
 		Nullable: !required,
-		FromJson: createFromJsonLine(field, state, required),
+		FromJson: annotate.createFromJsonLine(field, state, required),
 		ToJson:   createToJsonLine(field, state, required),
 	}
 }
 
-func createFromJsonLine(field *api.Field, state *api.APIState, required bool) string {
+func (annotate *annotateModel) createFromJsonLine(field *api.Field, state *api.APIState, required bool) string {
 	message := state.MessageByID[field.TypezID]
 
 	isList := field.Repeated
@@ -588,7 +591,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 			return fmt.Sprintf("decodeListEnum(%s, %s.fromJson)%s", data, typeName, bang)
 		case field.Typez == api.MESSAGE_TYPE:
 			_, hasCustomEncoding := usesCustomEncoding[field.TypezID]
-			typeName := messageName(state.MessageByID[field.TypezID])
+			typeName := annotate.resolveTypeName(state.MessageByID[field.TypezID], true)
 			if hasCustomEncoding {
 				return fmt.Sprintf("decodeListMessageCustom(%s, %s.fromJson)%s", data, typeName, bang)
 			} else {
@@ -608,7 +611,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 			return fmt.Sprintf("decodeMapEnum(%s, %s.fromJson)%s", data, typeName, bang)
 		case valueField.Typez == api.MESSAGE_TYPE:
 			_, hasCustomEncoding := usesCustomEncoding[valueField.TypezID]
-			typeName := messageName(state.MessageByID[valueField.TypezID])
+			typeName := annotate.resolveTypeName(state.MessageByID[valueField.TypezID], true)
 			if hasCustomEncoding {
 				return fmt.Sprintf("decodeMapMessageCustom(%s, %s.fromJson)%s", data, typeName, bang)
 			} else {
@@ -628,7 +631,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 		return fmt.Sprintf("decodeEnum(%s, %s.fromJson)%s", data, typeName, bang)
 	case field.Typez == api.MESSAGE_TYPE:
 		_, hasCustomEncoding := usesCustomEncoding[field.TypezID]
-		typeName := messageName(state.MessageByID[field.TypezID])
+		typeName := annotate.resolveTypeName(state.MessageByID[field.TypezID], true)
 		if hasCustomEncoding {
 			return fmt.Sprintf("decodeCustom(%s, %s.fromJson)%s", data, typeName, bang)
 		} else {
@@ -807,7 +810,7 @@ func (annotate *annotateModel) fieldType(f *api.Field) string {
 			val := annotate.fieldType(message.Fields[1])
 			out = "Map<" + key + ", " + val + ">"
 		} else {
-			out = annotate.resolveTypeName(message)
+			out = annotate.resolveTypeName(message, true)
 		}
 	case api.ENUM_TYPE:
 		e, ok := annotate.state.EnumByID[f.TypezID]
@@ -817,6 +820,10 @@ func (annotate *annotateModel) fieldType(f *api.Field) string {
 		}
 		annotate.updateUsedPackages(e.Package)
 		out = enumName(e)
+		importPrefix, needsImportPrefix := annotate.packagePrefixes[e.Package]
+		if needsImportPrefix {
+			out = importPrefix + "." + out
+		}
 	default:
 		slog.Error("unhandled fieldType", "type", f.Typez, "id", f.TypezID)
 	}
@@ -828,19 +835,24 @@ func (annotate *annotateModel) fieldType(f *api.Field) string {
 	return out
 }
 
-func (annotate *annotateModel) resolveTypeName(message *api.Message) string {
+func (annotate *annotateModel) resolveTypeName(message *api.Message, returnVoidForEmpty bool) string {
 	if message == nil {
 		slog.Error("unable to lookup type")
 		return ""
 	}
 
-	if message.ID == ".google.protobuf.Empty" {
+	if message.ID == ".google.protobuf.Empty" && returnVoidForEmpty {
 		return "void"
 	}
 
 	annotate.updateUsedPackages(message.Package)
 
-	return messageName(message)
+	ref := messageName(message)
+	importPrefix, needsImportPrefix := annotate.packagePrefixes[message.Package]
+	if needsImportPrefix {
+		ref = importPrefix + "." + ref
+	}
+	return ref
 }
 
 func (annotate *annotateModel) updateUsedPackages(packageName string) {
@@ -849,6 +861,10 @@ func (annotate *annotateModel) updateUsedPackages(packageName string) {
 		// Use the packageMapping info to add any necessary import.
 		dartImport, ok := annotate.packageMapping[packageName]
 		if ok {
+			importPrefix, needsImportPrefix := annotate.packagePrefixes[packageName]
+			if needsImportPrefix {
+				dartImport += " as " + importPrefix
+			}
 			annotate.imports[packageName] = dartImport
 		}
 	}
