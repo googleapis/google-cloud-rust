@@ -21,7 +21,7 @@
 ///   rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
 /// }
 /// ```
-/// 
+///
 #[derive(Clone, Debug, Default, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct Empty {}
 
