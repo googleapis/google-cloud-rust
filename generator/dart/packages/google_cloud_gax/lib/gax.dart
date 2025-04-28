@@ -19,9 +19,13 @@ import 'package:http/http.dart' as http;
 
 export 'dart:typed_data' show Uint8List;
 
-const String _clientName = 'dart-test-client';
+const String _clientKey = 'x-goog-api-client';
+const String _clientName = 'dart-gax-client';
 
-/// An abstract class that can return a JSON encodable representation of itself.
+const String _contentTypeKey = 'content-type';
+const String _typeJson = 'application/json';
+
+/// An abstract class that can return a JSON representation of itself.
 ///
 /// Classes that implement [JsonEncodable] will often have a `fromJson()`
 /// constructor.
@@ -32,7 +36,7 @@ abstract class JsonEncodable {
 /// The abstract common superclass of all messages.
 abstract class ProtoMessage implements JsonEncodable {
   /// The fully qualified name of this message, i.e., `google.protobuf.Duration`
-  /// or `google.rpc.ErrorInfo`
+  /// or `google.rpc.ErrorInfo`.
   final String qualifiedName;
 
   ProtoMessage(this.qualifiedName);
@@ -66,7 +70,7 @@ class ServiceClient {
     final response = await client.get(
       url,
       headers: {
-        'x-goog-api-client': _clientName,
+        _clientKey: _clientName,
       },
     );
     return _processResponse(response);
@@ -75,10 +79,22 @@ class ServiceClient {
   Future<Map<String, dynamic>> post(Uri url, {JsonEncodable? body}) async {
     final response = await client.post(
       url,
-      body: body == null ? null : jsonEncode(body.toJson()),
+      body: body?._asEncodedJson,
       headers: {
-        'x-goog-api-client': _clientName,
-        if (body != null) 'content-type': 'application/json',
+        _clientKey: _clientName,
+        if (body != null) _contentTypeKey: _typeJson,
+      },
+    );
+    return _processResponse(response);
+  }
+
+  Future<Map<String, dynamic>> put(Uri url, {JsonEncodable? body}) async {
+    final response = await client.put(
+      url,
+      body: body?._asEncodedJson,
+      headers: {
+        _clientKey: _clientName,
+        if (body != null) _contentTypeKey: _typeJson,
       },
     );
     return _processResponse(response);
@@ -87,10 +103,10 @@ class ServiceClient {
   Future<Map<String, dynamic>> patch(Uri url, {JsonEncodable? body}) async {
     final response = await client.patch(
       url,
-      body: body == null ? null : jsonEncode(body.toJson()),
+      body: body?._asEncodedJson,
       headers: {
-        'x-goog-api-client': _clientName,
-        if (body != null) 'content-type': 'application/json',
+        _clientKey: _clientName,
+        if (body != null) _contentTypeKey: _typeJson,
       },
     );
     return _processResponse(response);
@@ -100,7 +116,7 @@ class ServiceClient {
     final response = await client.delete(
       url,
       headers: {
-        'x-goog-api-client': _clientName,
+        _clientKey: _clientName,
       },
     );
     return _processResponse(response);
@@ -124,12 +140,15 @@ class ServiceClient {
       final json = jsonDecode(response.body);
       status = Status.fromJson(json['error']);
     } catch (_) {
-      // If we're not able to parse the Status error, return a general HTTP
-      // exception.
+      // Return a general HTTP exception if we can't parse the Status response.
       throw http.ClientException(
           '${response.statusCode}: ${response.reasonPhrase}');
     }
 
     throw status;
   }
+}
+
+extension on JsonEncodable {
+  String get _asEncodedJson => jsonEncode(toJson());
 }

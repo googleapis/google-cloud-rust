@@ -13,13 +13,19 @@
 // limitations under the License.
 
 use gax::error::Error;
+use rand::{Rng, distr::Alphanumeric};
+
 pub type Result<T> = std::result::Result<T, gax::error::Error>;
 pub mod error_details;
 pub mod firestore;
 pub mod secret_manager;
+pub mod storage;
 pub mod workflows;
+pub mod workflows_executions;
 
 pub const SECRET_ID_LENGTH: usize = 64;
+
+pub const WORKFLOW_ID_LENGTH: usize = 64;
 
 /// Returns the project id used for the integration tests.
 pub fn project_id() -> Result<String> {
@@ -44,4 +50,16 @@ pub fn region_id() -> String {
 pub fn workflows_runner() -> Result<String> {
     let value = std::env::var("GOOGLE_CLOUD_RUST_TEST_WORKFLOWS_RUNNER").map_err(Error::other)?;
     Ok(value)
+}
+
+pub(crate) fn random_workflow_id() -> String {
+    // Workflow ids must start with a letter, we use `wf-` as a prefix to
+    // meet this requirement.
+    const PREFIX: &str = "wf-";
+    let workflow_id: String = rand::rng()
+        .sample_iter(&Alphanumeric)
+        .take(WORKFLOW_ID_LENGTH - PREFIX.len())
+        .map(char::from)
+        .collect();
+    format!("{PREFIX}{workflow_id}")
 }

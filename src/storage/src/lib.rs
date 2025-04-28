@@ -27,16 +27,13 @@
 pub use gax::Result;
 pub use gax::error::Error;
 #[allow(dead_code)]
-// TODO(#1813) - fix the broken link to [here].
+// TODO(#1813) - fix the broken link to `[here]`.
 #[allow(rustdoc::broken_intra_doc_links)]
-// TODO(#1813) - fix x-goog-request-params and this is not needed
-#[allow(clippy::op_ref)]
-#[allow(clippy::needless_borrow)]
 pub(crate) mod generated;
 
 pub use generated::gapic::builder;
-pub use generated::gapic::client;
 pub use generated::gapic::model;
+pub mod client;
 
 pub(crate) mod google {
     pub mod iam {

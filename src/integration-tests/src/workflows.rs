@@ -16,11 +16,8 @@ use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::paginator::{ItemPaginator, Paginator};
 use gax::{error::Error, options::RequestOptionsBuilder};
-use rand::{Rng, distr::Alphanumeric};
 use std::time::Duration;
 use wf::Poller;
-
-pub const WORKFLOW_ID_LENGTH: usize = 64;
 
 pub async fn until_done(builder: wf::builder::workflows::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
@@ -51,15 +48,7 @@ main:
             return: Hello World
 "###;
     let source_code = wf::model::workflow::SourceCode::SourceContents(source_contents.to_string());
-    let prefix = "wf-";
-    let workflow_id: String = rand::rng()
-        .sample_iter(&Alphanumeric)
-        // Workflow ids must start with a letter, we use `wf-` as a prefix to
-        // this requirement (see below).
-        .take(WORKFLOW_ID_LENGTH - prefix.len())
-        .map(char::from)
-        .collect();
-    let workflow_id = format!("{prefix}{workflow_id}");
+    let workflow_id = crate::random_workflow_id();
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
     let response = client
@@ -119,15 +108,7 @@ main:
             return: Hello World
 "###;
     let source_code = wf::model::workflow::SourceCode::SourceContents(source_contents.to_string());
-    let prefix = "wf-";
-    let workflow_id: String = rand::rng()
-        .sample_iter(&Alphanumeric)
-        // Workflow ids must start with a letter, we use `wf-` as a prefix to
-        // this requirement (see below).
-        .take(WORKFLOW_ID_LENGTH - prefix.len())
-        .map(char::from)
-        .collect();
-    let workflow_id = format!("{prefix}{workflow_id}");
+    let workflow_id = crate::random_workflow_id();
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
     let mut create = client
