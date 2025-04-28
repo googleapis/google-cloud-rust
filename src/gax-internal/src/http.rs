@@ -133,26 +133,11 @@ impl ReqwestClient {
             builder = builder.header(key, value);
         }
         let response = builder.send().await.map_err(Error::io)?;
-        let is204ok = response.status() == 204;
         if !response.status().is_success() {
             return Self::to_http_error(response).await;
         }
-        let response = http::Response::from(response);
-        let (parts, body) = response.into_parts();
 
-        let body = http_body_util::BodyExt::collect(body)
-            .await
-            .map_err(Error::io)?;
-
-        let response = match body.to_bytes() {
-            content if (content.len() == 0 && is204ok) => O::default(), // 204 No Content has no body, throws EOF error if we try to parse
-            content => serde_json::from_slice::<O>(&content).map_err(Error::serde)?,
-        };
-
-        Ok(Response::from_parts(
-            Parts::new().set_headers(parts.headers),
-            response,
-        ))
+        return Self::to_http_response(response).await;
     }
 
     async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
@@ -169,6 +154,28 @@ impl ReqwestClient {
             Error::rpc(HttpError::new(status_code, headers, Some(body)))
         };
         Err(error)
+    }
+
+    async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
+        response: reqwest::Response,
+    ) -> Result<Response<O>> {
+        let is204ok = response.status() == 204;
+        let response = http::Response::from(response);
+        let (parts, body) = response.into_parts();
+
+        let body = http_body_util::BodyExt::collect(body)
+            .await
+            .map_err(Error::io)?;
+
+        let response = match body.to_bytes() {
+            content if (content.len() == 0 && is204ok) => O::default(), // 204 No Content has no body, throws EOF error if we try to parse
+            content => serde_json::from_slice::<O>(&content).map_err(Error::serde)?,
+        };
+
+        Ok(Response::from_parts(
+            Parts::new().set_headers(parts.headers),
+            response,
+        ))
     }
 
     fn convert_headers(
@@ -370,20 +377,14 @@ mod test {
             .status(204)
             .body(r#""#)?;
         let response: reqwest::Response = http_resp.into();
-        assert!(response.status().is_client_error());
-        let response = ReqwestClient::to_http_error::<()>(response).await;
-        assert!(response.is_err(), "{response:?}");
-        let err = response.err().unwrap();
-        let err = err.as_inner::<HttpError>().unwrap();
-        assert_eq!(err.status_code(), 400);
-        let want = HashMap::from(
-            [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
-        );
-        assert_eq!(err.headers(), &want);
-        assert_eq!(
-            err.payload(),
-            Some(bytes::Bytes::from(r#"{"error": "bad request"}"#)).as_ref()
-        );
+        assert!(response.status().is_success());
+
+        let response = ReqwestClient::to_http_response::<wkt::Empty>(response).await;
+        assert!(response.is_ok());
+
+        let response = response.unwrap();
+        let body = response.into_body();
+        assert_eq!(body, wkt::Empty::default());
         Ok(())
     }
 }
