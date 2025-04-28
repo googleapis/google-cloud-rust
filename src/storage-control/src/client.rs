@@ -19,7 +19,7 @@
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
-/// # use google_cloud_storage::client::Storage;
+/// # use google_cloud_storage_control::client::Storage;
 /// let client = Storage::builder().build().await?;
 /// // use `client` to make requests to Cloud Storage.
 /// # gax::Result::<()>::Ok(()) });
@@ -89,7 +89,7 @@ impl Storage {
     ///
     /// ```no_run
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage_control::client::Storage;
     /// let client = Storage::builder().build().await?;
     /// # gax::Result::<()>::Ok(()) });
     /// ```
@@ -108,7 +108,7 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     client.delete_bucket("projects/_/buckets/my-bucket").send().await?;
     ///     Ok(())
@@ -125,7 +125,7 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     let bucket = client.get_bucket("projects/_/buckets/my-bucket").send().await?;
     ///     assert_eq!(&bucket.name, "projects/_/buckets/my-bucket");
@@ -144,7 +144,7 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     let bucket = client.create_bucket("projects/my-project", "my-bucket").send().await?;
     ///     assert_eq!(&bucket.name, "projects/_/buckets/my-bucket");
@@ -174,7 +174,7 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     use gax::paginator::{ItemPaginator, Paginator};
     ///     let mut items = client
@@ -202,7 +202,7 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     client.delete_object("projects/_/buckets/my-bucket", "my-object").send().await?;
     ///     Ok(())
@@ -242,7 +242,7 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage_control::client::Storage;
     /// async fn example(client: &Storage) -> gax::Result<()> {
     ///     use gax::paginator::{ItemPaginator, Paginator};
     ///     let mut items = client
@@ -271,7 +271,7 @@ impl Storage {
 ///
 /// ```
 /// # tokio_test::block_on(async {
-/// # use google_cloud_storage::*;
+/// # use google_cloud_storage_control::*;
 /// # use client::ClientBuilder;
 /// # use client::Storage;
 /// let builder : ClientBuilder = Storage::builder();

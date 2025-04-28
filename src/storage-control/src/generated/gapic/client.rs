@@ -24,7 +24,7 @@ use std::sync::Arc;
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
-/// # use google_cloud_storage::client::Storage;
+/// # use google_cloud_storage_control::client::Storage;
 /// let client = Storage::builder().build().await?;
 /// // use `client` to make requests to the Cloud Storage.
 /// # gax::Result::<()>::Ok(()) });
@@ -94,7 +94,7 @@ impl Storage {
     ///
     /// ```
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage_control::client::Storage;
     /// let client = Storage::builder().build().await?;
     /// # gax::Result::<()>::Ok(()) });
     /// ```
