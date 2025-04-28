@@ -505,6 +505,8 @@ func makeObjectField(state *api.APIState, packageName, messageName, name string,
 			Typez:         api.MESSAGE_TYPE,
 			TypezID:       message.ID,
 			Optional:      false,
+			Repeated:      false,
+			Map:           true,
 		}, nil
 	}
 	if field.Items != nil && field.Items.IsA() {
@@ -559,6 +561,7 @@ func makeArrayField(state *api.APIState, packageName, messageName, name string, 
 		return nil, err
 	}
 	result.Repeated = true
+	result.Map = false
 	result.Optional = false
 	return result, nil
 }

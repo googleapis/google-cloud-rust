@@ -455,18 +455,21 @@ func TestOpenAPI_MapString(t *testing.T) {
 				JSONName: "fMap",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "$map<string, string>",
+				Map:      true,
 			},
 			{
 				Name:     "fMapS32",
 				JSONName: "fMapS32",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "$map<string, int32>",
+				Map:      true,
 			},
 			{
 				Name:     "fMapS64",
 				JSONName: "fMapS64",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "$map<string, int64>",
+				Map:      true,
 			},
 		},
 	})
@@ -504,13 +507,17 @@ func TestOpenAPI_MapInteger(t *testing.T) {
 				JSONName: "fMapI32",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "$map<string, int32>",
-				Optional: false},
+				Optional: false,
+				Map:      true,
+			},
 			{
 				Name:     "fMapI64",
 				JSONName: "fMapI64",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "$map<string, int64>",
-				Optional: false},
+				Optional: false,
+				Map:      true,
+			},
 		},
 	})
 }
@@ -570,6 +577,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 				Typez:         api.MESSAGE_TYPE,
 				TypezID:       "$map<string, string>",
 				Optional:      false,
+				Map:           true,
 			},
 			{
 				Name:          "metadata",
