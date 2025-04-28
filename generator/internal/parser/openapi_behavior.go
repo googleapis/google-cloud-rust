@@ -24,12 +24,5 @@ func openapiParameterBehavior(p *v3.Parameter) []api.FieldBehavior {
 	if p.Required != nil && *p.Required {
 		behavior = append(behavior, api.FIELD_BEHAVIOR_REQUIRED)
 	}
-	schema, err := p.Schema.BuildSchema()
-	if err != nil {
-		return nil
-	}
-	if schema.ReadOnly != nil && *schema.ReadOnly {
-		behavior = append(behavior, api.FIELD_BEHAVIOR_OUTPUT_ONLY)
-	}
 	return behavior
 }
