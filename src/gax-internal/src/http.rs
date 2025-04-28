@@ -70,7 +70,7 @@ impl ReqwestClient {
             .request(method, format!("{}{path}", &self.endpoint))
     }
 
-    pub async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
+    pub async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned + Default>(
         &self,
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
@@ -91,7 +91,7 @@ impl ReqwestClient {
         }
     }
 
-    async fn retry_loop<O: serde::de::DeserializeOwned>(
+    async fn retry_loop<O: serde::de::DeserializeOwned + Default>(
         &self,
         builder: reqwest::RequestBuilder,
         options: gax::options::RequestOptions,
@@ -119,7 +119,7 @@ impl ReqwestClient {
         .await
     }
 
-    async fn request_attempt<O: serde::de::DeserializeOwned>(
+    async fn request_attempt<O: serde::de::DeserializeOwned + Default>(
         &self,
         mut builder: reqwest::RequestBuilder,
         options: &gax::options::RequestOptions,
@@ -133,6 +133,7 @@ impl ReqwestClient {
             builder = builder.header(key, value);
         }
         let response = builder.send().await.map_err(Error::io)?;
+        let is204ok = response.status() == 204;
         if !response.status().is_success() {
             return Self::to_http_error(response).await;
         }
@@ -142,7 +143,12 @@ impl ReqwestClient {
         let body = http_body_util::BodyExt::collect(body)
             .await
             .map_err(Error::io)?;
-        let response = serde_json::from_slice::<O>(&body.to_bytes()).map_err(Error::serde)?;
+
+        let response = match body.to_bytes() {
+            content if (content.len() == 0 && is204ok) => O::default(), // 204 No Content has no body, throws EOF error if we try to parse
+            content => serde_json::from_slice::<O>(&content).map_err(Error::serde)?,
+        };
+
         Ok(Response::from_parts(
             Parts::new().set_headers(parts.headers),
             response,
@@ -354,6 +360,30 @@ mod test {
             [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
         );
         assert_eq!(err.headers(), &Some(want));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn client_empty_content() -> TestResult {
+        let http_resp = http::Response::builder()
+            .header("Content-Type", "application/json")
+            .status(204)
+            .body(r#""#)?;
+        let response: reqwest::Response = http_resp.into();
+        assert!(response.status().is_client_error());
+        let response = ReqwestClient::to_http_error::<()>(response).await;
+        assert!(response.is_err(), "{response:?}");
+        let err = response.err().unwrap();
+        let err = err.as_inner::<HttpError>().unwrap();
+        assert_eq!(err.status_code(), 400);
+        let want = HashMap::from(
+            [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
+        );
+        assert_eq!(err.headers(), &want);
+        assert_eq!(
+            err.payload(),
+            Some(bytes::Bytes::from(r#"{"error": "bad request"}"#)).as_ref()
+        );
         Ok(())
     }
 }
