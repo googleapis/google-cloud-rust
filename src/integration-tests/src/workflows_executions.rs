@@ -112,7 +112,7 @@ main:
                 .set_service_account(&workflows_runner)
                 .set_source_code(source_code),
         )
-        .with_polling_backoff_policy(test_backoff()?)
+        .with_polling_backoff_policy(test_backoff())
         .poller()
         .until_done()
         .await?;
