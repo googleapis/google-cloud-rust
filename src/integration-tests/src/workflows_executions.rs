@@ -44,8 +44,10 @@ pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()
 
     // Create an execution with a label. The label is not returned for the `BASIC` view.
     let start = client
-        .create_execution(&parent)
-        .set_execution(wfe::model::Execution::new().set_labels([("test-label", "test-value")]))
+        .create_execution(
+            &parent,
+            wfe::model::Execution::new().set_labels([("test-label", "test-value")]),
+        )
         .send()
         .await?;
     tracing::info!("start was successful={start:?}");
@@ -104,13 +106,13 @@ main:
 
     tracing::info!("Start create_workflow() LRO and poll it to completion");
     let response = client
-        .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
-        .set_workflow_id(&workflow_id)
-        .set_workflow(
+        .create_workflow(
+            format!("projects/{project_id}/locations/{location_id}"),
             wf::model::Workflow::new()
                 .set_labels([("integration-test", "true")])
                 .set_service_account(&workflows_runner)
                 .set_source_code(source_code),
+            &workflow_id,
         )
         .with_polling_backoff_policy(test_backoff())
         .poller()

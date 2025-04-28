@@ -115,7 +115,7 @@ impl Storage {
     /// }
     /// ```
     pub fn delete_bucket<T: Into<String>>(&self, name: T) -> super::builder::storage::DeleteBucket {
-        self.inner.delete_bucket().set_name(name)
+        self.inner.delete_bucket(name)
     }
 
     /// Returns metadata for the specified bucket.
@@ -134,7 +134,7 @@ impl Storage {
     /// }
     /// ```
     pub fn get_bucket<T: Into<String>>(&self, name: T) -> super::builder::storage::GetBucket {
-        self.inner.get_bucket().set_name(name)
+        self.inner.get_bucket(name)
     }
 
     /// Creates a new bucket.
@@ -161,10 +161,7 @@ impl Storage {
         V: Into<String>,
         U: Into<String>,
     {
-        self.inner
-            .create_bucket()
-            .set_parent(parent)
-            .set_bucket_id(bucket_id)
+        self.inner.create_bucket(parent, bucket_id)
     }
 
     /// Retrieves a list of buckets for a given project.
@@ -190,7 +187,7 @@ impl Storage {
     /// }
     /// ```
     pub fn list_buckets<T: Into<String>>(&self, parent: T) -> super::builder::storage::ListBuckets {
-        self.inner.list_buckets().set_parent(parent)
+        self.inner.list_buckets(parent)
     }
 
     /// Permanently deletes an object and its metadata.
@@ -229,10 +226,7 @@ impl Storage {
         T: Into<String>,
         U: Into<String>,
     {
-        self.inner
-            .delete_object()
-            .set_bucket(bucket)
-            .set_object(object)
+        self.inner.delete_object(bucket, object)
     }
 
     /// Retrieves the list of objects for a given bucket.
@@ -258,7 +252,7 @@ impl Storage {
     /// }
     /// ```
     pub fn list_objects<T: Into<String>>(&self, parent: T) -> super::builder::storage::ListObjects {
-        self.inner.list_objects().set_parent(parent)
+        self.inner.list_objects(parent)
     }
 
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
