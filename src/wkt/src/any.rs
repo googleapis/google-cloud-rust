@@ -101,16 +101,26 @@ impl Any {
     /// also supports serialization to JSON.
     pub fn try_from<T>(message: &T) -> Result<Self, Error>
     where
-        T: serde::ser::Serialize + crate::message::Message,
+        T: crate::message::Message
+            + Sized
+            + serde::ser::Serialize
+            + serde::de::DeserializeOwned
+            + 'static,
     {
-        let value = message.to_map()?;
+        // Get the serializer for type T and use it to convert the message to a map
+        let serializer = T::serializer();
+        let value = serializer.to_map(message)?;
         Ok(Any(value))
     }
 
     /// Extracts (if possible) a `T` value from the [Any].
     pub fn try_into_message<T>(&self) -> Result<T, Error>
     where
-        T: serde::de::DeserializeOwned + crate::message::Message,
+        T: crate::message::Message
+            + Sized
+            + serde::ser::Serialize
+            + serde::de::DeserializeOwned
+            + 'static,
     {
         let map = &self.0;
         let r#type = map
@@ -119,7 +129,10 @@ impl Any {
             .ok_or_else(|| "@type field is missing or is not a string".to_string())
             .map_err(Error::deser)?;
         Self::check_typename(r#type, T::typename())?;
-        T::from_map(map)
+
+        // Get the serializer for type T and use it to convert the map to a message
+        let serializer = T::serializer();
+        serializer.from_map(map)
     }
 
     fn check_typename(got: &str, want: &str) -> Result<(), Error> {
@@ -136,10 +149,24 @@ impl crate::message::Message for Any {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Any"
     }
-    fn to_map(&self) -> Result<crate::message::Map, AnyError> {
-        crate::message::to_json_other(self)
+
+    // Override the default serializer to use custom serialization
+    fn serializer() -> Box<dyn crate::message::MessageSerializer<Self>>
+    where
+        Self: Sized,
+    {
+        Box::new(AnySerializer)
     }
-    fn from_map(map: &crate::message::Map) -> Result<Self, AnyError> {
+}
+
+struct AnySerializer;
+
+impl crate::message::MessageSerializer<Any> for AnySerializer {
+    fn to_map(&self, message: &Any) -> Result<crate::message::Map, AnyError> {
+        crate::message::to_json_other(message)
+    }
+
+    fn from_map(&self, map: &crate::message::Map) -> Result<Any, AnyError> {
         crate::message::from_other(map)
     }
 }

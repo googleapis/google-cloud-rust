@@ -44,10 +44,24 @@ impl crate::message::Message for Struct {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Struct"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-        crate::message::to_json_other(self)
+
+    // Override the default serializer to use custom serialization
+    fn serializer() -> Box<dyn crate::message::MessageSerializer<Self>>
+    where
+        Self: Sized,
+    {
+        Box::new(StructSerializer)
     }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
+}
+
+struct StructSerializer;
+
+impl crate::message::MessageSerializer<Struct> for StructSerializer {
+    fn to_map(&self, message: &Struct) -> Result<crate::message::Map, crate::AnyError> {
+        crate::message::to_json_other(message)
+    }
+
+    fn from_map(&self, map: &crate::message::Map) -> Result<Struct, crate::AnyError> {
         crate::message::from_other(map)
     }
 }
@@ -56,10 +70,24 @@ impl crate::message::Message for Value {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Value"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-        crate::message::to_json_other(self)
+
+    // Override the default serializer to use custom serialization
+    fn serializer() -> Box<dyn crate::message::MessageSerializer<Self>>
+    where
+        Self: Sized,
+    {
+        Box::new(ValueSerializer)
     }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
+}
+
+struct ValueSerializer;
+
+impl crate::message::MessageSerializer<Value> for ValueSerializer {
+    fn to_map(&self, message: &Value) -> Result<crate::message::Map, crate::AnyError> {
+        crate::message::to_json_other(message)
+    }
+
+    fn from_map(&self, map: &crate::message::Map) -> Result<Value, crate::AnyError> {
         crate::message::from_other(map)
     }
 }
@@ -68,10 +96,24 @@ impl crate::message::Message for ListValue {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.ListValue"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-        crate::message::to_json_other(self)
+
+    // Override the default serializer to use custom serialization
+    fn serializer() -> Box<dyn crate::message::MessageSerializer<Self>>
+    where
+        Self: Sized,
+    {
+        Box::new(ListValueSerializer)
     }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
+}
+
+struct ListValueSerializer;
+
+impl crate::message::MessageSerializer<ListValue> for ListValueSerializer {
+    fn to_map(&self, message: &ListValue) -> Result<crate::message::Map, crate::AnyError> {
+        crate::message::to_json_other(message)
+    }
+
+    fn from_map(&self, map: &crate::message::Map) -> Result<ListValue, crate::AnyError> {
         crate::message::from_other(map)
     }
 }

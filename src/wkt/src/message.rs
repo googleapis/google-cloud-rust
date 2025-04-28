@@ -20,27 +20,52 @@ use crate::AnyError as Error;
 /// A trait that must be implemented by all messages.
 ///
 /// Messages sent to and received from Google Cloud services may be wrapped in
-/// [Any][crate::any::Any]. `Any` uses a `@type` field to encoding the type
+/// [Any][crate::any::Any]. `Any` uses a `@type` field to encode the type
 /// name and then validates extraction and insertion against this type.
 pub trait Message {
     /// The typename of this message.
     fn typename() -> &'static str;
 
+    /// Returns the serializer for this message type
     #[doc(hidden)]
-    /// Store the value into a JSON object.
-    fn to_map(&self) -> Result<Map, Error>
+    fn serializer() -> Box<dyn MessageSerializer<Self>>
     where
-        Self: serde::ser::Serialize + Sized,
+        Self: Sized + serde::ser::Serialize + serde::de::DeserializeOwned + 'static,
     {
-        to_json_object(self)
+        Box::new(DefaultSerializer::<Self>::new())
+    }
+}
+
+/// Internal API for message serialization.
+/// This is not intended for direct use by consumers of this crate.
+#[doc(hidden)]
+pub trait MessageSerializer<T> {
+    fn to_map(&self, message: &T) -> Result<Map, Error>;
+    fn from_map(&self, map: &Map) -> Result<T, Error>;
+}
+
+// Default serializer that most types can use
+pub(crate) struct DefaultSerializer<T> {
+    _phantom: std::marker::PhantomData<T>,
+}
+
+impl<T> DefaultSerializer<T> {
+    pub fn new() -> Self {
+        Self {
+            _phantom: std::marker::PhantomData,
+        }
+    }
+}
+
+impl<T> MessageSerializer<T> for DefaultSerializer<T>
+where
+    T: serde::ser::Serialize + serde::de::DeserializeOwned + Sized + Message,
+{
+    fn to_map(&self, message: &T) -> Result<Map, Error> {
+        to_json_object(message)
     }
 
-    #[doc(hidden)]
-    /// Extract the value from a JSON object.
-    fn from_map(map: &Map) -> Result<Self, Error>
-    where
-        Self: serde::de::DeserializeOwned,
-    {
+    fn from_map(&self, map: &Map) -> Result<T, Error> {
         from_object(map)
     }
 }
@@ -150,7 +175,11 @@ mod test {
             "b": 2,
         });
         let map = input.as_object().cloned().unwrap();
-        let test = TestMessage::from_map(&map).unwrap();
+
+        // Get the serializer for TestMessage and use it to deserialize
+        let serializer = TestMessage::serializer();
+        let test = serializer.from_map(&map).unwrap();
+
         assert!(test._unknown_fields.get("@type").is_none(), "{test:?}");
     }
 }

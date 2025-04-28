@@ -164,10 +164,24 @@ impl crate::message::Message for Duration {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Duration"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-        crate::message::to_json_other(self)
+
+    // Override the default serializer to use custom serialization
+    fn serializer() -> Box<dyn crate::message::MessageSerializer<Self>>
+    where
+        Self: Sized,
+    {
+        Box::new(DurationSerializer)
     }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
+}
+
+struct DurationSerializer;
+
+impl crate::message::MessageSerializer<Duration> for DurationSerializer {
+    fn to_map(&self, message: &Duration) -> Result<crate::message::Map, crate::AnyError> {
+        crate::message::to_json_other(message)
+    }
+
+    fn from_map(&self, map: &crate::message::Map) -> Result<Duration, crate::AnyError> {
         crate::message::from_other(map)
     }
 }
