@@ -48,7 +48,6 @@ path    = "../../src/storage"
 [dependencies.sm]
 package          = "google-cloud-secretmanager-v1"
 path             = "../../src/generated/cloud/secretmanager/v1"
-default-features = false
 
 [dependencies.smo]
 package = "secretmanager-openapi-v1"

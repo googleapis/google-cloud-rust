@@ -68,6 +68,10 @@
 ///
 /// - Objects are uniquely identified by their name along with the name of the
 ///   bucket they belong to, as separate strings in this API. For example:
+///   ```no_rust
+///   bucket = "projects/_/buckets/my-bucket"
+///   object = "my-object/with/a/folder-like/name"
+///   ```
 ///   Note that object names can contain `/` characters, which are treated as
 ///   any other character (no special directory semantics).
 ///
@@ -187,11 +191,6 @@ impl Storage {
     /// ```
     pub fn list_buckets<T: Into<String>>(&self, parent: T) -> super::builder::storage::ListBuckets {
         self.inner.list_buckets().set_parent(parent)
-    }
-
-    /// Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
-    pub fn update_bucket(&self) -> super::builder::storage::UpdateBucket {
-        self.inner.update_bucket()
     }
 
     /// Permanently deletes an object and its metadata.
