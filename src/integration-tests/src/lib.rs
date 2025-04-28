@@ -17,6 +17,7 @@ pub type Result<T> = std::result::Result<T, gax::error::Error>;
 pub mod error_details;
 pub mod firestore;
 pub mod secret_manager;
+pub mod storage;
 pub mod workflows;
 
 pub const SECRET_ID_LENGTH: usize = 64;
