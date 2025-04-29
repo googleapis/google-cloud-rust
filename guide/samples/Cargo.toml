@@ -34,9 +34,6 @@ futures = { version = "0.3" }
 # ANCHOR: longrunning
 google-cloud-longrunning = { version = "0.24", path = "../../src/generated/longrunning" }
 # ANCHOR_END: longrunning
-# ANCHOR: gax
-google-cloud-gax = { version = "0.22", features = ["unstable-stream"], path = "../../src/gax" }
-# ANCHOR_END: gax
 # ANCHOR: speech
 google-cloud-speech-v2 = { version = "0.3", path = "../../src/generated/cloud/speech/v2" }
 # ANCHOR_END: speech
@@ -48,6 +45,15 @@ google-cloud-language-v2 = { version = "0.3", path = "../../src/generated/cloud/
 # ANCHOR_END: language
 google-cloud-rpc = { version = "0.3", path = "../../src/generated/rpc/types" }
 google-cloud-wkt = { version = "0.3", path = "../../src/wkt" }
+
+# ANCHOR: gax-with-streams
+# ANCHOR: gax
+[dependencies.google-cloud-gax] 
+version          = "0.22"
+# ANCHOR_END: gax
+features         = ["unstable-stream"]
+# ANCHOR_END: gax-with-streams
+path = "../../src/gax"
 
 # ANCHOR: mockall
 [dev-dependencies]

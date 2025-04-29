@@ -14,17 +14,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Iterating Google API List methods
+# Working with List operations
 
-The standard Google API List method follows the pagination guideline defined by
-[AIP-158](https://google.aip.dev/158). Each call to a List method for a resource
-returns a "page" of resource items (e.g. Secrets) along with a
-"next-page token" that can be passed to the List method to retrieve the next
-page.
+Some services return over potentially large lists of items, such as rows or
+resource descriptions. To keep CPU and memory usage under control, the services
+returned theses resources in `pages`: smaller subsets of the items with a
+continuation token to request the next subset.
 
-The Google Cloud Client Libraries for Rust provide an adapter to converts the
-list RPCs as defined by [AIP-4233](https://google.aip.dev/client-libraries/4233)
-into a \[futures::Stream\] that can be iterated over in an async fashion.
+Iterating over items in this way can be tedious. The client libraries provide
+adapters to convert the pages into asynchronous iterators. This guide will show
+you how to work with these adapters.
 
 ## Prerequisites
 
@@ -45,41 +44,53 @@ As it is usual with Rust, you must declare the dependency in your
 {{#include ../samples/Cargo.toml:secretmanager}}
 ```
 
-This guide also requires the optional feature `unstable-stream` in the
-`google-cloud-gax` dependency.
-
-```toml
-{{#include ../samples/Cargo.toml:gax}}
-```
-
 ## Iterating List methods
 
-To iterate the pages of a List method, we use the provided Paginator `next`
-function. Paginator will fill in the next page token of the next List RPC as
-needed.
+To help iterate the items in a list method, the API return an implementation of
+the `Paginator` trait. We need to introduce it in scope via a `use` declaration:
 
 ```rust,ignore
-{{#include ../samples/src/pagination.rs:paginator-iterate-pages}}
+{{#include ../samples/src/pagination.rs:paginator-use}}
 ```
 
-To iterate as a stream, we use the provided optional feature `into_stream`
-function.
-
-```rust,ignore
-{{#include ../samples/src/pagination.rs:paginator-stream-pages}}
-```
-
-Paginator also provides the `items` function to iterate the resource items
-(e.g. Secrets).
+To iterate the items, we use the provided Paginator `items` function.
 
 ```rust,ignore
 {{#include ../samples/src/pagination.rs:paginator-iterate-items}}
 ```
 
-Similarly, use the `into_stream` function to stream the items.
+In rare cases, pages contain extra information outside of the items that you may
+need access to. Or you may need to checkpoint your progress across processes. In
+these cases, you can do so by iterating over the full pages instead of the
+individual items.
+
+```rust,ignore
+{{#include ../samples/src/pagination.rs:paginator-iterate-pages}}
+```
+
+### Working with futures::Stream
+
+You may want to use these APIs in the larger Rust ecosystem of asynchronous
+streams, such as `tokio::Stream`.  This is readily done, but you must first
+enable the `unstable-streams` feature in the `google_cloud_gax` crate:
+
+```toml
+{{#include ../samples/Cargo.toml:gax-with-streams}}
+```
+
+The name of this feature is intended to convey that we consider these APIs
+unstable, because they are! You should only use them if you are prepared to work
+with deal with any breaks that result from incompatible changes to the
+`futures_core::Stream` trait.
 
 ```rust,ignore
 {{#include ../samples/src/pagination.rs:paginator-stream-items}}
+```
+
+Similarly, use the `into_stream` function to stream the pages.
+
+```rust,ignore
+{{#include ../samples/src/pagination.rs:paginator-stream-pages}}
 ```
 
 ## Resuming List methods by setting next page token
@@ -91,5 +102,18 @@ token to start resume paginating from a specific page.
 {{#include ../samples/src/pagination.rs:paginator-page-token}}
 ```
 
+## Additional paginator technical details
+
+The standard Google API List method follows the pagination guideline defined by
+[AIP-158]. Each call to a List method for a resource returns a "page" of
+resource items (e.g. Secrets) along with a "next-page token" that can be passed
+to the List method to retrieve the next page.
+
+The Google Cloud Client Libraries for Rust provide an adapter to converts the
+list RPCs as defined by [AIP-4233] into a \[futures::Stream\] that can be
+iterated over in an async fashion.
+
+[aip-158]: (https://google.aip.dev/158)
+[aip-4233]: (https://google.aip.dev/client-libraries/4233)
 [quickstart]: https://cloud.google.com/secret-manager/docs/quickstart
 [secret manager]: https://cloud.google.com/secret-manager
