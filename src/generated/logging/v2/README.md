@@ -13,10 +13,14 @@ Writes log entries and manages your Cloud Logging configuration.
 
 The main types to work with this crate are the clients:
 
-* [LoggingServiceV2](https://docs.rs/google-cloud-logging-v2/latest/google_cloud_logging_v2/client/struct.LoggingServiceV2.html)
-* [ConfigServiceV2](https://docs.rs/google-cloud-logging-v2/latest/google_cloud_logging_v2/client/struct.ConfigServiceV2.html)
-* [MetricsServiceV2](https://docs.rs/google-cloud-logging-v2/latest/google_cloud_logging_v2/client/struct.MetricsServiceV2.html)
+- [LoggingServiceV2]
+- [ConfigServiceV2]
+- [MetricsServiceV2]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-logging-v2/latest/google-cloud-logging-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-logging-v2/latest/google-cloud-logging-v2)
+
+[LoggingServiceV2]: https://docs.rs/google-cloud-logging-v2/latest/google_cloud_logging_v2/client/struct.LoggingServiceV2.html
+[ConfigServiceV2]: https://docs.rs/google-cloud-logging-v2/latest/google_cloud_logging_v2/client/struct.ConfigServiceV2.html
+[MetricsServiceV2]: https://docs.rs/google-cloud-logging-v2/latest/google_cloud_logging_v2/client/struct.MetricsServiceV2.html

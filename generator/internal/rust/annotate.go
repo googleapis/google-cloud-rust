@@ -17,6 +17,7 @@ package rust
 import (
 	"fmt"
 	"log/slog"
+	"slices"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -82,6 +83,32 @@ type serviceAnnotations struct {
 	APITitle string
 	// If set, gate this service under a feature named `ModuleName`.
 	PerServiceFeatures bool
+	// If set, skip the builder documentation.
+	SkipBuilderDocs bool
+}
+
+func (a *messageAnnotation) MultiFeatureGates() bool {
+	return len(a.FeatureGates) > 1
+}
+
+func (a *enumAnnotation) MultiFeatureGates() bool {
+	return len(a.FeatureGates) > 1
+}
+
+func (a *oneOfAnnotation) MultiFeatureGates() bool {
+	return len(a.FeatureGates) > 1
+}
+
+func (a *messageAnnotation) SingleFeatureGate() bool {
+	return len(a.FeatureGates) == 1
+}
+
+func (a *enumAnnotation) SingleFeatureGate() bool {
+	return len(a.FeatureGates) == 1
+}
+
+func (a *oneOfAnnotation) SingleFeatureGate() bool {
+	return len(a.FeatureGates) == 1
 }
 
 type messageAnnotation struct {
@@ -93,6 +120,9 @@ type messageAnnotation struct {
 	// The fully qualified name, relative to `codec.modulePath`. Typically this
 	// is the `QualifiedName` with the `crate::model::` prefix removed.
 	RelativeName string
+	// The package name mapped to Rust modules. That is, `google.service.v1`
+	// becomes `google::service::v1`.
+	PackageModuleName string
 	// The FQN is the source specification
 	SourceFQN         string
 	MessageAttributes []string
@@ -109,6 +139,9 @@ type messageAnnotation struct {
 	// If true, this is a synthetic message, some generation is skipped for
 	// synthetic messages
 	HasSyntheticFields bool
+	// If set, this message is only enabled when some features are enabled.
+	FeatureGates   []string
+	FeatureGatesOp string
 }
 
 type methodAnnotation struct {
@@ -125,6 +158,7 @@ type methodAnnotation struct {
 	OperationInfo       *operationInfo
 	SystemParameters    []systemParameter
 	ReturnType          string
+	SkipBuilderDocs     bool
 }
 
 type pathInfoAnnotation struct {
@@ -142,6 +176,14 @@ type operationInfo struct {
 	MetadataTypeInDocs string
 	ResponseTypeInDocs string
 	PackageNamespace   string
+}
+
+type routingVariantAnnotations struct {
+	FirstVariant     bool
+	FieldAccessors   []string
+	PrefixSegments   []string
+	MatchingSegments []string
+	SuffixSegments   []string
 }
 
 type oneOfAnnotation struct {
@@ -169,6 +211,9 @@ type oneOfAnnotation struct {
 	RepeatedFields []*api.Field
 	// The subset of the oneof fields that are maps (`HashMap<K, V>` in Rust).
 	MapFields []*api.Field
+	// If set, this enum is only enabled when some features are enabled.
+	FeatureGates   []string
+	FeatureGatesOp string
 }
 
 type fieldAnnotations struct {
@@ -213,6 +258,9 @@ type enumAnnotation struct {
 	// The fully qualified name, relative to `codec.modulePath`. Typically this
 	// is the `QualifiedName` with the `crate::model::` prefix removed.
 	RelativeName string
+	// If set, this enum is only enabled when some features are enabled
+	FeatureGates   []string
+	FeatureGatesOp string
 }
 
 type enumValueAnnotation struct {
@@ -308,8 +356,88 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 		PerServiceFeatures:      codec.perServiceFeatures && len(servicesSubset) > 0,
 	}
 
+	codec.addFeatureAnnotations(model, ann)
+
 	model.Codec = ann
 	return ann
+}
+
+func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
+	if !c.perServiceFeatures {
+		return
+	}
+	var allFeatures []string
+	for _, service := range ann.Services {
+		svcAnn := service.Codec.(*serviceAnnotations)
+		allFeatures = append(allFeatures, svcAnn.ModuleName)
+		deps := api.FindServiceDependencies(model, service.ID)
+		for _, id := range deps.Enums {
+			enum, ok := model.State.EnumByID[id]
+			// Some messages are not annotated (e.g. external messages).
+			if !ok || enum.Codec == nil {
+				continue
+			}
+			annotation := enum.Codec.(*enumAnnotation)
+			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+			slices.Sort(annotation.FeatureGates)
+			annotation.FeatureGatesOp = "any"
+		}
+		for _, id := range deps.Messages {
+			msg, ok := model.State.MessageByID[id]
+			// Some messages are not annotated (e.g. external messages).
+			if !ok || msg.Codec == nil {
+				continue
+			}
+			annotation := msg.Codec.(*messageAnnotation)
+			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+			slices.Sort(annotation.FeatureGates)
+			annotation.FeatureGatesOp = "any"
+			for _, one := range msg.OneOfs {
+				if one.Codec == nil {
+					continue
+				}
+				annotation := one.Codec.(*oneOfAnnotation)
+				annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+				slices.Sort(annotation.FeatureGates)
+				annotation.FeatureGatesOp = "any"
+			}
+		}
+	}
+	// Rarely, some messages and enums are not used by any service. These
+	// will lack any feature gates, but may depend on messages that do.
+	// Change them to work only if all features are enabled.
+	slices.Sort(allFeatures)
+	for _, msg := range model.State.MessageByID {
+		if msg.Codec == nil {
+			continue
+		}
+		annotation := msg.Codec.(*messageAnnotation)
+		if len(annotation.FeatureGates) > 0 {
+			continue
+		}
+		annotation.FeatureGatesOp = "all"
+		annotation.FeatureGates = allFeatures
+	}
+	for _, enum := range model.State.EnumByID {
+		if enum.Codec == nil {
+			continue
+		}
+		annotation := enum.Codec.(*enumAnnotation)
+		if len(annotation.FeatureGates) > 0 {
+			continue
+		}
+		annotation.FeatureGatesOp = "all"
+		annotation.FeatureGates = allFeatures
+	}
+}
+
+// Maps "google.foo.v1" to "google::foo::v1"
+func packageToModuleName(p string) string {
+	components := strings.Split(p, ".")
+	for i, c := range components {
+		components[i] = toSnake(c)
+	}
+	return strings.Join(components, "::")
 }
 
 func (c *codec) annotateService(s *api.Service, model *api.API) {
@@ -324,14 +452,11 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 			break
 		}
 	}
-	components := strings.Split(s.Package, ".")
-	for i, c := range components {
-		components[i] = toSnake(c)
-	}
+	moduleName := toSnake(s.Name)
 	ann := &serviceAnnotations{
 		Name:              toPascal(s.Name),
-		PackageModuleName: strings.Join(components, "::"),
-		ModuleName:        toSnake(s.Name),
+		PackageModuleName: packageToModuleName(s.Package),
+		ModuleName:        moduleName,
 		DocLines: c.formatDocComments(
 			s.Documentation, s.ID, model.State, []string{s.ID, s.Package}),
 		Methods:            methods,
@@ -339,6 +464,7 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 		HasLROs:            hasLROs,
 		APITitle:           model.Title,
 		PerServiceFeatures: c.perServiceFeatures,
+		SkipBuilderDocs:    c.skipBuilderDocs,
 	}
 	s.Codec = ann
 }
@@ -408,6 +534,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		ModuleName:         toSnake(m.Name),
 		QualifiedName:      qualifiedName,
 		RelativeName:       relativeName,
+		PackageModuleName:  packageToModuleName(m.Package),
 		SourceFQN:          strings.TrimPrefix(m.ID, "."),
 		DocLines:           c.formatDocComments(m.Documentation, m.ID, state, m.Scopes()),
 		MessageAttributes:  messageAttributes(),
@@ -430,6 +557,19 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	}
 	pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
 
+	for _, routing := range m.Routing {
+		for index, variant := range routing.Variants {
+			routingVariantAnnotations := &routingVariantAnnotations{
+				FirstVariant:     index == 0,
+				FieldAccessors:   c.annotateRoutingAccessors(variant, m, state),
+				PrefixSegments:   annotateSegments(variant.Prefix.Segments),
+				MatchingSegments: annotateSegments(variant.Matching.Segments),
+				SuffixSegments:   annotateSegments(variant.Suffix.Segments),
+			}
+			variant.Codec = routingVariantAnnotations
+		}
+	}
+
 	m.PathInfo.Codec = pathInfoAnnotation
 	returnType := c.methodInOutTypeName(m.OutputTypeID, state, sourceSpecificationPackageName)
 	if m.ReturnsEmpty {
@@ -448,6 +588,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		ServiceNameToSnake:  toSnake(s.Name),
 		SystemParameters:    c.systemParameters,
 		ReturnType:          returnType,
+		SkipBuilderDocs:     c.skipBuilderDocs,
 	}
 	if m.OperationInfo != nil {
 		metadataType := c.methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, sourceSpecificationPackageName)
@@ -461,6 +602,67 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		}
 	}
 	m.Codec = annotation
+}
+
+func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api.Method, state *api.APIState) []string {
+	findField := func(name string, message *api.Message) *api.Field {
+		for _, f := range message.Fields {
+			if f.Name == name {
+				return f
+			}
+		}
+		return nil
+	}
+	var accessors []string
+	message := m.InputType
+	for _, name := range variant.FieldPath {
+		field := findField(name, message)
+		if field == nil {
+			slog.Error("invalid routing field for request message", "field", name, "message ID", message.ID)
+			continue
+		}
+		switch {
+		case field.Optional:
+			accessors = append(accessors, fmt.Sprintf(".and_then(|v| v.%s.as_ref())", name))
+		case field.Typez == api.STRING_TYPE:
+			accessors = append(accessors, fmt.Sprintf(".map(|v| v.%s.as_str())", name))
+		default:
+			accessors = append(accessors, fmt.Sprintf(".map(|v| &v.%s)", name))
+		}
+		if field.Typez == api.MESSAGE_TYPE {
+			if fieldMessage, ok := state.MessageByID[field.TypezID]; ok {
+				message = fieldMessage
+			}
+		}
+	}
+	return accessors
+}
+
+func annotateSegments(segments []string) []string {
+	var ann []string
+	for index, segment := range segments {
+		switch {
+		case segment == api.RoutingMultiSegmentWildcard:
+			if len(segments) == 1 {
+				ann = append(ann, "Segment::MultiWildcard")
+			} else if len(segments) != index+1 {
+				ann = append(ann, "Segment::MultiWildcard")
+			} else {
+				ann = append(ann, "Segment::TrailingMultiWildcard")
+			}
+		case segment == api.RoutingSingleSegmentWildcard:
+			if index != 0 {
+				ann = append(ann, `Segment::Literal("/")`)
+			}
+			ann = append(ann, "Segment::SingleWildcard")
+		default:
+			if index != 0 {
+				ann = append(ann, `Segment::Literal("/")`)
+			}
+			ann = append(ann, fmt.Sprintf(`Segment::Literal("%s")`, segment))
+		}
+	}
+	return ann
 }
 
 func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {

@@ -32,10 +32,10 @@ defaults in your `settings.json` file:
         "cargo",
         "check",
         "--quiet",
+        "--profile=test",
         "--message-format=json",
         "--keep-going"
     ],
-    "rust-analyzer.cargo.features": ["proc-macro"],
     "rust-analyzer.check.workspace": false
 }
 ```

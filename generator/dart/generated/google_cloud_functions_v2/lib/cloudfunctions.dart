@@ -45,7 +45,9 @@ class FunctionService {
 
   /// Returns a function with the given name from the requested project.
   Future<Function$> getFunction(GetFunctionRequest request) async {
-    final url = Uri.https(_host, '/v2/${request.name}');
+    final url = Uri.https(_host, '/v2/${request.name}', {
+      if (request.revision != null) 'revision': request.revision!,
+    });
     final response = await _client.get(url);
     return Function$.fromJson(response);
   }
@@ -53,7 +55,12 @@ class FunctionService {
   /// Returns a list of functions that belong to the requested project.
   Future<ListFunctionsResponse> listFunctions(
       ListFunctionsRequest request) async {
-    final url = Uri.https(_host, '/v2/${request.parent}/functions');
+    final url = Uri.https(_host, '/v2/${request.parent}/functions', {
+      if (request.pageSize != null) 'pageSize': '${request.pageSize}',
+      if (request.pageToken != null) 'pageToken': request.pageToken!,
+      if (request.filter != null) 'filter': request.filter!,
+      if (request.orderBy != null) 'orderBy': request.orderBy!,
+    });
     final response = await _client.get(url);
     return ListFunctionsResponse.fromJson(response);
   }
@@ -69,7 +76,9 @@ class FunctionService {
   /// [Operation.responseAsMessage] will contain the operation's result.
   Future<Operation<Function$, OperationMetadata>> createFunction(
       CreateFunctionRequest request) async {
-    final url = Uri.https(_host, '/v2/${request.parent}/functions');
+    final url = Uri.https(_host, '/v2/${request.parent}/functions', {
+      if (request.functionId != null) 'functionId': request.functionId!,
+    });
     final response = await _client.post(url, body: request.function);
     return Operation.fromJson(
       response,
@@ -86,7 +95,10 @@ class FunctionService {
   /// [Operation.responseAsMessage] will contain the operation's result.
   Future<Operation<Function$, OperationMetadata>> updateFunction(
       UpdateFunctionRequest request) async {
-    final url = Uri.https(_host, '/v2/${request.function.name}');
+    final url = Uri.https(_host, '/v2/${request.function.name}', {
+      if (request.updateMask?.paths != null)
+        'updateMask.paths': request.updateMask?.paths!,
+    });
     final response = await _client.patch(url, body: request.function);
     return Operation.fromJson(
       response,
@@ -158,7 +170,9 @@ class FunctionService {
 
   /// Returns a list of runtimes that are supported for the requested project.
   Future<ListRuntimesResponse> listRuntimes(ListRuntimesRequest request) async {
-    final url = Uri.https(_host, '/v2/${request.parent}/runtimes');
+    final url = Uri.https(_host, '/v2/${request.parent}/runtimes', {
+      if (request.filter != null) 'filter': request.filter!,
+    });
     final response = await _client.get(url);
     return ListRuntimesResponse.fromJson(response);
   }
@@ -166,7 +180,11 @@ class FunctionService {
   /// Lists information about the supported locations for this service.
   Future<ListLocationsResponse> listLocations(
       ListLocationsRequest request) async {
-    final url = Uri.https(_host, '/v2/${request.name}/locations');
+    final url = Uri.https(_host, '/v2/${request.name}/locations', {
+      if (request.filter != null) 'filter': request.filter!,
+      if (request.pageSize != null) 'pageSize': '${request.pageSize}',
+      if (request.pageToken != null) 'pageToken': request.pageToken!,
+    });
     final response = await _client.get(url);
     return ListLocationsResponse.fromJson(response);
   }
@@ -185,7 +203,11 @@ class FunctionService {
   /// Gets the access control policy for a resource. Returns an empty policy
   /// if the resource exists and does not have a policy set.
   Future<Policy> getIamPolicy(GetIamPolicyRequest request) async {
-    final url = Uri.https(_host, '/v2/${request.resource}:getIamPolicy');
+    final url = Uri.https(_host, '/v2/${request.resource}:getIamPolicy', {
+      if (request.options?.requestedPolicyVersion != null)
+        'options.requestedPolicyVersion':
+            '${request.options?.requestedPolicyVersion}',
+    });
     final response = await _client.get(url);
     return Policy.fromJson(response);
   }
@@ -207,7 +229,11 @@ class FunctionService {
   /// Provides the `Operations` service functionality in this service.
   Future<ListOperationsResponse> listOperations(
       ListOperationsRequest request) async {
-    final url = Uri.https(_host, '/v2/${request.name}/operations');
+    final url = Uri.https(_host, '/v2/${request.name}/operations', {
+      if (request.filter != null) 'filter': request.filter!,
+      if (request.pageSize != null) 'pageSize': '${request.pageSize}',
+      if (request.pageToken != null) 'pageToken': request.pageToken!,
+    });
     final response = await _client.get(url);
     return ListOperationsResponse.fromJson(response);
   }

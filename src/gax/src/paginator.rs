@@ -28,7 +28,7 @@ pub mod internal {
     /// Describes a type that can be iterated over asynchronously when used with
     /// [super::Paginator].
     pub trait PageableResponse {
-        type PageItem;
+        type PageItem: Send;
 
         // Consumes the [PageableResponse] and returns the items associated with the
         // current page.
@@ -54,7 +54,7 @@ pub mod internal {
 
 /// An adapter that converts list RPCs as defined by [AIP-4233](https://google.aip.dev/client-libraries/4233)
 /// into a [futures::Stream] that can be iterated over in an async fashion.
-pub trait Paginator<T, E>
+pub trait Paginator<T, E>: Send
 where
     T: internal::PageableResponse,
 {
@@ -62,7 +62,7 @@ where
     fn items(self) -> impl ItemPaginator<T, E>;
 
     /// Returns the next mutation of the wrapped stream.
-    fn next(&mut self) -> impl Future<Output = Option<Result<T, E>>>;
+    fn next(&mut self) -> impl Future<Output = Option<Result<T, E>>> + Send;
 
     #[cfg(feature = "unstable-stream")]
     /// Convert the paginator to a stream.
@@ -155,7 +155,7 @@ impl<T, E> std::fmt::Debug for PaginatorImpl<T, E> {
     }
 }
 
-pub trait ItemPaginator<T, E>
+pub trait ItemPaginator<T, E>: Send
 where
     T: internal::PageableResponse,
 {
@@ -164,7 +164,7 @@ where
     /// Enable the `unstable-stream` feature to interact with a [`futures::stream::Stream`].
     ///
     /// [`futures::stream::Stream`]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
-    fn next(&mut self) -> impl Future<Output = Option<Result<T::PageItem, E>>>;
+    fn next(&mut self) -> impl Future<Output = Option<Result<T::PageItem, E>>> + Send;
 
     #[cfg(feature = "unstable-stream")]
     /// Convert the paginator to a stream.

@@ -11,8 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [NetworkSecurity](https://docs.rs/google-cloud-networksecurity-v1/latest/google_cloud_networksecurity_v1/client/struct.NetworkSecurity.html)
+- [NetworkSecurity]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-networksecurity-v1/latest/google-cloud-networksecurity-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-networksecurity-v1/latest/google-cloud-networksecurity-v1)
+
+[NetworkSecurity]: https://docs.rs/google-cloud-networksecurity-v1/latest/google_cloud_networksecurity_v1/client/struct.NetworkSecurity.html

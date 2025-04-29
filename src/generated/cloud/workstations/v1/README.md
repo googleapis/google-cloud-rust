@@ -13,8 +13,10 @@ Allows administrators to create managed developer environments in the cloud.
 
 The main types to work with this crate are the clients:
 
-* [Workstations](https://docs.rs/google-cloud-workstations-v1/latest/google_cloud_workstations_v1/client/struct.Workstations.html)
+- [Workstations]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-workstations-v1/latest/google-cloud-workstations-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-workstations-v1/latest/google-cloud-workstations-v1)
+
+[Workstations]: https://docs.rs/google-cloud-workstations-v1/latest/google_cloud_workstations_v1/client/struct.Workstations.html

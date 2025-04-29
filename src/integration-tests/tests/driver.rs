@@ -78,6 +78,17 @@ mod driver {
             .map_err(report)
     }
 
+    #[test_case(storage::client::Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[test_case(storage::client::Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_storage_buckets(
+        builder: storage::client::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::storage::buckets(builder)
+            .await
+            .map_err(report)
+    }
+
     #[test_case(ta::client::TelcoAutomation::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_error_details(
@@ -120,6 +131,16 @@ mod driver {
         builder: wf::builder::workflows::ClientBuilder,
     ) -> integration_tests::Result<()> {
         integration_tests::workflows::until_done(builder)
+            .await
+            .map_err(report)
+    }
+
+    #[test_case(wfe::client::Executions::builder().with_retry_policy(retry_policy()).with_tracing(); "with tracing and retry enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn workflows_executions(
+        builder: wfe::builder::executions::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::workflows_executions::list(builder)
             .await
             .map_err(report)
     }

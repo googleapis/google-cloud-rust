@@ -13,10 +13,12 @@ We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
 ## What's this?
 
+The Google Cloud client library for the Cloud Functions API.
+
 Manages lightweight user-provided functions executed in response to events.
 
 ## Quickstart
 
-The main types for this package are:
+The main clients for this package are:
 
 - `FunctionService`

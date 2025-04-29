@@ -1439,15 +1439,15 @@ pub mod get_dataset_request {
         /// Default to the FULL view.
         pub const DATASET_VIEW_UNSPECIFIED: DatasetView = DatasetView::new(0);
 
-        /// Includes metadata information for the dataset, such as location,
-        /// etag, lastModifiedTime, etc.
+        /// Updates metadata information for the dataset, such as friendlyName,
+        /// description, labels, etc.
         pub const METADATA: DatasetView = DatasetView::new(1);
 
-        /// Includes ACL information for the dataset, which defines dataset access
+        /// Updates ACL information for the dataset, which defines dataset access
         /// for one or more entities.
         pub const ACL: DatasetView = DatasetView::new(2);
 
-        /// Includes both dataset metadata and ACL information.
+        /// Updates both dataset metadata and ACL information.
         pub const FULL: DatasetView = DatasetView::new(3);
 
         /// Creates a new DatasetView instance.
@@ -1590,6 +1590,10 @@ pub struct UpdateOrPatchDatasetRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub dataset: std::option::Option<crate::model::Dataset>,
 
+    /// Optional. Specifies the fields of dataset that update/patch operation is
+    /// targeting By default, both metadata and ACL fields are updated.
+    pub update_mode: crate::model::update_or_patch_dataset_request::UpdateMode,
+
     /// Optional. The version of the provided access policy schema.
     /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
     /// rejected.
@@ -1645,6 +1649,17 @@ impl UpdateOrPatchDatasetRequest {
         self
     }
 
+    /// Sets the value of [update_mode][crate::model::UpdateOrPatchDatasetRequest::update_mode].
+    pub fn set_update_mode<
+        T: std::convert::Into<crate::model::update_or_patch_dataset_request::UpdateMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_mode = v.into();
+        self
+    }
+
     /// Sets the value of [access_policy_version][crate::model::UpdateOrPatchDatasetRequest::access_policy_version].
     pub fn set_access_policy_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.access_policy_version = v.into();
@@ -1655,6 +1670,79 @@ impl UpdateOrPatchDatasetRequest {
 impl wkt::message::Message for UpdateOrPatchDatasetRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.v2.UpdateOrPatchDatasetRequest"
+    }
+}
+
+/// Defines additional types related to [UpdateOrPatchDatasetRequest].
+pub mod update_or_patch_dataset_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// UpdateMode specifies which dataset fields is updated.
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    pub struct UpdateMode(i32);
+
+    impl UpdateMode {
+        /// The default value.
+        /// Default to the UPDATE_FULL.
+        pub const UPDATE_MODE_UNSPECIFIED: UpdateMode = UpdateMode::new(0);
+
+        /// Includes metadata information for the dataset, such as friendlyName,
+        /// description, labels, etc.
+        pub const UPDATE_METADATA: UpdateMode = UpdateMode::new(1);
+
+        /// Includes ACL information for the dataset, which defines dataset access
+        /// for one or more entities.
+        pub const UPDATE_ACL: UpdateMode = UpdateMode::new(2);
+
+        /// Includes both dataset metadata and ACL information.
+        pub const UPDATE_FULL: UpdateMode = UpdateMode::new(3);
+
+        /// Creates a new UpdateMode instance.
+        pub(crate) const fn new(value: i32) -> Self {
+            Self(value)
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> i32 {
+            self.0
+        }
+
+        /// Gets the enum value as a string.
+        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
+            match self.0 {
+                0 => std::borrow::Cow::Borrowed("UPDATE_MODE_UNSPECIFIED"),
+                1 => std::borrow::Cow::Borrowed("UPDATE_METADATA"),
+                2 => std::borrow::Cow::Borrowed("UPDATE_ACL"),
+                3 => std::borrow::Cow::Borrowed("UPDATE_FULL"),
+                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            }
+        }
+
+        /// Creates an enum value from the value name.
+        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
+            match name {
+                "UPDATE_MODE_UNSPECIFIED" => {
+                    std::option::Option::Some(Self::UPDATE_MODE_UNSPECIFIED)
+                }
+                "UPDATE_METADATA" => std::option::Option::Some(Self::UPDATE_METADATA),
+                "UPDATE_ACL" => std::option::Option::Some(Self::UPDATE_ACL),
+                "UPDATE_FULL" => std::option::Option::Some(Self::UPDATE_FULL),
+                _ => std::option::Option::None,
+            }
+        }
+    }
+
+    impl std::convert::From<i32> for UpdateMode {
+        fn from(value: i32) -> Self {
+            Self::new(value)
+        }
+    }
+
+    impl std::default::Default for UpdateMode {
+        fn default() -> Self {
+            Self::new(0)
+        }
     }
 }
 

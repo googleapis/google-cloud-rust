@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/cbroglie/mustache"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -30,6 +31,9 @@ type mustacheProvider struct {
 }
 
 func (p *mustacheProvider) Get(name string) (string, error) {
+	if strings.HasPrefix(name, "/") {
+		return p.impl(strings.TrimPrefix(name, "/") + ".mustache")
+	}
 	return p.impl(filepath.Join(p.dirname, name) + ".mustache")
 }
 

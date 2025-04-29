@@ -11,9 +11,12 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [KeyDashboardService](https://docs.rs/google-cloud-kms-inventory-v1/latest/google_cloud_kms_inventory_v1/client/struct.KeyDashboardService.html)
-* [KeyTrackingService](https://docs.rs/google-cloud-kms-inventory-v1/latest/google_cloud_kms_inventory_v1/client/struct.KeyTrackingService.html)
+- [KeyDashboardService]
+- [KeyTrackingService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-kms-inventory-v1/latest/google-cloud-kms-inventory-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-kms-inventory-v1/latest/google-cloud-kms-inventory-v1)
+
+[KeyDashboardService]: https://docs.rs/google-cloud-kms-inventory-v1/latest/google_cloud_kms_inventory_v1/client/struct.KeyDashboardService.html
+[KeyTrackingService]: https://docs.rs/google-cloud-kms-inventory-v1/latest/google_cloud_kms_inventory_v1/client/struct.KeyTrackingService.html

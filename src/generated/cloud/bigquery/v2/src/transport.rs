@@ -110,6 +110,7 @@ impl super::stub::DatasetService for DatasetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+        let builder = builder.query(&[("updateMode", &req.update_mode.value())]);
         let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
         self.inner
             .execute(builder, Some(req.dataset), options)
@@ -136,6 +137,7 @@ impl super::stub::DatasetService for DatasetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
+        let builder = builder.query(&[("updateMode", &req.update_mode.value())]);
         let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
         self.inner
             .execute(builder, Some(req.dataset), options)

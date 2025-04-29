@@ -13,11 +13,13 @@ We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
 ## What's this?
 
+The Google Cloud client library for the Secret Manager API.
+
 Stores sensitive data such as API keys, passwords, and certificates.
 Provides convenience while improving security.
 
 ## Quickstart
 
-The main types for this package are:
+The main clients for this package are:
 
 - `SecretManagerService`

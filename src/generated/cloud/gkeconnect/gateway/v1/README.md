@@ -14,8 +14,10 @@ connected Kubernetes clusters.
 
 The main types to work with this crate are the clients:
 
-* [GatewayControl](https://docs.rs/google-cloud-gkeconnect-gateway-v1/latest/google_cloud_gkeconnect_gateway_v1/client/struct.GatewayControl.html)
+- [GatewayControl]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-gkeconnect-gateway-v1/latest/google-cloud-gkeconnect-gateway-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-gkeconnect-gateway-v1/latest/google-cloud-gkeconnect-gateway-v1)
+
+[GatewayControl]: https://docs.rs/google-cloud-gkeconnect-gateway-v1/latest/google_cloud_gkeconnect_gateway_v1/client/struct.GatewayControl.html

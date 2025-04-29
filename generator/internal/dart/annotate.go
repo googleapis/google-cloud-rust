@@ -34,6 +34,7 @@ var omitGeneration = map[string]string{
 }
 
 type modelAnnotations struct {
+	Parent *api.API
 	// The Dart package name (e.g. google_cloud_secretmanager).
 	PackageName string
 	// The version of the generated package.
@@ -41,20 +42,29 @@ type modelAnnotations struct {
 	// Name of the API in snake_format (e.g. secretmanager).
 	MainFileName      string
 	SourcePackageName string
-	HasServices       bool
 	CopyrightYear     string
 	BoilerPlate       []string
 	DefaultHost       string
 	DocLines          []string
-	HasDependencies   bool
 	// A reference to an optional hand-written part file.
 	PartFileReference   string
 	PackageDependencies []packageDependency
 	Imports             []string
-	// Whether the generated package specified any dev_dependencies.
-	HasDevDependencies bool
-	DevDependencies    []string
-	DoNotPublish       bool
+	DevDependencies     []string
+	DoNotPublish        bool
+}
+
+func (m *modelAnnotations) HasServices() bool {
+	return len(m.Parent.Services) > 0
+}
+
+func (m *modelAnnotations) HasDependencies() bool {
+	return len(m.PackageDependencies) > 0
+}
+
+// Whether the generated package specified any dev_dependencies.
+func (m *modelAnnotations) HasDevDependencies() bool {
+	return len(m.DevDependencies) > 0
 }
 
 type serviceAnnotations struct {
@@ -68,35 +78,53 @@ type serviceAnnotations struct {
 }
 
 type messageAnnotation struct {
-	Name              string
-	QualifiedName     string
-	DocLines          []string
-	OmitGeneration    bool
-	ConstructorBody   string // A custom body for the message's constructor.
-	HasFields         bool
-	HasCustomEncoding bool
-	HasToStringLines  bool
-	ToStringLines     []string
+	Parent         *api.Message
+	Name           string
+	QualifiedName  string
+	DocLines       []string
+	OmitGeneration bool
+	// A custom body for the message's constructor.
+	ConstructorBody string
+	ToStringLines   []string
+}
+
+func (m *messageAnnotation) HasFields() bool {
+	return len(m.Parent.Fields) > 0
+}
+
+func (m *messageAnnotation) HasCustomEncoding() bool {
+	_, hasCustomEncoding := usesCustomEncoding[m.Parent.ID]
+	return hasCustomEncoding
+}
+
+func (m *messageAnnotation) HasToStringLines() bool {
+	return len(m.ToStringLines) > 0
 }
 
 type methodAnnotation struct {
+	Parent *api.Method
 	// The method name using Dart naming conventions.
 	Name              string
 	RequestMethod     string
 	RequestType       string
 	ResponseType      string
 	DocLines          []string
-	HasBody           bool
 	ReturnsValue      bool
 	BodyMessageName   string
-	PathParams        []*api.Field
-	QueryParams       []*api.Field
+	QueryLines        []string
 	IsLROGetOperation bool
 }
 
+func (m *methodAnnotation) HasBody() bool {
+	return m.Parent.PathInfo.BodyFieldPath != ""
+}
+
+func (m *methodAnnotation) HasQueryLines() bool {
+	return len(m.QueryLines) > 0
+}
+
 type pathInfoAnnotation struct {
-	PathFmt  string
-	PathArgs []string
+	PathFmt string
 }
 
 type oneOfAnnotation struct {
@@ -143,16 +171,20 @@ type annotateModel struct {
 	imports map[string]string
 	// The mapping from protobuf packages to Dart import statements.
 	packageMapping map[string]string
+	// The protobuf packages that need to be imported with prefixes.
+	packagePrefixes map[string]string
 	// A mapping from field IDs to fields for the fields we know to be required.
 	requiredFields map[string]*api.Field
 }
 
 func newAnnotateModel(model *api.API) *annotateModel {
 	return &annotateModel{
-		model:          model,
-		state:          model.State,
-		imports:        map[string]string{},
-		packageMapping: map[string]string{},
+		model:           model,
+		state:           model.State,
+		imports:         map[string]string{},
+		packageMapping:  map[string]string{},
+		packagePrefixes: map[string]string{},
+		requiredFields:  map[string]*api.Field{},
 	}
 }
 
@@ -200,11 +232,14 @@ func (annotate *annotateModel) annotateModel(options map[string]string) (*modelA
 			}
 			protoPackage := keys[1]
 			annotate.packageMapping[protoPackage] = definition
-		case key == "extra-imports":
-			extraImports := strings.Split(definition, ",")
-			for _, item := range extraImports {
-				annotate.imports[item] = item
+		case strings.HasPrefix(key, "prefix:"):
+			// 'prefix:google.protobuf' = 'protobuf'
+			keys := strings.Split(key, ":")
+			if len(keys) != 2 {
+				return nil, fmt.Errorf("key should be in the format prefix:<proto-package>, got=%q", key)
 			}
+			protoPackage := keys[1]
+			annotate.packagePrefixes[protoPackage] = definition
 		}
 	}
 
@@ -242,10 +277,10 @@ func (annotate *annotateModel) annotateModel(options map[string]string) (*modelA
 	packageDependencies := calculateDependencies(annotate.imports)
 
 	ann := &modelAnnotations{
+		Parent:         model,
 		PackageName:    packageName(model, packageNameOverride),
 		PackageVersion: packageVersion,
 		MainFileName:   strcase.ToSnake(model.Name),
-		HasServices:    len(model.Services) > 0,
 		CopyrightYear:  generationYear,
 		BoilerPlate: append(license.LicenseHeaderBulk(),
 			"",
@@ -259,9 +294,7 @@ func (annotate *annotateModel) annotateModel(options map[string]string) (*modelA
 		DocLines:            formatDocComments(model.Description, model.State),
 		Imports:             calculateImports(annotate.imports),
 		PartFileReference:   partFileReference,
-		HasDependencies:     len(packageDependencies) > 0,
 		PackageDependencies: packageDependencies,
-		HasDevDependencies:  len(devDependencies) > 0,
 		DevDependencies:     devDependencies,
 		DoNotPublish:        doNotPublish,
 	}
@@ -399,21 +432,18 @@ func (annotate *annotateModel) annotateMessage(m *api.Message, imports map[strin
 			"  }"
 	}
 
-	_, hasCustomEncoding := usesCustomEncoding[m.ID]
 	toStringLines := createToStringLines(m)
 
 	_, omit := omitGeneration[m.ID]
 
 	m.Codec = &messageAnnotation{
-		Name:              messageName(m),
-		QualifiedName:     qualifiedName(m),
-		DocLines:          formatDocComments(m.Documentation, annotate.state),
-		OmitGeneration:    omit || m.IsMap,
-		ConstructorBody:   constructorBody,
-		HasFields:         len(m.Fields) > 0,
-		HasCustomEncoding: hasCustomEncoding,
-		HasToStringLines:  len(toStringLines) > 0,
-		ToStringLines:     toStringLines,
+		Parent:          m,
+		Name:            messageName(m),
+		QualifiedName:   qualifiedName(m),
+		DocLines:        formatDocComments(m.Documentation, annotate.state),
+		OmitGeneration:  omit || m.IsMap,
+		ConstructorBody: constructorBody,
+		ToStringLines:   toStringLines,
 	}
 }
 
@@ -460,8 +490,7 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 	}
 
 	pathInfoAnnotation := &pathInfoAnnotation{
-		PathFmt:  httpPathFmt(method.PathInfo),
-		PathArgs: httpPathArgs(method.PathInfo),
+		PathFmt: httpPathFmt(method.PathInfo),
 	}
 	method.PathInfo.Codec = pathInfoAnnotation
 
@@ -486,17 +515,22 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 		annotate.annotateOperationInfo(method.OperationInfo)
 	}
 
+	queryParams := language.QueryParams(method, state)
+	queryLines := []string{}
+	for _, field := range queryParams {
+		queryLines = buildQueryLines(queryLines, "request.", "", field, state)
+	}
+
 	annotation := &methodAnnotation{
+		Parent:            method,
 		Name:              strcase.ToLowerCamel(method.Name),
 		RequestMethod:     strings.ToLower(method.PathInfo.Verb),
-		RequestType:       annotate.resolveTypeName(state.MessageByID[method.InputTypeID]),
-		ResponseType:      annotate.resolveTypeName(state.MessageByID[method.OutputTypeID]),
+		RequestType:       annotate.resolveTypeName(state.MessageByID[method.InputTypeID], true),
+		ResponseType:      annotate.resolveTypeName(state.MessageByID[method.OutputTypeID], true),
 		DocLines:          formatDocComments(method.Documentation, state),
-		HasBody:           method.PathInfo.BodyFieldPath != "",
-		ReturnsValue:      method.OutputTypeID != ".google.protobuf.Empty",
+		ReturnsValue:      !method.ReturnsEmpty,
 		BodyMessageName:   bodyMessageName,
-		PathParams:        language.PathParams(method, state),
-		QueryParams:       language.QueryParams(method, state),
+		QueryLines:        queryLines,
 		IsLROGetOperation: isGetOperation,
 	}
 	method.Codec = annotation
@@ -507,8 +541,8 @@ func (annotate *annotateModel) annotateOperationInfo(operationInfo *api.Operatio
 	metadata := annotate.state.MessageByID[operationInfo.MetadataTypeID]
 
 	operationInfo.Codec = &operationInfoAnnotation{
-		ResponseType: messageName(response),
-		MetadataType: messageName(metadata),
+		ResponseType: annotate.resolveTypeName(response, false),
+		MetadataType: annotate.resolveTypeName(metadata, false),
 	}
 }
 
@@ -529,12 +563,12 @@ func (annotate *annotateModel) annotateField(field *api.Field) {
 		DocLines: formatDocComments(field.Documentation, state),
 		Required: required,
 		Nullable: !required,
-		FromJson: createFromJsonLine(field, state, required),
+		FromJson: annotate.createFromJsonLine(field, state, required),
 		ToJson:   createToJsonLine(field, state, required),
 	}
 }
 
-func createFromJsonLine(field *api.Field, state *api.APIState, required bool) string {
+func (annotate *annotateModel) createFromJsonLine(field *api.Field, state *api.APIState, required bool) string {
 	message := state.MessageByID[field.TypezID]
 
 	isList := field.Repeated
@@ -557,7 +591,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 			return fmt.Sprintf("decodeListEnum(%s, %s.fromJson)%s", data, typeName, bang)
 		case field.Typez == api.MESSAGE_TYPE:
 			_, hasCustomEncoding := usesCustomEncoding[field.TypezID]
-			typeName := messageName(state.MessageByID[field.TypezID])
+			typeName := annotate.resolveTypeName(state.MessageByID[field.TypezID], true)
 			if hasCustomEncoding {
 				return fmt.Sprintf("decodeListMessageCustom(%s, %s.fromJson)%s", data, typeName, bang)
 			} else {
@@ -577,7 +611,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 			return fmt.Sprintf("decodeMapEnum(%s, %s.fromJson)%s", data, typeName, bang)
 		case valueField.Typez == api.MESSAGE_TYPE:
 			_, hasCustomEncoding := usesCustomEncoding[valueField.TypezID]
-			typeName := messageName(state.MessageByID[valueField.TypezID])
+			typeName := annotate.resolveTypeName(state.MessageByID[valueField.TypezID], true)
 			if hasCustomEncoding {
 				return fmt.Sprintf("decodeMapMessageCustom(%s, %s.fromJson)%s", data, typeName, bang)
 			} else {
@@ -597,7 +631,7 @@ func createFromJsonLine(field *api.Field, state *api.APIState, required bool) st
 		return fmt.Sprintf("decodeEnum(%s, %s.fromJson)%s", data, typeName, bang)
 	case field.Typez == api.MESSAGE_TYPE:
 		_, hasCustomEncoding := usesCustomEncoding[field.TypezID]
-		typeName := messageName(state.MessageByID[field.TypezID])
+		typeName := annotate.resolveTypeName(state.MessageByID[field.TypezID], true)
 		if hasCustomEncoding {
 			return fmt.Sprintf("decodeCustom(%s, %s.fromJson)%s", data, typeName, bang)
 		} else {
@@ -659,6 +693,73 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 	return name
 }
 
+// Build a string or strings representing query parameters for the given field.
+//
+// Docs on the format are at
+// https://github.com/googleapis/googleapis/blob/master/google/api/http.proto.
+//
+// Generally:
+//   - primitives, lists of primitives and enums are supported
+//   - repeated fields are passed as lists
+//   - messages need to be unrolled and fields passed individually
+func buildQueryLines(
+	result []string, refPrefix string, paramPrefix string,
+	field *api.Field, state *api.APIState,
+) []string {
+	message := state.MessageByID[field.TypezID]
+	isMap := message != nil && message.IsMap
+
+	ref := fmt.Sprintf("%s%s", refPrefix, fieldName(field))
+	param := fmt.Sprintf("%s%s", paramPrefix, field.JSONName)
+	preable := fmt.Sprintf("if (%s != null) '%s'", ref, param)
+
+	switch {
+	case field.Repeated:
+		// Handle lists; these should be lists of strings or other primitives.
+		switch {
+		case field.Typez == api.STRING_TYPE:
+			return append(result, fmt.Sprintf("%s: %s!", preable, ref))
+		case field.Typez == api.ENUM_TYPE:
+			return append(result, fmt.Sprintf("%s: %s!.map((e) => e.value)", preable, ref))
+		case field.Typez == api.BOOL_TYPE ||
+			field.Typez == api.INT32_TYPE || field.Typez == api.UINT32_TYPE ||
+			field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE ||
+			field.Typez == api.FLOAT_TYPE || field.Typez == api.DOUBLE_TYPE:
+			return append(result, fmt.Sprintf("%s: %s!.map((e) => '$e')", preable, ref))
+		default:
+			slog.Error("unhandled list query param", "type", field.Typez)
+			return append(result, fmt.Sprintf("/* unhandled list query param type: %d */", field.Typez))
+		}
+
+	case isMap:
+		// Maps are not supported.
+		slog.Error("unhandled query param", "type", "map")
+		return append(result, fmt.Sprintf("/* unhandled query param type: %d */", field.Typez))
+
+	case field.Typez == api.MESSAGE_TYPE:
+		// Unroll the fields for messages.
+		for _, field := range message.Fields {
+			result = buildQueryLines(result, ref+"?.", param+".", field, state)
+		}
+		return result
+
+	case field.Typez == api.STRING_TYPE:
+		return append(result, fmt.Sprintf("%s: %s!", preable, ref))
+	case field.Typez == api.ENUM_TYPE:
+		return append(result, fmt.Sprintf("%s: %s!.value", preable, ref))
+	case field.Typez == api.BOOL_TYPE ||
+		field.Typez == api.INT32_TYPE || field.Typez == api.UINT32_TYPE ||
+		field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE ||
+		field.Typez == api.FLOAT_TYPE || field.Typez == api.DOUBLE_TYPE:
+		return append(result, fmt.Sprintf("%s: '${%s}'", preable, ref))
+	case field.Typez == api.BYTES_TYPE:
+		return append(result, fmt.Sprintf("%s: encodeBytes(%s)!", preable, ref))
+	default:
+		slog.Error("unhandled query param", "type", field.Typez)
+		return append(result, fmt.Sprintf("/* unhandled query param type: %d */", field.Typez))
+	}
+}
+
 func (annotate *annotateModel) annotateEnum(enum *api.Enum) {
 	for _, ev := range enum.Values {
 		annotate.annotateEnumValue(ev)
@@ -709,7 +810,7 @@ func (annotate *annotateModel) fieldType(f *api.Field) string {
 			val := annotate.fieldType(message.Fields[1])
 			out = "Map<" + key + ", " + val + ">"
 		} else {
-			out = annotate.resolveTypeName(message)
+			out = annotate.resolveTypeName(message, true)
 		}
 	case api.ENUM_TYPE:
 		e, ok := annotate.state.EnumByID[f.TypezID]
@@ -719,6 +820,10 @@ func (annotate *annotateModel) fieldType(f *api.Field) string {
 		}
 		annotate.updateUsedPackages(e.Package)
 		out = enumName(e)
+		importPrefix, needsImportPrefix := annotate.packagePrefixes[e.Package]
+		if needsImportPrefix {
+			out = importPrefix + "." + out
+		}
 	default:
 		slog.Error("unhandled fieldType", "type", f.Typez, "id", f.TypezID)
 	}
@@ -730,19 +835,24 @@ func (annotate *annotateModel) fieldType(f *api.Field) string {
 	return out
 }
 
-func (annotate *annotateModel) resolveTypeName(message *api.Message) string {
+func (annotate *annotateModel) resolveTypeName(message *api.Message, returnVoidForEmpty bool) string {
 	if message == nil {
 		slog.Error("unable to lookup type")
 		return ""
 	}
 
-	if message.ID == ".google.protobuf.Empty" {
+	if message.ID == ".google.protobuf.Empty" && returnVoidForEmpty {
 		return "void"
 	}
 
 	annotate.updateUsedPackages(message.Package)
 
-	return messageName(message)
+	ref := messageName(message)
+	importPrefix, needsImportPrefix := annotate.packagePrefixes[message.Package]
+	if needsImportPrefix {
+		ref = importPrefix + "." + ref
+	}
+	return ref
 }
 
 func (annotate *annotateModel) updateUsedPackages(packageName string) {
@@ -751,9 +861,11 @@ func (annotate *annotateModel) updateUsedPackages(packageName string) {
 		// Use the packageMapping info to add any necessary import.
 		dartImport, ok := annotate.packageMapping[packageName]
 		if ok {
+			importPrefix, needsImportPrefix := annotate.packagePrefixes[packageName]
+			if needsImportPrefix {
+				dartImport += " as " + importPrefix
+			}
 			annotate.imports[packageName] = dartImport
-		} else {
-			println("missing proto package mapping: " + packageName)
 		}
 	}
 }

@@ -14,10 +14,14 @@ service.
 
 The main types to work with this crate are the clients:
 
-* [DataCatalog](https://docs.rs/google-cloud-datacatalog-v1/latest/google_cloud_datacatalog_v1/client/struct.DataCatalog.html)
-* [PolicyTagManager](https://docs.rs/google-cloud-datacatalog-v1/latest/google_cloud_datacatalog_v1/client/struct.PolicyTagManager.html)
-* [PolicyTagManagerSerialization](https://docs.rs/google-cloud-datacatalog-v1/latest/google_cloud_datacatalog_v1/client/struct.PolicyTagManagerSerialization.html)
+- [DataCatalog]
+- [PolicyTagManager]
+- [PolicyTagManagerSerialization]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-datacatalog-v1/latest/google-cloud-datacatalog-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-datacatalog-v1/latest/google-cloud-datacatalog-v1)
+
+[DataCatalog]: https://docs.rs/google-cloud-datacatalog-v1/latest/google_cloud_datacatalog_v1/client/struct.DataCatalog.html
+[PolicyTagManager]: https://docs.rs/google-cloud-datacatalog-v1/latest/google_cloud_datacatalog_v1/client/struct.PolicyTagManager.html
+[PolicyTagManagerSerialization]: https://docs.rs/google-cloud-datacatalog-v1/latest/google_cloud_datacatalog_v1/client/struct.PolicyTagManagerSerialization.html

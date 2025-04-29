@@ -63,10 +63,6 @@ pub enum DurationError {
     #[error("if seconds and nanoseconds are not zero, they must have the same sign")]
     MismatchedSigns(),
 
-    /// Cannot serialize the duration.
-    #[error("cannot serialize the duration")]
-    Serializate(),
-
     /// Cannot deserialize the duration.
     #[error("cannot deserialize the duration: {0:?}")]
     Deserialize(String),
@@ -169,10 +165,10 @@ impl crate::message::Message for Duration {
         "type.googleapis.com/google.protobuf.Duration"
     }
     fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-        crate::message::to_json_string(self)
+        crate::message::to_json_other(self)
     }
     fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
-        crate::message::from_value(map)
+        crate::message::from_other(map)
     }
 }
 

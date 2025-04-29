@@ -107,12 +107,12 @@ impl<R, M> Operation<R, M> {
 ///   long-running operation completes successfully.
 /// * `M` - the metadata type, that is, the type returned by the service when
 ///   the long-running operation is still in progress.
-pub trait Poller<R, M> {
+pub trait Poller<R, M>: Send {
     /// Query the current status of the long-running operation.
-    fn poll(&mut self) -> impl Future<Output = Option<PollingResult<R, M>>>;
+    fn poll(&mut self) -> impl Future<Output = Option<PollingResult<R, M>>> + Send;
 
     /// Poll the long-running operation until it completes.
-    fn until_done(self) -> impl Future<Output = Result<R>>;
+    fn until_done(self) -> impl Future<Output = Result<R>> + Send;
 
     /// Convert a poller to a [futures::Stream].
     #[cfg(feature = "unstable-stream")]
@@ -131,8 +131,8 @@ pub fn new_poller<ResponseType, MetadataType, S, SF, Q, QF>(
     query: Q,
 ) -> impl Poller<ResponseType, MetadataType>
 where
-    ResponseType: wkt::message::Message + serde::de::DeserializeOwned,
-    MetadataType: wkt::message::Message + serde::de::DeserializeOwned,
+    ResponseType: wkt::message::Message + serde::de::DeserializeOwned + Send,
+    MetadataType: wkt::message::Message + serde::de::DeserializeOwned + Send,
     S: FnOnce() -> SF + Send + Sync,
     SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
         + Send
@@ -218,8 +218,8 @@ where
 impl<ResponseType, MetadataType, S, SF, P, PF> Poller<ResponseType, MetadataType>
     for PollerImpl<ResponseType, MetadataType, S, SF, P, PF>
 where
-    ResponseType: wkt::message::Message + serde::de::DeserializeOwned,
-    MetadataType: wkt::message::Message + serde::de::DeserializeOwned,
+    ResponseType: wkt::message::Message + serde::de::DeserializeOwned + Send,
+    MetadataType: wkt::message::Message + serde::de::DeserializeOwned + Send,
     S: FnOnce() -> SF + Send + Sync,
     SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
         + Send

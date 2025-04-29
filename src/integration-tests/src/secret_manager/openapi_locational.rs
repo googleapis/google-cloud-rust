@@ -68,9 +68,7 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
     new_labels.insert("updated".to_string(), "true".to_string());
     let update = client
         .update_secret_by_project_and_location_and_secret(&project_id, &location_id, &secret_id)
-        .set_update_mask(
-            wkt::FieldMask::default().set_paths(["labels"].map(str::to_string).to_vec()),
-        )
+        .set_update_mask(wkt::FieldMask::default().set_paths(["labels"]))
         .set_request_body(smo::model::Secret::new().set_labels(new_labels))
         .send()
         .await?;
@@ -117,11 +115,7 @@ async fn run_iam(
     println!("\nTesting test_iam_permissions_by_project_and_location_and_secret()");
     let response = client
         .test_iam_permissions_by_project_and_location_and_secret(project_id, location_id, secret_id)
-        .set_permissions(
-            ["secretmanager.versions.access"]
-                .map(str::to_string)
-                .to_vec(),
-        )
+        .set_permissions(["secretmanager.versions.access"])
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -144,14 +138,12 @@ async fn run_iam(
         new_policy.bindings.push(
             smo::model::Binding::new()
                 .set_role(ROLE.to_string())
-                .set_members([format!("serviceAccount:{service_account}")].to_vec()),
+                .set_members([format!("serviceAccount:{service_account}")]),
         );
     }
     let response = client
         .set_iam_policy_by_project_and_location_and_secret(project_id, location_id, secret_id)
-        .set_update_mask(
-            wkt::FieldMask::default().set_paths(["bindings"].map(str::to_string).to_vec()),
-        )
+        .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
         .set_policy(new_policy)
         .send()
         .await?;

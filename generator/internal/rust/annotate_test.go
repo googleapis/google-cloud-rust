@@ -559,14 +559,14 @@ func TestJsonNameAnnotations(t *testing.T) {
 func TestMessageAnnotations(t *testing.T) {
 	message := &api.Message{
 		Name:          "TestMessage",
-		Package:       "test",
-		ID:            ".test.TestMessage",
+		Package:       "test.v1",
+		ID:            ".test.v1.TestMessage",
 		Documentation: "A test message.",
 	}
 	nested := &api.Message{
 		Name:          "NestedMessage",
-		Package:       "test",
-		ID:            ".test.TestMessage.NestedMessage",
+		Package:       "test.v1",
+		ID:            ".test.v1.TestMessage.NestedMessage",
 		Documentation: "A nested message.",
 		Parent:        message,
 	}
@@ -580,11 +580,12 @@ func TestMessageAnnotations(t *testing.T) {
 	}
 	annotateModel(model, codec)
 	want := &messageAnnotation{
-		Name:          "TestMessage",
-		ModuleName:    "test_message",
-		QualifiedName: "crate::model::TestMessage",
-		RelativeName:  "TestMessage",
-		SourceFQN:     "test.TestMessage",
+		Name:              "TestMessage",
+		ModuleName:        "test_message",
+		QualifiedName:     "crate::model::TestMessage",
+		RelativeName:      "TestMessage",
+		PackageModuleName: "test::v1",
+		SourceFQN:         "test.v1.TestMessage",
 		MessageAttributes: []string{
 			`#[serde_with::serde_as]`,
 			`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
@@ -603,11 +604,12 @@ func TestMessageAnnotations(t *testing.T) {
 	}
 
 	want = &messageAnnotation{
-		Name:          "NestedMessage",
-		ModuleName:    "nested_message",
-		QualifiedName: "crate::model::test_message::NestedMessage",
-		RelativeName:  "test_message::NestedMessage",
-		SourceFQN:     "test.TestMessage.NestedMessage",
+		Name:              "NestedMessage",
+		ModuleName:        "nested_message",
+		QualifiedName:     "crate::model::test_message::NestedMessage",
+		RelativeName:      "test_message::NestedMessage",
+		PackageModuleName: "test::v1",
+		SourceFQN:         "test.v1.TestMessage.NestedMessage",
 		MessageAttributes: []string{
 			`#[serde_with::serde_as]`,
 			`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
@@ -684,11 +686,12 @@ func TestFieldAnnotations(t *testing.T) {
 	}
 	annotateModel(model, codec)
 	wantMessage := &messageAnnotation{
-		Name:          "TestMessage",
-		ModuleName:    "test_message",
-		QualifiedName: "crate::model::TestMessage",
-		RelativeName:  "TestMessage",
-		SourceFQN:     "test.TestMessage",
+		Name:              "TestMessage",
+		ModuleName:        "test_message",
+		QualifiedName:     "crate::model::TestMessage",
+		RelativeName:      "TestMessage",
+		PackageModuleName: "test",
+		SourceFQN:         "test.TestMessage",
 		MessageAttributes: []string{
 			`#[serde_with::serde_as]`,
 			`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
@@ -863,11 +866,12 @@ func TestEnumFieldAnnotations(t *testing.T) {
 	}
 	annotateModel(model, codec)
 	wantMessage := &messageAnnotation{
-		Name:          "TestMessage",
-		ModuleName:    "test_message",
-		QualifiedName: "crate::model::TestMessage",
-		RelativeName:  "TestMessage",
-		SourceFQN:     "test.TestMessage",
+		Name:              "TestMessage",
+		ModuleName:        "test_message",
+		QualifiedName:     "crate::model::TestMessage",
+		RelativeName:      "TestMessage",
+		PackageModuleName: "test",
+		SourceFQN:         "test.TestMessage",
 		MessageAttributes: []string{
 			`#[serde_with::serde_as]`,
 			`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,

@@ -14,9 +14,12 @@ with Service Infrastructure.
 
 The main types to work with this crate are the clients:
 
-* [QuotaController](https://docs.rs/google-cloud-api-servicecontrol-v1/latest/google_cloud_api_servicecontrol_v1/client/struct.QuotaController.html)
-* [ServiceController](https://docs.rs/google-cloud-api-servicecontrol-v1/latest/google_cloud_api_servicecontrol_v1/client/struct.ServiceController.html)
+- [QuotaController]
+- [ServiceController]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-api-servicecontrol-v1/latest/google-cloud-api-servicecontrol-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-api-servicecontrol-v1/latest/google-cloud-api-servicecontrol-v1)
+
+[QuotaController]: https://docs.rs/google-cloud-api-servicecontrol-v1/latest/google_cloud_api_servicecontrol_v1/client/struct.QuotaController.html
+[ServiceController]: https://docs.rs/google-cloud-api-servicecontrol-v1/latest/google_cloud_api_servicecontrol_v1/client/struct.ServiceController.html

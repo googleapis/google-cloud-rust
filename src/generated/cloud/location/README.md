@@ -15,8 +15,10 @@ zones, regions, and countries.
 
 The main types to work with this crate are the clients:
 
-* [Locations](https://docs.rs/google-cloud-location/latest/google_cloud_location/client/struct.Locations.html)
+- [Locations]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-location/latest/google-cloud-location)
+- Read the [crate's documentation](https://docs.rs/google-cloud-location/latest/google-cloud-location)
+
+[Locations]: https://docs.rs/google-cloud-location/latest/google_cloud_location/client/struct.Locations.html

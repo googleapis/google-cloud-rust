@@ -15,8 +15,10 @@ that service consumers no longer use.
 
 The main types to work with this crate are the clients:
 
-* [ServiceUsage](https://docs.rs/google-cloud-api-serviceusage-v1/latest/google_cloud_api_serviceusage_v1/client/struct.ServiceUsage.html)
+- [ServiceUsage]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-api-serviceusage-v1/latest/google-cloud-api-serviceusage-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-api-serviceusage-v1/latest/google-cloud-api-serviceusage-v1)
+
+[ServiceUsage]: https://docs.rs/google-cloud-api-serviceusage-v1/latest/google_cloud_api_serviceusage_v1/client/struct.ServiceUsage.html

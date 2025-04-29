@@ -79,6 +79,7 @@ use std::sync::Arc;
 /// internally.
 {{#Codec.PerServiceFeatures}}
 #[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.ModuleName}}")))]
 {{/Codec.PerServiceFeatures}}
 #[derive(Clone, Debug)]
 pub struct {{Codec.Name}} {

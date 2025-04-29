@@ -14,26 +14,46 @@ apps and devices).
 
 The main types to work with this crate are the clients:
 
-* [Agents](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Agents.html)
-* [AnswerRecords](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.AnswerRecords.html)
-* [Contexts](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Contexts.html)
-* [Conversations](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Conversations.html)
-* [ConversationDatasets](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.ConversationDatasets.html)
-* [ConversationModels](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.ConversationModels.html)
-* [ConversationProfiles](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.ConversationProfiles.html)
-* [Documents](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Documents.html)
-* [EncryptionSpecService](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.EncryptionSpecService.html)
-* [EntityTypes](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.EntityTypes.html)
-* [Environments](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Environments.html)
-* [Fulfillments](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Fulfillments.html)
-* [Generators](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Generators.html)
-* [Intents](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Intents.html)
-* [KnowledgeBases](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.KnowledgeBases.html)
-* [Participants](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Participants.html)
-* [Sessions](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Sessions.html)
-* [SessionEntityTypes](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.SessionEntityTypes.html)
-* [Versions](https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Versions.html)
+- [Agents]
+- [AnswerRecords]
+- [Contexts]
+- [Conversations]
+- [ConversationDatasets]
+- [ConversationModels]
+- [ConversationProfiles]
+- [Documents]
+- [EncryptionSpecService]
+- [EntityTypes]
+- [Environments]
+- [Fulfillments]
+- [Generators]
+- [Intents]
+- [KnowledgeBases]
+- [Participants]
+- [Sessions]
+- [SessionEntityTypes]
+- [Versions]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-dialogflow-v2/latest/google-cloud-dialogflow-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-dialogflow-v2/latest/google-cloud-dialogflow-v2)
+
+[Agents]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Agents.html
+[AnswerRecords]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.AnswerRecords.html
+[Contexts]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Contexts.html
+[Conversations]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Conversations.html
+[ConversationDatasets]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.ConversationDatasets.html
+[ConversationModels]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.ConversationModels.html
+[ConversationProfiles]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.ConversationProfiles.html
+[Documents]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Documents.html
+[EncryptionSpecService]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.EncryptionSpecService.html
+[EntityTypes]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.EntityTypes.html
+[Environments]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Environments.html
+[Fulfillments]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Fulfillments.html
+[Generators]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Generators.html
+[Intents]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Intents.html
+[KnowledgeBases]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.KnowledgeBases.html
+[Participants]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Participants.html
+[Sessions]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Sessions.html
+[SessionEntityTypes]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.SessionEntityTypes.html
+[Versions]: https://docs.rs/google-cloud-dialogflow-v2/latest/google_cloud_dialogflow_v2/client/struct.Versions.html

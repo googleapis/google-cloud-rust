@@ -150,8 +150,7 @@ func TestResolveTypeName(t *testing.T) {
 		}, {
 			ID:   ".google.protobuf.Empty",
 			Name: "Empty",
-		},
-		{
+		}, {
 			ID:   ".google.protobuf.Timestamp",
 			Name: "Timestamp",
 		},
@@ -170,7 +169,7 @@ func TestResolveTypeName(t *testing.T) {
 		{".google.protobuf.Timestamp", "Timestamp"},
 		{".google.protobuf.Duration", "Duration"},
 	} {
-		got := annotate.resolveTypeName(state.MessageByID[test.typeId])
+		got := annotate.resolveTypeName(state.MessageByID[test.typeId], true)
 		if got != test.want {
 			t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
 		}
@@ -182,12 +181,10 @@ func TestResolveTypeName_ImportsMessages(t *testing.T) {
 		{
 			ID:      ".google.protobuf.Any",
 			Package: "google.protobuf",
-		},
-		{
+		}, {
 			ID:      ".google.rpc.Status",
 			Package: "google.rpc",
-		},
-		{
+		}, {
 			ID:      ".google.type.Expr",
 			Package: "google.type",
 		},
@@ -216,7 +213,7 @@ func TestResolveTypeName_ImportsMessages(t *testing.T) {
 		{".google.type.Expr", "google.type"},
 	} {
 		annotate.imports = map[string]string{}
-		annotate.resolveTypeName(state.MessageByID[test.typeId])
+		annotate.resolveTypeName(state.MessageByID[test.typeId], true)
 		if _, ok := annotate.imports[test.want]; !ok {
 			t.Errorf("import not added, got: %v want: %s", annotate.imports, test.want)
 		}
@@ -252,6 +249,52 @@ func TestResolveTypeName_ImportsEnum(t *testing.T) {
 	want := "google.type"
 	if _, ok := annotate.imports[want]; !ok {
 		t.Errorf("import not added, got: %v want: %s", annotate.imports, want)
+	}
+}
+
+func TestResolveTypeNameImportPrefixes(t *testing.T) {
+	model := api.NewTestAPI([]*api.Message{
+		{
+			ID:      ".google.protobuf.Timestamp",
+			Name:    "Timestamp",
+			Package: "google.protobuf",
+		}, {
+			ID:      ".google.protobuf.Duration",
+			Name:    "Duration",
+			Package: "google.protobuf",
+		}, {
+			ID:      ".google.rpc.Status",
+			Name:    "Status",
+			Package: "google.rpc",
+		}, {
+			ID:      ".google.type.DayOfWeek",
+			Name:    "DayOfWeek",
+			Package: "google.type",
+		},
+	}, []*api.Enum{}, []*api.Service{})
+
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{
+		"prefix:google.protobuf": "protobuf",
+		"prefix:google.type":     "type",
+	})
+	state := model.State
+
+	for _, test := range []struct {
+		typeId string
+		want   string
+	}{
+		{".google.rpc.Status", "Status"},
+		{".google.protobuf.Timestamp", "protobuf.Timestamp"},
+		{".google.protobuf.Duration", "protobuf.Duration"},
+		{".google.type.DayOfWeek", "type.DayOfWeek"},
+	} {
+		t.Run(test.want, func(t *testing.T) {
+			got := annotate.resolveTypeName(state.MessageByID[test.typeId], true)
+			if got != test.want {
+				t.Errorf("unexpected type name, got: %s want: %s", got, test.want)
+			}
+		})
 	}
 }
 

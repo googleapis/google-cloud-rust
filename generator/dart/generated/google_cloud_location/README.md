@@ -13,12 +13,14 @@ We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
 ## What's this?
 
+The Google Cloud client library for the Cloud Metadata API.
+
 This API provides static metadata about Google Cloud Platform. Currently,
 it only provides basic information about Google Cloud locations, such as
 zones, regions, and countries.
 
 ## Quickstart
 
-The main types for this package are:
+The main clients for this package are:
 
 - `Locations`

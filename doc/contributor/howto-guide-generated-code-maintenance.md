@@ -102,6 +102,8 @@ Then run the unit tests and send a PR with whatever changed.
 
 ## Refreshing the code
 
+### All libraries
+
 Run:
 
 ```bash
@@ -109,6 +111,20 @@ go -C generator/ run ./cmd/sidekick refreshall -project-root .. && cargo fmt
 ```
 
 Then run the unit tests and send a PR with whatever changed.
+
+### Single library
+
+When iterating, it can be useful to regenerate the code associated with a single
+`.sidekick.toml`.
+
+Run:
+
+```bash
+go -C generator/ run ./cmd/sidekick refresh \
+    -output src/generated/cloud/secretmanager/v1 \
+    -project-root .. && \
+    cargo fmt -p google-cloud-secretmanager-v1
+```
 
 ## The Glorious Future
 

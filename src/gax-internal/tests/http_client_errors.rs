@@ -36,7 +36,7 @@ mod test {
             .await;
 
         match response {
-            Ok(v) => assert!(false, "expected an error got={v:?}"),
+            Ok(v) => panic!("expected an error got={v:?}"),
             Err(e) => {
                 let inner = e.as_inner::<gax::error::ServiceError>().unwrap();
                 assert_eq!(

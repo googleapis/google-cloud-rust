@@ -14,8 +14,10 @@ see the Workflows Executions API.
 
 The main types to work with this crate are the clients:
 
-* [Workflows](https://docs.rs/google-cloud-workflows-v1/latest/google_cloud_workflows_v1/client/struct.Workflows.html)
+- [Workflows]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-workflows-v1/latest/google-cloud-workflows-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-workflows-v1/latest/google-cloud-workflows-v1)
+
+[Workflows]: https://docs.rs/google-cloud-workflows-v1/latest/google_cloud_workflows_v1/client/struct.Workflows.html

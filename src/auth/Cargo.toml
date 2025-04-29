@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-auth"
-version     = "0.19.0"
+version     = "0.21.0"
 description = "Google Cloud Client Libraries for Rust - Authentication"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
@@ -53,3 +53,4 @@ tempfile    = "3"
 test-case   = "3"
 tokio       = { version = "1", features = ["macros", "rt-multi-thread", "test-util"] }
 tokio-test  = "0.4"
+url         = "2"

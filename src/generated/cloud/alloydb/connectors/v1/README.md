@@ -9,4 +9,5 @@ APIs, documentation, missing features, bugs, etc.
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-alloydb-connectors-v1/latest/google-cloud-alloydb-connectors-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-alloydb-connectors-v1/latest/google-cloud-alloydb-connectors-v1)
+

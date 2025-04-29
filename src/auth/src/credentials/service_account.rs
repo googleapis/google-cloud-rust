@@ -73,7 +73,7 @@
 
 mod jws;
 
-use crate::credentials::dynamic::CredentialsTrait;
+use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{Credentials, Result};
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::build_bearer_headers;
@@ -390,7 +390,7 @@ impl ServiceAccountTokenProvider {
 }
 
 #[async_trait::async_trait]
-impl<T> CredentialsTrait for ServiceAccountCredentials<T>
+impl<T> CredentialsProvider for ServiceAccountCredentials<T>
 where
     T: TokenProvider,
 {

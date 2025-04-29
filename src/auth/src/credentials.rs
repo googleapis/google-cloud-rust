@@ -30,7 +30,7 @@ use std::sync::Arc;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
-/// An implementation of [crate::credentials::CredentialsTrait].
+/// An implementation of [crate::credentials::CredentialsProvider].
 ///
 /// Represents a [Credentials] used to obtain auth [Token][crate::token::Token]s
 /// and the corresponding request headers.
@@ -73,12 +73,12 @@ pub struct Credentials {
     // They also need to derive `Clone`, as the
     // `gax::http_client::ReqwestClient`s which hold them derive `Clone`. So a
     // `Box` will not do.
-    inner: Arc<dyn dynamic::CredentialsTrait>,
+    inner: Arc<dyn dynamic::CredentialsProvider>,
 }
 
 impl<T> std::convert::From<T> for Credentials
 where
-    T: crate::credentials::CredentialsTrait + Send + Sync + 'static,
+    T: crate::credentials::CredentialsProvider + Send + Sync + 'static,
 {
     fn from(value: T) -> Self {
         Self {
@@ -141,7 +141,7 @@ impl Credentials {
 /// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 /// [Google Compute Engine]: https://cloud.google.com/products/compute
 /// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
-pub trait CredentialsTrait: std::fmt::Debug {
+pub trait CredentialsProvider: std::fmt::Debug {
     /// Asynchronously retrieves a token.
     ///
     /// Returns a [Token][crate::token::Token] for the current credentials.
@@ -165,9 +165,9 @@ pub(crate) mod dynamic {
     use super::Result;
     use super::{HeaderName, HeaderValue};
 
-    /// A dyn-compatible, crate-private version of `CredentialsTrait`.
+    /// A dyn-compatible, crate-private version of `CredentialsProvider`.
     #[async_trait::async_trait]
-    pub trait CredentialsTrait: Send + Sync + std::fmt::Debug {
+    pub trait CredentialsProvider: Send + Sync + std::fmt::Debug {
         /// Asynchronously retrieves a token.
         ///
         /// Returns a [Token][crate::token::Token] for the current credentials.
@@ -189,11 +189,11 @@ pub(crate) mod dynamic {
         }
     }
 
-    /// The public CredentialsTrait implements the dyn-compatible CredentialsTrait.
+    /// The public CredentialsProvider implements the dyn-compatible CredentialsProvider.
     #[async_trait::async_trait]
-    impl<T> CredentialsTrait for T
+    impl<T> CredentialsProvider for T
     where
-        T: super::CredentialsTrait + Send + Sync,
+        T: super::CredentialsProvider + Send + Sync,
     {
         async fn token(&self) -> Result<crate::token::Token> {
             T::token(self).await
@@ -353,7 +353,7 @@ impl Builder {
     /// let credentials = Builder::default()
     ///     .with_quota_project_id("my-project")
     ///     .build();
-    /// });
+    /// # });
     /// ```
     ///
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
@@ -413,56 +413,6 @@ impl Builder {
         };
         build_credentials(json_data, self.quota_project_id, self.scopes)
     }
-}
-
-/// Create access token credentials.
-///
-/// Returns [Application Default Credentials (ADC)][ADC-link]. These are the
-/// most commonly used credentials, and are expected to meet the needs of most
-/// applications. They conform to [AIP-4110].
-///
-/// The access tokens returned by these credentials are to be used in the
-/// `Authorization` HTTP header.
-///
-/// Consider using these credentials when:
-///
-/// - Your application is deployed to a Google Cloud environment such as
-///   [Google Compute Engine (GCE)][gce-link],
-///   [Google Kubernetes Engine (GKE)][gke-link], or [Cloud Run]. Each of these
-///   deployment environments provides a default service account to the
-///   application, and offers mechanisms to change this default service account
-///   without any code changes to your application.
-/// - You are testing or developing the application on a workstation (physical or
-///   virtual). These credentials will use your preferences as set with
-///   [gcloud auth application-default]. These preferences can be your own Google
-///   Cloud user credentials, or some service account.
-/// - Regardless of where your application is running, you can use the
-///   `GOOGLE_APPLICATION_CREDENTIALS` environment variable to override the
-///   defaults. This environment variable should point to a file containing a
-///   service account key file, or a JSON object describing your user
-///   credentials.
-///
-/// Example usage:
-///
-/// ```
-/// # use google_cloud_auth::credentials::create_access_token_credentials;
-/// # use google_cloud_auth::errors::CredentialsError;
-/// # tokio_test::block_on(async {
-/// let mut creds = create_access_token_credentials().await?;
-/// let token = creds.token().await?;
-/// println!("Token: {}", token.token);
-/// # Ok::<(), CredentialsError>(())
-/// # });
-/// ```
-///
-/// [ADC-link]: https://cloud.google.com/docs/authentication/application-default-credentials
-/// [AIP-4110]: https://google.aip.dev/auth/4110
-/// [Cloud Run]: https://cloud.google.com/run
-/// [gce-link]: https://cloud.google.com/products/compute
-/// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
-/// [gke-link]: https://cloud.google.com/kubernetes-engine
-pub async fn create_access_token_credentials() -> Result<Credentials> {
-    Builder::default().build()
 }
 
 #[derive(Debug, PartialEq)]
@@ -601,7 +551,7 @@ fn adc_well_known_path() -> Option<String> {
 pub mod testing {
     use crate::Result;
     use crate::credentials::Credentials;
-    use crate::credentials::dynamic::CredentialsTrait;
+    use crate::credentials::dynamic::CredentialsProvider;
     use crate::token::Token;
     use http::header::{HeaderName, HeaderValue};
     use std::sync::Arc;
@@ -619,7 +569,7 @@ pub mod testing {
     struct TestCredentials;
 
     #[async_trait::async_trait]
-    impl CredentialsTrait for TestCredentials {
+    impl CredentialsProvider for TestCredentials {
         async fn token(&self) -> Result<Token> {
             Ok(Token {
                 token: "test-only-token".to_string(),
@@ -651,7 +601,7 @@ pub mod testing {
     struct ErrorCredentials(bool);
 
     #[async_trait::async_trait]
-    impl CredentialsTrait for ErrorCredentials {
+    impl CredentialsProvider for ErrorCredentials {
         async fn token(&self) -> Result<Token> {
             Err(super::CredentialsError::from_str(self.0, "test-only"))
         }

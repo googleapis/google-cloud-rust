@@ -14,9 +14,12 @@ models.
 
 The main types to work with this crate are the clients:
 
-* [TextToSpeech](https://docs.rs/google-cloud-texttospeech-v1/latest/google_cloud_texttospeech_v1/client/struct.TextToSpeech.html)
-* [TextToSpeechLongAudioSynthesize](https://docs.rs/google-cloud-texttospeech-v1/latest/google_cloud_texttospeech_v1/client/struct.TextToSpeechLongAudioSynthesize.html)
+- [TextToSpeech]
+- [TextToSpeechLongAudioSynthesize]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-texttospeech-v1/latest/google-cloud-texttospeech-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-texttospeech-v1/latest/google-cloud-texttospeech-v1)
+
+[TextToSpeech]: https://docs.rs/google-cloud-texttospeech-v1/latest/google_cloud_texttospeech_v1/client/struct.TextToSpeech.html
+[TextToSpeechLongAudioSynthesize]: https://docs.rs/google-cloud-texttospeech-v1/latest/google_cloud_texttospeech_v1/client/struct.TextToSpeechLongAudioSynthesize.html
