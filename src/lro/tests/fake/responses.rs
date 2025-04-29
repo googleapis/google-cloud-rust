@@ -49,7 +49,7 @@ pub fn pending(name: impl Into<String>, percent: u32) -> Result<(StatusCode, Str
 pub fn operation_error(name: impl Into<String>) -> Result<(StatusCode, String)> {
     let error = rpc::model::Status::default()
         .set_code(gax::error::rpc::Code::AlreadyExists as i32)
-        .set_message(format!("The resource  already exists"));
+        .set_message("The resource  already exists");
     let result =
         longrunning::model::operation::Result::Response(wkt::Any::try_from(&error)?.into());
     let operation = longrunning::model::Operation::default()

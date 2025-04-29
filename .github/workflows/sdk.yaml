@@ -94,7 +94,7 @@ jobs:
             cargo "${sub}" --package google-cloud-wkt --no-default-features --features time
             cargo "${sub}" --package google-cloud-wkt --all-features
           done
-          cargo clippy --no-deps --package google-cloud-wkt --all-features --profile=test -- --deny warnings
+          cargo clippy --no-deps --package google-cloud-wkt --all-features --all-targets --profile=test -- --deny warnings
 
           cargo clean
           echo "==== google-cloud-gax ===="
@@ -103,7 +103,7 @@ jobs:
             cargo "${sub}" --package google-cloud-gax --no-default-features --features unstable-sdk-client
             cargo "${sub}" --package google-cloud-gax --all-features
           done
-          cargo clippy --no-deps --package google-cloud-gax --all-features --profile=test -- --deny warnings
+          cargo clippy --no-deps --package google-cloud-gax --all-features --all-targets --profile=test -- --deny warnings
 
           cargo clean
           echo "==== google-cloud-gax-internal ===="
@@ -114,7 +114,7 @@ jobs:
             cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_grpc_client
             cargo "${sub}" --package google-cloud-gax-internal --all-features
           done
-          cargo clippy --no-deps --package google-cloud-gax-internal --all-features --profile=test -- --deny warnings
+          cargo clippy --no-deps --package google-cloud-gax-internal --all-features --all-targets --profile=test -- --deny warnings
 
           cargo clean
           echo "==== google-cloud-lro ===="
@@ -123,7 +123,7 @@ jobs:
             cargo "${sub}" --profile=ci --package google-cloud-lro --no-default-features --features unstable-stream
             cargo "${sub}" --profile=ci --package google-cloud-lro --all-features
           done
-          cargo clippy --no-deps --package google-cloud-lro --all-features --profile=test -- --deny warnings
+          cargo clippy --no-deps --package google-cloud-lro --all-features --all-targets --profile=test -- --deny warnings
 
           cargo clean
           echo "==== google-cloud-aiplatform-v1 ===="
@@ -241,7 +241,7 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustup show active-toolchain -v
-      - run: cargo clippy --workspace --profile=test -- --deny warnings
+      - run: cargo clippy --workspace --all-targets --profile=test -- --deny warnings
       - run: cargo fmt
       - run: git diff --exit-code
   regenerate:

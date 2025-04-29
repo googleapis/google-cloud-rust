@@ -81,7 +81,7 @@ mod test {
             while let Some(status) = poller.poll().await {
                 match status {
                     lro::PollingResult::InProgress(_) => {
-                        assert!(false, "unexpected InProgress {status:?}")
+                        panic!("unexpected InProgress {status:?}")
                     }
                     lro::PollingResult::PollingError(_) => { /* ignored */ }
                     lro::PollingResult::Completed(result) => {
@@ -222,7 +222,7 @@ mod test {
         while let Some(status) = poller.poll().await {
             match status {
                 lro::PollingResult::InProgress(_) => {
-                    assert!(false, "unexpected InProgress {status:?}")
+                    panic!("unexpected InProgress {status:?}")
                 }
                 lro::PollingResult::PollingError(_) => { /* ignored */ }
                 lro::PollingResult::Completed(result) => {
@@ -255,7 +255,7 @@ mod test {
         while let Some(status) = poller.poll().await {
             match status {
                 lro::PollingResult::InProgress(_) => {
-                    assert!(false, "unexpected InProgress {status:?}")
+                    panic!("unexpected InProgress {status:?}")
                 }
                 lro::PollingResult::PollingError(_) => { /* ignored */ }
                 lro::PollingResult::Completed(result) => {
@@ -403,7 +403,7 @@ mod test {
 
         use longrunning::model::operation;
         match op.result.unwrap() {
-            operation::Result::Error(e) => assert!(false, "unexpected error {e:?}"),
+            operation::Result::Error(e) => panic!("unexpected error {e:?}"),
             operation::Result::Response(any) => {
                 let response = any.try_into_message::<model::Resource>()?;
                 assert_eq!(
@@ -435,7 +435,7 @@ mod test {
         let client = new_client(endpoint).await?;
         let op = client.create_resource("test-p", "r-001").send().await?;
         assert_eq!(op.name, "op/001", "{op:?}");
-        assert_eq!(op.done, false, "{op:?}");
+        assert!(!op.done, "{op:?}");
 
         let metadata = op
             .metadata
@@ -450,7 +450,7 @@ mod test {
 
         let op = client.get_operation(&name).send().await?;
         assert_eq!(op.name, "op/001", "{op:?}");
-        assert_eq!(op.done, false, "{op:?}");
+        assert!(!op.done, "{op:?}");
         let metadata = op
             .metadata
             .map(|any| any.try_into_message::<model::CreateResourceMetadata>())
@@ -462,7 +462,7 @@ mod test {
 
         let op = client.get_operation(&name).send().await?;
         assert_eq!(op.name, "op/001", "{op:?}");
-        assert_eq!(op.done, true, "{op:?}");
+        assert!(op.done, "{op:?}");
         let metadata = op
             .metadata
             .map(|any| any.try_into_message::<model::CreateResourceMetadata>())
@@ -474,7 +474,7 @@ mod test {
 
         use longrunning::model::operation;
         match op.result.unwrap() {
-            operation::Result::Error(e) => assert!(false, "unexpected error {e:?}"),
+            operation::Result::Error(e) => panic!("unexpected error {e:?}"),
             operation::Result::Response(any) => {
                 let response = any.try_into_message::<model::Resource>()?;
                 assert_eq!(
