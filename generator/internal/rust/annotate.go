@@ -120,6 +120,9 @@ type messageAnnotation struct {
 	// The fully qualified name, relative to `codec.modulePath`. Typically this
 	// is the `QualifiedName` with the `crate::model::` prefix removed.
 	RelativeName string
+	// The package name mapped to Rust modules. That is, `google.service.v1`
+	// becomes `google::service::v1`.
+	PackageModuleName string
 	// The FQN is the source specification
 	SourceFQN         string
 	MessageAttributes []string
@@ -428,6 +431,15 @@ func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
 	}
 }
 
+// Maps "google.foo.v1" to "google::foo::v1"
+func packageToModuleName(p string) string {
+	components := strings.Split(p, ".")
+	for i, c := range components {
+		components[i] = toSnake(c)
+	}
+	return strings.Join(components, "::")
+}
+
 func (c *codec) annotateService(s *api.Service, model *api.API) {
 	// Some codecs skip some methods.
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
@@ -440,14 +452,10 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 			break
 		}
 	}
-	components := strings.Split(s.Package, ".")
-	for i, c := range components {
-		components[i] = toSnake(c)
-	}
 	moduleName := toSnake(s.Name)
 	ann := &serviceAnnotations{
 		Name:              toPascal(s.Name),
-		PackageModuleName: strings.Join(components, "::"),
+		PackageModuleName: packageToModuleName(s.Package),
 		ModuleName:        moduleName,
 		DocLines: c.formatDocComments(
 			s.Documentation, s.ID, model.State, []string{s.ID, s.Package}),
@@ -526,6 +534,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		ModuleName:         toSnake(m.Name),
 		QualifiedName:      qualifiedName,
 		RelativeName:       relativeName,
+		PackageModuleName:  packageToModuleName(m.Package),
 		SourceFQN:          strings.TrimPrefix(m.ID, "."),
 		DocLines:           c.formatDocComments(m.Documentation, m.ID, state, m.Scopes()),
 		MessageAttributes:  messageAttributes(),
