@@ -499,7 +499,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn default_universe_domain() {
+    async fn default_universe_domain_success() {
         let mock = MockTokenProvider::new();
 
         let uc = UserCredentials {
