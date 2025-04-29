@@ -88,6 +88,7 @@ use rustls_pemfile::Item;
 use serde_json::Value;
 use std::sync::Arc;
 use time::OffsetDateTime;
+use tokio::time::Instant;
 
 const DEFAULT_SCOPE: &str = "https://www.googleapis.com/auth/cloud-platform";
 
@@ -306,17 +307,21 @@ struct ServiceAccountTokenProvider {
     restrictions: ServiceAccountRestrictions,
 }
 
+fn token_expiry_time(current_time: OffsetDateTime) -> OffsetDateTime {
+    token_issue_time(current_time) + DEFAULT_TOKEN_TIMEOUT
+}
+
+fn token_issue_time(current_time: OffsetDateTime) -> OffsetDateTime {
+    current_time - CLOCK_SKEW_FUDGE
+}
+
 #[async_trait]
 impl TokenProvider for ServiceAccountTokenProvider {
     async fn token(&self) -> Result<Token> {
         let signer = self.signer(&self.service_account_key.private_key)?;
 
-        let expires_at = std::time::Instant::now() - CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
-        // The claims encode a unix timestamp. `std::time::Instant` has no
-        // epoch, so we use `time::OffsetDateTime`, which reads system time, in
-        // the implementation.
-        let now = OffsetDateTime::now_utc() - CLOCK_SKEW_FUDGE;
-        let exp = now + DEFAULT_TOKEN_TIMEOUT;
+        let current_time = OffsetDateTime::now_utc();
+        let expires_at = Instant::now() - CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
 
         let claims = JwsClaims {
             iss: self.service_account_key.client_email.clone(),
@@ -325,8 +330,8 @@ impl TokenProvider for ServiceAccountTokenProvider {
                 .get_scopes()
                 .map(|scopes| scopes.join(" ")),
             aud: self.restrictions.get_audience().cloned(),
-            exp,
-            iat: now,
+            exp: token_expiry_time(current_time),
+            iat: token_issue_time(current_time),
             typ: None,
             sub: Some(self.service_account_key.client_email.clone()),
         };
@@ -350,7 +355,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
         let token = Token {
             token,
             token_type: "Bearer".to_string(),
-            expires_at: Some(expires_at),
+            expires_at: Some(expires_at.into_std()),
             metadata: None,
         };
         Ok(token)
@@ -438,6 +443,20 @@ mod test {
         assert!(!fmt.contains("super-duper-secret-private-key"), "{fmt}");
         assert!(fmt.contains("test-project-id"), "{fmt}");
         assert!(fmt.contains("test-universe-domain"), "{fmt}");
+    }
+
+    #[test]
+    fn validate_token_issue_time() {
+        let current_time = OffsetDateTime::now_utc();
+        let token_issue_time = token_issue_time(current_time);
+        assert!(token_issue_time == current_time - CLOCK_SKEW_FUDGE);
+    }
+
+    #[test]
+    fn validate_token_expiry_time() {
+        let current_time = OffsetDateTime::now_utc();
+        let token_issue_time = token_expiry_time(current_time);
+        assert!(token_issue_time == current_time - CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT);
     }
 
     #[tokio::test]
@@ -757,6 +776,22 @@ mod test {
         assert!(claims["iat"].is_number());
         assert!(claims["exp"].is_number());
         assert_eq!(claims["sub"], service_account_key["client_email"]);
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn get_service_account_token_verify_expiry_time() -> TestResult {
+        let now = Instant::now();
+        let mut service_account_key = get_mock_service_key();
+        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+        let token = Builder::new(service_account_key.clone())
+            .build()?
+            .token()
+            .await?;
+
+        let expected_expiry = now - CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
+
+        assert_eq!(token.expires_at.unwrap(), expected_expiry.into_std());
         Ok(())
     }
 
