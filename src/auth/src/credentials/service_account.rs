@@ -307,12 +307,12 @@ struct ServiceAccountTokenProvider {
     restrictions: ServiceAccountRestrictions,
 }
 
-fn token_expiry_time(current_time: OffsetDateTime) -> OffsetDateTime {
-    token_issue_time(current_time) + DEFAULT_TOKEN_TIMEOUT
-}
-
 fn token_issue_time(current_time: OffsetDateTime) -> OffsetDateTime {
     current_time - CLOCK_SKEW_FUDGE
+}
+
+fn token_expiry_time(current_time: OffsetDateTime) -> OffsetDateTime {
+    token_issue_time(current_time) + DEFAULT_TOKEN_TIMEOUT
 }
 
 #[async_trait]
@@ -320,8 +320,8 @@ impl TokenProvider for ServiceAccountTokenProvider {
     async fn token(&self) -> Result<Token> {
         let signer = self.signer(&self.service_account_key.private_key)?;
 
-        let current_time = OffsetDateTime::now_utc();
         let expires_at = Instant::now() - CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
+        let current_time = OffsetDateTime::now_utc();
 
         let claims = JwsClaims {
             iss: self.service_account_key.client_email.clone(),
