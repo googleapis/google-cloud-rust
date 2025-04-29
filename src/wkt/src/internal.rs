@@ -12,6 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub struct F32;
+
+impl serde_with::SerializeAs<f32> for F32 {
+    fn serialize_as<S>(value: &f32, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        float_serialize(value, serializer)
+    }
+}
+
+impl<'de> serde_with::DeserializeAs<'de, f32> for F32 {
+    fn deserialize_as<D>(deserializer: D) -> Result<f32, D::Error>
+    where
+        D: serde::de::Deserializer<'de>,
+    {
+        float_deserialize(deserializer)
+    }
+}
+
 /// A helper to serialize `f32` to ProtoJSON format.
 pub fn float_serialize<S>(x: &f32, s: S) -> std::result::Result<S::Ok, S::Error>
 where
