@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Error;
-use crate::Result;
+use crate::{Error, RandomChars, Result};
+use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
+use gax::options::RequestOptionsBuilder;
 use gax::paginator::{ItemPaginator, Paginator};
 use rand::Rng;
+use std::time::Duration;
 use storage::model::Bucket;
 
 pub const BUCKET_ID_LENGTH: usize = 63;
@@ -51,6 +53,7 @@ pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
                 .set_project(format!("projects/{project_id}"))
                 .set_labels([("integration-test", "true")]),
         )
+        .with_backoff_policy(test_backoff())
         .send()
         .await?;
     println!("SUCCESS on create_bucket: {create:?}");
@@ -62,20 +65,19 @@ pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
     assert_eq!(get.name, bucket_name);
 
     println!("\nTesting list_buckets()");
-    let mut paginator = client
+    let mut buckets = client
         .list_buckets(format!("projects/{project_id}"))
         .paginator()
         .await
         .items();
     let mut bucket_names = Vec::new();
-    while let Some(bucket) = paginator.next().await {
+    while let Some(bucket) = buckets.next().await {
         bucket_names.push(bucket?.name);
     }
     println!("SUCCESS on list_buckets");
     assert!(
         bucket_names.iter().any(|name| name == &bucket_name),
-        "missing bucket name {} in {bucket_names:?}",
-        &bucket_name
+        "missing bucket name {bucket_name} in {bucket_names:?}"
     );
 
     println!("\nTesting delete_bucket()");
@@ -93,23 +95,23 @@ async fn cleanup_stale_buckets(client: &storage::client::Storage, project_id: &s
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
-    let mut items = client
+    let mut buckets = client
         .list_buckets(format!("projects/{project_id}"))
         .paginator()
         .await
         .items();
     let mut pending = Vec::new();
     let mut names = Vec::new();
-    while let Some(bucket) = items.next().await {
-        let item = bucket?;
-        if let Some("true") = item.labels.get("integration-test").map(String::as_str) {
-            if let Some(true) = item.create_time.map(|v| v < stale_deadline) {
+    while let Some(bucket) = buckets.next().await {
+        let bucket = bucket?;
+        if let Some("true") = bucket.labels.get("integration-test").map(String::as_str) {
+            if let Some(true) = bucket.create_time.map(|v| v < stale_deadline) {
                 let client = client.clone();
-                let name = item.name.clone();
+                let name = bucket.name.clone();
                 pending.push(tokio::spawn(
                     async move { cleanup_bucket(client, name).await },
                 ));
-                names.push(item.name);
+                names.push(bucket.name);
             }
         }
     }
@@ -147,13 +149,23 @@ async fn cleanup_bucket(client: storage::client::Storage, name: String) -> Resul
     client.delete_bucket(&name).send().await
 }
 
+const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
+
 pub(crate) fn random_bucket_id() -> String {
-    const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
+    let distr = RandomChars { chars: CHARSET };
     const PREFIX: &str = "rust-sdk-testing-";
-    let mut bucket_id = String::new();
-    for _ in 0..(BUCKET_ID_LENGTH - PREFIX.len()) {
-        let idx = rand::rng().random_range(0..CHARSET.len());
-        bucket_id.push(CHARSET[idx] as char);
-    }
+    let bucket_id: String = rand::rng()
+        .sample_iter(distr)
+        .take(BUCKET_ID_LENGTH - PREFIX.len())
+        .map(char::from)
+        .collect();
     format!("{PREFIX}{bucket_id}")
+}
+
+fn test_backoff() -> ExponentialBackoff {
+    ExponentialBackoffBuilder::new()
+        .with_initial_delay(Duration::from_secs(2))
+        .with_maximum_delay(Duration::from_secs(10))
+        .build()
+        .unwrap()
 }
