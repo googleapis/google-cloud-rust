@@ -312,7 +312,7 @@ fn token_issue_time(current_time: OffsetDateTime) -> OffsetDateTime {
 }
 
 fn token_expiry_time(current_time: OffsetDateTime) -> OffsetDateTime {
-    token_issue_time(current_time) + DEFAULT_TOKEN_TIMEOUT
+    current_time + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT
 }
 
 #[async_trait]
@@ -320,7 +320,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
     async fn token(&self) -> Result<Token> {
         let signer = self.signer(&self.service_account_key.private_key)?;
 
-        let expires_at = Instant::now() - CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
+        let expires_at = Instant::now() + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
         // The claims encode a unix timestamp. `std::time::Instant` has no
         // epoch, so we use `time::OffsetDateTime`, which reads system time, in
         // the implementation.
@@ -459,7 +459,7 @@ mod test {
     fn validate_token_expiry_time() {
         let current_time = OffsetDateTime::now_utc();
         let token_issue_time = token_expiry_time(current_time);
-        assert!(token_issue_time == current_time - CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT);
+        assert!(token_issue_time == current_time + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT);
     }
 
     #[tokio::test]
@@ -792,7 +792,7 @@ mod test {
             .token()
             .await?;
 
-        let expected_expiry = now - CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
+        let expected_expiry = now + CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
 
         assert_eq!(token.expires_at.unwrap(), expected_expiry.into_std());
         Ok(())

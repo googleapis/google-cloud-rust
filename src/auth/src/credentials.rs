@@ -548,6 +548,8 @@ fn adc_well_known_path() -> Option<String> {
 /// This module is mainly relevant to other `google-cloud-*` crates, but some
 /// external developers (i.e. consumers, not developers of `google-cloud-rust`)
 /// may find it useful.
+// Skipping mutation testing for this module. As it exclusively provides
+// hardcoded credential stubs for testing purposes.
 #[cfg_attr(test, mutants::skip)]
 pub mod testing {
     use crate::Result;
