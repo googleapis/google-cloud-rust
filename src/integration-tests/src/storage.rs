@@ -80,9 +80,44 @@ pub async fn buckets(builder: storage::client::ClientBuilder) -> Result<()> {
         "missing bucket name {bucket_name} in {bucket_names:?}"
     );
 
+    buckets_iam(&client, &bucket_name).await?;
+
     println!("\nTesting delete_bucket()");
     client.delete_bucket(bucket_name).send().await?;
     println!("SUCCESS on delete_bucket");
+
+    Ok(())
+}
+
+async fn buckets_iam(client: &storage::client::Storage, bucket_name: &str) -> Result<()> {
+    let service_account = crate::service_account_for_iam_tests()?;
+
+    println!("\nTesting get_iam_policy()");
+    let policy = client.get_iam_policy(bucket_name).send().await?;
+    println!("SUCCESS on get_iam_policy = {policy:?}");
+
+    println!("\nTesting test_iam_permissions()");
+    let response = client
+        .test_iam_permissions(bucket_name)
+        .set_permissions(["storage.buckets.get"])
+        .send()
+        .await?;
+    println!("SUCCESS on test_iam_permissions = {response:?}");
+
+    println!("\nTesting set_iam_policy()");
+    let mut new_policy = policy.clone();
+    new_policy.bindings.push(
+        iam_v1::model::Binding::new()
+            .set_role("roles/storage.legacyBucketReader")
+            .set_members([format!("serviceAccount:{service_account}")]),
+    );
+    let policy = client
+        .set_iam_policy(bucket_name)
+        .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
+        .set_policy(new_policy)
+        .send()
+        .await?;
+    println!("SUCCESS on set_iam_policy = {policy:?}");
 
     Ok(())
 }
