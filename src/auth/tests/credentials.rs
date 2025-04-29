@@ -191,7 +191,7 @@ mod test {
             .unwrap();
         let fmt = format!("{:?}", creds);
         assert!(fmt.contains("ApiKeyCredentials"), "{fmt:?}");
-        assert!(fmt.contains("api_key: \"[censored]\""), "{fmt:?}");
+        assert!(!fmt.contains("test-api-key"), "{fmt:?}");
     }
 
     mockall::mock! {
