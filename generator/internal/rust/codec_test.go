@@ -1180,9 +1180,9 @@ func TestAsQueryParameter(t *testing.T) {
 		{requiredField, `let builder = builder.query(&[("requiredField", &req.required_field)]);`},
 		{optionalField, `let builder = req.optional_field.iter().fold(builder, |builder, p| builder.query(&[("optionalField", p)]));`},
 		{repeatedField, `let builder = req.repeated_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
-		{requiredEnumField, `let builder = builder.query(&[("requiredEnumField", &req.required_enum_field.value())]);`},
-		{optionalEnumField, `let builder = req.optional_enum_field.iter().fold(builder, |builder, p| builder.query(&[("optionalEnumField", p.value())]));`},
-		{repeatedEnumField, `let builder = req.repeated_enum_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p.value())]));`},
+		{requiredEnumField, `let builder = builder.query(&[("requiredEnumField", &req.required_enum_field)]);`},
+		{optionalEnumField, `let builder = req.optional_enum_field.iter().fold(builder, |builder, p| builder.query(&[("optionalEnumField", p)]));`},
+		{repeatedEnumField, `let builder = req.repeated_enum_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p)]));`},
 		{requiredFieldMaskField, `let builder = req.required_field_mask.paths.iter().fold(builder, |builder, v| builder.query(&[("requiredFieldMask", v)]));`},
 		{optionalFieldMaskField, `let builder = req.optional_field_mask.as_ref().iter().flat_map(|p| p.paths.iter()).fold(builder, |builder, v| builder.query(&[("optionalFieldMask", v)]));`},
 	} {
@@ -1281,8 +1281,8 @@ func TestOneOfAsQueryParameter(t *testing.T) {
 		{typeField, `let builder = req.r#type().iter().fold(builder, |builder, p| builder.query(&[("type", p)]));`},
 		{singularField, `let builder = req.singular_field().iter().fold(builder, |builder, p| builder.query(&[("singularField", p)]));`},
 		{repeatedField, `let builder = req.repeated_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
-		{singularEnumField, `let builder = req.singular_enum_field().iter().fold(builder, |builder, p| builder.query(&[("singularEnumField", p.value())]));`},
-		{repeatedEnumField, `let builder = req.repeated_enum_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p.value())]));`},
+		{singularEnumField, `let builder = req.singular_enum_field().iter().fold(builder, |builder, p| builder.query(&[("singularEnumField", p)]));`},
+		{repeatedEnumField, `let builder = req.repeated_enum_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p)]));`},
 		{singularFieldMaskField, `let builder = req.singular_field_mask().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "singularFieldMask") });`},
 	} {
 		got := addQueryParameter(test.field)
@@ -1590,7 +1590,7 @@ func TestFormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [google.protobuf.Any]: wkt::Any",
 		"/// [test.v1.SomeMessage]: crate::model::SomeMessage",
 		"/// [test.v1.SomeMessage.SomeEnum]: crate::model::some_message::SomeEnum",
-		"/// [test.v1.SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
+		"/// [test.v1.SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::SomeEnum::EnumValue",
 		"/// [test.v1.SomeMessage.error]: crate::model::SomeMessage::result",
 		"/// [test.v1.SomeMessage.field]: crate::model::SomeMessage::field",
 		"/// [test.v1.SomeMessage.result]: crate::model::SomeMessage::result",
@@ -1658,7 +1658,7 @@ func TestFormatDocCommentsRelativeCrossLinks(t *testing.T) {
 		"///",
 		"/// [SomeMessage]: crate::model::SomeMessage",
 		"/// [SomeMessage.SomeEnum]: crate::model::some_message::SomeEnum",
-		"/// [SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
+		"/// [SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::SomeEnum::EnumValue",
 		"/// [SomeMessage.error]: crate::model::SomeMessage::result",
 		"/// [SomeMessage.field]: crate::model::SomeMessage::field",
 		"/// [SomeMessage.result]: crate::model::SomeMessage::result",
@@ -1720,7 +1720,7 @@ implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 		"///",
 		"/// [SomeMessage]: crate::model::SomeMessage",
 		"/// [SomeMessage.SomeEnum]: crate::model::some_message::SomeEnum",
-		"/// [SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
+		"/// [SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::SomeEnum::EnumValue",
 		"/// [SomeMessage.error]: crate::model::SomeMessage::result",
 		"/// [SomeMessage.field]: crate::model::SomeMessage::field",
 		"/// [SomeMessage.result]: crate::model::SomeMessage::result",
@@ -2024,6 +2024,69 @@ func TestEnumNames(t *testing.T) {
 	}
 }
 
+func TestEnumValueVariantName(t *testing.T) {
+	testEnum := &api.Enum{
+		Name:    "EnumName",
+		ID:      ".test.EnumName",
+		Package: "test",
+		Values: []*api.EnumValue{
+			{Number: 0, Name: "ENUM_NAME_UNSPECIFIED"},
+			{Number: 1, Name: "ENUM_NAME1"},
+			{Number: 2, Name: "ENUM_NAME_1"},
+			{Number: 3, Name: "ENUM_NAME_A"},
+			{Number: 4, Name: "ENUM_NAME_PARTIAL"},
+			{Number: 5, Name: "ENUM_NAME_GREEN"},
+		},
+	}
+
+	networkingEnum := &api.Enum{
+		Name: "InstancePrivateIpv6GoogleAccess",
+		ID:   ".test.InstancePrivateIpv6GoogleAccess",
+		Values: []*api.EnumValue{
+			{Number: 0, Name: "INSTANCE_PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED"},
+			{Number: 1, Name: "INHERIT_FROM_SUBNETWORK"},
+		},
+	}
+
+	validationEnum := &api.Enum{
+		Name: "Utf8Validation",
+		ID:   ".test.Utf8Validation",
+		Values: []*api.EnumValue{
+			{Number: 0, Name: "UTF8_VALIDATION_UNKNOWN"},
+			{Number: 1, Name: "VERIFY"},
+		},
+	}
+
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{testEnum, networkingEnum, validationEnum}, []*api.Service{})
+	model.PackageName = "test"
+	var got []string
+	for _, value := range testEnum.Values {
+		got = append(got, enumValueVariantName(value))
+	}
+	want := []string{"Unspecified", "EnumName1", "_1", "A", "Partial", "Green"}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in enum variant names (-want, +got):\n%s", diff)
+	}
+
+	got = []string{}
+	for _, value := range networkingEnum.Values {
+		got = append(got, enumValueVariantName(value))
+	}
+	want = []string{"Unspecified", "InheritFromSubnetwork"}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in enum variant names (-want, +got):\n%s", diff)
+	}
+
+	got = []string{}
+	for _, value := range validationEnum.Values {
+		got = append(got, enumValueVariantName(value))
+	}
+	want = []string{"Unknown", "Verify"}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in enum variant names (-want, +got):\n%s", diff)
+	}
+}
+
 func TestPathFmt(t *testing.T) {
 	for _, test := range []struct {
 		want     string
@@ -2139,7 +2202,7 @@ func TestPathArgs(t *testing.T) {
 			},
 		},
 		{
-			[]pathArg{{Name: "c", Accessor: `.c.value()`}},
+			[]pathArg{{Name: "c", Accessor: `.c`}},
 			&api.PathInfo{
 				PathTemplate: []api.PathSegment{
 					api.NewLiteralPathSegment("v1"),
@@ -2151,7 +2214,7 @@ func TestPathArgs(t *testing.T) {
 			[]pathArg{
 				{
 					Name:     "d",
-					Accessor: `.d.as_ref().ok_or_else(|| gaxi::path_parameter::missing("d"))?.value()`,
+					Accessor: `.d.as_ref().ok_or_else(|| gaxi::path_parameter::missing("d"))?`,
 				},
 			},
 			&api.PathInfo{
@@ -2193,9 +2256,8 @@ func TestPathArgs(t *testing.T) {
 		{
 			[]pathArg{
 				{
-					Name: "e.c",
-					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?` +
-						`.c.value()`,
+					Name:     "e.c",
+					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?.c`,
 				},
 			},
 			&api.PathInfo{
@@ -2210,8 +2272,7 @@ func TestPathArgs(t *testing.T) {
 				{
 					Name: "e.d",
 					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?` +
-						`.d.as_ref().ok_or_else(|| gaxi::path_parameter::missing("d"))?` +
-						`.value()`,
+						`.d.as_ref().ok_or_else(|| gaxi::path_parameter::missing("d"))?`,
 				},
 			},
 			&api.PathInfo{

@@ -47,9 +47,9 @@ pub enum PollingResult<R, M> {
     /// recover.
     ///
     /// [ServiceError]: gax::error::ServiceError
-    /// [NOT_FOUND]: rpc::model::Code::NOT_FOUND
-    /// [ABORTED]: rpc::model::Code::ABORTED
-    /// [PERMISSION_DENIED]: rpc::model::Code::PERMISSION_DENIED
+    /// [NOT_FOUND]: rpc::model::Code::NotFound
+    /// [ABORTED]: rpc::model::Code::Aborted
+    /// [PERMISSION_DENIED]: rpc::model::Code::PermissionDenied
     PollingError(Error),
 }
 

@@ -64,7 +64,7 @@ mod test {
     #[test]
     fn test_enum_field() -> anyhow::Result<()> {
         let sidekick = model::structured_query::FieldFilter::new()
-            .set_op(model::structured_query::field_filter::Operator::EQUAL);
+            .set_op(model::structured_query::field_filter::Operator::Equal);
         let proto = google::firestore::v1::structured_query::FieldFilter {
             op: google::firestore::v1::structured_query::field_filter::Operator::Equal.into(),
             ..Default::default()
