@@ -39,6 +39,7 @@ pub(crate) mod google {
     pub mod iam {
         pub mod v1 {
             include!("generated/protos/storage/google.iam.v1.rs");
+            include!("generated/convert/iam/convert.rs");
         }
     }
     pub mod r#type {

@@ -14,12 +14,12 @@
 
 [general]
 language             = 'rust'
-specification-source = 'google/type'
+specification-source = 'google/iam/v1'
 
 [source]
-include-list = 'date.proto,expr.proto'
+skipped-ids = ".google.iam.v1.ResourcePolicyMember"
 
 [codec]
 copyright-year    = '2025'
 template-override = 'templates/convert-prost'
-module-path       = 'gtype::model'
+module-path       = 'iam_v1::model'
