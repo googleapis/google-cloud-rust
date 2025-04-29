@@ -182,12 +182,6 @@ func httpPathFmt(pathInfo *api.PathInfo) string {
 	return builder.String()
 }
 
-func httpPathArgs(_ *api.PathInfo) []string {
-	var args []string
-	// TODO(#1577): Determine the correct format for Dart.
-	return args
-}
-
 // This regex matches Google API documentation reference links; it supports
 // both regular references as well as implit references.
 //

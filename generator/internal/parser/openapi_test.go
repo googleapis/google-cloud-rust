@@ -648,6 +648,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 				Typez:         api.STRING_TYPE,
 				TypezID:       "string",
 				Synthetic:     true,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:     "filter",
@@ -841,6 +842,7 @@ func TestOpenAPI_SyntheticMessageWithExistingRequest(t *testing.T) {
 				Typez:         api.STRING_TYPE,
 				TypezID:       "string",
 				Synthetic:     true,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:          "secret",
@@ -849,6 +851,7 @@ func TestOpenAPI_SyntheticMessageWithExistingRequest(t *testing.T) {
 				Typez:         api.STRING_TYPE,
 				TypezID:       "string",
 				Synthetic:     true,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:          "location",
@@ -857,6 +860,7 @@ func TestOpenAPI_SyntheticMessageWithExistingRequest(t *testing.T) {
 				Typez:         api.STRING_TYPE,
 				TypezID:       "string",
 				Synthetic:     true,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 		},
 	})
@@ -974,7 +978,8 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 					Selector: ".test.TestService.CreateFoo",
 					AutoPopulatedFields: []string{
 						"requestId",
-						"notRequestIdOptional",
+						"requestIdExplicitlyNotRequired",
+						"notRequestIdRequired",
 						"notRequestIdMissingFormat",
 					},
 				},
@@ -1012,6 +1017,7 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 				Typez:         api.STRING_TYPE,
 				TypezID:       "string",
 				Synthetic:     true,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:          "fooId",
@@ -1020,6 +1026,7 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 				Typez:         api.STRING_TYPE,
 				TypezID:       "string",
 				Synthetic:     true,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:          "requestId",
@@ -1028,16 +1035,27 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 				Typez:         api.STRING_TYPE,
 				TypezID:       "string",
 				Synthetic:     true,
+				Optional:      true,
 				AutoPopulated: true,
 			},
 			{
-				Name:          "notRequestIdOptional",
+				Name:          "requestIdExplicitlyNotRequired",
+				JSONName:      "requestIdExplicitlyNotRequired",
 				Documentation: "Test-only Description",
 				Typez:         api.STRING_TYPE,
 				TypezID:       "string",
-				JSONName:      "notRequestIdOptional",
 				Synthetic:     true,
 				Optional:      true,
+				AutoPopulated: true,
+			},
+			{
+				Name:          "notRequestIdRequired",
+				Documentation: "Test-only Description",
+				Typez:         api.STRING_TYPE,
+				TypezID:       "string",
+				JSONName:      "notRequestIdRequired",
+				Synthetic:     true,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:          "notRequestIdMissingFormat",
@@ -1046,6 +1064,7 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 				TypezID:       "string",
 				JSONName:      "notRequestIdMissingFormat",
 				Synthetic:     true,
+				Optional:      true,
 			},
 			{
 				Name:          "notRequestIdMissingServiceConfig",
@@ -1054,6 +1073,7 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 				TypezID:       "string",
 				JSONName:      "notRequestIdMissingServiceConfig",
 				Synthetic:     true,
+				Optional:      true,
 			},
 		},
 	})

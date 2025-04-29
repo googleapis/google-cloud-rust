@@ -27,6 +27,7 @@ pub mod {{Codec.ModuleName}} {
     use crate::Result;
     use std::sync::Arc;
 
+    {{^Codec.SkipBuilderDocs}}
     /// A builder for [{{Codec.Name}}][super::super::client::{{Codec.Name}}].
     ///
     /// ```
@@ -40,6 +41,7 @@ pub mod {{Codec.ModuleName}} {
     ///     .build().await?;
     /// # gax::Result::<()>::Ok(()) });
     /// ```
+    {{/Codec.SkipBuilderDocs}}
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
@@ -75,7 +77,9 @@ pub mod {{Codec.ModuleName}} {
     }
 
     {{#Codec.Methods}}
+    {{^Codec.SkipBuilderDocs}}
     /// The request builder for [{{Codec.ServiceNameToPascal}}::{{Codec.Name}}][super::super::client::{{Codec.ServiceNameToPascal}}::{{Codec.Name}}] calls.
+    {{/Codec.SkipBuilderDocs}}
     #[derive(Clone, Debug)]
     pub struct {{Codec.BuilderName}}(RequestBuilder<{{InputType.Codec.QualifiedName}}>);
 

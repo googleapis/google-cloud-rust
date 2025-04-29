@@ -14,7 +14,7 @@
 
 #[cfg(all(test, feature = "_internal_grpc_client"))]
 mod test {
-    use auth::credentials::{Credentials, CredentialsTrait};
+    use auth::credentials::{Credentials, CredentialsProvider};
     use auth::errors::CredentialsError;
     use auth::token::Token;
     use gax::options::*;
@@ -30,7 +30,7 @@ mod test {
         #[derive(Debug)]
         Credentials {}
 
-        impl CredentialsTrait for Credentials {
+        impl CredentialsProvider for Credentials {
             async fn token(&self) -> AuthResult<Token>;
             async fn headers(&self) -> AuthResult<Vec<(HeaderName, HeaderValue)>>;
             async fn universe_domain(&self) -> Option<String>;

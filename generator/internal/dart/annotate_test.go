@@ -247,3 +247,171 @@ func TestCalculateRequiredFields(t *testing.T) {
 		t.Errorf("mismatch in TestCalculateRequiredFields (-want, +got)\n:%s", diff)
 	}
 }
+
+func TestBuildQueryLines(t *testing.T) {
+	for _, test := range []struct {
+		field *api.Field
+		want  []string
+	}{
+		// primitives
+		{
+			&api.Field{Name: "bool", JSONName: "bool", Typez: api.BOOL_TYPE},
+			[]string{"if (result.bool != null) 'bool': '${result.bool}'"},
+		}, {
+			&api.Field{Name: "int32", JSONName: "int32", Typez: api.INT32_TYPE},
+			[]string{"if (result.int32 != null) 'int32': '${result.int32}'"},
+		}, {
+			&api.Field{Name: "int64", JSONName: "int64", Typez: api.INT64_TYPE},
+			[]string{"if (result.int64 != null) 'int64': '${result.int64}'"},
+		}, {
+			&api.Field{Name: "double", JSONName: "double", Typez: api.DOUBLE_TYPE},
+			[]string{"if (result.double != null) 'double': '${result.double}'"},
+		}, {
+			&api.Field{Name: "string", JSONName: "string", Typez: api.STRING_TYPE},
+			[]string{"if (result.string != null) 'string': result.string!"},
+		},
+
+		// repeated primitives
+		{
+			&api.Field{Name: "boolList", JSONName: "boolList", Typez: api.BOOL_TYPE, Repeated: true},
+			[]string{"if (result.boolList != null) 'boolList': result.boolList!.map((e) => '$e')"},
+		}, {
+			&api.Field{Name: "int32List", JSONName: "int32List", Typez: api.INT32_TYPE, Repeated: true},
+			[]string{"if (result.int32List != null) 'int32List': result.int32List!.map((e) => '$e')"},
+		}, {
+			&api.Field{Name: "int64List", JSONName: "int64List", Typez: api.INT64_TYPE, Repeated: true},
+			[]string{"if (result.int64List != null) 'int64List': result.int64List!.map((e) => '$e')"},
+		}, {
+			&api.Field{Name: "doubleList", JSONName: "doubleList", Typez: api.DOUBLE_TYPE, Repeated: true},
+			[]string{"if (result.doubleList != null) 'doubleList': result.doubleList!.map((e) => '$e')"},
+		}, {
+			&api.Field{Name: "stringList", JSONName: "stringList", Typez: api.STRING_TYPE},
+			[]string{"if (result.stringList != null) 'stringList': result.stringList!"},
+		},
+	} {
+		t.Run(test.field.Name, func(t *testing.T) {
+			message := &api.Message{
+				Name:    "UpdateSecretRequest",
+				ID:      "..UpdateRequest",
+				Package: sample.Package,
+				Fields:  []*api.Field{test.field},
+			}
+			model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+			annotate := newAnnotateModel(model)
+			annotate.annotateModel(map[string]string{})
+
+			got := buildQueryLines([]string{}, "result.", "", test.field, model.State)
+			if diff := cmp.Diff(test.want, got); diff != "" {
+				t.Errorf("mismatch in TestBuildQueryLines (-want, +got)\n:%s", diff)
+			}
+		})
+	}
+}
+
+func TestBuildQueryLinesEnums(t *testing.T) {
+	r := sample.Replication()
+	a := sample.Automatic()
+	enum := sample.EnumState()
+	model := api.NewTestAPI(
+		[]*api.Message{r, a, sample.CustomerManagedEncryption()},
+		[]*api.Enum{enum},
+		[]*api.Service{})
+	model.PackageName = "test"
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
+
+	enumField := &api.Field{
+		Name:     "enumName",
+		JSONName: "enumName",
+		Typez:    api.ENUM_TYPE,
+		TypezID:  enum.ID,
+	}
+
+	got := buildQueryLines([]string{}, "result.", "", enumField, model.State)
+	want := []string{
+		"if (result.enumName != null) 'enumName': result.enumName!.value",
+	}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in TestBuildQueryLines (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestBuildQueryLinesMessages(t *testing.T) {
+	r := sample.Replication()
+	a := sample.Automatic()
+	secretVersion := sample.SecretVersion()
+	updateRequest := sample.UpdateRequest()
+	payload := sample.SecretPayload()
+	model := api.NewTestAPI(
+		[]*api.Message{r, a, sample.CustomerManagedEncryption(), secretVersion,
+			updateRequest, sample.Secret(), fieldMaskMessage(), payload},
+		[]*api.Enum{sample.EnumState()},
+		[]*api.Service{})
+	model.PackageName = "test"
+	annotate := newAnnotateModel(model)
+	annotate.annotateModel(map[string]string{})
+
+	messageField1 := &api.Field{
+		Name:     "message1",
+		JSONName: "message1",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  secretVersion.ID,
+	}
+	messageField2 := &api.Field{
+		Name:     "message2",
+		JSONName: "message2",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  payload.ID,
+	}
+	messageField3 := &api.Field{
+		Name:     "message3",
+		JSONName: "message3",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  updateRequest.ID,
+	}
+
+	// messages
+	got := buildQueryLines([]string{}, "result.", "", messageField1, model.State)
+	want := []string{
+		"if (result.message1?.name != null) 'message1.name': result.message1?.name!",
+		"if (result.message1?.state != null) 'message1.state': result.message1?.state!.value",
+	}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in TestBuildQueryLines (-want, +got)\n:%s", diff)
+	}
+
+	got = buildQueryLines([]string{}, "result.", "", messageField2, model.State)
+	want = []string{
+		"if (result.message2?.data != null) 'message2.data': encodeBytes(result.message2?.data)!",
+		"if (result.message2?.dataCrc32C != null) 'message2.dataCrc32c': '${result.message2?.dataCrc32C}'",
+	}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in TestBuildQueryLines (-want, +got)\n:%s", diff)
+	}
+
+	// nested messages
+	got = buildQueryLines([]string{}, "result.", "", messageField3, model.State)
+	want = []string{
+		"if (result.message3?.secret?.name != null) 'message3.secret.name': result.message3?.secret?.name!",
+		"if (result.message3?.fieldMask?.paths != null) 'message3.fieldMask.paths': result.message3?.fieldMask?.paths!",
+	}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in TestBuildQueryLines (-want, +got)\n:%s", diff)
+	}
+}
+
+func fieldMaskMessage() *api.Message {
+	return &api.Message{
+		Name:    "FieldMask",
+		ID:      ".google.protobuf.FieldMask",
+		Package: sample.Package,
+		Fields: []*api.Field{
+			{
+				Name:     "paths",
+				JSONName: "paths",
+				Typez:    api.STRING_TYPE,
+				Repeated: true,
+			},
+		},
+	}
+}

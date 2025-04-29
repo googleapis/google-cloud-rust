@@ -25,6 +25,84 @@ mod mocking {
         }
     }
 
+    #[tokio::test(flavor = "multi_thread")]
+    async fn paginators_are_send() -> TestResult {
+        use sm::model::ListSecretsResponse;
+        let mut mock = MockSecretManagerService::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_list_secrets()
+            .once()
+            .in_sequence(&mut seq)
+            .withf(|r, _| r.parent == "projects/test-project" && r.page_token.is_empty())
+            .return_once(|_, _| {
+                Ok(gax::response::Response::from(
+                    ListSecretsResponse::default().set_secrets(make_secrets(3, 0)),
+                ))
+            });
+
+        async fn other_task(
+            client: sm::client::SecretManagerService,
+        ) -> gax::Result<Vec<ListSecretsResponse>> {
+            let mut paginator = client
+                .list_secrets("projects/test-project")
+                .paginator()
+                .await;
+            let mut responses = Vec::new();
+            while let Some(response) = paginator.next().await {
+                responses.push(response?);
+            }
+            Ok(responses)
+        }
+
+        let client = sm::client::SecretManagerService::from_stub(mock);
+        let join = tokio::spawn(async move { other_task(client).await });
+        let responses = join.await??;
+        assert_eq!(
+            responses,
+            [ListSecretsResponse::default().set_secrets(make_secrets(3, 0))]
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn item_paginators_are_send() -> TestResult {
+        use sm::model::ListSecretsResponse;
+        let mut mock = MockSecretManagerService::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_list_secrets()
+            .once()
+            .in_sequence(&mut seq)
+            .withf(|r, _| r.parent == "projects/test-project" && r.page_token.is_empty())
+            .return_once(|_, _| {
+                Ok(gax::response::Response::from(
+                    ListSecretsResponse::default().set_secrets(make_secrets(3, 0)),
+                ))
+            });
+
+        async fn other_task(
+            client: sm::client::SecretManagerService,
+        ) -> gax::Result<Vec<sm::model::Secret>> {
+            let mut paginator = client
+                .list_secrets("projects/test-project")
+                .paginator()
+                .await
+                .items();
+            let mut responses = Vec::new();
+            while let Some(response) = paginator.next().await {
+                responses.push(response?);
+            }
+            Ok(responses)
+        }
+
+        let client = sm::client::SecretManagerService::from_stub(mock);
+        let join = tokio::spawn(async move { other_task(client).await });
+        let responses = join.await??;
+        assert_eq!(responses, make_secrets(3, 0));
+
+        Ok(())
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn list_pages() -> TestResult {
         let mut mock = MockSecretManagerService::new();

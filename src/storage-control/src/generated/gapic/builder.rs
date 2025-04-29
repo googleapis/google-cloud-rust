@@ -18,19 +18,6 @@ pub mod storage {
     use crate::Result;
     use std::sync::Arc;
 
-    /// A builder for [Storage][super::super::client::Storage].
-    ///
-    /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage::*;
-    /// # use builder::storage::ClientBuilder;
-    /// # use client::Storage;
-    /// let builder : ClientBuilder = Storage::builder();
-    /// let client = builder
-    ///     .with_endpoint("https://storage.googleapis.com")
-    ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
-    /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
 
@@ -67,7 +54,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::delete_bucket][super::super::client::Storage::delete_bucket] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteBucket(RequestBuilder<crate::model::DeleteBucketRequest>);
 
@@ -128,7 +114,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::get_bucket][super::super::client::Storage::get_bucket] calls.
     #[derive(Clone, Debug)]
     pub struct GetBucket(RequestBuilder<crate::model::GetBucketRequest>);
 
@@ -195,7 +180,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::create_bucket][super::super::client::Storage::create_bucket] calls.
     #[derive(Clone, Debug)]
     pub struct CreateBucket(RequestBuilder<crate::model::CreateBucketRequest>);
 
@@ -268,7 +252,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::list_buckets][super::super::client::Storage::list_buckets] calls.
     #[derive(Clone, Debug)]
     pub struct ListBuckets(RequestBuilder<crate::model::ListBucketsRequest>);
 
@@ -350,7 +333,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::lock_bucket_retention_policy][super::super::client::Storage::lock_bucket_retention_policy] calls.
     #[derive(Clone, Debug)]
     pub struct LockBucketRetentionPolicy(
         RequestBuilder<crate::model::LockBucketRetentionPolicyRequest>,
@@ -404,7 +386,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::update_bucket][super::super::client::Storage::update_bucket] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateBucket(RequestBuilder<crate::model::UpdateBucketRequest>);
 
@@ -492,7 +473,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::compose_object][super::super::client::Storage::compose_object] calls.
     #[derive(Clone, Debug)]
     pub struct ComposeObject(RequestBuilder<crate::model::ComposeObjectRequest>);
 
@@ -599,7 +579,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::delete_object][super::super::client::Storage::delete_object] calls.
     #[derive(Clone, Debug)]
     pub struct DeleteObject(RequestBuilder<crate::model::DeleteObjectRequest>);
 
@@ -698,7 +677,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::restore_object][super::super::client::Storage::restore_object] calls.
     #[derive(Clone, Debug)]
     pub struct RestoreObject(RequestBuilder<crate::model::RestoreObjectRequest>);
 
@@ -809,53 +787,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::cancel_resumable_write][super::super::client::Storage::cancel_resumable_write] calls.
-    #[derive(Clone, Debug)]
-    pub struct CancelResumableWrite(RequestBuilder<crate::model::CancelResumableWriteRequest>);
-
-    impl CancelResumableWrite {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CancelResumableWriteRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::CancelResumableWriteResponse> {
-            (*self.0.stub)
-                .cancel_resumable_write(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
-        }
-
-        /// Sets the value of [upload_id][crate::model::CancelResumableWriteRequest::upload_id].
-        pub fn set_upload_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.upload_id = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for CancelResumableWrite {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [Storage::get_object][super::super::client::Storage::get_object] calls.
     #[derive(Clone, Debug)]
     pub struct GetObject(RequestBuilder<crate::model::GetObjectRequest>);
 
@@ -972,7 +903,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::update_object][super::super::client::Storage::update_object] calls.
     #[derive(Clone, Debug)]
     pub struct UpdateObject(RequestBuilder<crate::model::UpdateObjectRequest>);
 
@@ -1077,7 +1007,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::list_objects][super::super::client::Storage::list_objects] calls.
     #[derive(Clone, Debug)]
     pub struct ListObjects(RequestBuilder<crate::model::ListObjectsRequest>);
 
@@ -1207,7 +1136,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::rewrite_object][super::super::client::Storage::rewrite_object] calls.
     #[derive(Clone, Debug)]
     pub struct RewriteObject(RequestBuilder<crate::model::RewriteObjectRequest>);
 
@@ -1426,135 +1354,6 @@ pub mod storage {
         }
     }
 
-    /// The request builder for [Storage::start_resumable_write][super::super::client::Storage::start_resumable_write] calls.
-    #[derive(Clone, Debug)]
-    pub struct StartResumableWrite(RequestBuilder<crate::model::StartResumableWriteRequest>);
-
-    impl StartResumableWrite {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::StartResumableWriteRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::StartResumableWriteResponse> {
-            (*self.0.stub)
-                .start_resumable_write(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
-        }
-
-        /// Sets the value of [write_object_spec][crate::model::StartResumableWriteRequest::write_object_spec].
-        pub fn set_write_object_spec<
-            T: Into<std::option::Option<crate::model::WriteObjectSpec>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.write_object_spec = v.into();
-            self
-        }
-
-        /// Sets the value of [common_object_request_params][crate::model::StartResumableWriteRequest::common_object_request_params].
-        pub fn set_common_object_request_params<
-            T: Into<std::option::Option<crate::model::CommonObjectRequestParams>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.common_object_request_params = v.into();
-            self
-        }
-
-        /// Sets the value of [object_checksums][crate::model::StartResumableWriteRequest::object_checksums].
-        pub fn set_object_checksums<T: Into<std::option::Option<crate::model::ObjectChecksums>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.object_checksums = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for StartResumableWrite {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [Storage::query_write_status][super::super::client::Storage::query_write_status] calls.
-    #[derive(Clone, Debug)]
-    pub struct QueryWriteStatus(RequestBuilder<crate::model::QueryWriteStatusRequest>);
-
-    impl QueryWriteStatus {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Storage>) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::QueryWriteStatusRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::QueryWriteStatusResponse> {
-            (*self.0.stub)
-                .query_write_status(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
-        }
-
-        /// Sets the value of [upload_id][crate::model::QueryWriteStatusRequest::upload_id].
-        pub fn set_upload_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.upload_id = v.into();
-            self
-        }
-
-        /// Sets the value of [common_object_request_params][crate::model::QueryWriteStatusRequest::common_object_request_params].
-        pub fn set_common_object_request_params<
-            T: Into<std::option::Option<crate::model::CommonObjectRequestParams>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.common_object_request_params = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl gax::options::internal::RequestBuilder for QueryWriteStatus {
-        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [Storage::move_object][super::super::client::Storage::move_object] calls.
     #[derive(Clone, Debug)]
     pub struct MoveObject(RequestBuilder<crate::model::MoveObjectRequest>);
 

@@ -83,6 +83,8 @@ type serviceAnnotations struct {
 	APITitle string
 	// If set, gate this service under a feature named `ModuleName`.
 	PerServiceFeatures bool
+	// If set, skip the builder documentation.
+	SkipBuilderDocs bool
 }
 
 func (a *messageAnnotation) MultiFeatureGates() bool {
@@ -153,6 +155,7 @@ type methodAnnotation struct {
 	OperationInfo       *operationInfo
 	SystemParameters    []systemParameter
 	ReturnType          string
+	SkipBuilderDocs     bool
 }
 
 type pathInfoAnnotation struct {
@@ -170,6 +173,14 @@ type operationInfo struct {
 	MetadataTypeInDocs string
 	ResponseTypeInDocs string
 	PackageNamespace   string
+}
+
+type routingVariantAnnotations struct {
+	FirstVariant     bool
+	FieldAccessors   []string
+	PrefixSegments   []string
+	MatchingSegments []string
+	SuffixSegments   []string
 }
 
 type oneOfAnnotation struct {
@@ -445,6 +456,7 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 		HasLROs:            hasLROs,
 		APITitle:           model.Title,
 		PerServiceFeatures: c.perServiceFeatures,
+		SkipBuilderDocs:    c.skipBuilderDocs,
 	}
 	s.Codec = ann
 }
@@ -536,6 +548,19 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	}
 	pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
 
+	for _, routing := range m.Routing {
+		for index, variant := range routing.Variants {
+			routingVariantAnnotations := &routingVariantAnnotations{
+				FirstVariant:     index == 0,
+				FieldAccessors:   c.annotateRoutingAccessors(variant, m, state),
+				PrefixSegments:   annotateSegments(variant.Prefix.Segments),
+				MatchingSegments: annotateSegments(variant.Matching.Segments),
+				SuffixSegments:   annotateSegments(variant.Suffix.Segments),
+			}
+			variant.Codec = routingVariantAnnotations
+		}
+	}
+
 	m.PathInfo.Codec = pathInfoAnnotation
 	returnType := c.methodInOutTypeName(m.OutputTypeID, state, sourceSpecificationPackageName)
 	if m.ReturnsEmpty {
@@ -554,6 +579,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		ServiceNameToSnake:  toSnake(s.Name),
 		SystemParameters:    c.systemParameters,
 		ReturnType:          returnType,
+		SkipBuilderDocs:     c.skipBuilderDocs,
 	}
 	if m.OperationInfo != nil {
 		metadataType := c.methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, sourceSpecificationPackageName)
@@ -567,6 +593,67 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		}
 	}
 	m.Codec = annotation
+}
+
+func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api.Method, state *api.APIState) []string {
+	findField := func(name string, message *api.Message) *api.Field {
+		for _, f := range message.Fields {
+			if f.Name == name {
+				return f
+			}
+		}
+		return nil
+	}
+	var accessors []string
+	message := m.InputType
+	for _, name := range variant.FieldPath {
+		field := findField(name, message)
+		if field == nil {
+			slog.Error("invalid routing field for request message", "field", name, "message ID", message.ID)
+			continue
+		}
+		switch {
+		case field.Optional:
+			accessors = append(accessors, fmt.Sprintf(".and_then(|v| v.%s.as_ref())", name))
+		case field.Typez == api.STRING_TYPE:
+			accessors = append(accessors, fmt.Sprintf(".map(|v| v.%s.as_str())", name))
+		default:
+			accessors = append(accessors, fmt.Sprintf(".map(|v| &v.%s)", name))
+		}
+		if field.Typez == api.MESSAGE_TYPE {
+			if fieldMessage, ok := state.MessageByID[field.TypezID]; ok {
+				message = fieldMessage
+			}
+		}
+	}
+	return accessors
+}
+
+func annotateSegments(segments []string) []string {
+	var ann []string
+	for index, segment := range segments {
+		switch {
+		case segment == api.RoutingMultiSegmentWildcard:
+			if len(segments) == 1 {
+				ann = append(ann, "Segment::MultiWildcard")
+			} else if len(segments) != index+1 {
+				ann = append(ann, "Segment::MultiWildcard")
+			} else {
+				ann = append(ann, "Segment::TrailingMultiWildcard")
+			}
+		case segment == api.RoutingSingleSegmentWildcard:
+			if index != 0 {
+				ann = append(ann, `Segment::Literal("/")`)
+			}
+			ann = append(ann, "Segment::SingleWildcard")
+		default:
+			if index != 0 {
+				ann = append(ann, `Segment::Literal("/")`)
+			}
+			ann = append(ann, fmt.Sprintf(`Segment::Literal("%s")`, segment))
+		}
+	}
+	return ann
 }
 
 func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {

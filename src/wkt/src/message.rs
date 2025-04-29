@@ -26,6 +26,7 @@ pub trait Message {
     /// The typename of this message.
     fn typename() -> &'static str;
 
+    #[doc(hidden)]
     /// Store the value into a JSON object.
     fn to_map(&self) -> Result<Map, Error>
     where
@@ -34,6 +35,7 @@ pub trait Message {
         to_json_object(self)
     }
 
+    #[doc(hidden)]
     /// Extract the value from a JSON object.
     fn from_map(map: &Map) -> Result<Self, Error>
     where

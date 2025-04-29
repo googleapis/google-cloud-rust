@@ -110,6 +110,20 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         let path = http::uri::PathAndQuery::from_static(
             "/{{Service.Package}}.{{Service.Name}}/{{Name}}"
         );
+        {{!
+        AIP-4222 says:
+
+            For any given RPC, if the explicit routing headers annotation is
+            present, the code generators **must** use it and **ignore** any
+            routing headers that might be implicitly specified in the
+            google.api.http annotation.
+
+        So we only need to generate one of the two code paths.
+        }}
+        {{#HasRouting}}
+        {{> routinginfo}}
+        {{/HasRouting}}
+        {{^HasRouting}}
         let x_goog_request_params = [
             {{#PathInfo.Codec.PathArgs}}
             format!("{{Name}}={}", req{{{Accessor}}}),
@@ -118,6 +132,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             ""; 0
             {{/PathInfo.Codec.PathArgs}}
         ].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        {{/HasRouting}}
 
         self.inner
           .execute(

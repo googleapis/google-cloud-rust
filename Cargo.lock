@@ -1110,7 +1110,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-auth"
-version = "0.20.0"
+version = "0.21.0"
 dependencies = [
  "async-trait",
  "axum",
@@ -2333,6 +2333,7 @@ dependencies = [
  "http",
  "http-body-util",
  "mockall",
+ "percent-encoding",
  "prost",
  "prost-types",
  "reqwest",
@@ -2843,6 +2844,28 @@ dependencies = [
  "serde",
  "serde_json",
  "tokio",
+]
+
+[[package]]
+name = "google-cloud-lustre-v1"
+version = "0.3.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-rpc",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
 ]
 
 [[package]]
@@ -3990,7 +4013,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "google-cloud-storage"
+name = "google-cloud-storage-control"
 version = "0.0.0"
 dependencies = [
  "async-trait",
@@ -4954,8 +4977,10 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-secretmanager-v1",
+ "google-cloud-storage-control",
  "google-cloud-telcoautomation-v1",
  "google-cloud-wkt",
+ "google-cloud-workflows-executions-v1",
  "google-cloud-workflows-v1",
  "mockall",
  "rand 0.9.0",
