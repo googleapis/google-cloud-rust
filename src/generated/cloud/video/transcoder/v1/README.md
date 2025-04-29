@@ -16,8 +16,10 @@ API overview</a>.
 
 The main types to work with this crate are the clients:
 
-* [TranscoderService](https://docs.rs/google-cloud-video-transcoder-v1/latest/google_cloud_video_transcoder_v1/client/struct.TranscoderService.html)
+- [TranscoderService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-video-transcoder-v1/latest/google-cloud-video-transcoder-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-video-transcoder-v1/latest/google-cloud-video-transcoder-v1)
+
+[TranscoderService]: https://docs.rs/google-cloud-video-transcoder-v1/latest/google_cloud_video_transcoder_v1/client/struct.TranscoderService.html

@@ -154,14 +154,14 @@ func protobufIsAutoPopulated(field *descriptorpb.FieldDescriptorProto) bool {
 	}
 	extensionId = annotations.E_FieldBehavior
 	if !proto.HasExtension(field.GetOptions(), extensionId) {
-		return false
+		return true
 	}
 	fieldBehavior := proto.GetExtension(field.GetOptions(), extensionId).([]annotations.FieldBehavior)
 	for _, b := range fieldBehavior {
 		if b == annotations.FieldBehavior_REQUIRED {
-			return true
+			return false
 		}
 	}
 
-	return false
+	return true
 }

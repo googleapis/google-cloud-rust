@@ -15,8 +15,10 @@ by service consumers.
 
 The main types to work with this crate are the clients:
 
-* [ServiceManager](https://docs.rs/google-cloud-api-servicemanagement-v1/latest/google_cloud_api_servicemanagement_v1/client/struct.ServiceManager.html)
+- [ServiceManager]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-api-servicemanagement-v1/latest/google-cloud-api-servicemanagement-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-api-servicemanagement-v1/latest/google-cloud-api-servicemanagement-v1)
+
+[ServiceManager]: https://docs.rs/google-cloud-api-servicemanagement-v1/latest/google_cloud_api_servicemanagement_v1/client/struct.ServiceManager.html

@@ -11,4 +11,5 @@ Lets you define and config your API service.
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-api/latest/google-cloud-api)
+- Read the [crate's documentation](https://docs.rs/google-cloud-api/latest/google-cloud-api)
+

@@ -12,31 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Google Cloud Client Libraries for Rust - Storage
+//! Google Cloud Client Libraries for Rust - Storage Control
 //!
 //! **WARNING:** this crate is under active development. We expect multiple
 //! breaking changes in the upcoming releases. Testing is also incomplete, we do
 //! **not** recommend that you use this crate in production. We welcome feedback
 //! about the APIs, documentation, missing features, bugs, etc.
 //!
-//! This crate contains traits, types, and functions to interact with
-//! [Storage].
+//! This crate contains traits, types, and functions to interact with the
+//! [Storage] control APIs.
 //!
 //! [storage]: https://cloud.google.com/storage
 
 pub use gax::Result;
 pub use gax::error::Error;
 #[allow(dead_code)]
-// TODO(#1813) - fix the broken link to [here].
+// TODO(#1813) - fix the broken link to `[here]`.
 #[allow(rustdoc::broken_intra_doc_links)]
-// TODO(#1813) - fix x-goog-request-params and this is not needed
-#[allow(clippy::op_ref)]
-#[allow(clippy::needless_borrow)]
 pub(crate) mod generated;
 
 pub use generated::gapic::builder;
-pub use generated::gapic::client;
 pub use generated::gapic::model;
+pub mod client;
 
 pub(crate) mod google {
     pub mod iam {

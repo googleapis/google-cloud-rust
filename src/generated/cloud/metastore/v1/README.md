@@ -14,9 +14,12 @@ configuration of metastore services.
 
 The main types to work with this crate are the clients:
 
-* [DataprocMetastore](https://docs.rs/google-cloud-metastore-v1/latest/google_cloud_metastore_v1/client/struct.DataprocMetastore.html)
-* [DataprocMetastoreFederation](https://docs.rs/google-cloud-metastore-v1/latest/google_cloud_metastore_v1/client/struct.DataprocMetastoreFederation.html)
+- [DataprocMetastore]
+- [DataprocMetastoreFederation]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-metastore-v1/latest/google-cloud-metastore-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-metastore-v1/latest/google-cloud-metastore-v1)
+
+[DataprocMetastore]: https://docs.rs/google-cloud-metastore-v1/latest/google_cloud_metastore_v1/client/struct.DataprocMetastore.html
+[DataprocMetastoreFederation]: https://docs.rs/google-cloud-metastore-v1/latest/google_cloud_metastore_v1/client/struct.DataprocMetastoreFederation.html

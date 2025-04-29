@@ -73,7 +73,16 @@ impl super::stub::Storage for Storage {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/DeleteBucket");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.name.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
 
         self.inner
             .execute(
@@ -103,7 +112,16 @@ impl super::stub::Storage for Storage {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/GetBucket");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.name.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
 
         self.inner
             .execute(
@@ -138,7 +156,26 @@ impl super::stub::Storage for Storage {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/CreateBucket");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req)
+                    .and_then(|v| v.bucket.as_ref())
+                    .map(|v| v.project.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .or_else(|| {
+                gaxi::routing_parameter::value(
+                    Some(&req).map(|v| v.parent.as_str()),
+                    &[],
+                    &[Segment::MultiWildcard],
+                    &[],
+                )
+            })
+            .map(|v| ("project", v))])
+        };
 
         self.inner
             .execute(
@@ -173,7 +210,16 @@ impl super::stub::Storage for Storage {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/ListBuckets");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.parent.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("project", v))])
+        };
 
         self.inner
             .execute(
@@ -210,7 +256,16 @@ impl super::stub::Storage for Storage {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.v2.Storage/LockBucketRetentionPolicy",
         );
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.bucket.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
 
         self.inner
             .execute(
@@ -245,7 +300,18 @@ impl super::stub::Storage for Storage {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/UpdateBucket");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req)
+                    .and_then(|v| v.bucket.as_ref())
+                    .map(|v| v.name.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
 
         self.inner
             .execute(
@@ -280,7 +346,18 @@ impl super::stub::Storage for Storage {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/ComposeObject");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req)
+                    .and_then(|v| v.destination.as_ref())
+                    .map(|v| v.bucket.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
 
         self.inner
             .execute(
@@ -315,7 +392,16 @@ impl super::stub::Storage for Storage {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/DeleteObject");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.bucket.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
 
         self.inner
             .execute(
@@ -345,7 +431,16 @@ impl super::stub::Storage for Storage {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/RestoreObject");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.bucket.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
 
         self.inner
             .execute(
@@ -365,42 +460,6 @@ impl super::stub::Storage for Storage {
             )
     }
 
-    async fn cancel_resumable_write(
-        &self,
-        req: crate::model::CancelResumableWriteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CancelResumableWriteResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.storage.v2.Storage",
-                "CancelResumableWrite",
-            ));
-            e
-        };
-        let path =
-            http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/CancelResumableWrite");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
-
-        self.inner
-            .execute(
-                extensions,
-                path,
-                req.cnv(),
-                options,
-                &info::X_GOOG_API_CLIENT_HEADER,
-                &x_goog_request_params,
-            )
-            .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::CancelResumableWriteResponse,
-                    crate::model::CancelResumableWriteResponse,
-                >,
-            )
-    }
-
     async fn get_object(
         &self,
         req: crate::model::GetObjectRequest,
@@ -416,7 +475,16 @@ impl super::stub::Storage for Storage {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/GetObject");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.bucket.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
 
         self.inner
             .execute(
@@ -451,7 +519,18 @@ impl super::stub::Storage for Storage {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/UpdateObject");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req)
+                    .and_then(|v| v.object.as_ref())
+                    .map(|v| v.bucket.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
 
         self.inner
             .execute(
@@ -486,7 +565,16 @@ impl super::stub::Storage for Storage {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/ListObjects");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.parent.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
 
         self.inner
             .execute(
@@ -521,7 +609,25 @@ impl super::stub::Storage for Storage {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/RewriteObject");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[
+                gaxi::routing_parameter::value(
+                    Some(&req).map(|v| v.destination_bucket.as_str()),
+                    &[],
+                    &[Segment::MultiWildcard],
+                    &[],
+                )
+                .map(|v| ("bucket", v)),
+                gaxi::routing_parameter::value(
+                    Some(&req).map(|v| v.source_bucket.as_str()),
+                    &[],
+                    &[Segment::MultiWildcard],
+                    &[],
+                )
+                .map(|v| ("source_bucket", v)),
+            ])
+        };
 
         self.inner
             .execute(
@@ -541,78 +647,6 @@ impl super::stub::Storage for Storage {
             )
     }
 
-    async fn start_resumable_write(
-        &self,
-        req: crate::model::StartResumableWriteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StartResumableWriteResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.storage.v2.Storage",
-                "StartResumableWrite",
-            ));
-            e
-        };
-        let path =
-            http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/StartResumableWrite");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
-
-        self.inner
-            .execute(
-                extensions,
-                path,
-                req.cnv(),
-                options,
-                &info::X_GOOG_API_CLIENT_HEADER,
-                &x_goog_request_params,
-            )
-            .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::StartResumableWriteResponse,
-                    crate::model::StartResumableWriteResponse,
-                >,
-            )
-    }
-
-    async fn query_write_status(
-        &self,
-        req: crate::model::QueryWriteStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::QueryWriteStatusResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.storage.v2.Storage",
-                "QueryWriteStatus",
-            ));
-            e
-        };
-        let path =
-            http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/QueryWriteStatus");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
-
-        self.inner
-            .execute(
-                extensions,
-                path,
-                req.cnv(),
-                options,
-                &info::X_GOOG_API_CLIENT_HEADER,
-                &x_goog_request_params,
-            )
-            .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::storage::v2::QueryWriteStatusResponse,
-                    crate::model::QueryWriteStatusResponse,
-                >,
-            )
-    }
-
     async fn move_object(
         &self,
         req: crate::model::MoveObjectRequest,
@@ -628,7 +662,16 @@ impl super::stub::Storage for Storage {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/MoveObject");
-        let x_goog_request_params = [""; 0].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.bucket.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
 
         self.inner
             .execute(

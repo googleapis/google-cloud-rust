@@ -11,8 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [VideoStitcherService](https://docs.rs/google-cloud-video-stitcher-v1/latest/google_cloud_video_stitcher_v1/client/struct.VideoStitcherService.html)
+- [VideoStitcherService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-video-stitcher-v1/latest/google-cloud-video-stitcher-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-video-stitcher-v1/latest/google-cloud-video-stitcher-v1)
+
+[VideoStitcherService]: https://docs.rs/google-cloud-video-stitcher-v1/latest/google_cloud_video_stitcher_v1/client/struct.VideoStitcherService.html

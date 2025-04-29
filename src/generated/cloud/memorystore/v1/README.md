@@ -11,8 +11,10 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [Memorystore](https://docs.rs/google-cloud-memorystore-v1/latest/google_cloud_memorystore_v1/client/struct.Memorystore.html)
+- [Memorystore]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-memorystore-v1/latest/google-cloud-memorystore-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-memorystore-v1/latest/google-cloud-memorystore-v1)
+
+[Memorystore]: https://docs.rs/google-cloud-memorystore-v1/latest/google_cloud_memorystore_v1/client/struct.Memorystore.html

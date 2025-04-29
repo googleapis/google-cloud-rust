@@ -117,6 +117,12 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 				return nil, fmt.Errorf("cannot convert `per-service-features` value %q to boolean: %w", definition, err)
 			}
 			codec.perServiceFeatures = value
+		case key == "skip-builder-docs":
+			value, err := strconv.ParseBool(definition)
+			if err != nil {
+				return nil, fmt.Errorf("cannot convert `skip-builder-docs` value %q to boolean: %w", definition, err)
+			}
+			codec.skipBuilderDocs = value
 		default:
 			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
@@ -219,8 +225,10 @@ type codec struct {
 	// If true, this includes gRPC-only methods, such as methods without HTTP
 	// annotations.
 	includeGrpcOnlyMethods bool
-	// If true, the generator will produce per-client features
+	// If true, the generator will produce per-client features.
 	perServiceFeatures bool
+	// If true, skip the documentation for Client and Request builders.
+	skipBuilderDocs bool
 }
 
 type systemParameter struct {

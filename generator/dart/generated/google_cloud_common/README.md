@@ -13,5 +13,12 @@ We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
 ## What's this?
 
+The Google Cloud client library for the Common Operation Metadata type.
+
 Additional metadata for operations.
 
+## Quickstart
+
+The main types for this package are:
+
+- `OperationMetadata`

@@ -14,8 +14,10 @@ from your current on-premises or cloud environments to Google Cloud.
 
 The main types to work with this crate are the clients:
 
-* [MigrationCenter](https://docs.rs/google-cloud-migrationcenter-v1/latest/google_cloud_migrationcenter_v1/client/struct.MigrationCenter.html)
+- [MigrationCenter]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-migrationcenter-v1/latest/google-cloud-migrationcenter-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-migrationcenter-v1/latest/google-cloud-migrationcenter-v1)
+
+[MigrationCenter]: https://docs.rs/google-cloud-migrationcenter-v1/latest/google_cloud_migrationcenter_v1/client/struct.MigrationCenter.html

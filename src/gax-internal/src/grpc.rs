@@ -182,8 +182,8 @@ impl Client {
         if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
-        auth::credentials::create_access_token_credentials()
-            .await
+        auth::credentials::Builder::default()
+            .build()
             .map_err(Error::authentication)
     }
 
@@ -196,10 +196,18 @@ impl Client {
             http::header::HeaderName::from_static("x-goog-api-client"),
             http::header::HeaderValue::from_static(api_client_header),
         );
-        headers.append(
-            http::header::HeaderName::from_static("x-goog-request-params"),
-            http::header::HeaderValue::from_str(request_params).map_err(Error::other)?,
-        );
+        if !request_params.is_empty() {
+            // When using routing info to populate the request parameters it is
+            // possible that none of the path template matches. AIP-4222 says:
+            //
+            //     If none of the routing parameters matched their respective
+            //     fields, the routing header **must not** be sent.
+            //
+            headers.append(
+                http::header::HeaderName::from_static("x-goog-request-params"),
+                http::header::HeaderValue::from_str(request_params).map_err(Error::other)?,
+            );
+        }
         Ok(headers)
     }
 

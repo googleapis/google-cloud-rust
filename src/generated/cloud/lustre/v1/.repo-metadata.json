@@ -1,0 +1,11 @@
+{
+    "api_id": "lustre.googleapis.com",
+    "api_shortname": "lustre",
+    "client_documentation": "https://docs.rs/google-cloud-lustre-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Google Cloud Managed Lustre API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}

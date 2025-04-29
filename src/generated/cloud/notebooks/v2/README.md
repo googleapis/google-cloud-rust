@@ -13,8 +13,10 @@ Notebooks API is used to manage notebook resources in Google Cloud.
 
 The main types to work with this crate are the clients:
 
-* [NotebookService](https://docs.rs/google-cloud-notebooks-v2/latest/google_cloud_notebooks_v2/client/struct.NotebookService.html)
+- [NotebookService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-notebooks-v2/latest/google-cloud-notebooks-v2)
+- Read the [crate's documentation](https://docs.rs/google-cloud-notebooks-v2/latest/google-cloud-notebooks-v2)
+
+[NotebookService]: https://docs.rs/google-cloud-notebooks-v2/latest/google_cloud_notebooks_v2/client/struct.NotebookService.html

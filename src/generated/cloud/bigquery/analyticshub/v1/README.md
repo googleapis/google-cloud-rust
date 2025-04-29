@@ -13,8 +13,10 @@ Exchange data and analytics assets securely and efficiently.
 
 The main types to work with this crate are the clients:
 
-* [AnalyticsHubService](https://docs.rs/google-cloud-bigquery-analyticshub-v1/latest/google_cloud_bigquery_analyticshub_v1/client/struct.AnalyticsHubService.html)
+- [AnalyticsHubService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-analyticshub-v1/latest/google-cloud-bigquery-analyticshub-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-analyticshub-v1/latest/google-cloud-bigquery-analyticshub-v1)
+
+[AnalyticsHubService]: https://docs.rs/google-cloud-bigquery-analyticshub-v1/latest/google_cloud_bigquery_analyticshub_v1/client/struct.AnalyticsHubService.html

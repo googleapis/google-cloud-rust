@@ -13,5 +13,29 @@ We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
 ## What's this?
 
+The Google Cloud client library for the Common Types.
+
 Defines common types for Google APIs.
 
+## Quickstart
+
+The main types for this package are:
+
+- `Color`
+- `Date`
+- `DateTime`
+- `TimeZone`
+- `Decimal`
+- `Expr`
+- `Fraction`
+- `Interval`
+- `LatLng`
+- `LocalizedText`
+- `Money`
+- `PhoneNumber`
+- `PostalAddress`
+- `Quaternion`
+- `TimeOfDay`
+- `CalendarPeriod`
+- `DayOfWeek`
+- `Month`

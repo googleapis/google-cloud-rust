@@ -14,8 +14,10 @@ assessment and planning tool.
 
 The main types to work with this crate are the clients:
 
-* [RapidMigrationAssessment](https://docs.rs/google-cloud-rapidmigrationassessment-v1/latest/google_cloud_rapidmigrationassessment_v1/client/struct.RapidMigrationAssessment.html)
+- [RapidMigrationAssessment]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-rapidmigrationassessment-v1/latest/google-cloud-rapidmigrationassessment-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-rapidmigrationassessment-v1/latest/google-cloud-rapidmigrationassessment-v1)
+
+[RapidMigrationAssessment]: https://docs.rs/google-cloud-rapidmigrationassessment-v1/latest/google_cloud_rapidmigrationassessment_v1/client/struct.RapidMigrationAssessment.html

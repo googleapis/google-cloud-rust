@@ -31,6 +31,27 @@ mod test {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn no_request_params() -> anyhow::Result<()> {
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let client = builder(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+        let response = send_request(client, "test message", "").await?;
+        assert_eq!(&response.message, "test message");
+        assert_eq!(
+            response
+                .metadata
+                .get("x-goog-api-client")
+                .map(String::as_str),
+            Some("test-only-api-client/1.0")
+        );
+        assert_eq!(response.metadata.get("x-goog-request-params"), None);
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn override_endpoint() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
@@ -51,7 +72,7 @@ mod test {
             .with_credentials(auth::credentials::testing::error_credentials(true))
             .build()
             .await?;
-        let response = send_request(client, "credentials error").await;
+        let response = send_request(client, "credentials error", "").await;
         let err = response.err().unwrap();
         assert_eq!(err.kind(), gax::error::ErrorKind::Authentication, "{err:?}");
         Ok(())
@@ -88,7 +109,7 @@ mod test {
             .build()
             .await?;
 
-        let response = send_request(client, "").await;
+        let response = send_request(client, "", "").await;
         let err = response.err().unwrap();
         assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err:?}");
         let svc = err.as_inner::<gax::error::ServiceError>().unwrap();
@@ -101,6 +122,7 @@ mod test {
     async fn send_request(
         client: grpc::Client,
         msg: &str,
+        request_params: &str,
     ) -> gax::Result<google::test::v1::EchoResponse> {
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -121,14 +143,14 @@ mod test {
                 request,
                 RequestOptions::default(),
                 "test-only-api-client/1.0",
-                "name=test-only",
+                request_params,
             )
             .await
             .map(tonic::Response::into_inner)
     }
 
     async fn check_simple_request(client: grpc::Client) -> anyhow::Result<()> {
-        let response = send_request(client, "test message").await?;
+        let response = send_request(client, "test message", "name=test-only").await?;
         assert_eq!(&response.message, "test message");
         assert_eq!(
             response

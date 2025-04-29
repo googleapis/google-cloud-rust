@@ -13,5 +13,84 @@ We welcome feedback about the APIs, documentation, missing features, bugs, etc.
 
 ## What's this?
 
+The Google Cloud client library for the Service Config API.
+
 Lets you define and config your API service.
 
+## Quickstart
+
+The main types for this package are:
+
+- `Authentication`
+- `AuthenticationRule`
+- `JwtLocation`
+- `AuthProvider`
+- `OauthRequirements`
+- `AuthRequirement`
+- `Backend`
+- `BackendRule`
+- `Billing`
+- `CommonLanguageSettings`
+- `ClientLibrarySettings`
+- `Publishing`
+- `JavaSettings`
+- `CppSettings`
+- `PhpSettings`
+- `PythonSettings`
+- `NodeSettings`
+- `DotnetSettings`
+- `RubySettings`
+- `GoSettings`
+- `MethodSettings`
+- `SelectiveGapicGeneration`
+- `ConfigChange`
+- `Advice`
+- `ProjectProperties`
+- `Property`
+- `Context`
+- `ContextRule`
+- `Control`
+- `Distribution`
+- `Documentation`
+- `DocumentationRule`
+- `Page`
+- `Endpoint`
+- `FieldInfo`
+- `TypeReference`
+- `Http`
+- `HttpRule`
+- `CustomHttpPattern`
+- `HttpBody`
+- `LabelDescriptor`
+- `LogDescriptor`
+- `Logging`
+- `MetricDescriptor`
+- `Metric`
+- `MonitoredResourceDescriptor`
+- `MonitoredResource`
+- `MonitoredResourceMetadata`
+- `Monitoring`
+- `FieldPolicy`
+- `MethodPolicy`
+- `Quota`
+- `MetricRule`
+- `QuotaLimit`
+- `ResourceDescriptor`
+- `ResourceReference`
+- `RoutingRule`
+- `RoutingParameter`
+- `Service`
+- `SourceInfo`
+- `SystemParameters`
+- `SystemParameterRule`
+- `SystemParameter`
+- `Usage`
+- `UsageRule`
+- `Visibility`
+- `VisibilityRule`
+- `ClientLibraryOrganization`
+- `ClientLibraryDestination`
+- `ChangeType`
+- `ErrorReason`
+- `FieldBehavior`
+- `LaunchStage`

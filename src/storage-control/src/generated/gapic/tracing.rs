@@ -119,15 +119,6 @@ where
     }
 
     #[tracing::instrument(ret)]
-    async fn cancel_resumable_write(
-        &self,
-        req: crate::model::CancelResumableWriteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::CancelResumableWriteResponse>> {
-        self.inner.cancel_resumable_write(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
     async fn get_object(
         &self,
         req: crate::model::GetObjectRequest,
@@ -161,24 +152,6 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RewriteResponse>> {
         self.inner.rewrite_object(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn start_resumable_write(
-        &self,
-        req: crate::model::StartResumableWriteRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::StartResumableWriteResponse>> {
-        self.inner.start_resumable_write(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn query_write_status(
-        &self,
-        req: crate::model::QueryWriteStatusRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::QueryWriteStatusResponse>> {
-        self.inner.query_write_status(req, options).await
     }
 
     #[tracing::instrument(ret)]

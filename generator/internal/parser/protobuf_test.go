@@ -1043,6 +1043,7 @@ func TestProtobuf_Pagination(t *testing.T) {
 					ID:       ".test.ListFooRequest.page_token",
 					Typez:    9,
 					JSONName: "pageToken",
+					Behavior: []api.FieldBehavior{api.FIELD_BEHAVIOR_OPTIONAL},
 				},
 			},
 			{
@@ -1286,11 +1287,12 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 					AutoPopulatedFields: []string{
 						"request_id",
 						"request_id_optional",
+						"request_id_with_field_behavior",
 						// Intentionally add some fields that are not
 						// auto-populated to test the other conditions.
 						"not_request_id_bad_type",
-						"not_request_id_missing_field_behavior",
-						"not_request_id_bad_field_behavior",
+						"not_request_id_required",
+						"not_request_id_required_with_other_field_behavior",
 						"not_request_id_missing_field_info",
 						"not_request_id_missing_field_info_format",
 						"not_request_id_bad_field_info_format",
@@ -1321,6 +1323,7 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 				ID:            ".test.CreateFooRequest.parent",
 				Documentation: "Required. The resource name of the project.",
 				Typez:         api.STRING_TYPE,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:          "foo_id",
@@ -1328,6 +1331,7 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 				ID:            ".test.CreateFooRequest.foo_id",
 				Documentation: "Required. This must be unique within the project.",
 				Typez:         api.STRING_TYPE,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:          "foo",
@@ -1337,14 +1341,15 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 				Typez:         api.MESSAGE_TYPE,
 				TypezID:       ".test.Foo",
 				Optional:      true,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:     "request_id",
 				JSONName: "requestId",
 				ID:       ".test.CreateFooRequest.request_id",
-				Documentation: "Required. This is an auto-populated field. The remaining fields almost\n" +
-					"meet the requirements to be auto-populated, but fail for the reasons\n" +
-					"implied by their name.",
+				Documentation: "This is an auto-populated field. The remaining fields almost meet the\n" +
+					"requirements to be auto-populated, but fail for the reasons implied by\n" +
+					"their name.",
 				Typez:         api.STRING_TYPE,
 				AutoPopulated: true,
 			},
@@ -1356,6 +1361,14 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 				Optional:      true,
 				AutoPopulated: true,
 			},
+			{
+				Name:          "request_id_with_field_behavior",
+				ID:            ".test.CreateFooRequest.request_id_with_field_behavior",
+				Typez:         api.STRING_TYPE,
+				JSONName:      "requestIdWithFieldBehavior",
+				AutoPopulated: true,
+				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_OPTIONAL, api.FIELD_BEHAVIOR_INPUT_ONLY},
+			},
 
 			{
 				Name:     "not_request_id_bad_type",
@@ -1364,16 +1377,18 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 				JSONName: "notRequestIdBadType",
 			},
 			{
-				Name:     "not_request_id_missing_field_behavior",
-				ID:       ".test.CreateFooRequest.not_request_id_missing_field_behavior",
+				Name:     "not_request_id_required",
+				ID:       ".test.CreateFooRequest.not_request_id_required",
 				Typez:    api.STRING_TYPE,
-				JSONName: "notRequestIdMissingFieldBehavior",
+				JSONName: "notRequestIdRequired",
+				Behavior: []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
-				Name:     "not_request_id_bad_field_behavior",
-				ID:       ".test.CreateFooRequest.not_request_id_bad_field_behavior",
+				Name:     "not_request_id_required_with_other_field_behavior",
+				ID:       ".test.CreateFooRequest.not_request_id_required_with_other_field_behavior",
 				Typez:    api.STRING_TYPE,
-				JSONName: "notRequestIdBadFieldBehavior",
+				JSONName: "notRequestIdRequiredWithOtherFieldBehavior",
+				Behavior: []api.FieldBehavior{api.FIELD_BEHAVIOR_INPUT_ONLY, api.FIELD_BEHAVIOR_REQUIRED},
 			},
 			{
 				Name:     "not_request_id_missing_field_info",

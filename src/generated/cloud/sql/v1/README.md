@@ -13,16 +13,26 @@ API for Cloud SQL database instance management
 
 The main types to work with this crate are the clients:
 
-* [SqlBackupRunsService](https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlBackupRunsService.html)
-* [SqlConnectService](https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlConnectService.html)
-* [SqlDatabasesService](https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlDatabasesService.html)
-* [SqlFlagsService](https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlFlagsService.html)
-* [SqlInstancesService](https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlInstancesService.html)
-* [SqlOperationsService](https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlOperationsService.html)
-* [SqlSslCertsService](https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlSslCertsService.html)
-* [SqlTiersService](https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlTiersService.html)
-* [SqlUsersService](https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlUsersService.html)
+- [SqlBackupRunsService]
+- [SqlConnectService]
+- [SqlDatabasesService]
+- [SqlFlagsService]
+- [SqlInstancesService]
+- [SqlOperationsService]
+- [SqlSslCertsService]
+- [SqlTiersService]
+- [SqlUsersService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-sql-v1/latest/google-cloud-sql-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-sql-v1/latest/google-cloud-sql-v1)
+
+[SqlBackupRunsService]: https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlBackupRunsService.html
+[SqlConnectService]: https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlConnectService.html
+[SqlDatabasesService]: https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlDatabasesService.html
+[SqlFlagsService]: https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlFlagsService.html
+[SqlInstancesService]: https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlInstancesService.html
+[SqlOperationsService]: https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlOperationsService.html
+[SqlSslCertsService]: https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlSslCertsService.html
+[SqlTiersService]: https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlTiersService.html
+[SqlUsersService]: https://docs.rs/google-cloud-sql-v1/latest/google_cloud_sql_v1/client/struct.SqlUsersService.html

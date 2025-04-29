@@ -13,8 +13,10 @@ Enables management and configuration of domain names.
 
 The main types to work with this crate are the clients:
 
-* [Domains](https://docs.rs/google-cloud-domains-v1/latest/google_cloud_domains_v1/client/struct.Domains.html)
+- [Domains]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-domains-v1/latest/google-cloud-domains-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-domains-v1/latest/google-cloud-domains-v1)
+
+[Domains]: https://docs.rs/google-cloud-domains-v1/latest/google_cloud_domains_v1/client/struct.Domains.html

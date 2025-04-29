@@ -14,8 +14,10 @@ running in the cloud.
 
 The main types to work with this crate are the clients:
 
-* [CloudShellService](https://docs.rs/google-cloud-shell-v1/latest/google_cloud_shell_v1/client/struct.CloudShellService.html)
+- [CloudShellService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-shell-v1/latest/google-cloud-shell-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-shell-v1/latest/google-cloud-shell-v1)
+
+[CloudShellService]: https://docs.rs/google-cloud-shell-v1/latest/google_cloud_shell_v1/client/struct.CloudShellService.html

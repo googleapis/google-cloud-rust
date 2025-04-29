@@ -11,9 +11,12 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [DepService](https://docs.rs/google-cloud-networkservices-v1/latest/google_cloud_networkservices_v1/client/struct.DepService.html)
-* [NetworkServices](https://docs.rs/google-cloud-networkservices-v1/latest/google_cloud_networkservices_v1/client/struct.NetworkServices.html)
+- [DepService]
+- [NetworkServices]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-networkservices-v1/latest/google-cloud-networkservices-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-networkservices-v1/latest/google-cloud-networkservices-v1)
+
+[DepService]: https://docs.rs/google-cloud-networkservices-v1/latest/google_cloud_networkservices_v1/client/struct.DepService.html
+[NetworkServices]: https://docs.rs/google-cloud-networkservices-v1/latest/google_cloud_networkservices_v1/client/struct.NetworkServices.html

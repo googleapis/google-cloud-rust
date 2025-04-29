@@ -24,7 +24,7 @@ use std::sync::Arc;
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
-/// # use google_cloud_storage::client::Storage;
+/// # use google_cloud_storage_control::client::Storage;
 /// let client = Storage::builder().build().await?;
 /// // use `client` to make requests to the Cloud Storage.
 /// # gax::Result::<()>::Ok(()) });
@@ -94,7 +94,7 @@ impl Storage {
     ///
     /// ```
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage_control::client::Storage;
     /// let client = Storage::builder().build().await?;
     /// # gax::Result::<()>::Ok(()) });
     /// ```
@@ -212,18 +212,6 @@ impl Storage {
         super::builder::storage::RestoreObject::new(self.inner.clone())
     }
 
-    /// Cancels an in-progress resumable upload.
-    ///
-    /// Any attempts to write to the resumable upload after cancelling the upload
-    /// will fail.
-    ///
-    /// The behavior for currently in progress write operations is not guaranteed -
-    /// they could either complete before the cancellation or fail if the
-    /// cancellation completes first.
-    pub fn cancel_resumable_write(&self) -> super::builder::storage::CancelResumableWrite {
-        super::builder::storage::CancelResumableWrite::new(self.inner.clone())
-    }
-
     /// Retrieves object metadata.
     ///
     /// **IAM Permissions**:
@@ -258,44 +246,6 @@ impl Storage {
     /// metadata.
     pub fn rewrite_object(&self) -> super::builder::storage::RewriteObject {
         super::builder::storage::RewriteObject::new(self.inner.clone())
-    }
-
-    /// Starts a resumable write operation. This
-    /// method is part of the [Resumable
-    /// upload](https://cloud.google.com/storage/docs/resumable-uploads) feature.
-    /// This allows you to upload large objects in multiple chunks, which is more
-    /// resilient to network interruptions than a single upload. The validity
-    /// duration of the write operation, and the consequences of it becoming
-    /// invalid, are service-dependent.
-    ///
-    /// **IAM Permissions**:
-    ///
-    /// Requires `storage.objects.create`
-    /// [IAM permission](https://cloud.google.com/iam/docs/overview#permissions) on
-    /// the bucket.
-    pub fn start_resumable_write(&self) -> super::builder::storage::StartResumableWrite {
-        super::builder::storage::StartResumableWrite::new(self.inner.clone())
-    }
-
-    /// Determines the `persisted_size` of an object that is being written. This
-    /// method is part of the [resumable
-    /// upload](https://cloud.google.com/storage/docs/resumable-uploads) feature.
-    /// The returned value is the size of the object that has been persisted so
-    /// far. The value can be used as the `write_offset` for the next `Write()`
-    /// call.
-    ///
-    /// If the object does not exist, meaning if it was deleted, or the
-    /// first `Write()` has not yet reached the service, this method returns the
-    /// error `NOT_FOUND`.
-    ///
-    /// This method is useful for clients that buffer data and need to know which
-    /// data can be safely evicted. The client can call `QueryWriteStatus()` at any
-    /// time to determine how much data has been logged for this object.
-    /// For any sequence of `QueryWriteStatus()` calls for a given
-    /// object name, the sequence of returned `persisted_size` values are
-    /// non-decreasing.
-    pub fn query_write_status(&self) -> super::builder::storage::QueryWriteStatus {
-        super::builder::storage::QueryWriteStatus::new(self.inner.clone())
     }
 
     /// Moves the source object to the destination object in the same bucket.

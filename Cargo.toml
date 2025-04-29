@@ -31,7 +31,7 @@ default-members = [
   "src/pubsub",
   "src/root",
   "src/spanner",
-  "src/storage",
+  "src/storage-control",
   "src/wkt",
   "tools/check-copyright",
   # We need `cargo test` to run at least some documentation tests for generated
@@ -140,6 +140,7 @@ members = [
   "src/generated/cloud/language/v2",
   "src/generated/cloud/licensemanager/v1",
   "src/generated/cloud/location",
+  "src/generated/cloud/lustre/v1",
   "src/generated/cloud/managedidentities/v1",
   "src/generated/cloud/memcache/v1",
   "src/generated/cloud/memorystore/v1",
@@ -246,7 +247,7 @@ members = [
   "src/pubsub",
   "src/root",
   "src/spanner",
-  "src/storage",
+  "src/storage-control",
   "src/wkt",
   "tools/check-copyright",
 ]
@@ -271,31 +272,32 @@ inherits    = "dev"
 incremental = false
 
 [workspace.dependencies]
-async-trait = { version = "0.1" }
-bytes       = { version = "1", default-features = false, features = ["serde"] }
-http        = { version = "1", default-features = false }
-lazy_static = { version = "1", default-features = false }
-prost       = { version = "0.13", default-features = false }
-prost-build = { version = "0.13", default-features = false }
-prost-types = { version = "0.13", default-features = false }
-reqwest     = { version = "0.12", default-features = false, features = ["json"] }
-serde       = { version = "1", default-features = false, features = ["serde_derive"] }
-serde_json  = { version = "1", default-features = false }
-serde_with  = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
-tokio       = { version = "1", default-features = false }
-tokio-test  = { version = "0.4", default-features = false }
-tonic       = { version = "0.13", default-features = false, features = ["prost", "tls-native-roots", "tls-ring"] }
-tonic-build = { version = "0.13", default-features = false }
-tracing     = { version = "0.1" }
+async-trait      = { version = "0.1" }
+bytes            = { version = "1", default-features = false, features = ["serde"] }
+http             = { version = "1", default-features = false }
+lazy_static      = { version = "1", default-features = false }
+percent-encoding = { version = "2", default-features = false }
+prost            = { version = "0.13", default-features = false }
+prost-build      = { version = "0.13", default-features = false }
+prost-types      = { version = "0.13", default-features = false }
+reqwest          = { version = "0.12", default-features = false, features = ["json"] }
+serde            = { version = "1", default-features = false, features = ["serde_derive"] }
+serde_json       = { version = "1", default-features = false }
+serde_with       = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
+tokio            = { version = "1", default-features = false }
+tokio-test       = { version = "0.4", default-features = false }
+tonic            = { version = "0.13", default-features = false, features = ["prost", "tls-native-roots", "tls-ring"] }
+tonic-build      = { version = "0.13", default-features = false }
+tracing          = { version = "0.1" }
 # Local packages used as dependencies
-auth                          = { version = "0.19", path = "src/auth", package = "google-cloud-auth" }
+auth                          = { version = "0.21", path = "src/auth", package = "google-cloud-auth" }
 gax                           = { version = "0.22", path = "src/gax", package = "google-cloud-gax" }
 gaxi                          = { version = "0.1", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "0.3", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
 location                      = { version = "0.3", path = "src/generated/cloud/location", package = "google-cloud-location" }
 longrunning                   = { version = "0.24", path = "src/generated/longrunning", package = "google-cloud-longrunning" }
 lro                           = { version = "0.1", path = "src/lro", package = "google-cloud-lro" }
-wkt                           = { version = "0.3", path = "src/wkt", package = "google-cloud-wkt" }
+wkt                           = { version = "0.4", path = "src/wkt", package = "google-cloud-wkt" }
 api                           = { version = "0.3", path = "src/generated/api/types", package = "google-cloud-api" }
 cloud_common                  = { version = "0.3", path = "src/generated/cloud/common", package = "google-cloud-common" }
 gtype                         = { version = "0.3", path = "src/generated/type", package = "google-cloud-type" }

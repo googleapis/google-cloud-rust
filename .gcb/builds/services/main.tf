@@ -73,3 +73,15 @@ resource "google_project_service" "speech" {
 
   disable_dependent_services = true
 }
+
+resource "google_project_service" "storage" {
+  project = var.project
+  service = "storage.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}

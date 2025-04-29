@@ -13,9 +13,12 @@ Enables consumers to procure products served by Cloud Marketplace platform
 
 The main types to work with this crate are the clients:
 
-* [LicenseManagementService](https://docs.rs/google-cloud-commerce-consumer-procurement-v1/latest/google_cloud_commerce_consumer_procurement_v1/client/struct.LicenseManagementService.html)
-* [ConsumerProcurementService](https://docs.rs/google-cloud-commerce-consumer-procurement-v1/latest/google_cloud_commerce_consumer_procurement_v1/client/struct.ConsumerProcurementService.html)
+- [LicenseManagementService]
+- [ConsumerProcurementService]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-commerce-consumer-procurement-v1/latest/google-cloud-commerce-consumer-procurement-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-commerce-consumer-procurement-v1/latest/google-cloud-commerce-consumer-procurement-v1)
+
+[LicenseManagementService]: https://docs.rs/google-cloud-commerce-consumer-procurement-v1/latest/google_cloud_commerce_consumer_procurement_v1/client/struct.LicenseManagementService.html
+[ConsumerProcurementService]: https://docs.rs/google-cloud-commerce-consumer-procurement-v1/latest/google_cloud_commerce_consumer_procurement_v1/client/struct.ConsumerProcurementService.html

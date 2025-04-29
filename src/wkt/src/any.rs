@@ -137,18 +137,10 @@ impl crate::message::Message for Any {
         "type.googleapis.com/google.protobuf.Any"
     }
     fn to_map(&self) -> Result<crate::message::Map, AnyError> {
-        use serde_json::Value;
-        let map = [
-            ("@type", Value::String(Self::typename().into())),
-            ("value", Value::Object(self.0.clone())),
-        ]
-        .into_iter()
-        .map(|(k, v)| (k.to_string(), v))
-        .collect::<crate::message::Map>();
-        Ok(map)
+        crate::message::to_json_other(self)
     }
     fn from_map(map: &crate::message::Map) -> Result<Self, AnyError> {
-        crate::message::from_value(map)
+        crate::message::from_other(map)
     }
 }
 

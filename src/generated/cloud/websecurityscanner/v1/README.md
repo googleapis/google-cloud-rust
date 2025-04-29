@@ -13,8 +13,10 @@ Scans your Compute and App Engine apps for common web vulnerabilities.
 
 The main types to work with this crate are the clients:
 
-* [WebSecurityScanner](https://docs.rs/google-cloud-websecurityscanner-v1/latest/google_cloud_websecurityscanner_v1/client/struct.WebSecurityScanner.html)
+- [WebSecurityScanner]
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/google-cloud-websecurityscanner-v1/latest/google-cloud-websecurityscanner-v1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-websecurityscanner-v1/latest/google-cloud-websecurityscanner-v1)
+
+[WebSecurityScanner]: https://docs.rs/google-cloud-websecurityscanner-v1/latest/google_cloud_websecurityscanner_v1/client/struct.WebSecurityScanner.html
