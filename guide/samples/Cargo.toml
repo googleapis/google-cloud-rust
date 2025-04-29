@@ -56,10 +56,10 @@ path = "../../src/generated/cloud/aiplatform/v1"
 
 # ANCHOR: gax-with-streams
 # ANCHOR: gax
-[dependencies.google-cloud-gax] 
-version          = "0.22"
+[dependencies.google-cloud-gax]
+version = "0.22"
 # ANCHOR_END: gax
-features         = ["unstable-stream"]
+features = ["unstable-stream"]
 # ANCHOR_END: gax-with-streams
 path = "../../src/gax"
 
