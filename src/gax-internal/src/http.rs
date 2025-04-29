@@ -257,6 +257,7 @@ const SENSITIVE_HEADER: &str = "[sensitive]";
 mod test {
     use super::*;
     use std::collections::HashMap;
+    use test_case::test_case;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test]
@@ -371,33 +372,33 @@ mod test {
         Ok(())
     }
 
-    macro_rules! test_client_empty_content {
-        ($name:ident, $($code:expr, $content:expr, should_fail $should_fail:expr),+) => {
-            #[tokio::test]
-            async fn $name() -> TestResult {
-                let http_resp = http::Response::builder()
-                    .header("Content-Type", "application/json")
-                    .status($($code)*)
-                    .body($($content)*)?;
-                let response: reqwest::Response = http_resp.into();
-                assert!(response.status().is_success());
+    #[tokio::test]
+    #[test_case(reqwest::StatusCode::OK, "{}", false; "200 with empty object")]
+    #[test_case(reqwest::StatusCode::NO_CONTENT, "{}", false; "204 with empty object")]
+    #[test_case(reqwest::StatusCode::OK, "", true; "200 with empty content")]
+    #[test_case(reqwest::StatusCode::NO_CONTENT, "", false; "204 with empty content")]
+    async fn client_empty_content(
+        code: reqwest::StatusCode,
+        content: &str,
+        should_fail: bool,
+    ) -> TestResult {
+        let http_resp = http::Response::builder()
+            .header("Content-Type", "application/json")
+            .status(code)
+            .body(content.to_owned())?;
+        let response: reqwest::Response = http_resp.into();
+        assert!(response.status().is_success());
 
-                let response = ReqwestClient::to_http_response::<wkt::Empty>(response).await;
-                if $($should_fail)* {
-                    assert!(response.is_err());
-                    return Ok(());
-                }
-                assert!(response.is_ok());
-
-                let response = response.unwrap();
-                let body = response.into_body();
-                assert_eq!(body, wkt::Empty::default());
-                Ok(())
-            }
+        let response = ReqwestClient::to_http_response::<wkt::Empty>(response).await;
+        if should_fail {
+            assert!(response.is_err());
+            return Ok(());
         }
-    }
+        assert!(response.is_ok());
 
-    test_client_empty_content!(client_200_empty_object, 200, r#"{}"#, should_fail false);
-    test_client_empty_content!(client_204_empty_content, 204, r#""#, should_fail false);
-    test_client_empty_content!(client_200_empty_content, 200, r#""#, should_fail true);
+        let response = response.unwrap();
+        let body = response.into_body();
+        assert_eq!(body, wkt::Empty::default());
+        Ok(())
+    }
 }
