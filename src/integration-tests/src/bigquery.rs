@@ -63,21 +63,14 @@ pub async fn dataset_admin(
 
     assert!(!list.datasets.is_empty());
     assert!(list.datasets.len() > 1);
-    assert!(
-        list.datasets
-            .iter()
-            .find(|v| v.id.contains(&ds_name))
-            .is_some()
-    );
+    assert!(list.datasets.iter().any(|v| v.id.contains(&ds_name)));
 
-    let delete = client
+    client
         .delete_dataset(&project_id, &ds_name)
         .set_delete_contents(true)
         .send()
         .await?;
-    println!("DELETE DATASET = {delete:?}");
-
-    //assert!(delete().is_ok());
+    println!("DELETE DATASET");
 
     Ok(())
 }
@@ -98,12 +91,12 @@ async fn cleanup_stale_datasets(
         .datasets
         .iter()
         .map(|v| {
-            return client
+            client
                 .get_dataset(
                     project_id,
                     v.dataset_reference.as_ref().map_or("", |v| &v.dataset_id),
                 )
-                .send();
+                .send()
         })
         .collect::<Vec<_>>();
 
@@ -116,7 +109,7 @@ async fn cleanup_stale_datasets(
             {
                 return r.ok();
             }
-            return None;
+            None
         })
         .collect::<Vec<_>>();
 

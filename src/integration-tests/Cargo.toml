@@ -37,13 +37,13 @@ tracing               = "0.1"
 tracing-subscriber    = { version = "0.3", optional = true }
 wkt.workspace         = true
 
-[dependencies.firestore]
-package = "google-cloud-firestore"
-path    = "../../src/firestore"
-
 [dependencies.bigquery]
 package = "google-cloud-bigquery-v2"
 path    = "../../src/generated/cloud/bigquery/v2"
+
+[dependencies.firestore]
+package = "google-cloud-firestore"
+path    = "../../src/firestore"
 
 [dependencies.sm]
 package = "google-cloud-secretmanager-v1"
