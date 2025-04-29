@@ -170,6 +170,31 @@ impl Storage {
         super::builder::storage::LockBucketRetentionPolicy::new(self.inner.clone())
     }
 
+    /// Gets the IAM policy for a specified bucket.
+    /// The `resource` field in the request should be
+    /// `projects/_/buckets/{bucket}`.
+    pub fn get_iam_policy(&self) -> super::builder::storage::GetIamPolicy {
+        super::builder::storage::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Updates an IAM policy for the specified bucket.
+    /// The `resource` field in the request should be
+    /// `projects/_/buckets/{bucket}`.
+    pub fn set_iam_policy(&self) -> super::builder::storage::SetIamPolicy {
+        super::builder::storage::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Tests a set of permissions on the given bucket, object, or managed folder
+    /// to see which, if any, are held by the caller.
+    /// The `resource` field in the request should be
+    /// `projects/_/buckets/{bucket}` for a bucket,
+    /// `projects/_/buckets/{bucket}/objects/{object}` for an object, or
+    /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
+    /// for a managed folder.
+    pub fn test_iam_permissions(&self) -> super::builder::storage::TestIamPermissions {
+        super::builder::storage::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
     pub fn update_bucket(&self) -> super::builder::storage::UpdateBucket {
         super::builder::storage::UpdateBucket::new(self.inner.clone())

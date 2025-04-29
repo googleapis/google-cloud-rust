@@ -285,6 +285,168 @@ impl super::stub::Storage for Storage {
             )
     }
 
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "GetIamPolicy",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/GetIamPolicy");
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.resource.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
+
+        self.inner
+          .execute(
+              extensions,
+              path,
+              req.cnv(),
+              options,
+              &info::X_GOOG_API_CLIENT_HEADER,
+              &x_goog_request_params,
+          )
+          .await
+          .map(gaxi::grpc::to_gax_response::<
+          crate::google::iam::v1::Policy,
+          iam_v1::model::Policy>)
+    }
+
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "SetIamPolicy",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/SetIamPolicy");
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.resource.as_str()),
+                &[],
+                &[Segment::MultiWildcard],
+                &[],
+            )
+            .map(|v| ("bucket", v))])
+        };
+
+        self.inner
+          .execute(
+              extensions,
+              path,
+              req.cnv(),
+              options,
+              &info::X_GOOG_API_CLIENT_HEADER,
+              &x_goog_request_params,
+          )
+          .await
+          .map(gaxi::grpc::to_gax_response::<
+          crate::google::iam::v1::Policy,
+          iam_v1::model::Policy>)
+    }
+
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.v2.Storage",
+                "TestIamPermissions",
+            ));
+            e
+        };
+        let path =
+            http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/TestIamPermissions");
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
+                Some(&req).map(|v| v.resource.as_str()),
+                &[],
+                &[
+                    Segment::Literal("projects"),
+                    Segment::Literal("/"),
+                    Segment::SingleWildcard,
+                    Segment::Literal("/"),
+                    Segment::Literal("buckets"),
+                    Segment::Literal("/"),
+                    Segment::SingleWildcard,
+                ],
+                &[
+                    Segment::Literal("managedFolders"),
+                    Segment::TrailingMultiWildcard,
+                ],
+            )
+            .or_else(|| {
+                gaxi::routing_parameter::value(
+                    Some(&req).map(|v| v.resource.as_str()),
+                    &[],
+                    &[
+                        Segment::Literal("projects"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::Literal("buckets"),
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                    &[Segment::Literal("objects"), Segment::TrailingMultiWildcard],
+                )
+            })
+            .or_else(|| {
+                gaxi::routing_parameter::value(
+                    Some(&req).map(|v| v.resource.as_str()),
+                    &[],
+                    &[Segment::MultiWildcard],
+                    &[],
+                )
+            })
+            .map(|v| ("bucket", v))])
+        };
+
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.cnv(),
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::iam::v1::TestIamPermissionsResponse,
+                    iam_v1::model::TestIamPermissionsResponse,
+                >,
+            )
+    }
+
     async fn update_bucket(
         &self,
         req: crate::model::UpdateBucketRequest,

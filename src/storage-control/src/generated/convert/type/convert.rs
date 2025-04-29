@@ -32,3 +32,24 @@ impl gaxi::prost::Convert<gtype::model::Date> for Date {
             .set_day(self.day)
     }
 }
+
+impl gaxi::prost::Convert<Expr> for gtype::model::Expr {
+    fn cnv(self) -> Expr {
+        Expr {
+            expression: self.expression.cnv(),
+            title: self.title.cnv(),
+            description: self.description.cnv(),
+            location: self.location.cnv(),
+        }
+    }
+}
+
+impl gaxi::prost::Convert<gtype::model::Expr> for Expr {
+    fn cnv(self) -> gtype::model::Expr {
+        gtype::model::Expr::new()
+            .set_expression(self.expression)
+            .set_title(self.title)
+            .set_description(self.description)
+            .set_location(self.location)
+    }
+}
