@@ -45,7 +45,7 @@ thiserror  = "2"
 time       = { version = "0.3", features = ["formatting", "parsing"] }
 
 [dev-dependencies]
-anyhow    = "1"
-bytes     = { version = "1", features = ["serde"] }
-test-case = "3"
-wkt       = { path = ".", package = "google-cloud-wkt", features = ["chrono", "time"] }
+anyhow.workspace = true
+bytes            = { version = "1", features = ["serde"] }
+test-case        = "3"
+wkt              = { path = ".", package = "google-cloud-wkt", features = ["chrono", "time"] }

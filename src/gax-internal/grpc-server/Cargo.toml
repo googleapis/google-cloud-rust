@@ -24,14 +24,14 @@ publish           = false
 _generate-protos = ["dep:tonic-build"]
 
 [dependencies]
-anyhow       = "1"
-axum         = "0.8"
-http         = "1"
-prost        = { workspace = true, default-features = true }
-serde_json   = "1"
-tokio        = { version = "1", features = ["macros"] }
-tokio-stream = "0.1"
-tonic        = { workspace = true, default-features = true }
+anyhow.workspace = true
+axum             = "0.8"
+http             = "1"
+prost            = { workspace = true, default-features = true }
+serde_json       = "1"
+tokio            = { version = "1", features = ["macros"] }
+tokio-stream     = "0.1"
+tonic            = { workspace = true, default-features = true }
 # Local dependencies
 auth = { path = "../../auth", package = "google-cloud-auth" }
 gax  = { path = "../../gax", package = "google-cloud-gax" }
