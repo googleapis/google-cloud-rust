@@ -19,7 +19,7 @@ specification-source = 'google/storage/v2'
 [source]
 title-override = 'Cloud Storage'
 # TODO(#1813) - handle IAM mixin for gRPC-based clients
-skipped-ids    = """\
+skipped-ids = """\
     .google.storage.v2.BidiReadHandle,\
     .google.storage.v2.BidiReadObjectError,\
     .google.storage.v2.BidiReadObjectRedirectedError,\
@@ -49,10 +49,7 @@ skipped-ids    = """\
     .google.storage.v2.WriteObjectRequest,\
     .google.storage.v2.WriteObjectResponse,\
     .google.storage.v2.WriteObjectSpec,\
-    .google.storage.v2.AppendObjectSpec,\
-    .google.storage.v2.Storage.TestIamPermissions,\
-    .google.storage.v2.Storage.GetIamPolicy,\
-    .google.storage.v2.Storage.SetIamPolicy\
+    .google.storage.v2.AppendObjectSpec\
     """
 
 [codec]
@@ -61,4 +58,4 @@ template-override         = 'templates/grpc-client'
 package-name-override     = 'google-cloud-storage-control'
 include-grpc-only-methods = 'true'
 # TODO(#1813) - temporarily disable the docs because they don't compile.
-skip-builder-docs         = 'true'
+skip-builder-docs = 'true'
