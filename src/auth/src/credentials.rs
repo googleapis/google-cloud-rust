@@ -524,7 +524,6 @@ fn adc_path() -> Option<AdcPath> {
 ///
 /// [AIP-4113]: https://google.aip.dev/auth/4113
 #[cfg(target_os = "windows")]
-#[cfg_attr(test, mutants::skip)]
 fn adc_well_known_path() -> Option<String> {
     std::env::var("APPDATA")
         .ok()
@@ -535,7 +534,6 @@ fn adc_well_known_path() -> Option<String> {
 ///
 /// [AIP-4113]: https://google.aip.dev/auth/4113
 #[cfg(not(target_os = "windows"))]
-#[cfg_attr(test, mutants::skip)]
 fn adc_well_known_path() -> Option<String> {
     std::env::var("HOME")
         .ok()
