@@ -31,8 +31,9 @@ mod empty;
 pub use crate::empty::*;
 mod field_mask;
 pub use crate::field_mask::*;
-mod float;
 mod generated;
+#[doc(hidden)]
+pub mod internal;
 pub use crate::generated::*;
 mod timestamp;
 pub use crate::timestamp::*;

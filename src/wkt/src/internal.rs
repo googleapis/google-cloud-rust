@@ -13,32 +13,23 @@
 // limitations under the License.
 
 /// A helper to serialize `f32` to ProtoJSON format.
-// TODO(#1767): use float_serialize from generated code.
-#[allow(dead_code)]
-fn float_serialize<S>(x: &f32, s: S) -> std::result::Result<S::Ok, S::Error>
+pub fn float_serialize<S>(x: &f32, s: S) -> std::result::Result<S::Ok, S::Error>
 where
     S: serde::ser::Serializer,
 {
     // Handle special strings, see https://protobuf.dev/programming-guides/json/.
-    if x.is_nan() {
-        return s.serialize_str("NaN");
+    match x {
+        x if x.is_nan() => s.serialize_str("NaN"),
+        x if x.is_infinite() && x.is_sign_negative() => s.serialize_str("-Infinity"),
+        x if x.is_infinite() => s.serialize_str("Infinity"),
+        x => s.serialize_f32(*x),
     }
-    if x.is_infinite() {
-        if x.is_sign_negative() {
-            return s.serialize_str("-Infinity");
-        }
-        return s.serialize_str("Infinity");
-    }
-    s.serialize_f32(*x)
 }
 
-#[allow(dead_code)]
 struct FloatVisitor;
 
 /// A helper to deserialize `f32` from ProtoJSON format.
-// TODO(#1767): use float_serialize from generated code.
-#[allow(dead_code)]
-fn float_deserialize<'de, D>(deserializer: D) -> std::result::Result<f32, D::Error>
+pub fn float_deserialize<'de, D>(deserializer: D) -> std::result::Result<f32, D::Error>
 where
     D: serde::de::Deserializer<'de>,
 {
@@ -68,7 +59,7 @@ impl serde::de::Visitor<'_> for FloatVisitor {
     where
         E: serde::de::Error,
     {
-        // TODO: Find a way to test this code path, serde_json floats
+        // TODO(#1767): Find a way to test this code path, serde_json floats
         // stored as f64.
         Ok(value)
     }
@@ -78,6 +69,8 @@ impl serde::de::Visitor<'_> for FloatVisitor {
     where
         E: serde::de::Error,
     {
+        // Cast f64 to f32 to produce the closest possible float value.
+        // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
         Ok(value as f32)
     }
 
