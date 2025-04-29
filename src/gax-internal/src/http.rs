@@ -70,7 +70,7 @@ impl ReqwestClient {
             .request(method, format!("{}{path}", &self.endpoint))
     }
 
-    pub async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
+    pub async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned + Default>(
         &self,
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
@@ -91,7 +91,7 @@ impl ReqwestClient {
         }
     }
 
-    async fn retry_loop<O: serde::de::DeserializeOwned>(
+    async fn retry_loop<O: serde::de::DeserializeOwned + Default>(
         &self,
         builder: reqwest::RequestBuilder,
         options: gax::options::RequestOptions,
@@ -119,7 +119,7 @@ impl ReqwestClient {
         .await
     }
 
-    async fn request_attempt<O: serde::de::DeserializeOwned>(
+    async fn request_attempt<O: serde::de::DeserializeOwned + Default>(
         &self,
         mut builder: reqwest::RequestBuilder,
         options: &gax::options::RequestOptions,
@@ -136,17 +136,8 @@ impl ReqwestClient {
         if !response.status().is_success() {
             return Self::to_http_error(response).await;
         }
-        let response = http::Response::from(response);
-        let (parts, body) = response.into_parts();
 
-        let body = http_body_util::BodyExt::collect(body)
-            .await
-            .map_err(Error::io)?;
-        let response = serde_json::from_slice::<O>(&body.to_bytes()).map_err(Error::serde)?;
-        Ok(Response::from_parts(
-            Parts::new().set_headers(parts.headers),
-            response,
-        ))
+        Self::to_http_response(response).await
     }
 
     async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
@@ -163,6 +154,29 @@ impl ReqwestClient {
             Error::rpc(HttpError::new(status_code, headers, Some(body)))
         };
         Err(error)
+    }
+
+    async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
+        response: reqwest::Response,
+    ) -> Result<Response<O>> {
+        // 204 No Content has no body and throws EOF error if we try to parse with serde::json
+        let no_content_status = response.status() == reqwest::StatusCode::NO_CONTENT;
+        let response = http::Response::from(response);
+        let (parts, body) = response.into_parts();
+
+        let body = http_body_util::BodyExt::collect(body)
+            .await
+            .map_err(Error::io)?;
+
+        let response = match body.to_bytes() {
+            content if (content.is_empty() && no_content_status) => O::default(),
+            content => serde_json::from_slice::<O>(&content).map_err(Error::serde)?,
+        };
+
+        Ok(Response::from_parts(
+            Parts::new().set_headers(parts.headers),
+            response,
+        ))
     }
 
     fn convert_headers(
@@ -243,6 +257,7 @@ const SENSITIVE_HEADER: &str = "[sensitive]";
 mod test {
     use super::*;
     use std::collections::HashMap;
+    use test_case::test_case;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test]
@@ -355,5 +370,49 @@ mod test {
         );
         assert_eq!(err.headers(), &Some(want));
         Ok(())
+    }
+
+    #[tokio::test]
+    #[test_case(reqwest::StatusCode::OK, "{}"; "200 with empty object")]
+    #[test_case(reqwest::StatusCode::NO_CONTENT, "{}"; "204 with empty object")]
+    #[test_case(reqwest::StatusCode::NO_CONTENT, ""; "204 with empty content")]
+    async fn client_empty_content(code: reqwest::StatusCode, content: &str) -> TestResult {
+        let response = resp_from_code_content(code, content)?;
+        assert!(response.status().is_success());
+
+        let response = ReqwestClient::to_http_response::<wkt::Empty>(response).await;
+        assert!(response.is_ok());
+
+        let response = response.unwrap();
+        let body = response.into_body();
+        assert_eq!(body, wkt::Empty::default());
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[test_case(reqwest::StatusCode::OK, ""; "200 with empty content")]
+    async fn client_error_with_empty_content(
+        code: reqwest::StatusCode,
+        content: &str,
+    ) -> TestResult {
+        let response = resp_from_code_content(code, content)?;
+        assert!(response.status().is_success());
+
+        let response = ReqwestClient::to_http_response::<wkt::Empty>(response).await;
+        assert!(response.is_err());
+        Ok(())
+    }
+
+    fn resp_from_code_content(
+        code: reqwest::StatusCode,
+        content: &str,
+    ) -> http::Result<reqwest::Response> {
+        let http_resp = http::Response::builder()
+            .header("Content-Type", "application/json")
+            .status(code)
+            .body(content.to_string())?;
+
+        let response: reqwest::Response = http_resp.into();
+        Ok(response)
     }
 }
