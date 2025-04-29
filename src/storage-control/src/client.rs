@@ -301,30 +301,15 @@ impl Storage {
     ///
     /// ```
     /// # use google_cloud_storage_control::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     // Get the current IAM policy for this bucket
+    /// # use iam_v1::model::Policy;
+    /// async fn example(client: &Storage, updated_policy: Policy) -> gax::Result<()> {
     ///     let policy = client
-    ///         .get_iam_policy("projects/_/buckets/my-bucket")
-    ///         .send()
-    ///         .await?;
-    ///
-    ///     // Add a binding to the policy
-    ///     let mut new_policy = policy.clone();
-    ///     new_policy.bindings.push(
-    ///         iam_v1::model::Binding::new()
-    ///             .set_role("roles/storage.legacyBucketReader")
-    ///             .set_members(["user:me@example.com"]),
-    ///     );
-    ///
-    ///     // Update the IAM policy for this bucket
-    ///     let response = client
     ///         .set_iam_policy("projects/_/buckets/my-bucket")
     ///         .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
-    ///         .set_policy(new_policy)
+    ///         .set_policy(updated_policy)
     ///         .send()
     ///         .await?;
-    ///     println!("response details={response:?}");
-    ///
+    ///     println!("policy details={policy:?}");
     ///     Ok(())
     /// }
     /// ```
