@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use gax::error::Error;
-use rand::{Rng, distr::Alphanumeric};
+use rand::{Rng, distr::Alphanumeric, distr::Distribution};
 
 pub type Result<T> = std::result::Result<T, gax::error::Error>;
 pub mod error_details;
@@ -62,4 +62,15 @@ pub(crate) fn random_workflow_id() -> String {
         .map(char::from)
         .collect();
     format!("{PREFIX}{workflow_id}")
+}
+
+pub(crate) struct RandomChars {
+    chars: &'static [u8],
+}
+
+impl Distribution<u8> for RandomChars {
+    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> u8 {
+        let index = rng.random_range(0..self.chars.len());
+        self.chars[index]
+    }
 }
