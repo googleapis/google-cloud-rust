@@ -241,7 +241,7 @@ impl gaxi::prost::ToProto<value::ValueType> for crate::generated::gapic::model::
     type Output = value::ValueType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::NullValue(v) => Ok(Self::Output::NullValue(v.value())),
+            Self::NullValue(v) => Ok(Self::Output::NullValue(v.to_proto()?)),
             Self::BooleanValue(v) => Ok(Self::Output::BooleanValue(v.to_proto()?)),
             Self::IntegerValue(v) => Ok(Self::Output::IntegerValue(v.to_proto()?)),
             Self::DoubleValue(v) => Ok(Self::Output::DoubleValue(v.to_proto()?)),
@@ -260,7 +260,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::value::ValueType> fo
     fn cnv(self) -> crate::generated::gapic::model::value::ValueType {
         use crate::generated::gapic::model::value::ValueType as T;
         match self {
-            Self::NullValue(v) => T::from_null_value(v),
+            Self::NullValue(v) => T::from_null_value(v.cnv()),
             Self::BooleanValue(v) => T::from_boolean_value(v.cnv()),
             Self::IntegerValue(v) => T::from_integer_value(v.cnv()),
             Self::DoubleValue(v) => T::from_double_value(v.cnv()),
@@ -1934,7 +1934,7 @@ impl gaxi::prost::ToProto<document_transform::field_transform::TransformType> fo
     type Output = document_transform::field_transform::TransformType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::SetToServerValue(v) => Ok(Self::Output::SetToServerValue(v.value())),
+            Self::SetToServerValue(v) => Ok(Self::Output::SetToServerValue(v.to_proto()?)),
             Self::Increment(v) => Ok(Self::Output::Increment((*v).to_proto()?)),
             Self::Maximum(v) => Ok(Self::Output::Maximum((*v).to_proto()?)),
             Self::Minimum(v) => Ok(Self::Output::Minimum((*v).to_proto()?)),
@@ -1948,7 +1948,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::document_transform::
     fn cnv(self) -> crate::generated::gapic::model::document_transform::field_transform::TransformType {
         use crate::generated::gapic::model::document_transform::field_transform::TransformType as T;
         match self {
-            Self::SetToServerValue(v) => T::from_set_to_server_value(v),
+            Self::SetToServerValue(v) => T::from_set_to_server_value(v.cnv()),
             Self::Increment(v) => T::from_increment(v.cnv()),
             Self::Maximum(v) => T::from_maximum(v.cnv()),
             Self::Minimum(v) => T::from_minimum(v.cnv()),
