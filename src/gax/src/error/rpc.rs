@@ -710,7 +710,7 @@ mod test {
     #[test_case(RetryInfo::default(), StatusDetails::RetryInfo(RetryInfo::default()))]
     fn status_from_rpc_status_known_detail_type<T>(detail: T, want: StatusDetails)
     where
-        T: wkt::message::Message + serde::ser::Serialize,
+        T: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
         let input = rpc::model::Status::default()
             .set_code(Code::Unavailable as i32)

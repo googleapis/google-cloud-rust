@@ -131,8 +131,10 @@ pub fn new_poller<ResponseType, MetadataType, S, SF, Q, QF>(
     query: Q,
 ) -> impl Poller<ResponseType, MetadataType>
 where
-    ResponseType: wkt::message::Message + serde::de::DeserializeOwned + Send,
-    MetadataType: wkt::message::Message + serde::de::DeserializeOwned + Send,
+    ResponseType:
+        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    MetadataType:
+        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
     S: FnOnce() -> SF + Send + Sync,
     SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
         + Send
@@ -218,8 +220,10 @@ where
 impl<ResponseType, MetadataType, S, SF, P, PF> Poller<ResponseType, MetadataType>
     for PollerImpl<ResponseType, MetadataType, S, SF, P, PF>
 where
-    ResponseType: wkt::message::Message + serde::de::DeserializeOwned + Send,
-    MetadataType: wkt::message::Message + serde::de::DeserializeOwned + Send,
+    ResponseType:
+        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    MetadataType:
+        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
     S: FnOnce() -> SF + Send + Sync,
     SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
         + Send

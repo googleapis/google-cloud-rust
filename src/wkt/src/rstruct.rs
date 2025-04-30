@@ -44,11 +44,10 @@ impl crate::message::Message for Struct {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Struct"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-        crate::message::to_json_other(self)
-    }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
-        crate::message::from_other(map)
+
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self> {
+        crate::message::ValueSerializer::<Self>::new()
     }
 }
 
@@ -56,11 +55,10 @@ impl crate::message::Message for Value {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Value"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-        crate::message::to_json_other(self)
-    }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
-        crate::message::from_other(map)
+
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self> {
+        crate::message::ValueSerializer::<Self>::new()
     }
 }
 
@@ -68,11 +66,10 @@ impl crate::message::Message for ListValue {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.ListValue"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-        crate::message::to_json_other(self)
-    }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
-        crate::message::from_other(map)
+
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self> {
+        crate::message::ValueSerializer::<Self>::new()
     }
 }
 
