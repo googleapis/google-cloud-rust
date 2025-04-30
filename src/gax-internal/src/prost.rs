@@ -224,6 +224,19 @@ mod test {
         assert!(fmt.contains("name123"), "{fmt}");
     }
 
+    fn err() -> ConvertError {
+        ConvertError::EnumNoIntegerValue("test")
+    }
+
+    #[test_case(Ok(1), Ok(2), Ok((1, 2)))]
+    #[test_case(Err(err()), Ok(2), Err(err()))]
+    #[test_case(Ok(1), Err(err()),  Err(err()))]
+    #[test_case(Err(err()), Err(err()), Err(err()))]
+    fn pair_transpose(a: Result<i32>, b: Result<i32>, want: Result<(i32, i32)>) {
+        let got = super::pair_transpose(a, b);
+        assert_eq!(got, want);
+    }
+
     #[test]
     fn primitive_unit() {
         let _: () = ().cnv();
