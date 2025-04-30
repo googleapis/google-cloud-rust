@@ -37,21 +37,19 @@ pub async fn dataset_admin(
     let client = builder.build().await?;
     cleanup_stale_datasets(&client, &project_id).await?;
 
-    let rand_suffix: String = rand::rng()
-        .sample_iter(&Alphanumeric)
-        .take(8)
-        .map(char::from)
-        .collect();
+    let dataset_id = random_dataset_id();
 
-    let ds_name = format!("rust_bq_test_dataset_{rand_suffix}");
-
-    println!("CREATING DATASET WITH ID: {ds_name}");
+    println!("CREATING DATASET WITH ID: {dataset_id}");
 
     let create = client
         .insert_dataset(&project_id)
-        .set_dataset(bigquery::model::Dataset::new().set_dataset_reference(
-            bigquery::model::DatasetReference::new().set_dataset_id(&ds_name),
-        ))
+        .set_dataset(
+            bigquery::model::Dataset::new()
+                .set_dataset_reference(
+                    bigquery::model::DatasetReference::new().set_dataset_id(&dataset_id),
+                )
+                .set_labels([("integration-test", "true")]),
+        )
         .send()
         .await?;
     println!("CREATE DATASET = {create:?}");
@@ -61,12 +59,10 @@ pub async fn dataset_admin(
     let list = client.list_datasets(&project_id).send().await?;
     println!("LIST DATASET = {} entries", list.datasets.len());
 
-    assert!(!list.datasets.is_empty());
-    assert!(list.datasets.len() > 1);
-    assert!(list.datasets.iter().any(|v| v.id.contains(&ds_name)));
+    assert!(list.datasets.iter().any(|v| v.id.contains(&dataset_id)));
 
     client
-        .delete_dataset(&project_id, &ds_name)
+        .delete_dataset(&project_id, &dataset_id)
         .set_delete_contents(true)
         .send()
         .await?;
@@ -86,17 +82,19 @@ async fn cleanup_stale_datasets(
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = stale_deadline.as_millis() as i64;
 
-    let list = client.list_datasets(project_id).send().await?;
+    let list = client
+        .list_datasets(project_id)
+        .set_filter("labels.integration-test:true")
+        .send()
+        .await?;
     let pending_all_datasets = list
         .datasets
-        .iter()
-        .map(|v| {
-            client
-                .get_dataset(
-                    project_id,
-                    v.dataset_reference.as_ref().map_or("", |v| &v.dataset_id),
-                )
-                .send()
+        .into_iter()
+        .filter_map(|v| {
+            if let Some(dataset_id) = extract_dataset_id(project_id, v.id) {
+                return Some(client.get_dataset(project_id, dataset_id).send());
+            }
+            None
         })
         .collect::<Vec<_>>();
 
@@ -104,10 +102,11 @@ async fn cleanup_stale_datasets(
         .await
         .into_iter()
         .filter_map(|r| {
-            if r.as_ref()
-                .is_ok_and(|ds| ds.creation_time < stale_deadline && ds.id.contains("bq_rust"))
-            {
-                return r.ok();
+            let dataset = r.unwrap();
+            if let Some("true") = dataset.labels.get("integration-test").map(String::as_str) {
+                if dataset.creation_time < stale_deadline {
+                    return Some(dataset);
+                }
             }
             None
         })
@@ -116,23 +115,36 @@ async fn cleanup_stale_datasets(
     println!("found {} stale datasets", stale_datasets.len());
 
     let pending_deletion: Vec<_> = stale_datasets
-        .iter()
-        .map(|ds| {
-            client
-                .delete_dataset(
-                    project_id,
-                    ds.dataset_reference.as_ref().map_or("", |v| &v.dataset_id),
-                )
-                .set_delete_contents(true)
-                .send()
+        .into_iter()
+        .filter_map(|ds| {
+            if let Some(dataset_id) = extract_dataset_id(project_id, ds.id) {
+                return Some(
+                    client
+                        .delete_dataset(project_id, dataset_id)
+                        .set_delete_contents(true)
+                        .send(),
+                );
+            }
+            None
         })
         .collect();
 
-    futures::future::join_all(pending_deletion)
-        .await
-        .into_iter()
-        .zip(stale_datasets)
-        .for_each(|(r, ds)| println!("{} = {r:?}", ds.id));
+    futures::future::join_all(pending_deletion).await;
 
     Ok(())
+}
+
+fn random_dataset_id() -> String {
+    let rand_suffix: String = rand::rng()
+        .sample_iter(&Alphanumeric)
+        .take(8)
+        .map(char::from)
+        .collect();
+
+    format!("rust_bq_test_dataset_{rand_suffix}")
+}
+
+fn extract_dataset_id(project_id: &str, id: String) -> Option<String> {
+    id.strip_prefix(format!("projects/{project_id}").as_str())
+        .map(|v| v.to_string())
 }
