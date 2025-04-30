@@ -105,7 +105,6 @@ impl Any {
     where
         T: crate::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
-        // Get the serializer for type T and use it to convert the message to a map
         let serializer = T::serializer();
         let value = serializer.serialize_to_map(message)?;
         Ok(Any(value))
@@ -124,7 +123,6 @@ impl Any {
             .map_err(Error::deser)?;
         Self::check_typename(r#type, T::typename())?;
 
-        // Get the serializer for type T and use it to convert the map to a message
         let serializer = T::serializer();
         serializer.deserialize_from_map(map)
     }
@@ -144,7 +142,6 @@ impl crate::message::Message for Any {
         "type.googleapis.com/google.protobuf.Any"
     }
 
-    // Override the default serializer to use custom serialization
     #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self> {
         crate::message::ValueSerializer::<Self>::new()

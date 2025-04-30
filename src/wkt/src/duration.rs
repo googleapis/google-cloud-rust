@@ -165,7 +165,6 @@ impl crate::message::Message for Duration {
         "type.googleapis.com/google.protobuf.Duration"
     }
 
-    // Override the default serializer to use custom serialization
     #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self> {
         crate::message::ValueSerializer::<Self>::new()

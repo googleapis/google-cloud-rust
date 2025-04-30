@@ -45,7 +45,6 @@ impl crate::message::Message for Struct {
         "type.googleapis.com/google.protobuf.Struct"
     }
 
-    // Override the default serializer to use custom serialization
     #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self> {
         crate::message::ValueSerializer::<Self>::new()
@@ -57,7 +56,6 @@ impl crate::message::Message for Value {
         "type.googleapis.com/google.protobuf.Value"
     }
 
-    // Override the default serializer to use custom serialization
     #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self> {
         crate::message::ValueSerializer::<Self>::new()
@@ -69,7 +67,6 @@ impl crate::message::Message for ListValue {
         "type.googleapis.com/google.protobuf.ListValue"
     }
 
-    // Override the default serializer to use custom serialization
     #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self> {
         crate::message::ValueSerializer::<Self>::new()

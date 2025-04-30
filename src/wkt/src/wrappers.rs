@@ -335,7 +335,6 @@ mod test {
             "value": 0,
         });
 
-        // Get the serializer for type T and use it for deserialization
         let serializer = T::serializer();
         let e = serializer.deserialize_from_map(map.as_object().unwrap());
 
@@ -352,7 +351,6 @@ mod test {
             "value": "Oops, I forgot to base64 encode this.",
         });
 
-        // Get the serializer for BytesValue and use it for deserialization
         let serializer = BytesValue::serializer();
         assert!(
             serializer

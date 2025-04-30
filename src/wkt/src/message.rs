@@ -26,7 +26,7 @@ pub trait Message {
     /// The typename of this message.
     fn typename() -> &'static str;
 
-    /// Returns the serializer for this message type
+    /// Returns the serializer for this message type.
     #[doc(hidden)]
     #[allow(private_interfaces)]
     fn serializer() -> impl MessageSerializer<Self>
@@ -47,7 +47,7 @@ pub(crate) trait MessageSerializer<T> {
     fn deserialize_from_map(&self, map: &Map) -> Result<T, Error>;
 }
 
-// Default serializer that most types can use
+// Default serializer that most types can use.
 pub(crate) struct DefaultSerializer<T> {
     _phantom: std::marker::PhantomData<T>,
 }
@@ -205,7 +205,6 @@ mod test {
         });
         let map = input.as_object().cloned().unwrap();
 
-        // Get the serializer for TestMessage and use it to deserialize
         let serializer = TestMessage::serializer();
         let test = serializer.deserialize_from_map(&map).unwrap();
 
