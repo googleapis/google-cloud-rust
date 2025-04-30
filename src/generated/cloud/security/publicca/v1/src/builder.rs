@@ -107,7 +107,7 @@ pub mod public_certificate_authority_service {
 
         /// Sets the value of [parent][crate::model::CreateExternalAccountKeyRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -115,7 +115,7 @@ pub mod public_certificate_authority_service {
 
         /// Sets the value of [external_account_key][crate::model::CreateExternalAccountKeyRequest::external_account_key].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_external_account_key<
             T: Into<std::option::Option<crate::model::ExternalAccountKey>>,
         >(

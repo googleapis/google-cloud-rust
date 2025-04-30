@@ -98,7 +98,7 @@ pub mod trace_service {
 
         /// Sets the value of [name][crate::model::BatchWriteSpansRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -106,7 +106,7 @@ pub mod trace_service {
 
         /// Sets the value of [spans][crate::model::BatchWriteSpansRequest::spans].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_spans<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -156,7 +156,7 @@ pub mod trace_service {
 
         /// Sets the value of [name][crate::model::Span::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -164,7 +164,7 @@ pub mod trace_service {
 
         /// Sets the value of [span_id][crate::model::Span::span_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_span_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.span_id = v.into();
             self
@@ -178,7 +178,7 @@ pub mod trace_service {
 
         /// Sets the value of [display_name][crate::model::Span::display_name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_display_name<T: Into<std::option::Option<crate::model::TruncatableString>>>(
             mut self,
             v: T,
@@ -189,7 +189,7 @@ pub mod trace_service {
 
         /// Sets the value of [start_time][crate::model::Span::start_time].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -200,7 +200,7 @@ pub mod trace_service {
 
         /// Sets the value of [end_time][crate::model::Span::end_time].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
             self.0.request.end_time = v.into();
             self

@@ -176,7 +176,7 @@ pub mod video_intelligence_service {
 
         /// Sets the value of [features][crate::model::AnnotateVideoRequest::features].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_features<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

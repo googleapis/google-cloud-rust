@@ -98,7 +98,7 @@ pub mod firestore {
 
         /// Sets the value of [name][crate::model::GetDocumentRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -204,7 +204,7 @@ pub mod firestore {
 
         /// Sets the value of [parent][crate::model::ListDocumentsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -325,7 +325,7 @@ pub mod firestore {
 
         /// Sets the value of [document][crate::model::UpdateDocumentRequest::document].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,
@@ -400,7 +400,7 @@ pub mod firestore {
 
         /// Sets the value of [name][crate::model::DeleteDocumentRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -457,7 +457,7 @@ pub mod firestore {
 
         /// Sets the value of [database][crate::model::BeginTransactionRequest::database].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
@@ -511,7 +511,7 @@ pub mod firestore {
 
         /// Sets the value of [database][crate::model::CommitRequest::database].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
@@ -573,7 +573,7 @@ pub mod firestore {
 
         /// Sets the value of [database][crate::model::RollbackRequest::database].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
@@ -581,7 +581,7 @@ pub mod firestore {
 
         /// Sets the value of [transaction][crate::model::RollbackRequest::transaction].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_transaction<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.transaction = v.into();
             self
@@ -641,7 +641,7 @@ pub mod firestore {
 
         /// Sets the value of [parent][crate::model::PartitionQueryRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -761,7 +761,7 @@ pub mod firestore {
 
         /// Sets the value of [parent][crate::model::ListCollectionIdsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -845,7 +845,7 @@ pub mod firestore {
 
         /// Sets the value of [database][crate::model::BatchWriteRequest::database].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
@@ -912,7 +912,7 @@ pub mod firestore {
 
         /// Sets the value of [parent][crate::model::CreateDocumentRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -920,7 +920,7 @@ pub mod firestore {
 
         /// Sets the value of [collection_id][crate::model::CreateDocumentRequest::collection_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_collection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.collection_id = v.into();
             self
@@ -934,7 +934,7 @@ pub mod firestore {
 
         /// Sets the value of [document][crate::model::CreateDocumentRequest::document].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,

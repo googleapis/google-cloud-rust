@@ -120,7 +120,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [parent][crate::model::ListAppConnectorsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -191,7 +191,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [name][crate::model::GetAppConnectorRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -282,7 +282,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [parent][crate::model::CreateAppConnectorRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -296,7 +296,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [app_connector][crate::model::CreateAppConnectorRequest::app_connector].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_app_connector<T: Into<std::option::Option<crate::model::AppConnector>>>(
             mut self,
             v: T,
@@ -402,7 +402,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateAppConnectorRequest::update_mask].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -413,7 +413,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [app_connector][crate::model::UpdateAppConnectorRequest::app_connector].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_app_connector<T: Into<std::option::Option<crate::model::AppConnector>>>(
             mut self,
             v: T,
@@ -516,7 +516,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [name][crate::model::DeleteAppConnectorRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -616,7 +616,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [app_connector][crate::model::ReportStatusRequest::app_connector].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_app_connector<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.app_connector = v.into();
             self
@@ -624,7 +624,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [resource_info][crate::model::ReportStatusRequest::resource_info].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource_info<T: Into<std::option::Option<crate::model::ResourceInfo>>>(
             mut self,
             v: T,
@@ -812,7 +812,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -820,7 +820,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -879,7 +879,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -938,7 +938,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -946,7 +946,7 @@ pub mod app_connectors_service {
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

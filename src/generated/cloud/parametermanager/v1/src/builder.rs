@@ -113,7 +113,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [parent][crate::model::ListParametersRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -182,7 +182,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [name][crate::model::GetParameterRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -227,7 +227,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [parent][crate::model::CreateParameterRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -235,7 +235,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [parameter_id][crate::model::CreateParameterRequest::parameter_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parameter_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parameter_id = v.into();
             self
@@ -243,7 +243,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [parameter][crate::model::CreateParameterRequest::parameter].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parameter<T: Into<std::option::Option<crate::model::Parameter>>>(
             mut self,
             v: T,
@@ -306,7 +306,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [parameter][crate::model::UpdateParameterRequest::parameter].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parameter<T: Into<std::option::Option<crate::model::Parameter>>>(
             mut self,
             v: T,
@@ -360,7 +360,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [name][crate::model::DeleteParameterRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -429,7 +429,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [parent][crate::model::ListParameterVersionsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -501,7 +501,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [name][crate::model::GetParameterVersionRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -555,7 +555,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [name][crate::model::RenderParameterVersionRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -603,7 +603,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [parent][crate::model::CreateParameterVersionRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -611,7 +611,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [parameter_version_id][crate::model::CreateParameterVersionRequest::parameter_version_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parameter_version_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parameter_version_id = v.into();
             self
@@ -619,7 +619,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parameter_version<
             T: Into<std::option::Option<crate::model::ParameterVersion>>,
         >(
@@ -687,7 +687,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parameter_version<
             T: Into<std::option::Option<crate::model::ParameterVersion>>,
         >(
@@ -746,7 +746,7 @@ pub mod parameter_manager {
 
         /// Sets the value of [name][crate::model::DeleteParameterVersionRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

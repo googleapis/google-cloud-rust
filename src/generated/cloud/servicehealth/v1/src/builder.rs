@@ -113,7 +113,7 @@ pub mod service_health {
 
         /// Sets the value of [parent][crate::model::ListEventsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -182,7 +182,7 @@ pub mod service_health {
 
         /// Sets the value of [name][crate::model::GetEventRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -247,7 +247,7 @@ pub mod service_health {
 
         /// Sets the value of [parent][crate::model::ListOrganizationEventsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -319,7 +319,7 @@ pub mod service_health {
 
         /// Sets the value of [name][crate::model::GetOrganizationEventRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -386,7 +386,7 @@ pub mod service_health {
 
         /// Sets the value of [parent][crate::model::ListOrganizationImpactsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -452,7 +452,7 @@ pub mod service_health {
 
         /// Sets the value of [name][crate::model::GetOrganizationImpactRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

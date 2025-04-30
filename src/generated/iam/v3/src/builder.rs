@@ -140,7 +140,7 @@ pub mod policy_bindings {
 
         /// Sets the value of [parent][crate::model::CreatePolicyBindingRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -148,7 +148,7 @@ pub mod policy_bindings {
 
         /// Sets the value of [policy_binding_id][crate::model::CreatePolicyBindingRequest::policy_binding_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_policy_binding_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.policy_binding_id = v.into();
             self
@@ -156,7 +156,7 @@ pub mod policy_bindings {
 
         /// Sets the value of [policy_binding][crate::model::CreatePolicyBindingRequest::policy_binding].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_policy_binding<T: Into<std::option::Option<crate::model::PolicyBinding>>>(
             mut self,
             v: T,
@@ -213,7 +213,7 @@ pub mod policy_bindings {
 
         /// Sets the value of [name][crate::model::GetPolicyBindingRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -300,7 +300,7 @@ pub mod policy_bindings {
 
         /// Sets the value of [policy_binding][crate::model::UpdatePolicyBindingRequest::policy_binding].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_policy_binding<T: Into<std::option::Option<crate::model::PolicyBinding>>>(
             mut self,
             v: T,
@@ -401,7 +401,7 @@ pub mod policy_bindings {
 
         /// Sets the value of [name][crate::model::DeletePolicyBindingRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -476,7 +476,7 @@ pub mod policy_bindings {
 
         /// Sets the value of [parent][crate::model::ListPolicyBindingsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -561,7 +561,7 @@ pub mod policy_bindings {
 
         /// Sets the value of [target][crate::model::SearchTargetPolicyBindingsRequest::target].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_target<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target = v.into();
             self
@@ -581,7 +581,7 @@ pub mod policy_bindings {
 
         /// Sets the value of [parent][crate::model::SearchTargetPolicyBindingsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -776,7 +776,7 @@ pub mod principal_access_boundary_policies {
 
         /// Sets the value of [parent][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -784,7 +784,7 @@ pub mod principal_access_boundary_policies {
 
         /// Sets the value of [principal_access_boundary_policy_id][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_principal_access_boundary_policy_id<T: Into<std::string::String>>(
             mut self,
             v: T,
@@ -795,7 +795,7 @@ pub mod principal_access_boundary_policies {
 
         /// Sets the value of [principal_access_boundary_policy][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_principal_access_boundary_policy<
             T: Into<std::option::Option<crate::model::PrincipalAccessBoundaryPolicy>>,
         >(
@@ -858,7 +858,7 @@ pub mod principal_access_boundary_policies {
 
         /// Sets the value of [name][crate::model::GetPrincipalAccessBoundaryPolicyRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -951,7 +951,7 @@ pub mod principal_access_boundary_policies {
 
         /// Sets the value of [principal_access_boundary_policy][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_principal_access_boundary_policy<
             T: Into<std::option::Option<crate::model::PrincipalAccessBoundaryPolicy>>,
         >(
@@ -1058,7 +1058,7 @@ pub mod principal_access_boundary_policies {
 
         /// Sets the value of [name][crate::model::DeletePrincipalAccessBoundaryPolicyRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1147,7 +1147,7 @@ pub mod principal_access_boundary_policies {
 
         /// Sets the value of [parent][crate::model::ListPrincipalAccessBoundaryPoliciesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1232,7 +1232,7 @@ pub mod principal_access_boundary_policies {
 
         /// Sets the value of [name][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

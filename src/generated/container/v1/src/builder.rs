@@ -226,7 +226,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -298,7 +298,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [update][crate::model::UpdateClusterRequest::update].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_update<T: Into<std::option::Option<crate::model::ClusterUpdate>>>(
             mut self,
             v: T,
@@ -376,7 +376,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [node_version][crate::model::UpdateNodePoolRequest::node_version].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_node_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.node_version = v.into();
             self
@@ -384,7 +384,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [image_type][crate::model::UpdateNodePoolRequest::image_type].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_image_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.image_type = v.into();
             self
@@ -701,7 +701,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [autoscaling][crate::model::SetNodePoolAutoscalingRequest::autoscaling].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_autoscaling<T: Into<std::option::Option<crate::model::NodePoolAutoscaling>>>(
             mut self,
             v: T,
@@ -776,7 +776,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [logging_service][crate::model::SetLoggingServiceRequest::logging_service].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_logging_service<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.logging_service = v.into();
             self
@@ -848,7 +848,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [monitoring_service][crate::model::SetMonitoringServiceRequest::monitoring_service].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_monitoring_service<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.monitoring_service = v.into();
             self
@@ -917,7 +917,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [addons_config][crate::model::SetAddonsConfigRequest::addons_config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_addons_config<T: Into<std::option::Option<crate::model::AddonsConfig>>>(
             mut self,
             v: T,
@@ -995,7 +995,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [locations][crate::model::SetLocationsRequest::locations].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1063,7 +1063,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [master_version][crate::model::UpdateMasterRequest::master_version].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_master_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.master_version = v.into();
             self
@@ -1132,7 +1132,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [action][crate::model::SetMasterAuthRequest::action].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_action<T: Into<crate::model::set_master_auth_request::Action>>(
             mut self,
             v: T,
@@ -1143,7 +1143,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [update][crate::model::SetMasterAuthRequest::update].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_update<T: Into<std::option::Option<crate::model::MasterAuth>>>(
             mut self,
             v: T,
@@ -1679,7 +1679,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_node_pool<T: Into<std::option::Option<crate::model::NodePool>>>(
             mut self,
             v: T,
@@ -1953,7 +1953,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [management][crate::model::SetNodePoolManagementRequest::management].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_management<T: Into<std::option::Option<crate::model::NodeManagement>>>(
             mut self,
             v: T,
@@ -2025,7 +2025,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [label_fingerprint][crate::model::SetLabelsRequest::label_fingerprint].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_label_fingerprint<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.label_fingerprint = v.into();
             self
@@ -2039,7 +2039,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [resource_labels][crate::model::SetLabelsRequest::resource_labels].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource_labels<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2108,7 +2108,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [enabled][crate::model::SetLegacyAbacRequest::enabled].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_enabled<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.enabled = v.into();
             self
@@ -2314,7 +2314,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [node_count][crate::model::SetNodePoolSizeRequest::node_count].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_node_count<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.node_count = v.into();
             self
@@ -2386,7 +2386,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [network_policy][crate::model::SetNetworkPolicyRequest::network_policy].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_network_policy<T: Into<std::option::Option<crate::model::NetworkPolicy>>>(
             mut self,
             v: T,
@@ -2443,7 +2443,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [project_id][crate::model::SetMaintenancePolicyRequest::project_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -2451,7 +2451,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [zone][crate::model::SetMaintenancePolicyRequest::zone].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.zone = v.into();
             self
@@ -2459,7 +2459,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [cluster_id][crate::model::SetMaintenancePolicyRequest::cluster_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
@@ -2467,7 +2467,7 @@ pub mod cluster_manager {
 
         /// Sets the value of [maintenance_policy][crate::model::SetMaintenancePolicyRequest::maintenance_policy].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_maintenance_policy<
             T: Into<std::option::Option<crate::model::MaintenancePolicy>>,
         >(

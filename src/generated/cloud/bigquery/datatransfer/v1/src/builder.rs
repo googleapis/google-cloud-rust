@@ -98,7 +98,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [name][crate::model::GetDataSourceRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -158,7 +158,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [parent][crate::model::ListDataSourcesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -218,7 +218,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [parent][crate::model::CreateTransferConfigRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -226,7 +226,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [transfer_config][crate::model::CreateTransferConfigRequest::transfer_config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_transfer_config<T: Into<std::option::Option<crate::model::TransferConfig>>>(
             mut self,
             v: T,
@@ -295,7 +295,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_transfer_config<T: Into<std::option::Option<crate::model::TransferConfig>>>(
             mut self,
             v: T,
@@ -312,7 +312,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateTransferConfigRequest::update_mask].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -375,7 +375,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [name][crate::model::DeleteTransferConfigRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -423,7 +423,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [name][crate::model::GetTransferConfigRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -486,7 +486,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [parent][crate::model::ListTransferConfigsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -557,7 +557,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [parent][crate::model::ScheduleTransferRunsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -565,7 +565,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [start_time][crate::model::ScheduleTransferRunsRequest::start_time].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -576,7 +576,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [end_time][crate::model::ScheduleTransferRunsRequest::end_time].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
             self.0.request.end_time = v.into();
             self
@@ -626,7 +626,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [parent][crate::model::StartManualTransferRunsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -713,7 +713,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [name][crate::model::GetTransferRunRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -761,7 +761,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [name][crate::model::DeleteTransferRunRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -824,7 +824,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [parent][crate::model::ListTransferRunsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -919,7 +919,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [parent][crate::model::ListTransferLogsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -987,7 +987,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [name][crate::model::CheckValidCredsRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1035,7 +1035,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [name][crate::model::EnrollDataSourcesRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1094,7 +1094,7 @@ pub mod data_transfer_service {
 
         /// Sets the value of [name][crate::model::UnenrollDataSourcesRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

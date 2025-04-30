@@ -101,7 +101,7 @@ pub mod language_service {
 
         /// Sets the value of [document][crate::model::AnalyzeSentimentRequest::document].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,
@@ -155,7 +155,7 @@ pub mod language_service {
 
         /// Sets the value of [document][crate::model::AnalyzeEntitiesRequest::document].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,
@@ -209,7 +209,7 @@ pub mod language_service {
 
         /// Sets the value of [document][crate::model::ClassifyTextRequest::document].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,
@@ -257,7 +257,7 @@ pub mod language_service {
 
         /// Sets the value of [document][crate::model::ModerateTextRequest::document].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,
@@ -314,7 +314,7 @@ pub mod language_service {
 
         /// Sets the value of [document][crate::model::AnnotateTextRequest::document].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,
@@ -325,7 +325,7 @@ pub mod language_service {
 
         /// Sets the value of [features][crate::model::AnnotateTextRequest::features].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_features<
             T: Into<std::option::Option<crate::model::annotate_text_request::Features>>,
         >(

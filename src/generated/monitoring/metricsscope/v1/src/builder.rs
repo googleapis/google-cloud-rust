@@ -98,7 +98,7 @@ pub mod metrics_scopes {
 
         /// Sets the value of [name][crate::model::GetMetricsScopeRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -150,7 +150,7 @@ pub mod metrics_scopes {
 
         /// Sets the value of [monitored_resource_container][crate::model::ListMetricsScopesByMonitoredProjectRequest::monitored_resource_container].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_monitored_resource_container<T: Into<std::string::String>>(
             mut self,
             v: T,
@@ -240,7 +240,7 @@ pub mod metrics_scopes {
 
         /// Sets the value of [parent][crate::model::CreateMonitoredProjectRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -248,7 +248,7 @@ pub mod metrics_scopes {
 
         /// Sets the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_monitored_project<
             T: Into<std::option::Option<crate::model::MonitoredProject>>,
         >(
@@ -336,7 +336,7 @@ pub mod metrics_scopes {
 
         /// Sets the value of [name][crate::model::DeleteMonitoredProjectRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

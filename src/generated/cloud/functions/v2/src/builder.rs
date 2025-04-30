@@ -98,7 +98,7 @@ pub mod function_service {
 
         /// Sets the value of [name][crate::model::GetFunctionRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -164,7 +164,7 @@ pub mod function_service {
 
         /// Sets the value of [parent][crate::model::ListFunctionsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -271,7 +271,7 @@ pub mod function_service {
 
         /// Sets the value of [parent][crate::model::CreateFunctionRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -279,7 +279,7 @@ pub mod function_service {
 
         /// Sets the value of [function][crate::model::CreateFunctionRequest::function].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_function<T: Into<std::option::Option<crate::model::Function>>>(
             mut self,
             v: T,
@@ -371,7 +371,7 @@ pub mod function_service {
 
         /// Sets the value of [function][crate::model::UpdateFunctionRequest::function].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_function<T: Into<std::option::Option<crate::model::Function>>>(
             mut self,
             v: T,
@@ -463,7 +463,7 @@ pub mod function_service {
 
         /// Sets the value of [name][crate::model::DeleteFunctionRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -511,7 +511,7 @@ pub mod function_service {
 
         /// Sets the value of [parent][crate::model::GenerateUploadUrlRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -571,7 +571,7 @@ pub mod function_service {
 
         /// Sets the value of [name][crate::model::GenerateDownloadUrlRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -616,7 +616,7 @@ pub mod function_service {
 
         /// Sets the value of [parent][crate::model::ListRuntimesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -746,7 +746,7 @@ pub mod function_service {
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -754,7 +754,7 @@ pub mod function_service {
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -811,7 +811,7 @@ pub mod function_service {
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -868,7 +868,7 @@ pub mod function_service {
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -876,7 +876,7 @@ pub mod function_service {
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

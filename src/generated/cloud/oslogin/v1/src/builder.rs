@@ -101,7 +101,7 @@ pub mod os_login_service {
 
         /// Sets the value of [parent][crate::model::CreateSshPublicKeyRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -109,7 +109,7 @@ pub mod os_login_service {
 
         /// Sets the value of [ssh_public_key][crate::model::CreateSshPublicKeyRequest::ssh_public_key].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_ssh_public_key<
             T: Into<std::option::Option<oslogin_common::model::SshPublicKey>>,
         >(
@@ -162,7 +162,7 @@ pub mod os_login_service {
 
         /// Sets the value of [name][crate::model::DeletePosixAccountRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -210,7 +210,7 @@ pub mod os_login_service {
 
         /// Sets the value of [name][crate::model::DeleteSshPublicKeyRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -255,7 +255,7 @@ pub mod os_login_service {
 
         /// Sets the value of [name][crate::model::GetLoginProfileRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -312,7 +312,7 @@ pub mod os_login_service {
 
         /// Sets the value of [name][crate::model::GetSshPublicKeyRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -360,7 +360,7 @@ pub mod os_login_service {
 
         /// Sets the value of [parent][crate::model::ImportSshPublicKeyRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -436,7 +436,7 @@ pub mod os_login_service {
 
         /// Sets the value of [name][crate::model::UpdateSshPublicKeyRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -444,7 +444,7 @@ pub mod os_login_service {
 
         /// Sets the value of [ssh_public_key][crate::model::UpdateSshPublicKeyRequest::ssh_public_key].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_ssh_public_key<
             T: Into<std::option::Option<oslogin_common::model::SshPublicKey>>,
         >(

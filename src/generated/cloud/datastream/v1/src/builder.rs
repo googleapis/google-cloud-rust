@@ -118,7 +118,7 @@ pub mod datastream {
 
         /// Sets the value of [parent][crate::model::ListConnectionProfilesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -190,7 +190,7 @@ pub mod datastream {
 
         /// Sets the value of [name][crate::model::GetConnectionProfileRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -279,7 +279,7 @@ pub mod datastream {
 
         /// Sets the value of [parent][crate::model::CreateConnectionProfileRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -287,7 +287,7 @@ pub mod datastream {
 
         /// Sets the value of [connection_profile_id][crate::model::CreateConnectionProfileRequest::connection_profile_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_connection_profile_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connection_profile_id = v.into();
             self
@@ -295,7 +295,7 @@ pub mod datastream {
 
         /// Sets the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_connection_profile<
             T: Into<std::option::Option<crate::model::ConnectionProfile>>,
         >(
@@ -416,7 +416,7 @@ pub mod datastream {
 
         /// Sets the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_connection_profile<
             T: Into<std::option::Option<crate::model::ConnectionProfile>>,
         >(
@@ -524,7 +524,7 @@ pub mod datastream {
 
         /// Sets the value of [name][crate::model::DeleteConnectionProfileRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -580,7 +580,7 @@ pub mod datastream {
 
         /// Sets the value of [parent][crate::model::DiscoverConnectionProfileRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -788,7 +788,7 @@ pub mod datastream {
 
         /// Sets the value of [parent][crate::model::ListStreamsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -857,7 +857,7 @@ pub mod datastream {
 
         /// Sets the value of [name][crate::model::GetStreamRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -939,7 +939,7 @@ pub mod datastream {
 
         /// Sets the value of [parent][crate::model::CreateStreamRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -947,7 +947,7 @@ pub mod datastream {
 
         /// Sets the value of [stream_id][crate::model::CreateStreamRequest::stream_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_stream_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.stream_id = v.into();
             self
@@ -955,7 +955,7 @@ pub mod datastream {
 
         /// Sets the value of [stream][crate::model::CreateStreamRequest::stream].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_stream<T: Into<std::option::Option<crate::model::Stream>>>(
             mut self,
             v: T,
@@ -1067,7 +1067,7 @@ pub mod datastream {
 
         /// Sets the value of [stream][crate::model::UpdateStreamRequest::stream].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_stream<T: Into<std::option::Option<crate::model::Stream>>>(
             mut self,
             v: T,
@@ -1168,7 +1168,7 @@ pub mod datastream {
 
         /// Sets the value of [name][crate::model::DeleteStreamRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1256,7 +1256,7 @@ pub mod datastream {
 
         /// Sets the value of [name][crate::model::RunStreamRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1316,7 +1316,7 @@ pub mod datastream {
 
         /// Sets the value of [name][crate::model::GetStreamObjectRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1364,7 +1364,7 @@ pub mod datastream {
 
         /// Sets the value of [parent][crate::model::LookupStreamObjectRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1372,7 +1372,7 @@ pub mod datastream {
 
         /// Sets the value of [source_object_identifier][crate::model::LookupStreamObjectRequest::source_object_identifier].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_source_object_identifier<
             T: Into<std::option::Option<crate::model::SourceObjectIdentifier>>,
         >(
@@ -1440,7 +1440,7 @@ pub mod datastream {
 
         /// Sets the value of [parent][crate::model::ListStreamObjectsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1500,7 +1500,7 @@ pub mod datastream {
 
         /// Sets the value of [object][crate::model::StartBackfillJobRequest::object].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.object = v.into();
             self
@@ -1545,7 +1545,7 @@ pub mod datastream {
 
         /// Sets the value of [object][crate::model::StopBackfillJobRequest::object].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.object = v.into();
             self
@@ -1590,7 +1590,7 @@ pub mod datastream {
 
         /// Sets the value of [name][crate::model::FetchStaticIpsRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1691,7 +1691,7 @@ pub mod datastream {
 
         /// Sets the value of [parent][crate::model::CreatePrivateConnectionRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1699,7 +1699,7 @@ pub mod datastream {
 
         /// Sets the value of [private_connection_id][crate::model::CreatePrivateConnectionRequest::private_connection_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_private_connection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.private_connection_id = v.into();
             self
@@ -1707,7 +1707,7 @@ pub mod datastream {
 
         /// Sets the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_private_connection<
             T: Into<std::option::Option<crate::model::PrivateConnection>>,
         >(
@@ -1772,7 +1772,7 @@ pub mod datastream {
 
         /// Sets the value of [name][crate::model::GetPrivateConnectionRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1837,7 +1837,7 @@ pub mod datastream {
 
         /// Sets the value of [parent][crate::model::ListPrivateConnectionsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1946,7 +1946,7 @@ pub mod datastream {
 
         /// Sets the value of [name][crate::model::DeletePrivateConnectionRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2040,7 +2040,7 @@ pub mod datastream {
 
         /// Sets the value of [parent][crate::model::CreateRouteRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2048,7 +2048,7 @@ pub mod datastream {
 
         /// Sets the value of [route_id][crate::model::CreateRouteRequest::route_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_route_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.route_id = v.into();
             self
@@ -2056,7 +2056,7 @@ pub mod datastream {
 
         /// Sets the value of [route][crate::model::CreateRouteRequest::route].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_route<T: Into<std::option::Option<crate::model::Route>>>(
             mut self,
             v: T,
@@ -2110,7 +2110,7 @@ pub mod datastream {
 
         /// Sets the value of [name][crate::model::GetRouteRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2170,7 +2170,7 @@ pub mod datastream {
 
         /// Sets the value of [parent][crate::model::ListRoutesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2274,7 +2274,7 @@ pub mod datastream {
 
         /// Sets the value of [name][crate::model::DeleteRouteRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

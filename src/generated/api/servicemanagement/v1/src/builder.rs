@@ -174,7 +174,7 @@ pub mod service_manager {
 
         /// Sets the value of [service_name][crate::model::GetServiceRequest::service_name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -258,7 +258,7 @@ pub mod service_manager {
 
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_service<T: Into<std::option::Option<crate::model::ManagedService>>>(
             mut self,
             v: T,
@@ -341,7 +341,7 @@ pub mod service_manager {
 
         /// Sets the value of [service_name][crate::model::DeleteServiceRequest::service_name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -427,7 +427,7 @@ pub mod service_manager {
 
         /// Sets the value of [service_name][crate::model::UndeleteServiceRequest::service_name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -490,7 +490,7 @@ pub mod service_manager {
 
         /// Sets the value of [service_name][crate::model::ListServiceConfigsRequest::service_name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -550,7 +550,7 @@ pub mod service_manager {
 
         /// Sets the value of [service_name][crate::model::GetServiceConfigRequest::service_name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -558,7 +558,7 @@ pub mod service_manager {
 
         /// Sets the value of [config_id][crate::model::GetServiceConfigRequest::config_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.config_id = v.into();
             self
@@ -615,7 +615,7 @@ pub mod service_manager {
 
         /// Sets the value of [service_name][crate::model::CreateServiceConfigRequest::service_name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -623,7 +623,7 @@ pub mod service_manager {
 
         /// Sets the value of [service_config][crate::model::CreateServiceConfigRequest::service_config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_service_config<T: Into<std::option::Option<api::model::Service>>>(
             mut self,
             v: T,
@@ -715,7 +715,7 @@ pub mod service_manager {
 
         /// Sets the value of [service_name][crate::model::SubmitConfigSourceRequest::service_name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -723,7 +723,7 @@ pub mod service_manager {
 
         /// Sets the value of [config_source][crate::model::SubmitConfigSourceRequest::config_source].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_config_source<T: Into<std::option::Option<crate::model::ConfigSource>>>(
             mut self,
             v: T,
@@ -795,7 +795,7 @@ pub mod service_manager {
 
         /// Sets the value of [service_name][crate::model::ListServiceRolloutsRequest::service_name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -815,7 +815,7 @@ pub mod service_manager {
 
         /// Sets the value of [filter][crate::model::ListServiceRolloutsRequest::filter].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
@@ -863,7 +863,7 @@ pub mod service_manager {
 
         /// Sets the value of [service_name][crate::model::GetServiceRolloutRequest::service_name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -871,7 +871,7 @@ pub mod service_manager {
 
         /// Sets the value of [rollout_id][crate::model::GetServiceRolloutRequest::rollout_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_rollout_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.rollout_id = v.into();
             self
@@ -956,7 +956,7 @@ pub mod service_manager {
 
         /// Sets the value of [service_name][crate::model::CreateServiceRolloutRequest::service_name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_service_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_name = v.into();
             self
@@ -964,7 +964,7 @@ pub mod service_manager {
 
         /// Sets the value of [rollout][crate::model::CreateServiceRolloutRequest::rollout].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_rollout<T: Into<std::option::Option<crate::model::Rollout>>>(
             mut self,
             v: T,
@@ -1015,7 +1015,7 @@ pub mod service_manager {
 
         /// Sets the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_new_config<T: Into<std::option::Option<wkt::Any>>>(mut self, v: T) -> Self {
             self.0.request.new_config = v.into();
             self
@@ -1066,7 +1066,7 @@ pub mod service_manager {
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1074,7 +1074,7 @@ pub mod service_manager {
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1131,7 +1131,7 @@ pub mod service_manager {
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1188,7 +1188,7 @@ pub mod service_manager {
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1196,7 +1196,7 @@ pub mod service_manager {
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

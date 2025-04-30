@@ -110,7 +110,7 @@ pub mod translation_service {
 
         /// Sets the value of [target_language_code][crate::model::TranslateTextRequest::target_language_code].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_target_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_language_code = v.into();
             self
@@ -118,7 +118,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::TranslateTextRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -154,7 +154,7 @@ pub mod translation_service {
 
         /// Sets the value of [contents][crate::model::TranslateTextRequest::contents].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_contents<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -215,7 +215,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::RomanizeTextRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -229,7 +229,7 @@ pub mod translation_service {
 
         /// Sets the value of [contents][crate::model::RomanizeTextRequest::contents].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_contents<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -279,7 +279,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::DetectLanguageRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -372,7 +372,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::GetSupportedLanguagesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -432,7 +432,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::TranslateDocumentRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -446,7 +446,7 @@ pub mod translation_service {
 
         /// Sets the value of [target_language_code][crate::model::TranslateDocumentRequest::target_language_code].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_target_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_language_code = v.into();
             self
@@ -454,7 +454,7 @@ pub mod translation_service {
 
         /// Sets the value of [document_input_config][crate::model::TranslateDocumentRequest::document_input_config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_document_input_config<
             T: Into<std::option::Option<crate::model::DocumentInputConfig>>,
         >(
@@ -611,7 +611,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::BatchTranslateTextRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -619,7 +619,7 @@ pub mod translation_service {
 
         /// Sets the value of [source_language_code][crate::model::BatchTranslateTextRequest::source_language_code].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_language_code = v.into();
             self
@@ -627,7 +627,7 @@ pub mod translation_service {
 
         /// Sets the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
             mut self,
             v: T,
@@ -638,7 +638,7 @@ pub mod translation_service {
 
         /// Sets the value of [target_language_codes][crate::model::BatchTranslateTextRequest::target_language_codes].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -651,7 +651,7 @@ pub mod translation_service {
 
         /// Sets the value of [input_configs][crate::model::BatchTranslateTextRequest::input_configs].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_input_configs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -780,7 +780,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::BatchTranslateDocumentRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -788,7 +788,7 @@ pub mod translation_service {
 
         /// Sets the value of [source_language_code][crate::model::BatchTranslateDocumentRequest::source_language_code].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_language_code = v.into();
             self
@@ -796,7 +796,7 @@ pub mod translation_service {
 
         /// Sets the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_output_config<
             T: Into<std::option::Option<crate::model::BatchDocumentOutputConfig>>,
         >(
@@ -827,7 +827,7 @@ pub mod translation_service {
 
         /// Sets the value of [target_language_codes][crate::model::BatchTranslateDocumentRequest::target_language_codes].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -840,7 +840,7 @@ pub mod translation_service {
 
         /// Sets the value of [input_configs][crate::model::BatchTranslateDocumentRequest::input_configs].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_input_configs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -963,7 +963,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::CreateGlossaryRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -971,7 +971,7 @@ pub mod translation_service {
 
         /// Sets the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_glossary<T: Into<std::option::Option<crate::model::Glossary>>>(
             mut self,
             v: T,
@@ -1058,7 +1058,7 @@ pub mod translation_service {
 
         /// Sets the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_glossary<T: Into<std::option::Option<crate::model::Glossary>>>(
             mut self,
             v: T,
@@ -1130,7 +1130,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::ListGlossariesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1193,7 +1193,7 @@ pub mod translation_service {
 
         /// Sets the value of [name][crate::model::GetGlossaryRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1279,7 +1279,7 @@ pub mod translation_service {
 
         /// Sets the value of [name][crate::model::DeleteGlossaryRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1327,7 +1327,7 @@ pub mod translation_service {
 
         /// Sets the value of [name][crate::model::GetGlossaryEntryRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1390,7 +1390,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::ListGlossaryEntriesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1450,7 +1450,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::CreateGlossaryEntryRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1458,7 +1458,7 @@ pub mod translation_service {
 
         /// Sets the value of [glossary_entry][crate::model::CreateGlossaryEntryRequest::glossary_entry].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_glossary_entry<T: Into<std::option::Option<crate::model::GlossaryEntry>>>(
             mut self,
             v: T,
@@ -1509,7 +1509,7 @@ pub mod translation_service {
 
         /// Sets the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_glossary_entry<T: Into<std::option::Option<crate::model::GlossaryEntry>>>(
             mut self,
             v: T,
@@ -1560,7 +1560,7 @@ pub mod translation_service {
 
         /// Sets the value of [name][crate::model::DeleteGlossaryEntryRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1643,7 +1643,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::CreateDatasetRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1651,7 +1651,7 @@ pub mod translation_service {
 
         /// Sets the value of [dataset][crate::model::CreateDatasetRequest::dataset].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
             mut self,
             v: T,
@@ -1699,7 +1699,7 @@ pub mod translation_service {
 
         /// Sets the value of [name][crate::model::GetDatasetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1759,7 +1759,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::ListDatasetsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1851,7 +1851,7 @@ pub mod translation_service {
 
         /// Sets the value of [name][crate::model::DeleteDatasetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1901,7 +1901,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::CreateAdaptiveMtDatasetRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1909,7 +1909,7 @@ pub mod translation_service {
 
         /// Sets the value of [adaptive_mt_dataset][crate::model::CreateAdaptiveMtDatasetRequest::adaptive_mt_dataset].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_adaptive_mt_dataset<
             T: Into<std::option::Option<crate::model::AdaptiveMtDataset>>,
         >(
@@ -1964,7 +1964,7 @@ pub mod translation_service {
 
         /// Sets the value of [name][crate::model::DeleteAdaptiveMtDatasetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2012,7 +2012,7 @@ pub mod translation_service {
 
         /// Sets the value of [name][crate::model::GetAdaptiveMtDatasetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2077,7 +2077,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::ListAdaptiveMtDatasetsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2143,7 +2143,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::AdaptiveMtTranslateRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2151,7 +2151,7 @@ pub mod translation_service {
 
         /// Sets the value of [dataset][crate::model::AdaptiveMtTranslateRequest::dataset].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset = v.into();
             self
@@ -2185,7 +2185,7 @@ pub mod translation_service {
 
         /// Sets the value of [content][crate::model::AdaptiveMtTranslateRequest::content].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_content<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2238,7 +2238,7 @@ pub mod translation_service {
 
         /// Sets the value of [name][crate::model::GetAdaptiveMtFileRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2286,7 +2286,7 @@ pub mod translation_service {
 
         /// Sets the value of [name][crate::model::DeleteAdaptiveMtFileRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2334,7 +2334,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::ImportAdaptiveMtFileRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2441,7 +2441,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::ListAdaptiveMtFilesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2520,7 +2520,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::ListAdaptiveMtSentencesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2612,7 +2612,7 @@ pub mod translation_service {
 
         /// Sets the value of [dataset][crate::model::ImportDataRequest::dataset].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset = v.into();
             self
@@ -2620,7 +2620,7 @@ pub mod translation_service {
 
         /// Sets the value of [input_config][crate::model::ImportDataRequest::input_config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_input_config<T: Into<std::option::Option<crate::model::DatasetInputConfig>>>(
             mut self,
             v: T,
@@ -2703,7 +2703,7 @@ pub mod translation_service {
 
         /// Sets the value of [dataset][crate::model::ExportDataRequest::dataset].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset = v.into();
             self
@@ -2711,7 +2711,7 @@ pub mod translation_service {
 
         /// Sets the value of [output_config][crate::model::ExportDataRequest::output_config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_output_config<
             T: Into<std::option::Option<crate::model::DatasetOutputConfig>>,
         >(
@@ -2776,7 +2776,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::ListExamplesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2876,7 +2876,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::CreateModelRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2884,7 +2884,7 @@ pub mod translation_service {
 
         /// Sets the value of [model][crate::model::CreateModelRequest::model].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
             mut self,
             v: T,
@@ -2947,7 +2947,7 @@ pub mod translation_service {
 
         /// Sets the value of [parent][crate::model::ListModelsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3010,7 +3010,7 @@ pub mod translation_service {
 
         /// Sets the value of [name][crate::model::GetModelRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3090,7 +3090,7 @@ pub mod translation_service {
 
         /// Sets the value of [name][crate::model::DeleteModelRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

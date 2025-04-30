@@ -98,7 +98,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::GetTriggerRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -158,7 +158,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::ListTriggersRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -264,7 +264,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::CreateTriggerRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -272,7 +272,7 @@ pub mod eventarc {
 
         /// Sets the value of [trigger][crate::model::CreateTriggerRequest::trigger].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_trigger<T: Into<std::option::Option<crate::model::Trigger>>>(
             mut self,
             v: T,
@@ -283,7 +283,7 @@ pub mod eventarc {
 
         /// Sets the value of [trigger_id][crate::model::CreateTriggerRequest::trigger_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_trigger_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.trigger_id = v.into();
             self
@@ -475,7 +475,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::DeleteTriggerRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -538,7 +538,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::GetChannelRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -598,7 +598,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::ListChannelsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -698,7 +698,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::CreateChannelRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -706,7 +706,7 @@ pub mod eventarc {
 
         /// Sets the value of [channel][crate::model::CreateChannelRequest::channel].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_channel<T: Into<std::option::Option<crate::model::Channel>>>(
             mut self,
             v: T,
@@ -717,7 +717,7 @@ pub mod eventarc {
 
         /// Sets the value of [channel_id][crate::model::CreateChannelRequest::channel_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_channel_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.channel_id = v.into();
             self
@@ -903,7 +903,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::DeleteChannelRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -954,7 +954,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::GetProviderRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1014,7 +1014,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::ListProvidersRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1086,7 +1086,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::GetChannelConnectionRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1151,7 +1151,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::ListChannelConnectionsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1252,7 +1252,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::CreateChannelConnectionRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1260,7 +1260,7 @@ pub mod eventarc {
 
         /// Sets the value of [channel_connection][crate::model::CreateChannelConnectionRequest::channel_connection].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_channel_connection<
             T: Into<std::option::Option<crate::model::ChannelConnection>>,
         >(
@@ -1273,7 +1273,7 @@ pub mod eventarc {
 
         /// Sets the value of [channel_connection_id][crate::model::CreateChannelConnectionRequest::channel_connection_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_channel_connection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.channel_connection_id = v.into();
             self
@@ -1362,7 +1362,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::DeleteChannelConnectionRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1410,7 +1410,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::GetGoogleChannelConfigRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1460,7 +1460,7 @@ pub mod eventarc {
 
         /// Sets the value of [google_channel_config][crate::model::UpdateGoogleChannelConfigRequest::google_channel_config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_google_channel_config<
             T: Into<std::option::Option<crate::model::GoogleChannelConfig>>,
         >(
@@ -1519,7 +1519,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::GetMessageBusRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1582,7 +1582,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::ListMessageBusesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1656,7 +1656,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::ListMessageBusEnrollmentsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1754,7 +1754,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::CreateMessageBusRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1762,7 +1762,7 @@ pub mod eventarc {
 
         /// Sets the value of [message_bus][crate::model::CreateMessageBusRequest::message_bus].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_message_bus<T: Into<std::option::Option<crate::model::MessageBus>>>(
             mut self,
             v: T,
@@ -1773,7 +1773,7 @@ pub mod eventarc {
 
         /// Sets the value of [message_bus_id][crate::model::CreateMessageBusRequest::message_bus_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_message_bus_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.message_bus_id = v.into();
             self
@@ -1865,7 +1865,7 @@ pub mod eventarc {
 
         /// Sets the value of [message_bus][crate::model::UpdateMessageBusRequest::message_bus].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_message_bus<T: Into<std::option::Option<crate::model::MessageBus>>>(
             mut self,
             v: T,
@@ -1975,7 +1975,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::DeleteMessageBusRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2038,7 +2038,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::GetEnrollmentRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2098,7 +2098,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::ListEnrollmentsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2208,7 +2208,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::CreateEnrollmentRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2216,7 +2216,7 @@ pub mod eventarc {
 
         /// Sets the value of [enrollment][crate::model::CreateEnrollmentRequest::enrollment].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_enrollment<T: Into<std::option::Option<crate::model::Enrollment>>>(
             mut self,
             v: T,
@@ -2227,7 +2227,7 @@ pub mod eventarc {
 
         /// Sets the value of [enrollment_id][crate::model::CreateEnrollmentRequest::enrollment_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_enrollment_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.enrollment_id = v.into();
             self
@@ -2319,7 +2319,7 @@ pub mod eventarc {
 
         /// Sets the value of [enrollment][crate::model::UpdateEnrollmentRequest::enrollment].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_enrollment<T: Into<std::option::Option<crate::model::Enrollment>>>(
             mut self,
             v: T,
@@ -2429,7 +2429,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::DeleteEnrollmentRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2492,7 +2492,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::GetPipelineRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2552,7 +2552,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::ListPipelinesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2659,7 +2659,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::CreatePipelineRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2667,7 +2667,7 @@ pub mod eventarc {
 
         /// Sets the value of [pipeline][crate::model::CreatePipelineRequest::pipeline].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_pipeline<T: Into<std::option::Option<crate::model::Pipeline>>>(
             mut self,
             v: T,
@@ -2678,7 +2678,7 @@ pub mod eventarc {
 
         /// Sets the value of [pipeline_id][crate::model::CreatePipelineRequest::pipeline_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_pipeline_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.pipeline_id = v.into();
             self
@@ -2767,7 +2767,7 @@ pub mod eventarc {
 
         /// Sets the value of [pipeline][crate::model::UpdatePipelineRequest::pipeline].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_pipeline<T: Into<std::option::Option<crate::model::Pipeline>>>(
             mut self,
             v: T,
@@ -2874,7 +2874,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::DeletePipelineRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2940,7 +2940,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::GetGoogleApiSourceRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3003,7 +3003,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::ListGoogleApiSourcesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3114,7 +3114,7 @@ pub mod eventarc {
 
         /// Sets the value of [parent][crate::model::CreateGoogleApiSourceRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3122,7 +3122,7 @@ pub mod eventarc {
 
         /// Sets the value of [google_api_source][crate::model::CreateGoogleApiSourceRequest::google_api_source].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_google_api_source<
             T: Into<std::option::Option<crate::model::GoogleApiSource>>,
         >(
@@ -3135,7 +3135,7 @@ pub mod eventarc {
 
         /// Sets the value of [google_api_source_id][crate::model::CreateGoogleApiSourceRequest::google_api_source_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_google_api_source_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.google_api_source_id = v.into();
             self
@@ -3228,7 +3228,7 @@ pub mod eventarc {
 
         /// Sets the value of [google_api_source][crate::model::UpdateGoogleApiSourceRequest::google_api_source].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_google_api_source<
             T: Into<std::option::Option<crate::model::GoogleApiSource>>,
         >(
@@ -3341,7 +3341,7 @@ pub mod eventarc {
 
         /// Sets the value of [name][crate::model::DeleteGoogleApiSourceRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3526,7 +3526,7 @@ pub mod eventarc {
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -3534,7 +3534,7 @@ pub mod eventarc {
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -3591,7 +3591,7 @@ pub mod eventarc {
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -3648,7 +3648,7 @@ pub mod eventarc {
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -3656,7 +3656,7 @@ pub mod eventarc {
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

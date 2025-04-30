@@ -101,7 +101,7 @@ pub mod reservation_service {
 
         /// Sets the value of [parent][crate::model::CreateReservationRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -179,7 +179,7 @@ pub mod reservation_service {
 
         /// Sets the value of [parent][crate::model::ListReservationsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -236,7 +236,7 @@ pub mod reservation_service {
 
         /// Sets the value of [name][crate::model::GetReservationRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -284,7 +284,7 @@ pub mod reservation_service {
 
         /// Sets the value of [name][crate::model::DeleteReservationRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -390,7 +390,7 @@ pub mod reservation_service {
 
         /// Sets the value of [name][crate::model::FailoverReservationRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -440,7 +440,7 @@ pub mod reservation_service {
 
         /// Sets the value of [parent][crate::model::CreateCapacityCommitmentRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -530,7 +530,7 @@ pub mod reservation_service {
 
         /// Sets the value of [parent][crate::model::ListCapacityCommitmentsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -590,7 +590,7 @@ pub mod reservation_service {
 
         /// Sets the value of [name][crate::model::GetCapacityCommitmentRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -640,7 +640,7 @@ pub mod reservation_service {
 
         /// Sets the value of [name][crate::model::DeleteCapacityCommitmentRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -758,7 +758,7 @@ pub mod reservation_service {
 
         /// Sets the value of [name][crate::model::SplitCapacityCommitmentRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -871,7 +871,7 @@ pub mod reservation_service {
 
         /// Sets the value of [parent][crate::model::CreateAssignmentRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -946,7 +946,7 @@ pub mod reservation_service {
 
         /// Sets the value of [parent][crate::model::ListAssignmentsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1006,7 +1006,7 @@ pub mod reservation_service {
 
         /// Sets the value of [name][crate::model::DeleteAssignmentRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1069,7 +1069,7 @@ pub mod reservation_service {
 
         /// Sets the value of [parent][crate::model::SearchAssignmentsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1150,7 +1150,7 @@ pub mod reservation_service {
 
         /// Sets the value of [parent][crate::model::SearchAllAssignmentsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1213,7 +1213,7 @@ pub mod reservation_service {
 
         /// Sets the value of [name][crate::model::MoveAssignmentRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1331,7 +1331,7 @@ pub mod reservation_service {
 
         /// Sets the value of [name][crate::model::GetBiReservationRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

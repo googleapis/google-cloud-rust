@@ -139,7 +139,7 @@ pub mod datastore_admin {
 
         /// Sets the value of [project_id][crate::model::ExportEntitiesRequest::project_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -156,7 +156,7 @@ pub mod datastore_admin {
 
         /// Sets the value of [output_url_prefix][crate::model::ExportEntitiesRequest::output_url_prefix].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_output_url_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.output_url_prefix = v.into();
             self
@@ -247,7 +247,7 @@ pub mod datastore_admin {
 
         /// Sets the value of [project_id][crate::model::ImportEntitiesRequest::project_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -255,7 +255,7 @@ pub mod datastore_admin {
 
         /// Sets the value of [input_url][crate::model::ImportEntitiesRequest::input_url].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_input_url<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.input_url = v.into();
             self

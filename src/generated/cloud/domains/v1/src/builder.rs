@@ -98,7 +98,7 @@ pub mod domains {
 
         /// Sets the value of [query][crate::model::SearchDomainsRequest::query].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_query<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.query = v.into();
             self
@@ -106,7 +106,7 @@ pub mod domains {
 
         /// Sets the value of [location][crate::model::SearchDomainsRequest::location].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -156,7 +156,7 @@ pub mod domains {
 
         /// Sets the value of [domain_name][crate::model::RetrieveRegisterParametersRequest::domain_name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_domain_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.domain_name = v.into();
             self
@@ -164,7 +164,7 @@ pub mod domains {
 
         /// Sets the value of [location][crate::model::RetrieveRegisterParametersRequest::location].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -247,7 +247,7 @@ pub mod domains {
 
         /// Sets the value of [parent][crate::model::RegisterDomainRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -255,7 +255,7 @@ pub mod domains {
 
         /// Sets the value of [registration][crate::model::RegisterDomainRequest::registration].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_registration<T: Into<std::option::Option<crate::model::Registration>>>(
             mut self,
             v: T,
@@ -266,7 +266,7 @@ pub mod domains {
 
         /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_yearly_price<T: Into<std::option::Option<gtype::model::Money>>>(
             mut self,
             v: T,
@@ -347,7 +347,7 @@ pub mod domains {
 
         /// Sets the value of [domain_name][crate::model::RetrieveTransferParametersRequest::domain_name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_domain_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.domain_name = v.into();
             self
@@ -355,7 +355,7 @@ pub mod domains {
 
         /// Sets the value of [location][crate::model::RetrieveTransferParametersRequest::location].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -438,7 +438,7 @@ pub mod domains {
 
         /// Sets the value of [parent][crate::model::TransferDomainRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -446,7 +446,7 @@ pub mod domains {
 
         /// Sets the value of [registration][crate::model::TransferDomainRequest::registration].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_registration<T: Into<std::option::Option<crate::model::Registration>>>(
             mut self,
             v: T,
@@ -457,7 +457,7 @@ pub mod domains {
 
         /// Sets the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_yearly_price<T: Into<std::option::Option<gtype::model::Money>>>(
             mut self,
             v: T,
@@ -551,7 +551,7 @@ pub mod domains {
 
         /// Sets the value of [parent][crate::model::ListRegistrationsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -614,7 +614,7 @@ pub mod domains {
 
         /// Sets the value of [name][crate::model::GetRegistrationRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -709,7 +709,7 @@ pub mod domains {
 
         /// Sets the value of [update_mask][crate::model::UpdateRegistrationRequest::update_mask].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -800,7 +800,7 @@ pub mod domains {
 
         /// Sets the value of [registration][crate::model::ConfigureManagementSettingsRequest::registration].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_registration<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.registration = v.into();
             self
@@ -819,7 +819,7 @@ pub mod domains {
 
         /// Sets the value of [update_mask][crate::model::ConfigureManagementSettingsRequest::update_mask].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -908,7 +908,7 @@ pub mod domains {
 
         /// Sets the value of [registration][crate::model::ConfigureDnsSettingsRequest::registration].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_registration<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.registration = v.into();
             self
@@ -925,7 +925,7 @@ pub mod domains {
 
         /// Sets the value of [update_mask][crate::model::ConfigureDnsSettingsRequest::update_mask].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1022,7 +1022,7 @@ pub mod domains {
 
         /// Sets the value of [registration][crate::model::ConfigureContactSettingsRequest::registration].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_registration<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.registration = v.into();
             self
@@ -1039,7 +1039,7 @@ pub mod domains {
 
         /// Sets the value of [update_mask][crate::model::ConfigureContactSettingsRequest::update_mask].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1145,7 +1145,7 @@ pub mod domains {
 
         /// Sets the value of [name][crate::model::ExportRegistrationRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1228,7 +1228,7 @@ pub mod domains {
 
         /// Sets the value of [name][crate::model::DeleteRegistrationRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1278,7 +1278,7 @@ pub mod domains {
 
         /// Sets the value of [registration][crate::model::RetrieveAuthorizationCodeRequest::registration].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_registration<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.registration = v.into();
             self
@@ -1326,7 +1326,7 @@ pub mod domains {
 
         /// Sets the value of [registration][crate::model::ResetAuthorizationCodeRequest::registration].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_registration<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.registration = v.into();
             self

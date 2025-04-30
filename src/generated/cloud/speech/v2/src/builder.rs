@@ -139,7 +139,7 @@ pub mod speech {
 
         /// Sets the value of [recognizer][crate::model::CreateRecognizerRequest::recognizer].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_recognizer<T: Into<std::option::Option<crate::model::Recognizer>>>(
             mut self,
             v: T,
@@ -162,7 +162,7 @@ pub mod speech {
 
         /// Sets the value of [parent][crate::model::CreateRecognizerRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -222,7 +222,7 @@ pub mod speech {
 
         /// Sets the value of [parent][crate::model::ListRecognizersRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -285,7 +285,7 @@ pub mod speech {
 
         /// Sets the value of [name][crate::model::GetRecognizerRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -371,7 +371,7 @@ pub mod speech {
 
         /// Sets the value of [recognizer][crate::model::UpdateRecognizerRequest::recognizer].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_recognizer<T: Into<std::option::Option<crate::model::Recognizer>>>(
             mut self,
             v: T,
@@ -475,7 +475,7 @@ pub mod speech {
 
         /// Sets the value of [name][crate::model::DeleteRecognizerRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -579,7 +579,7 @@ pub mod speech {
 
         /// Sets the value of [name][crate::model::UndeleteRecognizerRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -636,7 +636,7 @@ pub mod speech {
 
         /// Sets the value of [recognizer][crate::model::RecognizeRequest::recognizer].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_recognizer<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.recognizer = v.into();
             self
@@ -772,7 +772,7 @@ pub mod speech {
 
         /// Sets the value of [recognizer][crate::model::BatchRecognizeRequest::recognizer].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_recognizer<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.recognizer = v.into();
             self
@@ -868,7 +868,7 @@ pub mod speech {
 
         /// Sets the value of [name][crate::model::GetConfigRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -913,7 +913,7 @@ pub mod speech {
 
         /// Sets the value of [config][crate::model::UpdateConfigRequest::config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_config<T: Into<std::option::Option<crate::model::Config>>>(
             mut self,
             v: T,
@@ -1011,7 +1011,7 @@ pub mod speech {
 
         /// Sets the value of [custom_class][crate::model::CreateCustomClassRequest::custom_class].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_custom_class<T: Into<std::option::Option<crate::model::CustomClass>>>(
             mut self,
             v: T,
@@ -1034,7 +1034,7 @@ pub mod speech {
 
         /// Sets the value of [parent][crate::model::CreateCustomClassRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1097,7 +1097,7 @@ pub mod speech {
 
         /// Sets the value of [parent][crate::model::ListCustomClassesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1160,7 +1160,7 @@ pub mod speech {
 
         /// Sets the value of [name][crate::model::GetCustomClassRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1246,7 +1246,7 @@ pub mod speech {
 
         /// Sets the value of [custom_class][crate::model::UpdateCustomClassRequest::custom_class].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_custom_class<T: Into<std::option::Option<crate::model::CustomClass>>>(
             mut self,
             v: T,
@@ -1350,7 +1350,7 @@ pub mod speech {
 
         /// Sets the value of [name][crate::model::DeleteCustomClassRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1454,7 +1454,7 @@ pub mod speech {
 
         /// Sets the value of [name][crate::model::UndeleteCustomClassRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1549,7 +1549,7 @@ pub mod speech {
 
         /// Sets the value of [phrase_set][crate::model::CreatePhraseSetRequest::phrase_set].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_phrase_set<T: Into<std::option::Option<crate::model::PhraseSet>>>(
             mut self,
             v: T,
@@ -1572,7 +1572,7 @@ pub mod speech {
 
         /// Sets the value of [parent][crate::model::CreatePhraseSetRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1632,7 +1632,7 @@ pub mod speech {
 
         /// Sets the value of [parent][crate::model::ListPhraseSetsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1695,7 +1695,7 @@ pub mod speech {
 
         /// Sets the value of [name][crate::model::GetPhraseSetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1778,7 +1778,7 @@ pub mod speech {
 
         /// Sets the value of [phrase_set][crate::model::UpdatePhraseSetRequest::phrase_set].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_phrase_set<T: Into<std::option::Option<crate::model::PhraseSet>>>(
             mut self,
             v: T,
@@ -1879,7 +1879,7 @@ pub mod speech {
 
         /// Sets the value of [name][crate::model::DeletePhraseSetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1983,7 +1983,7 @@ pub mod speech {
 
         /// Sets the value of [name][crate::model::UndeletePhraseSetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

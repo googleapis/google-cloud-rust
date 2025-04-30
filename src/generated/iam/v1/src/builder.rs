@@ -98,7 +98,7 @@ pub mod iam_policy {
 
         /// Sets the value of [resource][crate::model::SetIamPolicyRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -106,7 +106,7 @@ pub mod iam_policy {
 
         /// Sets the value of [policy][crate::model::SetIamPolicyRequest::policy].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
             mut self,
             v: T,
@@ -163,7 +163,7 @@ pub mod iam_policy {
 
         /// Sets the value of [resource][crate::model::GetIamPolicyRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -220,7 +220,7 @@ pub mod iam_policy {
 
         /// Sets the value of [resource][crate::model::TestIamPermissionsRequest::resource].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -228,7 +228,7 @@ pub mod iam_policy {
 
         /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

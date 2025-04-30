@@ -107,7 +107,7 @@ pub mod image_annotator {
 
         /// Sets the value of [requests][crate::model::BatchAnnotateImagesRequest::requests].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -177,7 +177,7 @@ pub mod image_annotator {
 
         /// Sets the value of [requests][crate::model::BatchAnnotateFilesRequest::requests].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -286,7 +286,7 @@ pub mod image_annotator {
 
         /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
             mut self,
             v: T,
@@ -303,7 +303,7 @@ pub mod image_annotator {
 
         /// Sets the value of [requests][crate::model::AsyncBatchAnnotateImagesRequest::requests].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -418,7 +418,7 @@ pub mod image_annotator {
 
         /// Sets the value of [requests][crate::model::AsyncBatchAnnotateFilesRequest::requests].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -582,7 +582,7 @@ pub mod product_search {
 
         /// Sets the value of [parent][crate::model::CreateProductSetRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -590,7 +590,7 @@ pub mod product_search {
 
         /// Sets the value of [product_set][crate::model::CreateProductSetRequest::product_set].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_product_set<T: Into<std::option::Option<crate::model::ProductSet>>>(
             mut self,
             v: T,
@@ -659,7 +659,7 @@ pub mod product_search {
 
         /// Sets the value of [parent][crate::model::ListProductSetsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -716,7 +716,7 @@ pub mod product_search {
 
         /// Sets the value of [name][crate::model::GetProductSetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -764,7 +764,7 @@ pub mod product_search {
 
         /// Sets the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_product_set<T: Into<std::option::Option<crate::model::ProductSet>>>(
             mut self,
             v: T,
@@ -824,7 +824,7 @@ pub mod product_search {
 
         /// Sets the value of [name][crate::model::DeleteProductSetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -869,7 +869,7 @@ pub mod product_search {
 
         /// Sets the value of [parent][crate::model::CreateProductRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -877,7 +877,7 @@ pub mod product_search {
 
         /// Sets the value of [product][crate::model::CreateProductRequest::product].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_product<T: Into<std::option::Option<crate::model::Product>>>(
             mut self,
             v: T,
@@ -946,7 +946,7 @@ pub mod product_search {
 
         /// Sets the value of [parent][crate::model::ListProductsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1003,7 +1003,7 @@ pub mod product_search {
 
         /// Sets the value of [name][crate::model::GetProductRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1048,7 +1048,7 @@ pub mod product_search {
 
         /// Sets the value of [product][crate::model::UpdateProductRequest::product].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_product<T: Into<std::option::Option<crate::model::Product>>>(
             mut self,
             v: T,
@@ -1105,7 +1105,7 @@ pub mod product_search {
 
         /// Sets the value of [name][crate::model::DeleteProductRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1153,7 +1153,7 @@ pub mod product_search {
 
         /// Sets the value of [parent][crate::model::CreateReferenceImageRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1161,7 +1161,7 @@ pub mod product_search {
 
         /// Sets the value of [reference_image][crate::model::CreateReferenceImageRequest::reference_image].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_reference_image<T: Into<std::option::Option<crate::model::ReferenceImage>>>(
             mut self,
             v: T,
@@ -1218,7 +1218,7 @@ pub mod product_search {
 
         /// Sets the value of [name][crate::model::DeleteReferenceImageRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1281,7 +1281,7 @@ pub mod product_search {
 
         /// Sets the value of [parent][crate::model::ListReferenceImagesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1341,7 +1341,7 @@ pub mod product_search {
 
         /// Sets the value of [name][crate::model::GetReferenceImageRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1389,7 +1389,7 @@ pub mod product_search {
 
         /// Sets the value of [name][crate::model::AddProductToProductSetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1397,7 +1397,7 @@ pub mod product_search {
 
         /// Sets the value of [product][crate::model::AddProductToProductSetRequest::product].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_product<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.product = v.into();
             self
@@ -1447,7 +1447,7 @@ pub mod product_search {
 
         /// Sets the value of [name][crate::model::RemoveProductFromProductSetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1455,7 +1455,7 @@ pub mod product_search {
 
         /// Sets the value of [product][crate::model::RemoveProductFromProductSetRequest::product].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_product<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.product = v.into();
             self
@@ -1522,7 +1522,7 @@ pub mod product_search {
 
         /// Sets the value of [name][crate::model::ListProductsInProductSetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1625,7 +1625,7 @@ pub mod product_search {
 
         /// Sets the value of [parent][crate::model::ImportProductSetsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1633,7 +1633,7 @@ pub mod product_search {
 
         /// Sets the value of [input_config][crate::model::ImportProductSetsRequest::input_config].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_input_config<
             T: Into<std::option::Option<crate::model::ImportProductSetsInputConfig>>,
         >(
@@ -1718,7 +1718,7 @@ pub mod product_search {
 
         /// Sets the value of [parent][crate::model::PurgeProductsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self

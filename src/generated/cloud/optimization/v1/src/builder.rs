@@ -98,7 +98,7 @@ pub mod fleet_routing {
 
         /// Sets the value of [parent][crate::model::OptimizeToursRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -328,7 +328,7 @@ pub mod fleet_routing {
 
         /// Sets the value of [parent][crate::model::BatchOptimizeToursRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -336,7 +336,7 @@ pub mod fleet_routing {
 
         /// Sets the value of [model_configs][crate::model::BatchOptimizeToursRequest::model_configs].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_model_configs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

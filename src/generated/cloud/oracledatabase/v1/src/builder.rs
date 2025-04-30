@@ -120,7 +120,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::ListCloudExadataInfrastructuresRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -182,7 +182,7 @@ pub mod oracle_database {
 
         /// Sets the value of [name][crate::model::GetCloudExadataInfrastructureRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -273,7 +273,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::CreateCloudExadataInfrastructureRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -281,7 +281,7 @@ pub mod oracle_database {
 
         /// Sets the value of [cloud_exadata_infrastructure_id][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_cloud_exadata_infrastructure_id<T: Into<std::string::String>>(
             mut self,
             v: T,
@@ -292,7 +292,7 @@ pub mod oracle_database {
 
         /// Sets the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_cloud_exadata_infrastructure<
             T: Into<std::option::Option<crate::model::CloudExadataInfrastructure>>,
         >(
@@ -388,7 +388,7 @@ pub mod oracle_database {
 
         /// Sets the value of [name][crate::model::DeleteCloudExadataInfrastructureRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -463,7 +463,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::ListCloudVmClustersRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -529,7 +529,7 @@ pub mod oracle_database {
 
         /// Sets the value of [name][crate::model::GetCloudVmClusterRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -616,7 +616,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::CreateCloudVmClusterRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -624,7 +624,7 @@ pub mod oracle_database {
 
         /// Sets the value of [cloud_vm_cluster_id][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_cloud_vm_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cloud_vm_cluster_id = v.into();
             self
@@ -632,7 +632,7 @@ pub mod oracle_database {
 
         /// Sets the value of [cloud_vm_cluster][crate::model::CreateCloudVmClusterRequest::cloud_vm_cluster].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_cloud_vm_cluster<T: Into<std::option::Option<crate::model::CloudVmCluster>>>(
             mut self,
             v: T,
@@ -724,7 +724,7 @@ pub mod oracle_database {
 
         /// Sets the value of [name][crate::model::DeleteCloudVmClusterRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -799,7 +799,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::ListEntitlementsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -871,7 +871,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::ListDbServersRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -943,7 +943,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::ListDbNodesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1015,7 +1015,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::ListGiVersionsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1090,7 +1090,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::ListDbSystemShapesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1169,7 +1169,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::ListAutonomousDatabasesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1241,7 +1241,7 @@ pub mod oracle_database {
 
         /// Sets the value of [name][crate::model::GetAutonomousDatabaseRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1330,7 +1330,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::CreateAutonomousDatabaseRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1338,7 +1338,7 @@ pub mod oracle_database {
 
         /// Sets the value of [autonomous_database_id][crate::model::CreateAutonomousDatabaseRequest::autonomous_database_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_autonomous_database_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.autonomous_database_id = v.into();
             self
@@ -1346,7 +1346,7 @@ pub mod oracle_database {
 
         /// Sets the value of [autonomous_database][crate::model::CreateAutonomousDatabaseRequest::autonomous_database].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_autonomous_database<
             T: Into<std::option::Option<crate::model::AutonomousDatabase>>,
         >(
@@ -1442,7 +1442,7 @@ pub mod oracle_database {
 
         /// Sets the value of [name][crate::model::DeleteAutonomousDatabaseRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1537,7 +1537,7 @@ pub mod oracle_database {
 
         /// Sets the value of [name][crate::model::RestoreAutonomousDatabaseRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1545,7 +1545,7 @@ pub mod oracle_database {
 
         /// Sets the value of [restore_time][crate::model::RestoreAutonomousDatabaseRequest::restore_time].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_restore_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -1598,7 +1598,7 @@ pub mod oracle_database {
 
         /// Sets the value of [name][crate::model::GenerateAutonomousDatabaseWalletRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1618,7 +1618,7 @@ pub mod oracle_database {
 
         /// Sets the value of [password][crate::model::GenerateAutonomousDatabaseWalletRequest::password].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_password<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.password = v.into();
             self
@@ -1685,7 +1685,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::ListAutonomousDbVersionsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1766,7 +1766,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::ListAutonomousDatabaseCharacterSetsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1851,7 +1851,7 @@ pub mod oracle_database {
 
         /// Sets the value of [parent][crate::model::ListAutonomousDatabaseBackupsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1956,7 +1956,7 @@ pub mod oracle_database {
 
         /// Sets the value of [name][crate::model::StopAutonomousDatabaseRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2045,7 +2045,7 @@ pub mod oracle_database {
 
         /// Sets the value of [name][crate::model::StartAutonomousDatabaseRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2134,7 +2134,7 @@ pub mod oracle_database {
 
         /// Sets the value of [name][crate::model::RestartAutonomousDatabaseRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

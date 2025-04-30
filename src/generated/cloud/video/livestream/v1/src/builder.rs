@@ -135,7 +135,7 @@ pub mod livestream_service {
 
         /// Sets the value of [parent][crate::model::CreateChannelRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -143,7 +143,7 @@ pub mod livestream_service {
 
         /// Sets the value of [channel][crate::model::CreateChannelRequest::channel].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_channel<T: Into<std::option::Option<crate::model::Channel>>>(
             mut self,
             v: T,
@@ -154,7 +154,7 @@ pub mod livestream_service {
 
         /// Sets the value of [channel_id][crate::model::CreateChannelRequest::channel_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_channel_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.channel_id = v.into();
             self
@@ -220,7 +220,7 @@ pub mod livestream_service {
 
         /// Sets the value of [parent][crate::model::ListChannelsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -289,7 +289,7 @@ pub mod livestream_service {
 
         /// Sets the value of [name][crate::model::GetChannelRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -369,7 +369,7 @@ pub mod livestream_service {
 
         /// Sets the value of [name][crate::model::DeleteChannelRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -472,7 +472,7 @@ pub mod livestream_service {
 
         /// Sets the value of [channel][crate::model::UpdateChannelRequest::channel].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_channel<T: Into<std::option::Option<crate::model::Channel>>>(
             mut self,
             v: T,
@@ -567,7 +567,7 @@ pub mod livestream_service {
 
         /// Sets the value of [name][crate::model::StartChannelRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -659,7 +659,7 @@ pub mod livestream_service {
 
         /// Sets the value of [name][crate::model::StopChannelRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -747,7 +747,7 @@ pub mod livestream_service {
 
         /// Sets the value of [parent][crate::model::CreateInputRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -755,7 +755,7 @@ pub mod livestream_service {
 
         /// Sets the value of [input][crate::model::CreateInputRequest::input].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_input<T: Into<std::option::Option<crate::model::Input>>>(
             mut self,
             v: T,
@@ -766,7 +766,7 @@ pub mod livestream_service {
 
         /// Sets the value of [input_id][crate::model::CreateInputRequest::input_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_input_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.input_id = v.into();
             self
@@ -832,7 +832,7 @@ pub mod livestream_service {
 
         /// Sets the value of [parent][crate::model::ListInputsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -901,7 +901,7 @@ pub mod livestream_service {
 
         /// Sets the value of [name][crate::model::GetInputRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -981,7 +981,7 @@ pub mod livestream_service {
 
         /// Sets the value of [name][crate::model::DeleteInputRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1078,7 +1078,7 @@ pub mod livestream_service {
 
         /// Sets the value of [input][crate::model::UpdateInputRequest::input].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_input<T: Into<std::option::Option<crate::model::Input>>>(
             mut self,
             v: T,
@@ -1132,7 +1132,7 @@ pub mod livestream_service {
 
         /// Sets the value of [parent][crate::model::CreateEventRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1140,7 +1140,7 @@ pub mod livestream_service {
 
         /// Sets the value of [event][crate::model::CreateEventRequest::event].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_event<T: Into<std::option::Option<crate::model::Event>>>(
             mut self,
             v: T,
@@ -1151,7 +1151,7 @@ pub mod livestream_service {
 
         /// Sets the value of [event_id][crate::model::CreateEventRequest::event_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_event_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.event_id = v.into();
             self
@@ -1217,7 +1217,7 @@ pub mod livestream_service {
 
         /// Sets the value of [parent][crate::model::ListEventsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1286,7 +1286,7 @@ pub mod livestream_service {
 
         /// Sets the value of [name][crate::model::GetEventRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1331,7 +1331,7 @@ pub mod livestream_service {
 
         /// Sets the value of [name][crate::model::DeleteEventRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1397,7 +1397,7 @@ pub mod livestream_service {
 
         /// Sets the value of [parent][crate::model::ListClipsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1466,7 +1466,7 @@ pub mod livestream_service {
 
         /// Sets the value of [name][crate::model::GetClipRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1548,7 +1548,7 @@ pub mod livestream_service {
 
         /// Sets the value of [parent][crate::model::CreateClipRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1556,7 +1556,7 @@ pub mod livestream_service {
 
         /// Sets the value of [clip_id][crate::model::CreateClipRequest::clip_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_clip_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.clip_id = v.into();
             self
@@ -1564,7 +1564,7 @@ pub mod livestream_service {
 
         /// Sets the value of [clip][crate::model::CreateClipRequest::clip].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_clip<T: Into<std::option::Option<crate::model::Clip>>>(mut self, v: T) -> Self {
             self.0.request.clip = v.into();
             self
@@ -1650,7 +1650,7 @@ pub mod livestream_service {
 
         /// Sets the value of [name][crate::model::DeleteClipRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1738,7 +1738,7 @@ pub mod livestream_service {
 
         /// Sets the value of [parent][crate::model::CreateAssetRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1746,7 +1746,7 @@ pub mod livestream_service {
 
         /// Sets the value of [asset][crate::model::CreateAssetRequest::asset].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_asset<T: Into<std::option::Option<crate::model::Asset>>>(
             mut self,
             v: T,
@@ -1757,7 +1757,7 @@ pub mod livestream_service {
 
         /// Sets the value of [asset_id][crate::model::CreateAssetRequest::asset_id].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_asset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.asset_id = v.into();
             self
@@ -1843,7 +1843,7 @@ pub mod livestream_service {
 
         /// Sets the value of [name][crate::model::DeleteAssetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1894,7 +1894,7 @@ pub mod livestream_service {
 
         /// Sets the value of [name][crate::model::GetAssetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1954,7 +1954,7 @@ pub mod livestream_service {
 
         /// Sets the value of [parent][crate::model::ListAssetsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2023,7 +2023,7 @@ pub mod livestream_service {
 
         /// Sets the value of [name][crate::model::GetPoolRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2114,7 +2114,7 @@ pub mod livestream_service {
 
         /// Sets the value of [pool][crate::model::UpdatePoolRequest::pool].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_pool<T: Into<std::option::Option<crate::model::Pool>>>(mut self, v: T) -> Self {
             self.0.request.pool = v.into();
             self

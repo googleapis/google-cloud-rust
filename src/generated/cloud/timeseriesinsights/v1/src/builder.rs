@@ -117,7 +117,7 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [parent][crate::model::ListDataSetsRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -176,7 +176,7 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [parent][crate::model::CreateDataSetRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -184,7 +184,7 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [dataset][crate::model::CreateDataSetRequest::dataset].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::option::Option<crate::model::DataSet>>>(
             mut self,
             v: T,
@@ -234,7 +234,7 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [name][crate::model::DeleteDataSetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -281,7 +281,7 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [dataset][crate::model::AppendEventsRequest::dataset].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset = v.into();
             self
@@ -339,7 +339,7 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [name][crate::model::QueryDataSetRequest::name].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -347,7 +347,7 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [detection_time][crate::model::QueryDataSetRequest::detection_time].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_detection_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -438,7 +438,7 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [dataset][crate::model::EvaluateSliceRequest::dataset].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset = v.into();
             self
@@ -446,7 +446,7 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [detection_time][crate::model::EvaluateSliceRequest::detection_time].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_detection_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -477,7 +477,7 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [pinned_dimensions][crate::model::EvaluateSliceRequest::pinned_dimensions].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_pinned_dimensions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -532,7 +532,7 @@ pub mod timeseries_insights_controller {
 
         /// Sets the value of [parent][crate::model::EvaluateTimeseriesRequest::parent].
         ///
-        /// This is documented as a **required** field for requests.
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
