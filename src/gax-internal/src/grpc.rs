@@ -247,7 +247,7 @@ impl Client {
 /// `gax::response::Response` wrapping our equivalent message
 pub fn to_gax_response<T, G>(response: tonic::Response<T>) -> gax::response::Response<G>
 where
-    T: crate::prost::Convert<G>,
+    T: crate::prost::FromProto<G>,
 {
     let (metadata, body, _extensions) = response.into_parts();
     gax::response::Response::from_parts(

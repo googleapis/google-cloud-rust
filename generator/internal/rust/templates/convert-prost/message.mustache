@@ -25,31 +25,39 @@ limitations under the License.
 {{/OneOfs}}
 {{^Codec.SkipConversion}}
 
-impl gaxi::prost::Convert<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
-    fn cnv(self) -> {{Codec.RelativeName}} {
-        {{Codec.RelativeName}} {
+impl gaxi::prost::ToProto<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
+    type Output = {{Codec.RelativeName}};
+    fn to_proto(self) -> std::result::Result<{{Codec.RelativeName}}, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
             {{#Codec.SingularFields}}
             {{^Optional}}
-            {{Codec.FieldName}}: self.{{Codec.FieldName}}.{{Codec.ToProto}}(),
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}.to_proto()?,
             {{/Optional}}
             {{#Optional}}
-            {{Codec.FieldName}}: self.{{Codec.FieldName}}.map(|v| v.{{Codec.ToProto}}()),
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}.map(|v| v.to_proto()).transpose()?,
             {{/Optional}}
             {{/Codec.SingularFields}}
             {{#Codec.RepeatedFields}}
-            {{Codec.FieldName}}: self.{{Codec.FieldName}}.into_iter().map(|v| v.{{Codec.ToProto}}()).collect(),
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}
+                .into_iter()
+                .map(|v| v.to_proto())
+                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             {{/Codec.RepeatedFields}}
             {{#Codec.MapFields}}
-            {{Codec.FieldName}}: self.{{Codec.FieldName}}.into_iter().map(|(k, v)| (k.{{Codec.KeyToProto}}(), v.{{Codec.ValueToProto}}())).collect(),
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}
+                .into_iter()
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             {{/Codec.MapFields}}
             {{#OneOfs}}
-            {{Codec.FieldName}}: self.{{Codec.FieldName}}.map(|v| v.cnv()),
+            {{Codec.FieldName}}: self.{{Codec.FieldName}}.map(|v| v.to_proto()).transpose()?,
             {{/OneOfs}}
-        }
+        })
     }
 }
 
-impl gaxi::prost::Convert<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} {
+impl gaxi::prost::FromProto<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} {
     fn cnv(self) -> {{Codec.QualifiedName}} {
         {{Codec.QualifiedName}}::new()
             {{#Codec.SingularFields}}
@@ -57,14 +65,36 @@ impl gaxi::prost::Convert<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} {
             .set_{{Codec.SetterName}}(self.{{Codec.FieldName}})
             {{/Optional}}
             {{#Optional}}
+            {{^IsEnum}}
             .set_{{Codec.SetterName}}(self.{{Codec.FieldName}}.map(|v| v.cnv()))
+            {{/IsEnum}}
+            {{#IsEnum}}
+            .set_{{Codec.SetterName}}(self.{{Codec.FieldName}}.map(|v| v.into()))
+            {{/IsEnum}}
             {{/Optional}}
             {{/Codec.SingularFields}}
             {{#Codec.RepeatedFields}}
+            {{^IsEnum}}
             .set_{{Codec.SetterName}}(self.{{Codec.FieldName}}.into_iter().map(|v| v.cnv()))
+            {{/IsEnum}}
+            {{#IsEnum}}
+            .set_{{Codec.SetterName}}(self.{{Codec.FieldName}}.into_iter().map(|v| v.into()))
+            {{/IsEnum}}
             {{/Codec.RepeatedFields}}
             {{#Codec.MapFields}}
+            {{!
+                Enums cannot appear in the key field.
+
+                "Note that neither enum nor proto messages are valid for `key_type`."
+
+                https://protobuf.dev/programming-guides/proto3/#maps
+            }}
+            {{#Codec.ValueType.IsEnum}}
+            .set_{{Codec.SetterName}}(self.{{Codec.FieldName}}.into_iter().map(|(k, v)| (k.cnv(), v.into())))
+            {{/Codec.ValueType.IsEnum}}
+            {{^Codec.ValueType.IsEnum}}
             .set_{{Codec.SetterName}}(self.{{Codec.FieldName}}.into_iter().map(|(k, v)| (k.cnv(), v.cnv())))
+            {{/Codec.ValueType.IsEnum}}
             {{/Codec.MapFields}}
             {{#OneOfs}}
             .set_{{Codec.SetterName}}(self.{{Codec.FieldName}}.map(|v| v.cnv()))

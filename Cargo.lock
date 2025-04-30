@@ -2230,6 +2230,7 @@ dependencies = [
 name = "google-cloud-firestore"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
  "async-trait",
  "bytes",
  "google-cloud-gax",

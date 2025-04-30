@@ -17,7 +17,6 @@
 use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
-use gaxi::prost::Convert;
 
 const DEFAULT_HOST: &str = "https://storage.googleapis.com";
 
@@ -63,6 +62,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::DeleteBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -88,7 +88,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -102,6 +102,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::GetBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -127,7 +128,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -146,6 +147,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::CreateBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -181,7 +183,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -200,6 +202,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::ListBucketsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBucketsResponse>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -225,7 +228,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -244,6 +247,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::LockBucketRetentionPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -271,7 +275,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -290,6 +294,7 @@ impl super::stub::Storage for Storage {
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -315,7 +320,7 @@ impl super::stub::Storage for Storage {
           .execute(
               extensions,
               path,
-              req.cnv(),
+              req.to_proto().map_err(Error::other)?,
               options,
               &info::X_GOOG_API_CLIENT_HEADER,
               &x_goog_request_params,
@@ -331,6 +336,7 @@ impl super::stub::Storage for Storage {
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -356,7 +362,7 @@ impl super::stub::Storage for Storage {
           .execute(
               extensions,
               path,
-              req.cnv(),
+              req.to_proto().map_err(Error::other)?,
               options,
               &info::X_GOOG_API_CLIENT_HEADER,
               &x_goog_request_params,
@@ -372,6 +378,7 @@ impl super::stub::Storage for Storage {
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -433,7 +440,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -452,6 +459,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::UpdateBucketRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Bucket>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -479,7 +487,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -498,6 +506,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::ComposeObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -525,7 +534,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -544,6 +553,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::DeleteObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -569,7 +579,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -583,6 +593,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::RestoreObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -608,7 +619,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -627,6 +638,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::GetObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -652,7 +664,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -671,6 +683,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::UpdateObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -698,7 +711,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -717,6 +730,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::ListObjectsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListObjectsResponse>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -742,7 +756,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -761,6 +775,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::RewriteObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RewriteResponse>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -795,7 +810,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -814,6 +829,7 @@ impl super::stub::Storage for Storage {
         req: crate::model::MoveObjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Object>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(options, false);
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -839,7 +855,7 @@ impl super::stub::Storage for Storage {
             .execute(
                 extensions,
                 path,
-                req.cnv(),
+                req.to_proto().map_err(Error::other)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,

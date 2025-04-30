@@ -600,15 +600,6 @@ func mapType(f *api.Field, state *api.APIState, modulePath, sourceSpecificationP
 	}
 }
 
-func toProto(f *api.Field) string {
-	switch f.Typez {
-	case api.ENUM_TYPE:
-		return "value"
-	default:
-		return "cnv"
-	}
-}
-
 // Returns the field type, ignoring any repeated or optional attributes.
 func baseFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) string {
 	if f.Typez == api.MESSAGE_TYPE {

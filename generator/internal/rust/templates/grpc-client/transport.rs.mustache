@@ -28,10 +28,6 @@ use gax::error::Error;
 {{#Codec.PerServiceFeatures}}
 #[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
-use gaxi::prost::Convert;
-{{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
-{{/Codec.PerServiceFeatures}}
 
 {{#Codec.PerServiceFeatures}}
 #[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
@@ -98,6 +94,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<{{Codec.ReturnType}}>> {
+        use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(
             options,
             {{PathInfo.Codec.IsIdempotent}},
@@ -138,7 +135,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
           .execute(
               extensions,
               path,
-              req.cnv(),
+              req.to_proto().map_err(Error::other)?,
               options,
               &info::X_GOOG_API_CLIENT_HEADER,
               &x_goog_request_params,
