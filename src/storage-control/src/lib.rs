@@ -31,8 +31,14 @@ pub use gax::error::Error;
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
-pub use generated::gapic::builder;
-pub use generated::gapic::model;
+pub mod builder {
+    pub use crate::generated::gapic::builder::storage;
+    pub use crate::generated::gapic_control::builder::storage_control;
+}
+pub mod model {
+    pub use crate::generated::gapic::model::*;
+    pub use crate::generated::gapic_control::model::*;
+}
 pub mod client;
 
 pub(crate) mod google {
@@ -42,9 +48,9 @@ pub(crate) mod google {
             include!("generated/convert/iam/convert.rs");
         }
     }
-    pub mod r#type {
-        include!("generated/protos/storage/google.r#type.rs");
-        include!("generated/convert/type/convert.rs");
+    pub mod longrunning {
+        include!("generated/protos/control/google.longrunning.rs");
+        include!("generated/convert/longrunning/convert.rs");
     }
     pub mod rpc {
         include!("generated/protos/storage/google.rpc.rs");
@@ -55,6 +61,18 @@ pub(crate) mod google {
             include!("generated/protos/storage/google.storage.v2.rs");
             include!("generated/convert/storage/convert.rs");
         }
+        pub mod control {
+            pub mod v2 {
+                // TODO : consider accepting a list of protos in sidekick.
+                // That would reduce some duplication. :shrug:
+                include!("generated/protos/control/google.storage.control.v2.rs");
+                include!("generated/convert/control/convert.rs");
+            }
+        }
+    }
+    pub mod r#type {
+        include!("generated/protos/storage/google.r#type.rs");
+        include!("generated/convert/type/convert.rs");
     }
 }
 
