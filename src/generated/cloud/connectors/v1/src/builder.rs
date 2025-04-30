@@ -112,6 +112,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -185,6 +187,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [name][crate::model::GetConnectionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -275,18 +279,24 @@ pub mod connectors {
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [connection_id][crate::model::CreateConnectionRequest::connection_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_connection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connection_id = v.into();
             self
         }
 
         /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
             mut self,
             v: T,
@@ -374,6 +384,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
             mut self,
             v: T,
@@ -383,6 +395,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -467,6 +481,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -525,6 +541,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [parent][crate::model::ListProvidersRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -580,6 +598,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [name][crate::model::GetProviderRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -638,6 +658,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [parent][crate::model::ListConnectorsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -693,6 +715,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [name][crate::model::GetConnectorRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -754,6 +778,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [parent][crate::model::ListConnectorVersionsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -818,6 +844,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [name][crate::model::GetConnectorVersionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -872,6 +900,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [name][crate::model::GetConnectionSchemaMetadataRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -961,6 +991,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [name][crate::model::RefreshConnectionSchemaMetadataRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1026,6 +1058,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [parent][crate::model::ListRuntimeEntitySchemasRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1044,6 +1078,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [filter][crate::model::ListRuntimeEntitySchemasRequest::filter].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
@@ -1109,6 +1145,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [parent][crate::model::ListRuntimeActionSchemasRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1127,6 +1165,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [filter][crate::model::ListRuntimeActionSchemasRequest::filter].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
@@ -1173,6 +1213,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [name][crate::model::GetRuntimeConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1219,6 +1261,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [name][crate::model::GetGlobalSettingsRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1384,12 +1428,16 @@ pub mod connectors {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1445,6 +1493,8 @@ pub mod connectors {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1500,12 +1550,16 @@ pub mod connectors {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

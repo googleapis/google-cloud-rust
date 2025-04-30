@@ -138,6 +138,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::ExportAssetsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -156,6 +158,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [output_config][crate::model::ExportAssetsRequest::output_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
             mut self,
             v: T,
@@ -239,6 +243,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::ListAssetsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -331,6 +337,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::BatchGetAssetsHistoryRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -411,18 +419,24 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateFeedRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [feed_id][crate::model::CreateFeedRequest::feed_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_feed_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.feed_id = v.into();
             self
         }
 
         /// Sets the value of [feed][crate::model::CreateFeedRequest::feed].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_feed<T: Into<std::option::Option<crate::model::Feed>>>(mut self, v: T) -> Self {
             self.0.request.feed = v.into();
             self
@@ -466,6 +480,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [name][crate::model::GetFeedRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -509,6 +525,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::ListFeedsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -552,12 +570,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [feed][crate::model::UpdateFeedRequest::feed].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_feed<T: Into<std::option::Option<crate::model::Feed>>>(mut self, v: T) -> Self {
             self.0.request.feed = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeedRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -604,6 +626,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteFeedRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -665,6 +689,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [scope][crate::model::SearchAllResourcesRequest::scope].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
@@ -767,6 +793,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [scope][crate::model::SearchAllIamPoliciesRequest::scope].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
@@ -848,6 +876,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [analysis_query][crate::model::AnalyzeIamPolicyRequest::analysis_query].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_analysis_query<
             T: Into<std::option::Option<crate::model::IamPolicyAnalysisQuery>>,
         >(
@@ -959,6 +989,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [analysis_query][crate::model::AnalyzeIamPolicyLongrunningRequest::analysis_query].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_analysis_query<
             T: Into<std::option::Option<crate::model::IamPolicyAnalysisQuery>>,
         >(
@@ -976,6 +1008,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [output_config][crate::model::AnalyzeIamPolicyLongrunningRequest::output_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_output_config<
             T: Into<std::option::Option<crate::model::IamPolicyAnalysisOutputConfig>>,
         >(
@@ -1024,12 +1058,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [resource][crate::model::AnalyzeMoveRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [destination_parent][crate::model::AnalyzeMoveRequest::destination_parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_destination_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.destination_parent = v.into();
             self
@@ -1082,6 +1120,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::QueryAssetsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1232,12 +1272,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateSavedQueryRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [saved_query][crate::model::CreateSavedQueryRequest::saved_query].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_saved_query<T: Into<std::option::Option<crate::model::SavedQuery>>>(
             mut self,
             v: T,
@@ -1247,6 +1291,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [saved_query_id][crate::model::CreateSavedQueryRequest::saved_query_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_saved_query_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.saved_query_id = v.into();
             self
@@ -1290,6 +1336,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [name][crate::model::GetSavedQueryRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1351,6 +1399,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [parent][crate::model::ListSavedQueriesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1415,6 +1465,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [saved_query][crate::model::UpdateSavedQueryRequest::saved_query].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_saved_query<T: Into<std::option::Option<crate::model::SavedQuery>>>(
             mut self,
             v: T,
@@ -1424,6 +1476,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSavedQueryRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1473,6 +1527,8 @@ pub mod asset_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteSavedQueryRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1521,12 +1577,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [scope][crate::model::BatchGetEffectiveIamPoliciesRequest::scope].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
         }
 
         /// Sets the value of [names][crate::model::BatchGetEffectiveIamPoliciesRequest::names].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1593,12 +1653,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [scope][crate::model::AnalyzeOrgPoliciesRequest::scope].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
         }
 
         /// Sets the value of [constraint][crate::model::AnalyzeOrgPoliciesRequest::constraint].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_constraint<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.constraint = v.into();
             self
@@ -1684,12 +1748,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [scope][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::scope].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
         }
 
         /// Sets the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::constraint].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_constraint<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.constraint = v.into();
             self
@@ -1773,12 +1841,16 @@ pub mod asset_service {
         }
 
         /// Sets the value of [scope][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::scope].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
         }
 
         /// Sets the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::constraint].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_constraint<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.constraint = v.into();
             self

@@ -115,6 +115,8 @@ pub mod alert_policy_service {
         }
 
         /// Sets the value of [name][crate::model::ListAlertPoliciesRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -182,6 +184,8 @@ pub mod alert_policy_service {
         }
 
         /// Sets the value of [name][crate::model::GetAlertPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -228,12 +232,16 @@ pub mod alert_policy_service {
         }
 
         /// Sets the value of [name][crate::model::CreateAlertPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [alert_policy][crate::model::CreateAlertPolicyRequest::alert_policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_alert_policy<T: Into<std::option::Option<crate::model::AlertPolicy>>>(
             mut self,
             v: T,
@@ -283,6 +291,8 @@ pub mod alert_policy_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteAlertPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -338,6 +348,8 @@ pub mod alert_policy_service {
         }
 
         /// Sets the value of [alert_policy][crate::model::UpdateAlertPolicyRequest::alert_policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_alert_policy<T: Into<std::option::Option<crate::model::AlertPolicy>>>(
             mut self,
             v: T,
@@ -453,6 +465,8 @@ pub mod group_service {
         }
 
         /// Sets the value of [name][crate::model::ListGroupsRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -559,6 +573,8 @@ pub mod group_service {
         }
 
         /// Sets the value of [name][crate::model::GetGroupRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -602,12 +618,16 @@ pub mod group_service {
         }
 
         /// Sets the value of [name][crate::model::CreateGroupRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [group][crate::model::CreateGroupRequest::group].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
             mut self,
             v: T,
@@ -660,6 +680,8 @@ pub mod group_service {
         }
 
         /// Sets the value of [group][crate::model::UpdateGroupRequest::group].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
             mut self,
             v: T,
@@ -712,6 +734,8 @@ pub mod group_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteGroupRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -779,6 +803,8 @@ pub mod group_service {
         }
 
         /// Sets the value of [name][crate::model::ListGroupMembersRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -925,6 +951,8 @@ pub mod metric_service {
         }
 
         /// Sets the value of [name][crate::model::ListMonitoredResourceDescriptorsRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -991,6 +1019,8 @@ pub mod metric_service {
         }
 
         /// Sets the value of [name][crate::model::GetMonitoredResourceDescriptorRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1052,6 +1082,8 @@ pub mod metric_service {
         }
 
         /// Sets the value of [name][crate::model::ListMetricDescriptorsRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1122,6 +1154,8 @@ pub mod metric_service {
         }
 
         /// Sets the value of [name][crate::model::GetMetricDescriptorRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1168,12 +1202,16 @@ pub mod metric_service {
         }
 
         /// Sets the value of [name][crate::model::CreateMetricDescriptorRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [metric_descriptor][crate::model::CreateMetricDescriptorRequest::metric_descriptor].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_metric_descriptor<T: Into<std::option::Option<api::model::MetricDescriptor>>>(
             mut self,
             v: T,
@@ -1223,6 +1261,8 @@ pub mod metric_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteMetricDescriptorRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1281,18 +1321,24 @@ pub mod metric_service {
         }
 
         /// Sets the value of [name][crate::model::ListTimeSeriesRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [filter][crate::model::ListTimeSeriesRequest::filter].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
         /// Sets the value of [interval][crate::model::ListTimeSeriesRequest::interval].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_interval<T: Into<std::option::Option<crate::model::TimeInterval>>>(
             mut self,
             v: T,
@@ -1328,6 +1374,8 @@ pub mod metric_service {
         }
 
         /// Sets the value of [view][crate::model::ListTimeSeriesRequest::view].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_view<T: Into<crate::model::list_time_series_request::TimeSeriesView>>(
             mut self,
             v: T,
@@ -1389,12 +1437,16 @@ pub mod metric_service {
         }
 
         /// Sets the value of [name][crate::model::CreateTimeSeriesRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [time_series][crate::model::CreateTimeSeriesRequest::time_series].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_time_series<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1446,12 +1498,16 @@ pub mod metric_service {
         }
 
         /// Sets the value of [name][crate::model::CreateTimeSeriesRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [time_series][crate::model::CreateTimeSeriesRequest::time_series].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_time_series<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1582,6 +1638,8 @@ pub mod notification_channel_service {
         }
 
         /// Sets the value of [name][crate::model::ListNotificationChannelDescriptorsRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1644,6 +1702,8 @@ pub mod notification_channel_service {
         }
 
         /// Sets the value of [name][crate::model::GetNotificationChannelDescriptorRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1711,6 +1771,8 @@ pub mod notification_channel_service {
         }
 
         /// Sets the value of [name][crate::model::ListNotificationChannelsRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1783,6 +1845,8 @@ pub mod notification_channel_service {
         }
 
         /// Sets the value of [name][crate::model::GetNotificationChannelRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1833,12 +1897,16 @@ pub mod notification_channel_service {
         }
 
         /// Sets the value of [name][crate::model::CreateNotificationChannelRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [notification_channel][crate::model::CreateNotificationChannelRequest::notification_channel].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_notification_channel<
             T: Into<std::option::Option<crate::model::NotificationChannel>>,
         >(
@@ -1903,6 +1971,8 @@ pub mod notification_channel_service {
         }
 
         /// Sets the value of [notification_channel][crate::model::UpdateNotificationChannelRequest::notification_channel].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_notification_channel<
             T: Into<std::option::Option<crate::model::NotificationChannel>>,
         >(
@@ -1958,6 +2028,8 @@ pub mod notification_channel_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteNotificationChannelRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2016,6 +2088,8 @@ pub mod notification_channel_service {
         }
 
         /// Sets the value of [name][crate::model::SendNotificationChannelVerificationCodeRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2070,6 +2144,8 @@ pub mod notification_channel_service {
         }
 
         /// Sets the value of [name][crate::model::GetNotificationChannelVerificationCodeRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2129,12 +2205,16 @@ pub mod notification_channel_service {
         }
 
         /// Sets the value of [name][crate::model::VerifyNotificationChannelRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [code][crate::model::VerifyNotificationChannelRequest::code].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.code = v.into();
             self
@@ -2247,12 +2327,16 @@ pub mod query_service {
         }
 
         /// Sets the value of [name][crate::model::QueryTimeSeriesRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [query][crate::model::QueryTimeSeriesRequest::query].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_query<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.query = v.into();
             self
@@ -2366,6 +2450,8 @@ pub mod service_monitoring_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2378,6 +2464,8 @@ pub mod service_monitoring_service {
         }
 
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
             mut self,
             v: T,
@@ -2426,6 +2514,8 @@ pub mod service_monitoring_service {
         }
 
         /// Sets the value of [name][crate::model::GetServiceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2486,6 +2576,8 @@ pub mod service_monitoring_service {
         }
 
         /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2549,6 +2641,8 @@ pub mod service_monitoring_service {
         }
 
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
             mut self,
             v: T,
@@ -2606,6 +2700,8 @@ pub mod service_monitoring_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2656,6 +2752,8 @@ pub mod service_monitoring_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceLevelObjectiveRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2671,6 +2769,8 @@ pub mod service_monitoring_service {
         }
 
         /// Sets the value of [service_level_objective][crate::model::CreateServiceLevelObjectiveRequest::service_level_objective].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service_level_objective<
             T: Into<std::option::Option<crate::model::ServiceLevelObjective>>,
         >(
@@ -2726,6 +2826,8 @@ pub mod service_monitoring_service {
         }
 
         /// Sets the value of [name][crate::model::GetServiceLevelObjectiveRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2802,6 +2904,8 @@ pub mod service_monitoring_service {
         }
 
         /// Sets the value of [parent][crate::model::ListServiceLevelObjectivesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2879,6 +2983,8 @@ pub mod service_monitoring_service {
         }
 
         /// Sets the value of [service_level_objective][crate::model::UpdateServiceLevelObjectiveRequest::service_level_objective].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service_level_objective<
             T: Into<std::option::Option<crate::model::ServiceLevelObjective>>,
         >(
@@ -2943,6 +3049,8 @@ pub mod service_monitoring_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceLevelObjectiveRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3040,12 +3148,16 @@ pub mod snooze_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateSnoozeRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [snooze][crate::model::CreateSnoozeRequest::snooze].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_snooze<T: Into<std::option::Option<crate::model::Snooze>>>(
             mut self,
             v: T,
@@ -3107,6 +3219,8 @@ pub mod snooze_service {
         }
 
         /// Sets the value of [parent][crate::model::ListSnoozesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3168,6 +3282,8 @@ pub mod snooze_service {
         }
 
         /// Sets the value of [name][crate::model::GetSnoozeRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3211,6 +3327,8 @@ pub mod snooze_service {
         }
 
         /// Sets the value of [snooze][crate::model::UpdateSnoozeRequest::snooze].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_snooze<T: Into<std::option::Option<crate::model::Snooze>>>(
             mut self,
             v: T,
@@ -3220,6 +3338,8 @@ pub mod snooze_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSnoozeRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3340,6 +3460,8 @@ pub mod uptime_check_service {
         }
 
         /// Sets the value of [parent][crate::model::ListUptimeCheckConfigsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3404,6 +3526,8 @@ pub mod uptime_check_service {
         }
 
         /// Sets the value of [name][crate::model::GetUptimeCheckConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3452,12 +3576,16 @@ pub mod uptime_check_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateUptimeCheckConfigRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [uptime_check_config][crate::model::CreateUptimeCheckConfigRequest::uptime_check_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_uptime_check_config<
             T: Into<std::option::Option<crate::model::UptimeCheckConfig>>,
         >(
@@ -3520,6 +3648,8 @@ pub mod uptime_check_service {
         }
 
         /// Sets the value of [uptime_check_config][crate::model::UpdateUptimeCheckConfigRequest::uptime_check_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_uptime_check_config<
             T: Into<std::option::Option<crate::model::UptimeCheckConfig>>,
         >(
@@ -3573,6 +3703,8 @@ pub mod uptime_check_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteUptimeCheckConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

@@ -97,12 +97,16 @@ pub mod company_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateCompanyRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [company][crate::model::CreateCompanyRequest::company].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_company<T: Into<std::option::Option<crate::model::Company>>>(
             mut self,
             v: T,
@@ -149,6 +153,8 @@ pub mod company_service {
         }
 
         /// Sets the value of [name][crate::model::GetCompanyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -192,6 +198,8 @@ pub mod company_service {
         }
 
         /// Sets the value of [company][crate::model::UpdateCompanyRequest::company].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_company<T: Into<std::option::Option<crate::model::Company>>>(
             mut self,
             v: T,
@@ -247,6 +255,8 @@ pub mod company_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteCompanyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -305,6 +315,8 @@ pub mod company_service {
         }
 
         /// Sets the value of [parent][crate::model::ListCompaniesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -466,18 +478,24 @@ pub mod completion {
         }
 
         /// Sets the value of [tenant][crate::model::CompleteQueryRequest::tenant].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_tenant<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.tenant = v.into();
             self
         }
 
         /// Sets the value of [query][crate::model::CompleteQueryRequest::query].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_query<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.query = v.into();
             self
         }
 
         /// Sets the value of [page_size][crate::model::CompleteQueryRequest::page_size].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
@@ -659,12 +677,16 @@ pub mod event_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateClientEventRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [client_event][crate::model::CreateClientEventRequest::client_event].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_client_event<T: Into<std::option::Option<crate::model::ClientEvent>>>(
             mut self,
             v: T,
@@ -811,12 +833,16 @@ pub mod job_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [job][crate::model::CreateJobRequest::job].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
             self.0.request.job = v.into();
             self
@@ -901,12 +927,16 @@ pub mod job_service {
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateJobsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [jobs][crate::model::BatchCreateJobsRequest::jobs].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_jobs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -955,6 +985,8 @@ pub mod job_service {
         }
 
         /// Sets the value of [name][crate::model::GetJobRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -998,6 +1030,8 @@ pub mod job_service {
         }
 
         /// Sets the value of [job][crate::model::UpdateJobRequest::job].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
             self.0.request.job = v.into();
             self
@@ -1091,6 +1125,8 @@ pub mod job_service {
         }
 
         /// Sets the value of [parent][crate::model::BatchUpdateJobsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1106,6 +1142,8 @@ pub mod job_service {
         }
 
         /// Sets the value of [jobs][crate::model::BatchUpdateJobsRequest::jobs].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_jobs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1154,6 +1192,8 @@ pub mod job_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteJobRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1238,6 +1278,8 @@ pub mod job_service {
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteJobsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1307,12 +1349,16 @@ pub mod job_service {
         }
 
         /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [filter][crate::model::ListJobsRequest::filter].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
@@ -1374,6 +1420,8 @@ pub mod job_service {
         }
 
         /// Sets the value of [parent][crate::model::SearchJobsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1389,6 +1437,8 @@ pub mod job_service {
         }
 
         /// Sets the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_request_metadata<T: Into<std::option::Option<crate::model::RequestMetadata>>>(
             mut self,
             v: T,
@@ -1541,6 +1591,8 @@ pub mod job_service {
         }
 
         /// Sets the value of [parent][crate::model::SearchJobsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1556,6 +1608,8 @@ pub mod job_service {
         }
 
         /// Sets the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_request_metadata<T: Into<std::option::Option<crate::model::RequestMetadata>>>(
             mut self,
             v: T,
@@ -1808,12 +1862,16 @@ pub mod tenant_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateTenantRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [tenant][crate::model::CreateTenantRequest::tenant].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_tenant<T: Into<std::option::Option<crate::model::Tenant>>>(
             mut self,
             v: T,
@@ -1860,6 +1918,8 @@ pub mod tenant_service {
         }
 
         /// Sets the value of [name][crate::model::GetTenantRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1903,6 +1963,8 @@ pub mod tenant_service {
         }
 
         /// Sets the value of [tenant][crate::model::UpdateTenantRequest::tenant].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_tenant<T: Into<std::option::Option<crate::model::Tenant>>>(
             mut self,
             v: T,
@@ -1958,6 +2020,8 @@ pub mod tenant_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteTenantRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2016,6 +2080,8 @@ pub mod tenant_service {
         }
 
         /// Sets the value of [parent][crate::model::ListTenantsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self

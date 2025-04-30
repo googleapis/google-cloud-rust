@@ -115,6 +115,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListDeliveryPipelinesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -185,6 +187,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetDeliveryPipelineRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -270,18 +274,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateDeliveryPipelineRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [delivery_pipeline_id][crate::model::CreateDeliveryPipelineRequest::delivery_pipeline_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_delivery_pipeline_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.delivery_pipeline_id = v.into();
             self
         }
 
         /// Sets the value of [delivery_pipeline][crate::model::CreateDeliveryPipelineRequest::delivery_pipeline].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_delivery_pipeline<
             T: Into<std::option::Option<crate::model::DeliveryPipeline>>,
         >(
@@ -384,6 +394,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeliveryPipelineRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -393,6 +405,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [delivery_pipeline][crate::model::UpdateDeliveryPipelineRequest::delivery_pipeline].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_delivery_pipeline<
             T: Into<std::option::Option<crate::model::DeliveryPipeline>>,
         >(
@@ -497,6 +511,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::DeleteDeliveryPipelineRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -585,6 +601,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListTargetsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -652,18 +670,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::RollbackTargetRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [target_id][crate::model::RollbackTargetRequest::target_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_target_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_id = v.into();
             self
         }
 
         /// Sets the value of [rollout_id][crate::model::RollbackTargetRequest::rollout_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_rollout_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.rollout_id = v.into();
             self
@@ -747,6 +771,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetTargetRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -827,18 +853,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateTargetRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [target_id][crate::model::CreateTargetRequest::target_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_target_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_id = v.into();
             self
         }
 
         /// Sets the value of [target][crate::model::CreateTargetRequest::target].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_target<T: Into<std::option::Option<crate::model::Target>>>(
             mut self,
             v: T,
@@ -934,6 +966,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTargetRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -943,6 +977,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [target][crate::model::UpdateTargetRequest::target].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_target<T: Into<std::option::Option<crate::model::Target>>>(
             mut self,
             v: T,
@@ -1042,6 +1078,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::DeleteTargetRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1127,6 +1165,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListCustomTargetTypesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1197,6 +1237,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetCustomTargetTypeRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1282,18 +1324,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateCustomTargetTypeRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [custom_target_type_id][crate::model::CreateCustomTargetTypeRequest::custom_target_type_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_custom_target_type_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.custom_target_type_id = v.into();
             self
         }
 
         /// Sets the value of [custom_target_type][crate::model::CreateCustomTargetTypeRequest::custom_target_type].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_custom_target_type<
             T: Into<std::option::Option<crate::model::CustomTargetType>>,
         >(
@@ -1396,6 +1444,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCustomTargetTypeRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1405,6 +1455,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [custom_target_type][crate::model::UpdateCustomTargetTypeRequest::custom_target_type].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_custom_target_type<
             T: Into<std::option::Option<crate::model::CustomTargetType>>,
         >(
@@ -1509,6 +1561,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomTargetTypeRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1591,6 +1645,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListReleasesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1658,6 +1714,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetReleaseRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1738,18 +1796,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateReleaseRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [release_id][crate::model::CreateReleaseRequest::release_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_release_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.release_id = v.into();
             self
         }
 
         /// Sets the value of [release][crate::model::CreateReleaseRequest::release].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_release<T: Into<std::option::Option<crate::model::Release>>>(
             mut self,
             v: T,
@@ -1819,6 +1883,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::AbandonReleaseRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1903,18 +1969,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateDeployPolicyRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [deploy_policy_id][crate::model::CreateDeployPolicyRequest::deploy_policy_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_deploy_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.deploy_policy_id = v.into();
             self
         }
 
         /// Sets the value of [deploy_policy][crate::model::CreateDeployPolicyRequest::deploy_policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_deploy_policy<T: Into<std::option::Option<crate::model::DeployPolicy>>>(
             mut self,
             v: T,
@@ -2014,6 +2086,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeployPolicyRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2023,6 +2097,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [deploy_policy][crate::model::UpdateDeployPolicyRequest::deploy_policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_deploy_policy<T: Into<std::option::Option<crate::model::DeployPolicy>>>(
             mut self,
             v: T,
@@ -2125,6 +2201,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::DeleteDeployPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2210,6 +2288,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListDeployPoliciesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2277,6 +2357,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetDeployPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2320,12 +2402,16 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::ApproveRolloutRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [approved][crate::model::ApproveRolloutRequest::approved].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_approved<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.approved = v.into();
             self
@@ -2380,12 +2466,16 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::AdvanceRolloutRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [phase_id][crate::model::AdvanceRolloutRequest::phase_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.phase_id = v.into();
             self
@@ -2440,6 +2530,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::CancelRolloutRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2509,6 +2601,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListRolloutsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2576,6 +2670,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetRolloutRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2656,18 +2752,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateRolloutRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [rollout_id][crate::model::CreateRolloutRequest::rollout_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_rollout_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.rollout_id = v.into();
             self
         }
 
         /// Sets the value of [rollout][crate::model::CreateRolloutRequest::rollout].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_rollout<T: Into<std::option::Option<crate::model::Rollout>>>(
             mut self,
             v: T,
@@ -2743,18 +2845,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [rollout][crate::model::IgnoreJobRequest::rollout].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_rollout<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.rollout = v.into();
             self
         }
 
         /// Sets the value of [phase_id][crate::model::IgnoreJobRequest::phase_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.phase_id = v.into();
             self
         }
 
         /// Sets the value of [job_id][crate::model::IgnoreJobRequest::job_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_id = v.into();
             self
@@ -2809,18 +2917,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [rollout][crate::model::RetryJobRequest::rollout].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_rollout<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.rollout = v.into();
             self
         }
 
         /// Sets the value of [phase_id][crate::model::RetryJobRequest::phase_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.phase_id = v.into();
             self
         }
 
         /// Sets the value of [job_id][crate::model::RetryJobRequest::job_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_id = v.into();
             self
@@ -2890,6 +3004,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListJobRunsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2957,6 +3073,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetJobRunRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3000,6 +3118,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::TerminateJobRunRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3054,6 +3174,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3138,18 +3260,24 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::CreateAutomationRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [automation_id][crate::model::CreateAutomationRequest::automation_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_automation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.automation_id = v.into();
             self
         }
 
         /// Sets the value of [automation][crate::model::CreateAutomationRequest::automation].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_automation<T: Into<std::option::Option<crate::model::Automation>>>(
             mut self,
             v: T,
@@ -3249,6 +3377,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAutomationRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3258,6 +3388,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [automation][crate::model::UpdateAutomationRequest::automation].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_automation<T: Into<std::option::Option<crate::model::Automation>>>(
             mut self,
             v: T,
@@ -3360,6 +3492,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::DeleteAutomationRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3427,6 +3561,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetAutomationRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3485,6 +3621,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListAutomationsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3555,6 +3693,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::GetAutomationRunRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3616,6 +3756,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [parent][crate::model::ListAutomationRunsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3686,6 +3828,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [name][crate::model::CancelAutomationRunRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3851,12 +3995,16 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -3912,6 +4060,8 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -3967,12 +4117,16 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

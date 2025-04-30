@@ -112,6 +112,8 @@ pub mod memorystore {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -179,6 +181,8 @@ pub mod memorystore {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -260,18 +264,24 @@ pub mod memorystore {
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -371,6 +381,8 @@ pub mod memorystore {
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -458,6 +470,8 @@ pub mod memorystore {
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -512,6 +526,8 @@ pub mod memorystore {
         }
 
         /// Sets the value of [name][crate::model::GetCertificateAuthorityRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

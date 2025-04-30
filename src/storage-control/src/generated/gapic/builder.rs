@@ -83,6 +83,8 @@ pub mod storage {
         }
 
         /// Sets the value of [name][crate::model::DeleteBucketRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -143,6 +145,8 @@ pub mod storage {
         }
 
         /// Sets the value of [name][crate::model::GetBucketRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -209,6 +213,8 @@ pub mod storage {
         }
 
         /// Sets the value of [parent][crate::model::CreateBucketRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -224,6 +230,8 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket_id][crate::model::CreateBucketRequest::bucket_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_bucket_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket_id = v.into();
             self
@@ -296,6 +304,8 @@ pub mod storage {
         }
 
         /// Sets the value of [parent][crate::model::ListBucketsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -367,12 +377,16 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket][crate::model::LockBucketRetentionPolicyRequest::bucket].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket = v.into();
             self
         }
 
         /// Sets the value of [if_metageneration_match][crate::model::LockBucketRetentionPolicyRequest::if_metageneration_match].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_if_metageneration_match<T: Into<i64>>(mut self, v: T) -> Self {
             self.0.request.if_metageneration_match = v.into();
             self
@@ -415,6 +429,8 @@ pub mod storage {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -466,12 +482,16 @@ pub mod storage {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -529,12 +549,16 @@ pub mod storage {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -582,6 +606,8 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_bucket<T: Into<std::option::Option<crate::model::Bucket>>>(
             mut self,
             v: T,
@@ -624,6 +650,8 @@ pub mod storage {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -669,6 +697,8 @@ pub mod storage {
         }
 
         /// Sets the value of [destination][crate::model::ComposeObjectRequest::destination].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_destination<T: Into<std::option::Option<crate::model::Object>>>(
             mut self,
             v: T,
@@ -775,12 +805,16 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket][crate::model::DeleteObjectRequest::bucket].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket = v.into();
             self
         }
 
         /// Sets the value of [object][crate::model::DeleteObjectRequest::object].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.object = v.into();
             self
@@ -873,18 +907,24 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket][crate::model::RestoreObjectRequest::bucket].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket = v.into();
             self
         }
 
         /// Sets the value of [object][crate::model::RestoreObjectRequest::object].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.object = v.into();
             self
         }
 
         /// Sets the value of [generation][crate::model::RestoreObjectRequest::generation].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_generation<T: Into<i64>>(mut self, v: T) -> Self {
             self.0.request.generation = v.into();
             self
@@ -983,12 +1023,16 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket][crate::model::GetObjectRequest::bucket].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket = v.into();
             self
         }
 
         /// Sets the value of [object][crate::model::GetObjectRequest::object].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.object = v.into();
             self
@@ -1099,6 +1143,8 @@ pub mod storage {
         }
 
         /// Sets the value of [object][crate::model::UpdateObjectRequest::object].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_object<T: Into<std::option::Option<crate::model::Object>>>(
             mut self,
             v: T,
@@ -1147,6 +1193,8 @@ pub mod storage {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateObjectRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1218,6 +1266,8 @@ pub mod storage {
         }
 
         /// Sets the value of [parent][crate::model::ListObjectsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1332,12 +1382,16 @@ pub mod storage {
         }
 
         /// Sets the value of [destination_name][crate::model::RewriteObjectRequest::destination_name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_destination_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.destination_name = v.into();
             self
         }
 
         /// Sets the value of [destination_bucket][crate::model::RewriteObjectRequest::destination_bucket].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_destination_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.destination_bucket = v.into();
             self
@@ -1359,12 +1413,16 @@ pub mod storage {
         }
 
         /// Sets the value of [source_bucket][crate::model::RewriteObjectRequest::source_bucket].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_source_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_bucket = v.into();
             self
         }
 
         /// Sets the value of [source_object][crate::model::RewriteObjectRequest::source_object].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_source_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_object = v.into();
             self
@@ -1550,18 +1608,24 @@ pub mod storage {
         }
 
         /// Sets the value of [bucket][crate::model::MoveObjectRequest::bucket].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_bucket<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket = v.into();
             self
         }
 
         /// Sets the value of [source_object][crate::model::MoveObjectRequest::source_object].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_source_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_object = v.into();
             self
         }
 
         /// Sets the value of [destination_object][crate::model::MoveObjectRequest::destination_object].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_destination_object<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.destination_object = v.into();
             self

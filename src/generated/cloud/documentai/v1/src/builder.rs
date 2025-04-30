@@ -101,6 +101,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [name][crate::model::ProcessRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -285,6 +287,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [name][crate::model::BatchProcessRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -381,6 +385,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [parent][crate::model::FetchProcessorTypesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -444,6 +450,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [parent][crate::model::ListProcessorTypesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -504,6 +512,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [name][crate::model::GetProcessorTypeRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -564,6 +574,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [parent][crate::model::ListProcessorsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -621,6 +633,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [name][crate::model::GetProcessorRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -712,12 +726,16 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [parent][crate::model::TrainProcessorVersionRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [processor_version][crate::model::TrainProcessorVersionRequest::processor_version].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_processor_version<
             T: Into<std::option::Option<crate::model::ProcessorVersion>>,
         >(
@@ -840,6 +858,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [name][crate::model::GetProcessorVersionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -903,6 +923,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [parent][crate::model::ListProcessorVersionsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1001,6 +1023,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessorVersionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1092,6 +1116,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [name][crate::model::DeployProcessorVersionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1185,6 +1211,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [name][crate::model::UndeployProcessorVersionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1230,12 +1258,16 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateProcessorRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [processor][crate::model::CreateProcessorRequest::processor].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_processor<T: Into<std::option::Option<crate::model::Processor>>>(
             mut self,
             v: T,
@@ -1319,6 +1351,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessorRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1405,6 +1439,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [name][crate::model::EnableProcessorRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1496,6 +1532,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [name][crate::model::DisableProcessorRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1589,12 +1627,16 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [processor][crate::model::SetDefaultProcessorVersionRequest::processor].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_processor<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.processor = v.into();
             self
         }
 
         /// Sets the value of [default_processor_version][crate::model::SetDefaultProcessorVersionRequest::default_processor_version].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_default_processor_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.default_processor_version = v.into();
             self
@@ -1683,6 +1725,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [human_review_config][crate::model::ReviewDocumentRequest::human_review_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_human_review_config<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.human_review_config = v.into();
             self
@@ -1827,6 +1871,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [processor_version][crate::model::EvaluateProcessorVersionRequest::processor_version].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_processor_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.processor_version = v.into();
             self
@@ -1883,6 +1929,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [name][crate::model::GetEvaluationRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1943,6 +1991,8 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [parent][crate::model::ListEvaluationsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self

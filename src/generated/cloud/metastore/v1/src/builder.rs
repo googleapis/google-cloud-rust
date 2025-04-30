@@ -112,6 +112,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -179,6 +181,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [name][crate::model::GetServiceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -259,18 +263,24 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [service_id][crate::model::CreateServiceRequest::service_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_id = v.into();
             self
         }
 
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
             mut self,
             v: T,
@@ -360,6 +370,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -369,6 +381,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
             mut self,
             v: T,
@@ -456,6 +470,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -523,6 +539,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [parent][crate::model::ListMetadataImportsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -593,6 +611,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [name][crate::model::GetMetadataImportRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -678,18 +698,24 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [parent][crate::model::CreateMetadataImportRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [metadata_import_id][crate::model::CreateMetadataImportRequest::metadata_import_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_metadata_import_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.metadata_import_id = v.into();
             self
         }
 
         /// Sets the value of [metadata_import][crate::model::CreateMetadataImportRequest::metadata_import].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_metadata_import<T: Into<std::option::Option<crate::model::MetadataImport>>>(
             mut self,
             v: T,
@@ -784,6 +810,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMetadataImportRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -793,6 +821,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [metadata_import][crate::model::UpdateMetadataImportRequest::metadata_import].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_metadata_import<T: Into<std::option::Option<crate::model::MetadataImport>>>(
             mut self,
             v: T,
@@ -884,6 +914,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [service][crate::model::ExportMetadataRequest::service].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service = v.into();
             self
@@ -1006,12 +1038,16 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [service][crate::model::RestoreServiceRequest::service].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service = v.into();
             self
         }
 
         /// Sets the value of [backup][crate::model::RestoreServiceRequest::backup].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_backup<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup = v.into();
             self
@@ -1085,6 +1121,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1152,6 +1190,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1232,18 +1272,24 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -1331,6 +1377,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1421,12 +1469,16 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [service][crate::model::QueryMetadataRequest::service].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service = v.into();
             self
         }
 
         /// Sets the value of [query][crate::model::QueryMetadataRequest::query].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_query<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.query = v.into();
             self
@@ -1514,24 +1566,32 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [service][crate::model::MoveTableToDatabaseRequest::service].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service = v.into();
             self
         }
 
         /// Sets the value of [table_name][crate::model::MoveTableToDatabaseRequest::table_name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_table_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_name = v.into();
             self
         }
 
         /// Sets the value of [db_name][crate::model::MoveTableToDatabaseRequest::db_name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_db_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.db_name = v.into();
             self
         }
 
         /// Sets the value of [destination_db_name][crate::model::MoveTableToDatabaseRequest::destination_db_name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_destination_db_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.destination_db_name = v.into();
             self
@@ -1623,18 +1683,24 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [service][crate::model::AlterMetadataResourceLocationRequest::service].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service = v.into();
             self
         }
 
         /// Sets the value of [resource_name][crate::model::AlterMetadataResourceLocationRequest::resource_name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource_name = v.into();
             self
         }
 
         /// Sets the value of [location_uri][crate::model::AlterMetadataResourceLocationRequest::location_uri].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_location_uri<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location_uri = v.into();
             self
@@ -1800,12 +1866,16 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1861,6 +1931,8 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1916,12 +1988,16 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2260,6 +2336,8 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets the value of [parent][crate::model::ListFederationsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2329,6 +2407,8 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets the value of [name][crate::model::GetFederationRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2415,18 +2495,24 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets the value of [parent][crate::model::CreateFederationRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [federation_id][crate::model::CreateFederationRequest::federation_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_federation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.federation_id = v.into();
             self
         }
 
         /// Sets the value of [federation][crate::model::CreateFederationRequest::federation].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_federation<T: Into<std::option::Option<crate::model::Federation>>>(
             mut self,
             v: T,
@@ -2522,6 +2608,8 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFederationRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2531,6 +2619,8 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets the value of [federation][crate::model::UpdateFederationRequest::federation].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_federation<T: Into<std::option::Option<crate::model::Federation>>>(
             mut self,
             v: T,
@@ -2623,6 +2713,8 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets the value of [name][crate::model::DeleteFederationRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2800,12 +2892,16 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -2863,6 +2959,8 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -2920,12 +3018,16 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

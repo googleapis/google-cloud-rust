@@ -1230,18 +1230,24 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesDemoteRequest::instance].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
         /// Sets the value of [project][crate::model::SqlInstancesDemoteRequest::project].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesDemoteRequest::body].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_body<T: Into<std::option::Option<crate::model::InstancesDemoteRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -2768,18 +2774,24 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesAcquireSsrsLeaseRequest::instance].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
         /// Sets the value of [project][crate::model::SqlInstancesAcquireSsrsLeaseRequest::project].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesAcquireSsrsLeaseRequest::body].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_body<T: Into<std::option::Option<crate::model::InstancesAcquireSsrsLeaseRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -2822,12 +2834,16 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesReleaseSsrsLeaseRequest::instance].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
         /// Sets the value of [project][crate::model::SqlInstancesReleaseSsrsLeaseRequest::project].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self

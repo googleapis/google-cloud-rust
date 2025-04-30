@@ -115,6 +115,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListCertificatesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -182,6 +184,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::GetCertificateRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -266,18 +270,24 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [certificate_id][crate::model::CreateCertificateRequest::certificate_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_certificate_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.certificate_id = v.into();
             self
         }
 
         /// Sets the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
             mut self,
             v: T,
@@ -365,6 +375,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
             mut self,
             v: T,
@@ -374,6 +386,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -458,6 +472,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -519,6 +535,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateMapsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -589,6 +607,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::GetCertificateMapRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -674,18 +694,24 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateMapRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [certificate_map_id][crate::model::CreateCertificateMapRequest::certificate_map_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_certificate_map_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.certificate_map_id = v.into();
             self
         }
 
         /// Sets the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_certificate_map<T: Into<std::option::Option<crate::model::CertificateMap>>>(
             mut self,
             v: T,
@@ -774,6 +800,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_certificate_map<T: Into<std::option::Option<crate::model::CertificateMap>>>(
             mut self,
             v: T,
@@ -783,6 +811,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -867,6 +897,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateMapRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -932,6 +964,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateMapEntriesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1002,6 +1036,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::GetCertificateMapEntryRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1089,18 +1125,24 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateMapEntryRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [certificate_map_entry_id][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_certificate_map_entry_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.certificate_map_entry_id = v.into();
             self
         }
 
         /// Sets the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_certificate_map_entry<
             T: Into<std::option::Option<crate::model::CertificateMapEntry>>,
         >(
@@ -1193,6 +1235,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_certificate_map_entry<
             T: Into<std::option::Option<crate::model::CertificateMapEntry>>,
         >(
@@ -1204,6 +1248,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1290,6 +1336,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateMapEntryRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1351,6 +1399,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListDnsAuthorizationsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1421,6 +1471,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::GetDnsAuthorizationRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1506,18 +1558,24 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateDnsAuthorizationRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [dns_authorization_id][crate::model::CreateDnsAuthorizationRequest::dns_authorization_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_dns_authorization_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dns_authorization_id = v.into();
             self
         }
 
         /// Sets the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_dns_authorization<
             T: Into<std::option::Option<crate::model::DnsAuthorization>>,
         >(
@@ -1608,6 +1666,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_dns_authorization<
             T: Into<std::option::Option<crate::model::DnsAuthorization>>,
         >(
@@ -1619,6 +1679,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1703,6 +1765,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteDnsAuthorizationRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1768,6 +1832,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateIssuanceConfigsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1840,6 +1906,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::GetCertificateIssuanceConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1929,12 +1997,16 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateIssuanceConfigRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [certificate_issuance_config_id][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_certificate_issuance_config_id<T: Into<std::string::String>>(
             mut self,
             v: T,
@@ -1944,6 +2016,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_certificate_issuance_config<
             T: Into<std::option::Option<crate::model::CertificateIssuanceConfig>>,
         >(
@@ -2032,6 +2106,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateIssuanceConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2093,6 +2169,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListTrustConfigsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2160,6 +2238,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::GetTrustConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2244,18 +2324,24 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateTrustConfigRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [trust_config_id][crate::model::CreateTrustConfigRequest::trust_config_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_trust_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.trust_config_id = v.into();
             self
         }
 
         /// Sets the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_trust_config<T: Into<std::option::Option<crate::model::TrustConfig>>>(
             mut self,
             v: T,
@@ -2343,6 +2429,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_trust_config<T: Into<std::option::Option<crate::model::TrustConfig>>>(
             mut self,
             v: T,
@@ -2352,6 +2440,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2436,6 +2526,8 @@ pub mod certificate_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteTrustConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

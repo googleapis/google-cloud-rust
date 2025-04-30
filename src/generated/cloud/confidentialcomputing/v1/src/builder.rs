@@ -101,12 +101,16 @@ pub mod confidential_computing {
         }
 
         /// Sets the value of [parent][crate::model::CreateChallengeRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [challenge][crate::model::CreateChallengeRequest::challenge].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_challenge<T: Into<std::option::Option<crate::model::Challenge>>>(
             mut self,
             v: T,
@@ -158,6 +162,8 @@ pub mod confidential_computing {
         }
 
         /// Sets the value of [challenge][crate::model::VerifyAttestationRequest::challenge].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_challenge<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.challenge = v.into();
             self
@@ -173,6 +179,8 @@ pub mod confidential_computing {
         }
 
         /// Sets the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_tpm_attestation<T: Into<std::option::Option<crate::model::TpmAttestation>>>(
             mut self,
             v: T,

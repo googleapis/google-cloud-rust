@@ -97,6 +97,8 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [parent][crate::model::ExecutePatchJobRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -109,6 +111,8 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [instance_filter][crate::model::ExecutePatchJobRequest::instance_filter].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_instance_filter<
             T: Into<std::option::Option<crate::model::PatchInstanceFilter>>,
         >(
@@ -193,6 +197,8 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [name][crate::model::GetPatchJobRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -236,6 +242,8 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [name][crate::model::CancelPatchJobRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -294,6 +302,8 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [parent][crate::model::ListPatchJobsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -377,6 +387,8 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [parent][crate::model::ListPatchJobInstanceDetailsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -441,18 +453,24 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [parent][crate::model::CreatePatchDeploymentRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [patch_deployment_id][crate::model::CreatePatchDeploymentRequest::patch_deployment_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_patch_deployment_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.patch_deployment_id = v.into();
             self
         }
 
         /// Sets the value of [patch_deployment][crate::model::CreatePatchDeploymentRequest::patch_deployment].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_patch_deployment<T: Into<std::option::Option<crate::model::PatchDeployment>>>(
             mut self,
             v: T,
@@ -502,6 +520,8 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [name][crate::model::GetPatchDeploymentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -563,6 +583,8 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [parent][crate::model::ListPatchDeploymentsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -621,6 +643,8 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [name][crate::model::DeletePatchDeploymentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -667,6 +691,8 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_patch_deployment<T: Into<std::option::Option<crate::model::PatchDeployment>>>(
             mut self,
             v: T,
@@ -725,6 +751,8 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [name][crate::model::PausePatchDeploymentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -771,6 +799,8 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [name][crate::model::ResumePatchDeploymentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1012,12 +1042,16 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateOSPolicyAssignmentRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [os_policy_assignment][crate::model::CreateOSPolicyAssignmentRequest::os_policy_assignment].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_os_policy_assignment<
             T: Into<std::option::Option<crate::model::OSPolicyAssignment>>,
         >(
@@ -1029,6 +1063,8 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets the value of [os_policy_assignment_id][crate::model::CreateOSPolicyAssignmentRequest::os_policy_assignment_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_os_policy_assignment_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.os_policy_assignment_id = v.into();
             self
@@ -1122,6 +1158,8 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets the value of [os_policy_assignment][crate::model::UpdateOSPolicyAssignmentRequest::os_policy_assignment].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_os_policy_assignment<
             T: Into<std::option::Option<crate::model::OSPolicyAssignment>>,
         >(
@@ -1184,6 +1222,8 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets the value of [name][crate::model::GetOSPolicyAssignmentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1251,6 +1291,8 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets the value of [parent][crate::model::ListOSPolicyAssignmentsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1330,6 +1372,8 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets the value of [name][crate::model::ListOSPolicyAssignmentRevisionsRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1431,6 +1475,8 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteOSPolicyAssignmentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1481,6 +1527,8 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets the value of [name][crate::model::GetOSPolicyAssignmentReportRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1548,6 +1596,8 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets the value of [parent][crate::model::ListOSPolicyAssignmentReportsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1611,6 +1661,8 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets the value of [name][crate::model::GetInventoryRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1677,6 +1729,8 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets the value of [parent][crate::model::ListInventoriesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1749,6 +1803,8 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets the value of [name][crate::model::GetVulnerabilityReportRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1816,6 +1872,8 @@ pub mod os_config_zonal_service {
         }
 
         /// Sets the value of [parent][crate::model::ListVulnerabilityReportsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self

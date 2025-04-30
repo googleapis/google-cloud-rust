@@ -104,12 +104,16 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateAssessmentRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [assessment][crate::model::CreateAssessmentRequest::assessment].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_assessment<T: Into<std::option::Option<crate::model::Assessment>>>(
             mut self,
             v: T,
@@ -161,6 +165,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::AnnotateAssessmentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -249,12 +255,16 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [key][crate::model::CreateKeyRequest::key].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_key<T: Into<std::option::Option<crate::model::Key>>>(mut self, v: T) -> Self {
             self.0.request.key = v.into();
             self
@@ -315,6 +325,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::ListKeysRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -377,6 +389,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [key][crate::model::RetrieveLegacySecretKeyRequest::key].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_key<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.key = v.into();
             self
@@ -422,6 +436,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::GetKeyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -467,6 +483,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_key<T: Into<std::option::Option<crate::model::Key>>>(mut self, v: T) -> Self {
             self.0.request.key = v.into();
             self
@@ -521,6 +539,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteKeyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -566,6 +586,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::MigrateKeyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -617,12 +639,16 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::AddIpOverrideRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [ip_override_data][crate::model::AddIpOverrideRequest::ip_override_data].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_ip_override_data<T: Into<std::option::Option<crate::model::IpOverrideData>>>(
             mut self,
             v: T,
@@ -674,12 +700,16 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::RemoveIpOverrideRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [ip_override_data][crate::model::RemoveIpOverrideRequest::ip_override_data].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_ip_override_data<T: Into<std::option::Option<crate::model::IpOverrideData>>>(
             mut self,
             v: T,
@@ -743,6 +773,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::ListIpOverridesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -800,6 +832,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::GetMetricsRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -848,12 +882,16 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateFirewallPolicyRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [firewall_policy][crate::model::CreateFirewallPolicyRequest::firewall_policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_firewall_policy<T: Into<std::option::Option<crate::model::FirewallPolicy>>>(
             mut self,
             v: T,
@@ -920,6 +958,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::ListFirewallPoliciesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -980,6 +1020,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::GetFirewallPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1028,6 +1070,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_firewall_policy<T: Into<std::option::Option<crate::model::FirewallPolicy>>>(
             mut self,
             v: T,
@@ -1088,6 +1132,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteFirewallPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1138,12 +1184,16 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::ReorderFirewallPoliciesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [names][crate::model::ReorderFirewallPoliciesRequest::names].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1216,6 +1266,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::ListRelatedAccountGroupsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1297,6 +1349,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [parent][crate::model::ListRelatedAccountGroupMembershipsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1378,6 +1432,8 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [project][crate::model::SearchRelatedAccountGroupMembershipsRequest::project].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self

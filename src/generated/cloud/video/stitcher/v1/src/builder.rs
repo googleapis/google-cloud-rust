@@ -138,12 +138,16 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateCdnKeyRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_cdn_key<T: Into<std::option::Option<crate::model::CdnKey>>>(
             mut self,
             v: T,
@@ -153,6 +157,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [cdn_key_id][crate::model::CreateCdnKeyRequest::cdn_key_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_cdn_key_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cdn_key_id = v.into();
             self
@@ -213,6 +219,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListCdnKeysRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -282,6 +290,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetCdnKeyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -362,6 +372,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteCdnKeyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -444,6 +456,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_cdn_key<T: Into<std::option::Option<crate::model::CdnKey>>>(
             mut self,
             v: T,
@@ -453,6 +467,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -504,12 +520,16 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateVodSessionRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_vod_session<T: Into<std::option::Option<crate::model::VodSession>>>(
             mut self,
             v: T,
@@ -558,6 +578,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetVodSessionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -621,6 +643,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListVodStitchDetailsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -681,6 +705,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetVodStitchDetailRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -744,6 +770,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListVodAdTagDetailsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -804,6 +832,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetVodAdTagDetailRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -867,6 +897,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListLiveAdTagDetailsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -927,6 +959,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetLiveAdTagDetailRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1009,18 +1043,24 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateSlateRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [slate_id][crate::model::CreateSlateRequest::slate_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_slate_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.slate_id = v.into();
             self
         }
 
         /// Sets the value of [slate][crate::model::CreateSlateRequest::slate].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_slate<T: Into<std::option::Option<crate::model::Slate>>>(
             mut self,
             v: T,
@@ -1090,6 +1130,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListSlatesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1159,6 +1201,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetSlateRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1241,6 +1285,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [slate][crate::model::UpdateSlateRequest::slate].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_slate<T: Into<std::option::Option<crate::model::Slate>>>(
             mut self,
             v: T,
@@ -1250,6 +1296,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1333,6 +1381,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteSlateRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1381,12 +1431,16 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateLiveSessionRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_live_session<T: Into<std::option::Option<crate::model::LiveSession>>>(
             mut self,
             v: T,
@@ -1435,6 +1489,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetLiveSessionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1521,18 +1577,24 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateLiveConfigRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [live_config_id][crate::model::CreateLiveConfigRequest::live_config_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_live_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.live_config_id = v.into();
             self
         }
 
         /// Sets the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_live_config<T: Into<std::option::Option<crate::model::LiveConfig>>>(
             mut self,
             v: T,
@@ -1602,6 +1664,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListLiveConfigsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1671,6 +1735,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetLiveConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1754,6 +1820,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteLiveConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1840,6 +1908,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_live_config<T: Into<std::option::Option<crate::model::LiveConfig>>>(
             mut self,
             v: T,
@@ -1849,6 +1919,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1935,18 +2007,24 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateVodConfigRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [vod_config_id][crate::model::CreateVodConfigRequest::vod_config_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_vod_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.vod_config_id = v.into();
             self
         }
 
         /// Sets the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_vod_config<T: Into<std::option::Option<crate::model::VodConfig>>>(
             mut self,
             v: T,
@@ -2016,6 +2094,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [parent][crate::model::ListVodConfigsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2085,6 +2165,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::GetVodConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2165,6 +2247,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteVodConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2248,6 +2332,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_vod_config<T: Into<std::option::Option<crate::model::VodConfig>>>(
             mut self,
             v: T,
@@ -2257,6 +2343,8 @@ pub mod video_stitcher_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,

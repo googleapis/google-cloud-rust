@@ -119,6 +119,8 @@ pub mod network_security {
         }
 
         /// Sets the value of [parent][crate::model::ListAuthorizationPoliciesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -177,6 +179,8 @@ pub mod network_security {
         }
 
         /// Sets the value of [name][crate::model::GetAuthorizationPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -264,18 +268,24 @@ pub mod network_security {
         }
 
         /// Sets the value of [parent][crate::model::CreateAuthorizationPolicyRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [authorization_policy_id][crate::model::CreateAuthorizationPolicyRequest::authorization_policy_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_authorization_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.authorization_policy_id = v.into();
             self
         }
 
         /// Sets the value of [authorization_policy][crate::model::CreateAuthorizationPolicyRequest::authorization_policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_authorization_policy<
             T: Into<std::option::Option<crate::model::AuthorizationPolicy>>,
         >(
@@ -377,6 +387,8 @@ pub mod network_security {
         }
 
         /// Sets the value of [authorization_policy][crate::model::UpdateAuthorizationPolicyRequest::authorization_policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_authorization_policy<
             T: Into<std::option::Option<crate::model::AuthorizationPolicy>>,
         >(
@@ -465,6 +477,8 @@ pub mod network_security {
         }
 
         /// Sets the value of [name][crate::model::DeleteAuthorizationPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -526,6 +540,8 @@ pub mod network_security {
         }
 
         /// Sets the value of [parent][crate::model::ListServerTlsPoliciesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -584,6 +600,8 @@ pub mod network_security {
         }
 
         /// Sets the value of [name][crate::model::GetServerTlsPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -669,18 +687,24 @@ pub mod network_security {
         }
 
         /// Sets the value of [parent][crate::model::CreateServerTlsPolicyRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [server_tls_policy_id][crate::model::CreateServerTlsPolicyRequest::server_tls_policy_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_server_tls_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.server_tls_policy_id = v.into();
             self
         }
 
         /// Sets the value of [server_tls_policy][crate::model::CreateServerTlsPolicyRequest::server_tls_policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_server_tls_policy<
             T: Into<std::option::Option<crate::model::ServerTlsPolicy>>,
         >(
@@ -780,6 +804,8 @@ pub mod network_security {
         }
 
         /// Sets the value of [server_tls_policy][crate::model::UpdateServerTlsPolicyRequest::server_tls_policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_server_tls_policy<
             T: Into<std::option::Option<crate::model::ServerTlsPolicy>>,
         >(
@@ -866,6 +892,8 @@ pub mod network_security {
         }
 
         /// Sets the value of [name][crate::model::DeleteServerTlsPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -927,6 +955,8 @@ pub mod network_security {
         }
 
         /// Sets the value of [parent][crate::model::ListClientTlsPoliciesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -985,6 +1015,8 @@ pub mod network_security {
         }
 
         /// Sets the value of [name][crate::model::GetClientTlsPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1070,18 +1102,24 @@ pub mod network_security {
         }
 
         /// Sets the value of [parent][crate::model::CreateClientTlsPolicyRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [client_tls_policy_id][crate::model::CreateClientTlsPolicyRequest::client_tls_policy_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_client_tls_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.client_tls_policy_id = v.into();
             self
         }
 
         /// Sets the value of [client_tls_policy][crate::model::CreateClientTlsPolicyRequest::client_tls_policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_client_tls_policy<
             T: Into<std::option::Option<crate::model::ClientTlsPolicy>>,
         >(
@@ -1181,6 +1219,8 @@ pub mod network_security {
         }
 
         /// Sets the value of [client_tls_policy][crate::model::UpdateClientTlsPolicyRequest::client_tls_policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_client_tls_policy<
             T: Into<std::option::Option<crate::model::ClientTlsPolicy>>,
         >(
@@ -1267,6 +1307,8 @@ pub mod network_security {
         }
 
         /// Sets the value of [name][crate::model::DeleteClientTlsPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1432,12 +1474,16 @@ pub mod network_security {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1493,6 +1539,8 @@ pub mod network_security {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1548,12 +1596,16 @@ pub mod network_security {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

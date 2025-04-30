@@ -100,6 +100,8 @@ pub mod gateway_control {
         }
 
         /// Sets the value of [name][crate::model::GenerateCredentialsRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

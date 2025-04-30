@@ -97,6 +97,8 @@ pub mod lookup_service {
         }
 
         /// Sets the value of [name][crate::model::ResolveServiceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -328,18 +330,24 @@ pub mod registration_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateNamespaceRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [namespace_id][crate::model::CreateNamespaceRequest::namespace_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_namespace_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.namespace_id = v.into();
             self
         }
 
         /// Sets the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_namespace<T: Into<std::option::Option<crate::model::Namespace>>>(
             mut self,
             v: T,
@@ -401,6 +409,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [parent][crate::model::ListNamespacesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -468,6 +478,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [name][crate::model::GetNamespaceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -511,6 +523,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_namespace<T: Into<std::option::Option<crate::model::Namespace>>>(
             mut self,
             v: T,
@@ -520,6 +534,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -566,6 +582,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteNamespaceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -609,18 +627,24 @@ pub mod registration_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [service_id][crate::model::CreateServiceRequest::service_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_id = v.into();
             self
         }
 
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
             mut self,
             v: T,
@@ -682,6 +706,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -749,6 +775,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [name][crate::model::GetServiceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -792,6 +820,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
             mut self,
             v: T,
@@ -801,6 +831,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -847,6 +879,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -890,18 +924,24 @@ pub mod registration_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateEndpointRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [endpoint_id][crate::model::CreateEndpointRequest::endpoint_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_endpoint_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.endpoint_id = v.into();
             self
         }
 
         /// Sets the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
             mut self,
             v: T,
@@ -963,6 +1003,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [parent][crate::model::ListEndpointsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1030,6 +1072,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [name][crate::model::GetEndpointRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1073,6 +1117,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
             mut self,
             v: T,
@@ -1082,6 +1128,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1128,6 +1176,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteEndpointRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1171,6 +1221,8 @@ pub mod registration_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1223,12 +1275,16 @@ pub mod registration_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1287,12 +1343,16 @@ pub mod registration_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

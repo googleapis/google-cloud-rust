@@ -101,6 +101,8 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [name][crate::model::GetPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -146,6 +148,8 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
             mut self,
             v: T,
@@ -194,18 +198,24 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [parent][crate::model::CreateAttestorRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [attestor_id][crate::model::CreateAttestorRequest::attestor_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_attestor_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.attestor_id = v.into();
             self
         }
 
         /// Sets the value of [attestor][crate::model::CreateAttestorRequest::attestor].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_attestor<T: Into<std::option::Option<crate::model::Attestor>>>(
             mut self,
             v: T,
@@ -254,6 +264,8 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [name][crate::model::GetAttestorRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -299,6 +311,8 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_attestor<T: Into<std::option::Option<crate::model::Attestor>>>(
             mut self,
             v: T,
@@ -362,6 +376,8 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [parent][crate::model::ListAttestorsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -419,6 +435,8 @@ pub mod binauthz_management_service_v_1 {
         }
 
         /// Sets the value of [name][crate::model::DeleteAttestorRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -516,6 +534,8 @@ pub mod system_policy_v_1 {
         }
 
         /// Sets the value of [name][crate::model::GetSystemPolicyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -618,12 +638,16 @@ pub mod validation_helper_v_1 {
         }
 
         /// Sets the value of [attestor][crate::model::ValidateAttestationOccurrenceRequest::attestor].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_attestor<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.attestor = v.into();
             self
         }
 
         /// Sets the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_attestation<
             T: Into<std::option::Option<grafeas::model::AttestationOccurrence>>,
         >(
@@ -635,12 +659,16 @@ pub mod validation_helper_v_1 {
         }
 
         /// Sets the value of [occurrence_note][crate::model::ValidateAttestationOccurrenceRequest::occurrence_note].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_occurrence_note<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.occurrence_note = v.into();
             self
         }
 
         /// Sets the value of [occurrence_resource_uri][crate::model::ValidateAttestationOccurrenceRequest::occurrence_resource_uri].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_occurrence_resource_uri<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.occurrence_resource_uri = v.into();
             self

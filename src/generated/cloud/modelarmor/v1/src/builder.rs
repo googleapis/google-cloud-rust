@@ -112,6 +112,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [parent][crate::model::ListTemplatesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -179,6 +181,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [name][crate::model::GetTemplateRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -222,18 +226,24 @@ pub mod model_armor {
         }
 
         /// Sets the value of [parent][crate::model::CreateTemplateRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [template_id][crate::model::CreateTemplateRequest::template_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_template_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.template_id = v.into();
             self
         }
 
         /// Sets the value of [template][crate::model::CreateTemplateRequest::template].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_template<T: Into<std::option::Option<crate::model::Template>>>(
             mut self,
             v: T,
@@ -286,6 +296,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -295,6 +307,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [template][crate::model::UpdateTemplateRequest::template].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_template<T: Into<std::option::Option<crate::model::Template>>>(
             mut self,
             v: T,
@@ -347,6 +361,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [name][crate::model::DeleteTemplateRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -396,6 +412,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [name][crate::model::GetFloorSettingRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -442,6 +460,8 @@ pub mod model_armor {
         }
 
         /// Sets the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_floor_setting<T: Into<std::option::Option<crate::model::FloorSetting>>>(
             mut self,
             v: T,
@@ -500,12 +520,16 @@ pub mod model_armor {
         }
 
         /// Sets the value of [name][crate::model::SanitizeUserPromptRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [user_prompt_data][crate::model::SanitizeUserPromptRequest::user_prompt_data].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_user_prompt_data<T: Into<std::option::Option<crate::model::DataItem>>>(
             mut self,
             v: T,
@@ -555,12 +579,16 @@ pub mod model_armor {
         }
 
         /// Sets the value of [name][crate::model::SanitizeModelResponseRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [model_response_data][crate::model::SanitizeModelResponseRequest::model_response_data].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_model_response_data<T: Into<std::option::Option<crate::model::DataItem>>>(
             mut self,
             v: T,

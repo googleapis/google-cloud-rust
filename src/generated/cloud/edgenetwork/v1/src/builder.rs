@@ -97,6 +97,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::InitializeZoneRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -155,6 +157,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [parent][crate::model::ListZonesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -222,6 +226,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::GetZoneRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -280,6 +286,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [parent][crate::model::ListNetworksRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -347,6 +355,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::GetNetworkRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -390,6 +400,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::DiagnoseNetworkRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -470,18 +482,24 @@ pub mod edge_network {
         }
 
         /// Sets the value of [parent][crate::model::CreateNetworkRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [network_id][crate::model::CreateNetworkRequest::network_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_network_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.network_id = v.into();
             self
         }
 
         /// Sets the value of [network][crate::model::CreateNetworkRequest::network].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_network<T: Into<std::option::Option<crate::model::Network>>>(
             mut self,
             v: T,
@@ -569,6 +587,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::DeleteNetworkRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -633,6 +653,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [parent][crate::model::ListSubnetsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -700,6 +722,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::GetSubnetRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -780,18 +804,24 @@ pub mod edge_network {
         }
 
         /// Sets the value of [parent][crate::model::CreateSubnetRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [subnet_id][crate::model::CreateSubnetRequest::subnet_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_subnet_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subnet_id = v.into();
             self
         }
 
         /// Sets the value of [subnet][crate::model::CreateSubnetRequest::subnet].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_subnet<T: Into<std::option::Option<crate::model::Subnet>>>(
             mut self,
             v: T,
@@ -881,6 +911,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -890,6 +922,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_subnet<T: Into<std::option::Option<crate::model::Subnet>>>(
             mut self,
             v: T,
@@ -977,6 +1011,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::DeleteSubnetRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1044,6 +1080,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [parent][crate::model::ListInterconnectsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1111,6 +1149,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::GetInterconnectRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1157,6 +1197,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::DiagnoseInterconnectRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1222,6 +1264,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [parent][crate::model::ListInterconnectAttachmentsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1294,6 +1338,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::GetInterconnectAttachmentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1383,12 +1429,16 @@ pub mod edge_network {
         }
 
         /// Sets the value of [parent][crate::model::CreateInterconnectAttachmentRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [interconnect_attachment_id][crate::model::CreateInterconnectAttachmentRequest::interconnect_attachment_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_interconnect_attachment_id<T: Into<std::string::String>>(
             mut self,
             v: T,
@@ -1398,6 +1448,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [interconnect_attachment][crate::model::CreateInterconnectAttachmentRequest::interconnect_attachment].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_interconnect_attachment<
             T: Into<std::option::Option<crate::model::InterconnectAttachment>>,
         >(
@@ -1492,6 +1544,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::DeleteInterconnectAttachmentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1556,6 +1610,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [parent][crate::model::ListRoutersRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1623,6 +1679,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::GetRouterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1666,6 +1724,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::DiagnoseRouterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1746,18 +1806,24 @@ pub mod edge_network {
         }
 
         /// Sets the value of [parent][crate::model::CreateRouterRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [router_id][crate::model::CreateRouterRequest::router_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_router_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.router_id = v.into();
             self
         }
 
         /// Sets the value of [router][crate::model::CreateRouterRequest::router].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_router<T: Into<std::option::Option<crate::model::Router>>>(
             mut self,
             v: T,
@@ -1847,6 +1913,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRouterRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1856,6 +1924,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [router][crate::model::UpdateRouterRequest::router].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_router<T: Into<std::option::Option<crate::model::Router>>>(
             mut self,
             v: T,
@@ -1943,6 +2013,8 @@ pub mod edge_network {
         }
 
         /// Sets the value of [name][crate::model::DeleteRouterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

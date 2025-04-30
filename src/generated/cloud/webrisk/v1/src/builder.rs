@@ -100,6 +100,8 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [threat_type][crate::model::ComputeThreatListDiffRequest::threat_type].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_threat_type<T: Into<crate::model::ThreatType>>(mut self, v: T) -> Self {
             self.0.request.threat_type = v.into();
             self
@@ -112,6 +114,8 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_constraints<
             T: Into<std::option::Option<crate::model::compute_threat_list_diff_request::Constraints>>,
         >(
@@ -160,12 +164,16 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [uri][crate::model::SearchUrisRequest::uri].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_uri<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.uri = v.into();
             self
         }
 
         /// Sets the value of [threat_types][crate::model::SearchUrisRequest::threat_types].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_threat_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -220,6 +228,8 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [threat_types][crate::model::SearchHashesRequest::threat_types].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_threat_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -271,12 +281,16 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateSubmissionRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [submission][crate::model::CreateSubmissionRequest::submission].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_submission<T: Into<std::option::Option<crate::model::Submission>>>(
             mut self,
             v: T,
@@ -361,12 +375,16 @@ pub mod web_risk_service {
         }
 
         /// Sets the value of [parent][crate::model::SubmitUriRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [submission][crate::model::SubmitUriRequest::submission].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_submission<T: Into<std::option::Option<crate::model::Submission>>>(
             mut self,
             v: T,

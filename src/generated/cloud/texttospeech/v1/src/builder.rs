@@ -143,6 +143,8 @@ pub mod text_to_speech {
         }
 
         /// Sets the value of [input][crate::model::SynthesizeSpeechRequest::input].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_input<T: Into<std::option::Option<crate::model::SynthesisInput>>>(
             mut self,
             v: T,
@@ -152,6 +154,8 @@ pub mod text_to_speech {
         }
 
         /// Sets the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_voice<T: Into<std::option::Option<crate::model::VoiceSelectionParams>>>(
             mut self,
             v: T,
@@ -161,6 +165,8 @@ pub mod text_to_speech {
         }
 
         /// Sets the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_audio_config<T: Into<std::option::Option<crate::model::AudioConfig>>>(
             mut self,
             v: T,
@@ -453,6 +459,8 @@ pub mod text_to_speech_long_audio_synthesize {
         }
 
         /// Sets the value of [input][crate::model::SynthesizeLongAudioRequest::input].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_input<T: Into<std::option::Option<crate::model::SynthesisInput>>>(
             mut self,
             v: T,
@@ -462,6 +470,8 @@ pub mod text_to_speech_long_audio_synthesize {
         }
 
         /// Sets the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_audio_config<T: Into<std::option::Option<crate::model::AudioConfig>>>(
             mut self,
             v: T,
@@ -471,12 +481,16 @@ pub mod text_to_speech_long_audio_synthesize {
         }
 
         /// Sets the value of [output_gcs_uri][crate::model::SynthesizeLongAudioRequest::output_gcs_uri].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_output_gcs_uri<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.output_gcs_uri = v.into();
             self
         }
 
         /// Sets the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_voice<T: Into<std::option::Option<crate::model::VoiceSelectionParams>>>(
             mut self,
             v: T,

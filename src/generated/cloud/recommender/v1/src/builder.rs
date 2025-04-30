@@ -112,6 +112,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [parent][crate::model::ListInsightsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -173,6 +175,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::GetInsightRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -219,12 +223,16 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::MarkInsightAcceptedRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [etag][crate::model::MarkInsightAcceptedRequest::etag].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -298,6 +306,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [parent][crate::model::ListRecommendationsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -362,6 +372,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::GetRecommendationRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -410,6 +422,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationDismissedRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -464,12 +478,16 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationClaimedRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [etag][crate::model::MarkRecommendationClaimedRequest::etag].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -530,12 +548,16 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationSucceededRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [etag][crate::model::MarkRecommendationSucceededRequest::etag].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -596,12 +618,16 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationFailedRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [etag][crate::model::MarkRecommendationFailedRequest::etag].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -660,6 +686,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::GetRecommenderConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -708,6 +736,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_recommender_config<
             T: Into<std::option::Option<crate::model::RecommenderConfig>>,
         >(
@@ -774,6 +804,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [name][crate::model::GetInsightTypeConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -822,6 +854,8 @@ pub mod recommender {
         }
 
         /// Sets the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_insight_type_config<
             T: Into<std::option::Option<crate::model::InsightTypeConfig>>,
         >(

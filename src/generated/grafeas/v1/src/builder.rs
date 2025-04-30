@@ -97,6 +97,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::GetOccurrenceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -155,6 +157,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [parent][crate::model::ListOccurrencesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -219,6 +223,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::DeleteOccurrenceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -265,12 +271,16 @@ pub mod grafeas {
         }
 
         /// Sets the value of [parent][crate::model::CreateOccurrenceRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [occurrence][crate::model::CreateOccurrenceRequest::occurrence].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_occurrence<T: Into<std::option::Option<crate::model::Occurrence>>>(
             mut self,
             v: T,
@@ -320,12 +330,16 @@ pub mod grafeas {
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateOccurrencesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [occurrences][crate::model::BatchCreateOccurrencesRequest::occurrences].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_occurrences<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -377,12 +391,16 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::UpdateOccurrenceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [occurrence][crate::model::UpdateOccurrenceRequest::occurrence].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_occurrence<T: Into<std::option::Option<crate::model::Occurrence>>>(
             mut self,
             v: T,
@@ -441,6 +459,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::GetOccurrenceNoteRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -484,6 +504,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::GetNoteRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -542,6 +564,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [parent][crate::model::ListNotesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -603,6 +627,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::DeleteNoteRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -646,18 +672,24 @@ pub mod grafeas {
         }
 
         /// Sets the value of [parent][crate::model::CreateNoteRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [note_id][crate::model::CreateNoteRequest::note_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_note_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.note_id = v.into();
             self
         }
 
         /// Sets the value of [note][crate::model::CreateNoteRequest::note].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_note<T: Into<std::option::Option<crate::model::Note>>>(mut self, v: T) -> Self {
             self.0.request.note = v.into();
             self
@@ -704,12 +736,16 @@ pub mod grafeas {
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateNotesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [notes][crate::model::BatchCreateNotesRequest::notes].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_notes<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -758,12 +794,16 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::UpdateNoteRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [note][crate::model::UpdateNoteRequest::note].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_note<T: Into<std::option::Option<crate::model::Note>>>(mut self, v: T) -> Self {
             self.0.request.note = v.into();
             self
@@ -834,6 +874,8 @@ pub mod grafeas {
         }
 
         /// Sets the value of [name][crate::model::ListNoteOccurrencesRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

@@ -138,12 +138,16 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
             mut self,
             v: T,
@@ -153,6 +157,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [connection_id][crate::model::CreateConnectionRequest::connection_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_connection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connection_id = v.into();
             self
@@ -196,6 +202,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [name][crate::model::GetConnectionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -254,6 +262,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -350,6 +360,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
             mut self,
             v: T,
@@ -455,6 +467,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -551,12 +565,16 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [repository][crate::model::CreateRepositoryRequest::repository].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_repository<T: Into<std::option::Option<crate::model::Repository>>>(
             mut self,
             v: T,
@@ -566,6 +584,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [repository_id][crate::model::CreateRepositoryRequest::repository_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_repository_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.repository_id = v.into();
             self
@@ -657,12 +677,16 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateRepositoriesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [requests][crate::model::BatchCreateRepositoriesRequest::requests].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -711,6 +735,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -772,6 +798,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [parent][crate::model::ListRepositoriesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -871,6 +899,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -929,6 +959,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [repository][crate::model::FetchReadWriteTokenRequest::repository].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_repository<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.repository = v.into();
             self
@@ -972,6 +1004,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [repository][crate::model::FetchReadTokenRequest::repository].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_repository<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.repository = v.into();
             self
@@ -1037,6 +1071,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [connection][crate::model::FetchLinkableRepositoriesRequest::connection].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_connection<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connection = v.into();
             self
@@ -1092,6 +1128,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [repository][crate::model::FetchGitRefsRequest::repository].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_repository<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.repository = v.into();
             self
@@ -1144,12 +1182,16 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1205,6 +1247,8 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1260,12 +1304,16 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

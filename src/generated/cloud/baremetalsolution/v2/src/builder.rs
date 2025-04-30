@@ -112,6 +112,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -173,6 +175,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -254,6 +258,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -309,12 +315,16 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::RenameInstanceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [new_instance_id][crate::model::RenameInstanceRequest::new_instance_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_new_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.new_instance_id = v.into();
             self
@@ -399,6 +409,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::ResetInstanceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -483,6 +495,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::StartInstanceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -565,6 +579,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::StopInstanceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -656,6 +672,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::EnableInteractiveSerialConsoleRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -747,6 +765,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::DisableInteractiveSerialConsoleRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -828,12 +848,16 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [instance][crate::model::DetachLunRequest::instance].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
         /// Sets the value of [lun][crate::model::DetachLunRequest::lun].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_lun<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.lun = v.into();
             self
@@ -898,6 +922,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::ListSSHKeysRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -953,12 +979,16 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::CreateSSHKeyRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [ssh_key][crate::model::CreateSSHKeyRequest::ssh_key].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_ssh_key<T: Into<std::option::Option<crate::model::SSHKey>>>(
             mut self,
             v: T,
@@ -968,6 +998,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [ssh_key_id][crate::model::CreateSSHKeyRequest::ssh_key_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_ssh_key_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.ssh_key_id = v.into();
             self
@@ -1011,6 +1043,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::DeleteSSHKeyRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1069,6 +1103,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::ListVolumesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1130,6 +1166,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::GetVolumeRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1210,6 +1248,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [volume][crate::model::UpdateVolumeRequest::volume].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_volume<T: Into<std::option::Option<crate::model::Volume>>>(
             mut self,
             v: T,
@@ -1265,12 +1305,16 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::RenameVolumeRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [new_volume_id][crate::model::RenameVolumeRequest::new_volume_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_new_volume_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.new_volume_id = v.into();
             self
@@ -1349,6 +1393,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::EvictVolumeRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1429,6 +1475,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [volume][crate::model::ResizeVolumeRequest::volume].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_volume<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.volume = v.into();
             self
@@ -1493,6 +1541,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::ListNetworksRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1557,6 +1607,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [location][crate::model::ListNetworkUsageRequest::location].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -1600,6 +1652,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::GetNetworkRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1680,6 +1734,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [network][crate::model::UpdateNetworkRequest::network].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_network<T: Into<std::option::Option<crate::model::Network>>>(
             mut self,
             v: T,
@@ -1738,12 +1794,16 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::CreateVolumeSnapshotRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [volume_snapshot][crate::model::CreateVolumeSnapshotRequest::volume_snapshot].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_volume_snapshot<T: Into<std::option::Option<crate::model::VolumeSnapshot>>>(
             mut self,
             v: T,
@@ -1832,6 +1892,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [volume_snapshot][crate::model::RestoreVolumeSnapshotRequest::volume_snapshot].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_volume_snapshot<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.volume_snapshot = v.into();
             self
@@ -1878,6 +1940,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::DeleteVolumeSnapshotRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1924,6 +1988,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::GetVolumeSnapshotRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1985,6 +2051,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::ListVolumeSnapshotsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2040,6 +2108,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::GetLunRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2098,6 +2168,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::ListLunsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2188,6 +2260,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::EvictLunRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2231,6 +2305,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::GetNfsShareRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2289,6 +2365,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::ListNfsSharesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2388,6 +2466,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [nfs_share][crate::model::UpdateNfsShareRequest::nfs_share].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_nfs_share<T: Into<std::option::Option<crate::model::NfsShare>>>(
             mut self,
             v: T,
@@ -2481,12 +2561,16 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::CreateNfsShareRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [nfs_share][crate::model::CreateNfsShareRequest::nfs_share].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_nfs_share<T: Into<std::option::Option<crate::model::NfsShare>>>(
             mut self,
             v: T,
@@ -2533,12 +2617,16 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::RenameNfsShareRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [new_nfsshare_id][crate::model::RenameNfsShareRequest::new_nfsshare_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_new_nfsshare_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.new_nfsshare_id = v.into();
             self
@@ -2617,6 +2705,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::DeleteNfsShareRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2680,6 +2770,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::ListProvisioningQuotasRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2740,12 +2832,16 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::SubmitProvisioningConfigRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [provisioning_config][crate::model::SubmitProvisioningConfigRequest::provisioning_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_provisioning_config<
             T: Into<std::option::Option<crate::model::ProvisioningConfig>>,
         >(
@@ -2803,6 +2899,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::GetProvisioningConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2851,12 +2949,16 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::CreateProvisioningConfigRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [provisioning_config][crate::model::CreateProvisioningConfigRequest::provisioning_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_provisioning_config<
             T: Into<std::option::Option<crate::model::ProvisioningConfig>>,
         >(
@@ -2916,6 +3018,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [provisioning_config][crate::model::UpdateProvisioningConfigRequest::provisioning_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_provisioning_config<
             T: Into<std::option::Option<crate::model::ProvisioningConfig>>,
         >(
@@ -2927,6 +3031,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProvisioningConfigRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2979,12 +3085,16 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [name][crate::model::RenameNetworkRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [new_network_id][crate::model::RenameNetworkRequest::new_network_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_new_network_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.new_network_id = v.into();
             self
@@ -3043,6 +3153,8 @@ pub mod bare_metal_solution {
         }
 
         /// Sets the value of [parent][crate::model::ListOSImagesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self

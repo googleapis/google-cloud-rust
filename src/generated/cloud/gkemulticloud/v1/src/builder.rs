@@ -139,12 +139,16 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [parent][crate::model::CreateAttachedClusterRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [attached_cluster][crate::model::CreateAttachedClusterRequest::attached_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_attached_cluster<T: Into<std::option::Option<crate::model::AttachedCluster>>>(
             mut self,
             v: T,
@@ -154,6 +158,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [attached_cluster_id][crate::model::CreateAttachedClusterRequest::attached_cluster_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_attached_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.attached_cluster_id = v.into();
             self
@@ -245,6 +251,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [attached_cluster][crate::model::UpdateAttachedClusterRequest::attached_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_attached_cluster<T: Into<std::option::Option<crate::model::AttachedCluster>>>(
             mut self,
             v: T,
@@ -260,6 +268,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAttachedClusterRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -348,6 +358,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ImportAttachedClusterRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -360,18 +372,24 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [fleet_membership][crate::model::ImportAttachedClusterRequest::fleet_membership].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_fleet_membership<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.fleet_membership = v.into();
             self
         }
 
         /// Sets the value of [platform_version][crate::model::ImportAttachedClusterRequest::platform_version].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_platform_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.platform_version = v.into();
             self
         }
 
         /// Sets the value of [distribution][crate::model::ImportAttachedClusterRequest::distribution].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_distribution<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.distribution = v.into();
             self
@@ -427,6 +445,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAttachedClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -488,6 +508,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ListAttachedClustersRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -581,6 +603,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [name][crate::model::DeleteAttachedClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -653,6 +677,8 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAttachedServerConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -705,18 +731,24 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [parent][crate::model::GenerateAttachedClusterInstallManifestRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [attached_cluster_id][crate::model::GenerateAttachedClusterInstallManifestRequest::attached_cluster_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_attached_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.attached_cluster_id = v.into();
             self
         }
 
         /// Sets the value of [platform_version][crate::model::GenerateAttachedClusterInstallManifestRequest::platform_version].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_platform_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.platform_version = v.into();
             self
@@ -774,24 +806,32 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [attached_cluster][crate::model::GenerateAttachedClusterAgentTokenRequest::attached_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_attached_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.attached_cluster = v.into();
             self
         }
 
         /// Sets the value of [subject_token][crate::model::GenerateAttachedClusterAgentTokenRequest::subject_token].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_subject_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subject_token = v.into();
             self
         }
 
         /// Sets the value of [subject_token_type][crate::model::GenerateAttachedClusterAgentTokenRequest::subject_token_type].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_subject_token_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subject_token_type = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::GenerateAttachedClusterAgentTokenRequest::version].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -1177,12 +1217,16 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [parent][crate::model::CreateAwsClusterRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [aws_cluster][crate::model::CreateAwsClusterRequest::aws_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_aws_cluster<T: Into<std::option::Option<crate::model::AwsCluster>>>(
             mut self,
             v: T,
@@ -1192,6 +1236,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_cluster_id][crate::model::CreateAwsClusterRequest::aws_cluster_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_aws_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.aws_cluster_id = v.into();
             self
@@ -1282,6 +1328,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_cluster][crate::model::UpdateAwsClusterRequest::aws_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_aws_cluster<T: Into<std::option::Option<crate::model::AwsCluster>>>(
             mut self,
             v: T,
@@ -1297,6 +1345,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAwsClusterRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1343,6 +1393,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAwsClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1401,6 +1453,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ListAwsClustersRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1494,6 +1548,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [name][crate::model::DeleteAwsClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1566,24 +1622,32 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_cluster][crate::model::GenerateAwsClusterAgentTokenRequest::aws_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_aws_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.aws_cluster = v.into();
             self
         }
 
         /// Sets the value of [subject_token][crate::model::GenerateAwsClusterAgentTokenRequest::subject_token].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_subject_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subject_token = v.into();
             self
         }
 
         /// Sets the value of [subject_token_type][crate::model::GenerateAwsClusterAgentTokenRequest::subject_token_type].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_subject_token_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subject_token_type = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::GenerateAwsClusterAgentTokenRequest::version].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -1666,6 +1730,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_cluster][crate::model::GenerateAwsAccessTokenRequest::aws_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_aws_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.aws_cluster = v.into();
             self
@@ -1750,12 +1816,16 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [parent][crate::model::CreateAwsNodePoolRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [aws_node_pool][crate::model::CreateAwsNodePoolRequest::aws_node_pool].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_aws_node_pool<T: Into<std::option::Option<crate::model::AwsNodePool>>>(
             mut self,
             v: T,
@@ -1765,6 +1835,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_node_pool_id][crate::model::CreateAwsNodePoolRequest::aws_node_pool_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_aws_node_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.aws_node_pool_id = v.into();
             self
@@ -1855,6 +1927,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_node_pool][crate::model::UpdateAwsNodePoolRequest::aws_node_pool].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_aws_node_pool<T: Into<std::option::Option<crate::model::AwsNodePool>>>(
             mut self,
             v: T,
@@ -1870,6 +1944,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAwsNodePoolRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1959,6 +2035,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [name][crate::model::RollbackAwsNodePoolUpdateRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2008,6 +2086,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAwsNodePoolRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2069,6 +2149,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ListAwsNodePoolsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2162,6 +2244,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [name][crate::model::DeleteAwsNodePoolRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2232,6 +2316,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_cluster][crate::model::GetAwsOpenIdConfigRequest::aws_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_aws_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.aws_cluster = v.into();
             self
@@ -2278,6 +2364,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [aws_cluster][crate::model::GetAwsJsonWebKeysRequest::aws_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_aws_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.aws_cluster = v.into();
             self
@@ -2324,6 +2412,8 @@ pub mod aws_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAwsServerConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2679,12 +2769,16 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureClientRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [azure_client][crate::model::CreateAzureClientRequest::azure_client].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_azure_client<T: Into<std::option::Option<crate::model::AzureClient>>>(
             mut self,
             v: T,
@@ -2694,6 +2788,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_client_id][crate::model::CreateAzureClientRequest::azure_client_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_azure_client_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_client_id = v.into();
             self
@@ -2743,6 +2839,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAzureClientRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2804,6 +2902,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ListAzureClientsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2897,6 +2997,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::DeleteAzureClientRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2993,12 +3095,16 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureClusterRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [azure_cluster][crate::model::CreateAzureClusterRequest::azure_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_azure_cluster<T: Into<std::option::Option<crate::model::AzureCluster>>>(
             mut self,
             v: T,
@@ -3008,6 +3114,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_cluster_id][crate::model::CreateAzureClusterRequest::azure_cluster_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_azure_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_cluster_id = v.into();
             self
@@ -3098,6 +3206,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_cluster][crate::model::UpdateAzureClusterRequest::azure_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_azure_cluster<T: Into<std::option::Option<crate::model::AzureCluster>>>(
             mut self,
             v: T,
@@ -3113,6 +3223,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAzureClusterRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3159,6 +3271,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAzureClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3220,6 +3334,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ListAzureClustersRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3313,6 +3429,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::DeleteAzureClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3385,24 +3503,32 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_cluster][crate::model::GenerateAzureClusterAgentTokenRequest::azure_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_azure_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_cluster = v.into();
             self
         }
 
         /// Sets the value of [subject_token][crate::model::GenerateAzureClusterAgentTokenRequest::subject_token].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_subject_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subject_token = v.into();
             self
         }
 
         /// Sets the value of [subject_token_type][crate::model::GenerateAzureClusterAgentTokenRequest::subject_token_type].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_subject_token_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.subject_token_type = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::GenerateAzureClusterAgentTokenRequest::version].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -3487,6 +3613,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_cluster][crate::model::GenerateAzureAccessTokenRequest::azure_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_azure_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_cluster = v.into();
             self
@@ -3572,12 +3700,16 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureNodePoolRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [azure_node_pool][crate::model::CreateAzureNodePoolRequest::azure_node_pool].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_azure_node_pool<T: Into<std::option::Option<crate::model::AzureNodePool>>>(
             mut self,
             v: T,
@@ -3587,6 +3719,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_node_pool_id][crate::model::CreateAzureNodePoolRequest::azure_node_pool_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_azure_node_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_node_pool_id = v.into();
             self
@@ -3678,6 +3812,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_node_pool][crate::model::UpdateAzureNodePoolRequest::azure_node_pool].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_azure_node_pool<T: Into<std::option::Option<crate::model::AzureNodePool>>>(
             mut self,
             v: T,
@@ -3693,6 +3829,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAzureNodePoolRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3742,6 +3880,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAzureNodePoolRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3803,6 +3943,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [parent][crate::model::ListAzureNodePoolsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3896,6 +4038,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::DeleteAzureNodePoolRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3966,6 +4110,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_cluster][crate::model::GetAzureOpenIdConfigRequest::azure_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_azure_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_cluster = v.into();
             self
@@ -4012,6 +4158,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [azure_cluster][crate::model::GetAzureJsonWebKeysRequest::azure_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_azure_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.azure_cluster = v.into();
             self
@@ -4058,6 +4206,8 @@ pub mod azure_clusters {
         }
 
         /// Sets the value of [name][crate::model::GetAzureServerConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

@@ -100,6 +100,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::GetWorkstationClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -165,6 +167,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkstationClustersRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -264,18 +268,24 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationClusterRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [workstation_cluster_id][crate::model::CreateWorkstationClusterRequest::workstation_cluster_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_workstation_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workstation_cluster_id = v.into();
             self
         }
 
         /// Sets the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_workstation_cluster<
             T: Into<std::option::Option<crate::model::WorkstationCluster>>,
         >(
@@ -374,6 +384,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_workstation_cluster<
             T: Into<std::option::Option<crate::model::WorkstationCluster>>,
         >(
@@ -385,6 +397,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -487,6 +501,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -551,6 +567,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::GetWorkstationConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -614,6 +632,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkstationConfigsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -691,6 +711,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::ListUsableWorkstationConfigsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -790,18 +812,24 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationConfigRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [workstation_config_id][crate::model::CreateWorkstationConfigRequest::workstation_config_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_workstation_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workstation_config_id = v.into();
             self
         }
 
         /// Sets the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_workstation_config<
             T: Into<std::option::Option<crate::model::WorkstationConfig>>,
         >(
@@ -900,6 +928,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_workstation_config<
             T: Into<std::option::Option<crate::model::WorkstationConfig>>,
         >(
@@ -911,6 +941,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1013,6 +1045,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1074,6 +1108,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::GetWorkstationRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1135,6 +1171,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkstationsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1210,6 +1248,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::ListUsableWorkstationsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1306,18 +1346,24 @@ pub mod workstations {
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [workstation_id][crate::model::CreateWorkstationRequest::workstation_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_workstation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workstation_id = v.into();
             self
         }
 
         /// Sets the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_workstation<T: Into<std::option::Option<crate::model::Workstation>>>(
             mut self,
             v: T,
@@ -1411,6 +1457,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_workstation<T: Into<std::option::Option<crate::model::Workstation>>>(
             mut self,
             v: T,
@@ -1420,6 +1468,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1519,6 +1569,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1615,6 +1667,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::StartWorkstationRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1708,6 +1762,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [name][crate::model::StopWorkstationRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1766,6 +1822,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [workstation][crate::model::GenerateAccessTokenRequest::workstation].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_workstation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workstation = v.into();
             self
@@ -1849,12 +1907,16 @@ pub mod workstations {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1910,6 +1972,8 @@ pub mod workstations {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1965,12 +2029,16 @@ pub mod workstations {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

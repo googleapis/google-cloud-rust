@@ -112,6 +112,8 @@ pub mod workflows {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkflowsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -179,6 +181,8 @@ pub mod workflows {
         }
 
         /// Sets the value of [name][crate::model::GetWorkflowRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -266,12 +270,16 @@ pub mod workflows {
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkflowRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
             mut self,
             v: T,
@@ -281,6 +289,8 @@ pub mod workflows {
         }
 
         /// Sets the value of [workflow_id][crate::model::CreateWorkflowRequest::workflow_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_workflow_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workflow_id = v.into();
             self
@@ -359,6 +369,8 @@ pub mod workflows {
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkflowRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -440,6 +452,8 @@ pub mod workflows {
         }
 
         /// Sets the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
             mut self,
             v: T,
@@ -513,6 +527,8 @@ pub mod workflows {
         }
 
         /// Sets the value of [name][crate::model::ListWorkflowRevisionsRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

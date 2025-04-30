@@ -119,6 +119,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [parent][crate::model::ListOrchestrationClustersRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -191,6 +193,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::GetOrchestrationClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -278,18 +282,24 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [parent][crate::model::CreateOrchestrationClusterRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [orchestration_cluster_id][crate::model::CreateOrchestrationClusterRequest::orchestration_cluster_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_orchestration_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.orchestration_cluster_id = v.into();
             self
         }
 
         /// Sets the value of [orchestration_cluster][crate::model::CreateOrchestrationClusterRequest::orchestration_cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_orchestration_cluster<
             T: Into<std::option::Option<crate::model::OrchestrationCluster>>,
         >(
@@ -384,6 +394,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::DeleteOrchestrationClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -448,6 +460,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [parent][crate::model::ListEdgeSlmsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -515,6 +529,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::GetEdgeSlmRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -595,18 +611,24 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [parent][crate::model::CreateEdgeSlmRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [edge_slm_id][crate::model::CreateEdgeSlmRequest::edge_slm_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_edge_slm_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.edge_slm_id = v.into();
             self
         }
 
         /// Sets the value of [edge_slm][crate::model::CreateEdgeSlmRequest::edge_slm].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_edge_slm<T: Into<std::option::Option<crate::model::EdgeSlm>>>(
             mut self,
             v: T,
@@ -694,6 +716,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::DeleteEdgeSlmRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -743,6 +767,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [parent][crate::model::CreateBlueprintRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -755,6 +781,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [blueprint][crate::model::CreateBlueprintRequest::blueprint].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_blueprint<T: Into<std::option::Option<crate::model::Blueprint>>>(
             mut self,
             v: T,
@@ -801,6 +829,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [blueprint][crate::model::UpdateBlueprintRequest::blueprint].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_blueprint<T: Into<std::option::Option<crate::model::Blueprint>>>(
             mut self,
             v: T,
@@ -810,6 +840,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBlueprintRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -856,6 +888,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::GetBlueprintRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -905,6 +939,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::DeleteBlueprintRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -963,6 +999,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [parent][crate::model::ListBlueprintsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1027,6 +1065,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::ApproveBlueprintRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1073,6 +1113,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::ProposeBlueprintRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1116,6 +1158,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::RejectBlueprintRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1179,6 +1223,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::ListBlueprintRevisionsRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1256,12 +1302,16 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [parent][crate::model::SearchBlueprintRevisionsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [query][crate::model::SearchBlueprintRevisionsRequest::query].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_query<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.query = v.into();
             self
@@ -1339,12 +1389,16 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [parent][crate::model::SearchDeploymentRevisionsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [query][crate::model::SearchDeploymentRevisionsRequest::query].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_query<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.query = v.into();
             self
@@ -1405,6 +1459,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::DiscardBlueprintChangesRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1466,6 +1522,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [parent][crate::model::ListPublicBlueprintsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1524,6 +1582,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::GetPublicBlueprintRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1570,6 +1630,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [parent][crate::model::CreateDeploymentRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1582,6 +1644,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
             mut self,
             v: T,
@@ -1631,6 +1695,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
             mut self,
             v: T,
@@ -1640,6 +1706,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1686,6 +1754,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::GetDeploymentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1738,6 +1808,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::RemoveDeploymentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1796,6 +1868,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [parent][crate::model::ListDeploymentsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1879,6 +1953,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::ListDeploymentRevisionsRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1939,6 +2015,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::DiscardDeploymentChangesRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1982,6 +2060,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::ApplyDeploymentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2030,6 +2110,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::ComputeDeploymentStatusRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2076,12 +2158,16 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::RollbackDeploymentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [revision_id][crate::model::RollbackDeploymentRequest::revision_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_revision_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.revision_id = v.into();
             self
@@ -2128,6 +2214,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::GetHydratedDeploymentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2193,6 +2281,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [parent][crate::model::ListHydratedDeploymentsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2253,6 +2343,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [hydrated_deployment][crate::model::UpdateHydratedDeploymentRequest::hydrated_deployment].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_hydrated_deployment<
             T: Into<std::option::Option<crate::model::HydratedDeployment>>,
         >(
@@ -2264,6 +2356,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateHydratedDeploymentRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2315,6 +2409,8 @@ pub mod telco_automation {
         }
 
         /// Sets the value of [name][crate::model::ApplyHydratedDeploymentRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

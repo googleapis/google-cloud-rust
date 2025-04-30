@@ -112,6 +112,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -179,6 +181,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -259,18 +263,24 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -458,12 +468,16 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::UpgradeClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [target_version][crate::model::UpgradeClusterRequest::target_version].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_target_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_version = v.into();
             self
@@ -557,6 +571,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -609,6 +625,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [cluster][crate::model::GenerateAccessTokenRequest::cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster = v.into();
             self
@@ -657,6 +675,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [cluster][crate::model::GenerateOfflineCredentialRequest::cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster = v.into();
             self
@@ -715,6 +735,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::ListNodePoolsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -782,6 +804,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::GetNodePoolRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -863,18 +887,24 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::CreateNodePoolRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [node_pool_id][crate::model::CreateNodePoolRequest::node_pool_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_node_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.node_pool_id = v.into();
             self
         }
 
         /// Sets the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_node_pool<T: Into<std::option::Option<crate::model::NodePool>>>(
             mut self,
             v: T,
@@ -1061,6 +1091,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::DeleteNodePoolRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1125,6 +1157,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::ListMachinesRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1192,6 +1226,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::GetMachineRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1253,6 +1289,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::ListVpnConnectionsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1323,6 +1361,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::GetVpnConnectionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1408,18 +1448,24 @@ pub mod edge_container {
         }
 
         /// Sets the value of [parent][crate::model::CreateVpnConnectionRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [vpn_connection_id][crate::model::CreateVpnConnectionRequest::vpn_connection_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_vpn_connection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.vpn_connection_id = v.into();
             self
         }
 
         /// Sets the value of [vpn_connection][crate::model::CreateVpnConnectionRequest::vpn_connection].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_vpn_connection<T: Into<std::option::Option<crate::model::VpnConnection>>>(
             mut self,
             v: T,
@@ -1510,6 +1556,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::DeleteVpnConnectionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1559,6 +1607,8 @@ pub mod edge_container {
         }
 
         /// Sets the value of [name][crate::model::GetServerConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

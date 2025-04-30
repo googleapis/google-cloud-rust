@@ -112,6 +112,8 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [parent][crate::model::ListGatewaysRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -179,6 +181,8 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [name][crate::model::GetGatewayRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -259,18 +263,24 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateGatewayRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [gateway_id][crate::model::CreateGatewayRequest::gateway_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_gateway_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.gateway_id = v.into();
             self
         }
 
         /// Sets the value of [gateway][crate::model::CreateGatewayRequest::gateway].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_gateway<T: Into<std::option::Option<crate::model::Gateway>>>(
             mut self,
             v: T,
@@ -363,6 +373,8 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_gateway<T: Into<std::option::Option<crate::model::Gateway>>>(
             mut self,
             v: T,
@@ -444,6 +456,8 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteGatewayRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -502,6 +516,8 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [parent][crate::model::ListApisRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -569,6 +585,8 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [name][crate::model::GetApiRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -649,18 +667,24 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateApiRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [api_id][crate::model::CreateApiRequest::api_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_api_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.api_id = v.into();
             self
         }
 
         /// Sets the value of [api][crate::model::CreateApiRequest::api].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_api<T: Into<std::option::Option<crate::model::Api>>>(mut self, v: T) -> Self {
             self.0.request.api = v.into();
             self
@@ -750,6 +774,8 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [api][crate::model::UpdateApiRequest::api].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_api<T: Into<std::option::Option<crate::model::Api>>>(mut self, v: T) -> Self {
             self.0.request.api = v.into();
             self
@@ -828,6 +854,8 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteApiRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -886,6 +914,8 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [parent][crate::model::ListApiConfigsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -953,6 +983,8 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [name][crate::model::GetApiConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1043,18 +1075,24 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateApiConfigRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [api_config_id][crate::model::CreateApiConfigRequest::api_config_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_api_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.api_config_id = v.into();
             self
         }
 
         /// Sets the value of [api_config][crate::model::CreateApiConfigRequest::api_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_api_config<T: Into<std::option::Option<crate::model::ApiConfig>>>(
             mut self,
             v: T,
@@ -1148,6 +1186,8 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [api_config][crate::model::UpdateApiConfigRequest::api_config].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_api_config<T: Into<std::option::Option<crate::model::ApiConfig>>>(
             mut self,
             v: T,
@@ -1229,6 +1269,8 @@ pub mod api_gateway_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteApiConfigRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

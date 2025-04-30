@@ -112,6 +112,8 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -167,6 +169,8 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -245,6 +249,8 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -254,6 +260,8 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -341,6 +349,8 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -425,18 +435,24 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -494,6 +510,8 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [name][crate::model::GetClusterCertificateAuthorityRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -577,12 +595,16 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [name][crate::model::RescheduleClusterMaintenanceRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [reschedule_type][crate::model::RescheduleClusterMaintenanceRequest::reschedule_type].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_reschedule_type<
             T: Into<crate::model::reschedule_cluster_maintenance_request::RescheduleType>,
         >(
@@ -658,6 +680,8 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupCollectionsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -716,6 +740,8 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [name][crate::model::GetBackupCollectionRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -774,6 +800,8 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -829,6 +857,8 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -907,6 +937,8 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -991,6 +1023,8 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [name][crate::model::ExportBackupRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1093,6 +1127,8 @@ pub mod cloud_redis_cluster {
         }
 
         /// Sets the value of [name][crate::model::BackupClusterRequest::name].
+        ///
+        /// This is documented as a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
