@@ -14,6 +14,8 @@
 
 package api
 
+import "slices"
+
 // Typez represent different field types that may be found in messages.
 type Typez int
 
@@ -504,6 +506,10 @@ type Field struct {
 	Group *OneOf
 	// A placeholder to put language specific annotations.
 	Codec any
+}
+
+func (field *Field) DocumentAsRequired() bool {
+	return slices.Contains(field.Behavior, FIELD_BEHAVIOR_REQUIRED)
 }
 
 // Pair is a key-value pair.

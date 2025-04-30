@@ -97,6 +97,8 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets the value of [log_name][crate::model::DeleteLogRequest::log_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_log_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.log_name = v.into();
             self
@@ -167,6 +169,8 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets the value of [entries][crate::model::WriteLogEntriesRequest::entries].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_entries<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -265,6 +269,8 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets the value of [resource_names][crate::model::ListLogEntriesRequest::resource_names].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -384,6 +390,8 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::ListLogsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -690,6 +698,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::ListBucketsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -745,6 +755,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::GetBucketRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -825,18 +837,24 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::CreateBucketRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [bucket_id][crate::model::CreateBucketRequest::bucket_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bucket_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket_id = v.into();
             self
         }
 
         /// Sets the value of [bucket][crate::model::CreateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
             mut self,
             v: T,
@@ -920,12 +938,16 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::UpdateBucketRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
             mut self,
             v: T,
@@ -935,6 +957,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -981,18 +1005,24 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::CreateBucketRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [bucket_id][crate::model::CreateBucketRequest::bucket_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bucket_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.bucket_id = v.into();
             self
         }
 
         /// Sets the value of [bucket][crate::model::CreateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
             mut self,
             v: T,
@@ -1039,12 +1069,16 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::UpdateBucketRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
             mut self,
             v: T,
@@ -1054,6 +1088,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1100,6 +1136,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::DeleteBucketRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1143,6 +1181,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::UndeleteBucketRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1201,6 +1241,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::ListViewsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1256,6 +1298,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::GetViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1299,18 +1343,24 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::CreateViewRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [view_id][crate::model::CreateViewRequest::view_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_view_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.view_id = v.into();
             self
         }
 
         /// Sets the value of [view][crate::model::CreateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_view<T: Into<std::option::Option<crate::model::LogView>>>(
             mut self,
             v: T,
@@ -1357,12 +1407,16 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::UpdateViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [view][crate::model::UpdateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_view<T: Into<std::option::Option<crate::model::LogView>>>(
             mut self,
             v: T,
@@ -1418,6 +1472,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::DeleteViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1476,6 +1532,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::ListSinksRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1531,6 +1589,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [sink_name][crate::model::GetSinkRequest::sink_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_sink_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.sink_name = v.into();
             self
@@ -1574,12 +1634,16 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::CreateSinkRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [sink][crate::model::CreateSinkRequest::sink].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_sink<T: Into<std::option::Option<crate::model::LogSink>>>(
             mut self,
             v: T,
@@ -1632,12 +1696,16 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [sink_name][crate::model::UpdateSinkRequest::sink_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_sink_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.sink_name = v.into();
             self
         }
 
         /// Sets the value of [sink][crate::model::UpdateSinkRequest::sink].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_sink<T: Into<std::option::Option<crate::model::LogSink>>>(
             mut self,
             v: T,
@@ -1699,6 +1767,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [sink_name][crate::model::DeleteSinkRequest::sink_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_sink_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.sink_name = v.into();
             self
@@ -1777,18 +1847,24 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::CreateLinkRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [link][crate::model::CreateLinkRequest::link].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_link<T: Into<std::option::Option<crate::model::Link>>>(mut self, v: T) -> Self {
             self.0.request.link = v.into();
             self
         }
 
         /// Sets the value of [link_id][crate::model::CreateLinkRequest::link_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_link_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.link_id = v.into();
             self
@@ -1867,6 +1943,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::DeleteLinkRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1925,6 +2003,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::ListLinksRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1980,6 +2060,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::GetLinkRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2038,6 +2120,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::ListExclusionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2093,6 +2177,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::GetExclusionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2136,12 +2222,16 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::CreateExclusionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [exclusion][crate::model::CreateExclusionRequest::exclusion].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_exclusion<T: Into<std::option::Option<crate::model::LogExclusion>>>(
             mut self,
             v: T,
@@ -2188,12 +2278,16 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::UpdateExclusionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [exclusion][crate::model::UpdateExclusionRequest::exclusion].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_exclusion<T: Into<std::option::Option<crate::model::LogExclusion>>>(
             mut self,
             v: T,
@@ -2203,6 +2297,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExclusionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2249,6 +2345,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::DeleteExclusionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2292,6 +2390,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::GetCmekSettingsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2338,12 +2438,16 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::UpdateCmekSettingsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [cmek_settings][crate::model::UpdateCmekSettingsRequest::cmek_settings].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cmek_settings<T: Into<std::option::Option<crate::model::CmekSettings>>>(
             mut self,
             v: T,
@@ -2399,6 +2503,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::GetSettingsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2442,12 +2548,16 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::UpdateSettingsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_settings<T: Into<std::option::Option<crate::model::Settings>>>(
             mut self,
             v: T,
@@ -2544,6 +2654,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [name][crate::model::CopyLogEntriesRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2556,6 +2668,8 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [destination][crate::model::CopyLogEntriesRequest::destination].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_destination<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.destination = v.into();
             self
@@ -2839,6 +2953,8 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::ListLogMetricsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2894,6 +3010,8 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sets the value of [metric_name][crate::model::GetLogMetricRequest::metric_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_metric_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.metric_name = v.into();
             self
@@ -2937,12 +3055,16 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sets the value of [parent][crate::model::CreateLogMetricRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [metric][crate::model::CreateLogMetricRequest::metric].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_metric<T: Into<std::option::Option<crate::model::LogMetric>>>(
             mut self,
             v: T,
@@ -2989,12 +3111,16 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sets the value of [metric_name][crate::model::UpdateLogMetricRequest::metric_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_metric_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.metric_name = v.into();
             self
         }
 
         /// Sets the value of [metric][crate::model::UpdateLogMetricRequest::metric].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_metric<T: Into<std::option::Option<crate::model::LogMetric>>>(
             mut self,
             v: T,
@@ -3041,6 +3167,8 @@ pub mod metrics_service_v_2 {
         }
 
         /// Sets the value of [metric_name][crate::model::DeleteLogMetricRequest::metric_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_metric_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.metric_name = v.into();
             self

@@ -141,18 +141,24 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateMicrosoftAdDomainRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [domain_name][crate::model::CreateMicrosoftAdDomainRequest::domain_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_domain_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.domain_name = v.into();
             self
         }
 
         /// Sets the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_domain<T: Into<std::option::Option<crate::model::Domain>>>(
             mut self,
             v: T,
@@ -204,6 +210,8 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::ResetAdminPasswordRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -264,6 +272,8 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [parent][crate::model::ListDomainsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -333,6 +343,8 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::GetDomainRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -413,6 +425,8 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -422,6 +436,8 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [domain][crate::model::UpdateDomainRequest::domain].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_domain<T: Into<std::option::Option<crate::model::Domain>>>(
             mut self,
             v: T,
@@ -505,6 +521,8 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteDomainRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -585,12 +603,16 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::AttachTrustRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [trust][crate::model::AttachTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
             mut self,
             v: T,
@@ -677,18 +699,24 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::ReconfigureTrustRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [target_domain_name][crate::model::ReconfigureTrustRequest::target_domain_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target_domain_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_domain_name = v.into();
             self
         }
 
         /// Sets the value of [target_dns_ip_addresses][crate::model::ReconfigureTrustRequest::target_dns_ip_addresses].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_target_dns_ip_addresses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -774,12 +802,16 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::DetachTrustRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [trust][crate::model::DetachTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
             mut self,
             v: T,
@@ -863,12 +895,16 @@ pub mod managed_identities_service {
         }
 
         /// Sets the value of [name][crate::model::ValidateTrustRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [trust][crate::model::ValidateTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
             mut self,
             v: T,

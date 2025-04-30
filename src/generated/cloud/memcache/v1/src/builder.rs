@@ -112,6 +112,8 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -179,6 +181,8 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -260,18 +264,24 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -356,6 +366,8 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -365,6 +377,8 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -452,12 +466,16 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [name][crate::model::UpdateParametersRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParametersRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -548,6 +566,8 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -629,6 +649,8 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [name][crate::model::ApplyParametersRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -730,12 +752,16 @@ pub mod cloud_memcache {
         }
 
         /// Sets the value of [instance][crate::model::RescheduleMaintenanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
         /// Sets the value of [reschedule_type][crate::model::RescheduleMaintenanceRequest::reschedule_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_reschedule_type<
             T: Into<crate::model::reschedule_maintenance_request::RescheduleType>,
         >(

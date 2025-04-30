@@ -135,18 +135,24 @@ pub mod vpc_access_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectorRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [connector_id][crate::model::CreateConnectorRequest::connector_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connector_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connector_id = v.into();
             self
         }
 
         /// Sets the value of [connector][crate::model::CreateConnectorRequest::connector].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connector<T: Into<std::option::Option<crate::model::Connector>>>(
             mut self,
             v: T,
@@ -193,6 +199,8 @@ pub mod vpc_access_service {
         }
 
         /// Sets the value of [name][crate::model::GetConnectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -251,6 +259,8 @@ pub mod vpc_access_service {
         }
 
         /// Sets the value of [parent][crate::model::ListConnectorsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -341,6 +351,8 @@ pub mod vpc_access_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

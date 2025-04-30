@@ -112,6 +112,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [parent][crate::model::ListConstraintsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -182,6 +184,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [parent][crate::model::ListPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -237,6 +241,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [name][crate::model::GetPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -283,6 +289,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [name][crate::model::GetEffectivePolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -326,12 +334,16 @@ pub mod org_policy {
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [policy][crate::model::CreatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
             mut self,
             v: T,
@@ -378,6 +390,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
             mut self,
             v: T,
@@ -433,6 +447,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -485,12 +501,16 @@ pub mod org_policy {
         }
 
         /// Sets the value of [parent][crate::model::CreateCustomConstraintRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_custom_constraint<
             T: Into<std::option::Option<crate::model::CustomConstraint>>,
         >(
@@ -542,6 +562,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_custom_constraint<
             T: Into<std::option::Option<crate::model::CustomConstraint>>,
         >(
@@ -593,6 +615,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [name][crate::model::GetCustomConstraintRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -654,6 +678,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [parent][crate::model::ListCustomConstraintsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -712,6 +738,8 @@ pub mod org_policy {
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomConstraintRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

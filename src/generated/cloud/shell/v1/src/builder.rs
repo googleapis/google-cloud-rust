@@ -97,6 +97,8 @@ pub mod cloud_shell_service {
         }
 
         /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

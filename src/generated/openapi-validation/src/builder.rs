@@ -116,6 +116,8 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::ListLocationsRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -185,12 +187,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetLocationRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::GetLocationRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -251,6 +257,8 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::ListSecretsRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -329,12 +337,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::CreateSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret_id][crate::model::CreateSecretRequest::secret_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret_id = v.into();
             self
@@ -400,12 +412,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::ListSecretsByProjectAndLocationRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::ListSecretsByProjectAndLocationRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -489,18 +505,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::CreateSecretByProjectAndLocationRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::CreateSecretByProjectAndLocationRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret_id][crate::model::CreateSecretByProjectAndLocationRequest::secret_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret_id = v.into();
             self
@@ -558,18 +580,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::AddSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::AddSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::AddSecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -632,18 +660,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::AddSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::AddSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::AddSecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -689,12 +723,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::GetSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -740,12 +778,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::DeleteSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::DeleteSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -806,18 +848,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::UpdateSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::UpdateSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<wkt::FieldMask>>(mut self, v: T) -> Self {
             self.0.request.update_mask = v.into();
             self
@@ -870,18 +918,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetSecretByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::GetSecretByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::GetSecretByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -934,18 +988,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -1013,24 +1073,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<wkt::FieldMask>>(mut self, v: T) -> Self {
             self.0.request.update_mask = v.into();
             self
@@ -1094,12 +1162,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::ListSecretVersionsRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::ListSecretVersionsRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -1194,18 +1266,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -1278,18 +1356,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::GetSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::GetSecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -1347,24 +1431,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -1415,18 +1507,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::AccessSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::AccessSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::AccessSecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -1484,24 +1582,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
@@ -1558,24 +1664,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::DisableSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::DisableSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::DisableSecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::DisableSecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -1635,24 +1749,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::DisableSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::DisableSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::DisableSecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::DisableSecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -1709,24 +1831,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::EnableSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::EnableSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::EnableSecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::EnableSecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -1786,24 +1916,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::EnableSecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::EnableSecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::EnableSecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::EnableSecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -1860,24 +1998,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::DestroySecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::DestroySecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::DestroySecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::DestroySecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -1937,24 +2083,32 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::DestroySecretVersionRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::DestroySecretVersionRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::DestroySecretVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.version = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::DestroySecretVersionRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -2020,18 +2174,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::SetIamPolicyRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::SetIamPolicyRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::SetIamPolicyRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -2097,18 +2257,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::SetIamPolicyRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::SetIamPolicyRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::SetIamPolicyRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -2154,12 +2320,16 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetIamPolicyRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::GetIamPolicyRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -2221,18 +2391,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
@@ -2290,18 +2466,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::TestIamPermissionsRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::TestIamPermissionsRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
@@ -2366,18 +2548,24 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [secret][crate::model::TestIamPermissionsRequest::secret].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_secret<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::TestIamPermissionsRequest::location].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self

@@ -112,6 +112,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -179,6 +181,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [name][crate::model::GetConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -263,18 +267,24 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [connection_id][crate::model::CreateConnectionRequest::connection_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connection_id = v.into();
             self
         }
 
         /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
             mut self,
             v: T,
@@ -374,6 +384,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -383,6 +395,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
             mut self,
             v: T,
@@ -485,6 +499,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -590,12 +606,16 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [parent][crate::model::CreateGitRepositoryLinkRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [git_repository_link][crate::model::CreateGitRepositoryLinkRequest::git_repository_link].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_git_repository_link<
             T: Into<std::option::Option<crate::model::GitRepositoryLink>>,
         >(
@@ -607,6 +627,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [git_repository_link_id][crate::model::CreateGitRepositoryLinkRequest::git_repository_link_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_git_repository_link_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.git_repository_link_id = v.into();
             self
@@ -702,6 +724,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [name][crate::model::DeleteGitRepositoryLinkRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -783,6 +807,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [parent][crate::model::ListGitRepositoryLinksRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -853,6 +879,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [name][crate::model::GetGitRepositoryLinkRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -899,6 +927,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [git_repository_link][crate::model::FetchReadWriteTokenRequest::git_repository_link].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_git_repository_link<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.git_repository_link = v.into();
             self
@@ -942,6 +972,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [git_repository_link][crate::model::FetchReadTokenRequest::git_repository_link].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_git_repository_link<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.git_repository_link = v.into();
             self
@@ -1007,6 +1039,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [connection][crate::model::FetchLinkableGitRepositoriesRequest::connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connection = v.into();
             self
@@ -1067,6 +1101,8 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [connection][crate::model::FetchGitHubInstallationsRequest::connection].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_connection<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connection = v.into();
             self
@@ -1110,12 +1146,16 @@ pub mod developer_connect {
         }
 
         /// Sets the value of [git_repository_link][crate::model::FetchGitRefsRequest::git_repository_link].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_git_repository_link<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.git_repository_link = v.into();
             self
         }
 
         /// Sets the value of [ref_type][crate::model::FetchGitRefsRequest::ref_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ref_type<T: Into<crate::model::fetch_git_refs_request::RefType>>(
             mut self,
             v: T,

@@ -115,6 +115,8 @@ pub mod iam {
         }
 
         /// Sets the value of [name][crate::model::ListServiceAccountsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -173,6 +175,8 @@ pub mod iam {
         }
 
         /// Sets the value of [name][crate::model::GetServiceAccountRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -219,12 +223,16 @@ pub mod iam {
         }
 
         /// Sets the value of [name][crate::model::CreateServiceAccountRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [account_id][crate::model::CreateServiceAccountRequest::account_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_account_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.account_id = v.into();
             self
@@ -429,6 +437,8 @@ pub mod iam {
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceAccountRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -613,6 +623,8 @@ pub mod iam {
         }
 
         /// Sets the value of [name][crate::model::ListServiceAccountKeysRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -670,6 +682,8 @@ pub mod iam {
         }
 
         /// Sets the value of [name][crate::model::GetServiceAccountKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -727,6 +741,8 @@ pub mod iam {
         }
 
         /// Sets the value of [name][crate::model::CreateServiceAccountKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -847,6 +863,8 @@ pub mod iam {
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceAccountKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -895,6 +913,8 @@ pub mod iam {
         }
 
         /// Sets the value of [name][crate::model::DisableServiceAccountKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -943,6 +963,8 @@ pub mod iam {
         }
 
         /// Sets the value of [name][crate::model::EnableServiceAccountKeyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -986,12 +1008,16 @@ pub mod iam {
         }
 
         /// Sets the value of [name][crate::model::SignBlobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [bytes_to_sign][crate::model::SignBlobRequest::bytes_to_sign].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_bytes_to_sign<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.bytes_to_sign = v.into();
             self
@@ -1035,12 +1061,16 @@ pub mod iam {
         }
 
         /// Sets the value of [name][crate::model::SignJwtRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_payload<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.payload = v.into();
             self
@@ -1084,6 +1114,8 @@ pub mod iam {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1136,12 +1168,16 @@ pub mod iam {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1200,12 +1236,16 @@ pub mod iam {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1272,6 +1312,8 @@ pub mod iam {
         }
 
         /// Sets the value of [full_resource_name][crate::model::QueryGrantableRolesRequest::full_resource_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_full_resource_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.full_resource_name = v.into();
             self

@@ -100,6 +100,8 @@ pub mod iam_credentials {
         }
 
         /// Sets the value of [name][crate::model::GenerateAccessTokenRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -123,6 +125,8 @@ pub mod iam_credentials {
         }
 
         /// Sets the value of [scope][crate::model::GenerateAccessTokenRequest::scope].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_scope<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -171,12 +175,16 @@ pub mod iam_credentials {
         }
 
         /// Sets the value of [name][crate::model::GenerateIdTokenRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [audience][crate::model::GenerateIdTokenRequest::audience].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_audience<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.audience = v.into();
             self
@@ -237,12 +245,16 @@ pub mod iam_credentials {
         }
 
         /// Sets the value of [name][crate::model::SignBlobRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [payload][crate::model::SignBlobRequest::payload].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_payload<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.payload = v.into();
             self
@@ -297,12 +309,16 @@ pub mod iam_credentials {
         }
 
         /// Sets the value of [name][crate::model::SignJwtRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_payload<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.payload = v.into();
             self

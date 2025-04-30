@@ -112,6 +112,8 @@ pub mod ids {
         }
 
         /// Sets the value of [parent][crate::model::ListEndpointsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -179,6 +181,8 @@ pub mod ids {
         }
 
         /// Sets the value of [name][crate::model::GetEndpointRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -260,18 +264,24 @@ pub mod ids {
         }
 
         /// Sets the value of [parent][crate::model::CreateEndpointRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [endpoint_id][crate::model::CreateEndpointRequest::endpoint_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_endpoint_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.endpoint_id = v.into();
             self
         }
 
         /// Sets the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
             mut self,
             v: T,
@@ -359,6 +369,8 @@ pub mod ids {
         }
 
         /// Sets the value of [name][crate::model::DeleteEndpointRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

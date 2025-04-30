@@ -112,6 +112,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -179,6 +181,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -265,18 +269,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -381,6 +391,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -480,6 +492,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -584,6 +598,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::PromoteClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -685,6 +701,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::SwitchoverClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -777,18 +795,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::RestoreClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::RestoreClusterRequest::cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::RestoreClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -929,18 +953,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateSecondaryClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::CreateSecondaryClusterRequest::cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::CreateSecondaryClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -1014,6 +1044,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1081,6 +1113,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1168,18 +1202,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -1281,18 +1321,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateSecondaryInstanceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_id][crate::model::CreateSecondaryInstanceRequest::instance_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
         /// Sets the value of [instance][crate::model::CreateSecondaryInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -1395,12 +1441,16 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateInstancesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [requests][crate::model::BatchCreateInstancesRequest::requests].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_requests<T: Into<std::option::Option<crate::model::CreateInstanceRequests>>>(
             mut self,
             v: T,
@@ -1500,6 +1550,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -1599,6 +1651,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1701,6 +1755,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::FailoverInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1794,6 +1850,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [fault_type][crate::model::InjectFaultRequest::fault_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_fault_type<T: Into<crate::model::inject_fault_request::FaultType>>(
             mut self,
             v: T,
@@ -1803,6 +1861,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::InjectFaultRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1896,6 +1956,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::RestartInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1962,24 +2024,32 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [instance][crate::model::ExecuteSqlRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
         /// Sets the value of [database][crate::model::ExecuteSqlRequest::database].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
         }
 
         /// Sets the value of [user][crate::model::ExecuteSqlRequest::user].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_user<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.user = v.into();
             self
         }
 
         /// Sets the value of [sql_statement][crate::model::ExecuteSqlRequest::sql_statement].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_sql_statement<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.sql_statement = v.into();
             self
@@ -2062,6 +2132,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2129,6 +2201,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2209,18 +2283,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -2325,6 +2405,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -2424,6 +2506,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2507,6 +2591,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListSupportedDatabaseFlagsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2567,6 +2653,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::GenerateClientCertificateRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2640,6 +2728,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::GetConnectionInfoRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2704,6 +2794,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListUsersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2771,6 +2863,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::GetUserRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2814,18 +2908,24 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateUserRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [user_id][crate::model::CreateUserRequest::user_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_user_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.user_id = v.into();
             self
         }
 
         /// Sets the value of [user][crate::model::CreateUserRequest::user].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_user<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
             self.0.request.user = v.into();
             self
@@ -2890,6 +2990,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [user][crate::model::UpdateUserRequest::user].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_user<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
             self.0.request.user = v.into();
             self
@@ -2951,6 +3053,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteUserRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3021,6 +3125,8 @@ pub mod alloy_db_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListDatabasesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self

@@ -112,6 +112,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [parent][crate::model::ListPosturesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -185,6 +187,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [name][crate::model::ListPostureRevisionsRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -240,6 +244,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [name][crate::model::GetPostureRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -326,18 +332,24 @@ pub mod security_posture {
         }
 
         /// Sets the value of [parent][crate::model::CreatePostureRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [posture_id][crate::model::CreatePostureRequest::posture_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.posture_id = v.into();
             self
         }
 
         /// Sets the value of [posture][crate::model::CreatePostureRequest::posture].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture<T: Into<std::option::Option<crate::model::Posture>>>(
             mut self,
             v: T,
@@ -421,6 +433,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePostureRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -430,6 +444,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [posture][crate::model::UpdatePostureRequest::posture].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture<T: Into<std::option::Option<crate::model::Posture>>>(
             mut self,
             v: T,
@@ -439,6 +455,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [revision_id][crate::model::UpdatePostureRequest::revision_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_revision_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.revision_id = v.into();
             self
@@ -517,6 +535,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [name][crate::model::DeletePostureRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -603,18 +623,24 @@ pub mod security_posture {
         }
 
         /// Sets the value of [parent][crate::model::ExtractPostureRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [posture_id][crate::model::ExtractPostureRequest::posture_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.posture_id = v.into();
             self
         }
 
         /// Sets the value of [workload][crate::model::ExtractPostureRequest::workload].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workload<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workload = v.into();
             self
@@ -678,6 +704,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [parent][crate::model::ListPostureDeploymentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -742,6 +770,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [name][crate::model::GetPostureDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -829,18 +859,24 @@ pub mod security_posture {
         }
 
         /// Sets the value of [parent][crate::model::CreatePostureDeploymentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [posture_deployment_id][crate::model::CreatePostureDeploymentRequest::posture_deployment_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture_deployment_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.posture_deployment_id = v.into();
             self
         }
 
         /// Sets the value of [posture_deployment][crate::model::CreatePostureDeploymentRequest::posture_deployment].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture_deployment<
             T: Into<std::option::Option<crate::model::PostureDeployment>>,
         >(
@@ -933,6 +969,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePostureDeploymentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -942,6 +980,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [posture_deployment][crate::model::UpdatePostureDeploymentRequest::posture_deployment].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_posture_deployment<
             T: Into<std::option::Option<crate::model::PostureDeployment>>,
         >(
@@ -1030,6 +1070,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [name][crate::model::DeletePostureDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1097,6 +1139,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [parent][crate::model::ListPostureTemplatesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1161,6 +1205,8 @@ pub mod security_posture {
         }
 
         /// Sets the value of [name][crate::model::GetPostureTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

@@ -106,12 +106,16 @@ pub mod autoscaling_policy_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateAutoscalingPolicyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [policy][crate::model::CreateAutoscalingPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<crate::model::AutoscalingPolicy>>>(
             mut self,
             v: T,
@@ -165,6 +169,8 @@ pub mod autoscaling_policy_service {
         }
 
         /// Sets the value of [policy][crate::model::UpdateAutoscalingPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<crate::model::AutoscalingPolicy>>>(
             mut self,
             v: T,
@@ -216,6 +222,8 @@ pub mod autoscaling_policy_service {
         }
 
         /// Sets the value of [name][crate::model::GetAutoscalingPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -283,6 +291,8 @@ pub mod autoscaling_policy_service {
         }
 
         /// Sets the value of [parent][crate::model::ListAutoscalingPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -345,6 +355,8 @@ pub mod autoscaling_policy_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteAutoscalingPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -390,12 +402,16 @@ pub mod autoscaling_policy_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -453,6 +469,8 @@ pub mod autoscaling_policy_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -510,12 +528,16 @@ pub mod autoscaling_policy_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -881,12 +903,16 @@ pub mod batch_controller {
         }
 
         /// Sets the value of [parent][crate::model::CreateBatchRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [batch][crate::model::CreateBatchRequest::batch].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_batch<T: Into<std::option::Option<crate::model::Batch>>>(
             mut self,
             v: T,
@@ -945,6 +971,8 @@ pub mod batch_controller {
         }
 
         /// Sets the value of [name][crate::model::GetBatchRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1003,6 +1031,8 @@ pub mod batch_controller {
         }
 
         /// Sets the value of [parent][crate::model::ListBatchesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1070,6 +1100,8 @@ pub mod batch_controller {
         }
 
         /// Sets the value of [name][crate::model::DeleteBatchRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1113,12 +1145,16 @@ pub mod batch_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1174,6 +1210,8 @@ pub mod batch_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1229,12 +1267,16 @@ pub mod batch_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1593,18 +1635,24 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [project_id][crate::model::CreateClusterRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::CreateClusterRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -1705,24 +1753,32 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateClusterRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::UpdateClusterRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
         }
 
         /// Sets the value of [cluster_name][crate::model::UpdateClusterRequest::cluster_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_name = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -1741,6 +1797,8 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1832,18 +1890,24 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [project_id][crate::model::StopClusterRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::StopClusterRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
         }
 
         /// Sets the value of [cluster_name][crate::model::StopClusterRequest::cluster_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_name = v.into();
             self
@@ -1938,18 +2002,24 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [project_id][crate::model::StartClusterRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::StartClusterRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
         }
 
         /// Sets the value of [cluster_name][crate::model::StartClusterRequest::cluster_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_name = v.into();
             self
@@ -2042,18 +2112,24 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteClusterRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::DeleteClusterRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
         }
 
         /// Sets the value of [cluster_name][crate::model::DeleteClusterRequest::cluster_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_name = v.into();
             self
@@ -2109,18 +2185,24 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [project_id][crate::model::GetClusterRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::GetClusterRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
         }
 
         /// Sets the value of [cluster_name][crate::model::GetClusterRequest::cluster_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_name = v.into();
             self
@@ -2179,12 +2261,16 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [project_id][crate::model::ListClustersRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::ListClustersRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
@@ -2287,18 +2373,24 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [project_id][crate::model::DiagnoseClusterRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::DiagnoseClusterRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
         }
 
         /// Sets the value of [cluster_name][crate::model::DiagnoseClusterRequest::cluster_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_name = v.into();
             self
@@ -2390,12 +2482,16 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -2451,6 +2547,8 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -2506,12 +2604,16 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2831,18 +2933,24 @@ pub mod job_controller {
         }
 
         /// Sets the value of [project_id][crate::model::SubmitJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::SubmitJobRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
         }
 
         /// Sets the value of [job][crate::model::SubmitJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
             self.0.request.job = v.into();
             self
@@ -2927,18 +3035,24 @@ pub mod job_controller {
         }
 
         /// Sets the value of [project_id][crate::model::SubmitJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::SubmitJobRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
         }
 
         /// Sets the value of [job][crate::model::SubmitJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
             self.0.request.job = v.into();
             self
@@ -2988,18 +3102,24 @@ pub mod job_controller {
         }
 
         /// Sets the value of [project_id][crate::model::GetJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::GetJobRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
         }
 
         /// Sets the value of [job_id][crate::model::GetJobRequest::job_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_id = v.into();
             self
@@ -3058,12 +3178,16 @@ pub mod job_controller {
         }
 
         /// Sets the value of [project_id][crate::model::ListJobsRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::ListJobsRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
@@ -3140,30 +3264,40 @@ pub mod job_controller {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::UpdateJobRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
         }
 
         /// Sets the value of [job_id][crate::model::UpdateJobRequest::job_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_id = v.into();
             self
         }
 
         /// Sets the value of [job][crate::model::UpdateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
             self.0.request.job = v.into();
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3210,18 +3344,24 @@ pub mod job_controller {
         }
 
         /// Sets the value of [project_id][crate::model::CancelJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::CancelJobRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
         }
 
         /// Sets the value of [job_id][crate::model::CancelJobRequest::job_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_id = v.into();
             self
@@ -3265,18 +3405,24 @@ pub mod job_controller {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [region][crate::model::DeleteJobRequest::region].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_region<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.region = v.into();
             self
         }
 
         /// Sets the value of [job_id][crate::model::DeleteJobRequest::job_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_id = v.into();
             self
@@ -3320,12 +3466,16 @@ pub mod job_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -3381,6 +3531,8 @@ pub mod job_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -3436,12 +3588,16 @@ pub mod job_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3800,12 +3956,16 @@ pub mod node_group_controller {
         }
 
         /// Sets the value of [parent][crate::model::CreateNodeGroupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [node_group][crate::model::CreateNodeGroupRequest::node_group].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_node_group<T: Into<std::option::Option<crate::model::NodeGroup>>>(
             mut self,
             v: T,
@@ -3903,12 +4063,16 @@ pub mod node_group_controller {
         }
 
         /// Sets the value of [name][crate::model::ResizeNodeGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [size][crate::model::ResizeNodeGroupRequest::size].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.size = v.into();
             self
@@ -3967,6 +4131,8 @@ pub mod node_group_controller {
         }
 
         /// Sets the value of [name][crate::model::GetNodeGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4010,12 +4176,16 @@ pub mod node_group_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -4071,6 +4241,8 @@ pub mod node_group_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -4126,12 +4298,16 @@ pub mod node_group_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4458,12 +4634,16 @@ pub mod session_template_controller {
         }
 
         /// Sets the value of [parent][crate::model::CreateSessionTemplateRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [session_template][crate::model::CreateSessionTemplateRequest::session_template].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_session_template<T: Into<std::option::Option<crate::model::SessionTemplate>>>(
             mut self,
             v: T,
@@ -4515,6 +4695,8 @@ pub mod session_template_controller {
         }
 
         /// Sets the value of [session_template][crate::model::UpdateSessionTemplateRequest::session_template].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_session_template<T: Into<std::option::Option<crate::model::SessionTemplate>>>(
             mut self,
             v: T,
@@ -4566,6 +4748,8 @@ pub mod session_template_controller {
         }
 
         /// Sets the value of [name][crate::model::GetSessionTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4629,6 +4813,8 @@ pub mod session_template_controller {
         }
 
         /// Sets the value of [parent][crate::model::ListSessionTemplatesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4695,6 +4881,8 @@ pub mod session_template_controller {
         }
 
         /// Sets the value of [name][crate::model::DeleteSessionTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4740,12 +4928,16 @@ pub mod session_template_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -4803,6 +4995,8 @@ pub mod session_template_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -4860,12 +5054,16 @@ pub mod session_template_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5232,12 +5430,16 @@ pub mod session_controller {
         }
 
         /// Sets the value of [parent][crate::model::CreateSessionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [session][crate::model::CreateSessionRequest::session].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_session<T: Into<std::option::Option<crate::model::Session>>>(
             mut self,
             v: T,
@@ -5247,6 +5449,8 @@ pub mod session_controller {
         }
 
         /// Sets the value of [session_id][crate::model::CreateSessionRequest::session_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_session_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.session_id = v.into();
             self
@@ -5296,6 +5500,8 @@ pub mod session_controller {
         }
 
         /// Sets the value of [name][crate::model::GetSessionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -5354,6 +5560,8 @@ pub mod session_controller {
         }
 
         /// Sets the value of [parent][crate::model::ListSessionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -5457,6 +5665,8 @@ pub mod session_controller {
         }
 
         /// Sets the value of [name][crate::model::TerminateSessionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -5545,6 +5755,8 @@ pub mod session_controller {
         }
 
         /// Sets the value of [name][crate::model::DeleteSessionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -5594,12 +5806,16 @@ pub mod session_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -5655,6 +5871,8 @@ pub mod session_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -5710,12 +5928,16 @@ pub mod session_controller {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6042,12 +6264,16 @@ pub mod workflow_template_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkflowTemplateRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [template][crate::model::CreateWorkflowTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_template<T: Into<std::option::Option<crate::model::WorkflowTemplate>>>(
             mut self,
             v: T,
@@ -6099,6 +6325,8 @@ pub mod workflow_template_service {
         }
 
         /// Sets the value of [name][crate::model::GetWorkflowTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -6190,6 +6418,8 @@ pub mod workflow_template_service {
         }
 
         /// Sets the value of [name][crate::model::InstantiateWorkflowTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -6298,12 +6528,16 @@ pub mod workflow_template_service {
         }
 
         /// Sets the value of [parent][crate::model::InstantiateInlineWorkflowTemplateRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [template][crate::model::InstantiateInlineWorkflowTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_template<T: Into<std::option::Option<crate::model::WorkflowTemplate>>>(
             mut self,
             v: T,
@@ -6361,6 +6595,8 @@ pub mod workflow_template_service {
         }
 
         /// Sets the value of [template][crate::model::UpdateWorkflowTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_template<T: Into<std::option::Option<crate::model::WorkflowTemplate>>>(
             mut self,
             v: T,
@@ -6427,6 +6663,8 @@ pub mod workflow_template_service {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkflowTemplatesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -6487,6 +6725,8 @@ pub mod workflow_template_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkflowTemplateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -6538,12 +6778,16 @@ pub mod workflow_template_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -6601,6 +6845,8 @@ pub mod workflow_template_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -6658,12 +6904,16 @@ pub mod workflow_template_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
