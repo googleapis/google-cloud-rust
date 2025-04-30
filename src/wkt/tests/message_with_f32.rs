@@ -84,10 +84,8 @@ mod test {
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithF32>(got)?;
-        for i in [0..roundtrip.repeated.len()] {
-            let roundtrip = roundtrip.repeated[i.clone()][0];
-            let msg = msg.repeated[i][0];
-            assert_float_eq(roundtrip, msg);
+        for (roundtrip, msg) in roundtrip.repeated.iter().zip(msg.repeated.iter()) {
+            assert_float_eq(*roundtrip, *msg);
         }
         Ok(())
     }
