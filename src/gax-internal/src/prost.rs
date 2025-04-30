@@ -230,7 +230,7 @@ mod test {
 
     #[test_case(Ok(1), Ok(2), Ok((1, 2)))]
     #[test_case(Err(err()), Ok(2), Err(err()))]
-    #[test_case(Ok(1), Err(err()),  Err(err()))]
+    #[test_case(Ok(1), Err(err()), Err(err()))]
     #[test_case(Err(err()), Err(err()), Err(err()))]
     fn pair_transpose(a: Result<i32>, b: Result<i32>, want: Result<(i32, i32)>) {
         let got = super::pair_transpose(a, b);
