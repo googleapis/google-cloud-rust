@@ -264,8 +264,11 @@ impl Storage {
     /// Gets the IAM policy for a specified bucket.
     ///
     /// # Parameters
-    /// * `resource` - the bucket name. In `projects/_/buckets/{bucket_id}`
-    ///   format.
+    /// * `resource` should be
+    ///   * `projects/_/buckets/{bucket}` for a bucket,
+    ///   * `projects/_/buckets/{bucket}/objects/{object}` for an object, or
+    ///   * `projects/_/buckets/{bucket}/managedFolders/{managedFolder}` for a
+    ///     managed folder.
     ///
     /// # Example
     /// ```
@@ -294,8 +297,11 @@ impl Storage {
     /// `set_iam_policy()`.
     ///
     /// # Parameters
-    /// * `resource` - the bucket name. In `projects/_/buckets/{bucket_id}`
-    ///   format.
+    /// * `resource` should be
+    ///   * `projects/_/buckets/{bucket}` for a bucket,
+    ///   * `projects/_/buckets/{bucket}/objects/{object}` for an object, or
+    ///   * `projects/_/buckets/{bucket}/managedFolders/{managedFolder}` for a
+    ///     managed folder.
     ///
     /// # Example
     ///
