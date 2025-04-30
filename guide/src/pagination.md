@@ -113,7 +113,7 @@ The Google Cloud Client Libraries for Rust provide an adapter to converts the
 list RPCs as defined by [AIP-4233] into a \[futures::Stream\] that can be
 iterated over in an async fashion.
 
-[aip-158]: (https://google.aip.dev/158)
-[aip-4233]: (https://google.aip.dev/client-libraries/4233)
+[aip-158]: https://google.aip.dev/158
+[aip-4233]: https://google.aip.dev/client-libraries/4233
 [quickstart]: https://cloud.google.com/secret-manager/docs/quickstart
 [secret manager]: https://cloud.google.com/secret-manager

@@ -55,7 +55,7 @@ pub async fn paginator_stream_pages(project_id: &str) -> crate::Result<()> {
         .await
         .into_stream();
 
-    let _secrets = list
+    let _ = list
         .enumerate()
         .inspect(|(index, page)| {
             println!(
@@ -64,7 +64,7 @@ pub async fn paginator_stream_pages(project_id: &str) -> crate::Result<()> {
                 page.as_ref().unwrap().next_page_token
             )
         })
-        .collect::<Vec<_>>()
+        .fold((), async |u, _unused| u)
         .await;
     // ANCHOR_END: paginator-stream-pages
 
