@@ -17,6 +17,7 @@ limitations under the License.
 impl gaxi::prost::ToProto<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
     type Output = {{Codec.RelativeName}};
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
+        {{! TODO : Doesn't work.}}
         match self {
             {{#Fields}}
             {{^Codec.IsBoxed}}
@@ -33,6 +34,7 @@ impl gaxi::prost::ToProto<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
 impl gaxi::prost::FromProto<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} {
     fn cnv(self) -> {{Codec.QualifiedName}} {
         use {{Codec.QualifiedName}} as T;
+        {{! TODO : Doesn't work AFAICT.}}
         match self {
             {{#Fields}}
             {{^IsEnum}}

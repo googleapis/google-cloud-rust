@@ -17,6 +17,8 @@
 
 use std::collections::BTreeMap;
 
+use wkt::{Any, Int32Value};
+
 #[derive(Clone, Debug, PartialEq, thiserror::Error)]
 pub enum ConvertError {
     #[error("enum {0} does not contain an integer value")]
@@ -72,6 +74,25 @@ impl_primitive!(i64);
 impl_primitive!(u64);
 impl_primitive!(String);
 impl_primitive!(bytes::Bytes);
+
+impl FromProto<wkt::Any> for prost_types::Any {
+    fn cnv(self) -> wkt::Any {
+        // TODO : implement correctly
+        let v = 42;
+        Any::try_from(&v).unwrap()
+    }
+}
+
+impl ToProto<prost_types::Any> for wkt::Any {
+    type Output = prost_types::Any;
+    fn to_proto(self) -> Result<prost_types::Any> {
+        // TODO : implement correctly
+        Ok(prost_types::Any {
+            type_url: "TODO".to_string(),
+            value: b"TODO".to_vec(),
+        })
+    }
+}
 
 impl FromProto<wkt::Duration> for prost_types::Duration {
     fn cnv(self) -> wkt::Duration {

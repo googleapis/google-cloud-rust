@@ -86,6 +86,10 @@ type BoxedError = Box<dyn std::error::Error + Send + Sync>;
 type Error = AnyError;
 
 impl Any {
+    // TODO : We will need some sort of backdoor ctor that can be used from
+    // `gaxi::prost` if we want to be able to convert to and from
+    // `prost_types::Any`.
+
     /// Returns the name of the contained type.
     ///
     /// An any may contain any message type. The name of the message is a URL,
