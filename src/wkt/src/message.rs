@@ -28,20 +28,23 @@ pub trait Message {
 
     /// Returns the serializer for this message type
     #[doc(hidden)]
-    fn serializer() -> Box<dyn MessageSerializer<Self>>
+    #[allow(private_interfaces)]
+    fn serializer() -> impl MessageSerializer<Self>
     where
-        Self: Sized + serde::ser::Serialize + serde::de::DeserializeOwned + 'static,
+        Self: serde::ser::Serialize + serde::de::DeserializeOwned,
     {
-        Box::new(DefaultSerializer::<Self>::new())
+        DefaultSerializer::<Self>::new()
     }
 }
 
 /// Internal API for message serialization.
 /// This is not intended for direct use by consumers of this crate.
-#[doc(hidden)]
-pub trait MessageSerializer<T> {
-    fn to_map(&self, message: &T) -> Result<Map, Error>;
-    fn from_map(&self, map: &Map) -> Result<T, Error>;
+pub(crate) trait MessageSerializer<T> {
+    /// Store the value into a JSON object.
+    fn serialize_to_map(&self, message: &T) -> Result<Map, Error>;
+
+    /// Extract the value from a JSON object.
+    fn deserialize_from_map(&self, map: &Map) -> Result<T, Error>;
 }
 
 // Default serializer that most types can use
@@ -61,12 +64,38 @@ impl<T> MessageSerializer<T> for DefaultSerializer<T>
 where
     T: serde::ser::Serialize + serde::de::DeserializeOwned + Sized + Message,
 {
-    fn to_map(&self, message: &T) -> Result<Map, Error> {
+    fn serialize_to_map(&self, message: &T) -> Result<Map, Error> {
         to_json_object(message)
     }
 
-    fn from_map(&self, map: &Map) -> Result<T, Error> {
+    fn deserialize_from_map(&self, map: &Map) -> Result<T, Error> {
         from_object(map)
+    }
+}
+
+// Serializes the type `T` into the `value` field.
+pub(crate) struct ValueSerializer<T> {
+    _phantom: std::marker::PhantomData<T>,
+}
+
+impl<T> ValueSerializer<T> {
+    pub fn new() -> Self {
+        Self {
+            _phantom: std::marker::PhantomData,
+        }
+    }
+}
+
+impl<T> MessageSerializer<T> for ValueSerializer<T>
+where
+    T: serde::ser::Serialize + serde::de::DeserializeOwned + Sized + Message,
+{
+    fn serialize_to_map(&self, message: &T) -> Result<Map, Error> {
+        to_json_other(message)
+    }
+
+    fn deserialize_from_map(&self, map: &Map) -> Result<T, Error> {
+        from_other(map)
     }
 }
 
@@ -178,7 +207,7 @@ mod test {
 
         // Get the serializer for TestMessage and use it to deserialize
         let serializer = TestMessage::serializer();
-        let test = serializer.from_map(&map).unwrap();
+        let test = serializer.deserialize_from_map(&map).unwrap();
 
         assert!(test._unknown_fields.get("@type").is_none(), "{test:?}");
     }

@@ -166,23 +166,9 @@ impl crate::message::Message for Duration {
     }
 
     // Override the default serializer to use custom serialization
-    fn serializer() -> Box<dyn crate::message::MessageSerializer<Self>>
-    where
-        Self: Sized,
-    {
-        Box::new(DurationSerializer)
-    }
-}
-
-struct DurationSerializer;
-
-impl crate::message::MessageSerializer<Duration> for DurationSerializer {
-    fn to_map(&self, message: &Duration) -> Result<crate::message::Map, crate::AnyError> {
-        crate::message::to_json_other(message)
-    }
-
-    fn from_map(&self, map: &crate::message::Map) -> Result<Duration, crate::AnyError> {
-        crate::message::from_other(map)
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self> {
+        crate::message::ValueSerializer::<Self>::new()
     }
 }
 

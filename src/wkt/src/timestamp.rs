@@ -171,23 +171,9 @@ impl crate::message::Message for Timestamp {
     }
 
     // Override the default serializer to use custom serialization
-    fn serializer() -> Box<dyn crate::message::MessageSerializer<Self>>
-    where
-        Self: Sized,
-    {
-        Box::new(TimestampSerializer)
-    }
-}
-
-struct TimestampSerializer;
-
-impl crate::message::MessageSerializer<Timestamp> for TimestampSerializer {
-    fn to_map(&self, message: &Timestamp) -> Result<crate::message::Map, crate::AnyError> {
-        crate::message::to_json_other(message)
-    }
-
-    fn from_map(&self, map: &crate::message::Map) -> Result<Timestamp, crate::AnyError> {
-        crate::message::from_other(map)
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self> {
+        crate::message::ValueSerializer::<Self>::new()
     }
 }
 

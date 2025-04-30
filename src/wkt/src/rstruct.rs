@@ -46,23 +46,9 @@ impl crate::message::Message for Struct {
     }
 
     // Override the default serializer to use custom serialization
-    fn serializer() -> Box<dyn crate::message::MessageSerializer<Self>>
-    where
-        Self: Sized,
-    {
-        Box::new(StructSerializer)
-    }
-}
-
-struct StructSerializer;
-
-impl crate::message::MessageSerializer<Struct> for StructSerializer {
-    fn to_map(&self, message: &Struct) -> Result<crate::message::Map, crate::AnyError> {
-        crate::message::to_json_other(message)
-    }
-
-    fn from_map(&self, map: &crate::message::Map) -> Result<Struct, crate::AnyError> {
-        crate::message::from_other(map)
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self> {
+        crate::message::ValueSerializer::<Self>::new()
     }
 }
 
@@ -72,23 +58,9 @@ impl crate::message::Message for Value {
     }
 
     // Override the default serializer to use custom serialization
-    fn serializer() -> Box<dyn crate::message::MessageSerializer<Self>>
-    where
-        Self: Sized,
-    {
-        Box::new(ValueSerializer)
-    }
-}
-
-struct ValueSerializer;
-
-impl crate::message::MessageSerializer<Value> for ValueSerializer {
-    fn to_map(&self, message: &Value) -> Result<crate::message::Map, crate::AnyError> {
-        crate::message::to_json_other(message)
-    }
-
-    fn from_map(&self, map: &crate::message::Map) -> Result<Value, crate::AnyError> {
-        crate::message::from_other(map)
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self> {
+        crate::message::ValueSerializer::<Self>::new()
     }
 }
 
@@ -98,23 +70,9 @@ impl crate::message::Message for ListValue {
     }
 
     // Override the default serializer to use custom serialization
-    fn serializer() -> Box<dyn crate::message::MessageSerializer<Self>>
-    where
-        Self: Sized,
-    {
-        Box::new(ListValueSerializer)
-    }
-}
-
-struct ListValueSerializer;
-
-impl crate::message::MessageSerializer<ListValue> for ListValueSerializer {
-    fn to_map(&self, message: &ListValue) -> Result<crate::message::Map, crate::AnyError> {
-        crate::message::to_json_other(message)
-    }
-
-    fn from_map(&self, map: &crate::message::Map) -> Result<ListValue, crate::AnyError> {
-        crate::message::from_other(map)
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self> {
+        crate::message::ValueSerializer::<Self>::new()
     }
 }
 

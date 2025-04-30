@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::message::MessageSerializer;
+
 /// `Any` contains an arbitrary serialized protocol buffer message along with a
 /// URL that describes the type of the serialized message.
 ///
@@ -101,26 +103,18 @@ impl Any {
     /// also supports serialization to JSON.
     pub fn try_from<T>(message: &T) -> Result<Self, Error>
     where
-        T: crate::message::Message
-            + Sized
-            + serde::ser::Serialize
-            + serde::de::DeserializeOwned
-            + 'static,
+        T: crate::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
         // Get the serializer for type T and use it to convert the message to a map
         let serializer = T::serializer();
-        let value = serializer.to_map(message)?;
+        let value = serializer.serialize_to_map(message)?;
         Ok(Any(value))
     }
 
     /// Extracts (if possible) a `T` value from the [Any].
     pub fn try_into_message<T>(&self) -> Result<T, Error>
     where
-        T: crate::message::Message
-            + Sized
-            + serde::ser::Serialize
-            + serde::de::DeserializeOwned
-            + 'static,
+        T: crate::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
         let map = &self.0;
         let r#type = map
@@ -132,7 +126,7 @@ impl Any {
 
         // Get the serializer for type T and use it to convert the map to a message
         let serializer = T::serializer();
-        serializer.from_map(map)
+        serializer.deserialize_from_map(map)
     }
 
     fn check_typename(got: &str, want: &str) -> Result<(), Error> {
@@ -151,23 +145,9 @@ impl crate::message::Message for Any {
     }
 
     // Override the default serializer to use custom serialization
-    fn serializer() -> Box<dyn crate::message::MessageSerializer<Self>>
-    where
-        Self: Sized,
-    {
-        Box::new(AnySerializer)
-    }
-}
-
-struct AnySerializer;
-
-impl crate::message::MessageSerializer<Any> for AnySerializer {
-    fn to_map(&self, message: &Any) -> Result<crate::message::Map, AnyError> {
-        crate::message::to_json_other(message)
-    }
-
-    fn from_map(&self, map: &crate::message::Map) -> Result<Any, AnyError> {
-        crate::message::from_other(map)
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self> {
+        crate::message::ValueSerializer::<Self>::new()
     }
 }
 
