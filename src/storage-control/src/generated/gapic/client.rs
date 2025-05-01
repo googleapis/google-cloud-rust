@@ -19,14 +19,14 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// Implements a client for the Cloud Storage.
+/// Implements a client for the Cloud Storage API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_storage_control::client::Storage;
 /// let client = Storage::builder().build().await?;
-/// // use `client` to make requests to the Cloud Storage.
+/// // use `client` to make requests to the Cloud Storage API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
