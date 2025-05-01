@@ -79,6 +79,12 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListManagedFoldersResponse>>;
 
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -181,6 +187,15 @@ impl<T: super::StorageControl> StorageControl for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListManagedFoldersResponse>> {
         T::list_managed_folders(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
     }
 
     fn get_polling_error_policy(

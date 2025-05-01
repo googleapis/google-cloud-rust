@@ -564,4 +564,44 @@ impl super::stub::StorageControl for StorageControl {
                 >,
             )
     }
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        use gaxi::prost::ToProto;
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "GetOperation",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/GetOperation",
+        );
+        let x_goog_request_params = [format!("name={}", req.name)]
+            .into_iter()
+            .fold(String::new(), |b, p| b + "&" + &p);
+
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::other)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .map(
+                gaxi::grpc::to_gax_response::<
+                    crate::google::longrunning::Operation,
+                    longrunning::model::Operation,
+                >,
+            )
+    }
 }

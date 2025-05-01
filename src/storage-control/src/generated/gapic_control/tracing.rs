@@ -127,6 +127,15 @@ where
         self.inner.list_managed_folders(req, options).await
     }
 
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,

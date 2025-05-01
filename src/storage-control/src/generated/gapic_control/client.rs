@@ -19,14 +19,14 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// Implements a client for the .
+/// Implements a client for the Storage Control API.
 ///
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_storage_control::client::StorageControl;
 /// let client = StorageControl::builder().build().await?;
-/// // use `client` to make requests to the .
+/// // use `client` to make requests to the Storage Control API.
 /// # gax::Result::<()>::Ok(()) });
 /// ```
 ///
@@ -184,5 +184,15 @@ impl StorageControl {
     /// Retrieves a list of managed folders for a given bucket.
     pub fn list_managed_folders(&self) -> super::builder::storage_control::ListManagedFolders {
         super::builder::storage_control::ListManagedFolders::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::storage_control::GetOperation {
+        super::builder::storage_control::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

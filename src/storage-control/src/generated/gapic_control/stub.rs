@@ -167,6 +167,19 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         >(Err(Error::other("unimplemented")))
     }
 
+    /// Implements [super::client::StorageControl::get_operation].
+    fn get_operation(
+        &self,
+        _req: longrunning::model::GetOperationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
+    }
+
     /// Returns the polling error policy.
     ///
     /// When mocking, this method is typically irrelevant. Do not try to verify

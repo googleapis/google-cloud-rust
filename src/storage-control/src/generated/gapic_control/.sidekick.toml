@@ -15,6 +15,7 @@
 [general]
 language             = 'rust'
 specification-source = 'google/storage/control/v2'
+service-config = 'google/storage/control/v2/storage_v2.yaml'
 
 [codec]
 copyright-year            = '2025'

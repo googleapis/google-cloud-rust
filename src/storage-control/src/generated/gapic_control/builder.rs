@@ -867,4 +867,50 @@ pub mod storage_control {
             &mut self.0.options
         }
     }
+
+    /// The request builder for [StorageControl::get_operation][super::super::client::StorageControl::get_operation] calls.
+    #[derive(Clone, Debug)]
+    pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
+
+    impl GetOperation {
+        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
 }

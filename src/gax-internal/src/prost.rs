@@ -17,8 +17,6 @@
 
 use std::collections::BTreeMap;
 
-use wkt::{Any, Int32Value};
-
 #[derive(Clone, Debug, PartialEq, thiserror::Error)]
 pub enum ConvertError {
     #[error("enum {0} does not contain an integer value")]
@@ -79,7 +77,7 @@ impl FromProto<wkt::Any> for prost_types::Any {
     fn cnv(self) -> wkt::Any {
         // TODO : implement correctly
         let v = 42;
-        Any::try_from(&v).unwrap()
+        wkt::Any::try_from(&v).unwrap()
     }
 }
 
