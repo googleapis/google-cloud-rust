@@ -6494,6 +6494,7 @@ name = "user-guide-samples"
 version = "0.0.0"
 dependencies = [
  "crc32c",
+ "futures",
  "google-cloud-aiplatform-v1",
  "google-cloud-gax",
  "google-cloud-language-v2",
