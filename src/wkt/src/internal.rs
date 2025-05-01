@@ -19,7 +19,12 @@ impl serde_with::SerializeAs<f32> for F32 {
     where
         S: serde::ser::Serializer,
     {
-        float_serialize(value, serializer)
+        match value {
+            x if x.is_nan() => serializer.serialize_str("NaN"),
+            x if x.is_infinite() && x.is_sign_negative() => serializer.serialize_str("-Infinity"),
+            x if x.is_infinite() => serializer.serialize_str("Infinity"),
+            x => serializer.serialize_f32(*x),
+        }
     }
 }
 
@@ -28,33 +33,11 @@ impl<'de> serde_with::DeserializeAs<'de, f32> for F32 {
     where
         D: serde::de::Deserializer<'de>,
     {
-        float_deserialize(deserializer)
-    }
-}
-
-/// A helper to serialize `f32` to ProtoJSON format.
-pub fn float_serialize<S>(x: &f32, s: S) -> std::result::Result<S::Ok, S::Error>
-where
-    S: serde::ser::Serializer,
-{
-    // Handle special strings, see https://protobuf.dev/programming-guides/json/.
-    match x {
-        x if x.is_nan() => s.serialize_str("NaN"),
-        x if x.is_infinite() && x.is_sign_negative() => s.serialize_str("-Infinity"),
-        x if x.is_infinite() => s.serialize_str("Infinity"),
-        x => s.serialize_f32(*x),
+        deserializer.deserialize_any(FloatVisitor)
     }
 }
 
 struct FloatVisitor;
-
-/// A helper to deserialize `f32` from ProtoJSON format.
-pub fn float_deserialize<'de, D>(deserializer: D) -> std::result::Result<f32, D::Error>
-where
-    D: serde::de::Deserializer<'de>,
-{
-    deserializer.deserialize_any(FloatVisitor)
-}
 
 impl serde::de::Visitor<'_> for FloatVisitor {
     type Value = f32;
@@ -102,15 +85,16 @@ impl serde::de::Visitor<'_> for FloatVisitor {
 #[cfg(test)]
 mod test {
     use super::*;
+    use serde_with::{DeserializeAs, SerializeAs};
     use test_case::test_case;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test_case(9876.5)]
     #[test_case(0.0)]
     fn roundtrip(input: f32) -> Result {
-        let got = float_serialize(&input, serde_json::value::Serializer)?;
+        let got = F32::serialize_as(&input, serde_json::value::Serializer)?;
         assert_eq!(input, got);
-        let rt = float_deserialize(got)?;
+        let rt = F32::deserialize_as(got)?;
         assert_eq!(input, rt);
         Ok(())
     }
@@ -118,9 +102,9 @@ mod test {
     #[test_case(f32::NAN)]
     #[test_case(-f32::NAN)]
     fn roundtrip_nan(input: f32) -> Result {
-        let got = float_serialize(&input, serde_json::value::Serializer)?;
+        let got = F32::serialize_as(&input, serde_json::value::Serializer)?;
         assert_eq!("NaN", got);
-        let rt = float_deserialize(got)?;
+        let rt = F32::deserialize_as(got)?;
         assert!(rt.is_nan(), "expected NaN, got {rt}");
         Ok(())
     }
@@ -130,9 +114,9 @@ mod test {
     #[test_case(f32::NEG_INFINITY, "-Infinity")]
     #[test_case(2.0*f32::NEG_INFINITY, "-Infinity")]
     fn roundtrip_inf(input: f32, want: &str) -> Result {
-        let got = float_serialize(&input, serde_json::value::Serializer)?;
+        let got = F32::serialize_as(&input, serde_json::value::Serializer)?;
         assert_eq!(want, got);
-        let rt = float_deserialize(got)?;
+        let rt = F32::deserialize_as(got)?;
         assert!(rt.is_infinite(), "expected infinite, got {rt}");
         assert_eq!(rt.is_sign_positive(), input.is_sign_positive());
         Ok(())
@@ -141,7 +125,7 @@ mod test {
     #[test]
     fn deserialize_expect_err() {
         assert!(
-            float_deserialize(serde_json::Value::String(
+            F32::deserialize_as(serde_json::Value::String(
                 "not a special float string".to_string()
             ))
             .is_err()
