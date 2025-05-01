@@ -52,9 +52,14 @@ pub mod internal {
     }
 }
 
+// This fools clippy into thinking `sealed::Paginator` is public.
+mod sealed {
+    pub trait Paginator {}
+}
+
 /// An adapter that converts list RPCs as defined by [AIP-4233](https://google.aip.dev/client-libraries/4233)
 /// into a [futures::Stream] that can be iterated over in an async fashion.
-pub trait Paginator<T, E>: Send
+pub trait Paginator<T, E>: Send + sealed::Paginator
 where
     T: internal::PageableResponse,
 {
@@ -149,13 +154,15 @@ where
     }
 }
 
+impl<T, E> sealed::Paginator for PaginatorImpl<T, E> where T: internal::PageableResponse {}
+
 impl<T, E> std::fmt::Debug for PaginatorImpl<T, E> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Paginator").finish()
     }
 }
 
-pub trait ItemPaginator<T, E>: Send
+pub trait ItemPaginator<T, E>: Send + sealed::Paginator
 where
     T: internal::PageableResponse,
 {
@@ -243,6 +250,8 @@ where
         }))
     }
 }
+
+impl<T, E> sealed::Paginator for ItemPaginatorImpl<T, E> where T: internal::PageableResponse {}
 
 #[cfg(test)]
 mod tests {
