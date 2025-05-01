@@ -23,6 +23,7 @@ mod test {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     pub struct MessageWithF32 {
+        #[serde(skip_serializing_if = "google_cloud_wkt::internal::is_default")]
         #[serde_as(as = "google_cloud_wkt::internal::F32")]
         pub singular: f32,
         #[serde_as(as = "Option<google_cloud_wkt::internal::F32>")]
@@ -69,7 +70,7 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": 0.0, "optional": want});
+        let want = json!({"optional": want});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithF32>(got)?;
@@ -84,7 +85,7 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": 0.0, "repeated": ["Infinity", "-Infinity", "NaN", 9876.5]});
+        let want = json!({"repeated": ["Infinity", "-Infinity", "NaN", 9876.5]});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithF32>(got)?;
@@ -109,7 +110,6 @@ mod test {
 
         let got = serde_json::to_value(&msg)?;
         let want = json!({
-            "singular": 0.0,
             "hashmap": {
                 "number": 9876.5,
                 "inf": "Infinity",
