@@ -87,10 +87,12 @@ impl wkt::message::Message for Vertex {
 pub struct NormalizedVertex {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub x: f32,
 
     /// Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub y: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -183,14 +185,17 @@ impl wkt::message::Message for BoundingPoly {
 pub struct Position {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub x: f32,
 
     /// Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub y: f32,
 
     /// Z coordinate (or depth).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub z: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -555,25 +560,30 @@ pub struct FaceAnnotation {
     /// of the face relative to the image vertical about the axis perpendicular to
     /// the face. Range [-180,180].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub roll_angle: f32,
 
     /// Yaw angle, which indicates the leftward/rightward angle that the face is
     /// pointing relative to the vertical plane perpendicular to the image. Range
     /// [-180,180].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub pan_angle: f32,
 
     /// Pitch angle, which indicates the upwards/downwards angle that the face is
     /// pointing relative to the image's horizontal plane. Range [-180,180].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub tilt_angle: f32,
 
     /// Detection confidence. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub detection_confidence: f32,
 
     /// Face landmarking confidence. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub landmarking_confidence: f32,
 
     /// Joy likelihood.
@@ -1166,6 +1176,7 @@ pub struct EntityAnnotation {
 
     /// Overall score of the result. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     /// **Deprecated. Use `score` instead.**
@@ -1174,6 +1185,7 @@ pub struct EntityAnnotation {
     /// this field represents the confidence that there is a tower in the query
     /// image. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// The relevancy of the ICA (Image Content Annotation) label to the
@@ -1182,6 +1194,7 @@ pub struct EntityAnnotation {
     /// detected distant towering building, even though the confidence that
     /// there is a tower in each image may be the same. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub topicality: f32,
 
     /// Image region to which this entity belongs. Not produced
@@ -1309,6 +1322,7 @@ pub struct LocalizedObjectAnnotation {
 
     /// Score of the result. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     /// Image region to which this object belongs. This must be populated.
@@ -1505,11 +1519,13 @@ pub struct ColorInfo {
 
     /// Image-specific score for this color. Value in range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     /// The fraction of pixels the color occupies in the image.
     /// Value in range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub pixel_fraction: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1636,11 +1652,13 @@ pub struct CropHint {
 
     /// Confidence of this being a salient region.  Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Fraction of importance of this salient region with respect to the original
     /// image.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub importance_fraction: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1732,6 +1750,7 @@ pub struct CropHintsParams {
     /// limited to a maximum of 16; any aspect ratios provided after the 16th are
     /// ignored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::F32>")]
     pub aspect_ratios: std::vec::Vec<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3612,6 +3631,7 @@ pub mod product_search_results {
         /// A confidence level on the match, ranging from 0 (no confidence) to
         /// 1 (full confidence).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         /// The resource name of the image from the product that is the closest match
@@ -3678,6 +3698,7 @@ pub mod product_search_results {
 
         /// Score of the result. Range [0, 1].
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5880,6 +5901,7 @@ pub mod text_annotation {
 
         /// Confidence of detected language. Range [0, 1].
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub confidence: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6118,6 +6140,7 @@ pub struct Page {
 
     /// Confidence of the OCR results on the page. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6223,6 +6246,7 @@ pub struct Block {
 
     /// Confidence of the OCR results on the block. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6402,6 +6426,7 @@ pub struct Paragraph {
 
     /// Confidence of the OCR results for the paragraph. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6495,6 +6520,7 @@ pub struct Word {
 
     /// Confidence of the OCR results for the word. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6587,6 +6613,7 @@ pub struct Symbol {
 
     /// Confidence of the OCR results for the symbol. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6773,6 +6800,7 @@ pub mod web_detection {
         /// Overall relevancy score for the entity.
         /// Not normalized and not comparable across different image queries.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         /// Canonical description of the entity, in English.
@@ -6825,6 +6853,7 @@ pub mod web_detection {
 
         /// (Deprecated) Overall relevancy score for the image.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6867,6 +6896,7 @@ pub mod web_detection {
 
         /// (Deprecated) Overall relevancy score for the web page.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         /// Title for the web page, may contain HTML markups.

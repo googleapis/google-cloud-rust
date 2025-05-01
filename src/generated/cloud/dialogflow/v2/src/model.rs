@@ -105,6 +105,7 @@ pub struct Agent {
     /// values range from 0.0 (completely uncertain) to 1.0 (completely certain).
     /// If set to 0.0, the default of 0.3 is used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub classification_threshold: f32,
 
     /// Optional. API version displayed in Dialogflow console. If not specified,
@@ -2452,6 +2453,7 @@ pub struct SpeechContext {
     /// Dialogflow recommends that you use boosts in the range (0, 20] and that you
     /// find a value that fits your use case with binary search.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub boost: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2517,6 +2519,7 @@ pub struct SpeechWordInfo {
     /// This field is not guaranteed to be fully stable over time for the same
     /// audio input. Users should also not rely on it to always be provided.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6137,6 +6140,7 @@ pub mod search_knowledge_request {
                     /// Setting to 0.0 means no boost applied. The boosting condition is
                     /// ignored.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                    #[serde_as(as = "wkt::internal::F32")]
                     pub boost: f32,
 
                     /// Optional. Complex specification for custom ranking based on
@@ -6297,6 +6301,7 @@ pub mod search_knowledge_request {
                             /// Optional. The value between -1 to 1 by which to boost the score
                             /// if the attribute_value evaluates to the value specified above.
                             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                            #[serde_as(as = "wkt::internal::F32")]
                             pub boost_amount: f32,
 
                             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8827,6 +8832,7 @@ pub struct SmartReplyMetrics {
     /// which similar messages have appeared at least once in the allowlist. Should
     /// be [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub allowlist_coverage: f32,
 
     /// Metrics of top n smart replies, sorted by [TopNMetric.n][].
@@ -8899,6 +8905,7 @@ pub mod smart_reply_metrics {
         /// real reply` divided by `number of queries with at least one smart reply`.
         /// Value ranges from 0.0 to 1.0 inclusive.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub recall: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11045,6 +11052,7 @@ pub mod human_agent_assistant_config {
         /// Supported features: ARTICLE_SUGGESTION, FAQ, SMART_REPLY, SMART_COMPOSE,
         /// KNOWLEDGE_SEARCH, KNOWLEDGE_ASSIST, ENTITY_EXTRACTION.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub confidence_threshold: f32,
 
         /// Determines how recent conversation context is filtered when generating
@@ -25456,6 +25464,7 @@ pub struct ArticleAnswer {
     /// conversation, as a value from 0.0 (completely uncertain) to 1.0
     /// (completely certain).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// A map that contains metadata about the answer and the
@@ -25546,6 +25555,7 @@ pub struct FaqAnswer {
     /// for this conversational query, range from 0.0 (completely uncertain)
     /// to 1.0 (completely certain).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// The corresponding FAQ question.
@@ -25643,6 +25653,7 @@ pub struct SmartReplyAnswer {
     /// this conversation, as a value from 0.0 (completely uncertain) to 1.0
     /// (completely certain).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// The name of answer record, in the format of
@@ -27585,6 +27596,7 @@ pub struct QueryResult {
     /// has separate confidence estimates per portion of the audio in
     /// StreamingRecognitionResult.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub speech_recognition_confidence: f32,
 
     /// The action name from the matched intent.
@@ -27664,6 +27676,7 @@ pub struct QueryResult {
     /// If there are `multiple knowledge_answers` messages, this value is set to
     /// the greatest `knowledgeAnswers.match_confidence` value in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub intent_detection_confidence: f32,
 
     /// Free-form diagnostic information for the associated detect intent request.
@@ -28509,6 +28522,7 @@ pub struct StreamingRecognitionResult {
     /// This field is typically only provided if `is_final` is true and you should
     /// not rely on it being accurate or even set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Word-specific information for the words recognized by Speech in
@@ -28904,11 +28918,13 @@ pub struct Sentiment {
     /// Sentiment score between -1.0 (negative sentiment) and 1.0 (positive
     /// sentiment).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     /// A non-negative number in the [0, +inf) range, which represents the absolute
     /// magnitude of sentiment, regardless of score (positive or negative).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub magnitude: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

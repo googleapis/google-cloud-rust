@@ -7377,6 +7377,7 @@ pub struct HotTablet {
     /// by the node to serve the tablet, from 0% (tablet was not interacted with)
     /// to 100% (the node spent all cycles serving the hot tablet).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub node_cpu_usage_percent: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

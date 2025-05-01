@@ -2786,6 +2786,7 @@ pub struct SpeechRecognitionAlternative {
     ///
     /// [google.cloud.speech.v2.StreamingRecognitionResult.is_final]: crate::model::StreamingRecognitionResult::is_final
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// A list of word-specific information for each recognized word.
@@ -2879,6 +2880,7 @@ pub struct WordInfo {
     ///
     /// [google.cloud.speech.v2.StreamingRecognitionResult.is_final]: crate::model::StreamingRecognitionResult::is_final
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// A distinct label is assigned for every speaker within the audio. This field
@@ -4658,6 +4660,7 @@ pub struct StreamingRecognitionResult {
     ///
     /// [google.cloud.speech.v2.StreamingRecognitionResult.is_final]: crate::model::StreamingRecognitionResult::is_final
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub stability: f32,
 
     /// Time offset of the end of this result relative to the beginning of the
@@ -5444,6 +5447,7 @@ pub struct PhraseSet {
     /// binary search approach to finding the optimal value for your use case as
     /// well as adding phrases both with and without boost to your requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub boost: f32,
 
     /// User-settable, human-readable name for the PhraseSet. Must be 63
@@ -5669,6 +5673,7 @@ pub mod phrase_set {
         /// for your use case as well as adding phrases both with and without boost
         /// to your requests.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub boost: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

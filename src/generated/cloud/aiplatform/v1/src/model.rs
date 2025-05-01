@@ -2967,14 +2967,17 @@ impl wkt::message::Message for VideoMetadata {
 pub struct GenerationConfig {
     /// Optional. Controls the randomness of predictions.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub temperature: std::option::Option<f32>,
 
     /// Optional. If specified, nucleus sampling will be used.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub top_p: std::option::Option<f32>,
 
     /// Optional. If specified, top-k sampling will be used.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub top_k: std::option::Option<f32>,
 
     /// Optional. Number of candidates to generate.
@@ -2999,10 +3002,12 @@ pub struct GenerationConfig {
 
     /// Optional. Positive penalties.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub presence_penalty: std::option::Option<f32>,
 
     /// Optional. Frequency penalties.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub frequency_penalty: std::option::Option<f32>,
 
     /// Optional. Seed.
@@ -3703,6 +3708,7 @@ pub struct SafetyRating {
 
     /// Output only. Harm probability score.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub probability_score: f32,
 
     /// Output only. Harm severity levels in the content.
@@ -3710,6 +3716,7 @@ pub struct SafetyRating {
 
     /// Output only. Harm severity score.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub severity_score: f32,
 
     /// Output only. Indicates whether the content was filtered out because of this
@@ -4412,6 +4419,7 @@ pub mod logprobs_result {
 
         /// The candidate's log probability.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
         pub log_probability: std::option::Option<f32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4895,6 +4903,7 @@ pub struct GroundingSupport {
     /// most confident. This list must have the same size as the
     /// grounding_chunk_indices.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::F32>")]
     pub confidence_scores: std::vec::Vec<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5110,6 +5119,7 @@ pub struct RetrievalMetadata {
     /// Google Search grounding and dynamic retrieval is enabled. It will be
     /// compared to the threshold to determine whether to trigger Google Search.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub google_search_dynamic_retrieval_score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16899,6 +16909,7 @@ impl wkt::message::Message for ExactMatchResults {
 pub struct ExactMatchMetricValue {
     /// Output only. Exact match score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17114,6 +17125,7 @@ impl wkt::message::Message for BleuResults {
 pub struct BleuMetricValue {
     /// Output only. Bleu score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17349,6 +17361,7 @@ impl wkt::message::Message for RougeResults {
 pub struct RougeMetricValue {
     /// Output only. Rouge score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17512,6 +17525,7 @@ impl wkt::message::Message for CoherenceSpec {
 pub struct CoherenceResult {
     /// Output only. Coherence score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. Explanation for coherence score.
@@ -17520,6 +17534,7 @@ pub struct CoherenceResult {
 
     /// Output only. Confidence for coherence score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17695,6 +17710,7 @@ impl wkt::message::Message for FluencySpec {
 pub struct FluencyResult {
     /// Output only. Fluency score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. Explanation for fluency score.
@@ -17703,6 +17719,7 @@ pub struct FluencyResult {
 
     /// Output only. Confidence for fluency score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17876,6 +17893,7 @@ impl wkt::message::Message for SafetySpec {
 pub struct SafetyResult {
     /// Output only. Safety score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. Explanation for safety score.
@@ -17884,6 +17902,7 @@ pub struct SafetyResult {
 
     /// Output only. Confidence for safety score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18073,6 +18092,7 @@ impl wkt::message::Message for GroundednessSpec {
 pub struct GroundednessResult {
     /// Output only. Groundedness score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. Explanation for groundedness score.
@@ -18081,6 +18101,7 @@ pub struct GroundednessResult {
 
     /// Output only. Confidence for groundedness score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18269,6 +18290,7 @@ impl wkt::message::Message for FulfillmentSpec {
 pub struct FulfillmentResult {
     /// Output only. Fulfillment score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. Explanation for fulfillment score.
@@ -18277,6 +18299,7 @@ pub struct FulfillmentResult {
 
     /// Output only. Confidence for fulfillment score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18502,6 +18525,7 @@ impl wkt::message::Message for SummarizationQualitySpec {
 pub struct SummarizationQualityResult {
     /// Output only. Summarization Quality score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. Explanation for summarization quality score.
@@ -18510,6 +18534,7 @@ pub struct SummarizationQualityResult {
 
     /// Output only. Confidence for summarization quality score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18757,6 +18782,7 @@ pub struct PairwiseSummarizationQualityResult {
 
     /// Output only. Confidence for summarization quality score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18985,6 +19011,7 @@ impl wkt::message::Message for SummarizationHelpfulnessSpec {
 pub struct SummarizationHelpfulnessResult {
     /// Output only. Summarization Helpfulness score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. Explanation for summarization helpfulness score.
@@ -18993,6 +19020,7 @@ pub struct SummarizationHelpfulnessResult {
 
     /// Output only. Confidence for summarization helpfulness score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19218,6 +19246,7 @@ impl wkt::message::Message for SummarizationVerbositySpec {
 pub struct SummarizationVerbosityResult {
     /// Output only. Summarization Verbosity score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. Explanation for summarization verbosity score.
@@ -19226,6 +19255,7 @@ pub struct SummarizationVerbosityResult {
 
     /// Output only. Confidence for summarization verbosity score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19451,6 +19481,7 @@ impl wkt::message::Message for QuestionAnsweringQualitySpec {
 pub struct QuestionAnsweringQualityResult {
     /// Output only. Question Answering Quality score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. Explanation for question answering quality score.
@@ -19459,6 +19490,7 @@ pub struct QuestionAnsweringQualityResult {
 
     /// Output only. Confidence for question answering quality score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19708,6 +19740,7 @@ pub struct PairwiseQuestionAnsweringQualityResult {
 
     /// Output only. Confidence for question answering quality score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19936,6 +19969,7 @@ impl wkt::message::Message for QuestionAnsweringRelevanceSpec {
 pub struct QuestionAnsweringRelevanceResult {
     /// Output only. Question Answering Relevance score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. Explanation for question answering relevance score.
@@ -19944,6 +19978,7 @@ pub struct QuestionAnsweringRelevanceResult {
 
     /// Output only. Confidence for question answering relevance score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20169,6 +20204,7 @@ impl wkt::message::Message for QuestionAnsweringHelpfulnessSpec {
 pub struct QuestionAnsweringHelpfulnessResult {
     /// Output only. Question Answering Helpfulness score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. Explanation for question answering helpfulness score.
@@ -20177,6 +20213,7 @@ pub struct QuestionAnsweringHelpfulnessResult {
 
     /// Output only. Confidence for question answering helpfulness score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20402,6 +20439,7 @@ impl wkt::message::Message for QuestionAnsweringCorrectnessSpec {
 pub struct QuestionAnsweringCorrectnessResult {
     /// Output only. Question Answering Correctness score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. Explanation for question answering correctness score.
@@ -20410,6 +20448,7 @@ pub struct QuestionAnsweringCorrectnessResult {
 
     /// Output only. Confidence for question answering correctness score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub confidence: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20640,6 +20679,7 @@ impl wkt::message::Message for PointwiseMetricSpec {
 pub struct PointwiseMetricResult {
     /// Output only. Pointwise metric score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. Explanation for pointwise metric score.
@@ -21086,6 +21126,7 @@ impl wkt::message::Message for ToolCallValidResults {
 pub struct ToolCallValidMetricValue {
     /// Output only. Tool call valid score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21292,6 +21333,7 @@ impl wkt::message::Message for ToolNameMatchResults {
 pub struct ToolNameMatchMetricValue {
     /// Output only. Tool name match score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21499,6 +21541,7 @@ impl wkt::message::Message for ToolParameterKeyMatchResults {
 pub struct ToolParameterKeyMatchMetricValue {
     /// Output only. Tool parameter key match score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21716,6 +21759,7 @@ impl wkt::message::Message for ToolParameterKVMatchResults {
 pub struct ToolParameterKVMatchMetricValue {
     /// Output only. Tool parameter key value match score.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21995,6 +22039,7 @@ impl wkt::message::Message for CometInstance {
 pub struct CometResult {
     /// Output only. Comet score. Range depends on version.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22288,6 +22333,7 @@ impl wkt::message::Message for MetricxInstance {
 pub struct MetricxResult {
     /// Output only. MetricX score. Range depends on version.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24149,6 +24195,7 @@ pub mod feature_noise_sigma {
         ///
         /// [google.cloud.aiplatform.v1.SmoothGradConfig.noise_sigma]: crate::model::SmoothGradConfig::gradient_noise_sigma
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub sigma: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24223,6 +24270,7 @@ pub struct BlurBaselineConfig {
     /// dimension. If not set, the method defaults to the zero (i.e. black for
     /// images) baseline.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub max_blur_sigma: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25852,22 +25900,26 @@ pub mod explanation_metadata {
         pub struct FeatureValueDomain {
             /// The minimum permissible value for this feature.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub min_value: f32,
 
             /// The maximum permissible value for this feature.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub max_value: f32,
 
             /// If this input feature has been normalized to a mean value of 0,
             /// the original_mean specifies the mean value of the domain prior to
             /// normalization.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub original_mean: f32,
 
             /// If this input feature has been normalized to a standard deviation of
             /// 1.0, the original_stddev specifies the standard deviation of the domain
             /// prior to normalization.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub original_stddev: f32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25979,11 +26031,13 @@ pub mod explanation_metadata {
             /// and making it easier to see areas of strong attribution. Defaults to
             /// 99.9.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub clip_percent_upperbound: f32,
 
             /// Excludes attributions below the specified percentile, from the
             /// highlighted areas. Defaults to 62.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub clip_percent_lowerbound: f32,
 
             /// How the original image is displayed in the visualization.
@@ -30400,6 +30454,7 @@ pub mod nearest_neighbor_query {
     pub struct Embedding {
         /// Optional. Individual value in the embedding.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::F32>")]
         pub value: std::vec::Vec<f32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -40720,6 +40775,7 @@ pub struct IndexDatapoint {
     /// Required. Feature embedding vector for dense index. An array of numbers
     /// with the length of [NearestNeighborSearchConfig.dimensions].
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::F32>")]
     pub feature_vector: std::vec::Vec<f32>,
 
     /// Optional. Feature embedding vector for sparse index.
@@ -40839,6 +40895,7 @@ pub mod index_datapoint {
     pub struct SparseEmbedding {
         /// Required. The list of embedding values of the sparse vector.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "std::vec::Vec<wkt::internal::F32>")]
         pub values: std::vec::Vec<f32>,
 
         /// Required. The list of indexes for the embedding values of the sparse
@@ -49329,6 +49386,7 @@ pub mod find_neighbors_request {
             /// vs sparse results. For example, if the alpha is 0, we only return
             /// sparse and if the alpha is 1, we only return dense.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub alpha: f32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -59424,10 +59482,12 @@ pub mod model_evaluation_slice {
             pub struct Range {
                 /// Inclusive low value for the range.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F32")]
                 pub low: f32,
 
                 /// Exclusive high value for the range.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F32")]
                 pub high: f32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -87103,6 +87163,7 @@ pub struct DynamicRetrievalConfig {
     /// Optional. The threshold to be used in dynamic retrieval.
     /// If not set, a system default value is used.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub dynamic_threshold: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -90653,6 +90714,7 @@ pub struct Tensor {
     ///
     /// [google.cloud.aiplatform.v1.Tensor.DataType.FLOAT]: crate::model::tensor::data_type::FLOAT
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "std::vec::Vec<wkt::internal::F32>")]
     pub float_val: std::vec::Vec<f32>,
 
     /// [DOUBLE][google.cloud.aiplatform.v1.Tensor.DataType.DOUBLE]
@@ -95567,6 +95629,7 @@ pub struct CorroborateContentResponse {
     /// Confidence score of corroborating content. Value is [0,1] with 1 is the
     /// most confidence.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub corroboration_score: std::option::Option<f32>,
 
     /// Claims that are extracted from the input content and facts that support the
@@ -95753,6 +95816,7 @@ pub struct Claim {
 
     /// Confidence score of this corroboration.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -5051,6 +5051,7 @@ pub struct Instance {
 
     /// Output only. Average queries per second (QPS) over the last minute.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub qps: f32,
 
     /// Output only. Average latency (ms) over the last minute.

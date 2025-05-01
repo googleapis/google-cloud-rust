@@ -9099,6 +9099,7 @@ pub struct YarnApplication {
 
     /// Required. The numerical progress of the application, from 1 to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub progress: f32,
 
     /// Optional. The HTTP URL of the ApplicationMaster, HistoryServer, or

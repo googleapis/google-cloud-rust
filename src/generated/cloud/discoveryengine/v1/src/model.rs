@@ -707,6 +707,7 @@ pub mod answer {
                 /// the same query and chunk at any time due to a model retraining or
                 /// change in implementation.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
                 pub relevance_score: std::option::Option<f32>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -773,6 +774,7 @@ pub mod answer {
             /// the same query and chunk at any time due to a model retraining or
             /// change in implementation.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
             pub relevance_score: std::option::Option<f32>,
 
             /// Document metadata.
@@ -1455,6 +1457,7 @@ pub mod answer {
                         /// the same query and chunk at any time due to a model retraining or
                         /// change in implementation.
                         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                        #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
                         pub relevance_score: std::option::Option<f32>,
 
                         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3710,6 +3713,7 @@ pub mod control {
         /// Strength of the boost, which should be in [-1, 1]. Negative
         /// boost means demotion. Default is 0.0 (No-op).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub boost: f32,
 
         /// Required. Specifies which products to apply the boost to.
@@ -3956,6 +3960,7 @@ pub mod control {
                 /// Optional. The value between -1 to 1 by which to boost the score if
                 /// the attribute_value evaluates to the value specified above.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F32")]
                 pub boost_amount: f32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13173,10 +13178,12 @@ pub mod generate_grounded_content_request {
 
         /// If specified, custom value for the temperature will be used.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
         pub temperature: std::option::Option<f32>,
 
         /// If specified, custom value for nucleus sampling will be used.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
         pub top_p: std::option::Option<f32>,
 
         /// If specified, custom value for top-k sampling will be used.
@@ -13185,6 +13192,7 @@ pub mod generate_grounded_content_request {
 
         /// If specified, custom value for frequency penalty will be used.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
         pub frequency_penalty: std::option::Option<f32>,
 
         /// If specified, custom value for the seed will be used.
@@ -13193,6 +13201,7 @@ pub mod generate_grounded_content_request {
 
         /// If specified, custom value for presence penalty will be used.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
         pub presence_penalty: std::option::Option<f32>,
 
         /// If specified, custom value for max output tokens will be used.
@@ -13335,6 +13344,7 @@ pub mod generate_grounded_content_request {
             /// The value of the threshold. If the predictor will predict a
             /// value smaller than this, it would suppress grounding in the source.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
             pub threshold: std::option::Option<f32>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13893,6 +13903,7 @@ pub mod generate_grounded_content_response {
 
         /// The overall grounding score for the candidate, in the range of [0, 1].
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
         pub grounding_score: std::option::Option<f32>,
 
         /// Grounding metadata for the generated content.
@@ -14239,6 +14250,7 @@ pub mod generate_grounded_content_response {
                 /// In between values allow to differentiate between different usefulness
                 /// scores for grounding.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
                 pub prediction: std::option::Option<f32>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14402,6 +14414,7 @@ pub mod generate_grounded_content_response {
                 /// claim in the support chunks indicated.
                 /// Higher value means that the claim is better supported by the chunks.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
                 pub support_score: std::option::Option<f32>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14787,6 +14800,7 @@ pub struct CheckGroundingResponse {
     /// Higher the score, higher is the fraction of claims that are supported by
     /// the provided facts. This is always set when a response is returned.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub support_score: std::option::Option<f32>,
 
     /// List of facts cited across all claims in the answer candidate.
@@ -19432,6 +19446,7 @@ pub struct RankingRecord {
     /// The score will be rounded to 2 decimal places. If the score is close to 0,
     /// it will be rounded to 0.0001 to avoid returning unset.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20046,6 +20061,7 @@ pub struct SafetyRating {
 
     /// Output only. Harm probability score.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub probability_score: f32,
 
     /// Output only. Harm severity levels in the content.
@@ -20053,6 +20069,7 @@ pub struct SafetyRating {
 
     /// Output only. Harm severity score.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub severity_score: f32,
 
     /// Output only. Indicates whether the content was filtered out because of this
@@ -22012,6 +22029,7 @@ pub mod search_request {
             /// boost_control_spec below are set. If both are set then the global boost
             /// is ignored and the more fine-grained boost_control_spec is applied.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub boost: f32,
 
             /// Complex specification for custom ranking based on customer defined
@@ -22170,6 +22188,7 @@ pub mod search_request {
                     /// The value between -1 to 1 by which to boost the score if the
                     /// attribute_value evaluates to the value specified above.
                     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                    #[serde_as(as = "wkt::internal::F32")]
                     pub boost_amount: f32,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24338,6 +24357,7 @@ pub mod search_response {
             /// The confidence scores of the each category, higher
             /// value means higher confidence. Order matches the Categories.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "std::vec::Vec<wkt::internal::F32>")]
             pub scores: std::vec::Vec<f32>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -30172,6 +30192,7 @@ pub struct TransactionInfo {
     /// may include shipping, tax, or other adjustments to the total value that you
     /// want to include.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub value: std::option::Option<f32>,
 
     /// Required. Currency code. Use three-character ISO-4217 code.
@@ -30184,6 +30205,7 @@ pub struct TransactionInfo {
 
     /// All the taxes associated with the transaction.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub tax: std::option::Option<f32>,
 
     /// All the costs associated with the products. These can be manufacturing
@@ -30198,6 +30220,7 @@ pub struct TransactionInfo {
     /// [google.cloud.discoveryengine.v1.TransactionInfo.tax]: crate::model::TransactionInfo::tax
     /// [google.cloud.discoveryengine.v1.TransactionInfo.value]: crate::model::TransactionInfo::value
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub cost: std::option::Option<f32>,
 
     /// The total discount(s) value applied to this transaction.
@@ -30226,6 +30249,7 @@ pub struct TransactionInfo {
     /// [google.cloud.discoveryengine.v1.TransactionInfo.tax]: crate::model::TransactionInfo::tax
     /// [google.cloud.discoveryengine.v1.TransactionInfo.value]: crate::model::TransactionInfo::value
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub discount_value: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -30321,6 +30345,7 @@ pub struct DocumentInfo {
     ///
     /// [google.cloud.discoveryengine.v1.UserEvent.event_type]: crate::model::UserEvent::event_type
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub conversion_value: std::option::Option<f32>,
 
     /// A required descriptor of the associated
@@ -30638,6 +30663,7 @@ pub struct MediaInfo {
     ///
     /// [google.cloud.discoveryengine.v1.MediaInfo.media_progress_duration]: crate::model::MediaInfo::media_progress_duration
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub media_progress_percentage: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

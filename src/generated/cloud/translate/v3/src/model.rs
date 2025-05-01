@@ -4328,6 +4328,7 @@ pub struct DetectedLanguage {
 
     /// The confidence of the detection result for this language.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

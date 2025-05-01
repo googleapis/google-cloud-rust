@@ -337,6 +337,7 @@ pub struct LabelDetectionConfig {
     /// Note: For best results, follow the default threshold. We will update
     /// the default threshold everytime when we release a new model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub frame_confidence_threshold: f32,
 
     /// The confidence threshold we perform filtering on the labels from
@@ -346,6 +347,7 @@ pub struct LabelDetectionConfig {
     /// Note: For best results, follow the default threshold. We will update
     /// the default threshold everytime when we release a new model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub video_confidence_threshold: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -726,6 +728,7 @@ pub struct LabelSegment {
 
     /// Confidence that the label is accurate. Range: [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -772,6 +775,7 @@ pub struct LabelFrame {
 
     /// Confidence that the label is accurate. Range: [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1059,18 +1063,22 @@ impl wkt::message::Message for ExplicitContentAnnotation {
 pub struct NormalizedBoundingBox {
     /// Left X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub left: f32,
 
     /// Top Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub top: f32,
 
     /// Right X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub right: f32,
 
     /// Bottom Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub bottom: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1472,6 +1480,7 @@ pub struct Track {
 
     /// Optional. The confidence score of the tracked object.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1540,6 +1549,7 @@ pub struct DetectedAttribute {
 
     /// Detected attribute confidence. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Text value of the detection result. For example, the value for "HairColor"
@@ -1599,6 +1609,7 @@ pub struct DetectedLandmark {
 
     /// The confidence score of the detected landmark. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2355,6 +2366,7 @@ pub struct SpeechRecognitionAlternative {
     /// to be always provided.
     /// The default of 0.0 is a sentinel value indicating `confidence` was not set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Output only. A list of word-specific information for each recognized word.
@@ -2435,6 +2447,7 @@ pub struct WordInfo {
     /// to be always provided.
     /// The default of 0.0 is a sentinel value indicating `confidence` was not set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Output only. A distinct integer value is assigned for every speaker within
@@ -2506,10 +2519,12 @@ impl wkt::message::Message for WordInfo {
 pub struct NormalizedVertex {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub x: f32,
 
     /// Y coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub y: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2606,6 +2621,7 @@ pub struct TextSegment {
     /// Confidence for the track of detected text. It is calculated as the highest
     /// over all frames where OCR detected text appears.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Information related to the frames where OCR detected text appears.
@@ -2828,6 +2844,7 @@ pub struct ObjectTrackingAnnotation {
 
     /// Object category's labeling confidence of this track.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Information corresponding to all frames where this object track appears.
