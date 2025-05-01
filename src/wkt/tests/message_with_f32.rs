@@ -21,14 +21,16 @@ mod test {
     #[serde_with::serde_as]
     #[serde_with::skip_serializing_none]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[serde(default, rename_all = "camelCase")]
     pub struct MessageWithF32 {
         #[serde_as(as = "google_cloud_wkt::internal::F32")]
         pub singular: f32,
         #[serde_as(as = "Option<google_cloud_wkt::internal::F32>")]
         pub optional: Option<f32>,
+        #[serde(skip_serializing_if = "Vec::is_empty")]
         #[serde_as(as = "Vec<google_cloud_wkt::internal::F32>")]
         pub repeated: Vec<f32>,
+        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
         #[serde_as(as = "std::collections::HashMap<_, google_cloud_wkt::internal::F32>")]
         pub hashmap: std::collections::HashMap<String, f32>,
     }
@@ -46,7 +48,7 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": want, "repeated": [], "hashmap": {}});
+        let want = json!({"singular": want});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithF32>(got)?;
@@ -67,7 +69,7 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": 0.0, "optional": want, "repeated": [], "hashmap": {}});
+        let want = json!({"singular": 0.0, "optional": want});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithF32>(got)?;
@@ -82,7 +84,7 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": 0.0, "repeated": ["Infinity", "-Infinity", "NaN", 9876.5], "hashmap": {}});
+        let want = json!({"singular": 0.0, "repeated": ["Infinity", "-Infinity", "NaN", 9876.5]});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithF32>(got)?;
@@ -106,7 +108,15 @@ mod test {
         };
 
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": 0.0, "repeated": [],"hashmap": {"number": 9876.5, "inf": "Infinity", "-inf": "-Infinity", "nan": "NaN"}});
+        let want = json!({
+            "singular": 0.0,
+            "hashmap": {
+                "number": 9876.5,
+                "inf": "Infinity",
+                "-inf": "-Infinity",
+                "nan": "NaN"
+            }
+        });
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithF32>(got)?;
@@ -123,7 +133,8 @@ mod test {
             return;
         }
         // Consider all infinites floats of the same sign as equal.
-        if (left.is_infinite() && right.is_infinite())
+        if left.is_infinite()
+            && right.is_infinite()
             && left.is_sign_positive() == right.is_sign_positive()
         {
             return;
