@@ -18,7 +18,7 @@ limitations under the License.
 
 Some services return potentially large lists of items, such as rows or resource
 descriptions. To keep CPU and memory usage under control, services return theses
-resources in `pages`: smaller subsets of the items with a continuation token to 
+resources in `pages`: smaller subsets of the items with a continuation token to
 request the next subset.
 
 Iterating over items in this way can be tedious. The client libraries provide
