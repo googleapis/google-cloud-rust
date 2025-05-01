@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use base64::{Engine, engine::general_purpose::STANDARD};
-use serde_with::DeserializeAs;
+use serde_with::{DeserializeAs, SerializeAs};
 
 /// Implements the `google.cloud.DoubleValue` well-known type.
 ///
@@ -251,11 +251,8 @@ impl crate::message::MessageSerializer<FloatValue> for FloatValueSerializer {
         &self,
         message: &FloatValue,
     ) -> Result<crate::message::Map, crate::AnyError> {
-        let value = <crate::internal::F32 as serde_with::SerializeAs<f32>>::serialize_as(
-            message,
-            serde_json::value::Serializer,
-        )
-        .map_err(crate::AnyError::ser)?;
+        let value = crate::internal::F32::serialize_as(message, serde_json::value::Serializer)
+            .map_err(crate::AnyError::ser)?;
         encode_value::<FloatValue>(value)
     }
 
