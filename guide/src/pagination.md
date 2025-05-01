@@ -113,8 +113,8 @@ resource items (e.g. Secrets) along with a "next-page token" that can be passed
 to the List method to retrieve the next page.
 
 The Google Cloud Client Libraries for Rust provide an adapter to converts the
-list RPCs as defined by [AIP-4233] into a \[futures::Stream\] that can be
-iterated over in an async fashion.
+list RPCs as defined by [AIP-4233] into a [`futures::Stream`][future-stub] that
+can be iterated over in an async fashion.
 
 [aip-158]: https://google.aip.dev/158
 [aip-4233]: https://google.aip.dev/client-libraries/4233
