@@ -49,8 +49,6 @@ As it is usual with Rust, you must declare the dependency in your
 In addition, this guide uses `crc32c` to calculate the checksum:
 
 ```toml
-[dependencies]
-{{#include ../samples/Cargo.toml:crc32c}}
 {{#include ../samples/Cargo.toml:crc32c}}
 ```
 

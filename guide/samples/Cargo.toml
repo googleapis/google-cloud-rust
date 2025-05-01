@@ -28,15 +28,6 @@ categories.workspace = true
 name = "getting_started"
 
 [dependencies]
-# ANCHOR: crc32c
-crc32c = "0.6"
-# ANCHOR_END: crc32c
-# ANCHOR: tokio
-tokio = { version = "1", features = ["full", "macros"] }
-# ANCHOR_END: tokio
-# ANCHOR: futures
-futures = "0.3"
-# ANCHOR_END: futures
 # ANCHOR: longrunning
 google-cloud-longrunning = { version = "0.24", path = "../../src/generated/longrunning" }
 # ANCHOR_END: longrunning
@@ -60,6 +51,16 @@ features         = ["prediction_service"]
 # ANCHOR_END: aiplatform
 path = "../../src/generated/cloud/aiplatform/v1"
 
+# ANCHOR: crc32c
+[dependencies.crc32c]
+version = "0.6"
+# ANCHOR_END: crc32c
+
+# ANCHOR: futures
+[dependencies.futures]
+version = "0.3"
+# ANCHOR_END: futures
+
 # ANCHOR: gax-with-streams
 # ANCHOR: gax
 [dependencies.google-cloud-gax]
@@ -74,6 +75,12 @@ path = "../../src/gax"
 mockall = "0.13"
 # ANCHOR_END: mockall
 rand = "0.9"
+
+# ANCHOR: tokio
+[dependencies.tokio]
+version = "1"
+features = ["full", "macros"]
+# ANCHOR_END: tokio
 
 [features]
 run-integration-tests = []
