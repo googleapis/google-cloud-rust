@@ -29,6 +29,8 @@ mod test {
         pub optional: Option<f32>,
         #[serde_as(as = "Vec<google_cloud_wkt::internal::F32>")]
         pub repeated: Vec<f32>,
+        #[serde_as(as = "std::collections::HashMap<_, google_cloud_wkt::internal::F32>")]
+        pub hashmap: std::collections::HashMap<String, f32>,
     }
 
     #[test_case(9876.5, 9876.5)]
@@ -44,7 +46,7 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": want, "repeated": []});
+        let want = json!({"singular": want, "repeated": [], "hashmap": {}});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithF32>(got)?;
@@ -65,7 +67,7 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": 0.0, "optional": want, "repeated": []});
+        let want = json!({"singular": 0.0, "optional": want, "repeated": [], "hashmap": {}});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithF32>(got)?;
@@ -80,11 +82,36 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": 0.0, "repeated": ["Infinity", "-Infinity", "NaN", 9876.5]});
+        let want = json!({"singular": 0.0, "repeated": ["Infinity", "-Infinity", "NaN", 9876.5], "hashmap": {}});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithF32>(got)?;
         for (roundtrip, msg) in roundtrip.repeated.iter().zip(msg.repeated.iter()) {
+            assert_float_eq(*roundtrip, *msg);
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn test_hashmap() -> Result {
+        let mut hashmap = std::collections::HashMap::new();
+        hashmap.insert("number".to_string(), 9876.5);
+        hashmap.insert("inf".to_string(), f32::INFINITY);
+        hashmap.insert("-inf".to_string(), f32::NEG_INFINITY);
+        hashmap.insert("nan".to_string(), f32::NAN);
+
+        let msg = MessageWithF32 {
+            hashmap,
+            ..Default::default()
+        };
+
+        let got = serde_json::to_value(&msg)?;
+        let want = json!({"singular": 0.0, "repeated": [],"hashmap": {"number": 9876.5, "inf": "Infinity", "-inf": "-Infinity", "nan": "NaN"}});
+        assert_eq!(want, got);
+
+        let roundtrip = serde_json::from_value::<MessageWithF32>(got)?;
+        for (k, roundtrip) in roundtrip.hashmap.iter() {
+            let msg = msg.hashmap.get(k).unwrap();
             assert_float_eq(*roundtrip, *msg);
         }
         Ok(())
