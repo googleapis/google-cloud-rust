@@ -18,14 +18,16 @@ mod test {
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[serde_with::serde_as]
-    #[serde_with::skip_serializing_none]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[serde(default, rename_all = "camelCase")]
     pub struct MessageWithI64 {
+        #[serde(skip_serializing_if = "google_cloud_wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub singular: i64,
+        #[serde(skip_serializing_if = "Option::is_none")]
         #[serde_as(as = "Option<serde_with::DisplayFromStr>")]
         pub optional: Option<i64>,
+        #[serde(skip_serializing_if = "Vec::is_empty")]
         #[serde_as(as = "Vec<serde_with::DisplayFromStr>")]
         pub repeated: Vec<i64>,
     }
@@ -42,7 +44,7 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": format!("{TEST_VALUE}"), "repeated": []});
+        let want = json!({"singular": format!("{TEST_VALUE}")});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithI64>(got)?;
@@ -57,7 +59,7 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": "0", "optional": format!("{TEST_VALUE}"), "repeated": []});
+        let want = json!({"optional": format!("{TEST_VALUE}")});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithI64>(got)?;
@@ -72,7 +74,7 @@ mod test {
             ..Default::default()
         };
         let got = serde_json::to_value(&msg)?;
-        let want = json!({"singular": "0", "repeated": [format!("{TEST_VALUE}")]});
+        let want = json!({"repeated": [format!("{TEST_VALUE}")]});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithI64>(got)?;
