@@ -217,6 +217,7 @@ func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packa
 			m := &api.Method{
 				Name:          op.Operation.OperationId,
 				ID:            mID,
+				Deprecated:    op.Operation.Deprecated != nil && *op.Operation.Deprecated,
 				Documentation: op.Operation.Description,
 				InputTypeID:   requestMessage.ID,
 				OutputTypeID:  responseMessage.ID,
@@ -340,6 +341,7 @@ func makeRequestMessage(a *api.API, operation *v3.Operation, packageName, templa
 			Name:          p.Name,
 			JSONName:      p.Name, // OpenAPI fields are already camelCase
 			Documentation: documentation,
+			Deprecated:    p.Deprecated,
 			Optional:      openapiFieldIsOptional(p),
 			Typez:         typez,
 			TypezID:       typezID,
@@ -467,6 +469,7 @@ func makeScalarField(messageName, name string, schema *base.Schema, optional boo
 		Documentation: field.Description,
 		Typez:         typez,
 		TypezID:       typezID,
+		Deprecated:    field.Deprecated != nil && *field.Deprecated,
 		Optional:      optional || (typez == api.MESSAGE_TYPE),
 	}, nil
 }
@@ -489,6 +492,7 @@ func makeObjectField(state *api.APIState, packageName, messageName, name string,
 				Name:          name,
 				JSONName:      name, // OpenAPI field names are always camelCase
 				Documentation: field.Description,
+				Deprecated:    field.Deprecated != nil && *field.Deprecated,
 				Typez:         api.MESSAGE_TYPE,
 				TypezID:       ".google.protobuf.Any",
 				Optional:      true,
@@ -502,6 +506,7 @@ func makeObjectField(state *api.APIState, packageName, messageName, name string,
 			Name:          name,
 			JSONName:      name, // OpenAPI field names are always camelCase
 			Documentation: field.Description,
+			Deprecated:    field.Deprecated != nil && *field.Deprecated,
 			Typez:         api.MESSAGE_TYPE,
 			TypezID:       message.ID,
 			Optional:      false,
@@ -514,6 +519,7 @@ func makeObjectField(state *api.APIState, packageName, messageName, name string,
 			Name:          name,
 			JSONName:      name, // OpenAPI field names are always camelCase
 			Documentation: field.Description,
+			Deprecated:    field.Deprecated != nil && *field.Deprecated,
 			Typez:         api.MESSAGE_TYPE,
 			TypezID:       typezID,
 			Optional:      true,
@@ -545,6 +551,7 @@ func makeArrayField(state *api.APIState, packageName, messageName, name string, 
 				Name:          name,
 				JSONName:      name, // OpenAPI field names are always camelCase
 				Documentation: field.Description,
+				Deprecated:    field.Deprecated != nil && *field.Deprecated,
 				Typez:         api.MESSAGE_TYPE,
 				TypezID:       typezID,
 			}
@@ -570,6 +577,7 @@ func makeObjectFieldAllOf(packageName, messageName, name string, field *base.Sch
 			Name:          name,
 			JSONName:      name, // OpenAPI field names are always camelCase
 			Documentation: field.Description,
+			Deprecated:    field.Deprecated != nil && *field.Deprecated,
 			Typez:         api.MESSAGE_TYPE,
 			TypezID:       typezID,
 			Optional:      true,
