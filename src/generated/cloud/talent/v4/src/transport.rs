@@ -229,8 +229,8 @@ impl super::stub::Completion for Completion {
             .fold(builder, |builder, p| builder.query(&[("languageCodes", p)]));
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("company", &req.company)]);
-        let builder = builder.query(&[("scope", &req.scope.value())]);
-        let builder = builder.query(&[("type", &req.r#type.value())]);
+        let builder = builder.query(&[("scope", &req.scope)]);
+        let builder = builder.query(&[("type", &req.r#type)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -510,7 +510,7 @@ impl super::stub::JobService for JobService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("jobView", &req.job_view.value())]);
+        let builder = builder.query(&[("jobView", &req.job_view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

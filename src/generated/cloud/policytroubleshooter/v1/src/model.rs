@@ -538,83 +538,138 @@ pub mod binding_explanation {
     }
 
     /// Whether a role includes a specific permission.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RolePermission(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RolePermission {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// The permission is included in the role.
+        Included,
+        /// The permission is not included in the role.
+        NotIncluded,
+        /// The sender of the request is not allowed to access the binding.
+        UnknownInfoDenied,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RolePermission::value] or
+        /// [RolePermission::name].
+        UnknownValue(role_permission::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod role_permission {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl RolePermission {
-        /// Default value. This value is unused.
-        pub const ROLE_PERMISSION_UNSPECIFIED: RolePermission = RolePermission::new(0);
-
-        /// The permission is included in the role.
-        pub const ROLE_PERMISSION_INCLUDED: RolePermission = RolePermission::new(1);
-
-        /// The permission is not included in the role.
-        pub const ROLE_PERMISSION_NOT_INCLUDED: RolePermission = RolePermission::new(2);
-
-        /// The sender of the request is not allowed to access the binding.
-        pub const ROLE_PERMISSION_UNKNOWN_INFO_DENIED: RolePermission = RolePermission::new(3);
-
-        /// Creates a new RolePermission instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Included => std::option::Option::Some(1),
+                Self::NotIncluded => std::option::Option::Some(2),
+                Self::UnknownInfoDenied => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ROLE_PERMISSION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ROLE_PERMISSION_INCLUDED"),
-                2 => std::borrow::Cow::Borrowed("ROLE_PERMISSION_NOT_INCLUDED"),
-                3 => std::borrow::Cow::Borrowed("ROLE_PERMISSION_UNKNOWN_INFO_DENIED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ROLE_PERMISSION_UNSPECIFIED"),
+                Self::Included => std::option::Option::Some("ROLE_PERMISSION_INCLUDED"),
+                Self::NotIncluded => std::option::Option::Some("ROLE_PERMISSION_NOT_INCLUDED"),
+                Self::UnknownInfoDenied => {
+                    std::option::Option::Some("ROLE_PERMISSION_UNKNOWN_INFO_DENIED")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ROLE_PERMISSION_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::ROLE_PERMISSION_UNSPECIFIED)
-                }
-                "ROLE_PERMISSION_INCLUDED" => {
-                    std::option::Option::Some(Self::ROLE_PERMISSION_INCLUDED)
-                }
-                "ROLE_PERMISSION_NOT_INCLUDED" => {
-                    std::option::Option::Some(Self::ROLE_PERMISSION_NOT_INCLUDED)
-                }
-                "ROLE_PERMISSION_UNKNOWN_INFO_DENIED" => {
-                    std::option::Option::Some(Self::ROLE_PERMISSION_UNKNOWN_INFO_DENIED)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for RolePermission {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for RolePermission {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RolePermission {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RolePermission {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Included,
+                2 => Self::NotIncluded,
+                3 => Self::UnknownInfoDenied,
+                _ => Self::UnknownValue(role_permission::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RolePermission {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ROLE_PERMISSION_UNSPECIFIED" => Self::Unspecified,
+                "ROLE_PERMISSION_INCLUDED" => Self::Included,
+                "ROLE_PERMISSION_NOT_INCLUDED" => Self::NotIncluded,
+                "ROLE_PERMISSION_UNKNOWN_INFO_DENIED" => Self::UnknownInfoDenied,
+                _ => Self::UnknownValue(role_permission::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RolePermission {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Included => serializer.serialize_i32(1),
+                Self::NotIncluded => serializer.serialize_i32(2),
+                Self::UnknownInfoDenied => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RolePermission {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RolePermission>::new(
+                ".google.cloud.policytroubleshooter.v1.BindingExplanation.RolePermission",
+            ))
         }
     }
 
     /// Whether the binding includes the principal.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Membership(i32);
-
-    impl Membership {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Membership {
         /// Default value. This value is unused.
-        pub const MEMBERSHIP_UNSPECIFIED: Membership = Membership::new(0);
-
+        Unspecified,
         /// The binding includes the principal. The principal can be included
         /// directly or indirectly. For example:
         ///
@@ -622,200 +677,389 @@ pub mod binding_explanation {
         ///   binding.
         /// * A principal is included indirectly if that principal is in a Google
         ///   group or Google Workspace domain that is listed in the binding.
-        pub const MEMBERSHIP_INCLUDED: Membership = Membership::new(1);
-
+        Included,
         /// The binding does not include the principal.
-        pub const MEMBERSHIP_NOT_INCLUDED: Membership = Membership::new(2);
-
+        NotIncluded,
         /// The sender of the request is not allowed to access the binding.
-        pub const MEMBERSHIP_UNKNOWN_INFO_DENIED: Membership = Membership::new(3);
-
+        UnknownInfoDenied,
         /// The principal is an unsupported type. Only Google Accounts and service
         /// accounts are supported.
-        pub const MEMBERSHIP_UNKNOWN_UNSUPPORTED: Membership = Membership::new(4);
+        UnknownUnsupported,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Membership::value] or
+        /// [Membership::name].
+        UnknownValue(membership::UnknownValue),
+    }
 
-        /// Creates a new Membership instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod membership {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Membership {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Included => std::option::Option::Some(1),
+                Self::NotIncluded => std::option::Option::Some(2),
+                Self::UnknownInfoDenied => std::option::Option::Some(3),
+                Self::UnknownUnsupported => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("MEMBERSHIP_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("MEMBERSHIP_INCLUDED"),
-                2 => std::borrow::Cow::Borrowed("MEMBERSHIP_NOT_INCLUDED"),
-                3 => std::borrow::Cow::Borrowed("MEMBERSHIP_UNKNOWN_INFO_DENIED"),
-                4 => std::borrow::Cow::Borrowed("MEMBERSHIP_UNKNOWN_UNSUPPORTED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MEMBERSHIP_UNSPECIFIED"),
+                Self::Included => std::option::Option::Some("MEMBERSHIP_INCLUDED"),
+                Self::NotIncluded => std::option::Option::Some("MEMBERSHIP_NOT_INCLUDED"),
+                Self::UnknownInfoDenied => {
+                    std::option::Option::Some("MEMBERSHIP_UNKNOWN_INFO_DENIED")
+                }
+                Self::UnknownUnsupported => {
+                    std::option::Option::Some("MEMBERSHIP_UNKNOWN_UNSUPPORTED")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "MEMBERSHIP_UNSPECIFIED" => std::option::Option::Some(Self::MEMBERSHIP_UNSPECIFIED),
-                "MEMBERSHIP_INCLUDED" => std::option::Option::Some(Self::MEMBERSHIP_INCLUDED),
-                "MEMBERSHIP_NOT_INCLUDED" => {
-                    std::option::Option::Some(Self::MEMBERSHIP_NOT_INCLUDED)
-                }
-                "MEMBERSHIP_UNKNOWN_INFO_DENIED" => {
-                    std::option::Option::Some(Self::MEMBERSHIP_UNKNOWN_INFO_DENIED)
-                }
-                "MEMBERSHIP_UNKNOWN_UNSUPPORTED" => {
-                    std::option::Option::Some(Self::MEMBERSHIP_UNKNOWN_UNSUPPORTED)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Membership {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Membership {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Membership {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Membership {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Included,
+                2 => Self::NotIncluded,
+                3 => Self::UnknownInfoDenied,
+                4 => Self::UnknownUnsupported,
+                _ => Self::UnknownValue(membership::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Membership {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MEMBERSHIP_UNSPECIFIED" => Self::Unspecified,
+                "MEMBERSHIP_INCLUDED" => Self::Included,
+                "MEMBERSHIP_NOT_INCLUDED" => Self::NotIncluded,
+                "MEMBERSHIP_UNKNOWN_INFO_DENIED" => Self::UnknownInfoDenied,
+                "MEMBERSHIP_UNKNOWN_UNSUPPORTED" => Self::UnknownUnsupported,
+                _ => Self::UnknownValue(membership::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Membership {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Included => serializer.serialize_i32(1),
+                Self::NotIncluded => serializer.serialize_i32(2),
+                Self::UnknownInfoDenied => serializer.serialize_i32(3),
+                Self::UnknownUnsupported => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Membership {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Membership>::new(
+                ".google.cloud.policytroubleshooter.v1.BindingExplanation.Membership",
+            ))
         }
     }
 }
 
 /// Whether a principal has a permission for a resource.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AccessState(i32);
-
-impl AccessState {
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum AccessState {
     /// Default value. This value is unused.
-    pub const ACCESS_STATE_UNSPECIFIED: AccessState = AccessState::new(0);
-
+    Unspecified,
     /// The principal has the permission.
-    pub const GRANTED: AccessState = AccessState::new(1);
-
+    Granted,
     /// The principal does not have the permission.
-    pub const NOT_GRANTED: AccessState = AccessState::new(2);
-
+    NotGranted,
     /// The principal has the permission only if a condition expression evaluates
     /// to `true`.
-    pub const UNKNOWN_CONDITIONAL: AccessState = AccessState::new(3);
-
+    UnknownConditional,
     /// The sender of the request does not have access to all of the policies that
     /// Policy Troubleshooter needs to evaluate.
-    pub const UNKNOWN_INFO_DENIED: AccessState = AccessState::new(4);
+    UnknownInfoDenied,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [AccessState::value] or
+    /// [AccessState::name].
+    UnknownValue(access_state::UnknownValue),
+}
 
-    /// Creates a new AccessState instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod access_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl AccessState {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Granted => std::option::Option::Some(1),
+            Self::NotGranted => std::option::Option::Some(2),
+            Self::UnknownConditional => std::option::Option::Some(3),
+            Self::UnknownInfoDenied => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("ACCESS_STATE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("GRANTED"),
-            2 => std::borrow::Cow::Borrowed("NOT_GRANTED"),
-            3 => std::borrow::Cow::Borrowed("UNKNOWN_CONDITIONAL"),
-            4 => std::borrow::Cow::Borrowed("UNKNOWN_INFO_DENIED"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("ACCESS_STATE_UNSPECIFIED"),
+            Self::Granted => std::option::Option::Some("GRANTED"),
+            Self::NotGranted => std::option::Option::Some("NOT_GRANTED"),
+            Self::UnknownConditional => std::option::Option::Some("UNKNOWN_CONDITIONAL"),
+            Self::UnknownInfoDenied => std::option::Option::Some("UNKNOWN_INFO_DENIED"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "ACCESS_STATE_UNSPECIFIED" => std::option::Option::Some(Self::ACCESS_STATE_UNSPECIFIED),
-            "GRANTED" => std::option::Option::Some(Self::GRANTED),
-            "NOT_GRANTED" => std::option::Option::Some(Self::NOT_GRANTED),
-            "UNKNOWN_CONDITIONAL" => std::option::Option::Some(Self::UNKNOWN_CONDITIONAL),
-            "UNKNOWN_INFO_DENIED" => std::option::Option::Some(Self::UNKNOWN_INFO_DENIED),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for AccessState {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for AccessState {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for AccessState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for AccessState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Granted,
+            2 => Self::NotGranted,
+            3 => Self::UnknownConditional,
+            4 => Self::UnknownInfoDenied,
+            _ => Self::UnknownValue(access_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for AccessState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "ACCESS_STATE_UNSPECIFIED" => Self::Unspecified,
+            "GRANTED" => Self::Granted,
+            "NOT_GRANTED" => Self::NotGranted,
+            "UNKNOWN_CONDITIONAL" => Self::UnknownConditional,
+            "UNKNOWN_INFO_DENIED" => Self::UnknownInfoDenied,
+            _ => Self::UnknownValue(access_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for AccessState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Granted => serializer.serialize_i32(1),
+            Self::NotGranted => serializer.serialize_i32(2),
+            Self::UnknownConditional => serializer.serialize_i32(3),
+            Self::UnknownInfoDenied => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AccessState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<AccessState>::new(
+            ".google.cloud.policytroubleshooter.v1.AccessState",
+        ))
     }
 }
 
 /// The extent to which a single data point, such as the existence of a binding
 /// or whether a binding includes a specific principal, contributes to an overall
 /// determination.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HeuristicRelevance(i32);
-
-impl HeuristicRelevance {
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum HeuristicRelevance {
     /// Default value. This value is unused.
-    pub const HEURISTIC_RELEVANCE_UNSPECIFIED: HeuristicRelevance = HeuristicRelevance::new(0);
-
+    Unspecified,
     /// The data point has a limited effect on the result. Changing the data point
     /// is unlikely to affect the overall determination.
-    pub const NORMAL: HeuristicRelevance = HeuristicRelevance::new(1);
-
+    Normal,
     /// The data point has a strong effect on the result. Changing the data point
     /// is likely to affect the overall determination.
-    pub const HIGH: HeuristicRelevance = HeuristicRelevance::new(2);
+    High,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [HeuristicRelevance::value] or
+    /// [HeuristicRelevance::name].
+    UnknownValue(heuristic_relevance::UnknownValue),
+}
 
-    /// Creates a new HeuristicRelevance instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod heuristic_relevance {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl HeuristicRelevance {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Normal => std::option::Option::Some(1),
+            Self::High => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("HEURISTIC_RELEVANCE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("NORMAL"),
-            2 => std::borrow::Cow::Borrowed("HIGH"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("HEURISTIC_RELEVANCE_UNSPECIFIED"),
+            Self::Normal => std::option::Option::Some("NORMAL"),
+            Self::High => std::option::Option::Some("HIGH"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "HEURISTIC_RELEVANCE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::HEURISTIC_RELEVANCE_UNSPECIFIED)
-            }
-            "NORMAL" => std::option::Option::Some(Self::NORMAL),
-            "HIGH" => std::option::Option::Some(Self::HIGH),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for HeuristicRelevance {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for HeuristicRelevance {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for HeuristicRelevance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for HeuristicRelevance {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Normal,
+            2 => Self::High,
+            _ => Self::UnknownValue(heuristic_relevance::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for HeuristicRelevance {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "HEURISTIC_RELEVANCE_UNSPECIFIED" => Self::Unspecified,
+            "NORMAL" => Self::Normal,
+            "HIGH" => Self::High,
+            _ => Self::UnknownValue(heuristic_relevance::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for HeuristicRelevance {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Normal => serializer.serialize_i32(1),
+            Self::High => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for HeuristicRelevance {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<HeuristicRelevance>::new(
+            ".google.cloud.policytroubleshooter.v1.HeuristicRelevance",
+        ))
     }
 }

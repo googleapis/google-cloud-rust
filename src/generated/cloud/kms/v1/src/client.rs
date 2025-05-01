@@ -927,8 +927,8 @@ impl KeyManagementService {
     /// or
     /// [ASYMMETRIC_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_DECRYPT].
     ///
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ASYMMETRIC_DECRYPT
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_SIGN]: crate::model::crypto_key::crypto_key_purpose::ASYMMETRIC_SIGN
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::AsymmetricDecrypt
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ASYMMETRIC_SIGN]: crate::model::crypto_key::CryptoKeyPurpose::AsymmetricSign
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     pub fn get_public_key(
@@ -990,7 +990,7 @@ impl KeyManagementService {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Enabled
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     pub fn create_crypto_key_version(
         &self,
@@ -1061,8 +1061,8 @@ impl KeyManagementService {
     /// to move between other states.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]: crate::model::crypto_key_version::crypto_key_version_state::DISABLED
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Disabled
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Enabled
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     /// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::client::KeyManagementService::destroy_crypto_key_version
     /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
@@ -1082,7 +1082,7 @@ impl KeyManagementService {
     /// [ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT].
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
     /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
     pub fn update_crypto_key_primary_version(
         &self,
@@ -1118,8 +1118,8 @@ impl KeyManagementService {
     ///
     /// [google.cloud.kms.v1.CryptoKey.destroy_scheduled_duration]: crate::model::CryptoKey::destroy_scheduled_duration
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED]: crate::model::crypto_key_version::crypto_key_version_state::DESTROYED
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]: crate::model::crypto_key_version::crypto_key_version_state::DESTROY_SCHEDULED
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROYED]: crate::model::crypto_key_version::CryptoKeyVersionState::Destroyed
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]: crate::model::crypto_key_version::CryptoKeyVersionState::DestroyScheduled
     /// [google.cloud.kms.v1.CryptoKeyVersion.destroy_time]: crate::model::CryptoKeyVersion::destroy_time
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
@@ -1142,8 +1142,8 @@ impl KeyManagementService {
     /// be cleared.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]: crate::model::crypto_key_version::crypto_key_version_state::DESTROY_SCHEDULED
-    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]: crate::model::crypto_key_version::crypto_key_version_state::DISABLED
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]: crate::model::crypto_key_version::CryptoKeyVersionState::DestroyScheduled
+    /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]: crate::model::crypto_key_version::CryptoKeyVersionState::Disabled
     /// [google.cloud.kms.v1.CryptoKeyVersion.destroy_time]: crate::model::CryptoKeyVersion::destroy_time
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     pub fn restore_crypto_key_version(
@@ -1159,7 +1159,7 @@ impl KeyManagementService {
     /// [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose] must be
     /// [ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT].
     ///
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
     pub fn encrypt(
@@ -1175,7 +1175,7 @@ impl KeyManagementService {
     /// [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose] must be
     /// [ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT].
     ///
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::EncryptDecrypt
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
     pub fn decrypt(
@@ -1193,7 +1193,7 @@ impl KeyManagementService {
     /// [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose] must be
     /// [RAW_ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.RAW_ENCRYPT_DECRYPT].
     ///
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.RAW_ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::RAW_ENCRYPT_DECRYPT
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.RAW_ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::RawEncryptDecrypt
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
     /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
@@ -1210,7 +1210,7 @@ impl KeyManagementService {
     /// must be
     /// [RAW_ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.RAW_ENCRYPT_DECRYPT].
     ///
-    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.RAW_ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::RAW_ENCRYPT_DECRYPT
+    /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.RAW_ENCRYPT_DECRYPT]: crate::model::crypto_key::CryptoKeyPurpose::RawEncryptDecrypt
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     pub fn raw_decrypt(
         &self,

@@ -1312,189 +1312,341 @@ pub mod listing {
     }
 
     /// State of the listing.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Subscribable state. Users with dataexchange.listings.subscribe permission
         /// can subscribe to this listing.
-        pub const ACTIVE: State = State::new(1);
+        Active,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ACTIVE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.bigquery.analyticshub.v1.Listing.State",
+            ))
         }
     }
 
     /// Listing categories.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Category(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Category {
+        Unspecified,
+        Others,
+        AdvertisingAndMarketing,
+        Commerce,
+        ClimateAndEnvironment,
+        Demographics,
+        Economics,
+        Education,
+        Energy,
+        Financial,
+        Gaming,
+        Geospatial,
+        HealthcareAndLifeScience,
+        Media,
+        PublicSector,
+        Retail,
+        Sports,
+        ScienceAndResearch,
+        TransportationAndLogistics,
+        TravelAndTourism,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Category::value] or
+        /// [Category::name].
+        UnknownValue(category::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod category {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Category {
-        pub const CATEGORY_UNSPECIFIED: Category = Category::new(0);
-
-        pub const CATEGORY_OTHERS: Category = Category::new(1);
-
-        pub const CATEGORY_ADVERTISING_AND_MARKETING: Category = Category::new(2);
-
-        pub const CATEGORY_COMMERCE: Category = Category::new(3);
-
-        pub const CATEGORY_CLIMATE_AND_ENVIRONMENT: Category = Category::new(4);
-
-        pub const CATEGORY_DEMOGRAPHICS: Category = Category::new(5);
-
-        pub const CATEGORY_ECONOMICS: Category = Category::new(6);
-
-        pub const CATEGORY_EDUCATION: Category = Category::new(7);
-
-        pub const CATEGORY_ENERGY: Category = Category::new(8);
-
-        pub const CATEGORY_FINANCIAL: Category = Category::new(9);
-
-        pub const CATEGORY_GAMING: Category = Category::new(10);
-
-        pub const CATEGORY_GEOSPATIAL: Category = Category::new(11);
-
-        pub const CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE: Category = Category::new(12);
-
-        pub const CATEGORY_MEDIA: Category = Category::new(13);
-
-        pub const CATEGORY_PUBLIC_SECTOR: Category = Category::new(14);
-
-        pub const CATEGORY_RETAIL: Category = Category::new(15);
-
-        pub const CATEGORY_SPORTS: Category = Category::new(16);
-
-        pub const CATEGORY_SCIENCE_AND_RESEARCH: Category = Category::new(17);
-
-        pub const CATEGORY_TRANSPORTATION_AND_LOGISTICS: Category = Category::new(18);
-
-        pub const CATEGORY_TRAVEL_AND_TOURISM: Category = Category::new(19);
-
-        /// Creates a new Category instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Others => std::option::Option::Some(1),
+                Self::AdvertisingAndMarketing => std::option::Option::Some(2),
+                Self::Commerce => std::option::Option::Some(3),
+                Self::ClimateAndEnvironment => std::option::Option::Some(4),
+                Self::Demographics => std::option::Option::Some(5),
+                Self::Economics => std::option::Option::Some(6),
+                Self::Education => std::option::Option::Some(7),
+                Self::Energy => std::option::Option::Some(8),
+                Self::Financial => std::option::Option::Some(9),
+                Self::Gaming => std::option::Option::Some(10),
+                Self::Geospatial => std::option::Option::Some(11),
+                Self::HealthcareAndLifeScience => std::option::Option::Some(12),
+                Self::Media => std::option::Option::Some(13),
+                Self::PublicSector => std::option::Option::Some(14),
+                Self::Retail => std::option::Option::Some(15),
+                Self::Sports => std::option::Option::Some(16),
+                Self::ScienceAndResearch => std::option::Option::Some(17),
+                Self::TransportationAndLogistics => std::option::Option::Some(18),
+                Self::TravelAndTourism => std::option::Option::Some(19),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CATEGORY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CATEGORY_OTHERS"),
-                2 => std::borrow::Cow::Borrowed("CATEGORY_ADVERTISING_AND_MARKETING"),
-                3 => std::borrow::Cow::Borrowed("CATEGORY_COMMERCE"),
-                4 => std::borrow::Cow::Borrowed("CATEGORY_CLIMATE_AND_ENVIRONMENT"),
-                5 => std::borrow::Cow::Borrowed("CATEGORY_DEMOGRAPHICS"),
-                6 => std::borrow::Cow::Borrowed("CATEGORY_ECONOMICS"),
-                7 => std::borrow::Cow::Borrowed("CATEGORY_EDUCATION"),
-                8 => std::borrow::Cow::Borrowed("CATEGORY_ENERGY"),
-                9 => std::borrow::Cow::Borrowed("CATEGORY_FINANCIAL"),
-                10 => std::borrow::Cow::Borrowed("CATEGORY_GAMING"),
-                11 => std::borrow::Cow::Borrowed("CATEGORY_GEOSPATIAL"),
-                12 => std::borrow::Cow::Borrowed("CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE"),
-                13 => std::borrow::Cow::Borrowed("CATEGORY_MEDIA"),
-                14 => std::borrow::Cow::Borrowed("CATEGORY_PUBLIC_SECTOR"),
-                15 => std::borrow::Cow::Borrowed("CATEGORY_RETAIL"),
-                16 => std::borrow::Cow::Borrowed("CATEGORY_SPORTS"),
-                17 => std::borrow::Cow::Borrowed("CATEGORY_SCIENCE_AND_RESEARCH"),
-                18 => std::borrow::Cow::Borrowed("CATEGORY_TRANSPORTATION_AND_LOGISTICS"),
-                19 => std::borrow::Cow::Borrowed("CATEGORY_TRAVEL_AND_TOURISM"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CATEGORY_UNSPECIFIED"),
+                Self::Others => std::option::Option::Some("CATEGORY_OTHERS"),
+                Self::AdvertisingAndMarketing => {
+                    std::option::Option::Some("CATEGORY_ADVERTISING_AND_MARKETING")
+                }
+                Self::Commerce => std::option::Option::Some("CATEGORY_COMMERCE"),
+                Self::ClimateAndEnvironment => {
+                    std::option::Option::Some("CATEGORY_CLIMATE_AND_ENVIRONMENT")
+                }
+                Self::Demographics => std::option::Option::Some("CATEGORY_DEMOGRAPHICS"),
+                Self::Economics => std::option::Option::Some("CATEGORY_ECONOMICS"),
+                Self::Education => std::option::Option::Some("CATEGORY_EDUCATION"),
+                Self::Energy => std::option::Option::Some("CATEGORY_ENERGY"),
+                Self::Financial => std::option::Option::Some("CATEGORY_FINANCIAL"),
+                Self::Gaming => std::option::Option::Some("CATEGORY_GAMING"),
+                Self::Geospatial => std::option::Option::Some("CATEGORY_GEOSPATIAL"),
+                Self::HealthcareAndLifeScience => {
+                    std::option::Option::Some("CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE")
+                }
+                Self::Media => std::option::Option::Some("CATEGORY_MEDIA"),
+                Self::PublicSector => std::option::Option::Some("CATEGORY_PUBLIC_SECTOR"),
+                Self::Retail => std::option::Option::Some("CATEGORY_RETAIL"),
+                Self::Sports => std::option::Option::Some("CATEGORY_SPORTS"),
+                Self::ScienceAndResearch => {
+                    std::option::Option::Some("CATEGORY_SCIENCE_AND_RESEARCH")
+                }
+                Self::TransportationAndLogistics => {
+                    std::option::Option::Some("CATEGORY_TRANSPORTATION_AND_LOGISTICS")
+                }
+                Self::TravelAndTourism => std::option::Option::Some("CATEGORY_TRAVEL_AND_TOURISM"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CATEGORY_UNSPECIFIED" => std::option::Option::Some(Self::CATEGORY_UNSPECIFIED),
-                "CATEGORY_OTHERS" => std::option::Option::Some(Self::CATEGORY_OTHERS),
-                "CATEGORY_ADVERTISING_AND_MARKETING" => {
-                    std::option::Option::Some(Self::CATEGORY_ADVERTISING_AND_MARKETING)
-                }
-                "CATEGORY_COMMERCE" => std::option::Option::Some(Self::CATEGORY_COMMERCE),
-                "CATEGORY_CLIMATE_AND_ENVIRONMENT" => {
-                    std::option::Option::Some(Self::CATEGORY_CLIMATE_AND_ENVIRONMENT)
-                }
-                "CATEGORY_DEMOGRAPHICS" => std::option::Option::Some(Self::CATEGORY_DEMOGRAPHICS),
-                "CATEGORY_ECONOMICS" => std::option::Option::Some(Self::CATEGORY_ECONOMICS),
-                "CATEGORY_EDUCATION" => std::option::Option::Some(Self::CATEGORY_EDUCATION),
-                "CATEGORY_ENERGY" => std::option::Option::Some(Self::CATEGORY_ENERGY),
-                "CATEGORY_FINANCIAL" => std::option::Option::Some(Self::CATEGORY_FINANCIAL),
-                "CATEGORY_GAMING" => std::option::Option::Some(Self::CATEGORY_GAMING),
-                "CATEGORY_GEOSPATIAL" => std::option::Option::Some(Self::CATEGORY_GEOSPATIAL),
-                "CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE" => {
-                    std::option::Option::Some(Self::CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE)
-                }
-                "CATEGORY_MEDIA" => std::option::Option::Some(Self::CATEGORY_MEDIA),
-                "CATEGORY_PUBLIC_SECTOR" => std::option::Option::Some(Self::CATEGORY_PUBLIC_SECTOR),
-                "CATEGORY_RETAIL" => std::option::Option::Some(Self::CATEGORY_RETAIL),
-                "CATEGORY_SPORTS" => std::option::Option::Some(Self::CATEGORY_SPORTS),
-                "CATEGORY_SCIENCE_AND_RESEARCH" => {
-                    std::option::Option::Some(Self::CATEGORY_SCIENCE_AND_RESEARCH)
-                }
-                "CATEGORY_TRANSPORTATION_AND_LOGISTICS" => {
-                    std::option::Option::Some(Self::CATEGORY_TRANSPORTATION_AND_LOGISTICS)
-                }
-                "CATEGORY_TRAVEL_AND_TOURISM" => {
-                    std::option::Option::Some(Self::CATEGORY_TRAVEL_AND_TOURISM)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Category {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Category {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Category {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Category {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Others,
+                2 => Self::AdvertisingAndMarketing,
+                3 => Self::Commerce,
+                4 => Self::ClimateAndEnvironment,
+                5 => Self::Demographics,
+                6 => Self::Economics,
+                7 => Self::Education,
+                8 => Self::Energy,
+                9 => Self::Financial,
+                10 => Self::Gaming,
+                11 => Self::Geospatial,
+                12 => Self::HealthcareAndLifeScience,
+                13 => Self::Media,
+                14 => Self::PublicSector,
+                15 => Self::Retail,
+                16 => Self::Sports,
+                17 => Self::ScienceAndResearch,
+                18 => Self::TransportationAndLogistics,
+                19 => Self::TravelAndTourism,
+                _ => Self::UnknownValue(category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Category {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CATEGORY_UNSPECIFIED" => Self::Unspecified,
+                "CATEGORY_OTHERS" => Self::Others,
+                "CATEGORY_ADVERTISING_AND_MARKETING" => Self::AdvertisingAndMarketing,
+                "CATEGORY_COMMERCE" => Self::Commerce,
+                "CATEGORY_CLIMATE_AND_ENVIRONMENT" => Self::ClimateAndEnvironment,
+                "CATEGORY_DEMOGRAPHICS" => Self::Demographics,
+                "CATEGORY_ECONOMICS" => Self::Economics,
+                "CATEGORY_EDUCATION" => Self::Education,
+                "CATEGORY_ENERGY" => Self::Energy,
+                "CATEGORY_FINANCIAL" => Self::Financial,
+                "CATEGORY_GAMING" => Self::Gaming,
+                "CATEGORY_GEOSPATIAL" => Self::Geospatial,
+                "CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE" => Self::HealthcareAndLifeScience,
+                "CATEGORY_MEDIA" => Self::Media,
+                "CATEGORY_PUBLIC_SECTOR" => Self::PublicSector,
+                "CATEGORY_RETAIL" => Self::Retail,
+                "CATEGORY_SPORTS" => Self::Sports,
+                "CATEGORY_SCIENCE_AND_RESEARCH" => Self::ScienceAndResearch,
+                "CATEGORY_TRANSPORTATION_AND_LOGISTICS" => Self::TransportationAndLogistics,
+                "CATEGORY_TRAVEL_AND_TOURISM" => Self::TravelAndTourism,
+                _ => Self::UnknownValue(category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Category {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Others => serializer.serialize_i32(1),
+                Self::AdvertisingAndMarketing => serializer.serialize_i32(2),
+                Self::Commerce => serializer.serialize_i32(3),
+                Self::ClimateAndEnvironment => serializer.serialize_i32(4),
+                Self::Demographics => serializer.serialize_i32(5),
+                Self::Economics => serializer.serialize_i32(6),
+                Self::Education => serializer.serialize_i32(7),
+                Self::Energy => serializer.serialize_i32(8),
+                Self::Financial => serializer.serialize_i32(9),
+                Self::Gaming => serializer.serialize_i32(10),
+                Self::Geospatial => serializer.serialize_i32(11),
+                Self::HealthcareAndLifeScience => serializer.serialize_i32(12),
+                Self::Media => serializer.serialize_i32(13),
+                Self::PublicSector => serializer.serialize_i32(14),
+                Self::Retail => serializer.serialize_i32(15),
+                Self::Sports => serializer.serialize_i32(16),
+                Self::ScienceAndResearch => serializer.serialize_i32(17),
+                Self::TransportationAndLogistics => serializer.serialize_i32(18),
+                Self::TravelAndTourism => serializer.serialize_i32(19),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Category {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Category>::new(
+                ".google.cloud.bigquery.analyticshub.v1.Listing.Category",
+            ))
         }
     }
 
@@ -1882,66 +2034,129 @@ pub mod subscription {
     }
 
     /// State of the subscription.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// This subscription is active and the data is accessible.
-        pub const STATE_ACTIVE: State = State::new(1);
-
+        Active,
         /// The data referenced by this subscription is out of date and should be
         /// refreshed. This can happen when a data provider adds or removes datasets.
-        pub const STATE_STALE: State = State::new(2);
-
+        Stale,
         /// This subscription has been cancelled or revoked and the data is no longer
         /// accessible.
-        pub const STATE_INACTIVE: State = State::new(3);
+        Inactive,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Stale => std::option::Option::Some(2),
+                Self::Inactive => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("STATE_ACTIVE"),
-                2 => std::borrow::Cow::Borrowed("STATE_STALE"),
-                3 => std::borrow::Cow::Borrowed("STATE_INACTIVE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("STATE_ACTIVE"),
+                Self::Stale => std::option::Option::Some("STATE_STALE"),
+                Self::Inactive => std::option::Option::Some("STATE_INACTIVE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "STATE_ACTIVE" => std::option::Option::Some(Self::STATE_ACTIVE),
-                "STATE_STALE" => std::option::Option::Some(Self::STATE_STALE),
-                "STATE_INACTIVE" => std::option::Option::Some(Self::STATE_INACTIVE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Stale,
+                3 => Self::Inactive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "STATE_ACTIVE" => Self::Active,
+                "STATE_STALE" => Self::Stale,
+                "STATE_INACTIVE" => Self::Inactive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Stale => serializer.serialize_i32(2),
+                Self::Inactive => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.bigquery.analyticshub.v1.Subscription.State",
+            ))
         }
     }
 
@@ -4943,121 +5158,239 @@ impl wkt::message::Message for JavaScriptUDF {
 /// Specifies the type of discovery on the discovery page. Note that
 /// this does not control the visibility of the exchange/listing which is
 /// defined by IAM permission.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DiscoveryType(i32);
-
-impl DiscoveryType {
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DiscoveryType {
     /// Unspecified. Defaults to DISCOVERY_TYPE_PRIVATE.
-    pub const DISCOVERY_TYPE_UNSPECIFIED: DiscoveryType = DiscoveryType::new(0);
-
+    Unspecified,
     /// The Data exchange/listing can be discovered in the 'Private' results
     /// list.
-    pub const DISCOVERY_TYPE_PRIVATE: DiscoveryType = DiscoveryType::new(1);
-
+    Private,
     /// The Data exchange/listing can be discovered in the 'Public' results
     /// list.
-    pub const DISCOVERY_TYPE_PUBLIC: DiscoveryType = DiscoveryType::new(2);
+    Public,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DiscoveryType::value] or
+    /// [DiscoveryType::name].
+    UnknownValue(discovery_type::UnknownValue),
+}
 
-    /// Creates a new DiscoveryType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod discovery_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl DiscoveryType {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Private => std::option::Option::Some(1),
+            Self::Public => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("DISCOVERY_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("DISCOVERY_TYPE_PRIVATE"),
-            2 => std::borrow::Cow::Borrowed("DISCOVERY_TYPE_PUBLIC"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("DISCOVERY_TYPE_UNSPECIFIED"),
+            Self::Private => std::option::Option::Some("DISCOVERY_TYPE_PRIVATE"),
+            Self::Public => std::option::Option::Some("DISCOVERY_TYPE_PUBLIC"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "DISCOVERY_TYPE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::DISCOVERY_TYPE_UNSPECIFIED)
-            }
-            "DISCOVERY_TYPE_PRIVATE" => std::option::Option::Some(Self::DISCOVERY_TYPE_PRIVATE),
-            "DISCOVERY_TYPE_PUBLIC" => std::option::Option::Some(Self::DISCOVERY_TYPE_PUBLIC),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for DiscoveryType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for DiscoveryType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for DiscoveryType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for DiscoveryType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Private,
+            2 => Self::Public,
+            _ => Self::UnknownValue(discovery_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for DiscoveryType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DISCOVERY_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "DISCOVERY_TYPE_PRIVATE" => Self::Private,
+            "DISCOVERY_TYPE_PUBLIC" => Self::Public,
+            _ => Self::UnknownValue(discovery_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for DiscoveryType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Private => serializer.serialize_i32(1),
+            Self::Public => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DiscoveryType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DiscoveryType>::new(
+            ".google.cloud.bigquery.analyticshub.v1.DiscoveryType",
+        ))
     }
 }
 
 /// The underlying shared asset type shared in a listing by a publisher.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SharedResourceType(i32);
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SharedResourceType {
+    /// Not specified.
+    Unspecified,
+    /// BigQuery Dataset Asset.
+    BigqueryDataset,
+    /// Pub/Sub Topic Asset.
+    PubsubTopic,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SharedResourceType::value] or
+    /// [SharedResourceType::name].
+    UnknownValue(shared_resource_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod shared_resource_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl SharedResourceType {
-    /// Not specified.
-    pub const SHARED_RESOURCE_TYPE_UNSPECIFIED: SharedResourceType = SharedResourceType::new(0);
-
-    /// BigQuery Dataset Asset.
-    pub const BIGQUERY_DATASET: SharedResourceType = SharedResourceType::new(1);
-
-    /// Pub/Sub Topic Asset.
-    pub const PUBSUB_TOPIC: SharedResourceType = SharedResourceType::new(2);
-
-    /// Creates a new SharedResourceType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::BigqueryDataset => std::option::Option::Some(1),
+            Self::PubsubTopic => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SHARED_RESOURCE_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("BIGQUERY_DATASET"),
-            2 => std::borrow::Cow::Borrowed("PUBSUB_TOPIC"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SHARED_RESOURCE_TYPE_UNSPECIFIED"),
+            Self::BigqueryDataset => std::option::Option::Some("BIGQUERY_DATASET"),
+            Self::PubsubTopic => std::option::Option::Some("PUBSUB_TOPIC"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SHARED_RESOURCE_TYPE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::SHARED_RESOURCE_TYPE_UNSPECIFIED)
-            }
-            "BIGQUERY_DATASET" => std::option::Option::Some(Self::BIGQUERY_DATASET),
-            "PUBSUB_TOPIC" => std::option::Option::Some(Self::PUBSUB_TOPIC),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for SharedResourceType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for SharedResourceType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SharedResourceType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SharedResourceType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::BigqueryDataset,
+            2 => Self::PubsubTopic,
+            _ => Self::UnknownValue(shared_resource_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SharedResourceType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SHARED_RESOURCE_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "BIGQUERY_DATASET" => Self::BigqueryDataset,
+            "PUBSUB_TOPIC" => Self::PubsubTopic,
+            _ => Self::UnknownValue(shared_resource_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SharedResourceType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::BigqueryDataset => serializer.serialize_i32(1),
+            Self::PubsubTopic => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SharedResourceType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SharedResourceType>::new(
+            ".google.cloud.bigquery.analyticshub.v1.SharedResourceType",
+        ))
     }
 }

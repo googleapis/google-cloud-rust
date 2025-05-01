@@ -155,9 +155,9 @@ impl StorageTransferService {
     /// [DISABLED][google.storagetransfer.v1.TransferJob.Status.DISABLED], or
     /// [ENABLED][google.storagetransfer.v1.TransferJob.Status.ENABLED]).
     ///
-    /// [google.storagetransfer.v1.TransferJob.Status.DELETED]: crate::model::transfer_job::status::DELETED
-    /// [google.storagetransfer.v1.TransferJob.Status.DISABLED]: crate::model::transfer_job::status::DISABLED
-    /// [google.storagetransfer.v1.TransferJob.Status.ENABLED]: crate::model::transfer_job::status::ENABLED
+    /// [google.storagetransfer.v1.TransferJob.Status.DELETED]: crate::model::transfer_job::Status::Deleted
+    /// [google.storagetransfer.v1.TransferJob.Status.DISABLED]: crate::model::transfer_job::Status::Disabled
+    /// [google.storagetransfer.v1.TransferJob.Status.ENABLED]: crate::model::transfer_job::Status::Enabled
     /// [google.storagetransfer.v1.TransferJob.status]: crate::model::TransferJob::status
     pub fn update_transfer_job(
         &self,
@@ -224,7 +224,7 @@ impl StorageTransferService {
     /// Deletes a transfer job. Deleting a transfer job sets its status to
     /// [DELETED][google.storagetransfer.v1.TransferJob.Status.DELETED].
     ///
-    /// [google.storagetransfer.v1.TransferJob.Status.DELETED]: crate::model::transfer_job::status::DELETED
+    /// [google.storagetransfer.v1.TransferJob.Status.DELETED]: crate::model::transfer_job::Status::Deleted
     pub fn delete_transfer_job(
         &self,
         job_name: impl Into<std::string::String>,

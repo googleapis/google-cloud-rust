@@ -593,59 +593,123 @@ pub mod span {
             use super::*;
 
             /// Indicates whether the message was sent or received.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct Type(i32);
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Type {
+                /// Unknown event type.
+                Unspecified,
+                /// Indicates a sent message.
+                Sent,
+                /// Indicates a received message.
+                Received,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [Type::value] or
+                /// [Type::name].
+                UnknownValue(r#type::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod r#type {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
 
             impl Type {
-                /// Unknown event type.
-                pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
-                /// Indicates a sent message.
-                pub const SENT: Type = Type::new(1);
-
-                /// Indicates a received message.
-                pub const RECEIVED: Type = Type::new(2);
-
-                /// Creates a new Type instance.
-                pub(crate) const fn new(value: i32) -> Self {
-                    Self(value)
-                }
-
                 /// Gets the enum value.
-                pub fn value(&self) -> i32 {
-                    self.0
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Sent => std::option::Option::Some(1),
+                        Self::Received => std::option::Option::Some(2),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
                 }
 
                 /// Gets the enum value as a string.
-                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                    match self.0 {
-                        0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                        1 => std::borrow::Cow::Borrowed("SENT"),
-                        2 => std::borrow::Cow::Borrowed("RECEIVED"),
-                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                        Self::Sent => std::option::Option::Some("SENT"),
+                        Self::Received => std::option::Option::Some("RECEIVED"),
+                        Self::UnknownValue(u) => u.0.name(),
                     }
-                }
-
-                /// Creates an enum value from the value name.
-                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                    match name {
-                        "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                        "SENT" => std::option::Option::Some(Self::SENT),
-                        "RECEIVED" => std::option::Option::Some(Self::RECEIVED),
-                        _ => std::option::Option::None,
-                    }
-                }
-            }
-
-            impl std::convert::From<i32> for Type {
-                fn from(value: i32) -> Self {
-                    Self::new(value)
                 }
             }
 
             impl std::default::Default for Type {
                 fn default() -> Self {
-                    Self::new(0)
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for Type {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for Type {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Sent,
+                        2 => Self::Received,
+                        _ => Self::UnknownValue(r#type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for Type {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "TYPE_UNSPECIFIED" => Self::Unspecified,
+                        "SENT" => Self::Sent,
+                        "RECEIVED" => Self::Received,
+                        _ => Self::UnknownValue(r#type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for Type {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Sent => serializer.serialize_i32(1),
+                        Self::Received => serializer.serialize_i32(2),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for Type {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                        ".google.devtools.cloudtrace.v2.Span.TimeEvent.MessageEvent.Type",
+                    ))
                 }
             }
         }
@@ -808,59 +872,123 @@ pub mod span {
 
         /// The relationship of the current span relative to the linked span: child,
         /// parent, or unspecified.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(i32);
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Type {
+            /// The relationship of the two spans is unknown.
+            Unspecified,
+            /// The linked span is a child of the current span.
+            ChildLinkedSpan,
+            /// The linked span is a parent of the current span.
+            ParentLinkedSpan,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Type::value] or
+            /// [Type::name].
+            UnknownValue(r#type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod r#type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl Type {
-            /// The relationship of the two spans is unknown.
-            pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
-            /// The linked span is a child of the current span.
-            pub const CHILD_LINKED_SPAN: Type = Type::new(1);
-
-            /// The linked span is a parent of the current span.
-            pub const PARENT_LINKED_SPAN: Type = Type::new(2);
-
-            /// Creates a new Type instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::ChildLinkedSpan => std::option::Option::Some(1),
+                    Self::ParentLinkedSpan => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("CHILD_LINKED_SPAN"),
-                    2 => std::borrow::Cow::Borrowed("PARENT_LINKED_SPAN"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                    Self::ChildLinkedSpan => std::option::Option::Some("CHILD_LINKED_SPAN"),
+                    Self::ParentLinkedSpan => std::option::Option::Some("PARENT_LINKED_SPAN"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                    "CHILD_LINKED_SPAN" => std::option::Option::Some(Self::CHILD_LINKED_SPAN),
-                    "PARENT_LINKED_SPAN" => std::option::Option::Some(Self::PARENT_LINKED_SPAN),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for Type {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for Type {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Type {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::ChildLinkedSpan,
+                    2 => Self::ParentLinkedSpan,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Type {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "CHILD_LINKED_SPAN" => Self::ChildLinkedSpan,
+                    "PARENT_LINKED_SPAN" => Self::ParentLinkedSpan,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::ChildLinkedSpan => serializer.serialize_i32(1),
+                    Self::ParentLinkedSpan => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                    ".google.devtools.cloudtrace.v2.Span.Link.Type",
+                ))
             }
         }
     }
@@ -916,83 +1044,150 @@ pub mod span {
 
     /// Type of span. Can be used to specify additional relationships between spans
     /// in addition to a parent/child relationship.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SpanKind(i32);
-
-    impl SpanKind {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SpanKind {
         /// Unspecified. Do NOT use as default.
         /// Implementations MAY assume SpanKind.INTERNAL to be default.
-        pub const SPAN_KIND_UNSPECIFIED: SpanKind = SpanKind::new(0);
-
+        Unspecified,
         /// Indicates that the span is used internally. Default value.
-        pub const INTERNAL: SpanKind = SpanKind::new(1);
-
+        Internal,
         /// Indicates that the span covers server-side handling of an RPC or other
         /// remote network request.
-        pub const SERVER: SpanKind = SpanKind::new(2);
-
+        Server,
         /// Indicates that the span covers the client-side wrapper around an RPC or
         /// other remote request.
-        pub const CLIENT: SpanKind = SpanKind::new(3);
-
+        Client,
         /// Indicates that the span describes producer sending a message to a broker.
         /// Unlike client and  server, there is no direct critical path latency
         /// relationship between producer and consumer spans (e.g. publishing a
         /// message to a pubsub service).
-        pub const PRODUCER: SpanKind = SpanKind::new(4);
-
+        Producer,
         /// Indicates that the span describes consumer receiving a message from a
         /// broker. Unlike client and  server, there is no direct critical path
         /// latency relationship between producer and consumer spans (e.g. receiving
         /// a message from a pubsub service subscription).
-        pub const CONSUMER: SpanKind = SpanKind::new(5);
+        Consumer,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SpanKind::value] or
+        /// [SpanKind::name].
+        UnknownValue(span_kind::UnknownValue),
+    }
 
-        /// Creates a new SpanKind instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod span_kind {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl SpanKind {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Internal => std::option::Option::Some(1),
+                Self::Server => std::option::Option::Some(2),
+                Self::Client => std::option::Option::Some(3),
+                Self::Producer => std::option::Option::Some(4),
+                Self::Consumer => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SPAN_KIND_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INTERNAL"),
-                2 => std::borrow::Cow::Borrowed("SERVER"),
-                3 => std::borrow::Cow::Borrowed("CLIENT"),
-                4 => std::borrow::Cow::Borrowed("PRODUCER"),
-                5 => std::borrow::Cow::Borrowed("CONSUMER"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SPAN_KIND_UNSPECIFIED"),
+                Self::Internal => std::option::Option::Some("INTERNAL"),
+                Self::Server => std::option::Option::Some("SERVER"),
+                Self::Client => std::option::Option::Some("CLIENT"),
+                Self::Producer => std::option::Option::Some("PRODUCER"),
+                Self::Consumer => std::option::Option::Some("CONSUMER"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SPAN_KIND_UNSPECIFIED" => std::option::Option::Some(Self::SPAN_KIND_UNSPECIFIED),
-                "INTERNAL" => std::option::Option::Some(Self::INTERNAL),
-                "SERVER" => std::option::Option::Some(Self::SERVER),
-                "CLIENT" => std::option::Option::Some(Self::CLIENT),
-                "PRODUCER" => std::option::Option::Some(Self::PRODUCER),
-                "CONSUMER" => std::option::Option::Some(Self::CONSUMER),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for SpanKind {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for SpanKind {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SpanKind {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SpanKind {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Internal,
+                2 => Self::Server,
+                3 => Self::Client,
+                4 => Self::Producer,
+                5 => Self::Consumer,
+                _ => Self::UnknownValue(span_kind::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SpanKind {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SPAN_KIND_UNSPECIFIED" => Self::Unspecified,
+                "INTERNAL" => Self::Internal,
+                "SERVER" => Self::Server,
+                "CLIENT" => Self::Client,
+                "PRODUCER" => Self::Producer,
+                "CONSUMER" => Self::Consumer,
+                _ => Self::UnknownValue(span_kind::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SpanKind {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Internal => serializer.serialize_i32(1),
+                Self::Server => serializer.serialize_i32(2),
+                Self::Client => serializer.serialize_i32(3),
+                Self::Producer => serializer.serialize_i32(4),
+                Self::Consumer => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SpanKind {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SpanKind>::new(
+                ".google.devtools.cloudtrace.v2.Span.SpanKind",
+            ))
         }
     }
 }

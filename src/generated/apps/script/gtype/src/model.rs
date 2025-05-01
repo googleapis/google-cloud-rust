@@ -67,90 +67,157 @@ pub mod add_on_widget_set {
     use super::*;
 
     /// The Widget type. DEFAULT is the basic widget set.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct WidgetType(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum WidgetType {
+        /// The default widget set.
+        Unspecified,
+        /// The date picker.
+        DatePicker,
+        /// Styled buttons include filled buttons and disabled buttons.
+        StyledButtons,
+        /// Persistent forms allow persisting form values during actions.
+        PersistentForms,
+        /// Fixed footer in card.
+        FixedFooter,
+        /// Update the subject and recipients of a draft.
+        UpdateSubjectAndRecipients,
+        /// The grid widget.
+        GridWidget,
+        /// A Gmail add-on action that applies to the addon compose UI.
+        AddonComposeUiAction,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [WidgetType::value] or
+        /// [WidgetType::name].
+        UnknownValue(widget_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod widget_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl WidgetType {
-        /// The default widget set.
-        pub const WIDGET_TYPE_UNSPECIFIED: WidgetType = WidgetType::new(0);
-
-        /// The date picker.
-        pub const DATE_PICKER: WidgetType = WidgetType::new(1);
-
-        /// Styled buttons include filled buttons and disabled buttons.
-        pub const STYLED_BUTTONS: WidgetType = WidgetType::new(2);
-
-        /// Persistent forms allow persisting form values during actions.
-        pub const PERSISTENT_FORMS: WidgetType = WidgetType::new(3);
-
-        /// Fixed footer in card.
-        pub const FIXED_FOOTER: WidgetType = WidgetType::new(4);
-
-        /// Update the subject and recipients of a draft.
-        pub const UPDATE_SUBJECT_AND_RECIPIENTS: WidgetType = WidgetType::new(5);
-
-        /// The grid widget.
-        pub const GRID_WIDGET: WidgetType = WidgetType::new(6);
-
-        /// A Gmail add-on action that applies to the addon compose UI.
-        pub const ADDON_COMPOSE_UI_ACTION: WidgetType = WidgetType::new(7);
-
-        /// Creates a new WidgetType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::DatePicker => std::option::Option::Some(1),
+                Self::StyledButtons => std::option::Option::Some(2),
+                Self::PersistentForms => std::option::Option::Some(3),
+                Self::FixedFooter => std::option::Option::Some(4),
+                Self::UpdateSubjectAndRecipients => std::option::Option::Some(5),
+                Self::GridWidget => std::option::Option::Some(6),
+                Self::AddonComposeUiAction => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("WIDGET_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DATE_PICKER"),
-                2 => std::borrow::Cow::Borrowed("STYLED_BUTTONS"),
-                3 => std::borrow::Cow::Borrowed("PERSISTENT_FORMS"),
-                4 => std::borrow::Cow::Borrowed("FIXED_FOOTER"),
-                5 => std::borrow::Cow::Borrowed("UPDATE_SUBJECT_AND_RECIPIENTS"),
-                6 => std::borrow::Cow::Borrowed("GRID_WIDGET"),
-                7 => std::borrow::Cow::Borrowed("ADDON_COMPOSE_UI_ACTION"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("WIDGET_TYPE_UNSPECIFIED"),
+                Self::DatePicker => std::option::Option::Some("DATE_PICKER"),
+                Self::StyledButtons => std::option::Option::Some("STYLED_BUTTONS"),
+                Self::PersistentForms => std::option::Option::Some("PERSISTENT_FORMS"),
+                Self::FixedFooter => std::option::Option::Some("FIXED_FOOTER"),
+                Self::UpdateSubjectAndRecipients => {
+                    std::option::Option::Some("UPDATE_SUBJECT_AND_RECIPIENTS")
+                }
+                Self::GridWidget => std::option::Option::Some("GRID_WIDGET"),
+                Self::AddonComposeUiAction => std::option::Option::Some("ADDON_COMPOSE_UI_ACTION"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "WIDGET_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::WIDGET_TYPE_UNSPECIFIED)
-                }
-                "DATE_PICKER" => std::option::Option::Some(Self::DATE_PICKER),
-                "STYLED_BUTTONS" => std::option::Option::Some(Self::STYLED_BUTTONS),
-                "PERSISTENT_FORMS" => std::option::Option::Some(Self::PERSISTENT_FORMS),
-                "FIXED_FOOTER" => std::option::Option::Some(Self::FIXED_FOOTER),
-                "UPDATE_SUBJECT_AND_RECIPIENTS" => {
-                    std::option::Option::Some(Self::UPDATE_SUBJECT_AND_RECIPIENTS)
-                }
-                "GRID_WIDGET" => std::option::Option::Some(Self::GRID_WIDGET),
-                "ADDON_COMPOSE_UI_ACTION" => {
-                    std::option::Option::Some(Self::ADDON_COMPOSE_UI_ACTION)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for WidgetType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for WidgetType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for WidgetType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for WidgetType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::DatePicker,
+                2 => Self::StyledButtons,
+                3 => Self::PersistentForms,
+                4 => Self::FixedFooter,
+                5 => Self::UpdateSubjectAndRecipients,
+                6 => Self::GridWidget,
+                7 => Self::AddonComposeUiAction,
+                _ => Self::UnknownValue(widget_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for WidgetType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "WIDGET_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "DATE_PICKER" => Self::DatePicker,
+                "STYLED_BUTTONS" => Self::StyledButtons,
+                "PERSISTENT_FORMS" => Self::PersistentForms,
+                "FIXED_FOOTER" => Self::FixedFooter,
+                "UPDATE_SUBJECT_AND_RECIPIENTS" => Self::UpdateSubjectAndRecipients,
+                "GRID_WIDGET" => Self::GridWidget,
+                "ADDON_COMPOSE_UI_ACTION" => Self::AddonComposeUiAction,
+                _ => Self::UnknownValue(widget_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for WidgetType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::DatePicker => serializer.serialize_i32(1),
+                Self::StyledButtons => serializer.serialize_i32(2),
+                Self::PersistentForms => serializer.serialize_i32(3),
+                Self::FixedFooter => serializer.serialize_i32(4),
+                Self::UpdateSubjectAndRecipients => serializer.serialize_i32(5),
+                Self::GridWidget => serializer.serialize_i32(6),
+                Self::AddonComposeUiAction => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for WidgetType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<WidgetType>::new(
+                ".google.apps.script.type.AddOnWidgetSet.WidgetType",
+            ))
         }
     }
 }
@@ -611,67 +678,127 @@ impl wkt::message::Message for HttpOptions {
 }
 
 /// Authorization header sent in add-on HTTP requests
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HttpAuthorizationHeader(i32);
-
-impl HttpAuthorizationHeader {
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum HttpAuthorizationHeader {
     /// Default value, equivalent to `SYSTEM_ID_TOKEN`
-    pub const HTTP_AUTHORIZATION_HEADER_UNSPECIFIED: HttpAuthorizationHeader =
-        HttpAuthorizationHeader::new(0);
-
+    Unspecified,
     /// Send an ID token for the project-specific Google Workspace add-ons system
     /// service account (default)
-    pub const SYSTEM_ID_TOKEN: HttpAuthorizationHeader = HttpAuthorizationHeader::new(1);
-
+    SystemIdToken,
     /// Send an ID token for the end user
-    pub const USER_ID_TOKEN: HttpAuthorizationHeader = HttpAuthorizationHeader::new(2);
-
+    UserIdToken,
     /// Do not send an Authentication header
-    pub const NONE: HttpAuthorizationHeader = HttpAuthorizationHeader::new(3);
+    None,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [HttpAuthorizationHeader::value] or
+    /// [HttpAuthorizationHeader::name].
+    UnknownValue(http_authorization_header::UnknownValue),
+}
 
-    /// Creates a new HttpAuthorizationHeader instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod http_authorization_header {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl HttpAuthorizationHeader {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::SystemIdToken => std::option::Option::Some(1),
+            Self::UserIdToken => std::option::Option::Some(2),
+            Self::None => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("HTTP_AUTHORIZATION_HEADER_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("SYSTEM_ID_TOKEN"),
-            2 => std::borrow::Cow::Borrowed("USER_ID_TOKEN"),
-            3 => std::borrow::Cow::Borrowed("NONE"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("HTTP_AUTHORIZATION_HEADER_UNSPECIFIED"),
+            Self::SystemIdToken => std::option::Option::Some("SYSTEM_ID_TOKEN"),
+            Self::UserIdToken => std::option::Option::Some("USER_ID_TOKEN"),
+            Self::None => std::option::Option::Some("NONE"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "HTTP_AUTHORIZATION_HEADER_UNSPECIFIED" => {
-                std::option::Option::Some(Self::HTTP_AUTHORIZATION_HEADER_UNSPECIFIED)
-            }
-            "SYSTEM_ID_TOKEN" => std::option::Option::Some(Self::SYSTEM_ID_TOKEN),
-            "USER_ID_TOKEN" => std::option::Option::Some(Self::USER_ID_TOKEN),
-            "NONE" => std::option::Option::Some(Self::NONE),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for HttpAuthorizationHeader {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for HttpAuthorizationHeader {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for HttpAuthorizationHeader {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for HttpAuthorizationHeader {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::SystemIdToken,
+            2 => Self::UserIdToken,
+            3 => Self::None,
+            _ => Self::UnknownValue(http_authorization_header::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for HttpAuthorizationHeader {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "HTTP_AUTHORIZATION_HEADER_UNSPECIFIED" => Self::Unspecified,
+            "SYSTEM_ID_TOKEN" => Self::SystemIdToken,
+            "USER_ID_TOKEN" => Self::UserIdToken,
+            "NONE" => Self::None,
+            _ => Self::UnknownValue(http_authorization_header::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for HttpAuthorizationHeader {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::SystemIdToken => serializer.serialize_i32(1),
+            Self::UserIdToken => serializer.serialize_i32(2),
+            Self::None => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for HttpAuthorizationHeader {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<HttpAuthorizationHeader>::new(
+            ".google.apps.script.type.HttpAuthorizationHeader",
+        ))
     }
 }

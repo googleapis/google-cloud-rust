@@ -58,7 +58,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -78,7 +78,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -272,7 +272,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -292,7 +292,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -650,7 +650,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -670,7 +670,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1090,7 +1090,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1114,7 +1114,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

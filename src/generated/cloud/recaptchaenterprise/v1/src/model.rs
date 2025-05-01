@@ -157,184 +157,274 @@ pub mod transaction_event {
     use super::*;
 
     /// Enum that represents an event in the payment transaction lifecycle.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TransactionEventType(i32);
-
-    impl TransactionEventType {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TransactionEventType {
         /// Default, unspecified event type.
-        pub const TRANSACTION_EVENT_TYPE_UNSPECIFIED: TransactionEventType =
-            TransactionEventType::new(0);
-
+        Unspecified,
         /// Indicates that the transaction is approved by the merchant. The
         /// accompanying reasons can include terms such as 'INHOUSE', 'ACCERTIFY',
         /// 'CYBERSOURCE', or 'MANUAL_REVIEW'.
-        pub const MERCHANT_APPROVE: TransactionEventType = TransactionEventType::new(1);
-
+        MerchantApprove,
         /// Indicates that the transaction is denied and concluded due to risks
         /// detected by the merchant. The accompanying reasons can include terms such
         /// as 'INHOUSE',  'ACCERTIFY',  'CYBERSOURCE', or 'MANUAL_REVIEW'.
-        pub const MERCHANT_DENY: TransactionEventType = TransactionEventType::new(2);
-
+        MerchantDeny,
         /// Indicates that the transaction is being evaluated by a human, due to
         /// suspicion or risk.
-        pub const MANUAL_REVIEW: TransactionEventType = TransactionEventType::new(3);
-
+        ManualReview,
         /// Indicates that the authorization attempt with the card issuer succeeded.
-        pub const AUTHORIZATION: TransactionEventType = TransactionEventType::new(4);
-
+        Authorization,
         /// Indicates that the authorization attempt with the card issuer failed.
         /// The accompanying reasons can include Visa's '54' indicating that the card
         /// is expired, or '82' indicating that the CVV is incorrect.
-        pub const AUTHORIZATION_DECLINE: TransactionEventType = TransactionEventType::new(5);
-
+        AuthorizationDecline,
         /// Indicates that the transaction is completed because the funds were
         /// settled.
-        pub const PAYMENT_CAPTURE: TransactionEventType = TransactionEventType::new(6);
-
+        PaymentCapture,
         /// Indicates that the transaction could not be completed because the funds
         /// were not settled.
-        pub const PAYMENT_CAPTURE_DECLINE: TransactionEventType = TransactionEventType::new(7);
-
+        PaymentCaptureDecline,
         /// Indicates that the transaction has been canceled. Specify the reason
         /// for the cancellation. For example, 'INSUFFICIENT_INVENTORY'.
-        pub const CANCEL: TransactionEventType = TransactionEventType::new(8);
-
+        Cancel,
         /// Indicates that the merchant has received a chargeback inquiry due to
         /// fraud for the transaction, requesting additional information before a
         /// fraud chargeback is officially issued and a formal chargeback
         /// notification is sent.
-        pub const CHARGEBACK_INQUIRY: TransactionEventType = TransactionEventType::new(9);
-
+        ChargebackInquiry,
         /// Indicates that the merchant has received a chargeback alert due to fraud
         /// for the transaction. The process of resolving the dispute without
         /// involving the payment network is started.
-        pub const CHARGEBACK_ALERT: TransactionEventType = TransactionEventType::new(10);
-
+        ChargebackAlert,
         /// Indicates that a fraud notification is issued for the transaction, sent
         /// by the payment instrument's issuing bank because the transaction appears
         /// to be fraudulent. We recommend including TC40 or SAFE data in the
         /// `reason` field for this event type. For partial chargebacks, we recommend
         /// that you include an amount in the `value` field.
-        pub const FRAUD_NOTIFICATION: TransactionEventType = TransactionEventType::new(11);
-
+        FraudNotification,
         /// Indicates that the merchant is informed by the payment network that the
         /// transaction has entered the chargeback process due to fraud. Reason code
         /// examples include Discover's '6005' and '6041'. For partial chargebacks,
         /// we recommend that you include an amount in the `value` field.
-        pub const CHARGEBACK: TransactionEventType = TransactionEventType::new(12);
-
+        Chargeback,
         /// Indicates that the transaction has entered the chargeback process due to
         /// fraud, and that the merchant has chosen to enter representment. Reason
         /// examples include Discover's '6005' and '6041'. For partial chargebacks,
         /// we recommend that you include an amount in the `value` field.
-        pub const CHARGEBACK_REPRESENTMENT: TransactionEventType = TransactionEventType::new(13);
-
+        ChargebackRepresentment,
         /// Indicates that the transaction has had a fraud chargeback which was
         /// illegitimate and was reversed as a result. For partial chargebacks, we
         /// recommend that you include an amount in the `value` field.
-        pub const CHARGEBACK_REVERSE: TransactionEventType = TransactionEventType::new(14);
-
+        ChargebackReverse,
         /// Indicates that the merchant has received a refund for a completed
         /// transaction. For partial refunds, we recommend that you include an amount
         /// in the `value` field. Reason example: 'TAX_EXEMPT' (partial refund of
         /// exempt tax)
-        pub const REFUND_REQUEST: TransactionEventType = TransactionEventType::new(15);
-
+        RefundRequest,
         /// Indicates that the merchant has received a refund request for this
         /// transaction, but that they have declined it. For partial refunds, we
         /// recommend that you include an amount in the `value` field. Reason
         /// example: 'TAX_EXEMPT' (partial refund of exempt tax)
-        pub const REFUND_DECLINE: TransactionEventType = TransactionEventType::new(16);
-
+        RefundDecline,
         /// Indicates that the completed transaction was refunded by the merchant.
         /// For partial refunds, we recommend that you include an amount in the
         /// `value` field. Reason example: 'TAX_EXEMPT' (partial refund of exempt
         /// tax)
-        pub const REFUND: TransactionEventType = TransactionEventType::new(17);
-
+        Refund,
         /// Indicates that the completed transaction was refunded by the merchant,
         /// and that this refund was reversed. For partial refunds, we recommend that
         /// you include an amount in the `value` field.
-        pub const REFUND_REVERSE: TransactionEventType = TransactionEventType::new(18);
+        RefundReverse,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TransactionEventType::value] or
+        /// [TransactionEventType::name].
+        UnknownValue(transaction_event_type::UnknownValue),
+    }
 
-        /// Creates a new TransactionEventType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod transaction_event_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl TransactionEventType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::MerchantApprove => std::option::Option::Some(1),
+                Self::MerchantDeny => std::option::Option::Some(2),
+                Self::ManualReview => std::option::Option::Some(3),
+                Self::Authorization => std::option::Option::Some(4),
+                Self::AuthorizationDecline => std::option::Option::Some(5),
+                Self::PaymentCapture => std::option::Option::Some(6),
+                Self::PaymentCaptureDecline => std::option::Option::Some(7),
+                Self::Cancel => std::option::Option::Some(8),
+                Self::ChargebackInquiry => std::option::Option::Some(9),
+                Self::ChargebackAlert => std::option::Option::Some(10),
+                Self::FraudNotification => std::option::Option::Some(11),
+                Self::Chargeback => std::option::Option::Some(12),
+                Self::ChargebackRepresentment => std::option::Option::Some(13),
+                Self::ChargebackReverse => std::option::Option::Some(14),
+                Self::RefundRequest => std::option::Option::Some(15),
+                Self::RefundDecline => std::option::Option::Some(16),
+                Self::Refund => std::option::Option::Some(17),
+                Self::RefundReverse => std::option::Option::Some(18),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TRANSACTION_EVENT_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("MERCHANT_APPROVE"),
-                2 => std::borrow::Cow::Borrowed("MERCHANT_DENY"),
-                3 => std::borrow::Cow::Borrowed("MANUAL_REVIEW"),
-                4 => std::borrow::Cow::Borrowed("AUTHORIZATION"),
-                5 => std::borrow::Cow::Borrowed("AUTHORIZATION_DECLINE"),
-                6 => std::borrow::Cow::Borrowed("PAYMENT_CAPTURE"),
-                7 => std::borrow::Cow::Borrowed("PAYMENT_CAPTURE_DECLINE"),
-                8 => std::borrow::Cow::Borrowed("CANCEL"),
-                9 => std::borrow::Cow::Borrowed("CHARGEBACK_INQUIRY"),
-                10 => std::borrow::Cow::Borrowed("CHARGEBACK_ALERT"),
-                11 => std::borrow::Cow::Borrowed("FRAUD_NOTIFICATION"),
-                12 => std::borrow::Cow::Borrowed("CHARGEBACK"),
-                13 => std::borrow::Cow::Borrowed("CHARGEBACK_REPRESENTMENT"),
-                14 => std::borrow::Cow::Borrowed("CHARGEBACK_REVERSE"),
-                15 => std::borrow::Cow::Borrowed("REFUND_REQUEST"),
-                16 => std::borrow::Cow::Borrowed("REFUND_DECLINE"),
-                17 => std::borrow::Cow::Borrowed("REFUND"),
-                18 => std::borrow::Cow::Borrowed("REFUND_REVERSE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("TRANSACTION_EVENT_TYPE_UNSPECIFIED")
+                }
+                Self::MerchantApprove => std::option::Option::Some("MERCHANT_APPROVE"),
+                Self::MerchantDeny => std::option::Option::Some("MERCHANT_DENY"),
+                Self::ManualReview => std::option::Option::Some("MANUAL_REVIEW"),
+                Self::Authorization => std::option::Option::Some("AUTHORIZATION"),
+                Self::AuthorizationDecline => std::option::Option::Some("AUTHORIZATION_DECLINE"),
+                Self::PaymentCapture => std::option::Option::Some("PAYMENT_CAPTURE"),
+                Self::PaymentCaptureDecline => std::option::Option::Some("PAYMENT_CAPTURE_DECLINE"),
+                Self::Cancel => std::option::Option::Some("CANCEL"),
+                Self::ChargebackInquiry => std::option::Option::Some("CHARGEBACK_INQUIRY"),
+                Self::ChargebackAlert => std::option::Option::Some("CHARGEBACK_ALERT"),
+                Self::FraudNotification => std::option::Option::Some("FRAUD_NOTIFICATION"),
+                Self::Chargeback => std::option::Option::Some("CHARGEBACK"),
+                Self::ChargebackRepresentment => {
+                    std::option::Option::Some("CHARGEBACK_REPRESENTMENT")
+                }
+                Self::ChargebackReverse => std::option::Option::Some("CHARGEBACK_REVERSE"),
+                Self::RefundRequest => std::option::Option::Some("REFUND_REQUEST"),
+                Self::RefundDecline => std::option::Option::Some("REFUND_DECLINE"),
+                Self::Refund => std::option::Option::Some("REFUND"),
+                Self::RefundReverse => std::option::Option::Some("REFUND_REVERSE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TRANSACTION_EVENT_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::TRANSACTION_EVENT_TYPE_UNSPECIFIED)
-                }
-                "MERCHANT_APPROVE" => std::option::Option::Some(Self::MERCHANT_APPROVE),
-                "MERCHANT_DENY" => std::option::Option::Some(Self::MERCHANT_DENY),
-                "MANUAL_REVIEW" => std::option::Option::Some(Self::MANUAL_REVIEW),
-                "AUTHORIZATION" => std::option::Option::Some(Self::AUTHORIZATION),
-                "AUTHORIZATION_DECLINE" => std::option::Option::Some(Self::AUTHORIZATION_DECLINE),
-                "PAYMENT_CAPTURE" => std::option::Option::Some(Self::PAYMENT_CAPTURE),
-                "PAYMENT_CAPTURE_DECLINE" => {
-                    std::option::Option::Some(Self::PAYMENT_CAPTURE_DECLINE)
-                }
-                "CANCEL" => std::option::Option::Some(Self::CANCEL),
-                "CHARGEBACK_INQUIRY" => std::option::Option::Some(Self::CHARGEBACK_INQUIRY),
-                "CHARGEBACK_ALERT" => std::option::Option::Some(Self::CHARGEBACK_ALERT),
-                "FRAUD_NOTIFICATION" => std::option::Option::Some(Self::FRAUD_NOTIFICATION),
-                "CHARGEBACK" => std::option::Option::Some(Self::CHARGEBACK),
-                "CHARGEBACK_REPRESENTMENT" => {
-                    std::option::Option::Some(Self::CHARGEBACK_REPRESENTMENT)
-                }
-                "CHARGEBACK_REVERSE" => std::option::Option::Some(Self::CHARGEBACK_REVERSE),
-                "REFUND_REQUEST" => std::option::Option::Some(Self::REFUND_REQUEST),
-                "REFUND_DECLINE" => std::option::Option::Some(Self::REFUND_DECLINE),
-                "REFUND" => std::option::Option::Some(Self::REFUND),
-                "REFUND_REVERSE" => std::option::Option::Some(Self::REFUND_REVERSE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for TransactionEventType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for TransactionEventType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TransactionEventType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TransactionEventType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::MerchantApprove,
+                2 => Self::MerchantDeny,
+                3 => Self::ManualReview,
+                4 => Self::Authorization,
+                5 => Self::AuthorizationDecline,
+                6 => Self::PaymentCapture,
+                7 => Self::PaymentCaptureDecline,
+                8 => Self::Cancel,
+                9 => Self::ChargebackInquiry,
+                10 => Self::ChargebackAlert,
+                11 => Self::FraudNotification,
+                12 => Self::Chargeback,
+                13 => Self::ChargebackRepresentment,
+                14 => Self::ChargebackReverse,
+                15 => Self::RefundRequest,
+                16 => Self::RefundDecline,
+                17 => Self::Refund,
+                18 => Self::RefundReverse,
+                _ => Self::UnknownValue(transaction_event_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TransactionEventType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TRANSACTION_EVENT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "MERCHANT_APPROVE" => Self::MerchantApprove,
+                "MERCHANT_DENY" => Self::MerchantDeny,
+                "MANUAL_REVIEW" => Self::ManualReview,
+                "AUTHORIZATION" => Self::Authorization,
+                "AUTHORIZATION_DECLINE" => Self::AuthorizationDecline,
+                "PAYMENT_CAPTURE" => Self::PaymentCapture,
+                "PAYMENT_CAPTURE_DECLINE" => Self::PaymentCaptureDecline,
+                "CANCEL" => Self::Cancel,
+                "CHARGEBACK_INQUIRY" => Self::ChargebackInquiry,
+                "CHARGEBACK_ALERT" => Self::ChargebackAlert,
+                "FRAUD_NOTIFICATION" => Self::FraudNotification,
+                "CHARGEBACK" => Self::Chargeback,
+                "CHARGEBACK_REPRESENTMENT" => Self::ChargebackRepresentment,
+                "CHARGEBACK_REVERSE" => Self::ChargebackReverse,
+                "REFUND_REQUEST" => Self::RefundRequest,
+                "REFUND_DECLINE" => Self::RefundDecline,
+                "REFUND" => Self::Refund,
+                "REFUND_REVERSE" => Self::RefundReverse,
+                _ => Self::UnknownValue(transaction_event_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TransactionEventType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::MerchantApprove => serializer.serialize_i32(1),
+                Self::MerchantDeny => serializer.serialize_i32(2),
+                Self::ManualReview => serializer.serialize_i32(3),
+                Self::Authorization => serializer.serialize_i32(4),
+                Self::AuthorizationDecline => serializer.serialize_i32(5),
+                Self::PaymentCapture => serializer.serialize_i32(6),
+                Self::PaymentCaptureDecline => serializer.serialize_i32(7),
+                Self::Cancel => serializer.serialize_i32(8),
+                Self::ChargebackInquiry => serializer.serialize_i32(9),
+                Self::ChargebackAlert => serializer.serialize_i32(10),
+                Self::FraudNotification => serializer.serialize_i32(11),
+                Self::Chargeback => serializer.serialize_i32(12),
+                Self::ChargebackRepresentment => serializer.serialize_i32(13),
+                Self::ChargebackReverse => serializer.serialize_i32(14),
+                Self::RefundRequest => serializer.serialize_i32(15),
+                Self::RefundDecline => serializer.serialize_i32(16),
+                Self::Refund => serializer.serialize_i32(17),
+                Self::RefundReverse => serializer.serialize_i32(18),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TransactionEventType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TransactionEventType>::new(
+                ".google.cloud.recaptchaenterprise.v1.TransactionEvent.TransactionEventType",
+            ))
         }
     }
 }
@@ -451,207 +541,357 @@ pub mod annotate_assessment_request {
     use super::*;
 
     /// Enum that represents the types of annotations.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Annotation(i32);
-
-    impl Annotation {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Annotation {
         /// Default unspecified type.
-        pub const ANNOTATION_UNSPECIFIED: Annotation = Annotation::new(0);
-
+        Unspecified,
         /// Provides information that the event turned out to be legitimate.
-        pub const LEGITIMATE: Annotation = Annotation::new(1);
-
+        Legitimate,
         /// Provides information that the event turned out to be fraudulent.
-        pub const FRAUDULENT: Annotation = Annotation::new(2);
-
+        Fraudulent,
         /// Provides information that the event was related to a login event in which
         /// the user typed the correct password. Deprecated, prefer indicating
         /// CORRECT_PASSWORD through the reasons field instead.
-        pub const PASSWORD_CORRECT: Annotation = Annotation::new(3);
-
+        PasswordCorrect,
         /// Provides information that the event was related to a login event in which
         /// the user typed the incorrect password. Deprecated, prefer indicating
         /// INCORRECT_PASSWORD through the reasons field instead.
-        pub const PASSWORD_INCORRECT: Annotation = Annotation::new(4);
+        PasswordIncorrect,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Annotation::value] or
+        /// [Annotation::name].
+        UnknownValue(annotation::UnknownValue),
+    }
 
-        /// Creates a new Annotation instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod annotation {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Annotation {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Legitimate => std::option::Option::Some(1),
+                Self::Fraudulent => std::option::Option::Some(2),
+                Self::PasswordCorrect => std::option::Option::Some(3),
+                Self::PasswordIncorrect => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ANNOTATION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("LEGITIMATE"),
-                2 => std::borrow::Cow::Borrowed("FRAUDULENT"),
-                3 => std::borrow::Cow::Borrowed("PASSWORD_CORRECT"),
-                4 => std::borrow::Cow::Borrowed("PASSWORD_INCORRECT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ANNOTATION_UNSPECIFIED"),
+                Self::Legitimate => std::option::Option::Some("LEGITIMATE"),
+                Self::Fraudulent => std::option::Option::Some("FRAUDULENT"),
+                Self::PasswordCorrect => std::option::Option::Some("PASSWORD_CORRECT"),
+                Self::PasswordIncorrect => std::option::Option::Some("PASSWORD_INCORRECT"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ANNOTATION_UNSPECIFIED" => std::option::Option::Some(Self::ANNOTATION_UNSPECIFIED),
-                "LEGITIMATE" => std::option::Option::Some(Self::LEGITIMATE),
-                "FRAUDULENT" => std::option::Option::Some(Self::FRAUDULENT),
-                "PASSWORD_CORRECT" => std::option::Option::Some(Self::PASSWORD_CORRECT),
-                "PASSWORD_INCORRECT" => std::option::Option::Some(Self::PASSWORD_INCORRECT),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Annotation {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Annotation {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Annotation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Annotation {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Legitimate,
+                2 => Self::Fraudulent,
+                3 => Self::PasswordCorrect,
+                4 => Self::PasswordIncorrect,
+                _ => Self::UnknownValue(annotation::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Annotation {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ANNOTATION_UNSPECIFIED" => Self::Unspecified,
+                "LEGITIMATE" => Self::Legitimate,
+                "FRAUDULENT" => Self::Fraudulent,
+                "PASSWORD_CORRECT" => Self::PasswordCorrect,
+                "PASSWORD_INCORRECT" => Self::PasswordIncorrect,
+                _ => Self::UnknownValue(annotation::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Annotation {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Legitimate => serializer.serialize_i32(1),
+                Self::Fraudulent => serializer.serialize_i32(2),
+                Self::PasswordCorrect => serializer.serialize_i32(3),
+                Self::PasswordIncorrect => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Annotation {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Annotation>::new(
+                ".google.cloud.recaptchaenterprise.v1.AnnotateAssessmentRequest.Annotation",
+            ))
         }
     }
 
     /// Enum that represents potential reasons for annotating an assessment.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Reason(i32);
-
-    impl Reason {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Reason {
         /// Unspecified reason. Do not use.
-        pub const REASON_UNSPECIFIED: Reason = Reason::new(0);
-
+        Unspecified,
         /// Indicates that the transaction had a chargeback issued with no other
         /// details. When possible, specify the type by using CHARGEBACK_FRAUD or
         /// CHARGEBACK_DISPUTE instead.
-        pub const CHARGEBACK: Reason = Reason::new(1);
-
+        Chargeback,
         /// Indicates that the transaction had a chargeback issued related to an
         /// alleged unauthorized transaction from the cardholder's perspective (for
         /// example, the card number was stolen).
-        pub const CHARGEBACK_FRAUD: Reason = Reason::new(8);
-
+        ChargebackFraud,
         /// Indicates that the transaction had a chargeback issued related to the
         /// cardholder having provided their card details but allegedly not being
         /// satisfied with the purchase (for example, misrepresentation, attempted
         /// cancellation).
-        pub const CHARGEBACK_DISPUTE: Reason = Reason::new(9);
-
+        ChargebackDispute,
         /// Indicates that the completed payment transaction was refunded by the
         /// seller.
-        pub const REFUND: Reason = Reason::new(10);
-
+        Refund,
         /// Indicates that the completed payment transaction was determined to be
         /// fraudulent by the seller, and was cancelled and refunded as a result.
-        pub const REFUND_FRAUD: Reason = Reason::new(11);
-
+        RefundFraud,
         /// Indicates that the payment transaction was accepted, and the user was
         /// charged.
-        pub const TRANSACTION_ACCEPTED: Reason = Reason::new(12);
-
+        TransactionAccepted,
         /// Indicates that the payment transaction was declined, for example due to
         /// invalid card details.
-        pub const TRANSACTION_DECLINED: Reason = Reason::new(13);
-
+        TransactionDeclined,
         /// Indicates the transaction associated with the assessment is suspected of
         /// being fraudulent based on the payment method, billing details, shipping
         /// address or other transaction information.
-        pub const PAYMENT_HEURISTICS: Reason = Reason::new(2);
-
+        PaymentHeuristics,
         /// Indicates that the user was served a 2FA challenge. An old assessment
         /// with `ENUM_VALUES.INITIATED_TWO_FACTOR` reason that has not been
         /// overwritten with `PASSED_TWO_FACTOR` is treated as an abandoned 2FA flow.
         /// This is equivalent to `FAILED_TWO_FACTOR`.
-        pub const INITIATED_TWO_FACTOR: Reason = Reason::new(7);
-
+        InitiatedTwoFactor,
         /// Indicates that the user passed a 2FA challenge.
-        pub const PASSED_TWO_FACTOR: Reason = Reason::new(3);
-
+        PassedTwoFactor,
         /// Indicates that the user failed a 2FA challenge.
-        pub const FAILED_TWO_FACTOR: Reason = Reason::new(4);
-
+        FailedTwoFactor,
         /// Indicates the user provided the correct password.
-        pub const CORRECT_PASSWORD: Reason = Reason::new(5);
-
+        CorrectPassword,
         /// Indicates the user provided an incorrect password.
-        pub const INCORRECT_PASSWORD: Reason = Reason::new(6);
-
+        IncorrectPassword,
         /// Indicates that the user sent unwanted and abusive messages to other users
         /// of the platform, such as spam, scams, phishing, or social engineering.
-        pub const SOCIAL_SPAM: Reason = Reason::new(14);
+        SocialSpam,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Reason::value] or
+        /// [Reason::name].
+        UnknownValue(reason::UnknownValue),
+    }
 
-        /// Creates a new Reason instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Reason {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Chargeback => std::option::Option::Some(1),
+                Self::ChargebackFraud => std::option::Option::Some(8),
+                Self::ChargebackDispute => std::option::Option::Some(9),
+                Self::Refund => std::option::Option::Some(10),
+                Self::RefundFraud => std::option::Option::Some(11),
+                Self::TransactionAccepted => std::option::Option::Some(12),
+                Self::TransactionDeclined => std::option::Option::Some(13),
+                Self::PaymentHeuristics => std::option::Option::Some(2),
+                Self::InitiatedTwoFactor => std::option::Option::Some(7),
+                Self::PassedTwoFactor => std::option::Option::Some(3),
+                Self::FailedTwoFactor => std::option::Option::Some(4),
+                Self::CorrectPassword => std::option::Option::Some(5),
+                Self::IncorrectPassword => std::option::Option::Some(6),
+                Self::SocialSpam => std::option::Option::Some(14),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("REASON_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CHARGEBACK"),
-                2 => std::borrow::Cow::Borrowed("PAYMENT_HEURISTICS"),
-                3 => std::borrow::Cow::Borrowed("PASSED_TWO_FACTOR"),
-                4 => std::borrow::Cow::Borrowed("FAILED_TWO_FACTOR"),
-                5 => std::borrow::Cow::Borrowed("CORRECT_PASSWORD"),
-                6 => std::borrow::Cow::Borrowed("INCORRECT_PASSWORD"),
-                7 => std::borrow::Cow::Borrowed("INITIATED_TWO_FACTOR"),
-                8 => std::borrow::Cow::Borrowed("CHARGEBACK_FRAUD"),
-                9 => std::borrow::Cow::Borrowed("CHARGEBACK_DISPUTE"),
-                10 => std::borrow::Cow::Borrowed("REFUND"),
-                11 => std::borrow::Cow::Borrowed("REFUND_FRAUD"),
-                12 => std::borrow::Cow::Borrowed("TRANSACTION_ACCEPTED"),
-                13 => std::borrow::Cow::Borrowed("TRANSACTION_DECLINED"),
-                14 => std::borrow::Cow::Borrowed("SOCIAL_SPAM"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("REASON_UNSPECIFIED"),
+                Self::Chargeback => std::option::Option::Some("CHARGEBACK"),
+                Self::ChargebackFraud => std::option::Option::Some("CHARGEBACK_FRAUD"),
+                Self::ChargebackDispute => std::option::Option::Some("CHARGEBACK_DISPUTE"),
+                Self::Refund => std::option::Option::Some("REFUND"),
+                Self::RefundFraud => std::option::Option::Some("REFUND_FRAUD"),
+                Self::TransactionAccepted => std::option::Option::Some("TRANSACTION_ACCEPTED"),
+                Self::TransactionDeclined => std::option::Option::Some("TRANSACTION_DECLINED"),
+                Self::PaymentHeuristics => std::option::Option::Some("PAYMENT_HEURISTICS"),
+                Self::InitiatedTwoFactor => std::option::Option::Some("INITIATED_TWO_FACTOR"),
+                Self::PassedTwoFactor => std::option::Option::Some("PASSED_TWO_FACTOR"),
+                Self::FailedTwoFactor => std::option::Option::Some("FAILED_TWO_FACTOR"),
+                Self::CorrectPassword => std::option::Option::Some("CORRECT_PASSWORD"),
+                Self::IncorrectPassword => std::option::Option::Some("INCORRECT_PASSWORD"),
+                Self::SocialSpam => std::option::Option::Some("SOCIAL_SPAM"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "REASON_UNSPECIFIED" => std::option::Option::Some(Self::REASON_UNSPECIFIED),
-                "CHARGEBACK" => std::option::Option::Some(Self::CHARGEBACK),
-                "CHARGEBACK_FRAUD" => std::option::Option::Some(Self::CHARGEBACK_FRAUD),
-                "CHARGEBACK_DISPUTE" => std::option::Option::Some(Self::CHARGEBACK_DISPUTE),
-                "REFUND" => std::option::Option::Some(Self::REFUND),
-                "REFUND_FRAUD" => std::option::Option::Some(Self::REFUND_FRAUD),
-                "TRANSACTION_ACCEPTED" => std::option::Option::Some(Self::TRANSACTION_ACCEPTED),
-                "TRANSACTION_DECLINED" => std::option::Option::Some(Self::TRANSACTION_DECLINED),
-                "PAYMENT_HEURISTICS" => std::option::Option::Some(Self::PAYMENT_HEURISTICS),
-                "INITIATED_TWO_FACTOR" => std::option::Option::Some(Self::INITIATED_TWO_FACTOR),
-                "PASSED_TWO_FACTOR" => std::option::Option::Some(Self::PASSED_TWO_FACTOR),
-                "FAILED_TWO_FACTOR" => std::option::Option::Some(Self::FAILED_TWO_FACTOR),
-                "CORRECT_PASSWORD" => std::option::Option::Some(Self::CORRECT_PASSWORD),
-                "INCORRECT_PASSWORD" => std::option::Option::Some(Self::INCORRECT_PASSWORD),
-                "SOCIAL_SPAM" => std::option::Option::Some(Self::SOCIAL_SPAM),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Reason {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Reason {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Reason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Reason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Chargeback,
+                2 => Self::PaymentHeuristics,
+                3 => Self::PassedTwoFactor,
+                4 => Self::FailedTwoFactor,
+                5 => Self::CorrectPassword,
+                6 => Self::IncorrectPassword,
+                7 => Self::InitiatedTwoFactor,
+                8 => Self::ChargebackFraud,
+                9 => Self::ChargebackDispute,
+                10 => Self::Refund,
+                11 => Self::RefundFraud,
+                12 => Self::TransactionAccepted,
+                13 => Self::TransactionDeclined,
+                14 => Self::SocialSpam,
+                _ => Self::UnknownValue(reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Reason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REASON_UNSPECIFIED" => Self::Unspecified,
+                "CHARGEBACK" => Self::Chargeback,
+                "CHARGEBACK_FRAUD" => Self::ChargebackFraud,
+                "CHARGEBACK_DISPUTE" => Self::ChargebackDispute,
+                "REFUND" => Self::Refund,
+                "REFUND_FRAUD" => Self::RefundFraud,
+                "TRANSACTION_ACCEPTED" => Self::TransactionAccepted,
+                "TRANSACTION_DECLINED" => Self::TransactionDeclined,
+                "PAYMENT_HEURISTICS" => Self::PaymentHeuristics,
+                "INITIATED_TWO_FACTOR" => Self::InitiatedTwoFactor,
+                "PASSED_TWO_FACTOR" => Self::PassedTwoFactor,
+                "FAILED_TWO_FACTOR" => Self::FailedTwoFactor,
+                "CORRECT_PASSWORD" => Self::CorrectPassword,
+                "INCORRECT_PASSWORD" => Self::IncorrectPassword,
+                "SOCIAL_SPAM" => Self::SocialSpam,
+                _ => Self::UnknownValue(reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Reason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Chargeback => serializer.serialize_i32(1),
+                Self::ChargebackFraud => serializer.serialize_i32(8),
+                Self::ChargebackDispute => serializer.serialize_i32(9),
+                Self::Refund => serializer.serialize_i32(10),
+                Self::RefundFraud => serializer.serialize_i32(11),
+                Self::TransactionAccepted => serializer.serialize_i32(12),
+                Self::TransactionDeclined => serializer.serialize_i32(13),
+                Self::PaymentHeuristics => serializer.serialize_i32(2),
+                Self::InitiatedTwoFactor => serializer.serialize_i32(7),
+                Self::PassedTwoFactor => serializer.serialize_i32(3),
+                Self::FailedTwoFactor => serializer.serialize_i32(4),
+                Self::CorrectPassword => serializer.serialize_i32(5),
+                Self::IncorrectPassword => serializer.serialize_i32(6),
+                Self::SocialSpam => serializer.serialize_i32(14),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Reason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Reason>::new(
+                ".google.cloud.recaptchaenterprise.v1.AnnotateAssessmentRequest.Reason",
+            ))
         }
     }
 }
@@ -891,117 +1131,188 @@ pub mod account_verification_info {
 
     /// Result of the account verification as contained in the verdict token issued
     /// at the end of the verification flow.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Result(i32);
-
-    impl Result {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Result {
         /// No information about the latest account verification.
-        pub const RESULT_UNSPECIFIED: Result = Result::new(0);
-
+        Unspecified,
         /// The user was successfully verified. This means the account verification
         /// challenge was successfully completed.
-        pub const SUCCESS_USER_VERIFIED: Result = Result::new(1);
-
+        SuccessUserVerified,
         /// The user failed the verification challenge.
-        pub const ERROR_USER_NOT_VERIFIED: Result = Result::new(2);
-
+        ErrorUserNotVerified,
         /// The site is not properly onboarded to use the account verification
         /// feature.
-        pub const ERROR_SITE_ONBOARDING_INCOMPLETE: Result = Result::new(3);
-
+        ErrorSiteOnboardingIncomplete,
         /// The recipient is not allowed for account verification. This can occur
         /// during integration but should not occur in production.
-        pub const ERROR_RECIPIENT_NOT_ALLOWED: Result = Result::new(4);
-
+        ErrorRecipientNotAllowed,
         /// The recipient has already been sent too many verification codes in a
         /// short amount of time.
-        pub const ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED: Result = Result::new(5);
-
+        ErrorRecipientAbuseLimitExhausted,
         /// The verification flow could not be completed due to a critical internal
         /// error.
-        pub const ERROR_CRITICAL_INTERNAL: Result = Result::new(6);
-
+        ErrorCriticalInternal,
         /// The client has exceeded their two factor request quota for this period of
         /// time.
-        pub const ERROR_CUSTOMER_QUOTA_EXHAUSTED: Result = Result::new(7);
-
+        ErrorCustomerQuotaExhausted,
         /// The request cannot be processed at the time because of an incident. This
         /// bypass can be restricted to a problematic destination email domain, a
         /// customer, or could affect the entire service.
-        pub const ERROR_VERIFICATION_BYPASSED: Result = Result::new(8);
-
+        ErrorVerificationBypassed,
         /// The request parameters do not match with the token provided and cannot be
         /// processed.
-        pub const ERROR_VERDICT_MISMATCH: Result = Result::new(9);
+        ErrorVerdictMismatch,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Result::value] or
+        /// [Result::name].
+        UnknownValue(result::UnknownValue),
+    }
 
-        /// Creates a new Result instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod result {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Result {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::SuccessUserVerified => std::option::Option::Some(1),
+                Self::ErrorUserNotVerified => std::option::Option::Some(2),
+                Self::ErrorSiteOnboardingIncomplete => std::option::Option::Some(3),
+                Self::ErrorRecipientNotAllowed => std::option::Option::Some(4),
+                Self::ErrorRecipientAbuseLimitExhausted => std::option::Option::Some(5),
+                Self::ErrorCriticalInternal => std::option::Option::Some(6),
+                Self::ErrorCustomerQuotaExhausted => std::option::Option::Some(7),
+                Self::ErrorVerificationBypassed => std::option::Option::Some(8),
+                Self::ErrorVerdictMismatch => std::option::Option::Some(9),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("RESULT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SUCCESS_USER_VERIFIED"),
-                2 => std::borrow::Cow::Borrowed("ERROR_USER_NOT_VERIFIED"),
-                3 => std::borrow::Cow::Borrowed("ERROR_SITE_ONBOARDING_INCOMPLETE"),
-                4 => std::borrow::Cow::Borrowed("ERROR_RECIPIENT_NOT_ALLOWED"),
-                5 => std::borrow::Cow::Borrowed("ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED"),
-                6 => std::borrow::Cow::Borrowed("ERROR_CRITICAL_INTERNAL"),
-                7 => std::borrow::Cow::Borrowed("ERROR_CUSTOMER_QUOTA_EXHAUSTED"),
-                8 => std::borrow::Cow::Borrowed("ERROR_VERIFICATION_BYPASSED"),
-                9 => std::borrow::Cow::Borrowed("ERROR_VERDICT_MISMATCH"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RESULT_UNSPECIFIED"),
+                Self::SuccessUserVerified => std::option::Option::Some("SUCCESS_USER_VERIFIED"),
+                Self::ErrorUserNotVerified => std::option::Option::Some("ERROR_USER_NOT_VERIFIED"),
+                Self::ErrorSiteOnboardingIncomplete => {
+                    std::option::Option::Some("ERROR_SITE_ONBOARDING_INCOMPLETE")
+                }
+                Self::ErrorRecipientNotAllowed => {
+                    std::option::Option::Some("ERROR_RECIPIENT_NOT_ALLOWED")
+                }
+                Self::ErrorRecipientAbuseLimitExhausted => {
+                    std::option::Option::Some("ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED")
+                }
+                Self::ErrorCriticalInternal => std::option::Option::Some("ERROR_CRITICAL_INTERNAL"),
+                Self::ErrorCustomerQuotaExhausted => {
+                    std::option::Option::Some("ERROR_CUSTOMER_QUOTA_EXHAUSTED")
+                }
+                Self::ErrorVerificationBypassed => {
+                    std::option::Option::Some("ERROR_VERIFICATION_BYPASSED")
+                }
+                Self::ErrorVerdictMismatch => std::option::Option::Some("ERROR_VERDICT_MISMATCH"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "RESULT_UNSPECIFIED" => std::option::Option::Some(Self::RESULT_UNSPECIFIED),
-                "SUCCESS_USER_VERIFIED" => std::option::Option::Some(Self::SUCCESS_USER_VERIFIED),
-                "ERROR_USER_NOT_VERIFIED" => {
-                    std::option::Option::Some(Self::ERROR_USER_NOT_VERIFIED)
-                }
-                "ERROR_SITE_ONBOARDING_INCOMPLETE" => {
-                    std::option::Option::Some(Self::ERROR_SITE_ONBOARDING_INCOMPLETE)
-                }
-                "ERROR_RECIPIENT_NOT_ALLOWED" => {
-                    std::option::Option::Some(Self::ERROR_RECIPIENT_NOT_ALLOWED)
-                }
-                "ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED" => {
-                    std::option::Option::Some(Self::ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED)
-                }
-                "ERROR_CRITICAL_INTERNAL" => {
-                    std::option::Option::Some(Self::ERROR_CRITICAL_INTERNAL)
-                }
-                "ERROR_CUSTOMER_QUOTA_EXHAUSTED" => {
-                    std::option::Option::Some(Self::ERROR_CUSTOMER_QUOTA_EXHAUSTED)
-                }
-                "ERROR_VERIFICATION_BYPASSED" => {
-                    std::option::Option::Some(Self::ERROR_VERIFICATION_BYPASSED)
-                }
-                "ERROR_VERDICT_MISMATCH" => std::option::Option::Some(Self::ERROR_VERDICT_MISMATCH),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Result {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Result {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Result {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Result {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::SuccessUserVerified,
+                2 => Self::ErrorUserNotVerified,
+                3 => Self::ErrorSiteOnboardingIncomplete,
+                4 => Self::ErrorRecipientNotAllowed,
+                5 => Self::ErrorRecipientAbuseLimitExhausted,
+                6 => Self::ErrorCriticalInternal,
+                7 => Self::ErrorCustomerQuotaExhausted,
+                8 => Self::ErrorVerificationBypassed,
+                9 => Self::ErrorVerdictMismatch,
+                _ => Self::UnknownValue(result::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Result {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RESULT_UNSPECIFIED" => Self::Unspecified,
+                "SUCCESS_USER_VERIFIED" => Self::SuccessUserVerified,
+                "ERROR_USER_NOT_VERIFIED" => Self::ErrorUserNotVerified,
+                "ERROR_SITE_ONBOARDING_INCOMPLETE" => Self::ErrorSiteOnboardingIncomplete,
+                "ERROR_RECIPIENT_NOT_ALLOWED" => Self::ErrorRecipientNotAllowed,
+                "ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED" => Self::ErrorRecipientAbuseLimitExhausted,
+                "ERROR_CRITICAL_INTERNAL" => Self::ErrorCriticalInternal,
+                "ERROR_CUSTOMER_QUOTA_EXHAUSTED" => Self::ErrorCustomerQuotaExhausted,
+                "ERROR_VERIFICATION_BYPASSED" => Self::ErrorVerificationBypassed,
+                "ERROR_VERDICT_MISMATCH" => Self::ErrorVerdictMismatch,
+                _ => Self::UnknownValue(result::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Result {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::SuccessUserVerified => serializer.serialize_i32(1),
+                Self::ErrorUserNotVerified => serializer.serialize_i32(2),
+                Self::ErrorSiteOnboardingIncomplete => serializer.serialize_i32(3),
+                Self::ErrorRecipientNotAllowed => serializer.serialize_i32(4),
+                Self::ErrorRecipientAbuseLimitExhausted => serializer.serialize_i32(5),
+                Self::ErrorCriticalInternal => serializer.serialize_i32(6),
+                Self::ErrorCustomerQuotaExhausted => serializer.serialize_i32(7),
+                Self::ErrorVerificationBypassed => serializer.serialize_i32(8),
+                Self::ErrorVerdictMismatch => serializer.serialize_i32(9),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Result {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Result>::new(
+                ".google.cloud.recaptchaenterprise.v1.AccountVerificationInfo.Result",
+            ))
         }
     }
 }
@@ -1523,65 +1834,124 @@ pub mod event {
     use super::*;
 
     /// Setting that controls Fraud Prevention assessments.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FraudPrevention(i32);
-
-    impl FraudPrevention {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum FraudPrevention {
         /// Default, unspecified setting. `fraud_prevention_assessment` is returned
         /// if `transaction_data` is present in `Event` and Fraud Prevention is
         /// enabled in the Google Cloud console.
-        pub const FRAUD_PREVENTION_UNSPECIFIED: FraudPrevention = FraudPrevention::new(0);
-
+        Unspecified,
         /// Enable Fraud Prevention for this assessment, if Fraud Prevention is
         /// enabled in the Google Cloud console.
-        pub const ENABLED: FraudPrevention = FraudPrevention::new(1);
-
+        Enabled,
         /// Disable Fraud Prevention for this assessment, regardless of the Google
         /// Cloud console settings.
-        pub const DISABLED: FraudPrevention = FraudPrevention::new(2);
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [FraudPrevention::value] or
+        /// [FraudPrevention::name].
+        UnknownValue(fraud_prevention::UnknownValue),
+    }
 
-        /// Creates a new FraudPrevention instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod fraud_prevention {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl FraudPrevention {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::Disabled => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("FRAUD_PREVENTION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENABLED"),
-                2 => std::borrow::Cow::Borrowed("DISABLED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FRAUD_PREVENTION_UNSPECIFIED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "FRAUD_PREVENTION_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::FRAUD_PREVENTION_UNSPECIFIED)
-                }
-                "ENABLED" => std::option::Option::Some(Self::ENABLED),
-                "DISABLED" => std::option::Option::Some(Self::DISABLED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for FraudPrevention {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for FraudPrevention {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for FraudPrevention {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for FraudPrevention {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::Disabled,
+                _ => Self::UnknownValue(fraud_prevention::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for FraudPrevention {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FRAUD_PREVENTION_UNSPECIFIED" => Self::Unspecified,
+                "ENABLED" => Self::Enabled,
+                "DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(fraud_prevention::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for FraudPrevention {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::Disabled => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FraudPrevention {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<FraudPrevention>::new(
+                ".google.cloud.recaptchaenterprise.v1.Event.FraudPrevention",
+            ))
         }
     }
 }
@@ -2392,154 +2762,285 @@ pub mod risk_analysis {
     use super::*;
 
     /// Reasons contributing to the risk analysis verdict.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ClassificationReason(i32);
-
-    impl ClassificationReason {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ClassificationReason {
         /// Default unspecified type.
-        pub const CLASSIFICATION_REASON_UNSPECIFIED: ClassificationReason =
-            ClassificationReason::new(0);
-
+        Unspecified,
         /// Interactions matched the behavior of an automated agent.
-        pub const AUTOMATION: ClassificationReason = ClassificationReason::new(1);
-
+        Automation,
         /// The event originated from an illegitimate environment.
-        pub const UNEXPECTED_ENVIRONMENT: ClassificationReason = ClassificationReason::new(2);
-
+        UnexpectedEnvironment,
         /// Traffic volume from the event source is higher than normal.
-        pub const TOO_MUCH_TRAFFIC: ClassificationReason = ClassificationReason::new(3);
-
+        TooMuchTraffic,
         /// Interactions with the site were significantly different than expected
         /// patterns.
-        pub const UNEXPECTED_USAGE_PATTERNS: ClassificationReason = ClassificationReason::new(4);
-
+        UnexpectedUsagePatterns,
         /// Too little traffic has been received from this site thus far to generate
         /// quality risk analysis.
-        pub const LOW_CONFIDENCE_SCORE: ClassificationReason = ClassificationReason::new(5);
-
+        LowConfidenceScore,
         /// The request matches behavioral characteristics of a carding attack.
-        pub const SUSPECTED_CARDING: ClassificationReason = ClassificationReason::new(6);
-
+        SuspectedCarding,
         /// The request matches behavioral characteristics of chargebacks for fraud.
-        pub const SUSPECTED_CHARGEBACK: ClassificationReason = ClassificationReason::new(7);
+        SuspectedChargeback,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ClassificationReason::value] or
+        /// [ClassificationReason::name].
+        UnknownValue(classification_reason::UnknownValue),
+    }
 
-        /// Creates a new ClassificationReason instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod classification_reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ClassificationReason {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Automation => std::option::Option::Some(1),
+                Self::UnexpectedEnvironment => std::option::Option::Some(2),
+                Self::TooMuchTraffic => std::option::Option::Some(3),
+                Self::UnexpectedUsagePatterns => std::option::Option::Some(4),
+                Self::LowConfidenceScore => std::option::Option::Some(5),
+                Self::SuspectedCarding => std::option::Option::Some(6),
+                Self::SuspectedChargeback => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CLASSIFICATION_REASON_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("AUTOMATION"),
-                2 => std::borrow::Cow::Borrowed("UNEXPECTED_ENVIRONMENT"),
-                3 => std::borrow::Cow::Borrowed("TOO_MUCH_TRAFFIC"),
-                4 => std::borrow::Cow::Borrowed("UNEXPECTED_USAGE_PATTERNS"),
-                5 => std::borrow::Cow::Borrowed("LOW_CONFIDENCE_SCORE"),
-                6 => std::borrow::Cow::Borrowed("SUSPECTED_CARDING"),
-                7 => std::borrow::Cow::Borrowed("SUSPECTED_CHARGEBACK"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CLASSIFICATION_REASON_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CLASSIFICATION_REASON_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CLASSIFICATION_REASON_UNSPECIFIED"),
+                Self::Automation => std::option::Option::Some("AUTOMATION"),
+                Self::UnexpectedEnvironment => std::option::Option::Some("UNEXPECTED_ENVIRONMENT"),
+                Self::TooMuchTraffic => std::option::Option::Some("TOO_MUCH_TRAFFIC"),
+                Self::UnexpectedUsagePatterns => {
+                    std::option::Option::Some("UNEXPECTED_USAGE_PATTERNS")
                 }
-                "AUTOMATION" => std::option::Option::Some(Self::AUTOMATION),
-                "UNEXPECTED_ENVIRONMENT" => std::option::Option::Some(Self::UNEXPECTED_ENVIRONMENT),
-                "TOO_MUCH_TRAFFIC" => std::option::Option::Some(Self::TOO_MUCH_TRAFFIC),
-                "UNEXPECTED_USAGE_PATTERNS" => {
-                    std::option::Option::Some(Self::UNEXPECTED_USAGE_PATTERNS)
-                }
-                "LOW_CONFIDENCE_SCORE" => std::option::Option::Some(Self::LOW_CONFIDENCE_SCORE),
-                "SUSPECTED_CARDING" => std::option::Option::Some(Self::SUSPECTED_CARDING),
-                "SUSPECTED_CHARGEBACK" => std::option::Option::Some(Self::SUSPECTED_CHARGEBACK),
-                _ => std::option::Option::None,
+                Self::LowConfidenceScore => std::option::Option::Some("LOW_CONFIDENCE_SCORE"),
+                Self::SuspectedCarding => std::option::Option::Some("SUSPECTED_CARDING"),
+                Self::SuspectedChargeback => std::option::Option::Some("SUSPECTED_CHARGEBACK"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for ClassificationReason {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ClassificationReason {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ClassificationReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ClassificationReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Automation,
+                2 => Self::UnexpectedEnvironment,
+                3 => Self::TooMuchTraffic,
+                4 => Self::UnexpectedUsagePatterns,
+                5 => Self::LowConfidenceScore,
+                6 => Self::SuspectedCarding,
+                7 => Self::SuspectedChargeback,
+                _ => Self::UnknownValue(classification_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ClassificationReason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CLASSIFICATION_REASON_UNSPECIFIED" => Self::Unspecified,
+                "AUTOMATION" => Self::Automation,
+                "UNEXPECTED_ENVIRONMENT" => Self::UnexpectedEnvironment,
+                "TOO_MUCH_TRAFFIC" => Self::TooMuchTraffic,
+                "UNEXPECTED_USAGE_PATTERNS" => Self::UnexpectedUsagePatterns,
+                "LOW_CONFIDENCE_SCORE" => Self::LowConfidenceScore,
+                "SUSPECTED_CARDING" => Self::SuspectedCarding,
+                "SUSPECTED_CHARGEBACK" => Self::SuspectedChargeback,
+                _ => Self::UnknownValue(classification_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ClassificationReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Automation => serializer.serialize_i32(1),
+                Self::UnexpectedEnvironment => serializer.serialize_i32(2),
+                Self::TooMuchTraffic => serializer.serialize_i32(3),
+                Self::UnexpectedUsagePatterns => serializer.serialize_i32(4),
+                Self::LowConfidenceScore => serializer.serialize_i32(5),
+                Self::SuspectedCarding => serializer.serialize_i32(6),
+                Self::SuspectedChargeback => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ClassificationReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ClassificationReason>::new(
+                ".google.cloud.recaptchaenterprise.v1.RiskAnalysis.ClassificationReason",
+            ))
         }
     }
 
     /// Challenge information for SCORE_AND_CHALLENGE and INVISIBLE keys
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Challenge(i32);
-
-    impl Challenge {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Challenge {
         /// Default unspecified type.
-        pub const CHALLENGE_UNSPECIFIED: Challenge = Challenge::new(0);
-
+        Unspecified,
         /// No challenge was presented for solving.
-        pub const NOCAPTCHA: Challenge = Challenge::new(1);
-
+        Nocaptcha,
         /// A solution was submitted that was correct.
-        pub const PASSED: Challenge = Challenge::new(2);
-
+        Passed,
         /// A solution was submitted that was incorrect or otherwise
         /// deemed suspicious.
-        pub const FAILED: Challenge = Challenge::new(3);
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Challenge::value] or
+        /// [Challenge::name].
+        UnknownValue(challenge::UnknownValue),
+    }
 
-        /// Creates a new Challenge instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod challenge {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Challenge {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Nocaptcha => std::option::Option::Some(1),
+                Self::Passed => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CHALLENGE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NOCAPTCHA"),
-                2 => std::borrow::Cow::Borrowed("PASSED"),
-                3 => std::borrow::Cow::Borrowed("FAILED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CHALLENGE_UNSPECIFIED"),
+                Self::Nocaptcha => std::option::Option::Some("NOCAPTCHA"),
+                Self::Passed => std::option::Option::Some("PASSED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CHALLENGE_UNSPECIFIED" => std::option::Option::Some(Self::CHALLENGE_UNSPECIFIED),
-                "NOCAPTCHA" => std::option::Option::Some(Self::NOCAPTCHA),
-                "PASSED" => std::option::Option::Some(Self::PASSED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Challenge {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Challenge {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Challenge {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Challenge {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Nocaptcha,
+                2 => Self::Passed,
+                3 => Self::Failed,
+                _ => Self::UnknownValue(challenge::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Challenge {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CHALLENGE_UNSPECIFIED" => Self::Unspecified,
+                "NOCAPTCHA" => Self::Nocaptcha,
+                "PASSED" => Self::Passed,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(challenge::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Challenge {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Nocaptcha => serializer.serialize_i32(1),
+                Self::Passed => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Challenge {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Challenge>::new(
+                ".google.cloud.recaptchaenterprise.v1.RiskAnalysis.Challenge",
+            ))
         }
     }
 }
@@ -2659,82 +3160,149 @@ pub mod token_properties {
     use super::*;
 
     /// Enum that represents the types of invalid token reasons.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct InvalidReason(i32);
-
-    impl InvalidReason {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum InvalidReason {
         /// Default unspecified type.
-        pub const INVALID_REASON_UNSPECIFIED: InvalidReason = InvalidReason::new(0);
-
+        Unspecified,
         /// If the failure reason was not accounted for.
-        pub const UNKNOWN_INVALID_REASON: InvalidReason = InvalidReason::new(1);
-
+        UnknownInvalidReason,
         /// The provided user verification token was malformed.
-        pub const MALFORMED: InvalidReason = InvalidReason::new(2);
-
+        Malformed,
         /// The user verification token had expired.
-        pub const EXPIRED: InvalidReason = InvalidReason::new(3);
-
+        Expired,
         /// The user verification had already been seen.
-        pub const DUPE: InvalidReason = InvalidReason::new(4);
-
+        Dupe,
         /// The user verification token was not present.
-        pub const MISSING: InvalidReason = InvalidReason::new(5);
-
+        Missing,
         /// A retriable error (such as network failure) occurred on the browser.
         /// Could easily be simulated by an attacker.
-        pub const BROWSER_ERROR: InvalidReason = InvalidReason::new(6);
+        BrowserError,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [InvalidReason::value] or
+        /// [InvalidReason::name].
+        UnknownValue(invalid_reason::UnknownValue),
+    }
 
-        /// Creates a new InvalidReason instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod invalid_reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl InvalidReason {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::UnknownInvalidReason => std::option::Option::Some(1),
+                Self::Malformed => std::option::Option::Some(2),
+                Self::Expired => std::option::Option::Some(3),
+                Self::Dupe => std::option::Option::Some(4),
+                Self::Missing => std::option::Option::Some(5),
+                Self::BrowserError => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("INVALID_REASON_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("UNKNOWN_INVALID_REASON"),
-                2 => std::borrow::Cow::Borrowed("MALFORMED"),
-                3 => std::borrow::Cow::Borrowed("EXPIRED"),
-                4 => std::borrow::Cow::Borrowed("DUPE"),
-                5 => std::borrow::Cow::Borrowed("MISSING"),
-                6 => std::borrow::Cow::Borrowed("BROWSER_ERROR"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("INVALID_REASON_UNSPECIFIED"),
+                Self::UnknownInvalidReason => std::option::Option::Some("UNKNOWN_INVALID_REASON"),
+                Self::Malformed => std::option::Option::Some("MALFORMED"),
+                Self::Expired => std::option::Option::Some("EXPIRED"),
+                Self::Dupe => std::option::Option::Some("DUPE"),
+                Self::Missing => std::option::Option::Some("MISSING"),
+                Self::BrowserError => std::option::Option::Some("BROWSER_ERROR"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "INVALID_REASON_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::INVALID_REASON_UNSPECIFIED)
-                }
-                "UNKNOWN_INVALID_REASON" => std::option::Option::Some(Self::UNKNOWN_INVALID_REASON),
-                "MALFORMED" => std::option::Option::Some(Self::MALFORMED),
-                "EXPIRED" => std::option::Option::Some(Self::EXPIRED),
-                "DUPE" => std::option::Option::Some(Self::DUPE),
-                "MISSING" => std::option::Option::Some(Self::MISSING),
-                "BROWSER_ERROR" => std::option::Option::Some(Self::BROWSER_ERROR),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for InvalidReason {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for InvalidReason {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for InvalidReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for InvalidReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::UnknownInvalidReason,
+                2 => Self::Malformed,
+                3 => Self::Expired,
+                4 => Self::Dupe,
+                5 => Self::Missing,
+                6 => Self::BrowserError,
+                _ => Self::UnknownValue(invalid_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for InvalidReason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "INVALID_REASON_UNSPECIFIED" => Self::Unspecified,
+                "UNKNOWN_INVALID_REASON" => Self::UnknownInvalidReason,
+                "MALFORMED" => Self::Malformed,
+                "EXPIRED" => Self::Expired,
+                "DUPE" => Self::Dupe,
+                "MISSING" => Self::Missing,
+                "BROWSER_ERROR" => Self::BrowserError,
+                _ => Self::UnknownValue(invalid_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for InvalidReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::UnknownInvalidReason => serializer.serialize_i32(1),
+                Self::Malformed => serializer.serialize_i32(2),
+                Self::Expired => serializer.serialize_i32(3),
+                Self::Dupe => serializer.serialize_i32(4),
+                Self::Missing => serializer.serialize_i32(5),
+                Self::BrowserError => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for InvalidReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<InvalidReason>::new(
+                ".google.cloud.recaptchaenterprise.v1.TokenProperties.InvalidReason",
+            ))
         }
     }
 }
@@ -3088,68 +3656,132 @@ pub mod fraud_signals {
 
         /// Risk labels describing the card being assessed, such as its funding
         /// mechanism.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct CardLabel(i32);
-
-        impl CardLabel {
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum CardLabel {
             /// No label specified.
-            pub const CARD_LABEL_UNSPECIFIED: CardLabel = CardLabel::new(0);
-
+            Unspecified,
             /// This card has been detected as prepaid.
-            pub const PREPAID: CardLabel = CardLabel::new(1);
-
+            Prepaid,
             /// This card has been detected as virtual, such as a card number generated
             /// for a single transaction or merchant.
-            pub const VIRTUAL: CardLabel = CardLabel::new(2);
-
+            Virtual,
             /// This card has been detected as being used in an unexpected geographic
             /// location.
-            pub const UNEXPECTED_LOCATION: CardLabel = CardLabel::new(3);
+            UnexpectedLocation,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [CardLabel::value] or
+            /// [CardLabel::name].
+            UnknownValue(card_label::UnknownValue),
+        }
 
-            /// Creates a new CardLabel instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod card_label {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl CardLabel {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Prepaid => std::option::Option::Some(1),
+                    Self::Virtual => std::option::Option::Some(2),
+                    Self::UnexpectedLocation => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("CARD_LABEL_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("PREPAID"),
-                    2 => std::borrow::Cow::Borrowed("VIRTUAL"),
-                    3 => std::borrow::Cow::Borrowed("UNEXPECTED_LOCATION"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("CARD_LABEL_UNSPECIFIED"),
+                    Self::Prepaid => std::option::Option::Some("PREPAID"),
+                    Self::Virtual => std::option::Option::Some("VIRTUAL"),
+                    Self::UnexpectedLocation => std::option::Option::Some("UNEXPECTED_LOCATION"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "CARD_LABEL_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::CARD_LABEL_UNSPECIFIED)
-                    }
-                    "PREPAID" => std::option::Option::Some(Self::PREPAID),
-                    "VIRTUAL" => std::option::Option::Some(Self::VIRTUAL),
-                    "UNEXPECTED_LOCATION" => std::option::Option::Some(Self::UNEXPECTED_LOCATION),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for CardLabel {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for CardLabel {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for CardLabel {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for CardLabel {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Prepaid,
+                    2 => Self::Virtual,
+                    3 => Self::UnexpectedLocation,
+                    _ => Self::UnknownValue(card_label::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for CardLabel {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CARD_LABEL_UNSPECIFIED" => Self::Unspecified,
+                    "PREPAID" => Self::Prepaid,
+                    "VIRTUAL" => Self::Virtual,
+                    "UNEXPECTED_LOCATION" => Self::UnexpectedLocation,
+                    _ => Self::UnknownValue(card_label::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for CardLabel {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Prepaid => serializer.serialize_i32(1),
+                    Self::Virtual => serializer.serialize_i32(2),
+                    Self::UnexpectedLocation => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for CardLabel {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<CardLabel>::new(
+                    ".google.cloud.recaptchaenterprise.v1.FraudSignals.CardSignals.CardLabel",
+                ))
             }
         }
     }
@@ -3209,57 +3841,113 @@ pub mod sms_toll_fraud_verdict {
     use super::*;
 
     /// Reasons contributing to the SMS toll fraud verdict.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SmsTollFraudReason(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SmsTollFraudReason {
+        /// Default unspecified reason
+        Unspecified,
+        /// The provided phone number was invalid
+        InvalidPhoneNumber,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SmsTollFraudReason::value] or
+        /// [SmsTollFraudReason::name].
+        UnknownValue(sms_toll_fraud_reason::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod sms_toll_fraud_reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl SmsTollFraudReason {
-        /// Default unspecified reason
-        pub const SMS_TOLL_FRAUD_REASON_UNSPECIFIED: SmsTollFraudReason =
-            SmsTollFraudReason::new(0);
-
-        /// The provided phone number was invalid
-        pub const INVALID_PHONE_NUMBER: SmsTollFraudReason = SmsTollFraudReason::new(1);
-
-        /// Creates a new SmsTollFraudReason instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::InvalidPhoneNumber => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SMS_TOLL_FRAUD_REASON_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INVALID_PHONE_NUMBER"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SMS_TOLL_FRAUD_REASON_UNSPECIFIED"),
+                Self::InvalidPhoneNumber => std::option::Option::Some("INVALID_PHONE_NUMBER"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SMS_TOLL_FRAUD_REASON_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::SMS_TOLL_FRAUD_REASON_UNSPECIFIED)
-                }
-                "INVALID_PHONE_NUMBER" => std::option::Option::Some(Self::INVALID_PHONE_NUMBER),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for SmsTollFraudReason {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for SmsTollFraudReason {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SmsTollFraudReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SmsTollFraudReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::InvalidPhoneNumber,
+                _ => Self::UnknownValue(sms_toll_fraud_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SmsTollFraudReason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SMS_TOLL_FRAUD_REASON_UNSPECIFIED" => Self::Unspecified,
+                "INVALID_PHONE_NUMBER" => Self::InvalidPhoneNumber,
+                _ => Self::UnknownValue(sms_toll_fraud_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SmsTollFraudReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::InvalidPhoneNumber => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SmsTollFraudReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SmsTollFraudReason>::new(
+                ".google.cloud.recaptchaenterprise.v1.SmsTollFraudVerdict.SmsTollFraudReason",
+            ))
         }
     }
 }
@@ -3344,82 +4032,145 @@ pub mod account_defender_assessment {
     use super::*;
 
     /// Labels returned by account defender for this request.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AccountDefenderLabel(i32);
-
-    impl AccountDefenderLabel {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AccountDefenderLabel {
         /// Default unspecified type.
-        pub const ACCOUNT_DEFENDER_LABEL_UNSPECIFIED: AccountDefenderLabel =
-            AccountDefenderLabel::new(0);
-
+        Unspecified,
         /// The request matches a known good profile for the user.
-        pub const PROFILE_MATCH: AccountDefenderLabel = AccountDefenderLabel::new(1);
-
+        ProfileMatch,
         /// The request is potentially a suspicious login event and must be further
         /// verified either through multi-factor authentication or another system.
-        pub const SUSPICIOUS_LOGIN_ACTIVITY: AccountDefenderLabel = AccountDefenderLabel::new(2);
-
+        SuspiciousLoginActivity,
         /// The request matched a profile that previously had suspicious account
         /// creation behavior. This can mean that this is a fake account.
-        pub const SUSPICIOUS_ACCOUNT_CREATION: AccountDefenderLabel = AccountDefenderLabel::new(3);
-
+        SuspiciousAccountCreation,
         /// The account in the request has a high number of related accounts. It does
         /// not necessarily imply that the account is bad but can require further
         /// investigation.
-        pub const RELATED_ACCOUNTS_NUMBER_HIGH: AccountDefenderLabel = AccountDefenderLabel::new(4);
+        RelatedAccountsNumberHigh,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AccountDefenderLabel::value] or
+        /// [AccountDefenderLabel::name].
+        UnknownValue(account_defender_label::UnknownValue),
+    }
 
-        /// Creates a new AccountDefenderLabel instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod account_defender_label {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl AccountDefenderLabel {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ProfileMatch => std::option::Option::Some(1),
+                Self::SuspiciousLoginActivity => std::option::Option::Some(2),
+                Self::SuspiciousAccountCreation => std::option::Option::Some(3),
+                Self::RelatedAccountsNumberHigh => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ACCOUNT_DEFENDER_LABEL_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PROFILE_MATCH"),
-                2 => std::borrow::Cow::Borrowed("SUSPICIOUS_LOGIN_ACTIVITY"),
-                3 => std::borrow::Cow::Borrowed("SUSPICIOUS_ACCOUNT_CREATION"),
-                4 => std::borrow::Cow::Borrowed("RELATED_ACCOUNTS_NUMBER_HIGH"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("ACCOUNT_DEFENDER_LABEL_UNSPECIFIED")
+                }
+                Self::ProfileMatch => std::option::Option::Some("PROFILE_MATCH"),
+                Self::SuspiciousLoginActivity => {
+                    std::option::Option::Some("SUSPICIOUS_LOGIN_ACTIVITY")
+                }
+                Self::SuspiciousAccountCreation => {
+                    std::option::Option::Some("SUSPICIOUS_ACCOUNT_CREATION")
+                }
+                Self::RelatedAccountsNumberHigh => {
+                    std::option::Option::Some("RELATED_ACCOUNTS_NUMBER_HIGH")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ACCOUNT_DEFENDER_LABEL_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::ACCOUNT_DEFENDER_LABEL_UNSPECIFIED)
-                }
-                "PROFILE_MATCH" => std::option::Option::Some(Self::PROFILE_MATCH),
-                "SUSPICIOUS_LOGIN_ACTIVITY" => {
-                    std::option::Option::Some(Self::SUSPICIOUS_LOGIN_ACTIVITY)
-                }
-                "SUSPICIOUS_ACCOUNT_CREATION" => {
-                    std::option::Option::Some(Self::SUSPICIOUS_ACCOUNT_CREATION)
-                }
-                "RELATED_ACCOUNTS_NUMBER_HIGH" => {
-                    std::option::Option::Some(Self::RELATED_ACCOUNTS_NUMBER_HIGH)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for AccountDefenderLabel {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for AccountDefenderLabel {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AccountDefenderLabel {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AccountDefenderLabel {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ProfileMatch,
+                2 => Self::SuspiciousLoginActivity,
+                3 => Self::SuspiciousAccountCreation,
+                4 => Self::RelatedAccountsNumberHigh,
+                _ => Self::UnknownValue(account_defender_label::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AccountDefenderLabel {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ACCOUNT_DEFENDER_LABEL_UNSPECIFIED" => Self::Unspecified,
+                "PROFILE_MATCH" => Self::ProfileMatch,
+                "SUSPICIOUS_LOGIN_ACTIVITY" => Self::SuspiciousLoginActivity,
+                "SUSPICIOUS_ACCOUNT_CREATION" => Self::SuspiciousAccountCreation,
+                "RELATED_ACCOUNTS_NUMBER_HIGH" => Self::RelatedAccountsNumberHigh,
+                _ => Self::UnknownValue(account_defender_label::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AccountDefenderLabel {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ProfileMatch => serializer.serialize_i32(1),
+                Self::SuspiciousLoginActivity => serializer.serialize_i32(2),
+                Self::SuspiciousAccountCreation => serializer.serialize_i32(3),
+                Self::RelatedAccountsNumberHigh => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AccountDefenderLabel {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AccountDefenderLabel>::new(
+                ".google.cloud.recaptchaenterprise.v1.AccountDefenderAssessment.AccountDefenderLabel"))
         }
     }
 }
@@ -4609,64 +5360,123 @@ pub mod testing_options {
 
     /// Enum that represents the challenge option for challenge-based (CHECKBOX,
     /// INVISIBLE) testing keys.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TestingChallenge(i32);
-
-    impl TestingChallenge {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TestingChallenge {
         /// Perform the normal risk analysis and return either nocaptcha or a
         /// challenge depending on risk and trust factors.
-        pub const TESTING_CHALLENGE_UNSPECIFIED: TestingChallenge = TestingChallenge::new(0);
-
+        Unspecified,
         /// Challenge requests for this key always return a nocaptcha, which
         /// does not require a solution.
-        pub const NOCAPTCHA: TestingChallenge = TestingChallenge::new(1);
-
+        Nocaptcha,
         /// Challenge requests for this key always return an unsolvable
         /// challenge.
-        pub const UNSOLVABLE_CHALLENGE: TestingChallenge = TestingChallenge::new(2);
+        UnsolvableChallenge,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TestingChallenge::value] or
+        /// [TestingChallenge::name].
+        UnknownValue(testing_challenge::UnknownValue),
+    }
 
-        /// Creates a new TestingChallenge instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod testing_challenge {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl TestingChallenge {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Nocaptcha => std::option::Option::Some(1),
+                Self::UnsolvableChallenge => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TESTING_CHALLENGE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NOCAPTCHA"),
-                2 => std::borrow::Cow::Borrowed("UNSOLVABLE_CHALLENGE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TESTING_CHALLENGE_UNSPECIFIED"),
+                Self::Nocaptcha => std::option::Option::Some("NOCAPTCHA"),
+                Self::UnsolvableChallenge => std::option::Option::Some("UNSOLVABLE_CHALLENGE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TESTING_CHALLENGE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::TESTING_CHALLENGE_UNSPECIFIED)
-                }
-                "NOCAPTCHA" => std::option::Option::Some(Self::NOCAPTCHA),
-                "UNSOLVABLE_CHALLENGE" => std::option::Option::Some(Self::UNSOLVABLE_CHALLENGE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for TestingChallenge {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for TestingChallenge {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TestingChallenge {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TestingChallenge {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Nocaptcha,
+                2 => Self::UnsolvableChallenge,
+                _ => Self::UnknownValue(testing_challenge::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TestingChallenge {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TESTING_CHALLENGE_UNSPECIFIED" => Self::Unspecified,
+                "NOCAPTCHA" => Self::Nocaptcha,
+                "UNSOLVABLE_CHALLENGE" => Self::UnsolvableChallenge,
+                _ => Self::UnknownValue(testing_challenge::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TestingChallenge {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Nocaptcha => serializer.serialize_i32(1),
+                Self::UnsolvableChallenge => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TestingChallenge {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TestingChallenge>::new(
+                ".google.cloud.recaptchaenterprise.v1.TestingOptions.TestingChallenge",
+            ))
         }
     }
 }
@@ -4768,137 +5578,259 @@ pub mod web_key_settings {
     use super::*;
 
     /// Enum that represents the integration types for web keys.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IntegrationType(i32);
-
-    impl IntegrationType {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IntegrationType {
         /// Default type that indicates this enum hasn't been specified. This is not
         /// a valid IntegrationType, one of the other types must be specified
         /// instead.
-        pub const INTEGRATION_TYPE_UNSPECIFIED: IntegrationType = IntegrationType::new(0);
-
+        Unspecified,
         /// Only used to produce scores. It doesn't display the "I'm not a robot"
         /// checkbox and never shows captcha challenges.
-        pub const SCORE: IntegrationType = IntegrationType::new(1);
-
+        Score,
         /// Displays the "I'm not a robot" checkbox and may show captcha challenges
         /// after it is checked.
-        pub const CHECKBOX: IntegrationType = IntegrationType::new(2);
-
+        Checkbox,
         /// Doesn't display the "I'm not a robot" checkbox, but may show captcha
         /// challenges after risk analysis.
-        pub const INVISIBLE: IntegrationType = IntegrationType::new(3);
+        Invisible,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [IntegrationType::value] or
+        /// [IntegrationType::name].
+        UnknownValue(integration_type::UnknownValue),
+    }
 
-        /// Creates a new IntegrationType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod integration_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl IntegrationType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Score => std::option::Option::Some(1),
+                Self::Checkbox => std::option::Option::Some(2),
+                Self::Invisible => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("INTEGRATION_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SCORE"),
-                2 => std::borrow::Cow::Borrowed("CHECKBOX"),
-                3 => std::borrow::Cow::Borrowed("INVISIBLE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("INTEGRATION_TYPE_UNSPECIFIED"),
+                Self::Score => std::option::Option::Some("SCORE"),
+                Self::Checkbox => std::option::Option::Some("CHECKBOX"),
+                Self::Invisible => std::option::Option::Some("INVISIBLE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "INTEGRATION_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::INTEGRATION_TYPE_UNSPECIFIED)
-                }
-                "SCORE" => std::option::Option::Some(Self::SCORE),
-                "CHECKBOX" => std::option::Option::Some(Self::CHECKBOX),
-                "INVISIBLE" => std::option::Option::Some(Self::INVISIBLE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for IntegrationType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for IntegrationType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for IntegrationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for IntegrationType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Score,
+                2 => Self::Checkbox,
+                3 => Self::Invisible,
+                _ => Self::UnknownValue(integration_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for IntegrationType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "INTEGRATION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SCORE" => Self::Score,
+                "CHECKBOX" => Self::Checkbox,
+                "INVISIBLE" => Self::Invisible,
+                _ => Self::UnknownValue(integration_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for IntegrationType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Score => serializer.serialize_i32(1),
+                Self::Checkbox => serializer.serialize_i32(2),
+                Self::Invisible => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IntegrationType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<IntegrationType>::new(
+                ".google.cloud.recaptchaenterprise.v1.WebKeySettings.IntegrationType",
+            ))
         }
     }
 
     /// Enum that represents the possible challenge frequency and difficulty
     /// configurations for a web key.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ChallengeSecurityPreference(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ChallengeSecurityPreference {
+        /// Default type that indicates this enum hasn't been specified.
+        Unspecified,
+        /// Key tends to show fewer and easier challenges.
+        Usability,
+        /// Key tends to show balanced (in amount and difficulty) challenges.
+        Balance,
+        /// Key tends to show more and harder challenges.
+        Security,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ChallengeSecurityPreference::value] or
+        /// [ChallengeSecurityPreference::name].
+        UnknownValue(challenge_security_preference::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod challenge_security_preference {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl ChallengeSecurityPreference {
-        /// Default type that indicates this enum hasn't been specified.
-        pub const CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED: ChallengeSecurityPreference =
-            ChallengeSecurityPreference::new(0);
-
-        /// Key tends to show fewer and easier challenges.
-        pub const USABILITY: ChallengeSecurityPreference = ChallengeSecurityPreference::new(1);
-
-        /// Key tends to show balanced (in amount and difficulty) challenges.
-        pub const BALANCE: ChallengeSecurityPreference = ChallengeSecurityPreference::new(2);
-
-        /// Key tends to show more and harder challenges.
-        pub const SECURITY: ChallengeSecurityPreference = ChallengeSecurityPreference::new(3);
-
-        /// Creates a new ChallengeSecurityPreference instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Usability => std::option::Option::Some(1),
+                Self::Balance => std::option::Option::Some(2),
+                Self::Security => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("USABILITY"),
-                2 => std::borrow::Cow::Borrowed("BALANCE"),
-                3 => std::borrow::Cow::Borrowed("SECURITY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED")
                 }
-                "USABILITY" => std::option::Option::Some(Self::USABILITY),
-                "BALANCE" => std::option::Option::Some(Self::BALANCE),
-                "SECURITY" => std::option::Option::Some(Self::SECURITY),
-                _ => std::option::Option::None,
+                Self::Usability => std::option::Option::Some("USABILITY"),
+                Self::Balance => std::option::Option::Some("BALANCE"),
+                Self::Security => std::option::Option::Some("SECURITY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for ChallengeSecurityPreference {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ChallengeSecurityPreference {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ChallengeSecurityPreference {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ChallengeSecurityPreference {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Usability,
+                2 => Self::Balance,
+                3 => Self::Security,
+                _ => Self::UnknownValue(challenge_security_preference::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ChallengeSecurityPreference {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED" => Self::Unspecified,
+                "USABILITY" => Self::Usability,
+                "BALANCE" => Self::Balance,
+                "SECURITY" => Self::Security,
+                _ => Self::UnknownValue(challenge_security_preference::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ChallengeSecurityPreference {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Usability => serializer.serialize_i32(1),
+                Self::Balance => serializer.serialize_i32(2),
+                Self::Security => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ChallengeSecurityPreference {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ChallengeSecurityPreference>::new(
+                ".google.cloud.recaptchaenterprise.v1.WebKeySettings.ChallengeSecurityPreference"))
         }
     }
 }
@@ -6672,142 +7604,268 @@ pub mod waf_settings {
 
     /// Supported WAF features. For more information, see
     /// <https://cloud.google.com/recaptcha/docs/usecase#comparison_of_features>.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct WafFeature(i32);
-
-    impl WafFeature {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum WafFeature {
         /// Undefined feature.
-        pub const WAF_FEATURE_UNSPECIFIED: WafFeature = WafFeature::new(0);
-
+        Unspecified,
         /// Redirects suspicious traffic to reCAPTCHA.
-        pub const CHALLENGE_PAGE: WafFeature = WafFeature::new(1);
-
+        ChallengePage,
         /// Use reCAPTCHA session-tokens to protect the whole user session on the
         /// site's domain.
-        pub const SESSION_TOKEN: WafFeature = WafFeature::new(2);
-
+        SessionToken,
         /// Use reCAPTCHA action-tokens to protect user actions.
-        pub const ACTION_TOKEN: WafFeature = WafFeature::new(3);
-
+        ActionToken,
         /// Use reCAPTCHA WAF express protection to protect any content other than
         /// web pages, like APIs and IoT devices.
-        pub const EXPRESS: WafFeature = WafFeature::new(5);
+        Express,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [WafFeature::value] or
+        /// [WafFeature::name].
+        UnknownValue(waf_feature::UnknownValue),
+    }
 
-        /// Creates a new WafFeature instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod waf_feature {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl WafFeature {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ChallengePage => std::option::Option::Some(1),
+                Self::SessionToken => std::option::Option::Some(2),
+                Self::ActionToken => std::option::Option::Some(3),
+                Self::Express => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("WAF_FEATURE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CHALLENGE_PAGE"),
-                2 => std::borrow::Cow::Borrowed("SESSION_TOKEN"),
-                3 => std::borrow::Cow::Borrowed("ACTION_TOKEN"),
-                5 => std::borrow::Cow::Borrowed("EXPRESS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("WAF_FEATURE_UNSPECIFIED"),
+                Self::ChallengePage => std::option::Option::Some("CHALLENGE_PAGE"),
+                Self::SessionToken => std::option::Option::Some("SESSION_TOKEN"),
+                Self::ActionToken => std::option::Option::Some("ACTION_TOKEN"),
+                Self::Express => std::option::Option::Some("EXPRESS"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "WAF_FEATURE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::WAF_FEATURE_UNSPECIFIED)
-                }
-                "CHALLENGE_PAGE" => std::option::Option::Some(Self::CHALLENGE_PAGE),
-                "SESSION_TOKEN" => std::option::Option::Some(Self::SESSION_TOKEN),
-                "ACTION_TOKEN" => std::option::Option::Some(Self::ACTION_TOKEN),
-                "EXPRESS" => std::option::Option::Some(Self::EXPRESS),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for WafFeature {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for WafFeature {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for WafFeature {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for WafFeature {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ChallengePage,
+                2 => Self::SessionToken,
+                3 => Self::ActionToken,
+                5 => Self::Express,
+                _ => Self::UnknownValue(waf_feature::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for WafFeature {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "WAF_FEATURE_UNSPECIFIED" => Self::Unspecified,
+                "CHALLENGE_PAGE" => Self::ChallengePage,
+                "SESSION_TOKEN" => Self::SessionToken,
+                "ACTION_TOKEN" => Self::ActionToken,
+                "EXPRESS" => Self::Express,
+                _ => Self::UnknownValue(waf_feature::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for WafFeature {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ChallengePage => serializer.serialize_i32(1),
+                Self::SessionToken => serializer.serialize_i32(2),
+                Self::ActionToken => serializer.serialize_i32(3),
+                Self::Express => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for WafFeature {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<WafFeature>::new(
+                ".google.cloud.recaptchaenterprise.v1.WafSettings.WafFeature",
+            ))
         }
     }
 
     /// Web Application Firewalls supported by reCAPTCHA.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct WafService(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum WafService {
+        /// Undefined WAF
+        Unspecified,
+        /// Cloud Armor
+        Ca,
+        /// Fastly
+        Fastly,
+        /// Cloudflare
+        Cloudflare,
+        /// Akamai
+        Akamai,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [WafService::value] or
+        /// [WafService::name].
+        UnknownValue(waf_service::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod waf_service {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl WafService {
-        /// Undefined WAF
-        pub const WAF_SERVICE_UNSPECIFIED: WafService = WafService::new(0);
-
-        /// Cloud Armor
-        pub const CA: WafService = WafService::new(1);
-
-        /// Fastly
-        pub const FASTLY: WafService = WafService::new(3);
-
-        /// Cloudflare
-        pub const CLOUDFLARE: WafService = WafService::new(4);
-
-        /// Akamai
-        pub const AKAMAI: WafService = WafService::new(5);
-
-        /// Creates a new WafService instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Ca => std::option::Option::Some(1),
+                Self::Fastly => std::option::Option::Some(3),
+                Self::Cloudflare => std::option::Option::Some(4),
+                Self::Akamai => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("WAF_SERVICE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CA"),
-                3 => std::borrow::Cow::Borrowed("FASTLY"),
-                4 => std::borrow::Cow::Borrowed("CLOUDFLARE"),
-                5 => std::borrow::Cow::Borrowed("AKAMAI"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("WAF_SERVICE_UNSPECIFIED"),
+                Self::Ca => std::option::Option::Some("CA"),
+                Self::Fastly => std::option::Option::Some("FASTLY"),
+                Self::Cloudflare => std::option::Option::Some("CLOUDFLARE"),
+                Self::Akamai => std::option::Option::Some("AKAMAI"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "WAF_SERVICE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::WAF_SERVICE_UNSPECIFIED)
-                }
-                "CA" => std::option::Option::Some(Self::CA),
-                "FASTLY" => std::option::Option::Some(Self::FASTLY),
-                "CLOUDFLARE" => std::option::Option::Some(Self::CLOUDFLARE),
-                "AKAMAI" => std::option::Option::Some(Self::AKAMAI),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for WafService {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for WafService {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for WafService {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for WafService {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Ca,
+                3 => Self::Fastly,
+                4 => Self::Cloudflare,
+                5 => Self::Akamai,
+                _ => Self::UnknownValue(waf_service::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for WafService {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "WAF_SERVICE_UNSPECIFIED" => Self::Unspecified,
+                "CA" => Self::Ca,
+                "FASTLY" => Self::Fastly,
+                "CLOUDFLARE" => Self::Cloudflare,
+                "AKAMAI" => Self::Akamai,
+                _ => Self::UnknownValue(waf_service::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for WafService {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Ca => serializer.serialize_i32(1),
+                Self::Fastly => serializer.serialize_i32(3),
+                Self::Cloudflare => serializer.serialize_i32(4),
+                Self::Akamai => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for WafService {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<WafService>::new(
+                ".google.cloud.recaptchaenterprise.v1.WafSettings.WafService",
+            ))
         }
     }
 }
@@ -6920,57 +7978,114 @@ pub mod ip_override_data {
     use super::*;
 
     /// Enum that represents the type of IP override.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OverrideType(i32);
-
-    impl OverrideType {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum OverrideType {
         /// Default override type that indicates this enum hasn't been specified.
-        pub const OVERRIDE_TYPE_UNSPECIFIED: OverrideType = OverrideType::new(0);
-
+        Unspecified,
         /// Allowlist the IP address; i.e. give a `risk_analysis.score` of 0.9 for
         /// all valid assessments.
-        pub const ALLOW: OverrideType = OverrideType::new(1);
+        Allow,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [OverrideType::value] or
+        /// [OverrideType::name].
+        UnknownValue(override_type::UnknownValue),
+    }
 
-        /// Creates a new OverrideType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod override_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl OverrideType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Allow => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("OVERRIDE_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ALLOW"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("OVERRIDE_TYPE_UNSPECIFIED"),
+                Self::Allow => std::option::Option::Some("ALLOW"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "OVERRIDE_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::OVERRIDE_TYPE_UNSPECIFIED)
-                }
-                "ALLOW" => std::option::Option::Some(Self::ALLOW),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for OverrideType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for OverrideType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for OverrideType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for OverrideType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Allow,
+                _ => Self::UnknownValue(override_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for OverrideType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "OVERRIDE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "ALLOW" => Self::Allow,
+                _ => Self::UnknownValue(override_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for OverrideType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Allow => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for OverrideType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<OverrideType>::new(
+                ".google.cloud.recaptchaenterprise.v1.IpOverrideData.OverrideType",
+            ))
         }
     }
 }

@@ -269,15 +269,13 @@ pub mod aggregation {
     /// example, if you apply a counting operation to boolean values, the data
     /// `value_type` in the original time series is `BOOLEAN`, but the `value_type`
     /// in the aligned result is `INT64`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Aligner(i32);
-
-    impl Aligner {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Aligner {
         /// No alignment. Raw data is returned. Not valid if cross-series reduction
         /// is requested. The `value_type` of the result is the same as the
         /// `value_type` of the input.
-        pub const ALIGN_NONE: Aligner = Aligner::new(0);
-
+        AlignNone,
         /// Align and convert to
         /// [DELTA][google.api.MetricDescriptor.MetricKind.DELTA].
         /// The output is `delta = y1 - y0`.
@@ -288,8 +286,7 @@ pub mod aggregation {
         /// with no data, then the aligned value for such a period is created by
         /// interpolation. The `value_type`  of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_DELTA: Aligner = Aligner::new(1);
-
+        AlignDelta,
         /// Align and convert to a rate. The result is computed as
         /// `rate = (y1 - y0)/(t1 - t0)`, or "delta over time".
         /// Think of this aligner as providing the slope of the line that passes
@@ -303,103 +300,87 @@ pub mod aggregation {
         ///
         /// If, by "rate", you mean "percentage change", see the
         /// `ALIGN_PERCENT_CHANGE` aligner instead.
-        pub const ALIGN_RATE: Aligner = Aligner::new(2);
-
+        AlignRate,
         /// Align by interpolating between adjacent points around the alignment
         /// period boundary. This aligner is valid for `GAUGE` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as the
         /// `value_type` of the input.
-        pub const ALIGN_INTERPOLATE: Aligner = Aligner::new(3);
-
+        AlignInterpolate,
         /// Align by moving the most recent data point before the end of the
         /// alignment period to the boundary at the end of the alignment
         /// period. This aligner is valid for `GAUGE` metrics. The `value_type` of
         /// the aligned result is the same as the `value_type` of the input.
-        pub const ALIGN_NEXT_OLDER: Aligner = Aligner::new(4);
-
+        AlignNextOlder,
         /// Align the time series by returning the minimum value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_MIN: Aligner = Aligner::new(10);
-
+        AlignMin,
         /// Align the time series by returning the maximum value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is the same as
         /// the `value_type` of the input.
-        pub const ALIGN_MAX: Aligner = Aligner::new(11);
-
+        AlignMax,
         /// Align the time series by returning the mean value in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric values. The `value_type` of the aligned result is `DOUBLE`.
-        pub const ALIGN_MEAN: Aligner = Aligner::new(12);
-
+        AlignMean,
         /// Align the time series by returning the number of values in each alignment
         /// period. This aligner is valid for `GAUGE` and `DELTA` metrics with
         /// numeric or Boolean values. The `value_type` of the aligned result is
         /// `INT64`.
-        pub const ALIGN_COUNT: Aligner = Aligner::new(13);
-
+        AlignCount,
         /// Align the time series by returning the sum of the values in each
         /// alignment period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with numeric and distribution values. The `value_type` of the
         /// aligned result is the same as the `value_type` of the input.
-        pub const ALIGN_SUM: Aligner = Aligner::new(14);
-
+        AlignSum,
         /// Align the time series by returning the standard deviation of the values
         /// in each alignment period. This aligner is valid for `GAUGE` and
         /// `DELTA` metrics with numeric values. The `value_type` of the output is
         /// `DOUBLE`.
-        pub const ALIGN_STDDEV: Aligner = Aligner::new(15);
-
+        AlignStddev,
         /// Align the time series by returning the number of `True` values in
         /// each alignment period. This aligner is valid for `GAUGE` metrics with
         /// Boolean values. The `value_type` of the output is `INT64`.
-        pub const ALIGN_COUNT_TRUE: Aligner = Aligner::new(16);
-
+        AlignCountTrue,
         /// Align the time series by returning the number of `False` values in
         /// each alignment period. This aligner is valid for `GAUGE` metrics with
         /// Boolean values. The `value_type` of the output is `INT64`.
-        pub const ALIGN_COUNT_FALSE: Aligner = Aligner::new(24);
-
+        AlignCountFalse,
         /// Align the time series by returning the ratio of the number of `True`
         /// values to the total number of values in each alignment period. This
         /// aligner is valid for `GAUGE` metrics with Boolean values. The output
         /// value is in the range [0.0, 1.0] and has `value_type` `DOUBLE`.
-        pub const ALIGN_FRACTION_TRUE: Aligner = Aligner::new(17);
-
+        AlignFractionTrue,
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
         /// data point in each alignment period is the 99th percentile of all data
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_99: Aligner = Aligner::new(18);
-
+        AlignPercentile99,
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
         /// data point in each alignment period is the 95th percentile of all data
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_95: Aligner = Aligner::new(19);
-
+        AlignPercentile95,
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
         /// data point in each alignment period is the 50th percentile of all data
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_50: Aligner = Aligner::new(20);
-
+        AlignPercentile50,
         /// Align the time series by using [percentile
         /// aggregation](https://en.wikipedia.org/wiki/Percentile). The resulting
         /// data point in each alignment period is the 5th percentile of all data
         /// points in the period. This aligner is valid for `GAUGE` and `DELTA`
         /// metrics with distribution values. The output is a `GAUGE` metric with
         /// `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENTILE_05: Aligner = Aligner::new(21);
-
+        AlignPercentile05,
         /// Align and convert to a percentage change. This aligner is valid for
         /// `GAUGE` and `DELTA` metrics with numeric values. This alignment returns
         /// `((current - previous)/previous) * 100`, where the value of `previous` is
@@ -416,80 +397,192 @@ pub mod aggregation {
         /// metrics are accepted by this alignment, special care should be taken that
         /// the values for the metric will always be positive. The output is a
         /// `GAUGE` metric with `value_type` `DOUBLE`.
-        pub const ALIGN_PERCENT_CHANGE: Aligner = Aligner::new(23);
+        AlignPercentChange,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Aligner::value] or
+        /// [Aligner::name].
+        UnknownValue(aligner::UnknownValue),
+    }
 
-        /// Creates a new Aligner instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod aligner {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Aligner {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::AlignNone => std::option::Option::Some(0),
+                Self::AlignDelta => std::option::Option::Some(1),
+                Self::AlignRate => std::option::Option::Some(2),
+                Self::AlignInterpolate => std::option::Option::Some(3),
+                Self::AlignNextOlder => std::option::Option::Some(4),
+                Self::AlignMin => std::option::Option::Some(10),
+                Self::AlignMax => std::option::Option::Some(11),
+                Self::AlignMean => std::option::Option::Some(12),
+                Self::AlignCount => std::option::Option::Some(13),
+                Self::AlignSum => std::option::Option::Some(14),
+                Self::AlignStddev => std::option::Option::Some(15),
+                Self::AlignCountTrue => std::option::Option::Some(16),
+                Self::AlignCountFalse => std::option::Option::Some(24),
+                Self::AlignFractionTrue => std::option::Option::Some(17),
+                Self::AlignPercentile99 => std::option::Option::Some(18),
+                Self::AlignPercentile95 => std::option::Option::Some(19),
+                Self::AlignPercentile50 => std::option::Option::Some(20),
+                Self::AlignPercentile05 => std::option::Option::Some(21),
+                Self::AlignPercentChange => std::option::Option::Some(23),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ALIGN_NONE"),
-                1 => std::borrow::Cow::Borrowed("ALIGN_DELTA"),
-                2 => std::borrow::Cow::Borrowed("ALIGN_RATE"),
-                3 => std::borrow::Cow::Borrowed("ALIGN_INTERPOLATE"),
-                4 => std::borrow::Cow::Borrowed("ALIGN_NEXT_OLDER"),
-                10 => std::borrow::Cow::Borrowed("ALIGN_MIN"),
-                11 => std::borrow::Cow::Borrowed("ALIGN_MAX"),
-                12 => std::borrow::Cow::Borrowed("ALIGN_MEAN"),
-                13 => std::borrow::Cow::Borrowed("ALIGN_COUNT"),
-                14 => std::borrow::Cow::Borrowed("ALIGN_SUM"),
-                15 => std::borrow::Cow::Borrowed("ALIGN_STDDEV"),
-                16 => std::borrow::Cow::Borrowed("ALIGN_COUNT_TRUE"),
-                17 => std::borrow::Cow::Borrowed("ALIGN_FRACTION_TRUE"),
-                18 => std::borrow::Cow::Borrowed("ALIGN_PERCENTILE_99"),
-                19 => std::borrow::Cow::Borrowed("ALIGN_PERCENTILE_95"),
-                20 => std::borrow::Cow::Borrowed("ALIGN_PERCENTILE_50"),
-                21 => std::borrow::Cow::Borrowed("ALIGN_PERCENTILE_05"),
-                23 => std::borrow::Cow::Borrowed("ALIGN_PERCENT_CHANGE"),
-                24 => std::borrow::Cow::Borrowed("ALIGN_COUNT_FALSE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::AlignNone => std::option::Option::Some("ALIGN_NONE"),
+                Self::AlignDelta => std::option::Option::Some("ALIGN_DELTA"),
+                Self::AlignRate => std::option::Option::Some("ALIGN_RATE"),
+                Self::AlignInterpolate => std::option::Option::Some("ALIGN_INTERPOLATE"),
+                Self::AlignNextOlder => std::option::Option::Some("ALIGN_NEXT_OLDER"),
+                Self::AlignMin => std::option::Option::Some("ALIGN_MIN"),
+                Self::AlignMax => std::option::Option::Some("ALIGN_MAX"),
+                Self::AlignMean => std::option::Option::Some("ALIGN_MEAN"),
+                Self::AlignCount => std::option::Option::Some("ALIGN_COUNT"),
+                Self::AlignSum => std::option::Option::Some("ALIGN_SUM"),
+                Self::AlignStddev => std::option::Option::Some("ALIGN_STDDEV"),
+                Self::AlignCountTrue => std::option::Option::Some("ALIGN_COUNT_TRUE"),
+                Self::AlignCountFalse => std::option::Option::Some("ALIGN_COUNT_FALSE"),
+                Self::AlignFractionTrue => std::option::Option::Some("ALIGN_FRACTION_TRUE"),
+                Self::AlignPercentile99 => std::option::Option::Some("ALIGN_PERCENTILE_99"),
+                Self::AlignPercentile95 => std::option::Option::Some("ALIGN_PERCENTILE_95"),
+                Self::AlignPercentile50 => std::option::Option::Some("ALIGN_PERCENTILE_50"),
+                Self::AlignPercentile05 => std::option::Option::Some("ALIGN_PERCENTILE_05"),
+                Self::AlignPercentChange => std::option::Option::Some("ALIGN_PERCENT_CHANGE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ALIGN_NONE" => std::option::Option::Some(Self::ALIGN_NONE),
-                "ALIGN_DELTA" => std::option::Option::Some(Self::ALIGN_DELTA),
-                "ALIGN_RATE" => std::option::Option::Some(Self::ALIGN_RATE),
-                "ALIGN_INTERPOLATE" => std::option::Option::Some(Self::ALIGN_INTERPOLATE),
-                "ALIGN_NEXT_OLDER" => std::option::Option::Some(Self::ALIGN_NEXT_OLDER),
-                "ALIGN_MIN" => std::option::Option::Some(Self::ALIGN_MIN),
-                "ALIGN_MAX" => std::option::Option::Some(Self::ALIGN_MAX),
-                "ALIGN_MEAN" => std::option::Option::Some(Self::ALIGN_MEAN),
-                "ALIGN_COUNT" => std::option::Option::Some(Self::ALIGN_COUNT),
-                "ALIGN_SUM" => std::option::Option::Some(Self::ALIGN_SUM),
-                "ALIGN_STDDEV" => std::option::Option::Some(Self::ALIGN_STDDEV),
-                "ALIGN_COUNT_TRUE" => std::option::Option::Some(Self::ALIGN_COUNT_TRUE),
-                "ALIGN_COUNT_FALSE" => std::option::Option::Some(Self::ALIGN_COUNT_FALSE),
-                "ALIGN_FRACTION_TRUE" => std::option::Option::Some(Self::ALIGN_FRACTION_TRUE),
-                "ALIGN_PERCENTILE_99" => std::option::Option::Some(Self::ALIGN_PERCENTILE_99),
-                "ALIGN_PERCENTILE_95" => std::option::Option::Some(Self::ALIGN_PERCENTILE_95),
-                "ALIGN_PERCENTILE_50" => std::option::Option::Some(Self::ALIGN_PERCENTILE_50),
-                "ALIGN_PERCENTILE_05" => std::option::Option::Some(Self::ALIGN_PERCENTILE_05),
-                "ALIGN_PERCENT_CHANGE" => std::option::Option::Some(Self::ALIGN_PERCENT_CHANGE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Aligner {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Aligner {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Aligner {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Aligner {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::AlignNone,
+                1 => Self::AlignDelta,
+                2 => Self::AlignRate,
+                3 => Self::AlignInterpolate,
+                4 => Self::AlignNextOlder,
+                10 => Self::AlignMin,
+                11 => Self::AlignMax,
+                12 => Self::AlignMean,
+                13 => Self::AlignCount,
+                14 => Self::AlignSum,
+                15 => Self::AlignStddev,
+                16 => Self::AlignCountTrue,
+                17 => Self::AlignFractionTrue,
+                18 => Self::AlignPercentile99,
+                19 => Self::AlignPercentile95,
+                20 => Self::AlignPercentile50,
+                21 => Self::AlignPercentile05,
+                23 => Self::AlignPercentChange,
+                24 => Self::AlignCountFalse,
+                _ => Self::UnknownValue(aligner::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Aligner {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ALIGN_NONE" => Self::AlignNone,
+                "ALIGN_DELTA" => Self::AlignDelta,
+                "ALIGN_RATE" => Self::AlignRate,
+                "ALIGN_INTERPOLATE" => Self::AlignInterpolate,
+                "ALIGN_NEXT_OLDER" => Self::AlignNextOlder,
+                "ALIGN_MIN" => Self::AlignMin,
+                "ALIGN_MAX" => Self::AlignMax,
+                "ALIGN_MEAN" => Self::AlignMean,
+                "ALIGN_COUNT" => Self::AlignCount,
+                "ALIGN_SUM" => Self::AlignSum,
+                "ALIGN_STDDEV" => Self::AlignStddev,
+                "ALIGN_COUNT_TRUE" => Self::AlignCountTrue,
+                "ALIGN_COUNT_FALSE" => Self::AlignCountFalse,
+                "ALIGN_FRACTION_TRUE" => Self::AlignFractionTrue,
+                "ALIGN_PERCENTILE_99" => Self::AlignPercentile99,
+                "ALIGN_PERCENTILE_95" => Self::AlignPercentile95,
+                "ALIGN_PERCENTILE_50" => Self::AlignPercentile50,
+                "ALIGN_PERCENTILE_05" => Self::AlignPercentile05,
+                "ALIGN_PERCENT_CHANGE" => Self::AlignPercentChange,
+                _ => Self::UnknownValue(aligner::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Aligner {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::AlignNone => serializer.serialize_i32(0),
+                Self::AlignDelta => serializer.serialize_i32(1),
+                Self::AlignRate => serializer.serialize_i32(2),
+                Self::AlignInterpolate => serializer.serialize_i32(3),
+                Self::AlignNextOlder => serializer.serialize_i32(4),
+                Self::AlignMin => serializer.serialize_i32(10),
+                Self::AlignMax => serializer.serialize_i32(11),
+                Self::AlignMean => serializer.serialize_i32(12),
+                Self::AlignCount => serializer.serialize_i32(13),
+                Self::AlignSum => serializer.serialize_i32(14),
+                Self::AlignStddev => serializer.serialize_i32(15),
+                Self::AlignCountTrue => serializer.serialize_i32(16),
+                Self::AlignCountFalse => serializer.serialize_i32(24),
+                Self::AlignFractionTrue => serializer.serialize_i32(17),
+                Self::AlignPercentile99 => serializer.serialize_i32(18),
+                Self::AlignPercentile95 => serializer.serialize_i32(19),
+                Self::AlignPercentile50 => serializer.serialize_i32(20),
+                Self::AlignPercentile05 => serializer.serialize_i32(21),
+                Self::AlignPercentChange => serializer.serialize_i32(23),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Aligner {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Aligner>::new(
+                ".google.monitoring.dashboard.v1.Aggregation.Aligner",
+            ))
         }
     }
 
@@ -497,161 +590,244 @@ pub mod aggregation {
     /// time series into a single time series, where the value of each data point
     /// in the resulting series is a function of all the already aligned values in
     /// the input time series.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Reducer(i32);
-
-    impl Reducer {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Reducer {
         /// No cross-time series reduction. The output of the `Aligner` is
         /// returned.
-        pub const REDUCE_NONE: Reducer = Reducer::new(0);
-
+        ReduceNone,
         /// Reduce by computing the mean value across time series for each
         /// alignment period. This reducer is valid for
         /// [DELTA][google.api.MetricDescriptor.MetricKind.DELTA] and
         /// [GAUGE][google.api.MetricDescriptor.MetricKind.GAUGE] metrics with
         /// numeric or distribution values. The `value_type` of the output is
         /// [DOUBLE][google.api.MetricDescriptor.ValueType.DOUBLE].
-        pub const REDUCE_MEAN: Reducer = Reducer::new(1);
-
+        ReduceMean,
         /// Reduce by computing the minimum value across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric values. The `value_type` of the output is the same as the
         /// `value_type` of the input.
-        pub const REDUCE_MIN: Reducer = Reducer::new(2);
-
+        ReduceMin,
         /// Reduce by computing the maximum value across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric values. The `value_type` of the output is the same as the
         /// `value_type` of the input.
-        pub const REDUCE_MAX: Reducer = Reducer::new(3);
-
+        ReduceMax,
         /// Reduce by computing the sum across time series for each
         /// alignment period. This reducer is valid for `DELTA` and `GAUGE` metrics
         /// with numeric and distribution values. The `value_type` of the output is
         /// the same as the `value_type` of the input.
-        pub const REDUCE_SUM: Reducer = Reducer::new(4);
-
+        ReduceSum,
         /// Reduce by computing the standard deviation across time series
         /// for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics with numeric or distribution values. The `value_type`
         /// of the output is `DOUBLE`.
-        pub const REDUCE_STDDEV: Reducer = Reducer::new(5);
-
+        ReduceStddev,
         /// Reduce by computing the number of data points across time series
         /// for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of numeric, Boolean, distribution, and string
         /// `value_type`. The `value_type` of the output is `INT64`.
-        pub const REDUCE_COUNT: Reducer = Reducer::new(6);
-
+        ReduceCount,
         /// Reduce by computing the number of `True`-valued data points across time
         /// series for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of Boolean `value_type`. The `value_type` of the output
         /// is `INT64`.
-        pub const REDUCE_COUNT_TRUE: Reducer = Reducer::new(7);
-
+        ReduceCountTrue,
         /// Reduce by computing the number of `False`-valued data points across time
         /// series for each alignment period. This reducer is valid for `DELTA` and
         /// `GAUGE` metrics of Boolean `value_type`. The `value_type` of the output
         /// is `INT64`.
-        pub const REDUCE_COUNT_FALSE: Reducer = Reducer::new(15);
-
+        ReduceCountFalse,
         /// Reduce by computing the ratio of the number of `True`-valued data points
         /// to the total number of data points for each alignment period. This
         /// reducer is valid for `DELTA` and `GAUGE` metrics of Boolean `value_type`.
         /// The output value is in the range [0.0, 1.0] and has `value_type`
         /// `DOUBLE`.
-        pub const REDUCE_FRACTION_TRUE: Reducer = Reducer::new(8);
-
+        ReduceFractionTrue,
         /// Reduce by computing the [99th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_99: Reducer = Reducer::new(9);
-
+        ReducePercentile99,
         /// Reduce by computing the [95th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_95: Reducer = Reducer::new(10);
-
+        ReducePercentile95,
         /// Reduce by computing the [50th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_50: Reducer = Reducer::new(11);
-
+        ReducePercentile50,
         /// Reduce by computing the [5th
         /// percentile](https://en.wikipedia.org/wiki/Percentile) of data points
         /// across time series for each alignment period. This reducer is valid for
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
-        pub const REDUCE_PERCENTILE_05: Reducer = Reducer::new(12);
+        ReducePercentile05,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Reducer::value] or
+        /// [Reducer::name].
+        UnknownValue(reducer::UnknownValue),
+    }
 
-        /// Creates a new Reducer instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod reducer {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Reducer {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::ReduceNone => std::option::Option::Some(0),
+                Self::ReduceMean => std::option::Option::Some(1),
+                Self::ReduceMin => std::option::Option::Some(2),
+                Self::ReduceMax => std::option::Option::Some(3),
+                Self::ReduceSum => std::option::Option::Some(4),
+                Self::ReduceStddev => std::option::Option::Some(5),
+                Self::ReduceCount => std::option::Option::Some(6),
+                Self::ReduceCountTrue => std::option::Option::Some(7),
+                Self::ReduceCountFalse => std::option::Option::Some(15),
+                Self::ReduceFractionTrue => std::option::Option::Some(8),
+                Self::ReducePercentile99 => std::option::Option::Some(9),
+                Self::ReducePercentile95 => std::option::Option::Some(10),
+                Self::ReducePercentile50 => std::option::Option::Some(11),
+                Self::ReducePercentile05 => std::option::Option::Some(12),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("REDUCE_NONE"),
-                1 => std::borrow::Cow::Borrowed("REDUCE_MEAN"),
-                2 => std::borrow::Cow::Borrowed("REDUCE_MIN"),
-                3 => std::borrow::Cow::Borrowed("REDUCE_MAX"),
-                4 => std::borrow::Cow::Borrowed("REDUCE_SUM"),
-                5 => std::borrow::Cow::Borrowed("REDUCE_STDDEV"),
-                6 => std::borrow::Cow::Borrowed("REDUCE_COUNT"),
-                7 => std::borrow::Cow::Borrowed("REDUCE_COUNT_TRUE"),
-                8 => std::borrow::Cow::Borrowed("REDUCE_FRACTION_TRUE"),
-                9 => std::borrow::Cow::Borrowed("REDUCE_PERCENTILE_99"),
-                10 => std::borrow::Cow::Borrowed("REDUCE_PERCENTILE_95"),
-                11 => std::borrow::Cow::Borrowed("REDUCE_PERCENTILE_50"),
-                12 => std::borrow::Cow::Borrowed("REDUCE_PERCENTILE_05"),
-                15 => std::borrow::Cow::Borrowed("REDUCE_COUNT_FALSE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::ReduceNone => std::option::Option::Some("REDUCE_NONE"),
+                Self::ReduceMean => std::option::Option::Some("REDUCE_MEAN"),
+                Self::ReduceMin => std::option::Option::Some("REDUCE_MIN"),
+                Self::ReduceMax => std::option::Option::Some("REDUCE_MAX"),
+                Self::ReduceSum => std::option::Option::Some("REDUCE_SUM"),
+                Self::ReduceStddev => std::option::Option::Some("REDUCE_STDDEV"),
+                Self::ReduceCount => std::option::Option::Some("REDUCE_COUNT"),
+                Self::ReduceCountTrue => std::option::Option::Some("REDUCE_COUNT_TRUE"),
+                Self::ReduceCountFalse => std::option::Option::Some("REDUCE_COUNT_FALSE"),
+                Self::ReduceFractionTrue => std::option::Option::Some("REDUCE_FRACTION_TRUE"),
+                Self::ReducePercentile99 => std::option::Option::Some("REDUCE_PERCENTILE_99"),
+                Self::ReducePercentile95 => std::option::Option::Some("REDUCE_PERCENTILE_95"),
+                Self::ReducePercentile50 => std::option::Option::Some("REDUCE_PERCENTILE_50"),
+                Self::ReducePercentile05 => std::option::Option::Some("REDUCE_PERCENTILE_05"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "REDUCE_NONE" => std::option::Option::Some(Self::REDUCE_NONE),
-                "REDUCE_MEAN" => std::option::Option::Some(Self::REDUCE_MEAN),
-                "REDUCE_MIN" => std::option::Option::Some(Self::REDUCE_MIN),
-                "REDUCE_MAX" => std::option::Option::Some(Self::REDUCE_MAX),
-                "REDUCE_SUM" => std::option::Option::Some(Self::REDUCE_SUM),
-                "REDUCE_STDDEV" => std::option::Option::Some(Self::REDUCE_STDDEV),
-                "REDUCE_COUNT" => std::option::Option::Some(Self::REDUCE_COUNT),
-                "REDUCE_COUNT_TRUE" => std::option::Option::Some(Self::REDUCE_COUNT_TRUE),
-                "REDUCE_COUNT_FALSE" => std::option::Option::Some(Self::REDUCE_COUNT_FALSE),
-                "REDUCE_FRACTION_TRUE" => std::option::Option::Some(Self::REDUCE_FRACTION_TRUE),
-                "REDUCE_PERCENTILE_99" => std::option::Option::Some(Self::REDUCE_PERCENTILE_99),
-                "REDUCE_PERCENTILE_95" => std::option::Option::Some(Self::REDUCE_PERCENTILE_95),
-                "REDUCE_PERCENTILE_50" => std::option::Option::Some(Self::REDUCE_PERCENTILE_50),
-                "REDUCE_PERCENTILE_05" => std::option::Option::Some(Self::REDUCE_PERCENTILE_05),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Reducer {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Reducer {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Reducer {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Reducer {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::ReduceNone,
+                1 => Self::ReduceMean,
+                2 => Self::ReduceMin,
+                3 => Self::ReduceMax,
+                4 => Self::ReduceSum,
+                5 => Self::ReduceStddev,
+                6 => Self::ReduceCount,
+                7 => Self::ReduceCountTrue,
+                8 => Self::ReduceFractionTrue,
+                9 => Self::ReducePercentile99,
+                10 => Self::ReducePercentile95,
+                11 => Self::ReducePercentile50,
+                12 => Self::ReducePercentile05,
+                15 => Self::ReduceCountFalse,
+                _ => Self::UnknownValue(reducer::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Reducer {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REDUCE_NONE" => Self::ReduceNone,
+                "REDUCE_MEAN" => Self::ReduceMean,
+                "REDUCE_MIN" => Self::ReduceMin,
+                "REDUCE_MAX" => Self::ReduceMax,
+                "REDUCE_SUM" => Self::ReduceSum,
+                "REDUCE_STDDEV" => Self::ReduceStddev,
+                "REDUCE_COUNT" => Self::ReduceCount,
+                "REDUCE_COUNT_TRUE" => Self::ReduceCountTrue,
+                "REDUCE_COUNT_FALSE" => Self::ReduceCountFalse,
+                "REDUCE_FRACTION_TRUE" => Self::ReduceFractionTrue,
+                "REDUCE_PERCENTILE_99" => Self::ReducePercentile99,
+                "REDUCE_PERCENTILE_95" => Self::ReducePercentile95,
+                "REDUCE_PERCENTILE_50" => Self::ReducePercentile50,
+                "REDUCE_PERCENTILE_05" => Self::ReducePercentile05,
+                _ => Self::UnknownValue(reducer::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Reducer {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::ReduceNone => serializer.serialize_i32(0),
+                Self::ReduceMean => serializer.serialize_i32(1),
+                Self::ReduceMin => serializer.serialize_i32(2),
+                Self::ReduceMax => serializer.serialize_i32(3),
+                Self::ReduceSum => serializer.serialize_i32(4),
+                Self::ReduceStddev => serializer.serialize_i32(5),
+                Self::ReduceCount => serializer.serialize_i32(6),
+                Self::ReduceCountTrue => serializer.serialize_i32(7),
+                Self::ReduceCountFalse => serializer.serialize_i32(15),
+                Self::ReduceFractionTrue => serializer.serialize_i32(8),
+                Self::ReducePercentile99 => serializer.serialize_i32(9),
+                Self::ReducePercentile95 => serializer.serialize_i32(10),
+                Self::ReducePercentile50 => serializer.serialize_i32(11),
+                Self::ReducePercentile05 => serializer.serialize_i32(12),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Reducer {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Reducer>::new(
+                ".google.monitoring.dashboard.v1.Aggregation.Reducer",
+            ))
         }
     }
 }
@@ -743,133 +919,261 @@ pub mod pick_time_series_filter {
     use super::*;
 
     /// The value reducers that can be applied to a `PickTimeSeriesFilter`.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Method(i32);
-
-    impl Method {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Method {
         /// Not allowed. You must specify a different `Method` if you specify a
         /// `PickTimeSeriesFilter`.
-        pub const METHOD_UNSPECIFIED: Method = Method::new(0);
-
+        Unspecified,
         /// Select the mean of all values.
-        pub const METHOD_MEAN: Method = Method::new(1);
-
+        Mean,
         /// Select the maximum value.
-        pub const METHOD_MAX: Method = Method::new(2);
-
+        Max,
         /// Select the minimum value.
-        pub const METHOD_MIN: Method = Method::new(3);
-
+        Min,
         /// Compute the sum of all values.
-        pub const METHOD_SUM: Method = Method::new(4);
-
+        Sum,
         /// Select the most recent value.
-        pub const METHOD_LATEST: Method = Method::new(5);
+        Latest,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Method::value] or
+        /// [Method::name].
+        UnknownValue(method::UnknownValue),
+    }
 
-        /// Creates a new Method instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod method {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Method {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Mean => std::option::Option::Some(1),
+                Self::Max => std::option::Option::Some(2),
+                Self::Min => std::option::Option::Some(3),
+                Self::Sum => std::option::Option::Some(4),
+                Self::Latest => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("METHOD_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("METHOD_MEAN"),
-                2 => std::borrow::Cow::Borrowed("METHOD_MAX"),
-                3 => std::borrow::Cow::Borrowed("METHOD_MIN"),
-                4 => std::borrow::Cow::Borrowed("METHOD_SUM"),
-                5 => std::borrow::Cow::Borrowed("METHOD_LATEST"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("METHOD_UNSPECIFIED"),
+                Self::Mean => std::option::Option::Some("METHOD_MEAN"),
+                Self::Max => std::option::Option::Some("METHOD_MAX"),
+                Self::Min => std::option::Option::Some("METHOD_MIN"),
+                Self::Sum => std::option::Option::Some("METHOD_SUM"),
+                Self::Latest => std::option::Option::Some("METHOD_LATEST"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "METHOD_UNSPECIFIED" => std::option::Option::Some(Self::METHOD_UNSPECIFIED),
-                "METHOD_MEAN" => std::option::Option::Some(Self::METHOD_MEAN),
-                "METHOD_MAX" => std::option::Option::Some(Self::METHOD_MAX),
-                "METHOD_MIN" => std::option::Option::Some(Self::METHOD_MIN),
-                "METHOD_SUM" => std::option::Option::Some(Self::METHOD_SUM),
-                "METHOD_LATEST" => std::option::Option::Some(Self::METHOD_LATEST),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Method {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Method {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Method {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Method {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Mean,
+                2 => Self::Max,
+                3 => Self::Min,
+                4 => Self::Sum,
+                5 => Self::Latest,
+                _ => Self::UnknownValue(method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Method {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "METHOD_UNSPECIFIED" => Self::Unspecified,
+                "METHOD_MEAN" => Self::Mean,
+                "METHOD_MAX" => Self::Max,
+                "METHOD_MIN" => Self::Min,
+                "METHOD_SUM" => Self::Sum,
+                "METHOD_LATEST" => Self::Latest,
+                _ => Self::UnknownValue(method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Method {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Mean => serializer.serialize_i32(1),
+                Self::Max => serializer.serialize_i32(2),
+                Self::Min => serializer.serialize_i32(3),
+                Self::Sum => serializer.serialize_i32(4),
+                Self::Latest => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Method {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Method>::new(
+                ".google.monitoring.dashboard.v1.PickTimeSeriesFilter.Method",
+            ))
         }
     }
 
     /// Describes the ranking directions.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Direction(i32);
-
-    impl Direction {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Direction {
         /// Not allowed. You must specify a different `Direction` if you specify a
         /// `PickTimeSeriesFilter`.
-        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new(0);
-
+        Unspecified,
         /// Pass the highest `num_time_series` ranking inputs.
-        pub const TOP: Direction = Direction::new(1);
-
+        Top,
         /// Pass the lowest `num_time_series` ranking inputs.
-        pub const BOTTOM: Direction = Direction::new(2);
+        Bottom,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Direction::value] or
+        /// [Direction::name].
+        UnknownValue(direction::UnknownValue),
+    }
 
-        /// Creates a new Direction instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod direction {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Direction {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Top => std::option::Option::Some(1),
+                Self::Bottom => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DIRECTION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("TOP"),
-                2 => std::borrow::Cow::Borrowed("BOTTOM"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DIRECTION_UNSPECIFIED"),
+                Self::Top => std::option::Option::Some("TOP"),
+                Self::Bottom => std::option::Option::Some("BOTTOM"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DIRECTION_UNSPECIFIED" => std::option::Option::Some(Self::DIRECTION_UNSPECIFIED),
-                "TOP" => std::option::Option::Some(Self::TOP),
-                "BOTTOM" => std::option::Option::Some(Self::BOTTOM),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Direction {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Direction {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Direction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Direction {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Top,
+                2 => Self::Bottom,
+                _ => Self::UnknownValue(direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Direction {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DIRECTION_UNSPECIFIED" => Self::Unspecified,
+                "TOP" => Self::Top,
+                "BOTTOM" => Self::Bottom,
+                _ => Self::UnknownValue(direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Direction {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Top => serializer.serialize_i32(1),
+                Self::Bottom => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Direction {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Direction>::new(
+                ".google.monitoring.dashboard.v1.PickTimeSeriesFilter.Direction",
+            ))
         }
     }
 }
@@ -932,54 +1236,113 @@ pub mod statistical_time_series_filter {
     use super::*;
 
     /// The filter methods that can be applied to a stream.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Method(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Method {
+        /// Not allowed in well-formed requests.
+        Unspecified,
+        /// Compute the outlier score of each stream.
+        ClusterOutlier,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Method::value] or
+        /// [Method::name].
+        UnknownValue(method::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod method {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Method {
-        /// Not allowed in well-formed requests.
-        pub const METHOD_UNSPECIFIED: Method = Method::new(0);
-
-        /// Compute the outlier score of each stream.
-        pub const METHOD_CLUSTER_OUTLIER: Method = Method::new(1);
-
-        /// Creates a new Method instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ClusterOutlier => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("METHOD_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("METHOD_CLUSTER_OUTLIER"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("METHOD_UNSPECIFIED"),
+                Self::ClusterOutlier => std::option::Option::Some("METHOD_CLUSTER_OUTLIER"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "METHOD_UNSPECIFIED" => std::option::Option::Some(Self::METHOD_UNSPECIFIED),
-                "METHOD_CLUSTER_OUTLIER" => std::option::Option::Some(Self::METHOD_CLUSTER_OUTLIER),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Method {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Method {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Method {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Method {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ClusterOutlier,
+                _ => Self::UnknownValue(method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Method {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "METHOD_UNSPECIFIED" => Self::Unspecified,
+                "METHOD_CLUSTER_OUTLIER" => Self::ClusterOutlier,
+                _ => Self::UnknownValue(method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Method {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ClusterOutlier => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Method {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Method>::new(
+                ".google.monitoring.dashboard.v1.StatisticalTimeSeriesFilter.Method",
+            ))
         }
     }
 }
@@ -1329,76 +1692,141 @@ pub mod dashboard_filter {
     use super::*;
 
     /// The type for the dashboard filter
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FilterType(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum FilterType {
+        /// Filter type is unspecified. This is not valid in a well-formed request.
+        Unspecified,
+        /// Filter on a resource label value
+        ResourceLabel,
+        /// Filter on a metrics label value
+        MetricLabel,
+        /// Filter on a user metadata label value
+        UserMetadataLabel,
+        /// Filter on a system metadata label value
+        SystemMetadataLabel,
+        /// Filter on a group id
+        Group,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [FilterType::value] or
+        /// [FilterType::name].
+        UnknownValue(filter_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod filter_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl FilterType {
-        /// Filter type is unspecified. This is not valid in a well-formed request.
-        pub const FILTER_TYPE_UNSPECIFIED: FilterType = FilterType::new(0);
-
-        /// Filter on a resource label value
-        pub const RESOURCE_LABEL: FilterType = FilterType::new(1);
-
-        /// Filter on a metrics label value
-        pub const METRIC_LABEL: FilterType = FilterType::new(2);
-
-        /// Filter on a user metadata label value
-        pub const USER_METADATA_LABEL: FilterType = FilterType::new(3);
-
-        /// Filter on a system metadata label value
-        pub const SYSTEM_METADATA_LABEL: FilterType = FilterType::new(4);
-
-        /// Filter on a group id
-        pub const GROUP: FilterType = FilterType::new(5);
-
-        /// Creates a new FilterType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ResourceLabel => std::option::Option::Some(1),
+                Self::MetricLabel => std::option::Option::Some(2),
+                Self::UserMetadataLabel => std::option::Option::Some(3),
+                Self::SystemMetadataLabel => std::option::Option::Some(4),
+                Self::Group => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("FILTER_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RESOURCE_LABEL"),
-                2 => std::borrow::Cow::Borrowed("METRIC_LABEL"),
-                3 => std::borrow::Cow::Borrowed("USER_METADATA_LABEL"),
-                4 => std::borrow::Cow::Borrowed("SYSTEM_METADATA_LABEL"),
-                5 => std::borrow::Cow::Borrowed("GROUP"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FILTER_TYPE_UNSPECIFIED"),
+                Self::ResourceLabel => std::option::Option::Some("RESOURCE_LABEL"),
+                Self::MetricLabel => std::option::Option::Some("METRIC_LABEL"),
+                Self::UserMetadataLabel => std::option::Option::Some("USER_METADATA_LABEL"),
+                Self::SystemMetadataLabel => std::option::Option::Some("SYSTEM_METADATA_LABEL"),
+                Self::Group => std::option::Option::Some("GROUP"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "FILTER_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::FILTER_TYPE_UNSPECIFIED)
-                }
-                "RESOURCE_LABEL" => std::option::Option::Some(Self::RESOURCE_LABEL),
-                "METRIC_LABEL" => std::option::Option::Some(Self::METRIC_LABEL),
-                "USER_METADATA_LABEL" => std::option::Option::Some(Self::USER_METADATA_LABEL),
-                "SYSTEM_METADATA_LABEL" => std::option::Option::Some(Self::SYSTEM_METADATA_LABEL),
-                "GROUP" => std::option::Option::Some(Self::GROUP),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for FilterType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for FilterType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for FilterType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for FilterType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ResourceLabel,
+                2 => Self::MetricLabel,
+                3 => Self::UserMetadataLabel,
+                4 => Self::SystemMetadataLabel,
+                5 => Self::Group,
+                _ => Self::UnknownValue(filter_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for FilterType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FILTER_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "RESOURCE_LABEL" => Self::ResourceLabel,
+                "METRIC_LABEL" => Self::MetricLabel,
+                "USER_METADATA_LABEL" => Self::UserMetadataLabel,
+                "SYSTEM_METADATA_LABEL" => Self::SystemMetadataLabel,
+                "GROUP" => Self::Group,
+                _ => Self::UnknownValue(filter_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for FilterType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ResourceLabel => serializer.serialize_i32(1),
+                Self::MetricLabel => serializer.serialize_i32(2),
+                Self::UserMetadataLabel => serializer.serialize_i32(3),
+                Self::SystemMetadataLabel => serializer.serialize_i32(4),
+                Self::Group => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FilterType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<FilterType>::new(
+                ".google.monitoring.dashboard.v1.DashboardFilter.FilterType",
+            ))
         }
     }
 
@@ -2979,178 +3407,359 @@ pub mod threshold {
     /// The color suggests an interpretation to the viewer when actual values cross
     /// the threshold. Comments on each color provide UX guidance on how users can
     /// be expected to interpret a given state color.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Color(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Color {
+        /// Color is unspecified. Not allowed in well-formed requests.
+        Unspecified,
+        /// Crossing the threshold is "concerning" behavior.
+        Yellow,
+        /// Crossing the threshold is "emergency" behavior.
+        Red,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Color::value] or
+        /// [Color::name].
+        UnknownValue(color::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod color {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Color {
-        /// Color is unspecified. Not allowed in well-formed requests.
-        pub const COLOR_UNSPECIFIED: Color = Color::new(0);
-
-        /// Crossing the threshold is "concerning" behavior.
-        pub const YELLOW: Color = Color::new(4);
-
-        /// Crossing the threshold is "emergency" behavior.
-        pub const RED: Color = Color::new(6);
-
-        /// Creates a new Color instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Yellow => std::option::Option::Some(4),
+                Self::Red => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("COLOR_UNSPECIFIED"),
-                4 => std::borrow::Cow::Borrowed("YELLOW"),
-                6 => std::borrow::Cow::Borrowed("RED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("COLOR_UNSPECIFIED"),
+                Self::Yellow => std::option::Option::Some("YELLOW"),
+                Self::Red => std::option::Option::Some("RED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "COLOR_UNSPECIFIED" => std::option::Option::Some(Self::COLOR_UNSPECIFIED),
-                "YELLOW" => std::option::Option::Some(Self::YELLOW),
-                "RED" => std::option::Option::Some(Self::RED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Color {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Color {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Color {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Color {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                4 => Self::Yellow,
+                6 => Self::Red,
+                _ => Self::UnknownValue(color::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Color {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "COLOR_UNSPECIFIED" => Self::Unspecified,
+                "YELLOW" => Self::Yellow,
+                "RED" => Self::Red,
+                _ => Self::UnknownValue(color::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Color {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Yellow => serializer.serialize_i32(4),
+                Self::Red => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Color {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Color>::new(
+                ".google.monitoring.dashboard.v1.Threshold.Color",
+            ))
         }
     }
 
     /// Whether the threshold is considered crossed by an actual value above or
     /// below its threshold value.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Direction(i32);
-
-    impl Direction {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Direction {
         /// Not allowed in well-formed requests.
-        pub const DIRECTION_UNSPECIFIED: Direction = Direction::new(0);
-
+        Unspecified,
         /// The threshold will be considered crossed if the actual value is above
         /// the threshold value.
-        pub const ABOVE: Direction = Direction::new(1);
-
+        Above,
         /// The threshold will be considered crossed if the actual value is below
         /// the threshold value.
-        pub const BELOW: Direction = Direction::new(2);
+        Below,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Direction::value] or
+        /// [Direction::name].
+        UnknownValue(direction::UnknownValue),
+    }
 
-        /// Creates a new Direction instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod direction {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Direction {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Above => std::option::Option::Some(1),
+                Self::Below => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DIRECTION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ABOVE"),
-                2 => std::borrow::Cow::Borrowed("BELOW"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DIRECTION_UNSPECIFIED"),
+                Self::Above => std::option::Option::Some("ABOVE"),
+                Self::Below => std::option::Option::Some("BELOW"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DIRECTION_UNSPECIFIED" => std::option::Option::Some(Self::DIRECTION_UNSPECIFIED),
-                "ABOVE" => std::option::Option::Some(Self::ABOVE),
-                "BELOW" => std::option::Option::Some(Self::BELOW),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Direction {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Direction {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Direction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Direction {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Above,
+                2 => Self::Below,
+                _ => Self::UnknownValue(direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Direction {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DIRECTION_UNSPECIFIED" => Self::Unspecified,
+                "ABOVE" => Self::Above,
+                "BELOW" => Self::Below,
+                _ => Self::UnknownValue(direction::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Direction {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Above => serializer.serialize_i32(1),
+                Self::Below => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Direction {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Direction>::new(
+                ".google.monitoring.dashboard.v1.Threshold.Direction",
+            ))
         }
     }
 
     /// An axis identifier.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TargetAxis(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TargetAxis {
+        /// The target axis was not specified. Defaults to Y1.
+        Unspecified,
+        /// The y_axis (the right axis of chart).
+        Y1,
+        /// The y2_axis (the left axis of chart).
+        Y2,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TargetAxis::value] or
+        /// [TargetAxis::name].
+        UnknownValue(target_axis::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod target_axis {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl TargetAxis {
-        /// The target axis was not specified. Defaults to Y1.
-        pub const TARGET_AXIS_UNSPECIFIED: TargetAxis = TargetAxis::new(0);
-
-        /// The y_axis (the right axis of chart).
-        pub const Y1: TargetAxis = TargetAxis::new(1);
-
-        /// The y2_axis (the left axis of chart).
-        pub const Y2: TargetAxis = TargetAxis::new(2);
-
-        /// Creates a new TargetAxis instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Y1 => std::option::Option::Some(1),
+                Self::Y2 => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TARGET_AXIS_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("Y1"),
-                2 => std::borrow::Cow::Borrowed("Y2"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TARGET_AXIS_UNSPECIFIED"),
+                Self::Y1 => std::option::Option::Some("Y1"),
+                Self::Y2 => std::option::Option::Some("Y2"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TARGET_AXIS_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::TARGET_AXIS_UNSPECIFIED)
-                }
-                "Y1" => std::option::Option::Some(Self::Y1),
-                "Y2" => std::option::Option::Some(Self::Y2),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for TargetAxis {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for TargetAxis {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TargetAxis {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TargetAxis {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Y1,
+                2 => Self::Y2,
+                _ => Self::UnknownValue(target_axis::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TargetAxis {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TARGET_AXIS_UNSPECIFIED" => Self::Unspecified,
+                "Y1" => Self::Y1,
+                "Y2" => Self::Y2,
+                _ => Self::UnknownValue(target_axis::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TargetAxis {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Y1 => serializer.serialize_i32(1),
+                Self::Y2 => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TargetAxis {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TargetAxis>::new(
+                ".google.monitoring.dashboard.v1.Threshold.TargetAxis",
+            ))
         }
     }
 }
@@ -3295,61 +3904,120 @@ pub mod pie_chart {
     }
 
     /// Types for the pie chart.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PieChartType(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PieChartType {
+        /// The zero value. No type specified. Do not use.
+        Unspecified,
+        /// A Pie type PieChart.
+        Pie,
+        /// Similar to PIE, but the DONUT type PieChart has a hole in the middle.
+        Donut,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PieChartType::value] or
+        /// [PieChartType::name].
+        UnknownValue(pie_chart_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod pie_chart_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl PieChartType {
-        /// The zero value. No type specified. Do not use.
-        pub const PIE_CHART_TYPE_UNSPECIFIED: PieChartType = PieChartType::new(0);
-
-        /// A Pie type PieChart.
-        pub const PIE: PieChartType = PieChartType::new(1);
-
-        /// Similar to PIE, but the DONUT type PieChart has a hole in the middle.
-        pub const DONUT: PieChartType = PieChartType::new(2);
-
-        /// Creates a new PieChartType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Pie => std::option::Option::Some(1),
+                Self::Donut => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PIE_CHART_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PIE"),
-                2 => std::borrow::Cow::Borrowed("DONUT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PIE_CHART_TYPE_UNSPECIFIED"),
+                Self::Pie => std::option::Option::Some("PIE"),
+                Self::Donut => std::option::Option::Some("DONUT"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PIE_CHART_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::PIE_CHART_TYPE_UNSPECIFIED)
-                }
-                "PIE" => std::option::Option::Some(Self::PIE),
-                "DONUT" => std::option::Option::Some(Self::DONUT),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for PieChartType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for PieChartType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PieChartType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PieChartType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Pie,
+                2 => Self::Donut,
+                _ => Self::UnknownValue(pie_chart_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PieChartType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PIE_CHART_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "PIE" => Self::Pie,
+                "DONUT" => Self::Donut,
+                _ => Self::UnknownValue(pie_chart_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PieChartType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Pie => serializer.serialize_i32(1),
+                Self::Donut => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PieChartType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PieChartType>::new(
+                ".google.monitoring.dashboard.v1.PieChart.PieChartType",
+            ))
         }
     }
 }
@@ -3940,62 +4608,120 @@ pub mod time_series_table {
     }
 
     /// Enum for metric metric_visualization
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MetricVisualization(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum MetricVisualization {
+        /// Unspecified state
+        Unspecified,
+        /// Default text rendering
+        Number,
+        /// Horizontal bar rendering
+        Bar,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [MetricVisualization::value] or
+        /// [MetricVisualization::name].
+        UnknownValue(metric_visualization::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod metric_visualization {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl MetricVisualization {
-        /// Unspecified state
-        pub const METRIC_VISUALIZATION_UNSPECIFIED: MetricVisualization =
-            MetricVisualization::new(0);
-
-        /// Default text rendering
-        pub const NUMBER: MetricVisualization = MetricVisualization::new(1);
-
-        /// Horizontal bar rendering
-        pub const BAR: MetricVisualization = MetricVisualization::new(2);
-
-        /// Creates a new MetricVisualization instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Number => std::option::Option::Some(1),
+                Self::Bar => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("METRIC_VISUALIZATION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NUMBER"),
-                2 => std::borrow::Cow::Borrowed("BAR"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("METRIC_VISUALIZATION_UNSPECIFIED"),
+                Self::Number => std::option::Option::Some("NUMBER"),
+                Self::Bar => std::option::Option::Some("BAR"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "METRIC_VISUALIZATION_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::METRIC_VISUALIZATION_UNSPECIFIED)
-                }
-                "NUMBER" => std::option::Option::Some(Self::NUMBER),
-                "BAR" => std::option::Option::Some(Self::BAR),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for MetricVisualization {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for MetricVisualization {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for MetricVisualization {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for MetricVisualization {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Number,
+                2 => Self::Bar,
+                _ => Self::UnknownValue(metric_visualization::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for MetricVisualization {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "METRIC_VISUALIZATION_UNSPECIFIED" => Self::Unspecified,
+                "NUMBER" => Self::Number,
+                "BAR" => Self::Bar,
+                _ => Self::UnknownValue(metric_visualization::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for MetricVisualization {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Number => serializer.serialize_i32(1),
+                Self::Bar => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MetricVisualization {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<MetricVisualization>::new(
+                ".google.monitoring.dashboard.v1.TimeSeriesTable.MetricVisualization",
+            ))
         }
     }
 }
@@ -4215,447 +4941,859 @@ pub mod text {
         use super::*;
 
         /// The horizontal alignment of both the title and content on a text widget
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct HorizontalAlignment(i32);
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum HorizontalAlignment {
+            /// No horizontal alignment specified, will default to H_LEFT
+            Unspecified,
+            /// Left-align
+            HLeft,
+            /// Center-align
+            HCenter,
+            /// Right-align
+            HRight,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [HorizontalAlignment::value] or
+            /// [HorizontalAlignment::name].
+            UnknownValue(horizontal_alignment::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod horizontal_alignment {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl HorizontalAlignment {
-            /// No horizontal alignment specified, will default to H_LEFT
-            pub const HORIZONTAL_ALIGNMENT_UNSPECIFIED: HorizontalAlignment =
-                HorizontalAlignment::new(0);
-
-            /// Left-align
-            pub const H_LEFT: HorizontalAlignment = HorizontalAlignment::new(1);
-
-            /// Center-align
-            pub const H_CENTER: HorizontalAlignment = HorizontalAlignment::new(2);
-
-            /// Right-align
-            pub const H_RIGHT: HorizontalAlignment = HorizontalAlignment::new(3);
-
-            /// Creates a new HorizontalAlignment instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::HLeft => std::option::Option::Some(1),
+                    Self::HCenter => std::option::Option::Some(2),
+                    Self::HRight => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("HORIZONTAL_ALIGNMENT_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("H_LEFT"),
-                    2 => std::borrow::Cow::Borrowed("H_CENTER"),
-                    3 => std::borrow::Cow::Borrowed("H_RIGHT"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "HORIZONTAL_ALIGNMENT_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::HORIZONTAL_ALIGNMENT_UNSPECIFIED)
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("HORIZONTAL_ALIGNMENT_UNSPECIFIED")
                     }
-                    "H_LEFT" => std::option::Option::Some(Self::H_LEFT),
-                    "H_CENTER" => std::option::Option::Some(Self::H_CENTER),
-                    "H_RIGHT" => std::option::Option::Some(Self::H_RIGHT),
-                    _ => std::option::Option::None,
+                    Self::HLeft => std::option::Option::Some("H_LEFT"),
+                    Self::HCenter => std::option::Option::Some("H_CENTER"),
+                    Self::HRight => std::option::Option::Some("H_RIGHT"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-        }
-
-        impl std::convert::From<i32> for HorizontalAlignment {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for HorizontalAlignment {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for HorizontalAlignment {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for HorizontalAlignment {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::HLeft,
+                    2 => Self::HCenter,
+                    3 => Self::HRight,
+                    _ => Self::UnknownValue(horizontal_alignment::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for HorizontalAlignment {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "HORIZONTAL_ALIGNMENT_UNSPECIFIED" => Self::Unspecified,
+                    "H_LEFT" => Self::HLeft,
+                    "H_CENTER" => Self::HCenter,
+                    "H_RIGHT" => Self::HRight,
+                    _ => Self::UnknownValue(horizontal_alignment::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for HorizontalAlignment {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::HLeft => serializer.serialize_i32(1),
+                    Self::HCenter => serializer.serialize_i32(2),
+                    Self::HRight => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for HorizontalAlignment {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(
+                    wkt::internal::EnumVisitor::<HorizontalAlignment>::new(
+                        ".google.monitoring.dashboard.v1.Text.TextStyle.HorizontalAlignment",
+                    ),
+                )
             }
         }
 
         /// The vertical alignment of both the title and content on a text widget
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct VerticalAlignment(i32);
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum VerticalAlignment {
+            /// No vertical alignment specified, will default to V_TOP
+            Unspecified,
+            /// Top-align
+            VTop,
+            /// Center-align
+            VCenter,
+            /// Bottom-align
+            VBottom,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [VerticalAlignment::value] or
+            /// [VerticalAlignment::name].
+            UnknownValue(vertical_alignment::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod vertical_alignment {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl VerticalAlignment {
-            /// No vertical alignment specified, will default to V_TOP
-            pub const VERTICAL_ALIGNMENT_UNSPECIFIED: VerticalAlignment = VerticalAlignment::new(0);
-
-            /// Top-align
-            pub const V_TOP: VerticalAlignment = VerticalAlignment::new(1);
-
-            /// Center-align
-            pub const V_CENTER: VerticalAlignment = VerticalAlignment::new(2);
-
-            /// Bottom-align
-            pub const V_BOTTOM: VerticalAlignment = VerticalAlignment::new(3);
-
-            /// Creates a new VerticalAlignment instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::VTop => std::option::Option::Some(1),
+                    Self::VCenter => std::option::Option::Some(2),
+                    Self::VBottom => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("VERTICAL_ALIGNMENT_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("V_TOP"),
-                    2 => std::borrow::Cow::Borrowed("V_CENTER"),
-                    3 => std::borrow::Cow::Borrowed("V_BOTTOM"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "VERTICAL_ALIGNMENT_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::VERTICAL_ALIGNMENT_UNSPECIFIED)
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("VERTICAL_ALIGNMENT_UNSPECIFIED")
                     }
-                    "V_TOP" => std::option::Option::Some(Self::V_TOP),
-                    "V_CENTER" => std::option::Option::Some(Self::V_CENTER),
-                    "V_BOTTOM" => std::option::Option::Some(Self::V_BOTTOM),
-                    _ => std::option::Option::None,
+                    Self::VTop => std::option::Option::Some("V_TOP"),
+                    Self::VCenter => std::option::Option::Some("V_CENTER"),
+                    Self::VBottom => std::option::Option::Some("V_BOTTOM"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-        }
-
-        impl std::convert::From<i32> for VerticalAlignment {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for VerticalAlignment {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for VerticalAlignment {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for VerticalAlignment {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::VTop,
+                    2 => Self::VCenter,
+                    3 => Self::VBottom,
+                    _ => Self::UnknownValue(vertical_alignment::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for VerticalAlignment {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "VERTICAL_ALIGNMENT_UNSPECIFIED" => Self::Unspecified,
+                    "V_TOP" => Self::VTop,
+                    "V_CENTER" => Self::VCenter,
+                    "V_BOTTOM" => Self::VBottom,
+                    _ => Self::UnknownValue(vertical_alignment::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for VerticalAlignment {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::VTop => serializer.serialize_i32(1),
+                    Self::VCenter => serializer.serialize_i32(2),
+                    Self::VBottom => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for VerticalAlignment {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<VerticalAlignment>::new(
+                    ".google.monitoring.dashboard.v1.Text.TextStyle.VerticalAlignment",
+                ))
             }
         }
 
         /// Specifies padding size around a text widget
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PaddingSize(i32);
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum PaddingSize {
+            /// No padding size specified, will default to P_EXTRA_SMALL
+            Unspecified,
+            /// Extra small padding
+            PExtraSmall,
+            /// Small padding
+            PSmall,
+            /// Medium padding
+            PMedium,
+            /// Large padding
+            PLarge,
+            /// Extra large padding
+            PExtraLarge,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [PaddingSize::value] or
+            /// [PaddingSize::name].
+            UnknownValue(padding_size::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod padding_size {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl PaddingSize {
-            /// No padding size specified, will default to P_EXTRA_SMALL
-            pub const PADDING_SIZE_UNSPECIFIED: PaddingSize = PaddingSize::new(0);
-
-            /// Extra small padding
-            pub const P_EXTRA_SMALL: PaddingSize = PaddingSize::new(1);
-
-            /// Small padding
-            pub const P_SMALL: PaddingSize = PaddingSize::new(2);
-
-            /// Medium padding
-            pub const P_MEDIUM: PaddingSize = PaddingSize::new(3);
-
-            /// Large padding
-            pub const P_LARGE: PaddingSize = PaddingSize::new(4);
-
-            /// Extra large padding
-            pub const P_EXTRA_LARGE: PaddingSize = PaddingSize::new(5);
-
-            /// Creates a new PaddingSize instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::PExtraSmall => std::option::Option::Some(1),
+                    Self::PSmall => std::option::Option::Some(2),
+                    Self::PMedium => std::option::Option::Some(3),
+                    Self::PLarge => std::option::Option::Some(4),
+                    Self::PExtraLarge => std::option::Option::Some(5),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("PADDING_SIZE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("P_EXTRA_SMALL"),
-                    2 => std::borrow::Cow::Borrowed("P_SMALL"),
-                    3 => std::borrow::Cow::Borrowed("P_MEDIUM"),
-                    4 => std::borrow::Cow::Borrowed("P_LARGE"),
-                    5 => std::borrow::Cow::Borrowed("P_EXTRA_LARGE"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("PADDING_SIZE_UNSPECIFIED"),
+                    Self::PExtraSmall => std::option::Option::Some("P_EXTRA_SMALL"),
+                    Self::PSmall => std::option::Option::Some("P_SMALL"),
+                    Self::PMedium => std::option::Option::Some("P_MEDIUM"),
+                    Self::PLarge => std::option::Option::Some("P_LARGE"),
+                    Self::PExtraLarge => std::option::Option::Some("P_EXTRA_LARGE"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "PADDING_SIZE_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::PADDING_SIZE_UNSPECIFIED)
-                    }
-                    "P_EXTRA_SMALL" => std::option::Option::Some(Self::P_EXTRA_SMALL),
-                    "P_SMALL" => std::option::Option::Some(Self::P_SMALL),
-                    "P_MEDIUM" => std::option::Option::Some(Self::P_MEDIUM),
-                    "P_LARGE" => std::option::Option::Some(Self::P_LARGE),
-                    "P_EXTRA_LARGE" => std::option::Option::Some(Self::P_EXTRA_LARGE),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for PaddingSize {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for PaddingSize {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for PaddingSize {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for PaddingSize {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::PExtraSmall,
+                    2 => Self::PSmall,
+                    3 => Self::PMedium,
+                    4 => Self::PLarge,
+                    5 => Self::PExtraLarge,
+                    _ => Self::UnknownValue(padding_size::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for PaddingSize {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "PADDING_SIZE_UNSPECIFIED" => Self::Unspecified,
+                    "P_EXTRA_SMALL" => Self::PExtraSmall,
+                    "P_SMALL" => Self::PSmall,
+                    "P_MEDIUM" => Self::PMedium,
+                    "P_LARGE" => Self::PLarge,
+                    "P_EXTRA_LARGE" => Self::PExtraLarge,
+                    _ => Self::UnknownValue(padding_size::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for PaddingSize {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::PExtraSmall => serializer.serialize_i32(1),
+                    Self::PSmall => serializer.serialize_i32(2),
+                    Self::PMedium => serializer.serialize_i32(3),
+                    Self::PLarge => serializer.serialize_i32(4),
+                    Self::PExtraLarge => serializer.serialize_i32(5),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for PaddingSize {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<PaddingSize>::new(
+                    ".google.monitoring.dashboard.v1.Text.TextStyle.PaddingSize",
+                ))
             }
         }
 
         /// Specifies a font size for the title and content of a text widget
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct FontSize(i32);
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum FontSize {
+            /// No font size specified, will default to FS_LARGE
+            Unspecified,
+            /// Extra small font size
+            FsExtraSmall,
+            /// Small font size
+            FsSmall,
+            /// Medium font size
+            FsMedium,
+            /// Large font size
+            FsLarge,
+            /// Extra large font size
+            FsExtraLarge,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [FontSize::value] or
+            /// [FontSize::name].
+            UnknownValue(font_size::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod font_size {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl FontSize {
-            /// No font size specified, will default to FS_LARGE
-            pub const FONT_SIZE_UNSPECIFIED: FontSize = FontSize::new(0);
-
-            /// Extra small font size
-            pub const FS_EXTRA_SMALL: FontSize = FontSize::new(1);
-
-            /// Small font size
-            pub const FS_SMALL: FontSize = FontSize::new(2);
-
-            /// Medium font size
-            pub const FS_MEDIUM: FontSize = FontSize::new(3);
-
-            /// Large font size
-            pub const FS_LARGE: FontSize = FontSize::new(4);
-
-            /// Extra large font size
-            pub const FS_EXTRA_LARGE: FontSize = FontSize::new(5);
-
-            /// Creates a new FontSize instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::FsExtraSmall => std::option::Option::Some(1),
+                    Self::FsSmall => std::option::Option::Some(2),
+                    Self::FsMedium => std::option::Option::Some(3),
+                    Self::FsLarge => std::option::Option::Some(4),
+                    Self::FsExtraLarge => std::option::Option::Some(5),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("FONT_SIZE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("FS_EXTRA_SMALL"),
-                    2 => std::borrow::Cow::Borrowed("FS_SMALL"),
-                    3 => std::borrow::Cow::Borrowed("FS_MEDIUM"),
-                    4 => std::borrow::Cow::Borrowed("FS_LARGE"),
-                    5 => std::borrow::Cow::Borrowed("FS_EXTRA_LARGE"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("FONT_SIZE_UNSPECIFIED"),
+                    Self::FsExtraSmall => std::option::Option::Some("FS_EXTRA_SMALL"),
+                    Self::FsSmall => std::option::Option::Some("FS_SMALL"),
+                    Self::FsMedium => std::option::Option::Some("FS_MEDIUM"),
+                    Self::FsLarge => std::option::Option::Some("FS_LARGE"),
+                    Self::FsExtraLarge => std::option::Option::Some("FS_EXTRA_LARGE"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "FONT_SIZE_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::FONT_SIZE_UNSPECIFIED)
-                    }
-                    "FS_EXTRA_SMALL" => std::option::Option::Some(Self::FS_EXTRA_SMALL),
-                    "FS_SMALL" => std::option::Option::Some(Self::FS_SMALL),
-                    "FS_MEDIUM" => std::option::Option::Some(Self::FS_MEDIUM),
-                    "FS_LARGE" => std::option::Option::Some(Self::FS_LARGE),
-                    "FS_EXTRA_LARGE" => std::option::Option::Some(Self::FS_EXTRA_LARGE),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for FontSize {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for FontSize {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for FontSize {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for FontSize {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::FsExtraSmall,
+                    2 => Self::FsSmall,
+                    3 => Self::FsMedium,
+                    4 => Self::FsLarge,
+                    5 => Self::FsExtraLarge,
+                    _ => Self::UnknownValue(font_size::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for FontSize {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "FONT_SIZE_UNSPECIFIED" => Self::Unspecified,
+                    "FS_EXTRA_SMALL" => Self::FsExtraSmall,
+                    "FS_SMALL" => Self::FsSmall,
+                    "FS_MEDIUM" => Self::FsMedium,
+                    "FS_LARGE" => Self::FsLarge,
+                    "FS_EXTRA_LARGE" => Self::FsExtraLarge,
+                    _ => Self::UnknownValue(font_size::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for FontSize {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::FsExtraSmall => serializer.serialize_i32(1),
+                    Self::FsSmall => serializer.serialize_i32(2),
+                    Self::FsMedium => serializer.serialize_i32(3),
+                    Self::FsLarge => serializer.serialize_i32(4),
+                    Self::FsExtraLarge => serializer.serialize_i32(5),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for FontSize {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<FontSize>::new(
+                    ".google.monitoring.dashboard.v1.Text.TextStyle.FontSize",
+                ))
             }
         }
 
         /// Specifies where a visual pointer is placed on a text widget (also
         /// sometimes called a "tail")
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PointerLocation(i32);
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum PointerLocation {
+            /// No visual pointer
+            Unspecified,
+            /// Placed in the middle of the top of the widget
+            PlTop,
+            /// Placed in the middle of the right side of the widget
+            PlRight,
+            /// Placed in the middle of the bottom of the widget
+            PlBottom,
+            /// Placed in the middle of the left side of the widget
+            PlLeft,
+            /// Placed on the left side of the top of the widget
+            PlTopLeft,
+            /// Placed on the right side of the top of the widget
+            PlTopRight,
+            /// Placed on the top of the right side of the widget
+            PlRightTop,
+            /// Placed on the bottom of the right side of the widget
+            PlRightBottom,
+            /// Placed on the right side of the bottom of the widget
+            PlBottomRight,
+            /// Placed on the left side of the bottom of the widget
+            PlBottomLeft,
+            /// Placed on the bottom of the left side of the widget
+            PlLeftBottom,
+            /// Placed on the top of the left side of the widget
+            PlLeftTop,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [PointerLocation::value] or
+            /// [PointerLocation::name].
+            UnknownValue(pointer_location::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod pointer_location {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl PointerLocation {
-            /// No visual pointer
-            pub const POINTER_LOCATION_UNSPECIFIED: PointerLocation = PointerLocation::new(0);
-
-            /// Placed in the middle of the top of the widget
-            pub const PL_TOP: PointerLocation = PointerLocation::new(1);
-
-            /// Placed in the middle of the right side of the widget
-            pub const PL_RIGHT: PointerLocation = PointerLocation::new(2);
-
-            /// Placed in the middle of the bottom of the widget
-            pub const PL_BOTTOM: PointerLocation = PointerLocation::new(3);
-
-            /// Placed in the middle of the left side of the widget
-            pub const PL_LEFT: PointerLocation = PointerLocation::new(4);
-
-            /// Placed on the left side of the top of the widget
-            pub const PL_TOP_LEFT: PointerLocation = PointerLocation::new(5);
-
-            /// Placed on the right side of the top of the widget
-            pub const PL_TOP_RIGHT: PointerLocation = PointerLocation::new(6);
-
-            /// Placed on the top of the right side of the widget
-            pub const PL_RIGHT_TOP: PointerLocation = PointerLocation::new(7);
-
-            /// Placed on the bottom of the right side of the widget
-            pub const PL_RIGHT_BOTTOM: PointerLocation = PointerLocation::new(8);
-
-            /// Placed on the right side of the bottom of the widget
-            pub const PL_BOTTOM_RIGHT: PointerLocation = PointerLocation::new(9);
-
-            /// Placed on the left side of the bottom of the widget
-            pub const PL_BOTTOM_LEFT: PointerLocation = PointerLocation::new(10);
-
-            /// Placed on the bottom of the left side of the widget
-            pub const PL_LEFT_BOTTOM: PointerLocation = PointerLocation::new(11);
-
-            /// Placed on the top of the left side of the widget
-            pub const PL_LEFT_TOP: PointerLocation = PointerLocation::new(12);
-
-            /// Creates a new PointerLocation instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::PlTop => std::option::Option::Some(1),
+                    Self::PlRight => std::option::Option::Some(2),
+                    Self::PlBottom => std::option::Option::Some(3),
+                    Self::PlLeft => std::option::Option::Some(4),
+                    Self::PlTopLeft => std::option::Option::Some(5),
+                    Self::PlTopRight => std::option::Option::Some(6),
+                    Self::PlRightTop => std::option::Option::Some(7),
+                    Self::PlRightBottom => std::option::Option::Some(8),
+                    Self::PlBottomRight => std::option::Option::Some(9),
+                    Self::PlBottomLeft => std::option::Option::Some(10),
+                    Self::PlLeftBottom => std::option::Option::Some(11),
+                    Self::PlLeftTop => std::option::Option::Some(12),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("POINTER_LOCATION_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("PL_TOP"),
-                    2 => std::borrow::Cow::Borrowed("PL_RIGHT"),
-                    3 => std::borrow::Cow::Borrowed("PL_BOTTOM"),
-                    4 => std::borrow::Cow::Borrowed("PL_LEFT"),
-                    5 => std::borrow::Cow::Borrowed("PL_TOP_LEFT"),
-                    6 => std::borrow::Cow::Borrowed("PL_TOP_RIGHT"),
-                    7 => std::borrow::Cow::Borrowed("PL_RIGHT_TOP"),
-                    8 => std::borrow::Cow::Borrowed("PL_RIGHT_BOTTOM"),
-                    9 => std::borrow::Cow::Borrowed("PL_BOTTOM_RIGHT"),
-                    10 => std::borrow::Cow::Borrowed("PL_BOTTOM_LEFT"),
-                    11 => std::borrow::Cow::Borrowed("PL_LEFT_BOTTOM"),
-                    12 => std::borrow::Cow::Borrowed("PL_LEFT_TOP"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("POINTER_LOCATION_UNSPECIFIED"),
+                    Self::PlTop => std::option::Option::Some("PL_TOP"),
+                    Self::PlRight => std::option::Option::Some("PL_RIGHT"),
+                    Self::PlBottom => std::option::Option::Some("PL_BOTTOM"),
+                    Self::PlLeft => std::option::Option::Some("PL_LEFT"),
+                    Self::PlTopLeft => std::option::Option::Some("PL_TOP_LEFT"),
+                    Self::PlTopRight => std::option::Option::Some("PL_TOP_RIGHT"),
+                    Self::PlRightTop => std::option::Option::Some("PL_RIGHT_TOP"),
+                    Self::PlRightBottom => std::option::Option::Some("PL_RIGHT_BOTTOM"),
+                    Self::PlBottomRight => std::option::Option::Some("PL_BOTTOM_RIGHT"),
+                    Self::PlBottomLeft => std::option::Option::Some("PL_BOTTOM_LEFT"),
+                    Self::PlLeftBottom => std::option::Option::Some("PL_LEFT_BOTTOM"),
+                    Self::PlLeftTop => std::option::Option::Some("PL_LEFT_TOP"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "POINTER_LOCATION_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::POINTER_LOCATION_UNSPECIFIED)
-                    }
-                    "PL_TOP" => std::option::Option::Some(Self::PL_TOP),
-                    "PL_RIGHT" => std::option::Option::Some(Self::PL_RIGHT),
-                    "PL_BOTTOM" => std::option::Option::Some(Self::PL_BOTTOM),
-                    "PL_LEFT" => std::option::Option::Some(Self::PL_LEFT),
-                    "PL_TOP_LEFT" => std::option::Option::Some(Self::PL_TOP_LEFT),
-                    "PL_TOP_RIGHT" => std::option::Option::Some(Self::PL_TOP_RIGHT),
-                    "PL_RIGHT_TOP" => std::option::Option::Some(Self::PL_RIGHT_TOP),
-                    "PL_RIGHT_BOTTOM" => std::option::Option::Some(Self::PL_RIGHT_BOTTOM),
-                    "PL_BOTTOM_RIGHT" => std::option::Option::Some(Self::PL_BOTTOM_RIGHT),
-                    "PL_BOTTOM_LEFT" => std::option::Option::Some(Self::PL_BOTTOM_LEFT),
-                    "PL_LEFT_BOTTOM" => std::option::Option::Some(Self::PL_LEFT_BOTTOM),
-                    "PL_LEFT_TOP" => std::option::Option::Some(Self::PL_LEFT_TOP),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for PointerLocation {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for PointerLocation {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for PointerLocation {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for PointerLocation {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::PlTop,
+                    2 => Self::PlRight,
+                    3 => Self::PlBottom,
+                    4 => Self::PlLeft,
+                    5 => Self::PlTopLeft,
+                    6 => Self::PlTopRight,
+                    7 => Self::PlRightTop,
+                    8 => Self::PlRightBottom,
+                    9 => Self::PlBottomRight,
+                    10 => Self::PlBottomLeft,
+                    11 => Self::PlLeftBottom,
+                    12 => Self::PlLeftTop,
+                    _ => Self::UnknownValue(pointer_location::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for PointerLocation {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "POINTER_LOCATION_UNSPECIFIED" => Self::Unspecified,
+                    "PL_TOP" => Self::PlTop,
+                    "PL_RIGHT" => Self::PlRight,
+                    "PL_BOTTOM" => Self::PlBottom,
+                    "PL_LEFT" => Self::PlLeft,
+                    "PL_TOP_LEFT" => Self::PlTopLeft,
+                    "PL_TOP_RIGHT" => Self::PlTopRight,
+                    "PL_RIGHT_TOP" => Self::PlRightTop,
+                    "PL_RIGHT_BOTTOM" => Self::PlRightBottom,
+                    "PL_BOTTOM_RIGHT" => Self::PlBottomRight,
+                    "PL_BOTTOM_LEFT" => Self::PlBottomLeft,
+                    "PL_LEFT_BOTTOM" => Self::PlLeftBottom,
+                    "PL_LEFT_TOP" => Self::PlLeftTop,
+                    _ => Self::UnknownValue(pointer_location::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for PointerLocation {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::PlTop => serializer.serialize_i32(1),
+                    Self::PlRight => serializer.serialize_i32(2),
+                    Self::PlBottom => serializer.serialize_i32(3),
+                    Self::PlLeft => serializer.serialize_i32(4),
+                    Self::PlTopLeft => serializer.serialize_i32(5),
+                    Self::PlTopRight => serializer.serialize_i32(6),
+                    Self::PlRightTop => serializer.serialize_i32(7),
+                    Self::PlRightBottom => serializer.serialize_i32(8),
+                    Self::PlBottomRight => serializer.serialize_i32(9),
+                    Self::PlBottomLeft => serializer.serialize_i32(10),
+                    Self::PlLeftBottom => serializer.serialize_i32(11),
+                    Self::PlLeftTop => serializer.serialize_i32(12),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for PointerLocation {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<PointerLocation>::new(
+                    ".google.monitoring.dashboard.v1.Text.TextStyle.PointerLocation",
+                ))
             }
         }
     }
 
     /// The format type of the text content.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Format(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Format {
+        /// Format is unspecified. Defaults to MARKDOWN.
+        Unspecified,
+        /// The text contains Markdown formatting.
+        Markdown,
+        /// The text contains no special formatting.
+        Raw,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Format::value] or
+        /// [Format::name].
+        UnknownValue(format::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Format {
-        /// Format is unspecified. Defaults to MARKDOWN.
-        pub const FORMAT_UNSPECIFIED: Format = Format::new(0);
-
-        /// The text contains Markdown formatting.
-        pub const MARKDOWN: Format = Format::new(1);
-
-        /// The text contains no special formatting.
-        pub const RAW: Format = Format::new(2);
-
-        /// Creates a new Format instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Markdown => std::option::Option::Some(1),
+                Self::Raw => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("FORMAT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("MARKDOWN"),
-                2 => std::borrow::Cow::Borrowed("RAW"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FORMAT_UNSPECIFIED"),
+                Self::Markdown => std::option::Option::Some("MARKDOWN"),
+                Self::Raw => std::option::Option::Some("RAW"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "FORMAT_UNSPECIFIED" => std::option::Option::Some(Self::FORMAT_UNSPECIFIED),
-                "MARKDOWN" => std::option::Option::Some(Self::MARKDOWN),
-                "RAW" => std::option::Option::Some(Self::RAW),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Format {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Format {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Format {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Format {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Markdown,
+                2 => Self::Raw,
+                _ => Self::UnknownValue(format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Format {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "MARKDOWN" => Self::Markdown,
+                "RAW" => Self::Raw,
+                _ => Self::UnknownValue(format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Format {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Markdown => serializer.serialize_i32(1),
+                Self::Raw => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Format {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Format>::new(
+                ".google.monitoring.dashboard.v1.Text.Format",
+            ))
         }
     }
 }
@@ -5335,139 +6473,267 @@ pub mod xy_chart {
         use super::*;
 
         /// The types of plotting strategies for data sets.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct PlotType(i32);
-
-        impl PlotType {
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum PlotType {
             /// Plot type is unspecified. The view will default to `LINE`.
-            pub const PLOT_TYPE_UNSPECIFIED: PlotType = PlotType::new(0);
-
+            Unspecified,
             /// The data is plotted as a set of lines (one line per series).
-            pub const LINE: PlotType = PlotType::new(1);
-
+            Line,
             /// The data is plotted as a set of filled areas (one area per series),
             /// with the areas stacked vertically (the base of each area is the top of
             /// its predecessor, and the base of the first area is the x-axis). Since
             /// the areas do not overlap, each is filled with a different opaque color.
-            pub const STACKED_AREA: PlotType = PlotType::new(2);
-
+            StackedArea,
             /// The data is plotted as a set of rectangular boxes (one box per series),
             /// with the boxes stacked vertically (the base of each box is the top of
             /// its predecessor, and the base of the first box is the x-axis). Since
             /// the boxes do not overlap, each is filled with a different opaque color.
-            pub const STACKED_BAR: PlotType = PlotType::new(3);
-
+            StackedBar,
             /// The data is plotted as a heatmap. The series being plotted must have a
             /// `DISTRIBUTION` value type. The value of each bucket in the distribution
             /// is displayed as a color. This type is not currently available in the
             /// Stackdriver Monitoring application.
-            pub const HEATMAP: PlotType = PlotType::new(4);
+            Heatmap,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [PlotType::value] or
+            /// [PlotType::name].
+            UnknownValue(plot_type::UnknownValue),
+        }
 
-            /// Creates a new PlotType instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod plot_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl PlotType {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Line => std::option::Option::Some(1),
+                    Self::StackedArea => std::option::Option::Some(2),
+                    Self::StackedBar => std::option::Option::Some(3),
+                    Self::Heatmap => std::option::Option::Some(4),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("PLOT_TYPE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("LINE"),
-                    2 => std::borrow::Cow::Borrowed("STACKED_AREA"),
-                    3 => std::borrow::Cow::Borrowed("STACKED_BAR"),
-                    4 => std::borrow::Cow::Borrowed("HEATMAP"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("PLOT_TYPE_UNSPECIFIED"),
+                    Self::Line => std::option::Option::Some("LINE"),
+                    Self::StackedArea => std::option::Option::Some("STACKED_AREA"),
+                    Self::StackedBar => std::option::Option::Some("STACKED_BAR"),
+                    Self::Heatmap => std::option::Option::Some("HEATMAP"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "PLOT_TYPE_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::PLOT_TYPE_UNSPECIFIED)
-                    }
-                    "LINE" => std::option::Option::Some(Self::LINE),
-                    "STACKED_AREA" => std::option::Option::Some(Self::STACKED_AREA),
-                    "STACKED_BAR" => std::option::Option::Some(Self::STACKED_BAR),
-                    "HEATMAP" => std::option::Option::Some(Self::HEATMAP),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for PlotType {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for PlotType {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for PlotType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for PlotType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Line,
+                    2 => Self::StackedArea,
+                    3 => Self::StackedBar,
+                    4 => Self::Heatmap,
+                    _ => Self::UnknownValue(plot_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for PlotType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "PLOT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "LINE" => Self::Line,
+                    "STACKED_AREA" => Self::StackedArea,
+                    "STACKED_BAR" => Self::StackedBar,
+                    "HEATMAP" => Self::Heatmap,
+                    _ => Self::UnknownValue(plot_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for PlotType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Line => serializer.serialize_i32(1),
+                    Self::StackedArea => serializer.serialize_i32(2),
+                    Self::StackedBar => serializer.serialize_i32(3),
+                    Self::Heatmap => serializer.serialize_i32(4),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for PlotType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<PlotType>::new(
+                    ".google.monitoring.dashboard.v1.XyChart.DataSet.PlotType",
+                ))
             }
         }
 
         /// An axis identifier.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct TargetAxis(i32);
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum TargetAxis {
+            /// The target axis was not specified. Defaults to Y1.
+            Unspecified,
+            /// The y_axis (the right axis of chart).
+            Y1,
+            /// The y2_axis (the left axis of chart).
+            Y2,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [TargetAxis::value] or
+            /// [TargetAxis::name].
+            UnknownValue(target_axis::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod target_axis {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl TargetAxis {
-            /// The target axis was not specified. Defaults to Y1.
-            pub const TARGET_AXIS_UNSPECIFIED: TargetAxis = TargetAxis::new(0);
-
-            /// The y_axis (the right axis of chart).
-            pub const Y1: TargetAxis = TargetAxis::new(1);
-
-            /// The y2_axis (the left axis of chart).
-            pub const Y2: TargetAxis = TargetAxis::new(2);
-
-            /// Creates a new TargetAxis instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Y1 => std::option::Option::Some(1),
+                    Self::Y2 => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("TARGET_AXIS_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("Y1"),
-                    2 => std::borrow::Cow::Borrowed("Y2"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("TARGET_AXIS_UNSPECIFIED"),
+                    Self::Y1 => std::option::Option::Some("Y1"),
+                    Self::Y2 => std::option::Option::Some("Y2"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "TARGET_AXIS_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::TARGET_AXIS_UNSPECIFIED)
-                    }
-                    "Y1" => std::option::Option::Some(Self::Y1),
-                    "Y2" => std::option::Option::Some(Self::Y2),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for TargetAxis {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for TargetAxis {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for TargetAxis {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for TargetAxis {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Y1,
+                    2 => Self::Y2,
+                    _ => Self::UnknownValue(target_axis::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for TargetAxis {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "TARGET_AXIS_UNSPECIFIED" => Self::Unspecified,
+                    "Y1" => Self::Y1,
+                    "Y2" => Self::Y2,
+                    _ => Self::UnknownValue(target_axis::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for TargetAxis {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Y1 => serializer.serialize_i32(1),
+                    Self::Y2 => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for TargetAxis {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<TargetAxis>::new(
+                    ".google.monitoring.dashboard.v1.XyChart.DataSet.TargetAxis",
+                ))
             }
         }
     }
@@ -5522,59 +6788,123 @@ pub mod xy_chart {
         use super::*;
 
         /// Types of scales used in axes.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Scale(i32);
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Scale {
+            /// Scale is unspecified. The view will default to `LINEAR`.
+            Unspecified,
+            /// Linear scale.
+            Linear,
+            /// Logarithmic scale (base 10).
+            Log10,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Scale::value] or
+            /// [Scale::name].
+            UnknownValue(scale::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod scale {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
         impl Scale {
-            /// Scale is unspecified. The view will default to `LINEAR`.
-            pub const SCALE_UNSPECIFIED: Scale = Scale::new(0);
-
-            /// Linear scale.
-            pub const LINEAR: Scale = Scale::new(1);
-
-            /// Logarithmic scale (base 10).
-            pub const LOG10: Scale = Scale::new(2);
-
-            /// Creates a new Scale instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Linear => std::option::Option::Some(1),
+                    Self::Log10 => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("SCALE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("LINEAR"),
-                    2 => std::borrow::Cow::Borrowed("LOG10"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("SCALE_UNSPECIFIED"),
+                    Self::Linear => std::option::Option::Some("LINEAR"),
+                    Self::Log10 => std::option::Option::Some("LOG10"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "SCALE_UNSPECIFIED" => std::option::Option::Some(Self::SCALE_UNSPECIFIED),
-                    "LINEAR" => std::option::Option::Some(Self::LINEAR),
-                    "LOG10" => std::option::Option::Some(Self::LOG10),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for Scale {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for Scale {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Scale {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Scale {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Linear,
+                    2 => Self::Log10,
+                    _ => Self::UnknownValue(scale::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Scale {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "SCALE_UNSPECIFIED" => Self::Unspecified,
+                    "LINEAR" => Self::Linear,
+                    "LOG10" => Self::Log10,
+                    _ => Self::UnknownValue(scale::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Scale {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Linear => serializer.serialize_i32(1),
+                    Self::Log10 => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Scale {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Scale>::new(
+                    ".google.monitoring.dashboard.v1.XyChart.Axis.Scale",
+                ))
             }
         }
     }
@@ -5620,126 +6950,248 @@ pub mod chart_options {
     use super::*;
 
     /// Chart mode options.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Mode(i32);
-
-    impl Mode {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Mode {
         /// Mode is unspecified. The view will default to `COLOR`.
-        pub const MODE_UNSPECIFIED: Mode = Mode::new(0);
-
+        Unspecified,
         /// The chart distinguishes data series using different color. Line
         /// colors may get reused when there are many lines in the chart.
-        pub const COLOR: Mode = Mode::new(1);
-
+        Color,
         /// The chart uses the Stackdriver x-ray mode, in which each
         /// data set is plotted using the same semi-transparent color.
-        pub const X_RAY: Mode = Mode::new(2);
-
+        XRay,
         /// The chart displays statistics such as average, median, 95th percentile,
         /// and more.
-        pub const STATS: Mode = Mode::new(3);
+        Stats,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Mode::value] or
+        /// [Mode::name].
+        UnknownValue(mode::UnknownValue),
+    }
 
-        /// Creates a new Mode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Mode {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Color => std::option::Option::Some(1),
+                Self::XRay => std::option::Option::Some(2),
+                Self::Stats => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("COLOR"),
-                2 => std::borrow::Cow::Borrowed("X_RAY"),
-                3 => std::borrow::Cow::Borrowed("STATS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                Self::Color => std::option::Option::Some("COLOR"),
+                Self::XRay => std::option::Option::Some("X_RAY"),
+                Self::Stats => std::option::Option::Some("STATS"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "MODE_UNSPECIFIED" => std::option::Option::Some(Self::MODE_UNSPECIFIED),
-                "COLOR" => std::option::Option::Some(Self::COLOR),
-                "X_RAY" => std::option::Option::Some(Self::X_RAY),
-                "STATS" => std::option::Option::Some(Self::STATS),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Mode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Mode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Mode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Color,
+                2 => Self::XRay,
+                3 => Self::Stats,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Mode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODE_UNSPECIFIED" => Self::Unspecified,
+                "COLOR" => Self::Color,
+                "X_RAY" => Self::XRay,
+                "STATS" => Self::Stats,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Mode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Color => serializer.serialize_i32(1),
+                Self::XRay => serializer.serialize_i32(2),
+                Self::Stats => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Mode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                ".google.monitoring.dashboard.v1.ChartOptions.Mode",
+            ))
         }
     }
 }
 
 /// Defines the possible types of spark chart supported by the `Scorecard`.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SparkChartType(i32);
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SparkChartType {
+    /// Not allowed in well-formed requests.
+    Unspecified,
+    /// The sparkline will be rendered as a small line chart.
+    SparkLine,
+    /// The sparkbar will be rendered as a small bar chart.
+    SparkBar,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SparkChartType::value] or
+    /// [SparkChartType::name].
+    UnknownValue(spark_chart_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod spark_chart_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl SparkChartType {
-    /// Not allowed in well-formed requests.
-    pub const SPARK_CHART_TYPE_UNSPECIFIED: SparkChartType = SparkChartType::new(0);
-
-    /// The sparkline will be rendered as a small line chart.
-    pub const SPARK_LINE: SparkChartType = SparkChartType::new(1);
-
-    /// The sparkbar will be rendered as a small bar chart.
-    pub const SPARK_BAR: SparkChartType = SparkChartType::new(2);
-
-    /// Creates a new SparkChartType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::SparkLine => std::option::Option::Some(1),
+            Self::SparkBar => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SPARK_CHART_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("SPARK_LINE"),
-            2 => std::borrow::Cow::Borrowed("SPARK_BAR"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SPARK_CHART_TYPE_UNSPECIFIED"),
+            Self::SparkLine => std::option::Option::Some("SPARK_LINE"),
+            Self::SparkBar => std::option::Option::Some("SPARK_BAR"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SPARK_CHART_TYPE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::SPARK_CHART_TYPE_UNSPECIFIED)
-            }
-            "SPARK_LINE" => std::option::Option::Some(Self::SPARK_LINE),
-            "SPARK_BAR" => std::option::Option::Some(Self::SPARK_BAR),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for SparkChartType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for SparkChartType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SparkChartType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SparkChartType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::SparkLine,
+            2 => Self::SparkBar,
+            _ => Self::UnknownValue(spark_chart_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SparkChartType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SPARK_CHART_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "SPARK_LINE" => Self::SparkLine,
+            "SPARK_BAR" => Self::SparkBar,
+            _ => Self::UnknownValue(spark_chart_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SparkChartType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::SparkLine => serializer.serialize_i32(1),
+            Self::SparkBar => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SparkChartType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SparkChartType>::new(
+            ".google.monitoring.dashboard.v1.SparkChartType",
+        ))
     }
 }

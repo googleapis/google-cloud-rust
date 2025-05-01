@@ -268,85 +268,156 @@ pub mod data_set {
     use super::*;
 
     /// DataSet state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Unspecified / undefined state.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Dataset is unknown to the system; we have never seen this dataset before
         /// or we have seen this dataset but have fully GC-ed it.
-        pub const UNKNOWN: State = State::new(1);
-
+        Unknown,
         /// Dataset processing is pending.
-        pub const PENDING: State = State::new(2);
-
+        Pending,
         /// Dataset is loading.
-        pub const LOADING: State = State::new(3);
-
+        Loading,
         /// Dataset is loaded and can be queried.
-        pub const LOADED: State = State::new(4);
-
+        Loaded,
         /// Dataset is unloading.
-        pub const UNLOADING: State = State::new(5);
-
+        Unloading,
         /// Dataset is unloaded and is removed from the system.
-        pub const UNLOADED: State = State::new(6);
-
+        Unloaded,
         /// Dataset processing failed.
-        pub const FAILED: State = State::new(7);
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Unknown => std::option::Option::Some(1),
+                Self::Pending => std::option::Option::Some(2),
+                Self::Loading => std::option::Option::Some(3),
+                Self::Loaded => std::option::Option::Some(4),
+                Self::Unloading => std::option::Option::Some(5),
+                Self::Unloaded => std::option::Option::Some(6),
+                Self::Failed => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("UNKNOWN"),
-                2 => std::borrow::Cow::Borrowed("PENDING"),
-                3 => std::borrow::Cow::Borrowed("LOADING"),
-                4 => std::borrow::Cow::Borrowed("LOADED"),
-                5 => std::borrow::Cow::Borrowed("UNLOADING"),
-                6 => std::borrow::Cow::Borrowed("UNLOADED"),
-                7 => std::borrow::Cow::Borrowed("FAILED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Unknown => std::option::Option::Some("UNKNOWN"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Loading => std::option::Option::Some("LOADING"),
+                Self::Loaded => std::option::Option::Some("LOADED"),
+                Self::Unloading => std::option::Option::Some("UNLOADING"),
+                Self::Unloaded => std::option::Option::Some("UNLOADED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
-                "PENDING" => std::option::Option::Some(Self::PENDING),
-                "LOADING" => std::option::Option::Some(Self::LOADING),
-                "LOADED" => std::option::Option::Some(Self::LOADED),
-                "UNLOADING" => std::option::Option::Some(Self::UNLOADING),
-                "UNLOADED" => std::option::Option::Some(Self::UNLOADED),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Unknown,
+                2 => Self::Pending,
+                3 => Self::Loading,
+                4 => Self::Loaded,
+                5 => Self::Unloading,
+                6 => Self::Unloaded,
+                7 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "UNKNOWN" => Self::Unknown,
+                "PENDING" => Self::Pending,
+                "LOADING" => Self::Loading,
+                "LOADED" => Self::Loaded,
+                "UNLOADING" => Self::Unloading,
+                "UNLOADED" => Self::Unloaded,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Unknown => serializer.serialize_i32(1),
+                Self::Pending => serializer.serialize_i32(2),
+                Self::Loading => serializer.serialize_i32(3),
+                Self::Loaded => serializer.serialize_i32(4),
+                Self::Unloading => serializer.serialize_i32(5),
+                Self::Unloaded => serializer.serialize_i32(6),
+                Self::Failed => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.timeseriesinsights.v1.DataSet.State",
+            ))
         }
     }
 }
@@ -1137,74 +1208,141 @@ pub mod forecast_params {
     use super::*;
 
     /// A time period of a fixed interval.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Period(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Period {
+        /// Unknown or simply not given.
+        Unspecified,
+        /// 1 hour
+        Hourly,
+        /// 24 hours
+        Daily,
+        /// 7 days
+        Weekly,
+        /// 30 days
+        Monthly,
+        /// 365 days
+        Yearly,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Period::value] or
+        /// [Period::name].
+        UnknownValue(period::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod period {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Period {
-        /// Unknown or simply not given.
-        pub const PERIOD_UNSPECIFIED: Period = Period::new(0);
-
-        /// 1 hour
-        pub const HOURLY: Period = Period::new(5);
-
-        /// 24 hours
-        pub const DAILY: Period = Period::new(1);
-
-        /// 7 days
-        pub const WEEKLY: Period = Period::new(2);
-
-        /// 30 days
-        pub const MONTHLY: Period = Period::new(3);
-
-        /// 365 days
-        pub const YEARLY: Period = Period::new(4);
-
-        /// Creates a new Period instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Hourly => std::option::Option::Some(5),
+                Self::Daily => std::option::Option::Some(1),
+                Self::Weekly => std::option::Option::Some(2),
+                Self::Monthly => std::option::Option::Some(3),
+                Self::Yearly => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PERIOD_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DAILY"),
-                2 => std::borrow::Cow::Borrowed("WEEKLY"),
-                3 => std::borrow::Cow::Borrowed("MONTHLY"),
-                4 => std::borrow::Cow::Borrowed("YEARLY"),
-                5 => std::borrow::Cow::Borrowed("HOURLY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PERIOD_UNSPECIFIED"),
+                Self::Hourly => std::option::Option::Some("HOURLY"),
+                Self::Daily => std::option::Option::Some("DAILY"),
+                Self::Weekly => std::option::Option::Some("WEEKLY"),
+                Self::Monthly => std::option::Option::Some("MONTHLY"),
+                Self::Yearly => std::option::Option::Some("YEARLY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PERIOD_UNSPECIFIED" => std::option::Option::Some(Self::PERIOD_UNSPECIFIED),
-                "HOURLY" => std::option::Option::Some(Self::HOURLY),
-                "DAILY" => std::option::Option::Some(Self::DAILY),
-                "WEEKLY" => std::option::Option::Some(Self::WEEKLY),
-                "MONTHLY" => std::option::Option::Some(Self::MONTHLY),
-                "YEARLY" => std::option::Option::Some(Self::YEARLY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Period {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Period {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Period {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Period {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Daily,
+                2 => Self::Weekly,
+                3 => Self::Monthly,
+                4 => Self::Yearly,
+                5 => Self::Hourly,
+                _ => Self::UnknownValue(period::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Period {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PERIOD_UNSPECIFIED" => Self::Unspecified,
+                "HOURLY" => Self::Hourly,
+                "DAILY" => Self::Daily,
+                "WEEKLY" => Self::Weekly,
+                "MONTHLY" => Self::Monthly,
+                "YEARLY" => Self::Yearly,
+                _ => Self::UnknownValue(period::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Period {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Hourly => serializer.serialize_i32(5),
+                Self::Daily => serializer.serialize_i32(1),
+                Self::Weekly => serializer.serialize_i32(2),
+                Self::Monthly => serializer.serialize_i32(3),
+                Self::Yearly => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Period {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Period>::new(
+                ".google.cloud.timeseriesinsights.v1.ForecastParams.Period",
+            ))
         }
     }
 }
@@ -1813,67 +1951,126 @@ pub mod timeseries_params {
     /// [metric][google.cloud.timeseriesinsights.v1.TimeseriesParams.metric].
     ///
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AggregationMethod(i32);
-
-    impl AggregationMethod {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AggregationMethod {
         /// Unspecified.
-        pub const AGGREGATION_METHOD_UNSPECIFIED: AggregationMethod = AggregationMethod::new(0);
-
+        Unspecified,
         /// Aggregate multiple events by summing up the values found in the
         /// [metric][google.cloud.timeseriesinsights.v1.TimeseriesParams.metric] dimension.
         ///
         /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
-        pub const SUM: AggregationMethod = AggregationMethod::new(1);
-
+        Sum,
         /// Aggregate multiple events by averaging out the values found in the
         /// [metric][google.cloud.timeseriesinsights.v1.TimeseriesParams.metric] dimension.
         ///
         /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
-        pub const AVERAGE: AggregationMethod = AggregationMethod::new(2);
+        Average,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AggregationMethod::value] or
+        /// [AggregationMethod::name].
+        UnknownValue(aggregation_method::UnknownValue),
+    }
 
-        /// Creates a new AggregationMethod instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod aggregation_method {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl AggregationMethod {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Sum => std::option::Option::Some(1),
+                Self::Average => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("AGGREGATION_METHOD_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SUM"),
-                2 => std::borrow::Cow::Borrowed("AVERAGE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("AGGREGATION_METHOD_UNSPECIFIED"),
+                Self::Sum => std::option::Option::Some("SUM"),
+                Self::Average => std::option::Option::Some("AVERAGE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "AGGREGATION_METHOD_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::AGGREGATION_METHOD_UNSPECIFIED)
-                }
-                "SUM" => std::option::Option::Some(Self::SUM),
-                "AVERAGE" => std::option::Option::Some(Self::AVERAGE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for AggregationMethod {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for AggregationMethod {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AggregationMethod {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AggregationMethod {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Sum,
+                2 => Self::Average,
+                _ => Self::UnknownValue(aggregation_method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AggregationMethod {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AGGREGATION_METHOD_UNSPECIFIED" => Self::Unspecified,
+                "SUM" => Self::Sum,
+                "AVERAGE" => Self::Average,
+                _ => Self::UnknownValue(aggregation_method::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AggregationMethod {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Sum => serializer.serialize_i32(1),
+                Self::Average => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AggregationMethod {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AggregationMethod>::new(
+                ".google.cloud.timeseriesinsights.v1.TimeseriesParams.AggregationMethod",
+            ))
         }
     }
 }

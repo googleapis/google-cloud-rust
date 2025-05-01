@@ -638,160 +638,289 @@ impl wkt::message::Message for SendTestMessageRequest {
 /// Each notification will be categorized by the sender into one of the following
 /// categories. All contacts that are subscribed to that category will receive
 /// the notification.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct NotificationCategory(i32);
-
-impl NotificationCategory {
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum NotificationCategory {
     /// Notification category is unrecognized or unspecified.
-    pub const NOTIFICATION_CATEGORY_UNSPECIFIED: NotificationCategory =
-        NotificationCategory::new(0);
-
+    Unspecified,
     /// All notifications related to the resource, including notifications
     /// pertaining to categories added in the future.
-    pub const ALL: NotificationCategory = NotificationCategory::new(2);
-
+    All,
     /// Notifications related to imminent account suspension.
-    pub const SUSPENSION: NotificationCategory = NotificationCategory::new(3);
-
+    Suspension,
     /// Notifications related to security/privacy incidents, notifications, and
     /// vulnerabilities.
-    pub const SECURITY: NotificationCategory = NotificationCategory::new(5);
-
+    Security,
     /// Notifications related to technical events and issues such as outages,
     /// errors, or bugs.
-    pub const TECHNICAL: NotificationCategory = NotificationCategory::new(6);
-
+    Technical,
     /// Notifications related to billing and payments notifications, price updates,
     /// errors, or credits.
-    pub const BILLING: NotificationCategory = NotificationCategory::new(7);
-
+    Billing,
     /// Notifications related to enforcement actions, regulatory compliance, or
     /// government notices.
-    pub const LEGAL: NotificationCategory = NotificationCategory::new(8);
-
+    Legal,
     /// Notifications related to new versions, product terms updates, or
     /// deprecations.
-    pub const PRODUCT_UPDATES: NotificationCategory = NotificationCategory::new(9);
-
+    ProductUpdates,
     /// Child category of TECHNICAL. If assigned, technical incident notifications
     /// will go to these contacts instead of TECHNICAL.
-    pub const TECHNICAL_INCIDENTS: NotificationCategory = NotificationCategory::new(10);
+    TechnicalIncidents,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [NotificationCategory::value] or
+    /// [NotificationCategory::name].
+    UnknownValue(notification_category::UnknownValue),
+}
 
-    /// Creates a new NotificationCategory instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod notification_category {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl NotificationCategory {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::All => std::option::Option::Some(2),
+            Self::Suspension => std::option::Option::Some(3),
+            Self::Security => std::option::Option::Some(5),
+            Self::Technical => std::option::Option::Some(6),
+            Self::Billing => std::option::Option::Some(7),
+            Self::Legal => std::option::Option::Some(8),
+            Self::ProductUpdates => std::option::Option::Some(9),
+            Self::TechnicalIncidents => std::option::Option::Some(10),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("NOTIFICATION_CATEGORY_UNSPECIFIED"),
-            2 => std::borrow::Cow::Borrowed("ALL"),
-            3 => std::borrow::Cow::Borrowed("SUSPENSION"),
-            5 => std::borrow::Cow::Borrowed("SECURITY"),
-            6 => std::borrow::Cow::Borrowed("TECHNICAL"),
-            7 => std::borrow::Cow::Borrowed("BILLING"),
-            8 => std::borrow::Cow::Borrowed("LEGAL"),
-            9 => std::borrow::Cow::Borrowed("PRODUCT_UPDATES"),
-            10 => std::borrow::Cow::Borrowed("TECHNICAL_INCIDENTS"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("NOTIFICATION_CATEGORY_UNSPECIFIED"),
+            Self::All => std::option::Option::Some("ALL"),
+            Self::Suspension => std::option::Option::Some("SUSPENSION"),
+            Self::Security => std::option::Option::Some("SECURITY"),
+            Self::Technical => std::option::Option::Some("TECHNICAL"),
+            Self::Billing => std::option::Option::Some("BILLING"),
+            Self::Legal => std::option::Option::Some("LEGAL"),
+            Self::ProductUpdates => std::option::Option::Some("PRODUCT_UPDATES"),
+            Self::TechnicalIncidents => std::option::Option::Some("TECHNICAL_INCIDENTS"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "NOTIFICATION_CATEGORY_UNSPECIFIED" => {
-                std::option::Option::Some(Self::NOTIFICATION_CATEGORY_UNSPECIFIED)
-            }
-            "ALL" => std::option::Option::Some(Self::ALL),
-            "SUSPENSION" => std::option::Option::Some(Self::SUSPENSION),
-            "SECURITY" => std::option::Option::Some(Self::SECURITY),
-            "TECHNICAL" => std::option::Option::Some(Self::TECHNICAL),
-            "BILLING" => std::option::Option::Some(Self::BILLING),
-            "LEGAL" => std::option::Option::Some(Self::LEGAL),
-            "PRODUCT_UPDATES" => std::option::Option::Some(Self::PRODUCT_UPDATES),
-            "TECHNICAL_INCIDENTS" => std::option::Option::Some(Self::TECHNICAL_INCIDENTS),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for NotificationCategory {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for NotificationCategory {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for NotificationCategory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for NotificationCategory {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            2 => Self::All,
+            3 => Self::Suspension,
+            5 => Self::Security,
+            6 => Self::Technical,
+            7 => Self::Billing,
+            8 => Self::Legal,
+            9 => Self::ProductUpdates,
+            10 => Self::TechnicalIncidents,
+            _ => Self::UnknownValue(notification_category::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for NotificationCategory {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "NOTIFICATION_CATEGORY_UNSPECIFIED" => Self::Unspecified,
+            "ALL" => Self::All,
+            "SUSPENSION" => Self::Suspension,
+            "SECURITY" => Self::Security,
+            "TECHNICAL" => Self::Technical,
+            "BILLING" => Self::Billing,
+            "LEGAL" => Self::Legal,
+            "PRODUCT_UPDATES" => Self::ProductUpdates,
+            "TECHNICAL_INCIDENTS" => Self::TechnicalIncidents,
+            _ => Self::UnknownValue(notification_category::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for NotificationCategory {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::All => serializer.serialize_i32(2),
+            Self::Suspension => serializer.serialize_i32(3),
+            Self::Security => serializer.serialize_i32(5),
+            Self::Technical => serializer.serialize_i32(6),
+            Self::Billing => serializer.serialize_i32(7),
+            Self::Legal => serializer.serialize_i32(8),
+            Self::ProductUpdates => serializer.serialize_i32(9),
+            Self::TechnicalIncidents => serializer.serialize_i32(10),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for NotificationCategory {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<NotificationCategory>::new(
+            ".google.cloud.essentialcontacts.v1.NotificationCategory",
+        ))
     }
 }
 
 /// A contact's validation state indicates whether or not it is the correct
 /// contact to be receiving notifications for a particular resource.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ValidationState(i32);
-
-impl ValidationState {
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ValidationState {
     /// The validation state is unknown or unspecified.
-    pub const VALIDATION_STATE_UNSPECIFIED: ValidationState = ValidationState::new(0);
-
+    Unspecified,
     /// The contact is marked as valid. This is usually done manually by the
     /// contact admin. All new contacts begin in the valid state.
-    pub const VALID: ValidationState = ValidationState::new(1);
-
+    Valid,
     /// The contact is considered invalid. This may become the state if the
     /// contact's email is found to be unreachable.
-    pub const INVALID: ValidationState = ValidationState::new(2);
+    Invalid,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ValidationState::value] or
+    /// [ValidationState::name].
+    UnknownValue(validation_state::UnknownValue),
+}
 
-    /// Creates a new ValidationState instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod validation_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl ValidationState {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Valid => std::option::Option::Some(1),
+            Self::Invalid => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("VALIDATION_STATE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("VALID"),
-            2 => std::borrow::Cow::Borrowed("INVALID"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("VALIDATION_STATE_UNSPECIFIED"),
+            Self::Valid => std::option::Option::Some("VALID"),
+            Self::Invalid => std::option::Option::Some("INVALID"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "VALIDATION_STATE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::VALIDATION_STATE_UNSPECIFIED)
-            }
-            "VALID" => std::option::Option::Some(Self::VALID),
-            "INVALID" => std::option::Option::Some(Self::INVALID),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for ValidationState {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for ValidationState {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ValidationState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ValidationState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Valid,
+            2 => Self::Invalid,
+            _ => Self::UnknownValue(validation_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ValidationState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "VALIDATION_STATE_UNSPECIFIED" => Self::Unspecified,
+            "VALID" => Self::Valid,
+            "INVALID" => Self::Invalid,
+            _ => Self::UnknownValue(validation_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ValidationState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Valid => serializer.serialize_i32(1),
+            Self::Invalid => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ValidationState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ValidationState>::new(
+            ".google.cloud.essentialcontacts.v1.ValidationState",
+        ))
     }
 }

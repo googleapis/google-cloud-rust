@@ -551,7 +551,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::CommonObjectRequestP
 impl gaxi::prost::ToProto<service_constants::Values> for crate::generated::gapic::model::service_constants::Values {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        Ok(self.value())
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::service_constants::Values"))
     }
 }
 

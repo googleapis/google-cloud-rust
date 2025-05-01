@@ -535,64 +535,123 @@ pub mod data_policy {
     use super::*;
 
     /// A list of supported data policy types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DataPolicyType(i32);
-
-    impl DataPolicyType {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DataPolicyType {
         /// Default value for the data policy type. This should not be used.
-        pub const DATA_POLICY_TYPE_UNSPECIFIED: DataPolicyType = DataPolicyType::new(0);
-
+        Unspecified,
         /// Used to create a data policy for column-level security, without data
         /// masking.
-        pub const COLUMN_LEVEL_SECURITY_POLICY: DataPolicyType = DataPolicyType::new(3);
-
+        ColumnLevelSecurityPolicy,
         /// Used to create a data policy for data masking.
-        pub const DATA_MASKING_POLICY: DataPolicyType = DataPolicyType::new(2);
+        DataMaskingPolicy,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DataPolicyType::value] or
+        /// [DataPolicyType::name].
+        UnknownValue(data_policy_type::UnknownValue),
+    }
 
-        /// Creates a new DataPolicyType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod data_policy_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl DataPolicyType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ColumnLevelSecurityPolicy => std::option::Option::Some(3),
+                Self::DataMaskingPolicy => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DATA_POLICY_TYPE_UNSPECIFIED"),
-                2 => std::borrow::Cow::Borrowed("DATA_MASKING_POLICY"),
-                3 => std::borrow::Cow::Borrowed("COLUMN_LEVEL_SECURITY_POLICY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DATA_POLICY_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::DATA_POLICY_TYPE_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DATA_POLICY_TYPE_UNSPECIFIED"),
+                Self::ColumnLevelSecurityPolicy => {
+                    std::option::Option::Some("COLUMN_LEVEL_SECURITY_POLICY")
                 }
-                "COLUMN_LEVEL_SECURITY_POLICY" => {
-                    std::option::Option::Some(Self::COLUMN_LEVEL_SECURITY_POLICY)
-                }
-                "DATA_MASKING_POLICY" => std::option::Option::Some(Self::DATA_MASKING_POLICY),
-                _ => std::option::Option::None,
+                Self::DataMaskingPolicy => std::option::Option::Some("DATA_MASKING_POLICY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for DataPolicyType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for DataPolicyType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DataPolicyType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DataPolicyType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                2 => Self::DataMaskingPolicy,
+                3 => Self::ColumnLevelSecurityPolicy,
+                _ => Self::UnknownValue(data_policy_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DataPolicyType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DATA_POLICY_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "COLUMN_LEVEL_SECURITY_POLICY" => Self::ColumnLevelSecurityPolicy,
+                "DATA_MASKING_POLICY" => Self::DataMaskingPolicy,
+                _ => Self::UnknownValue(data_policy_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DataPolicyType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ColumnLevelSecurityPolicy => serializer.serialize_i32(3),
+                Self::DataMaskingPolicy => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DataPolicyType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataPolicyType>::new(
+                ".google.cloud.bigquery.datapolicies.v1.DataPolicy.DataPolicyType",
+            ))
         }
     }
 
@@ -723,21 +782,16 @@ pub mod data_masking_policy {
 
     /// The available masking rules. Learn more here:
     /// <https://cloud.google.com/bigquery/docs/column-data-masking-intro#masking_options>.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PredefinedExpression(i32);
-
-    impl PredefinedExpression {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PredefinedExpression {
         /// Default, unspecified predefined expression. No masking will take place
         /// since no expression is specified.
-        pub const PREDEFINED_EXPRESSION_UNSPECIFIED: PredefinedExpression =
-            PredefinedExpression::new(0);
-
+        Unspecified,
         /// Masking expression to replace data with SHA-256 hash.
-        pub const SHA256: PredefinedExpression = PredefinedExpression::new(3);
-
+        Sha256,
         /// Masking expression to replace data with NULLs.
-        pub const ALWAYS_NULL: PredefinedExpression = PredefinedExpression::new(5);
-
+        AlwaysNull,
         /// Masking expression to replace data with their default masking values.
         /// The default masking values for each type listed as below:
         ///
@@ -756,24 +810,21 @@ pub mod data_masking_policy {
         /// * ARRAY: []
         /// * STRUCT: NOT_APPLICABLE
         /// * JSON: NULL
-        pub const DEFAULT_MASKING_VALUE: PredefinedExpression = PredefinedExpression::new(7);
-
+        DefaultMaskingValue,
         /// Masking expression shows the last four characters of text.
         /// The masking behavior is as follows:
         ///
         /// * If text length > 4 characters: Replace text with XXXXX, append last
         ///   four characters of original text.
         /// * If text length <= 4 characters: Apply SHA-256 hash.
-        pub const LAST_FOUR_CHARACTERS: PredefinedExpression = PredefinedExpression::new(9);
-
+        LastFourCharacters,
         /// Masking expression shows the first four characters of text.
         /// The masking behavior is as follows:
         ///
         /// * If text length > 4 characters: Replace text with XXXXX, prepend first
         ///   four characters of original text.
         /// * If text length <= 4 characters: Apply SHA-256 hash.
-        pub const FIRST_FOUR_CHARACTERS: PredefinedExpression = PredefinedExpression::new(10);
-
+        FirstFourCharacters,
         /// Masking expression for email addresses.
         /// The masking behavior is as follows:
         ///
@@ -783,8 +834,7 @@ pub mod data_masking_policy {
         ///
         /// For more information, see [Email
         /// mask](https://cloud.google.com/bigquery/docs/column-data-masking-intro#masking_options).
-        pub const EMAIL_MASK: PredefinedExpression = PredefinedExpression::new(12);
-
+        EmailMask,
         /// Masking expression to only show the year of `Date`,
         /// `DateTime` and `TimeStamp`. For example, with the
         /// year 2076:
@@ -798,60 +848,137 @@ pub mod data_masking_policy {
         /// For more information, see the <a
         /// href="https://cloud.google.com/bigquery/docs/reference/system-variables">System
         /// variables reference</a>.
-        pub const DATE_YEAR_MASK: PredefinedExpression = PredefinedExpression::new(13);
+        DateYearMask,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PredefinedExpression::value] or
+        /// [PredefinedExpression::name].
+        UnknownValue(predefined_expression::UnknownValue),
+    }
 
-        /// Creates a new PredefinedExpression instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod predefined_expression {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl PredefinedExpression {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Sha256 => std::option::Option::Some(3),
+                Self::AlwaysNull => std::option::Option::Some(5),
+                Self::DefaultMaskingValue => std::option::Option::Some(7),
+                Self::LastFourCharacters => std::option::Option::Some(9),
+                Self::FirstFourCharacters => std::option::Option::Some(10),
+                Self::EmailMask => std::option::Option::Some(12),
+                Self::DateYearMask => std::option::Option::Some(13),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PREDEFINED_EXPRESSION_UNSPECIFIED"),
-                3 => std::borrow::Cow::Borrowed("SHA256"),
-                5 => std::borrow::Cow::Borrowed("ALWAYS_NULL"),
-                7 => std::borrow::Cow::Borrowed("DEFAULT_MASKING_VALUE"),
-                9 => std::borrow::Cow::Borrowed("LAST_FOUR_CHARACTERS"),
-                10 => std::borrow::Cow::Borrowed("FIRST_FOUR_CHARACTERS"),
-                12 => std::borrow::Cow::Borrowed("EMAIL_MASK"),
-                13 => std::borrow::Cow::Borrowed("DATE_YEAR_MASK"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PREDEFINED_EXPRESSION_UNSPECIFIED"),
+                Self::Sha256 => std::option::Option::Some("SHA256"),
+                Self::AlwaysNull => std::option::Option::Some("ALWAYS_NULL"),
+                Self::DefaultMaskingValue => std::option::Option::Some("DEFAULT_MASKING_VALUE"),
+                Self::LastFourCharacters => std::option::Option::Some("LAST_FOUR_CHARACTERS"),
+                Self::FirstFourCharacters => std::option::Option::Some("FIRST_FOUR_CHARACTERS"),
+                Self::EmailMask => std::option::Option::Some("EMAIL_MASK"),
+                Self::DateYearMask => std::option::Option::Some("DATE_YEAR_MASK"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PREDEFINED_EXPRESSION_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::PREDEFINED_EXPRESSION_UNSPECIFIED)
-                }
-                "SHA256" => std::option::Option::Some(Self::SHA256),
-                "ALWAYS_NULL" => std::option::Option::Some(Self::ALWAYS_NULL),
-                "DEFAULT_MASKING_VALUE" => std::option::Option::Some(Self::DEFAULT_MASKING_VALUE),
-                "LAST_FOUR_CHARACTERS" => std::option::Option::Some(Self::LAST_FOUR_CHARACTERS),
-                "FIRST_FOUR_CHARACTERS" => std::option::Option::Some(Self::FIRST_FOUR_CHARACTERS),
-                "EMAIL_MASK" => std::option::Option::Some(Self::EMAIL_MASK),
-                "DATE_YEAR_MASK" => std::option::Option::Some(Self::DATE_YEAR_MASK),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for PredefinedExpression {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for PredefinedExpression {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PredefinedExpression {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PredefinedExpression {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                3 => Self::Sha256,
+                5 => Self::AlwaysNull,
+                7 => Self::DefaultMaskingValue,
+                9 => Self::LastFourCharacters,
+                10 => Self::FirstFourCharacters,
+                12 => Self::EmailMask,
+                13 => Self::DateYearMask,
+                _ => Self::UnknownValue(predefined_expression::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PredefinedExpression {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PREDEFINED_EXPRESSION_UNSPECIFIED" => Self::Unspecified,
+                "SHA256" => Self::Sha256,
+                "ALWAYS_NULL" => Self::AlwaysNull,
+                "DEFAULT_MASKING_VALUE" => Self::DefaultMaskingValue,
+                "LAST_FOUR_CHARACTERS" => Self::LastFourCharacters,
+                "FIRST_FOUR_CHARACTERS" => Self::FirstFourCharacters,
+                "EMAIL_MASK" => Self::EmailMask,
+                "DATE_YEAR_MASK" => Self::DateYearMask,
+                _ => Self::UnknownValue(predefined_expression::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PredefinedExpression {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Sha256 => serializer.serialize_i32(3),
+                Self::AlwaysNull => serializer.serialize_i32(5),
+                Self::DefaultMaskingValue => serializer.serialize_i32(7),
+                Self::LastFourCharacters => serializer.serialize_i32(9),
+                Self::FirstFourCharacters => serializer.serialize_i32(10),
+                Self::EmailMask => serializer.serialize_i32(12),
+                Self::DateYearMask => serializer.serialize_i32(13),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PredefinedExpression {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PredefinedExpression>::new(
+                ".google.cloud.bigquery.datapolicies.v1.DataMaskingPolicy.PredefinedExpression",
+            ))
         }
     }
 

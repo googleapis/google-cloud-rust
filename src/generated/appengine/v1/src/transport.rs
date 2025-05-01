@@ -375,7 +375,7 @@ impl super::stub::Versions for Versions {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
@@ -397,7 +397,7 @@ impl super::stub::Versions for Versions {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1003,7 +1003,7 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
@@ -1025,7 +1025,7 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1225,7 +1225,7 @@ impl super::stub::DomainMappings for DomainMappings {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("overrideStrategy", &req.override_strategy.value())]);
+        let builder = builder.query(&[("overrideStrategy", &req.override_strategy)]);
         self.inner
             .execute(builder, Some(req.domain_mapping), options)
             .await

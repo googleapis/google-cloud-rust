@@ -59,7 +59,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         let builder = builder.query(&[("languageCode", &req.language_code)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)

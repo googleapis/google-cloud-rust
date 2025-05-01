@@ -469,58 +469,115 @@ pub mod policy_binding {
     }
 
     /// Different policy kinds supported in this binding.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PolicyKind(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PolicyKind {
+        /// Unspecified policy kind; Not a valid state
+        Unspecified,
+        /// Principal access boundary policy kind
+        PrincipalAccessBoundary,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PolicyKind::value] or
+        /// [PolicyKind::name].
+        UnknownValue(policy_kind::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod policy_kind {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl PolicyKind {
-        /// Unspecified policy kind; Not a valid state
-        pub const POLICY_KIND_UNSPECIFIED: PolicyKind = PolicyKind::new(0);
-
-        /// Principal access boundary policy kind
-        pub const PRINCIPAL_ACCESS_BOUNDARY: PolicyKind = PolicyKind::new(1);
-
-        /// Creates a new PolicyKind instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PrincipalAccessBoundary => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("POLICY_KIND_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PRINCIPAL_ACCESS_BOUNDARY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "POLICY_KIND_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::POLICY_KIND_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("POLICY_KIND_UNSPECIFIED"),
+                Self::PrincipalAccessBoundary => {
+                    std::option::Option::Some("PRINCIPAL_ACCESS_BOUNDARY")
                 }
-                "PRINCIPAL_ACCESS_BOUNDARY" => {
-                    std::option::Option::Some(Self::PRINCIPAL_ACCESS_BOUNDARY)
-                }
-                _ => std::option::Option::None,
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for PolicyKind {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for PolicyKind {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PolicyKind {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PolicyKind {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PrincipalAccessBoundary,
+                _ => Self::UnknownValue(policy_kind::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PolicyKind {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "POLICY_KIND_UNSPECIFIED" => Self::Unspecified,
+                "PRINCIPAL_ACCESS_BOUNDARY" => Self::PrincipalAccessBoundary,
+                _ => Self::UnknownValue(policy_kind::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PolicyKind {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PrincipalAccessBoundary => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PolicyKind {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PolicyKind>::new(
+                ".google.iam.v3.PolicyBinding.PolicyKind",
+            ))
         }
     }
 }
@@ -1848,54 +1905,113 @@ pub mod principal_access_boundary_policy_rule {
     use super::*;
 
     /// An effect to describe the access relationship.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Effect(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Effect {
+        /// Effect unspecified.
+        Unspecified,
+        /// Allows access to the resources in this rule.
+        Allow,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Effect::value] or
+        /// [Effect::name].
+        UnknownValue(effect::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod effect {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Effect {
-        /// Effect unspecified.
-        pub const EFFECT_UNSPECIFIED: Effect = Effect::new(0);
-
-        /// Allows access to the resources in this rule.
-        pub const ALLOW: Effect = Effect::new(1);
-
-        /// Creates a new Effect instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Allow => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("EFFECT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ALLOW"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EFFECT_UNSPECIFIED"),
+                Self::Allow => std::option::Option::Some("ALLOW"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "EFFECT_UNSPECIFIED" => std::option::Option::Some(Self::EFFECT_UNSPECIFIED),
-                "ALLOW" => std::option::Option::Some(Self::ALLOW),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Effect {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Effect {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Effect {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Effect {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Allow,
+                _ => Self::UnknownValue(effect::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Effect {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EFFECT_UNSPECIFIED" => Self::Unspecified,
+                "ALLOW" => Self::Allow,
+                _ => Self::UnknownValue(effect::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Effect {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Allow => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Effect {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Effect>::new(
+                ".google.iam.v3.PrincipalAccessBoundaryPolicyRule.Effect",
+            ))
         }
     }
 }
