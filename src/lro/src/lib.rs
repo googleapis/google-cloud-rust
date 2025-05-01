@@ -100,7 +100,6 @@ impl<R, M> Operation<R, M> {
     }
 }
 
-// This fools clippy into thinking `sealed::Poller` is public.
 mod sealed {
     pub trait Poller {}
 }

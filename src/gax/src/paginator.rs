@@ -52,7 +52,6 @@ pub mod internal {
     }
 }
 
-// This fools clippy into thinking `sealed::Paginator` is public.
 mod sealed {
     pub trait Paginator {}
 }
