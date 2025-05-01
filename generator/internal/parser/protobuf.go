@@ -531,6 +531,7 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 func processEnum(state *api.APIState, e *descriptorpb.EnumDescriptorProto, eFQN, packagez string, parent *api.Message) *api.Enum {
 	enum := &api.Enum{
 		Name:    e.GetName(),
+		ID:      eFQN,
 		Parent:  parent,
 		Package: packagez,
 	}
