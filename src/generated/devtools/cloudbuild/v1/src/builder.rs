@@ -141,12 +141,16 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [project_id][crate::model::CreateBuildRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [build][crate::model::CreateBuildRequest::build].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_build<T: Into<std::option::Option<crate::model::Build>>>(
             mut self,
             v: T,
@@ -199,12 +203,16 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [project_id][crate::model::GetBuildRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [id][crate::model::GetBuildRequest::id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.id = v.into();
             self
@@ -269,6 +277,8 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [project_id][crate::model::ListBuildsRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -336,12 +346,16 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [project_id][crate::model::CancelBuildRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [id][crate::model::CancelBuildRequest::id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.id = v.into();
             self
@@ -429,12 +443,16 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [project_id][crate::model::RetryBuildRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [id][crate::model::RetryBuildRequest::id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.id = v.into();
             self
@@ -516,6 +534,8 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [name][crate::model::ApproveBuildRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -577,12 +597,16 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [project_id][crate::model::CreateBuildTriggerRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [trigger][crate::model::CreateBuildTriggerRequest::trigger].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trigger<T: Into<std::option::Option<crate::model::BuildTrigger>>>(
             mut self,
             v: T,
@@ -635,12 +659,16 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [project_id][crate::model::GetBuildTriggerRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [trigger_id][crate::model::GetBuildTriggerRequest::trigger_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trigger_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.trigger_id = v.into();
             self
@@ -708,6 +736,8 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [project_id][crate::model::ListBuildTriggersRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -772,12 +802,16 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteBuildTriggerRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [trigger_id][crate::model::DeleteBuildTriggerRequest::trigger_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trigger_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.trigger_id = v.into();
             self
@@ -824,18 +858,24 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateBuildTriggerRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [trigger_id][crate::model::UpdateBuildTriggerRequest::trigger_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trigger_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.trigger_id = v.into();
             self
         }
 
         /// Sets the value of [trigger][crate::model::UpdateBuildTriggerRequest::trigger].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trigger<T: Into<std::option::Option<crate::model::BuildTrigger>>>(
             mut self,
             v: T,
@@ -935,12 +975,16 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [project_id][crate::model::RunBuildTriggerRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [trigger_id][crate::model::RunBuildTriggerRequest::trigger_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_trigger_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.trigger_id = v.into();
             self
@@ -1110,12 +1154,16 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkerPoolRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [worker_pool][crate::model::CreateWorkerPoolRequest::worker_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_worker_pool<T: Into<std::option::Option<crate::model::WorkerPool>>>(
             mut self,
             v: T,
@@ -1125,6 +1173,8 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [worker_pool_id][crate::model::CreateWorkerPoolRequest::worker_pool_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_worker_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.worker_pool_id = v.into();
             self
@@ -1174,6 +1224,8 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [name][crate::model::GetWorkerPoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1258,6 +1310,8 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkerPoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1363,6 +1417,8 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_worker_pool<T: Into<std::option::Option<crate::model::WorkerPool>>>(
             mut self,
             v: T,
@@ -1439,6 +1495,8 @@ pub mod cloud_build {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkerPoolsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self

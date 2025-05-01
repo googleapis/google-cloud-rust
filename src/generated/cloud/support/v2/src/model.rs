@@ -53,6 +53,7 @@ pub struct Actor {
     pub email: std::string::String,
 
     /// Output only. Whether the actor is a Google support actor.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub google_support: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -117,6 +118,7 @@ pub struct Attachment {
     pub mime_type: std::string::String,
 
     /// Output only. The size of the attachment in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_bytes: i64,
 
@@ -192,6 +194,7 @@ pub struct ListAttachmentsRequest {
     /// The maximum number of attachments fetched with each request. If not
     /// provided, the default is 10. The maximum page size that will be returned is
     /// 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
@@ -353,10 +356,12 @@ pub struct Case {
     pub contact_email: std::string::String,
 
     /// Whether the case is currently escalated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub escalated: bool,
 
     /// Whether this case was created for internal API testing and should not be
     /// acted on by the support team.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub test_case: bool,
 
     /// The language the user has requested to receive support in. This should be a
@@ -810,6 +815,7 @@ pub struct ListCasesRequest {
     pub filter: std::string::String,
 
     /// The maximum number of cases fetched with each request. Defaults to 10.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
@@ -971,6 +977,7 @@ pub struct SearchCasesRequest {
 
     /// The maximum number of cases fetched with each request. The default page
     /// size is 10.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
@@ -1228,6 +1235,7 @@ pub struct SearchCaseClassificationsRequest {
     pub query: std::string::String,
 
     /// The maximum number of cases fetched with each request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the
@@ -1424,6 +1432,7 @@ pub struct ListCommentsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of comments fetched with each request. Defaults to 10.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return. If unspecified, the

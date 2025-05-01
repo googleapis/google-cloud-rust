@@ -191,6 +191,7 @@ mod test {
             .unwrap();
         let fmt = format!("{:?}", creds);
         assert!(fmt.contains("ApiKeyCredentials"), "{fmt:?}");
+        assert!(!fmt.contains("test-api-key"), "{fmt:?}");
     }
 
     mockall::mock! {
@@ -205,7 +206,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn mocking() -> Result<()> {
+    async fn mocking_with_default_values() -> Result<()> {
         let mut mock = MockCredentials::new();
         mock.expect_token().return_once(|| {
             Ok(Token {
@@ -222,6 +223,59 @@ mod test {
         assert_eq!(creds.token().await?.token, "test-token");
         assert!(creds.headers().await?.is_empty());
         assert_eq!(creds.universe_domain().await, None);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn mocking_with_custom_header() -> Result<()> {
+        let mut mock = MockCredentials::new();
+        mock.expect_token().return_once(|| {
+            Ok(Token {
+                token: "test-token".to_string(),
+                token_type: "Bearer".to_string(),
+                expires_at: None,
+                metadata: None,
+            })
+        });
+        let headers = vec![(
+            HeaderName::from_static("test-header"),
+            HeaderValue::from_static("test-value"),
+        )];
+        let headers_clone = headers.clone();
+        mock.expect_headers().return_once(|| Ok(headers_clone));
+        mock.expect_universe_domain().return_once(|| None);
+
+        let creds = Credentials::from(mock);
+        assert_eq!(creds.token().await?.token, "test-token");
+        assert_eq!(creds.headers().await?, headers);
+        assert_eq!(creds.universe_domain().await, None);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn mocking_with_custom_universe_domain() -> Result<()> {
+        let mut mock = MockCredentials::new();
+        mock.expect_token().return_once(|| {
+            Ok(Token {
+                token: "test-token".to_string(),
+                token_type: "Bearer".to_string(),
+                expires_at: None,
+                metadata: None,
+            })
+        });
+
+        let universe_domain = "test-universe-domain";
+        let universe_domain_clone = universe_domain.to_string();
+        mock.expect_headers().return_once(|| Ok(Vec::new()));
+        mock.expect_universe_domain()
+            .return_once(|| Some(universe_domain_clone));
+
+        let creds = Credentials::from(mock);
+        assert_eq!(creds.token().await?.token, "test-token");
+        assert!(creds.headers().await?.is_empty());
+        assert_eq!(creds.universe_domain().await.unwrap(), universe_domain);
 
         Ok(())
     }

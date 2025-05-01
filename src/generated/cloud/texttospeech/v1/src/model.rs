@@ -128,6 +128,7 @@ pub struct Voice {
     pub ssml_gender: crate::model::SsmlVoiceGender,
 
     /// The natural sample rate (in hertz) for this voice.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub natural_sample_rate_hertz: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -839,11 +840,13 @@ pub struct AudioConfig {
     /// the normal native speed supported by the specific voice. 2.0 is twice as
     /// fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0
     /// speed. Any other values < 0.25 or > 2.0 will return an error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub speaking_rate: f64,
 
     /// Optional. Input only. Speaking pitch, in the range [-20.0, 20.0]. 20 means
     /// increase 20 semitones from the original pitch. -20 means decrease 20
     /// semitones from the original pitch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pitch: f64,
 
     /// Optional. Input only. Volume gain (in dB) of the normal native volume
@@ -854,6 +857,7 @@ pub struct AudioConfig {
     /// approximately twice the amplitude of the normal native signal amplitude.
     /// Strongly recommend not to exceed +10 (dB) as there's usually no effective
     /// increase in loudness for any value greater than that.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub volume_gain_db: f64,
 
     /// Optional. The synthesis sample rate (in hertz) for this audio. When this is
@@ -863,6 +867,7 @@ pub struct AudioConfig {
     /// quality), unless the specified sample rate is not supported for the
     /// encoding chosen, in which case it will fail the request and return
     /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Input only. An identifier which selects 'audio effects' profiles
@@ -1133,12 +1138,14 @@ pub struct StreamingAudioConfig {
     pub audio_encoding: crate::model::AudioEncoding,
 
     /// Optional. The synthesis sample rate (in hertz) for this audio.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Input only. Speaking rate/speed, in the range [0.25, 2.0]. 1.0 is
     /// the normal native speed supported by the specific voice. 2.0 is twice as
     /// fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0
     /// speed. Any other values < 0.25 or > 2.0 will return an error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub speaking_rate: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1630,6 +1637,7 @@ pub struct SynthesizeLongAudioMetadata {
     pub last_update_time: std::option::Option<wkt::Timestamp>,
 
     /// The progress of the most recent processing update in percentage, ie. 70.0%.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percentage: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -1424,6 +1424,7 @@ pub struct ListEventsRequest {
     /// are available, the service returns a next_page_token that you can use to
     /// get the next page of results in subsequent list requests. The service may
     /// return fewer events than the requested page_size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1644,6 +1645,7 @@ pub struct ListOrganizationEventsRequest {
     /// results are available, the service returns a `next_page_token` that you can
     /// use to get the next page of results in subsequent list requests. The
     /// service may return fewer events than the requested `page_size`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1871,6 +1873,7 @@ pub struct ListOrganizationImpactsRequest {
     /// subsequent list requests. The service may return fewer
     /// [impacts](/service-health/docs/reference/rest/v1beta/organizations.locations.organizationImpacts#OrganizationImpact)
     /// than the requested `page_size`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.

@@ -923,6 +923,7 @@ pub mod compliance_note {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct CisBenchmark {
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub profile_level: i32,
 
         pub severity: crate::model::Severity,
@@ -1154,10 +1155,13 @@ impl wkt::message::Message for NonCompliantFile {
 #[non_exhaustive]
 pub struct CVSSv3 {
     /// The base score is a function of the base metric scores.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub base_score: f32,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exploitability_score: f32,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub impact_score: f32,
 
     /// Base Metrics
@@ -1652,10 +1656,13 @@ pub mod cvs_sv_3 {
 #[non_exhaustive]
 pub struct Cvss {
     /// The base score is a function of the base metric scores.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub base_score: f32,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exploitability_score: f32,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub impact_score: f32,
 
     /// Base Metrics
@@ -4278,6 +4285,7 @@ pub struct ListOccurrencesRequest {
 
     /// Number of occurrences to return in the list. Must be positive. Max allowed
     /// page size is 1000. If not specified, page size defaults to 20.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Token to provide to skip to a particular spot in the list.
@@ -4608,6 +4616,7 @@ pub struct ListNotesRequest {
 
     /// Number of notes to return in the list. Must be positive. Max allowed page
     /// size is 1000. If not specified, page size defaults to 20.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Token to provide to skip to a particular spot in the list.
@@ -4881,6 +4890,7 @@ pub struct ListNoteOccurrencesRequest {
     pub filter: std::string::String,
 
     /// Number of occurrences to return in the list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Token to provide to skip to a particular spot in the list.
@@ -5329,6 +5339,7 @@ pub struct ImageOccurrence {
 
     /// Output only. The number of layers by which this image differs from the
     /// associated image basis.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub distance: i32,
 
     /// This contains layer-specific metadata, if populated it has length
@@ -5414,6 +5425,7 @@ pub struct Recipe {
     /// point to the source containing the Makefile, not the make program itself.
     /// Set to -1 if the recipe doesn't come from a material, as zero is default
     /// unset value for int64.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub defined_in_material: i64,
 
@@ -5506,14 +5518,17 @@ impl wkt::message::Message for Recipe {
 pub struct Completeness {
     /// If true, the builder claims that recipe.arguments is complete, meaning that
     /// all external inputs are properly captured in the recipe.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub arguments: bool,
 
     /// If true, the builder claims that recipe.environment is claimed to be
     /// complete.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub environment: bool,
 
     /// If true, the builder claims that materials are complete, usually through
     /// some controls to prevent network access. Sometimes called "hermetic".
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub materials: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5577,6 +5592,7 @@ pub struct Metadata {
 
     /// If true, the builder claims that running the recipe on materials will
     /// produce bit-for-bit identical output.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reproducible: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6900,6 +6916,7 @@ impl wkt::message::Message for PackageOccurrence {
 #[non_exhaustive]
 pub struct Version {
     /// Used to correct mistakes in the version numbering scheme.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub epoch: i32,
 
     /// Required only when version kind is NORMAL. The main part of the version
@@ -6917,6 +6934,7 @@ pub struct Version {
     /// insufficient - we also need to specify whether the version is included in
     /// the range or is excluded from the range. This boolean is expected to be set
     /// to true when the version is included in a range.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub inclusive: bool,
 
     /// Required. Distinguishes between sentinel MIN/MAX versions and normal
@@ -8666,6 +8684,7 @@ pub mod slsa_provenance {
         /// point to the source containing the Makefile, not the make program itself.
         /// Set to -1 if the recipe doesn't come from a material, as zero is default
         /// unset value for int64.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub defined_in_material: i64,
 
@@ -8753,14 +8772,17 @@ pub mod slsa_provenance {
     pub struct SlsaCompleteness {
         /// If true, the builder claims that recipe.arguments is complete, meaning
         /// that all external inputs are properly captured in the recipe.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub arguments: bool,
 
         /// If true, the builder claims that recipe.environment is claimed to be
         /// complete.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub environment: bool,
 
         /// If true, the builder claims that materials are complete, usually through
         /// some controls to prevent network access. Sometimes called "hermetic".
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub materials: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8824,6 +8846,7 @@ pub mod slsa_provenance {
 
         /// If true, the builder claims that running the recipe on materials will
         /// produce bit-for-bit identical output.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub reproducible: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9290,6 +9313,7 @@ pub mod slsa_provenance_zero_two {
         pub completeness:
             std::option::Option<crate::model::slsa_provenance_zero_two::SlsaCompleteness>,
 
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub reproducible: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9361,10 +9385,13 @@ pub mod slsa_provenance_zero_two {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct SlsaCompleteness {
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub parameters: bool,
 
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub environment: bool,
 
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub materials: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9686,6 +9713,7 @@ pub mod windows_update {
         pub update_id: std::string::String,
 
         /// The revision number of the update.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub revision: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10679,6 +10707,7 @@ pub mod vulnerability_assessment_note {
 pub struct VulnerabilityNote {
     /// The CVSS score of this vulnerability. CVSS score is on a scale of 0 - 10
     /// where 0 indicates low severity and 10 indicates high severity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cvss_score: f32,
 
     /// The note provider assigned severity of this vulnerability.
@@ -10872,6 +10901,7 @@ pub mod vulnerability_note {
 
         /// Whether this detail is obsolete. Occurrences are expected not to point to
         /// obsolete details.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub is_obsolete: bool,
 
         /// The time this information was last changed at the source. This is an
@@ -11164,6 +11194,7 @@ pub struct VulnerabilityOccurrence {
     /// Output only. The CVSS score of this vulnerability. CVSS score is on a
     /// scale of 0 - 10 where 0 indicates low severity and 10 indicates high
     /// severity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cvss_score: f32,
 
     /// The cvss v3 score for the vulnerability.
@@ -11201,6 +11232,7 @@ pub struct VulnerabilityOccurrence {
 
     /// Output only. Whether at least one of the affected packages has a fix
     /// available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub fix_available: bool,
 
     /// Output only. CVSS version used to populate cvss_score and severity.
@@ -11395,6 +11427,7 @@ pub mod vulnerability_occurrence {
         pub fixed_version: std::option::Option<crate::model::Version>,
 
         /// Output only. Whether a fix is available for this package.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub fix_available: bool,
 
         /// The type of package (e.g. OS, MAVEN, GO).

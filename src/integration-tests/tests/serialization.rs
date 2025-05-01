@@ -31,6 +31,17 @@ mod serialization {
     }
 
     #[test]
+    fn respects_protobuf_presence() -> Result<()> {
+        let message = sm::model::SecretPayload::default().set_data_crc32c(0);
+        let got = serde_json::to_value(&message)?;
+        let want = serde_json::json!({
+            "dataCrc32c": "0"
+        });
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
     fn multiple_serde_attributes() -> Result<()> {
         let input = Test {
             f_bytes: bytes::Bytes::from("the quick brown fox jumps over the lazy dog"),

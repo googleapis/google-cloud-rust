@@ -527,10 +527,12 @@ pub struct Sentiment {
     /// A non-negative number in the [0, +inf) range, which represents
     /// the absolute magnitude of sentiment regardless of score (positive or
     /// negative).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub magnitude: f32,
 
     /// Sentiment score between -1.0 (negative sentiment) and 1.0
     /// (positive sentiment).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -587,6 +589,7 @@ pub struct EntityMention {
     ///
     /// The score shows the probability of the entity mention being the entity
     /// type. The score is in (0, 1] range.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub probability: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -717,6 +720,7 @@ pub struct TextSpan {
     /// request.
     ///
     /// [google.cloud.language.v2.EncodingType]: crate::model::EncodingType
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub begin_offset: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -759,11 +763,13 @@ pub struct ClassificationCategory {
 
     /// The classifier's confidence of the category. Number represents how certain
     /// the classifier is that this category represents the given text.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// Optional. The classifier's severity of the category. This is only present
     /// when the ModerateTextRequest.ModelVersion is set to MODEL_VERSION_2, and
     /// the corresponding category has a severity score.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -870,6 +876,7 @@ pub struct AnalyzeSentimentResponse {
     /// Whether the language is officially supported. The API may still return a
     /// response when the language is not supported, but it is on a best effort
     /// basis.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub language_supported: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -988,6 +995,7 @@ pub struct AnalyzeEntitiesResponse {
     /// Whether the language is officially supported. The API may still return a
     /// response when the language is not supported, but it is on a best effort
     /// basis.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub language_supported: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1083,6 +1091,7 @@ pub struct ClassifyTextResponse {
     /// Whether the language is officially supported. The API may still return a
     /// response when the language is not supported, but it is on a best effort
     /// basis.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub language_supported: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1261,6 +1270,7 @@ pub struct ModerateTextResponse {
     /// Whether the language is officially supported. The API may still return a
     /// response when the language is not supported, but it is on a best effort
     /// basis.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub language_supported: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1378,15 +1388,19 @@ pub mod annotate_text_request {
     #[non_exhaustive]
     pub struct Features {
         /// Optional. Extract entities.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub extract_entities: bool,
 
         /// Optional. Extract document-level sentiment.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub extract_document_sentiment: bool,
 
         /// Optional. Classify the full document into categories.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub classify_text: bool,
 
         /// Optional. Moderate the document for harmful and sensitive categories.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub moderate_text: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1477,6 +1491,7 @@ pub struct AnnotateTextResponse {
     /// Whether the language is officially supported by all requested features.
     /// The API may still return a response when the language is not supported, but
     /// it is on a best effort basis.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub language_supported: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

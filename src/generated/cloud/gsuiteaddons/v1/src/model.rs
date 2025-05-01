@@ -273,6 +273,7 @@ pub struct ListDeploymentsRequest {
     /// than this value.
     /// If unspecified, at most 1000 deployments will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListDeployments` call.

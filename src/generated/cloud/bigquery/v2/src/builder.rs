@@ -97,12 +97,16 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetDatasetRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::GetDatasetRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
@@ -161,12 +165,16 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::InsertDatasetRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset][crate::model::InsertDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
             mut self,
             v: T,
@@ -222,18 +230,24 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateOrPatchDatasetRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UpdateOrPatchDatasetRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
             mut self,
             v: T,
@@ -300,18 +314,24 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateOrPatchDatasetRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UpdateOrPatchDatasetRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
             mut self,
             v: T,
@@ -375,12 +395,16 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteDatasetRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::DeleteDatasetRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
@@ -430,6 +454,8 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::ListDatasetsRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -500,12 +526,16 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [project_id][crate::model::UndeleteDatasetRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UndeleteDatasetRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
@@ -612,18 +642,24 @@ pub mod model_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetModelRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::GetModelRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [model_id][crate::model::GetModelRequest::model_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_model_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.model_id = v.into();
             self
@@ -667,12 +703,16 @@ pub mod model_service {
         }
 
         /// Sets the value of [project_id][crate::model::ListModelsRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::ListModelsRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
@@ -731,24 +771,32 @@ pub mod model_service {
         }
 
         /// Sets the value of [project_id][crate::model::PatchModelRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::PatchModelRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [model_id][crate::model::PatchModelRequest::model_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_model_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.model_id = v.into();
             self
         }
 
         /// Sets the value of [model][crate::model::PatchModelRequest::model].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
             mut self,
             v: T,
@@ -795,18 +843,24 @@ pub mod model_service {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteModelRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::DeleteModelRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [model_id][crate::model::DeleteModelRequest::model_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_model_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.model_id = v.into();
             self
@@ -907,6 +961,8 @@ pub mod project_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetServiceAccountRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -1004,18 +1060,24 @@ pub mod routine_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetRoutineRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::GetRoutineRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [routine_id][crate::model::GetRoutineRequest::routine_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_routine_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.routine_id = v.into();
             self
@@ -1059,18 +1121,24 @@ pub mod routine_service {
         }
 
         /// Sets the value of [project_id][crate::model::InsertRoutineRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::InsertRoutineRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [routine][crate::model::InsertRoutineRequest::routine].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_routine<T: Into<std::option::Option<crate::model::Routine>>>(
             mut self,
             v: T,
@@ -1117,24 +1185,32 @@ pub mod routine_service {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateRoutineRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UpdateRoutineRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [routine_id][crate::model::UpdateRoutineRequest::routine_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_routine_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.routine_id = v.into();
             self
         }
 
         /// Sets the value of [routine][crate::model::UpdateRoutineRequest::routine].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_routine<T: Into<std::option::Option<crate::model::Routine>>>(
             mut self,
             v: T,
@@ -1181,18 +1257,24 @@ pub mod routine_service {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteRoutineRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::DeleteRoutineRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [routine_id][crate::model::DeleteRoutineRequest::routine_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_routine_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.routine_id = v.into();
             self
@@ -1236,12 +1318,16 @@ pub mod routine_service {
         }
 
         /// Sets the value of [project_id][crate::model::ListRoutinesRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::ListRoutinesRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
@@ -1382,18 +1468,24 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [project_id][crate::model::ListRowAccessPoliciesRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::ListRowAccessPoliciesRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::ListRowAccessPoliciesRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
@@ -1454,24 +1546,32 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetRowAccessPolicyRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::GetRowAccessPolicyRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::GetRowAccessPolicyRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [policy_id][crate::model::GetRowAccessPolicyRequest::policy_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.policy_id = v.into();
             self
@@ -1520,24 +1620,32 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [project_id][crate::model::CreateRowAccessPolicyRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::CreateRowAccessPolicyRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::CreateRowAccessPolicyRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [row_access_policy][crate::model::CreateRowAccessPolicyRequest::row_access_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_row_access_policy<
             T: Into<std::option::Option<crate::model::RowAccessPolicy>>,
         >(
@@ -1591,30 +1699,40 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateRowAccessPolicyRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UpdateRowAccessPolicyRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::UpdateRowAccessPolicyRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [policy_id][crate::model::UpdateRowAccessPolicyRequest::policy_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.policy_id = v.into();
             self
         }
 
         /// Sets the value of [row_access_policy][crate::model::UpdateRowAccessPolicyRequest::row_access_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_row_access_policy<
             T: Into<std::option::Option<crate::model::RowAccessPolicy>>,
         >(
@@ -1668,24 +1786,32 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteRowAccessPolicyRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::DeleteRowAccessPolicyRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::DeleteRowAccessPolicyRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [policy_id][crate::model::DeleteRowAccessPolicyRequest::policy_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.policy_id = v.into();
             self
@@ -1742,18 +1868,24 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [project_id][crate::model::BatchDeleteRowAccessPoliciesRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::BatchDeleteRowAccessPoliciesRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::BatchDeleteRowAccessPoliciesRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
@@ -1766,6 +1898,8 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [policy_ids][crate::model::BatchDeleteRowAccessPoliciesRequest::policy_ids].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1868,18 +2002,24 @@ pub mod table_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetTableRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::GetTableRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::GetTableRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
@@ -1938,18 +2078,24 @@ pub mod table_service {
         }
 
         /// Sets the value of [project_id][crate::model::InsertTableRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::InsertTableRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::InsertTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
             mut self,
             v: T,
@@ -1999,24 +2145,32 @@ pub mod table_service {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateOrPatchTableRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UpdateOrPatchTableRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::UpdateOrPatchTableRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::UpdateOrPatchTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
             mut self,
             v: T,
@@ -2072,24 +2226,32 @@ pub mod table_service {
         }
 
         /// Sets the value of [project_id][crate::model::UpdateOrPatchTableRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::UpdateOrPatchTableRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::UpdateOrPatchTableRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::UpdateOrPatchTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
             mut self,
             v: T,
@@ -2142,18 +2304,24 @@ pub mod table_service {
         }
 
         /// Sets the value of [project_id][crate::model::DeleteTableRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::DeleteTableRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::DeleteTableRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
@@ -2197,12 +2365,16 @@ pub mod table_service {
         }
 
         /// Sets the value of [project_id][crate::model::ListTablesRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset_id][crate::model::ListTablesRequest::dataset_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_dataset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset_id = v.into();
             self

@@ -116,6 +116,8 @@ pub mod case_attachment_service {
         }
 
         /// Sets the value of [parent][crate::model::ListAttachmentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -225,6 +227,8 @@ pub mod case_service {
         }
 
         /// Sets the value of [name][crate::model::GetCaseRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -283,6 +287,8 @@ pub mod case_service {
         }
 
         /// Sets the value of [parent][crate::model::ListCasesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -420,12 +426,16 @@ pub mod case_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateCaseRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [case][crate::model::CreateCaseRequest::case].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_case<T: Into<std::option::Option<crate::model::Case>>>(mut self, v: T) -> Self {
             self.0.request.case = v.into();
             self
@@ -469,6 +479,8 @@ pub mod case_service {
         }
 
         /// Sets the value of [case][crate::model::UpdateCaseRequest::case].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_case<T: Into<std::option::Option<crate::model::Case>>>(mut self, v: T) -> Self {
             self.0.request.case = v.into();
             self
@@ -521,6 +533,8 @@ pub mod case_service {
         }
 
         /// Sets the value of [name][crate::model::EscalateCaseRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -573,6 +587,8 @@ pub mod case_service {
         }
 
         /// Sets the value of [name][crate::model::CloseCaseRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -762,6 +778,8 @@ pub mod comment_service {
         }
 
         /// Sets the value of [parent][crate::model::ListCommentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -817,12 +835,16 @@ pub mod comment_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateCommentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [comment][crate::model::CreateCommentRequest::comment].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_comment<T: Into<std::option::Option<crate::model::Comment>>>(
             mut self,
             v: T,

@@ -292,23 +292,28 @@ pub mod check_error {
 #[non_exhaustive]
 pub struct Distribution {
     /// The total number of samples in the distribution. Must be >= 0.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub count: i64,
 
     /// The arithmetic mean of the samples in the distribution. If `count` is
     /// zero then this field must be zero.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mean: f64,
 
     /// The minimum of the population of values. Ignored if `count` is zero.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub minimum: f64,
 
     /// The maximum of the population of values. Ignored if `count` is zero.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub maximum: f64,
 
     /// The sum of squared deviations from the mean:
     /// Sum[i=1..count]((x_i - mean)^2)
     /// where each x_i is a sample values. If `count` is zero then this field
     /// must be zero, otherwise validation of the request fails.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sum_of_squared_deviation: f64,
 
     /// The number of samples in each histogram bucket. `bucket_counts` are
@@ -548,17 +553,20 @@ pub mod distribution {
         /// The number of finite buckets. With the underflow and overflow buckets,
         /// the total number of buckets is `num_finite_buckets` + 2.
         /// See comments on `bucket_options` for details.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub num_finite_buckets: i32,
 
         /// The i'th linear bucket covers the interval
         /// [offset + (i-1) * width, offset + i * width)
         /// where i ranges from 1 to num_finite_buckets, inclusive.
         /// Must be strictly positive.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub width: f64,
 
         /// The i'th linear bucket covers the interval
         /// [offset + (i-1) * width, offset + i * width)
         /// where i ranges from 1 to num_finite_buckets, inclusive.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub offset: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -604,18 +612,21 @@ pub mod distribution {
         /// The number of finite buckets. With the underflow and overflow buckets,
         /// the total number of buckets is `num_finite_buckets` + 2.
         /// See comments on `bucket_options` for details.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub num_finite_buckets: i32,
 
         /// The i'th exponential bucket covers the interval
         /// [scale * growth_factor^(i-1), scale * growth_factor^i)
         /// where i ranges from 1 to num_finite_buckets inclusive.
         /// Must be larger than 1.0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub growth_factor: f64,
 
         /// The i'th exponential bucket covers the interval
         /// [scale * growth_factor^(i-1), scale * growth_factor^i)
         /// where i ranges from 1 to num_finite_buckets inclusive.
         /// Must be > 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub scale: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -759,15 +770,18 @@ pub struct HttpRequest {
 
     /// The size of the HTTP request message in bytes, including the request
     /// headers and the request body.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub request_size: i64,
 
     /// The response code indicating the status of the response.
     /// Examples: 200, 404.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: i32,
 
     /// The size of the HTTP response message sent back to the client, in bytes,
     /// including the response headers and the response body.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub response_size: i64,
 
@@ -799,19 +813,23 @@ pub struct HttpRequest {
     pub latency: std::option::Option<wkt::Duration>,
 
     /// Whether or not a cache lookup was attempted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cache_lookup: bool,
 
     /// Whether or not an entity was served from cache
     /// (with or without validation).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cache_hit: bool,
 
     /// Whether or not the response was validated with the origin server before
     /// being served from cache. This field is only meaningful if `cache_hit` is
     /// True.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cache_validated_with_origin_server: bool,
 
     /// The number of HTTP response bytes inserted into cache. Set only when a
     /// cache fill was attempted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub cache_fill_bytes: i64,
 
@@ -1211,9 +1229,11 @@ pub struct LogEntryOperation {
     pub producer: std::string::String,
 
     /// Optional. Set this to True if this is the first log entry in the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub first: bool,
 
     /// Optional. Set this to True if this is the last log entry in the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub last: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1270,6 +1290,7 @@ pub struct LogEntrySourceLocation {
 
     /// Optional. Line within the source file. 1-based; 0 indicates no line number
     /// available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub line: i64,
 
@@ -2649,6 +2670,7 @@ pub mod check_response {
         ///
         /// NOTE: This field is deprecated after we support flexible consumer
         /// id. New code should not depend on this field anymore.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub project_number: i64,
 
@@ -2660,6 +2682,7 @@ pub mod check_response {
         /// The consumer identity number, can be Google cloud project number, folder
         /// number or organization number e.g. 1234567890. A value of 0 indicates no
         /// consumer number is found.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub consumer_number: i64,
 

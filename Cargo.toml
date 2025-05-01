@@ -272,6 +272,7 @@ inherits    = "dev"
 incremental = false
 
 [workspace.dependencies]
+anyhow           = "1"
 async-trait      = { version = "0.1" }
 bytes            = { version = "1", default-features = false, features = ["serde"] }
 http             = { version = "1", default-features = false }
@@ -289,6 +290,8 @@ tokio-test       = { version = "0.4", default-features = false }
 tonic            = { version = "0.13", default-features = false, features = ["prost", "tls-native-roots", "tls-ring"] }
 tonic-build      = { version = "0.13", default-features = false }
 tracing          = { version = "0.1" }
+mutants          = { version = "0.0.3" }
+
 # Local packages used as dependencies
 auth                          = { version = "0.21", path = "src/auth", package = "google-cloud-auth" }
 gax                           = { version = "0.22", path = "src/gax", package = "google-cloud-gax" }
@@ -296,7 +299,7 @@ gaxi                          = { version = "0.1", path = "src/gax-internal", pa
 iam_v1                        = { version = "0.3", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
 location                      = { version = "0.3", path = "src/generated/cloud/location", package = "google-cloud-location" }
 longrunning                   = { version = "0.24", path = "src/generated/longrunning", package = "google-cloud-longrunning" }
-lro                           = { version = "0.1", path = "src/lro", package = "google-cloud-lro" }
+lro                           = { version = "0.2", path = "src/lro", package = "google-cloud-lro" }
 wkt                           = { version = "0.4", path = "src/wkt", package = "google-cloud-wkt" }
 api                           = { version = "0.3", path = "src/generated/api/types", package = "google-cloud-api" }
 cloud_common                  = { version = "0.3", path = "src/generated/cloud/common", package = "google-cloud-common" }

@@ -51,6 +51,7 @@ pub struct ListAppGatewaysRequest {
     /// and a caller should only rely on response's
     /// [next_page_token][BeyondCorp.ListAppGatewaysResponse.next_page_token] to
     /// determine if there are more instances left to be queried.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous
@@ -266,6 +267,7 @@ pub struct CreateAppGatewayRequest {
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -346,6 +348,7 @@ pub struct DeleteAppGatewayRequest {
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -560,6 +563,7 @@ pub mod app_gateway {
         pub psc_uri: std::string::String,
 
         /// Required. The ingress port of an allocated connection
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub ingress_port: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -803,6 +807,7 @@ pub struct AppGatewayOperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

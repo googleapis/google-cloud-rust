@@ -96,6 +96,7 @@ pub struct Version {
     pub version_number: std::string::String,
 
     /// Whether this is currently the default version for Cloud Data Fusion
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_version: bool,
 
     /// Represents a list of available feature names for a given version.
@@ -456,14 +457,17 @@ pub struct Instance {
     pub r#type: crate::model::instance::Type,
 
     /// Option to enable Stackdriver Logging.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_stackdriver_logging: bool,
 
     /// Option to enable Stackdriver Monitoring.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_stackdriver_monitoring: bool,
 
     /// Specifies whether the Data Fusion instance should be private. If set to
     /// true, all Data Fusion nodes will have private IP addresses and will not be
     /// able to access the public internet.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub private_instance: bool,
 
     /// Network configuration options. These are required when a private Data
@@ -553,6 +557,7 @@ pub struct Instance {
     pub dataproc_service_account: std::string::String,
 
     /// Option to enable granular role-based access control.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_rbac: bool,
 
     /// The crypto key configuration. This field is used by the Customer-Managed
@@ -1046,6 +1051,7 @@ pub struct ListInstancesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -1196,6 +1202,7 @@ pub struct ListAvailableVersionsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -1206,6 +1213,7 @@ pub struct ListAvailableVersionsRequest {
     /// Whether or not to return the latest patch of every available minor version.
     /// If true, only the latest patch will be returned. Ex. if allowed versions is
     /// [6.1.1, 6.1.2, 6.2.0] then response will be [6.1.2, 6.2.0]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub latest_patch_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1554,6 +1562,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// API version used to start the operation.

@@ -44,15 +44,18 @@ pub struct HttpRequest {
 
     /// The size of the HTTP request message in bytes, including the request
     /// headers and the request body.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub request_size: i64,
 
     /// The response code indicating the status of response.
     /// Examples: 200, 404.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: i32,
 
     /// The size of the HTTP response message sent back to the client, in bytes,
     /// including the response headers and the response body.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub response_size: i64,
 
@@ -86,19 +89,23 @@ pub struct HttpRequest {
     pub latency: std::option::Option<wkt::Duration>,
 
     /// Whether or not a cache lookup was attempted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cache_lookup: bool,
 
     /// Whether or not an entity was served from cache
     /// (with or without validation).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cache_hit: bool,
 
     /// Whether or not the response was validated with the origin server before
     /// being served from cache. This field is only meaningful if `cache_hit` is
     /// True.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cache_validated_with_origin_server: bool,
 
     /// The number of HTTP response bytes inserted into cache. Set only when a
     /// cache fill was attempted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub cache_fill_bytes: i64,
 

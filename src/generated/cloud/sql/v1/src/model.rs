@@ -40,6 +40,7 @@ pub struct SqlBackupRunsDeleteRequest {
     /// The ID of the backup run to delete. To find a backup run ID, use the
     /// [list](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1/backupRuns/list)
     /// method.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub id: i64,
 
@@ -93,6 +94,7 @@ impl wkt::message::Message for SqlBackupRunsDeleteRequest {
 pub struct SqlBackupRunsGetRequest {
 
     /// The ID of this backup run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub id: i64,
 
@@ -203,6 +205,7 @@ pub struct SqlBackupRunsListRequest {
     pub instance: std::string::String,
 
     /// Maximum number of backup runs per response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_results: i32,
 
     /// A previously-returned page token representing part of the larger set of
@@ -276,6 +279,7 @@ pub struct BackupRun {
 
     /// The identifier for this backup run. Unique only for a specific Cloud SQL
     /// instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub id: i64,
 
@@ -626,6 +630,7 @@ pub struct ConnectSettings {
     pub backend_type: crate::model::SqlBackendType,
 
     /// Whether PSC connectivity is enabled for this instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub psc_enabled: bool,
 
     /// The dns name of the instance.
@@ -1952,6 +1957,7 @@ pub struct SqlInstancesListRequest {
     /// than this value.
     /// If unspecified, at most 500 instances are returned.
     /// The maximum value is 1000; values above 1000 are coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_results: u32,
 
     /// A previously-returned page token representing part of the larger set of
@@ -2120,6 +2126,7 @@ pub struct SqlInstancesPromoteReplicaRequest {
     /// If set to false or not specified, then the original primary
     /// instance becomes an independent Cloud SQL primary instance.
     /// Only applicable to MySQL.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub failover: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2949,12 +2956,14 @@ pub struct SqlInstancesVerifyExternalSyncSettingsRequest {
     pub project: std::string::String,
 
     /// Flag to enable verifying connection only
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verify_connection_only: bool,
 
     /// External sync mode
     pub sync_mode: crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
 
     /// Optional. Flag to verify settings required by replication setup only
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verify_replication_only: bool,
 
     /// Optional. MigrationType configures the migration to use physical files or
@@ -3214,6 +3223,7 @@ pub struct SqlInstancesStartExternalSyncRequest {
     pub sync_mode: crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
 
     /// Whether to skip the verification step (VESS).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_verification: bool,
 
     /// Optional. Parallel level for initial data sync. Currently only applicable
@@ -4007,6 +4017,7 @@ pub struct SqlInstancesGetDiskShrinkConfigResponse {
     pub kind: std::string::String,
 
     /// The minimum size to which a disk can be shrunk in GigaBytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub minimal_target_size_gb: i64,
 
@@ -4146,6 +4157,7 @@ pub struct CloneContext {
     pub kind: std::string::String,
 
     /// Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub pitr_timestamp_ms: i64,
 
@@ -4266,6 +4278,7 @@ pub struct BinLogCoordinates {
     pub bin_log_file_name: std::string::String,
 
     /// Position (offset) within the binary log file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub bin_log_position: i64,
 
@@ -4923,9 +4936,11 @@ pub mod database_instance {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub start_time: std::option::Option<wkt::Timestamp>,
 
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub can_defer: bool,
 
         /// If the scheduled maintenance can be rescheduled.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub can_reschedule: bool,
 
         /// Maintenance cannot be rescheduled to start beyond this deadline.
@@ -5348,6 +5363,7 @@ pub struct ReplicationCluster {
 
     /// Output only. Read-only field that indicates whether the replica is a DR
     /// replica. This field is not set if the instance is a primary instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dr_replica: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5616,6 +5632,7 @@ pub struct DemoteMasterContext {
     pub replica_configuration: std::option::Option<crate::model::DemoteMasterConfiguration>,
 
     /// Flag to skip replication setup on the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_replication_setup: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5718,6 +5735,7 @@ pub struct FailoverContext {
 
     /// The current settings version of this instance. Request will be rejected if
     /// this version doesn't match the current settings version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub settings_version: i64,
 
@@ -5766,6 +5784,7 @@ pub struct RestoreBackupContext {
     pub kind: std::string::String,
 
     /// The ID of the backup run to restore from.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub backup_run_id: i64,
 
@@ -6686,6 +6705,7 @@ pub struct SqlOperationsListRequest {
     pub instance: std::string::String,
 
     /// Maximum number of operations per response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_results: u32,
 
     /// A previously-returned page token representing part of the larger set of
@@ -7356,6 +7376,7 @@ pub mod backup_configuration {
 pub struct PerformDiskShrinkContext {
 
     /// The target disk shrink size in GigaBytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub target_size_gb: i64,
 
@@ -7389,6 +7410,7 @@ impl wkt::message::Message for PerformDiskShrinkContext {
 pub struct BackupContext {
 
     /// The identifier of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub backup_id: i64,
 
@@ -7590,6 +7612,7 @@ pub mod database {
 pub struct SqlServerDatabaseDetails {
 
     /// The version of SQL Server with which the database is to be made compatible
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub compatibility_level: i32,
 
     /// The recovery model of a SQL Server database
@@ -9447,13 +9470,16 @@ impl wkt::message::Message for DenyMaintenancePeriod {
 pub struct InsightsConfig {
 
     /// Whether Query Insights feature is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub query_insights_enabled: bool,
 
     /// Whether Query Insights will record client address when enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub record_client_address: bool,
 
     /// Whether Query Insights will record application tags from query when
     /// enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub record_application_tags: bool,
 
     /// Maximum query length stored in bytes. Default value: 1024 bytes.
@@ -10645,6 +10671,7 @@ pub mod password_validation_policy {
 pub struct DataCacheConfig {
 
     /// Whether data cache is enabled for the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_cache_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11296,6 +11323,7 @@ pub mod settings {
 pub struct AdvancedMachineFeatures {
 
     /// The number of threads per physical core.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub threads_per_core: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12091,6 +12119,7 @@ pub struct Tier {
 
     /// The maximum RAM usage of this tier in bytes.
     #[serde(rename = "RAM")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub ram: i64,
 
@@ -12100,6 +12129,7 @@ pub struct Tier {
 
     /// The maximum disk size of this tier in bytes.
     #[serde(rename = "DiskQuota")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub disk_quota: i64,
 
@@ -12455,6 +12485,7 @@ impl wkt::message::Message for SqlUsersUpdateRequest {
 pub struct UserPasswordValidationPolicy {
 
     /// Number of failed login attempts allowed before user get locked.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allowed_failed_attempts: i32,
 
     /// Expiration duration after password is updated.
@@ -12462,6 +12493,7 @@ pub struct UserPasswordValidationPolicy {
     pub password_expiration_duration: std::option::Option<wkt::Duration>,
 
     /// If true, failed login attempts check will be enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_failed_attempts_check: bool,
 
     /// Output only. Read-only password status.
@@ -12470,6 +12502,7 @@ pub struct UserPasswordValidationPolicy {
 
     /// If true, the user must specify the current password before changing the
     /// password. This flag is supported only for MySQL.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_password_verification: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12526,6 +12559,7 @@ impl wkt::message::Message for UserPasswordValidationPolicy {
 pub struct PasswordStatus {
 
     /// If true, user does not have login privileges.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub locked: bool,
 
     /// The expiration time of the current password.
@@ -12892,6 +12926,7 @@ pub mod user {
 pub struct SqlServerUserDetails {
 
     /// If the user has been disabled
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// The server roles for this user

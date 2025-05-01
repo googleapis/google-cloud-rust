@@ -579,7 +579,7 @@ mod test {
                 {"@type": "type.googleapis.com/google.rpc.Help", "links": [{"description": "desc", "url": "url"}]},
                 {"@type": "type.googleapis.com/google.rpc.LocalizedMessage", "locale": "locale", "message": "message"},
                 {"@type": "type.googleapis.com/google.rpc.PreconditionFailure", "violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
-                {"@type": "type.googleapis.com/google.rpc.QuotaFailure", "violations": [{"subject": "subject", "description": "desc", "quotaValue": "0"}]},
+                {"@type": "type.googleapis.com/google.rpc.QuotaFailure", "violations": [{"subject": "subject", "description": "desc"}]},
                 {"@type": "type.googleapis.com/google.rpc.RequestInfo", "requestId": "id", "servingData": "data"},
                 {"@type": "type.googleapis.com/google.rpc.ResourceInfo", "resourceType": "type", "resourceName": "name", "owner": "owner", "description": "desc"},
                 {"@type": "type.googleapis.com/google.rpc.RetryInfo", "retryDelay": "1s"},
@@ -710,7 +710,7 @@ mod test {
     #[test_case(RetryInfo::default(), StatusDetails::RetryInfo(RetryInfo::default()))]
     fn status_from_rpc_status_known_detail_type<T>(detail: T, want: StatusDetails)
     where
-        T: wkt::message::Message + serde::ser::Serialize,
+        T: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
         let input = rpc::model::Status::default()
             .set_code(Code::Unavailable as i32)

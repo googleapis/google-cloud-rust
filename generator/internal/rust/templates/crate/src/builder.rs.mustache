@@ -176,6 +176,10 @@ pub mod {{Codec.ModuleName}} {
         {{#InputType.Codec.SingularFields}}
 
         /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+        {{#DocumentAsRequired}}
+        ///
+        /// This is a **required** field for requests.
+        {{/DocumentAsRequired}}
         pub fn set_{{Codec.SetterName}}<T: Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
             self.0.request.{{Codec.FieldName}} = v.into();
             self
@@ -184,6 +188,10 @@ pub mod {{Codec.ModuleName}} {
         {{#InputType.Codec.RepeatedFields}}
 
         /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+        {{#DocumentAsRequired}}
+        ///
+        /// This is a **required** field for requests.
+        {{/DocumentAsRequired}}
         pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -197,6 +205,10 @@ pub mod {{Codec.ModuleName}} {
         {{#InputType.Codec.MapFields}}
 
         /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+        {{#DocumentAsRequired}}
+        ///
+        /// This is a **required** field for requests.
+        {{/DocumentAsRequired}}
         pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,

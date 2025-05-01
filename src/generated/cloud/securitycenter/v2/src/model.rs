@@ -348,6 +348,7 @@ pub struct AttackExposure {
     /// A number between 0 (inclusive) and infinity that represents how important
     /// this finding is to remediate. The higher the score, the more important it
     /// is to remediate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub score: f64,
 
     /// The most recent time the attack exposure was updated on this finding.
@@ -366,14 +367,17 @@ pub struct AttackExposure {
 
     /// The number of high value resources that are exposed as a result of this
     /// finding.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exposed_high_value_resources_count: i32,
 
     /// The number of medium value resources that are exposed as a result of this
     /// finding.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exposed_medium_value_resources_count: i32,
 
     /// The number of high value resources that are exposed as a result of this
     /// finding.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exposed_low_value_resources_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1409,6 +1413,7 @@ pub struct SecurityPolicy {
     pub r#type: std::string::String,
 
     /// Whether or not the associated rule or policy is in preview mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub preview: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1454,15 +1459,19 @@ pub struct Requests {
     /// For 'Increasing deny ratio', the ratio is the denied traffic divided by the
     /// allowed traffic. For 'Allowed traffic spike', the ratio is the allowed
     /// traffic in the short term divided by allowed traffic in the long term.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ratio: f64,
 
     /// Allowed RPS (requests per second) in the short term.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub short_term_allowed: i32,
 
     /// Allowed RPS (requests per second) over the long term.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub long_term_allowed: i32,
 
     /// Denied RPS (requests per second) over the long term.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub long_term_denied: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1517,6 +1526,7 @@ pub struct AdaptiveProtection {
     /// detected event is an attack. See the [Adaptive Protection
     /// documentation](https://cloud.google.com/armor/docs/adaptive-protection-overview#configure-alert-tuning)
     /// for further explanation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1548,10 +1558,12 @@ impl wkt::message::Message for AdaptiveProtection {
 #[non_exhaustive]
 pub struct Attack {
     /// Total PPS (packets per second) volume of attack.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub volume_pps_long: i64,
 
     /// Total BPS (bytes per second) volume of attack.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub volume_bps_long: i64,
 
@@ -1561,10 +1573,12 @@ pub struct Attack {
 
     /// Total PPS (packets per second) volume of attack. Deprecated - refer to
     /// volume_pps_long instead.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub volume_pps: i32,
 
     /// Total BPS (bytes per second) volume of attack. Deprecated - refer to
     /// volume_bps_long instead.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub volume_bps: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1747,10 +1761,12 @@ pub struct CloudDlpInspection {
 
     /// The number of times Cloud DLP found this infoType within this job
     /// and resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub info_type_count: i64,
 
     /// Whether Cloud DLP scanned the complete resource or a sampled subset.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub full_scan: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1865,6 +1881,7 @@ pub struct Connection {
 
     /// Destination port. Not present for sockets that are listening and not
     /// connected.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub destination_port: i32,
 
     /// Source IP address.
@@ -1872,6 +1889,7 @@ pub struct Connection {
     pub source_ip: std::string::String,
 
     /// Source port.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_port: i32,
 
     /// IANA Internet Protocol Number such as TCP(6) and UDP(17).
@@ -2465,6 +2483,7 @@ pub struct DataRetentionDeletionEvent {
     /// is less than 1,000, then the value of this field is the exact number. If
     /// the number of objects that violated the policy is greater than or equal to
     /// 1,000, then the value of this field is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub data_object_count: i64,
 
@@ -2749,6 +2768,7 @@ pub struct Exfiltration {
     pub targets: std::vec::Vec<crate::model::ExfilResource>,
 
     /// Total exfiltrated bytes processed for the entire job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_exfiltrated_bytes: i64,
 
@@ -3126,6 +3146,7 @@ pub struct File {
     pub path: std::string::String,
 
     /// Size of the file in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size: i64,
 
@@ -3138,10 +3159,12 @@ pub struct File {
     /// The length in bytes of the file prefix that was hashed.  If
     /// hashed_size == size, any hashes reported represent the entire
     /// file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub hashed_size: i64,
 
     /// True when the hash covers only a prefix of the file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub partially_hashed: bool,
 
     /// Prefix of the file contents as a JSON-encoded string.
@@ -5194,6 +5217,7 @@ pub mod indicator {
 
                 /// The percentage of memory page hashes in the signature
                 /// that were matched.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub percent_pages_matched: f64,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5354,34 +5378,42 @@ pub struct KernelRootkit {
     pub name: std::string::String,
 
     /// True if unexpected modifications of kernel code memory are present.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unexpected_code_modification: bool,
 
     /// True if unexpected modifications of kernel read-only data memory are
     /// present.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unexpected_read_only_data_modification: bool,
 
     /// True if `ftrace` points are present with callbacks pointing to regions
     /// that are not in the expected kernel or module code range.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unexpected_ftrace_handler: bool,
 
     /// True if `kprobe` points are present with callbacks pointing to regions
     /// that are not in the expected kernel or module code range.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unexpected_kprobe_handler: bool,
 
     /// True if kernel code pages that are not in the expected kernel or module
     /// code regions are present.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unexpected_kernel_code_pages: bool,
 
     /// True if system call handlers that are are not in the expected kernel or
     /// module code regions are present.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unexpected_system_call_handler: bool,
 
     /// True if interrupt handlers that are are not in the expected kernel or
     /// module code regions are present.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unexpected_interrupt_handler: bool,
 
     /// True if unexpected processes in the scheduler run queue are present. Such
     /// processes are in the run queue, but not in the process task list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unexpected_processes_in_runqueue: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7809,6 +7841,7 @@ pub struct Process {
     pub args: std::vec::Vec<std::string::String>,
 
     /// True if `args` is incomplete.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub arguments_truncated: bool,
 
     /// Process environment variables.
@@ -7816,13 +7849,16 @@ pub struct Process {
     pub env_variables: std::vec::Vec<crate::model::EnvironmentVariable>,
 
     /// True if `env_variables` is incomplete.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub env_variables_truncated: bool,
 
     /// The process ID.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub pid: i64,
 
     /// The parent process ID.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub parent_pid: i64,
 
@@ -10563,6 +10599,7 @@ pub struct GroupFindingsRequest {
 
     /// The maximum number of results to return in a single response. Default is
     /// 10, minimum is 1, maximum is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10629,6 +10666,7 @@ pub struct GroupFindingsResponse {
     pub next_page_token: std::string::String,
 
     /// The total number of results matching the query.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10695,6 +10733,7 @@ pub struct GroupResult {
     pub properties: std::collections::HashMap<std::string::String, wkt::Value>,
 
     /// Total count of resources for the given properties.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub count: i64,
 
@@ -10764,6 +10803,7 @@ pub struct ListAttackPathsRequest {
 
     /// The maximum number of results to return in a single response. Default is
     /// 10, minimum is 1, maximum is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10960,6 +11000,7 @@ pub struct ListBigQueryExportsRequest {
     /// this value.
     /// If unspecified, at most 10 configs will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListBigQueryExports` call.
@@ -11189,6 +11230,7 @@ pub struct ListFindingsRequest {
 
     /// The maximum number of results to return in a single response. Default is
     /// 10, minimum is 1, maximum is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11263,6 +11305,7 @@ pub struct ListFindingsResponse {
     pub next_page_token: std::string::String,
 
     /// The total number of findings matching the query.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11665,6 +11708,7 @@ pub struct ListMuteConfigsRequest {
     /// this value.
     /// If unspecified, at most 10 configs will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListMuteConfigs` call.
@@ -11793,6 +11837,7 @@ pub struct ListNotificationConfigsRequest {
 
     /// The maximum number of results to return in a single response. Default is
     /// 10, minimum is 1, maximum is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11907,6 +11952,7 @@ pub struct ListResourceValueConfigsRequest {
     /// this value.
     /// If unspecified, at most 10 configs will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListResourceValueConfigs` call.
@@ -12036,6 +12082,7 @@ pub struct ListSourcesRequest {
 
     /// The maximum number of results to return in a single response. Default is
     /// 10, minimum is 1, maximum is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12165,6 +12212,7 @@ pub struct ListValuedResourcesRequest {
 
     /// The maximum number of results to return in a single response. Default is
     /// 10, minimum is 1, maximum is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The fields by which to order the valued resources response.
@@ -12249,6 +12297,7 @@ pub struct ListValuedResourcesResponse {
     pub next_page_token: std::string::String,
 
     /// The estimated total number of results matching the query.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13011,6 +13060,7 @@ pub struct ToxicCombination {
     /// score](https://cloud.google.com/security-command-center/docs/attack-exposure-learn#attack_exposure_scores)
     /// of this toxic combination. The score is a measure of how much this toxic
     /// combination exposes one or more high-value resources to potential attack.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attack_exposure_score: f64,
 
     /// List of resource names of findings associated with this toxic combination.
@@ -13085,6 +13135,7 @@ pub struct ValuedResource {
 
     /// Exposed score for this valued resource. A value of 0 means no exposure was
     /// detected exposure.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exposed_score: f64,
 
     /// List of resource value configurations' metadata used to determine the value
@@ -13365,6 +13416,7 @@ pub struct Cve {
     pub cvssv3: std::option::Option<crate::model::Cvssv3>,
 
     /// Whether upstream fix is available for the CVE.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub upstream_fix_available: bool,
 
     /// The potential impact of the vulnerability if it was to be exploited.
@@ -13374,10 +13426,12 @@ pub struct Cve {
     pub exploitation_activity: crate::model::cve::ExploitationActivity,
 
     /// Whether or not the vulnerability has been observed in the wild.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub observed_in_the_wild: bool,
 
     /// Whether or not the vulnerability was zero day when the finding was
     /// published.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub zero_day: bool,
 
     /// Date the first publicly available exploit or PoC was released.
@@ -13695,6 +13749,7 @@ impl wkt::message::Message for Reference {
 #[non_exhaustive]
 pub struct Cvssv3 {
     /// The base score is a function of the base metric scores.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub base_score: f64,
 
     /// Base Metrics

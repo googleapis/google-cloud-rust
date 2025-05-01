@@ -140,18 +140,24 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -161,6 +167,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [clusters][crate::model::CreateInstanceRequest::clusters].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_clusters<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -211,6 +219,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -256,6 +266,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -313,6 +325,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [display_name][crate::model::Instance::display_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_display_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.display_name = v.into();
             self
@@ -444,6 +458,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -453,6 +469,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -501,6 +519,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -584,18 +604,24 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -644,6 +670,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -689,6 +717,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -936,6 +966,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -945,6 +977,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -993,6 +1027,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1041,18 +1077,24 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateAppProfileRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [app_profile_id][crate::model::CreateAppProfileRequest::app_profile_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_app_profile_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.app_profile_id = v.into();
             self
         }
 
         /// Sets the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_app_profile<T: Into<std::option::Option<crate::model::AppProfile>>>(
             mut self,
             v: T,
@@ -1107,6 +1149,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::GetAppProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1167,6 +1211,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListAppProfilesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1266,6 +1312,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_app_profile<T: Into<std::option::Option<crate::model::AppProfile>>>(
             mut self,
             v: T,
@@ -1275,6 +1323,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1332,12 +1382,16 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteAppProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [ignore_warnings][crate::model::DeleteAppProfileRequest::ignore_warnings].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.ignore_warnings = v.into();
             self
@@ -1383,6 +1437,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1437,12 +1493,16 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1503,12 +1563,16 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1574,6 +1638,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListHotTabletsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1688,18 +1754,24 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateLogicalViewRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [logical_view_id][crate::model::CreateLogicalViewRequest::logical_view_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_logical_view_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.logical_view_id = v.into();
             self
         }
 
         /// Sets the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
             mut self,
             v: T,
@@ -1748,6 +1820,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::GetLogicalViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1811,6 +1885,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListLogicalViewsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1910,6 +1986,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
             mut self,
             v: T,
@@ -1970,6 +2048,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteLogicalViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2065,18 +2145,24 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateMaterializedViewRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [materialized_view_id][crate::model::CreateMaterializedViewRequest::materialized_view_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_materialized_view_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.materialized_view_id = v.into();
             self
         }
 
         /// Sets the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_materialized_view<
             T: Into<std::option::Option<crate::model::MaterializedView>>,
         >(
@@ -2130,6 +2216,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::GetMaterializedViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2193,6 +2281,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListMaterializedViewsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2294,6 +2384,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_materialized_view<
             T: Into<std::option::Option<crate::model::MaterializedView>>,
         >(
@@ -2356,6 +2448,8 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteMaterializedViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2684,18 +2778,24 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateTableRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::CreateTableRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::CreateTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
             mut self,
             v: T,
@@ -2797,18 +2897,24 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateTableFromSnapshotRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::CreateTableFromSnapshotRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
         /// Sets the value of [source_snapshot][crate::model::CreateTableFromSnapshotRequest::source_snapshot].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source_snapshot<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_snapshot = v.into();
             self
@@ -2867,6 +2973,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListTablesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2928,6 +3036,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::GetTableRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3014,6 +3124,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [table][crate::model::UpdateTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
             mut self,
             v: T,
@@ -3023,6 +3135,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3075,6 +3189,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteTableRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3156,6 +3272,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::UndeleteTableRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3243,18 +3361,24 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateAuthorizedViewRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [authorized_view_id][crate::model::CreateAuthorizedViewRequest::authorized_view_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_authorized_view_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.authorized_view_id = v.into();
             self
         }
 
         /// Sets the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_authorized_view<T: Into<std::option::Option<crate::model::AuthorizedView>>>(
             mut self,
             v: T,
@@ -3319,6 +3443,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListAuthorizedViewsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3386,6 +3512,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::GetAuthorizedViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3482,6 +3610,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_authorized_view<T: Into<std::option::Option<crate::model::AuthorizedView>>>(
             mut self,
             v: T,
@@ -3546,6 +3676,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteAuthorizedViewRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3598,6 +3730,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::ModifyColumnFamiliesRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3610,6 +3744,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [modifications][crate::model::ModifyColumnFamiliesRequest::modifications].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_modifications<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3658,6 +3794,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::DropRowRangeRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3738,6 +3876,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::GenerateConsistencyTokenRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3784,12 +3924,16 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::CheckConsistencyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [consistency_token][crate::model::CheckConsistencyRequest::consistency_token].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_consistency_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.consistency_token = v.into();
             self
@@ -3913,18 +4057,24 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::SnapshotTableRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [cluster][crate::model::SnapshotTableRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster = v.into();
             self
         }
 
         /// Sets the value of [snapshot_id][crate::model::SnapshotTableRequest::snapshot_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_snapshot_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.snapshot_id = v.into();
             self
@@ -3980,6 +4130,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4038,6 +4190,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListSnapshotsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4093,6 +4247,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4174,18 +4330,24 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -4232,6 +4394,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4275,6 +4439,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -4284,6 +4450,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -4330,6 +4498,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4388,6 +4558,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4493,12 +4665,16 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::RestoreTableRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [table_id][crate::model::RestoreTableRequest::table_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
@@ -4601,24 +4777,32 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [backup_id][crate::model::CopyBackupRequest::backup_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
         /// Sets the value of [source_backup][crate::model::CopyBackupRequest::source_backup].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source_backup<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_backup = v.into();
             self
         }
 
         /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_expire_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -4665,6 +4849,8 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -4717,12 +4903,16 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -4781,12 +4971,16 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

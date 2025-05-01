@@ -108,6 +108,7 @@ pub struct ListKeysRequest {
     pub parent: std::string::String,
 
     /// Optional. Specifies the maximum number of results to be returned at a time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Requests a specific page of results.
@@ -116,6 +117,7 @@ pub struct ListKeysRequest {
 
     /// Optional. Indicate that keys deleted in the past 30 days should also be
     /// returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

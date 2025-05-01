@@ -100,6 +100,10 @@ impl<R, M> Operation<R, M> {
     }
 }
 
+mod sealed {
+    pub trait Poller {}
+}
+
 /// The trait implemented by LRO helpers.
 ///
 /// # Parameters
@@ -107,7 +111,7 @@ impl<R, M> Operation<R, M> {
 ///   long-running operation completes successfully.
 /// * `M` - the metadata type, that is, the type returned by the service when
 ///   the long-running operation is still in progress.
-pub trait Poller<R, M>: Send {
+pub trait Poller<R, M>: Send + sealed::Poller {
     /// Query the current status of the long-running operation.
     fn poll(&mut self) -> impl Future<Output = Option<PollingResult<R, M>>> + Send;
 
@@ -131,8 +135,10 @@ pub fn new_poller<ResponseType, MetadataType, S, SF, Q, QF>(
     query: Q,
 ) -> impl Poller<ResponseType, MetadataType>
 where
-    ResponseType: wkt::message::Message + serde::de::DeserializeOwned + Send,
-    MetadataType: wkt::message::Message + serde::de::DeserializeOwned + Send,
+    ResponseType:
+        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    MetadataType:
+        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
     S: FnOnce() -> SF + Send + Sync,
     SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
         + Send
@@ -218,8 +224,10 @@ where
 impl<ResponseType, MetadataType, S, SF, P, PF> Poller<ResponseType, MetadataType>
     for PollerImpl<ResponseType, MetadataType, S, SF, P, PF>
 where
-    ResponseType: wkt::message::Message + serde::de::DeserializeOwned + Send,
-    MetadataType: wkt::message::Message + serde::de::DeserializeOwned + Send,
+    ResponseType:
+        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    MetadataType:
+        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
     S: FnOnce() -> SF + Send + Sync,
     SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
         + Send
@@ -292,6 +300,24 @@ where
             None
         })
     }
+}
+
+impl<ResponseType, MetadataType, S, SF, P, PF> sealed::Poller
+    for PollerImpl<ResponseType, MetadataType, S, SF, P, PF>
+where
+    ResponseType:
+        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    MetadataType:
+        wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned + Send,
+    S: FnOnce() -> SF + Send + Sync,
+    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+        + Send
+        + 'static,
+    P: Fn(String) -> PF + Send + Sync + Clone,
+    PF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+        + Send
+        + 'static,
+{
 }
 
 mod details;

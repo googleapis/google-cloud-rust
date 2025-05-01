@@ -119,6 +119,8 @@ pub mod dep_service {
         }
 
         /// Sets the value of [parent][crate::model::ListLbTrafficExtensionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -189,6 +191,8 @@ pub mod dep_service {
         }
 
         /// Sets the value of [name][crate::model::GetLbTrafficExtensionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -276,18 +280,24 @@ pub mod dep_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateLbTrafficExtensionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [lb_traffic_extension_id][crate::model::CreateLbTrafficExtensionRequest::lb_traffic_extension_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_lb_traffic_extension_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.lb_traffic_extension_id = v.into();
             self
         }
 
         /// Sets the value of [lb_traffic_extension][crate::model::CreateLbTrafficExtensionRequest::lb_traffic_extension].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_lb_traffic_extension<
             T: Into<std::option::Option<crate::model::LbTrafficExtension>>,
         >(
@@ -395,6 +405,8 @@ pub mod dep_service {
         }
 
         /// Sets the value of [lb_traffic_extension][crate::model::UpdateLbTrafficExtensionRequest::lb_traffic_extension].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_lb_traffic_extension<
             T: Into<std::option::Option<crate::model::LbTrafficExtension>>,
         >(
@@ -489,6 +501,8 @@ pub mod dep_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteLbTrafficExtensionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -556,6 +570,8 @@ pub mod dep_service {
         }
 
         /// Sets the value of [parent][crate::model::ListLbRouteExtensionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -626,6 +642,8 @@ pub mod dep_service {
         }
 
         /// Sets the value of [name][crate::model::GetLbRouteExtensionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -711,18 +729,24 @@ pub mod dep_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateLbRouteExtensionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [lb_route_extension_id][crate::model::CreateLbRouteExtensionRequest::lb_route_extension_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_lb_route_extension_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.lb_route_extension_id = v.into();
             self
         }
 
         /// Sets the value of [lb_route_extension][crate::model::CreateLbRouteExtensionRequest::lb_route_extension].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_lb_route_extension<
             T: Into<std::option::Option<crate::model::LbRouteExtension>>,
         >(
@@ -828,6 +852,8 @@ pub mod dep_service {
         }
 
         /// Sets the value of [lb_route_extension][crate::model::UpdateLbRouteExtensionRequest::lb_route_extension].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_lb_route_extension<
             T: Into<std::option::Option<crate::model::LbRouteExtension>>,
         >(
@@ -920,6 +946,8 @@ pub mod dep_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteLbRouteExtensionRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1091,12 +1119,16 @@ pub mod dep_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1152,6 +1184,8 @@ pub mod dep_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -1207,12 +1241,16 @@ pub mod dep_service {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1550,6 +1588,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::ListEndpointPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1608,6 +1648,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::GetEndpointPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1693,18 +1735,24 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::CreateEndpointPolicyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [endpoint_policy_id][crate::model::CreateEndpointPolicyRequest::endpoint_policy_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_endpoint_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.endpoint_policy_id = v.into();
             self
         }
 
         /// Sets the value of [endpoint_policy][crate::model::CreateEndpointPolicyRequest::endpoint_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_endpoint_policy<T: Into<std::option::Option<crate::model::EndpointPolicy>>>(
             mut self,
             v: T,
@@ -1802,6 +1850,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [endpoint_policy][crate::model::UpdateEndpointPolicyRequest::endpoint_policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_endpoint_policy<T: Into<std::option::Option<crate::model::EndpointPolicy>>>(
             mut self,
             v: T,
@@ -1886,6 +1936,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::DeleteEndpointPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1944,6 +1996,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::ListGatewaysRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1999,6 +2053,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::GetGatewayRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2079,18 +2135,24 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::CreateGatewayRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [gateway_id][crate::model::CreateGatewayRequest::gateway_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_gateway_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.gateway_id = v.into();
             self
         }
 
         /// Sets the value of [gateway][crate::model::CreateGatewayRequest::gateway].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_gateway<T: Into<std::option::Option<crate::model::Gateway>>>(
             mut self,
             v: T,
@@ -2183,6 +2245,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_gateway<T: Into<std::option::Option<crate::model::Gateway>>>(
             mut self,
             v: T,
@@ -2264,6 +2328,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::DeleteGatewayRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2322,6 +2388,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::ListGrpcRoutesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2377,6 +2445,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::GetGrpcRouteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2458,18 +2528,24 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::CreateGrpcRouteRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [grpc_route_id][crate::model::CreateGrpcRouteRequest::grpc_route_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_grpc_route_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.grpc_route_id = v.into();
             self
         }
 
         /// Sets the value of [grpc_route][crate::model::CreateGrpcRouteRequest::grpc_route].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_grpc_route<T: Into<std::option::Option<crate::model::GrpcRoute>>>(
             mut self,
             v: T,
@@ -2563,6 +2639,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [grpc_route][crate::model::UpdateGrpcRouteRequest::grpc_route].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_grpc_route<T: Into<std::option::Option<crate::model::GrpcRoute>>>(
             mut self,
             v: T,
@@ -2644,6 +2722,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::DeleteGrpcRouteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2702,6 +2782,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::ListHttpRoutesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2757,6 +2839,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::GetHttpRouteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2838,18 +2922,24 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::CreateHttpRouteRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [http_route_id][crate::model::CreateHttpRouteRequest::http_route_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_http_route_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.http_route_id = v.into();
             self
         }
 
         /// Sets the value of [http_route][crate::model::CreateHttpRouteRequest::http_route].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_http_route<T: Into<std::option::Option<crate::model::HttpRoute>>>(
             mut self,
             v: T,
@@ -2943,6 +3033,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [http_route][crate::model::UpdateHttpRouteRequest::http_route].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_http_route<T: Into<std::option::Option<crate::model::HttpRoute>>>(
             mut self,
             v: T,
@@ -3024,6 +3116,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::DeleteHttpRouteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3082,6 +3176,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::ListTcpRoutesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3137,6 +3233,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::GetTcpRouteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3218,18 +3316,24 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::CreateTcpRouteRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [tcp_route_id][crate::model::CreateTcpRouteRequest::tcp_route_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_tcp_route_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.tcp_route_id = v.into();
             self
         }
 
         /// Sets the value of [tcp_route][crate::model::CreateTcpRouteRequest::tcp_route].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_tcp_route<T: Into<std::option::Option<crate::model::TcpRoute>>>(
             mut self,
             v: T,
@@ -3323,6 +3427,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [tcp_route][crate::model::UpdateTcpRouteRequest::tcp_route].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_tcp_route<T: Into<std::option::Option<crate::model::TcpRoute>>>(
             mut self,
             v: T,
@@ -3404,6 +3510,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::DeleteTcpRouteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3462,6 +3570,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::ListTlsRoutesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3517,6 +3627,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::GetTlsRouteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3598,18 +3710,24 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::CreateTlsRouteRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [tls_route_id][crate::model::CreateTlsRouteRequest::tls_route_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_tls_route_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.tls_route_id = v.into();
             self
         }
 
         /// Sets the value of [tls_route][crate::model::CreateTlsRouteRequest::tls_route].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_tls_route<T: Into<std::option::Option<crate::model::TlsRoute>>>(
             mut self,
             v: T,
@@ -3703,6 +3821,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [tls_route][crate::model::UpdateTlsRouteRequest::tls_route].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_tls_route<T: Into<std::option::Option<crate::model::TlsRoute>>>(
             mut self,
             v: T,
@@ -3784,6 +3904,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::DeleteTlsRouteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3845,6 +3967,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::ListServiceBindingsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -3903,6 +4027,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::GetServiceBindingRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3988,18 +4114,24 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceBindingRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [service_binding_id][crate::model::CreateServiceBindingRequest::service_binding_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_binding_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_binding_id = v.into();
             self
         }
 
         /// Sets the value of [service_binding][crate::model::CreateServiceBindingRequest::service_binding].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_service_binding<T: Into<std::option::Option<crate::model::ServiceBinding>>>(
             mut self,
             v: T,
@@ -4084,6 +4216,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceBindingRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4142,6 +4276,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::ListMeshesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -4197,6 +4333,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::GetMeshRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4277,18 +4415,24 @@ pub mod network_services {
         }
 
         /// Sets the value of [parent][crate::model::CreateMeshRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [mesh_id][crate::model::CreateMeshRequest::mesh_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_mesh_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.mesh_id = v.into();
             self
         }
 
         /// Sets the value of [mesh][crate::model::CreateMeshRequest::mesh].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_mesh<T: Into<std::option::Option<crate::model::Mesh>>>(mut self, v: T) -> Self {
             self.0.request.mesh = v.into();
             self
@@ -4378,6 +4522,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [mesh][crate::model::UpdateMeshRequest::mesh].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_mesh<T: Into<std::option::Option<crate::model::Mesh>>>(mut self, v: T) -> Self {
             self.0.request.mesh = v.into();
             self
@@ -4456,6 +4602,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [name][crate::model::DeleteMeshRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -4621,12 +4769,16 @@ pub mod network_services {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -4682,6 +4834,8 @@ pub mod network_services {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -4737,12 +4891,16 @@ pub mod network_services {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

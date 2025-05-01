@@ -14,28 +14,38 @@ See the License for the specific language governing permissions and
 limitations under the License.
 }}
 
-impl gaxi::prost::Convert<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} {
-    fn cnv(self) -> {{Codec.QualifiedName}} {
-        use {{Codec.QualifiedName}} as T;
+impl gaxi::prost::ToProto<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
+    type Output = {{Codec.RelativeName}};
+    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             {{#Fields}}
-            Self::{{Codec.BranchName}}(v) => T::from_{{Codec.SetterName}}(v.cnv()),
+            {{#IsEnum}}
+            Self::{{Codec.BranchName}}(v) => Ok(Self::Output::{{Codec.BranchName}}(v.value())),
+            {{/IsEnum}}
+            {{^IsEnum}}
+            {{^Codec.IsBoxed}}
+            Self::{{Codec.BranchName}}(v) => Ok(Self::Output::{{Codec.BranchName}}(v.to_proto()?)),
+            {{/Codec.IsBoxed}}
+            {{#Codec.IsBoxed}}
+            Self::{{Codec.BranchName}}(v) => Ok(Self::Output::{{Codec.BranchName}}((*v).to_proto()?)),
+            {{/Codec.IsBoxed}}
+            {{/IsEnum}}
             {{/Fields}}
         }
     }
 }
 
-impl gaxi::prost::Convert<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
-    fn cnv(self) -> {{Codec.RelativeName}} {
-        use {{Codec.RelativeName}} as T;
+impl gaxi::prost::FromProto<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} {
+    fn cnv(self) -> {{Codec.QualifiedName}} {
+        use {{Codec.QualifiedName}} as T;
         match self {
             {{#Fields}}
-            {{^Codec.IsBoxed}}
-            Self::{{Codec.BranchName}}(v) => T::{{Codec.BranchName}}(v.{{Codec.ToProto}}()),
-            {{/Codec.IsBoxed}}
-            {{#Codec.IsBoxed}}
-            Self::{{Codec.BranchName}}(v) => T::{{Codec.BranchName}}((*v).{{Codec.ToProto}}()),
-            {{/Codec.IsBoxed}}
+            {{^IsEnum}}
+            Self::{{Codec.BranchName}}(v) => T::from_{{Codec.SetterName}}(v.cnv()),
+            {{/IsEnum}}
+            {{#IsEnum}}
+            Self::{{Codec.BranchName}}(v) => T::from_{{Codec.SetterName}}(v),
+            {{/IsEnum}}
             {{/Fields}}
         }
     }

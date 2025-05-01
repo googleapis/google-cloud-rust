@@ -93,6 +93,7 @@ pub struct AttachedCluster {
     pub uid: std::string::String,
 
     /// Output only. If set, there are currently changes in flight to the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. The time at which this cluster was registered.
@@ -1059,6 +1060,7 @@ pub struct CreateAttachedClusterRequest {
     pub attached_cluster_id: std::string::String,
 
     /// If set, only validate the request, but do not actually create the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1129,6 +1131,7 @@ pub struct ImportAttachedClusterRequest {
     pub parent: std::string::String,
 
     /// If set, only validate the request, but do not actually import the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Required. The name of the fleet membership resource to import.
@@ -1233,6 +1236,7 @@ pub struct UpdateAttachedClusterRequest {
     pub attached_cluster: std::option::Option<crate::model::AttachedCluster>,
 
     /// If set, only validate the request, but do not actually update the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Required. Mask of fields to update. At least one path must be supplied in
@@ -1368,6 +1372,7 @@ pub struct ListAttachedClustersRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkemulticloud.v1.ListAttachedClustersResponse.next_page_token]: crate::model::ListAttachedClustersResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous
@@ -1497,6 +1502,7 @@ pub struct DeleteAttachedClusterRequest {
     pub name: std::string::String,
 
     /// If set, only validate the request, but do not actually delete the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// If set to true, and the
@@ -1509,6 +1515,7 @@ pub struct DeleteAttachedClusterRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.AttachedCluster]: crate::model::AttachedCluster
     /// [google.longrunning.Operation]: longrunning::model::Operation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// If set to true, the deletion of
@@ -1517,6 +1524,7 @@ pub struct DeleteAttachedClusterRequest {
     /// Using this parameter may result in orphaned resources in the cluster.
     ///
     /// [google.cloud.gkemulticloud.v1.AttachedCluster]: crate::model::AttachedCluster
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_errors: bool,
 
     /// The current etag of the
@@ -1748,6 +1756,7 @@ pub struct GenerateAttachedClusterAgentTokenResponse {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub access_token: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub expires_in: i32,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -1843,6 +1852,7 @@ pub struct AwsCluster {
     pub uid: std::string::String,
 
     /// Output only. If set, there are currently changes in flight to the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. The time at which this cluster was created.
@@ -2663,6 +2673,7 @@ pub struct AwsVolumeTemplate {
     ///
     /// When unspecified, a default value is provided. See the specific reference
     /// in the parent resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub size_gib: i32,
 
     /// Optional. Type of the EBS volume.
@@ -2672,12 +2683,14 @@ pub struct AwsVolumeTemplate {
 
     /// Optional. The number of I/O operations per second (IOPS) to provision for
     /// GP3 volume.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub iops: i32,
 
     /// Optional. The throughput that the volume supports, in MiB/s. Only valid if
     /// volume_type is GP3.
     ///
     /// If the volume_type is GP3 and this is not speficied, it defaults to 125.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub throughput: i32,
 
     /// Optional. The Amazon Resource Name (ARN) of the Customer Managed Key (CMK)
@@ -2838,6 +2851,7 @@ pub struct AwsClusterNetworking {
     /// or more security groups that ensure node pools are able to send requests to
     /// the control plane on TCP/443 and TCP/8132. Failure to do so may result in
     /// unavailable node pools.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub per_node_pool_sg_rules_disabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2941,6 +2955,7 @@ pub struct AwsNodePool {
 
     /// Output only. If set, there are currently changes in flight to the node
     /// pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. The time at which this node pool was created.
@@ -3312,11 +3327,13 @@ impl wkt::message::Message for UpdateSettings {
 pub struct SurgeSettings {
     /// Optional. The maximum number of nodes that can be created beyond the
     /// current size of the node pool during the update process.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_surge: i32,
 
     /// Optional. The maximum number of nodes that can be simultaneously
     /// unavailable during the update process. A node is considered unavailable if
     /// its status is not Ready.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_unavailable: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3358,6 +3375,7 @@ pub struct AwsNodeManagement {
     /// to true, the nodes in this node pool will be monitored and if they fail
     /// health checks consistently over a period of time, an automatic repair
     /// action will be triggered to replace them with new nodes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_repair: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3638,10 +3656,12 @@ impl wkt::message::Message for AwsNodeConfig {
 pub struct AwsNodePoolAutoscaling {
     /// Required. Minimum number of nodes in the node pool. Must be greater than or
     /// equal to 1 and less than or equal to max_node_count.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_node_count: i32,
 
     /// Required. Maximum number of nodes in the node pool. Must be greater than or
     /// equal to min_node_count and less than or equal to 50.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_node_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3907,11 +3927,13 @@ pub struct AwsK8sVersionInfo {
     /// version is enabled for creation, it can be used to create new clusters.
     /// Otherwise, cluster creation will fail. However, cluster upgrade operations
     /// may succeed, even if the version is not enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Optional. True if this cluster version belongs to a minor version that has
     /// reached its end of life and is no longer in scope to receive security and
     /// bug fixes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub end_of_life: bool,
 
     /// Optional. The estimated date (in Pacific Time) when this cluster version
@@ -4389,6 +4411,7 @@ pub struct CreateAwsClusterRequest {
     pub aws_cluster_id: std::string::String,
 
     /// If set, only validate the request, but do not actually create the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4448,6 +4471,7 @@ pub struct UpdateAwsClusterRequest {
     pub aws_cluster: std::option::Option<crate::model::AwsCluster>,
 
     /// If set, only validate the request, but do not actually update the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Required. Mask of fields to update. At least one path must be supplied in
@@ -4595,6 +4619,7 @@ pub struct ListAwsClustersRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkemulticloud.v1.ListAwsClustersResponse.next_page_token]: crate::model::ListAwsClustersResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous
@@ -4724,6 +4749,7 @@ pub struct DeleteAwsClusterRequest {
     pub name: std::string::String,
 
     /// If set, only validate the request, but do not actually delete the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// If set to true, and the
@@ -4735,6 +4761,7 @@ pub struct DeleteAwsClusterRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
     /// [google.longrunning.Operation]: longrunning::model::Operation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the deletion of
@@ -4743,6 +4770,7 @@ pub struct DeleteAwsClusterRequest {
     /// this parameter may result in orphaned resources in the cluster.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_errors: bool,
 
     /// The current etag of the
@@ -4845,6 +4873,7 @@ pub struct CreateAwsNodePoolRequest {
 
     /// If set, only validate the request, but do not actually create the node
     /// pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4909,6 +4938,7 @@ pub struct UpdateAwsNodePoolRequest {
     pub aws_node_pool: std::option::Option<crate::model::AwsNodePool>,
 
     /// If set, only validate the request, but don't actually update the node pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Required. Mask of fields to update. At least one path must be supplied in
@@ -5014,6 +5044,7 @@ pub struct RollbackAwsNodePoolUpdateRequest {
 
     /// Optional. Option for rollback to ignore the PodDisruptionBudget when
     /// draining the node pool nodes. Default value is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub respect_pdb: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5114,6 +5145,7 @@ pub struct ListAwsNodePoolsRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkemulticloud.v1.ListAwsNodePoolsResponse.next_page_token]: crate::model::ListAwsNodePoolsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous
@@ -5244,6 +5276,7 @@ pub struct DeleteAwsNodePoolRequest {
 
     /// If set, only validate the request, but do not actually delete the node
     /// pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// If set to true, and the
@@ -5255,6 +5288,7 @@ pub struct DeleteAwsNodePoolRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
     /// [google.longrunning.Operation]: longrunning::model::Operation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the deletion of
@@ -5263,6 +5297,7 @@ pub struct DeleteAwsNodePoolRequest {
     /// this parameter may result in orphaned resources in the node pool.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_errors: bool,
 
     /// The current ETag of the
@@ -5659,6 +5694,7 @@ pub struct GenerateAwsClusterAgentTokenResponse {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub access_token: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub expires_in: i32,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -5787,6 +5823,7 @@ pub struct AzureCluster {
     pub uid: std::string::String,
 
     /// Output only. If set, there are currently changes in flight to the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. The time at which this cluster was created.
@@ -6696,6 +6733,7 @@ pub struct AzureDiskTemplate {
     ///
     /// When unspecified, a default value is provided. See the specific reference
     /// in the parent resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub size_gib: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6758,6 +6796,7 @@ pub struct AzureClient {
     pub application_id: std::string::String,
 
     /// Output only. If set, there are currently pending changes to the client.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Optional. Annotations on the resource.
@@ -7081,6 +7120,7 @@ pub struct AzureNodePool {
 
     /// Output only. If set, there are currently pending changes to the node
     /// pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. The time at which this node pool was created.
@@ -7380,6 +7420,7 @@ pub struct AzureNodeManagement {
     /// to true, the nodes in this node pool will be monitored and if they fail
     /// health checks consistently over a period of time, an automatic repair
     /// action will be triggered to replace them with new nodes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_repair: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7583,10 +7624,12 @@ impl wkt::message::Message for AzureNodeConfig {
 pub struct AzureNodePoolAutoscaling {
     /// Required. Minimum number of nodes in the node pool. Must be greater than or
     /// equal to 1 and less than or equal to max_node_count.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_node_count: i32,
 
     /// Required. Maximum number of nodes in the node pool. Must be greater than or
     /// equal to min_node_count and less than or equal to 50.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_node_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7859,11 +7902,13 @@ pub struct AzureK8sVersionInfo {
     /// version is enabled for creation, it can be used to create new clusters.
     /// Otherwise, cluster creation will fail. However, cluster upgrade operations
     /// may succeed, even if the version is not enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Optional. True if this cluster version belongs to a minor version that has
     /// reached its end of life and is no longer in scope to receive security and
     /// bug fixes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub end_of_life: bool,
 
     /// Optional. The estimated date (in Pacific Time) when this cluster version
@@ -8120,6 +8165,7 @@ pub struct CreateAzureClusterRequest {
     pub azure_cluster_id: std::string::String,
 
     /// If set, only validate the request, but do not actually create the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8184,6 +8230,7 @@ pub struct UpdateAzureClusterRequest {
     pub azure_cluster: std::option::Option<crate::model::AzureCluster>,
 
     /// If set, only validate the request, but do not actually update the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Required. Mask of fields to update. At least one path must be supplied in
@@ -8323,6 +8370,7 @@ pub struct ListAzureClustersRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkemulticloud.v1.ListAzureClustersResponse.next_page_token]: crate::model::ListAzureClustersResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous
@@ -8460,9 +8508,11 @@ pub struct DeleteAzureClusterRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
     /// [google.longrunning.Operation]: longrunning::model::Operation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// If set, only validate the request, but do not actually delete the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// The current etag of the
@@ -8483,6 +8533,7 @@ pub struct DeleteAzureClusterRequest {
     /// this parameter may result in orphaned resources in the cluster.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_errors: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8573,6 +8624,7 @@ pub struct CreateAzureNodePoolRequest {
 
     /// If set, only validate the request, but do not actually create the node
     /// pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8637,6 +8689,7 @@ pub struct UpdateAzureNodePoolRequest {
     pub azure_node_pool: std::option::Option<crate::model::AzureNodePool>,
 
     /// If set, only validate the request, but don't actually update the node pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Required. Mask of fields to update. At least one path must be supplied in
@@ -8768,6 +8821,7 @@ pub struct ListAzureNodePoolsRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkemulticloud.v1.ListAzureNodePoolsResponse.next_page_token]: crate::model::ListAzureNodePoolsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous
@@ -8898,6 +8952,7 @@ pub struct DeleteAzureNodePoolRequest {
 
     /// If set, only validate the request, but do not actually delete the node
     /// pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// If set to true, and the
@@ -8910,6 +8965,7 @@ pub struct DeleteAzureNodePoolRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
     /// [google.longrunning.Operation]: longrunning::model::Operation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// The current ETag of the
@@ -8930,6 +8986,7 @@ pub struct DeleteAzureNodePoolRequest {
     /// this parameter may result in orphaned resources in the node pool.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_errors: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9133,6 +9190,7 @@ pub struct CreateAzureClientRequest {
     pub azure_client_id: std::string::String,
 
     /// If set, only validate the request, but do not actually create the client.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9250,6 +9308,7 @@ pub struct ListAzureClientsRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkemulticloud.v1.ListAzureClientsResponse.next_page_token]: crate::model::ListAzureClientsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous
@@ -9388,9 +9447,11 @@ pub struct DeleteAzureClientRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.AzureClient]: crate::model::AzureClient
     /// [google.longrunning.Operation]: longrunning::model::Operation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// If set, only validate the request, but do not actually delete the resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9649,6 +9710,7 @@ pub struct GenerateAzureClusterAgentTokenResponse {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub access_token: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub expires_in: i32,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -9864,6 +9926,7 @@ impl wkt::message::Message for WorkloadIdentityConfig {
 #[non_exhaustive]
 pub struct MaxPodsConstraint {
     /// Required. The maximum number of pods to schedule on a single node.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub max_pods_per_node: i64,
 
@@ -9930,6 +9993,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10131,6 +10195,7 @@ pub mod node_taint {
 #[non_exhaustive]
 pub struct NodeKubeletConfig {
     /// Optional. Enable the insecure kubelet read only port.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub insecure_kubelet_readonly_port_enabled: bool,
 
     /// Optional. Control the CPU management policy on the node.
@@ -10502,6 +10567,7 @@ impl wkt::message::Message for MonitoringConfig {
 #[non_exhaustive]
 pub struct ManagedPrometheusConfig {
     /// Enable Managed Collection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

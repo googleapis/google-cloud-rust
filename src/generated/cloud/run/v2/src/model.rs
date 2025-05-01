@@ -317,6 +317,7 @@ pub mod submit_build_request {
         /// Optional. Whether or not the application container will be enrolled in
         /// automatic base image updates. When true, the application will be built on
         /// a scratch base image, so the base layers can be appended at run time.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_automatic_updates: bool,
 
         /// Optional. project_descriptor stores the path to the project descriptor
@@ -501,6 +502,7 @@ pub struct StorageSource {
 
     /// Optional. Google Cloud Storage generation for the object. If the generation
     /// is omitted, the latest generation will be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -1253,6 +1255,7 @@ pub struct ListExecutionsRequest {
     pub parent: std::string::String,
 
     /// Maximum number of Executions to return in this call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token received from a previous call to ListExecutions.
@@ -1261,6 +1264,7 @@ pub struct ListExecutionsRequest {
     pub page_token: std::string::String,
 
     /// If true, returns deleted (but unexpired) resources along with active ones.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1380,6 +1384,7 @@ pub struct DeleteExecutionRequest {
 
     /// Indicates that the request should be validated without actually
     /// deleting any resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// A system-generated fingerprint for this version of the resource.
@@ -1436,6 +1441,7 @@ pub struct CancelExecutionRequest {
 
     /// Indicates that the request should be validated without actually
     /// cancelling any resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// A system-generated fingerprint for this version of the resource.
@@ -1501,6 +1507,7 @@ pub struct Execution {
 
     /// Output only. A number that monotonically increases every time the user
     /// modifies the desired state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -1572,11 +1579,13 @@ pub struct Execution {
     /// tasks running in steady state will be less than this number when
     /// ((.spec.task_count - .status.successful) < .spec.parallelism), i.e. when
     /// the work left to do is less than max parallelism.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub parallelism: i32,
 
     /// Output only. Specifies the desired number of tasks the execution should
     /// run. Setting to 1 means that parallelism is limited to 1 and the success of
     /// that task signals the success of the execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub task_count: i32,
 
     /// Output only. The template used to create tasks for this execution.
@@ -1586,6 +1595,7 @@ pub struct Execution {
     /// Output only. Indicates whether the resource's reconciliation is still in
     /// progress. See comments in `Job.reconciling` for additional information on
     /// reconciliation process in Cloud Run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. The Condition of this Execution, containing its readiness
@@ -1597,22 +1607,28 @@ pub struct Execution {
     /// Output only. The generation of this Execution. See comments in
     /// `reconciling` for additional information on reconciliation process in Cloud
     /// Run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub observed_generation: i64,
 
     /// Output only. The number of actively running tasks.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub running_count: i32,
 
     /// Output only. The number of tasks which reached phase Succeeded.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub succeeded_count: i32,
 
     /// Output only. The number of tasks which reached phase Failed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub failed_count: i32,
 
     /// Output only. The number of tasks which reached phase Cancelled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cancelled_count: i32,
 
     /// Output only. The number of tasks which have retried at least once.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retried_count: i32,
 
     /// Output only. URI where logs for this execution can be found in Cloud
@@ -1621,6 +1637,7 @@ pub struct Execution {
     pub log_uri: std::string::String,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Output only. A system-generated fingerprint for this version of the
@@ -1883,11 +1900,13 @@ pub struct ExecutionTemplate {
     /// The actual number of tasks running in steady state will be less than this
     /// number when there are fewer tasks waiting to be completed remaining,
     /// i.e. when the work left to do is less than max parallelism.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub parallelism: i32,
 
     /// Specifies the desired number of tasks the execution should run.
     /// Setting to 1 means that parallelism is limited to 1 and the success of
     /// that task signals the success of the execution. Defaults to 1.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub task_count: i32,
 
     /// Required. Describes the task(s) that will be created when executing an
@@ -1979,6 +1998,7 @@ pub struct CreateJobRequest {
 
     /// Indicates that the request should be validated and default values
     /// populated, without persisting the request or creating any resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2070,11 +2090,13 @@ pub struct UpdateJobRequest {
 
     /// Indicates that the request should be validated and default values
     /// populated, without persisting the request or updating any resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set to true, and if the Job does not exist, it will create a
     /// new one. Caller must have both create and update permissions for this call
     /// if this is set to true.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2127,6 +2149,7 @@ pub struct ListJobsRequest {
     pub parent: std::string::String,
 
     /// Maximum number of Jobs to return in this call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token received from a previous call to ListJobs.
@@ -2135,6 +2158,7 @@ pub struct ListJobsRequest {
     pub page_token: std::string::String,
 
     /// If true, returns deleted (but unexpired) resources along with active ones.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2253,6 +2277,7 @@ pub struct DeleteJobRequest {
 
     /// Indicates that the request should be validated without actually
     /// deleting any resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// A system-generated fingerprint for this version of the
@@ -2308,6 +2333,7 @@ pub struct RunJobRequest {
 
     /// Indicates that the request should be validated without actually
     /// deleting any resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// A system-generated fingerprint for this version of the
@@ -2383,6 +2409,7 @@ pub mod run_job_request {
 
         /// Optional. The desired number of tasks the execution should run. Will
         /// replace existing task_count value.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub task_count: i32,
 
         /// Duration in seconds the task may be active before the system will
@@ -2459,6 +2486,7 @@ pub mod run_job_request {
             pub env: std::vec::Vec<crate::model::EnvVar>,
 
             /// Optional. True if the intention is to clear out existing args list.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub clear_args: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2535,6 +2563,7 @@ pub struct Job {
 
     /// Output only. A number that monotonically increases every time the user
     /// modifies the desired state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -2611,6 +2640,7 @@ pub struct Job {
 
     /// Output only. The generation of this Job. See comments in `reconciling` for
     /// additional information on reconciliation process in Cloud Run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub observed_generation: i64,
 
@@ -2627,6 +2657,7 @@ pub struct Job {
     pub conditions: std::vec::Vec<crate::model::Condition>,
 
     /// Output only. Number of executions created for this job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execution_count: i32,
 
     /// Output only. Name of the last created execution.
@@ -2654,9 +2685,11 @@ pub struct Job {
     /// `latest_succeeded_execution` will have the state of the last succeeded
     /// execution or empty for newly created Job. Additional information on the
     /// failure can be found in `terminal_condition` and `conditions`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Output only. A system-generated fingerprint for this version of the
@@ -3375,11 +3408,13 @@ pub struct ResourceRequirements {
     /// Determines whether CPU is only allocated during requests (true by default).
     /// However, if ResourceRequirements is set, the caller must explicitly
     /// set this field to true to preserve the default behavior.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cpu_idle: bool,
 
     /// Determines whether CPU should be boosted on startup of a new container
     /// instance above the requested CPU threshold, this can help reduce cold-start
     /// latency.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub startup_cpu_boost: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3633,6 +3668,7 @@ pub struct ContainerPort {
 
     /// Port number the container listens on.
     /// This must be a valid TCP port number, 0 < container_port < 65536.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub container_port: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3957,6 +3993,7 @@ pub struct SecretVolumeSource {
     ///
     /// This might be in conflict with other options that affect the
     /// file mode, like fsGroup, and as a result, other mode bits could be set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_mode: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4029,6 +4066,7 @@ pub struct VersionToPath {
     ///   493 (base-10).
     /// * This might be in conflict with other options that affect the
     ///   file mode, like fsGroup, and the result can be other mode bits set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mode: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4239,6 +4277,7 @@ pub struct NFSVolumeSource {
     pub path: std::string::String,
 
     /// If true, the volume will be mounted as read only for all mounts.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub read_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4287,6 +4326,7 @@ pub struct GCSVolumeSource {
     pub bucket: std::string::String,
 
     /// If true, the volume will be mounted as read only for all mounts.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub read_only: bool,
 
     /// A list of additional flags to pass to the gcsfuse CLI.
@@ -4343,21 +4383,25 @@ pub struct Probe {
     /// Optional. Number of seconds after the container has started before the
     /// probe is initiated. Defaults to 0 seconds. Minimum value is 0. Maximum
     /// value for liveness probe is 3600. Maximum value for startup probe is 240.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub initial_delay_seconds: i32,
 
     /// Optional. Number of seconds after which the probe times out.
     /// Defaults to 1 second. Minimum value is 1. Maximum value is 3600.
     /// Must be smaller than period_seconds.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub timeout_seconds: i32,
 
     /// Optional. How often (in seconds) to perform the probe.
     /// Default to 10 seconds. Minimum value is 1. Maximum value for liveness probe
     /// is 3600. Maximum value for startup probe is 240.
     /// Must be greater or equal than timeout_seconds.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub period_seconds: i32,
 
     /// Optional. Minimum consecutive failures for the probe to be considered
     /// failed after having succeeded. Defaults to 3. Minimum value is 1.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub failure_threshold: i32,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -4532,6 +4576,7 @@ pub struct HTTPGetAction {
     /// Optional. Port number to access on the container. Must be in the range 1 to
     /// 65535. If not specified, defaults to the exposed port of the container,
     /// which is the value of container.ports[0].containerPort.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4624,6 +4669,7 @@ pub struct TCPSocketAction {
     /// Optional. Port number to access on the container. Must be in the range 1 to
     /// 65535. If not specified, defaults to the exposed port of the container,
     /// which is the value of container.ports[0].containerPort.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4657,6 +4703,7 @@ pub struct GRPCAction {
     /// Optional. Port number of the gRPC service. Number must be in the range 1 to
     /// 65535. If not specified, defaults to the exposed port of the container,
     /// which is the value of container.ports[0].containerPort.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Optional. Service is the name of the service to place in the gRPC
@@ -4785,6 +4832,7 @@ pub struct ListRevisionsRequest {
     pub parent: std::string::String,
 
     /// Maximum number of revisions to return in this call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token received from a previous call to ListRevisions.
@@ -4793,6 +4841,7 @@ pub struct ListRevisionsRequest {
     pub page_token: std::string::String,
 
     /// If true, returns deleted (but unexpired) resources along with active ones.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4913,6 +4962,7 @@ pub struct DeleteRevisionRequest {
 
     /// Indicates that the request should be validated without actually
     /// deleting any resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// A system-generated fingerprint for this version of the
@@ -4974,6 +5024,7 @@ pub struct Revision {
 
     /// Output only. A number that monotonically increases every time the user
     /// modifies the desired state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -5037,6 +5088,7 @@ pub struct Revision {
     pub vpc_access: std::option::Option<crate::model::VpcAccess>,
 
     /// Sets the maximum number of requests that each serving instance can receive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_instance_request_concurrency: i32,
 
     /// Max allowed time for an instance to respond to a request.
@@ -5082,6 +5134,7 @@ pub struct Revision {
     /// Output only. Indicates whether the resource's reconciliation is still in
     /// progress. See comments in `Service.reconciling` for additional information
     /// on reconciliation process in Cloud Run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. The Condition of this Revision, containing its readiness
@@ -5093,6 +5146,7 @@ pub struct Revision {
     /// Output only. The generation of this Revision currently serving traffic. See
     /// comments in `reconciling` for additional information on reconciliation
     /// process in Cloud Run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub observed_generation: i64,
 
@@ -5101,9 +5155,11 @@ pub struct Revision {
     pub log_uri: std::string::String,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Enable session affinity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub session_affinity: bool,
 
     /// Output only. The current effective scaling settings for the revision.
@@ -5480,6 +5536,7 @@ pub struct RevisionTemplate {
     /// Optional. Sets the maximum number of requests that each serving instance
     /// can receive. If not specified or 0, concurrency defaults to 80 when
     /// requested `CPU >= 1` and defaults to 1 when requested `CPU < 1`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_instance_request_concurrency: i32,
 
     /// Optional. Enables service mesh connectivity.
@@ -5495,9 +5552,11 @@ pub struct RevisionTemplate {
     pub encryption_key_shutdown_duration: std::option::Option<wkt::Duration>,
 
     /// Optional. Enable session affinity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub session_affinity: bool,
 
     /// Optional. Disables health checking containers during deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub health_check_disabled: bool,
 
     /// Optional. The node selector for the revision template.
@@ -5711,6 +5770,7 @@ pub struct CreateServiceRequest {
 
     /// Indicates that the request should be validated and default values
     /// populated, without persisting the request or creating any resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5772,11 +5832,13 @@ pub struct UpdateServiceRequest {
 
     /// Indicates that the request should be validated and default values
     /// populated, without persisting the request or updating any resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set to true, and if the Service does not exist, it will create
     /// a new one. The caller must have 'run.services.create' permissions if this
     /// is set to true and the Service does not exist.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5839,6 +5901,7 @@ pub struct ListServicesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of Services to return in this call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token received from a previous call to ListServices.
@@ -5847,6 +5910,7 @@ pub struct ListServicesRequest {
     pub page_token: std::string::String,
 
     /// If true, returns deleted (but unexpired) resources along with active ones.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5999,6 +6063,7 @@ pub struct DeleteServiceRequest {
 
     /// Indicates that the request should be validated without actually
     /// deleting any resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// A system-generated fingerprint for this version of the
@@ -6074,6 +6139,7 @@ pub struct Service {
     /// modifies the desired state.
     /// Please note that unlike v1, this is an int64 value. As with most Google
     /// APIs, its JSON representation will be a `string` instead of an `integer`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -6165,9 +6231,11 @@ pub struct Service {
     /// of this service. This feature is available by invitation only. For more
     /// information, visit
     /// <https://cloud.google.com/run/docs/securing/managing-access#invoker_check>.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub invoker_iam_disabled: bool,
 
     /// Optional. Disables public resolution of the default URI of this service.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_uri_disabled: bool,
 
     /// Output only. All URLs serving traffic for this Service.
@@ -6187,6 +6255,7 @@ pub struct Service {
     /// process in Cloud Run. Please note that unlike v1, this is an int64 value.
     /// As with most Google APIs, its JSON representation will be a `string`
     /// instead of an `integer`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub observed_generation: i64,
 
@@ -6227,6 +6296,7 @@ pub struct Service {
     pub uri: std::string::String,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Optional. Configuration for building a Cloud Run function.
@@ -6255,6 +6325,7 @@ pub struct Service {
     /// `latest_ready_revision` will have the state of the last serving revision,
     /// or empty for newly created Services. Additional information on the failure
     /// can be found in `terminal_condition` and `conditions`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. A system-generated fingerprint for this version of the
@@ -6579,6 +6650,7 @@ impl wkt::message::Message for Service {
 #[non_exhaustive]
 pub struct RevisionScalingStatus {
     /// The current number of min instances provisioned for this revision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub desired_min_instance_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6651,6 +6723,7 @@ pub struct ListTasksRequest {
     pub parent: std::string::String,
 
     /// Maximum number of Tasks to return in this call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token received from a previous call to ListTasks.
@@ -6659,6 +6732,7 @@ pub struct ListTasksRequest {
     pub page_token: std::string::String,
 
     /// If true, returns deleted (but unexpired) resources along with active ones.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6781,6 +6855,7 @@ pub struct Task {
 
     /// Output only. A number that monotonically increases every time the user
     /// modifies the desired state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -6856,6 +6931,7 @@ pub struct Task {
     pub volumes: std::vec::Vec<crate::model::Volume>,
 
     /// Number of retries allowed per Task, before marking this Task failed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_retries: i32,
 
     /// Max allowed time duration the Task may be active before the system will
@@ -6877,6 +6953,7 @@ pub struct Task {
     /// Output only. Indicates whether the resource's reconciliation is still in
     /// progress. See comments in `Job.reconciling` for additional information on
     /// reconciliation process in Cloud Run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. The Condition of this Task, containing its readiness status,
@@ -6886,14 +6963,17 @@ pub struct Task {
 
     /// Output only. The generation of this Task. See comments in `Job.reconciling`
     /// for additional information on reconciliation process in Cloud Run.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub observed_generation: i64,
 
     /// Output only. Index of the Task, unique per execution, and beginning at 0.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub index: i32,
 
     /// Output only. The number of times this Task was retried.
     /// Tasks are retried when they fail up to the maxRetries limit.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retried: i32,
 
     /// Output only. Result of the last attempt of this Task.
@@ -6918,6 +6998,7 @@ pub struct Task {
     pub log_uri: std::string::String,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Output only. A system-generated fingerprint for this version of the
@@ -7204,6 +7285,7 @@ pub struct TaskAttemptResult {
     /// This may be unset if the container was unable to exit cleanly with a code
     /// due to some other failure.
     /// See status field for possible failure details.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exit_code: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7431,6 +7513,7 @@ pub struct TrafficTarget {
 
     /// Specifies percent of the traffic to this Revision.
     /// This defaults to zero if unspecified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub percent: i32,
 
     /// Indicates a string to be part of the URI to exclusively reference this
@@ -7496,6 +7579,7 @@ pub struct TrafficTargetStatus {
     pub revision: std::string::String,
 
     /// Specifies percent of the traffic to this Revision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub percent: i32,
 
     /// Indicates the string used in the URI to exclusively reference this target.
@@ -7880,12 +7964,14 @@ pub mod binary_authorization {
 pub struct RevisionScaling {
     /// Optional. Minimum number of serving instances that this resource should
     /// have.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_instance_count: i32,
 
     /// Optional. Maximum number of serving instances that this resource should
     /// have. When unspecified, the field is set to the server default value of
     /// 100. For more information see
     /// <https://cloud.google.com/run/docs/configuring/max-instances>
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_instance_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7961,6 +8047,7 @@ pub struct ServiceScaling {
     /// Optional. total min instances for the service. This number of instances is
     /// divided among all revisions with specified traffic based on the percent
     /// of traffic they are receiving.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_instance_count: i32,
 
     /// Optional. The scaling mode for the service.
@@ -8143,6 +8230,7 @@ pub struct BuildConfig {
 
     /// Optional. Sets whether the function will receive automatic base image
     /// updates.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_automatic_updates: bool,
 
     /// Optional. Name of the Cloud Build Custom Worker Pool that should be used to

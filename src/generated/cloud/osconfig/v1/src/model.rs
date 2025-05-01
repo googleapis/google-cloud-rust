@@ -1092,6 +1092,7 @@ pub mod inventory {
         pub update_id: std::string::String,
 
         /// The revision number of this update package.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub revision_number: i32,
 
         /// The last published date of the update, in (UTC) date and time.
@@ -1461,6 +1462,7 @@ pub struct ListInventoriesRequest {
     pub view: crate::model::InventoryView,
 
     /// The maximum number of results to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call to
@@ -1621,6 +1623,7 @@ pub struct OSPolicy {
     /// resource groups within the policy are applicable for a VM. Set this value
     /// to `true` if the policy needs to be reported as compliant even if the
     /// policy has nothing to validate or enforce.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_no_resource_group_match: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1944,6 +1947,7 @@ pub mod os_policy {
             ///
             /// Remote: A checksum must be specified.
             /// Cloud Storage: An object generation number must be specified.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub allow_insecure: bool,
 
             /// A specific type of file.
@@ -2151,6 +2155,7 @@ pub mod os_policy {
                 pub object: std::string::String,
 
                 /// Generation number of the Cloud Storage object.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 #[serde_as(as = "serde_with::DisplayFromStr")]
                 pub generation: i64,
 
@@ -2560,6 +2565,7 @@ pub mod os_policy {
                 /// - install when false: `dpkg -i package`
                 /// - install when true: `apt-get update && apt-get -y install
                 ///   package.deb`
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub pull_deps: bool,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2650,6 +2656,7 @@ pub mod os_policy {
                 /// - install when false: `rpm --upgrade --replacepkgs package.rpm`
                 /// - install when true: `yum -y install package.rpm` or
                 ///   `zypper -y install package.rpm`
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub pull_deps: bool,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4338,6 +4345,7 @@ pub struct ListOSPolicyAssignmentReportsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// If provided, this field specifies the criteria that must be met by the
@@ -5177,9 +5185,11 @@ pub struct OSPolicyAssignment {
     ///
     /// For a given OS policy assignment, there is only one revision with a value
     /// of `true` for this field.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub baseline: bool,
 
     /// Output only. Indicates that this revision deletes the OS policy assignment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deleted: bool,
 
     /// Output only. Indicates that reconciliation is in progress for the revision.
@@ -5187,6 +5197,7 @@ pub struct OSPolicyAssignment {
     ///
     /// * IN_PROGRESS
     /// * CANCELLING
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. Server generated unique id for the OS policy assignment
@@ -5376,6 +5387,7 @@ pub mod os_policy_assignment {
     pub struct InstanceFilter {
         /// Target all VMs in the project. If true, no other criteria is
         /// permitted.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub all: bool,
 
         /// List of label sets used for VM inclusion.
@@ -6036,6 +6048,7 @@ pub struct ListOSPolicyAssignmentsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of assignments to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call to
@@ -6150,6 +6163,7 @@ pub struct ListOSPolicyAssignmentRevisionsRequest {
     pub name: std::string::String,
 
     /// The maximum number of revisions to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call to
@@ -7172,6 +7186,7 @@ pub mod monthly_schedule {
 pub struct WeekDayOfMonth {
     /// Required. Week number in a month. 1-4 indicates the 1st to 4th week of the
     /// month. -1 indicates the last week of the month.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub week_ordinal: i32,
 
     /// Required. A day of the week.
@@ -7184,6 +7199,7 @@ pub struct WeekDayOfMonth {
     /// place three days after the second Tuesday of the month. If this value is
     /// negative, for example -5, the patches are deployed five days before before
     /// the second Tuesday of the month. Allowed values are in range [-30, 30].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day_offset: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7333,6 +7349,7 @@ pub struct ListPatchDeploymentsRequest {
 
     /// Optional. The maximum number of patch deployments to return. Default is
     /// 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
@@ -7620,6 +7637,7 @@ pub struct ExecutePatchJobRequest {
 
     /// If this patch is a dry-run only, instances are contacted but
     /// will do nothing.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dry_run: bool,
 
     /// Display name for this patch job. This does not have to be unique.
@@ -7754,6 +7772,7 @@ pub struct ListPatchJobInstanceDetailsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of instance details records to return.  Default is 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call
@@ -7894,6 +7913,7 @@ pub struct PatchJobInstanceDetails {
     pub failure_reason: std::string::String,
 
     /// The number of times the agent that the agent attempts to apply the patch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub attempt_count: i64,
 
@@ -7960,6 +7980,7 @@ pub struct ListPatchJobsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of instance status to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call
@@ -8133,6 +8154,7 @@ pub struct PatchJob {
 
     /// If this patch job is a dry run, the agent reports that it has
     /// finished without running any updates on the VM instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dry_run: bool,
 
     /// If this patch job failed, this message provides information about the
@@ -8142,6 +8164,7 @@ pub struct PatchJob {
 
     /// Reflects the overall progress of the patch job in the range of
     /// 0.0 being no progress to 100.0 being complete.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub percent_complete: f64,
 
     /// Output only. Name of the patch deployment that created this patch job.
@@ -8306,64 +8329,79 @@ pub mod patch_job {
     #[non_exhaustive]
     pub struct InstanceDetailsSummary {
         /// Number of instances pending patch job.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub pending_instance_count: i64,
 
         /// Number of instances that are inactive.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub inactive_instance_count: i64,
 
         /// Number of instances notified about patch job.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub notified_instance_count: i64,
 
         /// Number of instances that have started.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub started_instance_count: i64,
 
         /// Number of instances that are downloading patches.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub downloading_patches_instance_count: i64,
 
         /// Number of instances that are applying patches.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub applying_patches_instance_count: i64,
 
         /// Number of instances rebooting.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub rebooting_instance_count: i64,
 
         /// Number of instances that have completed successfully.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub succeeded_instance_count: i64,
 
         /// Number of instances that require reboot.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub succeeded_reboot_required_instance_count: i64,
 
         /// Number of instances that failed.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub failed_instance_count: i64,
 
         /// Number of instances that have acked and will start shortly.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub acked_instance_count: i64,
 
         /// Number of instances that exceeded the time out while applying the patch.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub timed_out_instance_count: i64,
 
         /// Number of instances that are running the pre-patch step.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub pre_patch_step_instance_count: i64,
 
         /// Number of instances that are running the post-patch step.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub post_patch_step_instance_count: i64,
 
         /// Number of instances that do not appear to be running the agent. Check to
         /// ensure that the agent is installed, running, and able to communicate with
         /// the service.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub no_agent_detected_instance_count: i64,
 
@@ -8618,6 +8656,7 @@ pub struct PatchConfig {
     pub post_step: std::option::Option<crate::model::ExecStep>,
 
     /// Allows the patch job to run on Managed instance groups (MIGs).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mig_instances_allowed: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9123,9 +9162,11 @@ pub mod apt_settings {
 pub struct YumSettings {
     /// Adds the `--security` flag to `yum update`. Not supported on
     /// all platforms.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub security: bool,
 
     /// Will cause patch to run `yum update-minimal` instead.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub minimal: bool,
 
     /// List of packages to exclude from update. These packages are excluded by
@@ -9220,9 +9261,11 @@ impl wkt::message::Message for GooSettings {
 #[non_exhaustive]
 pub struct ZypperSettings {
     /// Adds the `--with-optional` flag to `zypper patch`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub with_optional: bool,
 
     /// Adds the `--with-update` flag, to `zypper patch`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub with_update: bool,
 
     /// Install only patches with these categories.
@@ -9778,6 +9821,7 @@ pub struct GcsObject {
 
     /// Required. Generation number of the Cloud Storage object. This is used to
     /// ensure that the ExecStep specified by this PatchJob does not change.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation_number: i64,
 
@@ -9826,6 +9870,7 @@ impl wkt::message::Message for GcsObject {
 pub struct PatchInstanceFilter {
     /// Target all VM instances in the project. If true, no other criteria is
     /// permitted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub all: bool,
 
     /// Targets VM instances matching ANY of these GroupLabels. This allows
@@ -10323,6 +10368,7 @@ pub mod vulnerability_report {
 
             /// The CVSS V2 score of this vulnerability. CVSS V2 score is on a scale of
             /// 0 - 10 where 0 indicates low severity and 10 indicates high severity.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub cvss_v2_score: f32,
 
             /// The full description of the CVSSv3 for this vulnerability from NVD.
@@ -10604,6 +10650,7 @@ pub struct ListVulnerabilityReportsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call to
@@ -10729,14 +10776,17 @@ impl gax::paginator::internal::PageableResponse for ListVulnerabilityReportsResp
 pub struct CVSSv3 {
     /// The base score is a function of the base metric scores.
     /// <https://www.first.org/cvss/specification-document#Base-Metrics>
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub base_score: f32,
 
     /// The Exploitability sub-score equation is derived from the Base
     /// Exploitability metrics.
     /// <https://www.first.org/cvss/specification-document#2-1-Exploitability-Metrics>
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exploitability_score: f32,
 
     /// The Impact sub-score equation is derived from the Base Impact metrics.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub impact_score: f32,
 
     /// This metric reflects the context by which vulnerability exploitation is

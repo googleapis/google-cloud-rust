@@ -209,6 +209,7 @@ pub mod attribute_context {
         pub ip: std::string::String,
 
         /// The network port of the peer.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub port: i64,
 
@@ -524,6 +525,7 @@ pub mod attribute_context {
         pub time: std::option::Option<wkt::Timestamp>,
 
         /// The HTTP request size in bytes. If unknown, it must be -1.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub size: i64,
 
@@ -654,10 +656,12 @@ pub mod attribute_context {
     #[non_exhaustive]
     pub struct Response {
         /// The HTTP response status code, such as `200` and `404`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub code: i64,
 
         /// The HTTP response size in bytes. If unknown, it must be -1.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub size: i64,
 
@@ -973,6 +977,7 @@ pub struct AuditContext {
     pub scrubbed_response: std::option::Option<wkt::Struct>,
 
     /// Number of scrubbed response items.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scrubbed_response_item_count: i32,
 
     /// Audit resource name which is scrubbed.

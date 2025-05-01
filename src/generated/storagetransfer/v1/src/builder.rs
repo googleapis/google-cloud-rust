@@ -106,6 +106,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [project_id][crate::model::GetGoogleServiceAccountRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -154,6 +156,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [transfer_job][crate::model::CreateTransferJobRequest::transfer_job].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_transfer_job<T: Into<std::option::Option<crate::model::TransferJob>>>(
             mut self,
             v: T,
@@ -205,18 +209,24 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [job_name][crate::model::UpdateTransferJobRequest::job_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_name = v.into();
             self
         }
 
         /// Sets the value of [project_id][crate::model::UpdateTransferJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [transfer_job][crate::model::UpdateTransferJobRequest::transfer_job].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_transfer_job<T: Into<std::option::Option<crate::model::TransferJob>>>(
             mut self,
             v: T,
@@ -274,12 +284,16 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [job_name][crate::model::GetTransferJobRequest::job_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_name = v.into();
             self
         }
 
         /// Sets the value of [project_id][crate::model::GetTransferJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -343,6 +357,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [filter][crate::model::ListTransferJobsRequest::filter].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
@@ -403,6 +419,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [name][crate::model::PauseTransferOperationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -453,6 +471,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [name][crate::model::ResumeTransferOperationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -533,12 +553,16 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [job_name][crate::model::RunTransferJobRequest::job_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_name = v.into();
             self
         }
 
         /// Sets the value of [project_id][crate::model::RunTransferJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -587,12 +611,16 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [job_name][crate::model::DeleteTransferJobRequest::job_name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_job_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_name = v.into();
             self
         }
 
         /// Sets the value of [project_id][crate::model::DeleteTransferJobRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -638,12 +666,16 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [project_id][crate::model::CreateAgentPoolRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
         /// Sets the value of [agent_pool][crate::model::CreateAgentPoolRequest::agent_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_agent_pool<T: Into<std::option::Option<crate::model::AgentPool>>>(
             mut self,
             v: T,
@@ -653,6 +685,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [agent_pool_id][crate::model::CreateAgentPoolRequest::agent_pool_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_agent_pool_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.agent_pool_id = v.into();
             self
@@ -698,6 +732,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [agent_pool][crate::model::UpdateAgentPoolRequest::agent_pool].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_agent_pool<T: Into<std::option::Option<crate::model::AgentPool>>>(
             mut self,
             v: T,
@@ -755,6 +791,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [name][crate::model::GetAgentPoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -815,6 +853,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [project_id][crate::model::ListAgentPoolsRequest::project_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
@@ -878,6 +918,8 @@ pub mod storage_transfer_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteAgentPoolRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

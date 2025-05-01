@@ -315,15 +315,18 @@ pub mod execution {
         #[non_exhaustive]
         pub struct Position {
             /// The source code line number the current instruction was generated from.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub line: i64,
 
             /// The source code column position (of the line) the current instruction
             /// was generated from.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub column: i64,
 
             /// The number of bytes of source code making up this stack trace element.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub length: i64,
 
@@ -813,6 +816,7 @@ pub struct ListExecutionsRequest {
     /// BASIC and 100 for FULL. The default value used if the field is not
     /// specified is 100, regardless of the selected view. Values greater than
     /// the max value will be coerced down to it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListExecutions` call.

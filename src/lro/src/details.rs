@@ -24,8 +24,8 @@ pub(crate) fn handle_start<R, M>(
     result: Result<Operation<R, M>>,
 ) -> (Option<String>, PollingResult<R, M>)
 where
-    R: wkt::message::Message + serde::de::DeserializeOwned,
-    M: wkt::message::Message + serde::de::DeserializeOwned,
+    R: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+    M: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
     match result {
         Err(e) => (None, PollingResult::Completed(Err(e))),
@@ -41,8 +41,8 @@ pub(crate) fn handle_poll<R, M>(
     result: Result<Operation<R, M>>,
 ) -> (Option<String>, PollingResult<R, M>)
 where
-    R: wkt::message::Message + serde::de::DeserializeOwned,
-    M: wkt::message::Message + serde::de::DeserializeOwned,
+    R: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+    M: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
     match result {
         Err(e) => {
@@ -85,8 +85,8 @@ where
 
 fn handle_common<R, M>(op: Operation<R, M>) -> (Option<String>, PollingResult<R, M>)
 where
-    R: wkt::message::Message + serde::de::DeserializeOwned,
-    M: wkt::message::Message + serde::de::DeserializeOwned,
+    R: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+    M: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
     if op.done() {
         let result = as_result(op);
@@ -99,7 +99,7 @@ where
 
 fn as_result<R, M>(op: Operation<R, M>) -> Result<R>
 where
-    R: wkt::message::Message + serde::de::DeserializeOwned,
+    R: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
     M: wkt::message::Message + serde::de::DeserializeOwned,
 {
     if let Some(any) = op.response() {
@@ -114,7 +114,7 @@ where
 fn as_metadata<R, M>(op: Operation<R, M>) -> Option<M>
 where
     R: wkt::message::Message + serde::de::DeserializeOwned,
-    M: wkt::message::Message + serde::de::DeserializeOwned,
+    M: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
     op.metadata().and_then(|a| a.try_into_message::<M>().ok())
 }

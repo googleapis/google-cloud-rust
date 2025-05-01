@@ -477,6 +477,7 @@ pub struct ListPoliciesRequest {
 
     /// The maximum number of policies to return. IAM ignores this value and uses
     /// the value 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token received in a [ListPoliciesResponse][google.iam.v2.ListPoliciesResponse]. Provide this token to

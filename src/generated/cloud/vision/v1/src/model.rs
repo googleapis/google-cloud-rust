@@ -42,9 +42,11 @@ extern crate wkt;
 #[non_exhaustive]
 pub struct Vertex {
     /// X coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub x: i32,
 
     /// Y coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub y: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -84,9 +86,11 @@ impl wkt::message::Message for Vertex {
 #[non_exhaustive]
 pub struct NormalizedVertex {
     /// X coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub x: f32,
 
     /// Y coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub y: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -178,12 +182,15 @@ impl wkt::message::Message for BoundingPoly {
 #[non_exhaustive]
 pub struct Position {
     /// X coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub x: f32,
 
     /// Y coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub y: f32,
 
     /// Z coordinate (or depth).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub z: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -234,6 +241,7 @@ pub struct Feature {
 
     /// Maximum number of results of this type. Does not apply to
     /// `TEXT_DETECTION`, `DOCUMENT_TEXT_DETECTION`, or `CROP_HINTS`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_results: i32,
 
     /// Model to use for the feature.
@@ -546,21 +554,26 @@ pub struct FaceAnnotation {
     /// Roll angle, which indicates the amount of clockwise/anti-clockwise rotation
     /// of the face relative to the image vertical about the axis perpendicular to
     /// the face. Range [-180,180].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub roll_angle: f32,
 
     /// Yaw angle, which indicates the leftward/rightward angle that the face is
     /// pointing relative to the vertical plane perpendicular to the image. Range
     /// [-180,180].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pan_angle: f32,
 
     /// Pitch angle, which indicates the upwards/downwards angle that the face is
     /// pointing relative to the image's horizontal plane. Range [-180,180].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tilt_angle: f32,
 
     /// Detection confidence. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub detection_confidence: f32,
 
     /// Face landmarking confidence. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub landmarking_confidence: f32,
 
     /// Joy likelihood.
@@ -1092,6 +1105,7 @@ pub struct Property {
     pub value: std::string::String,
 
     /// Value of numeric properties.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub uint64_value: u64,
 
@@ -1151,6 +1165,7 @@ pub struct EntityAnnotation {
     pub description: std::string::String,
 
     /// Overall score of the result. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub score: f32,
 
     /// **Deprecated. Use `score` instead.**
@@ -1158,6 +1173,7 @@ pub struct EntityAnnotation {
     /// For example, for an image in which the "Eiffel Tower" entity is detected,
     /// this field represents the confidence that there is a tower in the query
     /// image. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// The relevancy of the ICA (Image Content Annotation) label to the
@@ -1165,6 +1181,7 @@ pub struct EntityAnnotation {
     /// containing the detected "Eiffel Tower" than to an image containing a
     /// detected distant towering building, even though the confidence that
     /// there is a tower in each image may be the same. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub topicality: f32,
 
     /// Image region to which this entity belongs. Not produced
@@ -1291,6 +1308,7 @@ pub struct LocalizedObjectAnnotation {
     pub name: std::string::String,
 
     /// Score of the result. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub score: f32,
 
     /// Image region to which this object belongs. This must be populated.
@@ -1486,10 +1504,12 @@ pub struct ColorInfo {
     pub color: std::option::Option<gtype::model::Color>,
 
     /// Image-specific score for this color. Value in range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub score: f32,
 
     /// The fraction of pixels the color occupies in the image.
     /// Value in range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pixel_fraction: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1615,10 +1635,12 @@ pub struct CropHint {
     pub bounding_poly: std::option::Option<crate::model::BoundingPoly>,
 
     /// Confidence of this being a salient region.  Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// Fraction of importance of this salient region with respect to the original
     /// image.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub importance_fraction: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1746,6 +1768,7 @@ impl wkt::message::Message for CropHintsParams {
 #[non_exhaustive]
 pub struct WebDetectionParams {
     /// This field has no effect on results.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_geo_results: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1780,6 +1803,7 @@ pub struct TextDetectionParams {
     /// By default, Cloud Vision API only includes confidence score for
     /// DOCUMENT_TEXT_DETECTION result. Set the flag to true to include confidence
     /// score for TEXT_DETECTION as well.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_text_detection_confidence_score: bool,
 
     /// A list of advanced OCR options to further fine-tune OCR behavior.
@@ -2026,6 +2050,7 @@ pub struct ImageAnnotationContext {
 
     /// If the file was a PDF or TIFF, this field gives the page number within
     /// the file used to produce the image.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_number: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2521,6 +2546,7 @@ pub struct AnnotateFileResponse {
     pub responses: std::vec::Vec<crate::model::AnnotateImageResponse>,
 
     /// This field gives the total number of pages in the file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_pages: i32,
 
     /// If set, represents the error message for the failed request. The
@@ -3150,6 +3176,7 @@ pub struct OutputConfig {
     ///
     /// Currently, batch_size only applies to GcsDestination, with potential future
     /// support for other output configurations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub batch_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3584,6 +3611,7 @@ pub mod product_search_results {
 
         /// A confidence level on the match, ranging from 0 (no confidence) to
         /// 1 (full confidence).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub score: f32,
 
         /// The resource name of the image from the product that is the closest match
@@ -3649,6 +3677,7 @@ pub mod product_search_results {
         pub name: std::string::String,
 
         /// Score of the result. Range [0, 1].
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub score: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4148,6 +4177,7 @@ pub struct ListProductsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return. Default 10, maximum 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
@@ -4448,6 +4478,7 @@ pub struct ListProductSetsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return. Default 10, maximum 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
@@ -4755,6 +4786,7 @@ pub struct ListReferenceImagesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return. Default 10, maximum 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results to be returned. This is the value
@@ -4809,6 +4841,7 @@ pub struct ListReferenceImagesResponse {
     pub reference_images: std::vec::Vec<crate::model::ReferenceImage>,
 
     /// The maximum number of items to return. Default 10, maximum 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
@@ -5049,6 +5082,7 @@ pub struct ListProductsInProductSetRequest {
     pub name: std::string::String,
 
     /// The maximum number of items to return. Default 10, maximum 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token returned from a previous List request, if any.
@@ -5647,6 +5681,7 @@ pub struct PurgeProductsRequest {
 
     /// The default value is false. Override this value to true to actually perform
     /// the purge.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     /// The Products to delete.
@@ -5844,6 +5879,7 @@ pub mod text_annotation {
         pub language_code: std::string::String,
 
         /// Confidence of detected language. Range [0, 1].
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub confidence: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5888,6 +5924,7 @@ pub mod text_annotation {
         pub r#type: crate::model::text_annotation::detected_break::BreakType,
 
         /// True if break prepends the element.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub is_prefix: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6067,10 +6104,12 @@ pub struct Page {
 
     /// Page width. For PDFs the unit is points. For images (including
     /// TIFFs) the unit is pixels.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub width: i32,
 
     /// Page height. For PDFs the unit is points. For images (including
     /// TIFFs) the unit is pixels.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub height: i32,
 
     /// List of blocks of text, images etc on this page.
@@ -6078,6 +6117,7 @@ pub struct Page {
     pub blocks: std::vec::Vec<crate::model::Block>,
 
     /// Confidence of the OCR results on the page. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6182,6 +6222,7 @@ pub struct Block {
     pub block_type: crate::model::block::BlockType,
 
     /// Confidence of the OCR results on the block. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6360,6 +6401,7 @@ pub struct Paragraph {
     pub words: std::vec::Vec<crate::model::Word>,
 
     /// Confidence of the OCR results for the paragraph. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6452,6 +6494,7 @@ pub struct Word {
     pub symbols: std::vec::Vec<crate::model::Symbol>,
 
     /// Confidence of the OCR results for the word. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6543,6 +6586,7 @@ pub struct Symbol {
     pub text: std::string::String,
 
     /// Confidence of the OCR results for the symbol. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6728,6 +6772,7 @@ pub mod web_detection {
 
         /// Overall relevancy score for the entity.
         /// Not normalized and not comparable across different image queries.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub score: f32,
 
         /// Canonical description of the entity, in English.
@@ -6779,6 +6824,7 @@ pub mod web_detection {
         pub url: std::string::String,
 
         /// (Deprecated) Overall relevancy score for the image.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub score: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6820,6 +6866,7 @@ pub mod web_detection {
         pub url: std::string::String,
 
         /// (Deprecated) Overall relevancy score for the web page.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub score: f32,
 
         /// Title for the web page, may contain HTML markups.

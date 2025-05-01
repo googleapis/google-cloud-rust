@@ -47,6 +47,7 @@ pub struct ListLocationsRequest {
     pub filter: std::string::String,
 
     /// The standard list page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The standard list page token.

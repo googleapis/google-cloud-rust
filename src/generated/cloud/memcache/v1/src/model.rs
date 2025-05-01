@@ -79,6 +79,7 @@ pub struct Instance {
     pub zones: std::vec::Vec<std::string::String>,
 
     /// Required. Number of nodes in the Memcached instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub node_count: i32,
 
     /// Required. Configuration for Memcached nodes.
@@ -335,9 +336,11 @@ pub mod instance {
     #[non_exhaustive]
     pub struct NodeConfig {
         /// Required. Number of cpus per Memcached node.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub cpu_count: i32,
 
         /// Required. Memory size in MiB for each Memcached node.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub memory_size_mb: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -391,6 +394,7 @@ pub mod instance {
         pub host: std::string::String,
 
         /// Output only. The port number of the Memcached server on this node.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub port: i32,
 
         /// User defined parameters currently applied to the node.
@@ -1062,6 +1066,7 @@ pub struct ListInstancesRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.memcache.v1.ListInstancesResponse.next_page_token]: crate::model::ListInstancesResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The `next_page_token` value returned from a previous List request, if any.
@@ -1419,6 +1424,7 @@ pub struct ApplyParametersRequest {
     /// Whether to apply instance-level parameter group to all nodes. If set to
     /// true, users are restricted from specifying individual nodes, and
     /// `ApplyParameters` updates all nodes within the instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub apply_all: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1606,6 +1612,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cancel_requested: bool,
 
     /// Output only. API version used to start the operation.

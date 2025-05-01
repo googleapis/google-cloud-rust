@@ -142,12 +142,16 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkloadRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [workload][crate::model::CreateWorkloadRequest::workload].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workload<T: Into<std::option::Option<crate::model::Workload>>>(
             mut self,
             v: T,
@@ -202,6 +206,8 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [workload][crate::model::UpdateWorkloadRequest::workload].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_workload<T: Into<std::option::Option<crate::model::Workload>>>(
             mut self,
             v: T,
@@ -211,6 +217,8 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -264,12 +272,16 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [name][crate::model::RestrictAllowedResourcesRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [restriction_type][crate::model::RestrictAllowedResourcesRequest::restriction_type].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_restriction_type<
             T: Into<crate::model::restrict_allowed_resources_request::RestrictionType>,
         >(
@@ -320,6 +332,8 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkloadRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -371,6 +385,8 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [name][crate::model::GetWorkloadRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -431,6 +447,8 @@ pub mod assured_workloads_service {
         }
 
         /// Sets the value of [parent][crate::model::ListWorkloadsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self

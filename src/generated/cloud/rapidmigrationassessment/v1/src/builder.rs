@@ -139,18 +139,24 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [parent][crate::model::CreateCollectorRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [collector_id][crate::model::CreateCollectorRequest::collector_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_collector_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.collector_id = v.into();
             self
         }
 
         /// Sets the value of [collector][crate::model::CreateCollectorRequest::collector].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_collector<T: Into<std::option::Option<crate::model::Collector>>>(
             mut self,
             v: T,
@@ -246,12 +252,16 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [parent][crate::model::CreateAnnotationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_annotation<T: Into<std::option::Option<crate::model::Annotation>>>(
             mut self,
             v: T,
@@ -306,6 +316,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [name][crate::model::GetAnnotationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -366,6 +378,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [parent][crate::model::ListCollectorsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -435,6 +449,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [name][crate::model::GetCollectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -518,6 +534,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -527,6 +545,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [collector][crate::model::UpdateCollectorRequest::collector].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_collector<T: Into<std::option::Option<crate::model::Collector>>>(
             mut self,
             v: T,
@@ -619,6 +639,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [name][crate::model::DeleteCollectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -708,6 +730,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [name][crate::model::ResumeCollectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -800,6 +824,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [name][crate::model::RegisterCollectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -889,6 +915,8 @@ pub mod rapid_migration_assessment {
         }
 
         /// Sets the value of [name][crate::model::PauseCollectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

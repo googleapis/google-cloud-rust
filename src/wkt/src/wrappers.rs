@@ -119,11 +119,10 @@ macro_rules! impl_message {
             fn typename() -> &'static str {
                 concat!("type.googleapis.com/google.protobuf.", stringify!($t))
             }
-            fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-                crate::message::to_json_other(self)
-            }
-            fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
-                crate::message::from_other(map)
+
+            #[allow(private_interfaces)]
+            fn serializer() -> impl crate::message::MessageSerializer<Self> {
+                crate::message::ValueSerializer::<Self>::new()
             }
         }
     };
@@ -157,10 +156,27 @@ impl crate::message::Message for UInt64Value {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.UInt64Value"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-        encode_string::<Self>(self.to_string())
+
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self> {
+        UInt64ValueSerializer
     }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
+}
+
+struct UInt64ValueSerializer;
+
+impl crate::message::MessageSerializer<UInt64Value> for UInt64ValueSerializer {
+    fn serialize_to_map(
+        &self,
+        message: &UInt64Value,
+    ) -> Result<crate::message::Map, crate::AnyError> {
+        encode_string::<UInt64Value>(message.to_string())
+    }
+
+    fn deserialize_from_map(
+        &self,
+        map: &crate::message::Map,
+    ) -> Result<UInt64Value, crate::AnyError> {
         map.get("value")
             .ok_or_else(crate::message::missing_value_field)?
             .as_str()
@@ -174,10 +190,30 @@ impl crate::message::Message for Int64Value {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Int64Value"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-        encode_string::<Self>(self.to_string())
+
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self>
+    where
+        Self: Sized + serde::ser::Serialize,
+    {
+        Int64ValueSerializer
     }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
+}
+
+struct Int64ValueSerializer;
+
+impl crate::message::MessageSerializer<Int64Value> for Int64ValueSerializer {
+    fn serialize_to_map(
+        &self,
+        message: &Int64Value,
+    ) -> Result<crate::message::Map, crate::AnyError> {
+        encode_string::<Int64Value>(message.to_string())
+    }
+
+    fn deserialize_from_map(
+        &self,
+        map: &crate::message::Map,
+    ) -> Result<Int64Value, crate::AnyError> {
         map.get("value")
             .ok_or_else(crate::message::missing_value_field)?
             .as_str()
@@ -191,10 +227,27 @@ impl crate::message::Message for BytesValue {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.BytesValue"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
-        encode_string::<Self>(STANDARD.encode(self))
+
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self> {
+        BytesValueSerializer
     }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
+}
+
+struct BytesValueSerializer;
+
+impl crate::message::MessageSerializer<BytesValue> for BytesValueSerializer {
+    fn serialize_to_map(
+        &self,
+        message: &BytesValue,
+    ) -> Result<crate::message::Map, crate::AnyError> {
+        encode_string::<BytesValue>(STANDARD.encode(message))
+    }
+
+    fn deserialize_from_map(
+        &self,
+        map: &crate::message::Map,
+    ) -> Result<BytesValue, crate::AnyError> {
         let s = map
             .get("value")
             .ok_or_else(crate::message::missing_value_field)?
@@ -215,7 +268,7 @@ fn expected_string_value() -> crate::AnyError {
 mod test {
     use super::*;
     use crate::Any;
-    use crate::message::Message;
+    use crate::message::{Message, MessageSerializer};
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
     use test_case::test_case;
 
@@ -263,8 +316,8 @@ mod test {
     #[test_case(DoubleValue::default(), BytesValue::default())]
     fn test_wrapper_in_any_with_bad_typenames<T, U>(from: T, _into: U) -> Result
     where
-        T: Message + std::fmt::Debug + serde::ser::Serialize,
-        U: Message + std::fmt::Debug + serde::de::DeserializeOwned,
+        T: Message + std::fmt::Debug + serde::ser::Serialize + serde::de::DeserializeOwned,
+        U: Message + std::fmt::Debug + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
         let any = Any::try_from(&from)?;
         assert!(any.try_into_message::<U>().is_err());
@@ -281,7 +334,10 @@ mod test {
             "@type": format!("type.googleapis.com/google.protobuf.{}", typename),
             "value": 0,
         });
-        let e = T::from_map(map.as_object().unwrap());
+
+        let serializer = T::serializer();
+        let e = serializer.deserialize_from_map(map.as_object().unwrap());
+
         assert!(e.is_err());
         let fmt = format!("{:?}", e);
         assert!(fmt.contains("expected value field to be a string"), "{fmt}");
@@ -294,7 +350,14 @@ mod test {
             "@type": "type.googleapis.com/google.protobuf.BytesValue",
             "value": "Oops, I forgot to base64 encode this.",
         });
-        assert!(BytesValue::from_map(map.as_object().unwrap()).is_err());
+
+        let serializer = BytesValue::serializer();
+        assert!(
+            serializer
+                .deserialize_from_map(map.as_object().unwrap())
+                .is_err()
+        );
+
         Ok(())
     }
 }

@@ -801,12 +801,14 @@ pub mod create_cluster_metadata {
     #[non_exhaustive]
     pub struct TableProgress {
         /// Estimate of the size of the table to be copied.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub estimated_size_bytes: i64,
 
         /// Estimate of the number of bytes copied so far for this table.
         /// This will eventually reach 'estimated_size_bytes' unless the table copy
         /// is CANCELLED.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub estimated_copied_bytes: i64,
 
@@ -1123,6 +1125,7 @@ pub struct CreateAppProfileRequest {
     pub app_profile: std::option::Option<crate::model::AppProfile>,
 
     /// If true, ignore safety checks when creating the app profile.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_warnings: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1224,6 +1227,7 @@ pub struct ListAppProfilesRequest {
     /// Following the first request, subsequent paginated calls are not required
     /// to pass a page_size. If a page_size is set in subsequent calls, it must
     /// match the page_size given in the first request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value of `next_page_token` returned by a previous call.
@@ -1361,6 +1365,7 @@ pub struct UpdateAppProfileRequest {
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
     /// If true, ignore safety checks when updating the app profile.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_warnings: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1416,6 +1421,7 @@ pub struct DeleteAppProfileRequest {
     pub name: std::string::String,
 
     /// Required. If true, ignore safety checks when deleting the app profile.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_warnings: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1502,6 +1508,7 @@ pub struct ListHotTabletsRequest {
     /// Following the first request, subsequent paginated calls do not need a
     /// page_size field. If a page_size is set in subsequent calls, it must match
     /// the page_size given in the first request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value of `next_page_token` returned by a previous call.
@@ -1797,6 +1804,7 @@ pub struct ListLogicalViewsRequest {
 
     /// Optional. The maximum number of logical views to return. The service may
     /// return fewer than this value
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListLogicalViews` call.
@@ -2242,6 +2250,7 @@ pub struct ListMaterializedViewsRequest {
 
     /// Optional. The maximum number of materialized views to return. The service
     /// may return fewer than this value
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListMaterializedViews`
@@ -3171,6 +3180,7 @@ pub struct ListTablesRequest {
     /// Following the first request, subsequent paginated calls are not required
     /// to pass a page_size. If a page_size is set in subsequent calls, it must
     /// match the page_size given in the first request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value of `next_page_token` returned by a previous call.
@@ -3361,6 +3371,7 @@ pub struct UpdateTableRequest {
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
     /// Optional. If true, ignore safety checks when updating the table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_warnings: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3622,6 +3633,7 @@ pub struct ModifyColumnFamiliesRequest {
     pub modifications: std::vec::Vec<crate::model::modify_column_families_request::Modification>,
 
     /// Optional. If true, ignore safety checks when modifying the column families.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_warnings: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4129,6 +4141,7 @@ impl wkt::message::Message for DataBoostReadLocalWrites {
 pub struct CheckConsistencyResponse {
     /// True only if the token is consistent. A token is consistent if replication
     /// has caught up with the restrictions specified in the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub consistent: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4312,6 +4325,7 @@ pub struct ListSnapshotsRequest {
 
     /// The maximum number of snapshots to return per page.
     /// CURRENTLY UNIMPLEMENTED AND IGNORED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value of `next_page_token` returned by a previous call.
@@ -4952,6 +4966,7 @@ pub struct ListBackupsRequest {
 
     /// Number of backups to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -5390,6 +5405,7 @@ pub struct ListAuthorizedViewsRequest {
     /// Following the first request, subsequent paginated calls are not required
     /// to pass a page_size. If a page_size is set in subsequent calls, it must
     /// match the page_size given in the first request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of `next_page_token` returned by a previous call.
@@ -5587,6 +5603,7 @@ pub struct UpdateAuthorizedViewRequest {
 
     /// Optional. If true, ignore the safety checks when updating the
     /// AuthorizedView.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_warnings: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5757,6 +5774,7 @@ impl wkt::message::Message for DeleteAuthorizedViewRequest {
 pub struct OperationProgress {
     /// Percent completion of the operation.
     /// Values are between 0 and 100 inclusive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percent: i32,
 
     /// Time the request was received.
@@ -6081,6 +6099,7 @@ pub struct AutoscalingTargets {
     /// This number is on a scale from 0 (no utilization) to
     /// 100 (total utilization), and is limited between 10 and 80, otherwise it
     /// will return INVALID_ARGUMENT error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cpu_utilization_percent: i32,
 
     /// The storage utilization that the Autoscaler should be trying to achieve.
@@ -6089,6 +6108,7 @@ pub struct AutoscalingTargets {
     /// otherwise it will return INVALID_ARGUMENT error. If this value is set to 0,
     /// it will be treated as if it were set to the default value: 2560 for SSD,
     /// 8192 for HDD.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub storage_utilization_gib_per_node: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6129,9 +6149,11 @@ impl wkt::message::Message for AutoscalingTargets {
 #[non_exhaustive]
 pub struct AutoscalingLimits {
     /// Required. Minimum number of nodes to scale down to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_serve_nodes: i32,
 
     /// Required. Maximum number of nodes to scale up to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_serve_nodes: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6191,6 +6213,7 @@ pub struct Cluster {
     /// The number of nodes in the cluster. If no value is set,
     /// Cloud Bigtable automatically allocates nodes based on your data footprint
     /// and optimized for 50% storage utilization.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub serve_nodes: i32,
 
     /// Immutable. The node scaling factor of this cluster.
@@ -7049,6 +7072,7 @@ pub mod app_profile {
         /// Whether or not `CheckAndMutateRow` and `ReadModifyWriteRow` requests are
         /// allowed by this app profile. It is unsafe to send these requests to
         /// the same table/row/column in multiple clusters.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub allow_transactional_writes: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7352,6 +7376,7 @@ pub struct HotTablet {
     /// start_time to end_time time range. The percentage is the amount of CPU used
     /// by the node to serve the tablet, from 0% (tablet was not interacted with)
     /// to 100% (the node spent all cycles serving the hot tablet).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub node_cpu_usage_percent: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7499,6 +7524,7 @@ pub struct MaterializedView {
     pub etag: std::string::String,
 
     /// Set to true to make the MaterializedView protected against deletion.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deletion_protection: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7725,6 +7751,7 @@ pub struct Table {
     /// * The instance containing the table.
     ///
     /// Note one can still delete the data stored in the table through Data APIs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deletion_protection: bool,
 
     /// The row key schema for this table. The schema is used to decode the raw row
@@ -8291,6 +8318,7 @@ pub struct AuthorizedView {
     /// Set to true to make the AuthorizedView protected against deletion.
     /// The parent Table and containing Instance cannot be deleted if an
     /// AuthorizedView has this bit set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deletion_protection: bool,
 
     /// The type of this AuthorizedView.
@@ -9037,6 +9065,7 @@ pub struct Snapshot {
     /// snapshot was taken. In some cases, this value may be computed
     /// asynchronously via a background process and a placeholder of 0 will be used
     /// in the meantime.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub data_size_bytes: i64,
 
@@ -9248,6 +9277,7 @@ pub struct Backup {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Size of the backup in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_bytes: i64,
 

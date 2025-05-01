@@ -45,6 +45,7 @@ pub struct ListCertificateIssuanceConfigsRequest {
     pub parent: std::string::String,
 
     /// Maximum number of certificate configs to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListCertificateIssuanceConfigsResponse`.
@@ -356,6 +357,7 @@ pub struct CertificateIssuanceConfig {
     /// Required. Specifies the percentage of elapsed time of the certificate
     /// lifetime to wait before renewing the certificate. Must be a number between
     /// 1-99, inclusive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rotation_window_percentage: i32,
 
     /// Required. The key algorithm to use when generating the private key.
@@ -648,6 +650,7 @@ pub struct ListCertificatesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of certificates to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListCertificatesResponse`. Indicates that
@@ -978,6 +981,7 @@ pub struct ListCertificateMapsRequest {
     pub parent: std::string::String,
 
     /// Maximum number of certificate maps to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListCertificateMapsResponse`. Indicates
@@ -1315,6 +1319,7 @@ pub struct ListCertificateMapEntriesRequest {
     /// fewer than this value.
     /// If unspecified, at most 50 certificate map entries will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListCertificateMapEntriesResponse`.
@@ -1649,6 +1654,7 @@ pub struct ListDnsAuthorizationsRequest {
     pub parent: std::string::String,
 
     /// Maximum number of dns authorizations to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListDnsAuthorizationsResponse`. Indicates
@@ -2003,6 +2009,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// API version used to start the operation.
@@ -3752,6 +3759,7 @@ pub struct ListTrustConfigsRequest {
     pub parent: std::string::String,
 
     /// Maximum number of TrustConfigs to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListTrustConfigsResponse`. Indicates

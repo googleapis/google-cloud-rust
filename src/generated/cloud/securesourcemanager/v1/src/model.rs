@@ -257,6 +257,7 @@ pub mod instance {
     #[non_exhaustive]
     pub struct PrivateConfig {
         /// Required. Immutable. Indicate if it's private instance.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub is_private: bool,
 
         /// Required. Immutable. CA pool resource, resource must in the format of
@@ -905,29 +906,36 @@ pub struct BranchRule {
     pub include_pattern: std::string::String,
 
     /// Optional. Determines if the branch rule is disabled or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Optional. Determines if the branch rule requires a pull request or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_pull_request: bool,
 
     /// Optional. The minimum number of reviews required for the branch rule to be
     /// matched.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub minimum_reviews_count: i32,
 
     /// Optional. The minimum number of approvals required for the branch rule to
     /// be matched.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub minimum_approvals_count: i32,
 
     /// Optional. Determines if require comments resolved before merging to the
     /// branch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_comments_resolved: bool,
 
     /// Optional. Determines if allow stale reviews or approvals before merging to
     /// the branch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_stale_reviews: bool,
 
     /// Optional. Determines if require linear history before merging to the
     /// branch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_linear_history: bool,
 
     /// Optional. List of required status checks before merging to the branch.
@@ -1107,6 +1115,7 @@ pub struct ListInstancesRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -1438,6 +1447,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1520,6 +1530,7 @@ pub struct ListRepositoriesRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -1752,6 +1763,7 @@ pub struct DeleteRepositoryRequest {
 
     /// Optional. If set to true, and the repository is not found, the request will
     /// succeed but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1877,6 +1889,7 @@ pub struct ListBranchRulesRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -1927,6 +1940,7 @@ pub struct DeleteBranchRuleRequest {
 
     /// Optional. If set to true, and the branch rule is not found, the request
     /// will succeed but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1968,6 +1982,7 @@ pub struct UpdateBranchRuleRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually post it.  (<https://google.aip.dev/163>, for declarative friendly)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Required. Field mask is used to specify the fields to be overwritten in the

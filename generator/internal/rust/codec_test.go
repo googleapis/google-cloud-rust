@@ -407,7 +407,7 @@ func TestFieldAttributes(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"f_int64":          `#[serde_as(as = "serde_with::DisplayFromStr")]`,
+		"f_int64":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]` + "\n" + `#[serde_as(as = "serde_with::DisplayFromStr")]`,
 		"f_int64_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
 		"f_int64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
 

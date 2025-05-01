@@ -172,6 +172,7 @@ pub struct Method {
     pub request_type_url: std::string::String,
 
     /// If true, the request is streamed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub request_streaming: bool,
 
     /// The URL of the output message type.
@@ -179,6 +180,7 @@ pub struct Method {
     pub response_type_url: std::string::String,
 
     /// If true, the response is streamed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub response_streaming: bool,
 
     /// Any metadata attached to the method.
@@ -789,8 +791,10 @@ pub mod descriptor_proto {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct ExtensionRange {
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub start: i32,
 
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub end: i32,
 
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -843,8 +847,10 @@ pub mod descriptor_proto {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct ReservedRange {
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub start: i32,
 
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub end: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -969,6 +975,7 @@ pub mod extension_range_options {
     #[non_exhaustive]
     pub struct Declaration {
         /// The extension number declared within the extension range.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub number: i32,
 
         /// The fully-qualified name of the extension field. There must be a leading
@@ -986,10 +993,12 @@ pub mod extension_range_options {
         /// If true, indicates that the number is reserved in the extension range,
         /// and any extension field with the number will fail to compile. Set this
         /// when a declared extension field is deleted.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub reserved: bool,
 
         /// If true, indicates that the extension must be defined as repeated.
         /// Otherwise the extension must be defined as optional.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub repeated: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1099,6 +1108,7 @@ pub struct FieldDescriptorProto {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub number: i32,
 
     pub label: crate::field_descriptor_proto::Label,
@@ -1130,6 +1140,7 @@ pub struct FieldDescriptorProto {
 
     /// If set, gives the index of a oneof in the containing type's oneof_decl
     /// list.  This field is a member of that oneof.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub oneof_index: i32,
 
     /// JSON name of this field. The value is set by protocol compiler. If the
@@ -1163,6 +1174,7 @@ pub struct FieldDescriptorProto {
     ///
     /// Proto2 optional fields do not set this flag, because they already indicate
     /// optional with `LABEL_OPTIONAL`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub proto3_optional: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1593,8 +1605,10 @@ pub mod enum_descriptor_proto {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct EnumReservedRange {
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub start: i32,
 
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub end: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1635,6 +1649,7 @@ pub struct EnumValueDescriptorProto {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub number: i32,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1755,9 +1770,11 @@ pub struct MethodDescriptorProto {
     pub options: std::option::Option<crate::MethodOptions>,
 
     /// Identifies if client streams multiple client messages
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub client_streaming: bool,
 
     /// Identifies if server streams multiple server messages
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub server_streaming: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1841,9 +1858,11 @@ pub struct FileOptions {
     /// named by java_outer_classname.  However, the wrapper class will still be
     /// generated to contain the file's getDescriptor() method as well as any
     /// top-level extensions defined in the file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub java_multiple_files: bool,
 
     /// This option does nothing.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub java_generate_equals_and_hash: bool,
 
     /// A proto2 file can set this to true to opt in to UTF-8 checking for Java,
@@ -1856,6 +1875,7 @@ pub struct FileOptions {
     /// Proto3 files already perform these checks. Setting the option explicitly to
     /// false has no effect: it cannot be used to opt proto3 files out of UTF-8
     /// checks.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub java_string_check_utf8: bool,
 
     pub optimize_for: crate::file_options::OptimizeMode,
@@ -1879,20 +1899,25 @@ pub struct FileOptions {
     /// that generate code specific to your particular RPC system.  Therefore,
     /// these default to false.  Old code which depends on generic services should
     /// explicitly set them to true.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cc_generic_services: bool,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub java_generic_services: bool,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub py_generic_services: bool,
 
     /// Is this file deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for everything in the file, or it will be completely ignored; in the very
     /// least, this is a formalization for deprecating files.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deprecated: bool,
 
     /// Enables the use of arenas for the proto messages in this file. This applies
     /// only to generated classes for C++.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cc_enable_arenas: bool,
 
     /// Sets the objective c class prefix which is prepended to all objective c
@@ -2195,17 +2220,20 @@ pub struct MessageOptions {
     ///
     /// Because this is an option, the above two restrictions are not enforced by
     /// the protocol compiler.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub message_set_wire_format: bool,
 
     /// Disables the generation of the standard "descriptor()" accessor, which can
     /// conflict with a field of the same name.  This is meant to make migration
     /// from proto1 easier; new code should avoid fields named "descriptor".
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub no_standard_descriptor_accessor: bool,
 
     /// Is this message deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for the message, or it will be completely ignored; in the very least,
     /// this is a formalization for deprecating messages.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deprecated: bool,
 
     /// Whether the message is an automatically generated map entry type for the
@@ -2229,6 +2257,7 @@ pub struct MessageOptions {
     /// NOTE: Do not set the option in .proto files. Always use the maps syntax
     /// instead. The option should only be implicitly set by the proto compiler
     /// parser.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub map_entry: bool,
 
     /// Enable the legacy handling of JSON field name conflicts.  This lowercases
@@ -2241,6 +2270,7 @@ pub struct MessageOptions {
     ///
     /// TODO This is legacy behavior we plan to remove once downstream
     /// teams have had time to migrate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deprecated_legacy_json_field_conflicts: bool,
 
     /// Any features defined in the specific edition.
@@ -2344,6 +2374,7 @@ pub struct FieldOptions {
     /// false will avoid using packed encoding.  This option is prohibited in
     /// Editions, but the `repeated_field_encoding` feature can be used to control
     /// the behavior.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub packed: bool,
 
     /// The jstype option determines the JavaScript type used for values of the
@@ -2381,24 +2412,29 @@ pub struct FieldOptions {
     /// on the outer message would fail if the inner message has missing required
     /// fields. Failed verification would result in parsing failure (except when
     /// uninitialized messages are acceptable).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub lazy: bool,
 
     /// unverified_lazy does no correctness checks on the byte stream. This should
     /// only be used where lazy with verification is prohibitive for performance
     /// reasons.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unverified_lazy: bool,
 
     /// Is this field deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for accessors, or it will be completely ignored; in the very least, this
     /// is a formalization for deprecating fields.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deprecated: bool,
 
     /// For Google-internal migration only. Do not use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub weak: bool,
 
     /// Indicate that the field value should not be printed out when using debug
     /// formats, e.g. when the field contains sensitive credentials.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub debug_redact: bool,
 
     pub retention: crate::field_options::OptionRetention,
@@ -2976,12 +3012,14 @@ impl wkt::message::Message for OneofOptions {
 pub struct EnumOptions {
     /// Set this option to true to allow mapping different tag names to the same
     /// value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_alias: bool,
 
     /// Is this enum deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for the enum, or it will be completely ignored; in the very least, this
     /// is a formalization for deprecating enums.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deprecated: bool,
 
     /// Enable the legacy handling of JSON field name conflicts.  This lowercases
@@ -2990,6 +3028,7 @@ pub struct EnumOptions {
     /// well.
     /// TODO Remove this legacy behavior once downstream teams have
     /// had time to migrate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deprecated_legacy_json_field_conflicts: bool,
 
     /// Any features defined in the specific edition.
@@ -3066,6 +3105,7 @@ pub struct EnumValueOptions {
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for the enum value, or it will be completely ignored; in the very least,
     /// this is a formalization for deprecating enum values.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deprecated: bool,
 
     /// Any features defined in the specific edition.
@@ -3075,6 +3115,7 @@ pub struct EnumValueOptions {
     /// Indicate that fields annotated with this enum value should not be printed
     /// out when using debug formats, e.g. when the field contains sensitive
     /// credentials.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub debug_redact: bool,
 
     /// Information about the support window of a feature value.
@@ -3157,6 +3198,7 @@ pub struct ServiceOptions {
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for the service, or it will be completely ignored; in the very least,
     /// this is a formalization for deprecating services.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deprecated: bool,
 
     /// The parser stores options it doesn't recognize here. See above.
@@ -3214,6 +3256,7 @@ pub struct MethodOptions {
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for the method, or it will be completely ignored; in the very least,
     /// this is a formalization for deprecating methods.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deprecated: bool,
 
     pub idempotency_level: crate::method_options::IdempotencyLevel,
@@ -3358,12 +3401,15 @@ pub struct UninterpretedOption {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub identifier_value: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub positive_int_value: u64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub negative_int_value: i64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub double_value: f64,
 
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
@@ -3457,6 +3503,7 @@ pub mod uninterpreted_option {
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub name_part: std::string::String,
 
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub is_extension: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4355,11 +4402,13 @@ pub mod generated_code_info {
 
         /// Identifies the starting offset in bytes in the generated code
         /// that relates to the identified object.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub begin: i32,
 
         /// Identifies the ending offset in bytes in the generated code that
         /// relates to the identified object. The end offset should be one past
         /// the last relevant byte (so the length of the text = end - begin).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub end: i32,
 
         pub semantic: crate::generated_code_info::annotation::Semantic,
@@ -4641,6 +4690,7 @@ pub struct Field {
     pub cardinality: crate::field::Cardinality,
 
     /// The field number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub number: i32,
 
     /// The field name.
@@ -4654,9 +4704,11 @@ pub struct Field {
 
     /// The index of the field type in `Type.oneofs`, for message or enumeration
     /// types. The first type has index 1; zero means the type is not in the list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub oneof_index: i32,
 
     /// Whether to use alternative packed wire representation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub packed: bool,
 
     /// The protocol buffer options.
@@ -5065,6 +5117,7 @@ pub struct EnumValue {
     pub name: std::string::String,
 
     /// Enum value number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub number: i32,
 
     /// Protocol buffer options.

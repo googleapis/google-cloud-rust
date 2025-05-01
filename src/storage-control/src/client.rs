@@ -261,6 +261,103 @@ impl Storage {
         self.inner.list_objects().set_parent(parent)
     }
 
+    /// Gets the IAM policy for a specified bucket.
+    ///
+    /// # Parameters
+    /// * `resource` should be
+    ///   * `projects/_/buckets/{bucket}` for a bucket,
+    ///   * `projects/_/buckets/{bucket}/objects/{object}` for an object, or
+    ///   * `projects/_/buckets/{bucket}/managedFolders/{managedFolder}` for a
+    ///     managed folder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage_control::client::Storage;
+    /// async fn example(client: &Storage) -> gax::Result<()> {
+    ///     let policy = client
+    ///         .get_iam_policy("projects/_/buckets/my-bucket")
+    ///         .send()
+    ///         .await?;
+    ///     println!("policy details={policy:?}");
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(
+        &self,
+        resource: impl Into<String>,
+    ) -> super::builder::storage::GetIamPolicy {
+        self.inner.get_iam_policy().set_resource(resource.into())
+    }
+
+    /// Updates the IAM policy for a specified bucket.
+    ///
+    /// This is not an update. The supplied policy will overwrite any existing
+    /// IAM Policy. You should first get the current IAM policy with
+    /// `get_iam_policy()` and then modify that policy before supplying it to
+    /// `set_iam_policy()`.
+    ///
+    /// # Parameters
+    /// * `resource` should be
+    ///   * `projects/_/buckets/{bucket}` for a bucket,
+    ///   * `projects/_/buckets/{bucket}/objects/{object}` for an object, or
+    ///   * `projects/_/buckets/{bucket}/managedFolders/{managedFolder}` for a
+    ///     managed folder.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_storage_control::client::Storage;
+    /// # use iam_v1::model::Policy;
+    /// async fn example(client: &Storage, updated_policy: Policy) -> gax::Result<()> {
+    ///     let policy = client
+    ///         .set_iam_policy("projects/_/buckets/my-bucket")
+    ///         .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
+    ///         .set_policy(updated_policy)
+    ///         .send()
+    ///         .await?;
+    ///     println!("policy details={policy:?}");
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(
+        &self,
+        resource: impl Into<String>,
+    ) -> super::builder::storage::SetIamPolicy {
+        self.inner.set_iam_policy().set_resource(resource.into())
+    }
+
+    /// Tests a set of permissions on the given bucket, object, or managed folder
+    /// to see which, if any, are held by the caller.
+    ///
+    /// # Parameters
+    /// * `resource` should be
+    ///   * `projects/_/buckets/{bucket}` for a bucket,
+    ///   * `projects/_/buckets/{bucket}/objects/{object}` for an object, or
+    ///   * `projects/_/buckets/{bucket}/managedFolders/{managedFolder}` for a
+    ///     managed folder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage_control::client::Storage;
+    /// async fn example(client: &Storage) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions("projects/_/buckets/my-bucket")
+    ///         .set_permissions(["storage.buckets.get"])
+    ///         .send()
+    ///         .await?;
+    ///     println!("response details={response:?}");
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(
+        &self,
+        resource: impl Into<String>,
+    ) -> super::builder::storage::TestIamPermissions {
+        self.inner
+            .test_iam_permissions()
+            .set_resource(resource.into())
+    }
+
     pub(crate) async fn new(config: gaxi::options::ClientConfig) -> crate::Result<Self> {
         let inner = super::generated::gapic::client::Storage::new(config).await?;
         Ok(Self { inner })

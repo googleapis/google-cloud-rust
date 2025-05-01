@@ -53,6 +53,7 @@ pub struct Challenge {
     pub expire_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Indicates if this challenge has been used to generate a token.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub used: bool,
 
     /// Output only. Identical to nonce, but as a string.
@@ -933,6 +934,7 @@ pub mod tpm_attestation {
     #[non_exhaustive]
     pub struct Quote {
         /// The hash algorithm of the PCR bank being quoted, encoded as a TPM_ALG_ID
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub hash_algo: i32,
 
         /// Raw binary values of each PCRs being quoted.

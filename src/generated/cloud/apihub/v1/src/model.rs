@@ -203,6 +203,7 @@ pub struct DeleteApiRequest {
 
     /// Optional. If set to true, any versions from this API will also be deleted.
     /// Otherwise, the request will only work if the API has no versions.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -324,6 +325,7 @@ pub struct ListApisRequest {
     /// return fewer than this value. If unspecified, at most 50 Apis will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListApis` call.
@@ -613,6 +615,7 @@ pub struct DeleteVersionRequest {
 
     /// Optional. If set to true, any specs from this version will also be deleted.
     /// Otherwise, the request will only work if the version has no specs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -724,6 +727,7 @@ pub struct ListVersionsRequest {
     /// fewer than this value. If unspecified, at most 50 versions will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListVersions` call.
@@ -1104,6 +1108,7 @@ pub struct ListSpecsRequest {
     /// fewer than this value. If unspecified, at most 50 specs will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListSpecs` call.
@@ -1355,6 +1360,7 @@ pub struct ListApiOperationsRequest {
     /// return fewer than this value. If unspecified, at most 50 operations will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListApiOperations` call.
@@ -1785,6 +1791,7 @@ pub struct ListDeploymentsRequest {
     /// may return fewer than this value. If unspecified, at most 50 deployments
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListDeployments` call.
@@ -2161,6 +2168,7 @@ pub struct ListAttributesRequest {
     /// may return fewer than this value. If unspecified, at most 50 attributes
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListAttributes` call.
@@ -2323,6 +2331,7 @@ pub struct SearchResourcesRequest {
     /// returned. The maximum value is 25; values above 25 will be coerced to 25.
     /// While paginating, you can specify a new page size parameter for each page
     /// of search results to be listed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -2967,6 +2976,7 @@ pub struct ListDependenciesRequest {
     /// may return fewer than this value. If unspecified, at most 50 dependencies
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListDependencies` call.
@@ -3304,6 +3314,7 @@ pub struct ListExternalApisRequest {
     /// service may return fewer than this value. If unspecified, at most 50
     /// ExternalApis will be returned. The maximum value is 1000; values above 1000
     /// will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListExternalApis` call.
@@ -4828,11 +4839,13 @@ pub struct Attribute {
     /// single-valued attribute. It must not be less than 1 or greater than 20. If
     /// not specified, the cardinality would be set to 1 by default and represent a
     /// single-valued attribute.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cardinality: i32,
 
     /// Output only. When mandatory is true, the attribute is mandatory for the
     /// resource specified in the scope. Only System defined attributes can be
     /// mandatory.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mandatory: bool,
 
     /// Output only. The time at which the attribute was created.
@@ -4981,6 +4994,7 @@ pub mod attribute {
 
         /// Optional. When set to true, the allowed value cannot be updated or
         /// deleted by the user. It can only be true for System defined attributes.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub immutable: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5538,6 +5552,7 @@ pub struct OperationDetails {
 
     /// Output only. For OpenAPI spec, this will be set if `operation.deprecated`is
     /// marked as `true` in the spec.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deprecated: bool,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -6821,6 +6836,7 @@ pub mod lint_response {
         pub severity: crate::model::Severity,
 
         /// Required. Count of issues with the given severity.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6987,9 +7003,11 @@ impl wkt::message::Message for Range {
 #[non_exhaustive]
 pub struct Point {
     /// Required. Line number (zero-indexed).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub line: i32,
 
     /// Required. Character position within the line (zero-indexed).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub character: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7053,6 +7071,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -7640,6 +7659,7 @@ pub struct ListHostProjectRegistrationsRequest {
     /// service may return fewer than this value. If unspecified, at most 50 host
     /// project registrations will be returned. The maximum value is 1000; values
     /// above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -8676,6 +8696,7 @@ pub struct ListRuntimeProjectAttachmentsRequest {
     /// service may return fewer than this value. If unspecified, at most 50
     /// runtime project attachments will be returned. The maximum value is 1000;
     /// values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous

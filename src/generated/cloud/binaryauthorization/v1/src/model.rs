@@ -1326,6 +1326,7 @@ pub struct ListAttestorsRequest {
 
     /// Requested page size. The server may return fewer results than requested. If
     /// unspecified, the server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return. Typically,

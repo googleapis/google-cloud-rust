@@ -71,6 +71,7 @@ pub struct Cluster {
     /// Optional. The default maximum number of pods per node used if a maximum
     /// value is not specified explicitly for a node pool in this cluster. If
     /// unspecified, the Kubernetes default value will be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_max_pods_per_node: i32,
 
     /// Output only. The IP address of the Kubernetes API server.
@@ -78,6 +79,7 @@ pub struct Cluster {
     pub endpoint: std::string::String,
 
     /// Output only. The port number of the Kubernetes API server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Output only. The PEM-encoded public certificate of the cluster's CA.
@@ -550,6 +552,7 @@ pub mod cluster {
             pub node_location: std::string::String,
 
             /// The number of nodes to serve as replicas of the Control Plane.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub node_count: i32,
 
             /// Only machines matching this filter will be allowed to host control
@@ -785,6 +788,7 @@ pub mod cluster {
         #[non_exhaustive]
         pub struct Ingress {
             /// Optional. Whether Ingress is disabled.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub disabled: bool,
 
             /// Optional. Ingress VIP.
@@ -829,6 +833,7 @@ pub mod cluster {
         #[non_exhaustive]
         pub struct VMServiceConfig {
             /// Optional. Whether VMM is enabled.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub vmm_enabled: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1781,6 +1786,7 @@ pub struct NodePool {
     pub node_location: std::string::String,
 
     /// Required. The number of nodes in the pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub node_count: i32,
 
     /// Only machines matching this filter will be allowed to join the node pool.
@@ -2097,6 +2103,7 @@ pub struct Machine {
 
     /// Output only. Whether the machine is disabled. If disabled, the machine is
     /// unable to enter service.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2222,6 +2229,7 @@ pub struct VpnConnection {
 
     /// Whether this VPN connection has HA enabled on cluster side. If enabled,
     /// when creating VPN connection we will attempt to use 2 ANG floating IPs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_high_availability: bool,
 
     /// Optional. The VPN connection Cloud Router name.
@@ -2903,9 +2911,11 @@ pub struct Quota {
     pub metric: std::string::String,
 
     /// Quota limit for this metric.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub limit: f64,
 
     /// Current usage of this metric.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub usage: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3334,6 +3344,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// API version used to start the operation.
@@ -3505,6 +3516,7 @@ pub struct ListClustersRequest {
     pub parent: std::string::String,
 
     /// The maximum number of resources to list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token received from previous list request.
@@ -4163,6 +4175,7 @@ pub struct ListNodePoolsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of resources to list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token received from previous list request.
@@ -4517,6 +4530,7 @@ pub struct ListMachinesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of resources to list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token received from previous list request.
@@ -4697,6 +4711,7 @@ pub struct ListVpnConnectionsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of resources to list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token received from previous list request.

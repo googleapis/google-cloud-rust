@@ -61,6 +61,7 @@ pub struct Endpoint {
     pub address: std::string::String,
 
     /// Optional. Service Directory rejects values outside of `[0, 65535]`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Optional. Annotations for the endpoint. This data can be consumed by
@@ -176,6 +177,7 @@ pub struct ResolveServiceRequest {
     /// Optional. The maximum number of endpoints to return. Defaults to 25.
     /// Maximum is 100. If a value less than one is specified, the Default is used.
     /// If a value greater than the Maximum is specified, the Maximum is used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_endpoints: i32,
 
     /// Optional. The filter applied to the endpoints of the resolved service.
@@ -435,6 +437,7 @@ pub struct ListNamespacesRequest {
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -797,6 +800,7 @@ pub struct ListServicesRequest {
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -1164,6 +1168,7 @@ pub struct ListEndpointsRequest {
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,

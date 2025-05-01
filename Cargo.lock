@@ -1119,6 +1119,7 @@ dependencies = [
  "google-cloud-gax",
  "http",
  "mockall",
+ "mutants",
  "rand 0.8.5",
  "regex",
  "reqwest",
@@ -2229,6 +2230,7 @@ dependencies = [
 name = "google-cloud-firestore"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
  "async-trait",
  "bytes",
  "google-cloud-gax",
@@ -2827,7 +2829,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-lro"
-version = "0.1.1"
+version = "0.2.0"
 dependencies = [
  "axum",
  "futures",
@@ -5138,6 +5140,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "mutants"
+version = "0.0.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bc0287524726960e07b119cebd01678f852f147742ae0d925e6a520dca956126"
+
+[[package]]
 name = "native-tls"
 version = "0.2.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6486,6 +6494,7 @@ name = "user-guide-samples"
 version = "0.0.0"
 dependencies = [
  "crc32c",
+ "futures",
  "google-cloud-aiplatform-v1",
  "google-cloud-gax",
  "google-cloud-language-v2",

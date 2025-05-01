@@ -159,6 +159,7 @@ pub struct Instance {
     pub host: std::string::String,
 
     /// Output only. The port number of the exposed Redis endpoint.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Output only. The current zone where the Redis primary node is located. In
@@ -206,6 +207,7 @@ pub struct Instance {
     pub tier: crate::model::instance::Tier,
 
     /// Required. Redis memory size in GiB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub memory_size_gb: i32,
 
     /// Optional. The full name of the Google Compute Engine
@@ -230,6 +232,7 @@ pub struct Instance {
     /// Optional. Indicates whether OSS Redis AUTH is enabled for the instance. If
     /// set to "true" AUTH is enabled on the instance. Default value is "false"
     /// meaning AUTH is disabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auth_enabled: bool,
 
     /// Output only. List of server CA certificates for the instance.
@@ -255,6 +258,7 @@ pub struct Instance {
     /// replicas are not enabled for a Standard Tier instance, the only valid value
     /// is 1 and the default is 1. The valid value for basic tier is 0 and the
     /// default is also 0.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub replica_count: i32,
 
     /// Output only. Info per node.
@@ -270,6 +274,7 @@ pub struct Instance {
 
     /// Output only. The port number of the exposed readonly redis
     /// endpoint. Standard tier only. Write requests should target 'port'.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub read_endpoint_port: i32,
 
     /// Optional. Read replicas mode for the instance. Defaults to
@@ -1517,6 +1522,7 @@ pub struct MaintenanceSchedule {
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// If the scheduled maintenance can be rescheduled, default is true.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub can_reschedule: bool,
 
     /// Output only. The deadline that the maintenance schedule start time can not
@@ -1598,6 +1604,7 @@ pub struct ListInstancesRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.redis.v1.ListInstancesResponse.next_page_token]: crate::model::ListInstancesResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The `next_page_token` value returned from a previous
@@ -2530,6 +2537,7 @@ pub struct OperationMetadata {
     pub status_detail: std::string::String,
 
     /// Specifies if cancellation was requested for the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cancel_requested: bool,
 
     /// API version.

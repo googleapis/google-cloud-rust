@@ -50,6 +50,7 @@ pub struct ListAccessPoliciesRequest {
     pub parent: std::string::String,
 
     /// Number of AccessPolicy instances to include in the list. Default 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Next page token for the next batch of AccessPolicy instances. Defaults to
@@ -286,6 +287,7 @@ pub struct ListAccessLevelsRequest {
     /// Number of [Access Levels]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] to include in
     /// the list. Default 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Next page token for the next batch of [Access Level]
@@ -733,6 +735,7 @@ pub struct ListServicePerimetersRequest {
     /// Number of [Service Perimeters]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] to include
     /// in the list. Default 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Next page token for the next batch of [Service Perimeter]
@@ -1239,6 +1242,7 @@ pub struct ListGcpUserAccessBindingsRequest {
 
     /// Optional. Maximum number of items to return. The server may return fewer items.
     /// If left blank, the server may return any number of items.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If left blank, returns the first page. To enumerate all items, use the
@@ -1880,6 +1884,7 @@ pub struct Condition {
     /// Whether to negate the Condition. If true, the Condition becomes a NAND over
     /// its non-empty fields, each field must be false for the Condition overall to
     /// be satisfied. Defaults to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub negate: bool,
 
     /// The request must be made by one of the provided user or service
@@ -2026,6 +2031,7 @@ impl wkt::message::Message for CustomLevel {
 pub struct DevicePolicy {
     /// Whether or not screenlock is required for the DevicePolicy to be true.
     /// Defaults to `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_screenlock: bool,
 
     /// Allowed encryptions statuses, an empty list allows all statuses.
@@ -2044,9 +2050,11 @@ pub struct DevicePolicy {
         std::vec::Vec<accesscontextmanager_type::model::DeviceManagementLevel>,
 
     /// Whether the device needs to be approved by the customer admin.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_admin_approval: bool,
 
     /// Whether the device needs to be corp owned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_corp_owned: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2135,6 +2143,7 @@ pub struct OsConstraint {
     /// Verifications includes requirements that the device is enterprise-managed,
     /// conformant to domain policies, and the caller has permission to call
     /// the API targeted by the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_verified_chrome_os: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2442,6 +2451,7 @@ pub struct ServicePerimeter {
     /// analyzing the differences between currently enforced and suggested
     /// restrictions. use_explicit_dry_run_spec must bet set to True if any of the
     /// fields in the spec are set to non-default values.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_explicit_dry_run_spec: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2762,6 +2772,7 @@ pub mod service_perimeter_config {
     pub struct VpcAccessibleServices {
         /// Whether to restrict API calls within the Service Perimeter to the list of
         /// APIs specified in 'allowed_services'.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_restriction: bool,
 
         /// The list of APIs usable within the Service Perimeter. Must be empty

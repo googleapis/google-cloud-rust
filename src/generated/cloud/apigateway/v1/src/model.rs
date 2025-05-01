@@ -850,6 +850,7 @@ pub struct ListGatewaysRequest {
     pub parent: std::string::String,
 
     /// Page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token.
@@ -1173,6 +1174,7 @@ pub struct ListApisRequest {
     pub parent: std::string::String,
 
     /// Page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token.
@@ -1496,6 +1498,7 @@ pub struct ListApiConfigsRequest {
     pub parent: std::string::String,
 
     /// Page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token.
@@ -1916,6 +1919,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

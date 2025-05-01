@@ -123,6 +123,7 @@ pub struct ListAccessApprovalRequestsRequest {
     /// Optional. The maximum number of access requests to return. The service may
     /// return fewer than this value. If unspecified, at most 500 access requests
     /// will be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -449,6 +450,7 @@ pub struct OperationMetadata {
     /// have [Operation.error][] value with a
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -533,6 +535,7 @@ pub struct Workload {
     pub name: std::string::String,
 
     /// Output only. Folder id this workload is associated with
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub folder_id: i64,
 
@@ -549,6 +552,7 @@ pub struct Workload {
     pub workload_onboarding_state: std::option::Option<crate::model::WorkloadOnboardingState>,
 
     /// Indicates whether a workload is fully onboarded.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_onboarded: bool,
 
     /// The project id of the key management project for the workload
@@ -756,6 +760,7 @@ pub struct ListWorkloadsRequest {
 
     /// The maximum number of workloads to return. The service may return fewer
     /// than this value. If unspecified, at most 500 workloads will be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListWorkloads` call.
@@ -1121,6 +1126,7 @@ pub struct Customer {
     pub customer_onboarding_state: std::option::Option<crate::model::CustomerOnboardingState>,
 
     /// Output only. Indicates whether a customer is fully onboarded
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_onboarded: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1181,6 +1187,7 @@ pub struct ListCustomersRequest {
 
     /// The maximum number of Customers to return. The service may return fewer
     /// than this value. If unspecified, at most 500 Customers will be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListCustomers` call.
@@ -2330,6 +2337,7 @@ pub struct Violation {
     pub non_compliant_org_policy: std::string::String,
 
     /// The folder_id of the violation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub folder_id: i64,
 
@@ -2883,6 +2891,7 @@ pub struct ListViolationsRequest {
     /// Optional. The maximum number of customers row to return. The service may
     /// return fewer than this value. If unspecified, at most 10 customers will be
     /// returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListViolations` call.

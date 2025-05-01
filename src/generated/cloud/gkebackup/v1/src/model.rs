@@ -65,6 +65,7 @@ pub struct Backup {
     /// Output only. This flag indicates whether this Backup resource was created
     /// manually by a user or via a schedule in the BackupPlan. A value of True
     /// means that the Backup was created manually.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub manual: bool,
 
     /// Optional. A set of custom labels supplied by user.
@@ -83,6 +84,7 @@ pub struct Backup {
     /// (either at creation time or in a subsequent update).
     ///
     /// [google.cloud.gkebackup.v1.BackupPlan.RetentionPolicy.backup_delete_lock_days]: crate::model::backup_plan::RetentionPolicy::backup_delete_lock_days
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub delete_lock_days: i32,
 
     /// Output only. The time at which an existing delete lock will expire for this
@@ -109,6 +111,7 @@ pub struct Backup {
     ///
     /// [google.cloud.gkebackup.v1.Backup.delete_lock_days]: crate::model::Backup::delete_lock_days
     /// [google.cloud.gkebackup.v1.BackupPlan.RetentionPolicy.backup_retain_days]: crate::model::backup_plan::RetentionPolicy::backup_retain_days
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retain_days: i32,
 
     /// Output only. The time at which this Backup will be automatically deleted
@@ -134,6 +137,7 @@ pub struct Backup {
     /// value.
     ///
     /// [google.cloud.gkebackup.v1.BackupPlan.BackupConfig.include_volume_data]: crate::model::backup_plan::BackupConfig::include_volume_data
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub contains_volume_data: bool,
 
     /// Output only. Whether or not the Backup contains Kubernetes Secrets.
@@ -142,6 +146,7 @@ pub struct Backup {
     /// value.
     ///
     /// [google.cloud.gkebackup.v1.BackupPlan.BackupConfig.include_secrets]: crate::model::backup_plan::BackupConfig::include_secrets
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub contains_secrets: bool,
 
     /// Output only. Information about the GKE cluster from which this Backup was
@@ -163,13 +168,16 @@ pub struct Backup {
 
     /// Output only. The total number of Kubernetes resources included in the
     /// Backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_count: i32,
 
     /// Output only. The total number of volume backups contained in the Backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub volume_count: i32,
 
     /// Output only. The total size of the Backup in bytes = config backup size +
     /// sum(volume backup sizes)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_bytes: i64,
 
@@ -189,9 +197,11 @@ pub struct Backup {
     pub description: std::string::String,
 
     /// Output only. The total number of Kubernetes Pods contained in the Backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pod_count: i32,
 
     /// Output only. The size of the config backup in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub config_backup_size_bytes: i64,
 
@@ -204,6 +214,7 @@ pub struct Backup {
     /// value.
     ///
     /// [google.cloud.gkebackup.v1.BackupPlan.BackupConfig.permissive_mode]: crate::model::backup_plan::BackupConfig::permissive_mode
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub permissive_mode: bool,
 
     /// Defines the "scope" of the Backup - which namespaced resources in the
@@ -847,6 +858,7 @@ pub struct BackupPlan {
     /// BackupPlan (including scheduled Backups).
     ///
     /// Default: False
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deactivated: bool,
 
     /// Optional. Defines the configuration of Backups created via this BackupPlan.
@@ -855,6 +867,7 @@ pub struct BackupPlan {
 
     /// Output only. The number of Kubernetes Pods backed up in the
     /// last successful Backup created via this BackupPlan.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub protected_pod_count: i32,
 
     /// Output only. State of the BackupPlan. This State field reflects the
@@ -871,6 +884,7 @@ pub struct BackupPlan {
     /// Output only. A number that represents the current risk level of this
     /// BackupPlan from RPO perspective with 1 being no risk and 5 being highest
     /// risk.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rpo_risk_level: i32,
 
     /// Output only. Human-readable description of why the BackupPlan is in the
@@ -1046,6 +1060,7 @@ pub mod backup_plan {
         /// the new value.
         ///
         /// Default: 0 (no delete blocking)
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub backup_delete_lock_days: i32,
 
         /// Optional. The default maximum age of a Backup created via this
@@ -1071,6 +1086,7 @@ pub mod backup_plan {
         /// [google.cloud.gkebackup.v1.BackupPlan.RetentionPolicy.backup_delete_lock_days]: crate::model::backup_plan::RetentionPolicy::backup_delete_lock_days
         /// [google.cloud.gkebackup.v1.BackupPlan.Schedule.cron_schedule]: crate::model::backup_plan::Schedule::cron_schedule
         /// [google.cloud.gkebackup.v1.BackupPlan.Schedule.rpo_config]: crate::model::backup_plan::Schedule::rpo_config
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub backup_retain_days: i32,
 
         /// Optional. This flag denotes whether the retention policy of this
@@ -1078,6 +1094,7 @@ pub mod backup_plan {
         /// this policy, including the `locked` field itself.
         ///
         /// Default: False
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub locked: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1141,6 +1158,7 @@ pub mod backup_plan {
         /// for this BackupPlan.
         ///
         /// Default: False
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub paused: bool,
 
         /// Optional. Defines the RPO schedule configuration for this BackupPlan.
@@ -1227,12 +1245,14 @@ pub mod backup_plan {
         /// when PVCs are included in the scope of a Backup.
         ///
         /// Default: False
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub include_volume_data: bool,
 
         /// Optional. This flag specifies whether Kubernetes Secret resources should
         /// be included when they fall into the scope of Backups.
         ///
         /// Default: False
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub include_secrets: bool,
 
         /// Optional. This defines a customer managed encryption key that will be
@@ -1248,6 +1268,7 @@ pub mod backup_plan {
         /// requires additional setup to restore.
         ///
         /// Default: False
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub permissive_mode: bool,
 
         /// This defines the "scope" of the Backup - which namespaced
@@ -1520,6 +1541,7 @@ pub struct RpoConfig {
     /// the target maximum data loss in time that is acceptable for this
     /// BackupPlan. This must be at least 60, i.e., 1 hour, and at most 86400,
     /// i.e., 60 days.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_rpo_minutes: i32,
 
     /// Optional. User specified time windows during which backup can NOT happen
@@ -2060,6 +2082,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -2212,6 +2235,7 @@ pub struct ListBackupPlansRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkebackup.v1.ListBackupPlansResponse.next_page_token]: crate::model::ListBackupPlansResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -2580,6 +2604,7 @@ pub struct ListBackupsRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkebackup.v1.ListBackupsResponse.next_page_token]: crate::model::ListBackupsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -2824,6 +2849,7 @@ pub struct DeleteBackupRequest {
     /// Optional. If set to true, any VolumeBackups below this Backup will also be
     /// deleted. Otherwise, the request will only succeed if the Backup has no
     /// VolumeBackups.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2879,6 +2905,7 @@ pub struct ListVolumeBackupsRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkebackup.v1.ListVolumeBackupsResponse.next_page_token]: crate::model::ListVolumeBackupsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -3130,6 +3157,7 @@ pub struct ListRestorePlansRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkebackup.v1.ListRestorePlansResponse.next_page_token]: crate::model::ListRestorePlansResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -3392,6 +3420,7 @@ pub struct DeleteRestorePlanRequest {
     /// Optional. If set to true, any Restores below this RestorePlan will also be
     /// deleted. Otherwise, the request will only succeed if the RestorePlan has no
     /// Restores.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3510,6 +3539,7 @@ pub struct ListRestoresRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkebackup.v1.ListRestoresResponse.next_page_token]: crate::model::ListRestoresResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -3769,6 +3799,7 @@ pub struct DeleteRestoreRequest {
     /// Optional. If set to true, any VolumeRestores below this restore will also
     /// be deleted. Otherwise, the request will only succeed if the restore has no
     /// VolumeRestores.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3824,6 +3855,7 @@ pub struct ListVolumeRestoresRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.gkebackup.v1.ListVolumeRestoresResponse.next_page_token]: crate::model::ListVolumeRestoresResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -4136,16 +4168,20 @@ pub struct Restore {
     pub complete_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Number of resources restored during the restore execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resources_restored_count: i32,
 
     /// Output only. Number of resources excluded during the restore execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resources_excluded_count: i32,
 
     /// Output only. Number of resources that failed to be restored during the
     /// restore execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resources_failed_count: i32,
 
     /// Output only. Number of volumes restored during the restore execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub volumes_restored_count: i32,
 
     /// Output only. `etag` is used for optimistic concurrency control as a way to
@@ -4926,11 +4962,13 @@ pub mod restore_config {
 
         /// Optional. If True, all valid cluster-scoped resources will be restored.
         /// Mutually exclusive to any other field in the message.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub all_group_kinds: bool,
 
         /// Optional. If True, no cluster-scoped resources will be restored.
         /// This has the same restore scope as if the message is not defined.
         /// Mutually exclusive to any other field in the message.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub no_group_kinds: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6418,11 +6456,13 @@ pub struct VolumeBackup {
     /// multiple backups of the same volume share the same backup storage
     /// location. In particular, this is likely to increase in size when
     /// the immediately preceding backup of the same volume is deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub storage_bytes: i64,
 
     /// Output only. The minimum size of the disk to which this VolumeBackup can be
     /// restored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub disk_size_bytes: i64,
 

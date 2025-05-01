@@ -568,10 +568,12 @@ pub struct InspectConfig {
     /// data profiling.
     ///
     /// [google.privacy.dlp.v2.Finding.quote]: crate::model::Finding::quote
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_quote: bool,
 
     /// When true, excludes type information of the findings.
     /// This is not used for data profiling.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exclude_info_types: bool,
 
     /// CustomInfoTypes provided by the user. See
@@ -779,6 +781,7 @@ pub mod inspect_config {
         /// for the item can be multiple times higher than this value.
         ///
         /// [google.privacy.dlp.v2.InspectContentRequest]: crate::model::InspectContentRequest
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_findings_per_item: i32,
 
         /// Max number of findings that are returned per request or job.
@@ -794,6 +797,7 @@ pub mod inspect_config {
         /// value.
         ///
         /// [google.privacy.dlp.v2.InspectContentRequest]: crate::model::InspectContentRequest
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_findings_per_request: i32,
 
         /// Configuration of findings limit given for specified infoTypes.
@@ -860,6 +864,7 @@ pub mod inspect_config {
             pub info_type: std::option::Option<crate::model::InfoType>,
 
             /// Max findings limit for the given infoType.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub max_findings: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1334,6 +1339,7 @@ pub struct InspectResult {
     /// large, or because the server reached the maximum amount of resources
     /// allowed for a single API call. For best results, divide the input into
     /// smaller batches.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub findings_truncated: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2022,6 +2028,7 @@ impl wkt::message::Message for StorageMetadataLabel {
 pub struct DocumentLocation {
     /// Offset of the line, from the beginning of the file, where the finding
     /// is located.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub file_offset: i64,
 
@@ -2122,6 +2129,7 @@ pub struct TableLocation {
     /// BigQueryOptions.identifying_fields with your primary key column names and
     /// when you store the findings the value of those columns will be stored
     /// inside of Finding.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub row_index: i64,
 
@@ -2272,10 +2280,12 @@ impl wkt::message::Message for Container {
 #[non_exhaustive]
 pub struct Range {
     /// Index of the first character of the range (inclusive).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub start: i64,
 
     /// Index of the last character of the range (exclusive).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub end: i64,
 
@@ -2351,15 +2361,19 @@ impl wkt::message::Message for ImageLocation {
 #[non_exhaustive]
 pub struct BoundingBox {
     /// Top coordinate of the bounding box. (0,0) is upper left.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub top: i32,
 
     /// Left coordinate of the bounding box. (0,0) is upper left.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub left: i32,
 
     /// Width of the bounding box in pixels.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub width: i32,
 
     /// Height of the bounding box in pixels.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub height: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2445,6 +2459,7 @@ pub struct RedactImageRequest {
 
     /// Whether the response should include findings along with the redacted
     /// image.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_findings: bool,
 
     /// The content must be PNG, JPEG, SVG or BMP.
@@ -2668,12 +2683,15 @@ pub mod redact_image_request {
 #[non_exhaustive]
 pub struct Color {
     /// The amount of red in the color as a value in the interval [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub red: f32,
 
     /// The amount of green in the color as a value in the interval [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub green: f32,
 
     /// The amount of blue in the color as a value in the interval [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub blue: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3511,6 +3529,7 @@ pub struct InfoTypeStats {
     pub info_type: std::option::Option<crate::model::InfoType>,
 
     /// Number of findings for this infoType.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub count: i64,
 
@@ -3665,10 +3684,12 @@ pub mod inspect_data_source_details {
     #[non_exhaustive]
     pub struct Result {
         /// Total size in bytes that were processed.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub processed_bytes: i64,
 
         /// Estimate of the number of bytes to process.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub total_estimated_bytes: i64,
 
@@ -3679,6 +3700,7 @@ pub mod inspect_data_source_details {
 
         /// Number of rows scanned after sampling and time filtering (applicable for
         /// row based stores such as BigQuery).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub num_rows_processed: i64,
 
@@ -3911,11 +3933,13 @@ pub mod data_profile_big_query_row_schema {
 #[non_exhaustive]
 pub struct HybridInspectStatistics {
     /// The number of hybrid inspection requests processed within this job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub processed_count: i64,
 
     /// The number of hybrid inspection requests aborted because the job ran
     /// out of quota or was ended before they could be processed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub aborted_count: i64,
 
@@ -3924,6 +3948,7 @@ pub struct HybridInspectStatistics {
     /// A burst of traffic may cause hybrid inspect requests to be enqueued.
     /// Processing will take place as quickly as possible, but resource limitations
     /// may impact how long a request is enqueued for.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub pending_count: i64,
 
@@ -4057,14 +4082,17 @@ pub mod action_details {
 #[non_exhaustive]
 pub struct DeidentifyDataSourceStats {
     /// Total size in bytes that were transformed in some way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub transformed_bytes: i64,
 
     /// Number of successfully applied transformations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub transformation_count: i64,
 
     /// Number of errors encountered while trying to apply transformations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub transformation_error_count: i64,
 
@@ -6847,14 +6875,17 @@ pub mod analyze_data_source_risk_details {
         #[non_exhaustive]
         pub struct CategoricalStatsHistogramBucket {
             /// Lower bound on the value frequency of the values in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub value_frequency_lower_bound: i64,
 
             /// Upper bound on the value frequency of the values in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub value_frequency_upper_bound: i64,
 
             /// Total number of values in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub bucket_size: i64,
 
@@ -6864,6 +6895,7 @@ pub mod analyze_data_source_risk_details {
             pub bucket_values: std::vec::Vec<crate::model::ValueFrequency>,
 
             /// Total number of distinct values in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub bucket_value_count: i64,
 
@@ -6982,6 +7014,7 @@ pub mod analyze_data_source_risk_details {
 
             /// Size of the equivalence class, for example number of rows with the
             /// above set of values.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub equivalence_class_size: i64,
 
@@ -7026,14 +7059,17 @@ pub mod analyze_data_source_risk_details {
         pub struct KAnonymityHistogramBucket {
 
             /// Lower bound on the size of the equivalence classes in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub equivalence_class_size_lower_bound: i64,
 
             /// Upper bound on the size of the equivalence classes in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub equivalence_class_size_upper_bound: i64,
 
             /// Total number of equivalence classes in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub bucket_size: i64,
 
@@ -7043,6 +7079,7 @@ pub mod analyze_data_source_risk_details {
             pub bucket_values: std::vec::Vec<crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityEquivalenceClass>,
 
             /// Total number of distinct equivalence classes in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub bucket_value_count: i64,
 
@@ -7160,10 +7197,12 @@ pub mod analyze_data_source_risk_details {
             pub quasi_ids_values: std::vec::Vec<crate::model::Value>,
 
             /// Size of the k-anonymity equivalence class.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub equivalence_class_size: i64,
 
             /// Number of distinct sensitive values in this equivalence class.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub num_distinct_sensitive_values: i64,
 
@@ -7233,15 +7272,18 @@ pub mod analyze_data_source_risk_details {
 
             /// Lower bound on the sensitive value frequencies of the equivalence
             /// classes in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub sensitive_value_frequency_lower_bound: i64,
 
             /// Upper bound on the sensitive value frequencies of the equivalence
             /// classes in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub sensitive_value_frequency_upper_bound: i64,
 
             /// Total number of equivalence classes in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub bucket_size: i64,
 
@@ -7251,6 +7293,7 @@ pub mod analyze_data_source_risk_details {
             pub bucket_values: std::vec::Vec<crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass>,
 
             /// Total number of distinct equivalence classes in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub bucket_value_count: i64,
 
@@ -7374,6 +7417,7 @@ pub mod analyze_data_source_risk_details {
             pub quasi_ids_values: std::vec::Vec<crate::model::Value>,
 
             /// The estimated anonymity for these quasi-identifier values.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub estimated_anonymity: i64,
 
@@ -7425,14 +7469,17 @@ pub mod analyze_data_source_risk_details {
         pub struct KMapEstimationHistogramBucket {
 
             /// Always positive.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub min_anonymity: i64,
 
             /// Always greater than or equal to min_anonymity.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub max_anonymity: i64,
 
             /// Number of records within these anonymity bounds.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub bucket_size: i64,
 
@@ -7442,6 +7489,7 @@ pub mod analyze_data_source_risk_details {
             pub bucket_values: std::vec::Vec<crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationQuasiIdValues>,
 
             /// Total number of distinct quasi-identifier tuple values in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub bucket_value_count: i64,
 
@@ -7566,6 +7614,7 @@ pub mod analyze_data_source_risk_details {
             /// For example, if there are 15 individuals in the dataset who share the
             /// same quasi-identifier values, and an estimated 100 people in the entire
             /// population with these values, then δ is 0.15.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub estimated_probability: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7617,12 +7666,15 @@ pub mod analyze_data_source_risk_details {
         pub struct DeltaPresenceEstimationHistogramBucket {
 
             /// Between 0 and 1.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub min_probability: f64,
 
             /// Always greater than or equal to min_probability.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub max_probability: f64,
 
             /// Number of records within these probability bounds.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub bucket_size: i64,
 
@@ -7632,6 +7684,7 @@ pub mod analyze_data_source_risk_details {
             pub bucket_values: std::vec::Vec<crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationQuasiIdValues>,
 
             /// Total number of distinct quasi-identifier tuple values in this bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub bucket_value_count: i64,
 
@@ -7769,6 +7822,7 @@ pub struct ValueFrequency {
     pub value: std::option::Option<crate::model::Value>,
 
     /// How many times the value is contained in the field.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub count: i64,
 
@@ -8224,6 +8278,7 @@ pub mod date_time {
     pub struct TimeZone {
         /// Set only if the offset can be determined. Positive for time ahead of UTC.
         /// E.g. For "UTC-9", this value is -540.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub offset_minutes: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10087,6 +10142,7 @@ pub struct CharacterMaskConfig {
     /// `****-****-****-3456`. Cloud DLP masks all but the last four characters.
     /// If `reverse_order` is `true`, all but the first four characters are masked
     /// as `1234-****-****-****`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub number_to_mask: i32,
 
     /// Mask characters in reverse order. For example, if `masking_character` is
@@ -10094,6 +10150,7 @@ pub struct CharacterMaskConfig {
     /// input string `1234-5678-9012-3456` is masked as `00000000000000-3456`.
     /// If `masking_character` is `*`, `number_to_mask` is `3`, and `reverse_order`
     /// is `true`, then the string `12345` is masked as `12***`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reverse_order: bool,
 
     /// When masking a string, items in this list will be skipped when replacing
@@ -10190,6 +10247,7 @@ pub struct FixedSizeBucketingConfig {
     /// if `lower_bound` = 10, `upper_bound` = 89, and `bucket_size` = 10, then the
     /// following buckets would be used: -10, 10-20, 20-30, 30-40, 40-50, 50-60,
     /// 60-70, 70-80, 80-89, 89+. Precision up to 2 decimals works.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub bucket_size: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10964,10 +11022,12 @@ pub struct DateShiftConfig {
     /// time. Must not be more than 365250 days (1000 years) each direction.
     ///
     /// For example, 3 means shift date to at most 3 days into the future.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub upper_bound_days: i32,
 
     /// Required. For example, -5 means shift date to at most 5 days back in the
     /// past.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub lower_bound_days: i32,
 
     /// Points to the field that contains the context, for example, an entity id.
@@ -11759,6 +11819,7 @@ pub mod record_condition {
 #[non_exhaustive]
 pub struct TransformationOverview {
     /// Total size in bytes that were transformed in some way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub transformed_bytes: i64,
 
@@ -11834,6 +11895,7 @@ pub struct TransformationSummary {
     pub results: std::vec::Vec<crate::model::transformation_summary::SummaryResult>,
 
     /// Total size in bytes that were transformed in some way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub transformed_bytes: i64,
 
@@ -11934,6 +11996,7 @@ pub mod transformation_summary {
     #[non_exhaustive]
     pub struct SummaryResult {
         /// Number of transformations counted by this result.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub count: i64,
 
@@ -12161,6 +12224,7 @@ pub struct TransformationDetails {
     /// The number of bytes that were transformed. If transformation was
     /// unsuccessful or did not take place because there was no content to
     /// transform, this will be zero.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub transformed_bytes: i64,
 
@@ -14341,6 +14405,7 @@ pub struct ListInspectTemplatesRequest {
 
     /// Size of the page. This value can be limited by the server. If zero server
     /// returns a page of max size 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by,
@@ -14913,6 +14978,7 @@ pub struct ListDiscoveryConfigsRequest {
     pub page_token: std::string::String,
 
     /// Size of the page. This value can be limited by a server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Comma-separated list of config fields to order by,
@@ -15270,6 +15336,7 @@ pub struct ListJobTriggersRequest {
     pub page_token: std::string::String,
 
     /// Size of the page. This value can be limited by a server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Comma-separated list of triggeredJob fields to order by,
@@ -16088,6 +16155,7 @@ pub mod data_profile_action {
         /// lower levels of the resource hierarchy. For example, reducing the data
         /// risk of a table data profile also reduces the data risk of the
         /// constituent column data profiles.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub lower_data_risk_to_low: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18308,6 +18376,7 @@ pub mod discovery_big_query_conditions {
     pub struct OrConditions {
         /// Minimum number of rows that should be present before Cloud DLP
         /// profiles a table
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub min_row_count: i32,
 
         /// Minimum age a table must have before Cloud DLP can profile it. Value must
@@ -23261,6 +23330,7 @@ pub struct ListDlpJobsRequest {
     pub filter: std::string::String,
 
     /// The standard list page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The standard list page token.
@@ -23732,6 +23802,7 @@ pub struct ListDeidentifyTemplatesRequest {
 
     /// Size of the page. This value can be limited by the server. If zero server
     /// returns a page of max size 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by,
@@ -24051,6 +24122,7 @@ pub mod large_custom_dictionary_config {
 #[non_exhaustive]
 pub struct LargeCustomDictionaryStats {
     /// Approximate number of distinct phrases in the dictionary.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub approx_num_phrases: i64,
 
@@ -24734,6 +24806,7 @@ pub struct ListStoredInfoTypesRequest {
 
     /// Size of the page. This value can be limited by the server. If zero server
     /// returns a page of max size 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by,
@@ -25060,12 +25133,14 @@ pub struct HybridFindingDetails {
     /// finding  is located. Populate if the item being scanned is only part of a
     /// bigger item, such as a shard of a file and you want to track the absolute
     /// position of the finding.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub file_offset: i64,
 
     /// Offset of the row for tables. Populate if the row(s) being scanned are
     /// part of a bigger dataset and you want to keep track of their absolute
     /// position.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub row_offset: i64,
 
@@ -25197,6 +25272,7 @@ pub struct ListProjectDataProfilesRequest {
 
     /// Size of the page. This value can be limited by the server. If zero, server
     /// returns a page of max size 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by, followed by `asc` or `desc`
@@ -25368,6 +25444,7 @@ pub struct ListTableDataProfilesRequest {
 
     /// Size of the page. This value can be limited by the server. If zero, server
     /// returns a page of max size 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by, followed by `asc` or `desc`
@@ -25550,6 +25627,7 @@ pub struct ListColumnDataProfilesRequest {
 
     /// Size of the page. This value can be limited by the server. If zero, server
     /// returns a page of max size 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by, followed by `asc` or `desc`
@@ -25861,10 +25939,12 @@ pub struct ProjectDataProfile {
     pub profile_status: std::option::Option<crate::model::ProfileStatus>,
 
     /// The number of table data profiles generated for this project.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub table_data_profile_count: i64,
 
     /// The number of file store data profiles generated for this project.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub file_store_data_profile_count: i64,
 
@@ -26131,19 +26211,23 @@ pub struct TableDataProfile {
     pub expiration_time: std::option::Option<wkt::Timestamp>,
 
     /// The number of columns profiled in the table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub scanned_column_count: i64,
 
     /// The number of columns skipped in the table because of an error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failed_column_count: i64,
 
     /// The size of the table when the profile was generated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub table_size_bytes: i64,
 
     /// Number of rows in the table when the profile was generated.
     /// This will not be populated for BigLake tables.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub row_count: i64,
 
@@ -26583,6 +26667,7 @@ pub struct InfoTypeSummary {
     pub info_type: std::option::Option<crate::model::InfoType>,
 
     /// Not populated for predicted infotypes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub estimated_prevalence: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26628,10 +26713,12 @@ pub struct OtherInfoTypeSummary {
 
     /// Approximate percentage of non-null rows that contained data detected by
     /// this infotype.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub estimated_prevalence: i32,
 
     /// Whether this infoType was excluded from sensitivity and risk analysis due
     /// to factors such as low prevalence (subject to change).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub excluded_from_analysis: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26751,6 +26838,7 @@ pub struct ColumnDataProfile {
     /// A value close to 1 may indicate the column is likely to contain
     /// free-form or natural language text.
     /// Range in 0-1.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub free_text_score: f64,
 
     /// The data type of a given column.
@@ -27347,6 +27435,7 @@ pub struct FileStoreDataProfile {
     pub sample_findings_table: std::option::Option<crate::model::BigQueryTable>,
 
     /// The file store does not have any files.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub file_store_is_empty: bool,
 
     /// The tags attached to the resource, including any tags attached during
@@ -27892,6 +27981,7 @@ pub struct FileClusterSummary {
     /// True if no files exist in this cluster. If the file store had more files
     /// than could be listed, this will be false even if no files for this cluster
     /// were seen and file_extensions_seen is empty.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub no_files_exist: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28078,6 +28168,7 @@ pub struct ListFileStoreDataProfilesRequest {
 
     /// Optional. Size of the page. This value can be limited by the server. If
     /// zero, server returns a page of max size 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Comma-separated list of fields to order by, followed by `asc` or
@@ -28865,6 +28956,7 @@ pub struct ListConnectionsRequest {
     pub parent: std::string::String,
 
     /// Optional. Number of results per page, max 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token from a previous page to return the next set of
@@ -28929,6 +29021,7 @@ pub struct SearchConnectionsRequest {
     pub parent: std::string::String,
 
     /// Optional. Number of results per page, max 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token from a previous page to return the next set of
@@ -29414,6 +29507,7 @@ pub struct CloudSqlProperties {
 
     /// Required. The DLP API will limit its connections to max_connections.
     /// Must be 2 or greater.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_connections: i32,
 
     /// Required. The database engine used by the Cloud SQL instance that this
@@ -30863,9 +30957,11 @@ pub mod custom_info_type {
             /// set this to 1. For more information, see
             /// [Hotword example: Set the match likelihood of a table column]
             /// (<https://cloud.google.com/sensitive-data-protection/docs/creating-custom-infotypes-likelihood#match-column-values>).
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub window_before: i32,
 
             /// Number of characters after the finding to consider.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub window_after: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -31475,6 +31571,7 @@ pub struct CloudStorageOptions {
     /// types, setting this field has no effect. For more information, see [Limits
     /// on bytes scanned per
     /// file](https://cloud.google.com/sensitive-data-protection/docs/supported-file-types#max-byte-size-per-file).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub bytes_limit_per_file: i64,
 
@@ -31486,6 +31583,7 @@ pub struct CloudStorageOptions {
     /// types, setting this field has no effect. For more information, see [Limits
     /// on bytes scanned per
     /// file](https://cloud.google.com/sensitive-data-protection/docs/supported-file-types#max-byte-size-per-file).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub bytes_limit_per_file_percent: i32,
 
     /// List of file type groups to include in the scan.
@@ -31504,6 +31602,7 @@ pub struct CloudStorageOptions {
     /// Limits the number of files to scan to this percentage of the input FileSet.
     /// Number of files scanned is rounded down. Must be between 0 and 100,
     /// inclusively. Both 0 and 100 means no limit. Defaults to 0.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub files_limit_percent: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -31786,6 +31885,7 @@ pub struct BigQueryOptions {
     /// rest of the rows are omitted. If not set, or if set to 0, all rows will be
     /// scanned. Only one of rows_limit and rows_limit_percent can be specified.
     /// Cannot be used in conjunction with TimespanConfig.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub rows_limit: i64,
 
@@ -31799,6 +31899,7 @@ pub struct BigQueryOptions {
     /// issue](https://cloud.google.com/sensitive-data-protection/docs/known-issues#bq-sampling)
     /// is causing the `rowsLimitPercent` field to behave unexpectedly. We
     /// recommend using `rowsLimit` instead.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rows_limit_percent: i32,
 
     /// How to sample the data.
@@ -32221,6 +32322,7 @@ pub mod storage_config {
         /// See the [known
         /// issue](https://cloud.google.com/sensitive-data-protection/docs/known-issues#recently-streamed-data)
         /// related to this operation.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_auto_population_of_timespan_config: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32409,6 +32511,7 @@ pub struct BigQueryKey {
     /// jobs. To locate findings within a table, specify
     /// `inspect_job.storage_config.big_query_options.identifying_fields` in
     /// `CreateDlpJobRequest`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub row_number: i64,
 

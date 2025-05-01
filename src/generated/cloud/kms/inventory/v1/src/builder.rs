@@ -112,6 +112,8 @@ pub mod key_dashboard_service {
         }
 
         /// Sets the value of [parent][crate::model::ListCryptoKeysRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -226,6 +228,8 @@ pub mod key_tracking_service {
         }
 
         /// Sets the value of [name][crate::model::GetProtectedResourcesSummaryRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -291,12 +295,16 @@ pub mod key_tracking_service {
         }
 
         /// Sets the value of [scope][crate::model::SearchProtectedResourcesRequest::scope].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_scope<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.scope = v.into();
             self
         }
 
         /// Sets the value of [crypto_key][crate::model::SearchProtectedResourcesRequest::crypto_key].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_crypto_key<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.crypto_key = v.into();
             self

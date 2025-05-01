@@ -526,6 +526,7 @@ pub struct ListNotificationsRequest {
     /// fewer than this value. If unspecified or equal to 0, at most 50
     /// notifications will be returned. The maximum value is 50; values above 50
     /// will be coerced to 50.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token returned from a previous request.
@@ -608,6 +609,7 @@ pub struct ListNotificationsResponse {
     pub next_page_token: std::string::String,
 
     /// Estimation of a total number of notifications.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -786,6 +788,7 @@ impl wkt::message::Message for Settings {
 #[non_exhaustive]
 pub struct NotificationSettings {
     /// Whether the associated NotificationType is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

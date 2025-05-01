@@ -60,6 +60,7 @@ pub struct AdaptiveMtDataset {
     pub target_language_code: std::string::String,
 
     /// The number of examples in the dataset.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub example_count: i32,
 
     /// Output only. Timestamp when this dataset was created.
@@ -268,6 +269,7 @@ pub struct ListAdaptiveMtDatasetsRequest {
 
     /// Optional. Requested page size. The server may return fewer results than
     /// requested. If unspecified, the server picks an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -667,10 +669,12 @@ pub mod adaptive_mt_translate_request {
 
         /// Optional. Indicates match is case insensitive. The default value is
         /// `false` if missing.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub ignore_case: bool,
 
         /// Optional. If set to true, the glossary will be used for contextual
         /// translation.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub contextual_translation_enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -822,6 +826,7 @@ pub struct AdaptiveMtFile {
     pub display_name: std::string::String,
 
     /// The number of entries that the file contains.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub entry_count: i32,
 
     /// Output only. Timestamp when this file was created.
@@ -1134,6 +1139,7 @@ pub struct ListAdaptiveMtFilesRequest {
     pub parent: std::string::String,
 
     /// Optional.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1334,6 +1340,7 @@ pub struct ListAdaptiveMtSentencesRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -2056,6 +2063,7 @@ pub struct ListDatasetsRequest {
 
     /// Optional. Requested page size. The server can return fewer results than
     /// requested.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results for the server to return.
@@ -2296,6 +2304,7 @@ pub struct ListExamplesRequest {
 
     /// Optional. Requested page size. The server can return fewer results than
     /// requested.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results for the server to return.
@@ -2599,15 +2608,19 @@ pub struct Dataset {
     pub target_language_code: std::string::String,
 
     /// Output only. The number of examples in the dataset.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub example_count: i32,
 
     /// Output only. Number of training examples (sentence pairs).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub train_example_count: i32,
 
     /// Output only. Number of validation examples (sentence pairs).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_example_count: i32,
 
     /// Output only. Number of test examples (sentence pairs).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub test_example_count: i32,
 
     /// Output only. Timestamp when this dataset was created.
@@ -2841,6 +2854,7 @@ pub struct ListModelsRequest {
 
     /// Optional. Requested page size. The server can return fewer results than
     /// requested.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results for the server to return.
@@ -3117,13 +3131,16 @@ pub struct Model {
     pub target_language_code: std::string::String,
 
     /// Output only. Number of examples (sentence pairs) used to train the model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub train_example_count: i32,
 
     /// Output only. Number of examples (sentence pairs) used to validate the
     /// model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_example_count: i32,
 
     /// Output only. Number of examples (sentence pairs) used to test the model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub test_example_count: i32,
 
     /// Output only. Timestamp when the model resource was created, which is also
@@ -3627,6 +3644,7 @@ impl wkt::message::Message for GlossaryTerm {
 pub struct TransliterationConfig {
     /// If true, source text in romanized form can be translated to the target
     /// language.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_transliteration: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4309,6 +4327,7 @@ pub struct DetectedLanguage {
     pub language_code: std::string::String,
 
     /// The confidence of the detection result for this language.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4516,9 +4535,11 @@ pub struct SupportedLanguage {
     pub display_name: std::string::String,
 
     /// Can be used as a source language.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub support_source: bool,
 
     /// Can be used as a target language.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub support_target: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5292,15 +5313,18 @@ pub struct TranslateDocumentRequest {
     /// Optional. is_translate_native_pdf_only field for external customers.
     /// If true, the page limit of online native pdf translation is 300 and only
     /// native pdf pages will be translated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_translate_native_pdf_only: bool,
 
     /// Optional. If true, use the text removal server to remove the shadow text on
     /// background image for native pdf translation.
     /// Shadow removal feature can only be enabled when
     /// is_translate_native_pdf_only: false && pdf_native_only: false
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_shadow_removal_native_pdf: bool,
 
     /// Optional. If true, enable auto rotation correction in DVS.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_rotation_correction: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5762,17 +5786,20 @@ pub struct BatchTranslateMetadata {
     pub state: crate::model::batch_translate_metadata::State,
 
     /// Number of successfully translated characters so far (Unicode codepoints).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub translated_characters: i64,
 
     /// Number of characters that have failed to process so far (Unicode
     /// codepoints).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failed_characters: i64,
 
     /// Total number of characters (Unicode codepoints).
     /// This is the total number of codepoints from input files times the number of
     /// target languages and appears here shortly after the call is submitted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_characters: i64,
 
@@ -5926,14 +5953,17 @@ pub mod batch_translate_metadata {
 #[non_exhaustive]
 pub struct BatchTranslateResponse {
     /// Total number of characters (Unicode codepoints).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_characters: i64,
 
     /// Number of successfully translated characters (Unicode codepoints).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub translated_characters: i64,
 
     /// Number of characters that have failed to process (Unicode codepoints).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failed_characters: i64,
 
@@ -6122,6 +6152,7 @@ pub struct Glossary {
     pub input_config: std::option::Option<crate::model::GlossaryInputConfig>,
 
     /// Output only. The number of entries defined in the glossary.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub entry_count: i32,
 
     /// Output only. When CreateGlossary was called.
@@ -6552,6 +6583,7 @@ pub struct ListGlossariesRequest {
 
     /// Optional. Requested page size. The server may return fewer glossaries than
     /// requested. If unspecified, the server picks an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -6760,6 +6792,7 @@ pub struct ListGlossaryEntriesRequest {
 
     /// Optional. Requested page size. The server may return fewer glossary entries
     /// than requested. If unspecified, the server picks an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -7529,9 +7562,11 @@ pub struct BatchTranslateDocumentRequest {
     /// background image for native pdf translation.
     /// Shadow removal feature can only be enabled when
     /// is_translate_native_pdf_only: false && pdf_native_only: false
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_shadow_removal_native_pdf: bool,
 
     /// Optional. If true, enable auto rotation correction in DVS.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_rotation_correction: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7908,40 +7943,48 @@ pub mod batch_document_output_config {
 pub struct BatchTranslateDocumentResponse {
     /// Total number of pages to translate in all documents. Documents without
     /// clear page definition (such as XLSX) are not counted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_pages: i64,
 
     /// Number of successfully translated pages in all documents. Documents without
     /// clear page definition (such as XLSX) are not counted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub translated_pages: i64,
 
     /// Number of pages that failed to process in all documents. Documents without
     /// clear page definition (such as XLSX) are not counted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failed_pages: i64,
 
     /// Number of billable pages in documents with clear page definition (such as
     /// PDF, DOCX, PPTX)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_billable_pages: i64,
 
     /// Total number of characters (Unicode codepoints) in all documents.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_characters: i64,
 
     /// Number of successfully translated characters (Unicode codepoints) in all
     /// documents.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub translated_characters: i64,
 
     /// Number of characters that have failed to process (Unicode codepoints) in
     /// all documents.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failed_characters: i64,
 
     /// Number of billable characters (Unicode codepoints) in documents without
     /// clear page definition, such as XLSX.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_billable_characters: i64,
 
@@ -8050,40 +8093,48 @@ pub struct BatchTranslateDocumentMetadata {
 
     /// Total number of pages to translate in all documents so far. Documents
     /// without clear page definition (such as XLSX) are not counted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_pages: i64,
 
     /// Number of successfully translated pages in all documents so far. Documents
     /// without clear page definition (such as XLSX) are not counted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub translated_pages: i64,
 
     /// Number of pages that failed to process in all documents so far. Documents
     /// without clear page definition (such as XLSX) are not counted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failed_pages: i64,
 
     /// Number of billable pages in documents with clear page definition (such as
     /// PDF, DOCX, PPTX) so far.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_billable_pages: i64,
 
     /// Total number of characters (Unicode codepoints) in all documents so far.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_characters: i64,
 
     /// Number of successfully translated characters (Unicode codepoints) in all
     /// documents so far.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub translated_characters: i64,
 
     /// Number of characters that have failed to process (Unicode codepoints) in
     /// all documents so far.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failed_characters: i64,
 
     /// Number of billable characters (Unicode codepoints) in documents without
     /// clear page definition (such as XLSX) so far.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_billable_characters: i64,
 
@@ -8274,10 +8325,12 @@ pub struct TranslateTextGlossaryConfig {
 
     /// Optional. Indicates match is case insensitive. The default value is `false`
     /// if missing.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_case: bool,
 
     /// Optional. If set to true, the glossary will be used for contextual
     /// translation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub contextual_translation_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -622,6 +622,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -722,6 +723,7 @@ pub struct ConfigVariableTemplate {
 
     /// Flag represents that this `ConfigVariable` must be provided for a
     /// connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub required: bool,
 
     /// Role grant configuration for the config variable.
@@ -741,6 +743,7 @@ pub struct ConfigVariableTemplate {
     pub state: crate::model::config_variable_template::State,
 
     /// Indicates if current template is part of advanced settings
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_advanced: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1518,6 +1521,7 @@ pub struct AuthorizationCodeLink {
     pub client_id: std::string::String,
 
     /// Whether to enable PKCE for the auth code flow.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_pkce: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1647,6 +1651,7 @@ pub struct Connection {
     pub envoy_image_location: std::string::String,
 
     /// Optional. Suspended indicates if a user has suspended a connection or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub suspended: bool,
 
     /// Optional. Node configuration for the connection.
@@ -1836,9 +1841,11 @@ impl wkt::message::Message for Connection {
 #[non_exhaustive]
 pub struct NodeConfig {
     /// Minimum number of nodes in the runtime nodes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_node_count: i32,
 
     /// Maximum number of nodes in the runtime nodes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_node_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2108,12 +2115,15 @@ pub mod runtime_entity_schema {
 
         /// The following boolean field specifies if the current Field acts
         /// as a primary key or id if the parent is of type entity.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub key: bool,
 
         /// Specifies if the Field is readonly.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub readonly: bool,
 
         /// Specifies whether a null value is allowed.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub nullable: bool,
 
         /// The following field specifies the default value of the Field provided
@@ -2286,6 +2296,7 @@ pub mod runtime_action_schema {
         pub data_type: crate::model::DataType,
 
         /// Specifies whether a null value is allowed.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub nullable: bool,
 
         /// The following field specifies the default value of the Parameter
@@ -2408,6 +2419,7 @@ pub mod runtime_action_schema {
 #[non_exhaustive]
 pub struct LockConfig {
     /// Indicates whether or not the connection is locked.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub locked: bool,
 
     /// Describes why a connection is locked.
@@ -2454,6 +2466,7 @@ pub struct ListConnectionsRequest {
     pub parent: std::string::String,
 
     /// Page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token.
@@ -2883,6 +2896,7 @@ pub struct ListRuntimeEntitySchemasRequest {
     pub parent: std::string::String,
 
     /// Page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token.
@@ -3015,6 +3029,7 @@ pub struct ListRuntimeActionSchemasRequest {
     pub parent: std::string::String,
 
     /// Page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token.
@@ -3468,6 +3483,7 @@ pub struct ListConnectorsRequest {
     pub parent: std::string::String,
 
     /// Page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token.
@@ -3860,6 +3876,7 @@ pub struct ListConnectorVersionsRequest {
     pub parent: std::string::String,
 
     /// Page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token.
@@ -3999,12 +4016,15 @@ impl gax::paginator::internal::PageableResponse for ListConnectorVersionsRespons
 #[non_exhaustive]
 pub struct SupportedRuntimeFeatures {
     /// Specifies if the connector supports entity apis like 'createEntity'.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub entity_apis: bool,
 
     /// Specifies if the connector supports action apis like 'executeAction'.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub action_apis: bool,
 
     /// Specifies if the connector supports 'ExecuteSqlQuery' operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sql_query: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4406,6 +4426,7 @@ impl wkt::message::Message for DestinationConfig {
 #[non_exhaustive]
 pub struct Destination {
     /// The port is the target port number that is accepted by the destination.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -4707,6 +4728,7 @@ pub struct ListProvidersRequest {
     pub parent: std::string::String,
 
     /// Page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token.
@@ -5135,9 +5157,11 @@ pub struct Settings {
     pub name: std::string::String,
 
     /// Optional. Flag indicates whether vpc-sc is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vpcsc: bool,
 
     /// Output only. Flag indicates if user is in PayG model
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub payg: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5184,6 +5208,7 @@ pub struct SslConfigTemplate {
     pub ssl_type: crate::model::SslType,
 
     /// Boolean for determining if the connector version mandates TLS.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_tls_mandatory: bool,
 
     /// List of supported Server Cert Types
@@ -5296,6 +5321,7 @@ pub struct SslConfig {
     pub client_cert_type: crate::model::CertType,
 
     /// Bool for enabling SSL
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_ssl: bool,
 
     /// Additional SSL related field values

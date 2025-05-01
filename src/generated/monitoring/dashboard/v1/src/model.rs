@@ -76,6 +76,7 @@ impl wkt::message::Message for AlertChart {
 #[non_exhaustive]
 pub struct CollapsibleGroup {
     /// The collapsed state of the widget on first page load.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub collapsed: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -673,6 +674,7 @@ pub struct PickTimeSeriesFilter {
     pub ranking_method: crate::model::pick_time_series_filter::Method,
 
     /// How many time series to allow to pass through the filter.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub num_time_series: i32,
 
     /// How to use the ranking to select time series that pass through the filter.
@@ -888,6 +890,7 @@ pub struct StatisticalTimeSeriesFilter {
     pub ranking_method: crate::model::statistical_time_series_filter::Method,
 
     /// How many time series to output.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub num_time_series: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1431,6 +1434,7 @@ pub struct CreateDashboardRequest {
 
     /// If set, validate the request and preview the review, but do not actually
     /// save it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1486,6 +1490,7 @@ pub struct ListDashboardsRequest {
 
     /// A positive number that is the maximum number of results to return.
     /// If unspecified, a default of 1000 is used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If this field is not empty then it must contain the
@@ -1676,6 +1681,7 @@ pub struct UpdateDashboardRequest {
 
     /// If set, validate the request and preview the review, but do not actually
     /// save it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1856,6 +1862,7 @@ impl wkt::message::Message for IncidentList {
 pub struct GridLayout {
     /// The number of columns into which the view's width is divided. If omitted
     /// or set to zero, a system default will be used while rendering.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub columns: i64,
 
@@ -1906,6 +1913,7 @@ impl wkt::message::Message for GridLayout {
 pub struct MosaicLayout {
     /// The number of columns in the mosaic grid. The number of columns must be
     /// between 1 and 12, inclusive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub columns: i32,
 
     /// The tiles to display.
@@ -1960,18 +1968,22 @@ pub mod mosaic_layout {
         /// The zero-indexed position of the tile in grid blocks relative to the
         /// left edge of the grid. Tiles must be contained within the specified
         /// number of columns. `x_pos` cannot be negative.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub x_pos: i32,
 
         /// The zero-indexed position of the tile in grid blocks relative to the
         /// top edge of the grid. `y_pos` cannot be negative.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub y_pos: i32,
 
         /// The width of the tile, measured in grid blocks. Tiles must have a
         /// minimum width of 1.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub width: i32,
 
         /// The height of the tile, measured in grid blocks. Tiles must have a
         /// minimum height of 1.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub height: i32,
 
         /// The informational widget contained in the tile. For example an `XyChart`.
@@ -2081,6 +2093,7 @@ pub mod row_layout {
         /// height of rows on the screen (relative to peers). Greater the weight,
         /// greater the height of the row on the screen. If omitted, a value
         /// of 1 is used while rendering.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub weight: i64,
 
@@ -2175,6 +2188,7 @@ pub mod column_layout {
         /// the width of columns on the screen (relative to peers).
         /// Greater the weight, greater the width of the column on the screen.
         /// If omitted, a value of 1 is used while rendering.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub weight: i64,
 
@@ -2290,6 +2304,7 @@ pub struct TimeSeriesQuery {
     ///
     /// - XyChart
     /// - Scorecard's spark chart
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub output_full_duration: bool,
 
     /// Parameters needed to obtain data for the chart.
@@ -2887,6 +2902,7 @@ pub struct Threshold {
 
     /// The value of the threshold. The value should be defined in the native scale
     /// of the metric.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub value: f64,
 
     /// The state color for this threshold. Color is not allowed in a XyChart.
@@ -3153,6 +3169,7 @@ pub struct PieChart {
     pub chart_type: crate::model::pie_chart::PieChartType,
 
     /// Optional. Indicates whether or not the pie chart should show slices' labels
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_labels: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3545,10 +3562,12 @@ pub mod scorecard {
     pub struct GaugeView {
         /// The lower bound for this gauge chart. The value of the chart should
         /// always be greater than or equal to this.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub lower_bound: f64,
 
         /// The upper bound for this gauge chart. The value of the chart should
         /// always be less than or equal to this.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub upper_bound: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3663,6 +3682,7 @@ pub struct SectionHeader {
     pub subtitle: std::string::String,
 
     /// Whether to insert a divider below the section in the table of contents
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub divider_below: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3888,6 +3908,7 @@ pub mod time_series_table {
         pub column: std::string::String,
 
         /// Required. Whether the column should be visible on page load.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub visible: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

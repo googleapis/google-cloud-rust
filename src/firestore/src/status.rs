@@ -14,17 +14,18 @@
 
 use super::google;
 
-impl gaxi::prost::Convert<google::rpc::Status> for rpc::model::Status {
-    fn cnv(self) -> google::rpc::Status {
-        google::rpc::Status {
-            code: self.code.cnv(),
-            message: self.message.cnv(),
+impl gaxi::prost::ToProto<google::rpc::Status> for rpc::model::Status {
+    type Output = google::rpc::Status;
+    fn to_proto(self) -> Result<Self::Output, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            code: self.code.to_proto()?,
+            message: self.message.to_proto()?,
             details: self.details.into_iter().filter_map(any_to_prost).collect(),
-        }
+        })
     }
 }
 
-impl gaxi::prost::Convert<rpc::model::Status> for google::rpc::Status {
+impl gaxi::prost::FromProto<rpc::model::Status> for google::rpc::Status {
     fn cnv(self) -> rpc::model::Status {
         rpc::model::Status::new()
             .set_code(self.code)
@@ -34,55 +35,65 @@ impl gaxi::prost::Convert<rpc::model::Status> for google::rpc::Status {
 }
 
 fn any_to_prost(value: wkt::Any) -> Option<prost_types::Any> {
-    use gaxi::prost::Convert;
+    use gaxi::prost::ToProto;
     let mapped = value.type_url().map(|url| match url {
         "type.googleapis.com/google.rpc.BadRequest" => value
             .try_into_message::<rpc::model::BadRequest>()
             .ok()
-            .map(|v| prost_types::Any::from_msg(&v.cnv())),
+            .and_then(|v| v.to_proto().ok())
+            .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.DebugInfo" => value
             .try_into_message::<rpc::model::DebugInfo>()
             .ok()
-            .map(|v| prost_types::Any::from_msg(&v.cnv())),
+            .and_then(|v| v.to_proto().ok())
+            .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.ErrorInfo" => value
             .try_into_message::<rpc::model::ErrorInfo>()
             .ok()
-            .map(|v| prost_types::Any::from_msg(&v.cnv())),
+            .and_then(|v| v.to_proto().ok())
+            .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.Help" => value
             .try_into_message::<rpc::model::Help>()
             .ok()
-            .map(|v| prost_types::Any::from_msg(&v.cnv())),
+            .and_then(|v| v.to_proto().ok())
+            .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.LocalizedMessage" => value
             .try_into_message::<rpc::model::LocalizedMessage>()
             .ok()
-            .map(|v| prost_types::Any::from_msg(&v.cnv())),
+            .and_then(|v| v.to_proto().ok())
+            .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.PreconditionFailure" => value
             .try_into_message::<rpc::model::PreconditionFailure>()
             .ok()
-            .map(|v| prost_types::Any::from_msg(&v.cnv())),
+            .and_then(|v| v.to_proto().ok())
+            .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.QuotaFailure" => value
             .try_into_message::<rpc::model::QuotaFailure>()
             .ok()
-            .map(|v| prost_types::Any::from_msg(&v.cnv())),
+            .and_then(|v| v.to_proto().ok())
+            .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.RequestInfo" => value
             .try_into_message::<rpc::model::RequestInfo>()
             .ok()
-            .map(|v| prost_types::Any::from_msg(&v.cnv())),
+            .and_then(|v| v.to_proto().ok())
+            .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.ResourceInfo" => value
             .try_into_message::<rpc::model::ResourceInfo>()
             .ok()
-            .map(|v| prost_types::Any::from_msg(&v.cnv())),
+            .and_then(|v| v.to_proto().ok())
+            .map(|v| prost_types::Any::from_msg(&v)),
         "type.googleapis.com/google.rpc.RetryInfo" => value
             .try_into_message::<rpc::model::RetryInfo>()
             .ok()
-            .map(|v| prost_types::Any::from_msg(&v.cnv())),
+            .and_then(|v| v.to_proto().ok())
+            .map(|v| prost_types::Any::from_msg(&v)),
         _ => None,
     });
     mapped.flatten().transpose().ok().flatten()
 }
 
 fn any_from_prost(value: prost_types::Any) -> Option<wkt::Any> {
-    use gaxi::prost::Convert;
+    use gaxi::prost::FromProto;
     let mapped = match value.type_url.as_str() {
         "type.googleapis.com/google.rpc.BadRequest" => value
             .to_msg::<google::rpc::BadRequest>()
@@ -132,10 +143,11 @@ fn any_from_prost(value: prost_types::Any) -> Option<wkt::Any> {
 #[cfg(test)]
 mod test {
     use super::*;
-    use gaxi::prost::Convert;
+    use gaxi::prost::FromProto;
+    use gaxi::prost::ToProto;
 
     #[test]
-    fn from_prost() {
+    fn from_protok() {
         let input = google::rpc::Status {
             code: 12,
             message: "test-message".into(),
@@ -150,18 +162,19 @@ mod test {
     }
 
     #[test]
-    fn from_rpc_model() {
+    fn to_proto() -> anyhow::Result<()> {
         let input = rpc::model::Status::new()
             .set_code(12)
             .set_message("test-message")
             .set_details(wkt_details());
-        let got: google::rpc::Status = input.cnv();
+        let got: google::rpc::Status = input.to_proto()?;
         let want = google::rpc::Status {
             code: 12,
             message: "test-message".into(),
             details: prost_details(),
         };
         assert_eq!(got, want);
+        Ok(())
     }
 
     fn prost_details() -> Vec<prost_types::Any> {

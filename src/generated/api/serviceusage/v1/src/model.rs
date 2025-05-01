@@ -411,6 +411,7 @@ pub struct DisableServiceRequest {
     /// enabled services depend on the service to be disabled. When set, the
     /// service, and any enabled services that depend on it, will be disabled
     /// together.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_dependent_services: bool,
 
     /// Defines the behavior for checking service usage when disabling a service.
@@ -613,6 +614,7 @@ pub struct ListServicesRequest {
     /// Requested size of the next page of data.
     /// Requested page size cannot exceed 200.
     /// If not set, the default page size is 50.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Token identifying which result to start with, which is returned by a

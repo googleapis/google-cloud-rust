@@ -559,6 +559,7 @@ pub struct Event {
     ///
     /// **NOTE**: JSON encoding should use a string to hold a 64-bit integer value,
     /// because a native JSON number holds only 53 binary bits for an integer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub group_id: i64,
 
@@ -801,6 +802,7 @@ pub struct ListDataSetsRequest {
     pub parent: std::string::String,
 
     /// Number of results to return in the list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Token to provide to skip to a particular spot in the list.
@@ -1946,6 +1948,7 @@ pub struct QueryDataSetRequest {
     ///
     /// [google.cloud.timeseriesinsights.v1.EvaluatedSlice.forecast]: crate::model::EvaluatedSlice::forecast
     /// [google.cloud.timeseriesinsights.v1.EvaluatedSlice.history]: crate::model::EvaluatedSlice::history
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub return_timeseries: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

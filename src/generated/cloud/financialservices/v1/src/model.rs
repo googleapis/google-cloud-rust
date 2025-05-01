@@ -82,6 +82,7 @@ pub struct BacktestResult {
     /// The number of consecutive months to conduct backtesting for, ending with
     /// the last full month prior to the end_time according to the dataset's
     /// timezone.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backtest_periods: i32,
 
     /// Required. PerformanceTarget gives information on how the test will be
@@ -219,6 +220,7 @@ pub mod backtest_result {
         /// AI for the first time, we recommend setting this to the number of parties
         /// investigated in an average month, based on alerts from your existing
         /// automated alerting system.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub party_investigations_per_period_hint: i64,
 
@@ -329,6 +331,7 @@ pub struct ListBacktestResultsRequest {
     /// The number of resources to be included in the response. The response
     /// contains a next_page_token, which can be used to retrieve the next page of
     /// resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// In case of paginated results, this is the token that was returned in the
@@ -1126,6 +1129,7 @@ pub struct ListDatasetsRequest {
     /// The number of resources to be included in the response. The response
     /// contains a next_page_token, which can be used to retrieve the next page of
     /// resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// In case of paginated results, this is the token that was returned in the
@@ -1756,6 +1760,7 @@ pub mod engine_config {
         /// AI for the first time, we recommend setting this to the number of parties
         /// investigated in an average month, based on alerts from your existing
         /// automated alerting system.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub party_investigations_per_period_hint: i64,
 
@@ -1980,6 +1985,7 @@ pub struct ListEngineConfigsRequest {
     /// The number of resources to be included in the response. The response
     /// contains a next_page_token, which can be used to retrieve the next page of
     /// resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// In case of paginated results, this is the token that was returned in the
@@ -2612,6 +2618,7 @@ pub struct ListEngineVersionsRequest {
     /// Optional. The number of resources to be included in the response. The
     /// response contains a next_page_token, which can be used to retrieve the next
     /// page of resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. In case of paginated results, this is the token that was returned
@@ -2979,6 +2986,7 @@ pub struct ListInstancesRequest {
     /// The number of resources to be included in the response. The response
     /// contains a next_page_token, which can be used to retrieve the next page of
     /// resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// In case of paginated results, this is the token that was returned in the
@@ -3384,6 +3392,7 @@ pub struct ImportRegisteredPartiesRequest {
 
     /// Optional. If the request will not register the parties, just determine what
     /// would happen.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Required. LineOfBusiness for the specified registered parties.
@@ -3520,30 +3529,37 @@ pub mod import_registered_parties_request {
 #[non_exhaustive]
 pub struct ImportRegisteredPartiesResponse {
     /// Number of parties added by this operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub parties_added: i64,
 
     /// Number of parties removed by this operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub parties_removed: i64,
 
     /// Total number of parties that are registered in this instance, after the
     /// update operation was completed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub parties_total: i64,
 
     /// Number of parties that failed to be removed by this operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub parties_failed_to_remove: i64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub parties_uptiered: i64,
 
     /// Total number of parties that are downtiered in this instance
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub parties_downtiered: i64,
 
     /// Number of parties that failed to be downtiered
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub parties_failed_to_downtier: i64,
 
@@ -3923,6 +3939,7 @@ pub struct ListModelsRequest {
     /// The number of resources to be included in the response. The response
     /// contains a next_page_token, which can be used to retrieve the next page of
     /// resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// In case of paginated results, this is the token that was returned in the
@@ -4425,6 +4442,7 @@ pub struct PredictionResult {
     /// according to the dataset's timezone.
     ///
     /// [google.cloud.financialservices.v1.PredictionResult.end_time]: crate::model::PredictionResult::end_time
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub prediction_periods: i32,
 
     /// Required. Where to write the output of the predictions.
@@ -4683,6 +4701,7 @@ pub struct ListPredictionResultsRequest {
     /// The number of resources to be included in the response. The response
     /// contains a next_page_token, which can be used to retrieve the next page of
     /// resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// In case of paginated results, this is the token that was returned in the
@@ -5178,6 +5197,7 @@ pub struct OperationMetadata {
     /// to `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

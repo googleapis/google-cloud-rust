@@ -368,6 +368,7 @@ pub mod billing_info {
 #[non_exhaustive]
 pub struct UserCountBillingInfo {
     /// Required. Number of users to bill for.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub user_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -400,6 +401,7 @@ impl wkt::message::Message for UserCountBillingInfo {
 #[non_exhaustive]
 pub struct UserCountUsage {
     /// Required. Unique number of licensed users.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unique_user_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -828,6 +830,7 @@ pub struct Usage {
     pub lima_instance: std::string::String,
 
     /// Number of unique users accessing the VM.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub users: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -870,6 +873,7 @@ pub struct ListConfigurationsRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1262,6 +1266,7 @@ pub struct ListInstancesRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1706,6 +1711,7 @@ pub struct AggregateUsageRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1882,6 +1888,7 @@ pub struct ListProductsRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -2085,6 +2092,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

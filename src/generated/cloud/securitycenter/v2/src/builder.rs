@@ -102,12 +102,16 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateResourceValueConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [requests][crate::model::BatchCreateResourceValueConfigsRequest::requests].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -196,6 +200,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::BulkMuteFindingsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -257,12 +263,16 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::CreateBigQueryExportRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [big_query_export][crate::model::CreateBigQueryExportRequest::big_query_export].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_big_query_export<T: Into<std::option::Option<crate::model::BigQueryExport>>>(
             mut self,
             v: T,
@@ -272,6 +282,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [big_query_export_id][crate::model::CreateBigQueryExportRequest::big_query_export_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_big_query_export_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.big_query_export_id = v.into();
             self
@@ -315,18 +327,24 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::CreateFindingRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [finding_id][crate::model::CreateFindingRequest::finding_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_finding_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.finding_id = v.into();
             self
         }
 
         /// Sets the value of [finding][crate::model::CreateFindingRequest::finding].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_finding<T: Into<std::option::Option<crate::model::Finding>>>(
             mut self,
             v: T,
@@ -376,12 +394,16 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::CreateMuteConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [mute_config][crate::model::CreateMuteConfigRequest::mute_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_mute_config<T: Into<std::option::Option<crate::model::MuteConfig>>>(
             mut self,
             v: T,
@@ -391,6 +413,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [mute_config_id][crate::model::CreateMuteConfigRequest::mute_config_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_mute_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.mute_config_id = v.into();
             self
@@ -439,18 +463,24 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::CreateNotificationConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [config_id][crate::model::CreateNotificationConfigRequest::config_id].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.config_id = v.into();
             self
         }
 
         /// Sets the value of [notification_config][crate::model::CreateNotificationConfigRequest::notification_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_notification_config<
             T: Into<std::option::Option<crate::model::NotificationConfig>>,
         >(
@@ -499,12 +529,16 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::CreateSourceRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of [source][crate::model::CreateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
             mut self,
             v: T,
@@ -554,6 +588,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [name][crate::model::DeleteBigQueryExportRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -600,6 +636,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [name][crate::model::DeleteMuteConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -648,6 +686,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [name][crate::model::DeleteNotificationConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -696,6 +736,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [name][crate::model::DeleteResourceValueConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -742,6 +784,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [name][crate::model::GetBigQueryExportRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -785,6 +829,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [name][crate::model::GetSimulationRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -831,6 +877,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [name][crate::model::GetValuedResourceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -874,6 +922,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
@@ -926,6 +976,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [name][crate::model::GetMuteConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -972,6 +1024,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [name][crate::model::GetNotificationConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1018,6 +1072,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [name][crate::model::GetResourceValueConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1061,6 +1117,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [name][crate::model::GetSourceRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1119,6 +1177,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::GroupFindingsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1131,6 +1191,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [group_by][crate::model::GroupFindingsRequest::group_by].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_group_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.group_by = v.into();
             self
@@ -1201,6 +1263,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::ListAttackPathsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1280,6 +1344,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::ListBigQueryExportsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1350,6 +1416,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::ListFindingsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1441,6 +1509,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::ListMuteConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1518,6 +1588,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::ListNotificationConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1595,6 +1667,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::ListResourceValueConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1665,6 +1739,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::ListSourcesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1738,6 +1814,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [parent][crate::model::ListValuedResourcesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -1805,12 +1883,16 @@ pub mod security_center {
         }
 
         /// Sets the value of [name][crate::model::SetFindingStateRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [state][crate::model::SetFindingStateRequest::state].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_state<T: Into<crate::model::finding::State>>(mut self, v: T) -> Self {
             self.0.request.state = v.into();
             self
@@ -1854,12 +1936,16 @@ pub mod security_center {
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1915,12 +2001,16 @@ pub mod security_center {
         }
 
         /// Sets the value of [name][crate::model::SetMuteRequest::name].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of [mute][crate::model::SetMuteRequest::mute].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_mute<T: Into<crate::model::finding::Mute>>(mut self, v: T) -> Self {
             self.0.request.mute = v.into();
             self
@@ -1967,12 +2057,16 @@ pub mod security_center {
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2024,6 +2118,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [big_query_export][crate::model::UpdateBigQueryExportRequest::big_query_export].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_big_query_export<T: Into<std::option::Option<crate::model::BigQueryExport>>>(
             mut self,
             v: T,
@@ -2082,6 +2178,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [external_system][crate::model::UpdateExternalSystemRequest::external_system].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_external_system<T: Into<std::option::Option<crate::model::ExternalSystem>>>(
             mut self,
             v: T,
@@ -2137,6 +2235,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [finding][crate::model::UpdateFindingRequest::finding].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_finding<T: Into<std::option::Option<crate::model::Finding>>>(
             mut self,
             v: T,
@@ -2195,6 +2295,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [mute_config][crate::model::UpdateMuteConfigRequest::mute_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_mute_config<T: Into<std::option::Option<crate::model::MuteConfig>>>(
             mut self,
             v: T,
@@ -2255,6 +2357,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [notification_config][crate::model::UpdateNotificationConfigRequest::notification_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_notification_config<
             T: Into<std::option::Option<crate::model::NotificationConfig>>,
         >(
@@ -2317,6 +2421,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [resource_value_config][crate::model::UpdateResourceValueConfigRequest::resource_value_config].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_resource_value_config<
             T: Into<std::option::Option<crate::model::ResourceValueConfig>>,
         >(
@@ -2377,6 +2483,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [security_marks][crate::model::UpdateSecurityMarksRequest::security_marks].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_security_marks<T: Into<std::option::Option<crate::model::SecurityMarks>>>(
             mut self,
             v: T,
@@ -2432,6 +2540,8 @@ pub mod security_center {
         }
 
         /// Sets the value of [source][crate::model::UpdateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
             mut self,
             v: T,

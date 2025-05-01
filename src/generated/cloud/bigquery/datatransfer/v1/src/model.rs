@@ -55,9 +55,11 @@ pub struct DataSourceParameter {
     pub r#type: crate::model::data_source_parameter::Type,
 
     /// Is parameter required.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub required: bool,
 
     /// Deprecated. This field has no effect.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub repeated: bool,
 
     /// Regular expression which can be used for parameter validation.
@@ -90,13 +92,16 @@ pub struct DataSourceParameter {
     pub validation_help_url: std::string::String,
 
     /// Cannot be changed after initial creation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub immutable: bool,
 
     /// Deprecated. This field has no effect.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub recurse: bool,
 
     /// If true, it should not be used in new transfers, and it should not be
     /// visible to users.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deprecated: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -364,10 +369,12 @@ pub struct DataSource {
     pub transfer_type: crate::model::TransferType,
 
     /// Deprecated. This field has no effect.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub supports_multiple_transfers: bool,
 
     /// The number of seconds to wait for an update from the data source
     /// before the Data Transfer Service marks the transfer as FAILED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub update_deadline_seconds: i32,
 
     /// Default data transfer schedule.
@@ -381,6 +388,7 @@ pub struct DataSource {
     /// Specifies whether the data source supports a user defined schedule, or
     /// operates on the default schedule.
     /// When set to `true`, user can override default schedule.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub supports_custom_schedule: bool,
 
     /// Data source parameters.
@@ -402,10 +410,12 @@ pub struct DataSource {
 
     /// Default data refresh window on days.
     /// Only meaningful when `data_refresh_type` = `SLIDING_WINDOW`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_data_refresh_window_days: i32,
 
     /// Disables backfilling and manual run scheduling
     /// for the data source.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub manual_runs_disabled: bool,
 
     /// The minimum interval for scheduler to schedule runs.
@@ -762,6 +772,7 @@ pub struct ListDataSourcesRequest {
     pub page_token: std::string::String,
 
     /// Page size. The default page size is the maximum value of 1000 results.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1285,6 +1296,7 @@ pub struct ListTransferConfigsRequest {
     pub page_token: std::string::String,
 
     /// Page size. The default page size is the maximum value of 1000 results.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1422,6 +1434,7 @@ pub struct ListTransferRunsRequest {
     pub page_token: std::string::String,
 
     /// Page size. The default page size is the maximum value of 1000 results.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Indicates how run attempts are to be pulled.
@@ -1628,6 +1641,7 @@ pub struct ListTransferLogsRequest {
     pub page_token: std::string::String,
 
     /// Page size. The default page size is the maximum value of 1000 results.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Message types to return. If not populated - INFO, WARNING and ERROR
@@ -1790,6 +1804,7 @@ impl wkt::message::Message for CheckValidCredsRequest {
 #[non_exhaustive]
 pub struct CheckValidCredsResponse {
     /// If set to `true`, the credentials exist and are valid.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub has_valid_creds: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2258,6 +2273,7 @@ impl wkt::message::Message for UnenrollDataSourcesRequest {
 #[non_exhaustive]
 pub struct EmailPreferences {
     /// If true, email notifications will be sent on transfer run failures.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_failure_email: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2292,6 +2308,7 @@ pub struct ScheduleOptions {
     /// will be disabled. The runs can be started on ad-hoc basis using
     /// StartManualTransferRuns API. When automatic scheduling is disabled, the
     /// TransferConfig.schedule field will be ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_auto_scheduling: bool,
 
     /// Specifies time to start scheduling transfer runs. The first run will be
@@ -2752,10 +2769,12 @@ pub struct TransferConfig {
     /// for just [today-1].
     /// Only valid if the data source supports the feature. Set the value to 0
     /// to use the default value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub data_refresh_window_days: i32,
 
     /// Is this config disabled. When set to true, no runs will be scheduled for
     /// this transfer config.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Output only. Data transfer modification time. Ignored by server on input.
@@ -2770,6 +2789,7 @@ pub struct TransferConfig {
     pub state: crate::model::TransferState,
 
     /// Deprecated. Unique ID of the user on whose behalf transfer is done.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub user_id: i64,
 
@@ -3129,6 +3149,7 @@ pub struct TransferRun {
     pub state: crate::model::TransferState,
 
     /// Deprecated. Unique ID of the user on whose behalf transfer is done.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub user_id: i64,
 

@@ -606,6 +606,7 @@ pub struct FetchStaticIpsRequest {
     pub name: std::string::String,
 
     /// Maximum number of Ips to return, will likely not be specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListStaticIps` call.
@@ -708,6 +709,7 @@ pub struct ListConnectionProfilesRequest {
     /// Maximum number of connection profiles to return.
     /// If unspecified, at most 50 connection profiles will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListConnectionProfiles` call.
@@ -917,9 +919,11 @@ pub struct CreateConnectionProfileRequest {
 
     /// Optional. Only validate the connection profile, but don't create any
     /// resources. The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Create the connection profile without validating it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1018,9 +1022,11 @@ pub struct UpdateConnectionProfileRequest {
 
     /// Optional. Only validate the connection profile, but don't update any
     /// resources. The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Update the connection profile without validating it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1144,6 +1150,7 @@ pub struct ListStreamsRequest {
     /// Maximum number of streams to return.
     /// If unspecified, at most 50 streams will  be returned. The maximum
     /// value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListStreams` call.
@@ -1353,9 +1360,11 @@ pub struct CreateStreamRequest {
 
     /// Optional. Only validate the stream, but don't create any resources.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Create the stream without validating it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1449,9 +1458,11 @@ pub struct UpdateStreamRequest {
 
     /// Optional. Only validate the stream with the changes, without actually
     /// updating it. The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Update the stream without validating it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1577,6 +1588,7 @@ pub struct RunStreamRequest {
     pub cdc_strategy: std::option::Option<crate::model::CdcStrategy>,
 
     /// Optional. Update the stream without validating it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1847,6 +1859,7 @@ pub struct ListStreamObjectsRequest {
 
     /// Maximum number of objects to return. Default is 50.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListStreamObjectsRequest` call.
@@ -1988,6 +2001,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -2108,6 +2122,7 @@ pub struct CreatePrivateConnectionRequest {
     pub request_id: std::string::String,
 
     /// Optional. If set to true, will skip validations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2179,6 +2194,7 @@ pub struct ListPrivateConnectionsRequest {
     /// If unspecified, at most 50 private connectivity configurations that will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListPrivateConnections` call.
@@ -2349,6 +2365,7 @@ pub struct DeletePrivateConnectionRequest {
 
     /// Optional. If set to true, any child routes that belong to this
     /// PrivateConnection will also be deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2508,6 +2525,7 @@ pub struct ListRoutesRequest {
     /// fewer than this value. If unspecified, at most 50 Routes
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListRoutes` call.
@@ -2747,6 +2765,7 @@ pub struct OracleProfile {
     pub hostname: std::string::String,
 
     /// Port for the Oracle connection, default value is 1521.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Required. Username for the Oracle connection.
@@ -2882,6 +2901,7 @@ pub struct OracleAsmConfig {
     pub hostname: std::string::String,
 
     /// Required. Port for the Oracle ASM connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Required. Username for the Oracle ASM connection.
@@ -2999,6 +3019,7 @@ pub struct MysqlProfile {
     pub hostname: std::string::String,
 
     /// Port for the MySQL connection, default value is 3306.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Required. Username for the MySQL connection.
@@ -3090,6 +3111,7 @@ pub struct PostgresqlProfile {
     pub hostname: std::string::String,
 
     /// Port for the PostgreSQL connection, default value is 5432.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Required. Username for the PostgreSQL connection.
@@ -3195,6 +3217,7 @@ pub struct SqlServerProfile {
     pub hostname: std::string::String,
 
     /// Port for the SQLServer connection, default value is 1433.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Required. Username for the SQLServer connection.
@@ -3664,6 +3687,7 @@ pub struct ForwardSshTunnelConnectivity {
     pub username: std::string::String,
 
     /// Port for the SSH tunnel, default value is 22.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -4132,6 +4156,7 @@ pub struct Route {
     pub destination_address: std::string::String,
 
     /// Destination port for connection
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub destination_port: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4220,6 +4245,7 @@ pub struct MysqlSslConfig {
     pub client_key: std::string::String,
 
     /// Output only. Indicates whether the client_key field is set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub client_key_set: bool,
 
     /// Optional. Input only. PEM-encoded certificate that will be used by the
@@ -4230,6 +4256,7 @@ pub struct MysqlSslConfig {
     pub client_certificate: std::string::String,
 
     /// Output only. Indicates whether the client_certificate field is set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub client_certificate_set: bool,
 
     /// Input only. PEM-encoded certificate of the CA that signed the source
@@ -4238,6 +4265,7 @@ pub struct MysqlSslConfig {
     pub ca_certificate: std::string::String,
 
     /// Output only. Indicates whether the ca_certificate field is set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ca_certificate_set: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4308,6 +4336,7 @@ pub struct OracleSslConfig {
 
     /// Output only. Indicates whether the ca_certificate field has been set for
     /// this Connection-Profile.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ca_certificate_set: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5107,12 +5136,15 @@ pub struct OracleColumn {
     pub data_type: std::string::String,
 
     /// Column length.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub length: i32,
 
     /// Column precision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub precision: i32,
 
     /// Column scale.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scale: i32,
 
     /// Column encoding.
@@ -5120,12 +5152,15 @@ pub struct OracleColumn {
     pub encoding: std::string::String,
 
     /// Whether or not the column represents a primary key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub primary_key: bool,
 
     /// Whether or not the column can accept a null value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nullable: bool,
 
     /// The ordinal position of the column in the table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ordinal_position: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5347,10 +5382,12 @@ pub struct OracleSourceConfig {
 
     /// Maximum number of concurrent CDC tasks. The number should be non-negative.
     /// If not set (or set to 0), the system's default value is used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_cdc_tasks: i32,
 
     /// Maximum number of concurrent backfill tasks. The number should be
     /// non-negative. If not set (or set to 0), the system's default value is used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_backfill_tasks: i32,
 
     /// The configuration for handle Oracle large objects.
@@ -5894,21 +5931,27 @@ pub struct PostgresqlColumn {
     pub data_type: std::string::String,
 
     /// Column length.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub length: i32,
 
     /// Column precision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub precision: i32,
 
     /// Column scale.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scale: i32,
 
     /// Whether or not the column represents a primary key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub primary_key: bool,
 
     /// Whether or not the column can accept a null value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nullable: bool,
 
     /// The ordinal position of the column in the table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ordinal_position: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6135,6 +6178,7 @@ pub struct PostgresqlSourceConfig {
     /// Maximum number of concurrent backfill tasks. The number should be non
     /// negative. If not set (or set to 0), the system's default value will be
     /// used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_backfill_tasks: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6211,21 +6255,27 @@ pub struct SqlServerColumn {
     pub data_type: std::string::String,
 
     /// Column length.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub length: i32,
 
     /// Column precision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub precision: i32,
 
     /// Column scale.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scale: i32,
 
     /// Whether or not the column represents a primary key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub primary_key: bool,
 
     /// Whether or not the column can accept a null value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nullable: bool,
 
     /// The ordinal position of the column in the table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ordinal_position: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6440,9 +6490,11 @@ pub struct SqlServerSourceConfig {
     pub exclude_objects: std::option::Option<crate::model::SqlServerRdbms>,
 
     /// Max concurrent CDC tasks.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_cdc_tasks: i32,
 
     /// Max concurrent backfill tasks.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_backfill_tasks: i32,
 
     /// Configuration to select the CDC read method for the stream.
@@ -6654,6 +6706,7 @@ pub struct MysqlColumn {
     pub data_type: std::string::String,
 
     /// Column length.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub length: i32,
 
     /// Column collation.
@@ -6661,18 +6714,23 @@ pub struct MysqlColumn {
     pub collation: std::string::String,
 
     /// Whether or not the column represents a primary key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub primary_key: bool,
 
     /// Whether or not the column can accept a null value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nullable: bool,
 
     /// The ordinal position of the column in the table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ordinal_position: i32,
 
     /// Column precision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub precision: i32,
 
     /// Column scale.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scale: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6894,11 +6952,13 @@ pub struct MysqlSourceConfig {
 
     /// Maximum number of concurrent CDC tasks. The number should be non negative.
     /// If not set (or set to 0), the system's default value will be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_cdc_tasks: i32,
 
     /// Maximum number of concurrent backfill tasks. The number should be non
     /// negative. If not set (or set to 0), the system's default value will be
     /// used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_backfill_tasks: i32,
 
     /// The CDC method to use for the stream.
@@ -7261,6 +7321,7 @@ pub struct SalesforceField {
     pub data_type: std::string::String,
 
     /// Indicates whether the field can accept nil values.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nillable: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7741,6 +7802,7 @@ pub struct GcsDestinationConfig {
     pub path: std::string::String,
 
     /// The maximum file size to be saved in the bucket.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub file_rotation_mb: i32,
 
     /// The maximum duration for which new events are added before a file is
@@ -10973,6 +11035,7 @@ impl wkt::message::Message for SqlServerLsnPosition {
 #[non_exhaustive]
 pub struct OracleScnPosition {
     /// Required. SCN number from where Logs will be read
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub scn: i64,
 

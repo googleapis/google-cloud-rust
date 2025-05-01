@@ -321,6 +321,7 @@ pub struct LabelDetectionConfig {
     /// Whether the video has been shot from a stationary (i.e., non-moving)
     /// camera. When set to true, might improve detection accuracy for moving
     /// objects. Should be used with `SHOT_AND_FRAME_MODE` enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub stationary_camera: bool,
 
     /// Model to use for label detection.
@@ -335,6 +336,7 @@ pub struct LabelDetectionConfig {
     /// range will be clipped.
     /// Note: For best results, follow the default threshold. We will update
     /// the default threshold everytime when we release a new model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub frame_confidence_threshold: f32,
 
     /// The confidence threshold we perform filtering on the labels from
@@ -343,6 +345,7 @@ pub struct LabelDetectionConfig {
     /// outside of this range will be clipped.
     /// Note: For best results, follow the default threshold. We will update
     /// the default threshold everytime when we release a new model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub video_confidence_threshold: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -475,10 +478,12 @@ pub struct FaceDetectionConfig {
     pub model: std::string::String,
 
     /// Whether bounding boxes are included in the face annotation output.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_bounding_boxes: bool,
 
     /// Whether to enable face attributes detection, such as glasses, dark_glasses,
     /// mouth_open etc. Ignored if 'include_bounding_boxes' is set to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_attributes: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -523,16 +528,19 @@ impl wkt::message::Message for FaceDetectionConfig {
 pub struct PersonDetectionConfig {
     /// Whether bounding boxes are included in the person detection annotation
     /// output.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_bounding_boxes: bool,
 
     /// Whether to enable pose landmarks detection. Ignored if
     /// 'include_bounding_boxes' is set to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_pose_landmarks: bool,
 
     /// Whether to enable person attributes detection, such as cloth color (black,
     /// blue, etc), type (coat, dress, etc), pattern (plain, floral, etc), hair,
     /// etc.
     /// Ignored if 'include_bounding_boxes' is set to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_attributes: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -717,6 +725,7 @@ pub struct LabelSegment {
     pub segment: std::option::Option<crate::model::VideoSegment>,
 
     /// Confidence that the label is accurate. Range: [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -762,6 +771,7 @@ pub struct LabelFrame {
     pub time_offset: std::option::Option<wkt::Duration>,
 
     /// Confidence that the label is accurate. Range: [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1048,15 +1058,19 @@ impl wkt::message::Message for ExplicitContentAnnotation {
 #[non_exhaustive]
 pub struct NormalizedBoundingBox {
     /// Left X coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub left: f32,
 
     /// Top Y coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub top: f32,
 
     /// Right X coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub right: f32,
 
     /// Bottom Y coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub bottom: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1457,6 +1471,7 @@ pub struct Track {
     pub attributes: std::vec::Vec<crate::model::DetectedAttribute>,
 
     /// Optional. The confidence score of the tracked object.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1524,6 +1539,7 @@ pub struct DetectedAttribute {
     pub name: std::string::String,
 
     /// Detected attribute confidence. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// Text value of the detection result. For example, the value for "HairColor"
@@ -1582,6 +1598,7 @@ pub struct DetectedLandmark {
     pub point: std::option::Option<crate::model::NormalizedVertex>,
 
     /// The confidence score of the detected landmark. Range [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1957,6 +1974,7 @@ pub struct VideoAnnotationProgress {
 
     /// Approximate percentage processed thus far. Guaranteed to be
     /// 100 when fully processed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percent: i32,
 
     /// Time when the request was received.
@@ -2095,12 +2113,14 @@ pub struct SpeechTranscriptionConfig {
     /// within each `SpeechTranscription`. The server may return fewer than
     /// `max_alternatives`. Valid values are `0`-`30`. A value of `0` or `1` will
     /// return a maximum of one. If omitted, will return a maximum of one.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_alternatives: i32,
 
     /// Optional. If set to `true`, the server will attempt to filter out
     /// profanities, replacing all but the initial character in each filtered word
     /// with asterisks, e.g. "f***". If set to `false` or omitted, profanities
     /// won't be filtered out.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub filter_profanity: bool,
 
     /// Optional. A means to provide context to assist the speech recognition.
@@ -2113,6 +2133,7 @@ pub struct SpeechTranscriptionConfig {
     /// does not add punctuation to result hypotheses. NOTE: "This is currently
     /// offered as an experimental service, complimentary to all users. In the
     /// future this may be exclusively available as a premium feature."
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_automatic_punctuation: bool,
 
     /// Optional. For file formats, such as MXF or MKV, supporting multiple audio
@@ -2127,16 +2148,19 @@ pub struct SpeechTranscriptionConfig {
     /// audio for the top alternative in every consecutive response.
     /// This is done in order to improve our speaker tags as our models learn to
     /// identify the speakers in the conversation over time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_speaker_diarization: bool,
 
     /// Optional. If set, specifies the estimated number of speakers in the
     /// conversation. If not set, defaults to '2'. Ignored unless
     /// enable_speaker_diarization is set to true.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub diarization_speaker_count: i32,
 
     /// Optional. If `true`, the top result includes a list of words and the
     /// confidence for those words. If `false`, no word-level confidence
     /// information is returned. The default is `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_word_confidence: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2330,6 +2354,7 @@ pub struct SpeechRecognitionAlternative {
     /// This field is not guaranteed to be accurate and users should not rely on it
     /// to be always provided.
     /// The default of 0.0 is a sentinel value indicating `confidence` was not set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// Output only. A list of word-specific information for each recognized word.
@@ -2409,12 +2434,14 @@ pub struct WordInfo {
     /// This field is not guaranteed to be accurate and users should not rely on it
     /// to be always provided.
     /// The default of 0.0 is a sentinel value indicating `confidence` was not set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// Output only. A distinct integer value is assigned for every speaker within
     /// the audio. This field specifies which one of those speakers was detected to
     /// have spoken this word. Value ranges from 1 up to diarization_speaker_count,
     /// and is only set if speaker diarization is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub speaker_tag: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2478,9 +2505,11 @@ impl wkt::message::Message for WordInfo {
 #[non_exhaustive]
 pub struct NormalizedVertex {
     /// X coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub x: f32,
 
     /// Y coordinate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub y: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2576,6 +2605,7 @@ pub struct TextSegment {
 
     /// Confidence for the track of detected text. It is calculated as the highest
     /// over all frames where OCR detected text appears.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// Information related to the frames where OCR detected text appears.
@@ -2797,6 +2827,7 @@ pub struct ObjectTrackingAnnotation {
     pub entity: std::option::Option<crate::model::Entity>,
 
     /// Object category's labeling confidence of this track.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// Information corresponding to all frames where this object track appears.

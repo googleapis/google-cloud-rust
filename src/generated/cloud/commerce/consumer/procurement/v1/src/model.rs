@@ -237,9 +237,11 @@ pub struct LicensePool {
     pub license_assignment_protocol: std::option::Option<crate::model::AssignmentProtocol>,
 
     /// Output only. Licenses count that are available to be assigned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub available_license_count: i32,
 
     /// Output only. Total number of licenses in the pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_license_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -541,6 +543,7 @@ pub struct EnumerateLicensedUsersRequest {
 
     /// Optional. The maximum number of users to return. The service may return
     /// fewer than this value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `EnumerateLicensedUsers`
@@ -1335,6 +1338,7 @@ pub struct Subscription {
     /// Whether auto renewal is enabled by user choice on current subscription.
     /// This field indicates order/subscription status after pending plan change is
     /// cancelled or rejected.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_renewal_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1530,6 +1534,7 @@ pub struct ListOrdersRequest {
 
     /// The maximum number of entries requested.
     /// The default page size is 25 and the maximum page size is 200.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The token for fetching the next page.
