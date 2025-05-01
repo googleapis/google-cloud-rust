@@ -19,13 +19,13 @@ mod test {
     use test_case::test_case;
 
     #[serde_with::serde_as]
-    #[serde_with::skip_serializing_none]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     pub struct MessageWithF32 {
         #[serde(skip_serializing_if = "google_cloud_wkt::internal::is_default")]
         #[serde_as(as = "google_cloud_wkt::internal::F32")]
         pub singular: f32,
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         #[serde_as(as = "Option<google_cloud_wkt::internal::F32>")]
         pub optional: Option<f32>,
         #[serde(skip_serializing_if = "Vec::is_empty")]
