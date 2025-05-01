@@ -31,6 +31,8 @@ mod empty;
 pub use crate::empty::*;
 mod field_mask;
 pub use crate::field_mask::*;
+// The generated code contains (and uses) deprecated code.
+#[allow(deprecated)]
 mod generated;
 #[doc(hidden)]
 pub mod internal;

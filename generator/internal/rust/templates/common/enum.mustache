@@ -34,11 +34,17 @@ limitations under the License.
 {{> /templates/common/feature_gate}}
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
+{{#Deprecated}}
+#[deprecated]
+{{/Deprecated}}
 pub enum {{Codec.Name}} {
     {{#Codec.UniqueNames}}
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
+    {{#Deprecated}}
+    #[deprecated]
+    {{/Deprecated}}
     {{Codec.VariantName}},
     {{/Codec.UniqueNames}}
     /// If set, the enum was initialized with an unknown value.

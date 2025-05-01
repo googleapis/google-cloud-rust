@@ -42,6 +42,10 @@ use gax::error::Error;
 use std::sync::Arc;
 {{/Codec.HasLROs}}
 
+{{! The generated code may use deprecated request messages. }}
+{{#HasDeprecatedEntities}}
+#[allow(deprecated)]
+{{/HasDeprecatedEntities}}
 pub(crate) mod dynamic;
 
 {{/Codec.HasServices}}
