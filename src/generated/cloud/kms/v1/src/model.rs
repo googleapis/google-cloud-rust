@@ -275,6 +275,7 @@ pub struct ListKeyHandlesRequest {
     ///
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     /// [google.cloud.kms.v1.ListKeyHandlesResponse.next_page_token]: crate::model::ListKeyHandlesResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -741,6 +742,7 @@ pub struct ListEkmConnectionsRequest {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.ListEkmConnectionsResponse.next_page_token]: crate::model::ListEkmConnectionsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -837,6 +839,7 @@ pub struct ListEkmConnectionsResponse {
     /// that matched the query.
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1165,6 +1168,7 @@ pub struct Certificate {
     pub raw_der: ::bytes::Bytes,
 
     /// Output only. True if the certificate was parsed successfully.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub parsed: bool,
 
     /// Output only. The issuer distinguished name in RFC 2253 format. Only present
@@ -1922,6 +1926,7 @@ pub struct CryptoKey {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Immutable. Whether this key may contain imported versions only.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub import_only: bool,
 
     /// Immutable. The period of time that versions of this key spend in the
@@ -2725,6 +2730,7 @@ pub struct CryptoKeyVersion {
     /// [ImportCryptoKeyVersionRequest.crypto_key_version][google.cloud.kms.v1.ImportCryptoKeyVersionRequest.crypto_key_version].
     ///
     /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.crypto_key_version]: crate::model::ImportCryptoKeyVersionRequest::crypto_key_version
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reimport_eligible: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4428,6 +4434,7 @@ pub struct ListKeyRingsRequest {
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     /// [google.cloud.kms.v1.ListKeyRingsResponse.next_page_token]: crate::model::ListKeyRingsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -4523,6 +4530,7 @@ pub struct ListCryptoKeysRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.ListCryptoKeysResponse.next_page_token]: crate::model::ListCryptoKeysResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -4633,6 +4641,7 @@ pub struct ListCryptoKeyVersionsRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ListCryptoKeyVersionsResponse.next_page_token]: crate::model::ListCryptoKeyVersionsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -4742,6 +4751,7 @@ pub struct ListImportJobsRequest {
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     /// [google.cloud.kms.v1.ListImportJobsResponse.next_page_token]: crate::model::ListImportJobsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -4838,6 +4848,7 @@ pub struct ListKeyRingsResponse {
     /// the query.
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4920,6 +4931,7 @@ pub struct ListCryptoKeysResponse {
     /// matched the query.
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5003,6 +5015,7 @@ pub struct ListCryptoKeyVersionsResponse {
     /// query.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5085,6 +5098,7 @@ pub struct ListImportJobsResponse {
     /// matched the query.
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5467,6 +5481,7 @@ pub struct CreateCryptoKeyRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
     /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_initial_version_creation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6711,6 +6726,7 @@ pub struct RawDecryptRequest {
     /// The length of the authentication tag that is appended to the end of
     /// the ciphertext. If unspecified (0), the default value for the key's
     /// algorithm will be used (for AES-GCM, the default value is 16).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tag_length: i32,
 
     /// Optional. An optional CRC32C checksum of the
@@ -7346,6 +7362,7 @@ pub struct GenerateRandomBytesRequest {
 
     /// The length in bytes of the amount of randomness to retrieve.  Minimum 8
     /// bytes, maximum 1024 bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub length_bytes: i32,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] to use when
@@ -7456,6 +7473,7 @@ pub struct EncryptResponse {
     /// [google.cloud.kms.v1.EncryptRequest.plaintext_crc32c]: crate::model::EncryptRequest::plaintext_crc32c
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedPlaintextCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_plaintext_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -7477,6 +7495,7 @@ pub struct EncryptResponse {
     /// [google.cloud.kms.v1.EncryptRequest.additional_authenticated_data_crc32c]: crate::model::EncryptRequest::additional_authenticated_data_crc32c
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedAdditionalAuthenticatedDataCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_additional_authenticated_data_crc32c: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -7592,6 +7611,7 @@ pub struct DecryptResponse {
     pub plaintext_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Whether the Decryption was performed using the primary key version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub used_primary: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -7678,6 +7698,7 @@ pub struct RawEncryptResponse {
 
     /// The length of the authentication tag that is appended to
     /// the end of the ciphertext.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tag_length: i32,
 
     /// Integrity verification field. A CRC32C checksum of the returned
@@ -7731,6 +7752,7 @@ pub struct RawEncryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawEncryptRequest.plaintext_crc32c]: crate::model::RawEncryptRequest::plaintext_crc32c
     #[serde(rename = "verifiedPlaintextCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_plaintext_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -7750,6 +7772,7 @@ pub struct RawEncryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawEncryptRequest.additional_authenticated_data_crc32c]: crate::model::RawEncryptRequest::additional_authenticated_data_crc32c
     #[serde(rename = "verifiedAdditionalAuthenticatedDataCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_additional_authenticated_data_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -7769,6 +7792,7 @@ pub struct RawEncryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawEncryptRequest.initialization_vector_crc32c]: crate::model::RawEncryptRequest::initialization_vector_crc32c
     #[serde(rename = "verifiedInitializationVectorCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_initialization_vector_crc32c: bool,
 
     /// The resource name of the
@@ -7947,6 +7971,7 @@ pub struct RawDecryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawDecryptRequest.ciphertext_crc32c]: crate::model::RawDecryptRequest::ciphertext_crc32c
     #[serde(rename = "verifiedCiphertextCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_ciphertext_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -7966,6 +7991,7 @@ pub struct RawDecryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawDecryptRequest.additional_authenticated_data_crc32c]: crate::model::RawDecryptRequest::additional_authenticated_data_crc32c
     #[serde(rename = "verifiedAdditionalAuthenticatedDataCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_additional_authenticated_data_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -7985,6 +8011,7 @@ pub struct RawDecryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawDecryptRequest.initialization_vector_crc32c]: crate::model::RawDecryptRequest::initialization_vector_crc32c
     #[serde(rename = "verifiedInitializationVectorCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_initialization_vector_crc32c: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8104,6 +8131,7 @@ pub struct AsymmetricSignResponse {
     /// [google.cloud.kms.v1.AsymmetricSignRequest.digest_crc32c]: crate::model::AsymmetricSignRequest::digest_crc32c
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedDigestCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_digest_crc32c: bool,
 
     /// The resource name of the
@@ -8133,6 +8161,7 @@ pub struct AsymmetricSignResponse {
     /// [google.cloud.kms.v1.AsymmetricSignRequest.data_crc32c]: crate::model::AsymmetricSignRequest::data_crc32c
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedDataCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_data_crc32c: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -8253,6 +8282,7 @@ pub struct AsymmetricDecryptResponse {
     /// [google.cloud.kms.v1.AsymmetricDecryptRequest.ciphertext_crc32c]: crate::model::AsymmetricDecryptRequest::ciphertext_crc32c
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedCiphertextCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_ciphertext_crc32c: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -8370,6 +8400,7 @@ pub struct MacSignResponse {
     /// [google.cloud.kms.v1.MacSignRequest.data]: crate::model::MacSignRequest::data
     /// [google.cloud.kms.v1.MacSignRequest.data_crc32c]: crate::model::MacSignRequest::data_crc32c
     #[serde(rename = "verifiedDataCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_data_crc32c: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -8456,6 +8487,7 @@ pub struct MacVerifyResponse {
     ///
     /// [google.cloud.kms.v1.MacVerifyRequest.data]: crate::model::MacVerifyRequest::data
     /// [google.cloud.kms.v1.MacVerifyRequest.mac]: crate::model::MacVerifyRequest::mac
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub success: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -8477,6 +8509,7 @@ pub struct MacVerifyResponse {
     /// [google.cloud.kms.v1.MacVerifyRequest.data]: crate::model::MacVerifyRequest::data
     /// [google.cloud.kms.v1.MacVerifyRequest.data_crc32c]: crate::model::MacVerifyRequest::data_crc32c
     #[serde(rename = "verifiedDataCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_data_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -8498,12 +8531,14 @@ pub struct MacVerifyResponse {
     /// [google.cloud.kms.v1.MacVerifyRequest.mac]: crate::model::MacVerifyRequest::mac
     /// [google.cloud.kms.v1.MacVerifyRequest.mac_crc32c]: crate::model::MacVerifyRequest::mac_crc32c
     #[serde(rename = "verifiedMacCrc32c")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_mac_crc32c: bool,
 
     /// Integrity verification field. This value is used for the integrity
     /// verification of [MacVerifyResponse.success]. If the value of this field
     /// contradicts the value of [MacVerifyResponse.success], discard the response
     /// and perform a limited number of retries.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verified_success_integrity: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -8773,6 +8808,7 @@ pub struct LocationMetadata {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hsm_available: bool,
 
     /// Indicates whether [CryptoKeys][google.cloud.kms.v1.CryptoKey] with
@@ -8783,6 +8819,7 @@ pub struct LocationMetadata {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
     /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::protection_level::EXTERNAL
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ekm_available: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

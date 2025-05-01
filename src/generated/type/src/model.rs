@@ -160,12 +160,15 @@ extern crate wkt;
 #[non_exhaustive]
 pub struct Color {
     /// The amount of red in the color as a value in the interval [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub red: f32,
 
     /// The amount of green in the color as a value in the interval [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub green: f32,
 
     /// The amount of blue in the color as a value in the interval [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub blue: f32,
 
     /// The fraction of this color that should be applied to the pixel. That is,
@@ -247,15 +250,18 @@ impl wkt::message::Message for Color {
 pub struct Date {
     /// Year of the date. Must be from 1 to 9999, or 0 to specify a date without
     /// a year.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub year: i32,
 
     /// Month of a year. Must be from 1 to 12, or 0 to specify a year without a
     /// month and day.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub month: i32,
 
     /// Day of a month. Must be from 1 to 31 and valid for the year and month, or 0
     /// to specify a year by itself or a year and month where the day isn't
     /// significant.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -323,29 +329,36 @@ impl wkt::message::Message for Date {
 pub struct DateTime {
     /// Optional. Year of date. Must be from 1 to 9999, or 0 if specifying a
     /// datetime without a year.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub year: i32,
 
     /// Required. Month of year. Must be from 1 to 12.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub month: i32,
 
     /// Required. Day of month. Must be from 1 to 31 and valid for the year and
     /// month.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub day: i32,
 
     /// Required. Hours of day in 24 hour format. Should be from 0 to 23. An API
     /// may choose to allow the value "24:00:00" for scenarios like business
     /// closing time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hours: i32,
 
     /// Required. Minutes of hour of day. Must be from 0 to 59.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub minutes: i32,
 
     /// Required. Seconds of minutes of the time. Must normally be from 0 to 59. An
     /// API may allow the value 60 if it allows leap-seconds.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub seconds: i32,
 
     /// Required. Fractions of seconds in nanoseconds. Must be from 0 to
     /// 999,999,999.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nanos: i32,
 
     /// Optional. Specifies either the UTC offset or the time zone of the DateTime.
@@ -756,11 +769,13 @@ impl wkt::message::Message for Expr {
 #[non_exhaustive]
 pub struct Fraction {
     /// The numerator in the fraction, e.g. 2 in 2/3.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub numerator: i64,
 
     /// The value by which the numerator is divided, e.g. 3 in 2/3. Must be
     /// positive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub denominator: i64,
 
@@ -862,9 +877,11 @@ impl wkt::message::Message for Interval {
 #[non_exhaustive]
 pub struct LatLng {
     /// The latitude in degrees. It must be in the range [-90.0, +90.0].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub latitude: f64,
 
     /// The longitude in degrees. It must be in the range [-180.0, +180.0].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub longitude: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -952,6 +969,7 @@ pub struct Money {
 
     /// The whole units of the amount.
     /// For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub units: i64,
 
@@ -961,6 +979,7 @@ pub struct Money {
     /// If `units` is zero, `nanos` can be positive, zero, or negative.
     /// If `units` is negative, `nanos` must be negative or zero.
     /// For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nanos: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1258,6 +1277,7 @@ pub struct PostalAddress {
     /// the latest revision.
     ///
     /// All new revisions **must** be backward compatible with old revisions.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub revision: i32,
 
     /// Required. CLDR region code of the country/region of the address. This
@@ -1515,15 +1535,19 @@ impl wkt::message::Message for PostalAddress {
 #[non_exhaustive]
 pub struct Quaternion {
     /// The x component.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub x: f64,
 
     /// The y component.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub y: f64,
 
     /// The z component.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub z: f64,
 
     /// The scalar component.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub w: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1579,16 +1603,20 @@ impl wkt::message::Message for Quaternion {
 pub struct TimeOfDay {
     /// Hours of day in 24 hour format. Should be from 0 to 23. An API may choose
     /// to allow the value "24:00:00" for scenarios like business closing time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hours: i32,
 
     /// Minutes of hour of day. Must be from 0 to 59.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub minutes: i32,
 
     /// Seconds of minutes of the time. Must normally be from 0 to 59. An API may
     /// allow the value 60 if it allows leap-seconds.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub seconds: i32,
 
     /// Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nanos: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

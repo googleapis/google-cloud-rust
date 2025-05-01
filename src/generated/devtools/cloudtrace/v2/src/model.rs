@@ -297,6 +297,7 @@ pub mod span {
         /// The number of attributes that were discarded. Attributes can be discarded
         /// because their keys are too long or because there are too many attributes.
         /// If this value is 0 then all attributes are valid.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub dropped_attributes_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -525,16 +526,19 @@ pub mod span {
 
             /// An identifier for the MessageEvent's message that can be used to match
             /// `SENT` and `RECEIVED` MessageEvents.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub id: i64,
 
             /// The number of uncompressed bytes sent or received.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub uncompressed_size_bytes: i64,
 
             /// The number of compressed bytes sent or received. If missing, the
             /// compressed size is assumed to be the same size as the uncompressed
             /// size.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub compressed_size_bytes: i64,
 
@@ -673,10 +677,12 @@ pub mod span {
 
         /// The number of dropped annotations in all the included time events.
         /// If the value is 0, then no annotations were dropped.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub dropped_annotations_count: i32,
 
         /// The number of dropped message events in all the included time events.
         /// If the value is 0, then no message events were dropped.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub dropped_message_events_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -872,6 +878,7 @@ pub mod span {
 
         /// The number of dropped links after the maximum size was enforced. If
         /// this value is 0, then no links were dropped.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub dropped_links_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1141,6 +1148,7 @@ pub struct StackTrace {
     ///
     /// Subsequent spans within the same request can refer
     /// to that stack trace by only setting `stackTraceHashId`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub stack_trace_hash_id: i64,
 
@@ -1206,11 +1214,13 @@ pub mod stack_trace {
         pub file_name: std::option::Option<crate::model::TruncatableString>,
 
         /// The line number in `file_name` where the function call appears.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub line_number: i64,
 
         /// The column number where the function call appears, if available.
         /// This is important in JavaScript because of its anonymous functions.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub column_number: i64,
 
@@ -1316,6 +1326,7 @@ pub mod stack_trace {
         /// The number of stack frames that were dropped because there
         /// were too many stack frames.
         /// If this value is 0, then no stack frames were dropped.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub dropped_frames_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1424,6 +1435,7 @@ pub struct TruncatableString {
 
     /// The number of bytes removed from the original string. If this
     /// value is 0, then the string was not shortened.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub truncated_byte_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

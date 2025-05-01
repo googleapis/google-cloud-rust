@@ -70,6 +70,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -402,6 +403,7 @@ pub mod service_connection_map {
 
         /// This is used in PSC consumer ForwardingRule to control whether the PSC
         /// endpoint can be accessed from another region.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub disable_global_access: bool,
 
         /// Output only. Overall state of PSC Connections management for this
@@ -952,6 +954,7 @@ pub struct ListServiceConnectionMapsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results per page that should be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token.
@@ -2016,6 +2019,7 @@ pub struct ListServiceConnectionPoliciesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results per page that should be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token.
@@ -2541,6 +2545,7 @@ pub struct ListServiceClassesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results per page that should be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token.
@@ -3003,6 +3008,7 @@ pub struct ListServiceConnectionTokensRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results per page that should be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token.
@@ -3561,6 +3567,7 @@ pub struct RoutingVPC {
     /// site_to_site_data_transfer field is set to true). If you create new spokes
     /// that use data transfer, they must be associated with this VPC network. At
     /// most, one VPC network will have this field set to true.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub required_for_new_site_to_site_data_transfer_spokes: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4192,6 +4199,7 @@ pub struct Route {
     /// Output only. The priority of this route. Priority is used to break ties in
     /// cases where a destination matches more than one route. In these cases the
     /// route with the lowest-numbered priority value wins.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub priority: i64,
 
@@ -4549,6 +4557,7 @@ pub struct ListHubsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results per page to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token.
@@ -4971,6 +4980,7 @@ pub struct ListHubSpokesRequest {
     pub spoke_locations: std::vec::Vec<std::string::String>,
 
     /// The maximum number of results to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token.
@@ -5220,6 +5230,7 @@ pub struct QueryHubStatusRequest {
     pub name: std::string::String,
 
     /// Optional. The maximum number of results to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token.
@@ -5393,6 +5404,7 @@ pub struct HubStatusEntry {
     /// The number of propagated Private Service Connect connections with this
     /// status. If the `group_by` field was not set in the request message, the
     /// value of this field is 1.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub count: i32,
 
     /// The fields that this entry is grouped by. This has the same value as the
@@ -5660,6 +5672,7 @@ pub struct ListSpokesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token.
@@ -6603,6 +6616,7 @@ pub struct ListRoutesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token.
@@ -6760,6 +6774,7 @@ pub struct ListRouteTablesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token.
@@ -6917,6 +6932,7 @@ pub struct ListGroupsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token.
@@ -7075,6 +7091,7 @@ pub struct LinkedVpnTunnels {
     /// A value that controls whether site-to-site data transfer is enabled for
     /// these resources. Data transfer is available only in [supported
     /// locations](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/locations).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub site_to_site_data_transfer: bool,
 
     /// Output only. The VPC network where these VPN tunnels are located.
@@ -7153,6 +7170,7 @@ pub struct LinkedInterconnectAttachments {
     /// A value that controls whether site-to-site data transfer is enabled for
     /// these resources. Data transfer is available only in [supported
     /// locations](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/locations).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub site_to_site_data_transfer: bool,
 
     /// Output only. The VPC network where these VLAN attachments are located.
@@ -7231,6 +7249,7 @@ pub struct LinkedRouterApplianceInstances {
     /// A value that controls whether site-to-site data transfer is enabled for
     /// these resources. Data transfer is available only in [supported
     /// locations](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/locations).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub site_to_site_data_transfer: bool,
 
     /// Output only. The VPC network where these router appliance instances are
@@ -7671,6 +7690,7 @@ pub struct NextHopVPNTunnel {
     /// Indicates whether site-to-site data transfer is allowed for this VPN tunnel
     /// resource. Data transfer is available only in [supported
     /// locations](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/locations).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub site_to_site_data_transfer: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7724,6 +7744,7 @@ pub struct NextHopRouterApplianceInstance {
     /// Indicates whether site-to-site data transfer is allowed for this Router
     /// appliance instance resource. Data transfer is available only in [supported
     /// locations](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/locations).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub site_to_site_data_transfer: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7778,6 +7799,7 @@ pub struct NextHopInterconnectAttachment {
     /// interconnect attachment resource. Data transfer is available only in
     /// [supported
     /// locations](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/locations).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub site_to_site_data_transfer: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7907,6 +7929,7 @@ pub mod spoke_summary {
 
         /// Output only. The total number of spokes of this type that are
         /// associated with the hub.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub count: i64,
 
@@ -7953,6 +7976,7 @@ pub mod spoke_summary {
 
         /// Output only. The total number of spokes that are in this state
         /// and associated with a given hub.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub count: i64,
 
@@ -7995,6 +8019,7 @@ pub mod spoke_summary {
 
         /// Output only. The total number of spokes that are inactive for a
         /// particular reason and associated with a given hub.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub count: i64,
 
@@ -8191,6 +8216,7 @@ pub struct PolicyBasedRoute {
     /// routes found. In cases where multiple policy-based routes are matched, the
     /// one with the lowest-numbered priority value wins. The default value is
     /// 1000. The priority value must be from 1 to 65535, inclusive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub priority: i32,
 
     /// Output only. If potential misconfigurations are detected for this route,
@@ -8920,6 +8946,7 @@ pub struct ListPolicyBasedRoutesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results per page that should be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token.

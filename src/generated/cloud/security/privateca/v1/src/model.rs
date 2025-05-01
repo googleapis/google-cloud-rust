@@ -1009,6 +1009,7 @@ pub mod ca_pool {
         ///
         /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
         /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub publish_ca_cert: bool,
 
         /// Optional. When true, publishes each
@@ -1023,6 +1024,7 @@ pub mod ca_pool {
         ///
         /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
         /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub publish_crl: bool,
 
         /// Optional. Specifies the encoding format of each
@@ -1485,12 +1487,14 @@ pub mod ca_pool {
                 /// Optional. The minimum allowed RSA modulus size (inclusive), in bits.
                 /// If this is not set, or if set to zero, the service-level min RSA
                 /// modulus size will continue to apply.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 #[serde_as(as = "serde_with::DisplayFromStr")]
                 pub min_modulus_size: i64,
 
                 /// Optional. The maximum allowed RSA modulus size (inclusive), in bits.
                 /// If this is not set, or if set to zero, the service will not enforce
                 /// an explicit upper bound on RSA modulus sizes.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 #[serde_as(as = "serde_with::DisplayFromStr")]
                 pub max_modulus_size: i64,
 
@@ -1677,6 +1681,7 @@ pub mod ca_pool {
             /// specifying a CSR.
             ///
             /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub allow_csr_based_issuance: bool,
 
             /// Optional. When true, allows callers to create
@@ -1686,6 +1691,7 @@ pub mod ca_pool {
             ///
             /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
             /// [google.cloud.security.privateca.v1.CertificateConfig]: crate::model::CertificateConfig
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub allow_config_based_issuance: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1805,6 +1811,7 @@ pub struct CertificateRevocationList {
     pub name: std::string::String,
 
     /// Output only. The CRL sequence number that appears in pem_crl.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub sequence_number: i64,
 
@@ -2875,6 +2882,7 @@ pub mod x_509_parameters {
     #[non_exhaustive]
     pub struct NameConstraints {
         /// Indicates whether or not the name constraints are marked critical.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub critical: bool,
 
         /// Contains permitted DNS names. Any DNS name that can be
@@ -3927,6 +3935,7 @@ pub struct X509Extension {
     /// Optional. Indicates whether or not this extension is critical (i.e., if the
     /// client does not know how to handle this extension, the client should
     /// consider this to be an error).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub critical: bool,
 
     /// Required. The value of this X.509 extension.
@@ -4061,31 +4070,40 @@ pub mod key_usage {
     #[non_exhaustive]
     pub struct KeyUsageOptions {
         /// The key may be used for digital signatures.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub digital_signature: bool,
 
         /// The key may be used for cryptographic commitments. Note that this may
         /// also be referred to as "non-repudiation".
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub content_commitment: bool,
 
         /// The key may be used to encipher other keys.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub key_encipherment: bool,
 
         /// The key may be used to encipher data.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub data_encipherment: bool,
 
         /// The key may be used in a key agreement protocol.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub key_agreement: bool,
 
         /// The key may be used to sign certificates.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub cert_sign: bool,
 
         /// The key may be used sign certificate revocation lists.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub crl_sign: bool,
 
         /// The key may be used to encipher only.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub encipher_only: bool,
 
         /// The key may be used to decipher only.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub decipher_only: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4170,26 +4188,32 @@ pub mod key_usage {
     pub struct ExtendedKeyUsageOptions {
         /// Corresponds to OID 1.3.6.1.5.5.7.3.1. Officially described as "TLS WWW
         /// server authentication", though regularly used for non-WWW TLS.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub server_auth: bool,
 
         /// Corresponds to OID 1.3.6.1.5.5.7.3.2. Officially described as "TLS WWW
         /// client authentication", though regularly used for non-WWW TLS.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub client_auth: bool,
 
         /// Corresponds to OID 1.3.6.1.5.5.7.3.3. Officially described as "Signing of
         /// downloadable executable code client authentication".
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub code_signing: bool,
 
         /// Corresponds to OID 1.3.6.1.5.5.7.3.4. Officially described as "Email
         /// protection".
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub email_protection: bool,
 
         /// Corresponds to OID 1.3.6.1.5.5.7.3.8. Officially described as "Binding
         /// the hash of an object to a time".
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub time_stamping: bool,
 
         /// Corresponds to OID 1.3.6.1.5.5.7.3.9. Officially described as "Signing
         /// OCSP responses".
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub ocsp_signing: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4805,6 +4829,7 @@ pub struct CreateCertificateRequest {
     /// [google.cloud.security.privateca.v1.CaPool.tier]: crate::model::CaPool::tier
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
     /// [google.cloud.security.privateca.v1.Certificate.pem_certificate]: crate::model::Certificate::pem_certificate
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. The resource ID of the
@@ -4962,6 +4987,7 @@ pub struct ListCertificatesRequest {
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
     /// [google.cloud.security.privateca.v1.ListCertificatesResponse.next_page_token]: crate::model::ListCertificatesResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -5493,6 +5519,7 @@ pub struct DisableCertificateAuthorityRequest {
     /// depended on by another resource. However, doing so may result in unintended
     /// and unrecoverable effects on any dependent resources since the CA will
     /// no longer be able to issue certificates.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_dependent_resources: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5735,6 +5762,7 @@ pub struct ListCertificateAuthoritiesRequest {
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
     /// [google.cloud.security.privateca.v1.ListCertificateAuthoritiesResponse.next_page_token]: crate::model::ListCertificateAuthoritiesResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -5978,17 +6006,20 @@ pub struct DeleteCertificateAuthorityRequest {
 
     /// Optional. This field allows the CA to be deleted even if the CA has
     /// active certs. Active certs include both unrevoked and unexpired certs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_active_certificates: bool,
 
     /// Optional. If this flag is set, the Certificate Authority will be deleted as
     /// soon as possible without a 30-day grace period where undeletion would have
     /// been allowed. If you proceed, there will be no way to recover this CA.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_grace_period: bool,
 
     /// Optional. This field allows this CA to be deleted even if it's being
     /// depended on by another resource. However, doing so may result in unintended
     /// and unrecoverable effects on any dependent resources since the CA will
     /// no longer be able to issue certificates.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_dependent_resources: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6317,6 +6348,7 @@ pub struct DeleteCaPoolRequest {
     /// depended on by another resource. However, doing so may result in unintended
     /// and unrecoverable effects on any dependent resources since the pool will
     /// no longer be able to issue certificates.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_dependent_resources: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6566,6 +6598,7 @@ pub struct ListCaPoolsRequest {
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
     /// [google.cloud.security.privateca.v1.ListCaPoolsResponse.next_page_token]: crate::model::ListCaPoolsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -6782,6 +6815,7 @@ pub struct ListCertificateRevocationListsRequest {
     ///
     /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
     /// [google.cloud.security.privateca.v1.ListCertificateRevocationListsResponse.next_page_token]: crate::model::ListCertificateRevocationListsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -7232,6 +7266,7 @@ pub struct ListCertificateTemplatesRequest {
     ///
     /// [google.cloud.security.privateca.v1.CertificateTemplate]: crate::model::CertificateTemplate
     /// [google.cloud.security.privateca.v1.ListCertificateTemplatesResponse.next_page_token]: crate::model::ListCertificateTemplatesResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -7491,6 +7526,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

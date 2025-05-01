@@ -31,6 +31,7 @@ extern crate wkt;
 #[non_exhaustive]
 pub struct PosixAccount {
     /// Only one POSIX account can be marked as primary.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub primary: bool,
 
     /// The username of the POSIX account.
@@ -38,10 +39,12 @@ pub struct PosixAccount {
     pub username: std::string::String,
 
     /// The user ID.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub uid: i64,
 
     /// The default group ID.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub gid: i64,
 
@@ -170,6 +173,7 @@ pub struct SshPublicKey {
     pub key: std::string::String,
 
     /// An expiration time in microseconds since epoch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub expiration_time_usec: i64,
 

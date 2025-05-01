@@ -42,6 +42,7 @@ extern crate wkt;
 pub struct OperationProgress {
     /// Percent completion of the operation.
     /// Values are between 0 and 100 inclusive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percent: i32,
 
     /// Time the request was received.
@@ -142,6 +143,7 @@ pub struct ReplicaInfo {
     /// leader replicas are placed. See the [region types
     /// documentation](https://cloud.google.com/spanner/docs/instances#region_types)
     /// for more details.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_leader_location: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -359,6 +361,7 @@ pub struct InstanceConfig {
     /// Output only. If true, the instance configuration is being created or
     /// updated. If false, there are no ongoing operations for the instance
     /// configuration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. The current instance configuration state. Applicable only for
@@ -373,6 +376,7 @@ pub struct InstanceConfig {
     pub quorum_type: crate::model::instance_config::QuorumType,
 
     /// Output only. The storage limit in bytes per processing unit.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub storage_limit_per_processing_unit: i64,
 
@@ -1230,12 +1234,14 @@ pub mod autoscaling_config {
         /// autoscaler should be trying to achieve for the instance. This number is
         /// on a scale from 0 (no utilization) to 100 (full utilization). The valid
         /// range is [10, 90] inclusive.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub high_priority_cpu_utilization_percent: i32,
 
         /// Required. The target storage utilization percentage that the autoscaler
         /// should be trying to achieve for the instance. This number is on a scale
         /// from 0 (no utilization) to 100 (full utilization). The valid range is
         /// [10, 99] inclusive.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub storage_utilization_percent: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1343,6 +1349,7 @@ pub mod autoscaling_config {
             /// Optional. If specified, overrides the autoscaling target
             /// high_priority_cpu_utilization_percent in the top-level autoscaling
             /// configuration for the selected replicas.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub autoscaling_target_high_priority_cpu_utilization_percent: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1430,6 +1437,7 @@ pub struct Instance {
     /// For more information, see
     /// [Compute capacity, nodes, and processing
     /// units](https://cloud.google.com/spanner/docs/compute-capacity).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub node_count: i32,
 
     /// The number of processing units allocated to this instance. At most, one of
@@ -1448,6 +1456,7 @@ pub struct Instance {
     /// For more information, see
     /// [Compute capacity, nodes and processing
     /// units](https://cloud.google.com/spanner/docs/compute-capacity).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub processing_units: i32,
 
     /// Output only. Lists the compute capacity per ReplicaSelection. A replica
@@ -1964,6 +1973,7 @@ pub struct ListInstanceConfigsRequest {
 
     /// Number of instance configurations to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -2145,6 +2155,7 @@ pub struct CreateInstanceConfigRequest {
 
     /// An option to validate, but not actually execute, a request,
     /// and provide the same response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2230,6 +2241,7 @@ pub struct UpdateInstanceConfigRequest {
 
     /// An option to validate, but not actually execute, a request,
     /// and provide the same response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2301,6 +2313,7 @@ pub struct DeleteInstanceConfigRequest {
 
     /// An option to validate, but not actually execute, a request,
     /// and provide the same response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2400,6 +2413,7 @@ pub struct ListInstanceConfigOperationsRequest {
 
     /// Number of operations to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -2657,6 +2671,7 @@ pub struct ListInstancesRequest {
 
     /// Number of instances to be returned in the response. If 0 or less, defaults
     /// to the server's maximum allowed page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -4150,6 +4165,7 @@ pub struct ListInstancePartitionsRequest {
 
     /// Number of instance partitions to be returned in the response. If 0 or less,
     /// defaults to the server's maximum allowed page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -4370,6 +4386,7 @@ pub struct ListInstancePartitionOperationsRequest {
 
     /// Optional. Number of operations to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If non-empty, `page_token` should contain a

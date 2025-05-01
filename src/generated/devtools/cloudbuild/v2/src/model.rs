@@ -67,6 +67,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -162,6 +163,7 @@ pub struct RunWorkflowCustomOperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -267,10 +269,12 @@ pub struct Connection {
     /// If disabled is set to true, functionality is disabled for this connection.
     /// Repository based API methods and webhooks processing for repositories in
     /// this connection will be disabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Output only. Set to true when the connection is being set up or updated in
     /// the background.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Allows clients to store small amounts of arbitrary data.
@@ -706,6 +710,7 @@ pub struct FetchLinkableRepositoriesRequest {
     pub connection: std::string::String,
 
     /// Number of results to return in the list. Default to 20.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page start.
@@ -820,6 +825,7 @@ pub struct GitHubConfig {
     pub authorizer_credential: std::option::Option<crate::model::OAuthCredential>,
 
     /// GitHub App installation id.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub app_installation_id: i64,
 
@@ -871,6 +877,7 @@ pub struct GitHubEnterpriseConfig {
     pub api_key: std::string::String,
 
     /// Id of the GitHub App created from the manifest.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub app_id: i64,
 
@@ -889,6 +896,7 @@ pub struct GitHubEnterpriseConfig {
     pub webhook_secret_secret_version: std::string::String,
 
     /// ID of the installation of the GitHub App.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub app_installation_id: i64,
 
@@ -1656,6 +1664,7 @@ pub struct ListConnectionsRequest {
     pub parent: std::string::String,
 
     /// Number of results to return in the list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page start.
@@ -1776,6 +1785,7 @@ pub struct UpdateConnectionRequest {
     /// The creation will succeed only if the input connection has all the
     /// necessary information (e.g a github_config with both  user_oauth_token and
     /// installation_id properties).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// The current etag of the connection.
@@ -1848,6 +1858,7 @@ pub struct DeleteConnectionRequest {
     pub etag: std::string::String,
 
     /// If set, validate the request, but do not actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2076,6 +2087,7 @@ pub struct ListRepositoriesRequest {
     pub parent: std::string::String,
 
     /// Number of results to return in the list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page start.
@@ -2208,6 +2220,7 @@ pub struct DeleteRepositoryRequest {
     pub etag: std::string::String,
 
     /// If set, validate the request, but do not actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

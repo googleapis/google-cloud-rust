@@ -46,6 +46,7 @@ pub struct GenerateCredentialsRequest {
     /// transport mechanism for cluster types that would otherwise have used a
     /// different transport. Requires that Connect Agent be installed on the
     /// cluster. Setting this field to false is equivalent to not setting it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force_use_agent: bool,
 
     /// Optional. The Connect Gateway version to be used in the resulting

@@ -149,6 +149,7 @@ pub struct Network {
     /// IP (L3) MTU value of the network.
     /// Valid values are: 1500 and 9000.
     /// Default to 1500 if not set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mtu: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -256,6 +257,7 @@ pub struct Subnet {
 
     /// Optional. VLAN id provided by user. If not specified we assign one
     /// automatically.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vlan_id: i32,
 
     /// Optional. A bonding type in the subnet creation specifies whether a VLAN
@@ -682,11 +684,13 @@ pub struct InterconnectAttachment {
     pub network: std::string::String,
 
     /// Required. VLAN id provided by user. Must be site-wise unique.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vlan_id: i32,
 
     /// IP (L3) MTU value of the virtual edge cloud.
     /// Valid values are: 1500 and 9000.
     /// Default to 1500 if not set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mtu: i32,
 
     /// Output only. Current stage of the resource to the device by config push.
@@ -1076,11 +1080,13 @@ pub mod router {
 
         /// Peer BGP Autonomous System Number (ASN). Each BGP interface may use
         /// a different value.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub peer_asn: u32,
 
         /// Output only. Local BGP Autonomous System Number (ASN).
         /// This field is ST_NOT_REQUIRED because it stores private ASNs, which are
         /// meaningless outside the zone in which they are being used.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub local_asn: u32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1166,10 +1172,12 @@ pub mod router {
     #[non_exhaustive]
     pub struct Bgp {
         /// Locally assigned BGP ASN.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub asn: u32,
 
         /// The interval in seconds between BGP keepalive messages that are
         /// sent to the peer. Default is 20 with value between 20 and 60.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub keepalive_interval_in_seconds: u32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1466,29 +1474,35 @@ pub mod interconnect_diagnostics {
     #[non_exhaustive]
     pub struct PacketCounts {
         /// The number of packets that are delivered.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub inbound_unicast: i64,
 
         /// The number of inbound packets that contained errors.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub inbound_errors: i64,
 
         /// The number of inbound packets that were chosen to be discarded even
         /// though no errors had been detected to prevent their being deliverable.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub inbound_discards: i64,
 
         /// The total number of packets that are requested be transmitted.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub outbound_unicast: i64,
 
         /// The number of outbound packets that could not be transmitted because of
         /// errors.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub outbound_errors: i64,
 
         /// The number of outbound packets that were chosen to be discarded even
         /// though no errors had been detected to prevent their being transmitted.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub outbound_discards: i64,
 
@@ -1564,14 +1578,17 @@ pub mod interconnect_diagnostics {
         /// A true value indicates that the participant will allow the link to be
         /// used as part of the aggregate.
         /// A false value indicates the link should be used as an individual link.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub aggregatable: bool,
 
         /// If true, the participant is collecting incoming frames on the link,
         /// otherwise false
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub collecting: bool,
 
         /// When true, the participant is distributing outgoing frames; when false,
         /// distribution is disabled
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub distributing: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1890,6 +1907,7 @@ pub mod router_status {
         pub uptime: std::string::String,
 
         /// Time this session has been up, in seconds.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub uptime_seconds: i64,
 
@@ -2044,26 +2062,32 @@ pub mod router_status {
     #[non_exhaustive]
     pub struct PrefixCounter {
         /// Number of prefixes advertised.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub advertised: i64,
 
         /// Number of prefixes denied.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub denied: i64,
 
         /// Number of prefixes received.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub received: i64,
 
         /// Number of prefixes sent.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub sent: i64,
 
         /// Number of prefixes suppressed.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub suppressed: i64,
 
         /// Number of prefixes withdrawn.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub withdrawn: i64,
 
@@ -2133,6 +2157,7 @@ pub struct ListZonesRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -2315,6 +2340,7 @@ pub struct ListNetworksRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -2628,6 +2654,7 @@ pub struct ListSubnetsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3015,6 +3042,7 @@ pub struct ListInterconnectsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3195,6 +3223,7 @@ pub struct ListInterconnectAttachmentsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3513,6 +3542,7 @@ pub struct ListRoutersRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3921,6 +3951,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

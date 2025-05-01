@@ -1009,6 +1009,7 @@ pub struct FindingTypeStats {
     pub finding_type: std::string::String,
 
     /// Output only. The count of findings belonging to this finding type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub finding_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1059,6 +1060,7 @@ pub struct ScanConfig {
     /// inclusively. If the field is unspecified or its value is set 0, server will
     /// default to 15. Other values outside of [5, 20] range will be rejected with
     /// INVALID_ARGUMENT error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_qps: i32,
 
     /// Required. The starting URLs from which the scanner finds site pages.
@@ -1091,13 +1093,16 @@ pub struct ScanConfig {
 
     /// Whether the scan config is managed by Web Security Scanner, output
     /// only.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub managed_scan: bool,
 
     /// Whether the scan configuration has enabled static IP address scan feature.
     /// If enabled, the scanner will access applications from static IP addresses.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub static_ip_scan: bool,
 
     /// Whether to keep scanning even if most requests return HTTP error codes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_http_status_errors: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1649,6 +1654,7 @@ pub mod scan_config {
         pub schedule_time: std::option::Option<wkt::Timestamp>,
 
         /// Required. The duration of time between executions in days.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub interval_duration_days: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2279,6 +2285,7 @@ pub struct ScanRun {
 
     /// Output only. The number of URLs crawled during this ScanRun. If the scan is in progress,
     /// the value represents the number of URLs crawled up to now.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub urls_crawled_count: i64,
 
@@ -2286,16 +2293,19 @@ pub struct ScanRun {
     /// the value represents the number of URLs tested up to now. The number of
     /// URLs tested is usually larger than the number URLS crawled because
     /// typically a crawled URL is tested with multiple test payloads.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub urls_tested_count: i64,
 
     /// Output only. Whether the scan run has found any vulnerabilities.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub has_vulnerabilities: bool,
 
     /// Output only. The percentage of total completion ranging from 0 to 100.
     /// If the scan is in queue, the value is 0.
     /// If the scan is running, the value ranges from 0 to 100.
     /// If the scan is finished, the value is 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percent: i32,
 
     /// Output only. If result_state is an ERROR, this field provides the primary reason for
@@ -2566,6 +2576,7 @@ pub struct ScanRunErrorTrace {
     /// Output only. If the scan encounters TOO_MANY_HTTP_ERRORS, this field indicates the most
     /// common HTTP error code, if such is available. For example, if this code is
     /// 404, the scan has encountered too many NOT_FOUND responses.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub most_common_http_error_code: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2728,12 +2739,15 @@ pub struct ScanRunLog {
     /// The result state of the ScanRun.
     pub result_state: crate::model::scan_run::ResultState,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub urls_crawled_count: i64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub urls_tested_count: i64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub has_findings: bool,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -3071,6 +3085,7 @@ pub struct ListScanConfigsRequest {
     /// The maximum number of ScanConfigs to return, can be limited by server.
     /// If not specified or not positive, the implementation will select a
     /// reasonable value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3308,6 +3323,7 @@ pub struct ListScanRunsRequest {
     /// The maximum number of ScanRuns to return, can be limited by server.
     /// If not specified or not positive, the implementation will select a
     /// reasonable value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3461,6 +3477,7 @@ pub struct ListCrawledUrlsRequest {
     /// The maximum number of CrawledUrls to return, can be limited by server.
     /// If not specified or not positive, the implementation will select a
     /// reasonable value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3621,6 +3638,7 @@ pub struct ListFindingsRequest {
     /// The maximum number of Findings to return, can be limited by server.
     /// If not specified or not positive, the implementation will select a
     /// reasonable value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

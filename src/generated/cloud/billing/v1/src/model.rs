@@ -51,6 +51,7 @@ pub struct BillingAccount {
     /// charged for any usage on associated projects. False if the billing account
     /// is closed, and therefore projects associated with it are unable to use paid
     /// services.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub open: bool,
 
     /// The display name given to the billing account, such as `My Billing
@@ -175,6 +176,7 @@ pub struct ProjectBillingInfo {
     /// account, to which usage on the project is charged. False if the project is
     /// associated with a closed billing account, or no billing account at all, and
     /// therefore cannot use paid services.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub billing_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -261,6 +263,7 @@ impl wkt::message::Message for GetBillingAccountRequest {
 pub struct ListBillingAccountsRequest {
     /// Requested page size. The maximum page size is 100; this is also the
     /// default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results to return. This should be a
@@ -520,6 +523,7 @@ pub struct ListProjectBillingInfoRequest {
 
     /// Requested page size. The maximum page size is 100; this is also the
     /// default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results to be returned. This should be a
@@ -1059,6 +1063,7 @@ pub struct PricingInfo {
     /// in non USD currency. If a currency is not specified in the request this
     /// defaults to 1.0.
     /// Example: USD * currency_conversion_rate = JPY
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub currency_conversion_rate: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1148,6 +1153,7 @@ pub struct PricingExpression {
     /// Example: If the unit_price is "0.0001 USD", the usage_unit is "GB" and
     /// the display_quantity is "1000" then the recommended way of displaying the
     /// pricing info is "0.10 USD per 1000 GB"
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub display_quantity: f64,
 
     /// The list of tiered rates for this pricing. The total cost is computed by
@@ -1176,6 +1182,7 @@ pub struct PricingExpression {
     /// unit_price / base_unit_conversion_factor = price per base_unit.
     /// start_usage_amount * base_unit_conversion_factor = start_usage_amount in
     /// base_unit.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub base_unit_conversion_factor: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1261,6 +1268,7 @@ pub mod pricing_expression {
         /// Usage is priced at this rate only after this amount.
         /// Example: start_usage_amount of 10 indicates that the usage will be priced
         /// at the unit_price after the first 10 usage_units.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub start_usage_amount: f64,
 
         /// The price per unit of usage.
@@ -1313,6 +1321,7 @@ pub struct AggregationInfo {
     /// The number of intervals to aggregate over.
     /// Example: If aggregation_level is "DAILY" and aggregation_count is 14,
     /// aggregation will be over 14 days.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub aggregation_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1610,6 +1619,7 @@ pub mod geo_taxonomy {
 #[non_exhaustive]
 pub struct ListServicesRequest {
     /// Requested page size. Defaults to 5000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results to return. This should be a
@@ -1745,6 +1755,7 @@ pub struct ListSkusRequest {
     pub currency_code: std::string::String,
 
     /// Requested page size. Defaults to 5000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results to return. This should be a

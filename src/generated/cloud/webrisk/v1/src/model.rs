@@ -115,11 +115,13 @@ pub mod compute_threat_list_diff_request {
         /// The maximum size in number of entries. The diff will not contain more
         /// entries than this value.  This should be a power of 2 between 2**10 and
         /// 2**20.  If zero, no diff size limit is set.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_diff_entries: i32,
 
         /// Sets the maximum number of entries that the client is willing to have
         /// in the local database. This should be a power of 2 between 2**10 and
         /// 2**20. If zero, no database size limit is set.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_database_entries: i32,
 
         /// The compression types supported by the client.
@@ -859,6 +861,7 @@ pub struct RawHashes {
     /// The number of bytes for each prefix encoded below.  This field can be
     /// anywhere from 4 (shortest prefix) to 32 (full SHA256 hash).
     /// In practice this is almost always 4, except in exceptional circumstances.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub prefix_size: i32,
 
     /// The hashes, in binary format, concatenated into one long string. Hashes are
@@ -906,16 +909,19 @@ pub struct RiceDeltaEncoding {
     /// The offset of the first entry in the encoded data, or, if only a single
     /// integer was encoded, that single integer's value. If the field is empty or
     /// missing, assume zero.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub first_value: i64,
 
     /// The Golomb-Rice parameter, which is a number between 2 and 28. This field
     /// is missing (that is, zero) if `num_entries` is zero.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rice_parameter: i32,
 
     /// The number of entries that are delta encoded in the encoded data. If only a
     /// single integer was encoded, this will be zero and the single value will be
     /// stored in `first_value`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub entry_count: i32,
 
     /// The encoded deltas that are encoded using the Golomb-Rice coder.

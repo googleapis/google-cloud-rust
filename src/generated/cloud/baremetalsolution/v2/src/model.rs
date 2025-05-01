@@ -66,6 +66,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used with the operation.
@@ -195,6 +196,7 @@ pub struct Instance {
 
     /// True if you enable hyperthreading for the server, otherwise false.
     /// The default value is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hyperthreading_enabled: bool,
 
     /// Labels as key value pairs.
@@ -216,6 +218,7 @@ pub struct Instance {
 
     /// Output only. True if the interactive serial console feature is enabled for
     /// the instance, false otherwise. The default value is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub interactive_serial_console_enabled: bool,
 
     /// The OS image currently installed on the server.
@@ -562,6 +565,7 @@ pub struct ListInstancesRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -1049,6 +1053,7 @@ pub struct DetachLunRequest {
     pub lun: std::string::String,
 
     /// If true, performs lun unmapping without instance reboot.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_reboot: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1175,6 +1180,7 @@ pub mod server_network_template {
         pub r#type: crate::model::server_network_template::logical_interface::InterfaceType,
 
         /// If true, interface must have network connected.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub required: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1302,6 +1308,7 @@ pub struct Lun {
     pub state: crate::model::lun::State,
 
     /// The size of this LUN, in gigabytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_gb: i64,
 
@@ -1314,9 +1321,11 @@ pub struct Lun {
     pub storage_volume: std::string::String,
 
     /// Display if this LUN can be shared between multiple physical servers.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub shareable: bool,
 
     /// Display if this LUN is a boot LUN.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub boot_lun: bool,
 
     /// The storage type for this LUN.
@@ -1672,6 +1681,7 @@ pub struct ListLunsRequest {
 
     /// Requested page size. The server might return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -1888,6 +1898,7 @@ pub struct Network {
     pub mount_points: std::vec::Vec<crate::model::NetworkMountPoint>,
 
     /// Whether network uses standard frames or jumbo ones.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub jumbo_frames_enabled: bool,
 
     /// Output only. Gateway ip address.
@@ -2302,6 +2313,7 @@ pub mod vrf {
     #[non_exhaustive]
     pub struct QosPolicy {
         /// The bandwidth permitted by the QOS policy, in gbps.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub bandwidth_gbps: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2333,6 +2345,7 @@ pub mod vrf {
     #[non_exhaustive]
     pub struct VlanAttachment {
         /// The peer vlan ID of the attachment.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub peer_vlan_id: i64,
 
@@ -2507,6 +2520,7 @@ pub struct LogicalInterface {
 
     /// The index of the logical interface mapping to the index of the hardware
     /// bond or nic on the chosen network template. This field is deprecated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub interface_index: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2569,6 +2583,7 @@ pub mod logical_interface {
 
         /// Whether this interface is the default gateway for the instance. Only
         /// one interface can be the default gateway for the instance.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub default_gateway: bool,
 
         /// Type of network.
@@ -2672,6 +2687,7 @@ pub struct ListNetworksRequest {
 
     /// Requested page size. The server might return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -2985,6 +3001,7 @@ pub struct NetworkMountPoint {
     pub logical_interface: std::string::String,
 
     /// Network should be a default gateway.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_gateway: bool,
 
     /// Ip address of the server.
@@ -3114,6 +3131,7 @@ pub struct NfsShare {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The requested size, in GiB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub requested_size_gib: i64,
 
@@ -3235,14 +3253,17 @@ pub mod nfs_share {
         pub mount_permissions: crate::model::nfs_share::MountPermissions,
 
         /// Allow dev flag.  Which controls whether to allow creation of devices.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub allow_dev: bool,
 
         /// Allow the setuid flag.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub allow_suid: bool,
 
         /// Disable root squashing, which is a feature of NFS.
         /// Root squash is a special mapping of the remote superuser (root) identity
         /// when using identity authentication.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub no_root_squash: bool,
 
         /// Output only. The path to access NFS, in format shareIP:/InstanceID
@@ -3553,6 +3574,7 @@ pub struct ListNfsSharesRequest {
 
     /// Requested page size. The server might return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -3951,6 +3973,7 @@ pub struct ListOSImagesRequest {
     /// If unspecified, server will pick an appropriate default.
     /// Notice that page_size field is not supported and won't be respected in
     /// the API request for now, will be updated when pagination is supported.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -4107,6 +4130,7 @@ pub struct ProvisioningConfig {
     pub cloud_console_uri: std::string::String,
 
     /// If true, VPC SC is enabled for the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vpc_sc_enabled: bool,
 
     /// Optional status messages associated with the FAILED state.
@@ -4453,6 +4477,7 @@ pub struct ProvisioningQuota {
     pub location: std::string::String,
 
     /// The available count of the provisioning quota.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub available_count: i32,
 
     /// The quota of one asset type.
@@ -4751,6 +4776,7 @@ pub struct ListProvisioningQuotasRequest {
     /// If unspecified, server will pick an appropriate default.
     /// Notice that page_size field is not supported and won't be respected in
     /// the API request for now, will be updated when pagination is supported.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -4875,6 +4901,7 @@ pub struct InstanceConfig {
     pub instance_type: std::string::String,
 
     /// Whether the instance should be provisioned with Hyperthreading enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hyperthreading: bool,
 
     /// OS image to initialize the instance.
@@ -4898,6 +4925,7 @@ pub struct InstanceConfig {
     pub user_note: std::string::String,
 
     /// If true networks can be from different projects of the same vendor account.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub account_networks_enabled: bool,
 
     /// The type of network configuration on the instance.
@@ -5177,6 +5205,7 @@ pub struct VolumeConfig {
     pub id: std::string::String,
 
     /// Whether snapshots should be enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub snapshots_enabled: bool,
 
     /// The type of this Volume.
@@ -5187,6 +5216,7 @@ pub struct VolumeConfig {
     pub protocol: crate::model::volume_config::Protocol,
 
     /// The requested size of this volume, in GB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub size_gb: i32,
 
     /// LUN ranges to be configured. Set only when protocol is PROTOCOL_FC.
@@ -5340,9 +5370,11 @@ pub mod volume_config {
     #[non_exhaustive]
     pub struct LunRange {
         /// Number of LUNs to create.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub quantity: i32,
 
         /// The requested size of each LUN, in GB.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub size_gb: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5389,12 +5421,15 @@ pub mod volume_config {
         /// Disable root squashing, which is a feature of NFS.
         /// Root squash is a special mapping of the remote superuser (root) identity
         /// when using identity authentication.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub no_root_squash: bool,
 
         /// Allow the setuid flag.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub allow_suid: bool,
 
         /// Allow dev flag in NfsShare AllowedClientsRequest.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub allow_dev: bool,
 
         /// A client object.
@@ -5755,9 +5790,11 @@ pub struct NetworkConfig {
     pub gcp_service: std::string::String,
 
     /// Whether the VLAN attachment pair is located in the same project.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vlan_same_project: bool,
 
     /// The JumboFramesEnabled option for customer to set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub jumbo_frames_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6122,6 +6159,7 @@ pub struct InstanceQuota {
 
     /// Number of machines than can be created for the given location and
     /// instance_type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub available_machine_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6377,6 +6415,7 @@ pub struct ListSSHKeysRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -6596,35 +6635,42 @@ pub struct Volume {
     pub state: crate::model::volume::State,
 
     /// The requested size of this storage volume, in GiB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub requested_size_gib: i64,
 
     /// Originally requested size, in GiB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub originally_requested_size_gib: i64,
 
     /// The current size of this storage volume, in GiB, including space reserved
     /// for snapshots. This size might be different than the requested size if the
     /// storage volume has been configured with auto grow or auto shrink.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub current_size_gib: i64,
 
     /// Additional emergency size that was requested for this Volume, in GiB.
     /// current_size_gib includes this value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub emergency_size_gib: i64,
 
     /// Maximum size volume can be expanded to in case of evergency, in GiB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub max_size_gib: i64,
 
     /// The size, in GiB, that this storage volume has expanded as a result of an
     /// auto grow policy. In the absence of auto-grow, the value is 0.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub auto_grown_size_gib: i64,
 
     /// The space remaining in the storage volume for new LUNs, in GiB, excluding
     /// space reserved for snapshots.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub remaining_space_gib: i64,
 
@@ -6641,6 +6687,7 @@ pub struct Volume {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Whether snapshots are enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub snapshot_enabled: bool,
 
     /// Immutable. Pod name.
@@ -6652,6 +6699,7 @@ pub struct Volume {
 
     /// Output only. Whether this volume is a boot volume. A boot volume is one
     /// which contains a boot LUN.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub boot_volume: bool,
 
     /// Immutable. Performance tier of the Volume.
@@ -6679,6 +6727,7 @@ pub struct Volume {
     /// Output only. Is the Volume attached at at least one instance.
     /// This field is a lightweight counterpart of `instances` field.
     /// It is filled in List responses as well.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attached: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6889,6 +6938,7 @@ pub mod volume {
     #[non_exhaustive]
     pub struct SnapshotReservationDetail {
         /// The space on this storage volume reserved for snapshots, shown in GiB.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub reserved_space_gib: i64,
 
@@ -6896,10 +6946,12 @@ pub mod volume {
         /// by the snapshot copies. This value might be higher than 100% if the
         /// snapshot copies have overflowed into the data portion of the storage
         /// volume.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub reserved_space_used_percent: i32,
 
         /// The amount, in GiB, of available space in this storage volume's reserved
         /// snapshot space.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub reserved_space_remaining_gib: i64,
 
@@ -6908,6 +6960,7 @@ pub mod volume {
         /// the storage volume space for snapshots. Maximum reserved space for
         /// snapshots is 40%.
         /// Setting this field will effectively set snapshot_enabled to true.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub reserved_space_percent: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7314,6 +7367,7 @@ pub struct ListVolumesRequest {
 
     /// Requested page size. The server might return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.
@@ -7579,6 +7633,7 @@ pub struct ResizeVolumeRequest {
     pub volume: std::string::String,
 
     /// New Volume size, in GiB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_gib: i64,
 
@@ -7808,6 +7863,7 @@ pub struct ListVolumeSnapshotsRequest {
 
     /// Requested page size. The server might return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results from the server.

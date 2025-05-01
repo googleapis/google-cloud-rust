@@ -46,6 +46,7 @@ pub struct ListReportConfigsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -370,6 +371,7 @@ pub struct DeleteReportConfigRequest {
     pub name: std::string::String,
 
     /// Optional. If set, all ReportDetails for this ReportConfig will be deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
@@ -451,6 +453,7 @@ pub struct ReportDetail {
     pub report_path_prefix: std::string::String,
 
     /// Total shards generated for the report.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub shards_count: i64,
 
@@ -572,6 +575,7 @@ pub mod report_detail {
     #[non_exhaustive]
     pub struct Metrics {
         /// Count of Cloud Storage objects which are part of the report.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub processed_records_count: i64,
 
@@ -610,6 +614,7 @@ pub struct ListReportDetailsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -811,6 +816,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1023,6 +1029,7 @@ pub struct CSVOptions {
     pub delimiter: std::string::String,
 
     /// If set, will include a header row in the CSV report.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub header_required: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -329,6 +329,7 @@ pub struct ConfigSync {
     /// Set to true to enable the Config Sync admission webhook to prevent drifts.
     /// If set to `false`, disables the Config Sync admission webhook and does not
     /// prevent drifts.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub prevent_drift: bool,
 
     /// OCI repo configuration for the cluster
@@ -425,6 +426,7 @@ pub struct GitConfig {
     pub policy_dir: std::string::String,
 
     /// Period in seconds between consecutive syncs. Default: 15.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub sync_wait_secs: i64,
 
@@ -531,6 +533,7 @@ pub struct OciConfig {
     pub policy_dir: std::string::String,
 
     /// Period in seconds between consecutive syncs. Default: 15.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub sync_wait_secs: i64,
 
@@ -601,6 +604,7 @@ pub struct PolicyController {
     /// Enables the installation of Policy Controller.
     /// If false, the rest of PolicyController fields take no
     /// effect.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Installs the default template library along with Policy Controller.
@@ -620,9 +624,11 @@ pub struct PolicyController {
 
     /// Enables the ability to use Constraint Templates that reference to objects
     /// other than the object currently being evaluated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub referential_rules_enabled: bool,
 
     /// Logs all denies and dry run failures.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub log_denies_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -695,12 +701,15 @@ impl wkt::message::Message for PolicyController {
 #[non_exhaustive]
 pub struct HierarchyControllerConfig {
     /// Whether Hierarchy Controller is enabled in this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Whether pod tree labels are enabled in this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_pod_tree_labels: bool,
 
     /// Whether hierarchical resource quota is enabled in this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_hierarchical_resource_quota: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

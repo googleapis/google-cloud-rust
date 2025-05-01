@@ -1055,16 +1055,20 @@ pub struct Source {
 
     /// The information confidence of the source.
     /// The higher the value, the higher the confidence.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub priority: i32,
 
     /// If `true`, the source is managed by other service(s).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub managed: bool,
 
     /// Output only. Number of frames that are still being processed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pending_frame_count: i32,
 
     /// Output only. The number of frames that were reported by the source and
     /// contained errors.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub error_frame_count: i32,
 
     /// Output only. The state of the source.
@@ -1711,6 +1715,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1793,6 +1798,7 @@ pub struct ListAssetsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -2213,6 +2219,7 @@ pub struct BatchDeleteAssetsRequest {
     /// Optional. When this value is set to `true` the request is a no-op for
     /// non-existing assets. See <https://google.aip.dev/135#delete-if-existing> for
     /// additional details. Default value is `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2515,6 +2522,7 @@ pub struct ListImportJobsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -2732,6 +2740,7 @@ pub struct DeleteImportJobRequest {
     /// Optional. If set to `true`, any `ImportDataFiles` of this job will also be
     /// deleted If set to `false`, the request only works if the job has no data
     /// files.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2997,6 +3006,7 @@ pub struct ListImportDataFilesRequest {
     /// fewer than this value. If unspecified, at most 500 data files will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListImportDataFiles` call.
@@ -3286,6 +3296,7 @@ pub struct ListGroupsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3701,6 +3712,7 @@ pub struct AddAssetsToGroupRequest {
     /// ignored by the server.
     ///
     /// Default value is `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_existing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3783,6 +3795,7 @@ pub struct RemoveAssetsFromGroupRequest {
     /// error. When set to `true` this situation is silently ignored by the server.
     ///
     /// Default value is `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3840,6 +3853,7 @@ pub struct ListErrorFramesRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -4021,6 +4035,7 @@ pub struct ListSourcesRequest {
 
     /// Requested page size. The server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results that the server should return.
@@ -4412,6 +4427,7 @@ pub struct ListPreferenceSetsRequest {
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, at most 500 preference sets will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -5010,6 +5026,7 @@ pub struct DeleteReportConfigRequest {
     /// Optional. If set to `true`, any child `Reports` of this entity will also be
     /// deleted. If set to `false`, the request only works if the resource has no
     /// children.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5099,6 +5116,7 @@ pub struct ListReportsRequest {
 
     /// Requested page size. The server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results that the server should return.
@@ -5342,6 +5360,7 @@ pub struct ListReportConfigsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -5774,9 +5793,11 @@ pub struct MachineDetails {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Number of CPU cores in the machine. Must be non-negative.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub core_count: i32,
 
     /// The amount of memory in the machine. Must be non-negative.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub memory_mb: i32,
 
     /// Power state of the machine.
@@ -6021,9 +6042,11 @@ pub struct MachineArchitectureDetails {
     pub vendor: std::string::String,
 
     /// Number of CPU threads allocated to the machine.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cpu_thread_count: i32,
 
     /// Number of processor sockets allocated to the machine.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cpu_socket_count: i32,
 
     /// BIOS Details.
@@ -6686,10 +6709,12 @@ pub mod network_address {
 #[non_exhaustive]
 pub struct MachineDiskDetails {
     /// Disk total Capacity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_capacity_bytes: i64,
 
     /// Total disk free space.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_free_bytes: i64,
 
@@ -6778,10 +6803,12 @@ impl wkt::message::Message for DiskEntryList {
 #[non_exhaustive]
 pub struct DiskEntry {
     /// Disk capacity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub capacity_bytes: i64,
 
     /// Disk free space.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub free_bytes: i64,
 
@@ -7069,10 +7096,12 @@ pub struct DiskPartition {
     pub mount_point: std::string::String,
 
     /// Partition capacity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub capacity_bytes: i64,
 
     /// Partition free space.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub free_bytes: i64,
 
@@ -7157,6 +7186,7 @@ pub struct VmwareDiskConfig {
     pub backing_type: crate::model::vmware_disk_config::BackingType,
 
     /// Is VMDK shared with other VMs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub shared: bool,
 
     /// VMDK disk mode.
@@ -7745,10 +7775,12 @@ pub struct FstabEntry {
     pub mntops: std::string::String,
 
     /// Used by dump to determine which filesystems need to be dumped.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub freq: i32,
 
     /// Used by the fsck(8) program to determine the order in which filesystem
     /// checks are done at reboot time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub passno: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8166,6 +8198,7 @@ pub struct RunningService {
     pub cmdline: std::string::String,
 
     /// Service pid.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub pid: i64,
 
@@ -8411,6 +8444,7 @@ impl wkt::message::Message for RunningProcessList {
 #[non_exhaustive]
 pub struct RunningProcess {
     /// Process ID.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub pid: i64,
 
@@ -8583,6 +8617,7 @@ pub struct NetworkConnection {
     pub local_ip_address: std::string::String,
 
     /// Local port.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub local_port: i32,
 
     /// Remote IP address.
@@ -8590,12 +8625,14 @@ pub struct NetworkConnection {
     pub remote_ip_address: std::string::String,
 
     /// Remote port.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub remote_port: i32,
 
     /// Network connection state.
     pub state: crate::model::network_connection::State,
 
     /// Process ID.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub pid: i64,
 
@@ -9450,6 +9487,7 @@ impl wkt::message::Message for PhysicalPlatformDetails {
 #[non_exhaustive]
 pub struct MemoryUsageSample {
     /// Percentage of system memory utilized. Must be in the interval [0, 100].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub utilized_percentage: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9482,6 +9520,7 @@ impl wkt::message::Message for MemoryUsageSample {
 pub struct CpuUsageSample {
     /// Percentage of total CPU capacity utilized. Must be in the interval [0,
     /// 100]. On most systems can be calculated using 100 - idle percentage.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub utilized_percentage: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9514,10 +9553,12 @@ impl wkt::message::Message for CpuUsageSample {
 pub struct NetworkUsageSample {
     /// Average network ingress in B/s sampled over a short window.
     /// Must be non-negative.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub average_ingress_bps: f32,
 
     /// Average network egress in B/s sampled over a short window.
     /// Must be non-negative.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub average_egress_bps: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9555,6 +9596,7 @@ impl wkt::message::Message for NetworkUsageSample {
 #[non_exhaustive]
 pub struct DiskUsageSample {
     /// Average IOPS sampled over a short window. Must be non-negative.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub average_iops: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9826,15 +9868,19 @@ pub mod daily_resource_usage_aggregation {
     #[non_exhaustive]
     pub struct Stats {
         /// Average usage value.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub average: f32,
 
         /// Median usage value.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub median: f32,
 
         /// 95th percentile usage value.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub nintey_fifth_percentile: f32,
 
         /// Peak usage value.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub peak: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10225,6 +10271,7 @@ pub struct GenericInsight {
     /// Output only. Represents a globally unique message id for
     /// this insight, can be used for localization purposes, in case message_code
     /// is not yet known by the client use default_message instead.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub message_id: i64,
 
@@ -10423,12 +10470,15 @@ impl wkt::message::Message for ComputeEngineMigrationTarget {
 #[non_exhaustive]
 pub struct ComputeEngineShapeDescriptor {
     /// Memory in mebibytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub memory_mb: i32,
 
     /// Number of physical cores.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub physical_core_count: i32,
 
     /// Number of logical cores.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub logical_core_count: i32,
 
     /// Compute Engine machine series.
@@ -10511,6 +10561,7 @@ pub struct ComputeStorageDescriptor {
     pub r#type: crate::model::PersistentDiskType,
 
     /// Disk size in GiB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub size_gb: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11122,6 +11173,7 @@ pub mod aggregation_result {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Count {
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub value: i64,
 
@@ -11153,6 +11205,7 @@ pub mod aggregation_result {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Sum {
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub value: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11233,12 +11286,15 @@ pub mod aggregation_result {
         #[non_exhaustive]
         pub struct Bucket {
             /// Lower bound - inclusive.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub lower_bound: f64,
 
             /// Upper bound - exclusive.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub upper_bound: f64,
 
             /// Count of items in the bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub count: i64,
 
@@ -11342,6 +11398,7 @@ pub struct FileValidationReport {
 
     /// Flag indicating that processing was aborted due to maximum number of
     /// errors.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub partial_report: bool,
 
     /// List of file level errors.
@@ -11457,6 +11514,7 @@ impl wkt::message::Message for ValidationReport {
 #[non_exhaustive]
 pub struct ExecutionReport {
     /// Total number of asset frames reported for the import job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub frames_reported: i32,
 
     /// Validation errors encountered during the execution of the import job.
@@ -11464,6 +11522,7 @@ pub struct ExecutionReport {
     pub execution_errors: std::option::Option<crate::model::ValidationReport>,
 
     /// Output only. Total number of rows in the import job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_rows_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11621,6 +11680,7 @@ pub mod import_error {
 #[non_exhaustive]
 pub struct ImportRowError {
     /// The row number where the error was detected.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub row_number: i32,
 
     /// The name of the VM in the row.
@@ -12092,10 +12152,12 @@ impl wkt::message::Message for MachineSeries {
 pub struct VmwareEnginePreferences {
     /// CPU overcommit ratio.
     /// Acceptable values are between 1.0 and 8.0, with 0.1 increment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cpu_overcommit_ratio: f64,
 
     /// Memory overcommit ratio.
     /// Acceptable values are 1.0, 1.25, 1.5, 1.75 and 2.0.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub memory_overcommit_ratio: f64,
 
     /// The Deduplication and Compression ratio is based on the logical (Used
@@ -12106,6 +12168,7 @@ pub struct VmwareEnginePreferences {
     /// Before space is 3 GB, but the physical Used After space is 1 GB, the
     /// deduplication and compression ratio is 3x. Acceptable values are
     /// between 1.0 and 4.0.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub storage_deduplication_compression_ratio: f64,
 
     /// Commitment plan to consider when calculating costs for virtual machine
@@ -12258,6 +12321,7 @@ pub mod vmware_engine_preferences {
 pub struct SoleTenancyPreferences {
     /// CPU overcommit ratio.
     /// Acceptable values are between 1.0 and 2.0 inclusive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cpu_overcommit_ratio: f64,
 
     /// Sole Tenancy nodes maintenance policy.
@@ -12704,6 +12768,7 @@ pub mod report_summary {
             pub label: std::string::String,
 
             /// The Y-axis value for this data point.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub value: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12743,10 +12808,12 @@ pub mod report_summary {
     #[non_exhaustive]
     pub struct UtilizationChartData {
         /// Aggregate value which falls into the "Used" bucket.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub used: i64,
 
         /// Aggregate value which falls into the "Free" bucket.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub free: i64,
 
@@ -12835,14 +12902,17 @@ pub mod report_summary {
         #[non_exhaustive]
         pub struct Bucket {
             /// Lower bound - inclusive.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub lower_bound: i64,
 
             /// Upper bound - exclusive.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub upper_bound: i64,
 
             /// Count of items in the bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub count: i64,
 
@@ -12888,18 +12958,22 @@ pub mod report_summary {
     #[non_exhaustive]
     pub struct AssetAggregateStats {
         /// Sum of the memory in bytes of all the assets in this collection.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub total_memory_bytes: i64,
 
         /// Sum of persistent storage in bytes of all the assets in this collection.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub total_storage_bytes: i64,
 
         /// Sum of the CPU core count of all the assets in this collection.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub total_cores: i64,
 
         /// Count of the number of unique assets in this collection.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub total_assets: i64,
 
@@ -13060,6 +13134,7 @@ pub mod report_summary {
         pub machine_series: std::option::Option<crate::model::MachineSeries>,
 
         /// Count of assets allocated to this machine series.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub allocated_asset_count: i64,
 
@@ -13107,6 +13182,7 @@ pub mod report_summary {
         pub allocated_regions: std::vec::Vec<std::string::String>,
 
         /// Count of assets which were allocated.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub allocated_asset_count: i64,
 
@@ -13185,6 +13261,7 @@ pub mod report_summary {
         pub allocated_regions: std::vec::Vec<std::string::String>,
 
         /// Count of assets which are allocated
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub allocated_asset_count: i64,
 
@@ -13247,10 +13324,12 @@ pub mod report_summary {
         pub vmware_node: std::option::Option<crate::model::report_summary::VmwareNode>,
 
         /// Count of this node type to be provisioned
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub node_count: i64,
 
         /// Count of assets allocated to these nodes
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub allocated_asset_count: i64,
 
@@ -13338,6 +13417,7 @@ pub mod report_summary {
         pub allocated_regions: std::vec::Vec<std::string::String>,
 
         /// Count of assets which are allocated
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub allocated_asset_count: i64,
 
@@ -13400,10 +13480,12 @@ pub mod report_summary {
         pub node: std::option::Option<crate::model::SoleTenantNodeType>,
 
         /// Count of this node type to be provisioned
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub node_count: i64,
 
         /// Count of assets allocated to these nodes
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub allocated_asset_count: i64,
 
@@ -13670,6 +13752,7 @@ pub mod report_summary {
             std::option::Option<crate::model::report_summary::AssetAggregateStats>,
 
         /// This field is deprecated, do not rely on it having a value.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub overlapping_asset_count: i64,
 

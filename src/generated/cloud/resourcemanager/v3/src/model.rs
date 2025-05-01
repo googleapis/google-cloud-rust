@@ -280,6 +280,7 @@ pub struct ListFoldersRequest {
     /// Optional. The maximum number of folders to return in the response. The
     /// server can return fewer folders than requested. If unspecified, server
     /// picks an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to `ListFolders`
@@ -292,6 +293,7 @@ pub struct ListFoldersRequest {
     /// state should be returned. Defaults to false.
     ///
     /// [google.cloud.resourcemanager.v3.Folder.State.DELETE_REQUESTED]: crate::model::folder::state::DELETE_REQUESTED
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -406,6 +408,7 @@ pub struct SearchFoldersRequest {
     /// Optional. The maximum number of folders to return in the response. The
     /// server can return fewer folders than requested. If unspecified, server
     /// picks an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
@@ -1203,6 +1206,7 @@ pub struct SearchOrganizationsRequest {
     /// Optional. The maximum number of organizations to return in the response.
     /// The server can return fewer organizations than requested. If unspecified,
     /// server picks an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
@@ -1679,10 +1683,12 @@ pub struct ListProjectsRequest {
     /// Optional. The maximum number of projects to return in the response.
     /// The server can return fewer projects than requested.
     /// If unspecified, server picks an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Indicate that projects in the `DELETE_REQUESTED` state should
     /// also be returned. Normally only `ACTIVE` projects are returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1861,6 +1867,7 @@ pub struct SearchProjectsRequest {
     /// Optional. The maximum number of projects to return in the response.
     /// The server can return fewer projects than requested.
     /// If unspecified, server picks an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2039,9 +2046,11 @@ pub struct CreateProjectMetadata {
     /// True if the project can be retrieved using `GetProject`. No other
     /// operations on the project are guaranteed to work until the project creation
     /// is complete.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub gettable: bool,
 
     /// True if the project creation process is complete.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ready: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2461,6 +2470,7 @@ pub struct CreateTagBindingRequest {
 
     /// Optional. Set to true to perform the validations necessary for creating the
     /// resource, but not actually perform the action.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2565,6 +2575,7 @@ pub struct ListTagBindingsRequest {
     /// Optional. The maximum number of TagBindings to return in the response. The
     /// server allows a maximum of 300 TagBindings to return. If unspecified, the
     /// server will use 100 as the default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
@@ -2692,6 +2703,7 @@ pub struct ListEffectiveTagsRequest {
     /// Optional. The maximum number of effective tags to return in the response.
     /// The server allows a maximum of 300 effective tags to return in a single
     /// page. If unspecified, the server will use 100 as the default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
@@ -2847,6 +2859,7 @@ pub struct EffectiveTag {
     /// attached to the given resource. If the tag value is inherited from one of
     /// the resource's ancestors, inherited will be true. If false, then the tag
     /// value is directly attached to the resource, inherited will be false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub inherited: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3015,6 +3028,7 @@ pub struct CreateTagHoldRequest {
 
     /// Optional. Set to true to perform the validations necessary for creating the
     /// resource, but not actually perform the action.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3091,6 +3105,7 @@ pub struct DeleteTagHoldRequest {
 
     /// Optional. Set to true to perform the validations necessary for deleting the
     /// resource, but not actually perform the action.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3159,6 +3174,7 @@ pub struct ListTagHoldsRequest {
     /// Optional. The maximum number of TagHolds to return in the response. The
     /// server allows a maximum of 300 TagHolds to return. If unspecified, the
     /// server will use 100 as the default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
@@ -3464,6 +3480,7 @@ pub struct ListTagKeysRequest {
     /// Optional. The maximum number of TagKeys to return in the response. The
     /// server allows a maximum of 300 TagKeys to return. If unspecified, the
     /// server will use 100 as the default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to `ListTagKey`
@@ -3648,6 +3665,7 @@ pub struct CreateTagKeyRequest {
 
     /// Optional. Set to true to perform validations necessary for creating the
     /// resource, but not actually perform the action.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3724,6 +3742,7 @@ pub struct UpdateTagKeyRequest {
 
     /// Set as true to perform validations necessary for updating the resource, but
     /// not actually perform the action.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3802,6 +3821,7 @@ pub struct DeleteTagKeyRequest {
 
     /// Optional. Set as true to perform validations necessary for deletion, but
     /// not actually perform the action.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. The etag known to the client for the expected state of the
@@ -4003,6 +4023,7 @@ pub struct ListTagValuesRequest {
     /// Optional. The maximum number of TagValues to return in the response. The
     /// server allows a maximum of 300 TagValues to return. If unspecified, the
     /// server will use 100 as the default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
@@ -4195,6 +4216,7 @@ pub struct CreateTagValueRequest {
 
     /// Optional. Set as true to perform the validations necessary for creating the
     /// resource, but not actually perform the action.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4269,6 +4291,7 @@ pub struct UpdateTagValueRequest {
 
     /// Optional. True to perform validations necessary for updating the resource,
     /// but not actually perform the action.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4346,6 +4369,7 @@ pub struct DeleteTagValueRequest {
 
     /// Optional. Set as true to perform the validations necessary for deletion,
     /// but not actually perform the action.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. The etag known to the client for the expected state of the

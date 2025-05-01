@@ -70,6 +70,7 @@ pub struct Instance {
     /// Required. Immutable. The instance's storage capacity in Gibibytes (GiB).
     /// Allowed values are between 12000 and 100000, in multiples of 4000; e.g.,
     /// 12000, 16000, 20000, ...
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub capacity_gib: i64,
 
@@ -365,6 +366,7 @@ pub struct ListInstancesRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, the server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -783,6 +785,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1463,6 +1466,7 @@ pub struct TransferErrorSummary {
     pub error_code: rpc::model::Code,
 
     /// Count of this type of error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub error_count: i64,
 
@@ -1547,6 +1551,7 @@ pub struct ImportDataMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1688,6 +1693,7 @@ pub struct ExportDataMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -2039,38 +2045,46 @@ pub struct TransferCounters {
     /// Objects found in the data source that are scheduled to be transferred,
     /// excluding any that are filtered based on object conditions or skipped due
     /// to sync.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub objects_found: i64,
 
     /// Bytes found in the data source that are scheduled to be transferred,
     /// excluding any that are filtered based on object conditions or skipped due
     /// to sync.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub bytes_found: i64,
 
     /// Objects in the data source that are not transferred because they already
     /// exist in the data destination.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub objects_skipped: i64,
 
     /// Bytes in the data source that are not transferred because they already
     /// exist in the data destination.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub bytes_skipped: i64,
 
     /// Objects that are copied to the data destination.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub objects_copied: i64,
 
     /// Bytes that are copied to the data destination.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub bytes_copied: i64,
 
     /// Objects that are failed to write to the data destination.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub objects_failed: i64,
 
     /// Bytes that are failed to write to the data destination.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub bytes_failed: i64,
 

@@ -302,10 +302,12 @@ pub mod vulnerability_occurrences_summary {
         pub severity: grafeas::model::Severity,
 
         /// The number of fixable vulnerabilities associated with this resource.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub fixable_count: i64,
 
         /// The total number of vulnerabilities associated with this resource.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub total_count: i64,
 

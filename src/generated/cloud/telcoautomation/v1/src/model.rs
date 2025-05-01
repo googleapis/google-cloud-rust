@@ -555,6 +555,7 @@ pub struct Blueprint {
 
     /// Output only. Indicates if the deployment created from this blueprint can be
     /// rolled back.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rollback_support: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -796,6 +797,7 @@ pub struct PublicBlueprint {
 
     /// Output only. Indicates if the deployment created from this blueprint can be
     /// rolled back.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rollback_support: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -928,6 +930,7 @@ pub struct Deployment {
 
     /// Output only. Indicates if the deployment can be rolled back, exported from
     /// public blueprint.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rollback_support: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1299,6 +1302,7 @@ pub struct ListOrchestrationClustersRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -1617,6 +1621,7 @@ pub struct ListEdgeSlmsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -2124,6 +2129,7 @@ pub struct ListBlueprintsRequest {
     pub filter: std::string::String,
 
     /// Optional. The maximum number of blueprints to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token, received from a previous ListBlueprints call.
@@ -2341,6 +2347,7 @@ pub struct ListBlueprintRevisionsRequest {
     pub name: std::string::String,
 
     /// The maximum number of revisions to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token, received from a previous ListBlueprintRevisions call
@@ -2469,6 +2476,7 @@ pub struct SearchBlueprintRevisionsRequest {
 
     /// Optional. The maximum number of blueprints revisions to return per page.
     /// max page size = 100, default page size = 20.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token, received from a previous search call.
@@ -2646,6 +2654,7 @@ pub struct ListPublicBlueprintsRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -2984,6 +2993,7 @@ pub struct ListDeploymentsRequest {
     pub filter: std::string::String,
 
     /// Optional. The maximum number of deployments to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token, received from a previous ListDeployments call.
@@ -3104,6 +3114,7 @@ pub struct ListDeploymentRevisionsRequest {
     pub name: std::string::String,
 
     /// Optional. The maximum number of revisions to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token, received from a previous ListDeploymentRevisions
@@ -3233,6 +3244,7 @@ pub struct SearchDeploymentRevisionsRequest {
 
     /// Optional. The maximum number of deployment revisions to return per page.
     /// max page size = 100, default page size = 20.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token, received from a previous search call.
@@ -3596,6 +3608,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -3712,6 +3725,7 @@ pub struct ListHydratedDeploymentsRequest {
     /// may return fewer than this value. If unspecified, at most 50 hydrated
     /// deployments will be returned. The maximum value is 1000. Values above 1000
     /// will be set to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token, received from a previous ListHydratedDeployments
@@ -4412,10 +4426,12 @@ pub struct File {
     pub content: std::string::String,
 
     /// Optional. Signifies whether a file is marked for deletion.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deleted: bool,
 
     /// Optional. Indicates whether changes are allowed to a file. If the field is
     /// not set, the file cannot be edited.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub editable: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4576,10 +4592,12 @@ impl wkt::message::Message for ResourceStatus {
 #[non_exhaustive]
 pub struct NFDeployStatus {
     /// Output only. Total number of NFs targeted by this deployment
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub targeted_nfs: i32,
 
     /// Output only. Total number of NFs targeted by this deployment with a Ready
     /// Condition set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ready_nfs: i32,
 
     /// Output only. Per-Site Status.
@@ -4636,6 +4654,7 @@ pub struct NFDeploySiteStatus {
     pub site: std::string::String,
 
     /// Output only. If true, the Site Deletion is in progress.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pending_deletion: bool,
 
     /// Output only. Hydration status.

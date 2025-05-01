@@ -126,6 +126,7 @@ pub struct AuthenticationRule {
 
     /// If true, the service accepts API keys without any other credential.
     /// This flag only applies to HTTP and gRPC requests.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_without_credential: bool,
 
     /// Requirements for additional authentication providers.
@@ -683,13 +684,16 @@ pub struct BackendRule {
 
     /// The number of seconds to wait for a response from a request. The default
     /// varies based on the request protocol and deployment environment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deadline: f64,
 
     /// Deprecated, do not use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_deadline: f64,
 
     /// The number of seconds to wait for the completion of a long running
     /// operation. The default is no deadline.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub operation_deadline: f64,
 
     pub path_translation: crate::model::backend_rule::PathTranslation,
@@ -1249,6 +1253,7 @@ pub struct ClientLibrarySettings {
 
     /// When using transport=rest, the client request will encode enums as
     /// numbers rather than strings.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rest_numeric_enums: bool,
 
     /// Settings for legacy Java features, supported in the Service YAML.
@@ -1809,18 +1814,21 @@ pub mod python_settings {
         /// enabled. By default, asynchronous REST clients will not be generated.
         /// This feature will be enabled by default 1 month after launching the
         /// feature in preview packages.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub rest_async_io_enabled: bool,
 
         /// Enables generation of protobuf code using new types that are more
         /// Pythonic which are included in `protobuf>=5.29.x`. This feature will be
         /// enabled by default 1 month after launching the feature in preview
         /// packages.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub protobuf_pythonic_types_enabled: bool,
 
         /// Disables generation of an unversioned Python package for this client
         /// library. This means that the module names will need to be versioned in
         /// import statements. For example `import google.cloud.library_v2` instead
         /// of `import google.cloud.library`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub unversioned_package_disabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2243,6 +2251,7 @@ pub mod method_settings {
         /// Multiplier to gradually increase delay between subsequent polls until it
         /// reaches max_poll_delay.
         /// Default value: 1.5.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub poll_delay_multiplier: f32,
 
         /// Maximum time between two subsequent poll requests.
@@ -2323,6 +2332,7 @@ pub struct SelectiveGapicGeneration {
     /// end users. How this is expressed is up to individual language
     /// implementations to decide. Some examples may be: added annotations,
     /// obfuscated identifiers, or other language idiomatic patterns.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub generate_omitted_as_internal: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2935,11 +2945,13 @@ pub struct Distribution {
     /// The number of values in the population. Must be non-negative. This value
     /// must equal the sum of the values in `bucket_counts` if a histogram is
     /// provided.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub count: i64,
 
     /// The arithmetic mean of the values in the population. If `count` is zero
     /// then this field must be zero.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub mean: f64,
 
     /// The sum of squared deviations from the mean of the values in the
@@ -2953,6 +2965,7 @@ pub struct Distribution {
     /// describes Welford's method for accumulating this sum in one pass.
     ///
     /// If `count` is zero then this field must be zero.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sum_of_squared_deviation: f64,
 
     /// If specified, contains the range of the population values. The field
@@ -3078,9 +3091,11 @@ pub mod distribution {
     #[non_exhaustive]
     pub struct Range {
         /// The minimum of the population values.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub min: f64,
 
         /// The maximum of the population values.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3293,12 +3308,15 @@ pub mod distribution {
         #[non_exhaustive]
         pub struct Linear {
             /// Must be greater than 0.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub num_finite_buckets: i32,
 
             /// Must be greater than 0.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub width: f64,
 
             /// Lower bound of the first bucket.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub offset: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3351,12 +3369,15 @@ pub mod distribution {
         #[non_exhaustive]
         pub struct Exponential {
             /// Must be greater than 0.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub num_finite_buckets: i32,
 
             /// Must be greater than 1.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub growth_factor: f64,
 
             /// Must be greater than 0.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub scale: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3468,6 +3489,7 @@ pub mod distribution {
     pub struct Exemplar {
         /// Value of the exemplar point. This value determines to which bucket the
         /// exemplar belongs.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub value: f64,
 
         /// The observation (sampling) time of the above value.
@@ -3859,6 +3881,7 @@ pub struct Endpoint {
     /// receive and respond to HTTP OPTIONS requests. The response will be used by
     /// the browser to determine whether the subsequent cross-origin request is
     /// allowed to proceed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_cors: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4111,6 +4134,7 @@ pub struct Http {
     ///
     /// The default behavior is to not decode RFC 6570 reserved characters in multi
     /// segment matches.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub fully_decode_reserved_expansion: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6652,6 +6676,7 @@ pub struct QuotaLimit {
     /// negative values are allowed.
     ///
     /// Used by group-based quotas only.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub default_limit: i64,
 
@@ -6664,6 +6689,7 @@ pub struct QuotaLimit {
     /// indicating unlimited maximum quota.
     ///
     /// Used by group-based quotas only.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub max_limit: i64,
 
@@ -6675,6 +6701,7 @@ pub struct QuotaLimit {
     /// defaults to 0, indicating that there is no free tier for this service.
     ///
     /// Used by group-based quotas only.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub free_tier: i64,
 
@@ -8587,12 +8614,14 @@ pub struct UsageRule {
 
     /// If true, the selected method allows unregistered calls, e.g. calls
     /// that don't identify any user or application.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_unregistered_calls: bool,
 
     /// If true, the selected method should skip service control and the control
     /// plane features, such as quota and billing, will not be available.
     /// This flag is used by Google Cloud Endpoints to bypass checks for internal
     /// methods, such as service health check methods.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_service_control: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

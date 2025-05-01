@@ -118,6 +118,7 @@ pub struct Location {
     /// CA, USA" has a radius of 6.17 miles.
     ///
     /// [google.type.LatLng]: gtype::model::LatLng
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub radius_miles: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -363,6 +364,7 @@ pub struct RequestMetadata {
     /// [google.cloud.talent.v4.RequestMetadata.domain]: crate::model::RequestMetadata::domain
     /// [google.cloud.talent.v4.RequestMetadata.session_id]: crate::model::RequestMetadata::session_id
     /// [google.cloud.talent.v4.RequestMetadata.user_id]: crate::model::RequestMetadata::user_id
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing_ids: bool,
 
     /// The type of device used by the job seeker at the time of the call to the
@@ -638,6 +640,7 @@ pub struct CustomAttribute {
     /// Default is false.
     ///
     /// [google.cloud.talent.v4.JobQuery.custom_attribute_filter]: crate::model::JobQuery::custom_attribute_filter
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub filterable: bool,
 
     /// If the `keyword_searchable` flag is true, the keywords in custom fields are
@@ -645,6 +648,7 @@ pub struct CustomAttribute {
     /// If false, the values are not searchable by keyword match.
     ///
     /// Default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub keyword_searchable: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -704,6 +708,7 @@ impl wkt::message::Message for CustomAttribute {
 #[non_exhaustive]
 pub struct SpellingCorrection {
     /// Indicates if the query was corrected by the spell checker.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub corrected: bool,
 
     /// Correction output consisting of the corrected keyword string.
@@ -1376,12 +1381,15 @@ pub struct BatchOperationMetadata {
     pub state_description: std::string::String,
 
     /// Count of successful item(s) inside an operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub success_count: i32,
 
     /// Count of failed item(s) inside an operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub failure_count: i32,
 
     /// Count of total item(s) inside an operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_count: i32,
 
     /// The time when the batch operation is created.
@@ -1618,6 +1626,7 @@ pub struct Company {
     /// employers.
     ///
     /// Defaults to false if not provided.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hiring_agency: bool,
 
     /// Equal Employment Opportunity legal disclaimer text to be
@@ -1668,6 +1677,7 @@ pub struct Company {
     /// Output only. Indicates whether a company is flagged to be suspended from
     /// public availability by the service when job content appears suspicious,
     /// abusive, or spammy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub suspended: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2025,6 +2035,7 @@ pub struct ListCompaniesRequest {
 
     /// The maximum number of companies to be returned, at most 100.
     /// Default is 100 if a non-positive number is provided.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Set to true if the companies requested must have open jobs.
@@ -2036,6 +2047,7 @@ pub struct ListCompaniesRequest {
     /// companies are fetched, among which only those with open jobs are returned.
     ///
     /// [google.cloud.talent.v4.ListCompaniesRequest.page_size]: crate::model::ListCompaniesRequest::page_size
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_open_jobs: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2186,6 +2198,7 @@ pub struct CompleteQueryRequest {
     /// Required. Completion result count.
     ///
     /// The maximum allowed page size is 10.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// If provided, restricts completion to specified company.
@@ -3173,6 +3186,7 @@ pub struct JobQuery {
     /// for example, "enginee" is corrected to "engineer".
     ///
     /// Defaults to false: a spell check is performed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_spell_check: bool,
 
     /// The employment type filter specifies the employment type of jobs to
@@ -3407,6 +3421,7 @@ pub struct LocationFilter {
     /// The distance_in_miles is applied when the location being searched for is
     /// identified as a city or smaller. This field is ignored if the location
     /// being searched for is a state or larger.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub distance_in_miles: f64,
 
     /// Allows the client to return jobs without a
@@ -3596,6 +3611,7 @@ pub struct CompensationFilter {
 
     /// If set to true, jobs with unspecified compensation range fields are
     /// included.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_jobs_with_unspecified_compensation_range: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3796,6 +3812,7 @@ pub struct CommuteFilter {
     /// level addresses, text matching is used.
     /// If this field is set to `false` or isn't specified, only jobs that include
     /// street level addresses will be returned by commute search.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_imprecise_addresses: bool,
 
     /// Traffic factor to take into account while searching by commute.
@@ -4307,6 +4324,7 @@ pub struct Job {
     /// jobs with a promotionValue >0 are returned in a FEATURED_JOB_SEARCH.
     ///
     /// Default value is 0, and negative values are treated as 0.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub promotion_value: i32,
 
     /// A description of the qualifications required to perform the
@@ -4886,6 +4904,7 @@ pub mod job {
     pub struct ProcessingOptions {
         /// If set to `true`, the service does not attempt to resolve a
         /// more precise address for the job.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub disable_street_address_resolution: bool,
 
         /// Option for job HTML content sanitization. Applied fields are:
@@ -5174,6 +5193,7 @@ pub struct ListJobsRequest {
     ///
     /// [google.cloud.talent.v4.JobView.JOB_VIEW_ID_ONLY]: crate::model::job_view::JOB_VIEW_ID_ONLY
     /// [google.cloud.talent.v4.ListJobsRequest.job_view]: crate::model::ListJobsRequest::job_view
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The desired job attributes returned for jobs in the
@@ -5346,6 +5366,7 @@ pub struct SearchJobsRequest {
     /// list.
     ///
     /// Defaults to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_broadening: bool,
 
     /// An expression specifies a histogram request against matching jobs.
@@ -5495,11 +5516,13 @@ pub struct SearchJobsRequest {
     /// from the second page).
     ///
     /// [google.cloud.talent.v4.SearchJobsRequest.page_token]: crate::model::SearchJobsRequest::page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub offset: i32,
 
     /// A limit on the number of jobs returned in the search results.
     /// Increasing this value above the default value of 10 can increase search
     /// response time. The value can be between 1 and 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_page_size: i32,
 
     /// The token specifying the current offset within
@@ -5642,6 +5665,7 @@ pub struct SearchJobsRequest {
     /// [google.cloud.talent.v4.SearchJobsRequest.KeywordMatchMode.KEYWORD_MATCH_ALL]: crate::model::search_jobs_request::keyword_match_mode::KEYWORD_MATCH_ALL
     /// [google.cloud.talent.v4.SearchJobsRequest.KeywordMatchMode.KEYWORD_MATCH_DISABLED]: crate::model::search_jobs_request::keyword_match_mode::KEYWORD_MATCH_DISABLED
     /// [google.cloud.talent.v4.SearchJobsRequest.keyword_match_mode]: crate::model::SearchJobsRequest::keyword_match_mode
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_keyword_match: bool,
 
     /// Controls what keyword match options to use. If both keyword_match_mode and
@@ -6389,6 +6413,7 @@ pub struct SearchJobsResponse {
     /// Number of jobs that match the specified query.
     ///
     /// Note: This size is precise only if the total is less than 100,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     /// Additional information for the API invocation, such as the request
@@ -6403,6 +6428,7 @@ pub struct SearchJobsResponse {
     /// set, all the jobs in the jobs list are from the original
     /// (without broadening) query. If this field is non-zero, subsequent requests
     /// with offset after this result set should contain all broadened results.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub broadened_query_jobs_count: i32,
 
     /// The spell checking result, and correction.
@@ -7306,6 +7332,7 @@ pub struct ListTenantsRequest {
 
     /// The maximum number of tenants to be returned, at most 100.
     /// Default is 100 if a non-positive number is provided.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

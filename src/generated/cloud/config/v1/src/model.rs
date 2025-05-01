@@ -916,6 +916,7 @@ impl wkt::message::Message for ApplyResults {
 pub struct TerraformOutput {
     /// Identifies whether Terraform has set this output as a potential
     /// sensitive value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sensitive: bool,
 
     /// Value of output.
@@ -967,6 +968,7 @@ pub struct ListDeploymentsRequest {
     /// When requesting a page of resources, 'page_size' specifies number of
     /// resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Token returned by previous call to 'ListDeployments' which specifies the
@@ -1175,6 +1177,7 @@ pub struct ListRevisionsRequest {
     /// When requesting a page of resources, `page_size` specifies number of
     /// resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Token returned by previous call to 'ListRevisions' which specifies the
@@ -1560,6 +1563,7 @@ pub struct DeleteDeploymentRequest {
     /// Optional. If set to true, any revisions for this deployment will also be
     /// deleted. (Otherwise, the request will only work if the deployment has no
     /// revisions.)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     /// Optional. Policy on how resources actuated by the deployment should be
@@ -1711,6 +1715,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1954,6 +1959,7 @@ pub struct Revision {
     /// supported resource types) and continue actuation.
     ///
     /// Not all resource types are supported, refer to documentation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub import_existing_resources: bool,
 
     /// Output only. The user-specified Cloud Build worker pool resource in which
@@ -2424,6 +2430,7 @@ pub struct TerraformError {
     /// HTTP response code returned from Google Cloud Platform APIs when Terraform
     /// fails to provision the resource. If unset or 0, no HTTP response code was
     /// returned by Terraform.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub http_response_code: i32,
 
     /// A human-readable error description.
@@ -3112,6 +3119,7 @@ pub struct ListResourcesRequest {
     /// When requesting a page of resources, 'page_size' specifies number of
     /// resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Token returned by previous call to 'ListResources' which specifies the
@@ -3315,6 +3323,7 @@ pub struct ExportDeploymentStatefileRequest {
     /// Optional. If this flag is set to true, the exported deployment state file
     /// will be the draft state. This will enable the draft file to be validated
     /// before copying it over to the working state on unlock.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub draft: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3394,10 +3403,12 @@ pub struct ImportStatefileRequest {
 
     /// Required. Lock ID of the lock file to verify that the user who is importing
     /// the state file previously locked the Deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub lock_id: i64,
 
     /// Optional.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_draft: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3447,6 +3458,7 @@ pub struct DeleteStatefileRequest {
 
     /// Required. Lock ID of the lock file to verify that the user who is deleting
     /// the state file previously locked the Deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub lock_id: i64,
 
@@ -3523,6 +3535,7 @@ pub struct UnlockDeploymentRequest {
     pub name: std::string::String,
 
     /// Required. Lock ID of the lock file to be unlocked.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub lock_id: i64,
 
@@ -3594,6 +3607,7 @@ impl wkt::message::Message for ExportLockInfoRequest {
 #[non_exhaustive]
 pub struct LockInfo {
     /// Unique ID for the lock to be overridden with generation ID in the backend.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub lock_id: i64,
 
@@ -4603,6 +4617,7 @@ pub struct ListPreviewsRequest {
     /// Optional. When requesting a page of resources, 'page_size' specifies number
     /// of resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Token returned by previous call to 'ListDeployments' which
@@ -4983,6 +4998,7 @@ pub struct ListTerraformVersionsRequest {
     /// Optional. When requesting a page of resources, 'page_size' specifies number
     /// of resources to return. If unspecified, at most 500 will be returned. The
     /// maximum value is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Token returned by previous call to 'ListTerraformVersions' which

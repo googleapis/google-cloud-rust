@@ -32,6 +32,7 @@ extern crate wkt;
 #[non_exhaustive]
 pub struct Policy {
     /// Version of the `Policy`. Default version is 0;
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub version: i32,
 
     /// The name of the `Constraint` the `Policy` is configuring, for example,
@@ -374,6 +375,7 @@ pub mod policy {
         /// `projects/P3`.
         /// The accepted values at `projects/bar` are `organizations/O1`,
         /// `folders/F1`, `projects/P1`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub inherit_from_parent: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -565,6 +567,7 @@ pub mod policy {
         /// The constraint at `organizations/foo` is enforced.
         /// The constraint at `projects/bar` is not enforced, because
         /// `constraint_default` for the `Constraint` is `ALLOW`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enforced: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

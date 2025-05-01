@@ -79,6 +79,7 @@ pub struct Endpoint {
     pub state: crate::model::endpoint::State,
 
     /// Whether the endpoint should report traffic logs in addition to threat logs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub traffic_logs: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -332,6 +333,7 @@ pub struct ListEndpointsRequest {
 
     /// Optional. The maximum number of endpoints to return. The service may return fewer
     /// than this value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListEndpoints` call.
@@ -672,6 +674,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

@@ -574,6 +574,7 @@ pub struct StaticFilesHandler {
 
     /// Whether this handler should match the request if the file
     /// referenced by the handler does not exist.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_matching_file: bool,
 
     /// Whether files should also be uploaded as code data. By default, files
@@ -581,6 +582,7 @@ pub struct StaticFilesHandler {
     /// data and are only served to end users; they cannot be read by the
     /// application. If enabled, uploads are charged against both your code and
     /// static data storage resource quotas.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub application_readable: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -726,6 +728,7 @@ impl wkt::message::Message for ApiEndpointHandler {
 #[non_exhaustive]
 pub struct HealthCheck {
     /// Whether to explicitly disable health checks for this instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_health_check: bool,
 
     /// Host header to send when performing an HTTP health check.
@@ -735,14 +738,17 @@ pub struct HealthCheck {
 
     /// Number of consecutive successful health checks required before receiving
     /// traffic.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub healthy_threshold: u32,
 
     /// Number of consecutive failed health checks required before removing
     /// traffic.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unhealthy_threshold: u32,
 
     /// Number of consecutive failed health checks required before an instance is
     /// restarted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub restart_threshold: u32,
 
     /// Interval between health checks.
@@ -835,10 +841,12 @@ pub struct ReadinessCheck {
 
     /// Number of consecutive failed checks required before removing
     /// traffic.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub failure_threshold: u32,
 
     /// Number of consecutive successful checks required before receiving
     /// traffic.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub success_threshold: u32,
 
     /// Interval between health checks.
@@ -940,10 +948,12 @@ pub struct LivenessCheck {
 
     /// Number of consecutive failed checks required before considering the
     /// VM unhealthy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub failure_threshold: u32,
 
     /// Number of consecutive successful checks required before considering
     /// the VM healthy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub success_threshold: u32,
 
     /// Interval between health checks.
@@ -1239,6 +1249,7 @@ pub struct ListServicesRequest {
     pub parent: std::string::String,
 
     /// Maximum results to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -1403,6 +1414,7 @@ pub struct UpdateServiceRequest {
     /// field in the Service resource. Gradual traffic migration is not
     /// supported in the App Engine flexible environment. For examples, see
     /// [Migrating and Splitting Traffic](https://cloud.google.com/appengine/docs/admin-api/migrating-splitting-traffic).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub migrate_traffic: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1498,6 +1510,7 @@ pub struct ListVersionsRequest {
     pub view: crate::model::VersionView,
 
     /// Maximum results to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -1798,6 +1811,7 @@ pub struct ListInstancesRequest {
     pub parent: std::string::String,
 
     /// Maximum results to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -2026,6 +2040,7 @@ pub struct ListIngressRulesRequest {
     pub parent: std::string::String,
 
     /// Maximum results to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -2418,6 +2433,7 @@ pub struct ListAuthorizedDomainsRequest {
     pub parent: std::string::String,
 
     /// Maximum results to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -2533,6 +2549,7 @@ pub struct ListAuthorizedCertificatesRequest {
     pub view: crate::model::AuthorizedCertificateView,
 
     /// Maximum results to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -2842,6 +2859,7 @@ pub struct ListDomainMappingsRequest {
     pub parent: std::string::String,
 
     /// Maximum results to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Continuation token for fetching the next page of results.
@@ -3377,6 +3395,7 @@ pub mod application {
         ///
         /// If true, the `oauth2_client_id` and `oauth2_client_secret`
         /// fields must be non-empty.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         /// OAuth2 client ID to use for the authentication flow.
@@ -3461,10 +3480,12 @@ pub mod application {
         /// 'health_check' ones. Once the legacy 'health_check' behavior is
         /// deprecated, and this value is always true, this setting can
         /// be removed.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub split_health_checks: bool,
 
         /// If true, use [Container-Optimized OS](https://cloud.google.com/container-optimized-os/)
         /// base image for VMs, rather than a base Debian image.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub use_container_optimized_os: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3956,6 +3977,7 @@ pub struct AuthorizedCertificate {
     /// the `view=FULL_CERTIFICATE` option.
     ///
     /// @OutputOnly
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub domain_mappings_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4405,6 +4427,7 @@ pub struct ZipInfo {
     /// An estimate of the number of files in a zip for a zip deployment.
     /// If set, must be greater than or equal to the actual number of files.
     /// Used for optimizing performance; if not provided, deployment may be slow.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub files_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4849,6 +4872,7 @@ pub struct FirewallRule {
     /// A default rule at priority Int32.MaxValue matches all IPv4 and IPv6 traffic
     /// when no previous rule matches. Only the action of this rule can be modified
     /// by the user.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub priority: i32,
 
     /// The action to take on matched requests.
@@ -5018,18 +5042,23 @@ pub struct Instance {
     pub start_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Number of requests since this instance was started.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requests: i32,
 
     /// Output only. Number of errors since this instance was started.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub errors: i32,
 
     /// Output only. Average queries per second (QPS) over the last minute.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub qps: f32,
 
     /// Output only. Average latency (ms) over the last minute.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub average_latency: i32,
 
     /// Output only. Total memory in use (bytes).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub memory_usage: i64,
 
@@ -5040,6 +5069,7 @@ pub struct Instance {
 
     /// Output only. Whether this instance is in debug mode. Only applicable for instances in
     /// App Engine flexible environment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vm_debug_enabled: bool,
 
     /// Output only. The IP address of this instance. Only applicable for instances in App
@@ -5362,15 +5392,18 @@ pub struct LocationMetadata {
     /// App Engine standard environment is available in the given location.
     ///
     /// @OutputOnly
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub standard_environment_available: bool,
 
     /// App Engine flexible environment is available in the given location.
     ///
     /// @OutputOnly
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub flexible_environment_available: bool,
 
     /// Output only. [Search API](https://cloud.google.com/appengine/docs/standard/python/search)
     /// is available in the given location.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub search_api_available: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6047,13 +6080,16 @@ pub struct Version {
     pub runtime_channel: std::string::String,
 
     /// Whether multiple requests can be dispatched to this version at once.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub threadsafe: bool,
 
     /// Whether to deploy this version in a container on a virtual machine.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vm: bool,
 
     /// Allows App Engine second generation runtimes to access the legacy bundled
     /// services.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub app_engine_apis: bool,
 
     /// Metadata settings that are supplied to this version to enable
@@ -6089,6 +6125,7 @@ pub struct Version {
     /// and currently hosted on the App Engine disk.
     ///
     /// @OutputOnly
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub disk_usage_bytes: i64,
 
@@ -6726,6 +6763,7 @@ pub struct EndpointsApiService {
 
     /// Enable or disable trace sampling. By default, this is set to false for
     /// enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_trace_sampling: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6863,14 +6901,17 @@ pub struct AutomaticScaling {
     /// before the scheduler spawns a new instance.
     ///
     /// Defaults to a runtime-specific value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_requests: i32,
 
     /// Maximum number of idle instances that should be maintained for this
     /// version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_idle_instances: i32,
 
     /// Maximum number of instances that should be started to handle requests for
     /// this version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_total_instances: i32,
 
     /// Maximum amount of time that a request should wait in the pending queue
@@ -6880,10 +6921,12 @@ pub struct AutomaticScaling {
 
     /// Minimum number of idle instances that should be maintained for
     /// this version. Only applicable for the default version of a service.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_idle_instances: i32,
 
     /// Minimum number of running instances that should be maintained for this
     /// version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_total_instances: i32,
 
     /// Minimum amount of time a request should wait in the pending queue before
@@ -7050,6 +7093,7 @@ pub struct BasicScaling {
     pub idle_timeout: std::option::Option<wkt::Duration>,
 
     /// Maximum number of instances to create for this version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_instances: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7094,6 +7138,7 @@ pub struct ManualScaling {
     /// can later be altered by using the
     /// [Modules API](https://cloud.google.com/appengine/docs/python/modules/functions)
     /// `set_num_instances()` function.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub instances: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7130,6 +7175,7 @@ pub struct CpuUtilization {
 
     /// Target CPU utilization ratio to maintain when scaling. Must be between 0
     /// and 1.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_utilization: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7173,9 +7219,11 @@ impl wkt::message::Message for CpuUtilization {
 #[non_exhaustive]
 pub struct RequestUtilization {
     /// Target requests per second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_request_count_per_second: i32,
 
     /// Target number of concurrent requests.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_concurrent_requests: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7214,15 +7262,19 @@ impl wkt::message::Message for RequestUtilization {
 #[non_exhaustive]
 pub struct DiskUtilization {
     /// Target bytes written per second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_write_bytes_per_second: i32,
 
     /// Target ops written per second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_write_ops_per_second: i32,
 
     /// Target bytes read per second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_read_bytes_per_second: i32,
 
     /// Target ops read per seconds.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_read_ops_per_second: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7273,15 +7325,19 @@ impl wkt::message::Message for DiskUtilization {
 #[non_exhaustive]
 pub struct NetworkUtilization {
     /// Target bytes sent per second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_sent_bytes_per_second: i32,
 
     /// Target packets sent per second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_sent_packets_per_second: i32,
 
     /// Target bytes received per second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_received_bytes_per_second: i32,
 
     /// Target packets received per second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_received_packets_per_second: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7337,17 +7393,21 @@ impl wkt::message::Message for NetworkUtilization {
 #[non_exhaustive]
 pub struct StandardSchedulerSettings {
     /// Target CPU utilization ratio to maintain when scaling.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_cpu_utilization: f64,
 
     /// Target throughput utilization ratio to maintain when scaling
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_throughput_utilization: f64,
 
     /// Minimum number of instances to run for this version. Set to zero to disable
     /// `min_instances` configuration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_instances: i32,
 
     /// Maximum number of instances to run for this version. Set to zero to disable
     /// `max_instances` configuration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_instances: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7438,6 +7498,7 @@ pub struct Network {
 
     /// Enable session affinity.
     /// Only applicable in the App Engine flexible environment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub session_affinity: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7507,6 +7568,7 @@ pub struct Volume {
     pub volume_type: std::string::String,
 
     /// Volume size in gigabytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub size_gb: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7550,12 +7612,15 @@ impl wkt::message::Message for Volume {
 #[non_exhaustive]
 pub struct Resources {
     /// Number of CPU cores needed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cpu: f64,
 
     /// Disk size (GB) needed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_gb: f64,
 
     /// Memory (GB) needed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub memory_gb: f64,
 
     /// User specified volumes.

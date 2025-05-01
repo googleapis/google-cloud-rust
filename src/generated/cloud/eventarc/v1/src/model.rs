@@ -89,6 +89,7 @@ pub struct Channel {
 
     /// Output only. Whether or not this Channel satisfies the requirements of
     /// physical zone separation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -555,10 +556,12 @@ pub struct FilteringAttribute {
 
     /// Output only. If true, the triggers for this provider should always specify
     /// a filter on these attributes. Trigger creation will fail otherwise.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub required: bool,
 
     /// Output only. If true, the attribute accepts matching expressions in the
     /// Eventarc PathPattern format.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub path_pattern_supported: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -808,6 +811,7 @@ pub struct ListTriggersRequest {
     /// The maximum number of triggers to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token; provide the value from the `next_page_token` field in a
@@ -974,6 +978,7 @@ pub struct CreateTriggerRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1037,10 +1042,12 @@ pub struct UpdateTriggerRequest {
 
     /// If set to true, and the trigger is not found, a new trigger will be
     /// created. In this situation, `update_mask` is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1106,10 +1113,12 @@ pub struct DeleteTriggerRequest {
 
     /// If set to true, and the trigger is not found, the request will succeed
     /// but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1197,6 +1206,7 @@ pub struct ListChannelsRequest {
     /// The maximum number of channels to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token; provide the value from the `next_page_token` field in a
@@ -1351,6 +1361,7 @@ pub struct CreateChannelRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1414,6 +1425,7 @@ pub struct UpdateChannelRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1468,6 +1480,7 @@ pub struct DeleteChannelRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1541,6 +1554,7 @@ pub struct ListProvidersRequest {
     pub parent: std::string::String,
 
     /// The maximum number of providers to return on each page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token; provide the value from the `next_page_token` field in a
@@ -1730,6 +1744,7 @@ pub struct ListChannelConnectionsRequest {
     /// The maximum number of channel connections to return on each page.
     ///
     /// Note: The service may send fewer responses.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token; provide the value from the `next_page_token` field in a
@@ -2074,6 +2089,7 @@ pub struct ListMessageBusesRequest {
     /// Optional. The maximum number of results to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -2232,6 +2248,7 @@ pub struct ListMessageBusEnrollmentsRequest {
     /// Optional. The maximum number of results to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -2360,6 +2377,7 @@ pub struct CreateMessageBusRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2423,10 +2441,12 @@ pub struct UpdateMessageBusRequest {
 
     /// Optional. If set to true, and the MessageBus is not found, a new MessageBus
     /// will be created. In this situation, `update_mask` is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2492,10 +2512,12 @@ pub struct DeleteMessageBusRequest {
 
     /// Optional. If set to true, and the MessageBus is not found, the request will
     /// succeed but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2583,6 +2605,7 @@ pub struct ListEnrollmentsRequest {
     /// Optional. The maximum number of results to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -2749,6 +2772,7 @@ pub struct CreateEnrollmentRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2812,10 +2836,12 @@ pub struct UpdateEnrollmentRequest {
 
     /// Optional. If set to true, and the Enrollment is not found, a new Enrollment
     /// will be created. In this situation, `update_mask` is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2881,10 +2907,12 @@ pub struct DeleteEnrollmentRequest {
 
     /// Optional. If set to true, and the Enrollment is not found, the request will
     /// succeed but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2972,6 +3000,7 @@ pub struct ListPipelinesRequest {
     /// Optional. The maximum number of results to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -3137,6 +3166,7 @@ pub struct CreatePipelineRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3200,10 +3230,12 @@ pub struct UpdatePipelineRequest {
 
     /// Optional. If set to true, and the Pipeline is not found, a new Pipeline
     /// will be created. In this situation, `update_mask` is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3269,10 +3301,12 @@ pub struct DeletePipelineRequest {
 
     /// Optional. If set to true, and the Pipeline is not found, the request will
     /// succeed but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3360,6 +3394,7 @@ pub struct ListGoogleApiSourcesRequest {
     /// Optional. The maximum number of results to return on each page.
     ///
     /// Note: The service may send fewer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token; provide the value from the `next_page_token`
@@ -3526,6 +3561,7 @@ pub struct CreateGoogleApiSourceRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3595,10 +3631,12 @@ pub struct UpdateGoogleApiSourceRequest {
     /// Optional. If set to true, and the GoogleApiSource is not found, a new
     /// GoogleApiSource will be created. In this situation, `update_mask` is
     /// ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3666,10 +3704,12 @@ pub struct DeleteGoogleApiSourceRequest {
 
     /// Optional. If set to true, and the MessageBus is not found, the request will
     /// succeed but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3745,6 +3785,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -5875,6 +5916,7 @@ pub mod pipeline {
     pub struct RetryPolicy {
         /// Optional. The maximum number of delivery attempts for any message. The
         /// value must be between 1 and 100. The default value for this field is 5.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_attempts: i32,
 
         /// Optional. The minimum amount of seconds to wait between retry attempts.
@@ -6007,6 +6049,7 @@ pub struct Trigger {
 
     /// Output only. Whether or not this Trigger satisfies the requirements of
     /// physical zone separation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Output only. This checksum is computed by the server based on the value of

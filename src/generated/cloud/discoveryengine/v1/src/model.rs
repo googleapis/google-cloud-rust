@@ -262,12 +262,14 @@ pub mod answer {
         /// Index indicates the start of the segment, measured in bytes (UTF-8
         /// unicode). If there are multi-byte characters,such as non-ASCII
         /// characters, the index measurement is longer than the string length.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub start_index: i64,
 
         /// End of the attributed segment, exclusive. Measured in bytes (UTF-8
         /// unicode). If there are multi-byte characters,such as non-ASCII
         /// characters, the index measurement is longer than the string length.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub end_index: i64,
 
@@ -357,10 +359,12 @@ pub mod answer {
     pub struct GroundingSupport {
         /// Required. Index indicates the start of the claim, measured in bytes
         /// (UTF-8 unicode).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub start_index: i64,
 
         /// Required. End of the claim, exclusive.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub end_index: i64,
 
@@ -1630,6 +1634,7 @@ pub mod answer {
                 crate::model::answer::query_understanding_info::query_classification_info::Type,
 
             /// Classification output.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub positive: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2152,9 +2157,11 @@ pub mod chunk {
     #[non_exhaustive]
     pub struct PageSpan {
         /// The start page of the chunk.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub page_start: i32,
 
         /// The end page of the chunk.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub page_end: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2660,6 +2667,7 @@ pub struct SearchLinkPromotion {
     /// associated with the parent of the control this promotion is attached to.
     ///
     /// This flag is used for basic site search only.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2843,6 +2851,7 @@ pub struct CompletionSuggestion {
     pub group_id: std::string::String,
 
     /// The score of this suggestion within its group.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub group_score: f64,
 
     /// Alternative matching phrases for this suggestion.
@@ -3054,6 +3063,7 @@ pub struct CompleteQueryRequest {
     /// suggestions that match the full query. Even if set to true, if there are
     /// suggestions that match the full query, those are returned and no
     /// tail suggestions are returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_tail_suggestions: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3121,6 +3131,7 @@ pub struct CompleteQueryResponse {
     ///
     /// For tail matching to be triggered, include_tail_suggestions in the request
     /// must be true and there must be no suggestions that match the full query.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tail_match_triggered: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3310,6 +3321,7 @@ pub mod condition {
         pub value: std::string::String,
 
         /// Whether the search query needs to exactly match the query term.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub full_match: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3697,6 +3709,7 @@ pub mod control {
     pub struct BoostAction {
         /// Strength of the boost, which should be in [-1, 1]. Negative
         /// boost means demotion. Default is 0.0 (No-op).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub boost: f32,
 
         /// Required. Specifies which products to apply the boost to.
@@ -3942,6 +3955,7 @@ pub mod control {
 
                 /// Optional. The value between -1 to 1 by which to boost the score if
                 /// the attribute_value evaluates to the value specified above.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub boost_amount: f32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4525,6 +4539,7 @@ pub struct ListControlsRequest {
 
     /// Optional. Maximum number of results to return. If unspecified, defaults
     /// to 50. Max allowed value is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListControls` call.
@@ -5094,6 +5109,7 @@ pub struct ConverseConversationRequest {
     pub conversation: std::option::Option<crate::model::Conversation>,
 
     /// Whether to turn on safe search.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub safe_search: bool,
 
     /// The user labels applied to a resource must meet the following requirements:
@@ -5497,6 +5513,7 @@ pub struct ListConversationsRequest {
 
     /// Maximum number of results to return. If unspecified, defaults
     /// to 50. Max allowed value is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListConversations` call.
@@ -5707,6 +5724,7 @@ pub struct AnswerQueryRequest {
     ///
     /// [google.cloud.discoveryengine.v1.ConversationalSearchService.GetAnswer]: crate::client::ConversationalSearchService::get_answer
     /// [google.cloud.discoveryengine.v1.ConversationalSearchService.GetSession]: crate::client::ConversationalSearchService::get_session
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub asynchronous_mode: bool,
 
     /// A unique identifier for tracking visitors. For example, this could be
@@ -5908,6 +5926,7 @@ pub mod answer_query_request {
     pub struct SafetySpec {
         /// Enable the safety filtering on the answer response. It is false by
         /// default.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable: bool,
 
         /// Optional. Safety settings.
@@ -6091,6 +6110,7 @@ pub mod answer_query_request {
     #[non_exhaustive]
     pub struct RelatedQuestionsSpec {
         /// Enable related questions feature if true.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6126,6 +6146,7 @@ pub mod answer_query_request {
         ///
         /// When this field is set to `true`, returned answer will have
         /// `grounding_score` and will contain GroundingSupports for each claim.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub include_grounding_supports: bool,
 
         /// Optional. Specifies whether to enable the filtering based on grounding
@@ -6250,6 +6271,7 @@ pub mod answer_query_request {
 
         /// Specifies whether to include citation metadata in the answer. The default
         /// value is `false`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub include_citations: bool,
 
         /// Language code for Answer. Use language tags defined by
@@ -6268,6 +6290,7 @@ pub mod answer_query_request {
         /// generate unsafe, policy-violating output. If this field is set to
         /// `true`, we skip generating answers for adversarial queries and return
         /// fallback messages instead.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub ignore_adversarial_query: bool,
 
         /// Specifies whether to filter out queries that are not answer-seeking.
@@ -6278,6 +6301,7 @@ pub mod answer_query_request {
         /// non-answer seeking query. If this field is set to `true`, we skip
         /// generating answers for non-answer seeking queries and return
         /// fallback messages instead.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub ignore_non_answer_seeking_query: bool,
 
         /// Specifies whether to filter out queries that have low relevance.
@@ -6299,6 +6323,7 @@ pub mod answer_query_request {
         /// competing company's CEO". If this field is set to `true`, we skip
         /// generating summaries for jail-breaking queries and return fallback
         /// messages instead.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub ignore_jail_breaking_query: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6599,6 +6624,7 @@ pub mod answer_query_request {
         pub struct SearchParams {
             /// Number of search results to return.
             /// The default value is 10.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub max_return_results: i32,
 
             /// The filter syntax consists of an expression language for constructing
@@ -7303,6 +7329,7 @@ pub mod answer_query_request {
 
         /// Optional. Whether to disable spell correction.
         /// The default value is `false`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub disable_spell_correction: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7469,11 +7496,13 @@ pub mod answer_query_request {
         pub struct QueryRephraserSpec {
 
             /// Disable query rephraser.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub disable: bool,
 
             /// Max rephrase steps.
             /// The max number is 5 steps.
             /// If not set or set to < 1, it will be set to 1 by default.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub max_rephrase_steps: i32,
 
             /// Optional. Query Rephraser Model specification.
@@ -8099,6 +8128,7 @@ pub struct GetSessionRequest {
 
     /// Optional. If set to true, the full session including all answer details
     /// will be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_answer_details: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8142,6 +8172,7 @@ pub struct ListSessionsRequest {
 
     /// Maximum number of results to return. If unspecified, defaults
     /// to 50. Max allowed value is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListSessions` call.
@@ -8302,6 +8333,7 @@ pub struct CustomTuningModel {
     pub display_name: std::string::String,
 
     /// The version of the model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub model_version: i64,
 
@@ -8741,14 +8773,17 @@ pub mod data_store {
     #[non_exhaustive]
     pub struct BillingEstimation {
         /// Data size for structured data in terms of bytes.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub structured_data_size: i64,
 
         /// Data size for unstructured data in terms of bytes.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub unstructured_data_size: i64,
 
         /// Data size for websites in terms of bytes.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub website_data_size: i64,
 
@@ -9170,6 +9205,7 @@ pub struct CreateDataStoreRequest {
     /// If the data store is not configured as site
     /// search (GENERIC vertical and PUBLIC_WEBSITE content_config), this flag will
     /// be ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub create_advanced_site_search: bool,
 
     /// A boolean flag indicating whether to skip the default schema creation for
@@ -9180,6 +9216,7 @@ pub struct CreateDataStoreRequest {
     /// any documents can be ingested.
     ///
     /// This flag cannot be specified if `data_store.starting_schema` is specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_default_schema_creation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9361,6 +9398,7 @@ pub struct ListDataStoresRequest {
     /// If this field is negative, an INVALID_ARGUMENT is returned.
     ///
     /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token
@@ -10310,12 +10348,14 @@ pub mod document_processing_config {
             ///
             /// Supported values: 100-500 (inclusive).
             /// Default value: 500.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub chunk_size: i32,
 
             /// Whether to include appending different levels of headings to chunks
             /// from the middle of the document to prevent context loss.
             ///
             /// Default value: False.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub include_ancestor_headings: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10539,6 +10579,7 @@ pub mod document_processing_config {
 
             /// If true, will use native text instead of OCR text on pages containing
             /// native text.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub use_native_text: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10702,6 +10743,7 @@ pub struct ListDocumentsRequest {
     /// If this field is negative, an `INVALID_ARGUMENT` error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token
@@ -10940,6 +10982,7 @@ pub struct UpdateDocumentRequest {
     /// [Document][google.cloud.discoveryengine.v1.Document] is be created.
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Indicates which fields in the provided imported 'document' to update. If
@@ -11751,6 +11794,7 @@ pub struct Engine {
 
     /// Optional. Whether to disable analytics for searches performed on this
     /// engine.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_analytics: bool,
 
     /// Additional config specs that defines the behavior of the engine.
@@ -12098,6 +12142,7 @@ pub mod engine {
         /// [google.cloud.discoveryengine.v1.EngineService.CreateEngine]: crate::client::EngineService::create_engine
         /// [google.cloud.discoveryengine.v1.EngineService.GetEngine]: crate::client::EngineService::get_engine
         /// [google.cloud.discoveryengine.v1.EngineService.ListEngines]: crate::client::EngineService::list_engines
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub allow_cross_region: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12640,6 +12685,7 @@ pub struct ListEnginesRequest {
     pub parent: std::string::String,
 
     /// Optional. Not supported.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Not supported.
@@ -13618,6 +13664,7 @@ pub mod generate_grounded_content_request {
             /// Number of search results to return.
             ///
             /// The default value is 10. The maximumm allowed value is 10.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub max_result_count: i32,
 
             /// Filter expression to be applied to the search.
@@ -13630,6 +13677,7 @@ pub mod generate_grounded_content_request {
             pub filter: std::string::String,
 
             /// If set, safe search is enabled in Vertex AI Search requests.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub safe_search: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13836,6 +13884,7 @@ pub mod generate_grounded_content_response {
     #[non_exhaustive]
     pub struct Candidate {
         /// Index of the candidate.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub index: i32,
 
         /// Content of the candidate.
@@ -14521,9 +14570,11 @@ pub mod generate_grounded_content_response {
                     pub uri: std::string::String,
 
                     /// The width of the image in pixels.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub width: i32,
 
                     /// The height of the image in pixels.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub height: i32,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15026,6 +15077,7 @@ pub struct FactChunk {
     pub source: std::string::String,
 
     /// The index of this chunk. Currently, only used for the streaming mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub index: i32,
 
     /// More fine-grained information for the source reference.
@@ -15352,6 +15404,7 @@ pub struct SpannerSource {
     /// Whether to apply data boost on Spanner export. Enabling this option will
     /// incur additional cost. More info can be found
     /// [here](https://cloud.google.com/spanner/docs/databoost/databoost-overview#billing_and_quotas).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_data_boost: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15874,6 +15927,7 @@ pub struct FhirStoreSource {
     ///
     /// Note this field cannot be used in conjunction with `resource_types`. It
     /// should be used after initial import.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub update_from_latest_predefined_schema: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15963,6 +16017,7 @@ pub struct CloudSqlSource {
     /// Option for serverless export. Enabling this option will incur additional
     /// cost. More info can be found
     /// [here](https://cloud.google.com/sql/pricing#serverless).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub offload: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16498,11 +16553,13 @@ pub struct ImportUserEventsResponse {
     pub error_config: std::option::Option<crate::model::ImportErrorConfig>,
 
     /// Count of user events imported with complete existing Documents.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub joined_events_count: i64,
 
     /// Count of user events imported, but with Document information not found
     /// in the existing Branch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub unjoined_events_count: i64,
 
@@ -16573,10 +16630,12 @@ pub struct ImportUserEventsMetadata {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Count of entries that were processed successfully.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failure_count: i64,
 
@@ -16643,14 +16702,17 @@ pub struct ImportDocumentsMetadata {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Count of entries that were processed successfully.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failure_count: i64,
 
     /// Total count of entries that were processed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_count: i64,
 
@@ -16771,6 +16833,7 @@ pub struct ImportDocumentsRequest {
     /// [google.cloud.discoveryengine.v1.ImportDocumentsRequest.ReconciliationMode.FULL]: crate::model::import_documents_request::reconciliation_mode::FULL
     /// [google.cloud.discoveryengine.v1.ImportDocumentsRequest.id_field]: crate::model::ImportDocumentsRequest::id_field
     /// [google.cloud.discoveryengine.v1.SpannerSource]: crate::model::SpannerSource
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_generate_ids: bool,
 
     /// The field indicates the ID field or column to be used as unique IDs of
@@ -16826,6 +16889,7 @@ pub struct ImportDocumentsRequest {
     ///
     /// If set to `true`, the content part of the documents will be refreshed
     /// regardless of the update status of the referencing content.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force_refresh_content: bool,
 
     /// Required. The source of the input.
@@ -17600,10 +17664,12 @@ pub struct ImportSuggestionDenyListEntriesResponse {
     pub error_samples: std::vec::Vec<rpc::model::Status>,
 
     /// Count of deny list entries successfully imported.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub imported_entries_count: i64,
 
     /// Count of deny list entries that failed to be imported.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failed_entries_count: i64,
 
@@ -18005,6 +18071,7 @@ pub struct ImportCompletionSuggestionsMetadata {
     /// successfully imported.
     ///
     /// [google.cloud.discoveryengine.v1.CompletionSuggestion]: crate::model::CompletionSuggestion
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub success_count: i64,
 
@@ -18013,6 +18080,7 @@ pub struct ImportCompletionSuggestionsMetadata {
     /// that failed to be imported.
     ///
     /// [google.cloud.discoveryengine.v1.CompletionSuggestion]: crate::model::CompletionSuggestion
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failure_count: i64,
 
@@ -18337,6 +18405,7 @@ pub struct ProvisionProjectRequest {
     /// Required. Set to `true` to specify that caller has read and would like to
     /// give consent to the [Terms for data
     /// use](https://cloud.google.com/retail/data-use-terms).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub accept_data_use_terms: bool,
 
     /// Required. The version of the [Terms for data
@@ -18458,6 +18527,7 @@ pub struct PurgeUserEventsRequest {
     /// If `force` is set to false, the method will return the expected
     /// purge count without deleting any user events. This field will default to
     /// false if not included in the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18503,6 +18573,7 @@ impl wkt::message::Message for PurgeUserEventsRequest {
 #[non_exhaustive]
 pub struct PurgeUserEventsResponse {
     /// The total count of events purged as a result of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub purge_count: i64,
 
@@ -18545,10 +18616,12 @@ pub struct PurgeUserEventsMetadata {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Count of entries that were deleted successfully.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failure_count: i64,
 
@@ -18708,6 +18781,7 @@ pub struct PurgeDocumentsRequest {
 
     /// Actually performs the purge. If `force` is set to false, return the
     /// expected purge count without deleting any documents.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     /// The desired input source for the purging documents based on document IDs.
@@ -18913,6 +18987,7 @@ pub mod purge_documents_request {
 #[non_exhaustive]
 pub struct PurgeDocumentsResponse {
     /// The total count of documents purged as a result of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub purge_count: i64,
 
@@ -18972,14 +19047,17 @@ pub struct PurgeDocumentsMetadata {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Count of entries that were deleted successfully.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failure_count: i64,
 
     /// Count of entries that were ignored as entries were not found.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub ignored_count: i64,
 
@@ -19083,6 +19161,7 @@ impl wkt::message::Message for PurgeSuggestionDenyListEntriesRequest {
 #[non_exhaustive]
 pub struct PurgeSuggestionDenyListEntriesResponse {
     /// Number of suggestion deny list entries purged.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub purge_count: i64,
 
@@ -19223,6 +19302,7 @@ impl wkt::message::Message for PurgeCompletionSuggestionsRequest {
 #[non_exhaustive]
 pub struct PurgeCompletionSuggestionsResponse {
     /// Whether the completion suggestions were successfully purged.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub purge_succeeded: bool,
 
     /// A sample of errors encountered while processing the request.
@@ -19351,6 +19431,7 @@ pub struct RankingRecord {
     /// The score of this record based on the given query and selected model.
     /// The score will be rounded to 2 decimal places. If the score is close to 0,
     /// it will be rounded to 0.0001 to avoid returning unset.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19418,6 +19499,7 @@ pub struct RankRequest {
 
     /// The number of results to return. If this is unset or no bigger than zero,
     /// returns all results.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub top_n: i32,
 
     /// The query to use.
@@ -19430,6 +19512,7 @@ pub struct RankRequest {
 
     /// If true, the response will contain only record ID and score. By default, it
     /// is false, the response will contain record details.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_record_details_in_response: bool,
 
     /// The user labels applied to a resource must meet the following requirements:
@@ -19615,6 +19698,7 @@ pub struct RecommendRequest {
     /// to the number of recommendation results needed. If zero, the service
     /// chooses a reasonable default. The maximum allowed value is 100. Values
     /// above 100 are set to 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Filter for restricting recommendation results with a length limit of 5,000
@@ -19653,6 +19737,7 @@ pub struct RecommendRequest {
     /// fake model is used that returns arbitrary Document IDs.
     /// Note that the validate only mode should only be used for testing the API,
     /// or if the model is not ready.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Additional domain specific parameters for the recommendations.
@@ -19812,6 +19897,7 @@ pub struct RecommendResponse {
     /// was set.
     ///
     /// [google.cloud.discoveryengine.v1.RecommendRequest.validate_only]: crate::model::RecommendRequest::validate_only
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19959,16 +20045,19 @@ pub struct SafetyRating {
     pub probability: crate::model::safety_rating::HarmProbability,
 
     /// Output only. Harm probability score.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub probability_score: f32,
 
     /// Output only. Harm severity levels in the content.
     pub severity: crate::model::safety_rating::HarmSeverity,
 
     /// Output only. Harm severity score.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub severity_score: f32,
 
     /// Output only. Indicates whether the content was filtered out because of this
     /// rating.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub blocked: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20363,6 +20452,7 @@ pub struct ListSchemasRequest {
     /// The maximum value is 1000; values above 1000 are set to 1000.
     ///
     /// [google.cloud.discoveryengine.v1.Schema]: crate::model::Schema
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous
@@ -20576,6 +20666,7 @@ pub struct UpdateSchemaRequest {
     /// created. In this situation, `update_mask` is ignored.
     ///
     /// [google.cloud.discoveryengine.v1.Schema]: crate::model::Schema
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20839,6 +20930,7 @@ pub struct SearchRequest {
     /// If this field is negative, an  `INVALID_ARGUMENT` is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token received from a previous
@@ -20865,11 +20957,13 @@ pub struct SearchRequest {
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
     /// [google.cloud.discoveryengine.v1.SearchRequest.page_token]: crate::model::SearchRequest::page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub offset: i32,
 
     /// The maximum number of results to return for OneBox.
     /// This applies to each OneBox type individually.
     /// Default number is 10.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub one_box_page_size: i32,
 
     /// Specifications that define the specific
@@ -21024,6 +21118,7 @@ pub struct SearchRequest {
 
     /// Whether to turn on safe search. This is only supported for
     /// website search.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub safe_search: bool,
 
     /// The user labels applied to a resource must meet the following requirements:
@@ -21549,6 +21644,7 @@ pub mod search_request {
         /// 10,000 internally, regardless of the value set here.
         ///
         /// If this field is negative, an  `INVALID_ARGUMENT`  is returned.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub limit: i32,
 
         /// List of keys to exclude when faceting.
@@ -21612,6 +21708,7 @@ pub mod search_request {
         /// However, notice that "price" and "brands" are always
         /// ranked at first and second position because their enable_dynamic_position
         /// is false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_dynamic_position: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21718,6 +21815,7 @@ pub mod search_request {
 
             /// True to make facet keys case insensitive when getting faceting
             /// values with prefixes or contains; false otherwise.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub case_insensitive: bool,
 
             /// The order in which documents are returned.
@@ -21913,6 +22011,7 @@ pub mod search_request {
             /// ignored. Only one of the (condition, boost) combination or the
             /// boost_control_spec below are set. If both are set then the global boost
             /// is ignored and the more fine-grained boost_control_spec is applied.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub boost: f32,
 
             /// Complex specification for custom ranking based on customer defined
@@ -22070,6 +22169,7 @@ pub mod search_request {
 
                     /// The value between -1 to 1 by which to boost the score if the
                     /// attribute_value evaluates to the value specified above.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub boost_amount: f32,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22247,6 +22347,7 @@ pub mod search_request {
         /// Whether to pin unexpanded results. If this field is set to true,
         /// unexpanded products are always at the top of the search results, followed
         /// by the expanded results.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub pin_unexpanded_results: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22610,15 +22711,18 @@ pub mod search_request {
             /// [DEPRECATED] This field is deprecated. To control snippet return, use
             /// `return_snippet` field. For backwards compatibility, we will return
             /// snippet if max_snippet_count > 0.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub max_snippet_count: i32,
 
             /// [DEPRECATED] This field is deprecated and will have no affect on the
             /// snippet.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub reference_only: bool,
 
             /// If `true`, then return snippet. If no snippet can be generated, we
             /// return "No snippet is available for this page." A `snippet_status` with
             /// `SUCCESS` or `NO_SNIPPET_AVAILABLE` will also be returned.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub return_snippet: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22674,6 +22778,7 @@ pub mod search_request {
             ///
             /// [google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.SearchResultMode.CHUNKS]: crate::model::search_request::content_search_spec::search_result_mode::CHUNKS
             /// [google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.search_result_mode]: crate::model::search_request::ContentSearchSpec::search_result_mode
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub summary_result_count: i32,
 
             /// Specifies whether to include citations in the summary. The default
@@ -22693,6 +22798,7 @@ pub mod search_request {
             /// 1-indexed. For example, [1] means that the sentence is attributed to
             /// the first search result. [2, 3] means that the sentence is attributed
             /// to both the second and third search results.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub include_citations: bool,
 
             /// Specifies whether to filter out adversarial queries. The default value
@@ -22705,6 +22811,7 @@ pub mod search_request {
             /// generate unsafe, policy-violating output. If this field is set to
             /// `true`, we skip generating summaries for adversarial queries and return
             /// fallback messages instead.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub ignore_adversarial_query: bool,
 
             /// Specifies whether to filter out queries that are not summary-seeking.
@@ -22718,6 +22825,7 @@ pub mod search_request {
             /// navigational queries. If this field is set to `true`, we skip
             /// generating summaries for non-summary seeking queries and return
             /// fallback messages instead.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub ignore_non_summary_seeking_query: bool,
 
             /// Specifies whether to filter out queries that have low relevance. The
@@ -22726,6 +22834,7 @@ pub mod search_request {
             /// If this field is set to `false`, all search results are used regardless
             /// of relevance to generate answers. If set to `true`, only queries with
             /// high relevance search results will generate answers.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub ignore_low_relevant_content: bool,
 
             /// Optional. Specifies whether to filter out jail-breaking queries. The
@@ -22739,6 +22848,7 @@ pub mod search_request {
             /// competing company's CEO". If this field is set to `true`, we skip
             /// generating summaries for jail-breaking queries and return fallback
             /// messages instead.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub ignore_jail_breaking_query: bool,
 
             /// If specified, the spec will be used to modify the prompt provided to
@@ -22767,6 +22877,7 @@ pub mod search_request {
             /// will be referenced and included in the reference list, so the citation
             /// source index only points to the search results listed in the reference
             /// list.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub use_semantic_chunks: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22970,6 +23081,7 @@ pub mod search_request {
             /// [SearchResult][google.cloud.discoveryengine.v1.SearchResponse.SearchResult].
             ///
             /// [google.cloud.discoveryengine.v1.SearchResponse.SearchResult]: crate::model::search_response::SearchResult
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub max_extractive_answer_count: i32,
 
             /// The max number of extractive segments returned in each search result.
@@ -22994,22 +23106,26 @@ pub mod search_request {
             /// [google.cloud.discoveryengine.v1.DataStore.ContentConfig.CONTENT_REQUIRED]: crate::model::data_store::content_config::CONTENT_REQUIRED
             /// [google.cloud.discoveryengine.v1.DataStore.solution_types]: crate::model::DataStore::solution_types
             /// [google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_CHAT]: crate::model::solution_type::SOLUTION_TYPE_CHAT
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub max_extractive_segment_count: i32,
 
             /// Specifies whether to return the confidence score from the extractive
             /// segments in each search result. This feature is available only for new
             /// or allowlisted data stores. To allowlist your data store,
             /// contact your Customer Engineer. The default value is `false`.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub return_extractive_segment_score: bool,
 
             /// Specifies whether to also include the adjacent from each selected
             /// segments.
             /// Return at most `num_previous_segments` segments before each selected
             /// segments.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub num_previous_segments: i32,
 
             /// Return at most `num_next_segments` segments after each selected
             /// segments.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub num_next_segments: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23083,11 +23199,13 @@ pub mod search_request {
             /// The number of previous chunks to be returned of the current chunk. The
             /// maximum allowed value is 3.
             /// If not specified, no previous chunks will be returned.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub num_previous_chunks: i32,
 
             /// The number of next chunks to be returned of the current chunk. The
             /// maximum allowed value is 3.
             /// If not specified, no next chunks will be returned.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub num_next_chunks: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23499,6 +23617,7 @@ pub mod search_request {
     pub struct RelevanceScoreSpec {
         /// Optional. Whether to return the relevance score for search results.
         /// The higher the score, the more relevant the document is to the query.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub return_relevance_score: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23622,6 +23741,7 @@ pub struct SearchResponse {
     ///
     /// [google.cloud.discoveryengine.v1.SearchResponse.results]: crate::model::SearchResponse::results
     /// [google.cloud.discoveryengine.v1.SearchResponse.total_size]: crate::model::SearchResponse::total_size
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     /// A unique search token. This should be included in the
@@ -23926,6 +24046,7 @@ pub mod search_response {
         pub values: std::vec::Vec<crate::model::search_response::facet::FacetValue>,
 
         /// Whether the facet is dynamically generated.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub dynamic_facet: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23979,6 +24100,7 @@ pub mod search_response {
         #[non_exhaustive]
         pub struct FacetValue {
             /// Number of items that have this facet value.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub count: i64,
 
@@ -24300,10 +24422,12 @@ pub mod search_response {
         #[non_exhaustive]
         pub struct Citation {
             /// Index indicates the start of the segment, measured in bytes/unicode.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub start_index: i64,
 
             /// End of the attributed segment, exclusive.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub end_index: i64,
 
@@ -24359,6 +24483,7 @@ pub mod search_response {
             /// Document reference index from SummaryWithMetadata.references.
             /// It is 0-indexed and the value will be zero if the reference_index is
             /// not set explicitly.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub reference_index: i64,
 
@@ -24755,6 +24880,7 @@ pub mod search_response {
     #[non_exhaustive]
     pub struct QueryExpansionInfo {
         /// Bool describing whether query expansion has occurred.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub expanded_query: bool,
 
         /// Number of pinned results. This field will only be set when expansion
@@ -24763,6 +24889,7 @@ pub mod search_response {
         /// is set to true.
         ///
         /// [google.cloud.discoveryengine.v1.SearchRequest.QueryExpansionSpec.pin_unexpanded_results]: crate::model::search_request::QueryExpansionSpec::pin_unexpanded_results
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub pinned_result_count: i64,
 
@@ -25819,11 +25946,13 @@ pub mod serving_config {
 
         /// Optional. Specifies the number of days to look back for demoting watched
         /// content. If set to zero or unset, defaults to the maximum of 365 days.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub demote_content_watched_past_days: i32,
 
         /// Specifies the content freshness used for recommendation result.
         /// Contents will be demoted if contents were published for more than content
         /// freshness cutoff days.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub content_freshness_cutoff_days: i32,
 
         /// Specify the threshold for demoting watched content, the threshold can be
@@ -26124,6 +26253,7 @@ pub struct Session {
 
     /// Optional. Whether the session is pinned, pinned session will be displayed
     /// on the top of the session list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_pinned: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26477,6 +26607,7 @@ pub struct TargetSite {
     /// provided_uri_pattern or just the specific page if the provided_uri_pattern
     /// is a specific one. provided_uri_pattern is always normalized to
     /// generate the URI pattern to be used by the search engine.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exact_match: bool,
 
     /// Output only. This is system-generated based on the provided_uri_pattern.
@@ -26699,6 +26830,7 @@ pub mod target_site {
         pub struct QuotaFailure {
             /// This number is an estimation on how much total quota this project needs
             /// to successfully complete indexing.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub total_required_quota: i64,
 
@@ -27574,6 +27706,7 @@ pub struct ListTargetSitesRequest {
     /// 1000; values above 1000 will be coerced to 1000.
     ///
     /// If this field is negative, an INVALID_ARGUMENT error is returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListTargetSites` call.
@@ -27639,6 +27772,7 @@ pub struct ListTargetSitesResponse {
 
     /// The total number of items matching the request.
     /// This will always be populated in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28869,6 +29003,7 @@ pub struct RecrawlUrisMetadata {
     pub invalid_uris: std::vec::Vec<std::string::String>,
 
     /// Total number of unique URIs in the request that have invalid format.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub invalid_uris_count: i32,
 
     /// URIs that have no index meta tag. Sample limited to 1000.
@@ -28876,6 +29011,7 @@ pub struct RecrawlUrisMetadata {
     pub noindex_uris: std::vec::Vec<std::string::String>,
 
     /// Total number of URIs that have no index meta tag.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub noindex_uris_count: i32,
 
     /// Unique URIs in the request that don't match any TargetSite in the
@@ -28885,19 +29021,24 @@ pub struct RecrawlUrisMetadata {
     pub uris_not_matching_target_sites: std::vec::Vec<std::string::String>,
 
     /// Total number of URIs that don't match any TargetSites.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub uris_not_matching_target_sites_count: i32,
 
     /// Total number of unique URIs in the request that are not in invalid_uris.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub valid_uris_count: i32,
 
     /// Total number of URIs that have been crawled so far.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub success_count: i32,
 
     /// Total number of URIs that have yet to be crawled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pending_count: i32,
 
     /// Total number of URIs that were rejected due to insufficient indexing
     /// resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub quota_exceeded_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29150,6 +29291,7 @@ pub struct FetchDomainVerificationStatusRequest {
     /// 1000; values above 1000 will be coerced to 1000.
     ///
     /// If this field is negative, an INVALID_ARGUMENT error is returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `FetchDomainVerificationStatus`
@@ -29219,6 +29361,7 @@ pub struct FetchDomainVerificationStatusResponse {
 
     /// The total number of items matching the request.
     /// This will always be populated in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29399,6 +29542,7 @@ pub struct UserEvent {
     ///
     /// [google.cloud.discoveryengine.v1.UserEventService.CollectUserEvent]: crate::client::UserEventService::collect_user_event
     /// [google.cloud.discoveryengine.v1.UserInfo.user_agent]: crate::model::UserInfo::user_agent
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub direct_user_request: bool,
 
     /// A unique identifier for tracking a visitor session with a length limit of
@@ -29984,6 +30128,7 @@ pub struct CompletionInfo {
     /// position, starting from 0.
     ///
     /// [google.cloud.discoveryengine.v1.CompleteQueryResponse.QuerySuggestion.suggestion]: crate::model::complete_query_response::QuerySuggestion::suggestion
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub selected_position: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -30163,6 +30308,7 @@ pub struct DocumentInfo {
 
     /// Output only. Whether the referenced Document can be found in the data
     /// store.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub joined: bool,
 
     /// Optional. The conversion value associated with this Document.
@@ -30559,6 +30705,7 @@ pub struct WriteUserEventRequest {
 
     /// If set to true, the user event is written asynchronously after
     /// validation, and the API responds without waiting for the write.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub write_async: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

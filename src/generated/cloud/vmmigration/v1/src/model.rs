@@ -46,6 +46,7 @@ pub struct ReplicationCycle {
     pub name: std::string::String,
 
     /// The cycle's ordinal number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cycle_number: i32,
 
     /// The time the replication cycle has started.
@@ -63,6 +64,7 @@ pub struct ReplicationCycle {
     /// The current progress in percentage of this cycle.
     /// Was replaced by 'steps' field, which breaks down the cycle progression more
     /// accurately.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percent: i32,
 
     /// The cycle's steps list representing its progress.
@@ -440,20 +442,24 @@ impl wkt::message::Message for InitializingReplicationStep {
 #[non_exhaustive]
 pub struct ReplicatingStep {
     /// Total bytes to be handled in the step.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_bytes: i64,
 
     /// Replicated bytes in the step.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub replicated_bytes: i64,
 
     /// The source disks replication rate for the last 2 minutes in bytes per
     /// second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub last_two_minutes_average_bytes_per_second: i64,
 
     /// The source disks replication rate for the last 30 minutes in bytes per
     /// second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub last_thirty_minutes_average_bytes_per_second: i64,
 
@@ -1576,6 +1582,7 @@ pub struct CutoverJob {
     pub state_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current progress in percentage of the cutover job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percent: i32,
 
     /// Output only. Provides details for the errors that led to the Cutover Job's
@@ -2238,6 +2245,7 @@ pub struct ListCloneJobsRequest {
     /// return fewer than this value. If unspecified, at most 500 clone jobs will
     /// be returned. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListCloneJobs` call.
@@ -3491,6 +3499,7 @@ pub struct ApplianceVersion {
     pub uri: std::string::String,
 
     /// Determine whether it's critical to upgrade the appliance to this version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub critical: bool,
 
     /// Link to a page that contains the version release notes.
@@ -3554,6 +3563,7 @@ pub struct ListSourcesRequest {
     /// fewer than this value. If unspecified, at most 500 sources will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListSources` call.
@@ -3947,6 +3957,7 @@ pub struct FetchInventoryRequest {
 
     /// If this flag is set to true, the source will be queried instead of using
     /// cached results. Using this flag will make the call slower.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force_refresh: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4008,15 +4019,19 @@ pub struct VmwareVmDetails {
     pub power_state: crate::model::vmware_vm_details::PowerState,
 
     /// The number of cpus in the VM.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cpu_count: i32,
 
     /// The size of the memory of the VM in MB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub memory_mb: i32,
 
     /// The number of disks the VM has.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_count: i32,
 
     /// The total size of the storage allocated to the VM in MB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub committed_storage_mb: i64,
 
@@ -4284,15 +4299,19 @@ pub struct AwsVmDetails {
     pub power_state: crate::model::aws_vm_details::PowerState,
 
     /// The number of cpus the VM has.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cpu_count: i32,
 
     /// The memory size of the VM in MB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub memory_mb: i32,
 
     /// The number of disks the VM has.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_count: i32,
 
     /// The total size of the storage allocated to the VM in MB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub committed_storage_mb: i64,
 
@@ -5036,6 +5055,7 @@ pub struct UtilizationReport {
     pub frame_end_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Total number of VMs included in the report.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vm_count: i32,
 
     /// List of utilization information per VM.
@@ -5391,32 +5411,40 @@ pub mod vm_utilization_info {
 #[non_exhaustive]
 pub struct VmUtilizationMetrics {
     /// Max CPU usage, percent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cpu_max_percent: i32,
 
     /// Average CPU usage, percent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cpu_average_percent: i32,
 
     /// Max memory usage, percent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub memory_max_percent: i32,
 
     /// Average memory usage, percent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub memory_average_percent: i32,
 
     /// Max disk IO rate, in kilobytes per second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub disk_io_rate_max_kbps: i64,
 
     /// Average disk IO rate, in kilobytes per second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub disk_io_rate_average_kbps: i64,
 
     /// Max network throughput (combined transmit-rates and receive-rates), in
     /// kilobytes per second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub network_throughput_max_kbps: i64,
 
     /// Average network throughput (combined transmit-rates and receive-rates), in
     /// kilobytes per second.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub network_throughput_average_kbps: i64,
 
@@ -5502,6 +5530,7 @@ pub struct ListUtilizationReportsRequest {
     /// fewer than this value. If unspecified, at most 500 reports will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListUtilizationReports`
@@ -6179,6 +6208,7 @@ pub struct ListDatacenterConnectorsRequest {
     /// return fewer than this value. If unspecified, at most 500 sources will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListDatacenterConnectors`
@@ -6304,6 +6334,7 @@ pub struct ComputeEngineTargetDefaults {
 
     /// Defines whether the instance has Secure Boot enabled.
     /// This can be set to true only if the vm boot option is EFI.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub secure_boot: bool,
 
     /// Output only. The VM Boot Option, as set in the source vm.
@@ -6553,6 +6584,7 @@ pub struct ComputeEngineTargetDetails {
 
     /// Defines whether the instance has Secure Boot enabled.
     /// This can be set to true only if the vm boot option is EFI.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub secure_boot: bool,
 
     /// The VM Boot Option, as set in the source vm.
@@ -7073,6 +7105,7 @@ pub struct ComputeScheduling {
     /// The minimum number of virtual CPUs this instance will consume when
     /// running on a sole-tenant node. Ignored if no node_affinites are
     /// configured.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_node_cpus: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7269,6 +7302,7 @@ pub struct SchedulePolicy {
     /// A flag to indicate whether to skip OS adaptation during the replication
     /// sync. OS adaptation is a process where the VM's operating system undergoes
     /// changes and adaptations to fully function on Compute Engine.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_os_adaptation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7395,6 +7429,7 @@ pub struct ListMigratingVmsRequest {
     /// return fewer than this value. If unspecified, at most 500 migrating VMs
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListMigratingVms` call.
@@ -8036,6 +8071,7 @@ pub struct ListTargetProjectsRequest {
     /// fewer than this value. If unspecified, at most 500 targets will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListTargets` call.
@@ -8482,6 +8518,7 @@ pub struct ListGroupsRequest {
     /// fewer than this value. If unspecified, at most 500 groups will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListGroups` call.
@@ -9133,6 +9170,7 @@ pub struct ListCutoverJobsRequest {
     /// return fewer than this value. If unspecified, at most 500 cutover jobs will
     /// be returned. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListCutoverJobs` call.
@@ -9339,6 +9377,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -9624,6 +9663,7 @@ pub struct AwsSourceVmDetails {
     pub firmware: crate::model::aws_source_vm_details::Firmware,
 
     /// The total size of the disks being migrated in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub committed_storage_bytes: i64,
 
@@ -9735,6 +9775,7 @@ pub struct ListReplicationCyclesRequest {
     /// may return fewer than this value. If unspecified, at most 100 migrating VMs
     /// will be returned. The maximum value is 100; values above 100 will be
     /// coerced to 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListReplicationCycles`

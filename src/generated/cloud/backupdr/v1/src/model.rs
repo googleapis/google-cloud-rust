@@ -365,6 +365,7 @@ pub struct ManagementServer {
     pub satisfies_pzs: std::option::Option<wkt::BoolValue>,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzi: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -692,6 +693,7 @@ pub struct ListManagementServersRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1171,6 +1173,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1527,6 +1530,7 @@ pub struct BackupRule {
     /// Minimum value is 7 and maximum value is 186 for weekly backups.
     /// Minimum value is 30 and maximum value is 732 for monthly backups.
     /// Minimum value is 365 and maximum value is 36159 for yearly backups.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub backup_retention_days: i32,
 
     /// The schedule that defines the automated backup workloads for this
@@ -1649,6 +1653,7 @@ pub struct StandardSchedule {
     /// GMI while taking a backup and 5GB/S while doing a restore. Given the amount
     /// of parallel backups and restore we are targeting, this will potentially
     /// take the backup time to mins and hours (in worst case scenario).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hourly_frequency: i32,
 
     /// Optional. Specifies days of week like, MONDAY or TUESDAY, on which jobs
@@ -1883,6 +1888,7 @@ pub mod standard_schedule {
 pub struct BackupWindow {
     /// Required. The hour of day (0-23) when the window starts for e.g. if value
     /// of start hour of day is 6 that mean backup window start at 6:00.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub start_hour_of_day: i32,
 
     /// Required. The hour of day (1-24) when the window end for e.g. if value of
@@ -1893,6 +1899,7 @@ pub struct BackupWindow {
     ///
     /// End hour of day is not include in backup window that mean if
     /// end_hour_of_day= 10 jobs should start before 10:00.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub end_hour_of_day: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2155,6 +2162,7 @@ pub struct ListBackupPlansRequest {
     /// to determine if there are more instances left to be queried.
     ///
     /// [google.cloud.backupdr.v1.ListBackupPlansResponse.next_page_token]: crate::model::ListBackupPlansResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value of
@@ -2862,6 +2870,7 @@ pub struct ListBackupPlanAssociationsRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -3203,6 +3212,7 @@ pub struct BackupVault {
     pub effective_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The number of backups in this backup vault.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub backup_count: i64,
 
@@ -3213,6 +3223,7 @@ pub struct BackupVault {
     pub service_account: std::string::String,
 
     /// Output only. Total size of the storage used by all backup resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_stored_bytes: i64,
 
@@ -4192,10 +4203,12 @@ pub struct BackupApplianceBackupConfig {
     pub backup_appliance_name: std::string::String,
 
     /// The ID of the backup appliance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub backup_appliance_id: i64,
 
     /// The ID of the SLA of this application.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub sla_id: i64,
 
@@ -4427,6 +4440,7 @@ pub struct DataSourceBackupApplianceApplication {
     pub backup_appliance: std::string::String,
 
     /// Appliance Id of the Backup Appliance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub appliance_id: i64,
 
@@ -4436,6 +4450,7 @@ pub struct DataSourceBackupApplianceApplication {
     pub r#type: std::string::String,
 
     /// The appid field of the application within the Backup Appliance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub application_id: i64,
 
@@ -4444,6 +4459,7 @@ pub struct DataSourceBackupApplianceApplication {
     pub hostname: std::string::String,
 
     /// Hostid of the application host.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub host_id: i64,
 
@@ -4553,6 +4569,7 @@ impl wkt::message::Message for ServiceLockInfo {
 #[non_exhaustive]
 pub struct BackupApplianceLockInfo {
     /// Required. The ID of the backup/recovery appliance that created this lock.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub backup_appliance_id: i64,
 
@@ -4920,6 +4937,7 @@ pub struct Backup {
     pub backup_type: crate::model::backup::BackupType,
 
     /// Output only. source resource size in bytes at the time of the backup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub resource_size_bytes: i64,
 
@@ -5438,6 +5456,7 @@ pub struct CreateBackupVaultRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is 'false'.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5508,6 +5527,7 @@ pub struct ListBackupVaultsRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -5678,6 +5698,7 @@ pub struct FetchUsableBackupVaultsRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -5900,10 +5921,12 @@ pub struct UpdateBackupVaultRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is 'false'.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set to true, will not check plan duration against backup vault
     /// enforcement duration.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5988,6 +6011,7 @@ pub struct DeleteBackupVaultRequest {
 
     /// Optional. If set to true, any data source from this backup vault will also
     /// be deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     /// The current etag of the backup vault.
@@ -5998,14 +6022,17 @@ pub struct DeleteBackupVaultRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is 'false'.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If true and the BackupVault is not found, the request will
     /// succeed but no action will be taken.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, backupvault deletion will proceed even if there
     /// are backup plans referencing the backupvault. The default is 'false'.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_backup_plan_references: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6083,6 +6110,7 @@ pub struct ListDataSourcesRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -6294,6 +6322,7 @@ pub struct UpdateDataSourceRequest {
     pub request_id: std::string::String,
 
     /// Optional. Enable upsert.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6359,6 +6388,7 @@ pub struct ListBackupsRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -7921,10 +7951,12 @@ pub struct ComputeInstanceDataSourceProperties {
     pub machine_type: std::string::String,
 
     /// The total number of disks attached to the Instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_disk_count: i64,
 
     /// The sum of all the disk sizes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_disk_size_gb: i64,
 

@@ -48,6 +48,7 @@ pub struct RepeatRequest {
 
     /// If true, the server will verify that the received request matches
     /// the request with the same name in the compliance test suite.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub server_verify: bool,
 
     /// The URI template this request is expected to be bound to server-side.
@@ -56,11 +57,14 @@ pub struct RepeatRequest {
 
     /// Some top level fields, to test that these are encoded correctly
     /// in query params.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_int32: i32,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub f_int64: i64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_double: f64,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -309,35 +313,48 @@ pub struct ComplianceData {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub f_string: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_int32: i32,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_sint32: i32,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_sfixed32: i32,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_uint32: u32,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_fixed32: u32,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub f_int64: i64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub f_sint64: i64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub f_sfixed64: i64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub f_uint64: u64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub f_fixed64: u64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_double: f64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_float: f32,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_bool: bool,
 
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
@@ -627,10 +644,13 @@ pub struct ComplianceDataChild {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub f_string: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_float: f32,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_double: f64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_bool: bool,
 
     pub f_continent: crate::model::Continent,
@@ -764,8 +784,10 @@ pub struct ComplianceDataGrandchild {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub f_string: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_double: f64,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub f_bool: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -808,6 +830,7 @@ impl wkt::message::Message for ComplianceDataGrandchild {
 #[non_exhaustive]
 pub struct EnumRequest {
     /// Whether the client is requesting a new, unknown enum value or a known enum value already declared in this proto file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unknown_enum: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1505,6 +1528,7 @@ pub struct PagedExpandRequest {
     pub content: std::string::String,
 
     /// The number of words to returned in each page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The position of the page to be returned.
@@ -1560,6 +1584,7 @@ pub struct PagedExpandLegacyRequest {
     /// The number of words to returned in each page.
     /// (-- aip.dev/not-precedent: This is a legacy, non-standard pattern that
     /// violates aip.dev/158. Ordinarily, this should be page_size. --)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_results: i32,
 
     /// The position of the page to be returned.
@@ -2436,6 +2461,7 @@ impl wkt::message::Message for DeleteUserRequest {
 pub struct ListUsersRequest {
     /// The maximum number of users to return. Server may return fewer users
     /// than requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value of google.showcase.v1beta1.ListUsersResponse.next_page_token
@@ -2776,6 +2802,7 @@ impl wkt::message::Message for DeleteRoomRequest {
 pub struct ListRoomsRequest {
     /// The maximum number of rooms return. Server may return fewer rooms
     /// than requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value of google.showcase.v1beta1.ListRoomsResponse.next_page_token
@@ -3277,6 +3304,7 @@ pub struct ListBlurbsRequest {
     /// The maximum number of blurbs to return. Server may return fewer
     /// blurbs than requested. If unspecified, server will pick an appropriate
     /// default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value of google.showcase.v1beta1.ListBlurbsResponse.next_page_token
@@ -3404,6 +3432,7 @@ pub struct SearchBlurbsRequest {
     /// The maximum number of blurbs return. Server may return fewer
     /// blurbs than requested. If unspecified, server will pick an appropriate
     /// default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value of
@@ -3929,6 +3958,7 @@ pub mod rest_error {
     #[non_exhaustive]
     pub struct Status {
         /// The HTTP status code that corresponds to `google.rpc.Status.code`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub code: i32,
 
         /// This corresponds to `google.rpc.Status.message`.
@@ -4164,6 +4194,7 @@ pub mod streaming_sequence {
         pub delay: std::option::Option<wkt::Duration>,
 
         /// The index that the status should be sent
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub response_index: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4264,6 +4295,7 @@ pub mod streaming_sequence_report {
     #[non_exhaustive]
     pub struct Attempt {
         /// The attempt number - starting at 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub attempt_number: i32,
 
         /// The deadline dictated by the attempt to the server.
@@ -4400,6 +4432,7 @@ pub mod sequence_report {
     #[non_exhaustive]
     pub struct Attempt {
         /// The attempt number - starting at 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub attempt_number: i32,
 
         /// The deadline dictated by the attempt to the server.
@@ -4588,6 +4621,7 @@ pub struct AttemptStreamingSequenceRequest {
     /// used to send the index of the last failed message
     /// in the string "content" of an AttemptStreamingSequenceResponse
     /// needed for stream resumption logic testing
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub last_fail_index: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4899,6 +4933,7 @@ impl wkt::message::Message for GetSessionRequest {
 #[non_exhaustive]
 pub struct ListSessionsRequest {
     /// The maximum number of sessions to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token, for retrieving subsequent pages.
@@ -5646,6 +5681,7 @@ pub struct ListTestsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of tests to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token, for retrieving subsequent pages.

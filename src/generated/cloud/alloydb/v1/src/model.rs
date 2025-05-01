@@ -1090,6 +1090,7 @@ pub mod automated_backup_policy {
     #[non_exhaustive]
     pub struct QuantityBasedRetention {
         /// The number of backups to retain.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1167,6 +1168,7 @@ pub struct ContinuousBackupConfig {
     /// The number of days that are eligible to restore from using PITR. To support
     /// the entire recovery window, backups and logs are retained for one day more
     /// than the recovery window. If not set, defaults to 14 days.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub recovery_window_days: i32,
 
     /// The encryption config can be specified to encrypt the
@@ -1607,6 +1609,7 @@ pub struct Cluster {
     /// intended state, and the service is actively updating the resource to
     /// reconcile them. This can happen due to user-triggered updates or
     /// system actions like failover or maintenance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Input only. Initial user to setup during cluster creation. Required.
@@ -1657,6 +1660,7 @@ pub struct Cluster {
     pub primary_config: std::option::Option<crate::model::cluster::PrimaryConfig>,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Optional. The configuration for Private Service Connect (PSC) for the
@@ -2217,6 +2221,7 @@ pub mod cluster {
     pub struct PscConfig {
         /// Optional. Create an instance that allows connections from Private Service
         /// Connect endpoints to the instance.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub psc_enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2614,6 +2619,7 @@ pub struct Instance {
     /// intended state, and the service is actively updating the resource to
     /// reconcile them. This can happen due to user-triggered updates or
     /// system actions like failover or maintenance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// For Resource freshness validation (<https://google.aip.dev/154>)
@@ -2632,6 +2638,7 @@ pub struct Instance {
         std::option::Option<crate::model::instance::ClientConnectionConfig>,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Optional. The configuration for Private Service Connect (PSC) for the
@@ -2922,6 +2929,7 @@ pub mod instance {
     #[non_exhaustive]
     pub struct MachineConfig {
         /// The number of CPU's in the VM instance.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub cpu_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3031,6 +3039,7 @@ pub mod instance {
 
         /// Query string length. The default value is 1024.
         /// Any integer between 256 and 4500 is considered valid.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub query_string_length: u32,
 
         /// Number of query execution plans captured by Insights per minute
@@ -3095,6 +3104,7 @@ pub mod instance {
     #[non_exhaustive]
     pub struct ReadPoolConfig {
         /// Read capacity, i.e. number of nodes in a read pool instance.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub node_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3127,6 +3137,7 @@ pub mod instance {
     pub struct ClientConnectionConfig {
         /// Optional. Configuration to enforce connectors only (ex: AuthProxy)
         /// connections to the database.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub require_connectors: bool,
 
         /// Optional. SSL configuration option for this instance.
@@ -3247,10 +3258,12 @@ pub mod instance {
             std::vec::Vec<crate::model::instance::instance_network_config::AuthorizedNetwork>,
 
         /// Optional. Enabling public ip for the instance.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_public_ip: bool,
 
         /// Optional. Enabling an outbound public IP address to support a database
         /// server sending requests out into the internet.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_outbound_public_ip: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3704,6 +3717,7 @@ pub struct Backup {
     /// true, indicates that the service is actively updating the resource. This
     /// can happen due to user-triggered updates or system actions like failover or
     /// maintenance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Optional. The encryption config can be specified to encrypt the
@@ -3728,6 +3742,7 @@ pub struct Backup {
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The size of the backup in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_bytes: i64,
 
@@ -3744,6 +3759,7 @@ pub struct Backup {
     pub expiry_quantity: std::option::Option<crate::model::backup::QuantityBasedExpiry>,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Output only. The database engine major version of the cluster this backup
@@ -3988,10 +4004,12 @@ pub mod backup {
         /// Output only. The backup's position among its backups with the same source
         /// cluster and type, by descending chronological order create time(i.e.
         /// newest first).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub retention_count: i32,
 
         /// Output only. The length of the quantity-based queue, specified by the
         /// backup's retention policy.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub total_retention_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4181,6 +4199,7 @@ pub struct SupportedDatabaseFlag {
 
     /// Whether the database flag accepts multiple values. If true,
     /// a comma-separated list of stringified values may be specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub accepts_multiple_values: bool,
 
     /// Major database engine versions for which this flag is supported.
@@ -4191,6 +4210,7 @@ pub struct SupportedDatabaseFlag {
     /// restart. If a flag that requires database restart is set, the backend
     /// will automatically restart the database (making sure to satisfy any
     /// availability SLO's).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requires_db_restart: bool,
 
     /// The restrictions on the flag value per type.
@@ -4550,6 +4570,7 @@ pub struct User {
 
     /// Input only. If the user already exists and it has additional roles, keep
     /// them granted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub keep_extra_roles: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4743,6 +4764,7 @@ pub struct ListClustersRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -4959,6 +4981,7 @@ pub struct CreateSecondaryClusterRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5048,6 +5071,7 @@ pub struct CreateClusterRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5136,10 +5160,12 @@ pub struct UpdateClusterRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set to true, update succeeds even if cluster is not found. In
     /// that case, a new cluster is created and `update_mask` is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5230,9 +5256,11 @@ pub struct DeleteClusterRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Whether to cascade delete child instances for given cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5311,6 +5339,7 @@ pub struct SwitchoverClusterRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5383,6 +5412,7 @@ pub struct PromoteClusterRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5464,6 +5494,7 @@ pub struct RestoreClusterRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Required.
@@ -5633,6 +5664,7 @@ pub struct ListInstancesRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -5849,6 +5881,7 @@ pub struct CreateInstanceRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5938,6 +5971,7 @@ pub struct CreateSecondaryInstanceRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6415,10 +6449,12 @@ pub struct UpdateInstanceRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set to true, update succeeds even if instance is not found. In
     /// that case, a new instance is created and `update_mask` is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6509,6 +6545,7 @@ pub struct DeleteInstanceRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6581,6 +6618,7 @@ pub struct FailoverInstanceRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6650,6 +6688,7 @@ pub struct InjectFaultRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6783,6 +6822,7 @@ pub struct RestartInstanceRequest {
     /// Optional. If set, performs request validation, for example, permission
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Full name of the nodes as obtained from INSTANCE_VIEW_FULL to
@@ -7031,6 +7071,7 @@ pub struct ExecuteSqlMetadata {
 
     /// Set to true if SQL returned a result set larger than the acceptable
     /// response size limits and the result was truncated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub partial_result: bool,
 
     /// The time duration taken to execute the sql statement.
@@ -7176,6 +7217,7 @@ pub struct ListBackupsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -7380,6 +7422,7 @@ pub struct CreateBackupRequest {
 
     /// Optional. If set, the backend validates the request, but doesn't actually
     /// execute it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7467,10 +7510,12 @@ pub struct UpdateBackupRequest {
 
     /// Optional. If set, the backend validates the request, but doesn't actually
     /// execute it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set to true, update succeeds even if instance is not found. In
     /// that case, a new backup is created and `update_mask` is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7554,6 +7599,7 @@ pub struct DeleteBackupRequest {
 
     /// Optional. If set, the backend validates the request, but doesn't actually
     /// execute it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. The current etag of the Backup.
@@ -7621,6 +7667,7 @@ pub struct ListSupportedDatabaseFlagsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -7766,6 +7813,7 @@ pub struct GenerateClientCertificateRequest {
     /// Optional. An optional hint to the endpoint to generate a client
     /// ceritificate that can be used by AlloyDB connectors to exchange additional
     /// metadata with the server after TLS handshake.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_metadata_exchange: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7953,6 +8001,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -8102,6 +8151,7 @@ pub struct ListUsersRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -8307,6 +8357,7 @@ pub struct CreateUserRequest {
 
     /// Optional. If set, the backend validates the request, but doesn't actually
     /// execute it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8394,9 +8445,11 @@ pub struct UpdateUserRequest {
 
     /// Optional. If set, the backend validates the request, but doesn't actually
     /// execute it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Allow missing fields in the update mask.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8480,6 +8533,7 @@ pub struct DeleteUserRequest {
 
     /// Optional. If set, the backend validates the request, but doesn't actually
     /// execute it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8530,6 +8584,7 @@ pub struct ListDatabasesRequest {
     /// fewer than this value. If unspecified, 2000 is the default page_size. The
     /// max value of page_size will be 4000, values above max will be coerced to
     /// max.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListDatabases` call.

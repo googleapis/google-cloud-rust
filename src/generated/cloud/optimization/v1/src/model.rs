@@ -609,6 +609,7 @@ pub struct OptimizeToursRequest {
     /// [google.cloud.optimization.v1.SkippedShipment.index]: crate::model::SkippedShipment::index
     /// [google.cloud.optimization.v1.SkippedShipment.label]: crate::model::SkippedShipment::label
     /// [google.cloud.optimization.v1.Vehicle.label]: crate::model::Vehicle::label
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub interpret_injected_solutions_using_labels: bool,
 
     /// Consider traffic estimation in calculating `ShipmentRoute` fields
@@ -624,9 +625,11 @@ pub struct OptimizeToursRequest {
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition.travel_duration]: crate::model::shipment_route::Transition::travel_duration
     /// [google.cloud.optimization.v1.ShipmentRoute.Visit.start_time]: crate::model::shipment_route::Visit::start_time
     /// [google.cloud.optimization.v1.ShipmentRoute.has_traffic_infeasibilities]: crate::model::ShipmentRoute::has_traffic_infeasibilities
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub consider_road_traffic: bool,
 
     /// If true, polylines will be populated in response `ShipmentRoute`s.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub populate_polylines: bool,
 
     /// If true, polylines will be populated in response
@@ -635,6 +638,7 @@ pub struct OptimizeToursRequest {
     /// deprecated `travel_steps`.
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub populate_transition_polylines: bool,
 
     /// If this is set, then the request can have a deadline
@@ -642,11 +646,13 @@ pub struct OptimizeToursRequest {
     /// Otherwise, the maximum deadline is only 30 minutes.
     /// Note that long-lived requests have a significantly larger (but still small)
     /// risk of interruption.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_large_deadline_despite_interruption_risk: bool,
 
     /// If true, travel distances will be computed using geodesic distances instead
     /// of Google Maps distances, and travel times will be computed using geodesic
     /// distances with a speed defined by `geodesic_meters_per_second`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_geodesic_distances: bool,
 
     /// When `use_geodesic_distances` is true, this field must be set and defines
@@ -683,6 +689,7 @@ pub struct OptimizeToursRequest {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursRequest.populate_transition_polylines]: crate::model::OptimizeToursRequest::populate_transition_polylines
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub populate_travel_step_polylines: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1051,6 +1058,7 @@ pub struct OptimizeToursResponse {
     /// shipment penalty costs, global duration cost, etc.
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_cost: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1146,6 +1154,7 @@ pub mod optimize_tours_response {
         pub aggregated_route_metrics: std::option::Option<crate::model::AggregatedMetrics>,
 
         /// Number of mandatory shipments skipped.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub skipped_mandatory_shipment_count: i32,
 
         /// Number of vehicles used. Note: if a vehicle route is empty and
@@ -1153,6 +1162,7 @@ pub mod optimize_tours_response {
         /// is true, the vehicle is considered used.
         ///
         /// [google.cloud.optimization.v1.Vehicle.used_if_route_is_empty]: crate::model::Vehicle::used_if_route_is_empty
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub used_vehicle_count: i32,
 
         /// The earliest start time for a used vehicle, computed as the minimum over
@@ -1184,6 +1194,7 @@ pub mod optimize_tours_response {
         pub costs: std::collections::HashMap<std::string::String, f64>,
 
         /// Total cost of the solution. The sum of all values in the costs map.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub total_cost: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1357,6 +1368,7 @@ pub mod batch_optimize_tours_request {
         /// mode should be preferred over
         /// allow_large_deadline_despite_interruption_risk since it prevents the risk
         /// of interruption.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_checkpoints: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1492,6 +1504,7 @@ pub struct ShipmentModel {
     /// [Shipment.penalty_cost][google.cloud.optimization.v1.Shipment.penalty_cost].
     ///
     /// [google.cloud.optimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub global_duration_cost_per_hour: f64,
 
     /// Specifies duration and distance matrices used in the model. If this field
@@ -1960,6 +1973,7 @@ pub mod shipment_model {
         pub first_index: std::option::Option<i32>,
 
         /// Indicates if the "first" event is a delivery.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub first_is_delivery: bool,
 
         /// Shipment index of the "second" event. This field must be specified.
@@ -1967,6 +1981,7 @@ pub mod shipment_model {
         pub second_index: std::option::Option<i32>,
 
         /// Indicates if the "second" event is a delivery.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub second_is_delivery: bool,
 
         /// The offset between the "first" and "second" event. It can be negative.
@@ -2405,6 +2420,7 @@ pub struct Shipment {
     /// or `injected_solution_constraint` is permitted; the solver removes the
     /// related pickup/delivery visits from the performing route.
     /// `precedence_rules` that reference ignored shipments will also be ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore: bool,
 
     /// Deprecated: Use
@@ -2643,6 +2659,7 @@ pub mod shipment {
         /// to pay different costs for each alternative pickup or delivery of a
         /// shipment. This cost must be in the same unit as `Shipment.penalty_cost`
         /// and must not be negative.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub cost: f64,
 
         /// Load demands of this visit request. This is just like
@@ -2837,6 +2854,7 @@ pub mod shipment {
         /// The amount by which the load of the vehicle performing the corresponding
         /// visit will vary. Since it is an integer, users are advised to choose an
         /// appropriate unit to avoid loss of precision. Must be ≥ 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub amount: i64,
 
@@ -3169,21 +3187,25 @@ pub struct RouteModifiers {
     /// Specifies whether to avoid toll roads where reasonable. Preference will be
     /// given to routes not containing toll roads. Applies only to motorized travel
     /// modes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub avoid_tolls: bool,
 
     /// Specifies whether to avoid highways where reasonable. Preference will be
     /// given to routes not containing highways. Applies only to motorized travel
     /// modes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub avoid_highways: bool,
 
     /// Specifies whether to avoid ferries where reasonable. Preference will be
     /// given to routes not containing travel by ferries. Applies only to motorized
     /// travel modes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub avoid_ferries: bool,
 
     /// Optional. Specifies whether to avoid navigating indoors where reasonable.
     /// Preference will be given to routes not containing indoor navigation.
     /// Applies only to the `WALKING` travel mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub avoid_indoor: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3361,6 +3383,7 @@ pub struct Vehicle {
     /// in additional latency.
     ///
     /// [google.cloud.optimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cost_per_hour: f64,
 
     /// Cost per traveled hour of the vehicle route. This cost is applied only to
@@ -3369,6 +3392,7 @@ pub struct Vehicle {
     /// and excludes waiting time and visit time.
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cost_per_traveled_hour: f64,
 
     /// Cost per kilometer of the vehicle route. This cost is applied to the
@@ -3378,9 +3402,11 @@ pub struct Vehicle {
     /// `arrival_location` to the `departure_location` of a single `VisitRequest`.
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cost_per_kilometer: f64,
 
     /// Fixed cost applied if this vehicle is used to handle a shipment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub fixed_cost: f64,
 
     /// This field only applies to vehicles when their route does not serve any
@@ -3395,6 +3421,7 @@ pub struct Vehicle {
     /// `break_rule` or delay (from `TransitionAttributes`) are scheduled for this
     /// vehicle. In this case, the vehicle's `ShipmentRoute` doesn't contain any
     /// information except for the vehicle index and label.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub used_if_route_is_empty: bool,
 
     /// Limit applied to the total duration of the vehicle's route. In a given
@@ -3460,6 +3487,7 @@ pub struct Vehicle {
     /// `RELAX_ALL_AFTER_THRESHOLD`), it is skipped in the response.
     /// If a shipment has a non-empty `allowed_vehicle_indices` field and all of
     /// the allowed vehicles are ignored, it is skipped in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore: bool,
 
     /// Deprecated: No longer used.
@@ -3810,6 +3838,7 @@ pub mod vehicle {
         /// [cost_per_unit_above_soft_max][google.cloud.optimization.v1.Vehicle.LoadLimit.cost_per_unit_above_soft_max].
         ///
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.cost_per_unit_above_soft_max]: crate::model::vehicle::LoadLimit::cost_per_unit_above_soft_max
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub soft_max_load: i64,
 
@@ -3826,6 +3855,7 @@ pub mod vehicle {
         /// [google.cloud.optimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.cost_per_unit_above_soft_max]: crate::model::vehicle::LoadLimit::cost_per_unit_above_soft_max
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.soft_max_load]: crate::model::vehicle::LoadLimit::soft_max_load
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub cost_per_unit_above_soft_max: f64,
 
         /// The acceptable load interval of the vehicle at the start of the route.
@@ -3917,6 +3947,7 @@ pub mod vehicle {
             ///
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.max]: crate::model::vehicle::load_limit::Interval::max
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.min]: crate::model::vehicle::load_limit::Interval::min
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub min: i64,
 
@@ -4385,6 +4416,7 @@ pub struct CapacityQuantity {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub r#type: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub value: i64,
 
@@ -4622,6 +4654,7 @@ pub struct TransitionAttributes {
     /// Specifies a cost for performing this transition. This is in the same unit
     /// as all other costs in the model and must not be negative. It is applied on
     /// top of all other existing costs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cost: f64,
 
     /// Specifies a cost per kilometer applied to the distance traveled while
@@ -4630,6 +4663,7 @@ pub struct TransitionAttributes {
     /// specified on vehicles.
     ///
     /// [google.cloud.optimization.v1.Vehicle.cost_per_kilometer]: crate::model::Vehicle::cost_per_kilometer
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cost_per_kilometer: f64,
 
     /// Specifies a limit on the distance traveled while performing this
@@ -4737,6 +4771,7 @@ pub struct Waypoint {
     /// stop at the side of road that the location is biased towards from the
     /// center of the road. This option works only for the 'DRIVING' travel mode,
     /// and when the 'location_type' is set to 'location'.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub side_of_road: bool,
 
     /// Different ways to represent a location.
@@ -5210,6 +5245,7 @@ pub mod break_rule {
 pub struct ShipmentRoute {
     /// Vehicle performing the route, identified by its index in the source
     /// `ShipmentModel`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vehicle_index: i32,
 
     /// Label of the vehicle performing this route, equal to
@@ -5255,6 +5291,7 @@ pub struct ShipmentRoute {
     /// estimates and visit or break time window restrictions.
     ///
     /// [google.cloud.optimization.v1.OptimizeToursRequest.consider_road_traffic]: crate::model::OptimizeToursRequest::consider_road_traffic
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub has_traffic_infeasibilities: bool,
 
     /// The encoded polyline representation of the route.
@@ -5298,6 +5335,7 @@ pub struct ShipmentRoute {
     pub route_costs: std::collections::HashMap<std::string::String, f64>,
 
     /// Total cost of the route. The sum of all costs in the cost map.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub route_total_cost: f64,
 
     /// Deprecated: Use
@@ -5581,14 +5619,17 @@ pub mod shipment_route {
         /// [ShipmentModel][google.cloud.optimization.v1.ShipmentModel].
         ///
         /// [google.cloud.optimization.v1.ShipmentModel]: crate::model::ShipmentModel
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub shipment_index: i32,
 
         /// If true the visit corresponds to a pickup of a `Shipment`. Otherwise, it
         /// corresponds to a delivery.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub is_pickup: bool,
 
         /// Index of `VisitRequest` in either the pickup or delivery field of the
         /// `Shipment` (see `is_pickup`).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub visit_request_index: i32,
 
         /// Time at which the visit starts. Note that the vehicle may arrive earlier
@@ -5802,6 +5843,7 @@ pub mod shipment_route {
         pub travel_duration: std::option::Option<wkt::Duration>,
 
         /// Distance traveled during the transition.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub travel_distance_meters: f64,
 
         /// When traffic is requested via
@@ -5810,6 +5852,7 @@ pub mod shipment_route {
         /// and the traffic info couldn't be retrieved for a `Transition`, this
         /// boolean is set to true. This may be temporary (rare hiccup in the
         /// realtime traffic servers) or permanent (no data for this location).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub traffic_info_unavailable: bool,
 
         /// Sum of the delay durations applied to this transition. If any, the delay
@@ -6018,6 +6061,7 @@ pub mod shipment_route {
         /// [Transition.vehicle_loads][google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads].
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub amount: i64,
 
@@ -6152,6 +6196,7 @@ pub mod shipment_route {
         pub duration: std::option::Option<wkt::Duration>,
 
         /// Distance traveled during the step.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub distance_meters: f64,
 
         /// When traffic is requested via
@@ -6161,6 +6206,7 @@ pub mod shipment_route {
         /// traffic servers) or permanent (no data for this location).
         ///
         /// [google.cloud.optimization.v1.OptimizeToursRequest.consider_road_traffic]: crate::model::OptimizeToursRequest::consider_road_traffic
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub traffic_info_unavailable: bool,
 
         /// The encoded polyline representation of the route followed during the
@@ -6233,6 +6279,7 @@ pub mod shipment_route {
 pub struct SkippedShipment {
     /// The index corresponds to the index of the shipment in the source
     /// `ShipmentModel`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub index: i32,
 
     /// Copy of the corresponding
@@ -6531,6 +6578,7 @@ pub mod skipped_shipment {
 pub struct AggregatedMetrics {
     /// Number of shipments performed. Note that a pickup and delivery pair only
     /// counts once.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub performed_shipment_count: i32,
 
     /// Total travel duration for a route or a solution.
@@ -6565,6 +6613,7 @@ pub struct AggregatedMetrics {
     pub total_duration: std::option::Option<wkt::Duration>,
 
     /// Total travel distance for a route or a solution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub travel_distance_meters: f64,
 
     /// Maximum load achieved over the entire route (resp. solution), for each of
@@ -6599,6 +6648,7 @@ pub struct AggregatedMetrics {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
     /// [google.cloud.optimization.v1.ShipmentRoute.route_total_cost]: crate::model::ShipmentRoute::route_total_cost
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_cost: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6927,6 +6977,7 @@ pub mod injected_solution_constraint {
             /// If it is `route.visits_size() + 1`, the `level` may only be applied to
             /// the vehicle end. If it is more than `route.visits_size() + 1`,
             /// `level` is not applied at all for that route.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub threshold_visit_count: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7333,6 +7384,7 @@ pub struct OptimizeToursValidationError {
     ///
     ///   * DURATION_SECONDS_MATRIX_DURATION_NEGATIVE_OR_NAN = 5600;
     ///   * DURATION_SECONDS_MATRIX_DURATION_EXCEEDS_GLOBAL_DURATION = 5601;
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: i32,
 
     /// The error display name.

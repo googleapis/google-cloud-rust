@@ -49,6 +49,7 @@ pub struct ListJobsRequest {
     pub filter: std::string::String,
 
     /// Optional. The list page size. default page size is 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The list page token.
@@ -430,6 +431,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1300,6 +1302,7 @@ pub struct DeleteObject {
     /// Soft Delete retention duration if enabled. If enabled and the manifest
     /// doesn't specify an object's generation, a GetObjectMetadata call (a Class B
     /// operation) will be made to determine the live object generation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub permanent_object_deletion_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1523,6 +1526,7 @@ pub struct ErrorSummary {
     pub error_code: rpc::model::Code,
 
     /// Required. Number of errors encountered per `error_code`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub error_count: i64,
 
@@ -1624,14 +1628,17 @@ impl wkt::message::Message for ErrorLogEntry {
 #[non_exhaustive]
 pub struct Counters {
     /// Output only. Number of objects listed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_object_count: i64,
 
     /// Output only. Number of objects completed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub succeeded_object_count: i64,
 
     /// Output only. Number of objects failed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failed_object_count: i64,
 

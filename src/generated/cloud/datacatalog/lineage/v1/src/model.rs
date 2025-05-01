@@ -884,6 +884,7 @@ pub struct UpdateProcessRequest {
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
     /// If set to true and the process is not found, the request inserts it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -975,6 +976,7 @@ pub struct ListProcessesRequest {
     /// fewer than this value. If unspecified, at most 50 processes are
     /// returned. The maximum value is 100; values greater than 100 are cut to
     /// 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token received from a previous `ListProcesses` call. Specify
@@ -1095,6 +1097,7 @@ pub struct DeleteProcessRequest {
 
     /// If set to true and the process is not found, the request
     /// succeeds but the server doesn't perform any actions.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1205,6 +1208,7 @@ pub struct UpdateRunRequest {
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
     /// If set to true and the run is not found, the request creates it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1295,6 +1299,7 @@ pub struct ListRunsRequest {
     /// fewer than this value. If unspecified, at most 50 runs are
     /// returned. The maximum value is 100; values greater than 100 are cut to
     /// 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token received from a previous `ListRuns` call. Specify
@@ -1415,6 +1420,7 @@ pub struct DeleteRunRequest {
 
     /// If set to true and the run is not found, the request
     /// succeeds but the server doesn't perform any actions.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1555,6 +1561,7 @@ pub struct ListLineageEventsRequest {
     /// The service may return fewer events than this value.
     /// If unspecified, at most 50 events are returned. The maximum value is 100;
     /// values greater than 100 are cut to 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token received from a previous `ListLineageEvents` call. Specify
@@ -1675,6 +1682,7 @@ pub struct DeleteLineageEventRequest {
 
     /// If set to true and the lineage event is not found, the request
     /// succeeds but the server doesn't perform any actions.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1723,6 +1731,7 @@ pub struct SearchLinksRequest {
     /// at most 10 links are returned.
     ///
     /// Maximum value is 100; values greater than 100 are reduced to 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token received from a previous `SearchLinksRequest`
@@ -2037,6 +2046,7 @@ pub struct BatchSearchLinkProcessesRequest {
 
     /// The maximum number of processes to return in a single page of the response.
     /// A page may contain fewer results than this value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token received from a previous `BatchSearchLinkProcesses` call.

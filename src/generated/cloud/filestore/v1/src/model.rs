@@ -281,6 +281,7 @@ pub struct FileShareConfig {
 
     /// File share capacity in gigabytes (GB).
     /// Filestore defines 1 GB as 1024^3 bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub capacity_gb: i64,
 
@@ -421,6 +422,7 @@ pub struct NfsExportOptions {
     /// 65534.
     /// Anon_uid may only be set with squash_mode of ROOT_SQUASH.  An error will be
     /// returned if this field is specified for other squash_mode settings.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub anon_uid: i64,
 
@@ -428,6 +430,7 @@ pub struct NfsExportOptions {
     /// 65534.
     /// Anon_gid may only be set with squash_mode of ROOT_SQUASH.  An error will be
     /// returned if this field is specified for other squash_mode settings.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub anon_gid: i64,
 
@@ -990,6 +993,7 @@ pub struct Instance {
     pub satisfies_pzs: std::option::Option<wkt::BoolValue>,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzi: bool,
 
     /// KMS key name used for data encryption.
@@ -1027,6 +1031,7 @@ pub struct Instance {
     /// Output only. Indicates whether this instance supports configuring its
     /// performance. If true, the user can configure the instance's performance by
     /// using the 'performance_config' field.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub custom_performance_supported: bool,
 
     /// Optional. Used to configure performance.
@@ -1038,6 +1043,7 @@ pub struct Instance {
     pub performance_limits: std::option::Option<crate::model::instance::PerformanceLimits>,
 
     /// Optional. Indicates whether the instance is protected against deletion.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deletion_protection_enabled: bool,
 
     /// Optional. The reason for enabling deletion protection.
@@ -1259,6 +1265,7 @@ pub mod instance {
     #[non_exhaustive]
     pub struct IOPSPerTB {
         /// Required. Maximum IOPS per TiB.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub max_iops_per_tb: i64,
 
@@ -1291,6 +1298,7 @@ pub mod instance {
     #[non_exhaustive]
     pub struct FixedIOPS {
         /// Required. Maximum IOPS.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub max_iops: i64,
 
@@ -1469,22 +1477,27 @@ pub mod instance {
     #[non_exhaustive]
     pub struct PerformanceLimits {
         /// Output only. The max IOPS.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub max_iops: i64,
 
         /// Output only. The max read IOPS.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub max_read_iops: i64,
 
         /// Output only. The max write IOPS.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub max_write_iops: i64,
 
         /// Output only. The max read throughput in bytes per second.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub max_read_throughput_bps: i64,
 
         /// Output only. The max write throughput in bytes per second.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub max_write_throughput_bps: i64,
 
@@ -2165,6 +2178,7 @@ pub struct DeleteInstanceRequest {
 
     /// If set to true, all snapshots of the instance will also be deleted.
     /// (Otherwise, the request will only work if the instance has no snapshots.)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2211,6 +2225,7 @@ pub struct ListInstancesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -2383,6 +2398,7 @@ pub struct Snapshot {
 
     /// Output only. The amount of bytes needed to allocate a full copy of the
     /// snapshot content
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub filesystem_used_bytes: i64,
 
@@ -2729,6 +2745,7 @@ pub struct ListSnapshotsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -2746,6 +2763,7 @@ pub struct ListSnapshotsRequest {
 
     /// Optional. If true, allow partial responses for multi-regional Aggregated
     /// List requests.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub return_partial_success: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2905,11 +2923,13 @@ pub struct Backup {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Capacity of the source file share when the backup was created.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub capacity_gb: i64,
 
     /// Output only. The size of the storage used by the backup. As backups share
     /// storage, this number is expected to change with backup creation/deletion.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub storage_bytes: i64,
 
@@ -2931,6 +2951,7 @@ pub struct Backup {
     /// Output only. Amount of bytes that will be downloaded if the backup is
     /// restored. This may be different than storage bytes, since sequential
     /// backups of the same disk will share storage.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub download_bytes: i64,
 
@@ -2939,6 +2960,7 @@ pub struct Backup {
     pub satisfies_pzs: std::option::Option<wkt::BoolValue>,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzi: bool,
 
     /// Immutable. KMS key name used for data encryption.
@@ -3426,6 +3448,7 @@ pub struct ListBackupsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional

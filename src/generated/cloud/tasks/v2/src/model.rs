@@ -71,6 +71,7 @@ pub struct ListQueuesRequest {
     /// in the response to determine if more queues exist.
     ///
     /// [google.cloud.tasks.v2.ListQueuesResponse.next_page_token]: crate::model::ListQueuesResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return.
@@ -545,6 +546,7 @@ pub struct ListTasksRequest {
     /// maximum.
     ///
     /// [google.cloud.tasks.v2.ListTasksResponse.next_page_token]: crate::model::ListTasksResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return.
@@ -1288,6 +1290,7 @@ pub struct RateLimits {
     /// This field has the same meaning as
     /// [rate in
     /// queue.yaml/xml](https://cloud.google.com/appengine/docs/standard/python/config/queueref#rate).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_dispatches_per_second: f64,
 
     /// Output only. The max burst size.
@@ -1325,6 +1328,7 @@ pub struct RateLimits {
     ///
     /// [google.cloud.tasks.v2.CloudTasks.UpdateQueue]: crate::client::CloudTasks::update_queue
     /// [google.cloud.tasks.v2.RateLimits.max_dispatches_per_second]: crate::model::RateLimits::max_dispatches_per_second
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_burst_size: i32,
 
     /// The maximum number of concurrent tasks that Cloud Tasks allows
@@ -1340,6 +1344,7 @@ pub struct RateLimits {
     /// This field has the same meaning as
     /// [max_concurrent_requests in
     /// queue.yaml/xml](https://cloud.google.com/appengine/docs/standard/python/config/queueref#max_concurrent_requests).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_concurrent_dispatches: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1398,6 +1403,7 @@ pub struct RetryConfig {
     /// This field has the same meaning as
     /// [task_retry_limit in
     /// queue.yaml/xml](https://cloud.google.com/appengine/docs/standard/python/config/queueref#retry_parameters).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_attempts: i32,
 
     /// If positive, `max_retry_duration` specifies the time limit for
@@ -1498,6 +1504,7 @@ pub struct RetryConfig {
     /// [google.cloud.tasks.v2.RetryConfig.max_attempts]: crate::model::RetryConfig::max_attempts
     /// [google.cloud.tasks.v2.RetryConfig.max_backoff]: crate::model::RetryConfig::max_backoff
     /// [google.cloud.tasks.v2.RetryConfig.min_backoff]: crate::model::RetryConfig::min_backoff
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_doublings: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1566,6 +1573,7 @@ pub struct StackdriverLoggingConfig {
     /// [Stackdriver Logging](https://cloud.google.com/logging/docs/).
     /// This field may contain any value between 0.0 and 1.0, inclusive.
     /// 0.0 is the default and means that no operations are logged.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sampling_ratio: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2439,9 +2447,11 @@ pub struct Task {
     ///
     /// This count includes attempts which have been dispatched but haven't
     /// received a response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dispatch_count: i32,
 
     /// Output only. The number of attempts which have received a response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub response_count: i32,
 
     /// Output only. The status of the task's first attempt.

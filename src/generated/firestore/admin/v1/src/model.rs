@@ -158,14 +158,17 @@ pub mod backup {
     pub struct Stats {
         /// Output only. Summation of the size of all documents and index entries in
         /// the backup, measured in bytes.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub size_bytes: i64,
 
         /// Output only. The total number of documents contained in the backup.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub document_count: i64,
 
         /// Output only. The total number of index entries contained in the backup.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub index_count: i64,
 
@@ -1587,6 +1590,7 @@ pub mod field {
         /// Output only. When true, the `Field`'s index configuration is set from the
         /// configuration specified by the `ancestor_field`.
         /// When false, the `Field`'s index configuration is defined explicitly.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub uses_ancestor_config: bool,
 
         /// Output only. Specifies the resource name of the `Field` from which this
@@ -1601,6 +1605,7 @@ pub mod field {
         /// reverted. Once complete, the index config will transition to the same
         /// state as the field specified by `ancestor_field`, at which point
         /// `uses_ancestor_config` will be `true` and `reverting` will be `false`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub reverting: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1780,6 +1785,7 @@ pub struct ListDatabasesRequest {
     pub parent: std::string::String,
 
     /// If true, also returns deleted resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2780,6 +2786,7 @@ pub struct ListIndexesRequest {
     pub filter: std::string::String,
 
     /// The number of results to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, returned from a previous call to
@@ -3082,6 +3089,7 @@ pub struct ListFieldsRequest {
     pub filter: std::string::String,
 
     /// The number of results to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, returned from a previous call to
@@ -3855,9 +3863,11 @@ pub struct Index {
     /// will result in errors.
     ///
     /// Note this field only applies to index with MONGODB_COMPATIBLE_API ApiScope.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub multikey: bool,
 
     /// Optional. The number of shards for the index.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub shard_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4105,6 +4115,7 @@ pub mod index {
             ///
             /// The resulting index will only include vectors of this dimension, and
             /// can be used for vector search with the same dimension.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub dimension: i32,
 
             /// The type of index used.
@@ -5710,10 +5721,12 @@ impl wkt::message::Message for RestoreDatabaseMetadata {
 #[non_exhaustive]
 pub struct Progress {
     /// The amount of work estimated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub estimated_work: i64,
 
     /// The amount of work completed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub completed_work: i64,
 

@@ -91,6 +91,7 @@ pub struct Agent {
     pub avatar_uri: std::string::String,
 
     /// Optional. Determines whether this agent should log conversation queries.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_logging: bool,
 
     /// Optional. Determines how intents are detected from user queries.
@@ -103,6 +104,7 @@ pub struct Agent {
     /// are no fallback intents defined, no intent will be triggered. The score
     /// values range from 0.0 (completely uncertain) to 1.0 (completely certain).
     /// If set to 0.0, the default of 0.3 is used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub classification_threshold: f32,
 
     /// Optional. API version displayed in Dialogflow console. If not specified,
@@ -547,6 +549,7 @@ pub struct SearchAgentsRequest {
 
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -1344,6 +1347,7 @@ pub struct ListAnswerRecordsRequest {
     /// Optional. The maximum number of records to return in a single page.
     /// The server may return fewer records than this. If unspecified, we use 10.
     /// The maximum is 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The
@@ -1533,6 +1537,7 @@ pub struct AnswerFeedback {
     /// or not. Default to false.
     /// For knowledge search and knowledge assist, the answer record is considered
     /// to be clicked if the answer was copied or any URI was clicked.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub clicked: bool,
 
     /// Time when the answer/item was clicked.
@@ -1541,6 +1546,7 @@ pub struct AnswerFeedback {
 
     /// Indicates whether the answer/item was displayed to the human
     /// agent in the agent desktop UI. Default to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub displayed: bool,
 
     /// Time when the answer/item was displayed.
@@ -1978,6 +1984,7 @@ pub mod agent_assistant_feedback {
         /// will be updated to be true.
         ///
         /// [google.cloud.dialogflow.v2.AnswerFeedback.clicked]: crate::model::AnswerFeedback::clicked
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub answer_copied: bool,
 
         /// The URIs clicked by the human agent. The value is appended for each
@@ -2036,6 +2043,7 @@ pub mod agent_assistant_feedback {
         /// will be updated to be true.
         ///
         /// [google.cloud.dialogflow.v2.AnswerFeedback.clicked]: crate::model::AnswerFeedback::clicked
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub answer_copied: bool,
 
         /// The URIs clicked by the human agent. The value is appended for each
@@ -2443,6 +2451,7 @@ pub struct SpeechContext {
     ///
     /// Dialogflow recommends that you use boosts in the range (0, 20] and that you
     /// find a value that fits your use case with binary search.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub boost: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2507,6 +2516,7 @@ pub struct SpeechWordInfo {
     ///
     /// This field is not guaranteed to be fully stable over time for the same
     /// audio input. Users should also not rely on it to always be provided.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2568,6 +2578,7 @@ pub struct InputAudioConfig {
     /// Refer to [Cloud Speech API
     /// documentation](https://cloud.google.com/speech-to-text/docs/basics) for
     /// more details.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sample_rate_hertz: i32,
 
     /// Required. The language of the supplied audio. Dialogflow does not do
@@ -2587,6 +2598,7 @@ pub struct InputAudioConfig {
     ///
     /// [google.cloud.dialogflow.v2.SpeechWordInfo]: crate::model::SpeechWordInfo
     /// [google.cloud.dialogflow.v2.StreamingRecognitionResult]: crate::model::StreamingRecognitionResult
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_word_info: bool,
 
     /// A list of strings containing words and phrases that the speech
@@ -2632,6 +2644,7 @@ pub struct InputAudioConfig {
     /// Note: This setting is relevant only for streaming methods.
     /// Note: When specified, InputAudioConfig.single_utterance takes precedence
     /// over StreamingDetectIntentRequest.single_utterance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub single_utterance: bool,
 
     /// Only used in
@@ -2642,9 +2655,11 @@ pub struct InputAudioConfig {
     /// `NO_SPEECH_RECOGNIZED` event to Dialogflow agent.
     ///
     /// [google.cloud.dialogflow.v2.Participants.AnalyzeContent]: crate::client::Participants::analyze_content
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_no_speech_recognized_event: bool,
 
     /// Enable automatic punctuation option at the speech backend.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_automatic_punctuation: bool,
 
     /// A collection of phrase set resources to use for speech adaptation.
@@ -2655,6 +2670,7 @@ pub struct InputAudioConfig {
     /// This field will be deprecated once force migration takes place in June
     /// 2024. Please refer to [Dialogflow ES Speech model
     /// migration](https://cloud.google.com/dialogflow/es/docs/speech-model-migration).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub opt_out_conformer_model_migration: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2843,11 +2859,13 @@ pub struct SynthesizeSpeechConfig {
     /// native speed supported by the specific voice. 2.0 is twice as fast, and 0.5
     /// is half as fast. If unset(0.0), defaults to the native 1.0 speed. Any other
     /// values < 0.25 or > 4.0 will return an error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub speaking_rate: f64,
 
     /// Optional. Speaking pitch, in the range [-20.0, 20.0]. 20 means increase 20
     /// semitones from the original pitch. -20 means decrease 20 semitones from the
     /// original pitch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pitch: f64,
 
     /// Optional. Volume gain (in dB) of the normal native volume supported by the
@@ -2858,6 +2876,7 @@ pub struct SynthesizeSpeechConfig {
     /// amplitude of the normal native signal amplitude. We strongly recommend not
     /// to exceed +10 (dB) as there's usually no effective increase in loudness for
     /// any value greater than that.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub volume_gain_db: f64,
 
     /// Optional. An identifier which selects 'audio effects' profiles that are
@@ -2942,6 +2961,7 @@ pub struct OutputAudioConfig {
     /// the audio encoding. If this is different from the voice's natural sample
     /// rate, then the synthesizer will honor this request by converting to the
     /// desired sample rate (which might result in worse audio quality).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sample_rate_hertz: i32,
 
     /// Configuration of how speech should be synthesized.
@@ -3088,6 +3108,7 @@ pub struct SpeechToTextConfig {
     /// Refer to [Cloud Speech API
     /// documentation](https://cloud.google.com/speech-to-text/docs/basics) for
     /// more details.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sample_rate_hertz: i32,
 
     /// The language of the supplied audio. Dialogflow does not do
@@ -3107,10 +3128,12 @@ pub struct SpeechToTextConfig {
     ///
     /// [google.cloud.dialogflow.v2.SpeechWordInfo]: crate::model::SpeechWordInfo
     /// [google.cloud.dialogflow.v2.StreamingRecognitionResult]: crate::model::StreamingRecognitionResult
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_word_info: bool,
 
     /// Use timeout based endpointing, interpreting endpointer sensitivity as
     /// seconds of timeout value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_timeout_based_endpointing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3232,6 +3255,7 @@ pub struct Context {
     /// context expires. The default is `0`. If set to `0`, the context expires
     /// immediately. Contexts expire automatically after 20 minutes if there
     /// are no matching queries.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub lifespan_count: i32,
 
     /// Optional. The collection of parameters associated with this context.
@@ -3308,6 +3332,7 @@ pub struct ListContextsRequest {
 
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -4475,6 +4500,7 @@ pub struct ListConversationsRequest {
 
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -4700,6 +4726,7 @@ pub struct ListMessagesRequest {
 
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -4821,6 +4848,7 @@ impl gax::paginator::internal::PageableResponse for ListMessagesResponse {
 #[non_exhaustive]
 pub struct ConversationPhoneNumber {
     /// Output only. Desired country code for the phone number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub country_code: i32,
 
     /// Output only. The phone number to connect to this conversation.
@@ -4980,6 +5008,7 @@ pub struct SuggestConversationSummaryRequest {
     /// Optional. Max number of messages prior to and including
     /// [latest_message] to use as context when compiling the
     /// suggestion. By default 500 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub context_size: i32,
 
     /// Optional. Parameters for a human assist query. Only used for POC/demo
@@ -5062,6 +5091,7 @@ pub struct SuggestConversationSummaryResponse {
     ///
     /// [google.cloud.dialogflow.v2.SuggestConversationSummaryRequest.context_size]: crate::model::SuggestConversationSummaryRequest::context_size
     /// [google.cloud.dialogflow.v2.SuggestConversationSummaryResponse.latest_message]: crate::model::SuggestConversationSummaryResponse::latest_message
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5220,6 +5250,7 @@ pub struct GenerateStatelessSummaryRequest {
     /// Optional. Max number of messages prior to and including
     /// [latest_message] to use as context when compiling the
     /// suggestion. By default 500 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5363,6 +5394,7 @@ pub struct GenerateStatelessSummaryResponse {
     ///
     /// [google.cloud.dialogflow.v2.GenerateStatelessSummaryRequest.max_context_size]: crate::model::GenerateStatelessSummaryRequest::max_context_size
     /// [google.cloud.dialogflow.v2.GenerateStatelessSummaryResponse.latest_message]: crate::model::GenerateStatelessSummaryResponse::latest_message
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5778,6 +5810,7 @@ pub struct SearchKnowledgeRequest {
     pub search_config: std::option::Option<crate::model::search_knowledge_request::SearchConfig>,
 
     /// Optional. Whether to search the query exactly without query rewrite.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exact_search: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6103,6 +6136,7 @@ pub mod search_knowledge_request {
                     ///
                     /// Setting to 0.0 means no boost applied. The boosting condition is
                     /// ignored.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub boost: f32,
 
                     /// Optional. Complex specification for custom ranking based on
@@ -6262,6 +6296,7 @@ pub mod search_knowledge_request {
 
                             /// Optional. The value between -1 to 1 by which to boost the score
                             /// if the attribute_value evaluates to the value specified above.
+                            #[serde(skip_serializing_if = "wkt::internal::is_default")]
                             pub boost_amount: f32,
 
                             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7043,6 +7078,7 @@ pub struct ConversationDataset {
 
     /// Output only. The number of conversations this conversation dataset
     /// contains.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub conversation_count: i64,
 
@@ -7249,6 +7285,7 @@ pub struct ListConversationDatasetsRequest {
 
     /// Optional. Maximum number of conversation datasets to return in a single
     /// page. By default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -7531,6 +7568,7 @@ pub struct ImportConversationDataOperationResponse {
     pub conversation_dataset: std::string::String,
 
     /// Number of conversations imported successfully.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub import_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8574,6 +8612,7 @@ pub mod evaluation_config {
         /// confidence score on each query. These results will be sorted by the
         /// descending order of the scores and we only keep the first
         /// max_result_count results as the final results to evaluate.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_result_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8623,6 +8662,7 @@ pub mod evaluation_config {
         /// confidence score on each query. These results will be sorted by the
         /// descending order of the scores and we only keep the first
         /// max_result_count results as the final results to evaluate.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_result_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8786,6 +8826,7 @@ pub struct SmartReplyMetrics {
     /// Percentage of target participant messages in the evaluation dataset for
     /// which similar messages have appeared at least once in the allowlist. Should
     /// be [0, 1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allowlist_coverage: f32,
 
     /// Metrics of top n smart replies, sorted by [TopNMetric.n][].
@@ -8793,6 +8834,7 @@ pub struct SmartReplyMetrics {
     pub top_n_metrics: std::vec::Vec<crate::model::smart_reply_metrics::TopNMetrics>,
 
     /// Total number of conversations used to generate this metric.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub conversation_count: i64,
 
@@ -8849,12 +8891,14 @@ pub mod smart_reply_metrics {
         /// Number of retrieved smart replies. For example, when `n` is 3, this
         /// evaluation contains metrics for when Dialogflow retrieves 3 smart replies
         /// with the model.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub n: i32,
 
         /// Defined as `number of queries whose top n smart replies have at least one
         /// similar (token match similarity above the defined threshold) reply as the
         /// real reply` divided by `number of queries with at least one smart reply`.
         /// Value ranges from 0.0 to 1.0 inclusive.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub recall: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8989,6 +9033,7 @@ pub struct ListConversationModelsRequest {
 
     /// Optional. Maximum number of conversation models to return in a single
     /// page. By default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -9255,6 +9300,7 @@ pub struct ListConversationModelEvaluationsRequest {
 
     /// Optional. Maximum number of evaluations to return in a
     /// single page. By default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -10176,6 +10222,7 @@ pub struct ListConversationProfilesRequest {
 
     /// The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -10636,10 +10683,12 @@ pub mod human_agent_assistant_config {
     #[non_exhaustive]
     pub struct SuggestionTriggerSettings {
         /// Do not trigger if last utterance is small talk.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub no_smalltalk: bool,
 
         /// Only trigger suggestion if participant role of last utterance is
         /// END_USER.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub only_end_user: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10685,25 +10734,30 @@ pub mod human_agent_assistant_config {
         ///
         /// Supported features: ARTICLE_SUGGESTION, FAQ, DIALOGFLOW_ASSIST,
         /// KNOWLEDGE_ASSIST.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_event_based_suggestion: bool,
 
         /// Optional. Disable the logging of search queries sent by human agents. It
         /// can prevent those queries from being stored at answer records.
         ///
         /// Supported features: KNOWLEDGE_SEARCH.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub disable_agent_query_logging: bool,
 
         /// Optional. Enable query suggestion even if we can't find its answer.
         /// By default, queries are suggested only if we find its answer.
         /// Supported features: KNOWLEDGE_ASSIST
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_query_suggestion_when_no_answer: bool,
 
         /// Optional. Enable including conversation context during query answer
         /// generation. Supported features: KNOWLEDGE_SEARCH.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_conversation_augmented_query: bool,
 
         /// Optional. Enable query suggestion only.
         /// Supported features: KNOWLEDGE_ASSIST
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_query_suggestion_only: bool,
 
         /// Settings of suggestion trigger.
@@ -10885,6 +10939,7 @@ pub mod human_agent_assistant_config {
         /// If `group_suggestion_responses` set to true. All the suggestions to the
         /// same participant based on the same context will be grouped into a single
         /// Pub/Sub event or StreamingAnalyzeContentResponse.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub group_suggestion_responses: bool,
 
         /// Optional. List of various generator resource names used in the
@@ -10899,6 +10954,7 @@ pub mod human_agent_assistant_config {
         /// enable_event_based_suggestion must be set to true to receive the
         /// responses from high latency features in Pub/Sub. High latency feature(s):
         /// KNOWLEDGE_ASSIST
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub disable_high_latency_features_sync_delivery: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10965,6 +11021,7 @@ pub mod human_agent_assistant_config {
 
         /// Maximum number of results to return. Currently, if unset, defaults to 10.
         /// And the max number is 20.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_results: i32,
 
         /// Confidence threshold of query result.
@@ -10987,6 +11044,7 @@ pub mod human_agent_assistant_config {
         ///
         /// Supported features: ARTICLE_SUGGESTION, FAQ, SMART_REPLY, SMART_COMPOSE,
         /// KNOWLEDGE_SEARCH, KNOWLEDGE_ASSIST, ENTITY_EXTRACTION.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub confidence_threshold: f32,
 
         /// Determines how recent conversation context is filtered when generating
@@ -11001,6 +11059,7 @@ pub mod human_agent_assistant_config {
 
         /// Optional. The number of recent messages to include in the context.
         /// Supported features: KNOWLEDGE_ASSIST.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub context_size: i32,
 
         /// Source of query.
@@ -11328,12 +11387,15 @@ pub mod human_agent_assistant_config {
         pub struct ContextFilterSettings {
             /// If set to true, the last message from virtual agent (hand off message)
             /// and the message before it (trigger message of hand off) are dropped.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub drop_handoff_messages: bool,
 
             /// If set to true, all messages from virtual agent are dropped.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub drop_virtual_agent_messages: bool,
 
             /// If set to true, all messages from ivr stage are dropped.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub drop_ivr_messages: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11600,6 +11662,7 @@ pub mod human_agent_assistant_config {
     pub struct ConversationProcessConfig {
         /// Number of recent non-small-talk sentences to use as context for article
         /// and FAQ suggestion
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub recent_sentences_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11636,6 +11699,7 @@ pub mod human_agent_assistant_config {
         ///
         /// Currently, this feature is not general available, please contact Google
         /// to get access.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_entity_extraction: bool,
 
         /// Enable sentiment analysis in conversation messages on [agent assist
@@ -11665,6 +11729,7 @@ pub mod human_agent_assistant_config {
         /// [google.cloud.dialogflow.v2.ListMessagesResponse.messages]: crate::model::ListMessagesResponse::messages
         /// [google.cloud.dialogflow.v2.Participants.AnalyzeContent]: crate::client::Participants::analyze_content
         /// [google.cloud.dialogflow.v2.StreamingAnalyzeContentResponse.message]: crate::model::StreamingAnalyzeContentResponse::message
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_sentiment_analysis: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12091,6 +12156,7 @@ pub struct LoggingConfig {
     ///
     /// [google.cloud.dialogflow.v2.ConversationEvent]: crate::model::ConversationEvent
     /// [google.cloud.dialogflow.v2.ConversationEvent.Type.CONVERSATION_STARTED]: crate::model::conversation_event::r#type::CONVERSATION_STARTED
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_stackdriver_logging: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12590,6 +12656,7 @@ pub struct Document {
     /// system will not try to reload the document anymore. You need to manually
     /// reload the document successfully by calling `ReloadDocument` and clear the
     /// errors.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_auto_reload: bool,
 
     /// Output only. The time and status of the latest reload.
@@ -13031,6 +13098,7 @@ pub struct ListDocumentsRequest {
 
     /// The maximum number of items to return in a single page. By
     /// default 10 and at most 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -13237,6 +13305,7 @@ pub struct ImportDocumentsRequest {
 
     /// Whether to import custom metadata from Google Cloud Storage.
     /// Only valid when the document source is Google Cloud Storage URI.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub import_gcs_custom_metadata: bool,
 
     /// Required. The source to use for importing documents.
@@ -13571,10 +13640,12 @@ pub struct ReloadDocumentRequest {
 
     /// Optional. Whether to import custom metadata from Google Cloud Storage.
     /// Only valid when the document source is Google Cloud Storage URI.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub import_gcs_custom_metadata: bool,
 
     /// Optional. When enabled, the reload request is to apply partial update to
     /// the smart messaging allowlist.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub smart_messaging_partial_update: bool,
 
     /// The source for document reloading.
@@ -13704,10 +13775,12 @@ pub struct ExportDocumentRequest {
 
     /// When enabled, export the full content of the document including empirical
     /// probability.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub export_full_content: bool,
 
     /// When enabled, export the smart messaging allowlist document for partial
     /// update.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub smart_messaging_partial_update: bool,
 
     /// Required. The destination for the export.
@@ -14246,6 +14319,7 @@ pub struct EntityType {
     pub entities: std::vec::Vec<crate::model::entity_type::Entity>,
 
     /// Optional. Enables fuzzy entity extraction during classification.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_fuzzy_extraction: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14532,6 +14606,7 @@ pub struct ListEntityTypesRequest {
 
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -15592,6 +15667,7 @@ pub mod environment {
 pub struct TextToSpeechSettings {
     /// Optional. Indicates whether text to speech is enabled. Even when this field
     /// is false, other settings in this proto are still retained.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_text_to_speech: bool,
 
     /// Required. Audio encoding of the synthesized audio content.
@@ -15602,6 +15678,7 @@ pub struct TextToSpeechSettings {
     /// the audio encoding. If this is different from the voice's natural sample
     /// rate, then the synthesizer will honor this request by converting to the
     /// desired sample rate (which might result in worse audio quality).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Configuration of how speech should be synthesized, mapping from
@@ -15679,6 +15756,7 @@ pub struct ListEnvironmentsRequest {
 
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -15912,6 +15990,7 @@ pub struct UpdateEnvironmentRequest {
     /// environment, which is an operation that cannot be undone. To confirm that
     /// the caller desires this overwrite, this field must be explicitly set to
     /// true when updating the default environment (environment ID = `-`).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_load_to_draft_and_discard_changes: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16023,6 +16102,7 @@ pub struct GetEnvironmentHistoryRequest {
 
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -16243,6 +16323,7 @@ pub struct Fulfillment {
     pub display_name: std::string::String,
 
     /// Optional. Whether fulfillment is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Optional. The field defines whether the fulfillment is enabled for certain
@@ -16386,6 +16467,7 @@ pub mod fulfillment {
         ///
         /// is_cloud_function is deprecated. Cloud functions can be configured by
         /// its uri as a regular web service now.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub is_cloud_function: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16820,6 +16902,7 @@ pub struct ListGeneratorsRequest {
 
     /// Optional. Maximum number of conversation models to return in a single page.
     /// Default to 10.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -18310,26 +18393,31 @@ pub struct Intent {
     ///   `Normal` priority in the console.
     /// - If the supplied value is negative, the intent is ignored
     ///   in runtime detect intent requests.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub priority: i32,
 
     /// Optional. Indicates whether this is a fallback intent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_fallback: bool,
 
     /// Optional. Indicates whether Machine Learning is disabled for the intent.
     /// Note: If `ml_disabled` setting is set to true, then this intent is not
     /// taken into account during inference in `ML ONLY` match mode. Also,
     /// auto-markup in the UI is turned off.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ml_disabled: bool,
 
     /// Optional. Indicates that a live agent should be brought in to handle the
     /// interaction with the user. In most cases, when you set this flag to true,
     /// you would also want to set end_interaction to true as well. Default is
     /// false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub live_agent_handoff: bool,
 
     /// Optional. Indicates that this intent ends an interaction. Some integrations
     /// (e.g., Actions on Google or Dialogflow phone gateway) use this information
     /// to close interaction with an end user. Default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub end_interaction: bool,
 
     /// Optional. The list of context names required for this intent to be
@@ -18365,6 +18453,7 @@ pub struct Intent {
 
     /// Optional. Indicates whether to delete all contexts in the current
     /// session when this intent is matched.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reset_contexts: bool,
 
     /// Optional. The collection of parameters associated with the intent.
@@ -18644,6 +18733,7 @@ pub mod intent {
         /// Optional. Indicates how many times this example was added to
         /// the intent. Each time a developer adds an existing sample by editing an
         /// intent or training, this counter is increased.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub times_added_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18724,6 +18814,7 @@ pub mod intent {
             /// This field is set to true when the Dialogflow Console is used to
             /// manually annotate the part. When creating an annotated part with the
             /// API, you must set this to true.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub user_defined: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18873,6 +18964,7 @@ pub mod intent {
         /// Optional. Indicates whether the parameter is required. That is,
         /// whether the intent cannot be completed without collecting the parameter
         /// value.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub mandatory: bool,
 
         /// Optional. The collection of prompts that the agent can present to the
@@ -18881,6 +18973,7 @@ pub mod intent {
         pub prompts: std::vec::Vec<std::string::String>,
 
         /// Optional. Indicates whether the parameter represents a list of values.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub is_list: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21334,6 +21427,7 @@ pub mod intent {
             pub cells: std::vec::Vec<crate::model::intent::message::TableCardCell>,
 
             /// Optional. Whether to add a visual divider after this row.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub divider_after: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21683,6 +21777,7 @@ pub struct ListIntentsRequest {
 
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -22437,6 +22532,7 @@ pub struct ListKnowledgeBasesRequest {
 
     /// The maximum number of items to return in a single page. By
     /// default 10 and at most 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
@@ -22682,6 +22778,7 @@ pub struct DeleteKnowledgeBaseRequest {
 
     /// Optional. Force deletes the knowledge base. When set to true, any documents
     /// in the knowledge base are also deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23229,6 +23326,7 @@ pub struct ListParticipantsRequest {
 
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -23666,6 +23764,7 @@ pub mod analyze_content_request {
 #[non_exhaustive]
 pub struct DtmfParameters {
     /// Indicates whether DTMF input can be handled in the next request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub accepts_dtmf_input: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23964,16 +24063,19 @@ pub struct StreamingAnalyzeContentRequest {
     /// [google.cloud.dialogflow.v2.AudioEncoding.AUDIO_ENCODING_LINEAR_16]: crate::model::audio_encoding::AUDIO_ENCODING_LINEAR_16
     /// [google.cloud.dialogflow.v2.AudioEncoding.AUDIO_ENCODING_MULAW]: crate::model::audio_encoding::AUDIO_ENCODING_MULAW
     /// [google.cloud.dialogflow.v2.Conversations.CreateConversation]: crate::client::Conversations::create_conversation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_extended_streaming: bool,
 
     /// Optional. Enable partial responses from Dialogflow CX agent. If this flag
     /// is not enabled, response stream still contains only one final response even
     /// if some `Fulfillment`s in Dialogflow CX agent have been configured to
     /// return partial responses.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_partial_automated_agent_reply: bool,
 
     /// If true, `StreamingAnalyzeContentResponse.debugging_info` will get
     /// populated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_debugging_info: bool,
 
     /// The input config.
@@ -24527,6 +24629,7 @@ pub struct SuggestArticlesRequest {
     /// most 50.
     ///
     /// [google.cloud.dialogflow.v2.SuggestArticlesRequest.latest_message]: crate::model::SuggestArticlesRequest::latest_message
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub context_size: i32,
 
     /// Parameters for a human assist query.
@@ -24608,6 +24711,7 @@ pub struct SuggestArticlesResponse {
     ///
     /// [google.cloud.dialogflow.v2.SuggestArticlesRequest.context_size]: crate::model::SuggestArticlesRequest::context_size
     /// [google.cloud.dialogflow.v2.SuggestArticlesResponse.latest_message]: crate::model::SuggestArticlesResponse::latest_message
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24675,6 +24779,7 @@ pub struct SuggestFaqAnswersRequest {
     /// Optional. Max number of messages prior to and including
     /// [latest_message] to use as context when compiling the
     /// suggestion. By default 20 and at most 50.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub context_size: i32,
 
     /// Parameters for a human assist query.
@@ -24756,6 +24861,7 @@ pub struct SuggestFaqAnswersResponse {
     ///
     /// [google.cloud.dialogflow.v2.SuggestFaqAnswersRequest.context_size]: crate::model::SuggestFaqAnswersRequest::context_size
     /// [google.cloud.dialogflow.v2.SuggestFaqAnswersResponse.latest_message]: crate::model::SuggestFaqAnswersResponse::latest_message
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24958,6 +25064,7 @@ pub struct SuggestSmartRepliesRequest {
     /// Max number of messages prior to and including
     /// [latest_message] to use as context when compiling the
     /// suggestion. By default 20 and at most 50.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25037,6 +25144,7 @@ pub struct SuggestSmartRepliesResponse {
     ///
     /// [google.cloud.dialogflow.v2.SuggestSmartRepliesRequest.context_size]: crate::model::SuggestSmartRepliesRequest::context_size
     /// [google.cloud.dialogflow.v2.SuggestSmartRepliesResponse.latest_message]: crate::model::SuggestSmartRepliesResponse::latest_message
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25198,6 +25306,7 @@ pub struct AutomatedAgentReply {
     /// Indicates whether the partial automated agent reply is interruptible when a
     /// later reply message arrives. e.g. if the agent specified some music as
     /// partial response, it can be cancelled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_cancellation: bool,
 
     /// The unique identifier of the current Dialogflow CX conversation page.
@@ -25346,6 +25455,7 @@ pub struct ArticleAnswer {
     /// The system's confidence score that this article is a good match for this
     /// conversation, as a value from 0.0 (completely uncertain) to 1.0
     /// (completely certain).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// A map that contains metadata about the answer and the
@@ -25435,6 +25545,7 @@ pub struct FaqAnswer {
     /// The system's confidence score that this Knowledge answer is a good match
     /// for this conversational query, range from 0.0 (completely uncertain)
     /// to 1.0 (completely certain).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// The corresponding FAQ question.
@@ -25531,6 +25642,7 @@ pub struct SmartReplyAnswer {
     /// The system's confidence score that this reply is a good match for
     /// this conversation, as a value from 0.0 (completely uncertain) to 1.0
     /// (completely certain).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// The name of answer record, in the format of
@@ -26190,6 +26302,7 @@ pub struct MessageAnnotation {
     pub parts: std::vec::Vec<crate::model::AnnotatedMessagePart>,
 
     /// Indicates whether the text message contains entities.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub contain_entities: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26349,6 +26462,7 @@ pub struct SuggestKnowledgeAssistRequest {
     /// default 100 and at most 100.
     ///
     /// [google.cloud.dialogflow.v2.SuggestKnowledgeAssistRequest.latest_message]: crate::model::SuggestKnowledgeAssistRequest::latest_message
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub context_size: i32,
 
     /// Optional. The previously suggested query for the given conversation. This
@@ -26428,6 +26542,7 @@ pub struct SuggestKnowledgeAssistResponse {
     ///
     /// [google.cloud.dialogflow.v2.SuggestKnowledgeAssistRequest.context_size]: crate::model::SuggestKnowledgeAssistRequest::context_size
     /// [google.cloud.dialogflow.v2.SuggestKnowledgeAssistResponse.latest_message]: crate::model::SuggestKnowledgeAssistResponse::latest_message
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub context_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27148,6 +27263,7 @@ pub struct QueryParameters {
 
     /// Specifies whether to delete all contexts in the current session
     /// before the new ones are activated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reset_contexts: bool,
 
     /// Additional session entity types to replace or extend developer
@@ -27468,6 +27584,7 @@ pub struct QueryResult {
     /// field isn't set for [StreamingDetectIntent][] since the streaming endpoint
     /// has separate confidence estimates per portion of the audio in
     /// StreamingRecognitionResult.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub speech_recognition_confidence: f32,
 
     /// The action name from the matched intent.
@@ -27497,11 +27614,13 @@ pub struct QueryResult {
     ///   the required parameter values have been collected.
     /// - `true` if all required parameter values have been collected, or if the
     ///   matched intent doesn't contain any required parameters.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub all_required_params_present: bool,
 
     /// Indicates whether the conversational query triggers a cancellation for slot
     /// filling. For more information, see the [cancel slot filling
     /// documentation](https://cloud.google.com/dialogflow/es/docs/intents-actions-parameters#cancel).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cancels_slot_filling: bool,
 
     /// The text to be pronounced to the user or shown on the screen.
@@ -27544,6 +27663,7 @@ pub struct QueryResult {
     /// model retraining or change in implementation.
     /// If there are `multiple knowledge_answers` messages, this value is set to
     /// the greatest `knowledgeAnswers.match_confidence` value in the list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub intent_detection_confidence: f32,
 
     /// Free-form diagnostic information for the associated detect intent request.
@@ -27797,6 +27917,7 @@ pub struct StreamingDetectIntentRequest {
     /// of text or an event.
     ///
     /// [google.cloud.dialogflow.v2.InputAudioConfig.single_utterance]: crate::model::InputAudioConfig::single_utterance
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub single_utterance: bool,
 
     /// Instructs the speech synthesizer how to generate the output
@@ -27826,6 +27947,7 @@ pub struct StreamingDetectIntentRequest {
     pub input_audio: ::bytes::Bytes,
 
     /// if true, `StreamingDetectIntentResponse.debugging_info` will get populated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_debugging_info: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27920,6 +28042,7 @@ impl wkt::message::Message for StreamingDetectIntentRequest {
 #[non_exhaustive]
 pub struct CloudConversationDebuggingInfo {
     /// Number of input audio data chunks in streaming requests.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub audio_data_chunks: i32,
 
     /// Time offset of the end of speech utterance relative to the
@@ -27932,6 +28055,7 @@ pub struct CloudConversationDebuggingInfo {
     pub first_audio_duration: std::option::Option<wkt::Duration>,
 
     /// Whether client used single utterance mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub single_utterance: bool,
 
     /// Time offsets of the speech partial results relative to the beginning of
@@ -27945,17 +28069,21 @@ pub struct CloudConversationDebuggingInfo {
     pub speech_final_results_end_times: std::vec::Vec<wkt::Duration>,
 
     /// Total number of partial responses.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub partial_responses: i32,
 
     /// Time offset of Speaker ID stream close time relative to the Speech stream
     /// close time in milliseconds. Only meaningful for conversations involving
     /// passive verification.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub speaker_id_passive_latency_ms_offset: i32,
 
     /// Whether a barge-in event is triggered in this request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub bargein_event_triggered: bool,
 
     /// Whether speech uses single utterance mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub speech_single_utterance: bool,
 
     /// Time offsets of the DTMF partial results relative to the beginning of
@@ -27982,6 +28110,7 @@ pub struct CloudConversationDebuggingInfo {
     pub endpointing_timeout: std::option::Option<wkt::Duration>,
 
     /// Whether the streaming terminates with an injected text query.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_input_text: bool,
 
     /// Client half close time in terms of input audio duration.
@@ -28369,6 +28498,7 @@ pub struct StreamingRecognitionResult {
     /// interim result that may change. If `true`, the recognizer will not return
     /// any further hypotheses about this piece of the audio. May only be populated
     /// for `message_type` = `TRANSCRIPT`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_final: bool,
 
     /// The Speech confidence between 0.0 and 1.0 for the current portion of audio.
@@ -28378,6 +28508,7 @@ pub struct StreamingRecognitionResult {
     ///
     /// This field is typically only provided if `is_final` is true and you should
     /// not rely on it being accurate or even set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// Word-specific information for the words recognized by Speech in
@@ -28682,6 +28813,7 @@ pub struct SentimentAnalysisRequestConfig {
     /// Instructs the service to perform sentiment analysis on
     /// `query_text`. If not provided, sentiment analysis is not performed on
     /// `query_text`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub analyze_query_text_sentiment: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28771,10 +28903,12 @@ impl wkt::message::Message for SentimentAnalysisResult {
 pub struct Sentiment {
     /// Sentiment score between -1.0 (negative sentiment) and 1.0 (positive
     /// sentiment).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub score: f32,
 
     /// A non-negative number in the [0, +inf) range, which represents the absolute
     /// magnitude of sentiment, regardless of score (positive or negative).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub magnitude: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28985,6 +29119,7 @@ pub struct ListSessionEntityTypesRequest {
 
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.
@@ -29501,6 +29636,7 @@ pub struct Version {
 
     /// Output only. The sequential number of this version. This field is read-only
     /// which means it cannot be set by create and update methods.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub version_number: i32,
 
     /// Output only. The creation time of this version. This field is read-only,
@@ -29653,6 +29789,7 @@ pub struct ListVersionsRequest {
 
     /// Optional. The maximum number of items to return in a single page. By
     /// default 100 and at most 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous list request.

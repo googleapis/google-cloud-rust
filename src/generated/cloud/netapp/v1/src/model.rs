@@ -45,6 +45,7 @@ pub struct ListActiveDirectoriesRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -405,6 +406,7 @@ pub struct ActiveDirectory {
     pub organizational_unit: std::string::String,
 
     /// If enabled, AES encryption will be enabled for SMB communication.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub aes_encryption: bool,
 
     /// Required. Username of the Active Directory domain administrator.
@@ -439,6 +441,7 @@ pub struct ActiveDirectory {
 
     /// If enabled, will allow access to local users and LDAP users. If access is
     /// needed for only LDAP users, it has to be disabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nfs_users_with_ldap: bool,
 
     /// Description of the active directory.
@@ -446,10 +449,12 @@ pub struct ActiveDirectory {
     pub description: std::string::String,
 
     /// Specifies whether or not the LDAP traffic needs to be signed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ldap_signing: bool,
 
     /// If enabled, traffic between the SMB server to Domain Controller (DC) will
     /// be encrypted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub encrypt_dc_connections: bool,
 
     /// Labels for the active directory.
@@ -749,6 +754,7 @@ pub struct Backup {
     /// Output only. Size of the file system when the backup was created. When
     /// creating a new volume from the backup, the volume capacity will have to be
     /// at least as big.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub volume_usage_bytes: i64,
 
@@ -779,13 +785,16 @@ pub struct Backup {
 
     /// Output only. Total size of all backups in a chain in bytes = baseline
     /// backup size + sum(incremental backup size)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub chain_storage_bytes: i64,
 
     /// Output only. Reserved for future use
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Output only. Reserved for future use
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzi: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1056,6 +1065,7 @@ pub struct ListBackupsRequest {
     /// The maximum number of items to return. The service may return fewer
     /// than this value. The maximum value
     /// is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -1717,6 +1727,7 @@ pub struct ListBackupPoliciesRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -2149,6 +2160,7 @@ pub struct ListBackupVaultsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -2469,6 +2481,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -2637,6 +2650,7 @@ pub struct ListKmsConfigsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -2989,6 +3003,7 @@ impl wkt::message::Message for VerifyKmsConfigRequest {
 pub struct VerifyKmsConfigResponse {
     /// Output only. If the customer key configured correctly to the encrypt
     /// volume.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub healthy: bool,
 
     /// Output only. Error message if config is not healthy.
@@ -3282,6 +3297,7 @@ pub struct ListQuotaRulesRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, the server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -3615,6 +3631,7 @@ pub struct QuotaRule {
     pub r#type: crate::model::quota_rule::Type,
 
     /// Required. The maximum allowed disk space in MiB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_limit_mib: i32,
 
     /// Output only. State of the quota rule
@@ -4728,6 +4745,7 @@ pub struct ListReplicationsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -5146,6 +5164,7 @@ pub struct StopReplicationRequest {
     /// and can lead to data loss due to partial transfer.
     /// If force is false, stop replication will fail while data transfer is in
     /// progress and you will need to retry later.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5377,6 +5396,7 @@ pub struct ListSnapshotsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
@@ -5714,6 +5734,7 @@ pub struct Snapshot {
     pub description: std::string::String,
 
     /// Output only. Current storage usage for the snapshot in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub used_bytes: f64,
 
     /// Output only. The time when the snapshot was created.
@@ -5917,6 +5938,7 @@ pub struct ListStoragePoolsRequest {
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value to use if there are additional
@@ -6250,14 +6272,17 @@ pub struct StoragePool {
     pub service_level: crate::model::ServiceLevel,
 
     /// Required. Capacity in GIB of the pool
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub capacity_gib: i64,
 
     /// Output only. Allocated size of all volumes in GIB in the storage pool
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub volume_capacity_gib: i64,
 
     /// Output only. Volume count of the storage pool
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub volume_count: i32,
 
     /// Output only. State of the storage pool
@@ -6294,6 +6319,7 @@ pub struct StoragePool {
     pub kms_config: std::string::String,
 
     /// Optional. Flag indicating if the pool is NFS LDAP enabled or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ldap_enabled: bool,
 
     /// Optional. This field is not implemented. The values provided in this field
@@ -6312,6 +6338,7 @@ pub struct StoragePool {
     /// Optional. True if the storage pool supports Auto Tiering enabled volumes.
     /// Default is false. Auto-tiering can be enabled after storage pool creation
     /// but it can't be disabled once enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_auto_tiering: bool,
 
     /// Optional. Specifies the replica zone for regional storagePool.
@@ -6323,9 +6350,11 @@ pub struct StoragePool {
     pub zone: std::string::String,
 
     /// Output only. Reserved for future use
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Output only. Reserved for future use
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzi: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6645,6 +6674,7 @@ pub struct ListVolumesRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -6936,6 +6966,7 @@ pub struct DeleteVolumeRequest {
     /// If this field is set as true, CCFE will not block the volume resource
     /// deletion even if it has any snapshots resource. (Otherwise, the request
     /// will only work if the volume has no snapshots.)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7054,6 +7085,7 @@ pub struct Volume {
     pub service_level: crate::model::ServiceLevel,
 
     /// Required. Capacity in GIB of the volume
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub capacity_gib: i64,
 
@@ -7092,15 +7124,18 @@ pub struct Volume {
 
     /// Optional. Snap_reserve specifies percentage of volume storage reserved for
     /// snapshot storage. Default is 0 percent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub snap_reserve: f64,
 
     /// Optional. Snapshot_directory if enabled (true) the volume will contain a
     /// read-only .snapshot directory which provides access to each of the volume's
     /// snapshots.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub snapshot_directory: bool,
 
     /// Output only. Used capacity in GIB of the volume. This is computed
     /// periodically and it does not represent the realtime usage.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub used_gib: i64,
 
@@ -7109,9 +7144,11 @@ pub struct Volume {
 
     /// Optional. Flag indicating if the volume is a kerberos volume or not, export
     /// policy rules control kerberos security modes (krb5, krb5i, krb5p).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kerberos_enabled: bool,
 
     /// Output only. Flag indicating if the volume is NFS LDAP enabled or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ldap_enabled: bool,
 
     /// Output only. Specifies the ActiveDirectory name of a SMB volume.
@@ -7131,6 +7168,7 @@ pub struct Volume {
 
     /// Output only. Indicates whether the volume is part of a replication
     /// relationship.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub has_replication: bool,
 
     /// BackupConfig of the volume.
@@ -7143,11 +7181,13 @@ pub struct Volume {
 
     /// Optional. Flag indicating if the volume will be a large capacity volume or
     /// a regular volume.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub large_capacity: bool,
 
     /// Optional. Flag indicating if the volume will have an IP address per node
     /// for volumes supporting multiple IP endpoints. Only the volume with
     /// large_capacity will be allowed to have multiple endpoints.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub multiple_endpoints: bool,
 
     /// Tiering policy for the volume.
@@ -7163,6 +7203,7 @@ pub struct Volume {
     pub zone: std::string::String,
 
     /// Output only. Size of the volume cold tier data in GiB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub cold_tier_size_gib: i64,
 

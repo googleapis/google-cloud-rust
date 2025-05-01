@@ -89,9 +89,11 @@ pub struct CalculateStatsResponse {
     pub average_duration: std::option::Option<wkt::Duration>,
 
     /// The average number of turns per conversation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub average_turn_count: i32,
 
     /// The total number of conversations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub conversation_count: i32,
 
     /// A map associating each smart highlighter display name with its respective
@@ -296,6 +298,7 @@ pub mod calculate_stats_response {
             pub start_time: std::option::Option<wkt::Timestamp>,
 
             /// The number of conversations created in this interval.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub conversation_count: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -666,6 +669,7 @@ pub struct ListConversationsRequest {
     /// size ranges from 0 to 100,000 inclusive. If the page size is zero or
     /// unspecified, a default page size of 100 will be chosen. Note that a call
     /// might return fewer results than the requested page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListConversationsResponse`. This value
@@ -932,6 +936,7 @@ pub struct DeleteConversationRequest {
     /// If set to true, all of this conversation's analyses will also be deleted.
     /// Otherwise, the request will only succeed if the conversation has no
     /// analyses.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1378,11 +1383,13 @@ pub mod ingest_conversations_request {
         /// Optional. Indicates which of the channels, 1 or 2, contains the agent.
         /// Note that this must be set for conversations to be properly displayed and
         /// analyzed.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub agent_channel: i32,
 
         /// Optional. Indicates which of the channels, 1 or 2, contains the agent.
         /// Note that this must be set for conversations to be properly displayed and
         /// analyzed.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub customer_channel: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1553,18 +1560,22 @@ pub mod ingest_conversations_metadata {
     #[non_exhaustive]
     pub struct IngestConversationsStats {
         /// Output only. The number of objects processed during the ingest operation.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub processed_object_count: i32,
 
         /// Output only. The number of objects skipped because another conversation
         /// with the same transcript uri had already been ingested.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub duplicates_skipped_count: i32,
 
         /// Output only. The number of new conversations added during this ingest
         /// operation.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub successful_ingest_count: i32,
 
         /// Output only. The number of objects which were unable to be ingested due
         /// to errors. The errors are populated in the partial_errors field.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub failed_ingest_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1689,6 +1700,7 @@ pub struct ListAnalysesRequest {
     /// value is zero, the service will select a default size. A call might return
     /// fewer objects than requested. A non-empty `next_page_token` in the response
     /// indicates that more data is available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListAnalysesResponse`; indicates
@@ -1884,6 +1896,7 @@ pub struct BulkAnalyzeConversationsRequest {
 
     /// Required. Percentage of selected conversation to analyze, between
     /// [0, 100].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub analysis_percentage: f32,
 
     /// To select the annotators to run and the phrase matchers to use
@@ -1955,13 +1968,16 @@ pub struct BulkAnalyzeConversationsMetadata {
     pub request: std::option::Option<crate::model::BulkAnalyzeConversationsRequest>,
 
     /// The number of requested analyses that have completed successfully so far.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub completed_analyses_count: i32,
 
     /// The number of requested analyses that have failed so far.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub failed_analyses_count: i32,
 
     /// Total number of analyses requested. Computed by the number of conversations
     /// returned by `filter` multiplied by `analysis_percentage` in the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_requested_analyses_count: i32,
 
     /// Output only. Partial errors during bulk analyze operation that might cause
@@ -2050,9 +2066,11 @@ impl wkt::message::Message for BulkAnalyzeConversationsMetadata {
 #[non_exhaustive]
 pub struct BulkAnalyzeConversationsResponse {
     /// Count of successful analyses.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub successful_analysis_count: i32,
 
     /// Count of failed analyses.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub failed_analysis_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2100,11 +2118,13 @@ pub struct BulkDeleteConversationsRequest {
     pub filter: std::string::String,
 
     /// Maximum number of conversations to delete.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_delete_count: i32,
 
     /// If set to true, all of this conversation's analyses will also be deleted.
     /// Otherwise, the request will only succeed if the conversation has no
     /// analyses.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3426,6 +3446,7 @@ pub struct ImportIssueModelRequest {
     /// Optional. If set to true, will create an issue model from the imported file
     /// with randomly generated IDs for the issue model and corresponding issues.
     /// Otherwise, replaces an existing model with the same ID as the file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub create_new_model: bool,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -3952,6 +3973,7 @@ pub struct ListPhraseMatchersRequest {
     /// value is zero, the service will select a default size. A call might return
     /// fewer objects than requested. A non-empty `next_page_token` in the response
     /// indicates that more data is available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListPhraseMatchersResponse`. This value
@@ -4442,6 +4464,7 @@ pub struct ListAnalysisRulesRequest {
     /// this value is zero, the service will select a default size. A call may
     /// return fewer objects than requested. A non-empty `next_page_token` in the
     /// response indicates that more data is available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value returned by the last `ListAnalysisRulesResponse`;
@@ -4813,6 +4836,7 @@ pub struct ListViewsRequest {
     /// value is zero, the service will select a default size. A call may return
     /// fewer objects than requested. A non-empty `next_page_token` in the response
     /// indicates that more data is available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListViewsResponse`; indicates
@@ -6209,6 +6233,7 @@ pub mod query_metrics_response {
                     pub tag: std::string::String,
 
                     /// Average tag normalized score per tag.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub average_tag_normalized_score: f64,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6423,6 +6448,7 @@ pub struct ListQaQuestionsRequest {
     /// value is zero, the service will select a default size. A call might return
     /// fewer objects than requested. A non-empty `next_page_token` in the response
     /// indicates that more data is available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value returned by the last `ListQaQuestionsResponse`. This
@@ -6777,6 +6803,7 @@ pub struct DeleteQaScorecardRequest {
 
     /// Optional. If set to true, all of this QaScorecard's child resources will
     /// also be deleted. Otherwise, the request will only succeed if it has none.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6926,6 +6953,7 @@ pub struct TuneQaScorecardRevisionRequest {
     /// Even when set to false, the data quality validations will still run but
     /// once the validations complete we will proceed with the fine tune, if
     /// applicable.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7018,6 +7046,7 @@ pub struct TuneQaScorecardRevisionMetadata {
     /// Output only. The percentage of the tuning job that has completed. Always
     /// between 0 and 1 where 0 indicates the job has not started i.e. 0% and 1
     /// indicates the job has completed i.e. 100%.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tuning_completion_ratio: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7117,6 +7146,7 @@ pub mod tune_qa_scorecard_revision_metadata {
         pub dataset_validation_warnings: std::vec::Vec<crate::model::DatasetValidationWarning>,
 
         /// The number of valid feedback labels in the question's dataset.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub valid_feedback_labels_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7216,6 +7246,7 @@ pub mod tune_qa_scorecard_revision_metadata {
         #[non_exhaustive]
         pub struct Metrics {
             /// Accuracy of the question's dataset.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub accuracy: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7319,6 +7350,7 @@ pub struct DeleteQaScorecardRevisionRequest {
     /// Optional. If set to true, all of this QaScorecardRevision's child resources
     /// will also be deleted. Otherwise, the request will only succeed if it has
     /// none.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7363,6 +7395,7 @@ pub struct ListQaScorecardsRequest {
     /// the value is zero, the service will select a default size. A call might
     /// return fewer objects than requested. A non-empty `next_page_token` in the
     /// response indicates that more data is available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value returned by the last `ListQaScorecardsResponse`. This
@@ -7483,6 +7516,7 @@ pub struct ListQaScorecardRevisionsRequest {
     /// response. If the value is zero, the service will select a default size. A
     /// call might return fewer objects than requested. A non-empty
     /// `next_page_token` in the response indicates that more data is available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value returned by the last
@@ -7692,6 +7726,7 @@ pub struct ListFeedbackLabelsRequest {
     /// A valid page size ranges from 0 to 100,000 inclusive. If the page size is
     /// zero or unspecified, a default page size of 100 will be chosen. Note that a
     /// call might return fewer results than the requested page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value returned by the last `ListFeedbackLabelsResponse`. This
@@ -7929,6 +7964,7 @@ pub struct ListAllFeedbackLabelsRequest {
     /// A valid page size ranges from 0 to 100,000 inclusive. If the page size is
     /// zero or unspecified, a default page size of 100 will be chosen. Note that a
     /// call might return fewer results than the requested page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The value returned by the last `ListAllFeedbackLabelsResponse`.
@@ -8068,6 +8104,7 @@ pub struct BulkUploadFeedbackLabelsRequest {
     /// Optional. If set, upload will not happen and the labels will be validated.
     /// If not set, then default behavior will be to upload the labels after
     /// validation is complete.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Configuration for an external data store containing objects that will
@@ -8416,12 +8453,15 @@ pub mod bulk_upload_feedback_labels_metadata {
     #[non_exhaustive]
     pub struct UploadStats {
         /// The number of objects processed during the upload operation.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub processed_object_count: i32,
 
         /// The number of objects skipped because of failed validation
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub failed_validation_count: i32,
 
         /// The number of new feedback labels added during this ingest operation.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub successful_upload_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8487,6 +8527,7 @@ pub struct BulkDownloadFeedbackLabelsRequest {
 
     /// Optional. Limits the maximum number of feedback labels that will be
     /// downloaded. The first `N` feedback labels will be downloaded.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_download_count: i32,
 
     /// Optional. The type of feedback labels that will be downloaded.
@@ -8660,14 +8701,17 @@ pub mod bulk_download_feedback_labels_request {
 
         /// Optional. Add whitespace to the JSON file. Makes easier to read, but
         /// increases file size. Only applicable for JSON format.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub add_whitespace: bool,
 
         /// Optional. Always print fields with no presence.
         /// This is useful for printing fields that are not set, like implicit 0
         /// value or empty lists/maps. Only applicable for JSON format.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub always_print_empty_fields: bool,
 
         /// Optional. The number of records per file. Applicable for either format.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub records_per_file_count: i64,
 
@@ -8997,14 +9041,17 @@ pub mod bulk_download_feedback_labels_metadata {
     #[non_exhaustive]
     pub struct DownloadStats {
         /// The number of objects processed during the download operation.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub processed_object_count: i32,
 
         /// The number of new feedback labels downloaded during this operation.
         /// Different from "processed" because some labels might not be downloaded
         /// because an error.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub successful_download_count: i32,
 
         /// Total number of files written to the provided Cloud Storage bucket.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub total_files_written: i32,
 
         /// Output only. Full name of the files written to Cloud storage.
@@ -9122,6 +9169,7 @@ pub struct Conversation {
     pub duration: std::option::Option<wkt::Duration>,
 
     /// Output only. The number of turns in the conversation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub turn_count: i32,
 
     /// Output only. The conversation's latest analysis, if one exists.
@@ -9467,9 +9515,11 @@ pub mod conversation {
     #[non_exhaustive]
     pub struct CallMetadata {
         /// The audio channel that contains the customer.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub customer_channel: i32,
 
         /// The audio channel that contains the agent.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub agent_channel: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9507,6 +9557,7 @@ pub mod conversation {
     #[non_exhaustive]
     pub struct QualityMetadata {
         /// An arbitrary integer value indicating the customer's satisfaction rating.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub customer_satisfaction_rating: i32,
 
         /// The amount of time the customer waited to connect with an agent.
@@ -9724,6 +9775,7 @@ pub mod conversation {
 
             /// A confidence estimate between 0.0 and 1.0 of the fidelity of this
             /// segment. A default value of 0.0 indicates that the value is unset.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub confidence: f32,
 
             /// A list of the word-specific information for each word in the segment.
@@ -9740,6 +9792,7 @@ pub mod conversation {
             /// number corresponding to the audio from that channel. For
             /// audioChannelCount = N, its output values can range from '1' to 'N'. A
             /// channel tag of 0 indicates that the audio is mono.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub channel_tag: i32,
 
             /// The participant of this segment.
@@ -9874,6 +9927,7 @@ pub mod conversation {
 
                 /// A confidence estimate between 0.0 and 1.0 of the fidelity of this
                 /// word. A default value of 0.0 indicates that the value is unset.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub confidence: f32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9935,6 +9989,7 @@ pub mod conversation {
             pub struct DialogflowSegmentMetadata {
                 /// Whether the transcript segment was covered under the configured smart
                 /// reply allowlist in Agent Assist.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub smart_reply_allowlist_covered: bool,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10813,6 +10868,7 @@ pub mod feedback_label {
 #[non_exhaustive]
 pub struct ConversationLevelSentiment {
     /// The channel of the audio that the data applies to.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub channel_tag: i32,
 
     /// Data specifying sentiment.
@@ -10863,6 +10919,7 @@ pub struct ConversationLevelSilence {
     pub silence_duration: std::option::Option<wkt::Duration>,
 
     /// Percentage of the total conversation spent in silence.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub silence_percentage: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10908,6 +10965,7 @@ pub struct IssueAssignment {
 
     /// Score indicating the likelihood of the issue assignment.
     /// currently bounded on [0,1].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub score: f64,
 
     /// Immutable. Display name of the assigned issue. This field is set at time of
@@ -10957,6 +11015,7 @@ impl wkt::message::Message for IssueAssignment {
 pub struct CallAnnotation {
     /// The channel of the audio where the annotation occurs. For single-channel
     /// audio, this field is not populated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub channel_tag: i32,
 
     /// The boundary in the conversation where the annotation starts, inclusive.
@@ -11299,6 +11358,7 @@ pub mod call_annotation {
 pub struct AnnotationBoundary {
     /// The index in the sequence of transcribed pieces of the conversation where
     /// the boundary is located. This index starts at zero.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub transcript_index: i32,
 
     /// A detailed boundary, which describes a more specific point.
@@ -11414,6 +11474,7 @@ pub struct Entity {
     /// importance or centrality of that entity to the entire document text.
     /// Scores closer to 0 are less salient, while scores closer to 1.0 are highly
     /// salient.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub salience: f32,
 
     /// The aggregate sentiment expressed for this entity in the conversation.
@@ -11989,9 +12050,11 @@ impl wkt::message::Message for IntentMatchData {
 pub struct SentimentData {
     /// A non-negative number from 0 to infinity which represents the abolute
     /// magnitude of sentiment regardless of score.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub magnitude: f32,
 
     /// The sentiment score between -1.0 (negative) and 1.0 (positive).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12084,6 +12147,7 @@ pub struct IssueModel {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Number of issues in this issue model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub issue_count: i64,
 
@@ -12221,6 +12285,7 @@ pub mod issue_model {
         pub medium: crate::model::conversation::Medium,
 
         /// Output only. Number of conversations used in training. Output only.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub training_conversations_count: i64,
 
@@ -12506,11 +12571,13 @@ impl wkt::message::Message for Issue {
 #[non_exhaustive]
 pub struct IssueModelLabelStats {
     /// Number of conversations the issue model has analyzed at this point in time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub analyzed_conversations_count: i64,
 
     /// Number of analyzed conversations for which no issue was applicable at this
     /// point in time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub unclassified_conversations_count: i64,
 
@@ -12582,6 +12649,7 @@ pub mod issue_model_label_stats {
         pub issue: std::string::String,
 
         /// Number of conversations attached to the issue at this point in time.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub labeled_conversations_count: i64,
 
@@ -12665,6 +12733,7 @@ pub struct PhraseMatcher {
     pub r#type: crate::model::phrase_matcher::PhraseMatcherType,
 
     /// Applies the phrase matcher only when it is active.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub active: bool,
 
     /// A list of phase match rule groups that are included in this matcher.
@@ -12986,6 +13055,7 @@ pub struct PhraseMatchRule {
 
     /// Specifies whether the phrase must be missing from the transcript segment or
     /// present in the transcript segment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub negated: bool,
 
     /// Provides additional information about the rule that specifies how to apply
@@ -13126,6 +13196,7 @@ pub mod phrase_match_rule_config {
 #[non_exhaustive]
 pub struct ExactMatchConfig {
     /// Whether to consider case sensitivity when performing an exact match.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub case_sensitive: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13343,10 +13414,12 @@ pub mod settings {
     pub struct AnalysisConfig {
         /// Percentage of conversations created using Dialogflow runtime integration
         /// to analyze automatically, between [0, 100].
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub runtime_integration_analysis_percentage: f64,
 
         /// Percentage of conversations created using the UploadConversation endpoint
         /// to analyze automatically, between [0, 100].
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub upload_conversation_analysis_percentage: f64,
 
         /// To select the annotators to run and the phrase matchers to use
@@ -13444,10 +13517,12 @@ pub struct AnalysisRule {
     /// automatically, between [0, 1]. For example, 0.1 means 10%. Conversations
     /// are sampled in a determenestic way. The original runtime_percentage &
     /// upload percentage will be replaced by defining filters on the conversation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub analysis_percentage: f64,
 
     /// If true, apply this rule to conversations. Otherwise, this rule is
     /// inactive and saved as a draft.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub active: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14150,10 +14225,12 @@ pub struct AnswerFeedback {
     pub correctness_level: crate::model::answer_feedback::CorrectnessLevel,
 
     /// Indicates whether an answer or item was clicked by the human agent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub clicked: bool,
 
     /// Indicates whether an answer or item was displayed to the human agent in the
     /// agent desktop UI.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub displayed: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14282,6 +14359,7 @@ pub struct ArticleSuggestionData {
     /// The system's confidence score that this article is a good match for this
     /// conversation, ranging from 0.0 (completely uncertain) to 1.0 (completely
     /// certain).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence_score: f32,
 
     /// Map that contains metadata about the Article Suggestion and the document
@@ -14372,6 +14450,7 @@ pub struct FaqAnswerData {
     /// The system's confidence score that this answer is a good match for this
     /// conversation, ranging from 0.0 (completely uncertain) to 1.0 (completely
     /// certain).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence_score: f32,
 
     /// The corresponding FAQ question.
@@ -14466,6 +14545,7 @@ pub struct SmartReplyData {
     /// The system's confidence score that this reply is a good match for this
     /// conversation, ranging from 0.0 (completely uncertain) to 1.0 (completely
     /// certain).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence_score: f64,
 
     /// Map that contains metadata about the Smart Reply and the document from
@@ -14538,6 +14618,7 @@ pub struct SmartComposeSuggestionData {
     /// The system's confidence score that this suggestion is a good match for this
     /// conversation, ranging from 0.0 (completely uncertain) to 1.0 (completely
     /// certain).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence_score: f64,
 
     /// Map that contains metadata about the Smart Compose suggestion and the
@@ -14610,6 +14691,7 @@ pub struct DialogflowInteractionData {
 
     /// The confidence of the match ranging from 0.0 (completely uncertain) to 1.0
     /// (completely certain).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14660,6 +14742,7 @@ pub struct ConversationSummarizationSuggestionData {
     pub text_sections: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The confidence score of the summarization.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// A map that contains metadata about the summarization and the document
@@ -15053,12 +15136,15 @@ impl wkt::message::Message for View {
 #[non_exhaustive]
 pub struct AnnotatorSelector {
     /// Whether to run the interruption annotator.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub run_interruption_annotator: bool,
 
     /// Whether to run the silence annotator.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub run_silence_annotator: bool,
 
     /// Whether to run the active phrase matcher annotator(s).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub run_phrase_matcher_annotator: bool,
 
     /// The list of phrase matchers to run. If not provided, all active phrase
@@ -15070,16 +15156,20 @@ pub struct AnnotatorSelector {
     pub phrase_matchers: std::vec::Vec<std::string::String>,
 
     /// Whether to run the sentiment annotator.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub run_sentiment_annotator: bool,
 
     /// Whether to run the entity annotator.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub run_entity_annotator: bool,
 
     /// Whether to run the intent annotator.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub run_intent_annotator: bool,
 
     /// Whether to run the issue model annotator. A model should have already been
     /// deployed for this to take effect.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub run_issue_model_annotator: bool,
 
     /// The issue model to run. If not provided, the most recently deployed topic
@@ -15091,6 +15181,7 @@ pub struct AnnotatorSelector {
     pub issue_models: std::vec::Vec<std::string::String>,
 
     /// Whether to run the summarization annotator.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub run_summarization_annotator: bool,
 
     /// Configuration for the summarization annotator.
@@ -15099,6 +15190,7 @@ pub struct AnnotatorSelector {
         std::option::Option<crate::model::annotator_selector::SummarizationConfig>,
 
     /// Whether to run the QA annotator.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub run_qa_annotator: bool,
 
     /// Configuration for the QA annotator.
@@ -15600,6 +15692,7 @@ pub struct QaQuestion {
     pub tags: std::vec::Vec<std::string::String>,
 
     /// Defines the order of the question within its parent scorecard revision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub order: i32,
 
     /// Metrics of the underlying tuned LLM over a holdout/test set while fine
@@ -15926,6 +16019,7 @@ pub mod qa_question {
     pub struct Metrics {
         /// Output only. Accuracy of the model. Measures the percentage of correct
         /// answers the model gave on the test set.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub accuracy: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15959,6 +16053,7 @@ pub mod qa_question {
     pub struct TuningMetadata {
         /// Total number of valid labels provided for the question at the time of
         /// tuining.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub total_valid_label_count: i64,
 

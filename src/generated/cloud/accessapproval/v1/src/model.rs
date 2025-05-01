@@ -400,6 +400,7 @@ pub struct ApproveDecision {
     pub signature_info: std::option::Option<crate::model::SignatureInfo>,
 
     /// True when the request has been auto-approved.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_approved: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -475,6 +476,7 @@ pub struct DismissDecision {
     /// This field will be true if the ApprovalRequest was implicitly dismissed due
     /// to inaction by the access approval approvers (the request is not acted
     /// on by the approvers before the exiration time).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub implicit: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -516,6 +518,7 @@ impl wkt::message::Message for DismissDecision {
 pub struct ResourceProperties {
     /// Whether an approval will exclude the descendants of the resource being
     /// requested.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub excludes_descendants: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -894,6 +897,7 @@ pub struct AccessApprovalSettings {
     /// indicates that at least one service is enrolled for Access Approval in one
     /// or more ancestors of the Project or Folder (this field will always be
     /// unset for the organization since organizations do not have ancestors).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enrolled_ancestor: bool,
 
     /// The asymmetric crypto key version to use for signing approval requests.
@@ -907,6 +911,7 @@ pub struct AccessApprovalSettings {
     /// method). If the field is true, that indicates that an ancestor of this
     /// Project or Folder has set active_key_version (this field will always be
     /// unset for the organization since organizations do not have ancestors).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ancestor_has_active_key_version: bool,
 
     /// Output only. This field is read only (not settable via UpdateAccessApprovalSettings
@@ -916,6 +921,7 @@ pub struct AccessApprovalSettings {
     /// service account doesn't have the correct permissions on it, etc.) This key
     /// version is not necessarily the effective key version at this level, as key
     /// versions are inherited top-down.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub invalid_key_version: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1065,6 +1071,7 @@ pub struct ListApprovalRequestsMessage {
     pub filter: std::string::String,
 
     /// Requested page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return.

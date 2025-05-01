@@ -98,6 +98,7 @@ pub struct OperationMetadata {
     pub steps: std::vec::Vec<crate::model::operation_metadata::Step>,
 
     /// Percentage of completion of this operation, ranging from 0 to 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percentage: i32,
 
     /// The start time of the operation.
@@ -1044,6 +1045,7 @@ pub struct ListServicesRequest {
 
     /// The max number of items to include in the response list. Page size is 50
     /// if not specified. Maximum value is 500.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Token identifying which result to start with; returned by a previous list
@@ -1473,6 +1475,7 @@ pub struct ListServiceConfigsRequest {
 
     /// The max number of items to include in the response list. Page size is 50
     /// if not specified. Maximum value is 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1636,6 +1639,7 @@ pub struct SubmitConfigSourceRequest {
     /// Optional. If set, this will result in the generation of a
     /// `google.api.Service` configuration based on the `ConfigSource` provided,
     /// but the generated config and the sources will NOT be persisted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1777,6 +1781,7 @@ pub struct ListServiceRolloutsRequest {
 
     /// The max number of items to include in the response list. Page size is 50
     /// if not specified. Maximum value is 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Required. Use `filter` to return subset of rollouts.

@@ -378,6 +378,7 @@ pub struct NodeKubeletConfig {
     ///
     /// Controls the maximum number of processes allowed to run in a pod. The value
     /// must be greater than or equal to 1024 and less than 4194304.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub pod_pids_limit: i64,
 
@@ -469,6 +470,7 @@ pub struct NodeConfig {
     /// The smallest allowed disk size is 10GB.
     ///
     /// If unspecified, the default disk size is 100GB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_size_gb: i32,
 
     /// The set of Google API scopes to be made available on all of the
@@ -554,6 +556,7 @@ pub struct NodeConfig {
     /// disks available on a machine per zone. See:
     /// <https://cloud.google.com/compute/docs/disks/local-ssd>
     /// for more information.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub local_ssd_count: i32,
 
     /// The list of instance tags applied to all nodes. Tags are used to identify
@@ -566,6 +569,7 @@ pub struct NodeConfig {
     /// Whether the nodes are created as preemptible VM instances. See:
     /// <https://cloud.google.com/compute/docs/instances/preemptible> for more
     /// information about preemptible VM instances.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub preemptible: bool,
 
     /// A list of hardware accelerators to be attached to each node.
@@ -655,6 +659,7 @@ pub struct NodeConfig {
 
     /// Spot flag for enabling Spot VM, which is a rebrand of
     /// the existing preemptible flag.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub spot: bool,
 
     /// Confidential nodes config.
@@ -702,6 +707,7 @@ pub struct NodeConfig {
     pub resource_manager_tags: std::option::Option<crate::model::ResourceManagerTags>,
 
     /// Optional. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_confidential_storage: bool,
 
     /// List of secondary boot disks attached to the nodes.
@@ -1361,6 +1367,7 @@ pub struct NodeNetworkConfig {
     /// Only applicable if `ip_allocation_policy.use_ip_aliases` is true.
     ///
     /// This field cannot be changed after the node pool has been created.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub create_pod_range: bool,
 
     /// The ID of the secondary range for pod IPs.
@@ -1433,6 +1440,7 @@ pub struct NodeNetworkConfig {
     /// Output only. The utilization of the IPv4 range for the pod.
     /// The ratio is Usage/[Total number of IPs in the secondary range],
     /// Usage=numNodes*numZones*podIPsPerNode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pod_ipv4_range_utilization: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1756,6 +1764,7 @@ pub struct ShieldedInstanceConfig {
     /// Secure Boot helps ensure that the system only runs authentic software by
     /// verifying the digital signature of all boot components, and halting the
     /// boot process if signature verification fails.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_secure_boot: bool,
 
     /// Defines whether the instance has integrity monitoring enabled.
@@ -1764,6 +1773,7 @@ pub struct ShieldedInstanceConfig {
     /// The attestation is performed against the integrity policy baseline. This
     /// baseline is initially derived from the implicitly trusted boot image when
     /// the instance is created.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_integrity_monitoring: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1895,6 +1905,7 @@ pub mod sandbox_config {
 #[non_exhaustive]
 pub struct GcfsConfig {
     /// Whether to use GCFS.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2280,6 +2291,7 @@ pub mod containerd_config {
     pub struct PrivateRegistryAccessConfig {
 
         /// Private registry access is enabled.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         /// Private registry access configuration.
@@ -2871,6 +2883,7 @@ impl wkt::message::Message for MasterAuth {
 #[non_exhaustive]
 pub struct ClientCertificateConfig {
     /// Issue a client certificate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub issue_client_certificate: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3152,6 +3165,7 @@ pub struct HttpLoadBalancing {
     /// Whether the HTTP Load Balancing controller is enabled in the cluster.
     /// When enabled, it runs a small pod in the cluster that manages the load
     /// balancers.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3187,6 +3201,7 @@ pub struct HorizontalPodAutoscaling {
     /// Whether the Horizontal Pod Autoscaling feature is enabled in the cluster.
     /// When enabled, it ensures that metrics are collected into Stackdriver
     /// Monitoring.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3218,6 +3233,7 @@ impl wkt::message::Message for HorizontalPodAutoscaling {
 #[non_exhaustive]
 pub struct KubernetesDashboard {
     /// Whether the Kubernetes Dashboard is enabled for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3251,6 +3267,7 @@ impl wkt::message::Message for KubernetesDashboard {
 #[non_exhaustive]
 pub struct NetworkPolicyConfig {
     /// Whether NetworkPolicy is enabled for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3282,6 +3299,7 @@ impl wkt::message::Message for NetworkPolicyConfig {
 #[non_exhaustive]
 pub struct DnsCacheConfig {
     /// Whether NodeLocal DNSCache is enabled for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3313,6 +3331,7 @@ impl wkt::message::Message for DnsCacheConfig {
 #[non_exhaustive]
 pub struct PrivateClusterMasterGlobalAccessConfig {
     /// Whenever master is accessible globally or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3352,6 +3371,7 @@ pub struct PrivateClusterConfig {
     /// instead.
     ///
     /// [google.container.v1.NetworkConfig.default_enable_private_nodes]: crate::model::NetworkConfig::default_enable_private_nodes
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_private_nodes: bool,
 
     /// Whether the master's internal IP address is used as the cluster endpoint.
@@ -3362,6 +3382,7 @@ pub struct PrivateClusterConfig {
     /// enable_private_endpoint is false, then enable_public_endpoint will be true.
     ///
     /// [google.container.v1.ControlPlaneEndpointsConfig.IPEndpointsConfig.enable_public_endpoint]: crate::model::control_plane_endpoints_config::IPEndpointsConfig::enable_public_endpoint
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_private_endpoint: bool,
 
     /// The IP range in CIDR notation to use for the hosted master network. This
@@ -3503,6 +3524,7 @@ impl wkt::message::Message for PrivateClusterConfig {
 pub struct AuthenticatorGroupsConfig {
     /// Whether this cluster should return group membership lookups
     /// during authentication using a group of security groups.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// The name of the security group-of-groups to be used. Only relevant
@@ -3545,6 +3567,7 @@ impl wkt::message::Message for AuthenticatorGroupsConfig {
 #[non_exhaustive]
 pub struct CloudRunConfig {
     /// Whether Cloud Run addon is enabled for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Which load balancer type is installed for Cloud Run.
@@ -3659,6 +3682,7 @@ pub mod cloud_run_config {
 #[non_exhaustive]
 pub struct ConfigConnectorConfig {
     /// Whether Cloud Connector is enabled for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3690,6 +3714,7 @@ impl wkt::message::Message for ConfigConnectorConfig {
 #[non_exhaustive]
 pub struct GcePersistentDiskCsiDriverConfig {
     /// Whether the Compute Engine PD CSI driver is enabled for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3721,6 +3746,7 @@ impl wkt::message::Message for GcePersistentDiskCsiDriverConfig {
 #[non_exhaustive]
 pub struct GcpFilestoreCsiDriverConfig {
     /// Whether the GCP Filestore CSI driver is enabled for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3752,6 +3778,7 @@ impl wkt::message::Message for GcpFilestoreCsiDriverConfig {
 #[non_exhaustive]
 pub struct GcsFuseCsiDriverConfig {
     /// Whether the Cloud Storage Fuse CSI driver is enabled for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3784,6 +3811,7 @@ impl wkt::message::Message for GcsFuseCsiDriverConfig {
 pub struct ParallelstoreCsiDriverConfig {
     /// Whether the Cloud Storage Parallelstore CSI driver is enabled for this
     /// cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3815,6 +3843,7 @@ impl wkt::message::Message for ParallelstoreCsiDriverConfig {
 #[non_exhaustive]
 pub struct RayOperatorConfig {
     /// Whether the Ray Operator addon is enabled for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Optional. Logging configuration for Ray clusters.
@@ -3877,6 +3906,7 @@ impl wkt::message::Message for RayOperatorConfig {
 #[non_exhaustive]
 pub struct GkeBackupAgentConfig {
     /// Whether the Backup for GKE agent is enabled for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3908,6 +3938,7 @@ impl wkt::message::Message for GkeBackupAgentConfig {
 #[non_exhaustive]
 pub struct StatefulHAConfig {
     /// Whether the Stateful HA add-on is enabled for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3942,6 +3973,7 @@ impl wkt::message::Message for StatefulHAConfig {
 #[non_exhaustive]
 pub struct MasterAuthorizedNetworksConfig {
     /// Whether or not master authorized networks is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// cidr_blocks define up to 50 external networks that could access
@@ -4072,6 +4104,7 @@ pub struct LegacyAbac {
     /// identities in the system, including service accounts, nodes, and
     /// controllers, will have statically granted permissions beyond those
     /// provided by the RBAC configuration or IAM.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4107,6 +4140,7 @@ pub struct NetworkPolicy {
     pub provider: crate::model::network_policy::Provider,
 
     /// Whether network policy is enabled on the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4207,6 +4241,7 @@ pub struct BinaryAuthorization {
     /// This field is deprecated. Leave this unset and instead configure
     /// BinaryAuthorization using evaluation_mode. If evaluation_mode is set to
     /// anything other than EVALUATION_MODE_UNSPECIFIED, this field is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Mode of operation for binauthz policy evaluation. If unspecified, defaults
@@ -4324,6 +4359,7 @@ pub mod binary_authorization {
 pub struct PodCIDROverprovisionConfig {
     /// Whether Pod CIDR overprovisioning is disabled.
     /// Note: Pod CIDR overprovisioning is enabled by default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4358,11 +4394,13 @@ pub struct IPAllocationPolicy {
     /// This is used in conjunction with use_routes. It cannot
     /// be true if use_routes is true. If both use_ip_aliases and use_routes are
     /// false, then the server picks the default IP allocation mode
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_ip_aliases: bool,
 
     /// Whether a new subnetwork will be created automatically for the cluster.
     ///
     /// This field is only applicable when `use_ip_aliases` is true.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub create_subnetwork: bool,
 
     /// A custom subnetwork name to be used if `create_subnetwork` is true.  If
@@ -4478,6 +4516,7 @@ pub struct IPAllocationPolicy {
     /// This is used in conjunction with use_ip_aliases. It cannot be true if
     /// use_ip_aliases is true. If both use_ip_aliases and use_routes are false,
     /// then the server picks the default IP allocation mode
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_routes: bool,
 
     /// The IP stack type of the cluster
@@ -4520,6 +4559,7 @@ pub struct IPAllocationPolicy {
     /// Output only. The utilization of the cluster default IPv4 range for the
     /// pod. The ratio is Usage/[Total number of IPs in the secondary range],
     /// Usage=numNodes*numZones*podIPsPerNode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_pod_ipv4_range_utilization: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4734,6 +4774,7 @@ pub struct Cluster {
     /// auto-generated name. Do not use this and a node_pool at the same time.
     ///
     /// This field is deprecated, use node_pool.initial_node_count instead.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub initial_node_count: i32,
 
     /// Parameters used in creating the cluster's nodes.
@@ -4836,6 +4877,7 @@ pub struct Cluster {
     /// The cluster has no SLA for uptime and master/node upgrades are disabled.
     /// Alpha enabled clusters are automatically deleted thirty days after
     /// creation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_kubernetes_alpha: bool,
 
     /// The resource labels for the cluster to use to annotate any related
@@ -5018,6 +5060,7 @@ pub struct Cluster {
     /// containers. This is provisioned from within the `container_ipv4_cidr`
     /// range. This field will only be set when cluster is in route-based network
     /// mode.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub node_ipv4_cidr_size: i32,
 
     /// Output only. The IP address range of the Kubernetes services in
@@ -5034,6 +5077,7 @@ pub struct Cluster {
 
     /// Output only. The number of nodes currently in the cluster. Deprecated.
     /// Call Kubernetes API directly to retrieve node information.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub current_node_count: i32,
 
     /// Output only. The time the cluster will be automatically
@@ -5050,6 +5094,7 @@ pub struct Cluster {
     pub location: std::string::String,
 
     /// Enable the ability to use Cloud TPUs in this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_tpu: bool,
 
     /// Output only. The IP address range of the Cloud TPUs in this cluster, in
@@ -7844,6 +7889,7 @@ pub struct RangeInfo {
     pub range_name: std::string::String,
 
     /// Output only. The utilization of the range.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub utilization: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9049,6 +9095,7 @@ pub struct UpdateNodePoolRequest {
     /// The smallest allowed disk size is 10GB.
     /// Initiates an upgrade operation that migrates the nodes in the
     /// node pool to the specified disk size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub disk_size_gb: i64,
 
@@ -11333,6 +11380,7 @@ pub struct NodePool {
     /// Compute Engine [resource quota](https://cloud.google.com/compute/quotas)
     /// is sufficient for this number of instances. You must also have available
     /// firewall and routes quota.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub initial_node_count: i32,
 
     /// The list of Google Compute Engine
@@ -11399,6 +11447,7 @@ pub struct NodePool {
     pub conditions: std::vec::Vec<crate::model::StatusCondition>,
 
     /// Output only. The pod CIDR block size per node in this node pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pod_ipv4_cidr_size: i32,
 
     /// Upgrade settings control disruption and speed of the upgrade.
@@ -11696,11 +11745,13 @@ pub mod node_pool {
     pub struct UpgradeSettings {
         /// The maximum number of nodes that can be created beyond the current size
         /// of the node pool during the upgrade process.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_surge: i32,
 
         /// The maximum number of nodes that can be simultaneously unavailable during
         /// the upgrade process. A node is considered available if its status is
         /// Ready.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_unavailable: i32,
 
         /// Update strategy of the node pool.
@@ -12127,6 +12178,7 @@ pub mod node_pool {
         /// Denotes that this nodepool is QRM specific, meaning nodes can be only
         /// obtained through queuing via the Cluster Autoscaler ProvisioningRequest
         /// API.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12246,12 +12298,14 @@ pub struct NodeManagement {
     /// A flag that specifies whether node auto-upgrade is enabled for the node
     /// pool. If enabled, node auto-upgrade helps keep the nodes in your node pool
     /// up to date with the latest release version of Kubernetes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_upgrade: bool,
 
     /// A flag that specifies whether the node auto-repair is enabled for the node
     /// pool. If enabled, the nodes in this node pool will be monitored and, if
     /// they fail health checks too many times, an automatic repair action will be
     /// triggered.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_repair: bool,
 
     /// Specifies the Auto Upgrade knobs for the node pool.
@@ -12306,11 +12360,13 @@ pub struct BestEffortProvisioning {
     /// When this is enabled, cluster/node pool creations will ignore non-fatal
     /// errors like stockout to best provision as many nodes as possible right now
     /// and eventually bring up all target number of nodes
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Minimum number of nodes to be provisioned to be considered as succeeded,
     /// and the rest of nodes will be provisioned gradually and eventually when
     /// stockout issue has been resolved.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_provision_nodes: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13053,6 +13109,7 @@ pub struct SetNodePoolSizeRequest {
     pub node_pool_id: std::string::String,
 
     /// Required. The desired node count for the pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub node_count: i32,
 
     /// The name (project, location, cluster, node pool id) of the node pool to set
@@ -13187,6 +13244,7 @@ pub struct RollbackNodePoolUpgradeRequest {
 
     /// Option for rollback to ignore the PodDisruptionBudget.
     /// Default value is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub respect_pdb: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13288,6 +13346,7 @@ impl wkt::message::Message for ListNodePoolsResponse {
 #[non_exhaustive]
 pub struct ClusterAutoscaling {
     /// Enables automatic node pool creation and deletion.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_node_autoprovisioning: bool,
 
     /// Contains global constraints regarding minimum and maximum
@@ -13480,6 +13539,7 @@ pub struct AutoprovisioningNodePoolDefaults {
     /// The smallest allowed disk size is 10GB.
     ///
     /// If unspecified, the default disk size is 100GB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_size_gb: i32,
 
     /// Type of the disk attached to each node (e.g. 'pd-standard', 'pd-ssd' or
@@ -13637,10 +13697,12 @@ pub struct ResourceLimit {
     pub resource_type: std::string::String,
 
     /// Minimum amount of the resource in the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub minimum: i64,
 
     /// Maximum amount of the resource in the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub maximum: i64,
 
@@ -13686,17 +13748,21 @@ impl wkt::message::Message for ResourceLimit {
 #[non_exhaustive]
 pub struct NodePoolAutoscaling {
     /// Is autoscaling enabled for this node pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Minimum number of nodes for one location in the node pool. Must be greater
     /// than or equal to 0 and less than or equal to max_node_count.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_node_count: i32,
 
     /// Maximum number of nodes for one location in the node pool. Must be >=
     /// min_node_count. There has to be enough quota to scale up the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_node_count: i32,
 
     /// Can this node pool be deleted automatically.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub autoprovisioned: bool,
 
     /// Location policy used when scaling up a nodepool.
@@ -13706,12 +13772,14 @@ pub struct NodePoolAutoscaling {
     /// to 0 and less than or equal to total_max_node_count.
     /// The total_*_node_count fields are mutually exclusive with the *_node_count
     /// fields.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_min_node_count: i32,
 
     /// Maximum number of nodes in the node pool. Must be greater than or equal to
     /// total_min_node_count. There has to be enough quota to scale up the cluster.
     /// The total_*_node_count fields are mutually exclusive with the *_node_count
     /// fields.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_max_node_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13975,6 +14043,7 @@ pub struct SetLegacyAbacRequest {
     pub cluster_id: std::string::String,
 
     /// Required. Whether ABAC authorization will be enabled in the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// The name (project, location, cluster name) of the cluster to set legacy
@@ -14059,6 +14128,7 @@ pub struct StartIPRotationRequest {
     pub name: std::string::String,
 
     /// Whether to rotate credentials during IP rotation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rotate_credentials: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14183,6 +14253,7 @@ impl wkt::message::Message for CompleteIPRotationRequest {
 #[non_exhaustive]
 pub struct AcceleratorConfig {
     /// The number of the accelerator cards exposed to an instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub accelerator_count: i64,
 
@@ -14276,6 +14347,7 @@ impl wkt::message::Message for AcceleratorConfig {
 #[non_exhaustive]
 pub struct GPUSharingConfig {
     /// The max number of containers that can share a physical GPU.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub max_shared_clients_per_gpu: i64,
 
@@ -14931,6 +15003,7 @@ pub struct NetworkConfig {
 
     /// Whether Intra-node visibility is enabled for this cluster.
     /// This makes same node pod to pod traffic visible for VPC network.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_intra_node_visibility: bool,
 
     /// Whether the cluster disables default in-node sNAT rules. In-node sNAT rules
@@ -14942,6 +15015,7 @@ pub struct NetworkConfig {
 
     /// Whether L4ILB Subsetting is enabled for this cluster.
     #[serde(rename = "enableL4ilbSubsetting")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_l4ilb_subsetting: bool,
 
     /// The desired datapath provider for this cluster. By default, uses the
@@ -14968,6 +15042,7 @@ pub struct NetworkConfig {
     pub gateway_api_config: std::option::Option<crate::model::GatewayAPIConfig>,
 
     /// Whether multi-networking is enabled for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_multi_networking: bool,
 
     /// Network bandwidth tier configuration.
@@ -15377,6 +15452,7 @@ pub mod gateway_api_config {
 #[non_exhaustive]
 pub struct ServiceExternalIPsConfig {
     /// Whether Services with ExternalIPs field are allowed or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16123,6 +16199,7 @@ pub mod release_channel {
 #[non_exhaustive]
 pub struct CostManagementConfig {
     /// Whether the feature is enabled or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16155,6 +16232,7 @@ impl wkt::message::Message for CostManagementConfig {
 #[non_exhaustive]
 pub struct IntraNodeVisibilityConfig {
     /// Enables intra node visibility for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16187,6 +16265,7 @@ impl wkt::message::Message for IntraNodeVisibilityConfig {
 #[non_exhaustive]
 pub struct ILBSubsettingConfig {
     /// Enables l4 ILB subsetting for this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16415,6 +16494,7 @@ pub mod dns_config {
 #[non_exhaustive]
 pub struct MaxPodsConstraint {
     /// Constraint enforced on the max num of pods per node.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub max_pods_per_node: i64,
 
@@ -16481,6 +16561,7 @@ impl wkt::message::Message for WorkloadIdentityConfig {
 #[non_exhaustive]
 pub struct IdentityServiceConfig {
     /// Whether to enable the Identity Service component
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16884,6 +16965,7 @@ pub struct ListUsableSubnetworksRequest {
     /// of available results is larger than `page_size`, a `next_page_token` is
     /// returned which can be used to get the next page of results in subsequent
     /// requests. Acceptable values are 0 to 500, inclusive. (Default: 500)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Specifies a page token to use. Set this to the nextPageToken returned by
@@ -17227,6 +17309,7 @@ pub struct ResourceUsageExportConfig {
 
     /// Whether to enable network egress metering for this cluster. If enabled, a
     /// daemonset will be created in the cluster to meter network egress traffic.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_network_egress_metering: bool,
 
     /// Configuration to enable resource consumption metering.
@@ -17332,6 +17415,7 @@ pub mod resource_usage_export_config {
         /// Whether to enable consumption metering for this cluster. If enabled, a
         /// second BigQuery table will be created to hold resource consumption
         /// records.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17366,6 +17450,7 @@ pub mod resource_usage_export_config {
 #[non_exhaustive]
 pub struct VerticalPodAutoscaling {
     /// Enables vertical pod autoscaling.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17398,6 +17483,7 @@ impl wkt::message::Message for VerticalPodAutoscaling {
 #[non_exhaustive]
 pub struct DefaultSnatStatus {
     /// Disables cluster default sNAT rules.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17429,6 +17515,7 @@ impl wkt::message::Message for DefaultSnatStatus {
 #[non_exhaustive]
 pub struct ShieldedNodes {
     /// Whether Shielded Nodes features are enabled on all nodes in this cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17460,6 +17547,7 @@ impl wkt::message::Message for ShieldedNodes {
 #[non_exhaustive]
 pub struct VirtualNIC {
     /// Whether gVNIC features are enabled in the node pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17491,6 +17579,7 @@ impl wkt::message::Message for VirtualNIC {
 #[non_exhaustive]
 pub struct FastSocket {
     /// Whether Fast Socket features are enabled in the node pool.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17564,6 +17653,7 @@ pub mod notification_config {
     #[non_exhaustive]
     pub struct PubSub {
         /// Enable notifications for Pub/Sub.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         /// The desired Pub/Sub topic to which notifications will be
@@ -17732,6 +17822,7 @@ pub mod notification_config {
 #[non_exhaustive]
 pub struct ConfidentialNodes {
     /// Whether Confidential Nodes feature is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18166,6 +18257,7 @@ pub struct SecurityBulletinEvent {
 
     /// If this field is specified, it means there are manual steps that the user
     /// must take to make their clusters safe.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub manual_steps_required: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18275,6 +18367,7 @@ impl wkt::message::Message for SecurityBulletinEvent {
 #[non_exhaustive]
 pub struct Autopilot {
     /// Enable Autopilot
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Workload policy configuration for Autopilot.
@@ -18519,6 +18612,7 @@ pub mod logging_component_config {
 #[non_exhaustive]
 pub struct RayClusterLoggingConfig {
     /// Enable log collection for Ray clusters.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18620,6 +18714,7 @@ impl wkt::message::Message for MonitoringConfig {
 #[non_exhaustive]
 pub struct AdvancedDatapathObservabilityConfig {
     /// Expose flow metrics on nodes
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_metrics: bool,
 
     /// Method used to make Relay available
@@ -18747,6 +18842,7 @@ pub mod advanced_datapath_observability_config {
 #[non_exhaustive]
 pub struct RayClusterMonitoringConfig {
     /// Enable metrics collection for Ray clusters.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19069,6 +19165,7 @@ pub mod monitoring_component_config {
 #[non_exhaustive]
 pub struct ManagedPrometheusConfig {
     /// Enable Managed Collection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19113,6 +19210,7 @@ pub struct Fleet {
 
     /// Output only. Whether the cluster has been registered through the fleet
     /// API.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pre_registered: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19428,6 +19526,7 @@ pub struct LocalNvmeSsdBlockConfig {
     ///   ssds), 0 will be provisioned. See
     ///   <https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds>
     ///   for more info.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub local_ssd_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19478,6 +19577,7 @@ pub struct EphemeralStorageLocalSsdConfig {
     ///   ssds), 0 will be provisioned. See
     ///   <https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds>
     ///   for more info.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub local_ssd_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

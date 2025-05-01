@@ -261,6 +261,7 @@ pub struct MigrationTask {
     /// number of errors as each resource can have more than one error.
     /// This is used to indicate truncation by having a `resource_error_count`
     /// that is higher than the size of `resource_error_details`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_error_count: i32,
 
     /// The metrics for the task.
@@ -272,9 +273,11 @@ pub struct MigrationTask {
     pub task_result: std::option::Option<crate::model::MigrationTaskResult>,
 
     /// Count of all the processing errors in this task and its subtasks.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_processing_error_count: i32,
 
     /// Count of all the resource errors in this task and its subtasks.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_resource_error_count: i32,
 
     /// The details of the task.
@@ -616,6 +619,7 @@ pub struct MigrationSubtask {
     /// number of errors as each resource can have more than one error.
     /// This is used to indicate truncation by having a `resource_error_count`
     /// that is higher than the size of `resource_error_details`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub resource_error_count: i32,
 
     /// Time when the subtask was created.
@@ -971,6 +975,7 @@ pub struct ResourceErrorDetail {
     /// Required. How many errors there are in total for the resource. Truncation
     /// can be indicated by having an `error_count` that is higher than the size of
     /// `error_details`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub error_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1074,10 +1079,12 @@ impl wkt::message::Message for ErrorDetail {
 pub struct ErrorLocation {
     /// Optional. If applicable, denotes the line where the error occurred. A zero
     /// value means that there is no line information.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub line: i32,
 
     /// Optional. If applicable, denotes the column where the error occurred. A
     /// zero value means that there is no columns information.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub column: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1595,6 +1602,7 @@ pub struct ListMigrationWorkflowsRequest {
 
     /// The maximum number of migration workflows to return. The service may return
     /// fewer than this number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from previous `ListMigrationWorkflows` call.
@@ -1839,6 +1847,7 @@ pub struct ListMigrationSubtasksRequest {
 
     /// Optional. The maximum number of migration tasks to return. The service may
     /// return fewer than this number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from previous `ListMigrationSubtasks`
@@ -4158,10 +4167,12 @@ pub struct TranslationReportRecord {
 
     /// Specifies the row from the source text where the error occurred (0 based).
     /// Example: 2
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub script_line: i32,
 
     /// Specifies the column from the source texts where the error occurred. (0
     /// based) example: 6
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub script_column: i32,
 
     /// Category of the error/warning. Example: SyntaxError
@@ -4316,10 +4327,12 @@ pub struct GcsReportLogMessage {
 
     /// Specifies the row from the source text where the error occurred (0 based,
     /// -1 for messages without line location). Example: 2
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_script_line: i32,
 
     /// Specifies the column from the source texts where the error occurred. (0
     /// based, -1 for messages without column location) example: 6
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_script_column: i32,
 
     /// Detailed message of the record.

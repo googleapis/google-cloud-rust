@@ -137,6 +137,7 @@ pub struct Collector {
     pub bucket: std::string::String,
 
     /// User specified expected asset count.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub expected_asset_count: i64,
 
@@ -156,6 +157,7 @@ pub struct Collector {
     pub vsphere_scan: std::option::Option<crate::model::VSphereScan>,
 
     /// How many days to collect data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub collection_days: i32,
 
     /// Uri for EULA (End User License Agreement) from customer.
@@ -706,6 +708,7 @@ pub struct ListCollectorsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -1197,6 +1200,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

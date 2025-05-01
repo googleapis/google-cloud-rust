@@ -54,6 +54,7 @@ pub struct OperationMetadata {
     /// of the operation. Operations that have successfully been cancelled
     /// have [Operation.error][] value with a [google.rpc.Status.code][] of 1,
     /// corresponding to `Code.CANCELLED`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cancel_requested: bool,
 
     /// Output only. API version used to start the operation.

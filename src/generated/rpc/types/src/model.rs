@@ -352,6 +352,7 @@ pub mod quota_failure {
         /// For example, if the enforced quota value at the time of the
         /// `QuotaFailure` on the number of CPUs is "10", then the value of this
         /// field would reflect this quantity.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub quota_value: i64,
 
@@ -1034,6 +1035,7 @@ impl wkt::message::Message for HttpRequest {
 #[non_exhaustive]
 pub struct HttpResponse {
     /// The HTTP status code, such as 200 or 404.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: i32,
 
     /// The HTTP reason phrase, such as "OK" or "Not Found".
@@ -1153,6 +1155,7 @@ pub struct Status {
     /// [google.rpc.Code][google.rpc.Code].
     ///
     /// [google.rpc.Code]: crate::model::Code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub code: i32,
 
     /// A developer-facing error message, which should be in English. Any

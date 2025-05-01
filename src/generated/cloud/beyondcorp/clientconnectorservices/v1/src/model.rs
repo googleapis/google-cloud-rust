@@ -644,6 +644,7 @@ pub struct ListClientConnectorServicesRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -855,6 +856,7 @@ pub struct CreateClientConnectorServiceRequest {
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -949,9 +951,11 @@ pub struct UpdateClientConnectorServiceRequest {
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set as true, will create the resource if it is not found.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1036,6 +1040,7 @@ pub struct DeleteClientConnectorServiceRequest {
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1105,6 +1110,7 @@ pub struct ClientConnectorServiceOperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
