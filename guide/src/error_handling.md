@@ -46,6 +46,12 @@ As it is usual with Rust, you must declare the dependency in your
 {{#include ../samples/Cargo.toml:secretmanager}}
 ```
 
+In addition, this guide uses `crc32c` to calculate the checksum:
+
+```toml
+{{#include ../samples/Cargo.toml:secretmanager}}
+```
+
 ## Motivation
 
 In this guide we will create a new *secret version*. Secret versions are
