@@ -14,6 +14,8 @@
 
 //! Examples showing itearting Google API List methods with paginator.
 
+use google_cloud_gax as gax;
+
 pub async fn paginator_iterate_pages(project_id: &str) -> crate::Result<()> {
     use google_cloud_gax::paginator::Paginator as _;
     use google_cloud_secretmanager_v1 as secret_manager;
@@ -54,18 +56,16 @@ pub async fn paginator_stream_pages(project_id: &str) -> crate::Result<()> {
         .paginator()
         .await
         .into_stream();
-
     let _ = list
         .enumerate()
-        .inspect(|(index, page)| {
-            println!(
-                "page={}, next_page_token={}",
-                index,
-                page.as_ref().unwrap().next_page_token
-            )
+        .map(|(index, page)| -> gax::Result<()> {
+            println!("page={}, next_page_token={}", index, page?.next_page_token);
+            Ok(())
         })
-        .fold((), async |u, _unused| u)
-        .await;
+        .fold(Ok(()), async |acc, result| -> gax::Result<()> {
+            acc.and(result)
+        })
+        .await?;
     // ANCHOR_END: paginator-stream-pages
 
     Ok(())
@@ -97,7 +97,6 @@ pub async fn paginator_iterate_items(project_id: &str) -> crate::Result<()> {
 }
 
 pub async fn paginator_stream_items(project_id: &str) -> crate::Result<()> {
-    use futures::future;
     use futures::stream::StreamExt;
     use google_cloud_gax::paginator::{ItemPaginator as _, Paginator as _};
     use google_cloud_secretmanager_v1 as secret_manager;
@@ -114,14 +113,16 @@ pub async fn paginator_stream_items(project_id: &str) -> crate::Result<()> {
         .items()
         .into_stream();
 
-    let _secrets = list
-        .filter_map(|secret| match secret {
-            Ok(secret) => future::ready(Some(secret.name.clone())),
-            Err(_) => future::ready(None),
+
+    let _ = list
+        .map(|secret| -> gax::Result<()> {
+            println!("  secret={}", secret?.name);
+            Ok(())
         })
-        .inspect(|secret| println!("  secret={}", secret))
-        .collect::<Vec<String>>()
-        .await;
+        .fold(Ok(()), async |acc, result| -> gax::Result<()> {
+            acc.and(result)
+        })
+        .await?;
     // ANCHOR_END: paginator-stream-items
 
     Ok(())

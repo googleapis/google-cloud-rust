@@ -81,7 +81,10 @@ enable the `unstable-streams` feature in the `google_cloud_gax` crate:
 The name of this feature is intended to convey that we consider these APIs
 unstable, because they are! You should only use them if you are prepared to work
 with deal with any breaks that result from incompatible changes to the
-`futures_core::Stream` trait.
+[`futures::Stream`][future-stub] trait.
+
+The examples will also use the `futures::stream::StreamExt` trait, so we must
+add the crate that defines it.
 
 ```rust,ignore
 {{#include ../samples/src/pagination.rs:paginator-stream-items}}
@@ -115,5 +118,6 @@ iterated over in an async fashion.
 
 [aip-158]: https://google.aip.dev/158
 [aip-4233]: https://google.aip.dev/client-libraries/4233
+[future-stub]: https://docs.rs/futures/latest/futures/stream/
 [quickstart]: https://cloud.google.com/secret-manager/docs/quickstart
 [secret manager]: https://cloud.google.com/secret-manager
