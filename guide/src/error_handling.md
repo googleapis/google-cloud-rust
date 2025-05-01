@@ -49,7 +49,7 @@ As it is usual with Rust, you must declare the dependency in your
 In addition, this guide uses `crc32c` to calculate the checksum:
 
 ```toml
-{{#include ../samples/Cargo.toml:secretmanager}}
+{{#include ../samples/Cargo.toml:crc32c}}
 ```
 
 ## Motivation
