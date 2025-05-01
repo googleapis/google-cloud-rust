@@ -2083,6 +2083,7 @@ pub struct Company {
     ///
     /// [google.cloud.talent.v4.Job.custom_attributes]: crate::model::Job::custom_attributes
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub keyword_searchable_job_custom_attributes: std::vec::Vec<std::string::String>,
 
     /// Output only. Derived details about the company.
@@ -2185,6 +2186,7 @@ impl Company {
     }
 
     /// Sets the value of [keyword_searchable_job_custom_attributes][crate::model::Company::keyword_searchable_job_custom_attributes].
+    #[deprecated]
     pub fn set_keyword_searchable_job_custom_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4203,6 +4205,7 @@ pub mod location_filter {
         Unspecified,
         /// Deprecated: Ignore telecommute status of jobs. Use
         /// TELECOMMUTE_JOBS_EXCLUDED if want to exclude telecommute jobs.
+        #[deprecated]
         TelecommuteExcluded,
         /// Allow telecommute jobs.
         TelecommuteAllowed,
@@ -5266,6 +5269,7 @@ pub struct Job {
     /// if not specified.
     ///
     /// [google.cloud.talent.v4.Visibility.ACCOUNT_ONLY]: crate::model::Visibility::AccountOnly
+    #[deprecated]
     pub visibility: crate::model::Visibility,
 
     /// The start timestamp of the job in UTC time zone. Typically this field
@@ -5486,6 +5490,7 @@ impl Job {
     }
 
     /// Sets the value of [visibility][crate::model::Job::visibility].
+    #[deprecated]
     pub fn set_visibility<T: std::convert::Into<crate::model::Visibility>>(mut self, v: T) -> Self {
         self.visibility = v.into();
         self
@@ -6552,6 +6557,7 @@ pub struct SearchJobsRequest {
     /// [google.cloud.talent.v4.SearchJobsRequest.KeywordMatchMode.KEYWORD_MATCH_DISABLED]: crate::model::search_jobs_request::KeywordMatchMode::KeywordMatchDisabled
     /// [google.cloud.talent.v4.SearchJobsRequest.keyword_match_mode]: crate::model::SearchJobsRequest::keyword_match_mode
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub disable_keyword_match: bool,
 
     /// Controls what keyword match options to use. If both keyword_match_mode and
@@ -6676,6 +6682,7 @@ impl SearchJobsRequest {
     }
 
     /// Sets the value of [disable_keyword_match][crate::model::SearchJobsRequest::disable_keyword_match].
+    #[deprecated]
     pub fn set_disable_keyword_match<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_keyword_match = v.into();
         self
@@ -10176,6 +10183,7 @@ impl<'de> serde::de::Deserialize<'de> for PostingRegion {
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub enum Visibility {
     /// Default value.
     Unspecified,

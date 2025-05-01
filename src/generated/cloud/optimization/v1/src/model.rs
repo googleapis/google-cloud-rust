@@ -769,6 +769,7 @@ pub struct OptimizeToursRequest {
     /// [google.cloud.optimization.v1.OptimizeToursRequest.populate_transition_polylines]: crate::model::OptimizeToursRequest::populate_transition_polylines
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub populate_travel_step_polylines: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -904,6 +905,7 @@ impl OptimizeToursRequest {
     }
 
     /// Sets the value of [populate_travel_step_polylines][crate::model::OptimizeToursRequest::populate_travel_step_polylines].
+    #[deprecated]
     pub fn set_populate_travel_step_polylines<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.populate_travel_step_polylines = v.into();
         self
@@ -1286,6 +1288,7 @@ pub struct OptimizeToursResponse {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub total_cost: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1315,6 +1318,7 @@ impl OptimizeToursResponse {
     }
 
     /// Sets the value of [total_cost][crate::model::OptimizeToursResponse::total_cost].
+    #[deprecated]
     pub fn set_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.total_cost = v.into();
         self
@@ -1888,6 +1892,7 @@ pub struct ShipmentModel {
     ///
     /// [google.cloud.optimization.v1.Vehicle.break_rule_indices]: crate::model::Vehicle::break_rule_indices
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub break_rules: std::vec::Vec<crate::model::shipment_model::BreakRule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2032,6 +2037,7 @@ impl ShipmentModel {
     }
 
     /// Sets the value of [break_rules][crate::model::ShipmentModel::break_rules].
+    #[deprecated]
     pub fn set_break_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2289,6 +2295,7 @@ pub mod shipment_model {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
+    #[deprecated]
     pub struct BreakRule {
         /// Sequence of breaks. See the `BreakRequest` message.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -2656,6 +2663,7 @@ pub struct Shipment {
     ///
     /// [google.cloud.optimization.v1.Shipment.load_demands]: crate::model::Shipment::load_demands
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub demands: std::vec::Vec<crate::model::CapacityQuantity>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2783,6 +2791,7 @@ impl Shipment {
     }
 
     /// Sets the value of [demands][crate::model::Shipment::demands].
+    #[deprecated]
     pub fn set_demands<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2928,6 +2937,7 @@ pub mod shipment {
         ///
         /// [google.cloud.optimization.v1.Shipment.VisitRequest.load_demands]: crate::model::shipment::VisitRequest::load_demands
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[deprecated]
         pub demands: std::vec::Vec<crate::model::CapacityQuantity>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3038,6 +3048,7 @@ pub mod shipment {
         }
 
         /// Sets the value of [demands][crate::model::shipment::VisitRequest::demands].
+        #[deprecated]
         pub fn set_demands<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3872,6 +3883,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.ShipmentModel]: crate::model::ShipmentModel
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub break_rule_indices: std::vec::Vec<i32>,
 
     /// Deprecated: Use
@@ -3880,6 +3892,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.Vehicle.load_limits]: crate::model::Vehicle::load_limits
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub capacities: std::vec::Vec<crate::model::CapacityQuantity>,
 
     /// Deprecated: Use
@@ -3888,6 +3901,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.Vehicle.LoadLimit.start_load_interval]: crate::model::vehicle::LoadLimit::start_load_interval
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub start_load_intervals: std::vec::Vec<crate::model::CapacityQuantityInterval>,
 
     /// Deprecated: Use
@@ -3896,6 +3910,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.Vehicle.LoadLimit.end_load_interval]: crate::model::vehicle::LoadLimit::end_load_interval
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub end_load_intervals: std::vec::Vec<crate::model::CapacityQuantityInterval>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4112,6 +4127,7 @@ impl Vehicle {
     }
 
     /// Sets the value of [break_rule_indices][crate::model::Vehicle::break_rule_indices].
+    #[deprecated]
     pub fn set_break_rule_indices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4123,6 +4139,7 @@ impl Vehicle {
     }
 
     /// Sets the value of [capacities][crate::model::Vehicle::capacities].
+    #[deprecated]
     pub fn set_capacities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4134,6 +4151,7 @@ impl Vehicle {
     }
 
     /// Sets the value of [start_load_intervals][crate::model::Vehicle::start_load_intervals].
+    #[deprecated]
     pub fn set_start_load_intervals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4145,6 +4163,7 @@ impl Vehicle {
     }
 
     /// Sets the value of [end_load_intervals][crate::model::Vehicle::end_load_intervals].
+    #[deprecated]
     pub fn set_end_load_intervals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4930,6 +4949,7 @@ impl wkt::message::Message for TimeWindow {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct CapacityQuantity {
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -4976,6 +4996,7 @@ impl wkt::message::Message for CapacityQuantity {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct CapacityQuantityInterval {
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -5869,6 +5890,7 @@ pub struct ShipmentRoute {
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
     /// [google.cloud.optimization.v1.Vehicle.capacities]: crate::model::Vehicle::capacities
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub end_loads: std::vec::Vec<crate::model::CapacityQuantity>,
 
     /// Deprecated: Use
@@ -5877,6 +5899,7 @@ pub struct ShipmentRoute {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub travel_steps: std::vec::Vec<crate::model::shipment_route::TravelStep>,
 
     /// Deprecated: No longer used.
@@ -5892,6 +5915,7 @@ pub struct ShipmentRoute {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.Visit]: crate::model::shipment_route::Visit
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub vehicle_detour: std::option::Option<wkt::Duration>,
 
     /// Deprecated: Delay occurring before the vehicle end. See
@@ -5899,6 +5923,7 @@ pub struct ShipmentRoute {
     ///
     /// [google.cloud.optimization.v1.TransitionAttributes.delay]: crate::model::TransitionAttributes::delay
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub delay_before_vehicle_end: std::option::Option<crate::model::shipment_route::Delay>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5975,6 +6000,7 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [vehicle_detour][crate::model::ShipmentRoute::vehicle_detour].
+    #[deprecated]
     pub fn set_vehicle_detour<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
@@ -5984,6 +6010,7 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [delay_before_vehicle_end][crate::model::ShipmentRoute::delay_before_vehicle_end].
+    #[deprecated]
     pub fn set_delay_before_vehicle_end<
         T: std::convert::Into<std::option::Option<crate::model::shipment_route::Delay>>,
     >(
@@ -6028,6 +6055,7 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [end_loads][crate::model::ShipmentRoute::end_loads].
+    #[deprecated]
     pub fn set_end_loads<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6039,6 +6067,7 @@ impl ShipmentRoute {
     }
 
     /// Sets the value of [travel_steps][crate::model::ShipmentRoute::travel_steps].
+    #[deprecated]
     pub fn set_travel_steps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6084,6 +6113,7 @@ pub mod shipment_route {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
+    #[deprecated]
     pub struct Delay {
         /// Start of the delay.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -6215,6 +6245,7 @@ pub mod shipment_route {
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
         /// [google.cloud.optimization.v1.Vehicle.capacities]: crate::model::Vehicle::capacities
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[deprecated]
         pub arrival_loads: std::vec::Vec<crate::model::CapacityQuantity>,
 
         /// Deprecated: Use
@@ -6223,6 +6254,7 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.delay_duration]: crate::model::shipment_route::Transition::delay_duration
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[deprecated]
         pub delay_before_start: std::option::Option<crate::model::shipment_route::Delay>,
 
         /// Deprecated: Use
@@ -6231,6 +6263,7 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Visit.load_demands]: crate::model::shipment_route::Visit::load_demands
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[deprecated]
         pub demands: std::vec::Vec<crate::model::CapacityQuantity>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6294,6 +6327,7 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [delay_before_start][crate::model::shipment_route::Visit::delay_before_start].
+        #[deprecated]
         pub fn set_delay_before_start<
             T: std::convert::Into<std::option::Option<crate::model::shipment_route::Delay>>,
         >(
@@ -6305,6 +6339,7 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [arrival_loads][crate::model::shipment_route::Visit::arrival_loads].
+        #[deprecated]
         pub fn set_arrival_loads<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6316,6 +6351,7 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [demands][crate::model::shipment_route::Visit::demands].
+        #[deprecated]
         pub fn set_demands<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6447,6 +6483,7 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[deprecated]
         pub loads: std::vec::Vec<crate::model::CapacityQuantity>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6536,6 +6573,7 @@ pub mod shipment_route {
         }
 
         /// Sets the value of [loads][crate::model::shipment_route::Transition::loads].
+        #[deprecated]
         pub fn set_loads<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6709,6 +6747,7 @@ pub mod shipment_route {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
+    #[deprecated]
     pub struct TravelStep {
         /// Duration of the travel step.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -7253,6 +7292,7 @@ pub struct AggregatedMetrics {
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.costs]: crate::model::optimize_tours_response::Metrics::costs
     /// [google.cloud.optimization.v1.ShipmentRoute.route_costs]: crate::model::ShipmentRoute::route_costs
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[deprecated]
     pub costs: std::collections::HashMap<std::string::String, f64>,
 
     /// Deprecated: Use
@@ -7264,6 +7304,7 @@ pub struct AggregatedMetrics {
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
     /// [google.cloud.optimization.v1.ShipmentRoute.route_total_cost]: crate::model::ShipmentRoute::route_total_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub total_cost: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7342,6 +7383,7 @@ impl AggregatedMetrics {
     }
 
     /// Sets the value of [total_cost][crate::model::AggregatedMetrics::total_cost].
+    #[deprecated]
     pub fn set_total_cost<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.total_cost = v.into();
         self
@@ -7360,6 +7402,7 @@ impl AggregatedMetrics {
     }
 
     /// Sets the value of [costs][crate::model::AggregatedMetrics::costs].
+    #[deprecated]
     pub fn set_costs<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,

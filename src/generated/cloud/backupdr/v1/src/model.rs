@@ -12058,6 +12058,7 @@ pub struct AttachedDisk {
 
     /// Specifies the type of the disk.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub disk_type_deprecated: std::option::Option<crate::model::attached_disk::DiskType>,
 
     /// Optional. The mode in which to attach this disk.
@@ -12161,6 +12162,7 @@ impl AttachedDisk {
     }
 
     /// Sets the value of [disk_type_deprecated][crate::model::AttachedDisk::disk_type_deprecated].
+    #[deprecated]
     pub fn set_disk_type_deprecated<
         T: std::convert::Into<std::option::Option<crate::model::attached_disk::DiskType>>,
     >(

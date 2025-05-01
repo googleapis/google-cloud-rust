@@ -1021,6 +1021,7 @@ pub struct CustomVoiceParams {
     pub model: std::string::String,
 
     /// Optional. Deprecated. The usage of the synthesized audio to be reported.
+    #[deprecated]
     pub reported_usage: crate::model::custom_voice_params::ReportedUsage,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1039,6 +1040,7 @@ impl CustomVoiceParams {
     }
 
     /// Sets the value of [reported_usage][crate::model::CustomVoiceParams::reported_usage].
+    #[deprecated]
     pub fn set_reported_usage<
         T: std::convert::Into<crate::model::custom_voice_params::ReportedUsage>,
     >(
@@ -1778,6 +1780,7 @@ pub struct SynthesizeLongAudioMetadata {
 
     /// Deprecated. Do not use.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub last_update_time: std::option::Option<wkt::Timestamp>,
 
     /// The progress of the most recent processing update in percentage, ie. 70.0%.
@@ -1803,6 +1806,7 @@ impl SynthesizeLongAudioMetadata {
     }
 
     /// Sets the value of [last_update_time][crate::model::SynthesizeLongAudioMetadata::last_update_time].
+    #[deprecated]
     pub fn set_last_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,

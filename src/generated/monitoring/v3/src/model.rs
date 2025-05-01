@@ -6939,10 +6939,12 @@ impl wkt::message::Message for CreateTimeSeriesRequest {
 pub struct CreateTimeSeriesError {
     /// DEPRECATED. Time series ID that resulted in the `status` error.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub time_series: std::option::Option<crate::model::TimeSeries>,
 
     /// DEPRECATED. The status of the requested write operation for `time_series`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub status: std::option::Option<rpc::model::Status>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6955,6 +6957,7 @@ impl CreateTimeSeriesError {
     }
 
     /// Sets the value of [time_series][crate::model::CreateTimeSeriesError::time_series].
+    #[deprecated]
     pub fn set_time_series<T: std::convert::Into<std::option::Option<crate::model::TimeSeries>>>(
         mut self,
         v: T,
@@ -6964,6 +6967,7 @@ impl CreateTimeSeriesError {
     }
 
     /// Sets the value of [status][crate::model::CreateTimeSeriesError::status].
+    #[deprecated]
     pub fn set_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -7094,6 +7098,7 @@ pub mod create_time_series_summary {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct QueryTimeSeriesRequest {
     /// Required. The
     /// [project](https://cloud.google.com/monitoring/api/v3#project_name) on which
@@ -7168,6 +7173,7 @@ impl wkt::message::Message for QueryTimeSeriesRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct QueryTimeSeriesResponse {
     /// The descriptor for the time series data.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -7398,6 +7404,7 @@ pub struct NotificationChannelDescriptor {
     /// The tiers that support this notification channel; the project service tier
     /// must be one of the supported_tiers.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub supported_tiers: std::vec::Vec<crate::model::ServiceTier>,
 
     /// The product launch stage for channels of this type.
@@ -7457,6 +7464,7 @@ impl NotificationChannelDescriptor {
     }
 
     /// Sets the value of [supported_tiers][crate::model::NotificationChannelDescriptor::supported_tiers].
+    #[deprecated]
     pub fn set_supported_tiers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12383,6 +12391,7 @@ impl wkt::message::Message for SpanContext {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct InternalChecker {
     /// A unique resource name for this InternalChecker. The format is:
     ///
@@ -12832,6 +12841,7 @@ pub struct UptimeCheckConfig {
     /// It is an error to provide 'selected_regions' when is_internal is `true`,
     /// or to provide 'internal_checkers' when is_internal is `false`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub is_internal: bool,
 
     /// The internal checkers that this check will egress from. If `is_internal` is
@@ -12839,6 +12849,7 @@ pub struct UptimeCheckConfig {
     /// InternalCheckers configured for the project that owns this
     /// `UptimeCheckConfig`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub internal_checkers: std::vec::Vec<crate::model::InternalChecker>,
 
     /// User-supplied key/value data to be used for organizing and
@@ -12911,6 +12922,7 @@ impl UptimeCheckConfig {
     }
 
     /// Sets the value of [is_internal][crate::model::UptimeCheckConfig::is_internal].
+    #[deprecated]
     pub fn set_is_internal<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_internal = v.into();
         self
@@ -12939,6 +12951,7 @@ impl UptimeCheckConfig {
     }
 
     /// Sets the value of [internal_checkers][crate::model::UptimeCheckConfig::internal_checkers].
+    #[deprecated]
     pub fn set_internal_checkers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15776,6 +15789,7 @@ impl<'de> serde::de::Deserialize<'de> for ComparisonType {
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub enum ServiceTier {
     /// An invalid sentinel value, used to indicate that a tier has not
     /// been provided explicitly.

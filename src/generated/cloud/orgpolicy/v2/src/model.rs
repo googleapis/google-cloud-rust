@@ -1667,6 +1667,7 @@ pub struct Policy {
 
     /// Deprecated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub alternate: std::option::Option<crate::model::AlternatePolicySpec>,
 
     /// Dry-run policy.
@@ -1707,6 +1708,7 @@ impl Policy {
     }
 
     /// Sets the value of [alternate][crate::model::Policy::alternate].
+    #[deprecated]
     pub fn set_alternate<
         T: std::convert::Into<std::option::Option<crate::model::AlternatePolicySpec>>,
     >(

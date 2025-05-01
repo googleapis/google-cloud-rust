@@ -429,6 +429,7 @@ impl OperationMetadata {
     /// The value of [request][crate::model::OperationMetadata::request]
     /// if it holds a `UpdateConfigRequest`, `None` if the field is not set or
     /// holds a different branch.
+    #[deprecated]
     pub fn update_config_request(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateConfigRequest>> {
@@ -667,6 +668,7 @@ impl OperationMetadata {
     ///
     /// Note that all the setters affecting `request` are
     /// mutually exclusive.
+    #[deprecated]
     pub fn set_update_config_request<
         T: std::convert::Into<std::boxed::Box<crate::model::UpdateConfigRequest>>,
     >(
@@ -769,6 +771,7 @@ pub mod operation_metadata {
         /// The UndeletePhraseSetRequest that spawned the Operation.
         UndeletePhraseSetRequest(std::boxed::Box<crate::model::UndeletePhraseSetRequest>),
         /// The UpdateConfigRequest that spawned the Operation.
+        #[deprecated]
         UpdateConfigRequest(std::boxed::Box<crate::model::UpdateConfigRequest>),
     }
 
@@ -1196,6 +1199,7 @@ pub struct Recognizer {
     /// [google.cloud.speech.v2.RecognitionConfig]: crate::model::RecognitionConfig
     /// [google.cloud.speech.v2.RecognitionConfig.model]: crate::model::RecognitionConfig::model
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub model: std::string::String,
 
     /// Optional. This field is now deprecated. Prefer the
@@ -1219,6 +1223,7 @@ pub struct Recognizer {
     /// [google.cloud.speech.v2.RecognitionConfig]: crate::model::RecognitionConfig
     /// [google.cloud.speech.v2.RecognitionConfig.language_codes]: crate::model::RecognitionConfig::language_codes
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub language_codes: std::vec::Vec<std::string::String>,
 
     /// Default configuration to use for requests with this Recognizer.
@@ -1308,6 +1313,7 @@ impl Recognizer {
     }
 
     /// Sets the value of [model][crate::model::Recognizer::model].
+    #[deprecated]
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
@@ -1397,6 +1403,7 @@ impl Recognizer {
     }
 
     /// Sets the value of [language_codes][crate::model::Recognizer::language_codes].
+    #[deprecated]
     pub fn set_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4534,10 +4541,12 @@ pub struct BatchRecognizeFileResult {
 
     /// Deprecated. Use `cloud_storage_result.native_format_uri` instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub uri: std::string::String,
 
     /// Deprecated. Use `inline_result.transcript` instead.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub transcript: std::option::Option<crate::model::BatchRecognizeResults>,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -4573,12 +4582,14 @@ impl BatchRecognizeFileResult {
     }
 
     /// Sets the value of [uri][crate::model::BatchRecognizeFileResult::uri].
+    #[deprecated]
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [transcript][crate::model::BatchRecognizeFileResult::transcript].
+    #[deprecated]
     pub fn set_transcript<
         T: std::convert::Into<std::option::Option<crate::model::BatchRecognizeResults>>,
     >(

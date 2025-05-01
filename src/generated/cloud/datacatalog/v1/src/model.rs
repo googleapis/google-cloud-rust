@@ -1060,6 +1060,7 @@ pub mod search_catalog_request {
         /// Optional. This field is deprecated. The search mechanism for public and
         /// private tag templates is the same.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[deprecated]
         pub include_public_tag_templates: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1087,6 +1088,7 @@ pub mod search_catalog_request {
         }
 
         /// Sets the value of [include_public_tag_templates][crate::model::search_catalog_request::Scope::include_public_tag_templates].
+        #[deprecated]
         pub fn set_include_public_tag_templates<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -12097,6 +12099,7 @@ pub mod tag_template {
         /// Visible in both services. Editable in DataCatalog, read-only in Dataplex.
         /// Deprecated: Individual TagTemplate migration is deprecated in favor of
         /// organization or project wide TagTemplate migration opt-in.
+        #[deprecated]
         Migrated,
         /// TagTemplate and its tags are auto-copied to Dataplex service.
         /// Visible in both services. Editable in Dataplex, read-only in DataCatalog.

@@ -413,6 +413,7 @@ pub mod service_connection_map {
         /// Immutable. Deprecated. Use producer_instance_metadata instead.
         /// An immutable identifier for the producer instance.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[deprecated]
         pub producer_instance_id: std::string::String,
 
         /// Output only. A map to store mapping between customer vip and target
@@ -479,6 +480,7 @@ pub mod service_connection_map {
         }
 
         /// Sets the value of [producer_instance_id][crate::model::service_connection_map::ConsumerPscConfig::producer_instance_id].
+        #[deprecated]
         pub fn set_producer_instance_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -744,10 +746,12 @@ pub mod service_connection_map {
 
         /// The error type indicates whether the error is consumer facing, producer
         /// facing or system internal.
+        #[deprecated]
         pub error_type: crate::model::ConnectionErrorType,
 
         /// The most recent error during operating this connection.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[deprecated]
         pub error: std::option::Option<rpc::model::Status>,
 
         /// The last Compute Engine operation to setup PSC connection.
@@ -773,6 +777,7 @@ pub mod service_connection_map {
         /// Immutable. Deprecated. Use producer_instance_metadata instead.
         /// An immutable identifier for the producer instance.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[deprecated]
         pub producer_instance_id: std::string::String,
 
         /// Immutable. An immutable map for the producer instance metadata.
@@ -843,6 +848,7 @@ pub mod service_connection_map {
         }
 
         /// Sets the value of [error_type][crate::model::service_connection_map::ConsumerPscConnection::error_type].
+        #[deprecated]
         pub fn set_error_type<T: std::convert::Into<crate::model::ConnectionErrorType>>(
             mut self,
             v: T,
@@ -852,6 +858,7 @@ pub mod service_connection_map {
         }
 
         /// Sets the value of [error][crate::model::service_connection_map::ConsumerPscConnection::error].
+        #[deprecated]
         pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
             mut self,
             v: T,
@@ -897,6 +904,7 @@ pub mod service_connection_map {
         }
 
         /// Sets the value of [producer_instance_id][crate::model::service_connection_map::ConsumerPscConnection::producer_instance_id].
+        #[deprecated]
         pub fn set_producer_instance_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1968,11 +1976,13 @@ pub mod service_connection_policy {
 
         /// The error type indicates whether the error is consumer facing, producer
         /// facing or system internal.
+        #[deprecated]
         pub error_type: crate::model::ConnectionErrorType,
 
         /// The most recent error during operating this connection.
         /// Deprecated, please use error_info instead.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[deprecated]
         pub error: std::option::Option<rpc::model::Status>,
 
         /// The last Compute Engine operation to setup PSC connection.
@@ -2000,6 +2010,7 @@ pub mod service_connection_policy {
         /// Immutable. Deprecated. Use producer_instance_metadata instead.
         /// An immutable identifier for the producer instance.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[deprecated]
         pub producer_instance_id: std::string::String,
 
         /// Immutable. An immutable map for the producer instance metadata.
@@ -2054,6 +2065,7 @@ pub mod service_connection_policy {
         }
 
         /// Sets the value of [error_type][crate::model::service_connection_policy::PscConnection::error_type].
+        #[deprecated]
         pub fn set_error_type<T: std::convert::Into<crate::model::ConnectionErrorType>>(
             mut self,
             v: T,
@@ -2063,6 +2075,7 @@ pub mod service_connection_policy {
         }
 
         /// Sets the value of [error][crate::model::service_connection_policy::PscConnection::error].
+        #[deprecated]
         pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
             mut self,
             v: T,
@@ -2117,6 +2130,7 @@ pub mod service_connection_policy {
         }
 
         /// Sets the value of [producer_instance_id][crate::model::service_connection_policy::PscConnection::producer_instance_id].
+        #[deprecated]
         pub fn set_producer_instance_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,

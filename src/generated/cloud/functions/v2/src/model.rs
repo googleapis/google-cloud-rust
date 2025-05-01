@@ -1122,6 +1122,7 @@ pub struct BuildConfig {
     /// If unspecified, it defaults to `ARTIFACT_REGISTRY`.
     /// If `docker_repository` field is specified, this field should either be left
     /// unspecified or set to `ARTIFACT_REGISTRY`.
+    #[deprecated]
     pub docker_registry: crate::model::build_config::DockerRegistry,
 
     /// Repository in Artifact Registry to which the function docker image will be
@@ -1199,6 +1200,7 @@ impl BuildConfig {
     }
 
     /// Sets the value of [docker_registry][crate::model::BuildConfig::docker_registry].
+    #[deprecated]
     pub fn set_docker_registry<
         T: std::convert::Into<crate::model::build_config::DockerRegistry>,
     >(

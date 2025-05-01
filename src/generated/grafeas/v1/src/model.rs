@@ -11678,6 +11678,7 @@ pub mod vulnerability_assessment_note {
         /// tracking number for the vulnerability.
         /// Deprecated: Use vulnerability_id instead to denote CVEs.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[deprecated]
         pub cve: std::string::String,
 
         /// The vulnerability identifier for this Assessment. Will hold one of
@@ -11730,6 +11731,7 @@ pub mod vulnerability_assessment_note {
         }
 
         /// Sets the value of [cve][crate::model::vulnerability_assessment_note::Assessment::cve].
+        #[deprecated]
         pub fn set_cve<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cve = v.into();
             self
@@ -13306,6 +13308,7 @@ pub mod vulnerability_occurrence {
         /// tracking number for the vulnerability.
         /// Deprecated: Use vulnerability_id instead to denote CVEs.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[deprecated]
         pub cve: std::string::String,
 
         /// The vulnerability identifier for this Assessment. Will hold one of
@@ -13356,6 +13359,7 @@ pub mod vulnerability_occurrence {
         }
 
         /// Sets the value of [cve][crate::model::vulnerability_occurrence::VexAssessment::cve].
+        #[deprecated]
         pub fn set_cve<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cve = v.into();
             self

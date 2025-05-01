@@ -1258,6 +1258,7 @@ impl wkt::message::Message for FaceSegment {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct FaceFrame {
     /// Normalized Bounding boxes in a frame.
     /// There can be more than one boxes if the same face is detected in multiple
@@ -1311,6 +1312,7 @@ impl wkt::message::Message for FaceFrame {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct FaceAnnotation {
     /// Thumbnail of a representative face view (in JPEG format).
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
@@ -1687,6 +1689,7 @@ pub struct VideoAnnotationResults {
 
     /// Deprecated. Please use `face_detection_annotations` instead.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub face_annotations: std::vec::Vec<crate::model::FaceAnnotation>,
 
     /// Face detection annotations.
@@ -1828,6 +1831,7 @@ impl VideoAnnotationResults {
     }
 
     /// Sets the value of [face_annotations][crate::model::VideoAnnotationResults::face_annotations].
+    #[deprecated]
     pub fn set_face_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

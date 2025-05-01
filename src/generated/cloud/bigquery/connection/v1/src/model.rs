@@ -1079,6 +1079,7 @@ impl AwsProperties {
     /// The value of [authentication_method][crate::model::AwsProperties::authentication_method]
     /// if it holds a `CrossAccountRole`, `None` if the field is not set or
     /// holds a different branch.
+    #[deprecated]
     pub fn cross_account_role(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::AwsCrossAccountRole>> {
@@ -1111,6 +1112,7 @@ impl AwsProperties {
     ///
     /// Note that all the setters affecting `authentication_method` are
     /// mutually exclusive.
+    #[deprecated]
     pub fn set_cross_account_role<
         T: std::convert::Into<std::boxed::Box<crate::model::AwsCrossAccountRole>>,
     >(
@@ -1158,6 +1160,7 @@ pub mod aws_properties {
         /// Authentication using Google owned AWS IAM user's access key to assume
         /// into customer's AWS IAM Role.
         /// Deprecated, do not use.
+        #[deprecated]
         CrossAccountRole(std::boxed::Box<crate::model::AwsCrossAccountRole>),
         /// Authentication using Google owned service account to assume into
         /// customer's AWS IAM Role.

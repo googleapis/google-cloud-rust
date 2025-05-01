@@ -423,6 +423,7 @@ pub struct Workload {
     /// In order to create a Keyring, callers should specify,
     /// ENCRYPTION_KEYS_PROJECT or KEYRING in ResourceSettings.resource_type field.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub kms_settings: std::option::Option<crate::model::workload::KMSSettings>,
 
     /// Input only. Resource properties that are used to customize workload resources.
@@ -518,6 +519,7 @@ impl Workload {
     }
 
     /// Sets the value of [kms_settings][crate::model::Workload::kms_settings].
+    #[deprecated]
     pub fn set_kms_settings<
         T: std::convert::Into<std::option::Option<crate::model::workload::KMSSettings>>,
     >(
@@ -700,6 +702,7 @@ pub mod workload {
             /// ignored only in CreateWorkload requests. ListWorkloads and GetWorkload
             /// will continue to provide projects information.
             /// Use CONSUMER_FOLDER instead.
+            #[deprecated]
             ConsumerProject,
             /// Consumer Folder.
             ConsumerFolder,
@@ -839,6 +842,7 @@ pub mod workload {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
+    #[deprecated]
     pub struct KMSSettings {
         /// Required. Input only. Immutable. The time at which the Key Management Service will automatically create a
         /// new version of the crypto key and mark it as the primary.
@@ -2090,6 +2094,7 @@ pub struct AcknowledgeViolationRequest {
     /// folders/{folder_id}/policies/{constraint_name}
     /// organizations/{organization_id}/policies/{constraint_name}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub non_compliant_org_policy: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2114,6 +2119,7 @@ impl AcknowledgeViolationRequest {
     }
 
     /// Sets the value of [non_compliant_org_policy][crate::model::AcknowledgeViolationRequest::non_compliant_org_policy].
+    #[deprecated]
     pub fn set_non_compliant_org_policy<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,

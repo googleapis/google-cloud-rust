@@ -7173,6 +7173,7 @@ impl AppProfile {
     /// The value of [isolation][crate::model::AppProfile::isolation]
     /// if it holds a `Priority`, `None` if the field is not set or
     /// holds a different branch.
+    #[deprecated]
     pub fn priority(&self) -> std::option::Option<&crate::model::app_profile::Priority> {
         #[allow(unreachable_patterns)]
         self.isolation.as_ref().and_then(|v| match v {
@@ -7217,6 +7218,7 @@ impl AppProfile {
     ///
     /// Note that all the setters affecting `isolation` are
     /// mutually exclusive.
+    #[deprecated]
     pub fn set_priority<T: std::convert::Into<crate::model::app_profile::Priority>>(
         mut self,
         v: T,
@@ -7859,6 +7861,7 @@ pub mod app_profile {
         /// If you set this field, `standard_isolation.priority` will be set instead.
         ///
         /// The priority of requests sent using this app profile.
+        #[deprecated]
         Priority(crate::model::app_profile::Priority),
         /// The standard options used for isolating this app profile's traffic from
         /// other use cases.
@@ -11370,6 +11373,7 @@ pub mod r#type {
             /// The value of [encoding][crate::model::r#type::string::Encoding::encoding]
             /// if it holds a `Utf8Raw`, `None` if the field is not set or
             /// holds a different branch.
+            #[deprecated]
             pub fn utf8_raw(
                 &self,
             ) -> std::option::Option<
@@ -11406,6 +11410,7 @@ pub mod r#type {
             ///
             /// Note that all the setters affecting `encoding` are
             /// mutually exclusive.
+            #[deprecated]
             pub fn set_utf8_raw<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::r#type::string::encoding::Utf8Raw>,
@@ -11456,6 +11461,7 @@ pub mod r#type {
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
             #[non_exhaustive]
+            #[deprecated]
             pub struct Utf8Raw {
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -11514,6 +11520,7 @@ pub mod r#type {
             #[non_exhaustive]
             pub enum Encoding {
                 /// Deprecated: if set, converts to an empty `utf8_bytes`.
+                #[deprecated]
                 Utf8Raw(std::boxed::Box<crate::model::r#type::string::encoding::Utf8Raw>),
                 /// Use `Utf8Bytes` encoding.
                 Utf8Bytes(std::boxed::Box<crate::model::r#type::string::encoding::Utf8Bytes>),
@@ -11701,6 +11708,7 @@ pub mod r#type {
             pub struct BigEndianBytes {
                 /// Deprecated: ignored if set.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[deprecated]
                 pub bytes_type: std::option::Option<crate::model::r#type::Bytes>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11713,6 +11721,7 @@ pub mod r#type {
                 }
 
                 /// Sets the value of [bytes_type][crate::model::r#type::int_64::encoding::BigEndianBytes::bytes_type].
+                #[deprecated]
                 pub fn set_bytes_type<
                     T: std::convert::Into<std::option::Option<crate::model::r#type::Bytes>>,
                 >(

@@ -290,6 +290,7 @@ pub mod submit_build_request {
     pub struct BuildpacksBuild {
         /// The runtime name, e.g. 'go113'. Leave blank for generic builds.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[deprecated]
         pub runtime: std::string::String,
 
         /// Optional. Name of the function target if the source is a function source.
@@ -336,6 +337,7 @@ pub mod submit_build_request {
         }
 
         /// Sets the value of [runtime][crate::model::submit_build_request::BuildpacksBuild::runtime].
+        #[deprecated]
         pub fn set_runtime<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.runtime = v.into();
             self

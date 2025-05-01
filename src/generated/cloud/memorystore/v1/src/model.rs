@@ -1235,6 +1235,7 @@ pub mod instance {
         /// Mode is not specified.
         Unspecified,
         /// Deprecated: Use CLUSTER_DISABLED instead.
+        #[deprecated]
         Standalone,
         /// Instance is in cluster mode.
         Cluster,

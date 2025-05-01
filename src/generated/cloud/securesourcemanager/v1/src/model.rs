@@ -515,6 +515,7 @@ pub mod instance {
         PausedCmekUnavailable,
         /// INSTANCE_RESUMING indicates that the instance was previously paused
         /// and is under the process of being brought back.
+        #[deprecated]
         InstanceResuming,
         /// If set, the enum was initialized with an unknown value.
         ///

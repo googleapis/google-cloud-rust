@@ -77,6 +77,7 @@ pub struct Instance {
     /// Output only. Deprecated 'daos_version' field.
     /// Output only. The version of DAOS software running in the instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub daos_version: std::string::String,
 
     /// Output only. A list of IPv4 addresses used for client side configuration.
@@ -180,6 +181,7 @@ impl Instance {
     }
 
     /// Sets the value of [daos_version][crate::model::Instance::daos_version].
+    #[deprecated]
     pub fn set_daos_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.daos_version = v.into();
         self

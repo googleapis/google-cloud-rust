@@ -2564,6 +2564,7 @@ impl Step {
     /// The value of [step_info][crate::model::Step::step_info]
     /// if it holds a `LoadBalancer`, `None` if the field is not set or
     /// holds a different branch.
+    #[deprecated]
     pub fn load_balancer(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::LoadBalancerInfo>> {
@@ -2961,6 +2962,7 @@ impl Step {
     ///
     /// Note that all the setters affecting `step_info` are
     /// mutually exclusive.
+    #[deprecated]
     pub fn set_load_balancer<
         T: std::convert::Into<std::boxed::Box<crate::model::LoadBalancerInfo>>,
     >(
@@ -3270,10 +3272,12 @@ pub mod step {
         /// Forwarding state: arriving at a Compute Engine internal load balancer.
         /// Deprecated in favor of the `ANALYZE_LOAD_BALANCER_BACKEND` state, not
         /// used in new tests.
+        #[deprecated]
         ArriveAtInternalLoadBalancer,
         /// Forwarding state: arriving at a Compute Engine external load balancer.
         /// Deprecated in favor of the `ANALYZE_LOAD_BALANCER_BACKEND` state, not
         /// used in new tests.
+        #[deprecated]
         ArriveAtExternalLoadBalancer,
         /// Forwarding state: arriving at a Cloud VPN gateway.
         ArriveAtVpnGateway,
@@ -3661,6 +3665,7 @@ pub mod step {
         Drop(std::boxed::Box<crate::model::DropInfo>),
         /// Display information of the load balancers. Deprecated in favor of the
         /// `load_balancer_backend_info` field, not used in new tests.
+        #[deprecated]
         LoadBalancer(std::boxed::Box<crate::model::LoadBalancerInfo>),
         /// Display information of a Google Cloud network.
         Network(std::boxed::Box<crate::model::NetworkInfo>),
@@ -3728,6 +3733,7 @@ pub struct InstanceInfo {
 
     /// Service account authorized for the instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub service_account: std::string::String,
 
     /// URI of the PSC network attachment the NIC is attached to (if relevant).
@@ -3780,6 +3786,7 @@ impl InstanceInfo {
     }
 
     /// Sets the value of [service_account][crate::model::InstanceInfo::service_account].
+    #[deprecated]
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
@@ -4281,6 +4288,7 @@ pub struct RouteInfo {
 
     /// Indicates where route is applicable. Deprecated, routes with NCC_HUB scope
     /// are not included in the trace in new tests.
+    #[deprecated]
     pub route_scope: crate::model::route_info::RouteScope,
 
     /// Name of a route.
@@ -4306,6 +4314,7 @@ pub struct RouteInfo {
     /// Deprecated in favor of the next_hop_type and next_hop_uri fields, not used
     /// in new tests.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub next_hop: std::string::String,
 
     /// URI of a VPC network where route is located.
@@ -4357,6 +4366,7 @@ pub struct RouteInfo {
     /// network. Deprecated in favor of the next_hop_uri field, not used in new
     /// tests.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub advertised_route_next_hop_uri: std::option::Option<std::string::String>,
 
     /// URI of the next hop resource.
@@ -4410,6 +4420,7 @@ impl RouteInfo {
     }
 
     /// Sets the value of [route_scope][crate::model::RouteInfo::route_scope].
+    #[deprecated]
     pub fn set_route_scope<T: std::convert::Into<crate::model::route_info::RouteScope>>(
         mut self,
         v: T,
@@ -4443,6 +4454,7 @@ impl RouteInfo {
     }
 
     /// Sets the value of [next_hop][crate::model::RouteInfo::next_hop].
+    #[deprecated]
     pub fn set_next_hop<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_hop = v.into();
         self
@@ -4496,6 +4508,7 @@ impl RouteInfo {
     }
 
     /// Sets the value of [advertised_route_next_hop_uri][crate::model::RouteInfo::advertised_route_next_hop_uri].
+    #[deprecated]
     pub fn set_advertised_route_next_hop_uri<
         T: std::convert::Into<std::option::Option<std::string::String>>,
     >(
@@ -5526,6 +5539,7 @@ pub struct LoadBalancerInfo {
     /// populated as different load balancer backends might have different health
     /// checks.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub health_check_uri: std::string::String,
 
     /// Information for the loadbalancer backends.
@@ -5560,6 +5574,7 @@ impl LoadBalancerInfo {
     }
 
     /// Sets the value of [health_check_uri][crate::model::LoadBalancerInfo::health_check_uri].
+    #[deprecated]
     pub fn set_health_check_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7004,10 +7019,12 @@ pub mod forward_info {
         /// Forwarded to a Cloud Interconnect connection.
         Interconnect,
         /// Forwarded to a Google Kubernetes Engine Container cluster master.
+        #[deprecated]
         GkeMaster,
         /// Forwarded to the next hop of a custom route imported from a peering VPC.
         ImportedCustomRouteNextHop,
         /// Forwarded to a Cloud SQL instance.
+        #[deprecated]
         CloudSqlInstance,
         /// Forwarded to a VPC network in another project.
         AnotherProject,
@@ -7257,28 +7274,36 @@ pub mod abort_info {
         /// Cause is unspecified.
         Unspecified,
         /// Aborted due to unknown network. Deprecated, not used in the new tests.
+        #[deprecated]
         UnknownNetwork,
         /// Aborted because no project information can be derived from the test
         /// input. Deprecated, not used in the new tests.
+        #[deprecated]
         UnknownProject,
         /// Aborted because traffic is sent from a public IP to an instance without
         /// an external IP. Deprecated, not used in the new tests.
+        #[deprecated]
         NoExternalIp,
         /// Aborted because none of the traces matches destination information
         /// specified in the input test request. Deprecated, not used in the new
         /// tests.
+        #[deprecated]
         UnintendedDestination,
         /// Aborted because the source endpoint could not be found. Deprecated, not
         /// used in the new tests.
+        #[deprecated]
         SourceEndpointNotFound,
         /// Aborted because the source network does not match the source endpoint.
         /// Deprecated, not used in the new tests.
+        #[deprecated]
         MismatchedSourceNetwork,
         /// Aborted because the destination endpoint could not be found. Deprecated,
         /// not used in the new tests.
+        #[deprecated]
         DestinationEndpointNotFound,
         /// Aborted because the destination network does not match the destination
         /// endpoint. Deprecated, not used in the new tests.
+        #[deprecated]
         MismatchedDestinationNetwork,
         /// Aborted because no endpoint with the packet's destination IP address is
         /// found.

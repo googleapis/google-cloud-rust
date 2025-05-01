@@ -193,6 +193,7 @@ pub struct ServiceAccount {
     /// Deprecated. Do not use.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
+    #[deprecated]
     pub etag: ::bytes::Bytes,
 
     /// Optional. A user-specified, human-readable description of the service account. The
@@ -248,6 +249,7 @@ impl ServiceAccount {
     }
 
     /// Sets the value of [etag][crate::model::ServiceAccount::etag].
+    #[deprecated]
     pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -1448,6 +1450,7 @@ pub struct SignBlobRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub name: std::string::String,
 
     /// Required. Deprecated. [Migrate to Service Account Credentials
@@ -1456,6 +1459,7 @@ pub struct SignBlobRequest {
     /// The bytes to sign.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
+    #[deprecated]
     pub bytes_to_sign: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1468,12 +1472,14 @@ impl SignBlobRequest {
     }
 
     /// Sets the value of [name][crate::model::SignBlobRequest::name].
+    #[deprecated]
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [bytes_to_sign][crate::model::SignBlobRequest::bytes_to_sign].
+    #[deprecated]
     pub fn set_bytes_to_sign<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.bytes_to_sign = v.into();
         self
@@ -1500,6 +1506,7 @@ pub struct SignBlobResponse {
     ///
     /// The id of the key used to sign the blob.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub key_id: std::string::String,
 
     /// Deprecated. [Migrate to Service Account Credentials
@@ -1508,6 +1515,7 @@ pub struct SignBlobResponse {
     /// The signed blob.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
+    #[deprecated]
     pub signature: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1520,12 +1528,14 @@ impl SignBlobResponse {
     }
 
     /// Sets the value of [key_id][crate::model::SignBlobResponse::key_id].
+    #[deprecated]
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
         self
     }
 
     /// Sets the value of [signature][crate::model::SignBlobResponse::signature].
+    #[deprecated]
     pub fn set_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
         self
@@ -1556,6 +1566,7 @@ pub struct SignJwtRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub name: std::string::String,
 
     /// Required. Deprecated. [Migrate to Service Account Credentials
@@ -1572,6 +1583,7 @@ pub struct SignJwtRequest {
     /// this claim is added automatically, with a timestamp that is 1 hour in the
     /// future.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub payload: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1584,12 +1596,14 @@ impl SignJwtRequest {
     }
 
     /// Sets the value of [name][crate::model::SignJwtRequest::name].
+    #[deprecated]
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
+    #[deprecated]
     pub fn set_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload = v.into();
         self
@@ -1616,6 +1630,7 @@ pub struct SignJwtResponse {
     ///
     /// The id of the key used to sign the JWT.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub key_id: std::string::String,
 
     /// Deprecated. [Migrate to Service Account Credentials
@@ -1623,6 +1638,7 @@ pub struct SignJwtResponse {
     ///
     /// The signed JWT.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub signed_jwt: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1635,12 +1651,14 @@ impl SignJwtResponse {
     }
 
     /// Sets the value of [key_id][crate::model::SignJwtResponse::key_id].
+    #[deprecated]
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
         self
     }
 
     /// Sets the value of [signed_jwt][crate::model::SignJwtResponse::signed_jwt].
+    #[deprecated]
     pub fn set_signed_jwt<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.signed_jwt = v.into();
         self
@@ -2603,6 +2621,7 @@ pub struct Permission {
     pub description: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub only_in_predefined_roles: bool,
 
     /// The current launch stage of the permission.
@@ -2648,6 +2667,7 @@ impl Permission {
     }
 
     /// Sets the value of [only_in_predefined_roles][crate::model::Permission::only_in_predefined_roles].
+    #[deprecated]
     pub fn set_only_in_predefined_roles<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.only_in_predefined_roles = v.into();
         self

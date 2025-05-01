@@ -2751,6 +2751,7 @@ pub struct VpnConnection {
     pub nat_gateway_ip: std::string::String,
 
     /// Dynamic routing mode of the VPC network, `regional` or `global`.
+    #[deprecated]
     pub bgp_routing_mode: crate::model::vpn_connection::BgpRoutingMode,
 
     /// The canonical Cluster name to connect to. It is in the form of
@@ -2820,6 +2821,7 @@ impl VpnConnection {
     }
 
     /// Sets the value of [bgp_routing_mode][crate::model::VpnConnection::bgp_routing_mode].
+    #[deprecated]
     pub fn set_bgp_routing_mode<
         T: std::convert::Into<crate::model::vpn_connection::BgpRoutingMode>,
     >(
@@ -2913,6 +2915,7 @@ pub mod vpn_connection {
 
         /// Optional. Deprecated: do not use.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[deprecated]
         pub service_account: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2931,6 +2934,7 @@ pub mod vpn_connection {
         }
 
         /// Sets the value of [service_account][crate::model::vpn_connection::VpcProject::service_account].
+        #[deprecated]
         pub fn set_service_account<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,

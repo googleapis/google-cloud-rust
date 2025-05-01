@@ -2100,6 +2100,7 @@ pub struct LogSink {
     pub exclusions: std::vec::Vec<crate::model::LogExclusion>,
 
     /// Deprecated. This field is unused.
+    #[deprecated]
     pub output_version_format: crate::model::log_sink::VersionFormat,
 
     /// Output only. An IAM identity&mdash;a service account or group&mdash;under
@@ -2202,6 +2203,7 @@ impl LogSink {
     }
 
     /// Sets the value of [output_version_format][crate::model::LogSink::output_version_format].
+    #[deprecated]
     pub fn set_output_version_format<
         T: std::convert::Into<crate::model::log_sink::VersionFormat>,
     >(
@@ -5754,6 +5756,7 @@ pub struct LogMetric {
 
     /// Deprecated. The API version that created or updated this metric.
     /// The v2 format is used by default and cannot be changed.
+    #[deprecated]
     pub version: crate::model::log_metric::ApiVersion,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5842,6 +5845,7 @@ impl LogMetric {
     }
 
     /// Sets the value of [version][crate::model::LogMetric::version].
+    #[deprecated]
     pub fn set_version<T: std::convert::Into<crate::model::log_metric::ApiVersion>>(
         mut self,
         v: T,

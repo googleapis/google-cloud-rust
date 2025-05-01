@@ -4542,6 +4542,7 @@ impl wkt::message::Message for SearchEntriesRequest {
 pub struct SearchEntriesResult {
     /// Linked resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub linked_resource: std::string::String,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -4549,6 +4550,7 @@ pub struct SearchEntriesResult {
 
     /// Snippets.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub snippets: std::option::Option<crate::model::search_entries_result::Snippets>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4561,6 +4563,7 @@ impl SearchEntriesResult {
     }
 
     /// Sets the value of [linked_resource][crate::model::SearchEntriesResult::linked_resource].
+    #[deprecated]
     pub fn set_linked_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.linked_resource = v.into();
         self
@@ -4576,6 +4579,7 @@ impl SearchEntriesResult {
     }
 
     /// Sets the value of [snippets][crate::model::SearchEntriesResult::snippets].
+    #[deprecated]
     pub fn set_snippets<
         T: std::convert::Into<std::option::Option<crate::model::search_entries_result::Snippets>>,
     >(
@@ -4604,9 +4608,11 @@ pub mod search_entries_result {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
+    #[deprecated]
     pub struct Snippets {
         /// Entry
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[deprecated]
         pub dataplex_entry: std::option::Option<crate::model::Entry>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4619,6 +4625,7 @@ pub mod search_entries_result {
         }
 
         /// Sets the value of [dataplex_entry][crate::model::search_entries_result::Snippets::dataplex_entry].
+        #[deprecated]
         pub fn set_dataplex_entry<
             T: std::convert::Into<std::option::Option<crate::model::Entry>>,
         >(
@@ -12042,6 +12049,7 @@ impl wkt::message::Message for DataQualityColumnResult {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct DataTaxonomy {
     /// Output only. The relative resource name of the DataTaxonomy, of the form:
     /// projects/{project_number}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}.
@@ -12191,6 +12199,7 @@ impl wkt::message::Message for DataTaxonomy {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct DataAttribute {
     /// Output only. The relative resource name of the dataAttribute, of the form:
     /// projects/{project_number}/locations/{location_id}/dataTaxonomies/{dataTaxonomy}/attributes/{data_attribute_id}.
@@ -12366,6 +12375,7 @@ impl wkt::message::Message for DataAttribute {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct DataAttributeBinding {
     /// Output only. The relative resource name of the Data Attribute Binding, of
     /// the form:
@@ -12640,6 +12650,7 @@ pub mod data_attribute_binding {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct CreateDataTaxonomyRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
@@ -12716,6 +12727,7 @@ impl wkt::message::Message for CreateDataTaxonomyRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct UpdateDataTaxonomyRequest {
     /// Required. Mask of fields to update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -12777,6 +12789,7 @@ impl wkt::message::Message for UpdateDataTaxonomyRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct GetDataTaxonomyRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
@@ -12965,6 +12978,7 @@ impl gax::paginator::internal::PageableResponse for ListDataTaxonomiesResponse {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct DeleteDataTaxonomyRequest {
     /// Required. The resource name of the DataTaxonomy:
     /// projects/{project_number}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}
@@ -21924,6 +21938,7 @@ pub struct DeletePartitionRequest {
 
     /// Optional. The etag associated with the partition.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21942,6 +21957,7 @@ impl DeletePartitionRequest {
     }
 
     /// Sets the value of [etag][crate::model::DeletePartitionRequest::etag].
+    #[deprecated]
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -22568,6 +22584,7 @@ pub struct Partition {
 
     /// Optional. The etag for this partition.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22592,6 +22609,7 @@ impl Partition {
     }
 
     /// Sets the value of [etag][crate::model::Partition::etag].
+    #[deprecated]
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self

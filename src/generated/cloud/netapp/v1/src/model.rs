@@ -7459,6 +7459,7 @@ pub struct StoragePool {
     /// Deprecated. Used to allow SO pool to access AD or DNS server from other
     /// regions.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub global_access_allowed: std::option::Option<bool>,
 
     /// Optional. True if the storage pool supports Auto Tiering enabled volumes.
@@ -7598,6 +7599,7 @@ impl StoragePool {
     }
 
     /// Sets the value of [global_access_allowed][crate::model::StoragePool::global_access_allowed].
+    #[deprecated]
     pub fn set_global_access_allowed<T: std::convert::Into<std::option::Option<bool>>>(
         mut self,
         v: T,

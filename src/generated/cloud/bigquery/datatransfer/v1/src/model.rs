@@ -451,10 +451,12 @@ pub struct DataSource {
     pub scopes: std::vec::Vec<std::string::String>,
 
     /// Deprecated. This field has no effect.
+    #[deprecated]
     pub transfer_type: crate::model::TransferType,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub supports_multiple_transfers: bool,
 
     /// The number of seconds to wait for an update from the data source
@@ -547,6 +549,7 @@ impl DataSource {
     }
 
     /// Sets the value of [transfer_type][crate::model::DataSource::transfer_type].
+    #[deprecated]
     pub fn set_transfer_type<T: std::convert::Into<crate::model::TransferType>>(
         mut self,
         v: T,
@@ -556,6 +559,7 @@ impl DataSource {
     }
 
     /// Sets the value of [supports_multiple_transfers][crate::model::DataSource::supports_multiple_transfers].
+    #[deprecated]
     pub fn set_supports_multiple_transfers<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.supports_multiple_transfers = v.into();
         self
@@ -1151,6 +1155,7 @@ pub struct CreateTransferConfigRequest {
     /// Note that this should not be set when `service_account_name` is used to
     /// create the transfer config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub authorization_code: std::string::String,
 
     /// Optional version info. This parameter replaces `authorization_code` which
@@ -1208,6 +1213,7 @@ impl CreateTransferConfigRequest {
     }
 
     /// Sets the value of [authorization_code][crate::model::CreateTransferConfigRequest::authorization_code].
+    #[deprecated]
     pub fn set_authorization_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1271,6 +1277,7 @@ pub struct UpdateTransferConfigRequest {
     /// Note that this should not be set when `service_account_name` is used to
     /// update the transfer config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub authorization_code: std::string::String,
 
     /// Required. Required list of fields to be updated in this request.
@@ -1326,6 +1333,7 @@ impl UpdateTransferConfigRequest {
     }
 
     /// Sets the value of [authorization_code][crate::model::UpdateTransferConfigRequest::authorization_code].
+    #[deprecated]
     pub fn set_authorization_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3888,6 +3896,7 @@ pub mod transfer_message {
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub enum TransferType {
     /// Invalid or Unknown transfer type placeholder.
     Unspecified,

@@ -65,6 +65,7 @@ pub struct ReplicationCycle {
     /// Was replaced by 'steps' field, which breaks down the cycle progression more
     /// accurately.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub progress_percent: i32,
 
     /// The cycle's steps list representing its progress.
@@ -127,6 +128,7 @@ impl ReplicationCycle {
     }
 
     /// Sets the value of [progress_percent][crate::model::ReplicationCycle::progress_percent].
+    #[deprecated]
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
         self

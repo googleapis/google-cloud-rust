@@ -3248,6 +3248,7 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [page_token][crate::model::PredictRequest::page_token].
+        #[deprecated]
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -3952,6 +3953,7 @@ pub mod product_service {
         }
 
         /// Sets the value of [request_id][crate::model::ImportProductsRequest::request_id].
+        #[deprecated]
         pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.request_id = v.into();
             self
@@ -4909,6 +4911,7 @@ pub mod search_service {
         }
 
         /// Sets the value of [dynamic_facet_spec][crate::model::SearchRequest::dynamic_facet_spec].
+        #[deprecated]
         pub fn set_dynamic_facet_spec<
             T: Into<std::option::Option<crate::model::search_request::DynamicFacetSpec>>,
         >(

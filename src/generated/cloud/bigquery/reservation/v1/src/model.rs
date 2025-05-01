@@ -594,11 +594,13 @@ pub mod capacity_commitment {
         Flex,
         /// Same as FLEX, should only be used if flat-rate commitments are still
         /// available.
+        #[deprecated]
         FlexFlatRate,
         /// Trial commitments have a committed period of 182 days after becoming
         /// ACTIVE. After that, they are converted to a new commitment based on the
         /// `renewal_plan`. Default `renewal_plan` for Trial commitment is Flex so
         /// that it can be deleted right after committed period ends.
+        #[deprecated]
         Trial,
         /// Monthly commitments have a committed period of 30 days after becoming
         /// ACTIVE. After that, they are not in a committed period anymore and can be
@@ -606,6 +608,7 @@ pub mod capacity_commitment {
         Monthly,
         /// Same as MONTHLY, should only be used if flat-rate commitments are still
         /// available.
+        #[deprecated]
         MonthlyFlatRate,
         /// Annual commitments have a committed period of 365 days after becoming
         /// ACTIVE. After that they are converted to a new commitment based on the
@@ -613,6 +616,7 @@ pub mod capacity_commitment {
         Annual,
         /// Same as ANNUAL, should only be used if flat-rate commitments are still
         /// available.
+        #[deprecated]
         AnnualFlatRate,
         /// 3-year commitments have a committed period of 1095(3 * 365) days after
         /// becoming ACTIVE. After that they are converted to a new commitment based

@@ -8184,6 +8184,7 @@ pub mod metadata_service {
         }
 
         /// Sets the value of [etag][crate::model::DeletePartitionRequest::etag].
+        #[deprecated]
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self

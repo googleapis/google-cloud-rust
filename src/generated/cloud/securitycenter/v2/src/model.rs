@@ -1729,11 +1729,13 @@ pub struct Attack {
     /// Total PPS (packets per second) volume of attack. Deprecated - refer to
     /// volume_pps_long instead.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub volume_pps: i32,
 
     /// Total BPS (bytes per second) volume of attack. Deprecated - refer to
     /// volume_bps_long instead.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub volume_bps: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1764,12 +1766,14 @@ impl Attack {
     }
 
     /// Sets the value of [volume_pps][crate::model::Attack::volume_pps].
+    #[deprecated]
     pub fn set_volume_pps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.volume_pps = v.into();
         self
     }
 
     /// Sets the value of [volume_bps][crate::model::Attack::volume_bps].
+    #[deprecated]
     pub fn set_volume_bps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.volume_bps = v.into();
         self

@@ -8794,6 +8794,7 @@ pub mod project_settings {
         /// Redirection is enabled.
         RedirectionFromGcrIoEnabled,
         /// Redirection is enabled, and has been finalized so cannot be reverted.
+        #[deprecated]
         RedirectionFromGcrIoFinalized,
         /// Redirection is enabled and missing images are copied from GCR
         RedirectionFromGcrIoEnabledAndCopying,

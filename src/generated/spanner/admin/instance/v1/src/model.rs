@@ -4241,6 +4241,7 @@ pub struct InstancePartition {
     /// existence of any referencing backup prevents the instance partition from
     /// being deleted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub referencing_backups: std::vec::Vec<std::string::String>,
 
     /// Used for optimistic concurrency control as a way
@@ -4337,6 +4338,7 @@ impl InstancePartition {
     }
 
     /// Sets the value of [referencing_backups][crate::model::InstancePartition::referencing_backups].
+    #[deprecated]
     pub fn set_referencing_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

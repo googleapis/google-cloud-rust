@@ -982,6 +982,7 @@ pub struct Dataset {
     /// Output only. Tags for the dataset. To provide tags as inputs, use the
     /// `resourceTags` field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub tags: std::vec::Vec<crate::model::GcpTag>,
 
     /// Optional. Updates storage_billing_model for the dataset.
@@ -1261,6 +1262,7 @@ impl Dataset {
     }
 
     /// Sets the value of [tags][crate::model::Dataset::tags].
+    #[deprecated]
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

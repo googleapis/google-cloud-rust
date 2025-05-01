@@ -28040,6 +28040,7 @@ pub struct DataProfileConfigSnapshot {
     /// for backwards compatibility, but will not be updated with new fields, while
     /// DiscoveryConfig will.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub data_profile_job: std::option::Option<crate::model::DataProfileJobConfig>,
 
     /// A copy of the configuration used to generate this profile.
@@ -28075,6 +28076,7 @@ impl DataProfileConfigSnapshot {
     }
 
     /// Sets the value of [data_profile_job][crate::model::DataProfileConfigSnapshot::data_profile_job].
+    #[deprecated]
     pub fn set_data_profile_job<
         T: std::convert::Into<std::option::Option<crate::model::DataProfileJobConfig>>,
     >(
@@ -28734,6 +28736,7 @@ pub struct InfoTypeSummary {
 
     /// Not populated for predicted infotypes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub estimated_prevalence: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28755,6 +28758,7 @@ impl InfoTypeSummary {
     }
 
     /// Sets the value of [estimated_prevalence][crate::model::InfoTypeSummary::estimated_prevalence].
+    #[deprecated]
     pub fn set_estimated_prevalence<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.estimated_prevalence = v.into();
         self

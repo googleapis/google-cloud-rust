@@ -742,6 +742,7 @@ pub struct Instance {
 
     /// Output only. Deprecated. Use tenant_project_id instead to extract the tenant project ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub service_account: std::string::String,
 
     /// Display name for an instance.
@@ -902,6 +903,7 @@ impl Instance {
     }
 
     /// Sets the value of [service_account][crate::model::Instance::service_account].
+    #[deprecated]
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
