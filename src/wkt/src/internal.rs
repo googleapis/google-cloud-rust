@@ -79,6 +79,14 @@ impl serde::de::Visitor<'_> for FloatVisitor {
     }
 }
 
+// For skipping serialization of default values of bool/numeric types.
+pub fn is_default<T>(t: &T) -> bool
+where
+    T: Default + PartialEq,
+{
+    *t == T::default()
+}
+
 #[cfg(test)]
 mod test {
     use super::*;

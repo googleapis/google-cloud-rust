@@ -480,12 +480,26 @@ func TestJsonNameAnnotations(t *testing.T) {
 		ID:       ".test.Request.read_time",
 		Typez:    api.INT32_TYPE,
 	}
+	optional := &api.Field{
+		Name:     "optional",
+		JSONName: "optional",
+		ID:       ".test.Request.optional",
+		Typez:    api.INT32_TYPE,
+		Optional: true,
+	}
+	repeated := &api.Field{
+		Name:     "repeated",
+		JSONName: "repeated",
+		ID:       ".test.Request.repeated",
+		Typez:    api.INT32_TYPE,
+		Repeated: true,
+	}
 	message := &api.Message{
 		Name:          "Request",
 		Package:       "test",
 		ID:            ".test.Request",
 		Documentation: "A test message.",
-		Fields:        []*api.Field{parent, publicKey, readTime},
+		Fields:        []*api.Field{parent, publicKey, readTime, optional, repeated},
 	}
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 	api.CrossReference(model)
@@ -533,18 +547,56 @@ func TestJsonNameAnnotations(t *testing.T) {
 	}
 
 	if diff := cmp.Diff(&fieldAnnotations{
-		FieldName:          "read_time",
-		SetterName:         "read_time",
-		BranchName:         "ReadTime",
-		FQMessageName:      "crate::model::Request",
-		DocLines:           nil,
-		Attributes:         []string{},
+		FieldName:     "read_time",
+		SetterName:    "read_time",
+		BranchName:    "ReadTime",
+		FQMessageName: "crate::model::Request",
+		DocLines:      nil,
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "wkt::internal::is_default")]`,
+		},
 		FieldType:          "i32",
 		PrimitiveFieldType: "i32",
 		AddQueryParameter:  `let builder = builder.query(&[("readTime", &req.read_time)]);`,
 		KeyType:            "",
 		ValueType:          "",
 	}, readTime.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	if diff := cmp.Diff(&fieldAnnotations{
+		FieldName:     "optional",
+		SetterName:    "optional",
+		BranchName:    "Optional",
+		FQMessageName: "crate::model::Request",
+		DocLines:      nil,
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+		},
+		FieldType:          "std::option::Option<i32>",
+		PrimitiveFieldType: "i32",
+		AddQueryParameter:  `let builder = req.optional.iter().fold(builder, |builder, p| builder.query(&[("optional", p)]));`,
+		KeyType:            "",
+		ValueType:          "",
+	}, optional.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	if diff := cmp.Diff(&fieldAnnotations{
+		FieldName:     "repeated",
+		SetterName:    "repeated",
+		BranchName:    "Repeated",
+		FQMessageName: "crate::model::Request",
+		DocLines:      nil,
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+		},
+		FieldType:          "std::vec::Vec<i32>",
+		PrimitiveFieldType: "i32",
+		AddQueryParameter:  `let builder = req.repeated.iter().fold(builder, |builder, p| builder.query(&[("repeated", p)]));`,
+		KeyType:            "",
+		ValueType:          "",
+	}, repeated.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
 }
