@@ -56,8 +56,7 @@ pub async fn paginator_stream_pages(project_id: &str) -> crate::Result<()> {
         .paginator()
         .await
         .into_stream();
-    let _ = list
-        .enumerate()
+    list.enumerate()
         .map(|(index, page)| -> gax::Result<()> {
             println!("page={}, next_page_token={}", index, page?.next_page_token);
             Ok(())
@@ -112,17 +111,14 @@ pub async fn paginator_stream_items(project_id: &str) -> crate::Result<()> {
         .await
         .items()
         .into_stream();
-
-
-    let _ = list
-        .map(|secret| -> gax::Result<()> {
-            println!("  secret={}", secret?.name);
-            Ok(())
-        })
-        .fold(Ok(()), async |acc, result| -> gax::Result<()> {
-            acc.and(result)
-        })
-        .await?;
+    list.map(|secret| -> gax::Result<()> {
+        println!("  secret={}", secret?.name);
+        Ok(())
+    })
+    .fold(Ok(()), async |acc, result| -> gax::Result<()> {
+        acc.and(result)
+    })
+    .await?;
     // ANCHOR_END: paginator-stream-items
 
     Ok(())
