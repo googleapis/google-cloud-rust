@@ -235,6 +235,7 @@ pub struct ListWorkloadsRequest {
     pub parent: std::string::String,
 
     /// Page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token returned from previous request. Page token contains context from
@@ -435,6 +436,7 @@ pub struct Workload {
 
     /// Optional. Indicates the sovereignty status of the given workload.
     /// Currently meant to be used by Europe/Canada customers.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_sovereign_controls: bool,
 
     /// Output only. Represents the SAA enrollment response of the given workload.
@@ -628,6 +630,7 @@ pub mod workload {
     pub struct ResourceInfo {
         /// Resource identifier.
         /// For a project this represents project_number.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub resource_id: i64,
 
@@ -1672,6 +1675,7 @@ pub struct ListViolationsRequest {
     pub interval: std::option::Option<crate::model::TimeWindow>,
 
     /// Optional. Page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token returned from previous request.
@@ -1889,6 +1893,7 @@ pub struct Violation {
     pub remediation: std::option::Option<crate::model::violation::Remediation>,
 
     /// Output only. A boolean that indicates if the violation is acknowledged
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub acknowledged: bool,
 
     /// Optional. Timestamp when this violation was acknowledged last.

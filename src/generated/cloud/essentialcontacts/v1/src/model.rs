@@ -147,6 +147,7 @@ pub struct ListContactsRequest {
     /// Non-positive values are ignored. The presence of `next_page_token` in the
     /// response indicates that more results might be available.
     /// If not specified, the default page_size is 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If present, retrieves the next batch of results from the
@@ -445,6 +446,7 @@ pub struct ComputeContactsRequest {
     /// Non-positive values are ignored. The presence of `next_page_token` in the
     /// response indicates that more results might be available.
     /// If not specified, the default page_size is 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If present, retrieves the next batch of results from the

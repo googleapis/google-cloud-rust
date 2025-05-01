@@ -259,6 +259,7 @@ pub struct ListBucketsRequest {
     /// use this parameter or 1,000 items, whichever is smaller. If "acl" is
     /// present in the read_mask, the service will use this parameter of 200 items,
     /// whichever is smaller.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A previously-returned page token representing part of the larger set of
@@ -401,6 +402,7 @@ pub struct LockBucketRetentionPolicyRequest {
 
     /// Required. Makes the operation conditional on whether bucket's current
     /// metageneration matches the given value. Must be positive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub if_metageneration_match: i64,
 
@@ -702,6 +704,7 @@ pub mod compose_object_request {
         pub name: std::string::String,
 
         /// The generation of this object to use as the source.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub generation: i64,
 
@@ -818,6 +821,7 @@ pub struct DeleteObjectRequest {
 
     /// If present, permanently deletes a specific revision of this object (as
     /// opposed to the latest version, the default).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -949,6 +953,7 @@ pub struct RestoreObjectRequest {
     pub object: std::string::String,
 
     /// Required. The specific revision of the object to restore.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -1109,6 +1114,7 @@ pub struct GetObjectRequest {
 
     /// If present, selects a specific revision of this object (as opposed to the
     /// latest version, the default).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -1282,6 +1288,7 @@ pub struct ListObjectsRequest {
     /// in a single page of responses. As duplicate `prefixes` are
     /// omitted, fewer total results may be returned than requested. The service
     /// will use this parameter or 1,000 items, whichever is smaller.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A previously-returned page token representing part of the larger set of
@@ -1301,6 +1308,7 @@ pub struct ListObjectsRequest {
     /// If true, objects that end in exactly one instance of `delimiter`
     /// will have their metadata included in `items` in addition to
     /// `prefixes`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_trailing_delimiter: bool,
 
     /// Filter results to objects whose names begin with this prefix.
@@ -1311,6 +1319,7 @@ pub struct ListObjectsRequest {
     /// For more information, see
     /// [Object
     /// Versioning](https://cloud.google.com/storage/docs/object-versioning).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub versions: bool,
 
     /// Mask specifying which fields to read from each result.
@@ -1337,10 +1346,12 @@ pub struct ListObjectsRequest {
 
     /// Optional. If true, only list all soft-deleted versions of the object.
     /// Soft delete policy is required to set this option.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub soft_deleted: bool,
 
     /// Optional. If true, will also include folders and managed folders (besides
     /// objects) in the returned `prefixes`. Requires `delimiter` to be set to '/'.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_folders_as_prefixes: bool,
 
     /// Optional. Filter results to objects and prefixes that match this glob
@@ -1509,6 +1520,7 @@ pub struct RewriteObjectRequest {
 
     /// If present, selects a specific revision of the source object (as opposed to
     /// the latest version, the default).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub source_generation: i64,
 
@@ -1585,6 +1597,7 @@ pub struct RewriteObjectRequest {
     /// destination span locations and/or storage classes. Finally, this value must
     /// not change across rewrite calls else you'll get an error that the
     /// `rewriteToken` is invalid.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub max_bytes_rewritten_per_call: i64,
 
@@ -1838,16 +1851,19 @@ impl wkt::message::Message for RewriteObjectRequest {
 pub struct RewriteResponse {
     /// The total bytes written so far, which can be used to provide a waiting user
     /// with a progress indicator. This property is always present in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_bytes_rewritten: i64,
 
     /// The total size of the object being copied in bytes. This property is always
     /// present in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub object_size: i64,
 
     /// `true` if the copy is finished; otherwise, `false` if
     /// the copy is in progress. This property is always present in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub done: bool,
 
     /// A token to use in subsequent requests to continue copying data. This token
@@ -2558,6 +2574,7 @@ pub struct Bucket {
     pub project: std::string::String,
 
     /// Output only. The metadata generation of this bucket.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub metageneration: i64,
 
@@ -2637,6 +2654,7 @@ pub struct Bucket {
     /// duration of the objects begins from the moment event-based hold
     /// transitioned from true to false.  Objects under event-based hold cannot be
     /// deleted, overwritten or archived until the hold is removed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub default_event_based_hold: bool,
 
     /// User-provided labels, in key/value pairs.
@@ -2689,6 +2707,7 @@ pub struct Bucket {
     pub iam_config: std::option::Option<crate::model::bucket::IamConfig>,
 
     /// Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Configuration that, if present, specifies the data placement for a
@@ -3011,6 +3030,7 @@ pub mod bucket {
     #[non_exhaustive]
     pub struct Billing {
         /// When set to true, Requester Pays is enabled for this bucket.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub requester_pays: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3065,6 +3085,7 @@ pub mod bucket {
         /// The value, in seconds, to return in the
         /// [<https://www.w3.org/TR/cors/#access-control-max-age-response-header>][Access-Control-Max-Age
         /// header] used in preflight responses.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_age_seconds: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3225,6 +3246,7 @@ pub mod bucket {
         #[non_exhaustive]
         pub struct UniformBucketLevelAccess {
             /// If set, access checks only use bucket-level IAM policies or above.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub enabled: bool,
 
             /// The deadline time for changing
@@ -3686,6 +3708,7 @@ pub mod bucket {
         pub effective_time: std::option::Option<wkt::Timestamp>,
 
         /// Once locked, an object retention policy cannot be modified.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub is_locked: bool,
 
         /// The duration that objects need to be retained. Retention duration must be
@@ -3795,6 +3818,7 @@ pub mod bucket {
     #[non_exhaustive]
     pub struct Versioning {
         /// While set to true, versioning is fully enabled for this bucket.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3922,6 +3946,7 @@ pub mod bucket {
     #[non_exhaustive]
     pub struct Autoclass {
         /// Enables Autoclass.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         /// Output only. Latest instant at which the `enabled` field was set to true
@@ -4002,6 +4027,7 @@ pub mod bucket {
     #[non_exhaustive]
     pub struct HierarchicalNamespace {
         /// Optional. Enables the hierarchical namespace feature.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4296,6 +4322,7 @@ pub struct Object {
 
     /// Immutable. The content generation of this object. Used for object
     /// versioning.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -4309,6 +4336,7 @@ pub struct Object {
     /// object. Used for preconditions and for detecting changes in metadata. A
     /// metageneration number is only meaningful in the context of a particular
     /// generation of a particular object.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub metageneration: i64,
 
@@ -4318,6 +4346,7 @@ pub struct Object {
 
     /// Output only. Content-Length of the object data in bytes, matching
     /// [<https://tools.ietf.org/html/rfc7230#section-3.3.2>][RFC 7230 §3.3.2].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size: i64,
 
@@ -4371,6 +4400,7 @@ pub struct Object {
 
     /// Output only. Number of underlying components that make up this object.
     /// Components are accumulated by compose operations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub component_count: i32,
 
     /// Output only. Hashes for the data part of this object. This field is used
@@ -4405,6 +4435,7 @@ pub struct Object {
     /// of this flag is regulatory investigations where objects need to be retained
     /// while the investigation is ongoing. Note that unlike event-based hold,
     /// temporary hold does not impact retention expiration time of an object.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub temporary_hold: bool,
 
     /// A server-determined value that specifies the earliest time that the
@@ -5045,14 +5076,17 @@ impl wkt::message::Message for Owner {
 #[non_exhaustive]
 pub struct ContentRange {
     /// The starting offset of the object data. This value is inclusive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub start: i64,
 
     /// The ending offset of the object data. This value is exclusive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub end: i64,
 
     /// The complete length of the object data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub complete_length: i64,
 

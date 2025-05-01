@@ -325,6 +325,7 @@ pub struct Manifest {
     /// reaches this maximum number of segments, whenever a new segment is added to
     /// the manifest, the oldest segment will be removed from the manifest.
     /// The minimum value is 3 and the default value is 5.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_segment_count: i32,
 
     /// How long to keep a segment on the output Google Cloud Storage bucket after
@@ -351,6 +352,7 @@ pub struct Manifest {
     ///
     /// If false, ignore the input timecode and use the time from system clock
     /// when the manifest is first generated. This is the default behavior.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_timecode_as_timeline: bool,
 
     /// Optional. A unique key for this manifest.
@@ -514,18 +516,22 @@ pub struct SpriteSheet {
     pub file_prefix: std::string::String,
 
     /// Required. The width of the sprite in pixels. Must be an even integer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sprite_width_pixels: i32,
 
     /// Required. The height of the sprite in pixels. Must be an even integer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sprite_height_pixels: i32,
 
     /// The maximum number of sprites per row in a sprite sheet. Valid range is
     /// [1, 10] and the default value is 1.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub column_count: i32,
 
     /// The maximum number of rows per sprite sheet. When the sprite sheet is full,
     /// a new sprite sheet is created. Valid range is [1, 10] and the default value
     /// is 1.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub row_count: i32,
 
     /// Create sprites at regular intervals. Valid range is [1 second, 1 hour] and
@@ -537,6 +543,7 @@ pub struct SpriteSheet {
     /// and 100, where 1 is the lowest quality and 100 is the highest quality.
     /// The default is 100. A high quality value corresponds to a low image data
     /// compression ratio.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub quality: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -695,6 +702,7 @@ pub mod preprocessing_config {
         /// - -14 is the new online audio standard recommended by Spotify, as well as
         ///   Amazon Echo
         /// - 0 disables normalization. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub lufs: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -727,15 +735,19 @@ pub mod preprocessing_config {
     #[non_exhaustive]
     pub struct Crop {
         /// The number of pixels to crop from the top. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub top_pixels: i32,
 
         /// The number of pixels to crop from the bottom. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub bottom_pixels: i32,
 
         /// The number of pixels to crop from the left. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub left_pixels: i32,
 
         /// The number of pixels to crop from the right. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub right_pixels: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -786,15 +798,19 @@ pub mod preprocessing_config {
     #[non_exhaustive]
     pub struct Pad {
         /// The number of pixels to add to the top. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub top_pixels: i32,
 
         /// The number of pixels to add to the bottom. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub bottom_pixels: i32,
 
         /// The number of pixels to add to the left. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub left_pixels: i32,
 
         /// The number of pixels to add to the right. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub right_pixels: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -920,10 +936,12 @@ pub mod video_stream {
     pub struct H264CodecSettings {
         /// Required. The width of the video in pixels. Must be an even integer.
         /// Valid range is [320, 1920].
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub width_pixels: i32,
 
         /// Required. The height of the video in pixels. Must be an even integer.
         /// Valid range is [180, 1080].
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
@@ -933,16 +951,19 @@ pub mod video_stream {
         /// [Calculating frame
         /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
         /// more information.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub frame_rate: f64,
 
         /// Required. The video bitrate in bits per second. Minimum value is 10,000.
         ///
         /// - For SD resolution (< 720p), must be <= 3,000,000 (3 Mbps).
         /// - For HD resolution (<= 1080p), must be <= 15,000,000 (15 Mbps).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub bitrate_bps: i32,
 
         /// Specifies whether an open Group of Pictures (GOP) structure should be
         /// allowed or not. The default is `false`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub allow_open_gop: bool,
 
         /// Size of the Video Buffering Verifier (VBV) buffer in bits. Must be
@@ -950,6 +971,7 @@ pub mod video_stream {
         /// [bitrate_bps][google.cloud.video.livestream.v1.VideoStream.H264CodecSettings.bitrate_bps].
         ///
         /// [google.cloud.video.livestream.v1.VideoStream.H264CodecSettings.bitrate_bps]: crate::model::video_stream::H264CodecSettings::bitrate_bps
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub vbv_size_bits: i32,
 
         /// Initial fullness of the Video Buffering Verifier (VBV) buffer in bits.
@@ -957,6 +979,7 @@ pub mod video_stream {
         /// [vbv_size_bits][google.cloud.video.livestream.v1.VideoStream.H264CodecSettings.vbv_size_bits].
         ///
         /// [google.cloud.video.livestream.v1.VideoStream.H264CodecSettings.vbv_size_bits]: crate::model::video_stream::H264CodecSettings::vbv_size_bits
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub vbv_fullness_bits: i32,
 
         /// The entropy coder to use. The default is `cabac`.
@@ -970,6 +993,7 @@ pub mod video_stream {
 
         /// Allow B-pyramid for reference frame selection. This may not be supported
         /// on all decoders. The default is `false`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub b_pyramid: bool,
 
         /// The number of consecutive B-frames. Must be greater than or equal to
@@ -978,11 +1002,13 @@ pub mod video_stream {
         /// if set. The default is 0.
         ///
         /// [google.cloud.video.livestream.v1.VideoStream.H264CodecSettings.gop_frame_count]: crate::model::video_stream::H264CodecSettings::gop_mode
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub b_frame_count: i32,
 
         /// Specify the intensity of the adaptive quantizer (AQ). Must be between 0
         /// and 1, where 0 disables the quantizer and 1 maximizes the quantizer. A
         /// higher value equals a lower bitrate but smoother image. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub aq_strength: f64,
 
         /// Enforces the specified codec profile. The following profiles are
@@ -1235,6 +1261,7 @@ pub struct AudioStream {
     /// Specifies whether pass through (transmuxing) is enabled or not.
     /// If set to `true`, the rest of the settings, other than `mapping`, will be
     /// ignored. The default is `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub transmux: bool,
 
     /// The codec for this audio stream. The default is `aac`.
@@ -1247,9 +1274,11 @@ pub struct AudioStream {
 
     /// Required. Audio bitrate in bits per second. Must be between 1 and
     /// 10,000,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub bitrate_bps: i32,
 
     /// Number of audio channels. Must be between 1 and 6. The default is 2.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub channel_count: i32,
 
     /// A list of channel names specifying layout of the audio channels.
@@ -1272,6 +1301,7 @@ pub struct AudioStream {
     pub mapping: std::vec::Vec<crate::model::audio_stream::AudioMapping>,
 
     /// The audio sample rate in Hertz. The default is 48000 Hertz.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sample_rate_hertz: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1370,9 +1400,11 @@ pub mod audio_stream {
         ///
         /// [google.cloud.video.livestream.v1.AudioStream]: crate::model::AudioStream
         /// [google.cloud.video.livestream.v1.AudioStream.mapping]: crate::model::AudioStream::mapping
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub input_track: i32,
 
         /// Required. The zero-based index of the channel in the input stream.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub input_channel: i32,
 
         /// Required. The zero-based index of the channel in the output audio stream.
@@ -1380,10 +1412,12 @@ pub mod audio_stream {
         /// [input_channel][google.cloud.video.livestream.v1.AudioStream.AudioMapping.input_channel].
         ///
         /// [google.cloud.video.livestream.v1.AudioStream.AudioMapping.input_channel]: crate::model::audio_stream::AudioMapping::input_channel
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub output_channel: i32,
 
         /// Audio volume control in dB. Negative values decrease volume,
         /// positive values increase. The default is 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub gain_db: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2476,9 +2510,11 @@ pub mod channel {
 #[non_exhaustive]
 pub struct NormalizedCoordinate {
     /// Optional. Normalized x coordinate. Valid range is [0.0, 1.0]. Default is 0.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub x: f64,
 
     /// Optional. Normalized y coordinate. Valid range is [0.0, 1.0]. Default is 0.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub y: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2516,9 +2552,11 @@ impl wkt::message::Message for NormalizedCoordinate {
 #[non_exhaustive]
 pub struct NormalizedResolution {
     /// Optional. Normalized width. Valid range is [0.0, 1.0]. Default is 0.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub w: f64,
 
     /// Optional. Normalized height. Valid range is [0.0, 1.0]. Default is 0.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub h: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2579,6 +2617,7 @@ pub struct StaticOverlay {
     /// Optional. Target image opacity. Valid values are from `1.0` (solid,
     /// default) to `0.0` (transparent), exclusive. Set this to a value greater
     /// than `0.0`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub opacity: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2999,6 +3038,7 @@ impl wkt::message::Message for InputStreamProperty {
 #[non_exhaustive]
 pub struct VideoStreamProperty {
     /// Index of this video stream.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub index: i32,
 
     /// Properties of the video format.
@@ -3049,12 +3089,15 @@ pub struct VideoFormat {
     pub codec: std::string::String,
 
     /// The width of the video stream in pixels.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub width_pixels: i32,
 
     /// The height of the video stream in pixels.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub height_pixels: i32,
 
     /// The frame rate of the input video stream.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub frame_rate: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3104,6 +3147,7 @@ impl wkt::message::Message for VideoFormat {
 #[non_exhaustive]
 pub struct AudioStreamProperty {
     /// Index of this audio stream.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub index: i32,
 
     /// Properties of the audio format.
@@ -3154,6 +3198,7 @@ pub struct AudioFormat {
     pub codec: std::string::String,
 
     /// The number of audio channels.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub channel_count: i32,
 
     /// A list of channel names specifying the layout of the audio channels.
@@ -3338,6 +3383,7 @@ pub struct Event {
     /// event.
     ///
     /// [google.cloud.video.livestream.v1.Event.execution_time]: crate::model::Event::execution_time
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub execute_now: bool,
 
     /// The time to execute the event. If you set
@@ -5492,6 +5538,7 @@ pub struct ListAssetsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -5759,6 +5806,7 @@ pub struct ListChannelsRequest {
     /// to determine if there are more items left to be queried.
     ///
     /// [google.cloud.video.livestream.v1.ListChannelsResponse.next_page_token]: crate::model::ListChannelsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -5961,6 +6009,7 @@ pub struct DeleteChannelRequest {
     /// delete all of a channel's events before you can delete the channel itself.
     /// If the field is set to `true`, requests to delete a channel also delete
     /// associated channel events.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6294,6 +6343,7 @@ pub struct ListInputsRequest {
     /// to determine if there are more items left to be queried.
     ///
     /// [google.cloud.video.livestream.v1.ListInputsResponse.next_page_token]: crate::model::ListInputsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -6699,6 +6749,7 @@ pub struct ListEventsRequest {
     /// to determine if there are more items left to be queried.
     ///
     /// [google.cloud.video.livestream.v1.ListEventsResponse.next_page_token]: crate::model::ListEventsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -6959,6 +7010,7 @@ pub struct ListClipsRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -7293,6 +7345,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

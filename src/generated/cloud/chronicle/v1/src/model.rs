@@ -146,6 +146,7 @@ pub struct ListDataAccessLabelsRequest {
     /// fewer than this value. If unspecified, at most 100 data access labels will
     /// be returned. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListDataAccessLabelsRequest` call.
@@ -466,6 +467,7 @@ pub struct ListDataAccessScopesRequest {
     /// fewer than this value. If unspecified, at most 100 data access scopes will
     /// be returned. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListDataAccessScopesRequest` call.
@@ -914,6 +916,7 @@ pub struct DataAccessScope {
     /// A customer with scope with denied labels A and B and allow_all will be able
     /// to see all data except data labeled with A and data labeled with B and data
     /// with labels A and B.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_all: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1270,6 +1273,7 @@ pub struct Watchlist {
     /// Optional. Weight applied to the risk score for entities
     /// in this watchlist.
     /// The default is 1.0 if it is not specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub multiplying_factor: f32,
 
     /// Required. Mechanism to populate entities in the watchlist.
@@ -1516,9 +1520,11 @@ pub mod watchlist {
     #[non_exhaustive]
     pub struct EntityCount {
         /// Output only. Count of user type entities in the watchlist.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub user: i32,
 
         /// Output only. Count of asset type entities in the watchlist.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub asset: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1557,6 +1563,7 @@ pub mod watchlist {
 #[non_exhaustive]
 pub struct WatchlistUserPreferences {
     /// Optional. Whether the watchlist is pinned on the dashboard.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pinned: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1631,6 +1638,7 @@ pub struct ListWatchlistsRequest {
     /// The service may return fewer than this value.
     /// If unspecified, at most 200 watchlists will be returned.
     /// The maximum value is 200; values above 200 will be coerced to 200.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListWatchlists` call.
@@ -1880,6 +1888,7 @@ pub struct DeleteWatchlistRequest {
     /// Optional. If set to true, any entities under this watchlist will also be
     /// deleted. (Otherwise, the request will only work if the watchlist has no
     /// entities.)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2117,6 +2126,7 @@ pub struct ListReferenceListsRequest {
     /// The service may return fewer than this value.
     /// If unspecified, at most 100 reference lists will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListReferenceLists` call.
@@ -2404,6 +2414,7 @@ pub struct ReferenceList {
     pub syntax_type: crate::model::ReferenceListSyntaxType,
 
     /// Output only. The count of self-authored rules using the reference list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rule_associations_count: i32,
 
     /// The scope info of the reference list.
@@ -2636,6 +2647,7 @@ pub struct Rule {
     /// Output only. Indicate the rule can run in near real time live rule.
     /// If this is true, the rule uses the near real time live rule when the run
     /// frequency is set to LIVE.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub near_real_time_live_rule_eligible: bool,
 
     /// Output only. The set of inputs used in the rule. For example, if the rule
@@ -2889,10 +2901,12 @@ pub struct RuleDeployment {
     pub name: std::string::String,
 
     /// Whether the rule is currently deployed continuously against incoming data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Whether detections resulting from this deployment should be considered
     /// alerts.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub alerting: bool,
 
     /// The archive state of the rule deployment.
@@ -2900,6 +2914,7 @@ pub struct RuleDeployment {
     /// If set to true, alerting will automatically be set to false.
     /// If currently set to true, enabled, alerting, and run_frequency cannot be
     /// updated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub archived: bool,
 
     /// Output only. The timestamp when the rule deployment archive state was last
@@ -3137,6 +3152,7 @@ pub struct Retrohunt {
 
     /// Output only. Percent progress of the retrohunt towards completion, from
     /// 0.00 to 100.00.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percentage: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3376,6 +3392,7 @@ pub struct ListRulesRequest {
     /// The maximum number of rules to return. The service may return fewer than
     /// this value. If unspecified, at most 100 rules will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListRules` call.
@@ -3577,6 +3594,7 @@ pub struct DeleteRuleRequest {
     /// if the rule has no associated retrohunts, including completed retrohunts,
     /// and no associated detections. Regardless of this field's value, the rule
     /// deployment associated with this rule will also be deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3623,6 +3641,7 @@ pub struct ListRuleRevisionsRequest {
     /// fewer than this value. If unspecified, at most 100 revisions will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token, received from a previous `ListRuleRevisions` call.
@@ -3836,6 +3855,7 @@ pub struct ListRetrohuntsRequest {
     /// than this value. If unspecified, at most 100 retrohunts will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListRetrohunts` call.
@@ -4005,6 +4025,7 @@ pub struct ListRuleDeploymentsRequest {
     /// fewer than this value. If unspecified, at most 100 rule deployments will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListRuleDeployments` call.
@@ -4185,15 +4206,19 @@ impl wkt::message::Message for UpdateRuleDeploymentRequest {
 #[non_exhaustive]
 pub struct CompilationPosition {
     /// Output only. Start line number, beginning at 1.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub start_line: i32,
 
     /// Output only. Start column number, beginning at 1.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub start_column: i32,
 
     /// Output only. End line number, beginning at 1.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub end_line: i32,
 
     /// Output only. End column number, beginning at 1.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub end_column: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4424,6 +4449,7 @@ pub struct RetrohuntMetadata {
     pub execution_interval: std::option::Option<gtype::model::Interval>,
 
     /// Percent progress of the retrohunt towards completion, from 0.00 to 100.00.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percentage: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4474,12 +4500,15 @@ impl wkt::message::Message for RetrohuntMetadata {
 #[non_exhaustive]
 pub struct InputsUsed {
     /// Optional. Whether the rule queries UDM events.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub uses_udm: bool,
 
     /// Optional. Whether the rule queries entity events.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub uses_entity: bool,
 
     /// Optional. Whether the rule queries detections.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub uses_detection: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

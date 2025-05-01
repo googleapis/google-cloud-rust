@@ -72,6 +72,7 @@ pub struct Service {
     pub endpoint_uri: std::string::String,
 
     /// The TCP port at which the metastore service is reached. Default: 9083.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Output only. The current state of the metastore service.
@@ -2615,6 +2616,7 @@ pub struct ListServicesRequest {
     /// contain less than the maximum number. If unspecified, no more than 500
     /// services are returned. The maximum value is 1000; values above 1000 are
     /// changed to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -3051,6 +3053,7 @@ pub struct ListMetadataImportsRequest {
     /// Optional. The maximum number of imports to return. The response may contain
     /// less than the maximum number. If unspecified, no more than 500 imports are
     /// returned. The maximum value is 1000; values above 1000 are changed to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -3435,6 +3438,7 @@ pub struct ListBackupsRequest {
     /// Optional. The maximum number of backups to return. The response may contain
     /// less than the maximum number. If unspecified, no more than 500 backups are
     /// returned. The maximum value is 1000; values above 1000 are changed to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -4021,6 +4025,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -4148,6 +4153,7 @@ pub mod location_metadata {
 
         /// Whether `version` will be chosen by the server if a metastore service is
         /// created with a `HiveMetastoreConfig` that omits the `version`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub is_default: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4949,6 +4955,7 @@ pub struct ListFederationsRequest {
     /// contain less than the maximum number. If unspecified, no more than 500
     /// services are returned. The maximum value is 1000; values above 1000 are
     /// changed to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous ListFederationServices

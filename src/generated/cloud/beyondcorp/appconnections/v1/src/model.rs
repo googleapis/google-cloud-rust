@@ -51,6 +51,7 @@ pub struct ListAppConnectionsRequest {
     /// and a caller should only rely on response's
     /// [next_page_token][BeyondCorp.ListAppConnectionsResponse.next_page_token] to
     /// determine if there are more instances left to be queried.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous
@@ -266,6 +267,7 @@ pub struct CreateAppConnectionRequest {
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -362,9 +364,11 @@ pub struct UpdateAppConnectionRequest {
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set as true, will create the resource if it is not found.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -450,6 +454,7 @@ pub struct DeleteAppConnectionRequest {
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -509,6 +514,7 @@ pub struct ResolveAppConnectionsRequest {
     /// and a caller should only rely on response's
     /// [next_page_token][BeyondCorp.ResolveAppConnectionsResponse.next_page_token]
     /// to determine if there are more instances left to be queried.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous
@@ -885,6 +891,7 @@ pub mod app_connection {
         pub host: std::string::String,
 
         /// Required. Port of the remote application endpoint.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub port: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -932,6 +939,7 @@ pub mod app_connection {
 
         /// Output only. Ingress port reserved on the gateways for this
         /// AppConnection, if not specified or zero, the default port is 19443.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub ingress_port: i32,
 
         /// Required. AppGateway name in following format:
@@ -1201,6 +1209,7 @@ pub struct AppConnectionOperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

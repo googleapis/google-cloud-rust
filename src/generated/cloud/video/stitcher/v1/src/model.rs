@@ -248,6 +248,7 @@ pub struct ResponseMetadata {
     pub status_code: std::string::String,
 
     /// Size in bytes of the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub size_bytes: i32,
 
     /// Total time elapsed for the response.
@@ -799,21 +800,27 @@ pub struct Companion {
     pub api_framework: std::string::String,
 
     /// The pixel height of the placement slot for the intended creative.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub height_px: i32,
 
     /// The pixel width of the placement slot for the intended creative.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub width_px: i32,
 
     /// The pixel height of the creative.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub asset_height_px: i32,
 
     /// The maximum pixel height of the creative in its expanded state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub expanded_height_px: i32,
 
     /// The pixel width of the creative.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub asset_width_px: i32,
 
     /// The maximum pixel width of the creative in its expanded state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub expanded_width_px: i32,
 
     /// The ID used to identify the desired placement on a publisher's page.
@@ -1759,6 +1766,7 @@ pub mod live_config {
 #[non_exhaustive]
 pub struct PrefetchConfig {
     /// Required. Indicates whether the option to prefetch ad requests is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// The duration in seconds of the part of the break to be prefetched.
@@ -2633,6 +2641,7 @@ pub mod manifest_options {
 pub struct RenditionFilter {
     /// Bitrate in bits per second for the rendition. If set, only renditions with
     /// the exact bitrate will match.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub bitrate_bps: i32,
 
     /// Codecs for the rendition. If set, only renditions with the exact value
@@ -2744,6 +2753,7 @@ pub mod slate {
         pub network_code: std::string::String,
 
         /// Output only. The identifier generated for the slate by GAM.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub gam_slate_id: i64,
 
@@ -2984,6 +2994,7 @@ pub struct ListCdnKeysRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -3327,6 +3338,7 @@ pub struct ListVodStitchDetailsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -3474,6 +3486,7 @@ pub struct ListVodAdTagDetailsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -3621,6 +3634,7 @@ pub struct ListLiveAdTagDetailsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The pagination token returned from a previous List request.
@@ -3882,6 +3896,7 @@ pub struct ListSlatesRequest {
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -4270,6 +4285,7 @@ pub struct ListLiveConfigsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -4617,6 +4633,7 @@ pub struct ListVodConfigsRequest {
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,

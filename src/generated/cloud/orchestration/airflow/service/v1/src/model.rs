@@ -126,6 +126,7 @@ pub struct ListEnvironmentsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of environments to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -608,6 +609,7 @@ pub struct StopAirflowCommandRequest {
 
     /// If true, the execution is terminated forcefully (SIGKILL). If false, the
     /// execution is stopped gracefully, giving it time for cleanup.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -663,6 +665,7 @@ impl wkt::message::Message for StopAirflowCommandRequest {
 #[non_exhaustive]
 pub struct StopAirflowCommandResponse {
     /// Whether the execution is still running.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_done: bool,
 
     /// Output message from stopping execution request.
@@ -726,6 +729,7 @@ pub struct PollAirflowCommandRequest {
     pub pod_namespace: std::string::String,
 
     /// Line number from which new logs should be fetched.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub next_line_number: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -786,6 +790,7 @@ pub struct PollAirflowCommandResponse {
     pub output: std::vec::Vec<crate::model::poll_airflow_command_response::Line>,
 
     /// Whether the command execution has finished and there is no more output.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub output_end: bool,
 
     /// The result exit status of the command.
@@ -850,6 +855,7 @@ pub mod poll_airflow_command_response {
     #[non_exhaustive]
     pub struct Line {
         /// Number of the line.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub line_number: i32,
 
         /// Text content of the log line.
@@ -891,6 +897,7 @@ pub mod poll_airflow_command_response {
     #[non_exhaustive]
     pub struct ExitInfo {
         /// The exit code from the command execution.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub exit_code: i32,
 
         /// Error message. Empty if there was no error.
@@ -1019,6 +1026,7 @@ pub struct ListUserWorkloadsSecretsRequest {
     pub parent: std::string::String,
 
     /// Optional. The maximum number of Secrets to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -1223,6 +1231,7 @@ pub struct ListUserWorkloadsConfigMapsRequest {
     pub parent: std::string::String,
 
     /// Optional. The maximum number of ConfigMaps to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -1587,6 +1596,7 @@ pub struct ListWorkloadsRequest {
     pub parent: std::string::String,
 
     /// Optional. The maximum number of environments to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -2111,18 +2121,22 @@ pub struct LoadSnapshotRequest {
 
     /// Whether or not to skip installing Pypi packages when loading the
     /// environment's state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_pypi_packages_installation: bool,
 
     /// Whether or not to skip setting environment variables when loading the
     /// environment's state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_environment_variables_setting: bool,
 
     /// Whether or not to skip setting Airflow overrides when loading the
     /// environment's state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_airflow_overrides_setting: bool,
 
     /// Whether or not to skip copying Cloud Storage data when loading the
     /// environment's state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_gcs_data_copying: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2312,6 +2326,7 @@ pub struct FetchDatabasePropertiesResponse {
     /// The availability status of the failover replica. A false status indicates
     /// that the failover replica is out of sync. The primary instance can only
     /// fail over to the failover replica when the status is true.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_failover_replica_available: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2410,6 +2425,7 @@ pub struct EnvironmentConfig {
     ///
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub node_count: i32,
 
     /// Optional. The configuration settings for software inside the environment.
@@ -3248,6 +3264,7 @@ pub struct SoftwareConfig {
     ///
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-2.*.*.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scheduler_count: i32,
 
     /// Optional. The configuration for Cloud Data Lineage integration.
@@ -3433,6 +3450,7 @@ pub struct IPAllocationPolicy {
     /// This field is only supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*. Environments in newer versions always use
     /// VPC-native GKE clusters.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_ip_aliases: bool,
 
     /// Configuration of allocating IP addresses for pods in the GKE cluster.
@@ -3766,6 +3784,7 @@ pub struct NodeConfig {
     ///
     /// This field is supported for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disk_size_gb: i32,
 
     /// Optional. The set of Google API scopes to be made available on all
@@ -3801,6 +3820,7 @@ pub struct NodeConfig {
     ///
     /// See:
     /// <https://cloud.google.com/kubernetes-engine/docs/how-to/ip-masquerade-agent>
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_ip_masq_agent: bool,
 
     /// Optional. Network Attachment that Cloud Composer environment is connected
@@ -3946,6 +3966,7 @@ impl wkt::message::Message for NodeConfig {
 pub struct PrivateClusterConfig {
     /// Optional. If `true`, access to the public endpoint of the GKE cluster is
     /// denied.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_private_endpoint: bool,
 
     /// Optional. The CIDR block from which IPv4 range for GKE master will be
@@ -4123,6 +4144,7 @@ pub struct PrivateEnvironmentConfig {
     /// If this field is set to true, `IPAllocationPolicy.use_ip_aliases` must be
     /// set to true for Cloud Composer environments in versions
     /// composer-1.*.*-airflow-*.*.*.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_private_environment: bool,
 
     /// Optional. If `true`, builds performed during operations that install Python
@@ -4134,6 +4156,7 @@ pub struct PrivateEnvironmentConfig {
     ///
     /// This field is supported for Cloud Composer environments in versions
     /// composer-3-airflow-*.*.*-build.* and newer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_private_builds_only: bool,
 
     /// Optional. Configuration for the private GKE cluster for a Private IP
@@ -4185,6 +4208,7 @@ pub struct PrivateEnvironmentConfig {
     /// Optional. When enabled, IPs from public (non-RFC1918) ranges can be used
     /// for `IPAllocationPolicy.cluster_ipv4_cidr_block` and
     /// `IPAllocationPolicy.service_ipv4_cidr_block`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_privately_used_public_ips: bool,
 
     /// Optional. When specified, the environment will use Private Service Connect
@@ -4432,17 +4456,21 @@ pub mod workloads_config {
     #[non_exhaustive]
     pub struct SchedulerResource {
         /// Optional. CPU request and limit for a single Airflow scheduler replica.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow scheduler
         /// replica.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for a single Airflow scheduler
         /// replica.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub storage_gb: f32,
 
         /// Optional. The number of schedulers.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4492,12 +4520,15 @@ pub mod workloads_config {
     #[non_exhaustive]
     pub struct WebServerResource {
         /// Optional. CPU request and limit for Airflow web server.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for Airflow web server.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for Airflow web server.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub storage_gb: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4541,20 +4572,25 @@ pub mod workloads_config {
     #[non_exhaustive]
     pub struct WorkerResource {
         /// Optional. CPU request and limit for a single Airflow worker replica.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow worker
         /// replica.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for a single Airflow worker
         /// replica.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub storage_gb: f32,
 
         /// Optional. Minimum number of workers for autoscaling.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub min_count: i32,
 
         /// Optional. Maximum number of workers for autoscaling.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4610,13 +4646,16 @@ pub mod workloads_config {
     #[non_exhaustive]
     pub struct TriggererResource {
         /// Optional. The number of triggerers.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub count: i32,
 
         /// Optional. CPU request and limit for a single Airflow triggerer replica.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow triggerer
         /// replica.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub memory_gb: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4664,18 +4703,22 @@ pub mod workloads_config {
     pub struct DagProcessorResource {
         /// Optional. CPU request and limit for a single Airflow DAG processor
         /// replica.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow DAG
         /// processor replica.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for a single Airflow DAG
         /// processor replica.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub storage_gb: f32,
 
         /// Optional. The number of DAG processors. If not provided or set to 0, a
         /// single DAG processor instance will be created.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4763,6 +4806,7 @@ impl wkt::message::Message for RecoveryConfig {
 #[non_exhaustive]
 pub struct ScheduledSnapshotsConfig {
     /// Optional. Whether scheduled snapshots creation is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Optional. The Cloud Storage location for storing automatically created
@@ -4837,6 +4881,7 @@ impl wkt::message::Message for ScheduledSnapshotsConfig {
 #[non_exhaustive]
 pub struct MasterAuthorizedNetworksConfig {
     /// Optional. Whether or not master authorized networks feature is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Up to 50 external networks that could access Kubernetes master through
@@ -4935,6 +4980,7 @@ pub mod master_authorized_networks_config {
 #[non_exhaustive]
 pub struct CloudDataLineageIntegration {
     /// Optional. Whether or not Cloud Data Lineage integration is enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5005,9 +5051,11 @@ pub struct Environment {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzi: bool,
 
     /// Optional. Storage configuration for this environment.
@@ -5583,6 +5631,7 @@ pub struct AirflowMetadataRetentionPolicyConfig {
     pub retention_mode: crate::model::airflow_metadata_retention_policy_config::RetentionMode,
 
     /// Optional. How many days data should be retained for.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retention_days: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5697,6 +5746,7 @@ pub struct ListImageVersionsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of image_versions to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -5704,6 +5754,7 @@ pub struct ListImageVersionsRequest {
     pub page_token: std::string::String,
 
     /// Whether or not image versions from old releases should be included.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_past_releases: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5820,6 +5871,7 @@ pub struct ImageVersion {
 
     /// Whether this is the default ImageVersion used by Composer during
     /// environment creation if no input ImageVersion is specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_default: bool,
 
     /// supported python versions
@@ -5831,10 +5883,12 @@ pub struct ImageVersion {
     pub release_date: std::option::Option<gtype::model::Date>,
 
     /// Whether it is impossible to create an environment with the image version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub creation_disabled: bool,
 
     /// Whether it is impossible to upgrade an environment running with the image
     /// version.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub upgrade_disabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

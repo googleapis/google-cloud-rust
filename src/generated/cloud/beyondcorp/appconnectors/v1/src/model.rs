@@ -43,6 +43,7 @@ pub struct AppConnectorInstanceConfig {
     /// Required. A monotonically increasing number generated and maintained
     /// by the API provider. Every time a config changes in the backend, the
     /// sequenceNumber should be bumped up to reflect the change.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub sequence_number: i64,
 
@@ -300,6 +301,7 @@ pub struct ListAppConnectorsRequest {
     /// and a caller should only rely on response's
     /// [next_page_token][BeyondCorp.ListAppConnectorsResponse.next_page_token] to
     /// determine if there are more instances left to be queried.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous
@@ -515,6 +517,7 @@ pub struct CreateAppConnectorRequest {
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -609,6 +612,7 @@ pub struct UpdateAppConnectorRequest {
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -688,6 +692,7 @@ pub struct DeleteAppConnectorRequest {
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -757,6 +762,7 @@ pub struct ReportStatusRequest {
 
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1184,6 +1190,7 @@ pub struct AppConnectorOperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

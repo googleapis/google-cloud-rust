@@ -147,11 +147,13 @@ pub mod template {
     #[non_exhaustive]
     pub struct TemplateMetadata {
         /// Optional. If true, partial detector failures should be ignored.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub ignore_partial_invocation_failures: bool,
 
         /// Optional. Indicates the custom error code set by the user to be returned
         /// to the end user by the service extension if the prompt trips Model Armor
         /// filters.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub custom_prompt_safety_error_code: i32,
 
         /// Optional. Indicates the custom error message set by the user to be
@@ -161,6 +163,7 @@ pub mod template {
 
         /// Optional. Indicates the custom error code set by the user to be returned
         /// to the end user if the LLM response trips Model Armor filters.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub custom_llm_response_safety_error_code: i32,
 
         /// Optional. Indicates the custom error message set by the user to be
@@ -169,9 +172,11 @@ pub mod template {
         pub custom_llm_response_safety_error_message: std::string::String,
 
         /// Optional. If true, log template crud operations.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub log_template_operations: bool,
 
         /// Optional. If true, log sanitize operations.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub log_sanitize_operations: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -352,6 +357,7 @@ pub struct ListTemplatesRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1806,6 +1812,7 @@ pub mod sanitization_result {
     #[non_exhaustive]
     pub struct SanitizationMetadata {
         /// Error code if any.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub error_code: i64,
 
@@ -2412,6 +2419,7 @@ pub struct SdpInspectResult {
     /// list might be truncated because the input items were too large, or because
     /// the server reached the maximum amount of resources allowed for a single API
     /// call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub findings_truncated: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2716,6 +2724,7 @@ pub struct SdpDeidentifyResult {
     pub data: std::option::Option<crate::model::DataItem>,
 
     /// Total size in bytes that were transformed during deidentification.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub transformed_bytes: i64,
 

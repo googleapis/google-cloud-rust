@@ -187,6 +187,7 @@ pub struct CatalogAttribute {
     /// [google.cloud.retail.v2.CatalogService.UpdateAttributesConfig]: crate::client::CatalogService::update_attributes_config
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     /// [google.cloud.retail.v2.Product.attributes]: crate::model::Product::attributes
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub in_use: bool,
 
     /// Output only. The type of this attribute. This is derived from the attribute
@@ -715,6 +716,7 @@ pub mod catalog_attribute {
             /// If set to true, then we also rerank the dynamic facets based on the
             /// facet values engaged by the user for the current attribute key during
             /// serving.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub rerank_facet: bool,
 
             /// If empty, rerank on all facet values for the current key. Otherwise,
@@ -1229,6 +1231,7 @@ pub struct CompletionConfig {
     /// value.
     ///
     /// Value range is 1 to 20.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_suggestions: i32,
 
     /// The minimum number of characters needed to be typed in order to get
@@ -1236,6 +1239,7 @@ pub struct CompletionConfig {
     /// fallback to default value.
     ///
     /// Value range is 1 to 20.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_prefix_length: i32,
 
     /// If set to true, the auto learning function is enabled. Auto learning uses
@@ -1245,6 +1249,7 @@ pub struct CompletionConfig {
     /// [CompleteQueryRequest][google.cloud.retail.v2.CompleteQueryRequest].
     ///
     /// [google.cloud.retail.v2.CompleteQueryRequest]: crate::model::CompleteQueryRequest
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_learning: bool,
 
     /// Output only. The source data for the latest import of the autocomplete
@@ -1478,6 +1483,7 @@ pub struct ListCatalogsRequest {
     /// If this field is negative, an INVALID_ARGUMENT is returned.
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token
@@ -1709,6 +1715,7 @@ pub struct SetDefaultBranchRequest {
     /// if it has no sufficient active products.
     ///
     /// [google.cloud.retail.v2.SetDefaultBranchRequest.branch_id]: crate::model::SetDefaultBranchRequest::branch_id
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2358,6 +2365,7 @@ pub mod condition {
         pub value: std::string::String,
 
         /// Whether this is supposed to be a full or partial match.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub full_match: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2813,6 +2821,7 @@ pub mod rule {
         ///
         /// Setting to 0.0 means no boost applied. The boosting condition is
         /// ignored.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub boost: f32,
 
         /// The filter can have a max size of 5000 characters.
@@ -3359,6 +3368,7 @@ pub mod rule {
 
             /// This is the position in the request as explained above. It should be
             /// strictly positive be at most 100.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub position: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3880,12 +3890,14 @@ pub struct Image {
     ///
     /// This field must be nonnegative. Otherwise, an INVALID_ARGUMENT error is
     /// returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub height: i32,
 
     /// Width of the image in number of pixels.
     ///
     /// This field must be nonnegative. Otherwise, an INVALID_ARGUMENT error is
     /// returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub width: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4139,6 +4151,7 @@ pub struct PriceInfo {
     /// Google Merchant Center property
     /// [price](https://support.google.com/merchants/answer/6324371). Schema.org
     /// property [Offer.price](https://schema.org/price).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub price: f32,
 
     /// Price of the product without any discount. If zero, by default set to be
@@ -4149,6 +4162,7 @@ pub struct PriceInfo {
     ///
     /// [google.cloud.retail.v2.PriceInfo.original_price]: crate::model::PriceInfo::original_price
     /// [google.cloud.retail.v2.PriceInfo.price]: crate::model::PriceInfo::price
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub original_price: f32,
 
     /// The costs associated with the sale of a particular product. Used for gross
@@ -4162,6 +4176,7 @@ pub struct PriceInfo {
     ///
     /// [google.cloud.retail.v2.PriceInfo.cost]: crate::model::PriceInfo::cost
     /// [google.cloud.retail.v2.PriceInfo.price]: crate::model::PriceInfo::price
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cost: f32,
 
     /// The timestamp when the [price][google.cloud.retail.v2.PriceInfo.price]
@@ -4387,6 +4402,7 @@ pub struct Rating {
     /// returned.
     ///
     /// [google.cloud.retail.v2.Rating.rating_histogram]: crate::model::Rating::rating_histogram
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub rating_count: i32,
 
     /// The average rating of the [Product][google.cloud.retail.v2.Product].
@@ -4395,6 +4411,7 @@ pub struct Rating {
     /// returned.
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub average_rating: f32,
 
     /// List of rating counts per rating value (index = rating - 1). The list is
@@ -4522,6 +4539,7 @@ pub struct UserInfo {
     /// [google.cloud.retail.v2.UserEventService.CollectUserEvent]: crate::client::UserEventService::collect_user_event
     /// [google.cloud.retail.v2.UserInfo.ip_address]: crate::model::UserInfo::ip_address
     /// [google.cloud.retail.v2.UserInfo.user_agent]: crate::model::UserInfo::user_agent
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub direct_user_request: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4770,11 +4788,13 @@ pub struct CompleteQueryRequest {
     /// capped by 20.
     ///
     /// [google.cloud.retail.v2.CompletionConfig.max_suggestions]: crate::model::CompletionConfig::max_suggestions
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_suggestions: i32,
 
     /// If true, attribute suggestions are enabled and provided in the response.
     ///
     /// This field is only available for the "cloud-retail" dataset.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_attribute_suggestions: bool,
 
     /// The entity for customers who run multiple entities, domains, sites, or
@@ -5507,6 +5527,7 @@ pub struct ListControlsRequest {
 
     /// Optional. Maximum number of results to return. If unspecified, defaults
     /// to 50. Max allowed value is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListControls` call.
@@ -6264,10 +6285,12 @@ pub struct GenerativeQuestionsFeatureConfig {
     /// Optional. Determines whether questions will be used at serving time.
     /// Note: This feature cannot be enabled until initial data requirements are
     /// satisfied.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub feature_enabled: bool,
 
     /// Optional. Minimum number of products in the response to trigger follow-up
     /// questions. Value must be 0 or positive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub minimum_products: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6334,9 +6357,11 @@ pub struct GenerativeQuestionConfig {
     pub example_values: std::vec::Vec<std::string::String>,
 
     /// Output only. The ratio of how often a question was asked.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub frequency: f32,
 
     /// Optional. Whether the question is asked at serving time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allowed_in_conversation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7897,10 +7922,12 @@ pub struct ImportMetadata {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Count of entries that were processed successfully.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failure_count: i64,
 
@@ -8114,11 +8141,13 @@ impl wkt::message::Message for ImportUserEventsResponse {
 #[non_exhaustive]
 pub struct UserEventImportSummary {
     /// Count of user events imported with complete existing catalog information.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub joined_events_count: i64,
 
     /// Count of user events imported, but with catalog information not found
     /// in the imported catalog.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub unjoined_events_count: i64,
 
@@ -9018,6 +9047,7 @@ pub struct CreateModelRequest {
 
     /// Optional. Whether to run a dry run to validate the request (without
     /// actually creating the model).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dry_run: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9226,6 +9256,7 @@ pub struct ListModelsRequest {
 
     /// Optional. Maximum number of results to return. If unspecified, defaults
     /// to 50. Max allowed value is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListModels`
@@ -9536,6 +9567,7 @@ pub struct PredictRequest {
     /// prediction results needed. If zero, the service will choose a reasonable
     /// default. The maximum allowed value is 100. Values above 100 will be coerced
     /// to 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// This field is not used; leave it unset.
@@ -9589,6 +9621,7 @@ pub struct PredictRequest {
     /// dummy model will be used that returns arbitrary products.
     /// Note that the validate only mode should only be used for testing the API,
     /// or if the model is not ready.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Additional domain specific parameters for the predictions.
@@ -9745,6 +9778,7 @@ pub struct PredictResponse {
     pub missing_ids: std::vec::Vec<std::string::String>,
 
     /// True if the validateOnly property was set in the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11208,6 +11242,7 @@ pub struct UpdateProductRequest {
     /// this situation, `update_mask` is ignored.
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11341,6 +11376,7 @@ pub struct ListProductsRequest {
     /// If this field is negative, an INVALID_ARGUMENT error is returned.
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token
@@ -11656,6 +11692,7 @@ pub struct SetInventoryRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     /// [google.cloud.retail.v2.Product.name]: crate::model::Product::name
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11843,6 +11880,7 @@ pub struct AddFulfillmentPlacesRequest {
     /// [Product][google.cloud.retail.v2.Product] is not found.
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12014,6 +12052,7 @@ pub struct AddLocalInventoriesRequest {
     /// [Product][google.cloud.retail.v2.Product] is not found.
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12170,6 +12209,7 @@ pub struct RemoveLocalInventoriesRequest {
     /// [Product][google.cloud.retail.v2.Product] is not found.
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12353,6 +12393,7 @@ pub struct RemoveFulfillmentPlacesRequest {
     /// [Product][google.cloud.retail.v2.Product] is not found.
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12543,10 +12584,12 @@ pub struct PurgeProductsMetadata {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Count of entries that were deleted successfully.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub success_count: i64,
 
     /// Count of entries that encountered errors while processing.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failure_count: i64,
 
@@ -12657,6 +12700,7 @@ pub struct PurgeProductsRequest {
     /// Actually perform the purge.
     /// If `force` is set to false, the method will return the expected purge count
     /// without deleting any products.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12702,6 +12746,7 @@ impl wkt::message::Message for PurgeProductsRequest {
 #[non_exhaustive]
 pub struct PurgeProductsResponse {
     /// The total count of products purged as a result of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub purge_count: i64,
 
@@ -12787,6 +12832,7 @@ pub struct PurgeUserEventsRequest {
     /// Actually perform the purge.
     /// If `force` is set to false, the method will return the expected purge count
     /// without deleting any user events.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12832,6 +12878,7 @@ impl wkt::message::Message for PurgeUserEventsRequest {
 #[non_exhaustive]
 pub struct PurgeUserEventsResponse {
     /// The total count of events purged as a result of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub purged_events_count: i64,
 
@@ -13146,6 +13193,7 @@ pub struct SearchRequest {
     /// If this field is negative, an INVALID_ARGUMENT is returned.
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token
@@ -13174,6 +13222,7 @@ pub struct SearchRequest {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     /// [google.cloud.retail.v2.SearchRequest.page_token]: crate::model::SearchRequest::page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub offset: i32,
 
     /// The filter syntax consists of an expression language for constructing a
@@ -13665,6 +13714,7 @@ pub mod search_request {
         /// above 300 will be coerced to 300.
         ///
         /// If this field is negative, an INVALID_ARGUMENT is returned.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub limit: i32,
 
         /// List of keys to exclude when faceting.
@@ -13728,6 +13778,7 @@ pub mod search_request {
         /// "rating" facets. However, notice that "price" and "brands" are always
         /// ranked at first and second position because their enable_dynamic_position
         /// values are false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_dynamic_position: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13903,6 +13954,7 @@ pub mod search_request {
 
             /// True to make facet keys case insensitive when getting faceting
             /// values with prefixes or contains; false otherwise.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub case_insensitive: bool,
 
             /// The order in which
@@ -13971,6 +14023,7 @@ pub mod search_request {
 
             /// Returns the min and max value for each numerical facet intervals.
             /// Ignored for textual facets.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub return_min_max: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14277,6 +14330,7 @@ pub mod search_request {
             ///
             /// Setting to 0.0 means no boost applied. The boosting condition is
             /// ignored.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub boost: f32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14327,6 +14381,7 @@ pub mod search_request {
         /// Whether to pin unexpanded results. If this field is set to true,
         /// unexpanded products are always at the top of the search results, followed
         /// by the expanded results.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub pin_unexpanded_results: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14665,6 +14720,7 @@ pub mod search_request {
         /// search. If this field is set to true, conversational related extra
         /// information will be returned from server side, including follow-up
         /// question, answer options, etc.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub followup_conversation_requested: bool,
 
         /// This field specifies the conversation id, which maintains the state of
@@ -14913,6 +14969,7 @@ pub mod search_request {
     pub struct TileNavigationSpec {
         /// This field specifies whether the customer would like to request tile
         /// navigation.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub tile_navigation_requested: bool,
 
         /// This field specifies the tiles which are already clicked in client side.
@@ -15081,6 +15138,7 @@ pub struct SearchResponse {
     ///
     /// [google.cloud.retail.v2.SearchResponse.results]: crate::model::SearchResponse::results
     /// [google.cloud.retail.v2.SearchResponse.total_size]: crate::model::SearchResponse::total_size
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     /// Contains the spell corrected query, if found. If the spell correction type
@@ -15354,6 +15412,7 @@ pub mod search_response {
         ///
         /// [google.cloud.retail.v2.Product]: crate::model::Product
         /// [google.cloud.retail.v2.Product.Type.VARIANT]: crate::model::product::r#type::VARIANT
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub matching_variant_count: i32,
 
         /// If a [variant][google.cloud.retail.v2.Product.Type.VARIANT]
@@ -15529,6 +15588,7 @@ pub mod search_response {
         pub values: std::vec::Vec<crate::model::search_response::facet::FacetValue>,
 
         /// Whether the facet is dynamically generated.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub dynamic_facet: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15582,6 +15642,7 @@ pub mod search_response {
         #[non_exhaustive]
         pub struct FacetValue {
             /// Number of items that have this facet value.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub count: i64,
 
@@ -15593,6 +15654,7 @@ pub mod search_response {
             ///
             /// [google.cloud.retail.v2.SearchRequest.FacetSpec.FacetKey.return_min_max]: crate::model::search_request::facet_spec::FacetKey::return_min_max
             /// [google.cloud.retail.v2.SearchResponse.Facet.FacetValue.interval]: crate::model::search_response::facet::FacetValue::facet_value
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub min_value: f64,
 
             /// The maximum value in the
@@ -15603,6 +15665,7 @@ pub mod search_response {
             ///
             /// [google.cloud.retail.v2.SearchRequest.FacetSpec.FacetKey.return_min_max]: crate::model::search_request::facet_spec::FacetKey::return_min_max
             /// [google.cloud.retail.v2.SearchResponse.Facet.FacetValue.interval]: crate::model::search_response::facet::FacetValue::facet_value
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub max_value: f64,
 
             /// A facet value which contains values.
@@ -15745,6 +15808,7 @@ pub mod search_response {
     #[non_exhaustive]
     pub struct QueryExpansionInfo {
         /// Bool describing whether query expansion has occurred.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub expanded_query: bool,
 
         /// Number of pinned results. This field will only be set when expansion
@@ -15753,6 +15817,7 @@ pub mod search_response {
         /// is set to true.
         ///
         /// [google.cloud.retail.v2.SearchRequest.QueryExpansionSpec.pin_unexpanded_results]: crate::model::search_request::QueryExpansionSpec::pin_unexpanded_results
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub pinned_result_count: i64,
 
@@ -16457,6 +16522,7 @@ pub struct ServingConfig {
 
     /// When the flag is enabled, the products in the denylist will not be filtered
     /// out in the recommendation filtering results.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_recs_denylist: bool,
 
     /// The specification for personalization spec.
@@ -16962,6 +17028,7 @@ pub struct ListServingConfigsRequest {
     /// Optional. Maximum number of results to return. If unspecified, defaults
     /// to 100. If a value greater than 100 is provided, at most 100 results are
     /// returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListServingConfigs` call.
@@ -17381,6 +17448,7 @@ pub struct UserEvent {
     /// this field. Otherwise, an INVALID_ARGUMENT error is returned.
     ///
     /// [google.cloud.retail.v2.SearchRequest.offset]: crate::model::SearchRequest::offset
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub offset: i32,
 
     /// The categories associated with a category page.
@@ -17724,6 +17792,7 @@ pub struct CompletionDetail {
     /// position, starting from 0.
     ///
     /// [google.cloud.retail.v2.CompleteQueryResponse.CompletionResult.suggestion]: crate::model::complete_query_response::CompletionResult::suggestion
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub selected_position: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17780,9 +17849,11 @@ pub struct PurchaseTransaction {
     /// transaction. This value include shipping, tax, or other adjustments to
     /// total revenue that you want to include as part of your revenue
     /// calculations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub revenue: f32,
 
     /// All the taxes associated with the transaction.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub tax: f32,
 
     /// All the costs associated with the products. These can be manufacturing
@@ -17796,6 +17867,7 @@ pub struct PurchaseTransaction {
     /// [google.cloud.retail.v2.PurchaseTransaction.cost]: crate::model::PurchaseTransaction::cost
     /// [google.cloud.retail.v2.PurchaseTransaction.revenue]: crate::model::PurchaseTransaction::revenue
     /// [google.cloud.retail.v2.PurchaseTransaction.tax]: crate::model::PurchaseTransaction::tax
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cost: f32,
 
     /// Required. Currency code. Use three-character ISO-4217 code.
@@ -17867,6 +17939,7 @@ pub struct WriteUserEventRequest {
     /// validation, and the API will respond without waiting for the write.
     /// Therefore, silent failures can occur even if the API returns success. In
     /// case of silent failures, error messages can be found in Stackdriver logs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub write_async: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17932,6 +18005,7 @@ pub struct CollectUserEventRequest {
     /// The event timestamp in milliseconds. This prevents browser caching of
     /// otherwise identical get requests. The name is abbreviated to reduce the
     /// payload bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub ets: i64,
 
@@ -18182,6 +18256,7 @@ pub mod rejoin_user_events_request {
 #[non_exhaustive]
 pub struct RejoinUserEventsResponse {
     /// Number of user events that were joined with latest product catalog.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub rejoined_user_events_count: i64,
 

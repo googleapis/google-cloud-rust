@@ -651,6 +651,7 @@ pub struct ListWorkflowsRequest {
     /// fewer than this value even if not at the end of the collection. If a value
     /// is not specified, a default value of 500 is used. The maximum permitted
     /// value is 1000 and values greater than 1000 are coerced down to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListWorkflows` call.
@@ -1112,6 +1113,7 @@ pub struct ListWorkflowRevisionsRequest {
     /// The maximum number of revisions to return per page. If a value is not
     /// specified, a default value of 20 is used. The maximum permitted value is
     /// 100. Values greater than 100 are coerced down to 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token, received from a previous ListWorkflowRevisions call.

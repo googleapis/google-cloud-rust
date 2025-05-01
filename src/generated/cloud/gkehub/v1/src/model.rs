@@ -1075,6 +1075,7 @@ pub struct MembershipEndpoint {
 
     /// Output only. Whether the lifecycle of this membership is managed by a
     /// google cluster platform service.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub google_managed: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1248,6 +1249,7 @@ pub struct ResourceOptions {
     /// This option should be set for clusters with Kubernetes apiserver versions
     /// <1.16.
     #[serde(rename = "v1beta1Crd")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub v1beta1_crd: bool,
 
     /// Optional. Major version of the Kubernetes cluster. This is only used to
@@ -1307,6 +1309,7 @@ pub struct ResourceManifest {
     ///
     /// This field is used for REST mapping when applying the resource in a
     /// cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cluster_scoped: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1354,6 +1357,7 @@ pub struct GkeCluster {
 
     /// Output only. If cluster_missing is set then it denotes that the GKE cluster
     /// no longer exists in the GKE Control Plane.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cluster_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1404,13 +1408,16 @@ pub struct KubernetesMetadata {
     pub node_provider_id: std::string::String,
 
     /// Output only. Node count as reported by Kubernetes nodes resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub node_count: i32,
 
     /// Output only. vCPU count as reported by Kubernetes nodes resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vcpu_count: i32,
 
     /// Output only. The total memory capacity as reported by the sum of all
     /// Kubernetes nodes resources, defined in MB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub memory_mb: i32,
 
     /// Output only. The time at which these details were last updated. This
@@ -1784,6 +1791,7 @@ pub struct ListMembershipsRequest {
     /// Optional. When requesting a 'page' of resources, `page_size` specifies
     /// number of resources to return. If unspecified or set to 0, all resources
     /// will be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Token returned by previous call to `ListMemberships` which
@@ -2094,6 +2102,7 @@ pub struct DeleteMembershipRequest {
     /// Optional. If set to true, any subresource from this Membership will also be
     /// deleted. Otherwise, the request will only work if the Membership has no
     /// subresource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2256,6 +2265,7 @@ pub struct GenerateConnectManifestRequest {
 
     /// Optional. If true, generate the resources for upgrade only. Some resources
     /// generated only for installation (e.g. secrets) will be excluded.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_upgrade: bool,
 
     /// Optional. The registry to fetch the connect agent image from. Defaults to
@@ -2472,6 +2482,7 @@ pub struct ListFeaturesRequest {
     /// When requesting a 'page' of resources, `page_size` specifies number of
     /// resources to return. If unspecified or set to 0, all resources will
     /// be returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Token returned by previous call to `ListFeatures` which
@@ -2739,6 +2750,7 @@ pub struct DeleteFeatureRequest {
     /// If set to true, the delete will ignore any outstanding resources for
     /// this Feature (that is, `FeatureState.has_resources` is set to true). These
     /// resources will NOT be cleaned up or modified in any way.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     /// Optional. A request ID to identify requests. Specify a unique request ID
@@ -2911,6 +2923,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cancel_requested: bool,
 
     /// Output only. API version used to start the operation.

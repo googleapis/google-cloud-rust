@@ -79,6 +79,7 @@ pub struct Environment {
 
     /// Output only. Port to which clients can connect to initiate SSH sessions
     /// with the environment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ssh_port: i32,
 
     /// Output only. Public keys associated with the environment. Clients can

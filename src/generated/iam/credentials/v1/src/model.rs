@@ -419,6 +419,7 @@ pub struct GenerateIdTokenRequest {
 
     /// Include the service account email in the token. If set to `true`, the
     /// token will contain `email` and `email_verified` claims.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_email: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

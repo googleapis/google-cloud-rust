@@ -66,12 +66,15 @@ pub struct DiagnosticConfig {
     pub relative_path: std::string::String,
 
     /// Optional. Enables flag to repair service for instance
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_repair_flag: bool,
 
     /// Optional. Enables flag to capture packets from the instance for 30 seconds
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_packet_capture_flag: bool,
 
     /// Optional. Enables flag to copy all `/home/jupyter` folder contents
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_copy_home_files_flag: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -561,6 +564,7 @@ pub struct AcceleratorConfig {
     pub r#type: crate::model::accelerator_config::AcceleratorType,
 
     /// Optional. Count of cores of this accelerator.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub core_count: i64,
 
@@ -715,10 +719,12 @@ pub struct ShieldedInstanceConfig {
     /// Secure Boot helps ensure that the system only runs authentic software by
     /// verifying the digital signature of all boot components, and halting the
     /// boot process if signature verification fails. Disabled by default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_secure_boot: bool,
 
     /// Optional. Defines whether the VM instance has the vTPM enabled. Enabled by
     /// default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_vtpm: bool,
 
     /// Optional. Defines whether the VM instance has integrity monitoring enabled.
@@ -727,6 +733,7 @@ pub struct ShieldedInstanceConfig {
     /// instance. The attestation is performed against the integrity policy
     /// baseline. This baseline is initially derived from the implicitly trusted
     /// boot image when the VM instance is created. Enabled by default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_integrity_monitoring: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -772,6 +779,7 @@ pub struct GPUDriverConfig {
     /// Optional. Whether the end user authorizes Google Cloud to install GPU
     /// driver on this VM instance. If this field is empty or set to false, the GPU
     /// driver won't be installed. Only applicable to instances with GPUs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_gpu_driver: bool,
 
     /// Optional. Specify a custom Cloud Storage path where the GPU driver is
@@ -819,6 +827,7 @@ impl wkt::message::Message for GPUDriverConfig {
 pub struct DataDisk {
     /// Optional. The size of the disk in GB attached to this VM instance, up to a
     /// maximum of 64000 GB (64 TB). If not specified, this defaults to 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub disk_size_gb: i64,
 
@@ -889,6 +898,7 @@ pub struct BootDisk {
     /// Optional. The size of the boot disk in GB attached to this instance, up to
     /// a maximum of 64000 GB (64 TB). If not specified, this defaults to the
     /// recommended value of 150GB.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub disk_size_gb: i64,
 
@@ -1044,6 +1054,7 @@ pub struct GceSetup {
     pub network_interfaces: std::vec::Vec<crate::model::NetworkInterface>,
 
     /// Optional. If true, no external IP will be assigned to this VM instance.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_public_ip: bool,
 
     /// Optional. The Compute Engine tags to add to runtime (see [Tagging
@@ -1057,6 +1068,7 @@ pub struct GceSetup {
 
     /// Optional. Flag to enable ip forwarding or not, default false/off.
     /// <https://cloud.google.com/vpc/docs/using-routes#canipforward>
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_ip_forwarding: bool,
 
     /// Optional. Configuration for GPU drivers.
@@ -1594,6 +1606,7 @@ pub struct Instance {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. If true, the notebook instance will not register with the proxy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_proxy_access: bool,
 
     /// Optional. Labels to apply to this instance.
@@ -1818,6 +1831,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// API version used to start the operation.
@@ -1910,6 +1924,7 @@ pub struct ListInstancesRequest {
     pub parent: std::string::String,
 
     /// Optional. Maximum return size of the list call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A previous returned page token that can be used to continue
@@ -2393,6 +2408,7 @@ impl wkt::message::Message for CheckInstanceUpgradabilityRequest {
 #[non_exhaustive]
 pub struct CheckInstanceUpgradabilityResponse {
     /// If an instance is upgradeable.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub upgradeable: bool,
 
     /// The version this instance will be upgraded to if calling the upgrade
@@ -2553,6 +2569,7 @@ pub struct DiagnoseInstanceRequest {
     pub diagnostic_config: std::option::Option<crate::model::DiagnosticConfig>,
 
     /// Optional. Maxmium amount of time in minutes before the operation times out.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub timeout_minutes: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

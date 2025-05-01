@@ -520,6 +520,7 @@ pub mod condition_context {
         pub ip: std::string::String,
 
         /// The network port of the peer.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub port: i64,
 
@@ -632,6 +633,7 @@ pub mod condition_context {
         /// attached to the given resource. If the tag value is inherited from one of
         /// the resource's ancestors, inherited will be true. If false, then the tag
         /// value is directly attached to the resource, inherited will be false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub inherited: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1162,6 +1164,7 @@ pub struct DenyPolicyExplanation {
 
     /// Indicates whether the permission to troubleshoot is supported in deny
     /// policies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub permission_deniable: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1872,11 +1875,13 @@ pub mod condition_explanation {
     #[non_exhaustive]
     pub struct EvaluationState {
         /// Start position of an expression in the condition, by character.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub start: i32,
 
         /// End position of an expression in the condition, by character,
         /// end included, for example: the end position of the first part of
         /// `a==b || c==d` would be 4.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub end: i32,
 
         /// Value of this expression.

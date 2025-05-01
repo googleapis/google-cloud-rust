@@ -66,6 +66,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -558,6 +559,7 @@ pub struct CreatePolicyBindingRequest {
 
     /// Optional. If set, validate the request and preview the creation, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -662,6 +664,7 @@ pub struct UpdatePolicyBindingRequest {
 
     /// Optional. If set, validate the request and preview the update, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. The list of fields to update
@@ -734,6 +737,7 @@ pub struct DeletePolicyBindingRequest {
 
     /// Optional. If set, validate the request and preview the deletion, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -793,6 +797,7 @@ pub struct ListPolicyBindingsRequest {
     ///
     /// If unspecified, at most 50 policy bindings will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListPolicyBindings` call.
@@ -943,6 +948,7 @@ pub struct SearchTargetPolicyBindingsRequest {
     ///
     /// If unspecified, at most 50 policy bindings will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -1101,6 +1107,7 @@ pub struct CreatePrincipalAccessBoundaryPolicyRequest {
 
     /// Optional. If set, validate the request and preview the creation, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1202,6 +1209,7 @@ pub struct UpdatePrincipalAccessBoundaryPolicyRequest {
 
     /// Optional. If set, validate the request and preview the update, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. The list of fields to update
@@ -1270,10 +1278,12 @@ pub struct DeletePrincipalAccessBoundaryPolicyRequest {
 
     /// Optional. If set, validate the request and preview the deletion, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set to true, the request will force the deletion of the policy
     /// even if the policy is referenced in policy bindings.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1336,6 +1346,7 @@ pub struct ListPrincipalAccessBoundaryPoliciesRequest {
     /// If unspecified, at most 50 principal access boundary policies will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -1462,6 +1473,7 @@ pub struct SearchPrincipalAccessBoundaryPolicyBindingsRequest {
     ///
     /// If unspecified, at most 50 policy bindings will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous

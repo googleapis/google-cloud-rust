@@ -193,6 +193,7 @@ pub struct LogEntry {
     /// for storage when this log entry was written, or the sampling decision was
     /// unknown at the time. A non-sampled `trace` value is still useful as a
     /// request correlation identifier. The default is False.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub trace_sampled: bool,
 
     /// Optional. Source code location information associated with the log entry,
@@ -479,9 +480,11 @@ pub struct LogEntryOperation {
     pub producer: std::string::String,
 
     /// Optional. Set this to True if this is the first log entry in the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub first: bool,
 
     /// Optional. Set this to True if this is the last log entry in the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub last: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -538,6 +541,7 @@ pub struct LogEntrySourceLocation {
 
     /// Optional. Line within the source file. 1-based; 0 indicates no line number
     /// available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub line: i64,
 
@@ -601,9 +605,11 @@ pub struct LogSplit {
     /// The index of this LogEntry in the sequence of split log entries. Log
     /// entries are given |index| values 0, 1, ..., n-1 for a sequence of n log
     /// entries.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub index: i32,
 
     /// The total number of log entries that the original LogEntry was split into.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_splits: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -774,11 +780,13 @@ pub struct WriteLogEntriesRequest {
     /// error details in `WriteLogEntriesPartialErrors.log_entry_errors` keyed by
     /// the entries' zero-based index in the `entries`. Failed requests for which
     /// no entries are written will not include per-entry errors.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub partial_success: bool,
 
     /// Optional. If true, the request should expect normal response, but the
     /// entries won't be persisted nor exported. Useful for checking whether the
     /// logging API endpoints are working properly before sending valuable data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dry_run: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -961,6 +969,7 @@ pub struct ListLogEntriesRequest {
     /// Default is 50. If the value is negative or exceeds 1000, the request is
     /// rejected. The presence of `next_page_token` in the response indicates that
     /// more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -1102,6 +1111,7 @@ pub struct ListMonitoredResourceDescriptorsRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored.  The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -1238,6 +1248,7 @@ pub struct ListLogsRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored.  The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -1495,6 +1506,7 @@ pub mod tail_log_entries_response {
         pub reason: crate::model::tail_log_entries_response::suppression_info::Reason,
 
         /// A lower bound on the count of entries omitted due to `reason`.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub suppressed_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1702,12 +1714,14 @@ pub struct LogBucket {
     /// will automatically be deleted. The minimum retention period is 1 day. If
     /// this value is set to zero at bucket creation time, the default time of 30
     /// days will be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retention_days: i32,
 
     /// Whether the bucket is locked.
     ///
     /// The retention period on a locked bucket cannot be changed. Locked buckets
     /// may only be deleted if they are empty.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub locked: bool,
 
     /// Output only. The bucket lifecycle state.
@@ -1716,6 +1730,7 @@ pub struct LogBucket {
     /// Whether log analytics is enabled for this bucket.
     ///
     /// Once enabled, log analytics features cannot be disabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub analytics_enabled: bool,
 
     /// Log entry field paths that are denied access in this bucket.
@@ -1995,6 +2010,7 @@ pub struct LogSink {
 
     /// Optional. If set to true, then this sink is disabled and it does not export
     /// any log entries.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Optional. Log entries that match any of these exclusion filters will not be
@@ -2049,6 +2065,7 @@ pub struct LogSink {
     ///
     /// logName:("projects/test-project1/" OR "projects/test-project2/") AND
     /// resource.type=gce_instance
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_children: bool,
 
     /// Output only. The creation timestamp of the sink.
@@ -2434,6 +2451,7 @@ pub struct BigQueryOptions {
     /// syntax](https://cloud.google.com/bigquery/docs/querying-partitioned-tables)
     /// has to be used instead. In both cases, tables are sharded based on UTC
     /// timezone.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_partitioned_tables: bool,
 
     /// Output only. True if new timestamp column based partitioning is in use,
@@ -2443,6 +2461,7 @@ pub struct BigQueryOptions {
     /// based partitioning. If use_partitioned_tables is false, this value has no
     /// meaning and will be false. Legacy sinks using partitioned tables will have
     /// this field set to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub uses_timestamp_column_partitioning: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2507,6 +2526,7 @@ pub struct ListBucketsRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2903,6 +2923,7 @@ pub struct ListViewsRequest {
     ///
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3247,6 +3268,7 @@ pub struct ListSinksRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3430,6 +3452,7 @@ pub struct CreateSinkRequest {
     /// [LogSink][google.logging.v2.LogSink].
     ///
     /// [google.logging.v2.LogSink]: crate::model::LogSink
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unique_writer_identity: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3509,6 +3532,7 @@ pub struct UpdateSinkRequest {
     ///   set to false or defaulted to false.
     ///
     /// [google.logging.v2.ConfigServiceV2.CreateSink]: crate::client::ConfigServiceV2::create_sink
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unique_writer_identity: bool,
 
     /// Optional. Field mask that specifies the fields in `sink` that need
@@ -3743,6 +3767,7 @@ pub struct ListLinksRequest {
     pub page_token: std::string::String,
 
     /// Optional. The maximum number of results to return from this request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3919,6 +3944,7 @@ pub struct LogExclusion {
     /// value of this field.
     ///
     /// [google.logging.v2.ConfigServiceV2.UpdateExclusion]: crate::client::ConfigServiceV2::update_exclusion
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Output only. The creation timestamp of the exclusion.
@@ -4018,6 +4044,7 @@ pub struct ListExclusionsRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4836,6 +4863,7 @@ pub struct Settings {
     /// folders will created in a disabled state. This can be used to automatically
     /// disable log ingestion if there is already an aggregated sink configured in
     /// the hierarchy. The _Default sink can be re-enabled manually if needed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_default_sink: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4965,6 +4993,7 @@ pub struct CopyLogEntriesMetadata {
     pub state: crate::model::OperationState,
 
     /// Identifies whether the user has requested cancellation of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cancellation_requested: bool,
 
     /// CopyLogEntries RPC request.
@@ -4972,6 +5001,7 @@ pub struct CopyLogEntriesMetadata {
     pub request: std::option::Option<crate::model::CopyLogEntriesRequest>,
 
     /// Estimated progress of the operation (0 - 100%).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress: i32,
 
     /// The IAM identity of a service account that must be granted access to the
@@ -5060,6 +5090,7 @@ impl wkt::message::Message for CopyLogEntriesMetadata {
 #[non_exhaustive]
 pub struct CopyLogEntriesResponse {
     /// Number of log entries copied.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub log_entries_copied_count: i64,
 
@@ -5401,6 +5432,7 @@ pub mod link_metadata {
 pub struct LocationMetadata {
     /// Indicates whether or not Log Analytics features are supported in the given
     /// location.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub log_analytics_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5484,6 +5516,7 @@ pub struct LogMetric {
 
     /// Optional. If set to True, then this metric is disabled and it does not
     /// generate any points.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Optional. The metric descriptor associated with the logs-based metric.
@@ -5767,6 +5800,7 @@ pub struct ListLogMetricsRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

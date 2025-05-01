@@ -67,6 +67,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -642,6 +643,7 @@ pub mod extension_chain {
         /// * If response headers have been delivered, then the HTTP stream to the
         ///   downstream client is reset.
         ///
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub fail_open: bool,
 
         /// Optional. List of the HTTP headers to forward to the extension
@@ -902,6 +904,7 @@ pub struct ListLbTrafficExtensionsRequest {
 
     /// Optional. Requested page size. The server might return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results that the server returns.
@@ -1467,6 +1470,7 @@ pub struct ListLbRouteExtensionsRequest {
 
     /// Optional. Requested page size. The server might return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results that the server returns.
@@ -2118,6 +2122,7 @@ pub struct ListEndpointPoliciesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of EndpointPolicies to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListEndpointPoliciesResponse`
@@ -2644,6 +2649,7 @@ pub struct ListGatewaysRequest {
     pub parent: std::string::String,
 
     /// Maximum number of Gateways to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListGatewaysResponse`
@@ -3752,6 +3758,7 @@ pub mod grpc_route {
 
         /// Specifies the allowed number of retries. This number must be > 0. If not
         /// specified, default to 1.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub num_retries: u32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3950,6 +3957,7 @@ pub struct ListGrpcRoutesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of GrpcRoutes to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListGrpcRoutesResponse`
@@ -4440,6 +4448,7 @@ pub mod http_route {
 
         /// If specified, the match result will be inverted before checking. Default
         /// value is set to false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub invert_match: bool,
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -4668,9 +4677,11 @@ pub mod http_route {
         #[non_exhaustive]
         pub struct IntegerRange {
             /// Start of the range (inclusive)
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub start: i32,
 
             /// End of the range (exclusive)
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub end: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4894,6 +4905,7 @@ pub mod http_route {
     pub struct RouteMatch {
         /// Specifies if prefix_match and full_path_match matches are case sensitive.
         /// The default value is false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub ignore_case: bool,
 
         /// Specifies a list of HTTP request headers to match against. ALL of the
@@ -5106,6 +5118,7 @@ pub mod http_route {
         ///
         /// If weights are unspecified for all services, then, traffic is distributed
         /// in equal proportions to all of them.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub weight: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5172,6 +5185,7 @@ pub mod http_route {
         /// same as that of the request.
         ///
         /// The default is set to false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub https_redirect: bool,
 
         /// if set to true, any accompanying query portion of the original URL is
@@ -5179,10 +5193,12 @@ pub mod http_route {
         /// portion of the original URL is retained.
         ///
         /// The default is set to false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub strip_query: bool,
 
         /// The port that will be used in the redirected request instead of the one
         /// that was supplied in the request.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub port_redirect: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5419,6 +5435,7 @@ pub mod http_route {
             /// The percentage of traffic on which delay will be injected.
             ///
             /// The value must be between [0, 100]
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub percentage: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5462,11 +5479,13 @@ pub mod http_route {
             /// The HTTP status code used to abort the request.
             ///
             /// The value must be between 200 and 599 inclusive.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub http_status: i32,
 
             /// The percentage of traffic which will be aborted.
             ///
             /// The value must be between [0, 100]
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub percentage: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5654,6 +5673,7 @@ pub mod http_route {
 
         /// Specifies the allowed number of retries. This number must be > 0. If not
         /// specified, default to 1.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub num_retries: i32,
 
         /// Specifies a non-zero timeout per retry attempt.
@@ -5783,10 +5803,12 @@ pub mod http_route {
         /// Access-Control-Allow-Credentials header.
         ///
         /// Default value is false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub allow_credentials: bool,
 
         /// If true, the CORS policy is disabled. The default value is false, which
         /// indicates that the CORS policy is in effect.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub disabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6145,6 +6167,7 @@ pub struct ListHttpRoutesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of HttpRoutes to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListHttpRoutesResponse`
@@ -6464,6 +6487,7 @@ pub struct Mesh {
     /// regardless of its actual ip:port destination. If unset, a port '15001' is
     /// used as the interception port. This is applicable only for sidecar proxy
     /// deployments.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub interception_port: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6548,6 +6572,7 @@ pub struct ListMeshesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of Meshes to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListMeshesResponse`
@@ -6937,6 +6962,7 @@ pub struct ListServiceBindingsRequest {
     pub parent: std::string::String,
 
     /// Maximum number of ServiceBindings to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListServiceBindingsResponse`
@@ -7452,6 +7478,7 @@ pub mod tcp_route {
         /// Optional. If true, Router will use the destination IP and port of the
         /// original connection as the destination of the request. Default is false.
         /// Only one of route destinations or original destination can be set.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub original_destination: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7512,6 +7539,7 @@ pub mod tcp_route {
         ///
         /// If weights are unspecified for all services, then, traffic is distributed
         /// in equal proportions to all of them.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub weight: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7558,6 +7586,7 @@ pub struct ListTcpRoutesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of TcpRoutes to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListTcpRoutesResponse`
@@ -8152,6 +8181,7 @@ pub mod tls_route {
         ///
         /// - weight/Sum(weights in destinations)
         ///   Weights in all destinations does not need to sum up to 100.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub weight: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8198,6 +8228,7 @@ pub struct ListTlsRoutesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of TlsRoutes to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListTlsRoutesResponse`

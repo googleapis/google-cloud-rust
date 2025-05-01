@@ -791,6 +791,7 @@ pub mod dns_settings {
     #[non_exhaustive]
     pub struct DsRecord {
         /// The key tag of the record. Must be set in range 0 -- 65535.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub key_tag: i32,
 
         /// The algorithm used to generate the referenced DNSKEY.
@@ -1570,6 +1571,7 @@ pub struct RegisterDomainRequest {
     /// When true, only validation is performed, without actually registering
     /// the domain. Follows:
     /// <https://cloud.google.com/apis/design/design_patterns#request_validation>
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1760,6 +1762,7 @@ pub struct TransferDomainRequest {
     pub authorization_code: std::option::Option<crate::model::AuthorizationCode>,
 
     /// Validate the request without actually transferring the domain.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1844,6 +1847,7 @@ pub struct ListRegistrationsRequest {
     pub parent: std::string::String,
 
     /// Maximum number of results to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// When set to the `next_page_token` from a prior response, provides the next
@@ -2148,6 +2152,7 @@ pub struct ConfigureDnsSettingsRequest {
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
     /// Validate the request without actually updating the DNS settings.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2225,6 +2230,7 @@ pub struct ConfigureContactSettingsRequest {
     pub contact_notices: std::vec::Vec<crate::model::ContactNotice>,
 
     /// Validate the request without actually updating the contact settings.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

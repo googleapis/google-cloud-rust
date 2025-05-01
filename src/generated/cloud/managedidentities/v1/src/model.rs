@@ -60,6 +60,7 @@ pub struct OpMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -281,6 +282,7 @@ pub struct ListDomainsRequest {
     /// to determine if there are additional results to list.
     ///
     /// [google.cloud.managedidentities.v1.ListDomainsResponse.next_page_token]: crate::model::ListDomainsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous ListDomainsRequest
@@ -1052,6 +1054,7 @@ pub struct Trust {
     /// Optional. The trust authentication type, which decides whether the trusted side has
     /// forest/domain wide access or selective access to an approved set of
     /// resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub selective_authentication: bool,
 
     /// Required. The target DNS server IP addresses which can resolve the remote domain

@@ -341,6 +341,7 @@ pub struct ListAssetsRequest {
 
     /// The maximum number of assets to be returned in a single response. Default
     /// is 100, minimum is 1, and maximum is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The `next_page_token` returned from the previous `ListAssetsResponse`, or
@@ -1317,6 +1318,7 @@ pub struct BigQueryDestination {
     /// table will be overwritten by the contents of assets snapshot. If the flag
     /// is `FALSE` or unset and the destination table already exists, the export
     /// call returns an INVALID_ARGUMEMT error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     /// [partition_spec] determines whether to export to partitioned table(s) and
@@ -1366,6 +1368,7 @@ pub struct BigQueryDestination {
     /// Example: if exporting to table_type_A succeeds when exporting to
     /// table_type_B fails during one export call, the results in table_type_A will
     /// persist and there will not be partial results persisting in a table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub separate_tables_per_asset_type: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1943,6 +1946,7 @@ pub struct SearchAllResourcesRequest {
     /// server will pick an appropriate default. Returned results may be fewer than
     /// requested. When this happens, there could be more results as long as
     /// `next_page_token` is returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -2207,6 +2211,7 @@ pub struct SearchAllIamPoliciesRequest {
     /// server will pick an appropriate default. Returned results may be fewer than
     /// requested. When this happens, there could be more results as long as
     /// `next_page_token` is returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If present, retrieve the next batch of results from the preceding
@@ -2667,6 +2672,7 @@ pub mod iam_policy_analysis_query {
         /// Default is false.
         ///
         /// [google.cloud.asset.v1.IamPolicyAnalysisQuery.identity_selector]: crate::model::IamPolicyAnalysisQuery::identity_selector
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub expand_groups: bool,
 
         /// Optional. If true, the access section of result will expand any roles
@@ -2680,6 +2686,7 @@ pub mod iam_policy_analysis_query {
         /// Default is false.
         ///
         /// [google.cloud.asset.v1.IamPolicyAnalysisQuery.access_selector]: crate::model::IamPolicyAnalysisQuery::access_selector
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub expand_roles: bool,
 
         /// Optional. If true and
@@ -2711,15 +2718,18 @@ pub mod iam_policy_analysis_query {
         /// Default is false.
         ///
         /// [google.cloud.asset.v1.IamPolicyAnalysisQuery.resource_selector]: crate::model::IamPolicyAnalysisQuery::resource_selector
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub expand_resources: bool,
 
         /// Optional. If true, the result will output the relevant parent/child
         /// relationships between resources. Default is false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub output_resource_edges: bool,
 
         /// Optional. If true, the result will output the relevant membership
         /// relationships between groups and other groups, and between groups and
         /// principals. Default is false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub output_group_edges: bool,
 
         /// Optional. If true, the response will include access analysis from
@@ -2760,6 +2770,7 @@ pub mod iam_policy_analysis_query {
         ///
         /// [google.cloud.asset.v1.AnalyzeIamPolicyResponse.service_account_impersonation_analysis]: crate::model::AnalyzeIamPolicyResponse::service_account_impersonation_analysis
         /// [google.cloud.asset.v1.AssetService.AnalyzeIamPolicyLongrunning]: crate::client::AssetService::analyze_iam_policy_longrunning
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub analyze_service_account_impersonation: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3029,6 +3040,7 @@ pub struct AnalyzeIamPolicyResponse {
     ///
     /// [google.cloud.asset.v1.AnalyzeIamPolicyResponse.main_analysis]: crate::model::AnalyzeIamPolicyResponse::main_analysis
     /// [google.cloud.asset.v1.AnalyzeIamPolicyResponse.service_account_impersonation_analysis]: crate::model::AnalyzeIamPolicyResponse::service_account_impersonation_analysis
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub fully_explored: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3105,6 +3117,7 @@ pub mod analyze_iam_policy_response {
         /// have been fully explored to answer the query.
         ///
         /// [google.cloud.asset.v1.AnalyzeIamPolicyResponse.IamPolicyAnalysis.analysis_results]: crate::model::analyze_iam_policy_response::IamPolicyAnalysis::analysis_results
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub fully_explored: bool,
 
         /// A list of non-critical errors happened during the query handling.
@@ -3976,6 +3989,7 @@ pub struct ListSavedQueriesRequest {
     /// service may return fewer than this value. If unspecified, at most 50 will
     /// be returned. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListSavedQueries` call.
@@ -4694,6 +4708,7 @@ pub struct QueryAssetsRequest {
     /// is reached, the rest of the query results will be paginated.
     ///
     /// The field will be ignored when [output_config] is specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token received from previous `QueryAssets`.
@@ -4988,6 +5003,7 @@ pub struct QueryAssetsResponse {
     /// `error`, `query_result` or `output_config` will be set.
     /// [done] is unset unless the [QueryAssetsResponse] contains a
     /// [QueryAssetsResponse.job_reference].
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub done: bool,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -5164,6 +5180,7 @@ pub struct QueryResult {
     pub next_page_token: std::string::String,
 
     /// Total rows of the whole query results.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_rows: i64,
 
@@ -5642,6 +5659,7 @@ pub struct AnalyzerOrgPolicy {
     /// hierarchy (up to the closest root) are inherited and present in the
     /// effective policy. If it is false, then no rules are inherited, and this
     /// policy becomes the effective root for evaluation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub inherit_from_parent: bool,
 
     /// Ignores policies set above this resource and restores the default behavior
@@ -5649,6 +5667,7 @@ pub struct AnalyzerOrgPolicy {
     /// This field can be set in policies for either list or boolean
     /// constraints. If set, `rules` must be empty and `inherit_from_parent`
     /// must be set to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reset: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6310,12 +6329,14 @@ pub mod analyzer_org_policy_constraint {
             /// Indicates whether values grouped into categories can be used in
             /// `Policy.allowed_values` and `Policy.denied_values`. For example,
             /// `"in:Python"` would match any value in the 'Python' group.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub supports_in: bool,
 
             /// Indicates whether subtrees of Cloud Resource Manager resource hierarchy
             /// can be used in `Policy.allowed_values` and `Policy.denied_values`. For
             /// example, `"under:folders/123"` would match any resource under the
             /// 'folders/123' folder.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub supports_under: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8029,6 +8050,7 @@ pub struct TemporalAsset {
     pub window: std::option::Option<crate::model::TimeWindow>,
 
     /// Whether the asset has been deleted or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deleted: bool,
 
     /// An asset in Google Cloud.
@@ -10352,6 +10374,7 @@ pub struct IamPolicyAnalysisResult {
     /// have successfully finished.
     ///
     /// [google.cloud.asset.v1.IamPolicyAnalysisResult.iam_binding]: crate::model::IamPolicyAnalysisResult::iam_binding
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub fully_explored: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

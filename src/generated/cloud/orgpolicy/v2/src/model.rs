@@ -80,6 +80,7 @@ pub struct Constraint {
     pub constraint_default: crate::model::constraint::ConstraintDefault,
 
     /// Shows if dry run is supported for this constraint or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub supports_dry_run: bool,
 
     /// Managed constraint and canned constraint sometimes can have
@@ -88,6 +89,7 @@ pub struct Constraint {
     pub equivalent_constraint: std::string::String,
 
     /// Shows if simulation is supported for this constraint or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub supports_simulation: bool,
 
     /// The type of restrictions for this `Constraint`.
@@ -258,12 +260,14 @@ pub mod constraint {
         /// Indicates whether values grouped into categories can be used in
         /// `Policy.allowed_values` and `Policy.denied_values`. For example,
         /// `"in:Python"` would match any value in the 'Python' group.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub supports_in: bool,
 
         /// Indicates whether subtrees of the Resource Manager resource hierarchy
         /// can be used in `Policy.allowed_values` and `Policy.denied_values`. For
         /// example, `"under:folders/123"` would match any resource under the
         /// 'folders/123' folder.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub supports_under: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1367,6 +1371,7 @@ pub struct PolicySpec {
     /// effective policy. If it is false, then no rules are inherited, and this
     /// policy becomes the new root for evaluation.
     /// This field can be set only for policies which configure list constraints.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub inherit_from_parent: bool,
 
     /// Ignores policies set above this resource and restores the
@@ -1375,6 +1380,7 @@ pub struct PolicySpec {
     /// This field can be set in policies for either list or boolean
     /// constraints. If set, `rules` must be empty and `inherit_from_parent`
     /// must be set to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reset: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1744,6 +1750,7 @@ pub struct ListConstraintsRequest {
     /// Size of the pages to be returned. This is currently unsupported and will
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token used to retrieve the next page. This is currently unsupported
@@ -1868,6 +1875,7 @@ pub struct ListPoliciesRequest {
     /// Size of the pages to be returned. This is currently unsupported and will
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token used to retrieve the next page. This is currently unsupported
@@ -2297,6 +2305,7 @@ pub struct ListCustomConstraintsRequest {
     /// Size of the pages to be returned. This is currently unsupported and will
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token used to retrieve the next page. This is currently unsupported

@@ -366,14 +366,17 @@ pub mod environment {
         #[non_exhaustive]
         pub struct ComputeResources {
             /// Optional. Size in GB of the disk. Default is 100 GB.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub disk_size_gb: i32,
 
             /// Optional. Total number of nodes in the sessions created for this
             /// environment.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub node_count: i32,
 
             /// Optional. Max configurable nodes.
             /// If max_node_count > node_count, then auto-scaling is enabled.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub max_node_count: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -538,6 +541,7 @@ pub mod environment {
         /// defaults to False to avoid additional billed charges. These can only be
         /// set to True for the environment with name set to "default", and with
         /// default configuration.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_fast_startup: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -579,6 +583,7 @@ pub mod environment {
     pub struct SessionStatus {
         /// Output only. Queries over sessions to mark whether the environment is
         /// currently active or not
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub active: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1363,6 +1368,7 @@ pub mod aspect_type {
         /// Template is defined, the index cannot be changed, because it identifies
         /// the field in the actual storage format. Index is a mandatory field, but
         /// it is optional for top level fields, and map/array "values" definitions.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub index: i32,
 
         /// Required. The name of the field.
@@ -1577,6 +1583,7 @@ pub mod aspect_type {
         #[non_exhaustive]
         pub struct EnumValue {
             /// Required. Index for the enum value. It can't be modified.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub index: i32,
 
             /// Required. Name of the enumvalue. This is the actual value that the
@@ -1633,6 +1640,7 @@ pub mod aspect_type {
         #[non_exhaustive]
         pub struct Constraints {
             /// Optional. Marks this field as optional or required.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub required: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1678,6 +1686,7 @@ pub mod aspect_type {
 
             /// Optional. Display order for a field. You can use this to reorder where
             /// a field is rendered.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub display_order: i32,
 
             /// Optional. You can use String Type annotations to specify special
@@ -2678,6 +2687,7 @@ pub struct CreateEntryGroupRequest {
 
     /// Optional. The service validates the request without performing any
     /// mutations. The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2739,6 +2749,7 @@ pub struct UpdateEntryGroupRequest {
 
     /// Optional. The service validates the request, without performing any
     /// mutations. The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2842,6 +2853,7 @@ pub struct ListEntryGroupsRequest {
     /// fewer than this value. If unspecified, the service returns at most 10
     /// EntryGroups. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListEntryGroups` call.
@@ -3037,6 +3049,7 @@ pub struct CreateEntryTypeRequest {
 
     /// Optional. The service validates the request without performing any
     /// mutations. The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3098,6 +3111,7 @@ pub struct UpdateEntryTypeRequest {
 
     /// Optional. The service validates the request without performing any
     /// mutations. The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3200,6 +3214,7 @@ pub struct ListEntryTypesRequest {
     /// fewer than this value. If unspecified, the service returns at most 10
     /// EntryTypes. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListEntryTypes` call.
@@ -3403,6 +3418,7 @@ pub struct CreateAspectTypeRequest {
 
     /// Optional. The service validates the request without performing any
     /// mutations. The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3464,6 +3480,7 @@ pub struct UpdateAspectTypeRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3567,6 +3584,7 @@ pub struct ListAspectTypesRequest {
     /// fewer than this value. If unspecified, the service returns at most 10
     /// AspectTypes. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListAspectTypes` call.
@@ -3843,11 +3861,13 @@ pub struct UpdateEntryRequest {
 
     /// Optional. If set to true and the entry doesn't exist, the service will
     /// create it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set to true and the aspect_keys specify aspect ranges, the
     /// service deletes any existing aspects from that range that weren't provided
     /// in the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub delete_missing_aspects: bool,
 
     /// Optional. The map keys of the Aspects which the service should modify. It
@@ -3976,6 +3996,7 @@ pub struct ListEntriesRequest {
     /// results, the service returns a next_page_token. If unspecified, the service
     /// returns at most 10 Entries. The maximum value is 100; values above 100 will
     /// be coerced to 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListEntries` call. Provide
@@ -4289,6 +4310,7 @@ pub struct SearchEntriesRequest {
     /// Optional. Number of results in the search page. If <=0, then defaults
     /// to 10. Max limit for page_size is 1000. Throws an invalid argument for
     /// page_size > 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `SearchEntries` call. Provide
@@ -4478,6 +4500,7 @@ pub struct SearchEntriesResponse {
 
     /// The estimated total number of matching entries. This number isn't
     /// guaranteed to be accurate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     /// Token to retrieve the next page of results, or empty if there are no more
@@ -4684,6 +4707,7 @@ pub struct CreateMetadataJobRequest {
 
     /// Optional. The service validates the request without performing any
     /// mutations. The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4778,6 +4802,7 @@ pub struct ListMetadataJobsRequest {
     /// Optional. The maximum number of metadata jobs to return. The service might
     /// return fewer jobs than this value. If unspecified, at most 10 jobs are
     /// returned. The maximum value is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The page token received from a previous `ListMetadataJobs` call.
@@ -5238,22 +5263,27 @@ pub mod metadata_job {
     #[non_exhaustive]
     pub struct ImportJobResult {
         /// Output only. The total number of entries that were deleted.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub deleted_entries: i64,
 
         /// Output only. The total number of entries that were updated.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub updated_entries: i64,
 
         /// Output only. The total number of entries that were created.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub created_entries: i64,
 
         /// Output only. The total number of entries that were unchanged.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub unchanged_entries: i64,
 
         /// Output only. The total number of entries that were recreated.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub recreated_entries: i64,
 
@@ -5324,6 +5354,7 @@ pub mod metadata_job {
     #[non_exhaustive]
     pub struct ExportJobResult {
         /// Output only. The number of entries that have been exported.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub exported_entries: i64,
 
@@ -5836,6 +5867,7 @@ pub mod metadata_job {
             /// - When set to false, one of the projects or entry groups must be
             ///   specified.
             /// - Default to false.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub organization_level: bool,
 
             /// The projects that are in the scope of the export job. Can either be
@@ -5954,6 +5986,7 @@ pub mod metadata_job {
         pub message: std::string::String,
 
         /// Output only. Progress tracking.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub completion_percent: i32,
 
         /// Output only. The time when the status was updated.
@@ -6680,6 +6713,7 @@ pub struct ListEncryptionConfigsRequest {
     /// return fewer than this value. If unspecified, at most 10 EncryptionConfigs
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListEncryptionConfigs` call.
@@ -6852,6 +6886,7 @@ pub struct CreateContentRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6908,6 +6943,7 @@ pub struct UpdateContentRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6997,6 +7033,7 @@ pub struct ListContentRequest {
     /// Optional. Maximum number of content to return. The service may return fewer
     /// than this value. If unspecified, at most 10 content will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListContent` call. Provide
@@ -7593,6 +7630,7 @@ pub mod data_discovery_spec {
         pub struct CsvOptions {
             /// Optional. The number of rows to interpret as header rows that should be
             /// skipped when reading data rows.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub header_rows: i32,
 
             /// Optional. The delimiter that is used to separate values. The default is
@@ -7606,6 +7644,7 @@ pub mod data_discovery_spec {
 
             /// Optional. Whether to disable the inference of data types for CSV data.
             /// If true, all columns are registered as strings.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub type_inference_disabled: bool,
 
             /// Optional. The character used to quote column values. Accepts `"`
@@ -7682,6 +7721,7 @@ pub mod data_discovery_spec {
             /// Optional. Whether to disable the inference of data types for JSON data.
             /// If true, all columns are registered as their primitive types
             /// (strings, number, or boolean).
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub type_inference_disabled: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7840,31 +7880,40 @@ pub mod data_discovery_result {
     #[non_exhaustive]
     pub struct ScanStatistics {
         /// The number of files scanned.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub scanned_file_count: i32,
 
         /// The data processed in bytes.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub data_processed_bytes: i64,
 
         /// The number of files excluded.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub files_excluded: i32,
 
         /// The number of tables created.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub tables_created: i32,
 
         /// The number of tables deleted.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub tables_deleted: i32,
 
         /// The number of tables updated.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub tables_updated: i32,
 
         /// The number of filesets created.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub filesets_created: i32,
 
         /// The number of filesets deleted.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub filesets_deleted: i32,
 
         /// The number of filesets updated.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub filesets_updated: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7951,6 +8000,7 @@ pub struct DataProfileSpec {
     ///   digits.
     /// * Sampling is not applied if `sampling_percent` is not specified, 0 or
     ///
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sampling_percent: f32,
 
     /// Optional. A filter applied to all rows in a single DataScan job.
@@ -8186,6 +8236,7 @@ pub mod data_profile_spec {
 #[non_exhaustive]
 pub struct DataProfileResult {
     /// The count of rows scanned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub row_count: i64,
 
@@ -8399,11 +8450,13 @@ pub mod data_profile_result {
             #[non_exhaustive]
             pub struct ProfileInfo {
                 /// Ratio of rows with null value against total scanned rows.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub null_ratio: f64,
 
                 /// Ratio of rows with distinct values against total scanned rows.
                 /// Not available for complex non-groupable field type, including RECORD,
                 /// ARRAY, GEOGRAPHY, and JSON, as well as fields with REPEATABLE mode.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub distinct_ratio: f64,
 
                 /// The list of top N non-null values, frequency and ratio with which
@@ -8561,14 +8614,17 @@ pub mod data_profile_result {
                 #[non_exhaustive]
                 pub struct StringFieldInfo {
                     /// Minimum length of non-null values in the scanned data.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     #[serde_as(as = "serde_with::DisplayFromStr")]
                     pub min_length: i64,
 
                     /// Maximum length of non-null values in the scanned data.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     #[serde_as(as = "serde_with::DisplayFromStr")]
                     pub max_length: i64,
 
                     /// Average length of non-null values in the scanned data.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub average_length: f64,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8615,14 +8671,17 @@ pub mod data_profile_result {
                 pub struct IntegerFieldInfo {
                     /// Average of non-null values in the scanned data. NaN, if the field
                     /// has a NaN.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub average: f64,
 
                     /// Standard deviation of non-null values in the scanned data. NaN, if
                     /// the field has a NaN.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub standard_deviation: f64,
 
                     /// Minimum of non-null values in the scanned data. NaN, if the field
                     /// has a NaN.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     #[serde_as(as = "serde_with::DisplayFromStr")]
                     pub min: i64,
 
@@ -8644,6 +8703,7 @@ pub mod data_profile_result {
 
                     /// Maximum of non-null values in the scanned data. NaN, if the field
                     /// has a NaN.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     #[serde_as(as = "serde_with::DisplayFromStr")]
                     pub max: i64,
 
@@ -8711,14 +8771,17 @@ pub mod data_profile_result {
                 pub struct DoubleFieldInfo {
                     /// Average of non-null values in the scanned data. NaN, if the field
                     /// has a NaN.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub average: f64,
 
                     /// Standard deviation of non-null values in the scanned data. NaN, if
                     /// the field has a NaN.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub standard_deviation: f64,
 
                     /// Minimum of non-null values in the scanned data. NaN, if the field
                     /// has a NaN.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub min: f64,
 
                     /// A quartile divides the number of data points into four parts, or
@@ -8737,6 +8800,7 @@ pub mod data_profile_result {
 
                     /// Maximum of non-null values in the scanned data. NaN, if the field
                     /// has a NaN.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub max: f64,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8806,11 +8870,13 @@ pub mod data_profile_result {
                     pub value: std::string::String,
 
                     /// Count of the corresponding value in the scanned data.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     #[serde_as(as = "serde_with::DisplayFromStr")]
                     pub count: i64,
 
                     /// Ratio of the corresponding value in the field against the total
                     /// number of rows in the scanned data.
+                    #[serde(skip_serializing_if = "wkt::internal::is_default")]
                     pub ratio: f64,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9037,6 +9103,7 @@ pub struct DataQualitySpec {
     ///   digits.
     /// * Sampling is not applied if `sampling_percent` is not specified, 0 or
     ///
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sampling_percent: f32,
 
     /// Optional. A filter applied to all rows in a single DataScan job.
@@ -9263,6 +9330,7 @@ pub mod data_quality_spec {
         #[non_exhaustive]
         pub struct ScoreThresholdTrigger {
             /// Optional. The score range is in [0,100].
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub score_threshold: f32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9438,6 +9506,7 @@ pub mod data_quality_spec {
 #[non_exhaustive]
 pub struct DataQualityResult {
     /// Output only. Overall data quality result -- `true` if all rules passed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub passed: bool,
 
     /// Output only. The overall data quality score.
@@ -9465,6 +9534,7 @@ pub struct DataQualityResult {
     pub rules: std::vec::Vec<crate::model::DataQualityRuleResult>,
 
     /// Output only. The count of rows processed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub row_count: i64,
 
@@ -9736,6 +9806,7 @@ pub struct DataQualityRuleResult {
     pub rule: std::option::Option<crate::model::DataQualityRule>,
 
     /// Output only. Whether the rule passed or failed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub passed: bool,
 
     /// Output only. The number of rows a rule was evaluated against.
@@ -9750,6 +9821,7 @@ pub struct DataQualityRuleResult {
     ///   `ignore_nulls = true`.
     ///
     /// This field is not set for rule SqlAssertion.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub evaluated_count: i64,
 
@@ -9758,16 +9830,19 @@ pub struct DataQualityRuleResult {
     /// This field is only valid for row-level type rules.
     ///
     /// This field is not set for rule SqlAssertion.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub passed_count: i64,
 
     /// Output only. The number of rows with null values in the specified column.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub null_count: i64,
 
     /// Output only. The ratio of **passed_count / evaluated_count**.
     ///
     /// This field is only valid for row-level type rules.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pass_ratio: f64,
 
     /// Output only. The query to find rows that did not pass this rule.
@@ -9780,6 +9855,7 @@ pub struct DataQualityRuleResult {
     /// assertion rule.
     ///
     /// This field is only valid for SQL assertion rules.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub assertion_row_count: i64,
 
@@ -9865,6 +9941,7 @@ pub struct DataQualityDimensionResult {
     pub dimension: std::option::Option<crate::model::DataQualityDimension>,
 
     /// Output only. Whether the dimension passed or failed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub passed: bool,
 
     /// Output only. The dimension-level data quality score for this data scan job
@@ -9968,6 +10045,7 @@ pub struct DataQualityRule {
     /// * RegexExpectation
     /// * SetExpectation
     /// * UniquenessExpectation
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_null: bool,
 
     /// Required. The dimension a rule belongs to. Results are also aggregated at
@@ -9983,6 +10061,7 @@ pub struct DataQualityRule {
     /// 0 indicates default value (i.e. 1.0).
     ///
     /// This field is only valid for row-level type rules.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub threshold: f64,
 
     /// Optional. A mutable name for the rule.
@@ -10003,6 +10082,7 @@ pub struct DataQualityRule {
 
     /// Optional. Whether the Rule is active or suspended.
     /// Default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub suspended: bool,
 
     /// The rule-specific configuration.
@@ -10413,12 +10493,14 @@ pub mod data_quality_rule {
         /// minimum, or if equality is allowed.
         ///
         /// Only relevant if a `min_value` has been defined. Default = false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub strict_min_enabled: bool,
 
         /// Optional. Whether each value needs to be strictly lesser than ('<') the
         /// maximum, or if equality is allowed.
         ///
         /// Only relevant if a `max_value` has been defined. Default = false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub strict_max_enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10603,12 +10685,14 @@ pub mod data_quality_rule {
         /// ('>') the minimum, or if equality is allowed.
         ///
         /// Only relevant if a `min_value` has been defined. Default = false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub strict_min_enabled: bool,
 
         /// Optional. Whether column statistic needs to be strictly lesser than ('<')
         /// the maximum, or if equality is allowed.
         ///
         /// Only relevant if a `max_value` has been defined. Default = false.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub strict_max_enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10990,6 +11074,7 @@ pub struct DataTaxonomy {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The number of attributes in the DataTaxonomy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attribute_count: i32,
 
     /// This checksum is computed by the server based on the value of other
@@ -10999,6 +11084,7 @@ pub struct DataTaxonomy {
     pub etag: std::string::String,
 
     /// Output only. The number of classes in the DataTaxonomy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub class_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11144,6 +11230,7 @@ pub struct DataAttribute {
     pub parent_id: std::string::String,
 
     /// Output only. The number of child attributes present for this attribute.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub attribute_count: i32,
 
     /// This checksum is computed by the server based on the value of other
@@ -11572,6 +11659,7 @@ pub struct CreateDataTaxonomyRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11638,6 +11726,7 @@ pub struct UpdateDataTaxonomyRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11729,6 +11818,7 @@ pub struct ListDataTaxonomiesRequest {
     /// return fewer than this value. If unspecified, at most 10 DataTaxonomies
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous ` ListDataTaxonomies` call.
@@ -11940,6 +12030,7 @@ pub struct CreateDataAttributeRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12006,6 +12097,7 @@ pub struct UpdateDataAttributeRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12098,6 +12190,7 @@ pub struct ListDataAttributesRequest {
     /// return fewer than this value. If unspecified, at most 10 dataAttributes
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListDataAttributes` call.
@@ -12309,6 +12402,7 @@ pub struct CreateDataAttributeBindingRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12375,6 +12469,7 @@ pub struct UpdateDataAttributeBindingRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12467,6 +12562,7 @@ pub struct ListDataAttributeBindingsRequest {
     /// may return fewer than this value. If unspecified, at most 10
     /// DataAttributeBindings will be returned. The maximum value is 1000; values
     /// above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListDataAttributeBindings`
@@ -12686,6 +12782,7 @@ pub struct CreateDataScanRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12749,6 +12846,7 @@ pub struct UpdateDataScanRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12807,6 +12905,7 @@ pub struct DeleteDataScanRequest {
     /// Optional. If set to true, any child resources of this data scan will also
     /// be deleted. (Otherwise, the request will only work if the data scan has no
     /// child resources.)
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12965,6 +13064,7 @@ pub struct ListDataScansRequest {
     /// Optional. Maximum number of dataScans to return. The service may return
     /// fewer than this value. If unspecified, at most 500 scans will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListDataScans` call. Provide
@@ -13309,6 +13409,7 @@ pub struct ListDataScanJobsRequest {
     /// fewer than this value. If unspecified, at most 10 DataScanJobs will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListDataScanJobs` call.
@@ -15356,6 +15457,7 @@ pub struct JobEvent {
     pub state: crate::model::job_event::State,
 
     /// The number of retries.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retries: i32,
 
     /// The type of the job.
@@ -15732,10 +15834,12 @@ pub struct SessionEvent {
     pub r#type: crate::model::session_event::EventType,
 
     /// The status of the event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub event_succeeded: bool,
 
     /// If the session is associated with an environment with fast startup enabled,
     /// and was created before being assigned to a user.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub fast_startup_enabled: bool,
 
     /// The idle duration of a warm pooled session before it is assigned to user.
@@ -15880,10 +15984,12 @@ pub mod session_event {
         pub duration: std::option::Option<wkt::Duration>,
 
         /// The size of results the query produced.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub result_size_bytes: i64,
 
         /// The data processed by the query.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub data_processed_bytes: i64,
 
@@ -16765,6 +16871,7 @@ pub mod data_scan_event {
     #[non_exhaustive]
     pub struct DataProfileResult {
         /// The count of rows processed in the data scan job.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub row_count: i64,
 
@@ -16797,10 +16904,12 @@ pub mod data_scan_event {
     #[non_exhaustive]
     pub struct DataQualityResult {
         /// The count of rows processed in the data scan job.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub row_count: i64,
 
         /// Whether the data quality result was `pass` or not.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub passed: bool,
 
         /// The result of each dimension for data quality result.
@@ -16814,6 +16923,7 @@ pub mod data_scan_event {
         ///
         /// The data quality score ranges between [0, 100] (up to two decimal
         /// points).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub score: f32,
 
         /// The score of each dimension for data quality result.
@@ -16914,13 +17024,16 @@ pub mod data_scan_event {
         ///
         /// * Value ranges between 0.0 and 100.0.
         /// * Value 0.0 or 100.0 imply that sampling was not applied.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub sampling_percent: f32,
 
         /// Boolean indicating whether a row filter was applied in the DataScan job.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub row_filter_applied: bool,
 
         /// Boolean indicating whether a column filter was applied in the DataScan
         /// job.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub column_filter_applied: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16967,9 +17080,11 @@ pub mod data_scan_event {
         ///
         /// * Value ranges between 0.0 and 100.0.
         /// * Value 0.0 or 100.0 imply that sampling was not applied.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub sampling_percent: f32,
 
         /// Boolean indicating whether a row filter was applied in the DataScan job.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub row_filter_applied: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17460,6 +17575,7 @@ pub struct DataQualityScanRuleResult {
     pub rule_dimension: std::string::String,
 
     /// The passing threshold ([0.0, 100.0]) of the data quality rule.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub threshold_percent: f64,
 
     /// The result of the data quality rule.
@@ -17467,20 +17583,24 @@ pub struct DataQualityScanRuleResult {
 
     /// The number of rows evaluated against the data quality rule.
     /// This field is only valid for rules of PER_ROW evaluation type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub evaluated_row_count: i64,
 
     /// The number of rows which passed a rule evaluation.
     /// This field is only valid for rules of PER_ROW evaluation type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub passed_row_count: i64,
 
     /// The number of rows with null values in the specified column.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub null_row_count: i64,
 
     /// The number of rows returned by the SQL statement in a SQL assertion rule.
     /// This field is only valid for SQL assertion rules.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub assertion_row_count: i64,
 
@@ -18134,6 +18254,7 @@ pub struct CreateEntityRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18188,6 +18309,7 @@ pub struct UpdateEntityRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18283,6 +18405,7 @@ pub struct ListEntitiesRequest {
     /// fewer than this value. If unspecified, 100 entities will be returned by
     /// default. The maximum value is 500; larger values will will be truncated to
     /// 500.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListEntities` call. Provide
@@ -18611,6 +18734,7 @@ pub struct ListPartitionsRequest {
     /// fewer than this value. If unspecified, 100 partitions will be returned by
     /// default. The maximum page size is 500; larger values will will be truncated
     /// to 500.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListPartitions` call.
@@ -18699,6 +18823,7 @@ pub struct CreatePartitionRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19201,6 +19326,7 @@ pub mod entity {
         pub struct Compatibility {
             /// Output only. Whether the entity is compatible and can be represented in
             /// the metadata store.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub compatible: bool,
 
             /// Output only. Provides additional detail if the entity is incompatible
@@ -19389,6 +19515,7 @@ pub struct Schema {
     ///   schema. This setting guarantees that Dataplex will not
     ///   change schema fields.
     ///
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub user_managed: bool,
 
     /// Optional. The sequence of fields describing data in table entities.
@@ -20030,6 +20157,7 @@ pub mod storage_format {
 
         /// Optional. The number of rows to interpret as header rows that should be
         /// skipped when reading data rows. Defaults to 0.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub header_rows: i32,
 
         /// Optional. The delimiter used to separate values. Defaults to ','.
@@ -21229,10 +21357,12 @@ pub struct AssetStatus {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Number of active assets.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub active_assets: i32,
 
     /// Number of assets that are in process of updating the security policy on
     /// attached resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub security_policy_applying_assets: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21561,6 +21691,7 @@ pub mod zone {
     #[non_exhaustive]
     pub struct DiscoverySpec {
         /// Required. Whether discovery is enabled.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         /// Optional. The list of patterns to apply for selecting data to include
@@ -21710,6 +21841,7 @@ pub mod zone {
         pub struct CsvOptions {
             /// Optional. The number of rows to interpret as header rows that should be
             /// skipped when reading data rows.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub header_rows: i32,
 
             /// Optional. The delimiter being used to separate values. This defaults to
@@ -21723,6 +21855,7 @@ pub mod zone {
 
             /// Optional. Whether to disable the inference of data type for CSV data.
             /// If true, all columns will be registered as strings.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub disable_type_inference: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21784,6 +21917,7 @@ pub mod zone {
             /// Optional. Whether to disable the inference of data type for Json data.
             /// If true, all columns will be registered as their primitive types
             /// (strings, number or boolean).
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub disable_type_inference: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23154,6 +23288,7 @@ pub mod asset {
     #[non_exhaustive]
     pub struct DiscoverySpec {
         /// Optional. Whether discovery is enabled.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         /// Optional. The list of patterns to apply for selecting data to include
@@ -23305,6 +23440,7 @@ pub mod asset {
         pub struct CsvOptions {
             /// Optional. The number of rows to interpret as header rows that should be
             /// skipped when reading data rows.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub header_rows: i32,
 
             /// Optional. The delimiter being used to separate values. This defaults to
@@ -23318,6 +23454,7 @@ pub mod asset {
 
             /// Optional. Whether to disable the inference of data type for CSV data.
             /// If true, all columns will be registered as strings.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub disable_type_inference: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23379,6 +23516,7 @@ pub mod asset {
             /// Optional. Whether to disable the inference of data type for Json data.
             /// If true, all columns will be registered as their primitive types
             /// (strings, number or boolean).
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub disable_type_inference: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23860,18 +23998,22 @@ pub mod asset {
         #[non_exhaustive]
         pub struct Stats {
             /// The count of data items within the referenced resource.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub data_items: i64,
 
             /// The number of stored data bytes within the referenced resource.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub data_size: i64,
 
             /// The count of table entities within the referenced resource.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub tables: i64,
 
             /// The count of fileset entities within the referenced resource.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub filesets: i64,
 
@@ -24130,6 +24272,7 @@ pub struct CreateLakeRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24192,6 +24335,7 @@ pub struct UpdateLakeRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24282,6 +24426,7 @@ pub struct ListLakesRequest {
     /// Optional. Maximum number of Lakes to return. The service may return fewer
     /// than this value. If unspecified, at most 10 lakes will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListLakes` call. Provide
@@ -24435,6 +24580,7 @@ pub struct ListLakeActionsRequest {
     /// Optional. Maximum number of actions to return. The service may return fewer
     /// than this value. If unspecified, at most 10 actions will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListLakeActions` call.
@@ -24603,6 +24749,7 @@ pub struct CreateZoneRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24665,6 +24812,7 @@ pub struct UpdateZoneRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24754,6 +24902,7 @@ pub struct ListZonesRequest {
     /// Optional. Maximum number of zones to return. The service may return fewer
     /// than this value. If unspecified, at most 10 zones will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListZones` call. Provide
@@ -24892,6 +25041,7 @@ pub struct ListZoneActionsRequest {
     /// Optional. Maximum number of actions to return. The service may return fewer
     /// than this value. If unspecified, at most 10 actions will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListZoneActions` call.
@@ -24997,6 +25147,7 @@ pub struct CreateAssetRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25059,6 +25210,7 @@ pub struct UpdateAssetRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25148,6 +25300,7 @@ pub struct ListAssetsRequest {
     /// Optional. Maximum number of asset to return. The service may return fewer
     /// than this value. If unspecified, at most 10 assets will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListAssets` call. Provide
@@ -25287,6 +25440,7 @@ pub struct ListAssetActionsRequest {
     /// Optional. Maximum number of actions to return. The service may return fewer
     /// than this value. If unspecified, at most 10 actions will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListAssetActions` call.
@@ -25396,6 +25550,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -25487,6 +25642,7 @@ pub struct CreateTaskRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25549,6 +25705,7 @@ pub struct UpdateTaskRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25638,6 +25795,7 @@ pub struct ListTasksRequest {
     /// Optional. Maximum number of tasks to return. The service may return fewer
     /// than this value. If unspecified, at most 10 tasks will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListZones` call. Provide
@@ -25967,6 +26125,7 @@ pub struct ListJobsRequest {
     /// Optional. Maximum number of jobs to return. The service may return fewer
     /// than this value. If unspecified, at most 10 jobs will be returned. The
     /// maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListJobs` call. Provide this
@@ -26132,6 +26291,7 @@ pub struct CreateEnvironmentRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26196,6 +26356,7 @@ pub struct UpdateEnvironmentRequest {
 
     /// Optional. Only validate the request, but do not perform mutations.
     /// The default is false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26288,6 +26449,7 @@ pub struct ListEnvironmentsRequest {
     /// fewer than this value. If unspecified, at most 10 environments will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListEnvironments` call.
@@ -26461,6 +26623,7 @@ pub struct ListSessionsRequest {
     /// fewer than this value. If unspecified, at most 10 sessions will be
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page token received from a previous `ListSessions` call. Provide
@@ -27024,11 +27187,13 @@ pub mod task {
         pub struct BatchComputeResources {
             /// Optional. Total number of job executors.
             /// Executor Count should be between 2 and 100. [Default=2]
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub executors_count: i32,
 
             /// Optional. Max configurable executors.
             /// If max_executors_count > executors_count, then auto-scaling is enabled.
             /// Max Executor Count should be between 2 and 1000. [Default=1000]
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub max_executors_count: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27328,10 +27493,12 @@ pub mod task {
         /// Optional. Prevent the task from executing.
         /// This does not cancel already running tasks. It is intended to temporarily
         /// disable RECURRING tasks.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub disabled: bool,
 
         /// Optional. Number of retry attempts before aborting.
         /// Set to zero to never attempt to retry a failed task.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub max_retries: i32,
 
         /// Trigger only applies for RECURRING tasks.
@@ -28039,6 +28206,7 @@ pub struct Job {
 
     /// Output only. The number of times the job has been retried (excluding the
     /// initial attempt).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retry_count: u32,
 
     /// Output only. The underlying service running a job.

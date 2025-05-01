@@ -129,6 +129,7 @@ pub struct ListClustersRequest {
     /// to determine if there are more clusters left to be queried.
     ///
     /// [google.cloud.redis.cluster.v1.ListClustersResponse.next_page_token]: crate::model::ListClustersResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The `next_page_token` value returned from a previous
@@ -458,6 +459,7 @@ pub struct ListBackupCollectionsRequest {
     /// to determine if there are more clusters left to be queried.
     ///
     /// [google.cloud.redis.cluster.v1.ListBackupCollectionsResponse.next_page_token]: crate::model::ListBackupCollectionsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous
@@ -639,6 +641,7 @@ pub struct ListBackupsRequest {
     /// to determine if there are more clusters left to be queried.
     ///
     /// [google.cloud.redis.cluster.v1.ListBackupsResponse.next_page_token]: crate::model::ListBackupsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The `next_page_token` value returned from a previous
@@ -2102,6 +2105,7 @@ pub struct Backup {
     pub cluster_uid: std::string::String,
 
     /// Output only. Total size of the backup in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_size_bytes: i64,
 
@@ -2121,9 +2125,11 @@ pub struct Backup {
     pub node_type: crate::model::NodeType,
 
     /// Output only. Number of replicas for the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub replica_count: i32,
 
     /// Output only. Number of shards for the cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub shard_count: i32,
 
     /// Output only. Type of the backup.
@@ -2409,6 +2415,7 @@ pub struct BackupFile {
     pub file_name: std::string::String,
 
     /// Output only. Size of the backup file in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_bytes: i64,
 
@@ -3001,6 +3008,7 @@ pub struct DiscoveryEndpoint {
     pub address: std::string::String,
 
     /// Output only. The port number of the exposed Redis endpoint.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Output only. Customer configuration for where the endpoint is created and
@@ -3493,6 +3501,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

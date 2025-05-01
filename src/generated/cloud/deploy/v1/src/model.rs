@@ -260,6 +260,7 @@ pub struct DeliveryPipeline {
 
     /// Optional. When suspended, no new releases or rollouts can be created,
     /// but in-progress ones will complete.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub suspended: bool,
 
     /// The ordering configuration of the `DeliveryPipeline`.
@@ -795,6 +796,7 @@ impl wkt::message::Message for Postdeploy {
 #[non_exhaustive]
 pub struct Standard {
     /// Optional. Whether to verify a deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verify: bool,
 
     /// Optional. Configuration for the predeploy job. If this is not configured,
@@ -994,6 +996,7 @@ pub struct CanaryDeployment {
     pub percentages: std::vec::Vec<i32>,
 
     /// Optional. Whether to run verify tests after each percentage deployment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verify: bool,
 
     /// Optional. Configuration for the predeploy job of the first phase. If this
@@ -1117,6 +1120,7 @@ pub mod custom_canary_deployment {
         pub phase_id: std::string::String,
 
         /// Required. Percentage deployment for the phase.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub percentage: i32,
 
         /// Optional. Skaffold profiles to use when rendering the manifest for this
@@ -1126,6 +1130,7 @@ pub mod custom_canary_deployment {
         pub profiles: std::vec::Vec<std::string::String>,
 
         /// Optional. Whether to run verify tests after the deployment.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub verify: bool,
 
         /// Optional. Configuration for the predeploy job of this phase. If this is
@@ -1467,6 +1472,7 @@ pub mod kubernetes_config {
             /// cluster even if the HTTPRoute is not. This option may be used to
             /// facilitate successful DNS lookup in the route destination clusters. Can
             /// only be set to true if destinations are specified.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub propagate_service: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1522,6 +1528,7 @@ pub mod kubernetes_config {
         /// overprovisioning is disabled then Cloud Deploy will limit the number of
         /// total Pods used for the deployment strategy to the number of Pods the
         /// Deployment has on the cluster.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub disable_pod_overprovisioning: bool,
 
         /// Optional. The label to use when selecting Pods for the Deployment
@@ -1597,6 +1604,7 @@ pub struct CloudRunConfig {
     /// Run Service on the user's behalf to facilitate traffic splitting. This is
     /// required to be true for CanaryDeployments, but optional for
     /// CustomCanaryDeployments.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub automatic_traffic_control: bool,
 
     /// Optional. A list of tags that are added to the canary revision while the
@@ -1798,6 +1806,7 @@ pub struct PipelineReadyCondition {
     /// in `PipelineCondition` is in an invalid state. Iterate over those
     /// conditions and see which condition(s) has status = false to find out what
     /// is wrong with the Pipeline.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: bool,
 
     /// Last time the condition was updated.
@@ -1843,6 +1852,7 @@ impl wkt::message::Message for PipelineReadyCondition {
 #[non_exhaustive]
 pub struct TargetsPresentCondition {
     /// True if there aren't any missing Targets.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: bool,
 
     /// The list of Target names that do not exist. For example,
@@ -1906,6 +1916,7 @@ pub struct TargetsTypeCondition {
     /// True if the targets are all a comparable type. For example this is true if
     /// all targets are GKE clusters. This is false if some targets are Cloud Run
     /// targets and others are GKE clusters.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: bool,
 
     /// Human readable error message.
@@ -2023,6 +2034,7 @@ pub struct ListDeliveryPipelinesRequest {
     /// fewer than this value. If unspecified, at most 50 pipelines will
     /// be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListDeliveryPipelines` call.
@@ -2235,6 +2247,7 @@ pub struct CreateDeliveryPipelineRequest {
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2327,10 +2340,12 @@ pub struct UpdateDeliveryPipelineRequest {
 
     /// Optional. If set to true, updating a `DeliveryPipeline` that does not exist
     /// will result in the creation of a new `DeliveryPipeline`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2416,15 +2431,18 @@ pub struct DeleteDeliveryPipelineRequest {
 
     /// Optional. If set to true, then deleting an already deleted or non-existing
     /// `DeliveryPipeline` will succeed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set to true, all child resources under this pipeline will also
     /// be deleted. Otherwise, the request will only work if the pipeline has no
     /// child resources.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     /// Optional. This checksum is computed by the server based on the value of
@@ -2571,6 +2589,7 @@ pub struct RollbackTargetRequest {
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with a `RollbackTargetResponse`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Deploy policies to override. Format is
@@ -2741,6 +2760,7 @@ pub struct Target {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Whether or not the `Target` requires approval.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_approval: bool,
 
     /// Output only. Time at which the `Target` was created.
@@ -3129,6 +3149,7 @@ pub struct ExecutionConfig {
 
     /// Optional. If true, additional logging will be enabled when running builds
     /// in this execution environment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub verbose: bool,
 
     /// Details of the environment.
@@ -3494,6 +3515,7 @@ pub struct GkeCluster {
     /// Only specify this option when `cluster` is a [private GKE
     /// cluster](https://cloud.google.com/kubernetes-engine/docs/concepts/private-cluster-concept).
     /// Note that `internal_ip` and `dns_endpoint` cannot both be set to true.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub internal_ip: bool,
 
     /// Optional. If set, used to configure a
@@ -3504,6 +3526,7 @@ pub struct GkeCluster {
 
     /// Optional. If set, the cluster will be accessed using the DNS endpoint. Note
     /// that both `dns_endpoint` and `internal_ip` cannot be set to true.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dns_endpoint: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3753,6 +3776,7 @@ pub struct ListTargetsRequest {
     /// return fewer than this value. If unspecified, at most 50 `Target` objects
     /// will be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListTargets` call.
@@ -3967,6 +3991,7 @@ pub struct CreateTargetRequest {
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4054,10 +4079,12 @@ pub struct UpdateTargetRequest {
 
     /// Optional. If set to true, updating a `Target` that does not exist will
     /// result in the creation of a new `Target`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4141,10 +4168,12 @@ pub struct DeleteTargetRequest {
 
     /// Optional. If set to true, then deleting an already deleted or non-existing
     /// `Target` will succeed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. This checksum is computed by the server based on the value of
@@ -4823,6 +4852,7 @@ pub struct ListCustomTargetTypesRequest {
     /// service may return fewer than this value. If unspecified, at most 50
     /// `CustomTargetType` objects will be returned. The maximum value is 1000;
     /// values above 1000 will be set to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListCustomTargetTypes`
@@ -5036,6 +5066,7 @@ pub struct CreateCustomTargetTypeRequest {
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5128,10 +5159,12 @@ pub struct UpdateCustomTargetTypeRequest {
 
     /// Optional. If set to true, updating a `CustomTargetType` that does not exist
     /// will result in the creation of a new `CustomTargetType`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5217,10 +5250,12 @@ pub struct DeleteCustomTargetTypeRequest {
 
     /// Optional. If set to true, then deleting an already deleted or non-existing
     /// `CustomTargetType` will succeed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the request is validated but no actual change is
     /// made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. This checksum is computed by the server based on the value of
@@ -5342,6 +5377,7 @@ pub struct DeployPolicy {
 
     /// Optional. When suspended, the policy will not prevent actions from
     /// occurring, even if the action violates the policy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub suspended: bool,
 
     /// Required. Selected resources to which the policy will be applied. At least
@@ -6300,6 +6336,7 @@ pub struct Release {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Indicates whether this is an abandoned release.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub abandoned: bool,
 
     /// Output only. Time at which the `Release` was created.
@@ -6890,6 +6927,7 @@ pub mod release {
         /// in `ReleaseCondition` is in an invalid state. Iterate over those
         /// conditions and see which condition(s) has status = false to find out what
         /// is wrong with the Release.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub status: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6922,6 +6960,7 @@ pub mod release {
     #[non_exhaustive]
     pub struct SkaffoldSupportedCondition {
         /// True if the version of Skaffold used by this release is supported.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub status: bool,
 
         /// The Skaffold support state for this release's version of Skaffold.
@@ -7151,6 +7190,7 @@ pub struct CreateDeployPolicyRequest {
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7243,10 +7283,12 @@ pub struct UpdateDeployPolicyRequest {
 
     /// Optional. If set to true, updating a `DeployPolicy` that does not exist
     /// will result in the creation of a new `DeployPolicy`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7332,10 +7374,12 @@ pub struct DeleteDeployPolicyRequest {
 
     /// Optional. If set to true, then deleting an already deleted or non-existing
     /// `DeployPolicy` will succeed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. This checksum is computed by the server based on the value of
@@ -7405,6 +7449,7 @@ pub struct ListDeployPoliciesRequest {
     /// fewer than this value. If unspecified, at most 50 deploy policies will
     /// be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListDeployPolicies` call.
@@ -7956,6 +8001,7 @@ pub struct ListReleasesRequest {
     /// may return fewer than this value. If unspecified, at most 50 `Release`
     /// objects will be returned. The maximum value is 1000; values above 1000 will
     /// be set to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListReleases` call.
@@ -8170,6 +8216,7 @@ pub struct CreateReleaseRequest {
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Deploy policies to override. Format is
@@ -10063,6 +10110,7 @@ pub struct ListRolloutsRequest {
     /// may return fewer than this value. If unspecified, at most 50 `Rollout`
     /// objects will be returned. The maximum value is 1000; values above 1000 will
     /// be set to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListRollouts` call.
@@ -10277,6 +10325,7 @@ pub struct CreateRolloutRequest {
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Deploy policies to override. Format is
@@ -10393,6 +10442,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -10475,6 +10525,7 @@ pub struct ApproveRolloutRequest {
     pub name: std::string::String,
 
     /// Required. True = approve; false = reject
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub approved: bool,
 
     /// Optional. Deploy policies to override. Format is
@@ -12100,6 +12151,7 @@ pub struct ListJobRunsRequest {
     /// return fewer than this value. If unspecified, at most 50 `JobRun` objects
     /// will be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListJobRuns` call.
@@ -12588,6 +12640,7 @@ pub struct Automation {
     pub etag: std::string::String,
 
     /// Optional. When Suspended, automation is deactivated from execution.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub suspended: bool,
 
     /// Required. Email address of the user-managed IAM service account that
@@ -13463,6 +13516,7 @@ pub mod repair_phase_config {
 pub struct Retry {
     /// Required. Total number of retries. Retry is skipped if set to 0; The
     /// minimum value is 1, and the maximum value is 10.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub attempts: i64,
 
@@ -13528,6 +13582,7 @@ pub struct Rollback {
 
     /// Optional. If pending rollout exists on the target, the rollback operation
     /// will be aborted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_rollback_if_rollout_pending: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13814,6 +13869,7 @@ pub struct CreateAutomationRequest {
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13901,10 +13957,12 @@ pub struct UpdateAutomationRequest {
 
     /// Optional. If set to true, updating a `Automation` that does not exist will
     /// result in the creation of a new `Automation`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13988,10 +14046,12 @@ pub struct DeleteAutomationRequest {
 
     /// Optional. If set to true, then deleting an already deleted or non-existing
     /// `Automation` will succeed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and verify whether the resource
     /// exists, but do not actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. The weak etag of the request.
@@ -14063,6 +14123,7 @@ pub struct ListAutomationsRequest {
     /// fewer than this value. If unspecified, at most 50 automations will
     /// be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListAutomations` call.
@@ -14833,6 +14894,7 @@ pub struct RepairRolloutOperation {
     pub rollout: std::string::String,
 
     /// Output only. The index of the current repair action in the repair sequence.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub current_repair_phase_index: i64,
 
@@ -15071,6 +15133,7 @@ pub mod repair_phase {
 #[non_exhaustive]
 pub struct RetryPhase {
     /// Output only. The number of attempts that have been made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_attempts: i64,
 
@@ -15131,6 +15194,7 @@ impl wkt::message::Message for RetryPhase {
 #[non_exhaustive]
 pub struct RetryAttempt {
     /// Output only. The index of this retry attempt.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub attempt: i64,
 
@@ -15210,6 +15274,7 @@ pub struct RollbackAttempt {
     pub state_desc: std::string::String,
 
     /// Output only. If active rollout exists on the target, abort this rollback.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_rollback_if_rollout_pending: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15280,6 +15345,7 @@ pub struct ListAutomationRunsRequest {
     /// fewer than this value. If unspecified, at most 50 automationRuns will
     /// be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListAutomationRuns` call.
@@ -15700,6 +15766,7 @@ pub struct DeployPolicyEvaluationEvent {
     /// (2) the request doesn't comply with the policy but the policy was
     /// overridden; or
     /// (3) the request doesn't comply with the policy but the policy was suspended
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allowed: bool,
 
     /// The policy verdict of the request.

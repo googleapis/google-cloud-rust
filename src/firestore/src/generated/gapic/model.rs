@@ -95,6 +95,7 @@ pub struct BitSequence {
     /// The number of bits of the last byte in `bitmap` to ignore as "padding".
     /// If the length of `bitmap` is zero, then this value must be `0`.
     /// Otherwise, this value must be between 0 and 7, inclusive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub padding: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -150,6 +151,7 @@ pub struct BloomFilter {
     pub bits: std::option::Option<crate::model::BitSequence>,
 
     /// The number of hashes used by the algorithm.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub hash_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1409,6 +1411,7 @@ pub struct ListDocumentsRequest {
     /// Optional. The maximum number of documents to return in a single response.
     ///
     /// Firestore may return fewer than this value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListDocuments` response.
@@ -1450,6 +1453,7 @@ pub struct ListDocumentsRequest {
     ///
     /// [google.firestore.v1.Document.create_time]: crate::model::Document::create_time
     /// [google.firestore.v1.Document.update_time]: crate::model::Document::update_time
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_missing: bool,
 
     /// The consistency mode for this transaction.
@@ -2867,6 +2871,7 @@ pub struct RunQueryResponse {
 
     /// The number of results that have been skipped due to an offset between
     /// the last response and the current response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skipped_results: i32,
 
     /// Query explain metrics. This is only present when the
@@ -3407,6 +3412,7 @@ pub struct PartitionQueryRequest {
     /// For example, this may be set to one fewer than the number of parallel
     /// queries to be run, or in running a data pipeline job, one fewer than the
     /// number of workers or compute instances available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub partition_count: i64,
 
@@ -3433,6 +3439,7 @@ pub struct PartitionQueryRequest {
     /// to PartitionQuery will return up to 8 partitions and a `next_page_token`
     /// if more results exist. A second call to PartitionQuery will return up to
     /// 2 partitions, to complete the total of 10 specified in `partition_count`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The query to partition.
@@ -4335,9 +4342,11 @@ pub struct Target {
     ///
     /// If `target_id` is non-zero, there must not be an existing active target on
     /// this stream with the same ID.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_id: i32,
 
     /// If the target should be removed once it is current and consistent.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub once: bool,
 
     /// The number of documents that last matched the query at the resume token or
@@ -4952,6 +4961,7 @@ pub struct ListCollectionIdsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of results to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token. Must be a value from
@@ -5368,6 +5378,7 @@ pub struct StructuredQuery {
     /// Requires:
     ///
     /// * The value must be greater than or equal to zero if specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub offset: i32,
 
     /// The maximum number of results to return.
@@ -5511,6 +5522,7 @@ pub mod structured_query {
         /// When false, selects only collections that are immediate children of
         /// the `parent` specified in the containing `RunQueryRequest`.
         /// When true, selects all descendant collections.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub all_descendants: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7191,6 +7203,7 @@ pub struct Cursor {
 
     /// If the position is just before or just after the given values, relative
     /// to the sort order defined by the query.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub before: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7239,6 +7252,7 @@ pub struct ExplainOptions {
     ///
     /// When true, the query will be planned and executed, returning the full
     /// query results along with both planning and execution stage metrics.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub analyze: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7368,6 +7382,7 @@ impl wkt::message::Message for PlanSummary {
 pub struct ExecutionStats {
     /// Total number of results returned, including documents, projections,
     /// aggregation results, keys.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub results_returned: i64,
 
@@ -7376,6 +7391,7 @@ pub struct ExecutionStats {
     pub execution_duration: std::option::Option<wkt::Duration>,
 
     /// Total billable read operations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub read_operations: i64,
 
@@ -8423,6 +8439,7 @@ impl wkt::message::Message for DocumentRemove {
 #[non_exhaustive]
 pub struct ExistenceFilter {
     /// The target ID to which this filter applies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub target_id: i32,
 
     /// The total count of documents that match
@@ -8437,6 +8454,7 @@ pub struct ExistenceFilter {
     /// longer matches the target.
     ///
     /// [google.firestore.v1.ExistenceFilter.target_id]: crate::model::ExistenceFilter::target_id
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub count: i32,
 
     /// A bloom filter that, despite its name, contains the UTF-8 byte encodings of

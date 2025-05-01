@@ -293,12 +293,15 @@ pub mod attached_disk {
 #[non_exhaustive]
 pub struct SchedulingConfig {
     /// Defines whether the node is preemptible.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub preemptible: bool,
 
     /// Whether the node is created under a reservation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reserved: bool,
 
     /// Optional. Defines whether the node is Spot VM.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub spot: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -346,6 +349,7 @@ pub struct NetworkEndpoint {
     pub ip_address: std::string::String,
 
     /// The port of this network endpoint.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// The access config for the TPU worker.
@@ -443,15 +447,18 @@ pub struct NetworkConfig {
     /// Indicates that external IP addresses would be associated with the TPU
     /// workers. If set to false, the specified subnetwork or network should have
     /// Private Google Access enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_external_ips: bool,
 
     /// Allows the TPU node to send and receive packets with non-matching
     /// destination or source IPs. This is required if you plan to use the TPU
     /// workers to forward routes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub can_ip_forward: bool,
 
     /// Optional. Specifies networking queue count for TPU VM instance's network
     /// interface.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub queue_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -640,6 +647,7 @@ pub struct Node {
     pub tags: std::vec::Vec<std::string::String>,
 
     /// Output only. The unique identifier for the TPU Node.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub id: i64,
 
@@ -668,6 +676,7 @@ pub struct Node {
     pub queued_resource: std::string::String,
 
     /// Output only. Whether the Node belongs to a Multislice group.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub multislice_node: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1581,6 +1590,7 @@ pub mod queued_resource {
                 /// Required. Number of nodes with this spec. The system will attempt
                 /// to provision "node_count" nodes as part of the request.
                 /// This needs to be > 1.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub node_count: i32,
 
                 /// Optional. Prefix of node_ids in case of multislice request.
@@ -2674,6 +2684,7 @@ pub struct ListNodesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -3051,6 +3062,7 @@ pub struct ListQueuedResourcesRequest {
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous List request,
@@ -3301,6 +3313,7 @@ pub struct DeleteQueuedResourceRequest {
     /// deleted. Otherwise (i.e. force=false), the queued resource will only be
     /// deleted if its nodes have already been deleted or the queued resource is in
     /// the ACCEPTED, FAILED, or SUSPENDED state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3585,6 +3598,7 @@ pub struct ListAcceleratorTypesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -3814,6 +3828,7 @@ pub struct ListRuntimeVersionsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -3983,6 +3998,7 @@ pub struct OperationMetadata {
     pub status_detail: std::string::String,
 
     /// Specifies if cancellation was requested for the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cancel_requested: bool,
 
     /// API version.
@@ -4442,6 +4458,7 @@ pub mod accelerator_config {
 #[non_exhaustive]
 pub struct ShieldedInstanceConfig {
     /// Defines whether the instance has Secure Boot enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_secure_boot: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

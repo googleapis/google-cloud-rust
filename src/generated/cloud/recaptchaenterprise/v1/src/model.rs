@@ -95,6 +95,7 @@ pub struct TransactionEvent {
     /// Optional. The value that corresponds with this transaction event, if one
     /// exists. For example, a refund event where $5.00 was refunded. Currency is
     /// obtained from the original transaction data.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub value: f64,
 
     /// Optional. Timestamp when this transaction event occurred; otherwise assumed
@@ -1339,6 +1340,7 @@ pub struct Event {
 
     /// Optional. Flag for a reCAPTCHA express request for an assessment without a
     /// token. If enabled, `site_key` must reference an Express site key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub express: bool,
 
     /// Optional. The URI resource the user requested that triggered an assessment.
@@ -1348,6 +1350,7 @@ pub struct Event {
     /// Optional. Flag for running WAF token assessment.
     /// If enabled, the token must be specified, and have been created by a
     /// WAF-enabled key.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub waf_token_assessment: bool,
 
     /// Optional. JA3 fingerprint for SSL clients. To learn how to compute this
@@ -1367,6 +1370,7 @@ pub struct Event {
     /// Optional. Flag for enabling firewall policy config assessment.
     /// If this flag is enabled, the firewall policy is evaluated and a
     /// suggested firewall action is returned in the response.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub firewall_policy_evaluation: bool,
 
     /// Optional. Data describing a payment transaction to be assessed. Sending
@@ -1621,10 +1625,12 @@ pub struct TransactionData {
     pub currency_code: std::string::String,
 
     /// Optional. The decimal value of the transaction in the specified currency.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub value: f64,
 
     /// Optional. The value of shipping in the specified currency. 0 for free or no
     /// shipping.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub shipping_value: f64,
 
     /// Optional. Destination address if this transaction involves shipping a
@@ -1892,6 +1898,7 @@ pub mod transaction_data {
         pub account_id: std::string::String,
 
         /// Optional. The epoch milliseconds of the user's account creation.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub creation_ms: i64,
 
@@ -1901,6 +1908,7 @@ pub mod transaction_data {
 
         /// Optional. Whether the email has been verified to be accessible by the
         /// user (OTP or similar).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub email_verified: bool,
 
         /// Optional. The phone number of the user, with country code.
@@ -1909,6 +1917,7 @@ pub mod transaction_data {
 
         /// Optional. Whether the phone number has been verified to be accessible by
         /// the user (OTP or similar).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub phone_verified: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1978,9 +1987,11 @@ pub mod transaction_data {
 
         /// Optional. The value per item that the user is paying, in the transaction
         /// currency, after discounts.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub value: f64,
 
         /// Optional. The quantity of this item that is being purchased.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub quantity: i64,
 
@@ -2306,6 +2317,7 @@ pub struct RiskAnalysis {
     /// Output only. Legitimate event score from 0.0 to 1.0.
     /// (1.0 means very likely legitimate traffic while 0.0 means very likely
     /// non-legitimate traffic).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub score: f32,
 
     /// Output only. Reasons contributing to the risk analysis verdict.
@@ -2543,6 +2555,7 @@ pub struct TokenProperties {
     /// be due to a user failing to solve a challenge or a sitekey mismatch (i.e
     /// the sitekey used to generate the token was different than the one specified
     /// in the assessment).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub valid: bool,
 
     /// Output only. Reason associated with the response when valid = false.
@@ -2735,6 +2748,7 @@ pub struct FraudPreventionAssessment {
     /// Output only. Probability of this transaction being fraudulent. Summarizes
     /// the combined risk of attack vectors below. Values are from 0.0 (lowest)
     /// to 1.0 (highest).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub transaction_risk: f32,
 
     /// Output only. Assessment of this transaction for risk of a stolen
@@ -2833,6 +2847,7 @@ pub mod fraud_prevention_assessment {
     pub struct StolenInstrumentVerdict {
         /// Output only. Probability of this transaction being executed with a stolen
         /// instrument. Values are from 0.0 (lowest) to 1.0 (highest).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub risk: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2866,6 +2881,7 @@ pub mod fraud_prevention_assessment {
     pub struct CardTestingVerdict {
         /// Output only. Probability of this transaction attempt being part of a card
         /// testing attack. Values are from 0.0 (lowest) to 1.0 (highest).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub risk: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2899,6 +2915,7 @@ pub mod fraud_prevention_assessment {
         /// Output only. Probability of this transaction attempt being executed in a
         /// behaviorally trustworthy way. Values are from 0.0 (lowest) to 1.0
         /// (highest).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub trust: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2990,11 +3007,13 @@ pub mod fraud_signals {
     pub struct UserSignals {
         /// Output only. This user (based on email, phone, and other identifiers) has
         /// been seen on the internet for at least this number of days.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub active_days_lower_bound: i32,
 
         /// Output only. Likelihood (from 0.0 to 1.0) this user includes synthetic
         /// components in their identity, such as a randomly generated email address,
         /// temporary phone number, or fake shipping address.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub synthetic_risk: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3144,6 +3163,7 @@ pub mod fraud_signals {
 pub struct SmsTollFraudVerdict {
     /// Output only. Probability of an SMS event being fraudulent.
     /// Values are from 0.0 (lowest) to 1.0 (highest).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub risk: f32,
 
     /// Output only. Reasons contributing to the SMS toll fraud verdict.
@@ -3463,6 +3483,7 @@ pub struct ListKeysRequest {
 
     /// Optional. The maximum number of keys to return. Default is 10. Max limit is
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous.
@@ -3775,6 +3796,7 @@ pub struct ListFirewallPoliciesRequest {
 
     /// Optional. The maximum number of policies to return. Default is 10. Max
     /// limit is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous.
@@ -4085,6 +4107,7 @@ pub struct MigrateKeyRequest {
     /// If your usage of reCAPTCHA is under the free quota, you can safely skip the
     /// billing check and proceed with the migration. See
     /// <https://cloud.google.com/recaptcha/docs/billing-information>.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_billing_check: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4538,6 +4561,7 @@ pub mod key {
 pub struct TestingOptions {
     /// Optional. All assessments for this Key return this score. Must be between 0
     /// (likely not legitimate) and 1 (likely legitimate) inclusive.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub testing_score: f32,
 
     /// Optional. For challenge-based keys only (CHECKBOX, INVISIBLE), all
@@ -4654,6 +4678,7 @@ pub mod testing_options {
 #[non_exhaustive]
 pub struct WebKeySettings {
     /// Optional. If set to true, it means allowed_domains are not enforced.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_all_domains: bool,
 
     /// Optional. Domains or subdomains of websites allowed to use the key. All
@@ -4665,6 +4690,7 @@ pub struct WebKeySettings {
 
     /// Optional. If set to true, the key can be used on AMP (Accelerated Mobile
     /// Pages) websites. This is supported only for the SCORE integration type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_amp_traffic: bool,
 
     /// Required. Describes how this key is integrated with the website.
@@ -4884,6 +4910,7 @@ pub mod web_key_settings {
 #[non_exhaustive]
 pub struct AndroidKeySettings {
     /// Optional. If set to true, allowed_package_names are not enforced.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_all_package_names: bool,
 
     /// Optional. Android package names of apps allowed to use the key.
@@ -4894,6 +4921,7 @@ pub struct AndroidKeySettings {
     /// Optional. Set to true for keys that are used in an Android application that
     /// is available for download in app stores in addition to the Google Play
     /// Store.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub support_non_google_app_store_distribution: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4945,6 +4973,7 @@ impl wkt::message::Message for AndroidKeySettings {
 #[non_exhaustive]
 pub struct IOSKeySettings {
     /// Optional. If set to true, allowed_bundle_ids are not enforced.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_all_bundle_ids: bool,
 
     /// Optional. iOS bundle ids of apps allowed to use the key.
@@ -5185,21 +5214,25 @@ impl wkt::message::Message for ScoreMetrics {
 pub struct ChallengeMetrics {
     /// Count of reCAPTCHA checkboxes or badges rendered. This is mostly equivalent
     /// to a count of pageloads for pages that include reCAPTCHA.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub pageload_count: i64,
 
     /// Count of nocaptchas (successful verification without a challenge) issued.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub nocaptcha_count: i64,
 
     /// Count of submitted challenge solutions that were incorrect or otherwise
     /// deemed suspicious such that a subsequent challenge was triggered.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failed_count: i64,
 
     /// Count of nocaptchas (successful verification without a challenge) plus
     /// submitted challenge solutions that were correct and resulted in
     /// verification.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub passed_count: i64,
 
@@ -5849,6 +5882,7 @@ pub struct ListRelatedAccountGroupMembershipsRequest {
     /// Optional. The maximum number of accounts to return. The service might
     /// return fewer than this value. If unspecified, at most 50 accounts are
     /// returned. The maximum value is 1000; values above 1000 are coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -5971,6 +6005,7 @@ pub struct ListRelatedAccountGroupsRequest {
     /// Optional. The maximum number of groups to return. The service might return
     /// fewer than this value. If unspecified, at most 50 groups are returned. The
     /// maximum value is 1000; values above 1000 are coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListRelatedAccountGroups`
@@ -6109,6 +6144,7 @@ pub struct SearchRelatedAccountGroupMembershipsRequest {
     /// Optional. The maximum number of groups to return. The service might return
     /// fewer than this value. If unspecified, at most 50 groups are returned. The
     /// maximum value is 1000; values above 1000 are coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -6385,6 +6421,7 @@ pub struct ListIpOverridesRequest {
     /// limit is 100. If the number of overrides is less than the page_size, all
     /// overrides are returned. If the page size is more than 100, it is coerced to
     /// 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value returned from a previous

@@ -205,6 +205,7 @@ pub struct ServiceAccount {
     pub oauth2_client_id: std::string::String,
 
     /// Output only. Whether the service account is disabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -364,6 +365,7 @@ pub struct ListServiceAccountsRequest {
     /// The default is 20, and the maximum is 100.
     ///
     /// [google.iam.admin.v1.ListServiceAccountsResponse.next_page_token]: crate::model::ListServiceAccountsResponse::next_page_token
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional pagination token returned in an earlier
@@ -1026,6 +1028,7 @@ pub struct ServiceAccountKey {
     pub key_type: crate::model::list_service_account_keys_request::KeyType,
 
     /// The key status.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1616,6 +1619,7 @@ pub struct Role {
 
     /// The current deleted state of the role. This field is read only.
     /// It will be ignored in calls to CreateRole and UpdateRole.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1784,6 +1788,7 @@ pub struct QueryGrantableRolesRequest {
     /// Optional limit on the number of roles to include in the response.
     ///
     /// The default is 300, and the maximum is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional pagination token returned in an earlier
@@ -1939,6 +1944,7 @@ pub struct ListRolesRequest {
     /// Optional limit on the number of roles to include in the response.
     ///
     /// The default is 300, and the maximum is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional pagination token returned in an earlier ListRolesResponse.
@@ -1952,6 +1958,7 @@ pub struct ListRolesRequest {
     pub view: crate::model::RoleView,
 
     /// Include Roles that have been deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2439,6 +2446,7 @@ pub struct Permission {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub only_in_predefined_roles: bool,
 
     /// The current launch stage of the permission.
@@ -2448,6 +2456,7 @@ pub struct Permission {
     pub custom_roles_support_level: crate::model::permission::CustomRolesSupportLevel,
 
     /// The service API associated with the permission is not enabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub api_disabled: bool,
 
     /// The preferred name for this permission. If present, then this permission is
@@ -2673,6 +2682,7 @@ pub struct QueryTestablePermissionsRequest {
     /// Optional limit on the number of permissions to include in the response.
     ///
     /// The default is 100, and the maximum is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional pagination token returned in an earlier
@@ -3029,6 +3039,7 @@ pub struct LintResult {
     /// 0-based character position of problematic construct within the object
     /// identified by `field_name`. Currently, this is populated only for condition
     /// expression.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub location_offset: i32,
 
     /// Human readable debug message associated with the issue.

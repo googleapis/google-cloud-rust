@@ -49,6 +49,7 @@ pub struct ListMigrationJobsRequest {
     /// fewer than this value. If unspecified, at most 50 migration jobs will be
     /// returned. The maximum value is 1000; values above 1000 are coerced to
     /// 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The nextPageToken value received in the previous call to
@@ -400,6 +401,7 @@ pub struct DeleteMigrationJobRequest {
     /// The destination CloudSQL connection profile is always deleted with the
     /// migration job. In case of force delete, the destination CloudSQL replica
     /// database is also deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -448,6 +450,7 @@ pub struct StartMigrationJobRequest {
 
     /// Optional. Start the migration job without running prior configuration
     /// verification. Defaults to `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_validation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -648,6 +651,7 @@ pub struct RestartMigrationJobRequest {
 
     /// Optional. Restart the migration job without running prior configuration
     /// verification. Defaults to `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_validation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -693,6 +697,7 @@ pub struct GenerateSshScriptRequest {
     pub vm: std::string::String,
 
     /// The port that will be open on the bastion host.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vm_port: i32,
 
     /// The VM configuration
@@ -1070,6 +1075,7 @@ pub struct ListConnectionProfilesRequest {
     /// fewer than this value. If unspecified, at most 50 connection profiles will
     /// be returned. The maximum value is 1000; values above 1000 are coerced
     /// to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListConnectionProfiles` call.
@@ -1282,11 +1288,13 @@ pub struct CreateConnectionProfileRequest {
     /// Optional. Only validate the connection profile, but don't create any
     /// resources. The default is false. Only supported for Oracle connection
     /// profiles.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Create the connection profile without validating it.
     /// The default is false.
     /// Only supported for Oracle connection profiles.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_validation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1377,11 +1385,13 @@ pub struct UpdateConnectionProfileRequest {
     /// Optional. Only validate the connection profile, but don't update any
     /// resources. The default is false. Only supported for Oracle connection
     /// profiles.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. Update the connection profile without validating it.
     /// The default is false.
     /// Only supported for Oracle connection profiles.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_validation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1460,6 +1470,7 @@ pub struct DeleteConnectionProfileRequest {
 
     /// In case of force delete, the CloudSQL replica database is also deleted
     /// (only for CloudSQL connection profile).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1526,6 +1537,7 @@ pub struct CreatePrivateConnectionRequest {
     pub request_id: std::string::String,
 
     /// Optional. If set to true, will skip validations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub skip_validation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1596,6 +1608,7 @@ pub struct ListPrivateConnectionsRequest {
     /// Maximum number of private connections to return.
     /// If unspecified, at most 50 private connections that are returned.
     /// The maximum value is 1000; values above 1000 are coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token received from a previous `ListPrivateConnections` call.
@@ -1858,6 +1871,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1940,6 +1954,7 @@ pub struct ListConversionWorkspacesRequest {
 
     /// The maximum number of conversion workspaces to return. The service may
     /// return fewer than this value. If unspecified, at most 50 sets are returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The nextPageToken value received in the previous call to
@@ -2277,6 +2292,7 @@ pub struct DeleteConversionWorkspaceRequest {
 
     /// Force delete the conversion workspace, even if there's a running migration
     /// that is using the workspace.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2407,10 +2423,12 @@ pub struct ApplyConversionWorkspaceRequest {
     /// Optional. Only validates the apply process, but doesn't change the
     /// destination database. Only works for PostgreSQL destination connection
     /// profile.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dry_run: bool,
 
     /// Optional. Specifies whether the conversion workspace is to be committed
     /// automatically after the apply.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_commit: bool,
 
     /// Which destination to use when applying the conversion workspace.
@@ -2534,6 +2552,7 @@ pub struct ListMappingRulesRequest {
 
     /// The maximum number of rules to return. The service may return
     /// fewer than this value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The nextPageToken value received in the previous call to
@@ -2692,6 +2711,7 @@ pub struct SeedConversionWorkspaceRequest {
 
     /// Should the conversion workspace be committed automatically after the
     /// seed operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_commit: bool,
 
     /// The input to be used for seeding the conversion workspace. The input can
@@ -2835,6 +2855,7 @@ pub struct ConvertConversionWorkspaceRequest {
 
     /// Optional. Specifies whether the conversion workspace is to be committed
     /// automatically after the conversion.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_commit: bool,
 
     /// Optional. Filter the entities to convert. Leaving this field empty will
@@ -2845,6 +2866,7 @@ pub struct ConvertConversionWorkspaceRequest {
     /// Optional. Automatically convert the full entity path for each entity
     /// specified by the filter. For example, if the filter specifies a table, that
     /// table schema (and database if there is one) will also be converted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub convert_full_path: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2908,6 +2930,7 @@ pub struct ImportMappingRulesRequest {
 
     /// Required. Should the conversion workspace be committed automatically after
     /// the import operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_commit: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3028,6 +3051,7 @@ pub struct DescribeDatabaseEntitiesRequest {
 
     /// Optional. The maximum number of entities to return. The service may return
     /// fewer entities than the value specifies.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. The nextPageToken value received in the previous call to
@@ -3045,6 +3069,7 @@ pub struct DescribeDatabaseEntitiesRequest {
     /// Optional. Whether to retrieve the latest committed version of the entities
     /// or the latest version. This field is ignored if a specific commit_id is
     /// specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub uncommitted: bool,
 
     /// Optional. Request a specific commit ID. If not specified, the entities from
@@ -3279,12 +3304,14 @@ pub struct SearchBackgroundJobsRequest {
     pub conversion_workspace: std::string::String,
 
     /// Optional. Whether or not to return just the most recent job per job type,
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub return_most_recent_per_job_type: bool,
 
     /// Optional. The maximum number of jobs to return. The service may return
     /// fewer than this value. If unspecified, at most 100 jobs are
     /// returned. The maximum value is 100; values above 100 are coerced to
     /// 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_size: i32,
 
     /// Optional. If provided, only returns jobs that completed until (not
@@ -3597,6 +3624,7 @@ pub struct FetchStaticIpsRequest {
     pub name: std::string::String,
 
     /// Maximum number of IPs to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `FetchStaticIps` call.
@@ -3835,6 +3863,7 @@ pub struct MySqlConnectionProfile {
     pub host: std::string::String,
 
     /// Required. The network port of the source MySQL database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Required. The username that Database Migration Service will use to connect
@@ -3851,6 +3880,7 @@ pub struct MySqlConnectionProfile {
     pub password: std::string::String,
 
     /// Output only. Indicates If this connection profile password is stored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub password_set: bool,
 
     /// SSL configuration for the destination to connect to the source database.
@@ -3935,6 +3965,7 @@ pub struct PostgreSqlConnectionProfile {
     pub host: std::string::String,
 
     /// Required. The network port of the source PostgreSQL database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Required. The username that Database Migration Service will use to connect
@@ -3951,6 +3982,7 @@ pub struct PostgreSqlConnectionProfile {
     pub password: std::string::String,
 
     /// Output only. Indicates If this connection profile password is stored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub password_set: bool,
 
     /// SSL configuration for the destination to connect to the source database.
@@ -4155,6 +4187,7 @@ pub struct OracleConnectionProfile {
     pub host: std::string::String,
 
     /// Required. The network port of the source Oracle database.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     /// Required. The username that Database Migration Service will use to connect
@@ -4171,6 +4204,7 @@ pub struct OracleConnectionProfile {
     pub password: std::string::String,
 
     /// Output only. Indicates whether a new password is included in the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub password_set: bool,
 
     /// Required. Database service for the Oracle connection.
@@ -4835,6 +4869,7 @@ pub struct CloudSqlSettings {
     pub root_password: std::string::String,
 
     /// Output only. Indicates If this connection profile root password is stored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub root_password_set: bool,
 
     /// The Cloud SQL default instance level collation.
@@ -5503,6 +5538,7 @@ pub mod alloy_db_settings {
         pub password: std::string::String,
 
         /// Output only. Indicates if the initial_user.password field has been set.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub password_set: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5652,6 +5688,7 @@ pub mod alloy_db_settings {
         #[non_exhaustive]
         pub struct MachineConfig {
             /// The number of CPU's in the VM instance.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub cpu_count: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5797,6 +5834,7 @@ pub struct ReverseSshConnectivity {
 
     /// Required. The forwarding port of the virtual machine (Compute Engine) used
     /// as the bastion server for the SSH tunnel.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub vm_port: i32,
 
     /// The name of the virtual machine (Compute Engine) used as the bastion server
@@ -5897,6 +5935,7 @@ pub struct ForwardSshTunnelConnectivity {
     pub username: std::string::String,
 
     /// Port for the SSH tunnel, default value is 22.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub port: i32,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -8127,6 +8166,7 @@ pub struct ConversionWorkspace {
 
     /// Output only. Whether the workspace has uncommitted changes (changes which
     /// were made after the workspace was committed).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub has_uncommitted_changes: bool,
 
     /// Output only. The latest commit ID.
@@ -8285,6 +8325,7 @@ pub struct BackgroundJobLogEntry {
 
     /// Output only. Whether the client requested the conversion workspace to be
     /// committed after a successful completion of the job.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub request_autocommit: bool,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -8891,6 +8932,7 @@ pub struct MappingRule {
 
     /// Required. The order in which the rule is applied. Lower order rules are
     /// applied before higher value rules so they may end up being overridden.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub rule_order: i64,
 
@@ -9613,34 +9655,43 @@ pub struct SingleColumnChange {
     pub collation: std::string::String,
 
     /// Optional. Column length - e.g. 50 as in varchar (50) - when relevant.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub length: i64,
 
     /// Optional. Column precision - e.g. 8 as in double (8,2) - when relevant.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub precision: i32,
 
     /// Optional. Column scale - e.g. 2 as in double (8,2) - when relevant.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scale: i32,
 
     /// Optional. Column fractional seconds precision - e.g. 2 as in timestamp (2)
     ///
     /// - when relevant.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub fractional_seconds_precision: i32,
 
     /// Optional. Is the column of array type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub array: bool,
 
     /// Optional. The length of the array, only relevant if the column type is an
     /// array.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub array_length: i32,
 
     /// Optional. Is the column nullable.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nullable: bool,
 
     /// Optional. Is the column auto-generated/identity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_generated: bool,
 
     /// Optional. Is the column a UDT (User-defined Type).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub udt: bool,
 
     /// Optional. Custom engine specific features.
@@ -9797,20 +9848,24 @@ pub struct MultiColumnDatatypeChange {
 
     /// Optional. Column length - e.g. varchar (50) - if not specified and relevant
     /// uses the source column length.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub override_length: i64,
 
     /// Optional. Column scale - when relevant - if not specified and relevant
     /// uses the source column scale.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub override_scale: i32,
 
     /// Optional. Column precision - when relevant - if not specified and relevant
     /// uses the source column precision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub override_precision: i32,
 
     /// Optional. Column fractional seconds precision - used only for timestamp
     /// based datatypes - if not specified and relevant uses the source column
     /// fractional seconds precision.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub override_fractional_seconds_precision: i32,
 
     /// Optional. Custom engine specific features.
@@ -9995,11 +10050,13 @@ pub mod multi_column_datatype_change {
 pub struct SourceTextFilter {
     /// Optional. The filter will match columns with length greater than or equal
     /// to this number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub source_min_length_filter: i64,
 
     /// Optional. The filter will match columns with length smaller than or equal
     /// to this number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub source_max_length_filter: i64,
 
@@ -10039,18 +10096,22 @@ impl wkt::message::Message for SourceTextFilter {
 pub struct SourceNumericFilter {
     /// Optional. The filter will match columns with scale greater than or equal to
     /// this number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_min_scale_filter: i32,
 
     /// Optional. The filter will match columns with scale smaller than or equal to
     /// this number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_max_scale_filter: i32,
 
     /// Optional. The filter will match columns with precision greater than or
     /// equal to this number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_min_precision_filter: i32,
 
     /// Optional. The filter will match columns with precision smaller than or
     /// equal to this number.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub source_max_precision_filter: i32,
 
     /// Required. Enum to set the option defining the datatypes numeric filter has
@@ -10668,6 +10729,7 @@ pub mod value_transformation {
 #[non_exhaustive]
 pub struct ConvertRowIdToColumn {
     /// Required. Only work on tables without primary key defined
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub only_if_no_primary_key: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10908,6 +10970,7 @@ pub struct ValueListFilter {
 
     /// Required. Whether to ignore case when filtering by values. Defaults to
     /// false
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_case: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10963,6 +11026,7 @@ pub struct IntComparisonFilter {
     pub value_comparison: crate::model::ValueComparison,
 
     /// Required. Integer compare value to be used
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub value: i64,
 
@@ -11008,6 +11072,7 @@ pub struct DoubleComparisonFilter {
     pub value_comparison: crate::model::ValueComparison,
 
     /// Required. Double compare value to be used
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub value: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11163,6 +11228,7 @@ pub mod apply_hash {
 #[non_exhaustive]
 pub struct RoundToScale {
     /// Required. Scale value to be used
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scale: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11934,31 +12000,40 @@ pub struct ColumnEntity {
     pub collation: std::string::String,
 
     /// Column length - e.g. varchar (50).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub length: i64,
 
     /// Column precision - when relevant.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub precision: i32,
 
     /// Column scale - when relevant.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub scale: i32,
 
     /// Column fractional second precision - used for timestamp based datatypes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub fractional_seconds_precision: i32,
 
     /// Is the column of array type.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub array: bool,
 
     /// If the column is array, of which length.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub array_length: i32,
 
     /// Is the column nullable.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub nullable: bool,
 
     /// Is the column auto-generated/identity.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub auto_generated: bool,
 
     /// Is the column a UDT.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub udt: bool,
 
     /// Custom engine specific features.
@@ -11975,6 +12050,7 @@ pub struct ColumnEntity {
     pub comment: std::string::String,
 
     /// Column order in the table.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ordinal_position: i32,
 
     /// Default value of the column.
@@ -12251,6 +12327,7 @@ pub struct IndexEntity {
     pub table_columns: std::vec::Vec<std::string::String>,
 
     /// Boolean value indicating whether the index is unique.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub unique: bool,
 
     /// Custom engine specific features.
@@ -12461,6 +12538,7 @@ impl wkt::message::Message for ViewEntity {
 #[non_exhaustive]
 pub struct SequenceEntity {
     /// Increment value for the sequence.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub increment: i64,
 
@@ -12483,9 +12561,11 @@ pub struct SequenceEntity {
     pub min_value: ::bytes::Bytes,
 
     /// Indicates whether the sequence value should cycle through.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cycle: bool,
 
     /// Indicates number of entries to cache / precreate.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub cache: i64,
 
@@ -13213,15 +13293,19 @@ pub mod entity_issue {
     #[non_exhaustive]
     pub struct Position {
         /// Issue line number
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub line: i32,
 
         /// Issue column number
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub column: i32,
 
         /// Issue offset
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub offset: i32,
 
         /// Issue length
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub length: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

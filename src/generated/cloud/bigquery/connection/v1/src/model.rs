@@ -141,6 +141,7 @@ pub struct ListConnectionsRequest {
     pub parent: std::string::String,
 
     /// Required. Page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token.
@@ -361,14 +362,17 @@ pub struct Connection {
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of the connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub creation_time: i64,
 
     /// Output only. The last update timestamp of the connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub last_modified_time: i64,
 
     /// Output only. True, if credential is configured for this connection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub has_credential: bool,
 
     /// Properties specific to the underlying data source.
@@ -871,6 +875,7 @@ pub struct CloudSpannerProperties {
     pub database: std::string::String,
 
     /// If parallelism should be used when reading from Cloud Spanner
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_parallelism: bool,
 
     /// Allows setting max parallelism per query when executing on Spanner
@@ -881,11 +886,13 @@ pub struct CloudSpannerProperties {
     /// REQUIRES: `use_parallelism` must be set.
     /// REQUIRES: Either `use_data_boost` or `use_serverless_analytics` must be
     /// set.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_parallelism: i32,
 
     /// If the serverless analytics service should be used to read data from Cloud
     /// Spanner.
     /// Note: `use_parallelism` must be set when using serverless analytics.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_serverless_analytics: bool,
 
     /// If set, the request will be executed via Spanner independent compute
@@ -894,6 +901,7 @@ pub struct CloudSpannerProperties {
     ///
     /// NOTE: `use_serverless_analytics` will be deprecated. Prefer
     /// `use_data_boost` over `use_serverless_analytics`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_data_boost: bool,
 
     /// Optional. Cloud Spanner database role for fine-grained access control.

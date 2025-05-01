@@ -199,6 +199,7 @@ pub struct ImportAptArtifactsGcsSource {
     pub uris: std::vec::Vec<std::string::String>,
 
     /// Supports URI wildcards for matching multiple objects from a single URI.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_wildcards: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -545,6 +546,7 @@ pub struct DockerImage {
     /// Calculated size of the image.
     /// This field is returned as the 'metadata.imageSizeBytes' field in the
     /// Version resource.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub image_size_bytes: i64,
 
@@ -661,6 +663,7 @@ pub struct ListDockerImagesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of artifacts to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -926,6 +929,7 @@ pub struct ListMavenArtifactsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of artifacts to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -1171,6 +1175,7 @@ pub struct ListNpmPackagesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of artifacts to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -1415,6 +1420,7 @@ pub struct ListPythonPackagesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of artifacts to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -1719,6 +1725,7 @@ pub struct ListAttachmentsRequest {
     pub filter: std::string::String,
 
     /// The maximum number of attachments to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -2066,6 +2073,7 @@ pub struct File {
     pub name: std::string::String,
 
     /// The size of the File in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_bytes: i64,
 
@@ -2243,6 +2251,7 @@ pub struct ListFilesRequest {
     pub filter: std::string::String,
 
     /// The maximum number of files to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -2760,6 +2769,7 @@ pub struct ListPackagesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of packages to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -3056,6 +3066,7 @@ pub struct UpstreamPolicy {
     pub repository: std::string::String,
 
     /// Entries with a greater priority value take precedence in the pull order.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub priority: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3572,6 +3583,7 @@ pub struct RemoteRepositoryConfig {
 
     /// Input only. A create/update remote repo option to avoid making a HEAD/GET
     /// request to validate a remote repo and any supplied upstream credentials.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disable_upstream_validation: bool,
 
     /// Settings specific to the remote repository.
@@ -5677,14 +5689,17 @@ pub struct Repository {
     /// Output only. The size, in bytes, of all artifact storage in this
     /// repository. Repositories that are generally available or in public preview
     /// use this to calculate storage costs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_bytes: i64,
 
     /// Output only. If set, the repository satisfies physical zone separation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Optional. If true, the cleanup pipeline is prevented from deleting versions
     /// in this repository.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cleanup_policy_dry_run: bool,
 
     /// Optional. Config and state for vulnerability scanning of resources within
@@ -5695,9 +5710,11 @@ pub struct Repository {
 
     /// Optional. If this is true, an unspecified repo type will be treated as
     /// error rather than defaulting to standard.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disallow_unspecified_mode: bool,
 
     /// Output only. If set, the repository satisfies physical zone isolation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzi: bool,
 
     /// Output only. The repository endpoint, for example:
@@ -6023,6 +6040,7 @@ pub mod repository {
     pub struct MavenRepositoryConfig {
         /// The repository with this flag will allow publishing
         /// the same snapshot versions.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub allow_snapshot_overwrites: bool,
 
         /// Version policy defines the versions that the registry will accept.
@@ -6139,6 +6157,7 @@ pub mod repository {
         /// The repository which enabled this flag prevents all tags from being
         /// modified, moved or deleted. This does not prevent tags from being
         /// created.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub immutable_tags: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6572,6 +6591,7 @@ pub struct ListRepositoriesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of repositories to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -7090,6 +7110,7 @@ pub struct ListRulesRequest {
     pub parent: std::string::String,
 
     /// The maximum number of rules to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -7404,6 +7425,7 @@ pub struct ProjectSettings {
 
     /// The percentage of pull traffic to redirect from GCR to AR when using
     /// partial redirection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pull_percent: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7712,6 +7734,7 @@ pub struct ListTagsRequest {
     pub filter: std::string::String,
 
     /// The maximum number of tags to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -8125,6 +8148,7 @@ pub struct ListVersionsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of versions to return. Maximum page size is 1,000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request, if any.
@@ -8353,6 +8377,7 @@ pub struct DeleteVersionRequest {
 
     /// By default, a version that is tagged may not be deleted. If force=true, the
     /// version and any tags pointing to the version are deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8400,6 +8425,7 @@ pub struct BatchDeleteVersionsRequest {
     pub names: std::vec::Vec<std::string::String>,
 
     /// If true, the request is performed without deleting data, following AIP-163.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8870,6 +8896,7 @@ pub struct ImportYumArtifactsGcsSource {
     pub uris: std::vec::Vec<std::string::String>,
 
     /// Supports URI wildcards for matching multiple objects from a single URI.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_wildcards: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -1517,6 +1517,7 @@ pub struct SustainabilityProjection {
     /// Carbon Footprint generated in kg of CO2 equivalent.
     /// Chose kg_c_o2e so that the name renders correctly in camelCase (kgCO2e).
     #[serde(rename = "kgCO2e")]
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub kg_c_o2e: f64,
 
     /// Duration for which this sustainability applies.
@@ -2278,6 +2279,7 @@ pub struct ListInsightsRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. If not specified, the server will
     /// determine the number of results to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If present, retrieves the next batch of results from the
@@ -2543,6 +2545,7 @@ pub struct ListRecommendationsRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. If not specified, the server will
     /// determine the number of results to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If present, retrieves the next batch of results from the
@@ -3003,6 +3006,7 @@ pub struct UpdateRecommenderConfigRequest {
 
     /// If true, validate the request and preview the change, but do not actually
     /// update it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3106,6 +3110,7 @@ pub struct UpdateInsightTypeConfigRequest {
 
     /// If true, validate the request and preview the change, but do not actually
     /// update it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

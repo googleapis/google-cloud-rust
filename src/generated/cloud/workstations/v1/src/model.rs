@@ -58,6 +58,7 @@ pub struct WorkstationCluster {
 
     /// Output only. Indicates whether this workstation cluster is currently being
     /// updated to match its intended state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Optional. Client-specified annotations.
@@ -118,6 +119,7 @@ pub struct WorkstationCluster {
     /// [conditions][google.cloud.workstations.v1.WorkstationCluster.conditions].
     ///
     /// [google.cloud.workstations.v1.WorkstationCluster.conditions]: crate::model::WorkstationCluster::conditions
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub degraded: bool,
 
     /// Output only. Status conditions describing the workstation cluster's current
@@ -285,6 +287,7 @@ pub mod workstation_cluster {
     #[non_exhaustive]
     pub struct PrivateClusterConfig {
         /// Immutable. Whether Workstations endpoint is private.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_private_endpoint: bool,
 
         /// Output only. Hostname for the workstation cluster. This field will be
@@ -390,6 +393,7 @@ pub struct WorkstationConfig {
 
     /// Output only. Indicates whether this workstation configuration is currently
     /// being updated to match its intended state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Optional. Client-specified annotations.
@@ -521,6 +525,7 @@ pub struct WorkstationConfig {
     /// field.
     ///
     /// [google.cloud.workstations.v1.WorkstationConfig.conditions]: crate::model::WorkstationConfig::conditions
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub degraded: bool,
 
     /// Output only. Status conditions describing the current resource state.
@@ -870,10 +875,12 @@ pub mod workstation_config {
             /// Optional. The number of VMs that the system should keep idle so that
             /// new workstations can be started quickly for new users. Defaults to `0`
             /// in the API.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub pool_size: i32,
 
             /// Output only. Number of instances currently available in the pool for
             /// faster workstation startup.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub pooled_instances: i32,
 
             /// Optional. When set to true, disables public IP addresses for VMs. If
@@ -883,6 +890,7 @@ pub mod workstation_config {
             /// Container Registry and Artifact Registry, make sure that you set
             /// up DNS records for domains `*.gcr.io` and `*.pkg.dev`.
             /// Defaults to false (VMs have public IP addresses).
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub disable_public_ip_addresses: bool,
 
             /// Optional. Whether to enable nested virtualization on Cloud Workstations
@@ -921,6 +929,7 @@ pub mod workstation_config {
             ///   image.
             ///
             /// [google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.machine_type]: crate::model::workstation_config::host::GceInstance::machine_type
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub enable_nested_virtualization: bool,
 
             /// Optional. A set of Compute Engine Shielded instance options.
@@ -937,6 +946,7 @@ pub mod workstation_config {
 
             /// Optional. The size of the boot disk for the VM in gigabytes (GB).
             /// The minimum boot disk size is `30` GB. Defaults to `50` GB.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub boot_disk_size_gb: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1055,12 +1065,15 @@ pub mod workstation_config {
             #[non_exhaustive]
             pub struct GceShieldedInstanceConfig {
                 /// Optional. Whether the instance has Secure Boot enabled.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub enable_secure_boot: bool,
 
                 /// Optional. Whether the instance has the vTPM enabled.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub enable_vtpm: bool,
 
                 /// Optional. Whether the instance has integrity monitoring enabled.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub enable_integrity_monitoring: bool,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1107,6 +1120,7 @@ pub mod workstation_config {
             #[non_exhaustive]
             pub struct GceConfidentialInstanceConfig {
                 /// Optional. Whether the instance has confidential compute enabled.
+                #[serde(skip_serializing_if = "wkt::internal::is_default")]
                 pub enable_confidential_compute: bool,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1270,6 +1284,7 @@ pub mod workstation_config {
             ///
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.disk_type]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::disk_type
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.source_snapshot]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::source_snapshot
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
             pub size_gb: i32,
 
             /// Optional. Type of file system that the disk should be formatted with.
@@ -1474,6 +1489,7 @@ pub mod workstation_config {
 
         /// Optional. If set, overrides the USER specified in the image with the
         /// given uid.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub run_as_user: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1613,6 +1629,7 @@ pub mod workstation_config {
         pub path: std::string::String,
 
         /// Optional. Port to which the request should be sent.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub port: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1664,6 +1681,7 @@ pub struct Workstation {
 
     /// Output only. Indicates whether this workstation is currently being updated
     /// to match its intended state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Optional. Client-specified annotations.
@@ -1950,6 +1968,7 @@ pub struct ListWorkstationClustersRequest {
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -2088,6 +2107,7 @@ pub struct CreateWorkstationClusterRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2155,11 +2175,13 @@ pub struct UpdateWorkstationClusterRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set, and the workstation cluster is not found, a new
     /// workstation cluster will be created. In this situation, update_mask is
     /// ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2222,6 +2244,7 @@ pub struct DeleteWorkstationClusterRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set, the request will be rejected if the latest version of the
@@ -2232,6 +2255,7 @@ pub struct DeleteWorkstationClusterRequest {
     /// Optional. If set, any workstation configurations and workstations in the
     /// workstation cluster are also deleted. Otherwise, the request only
     /// works if the workstation cluster has no configurations or workstations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2317,6 +2341,7 @@ pub struct ListWorkstationConfigsRequest {
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -2446,6 +2471,7 @@ pub struct ListUsableWorkstationConfigsRequest {
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -2584,6 +2610,7 @@ pub struct CreateWorkstationConfigRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2651,11 +2678,13 @@ pub struct UpdateWorkstationConfigRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set and the workstation configuration is not found, a new
     /// workstation configuration will be created. In this situation,
     /// update_mask is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2718,6 +2747,7 @@ pub struct DeleteWorkstationConfigRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set, the request is rejected if the latest version of the
@@ -2728,6 +2758,7 @@ pub struct DeleteWorkstationConfigRequest {
     /// Optional. If set, any workstations in the workstation configuration are
     /// also deleted. Otherwise, the request works only if the workstation
     /// configuration has no workstations.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2813,6 +2844,7 @@ pub struct ListWorkstationsRequest {
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -2942,6 +2974,7 @@ pub struct ListUsableWorkstationsRequest {
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
@@ -3080,6 +3113,7 @@ pub struct CreateWorkstationRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3144,11 +3178,13 @@ pub struct UpdateWorkstationRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set and the workstation configuration is not found, a new
     /// workstation configuration is created. In this situation, update_mask
     /// is ignored.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3211,6 +3247,7 @@ pub struct DeleteWorkstationRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set, the request will be rejected if the latest version of the
@@ -3264,6 +3301,7 @@ pub struct StartWorkstationRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set, the request will be rejected if the latest version of the
@@ -3317,6 +3355,7 @@ pub struct StopWorkstationRequest {
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. If set, the request will be rejected if the latest version of the
@@ -3562,6 +3601,7 @@ pub struct OperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.

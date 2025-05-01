@@ -45,6 +45,7 @@ pub struct BigQueryConnectionSpec {
 
     /// True if there are credentials attached to the BigQuery connection; false
     /// otherwise.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub has_credential: bool,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -366,6 +367,7 @@ impl wkt::message::Message for BigQueryRoutineSpec {
 #[non_exhaustive]
 pub struct PersonalDetails {
     /// True if the entry is starred by the user; false otherwise.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub starred: bool,
 
     /// Set if the entry is starred; unset otherwise.
@@ -682,6 +684,7 @@ pub struct SearchCatalogRequest {
     /// Can't be negative or 0, defaults to 10 in this case.
     /// The maximum number is 1000. If exceeded, throws an "invalid argument"
     /// exception.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token that, if specified, returns the next page of
@@ -722,6 +725,7 @@ pub struct SearchCatalogRequest {
     /// fine grained per resource permissions when filtering the search results.
     /// The only allowed `order_by` criteria for admin_search mode is `default`.
     /// Using this flags guarantees a full recall of the search results.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub admin_search: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -812,6 +816,7 @@ pub mod search_catalog_request {
         ///
         /// See [Google Cloud Public Datasets](/public-datasets) for more
         /// information.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub include_gcp_public_datasets: bool,
 
         /// Optional. The list of locations to search within. If empty, all locations
@@ -830,10 +835,12 @@ pub mod search_catalog_request {
         /// Optional. If `true`, search only among starred entries.
         ///
         /// By default, all results are returned, starred or not.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub starred_only: bool,
 
         /// Optional. This field is deprecated. The search mechanism for public and
         /// private tag templates is the same.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub include_public_tag_templates: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -924,6 +931,7 @@ pub struct SearchCatalogResponse {
     pub results: std::vec::Vec<crate::model::SearchCatalogResult>,
 
     /// The approximate total number of entries matched by the query.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     /// Pagination token that can be used in subsequent calls to retrieve the next
@@ -1187,6 +1195,7 @@ pub struct DeleteEntryGroupRequest {
     pub name: std::string::String,
 
     /// Optional. If true, deletes all entries in the entry group.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1236,6 +1245,7 @@ pub struct ListEntryGroupsRequest {
     ///
     /// Default is 10. Maximum limit is 1000.
     /// Throws an invalid argument if `page_size` is greater than 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token that specifies the next page to return.
@@ -3936,6 +3946,7 @@ pub struct VertexModelSourceInfo {
     /// pertains to the original.
     ///
     /// [google.cloud.datacatalog.v1.VertexModelSourceInfo.source_type]: crate::model::VertexModelSourceInfo::source_type
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub copy: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4159,6 +4170,7 @@ impl wkt::message::Message for VertexModelSpec {
 pub struct VertexDatasetSpec {
     /// The number of DataItems in this Dataset. Only apply for non-structured
     /// Dataset.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub data_item_count: i64,
 
@@ -4717,6 +4729,7 @@ pub struct EntryGroup {
     /// Entries to be read-only in DataCatalog. However, new Tags on EntryGroup and
     /// its Entries can be created. After setting the flag to [true] it cannot be
     /// unset.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub transferred_to_dataplex: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4947,6 +4960,7 @@ pub struct DeleteTagTemplateRequest {
     /// Required. If true, deletes all tags that use this template.
     ///
     /// Currently, `true` is the only supported value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5385,6 +5399,7 @@ pub struct DeleteTagTemplateFieldRequest {
     /// Required. If true, deletes this field from any tags that use it.
     ///
     /// Currently, `true` is the only supported value.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5436,6 +5451,7 @@ pub struct ListTagsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of tags to return. Default is 10. Maximum limit is 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Pagination token that specifies the next page to return. If empty, the
@@ -5566,6 +5582,7 @@ pub struct ReconcileTagsRequest {
     /// If set to `true`, deletes entry tags related to a tag template
     /// not listed in the tags source from an entry. If set to `false`,
     /// unlisted tags are retained.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force_delete_missing: bool,
 
     /// A list of tags to apply to an entry. A tag can specify a
@@ -5632,14 +5649,17 @@ impl wkt::message::Message for ReconcileTagsRequest {
 #[non_exhaustive]
 pub struct ReconcileTagsResponse {
     /// Number of tags created in the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub created_tags_count: i64,
 
     /// Number of tags updated in the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub updated_tags_count: i64,
 
     /// Number of tags deleted in the request.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub deleted_tags_count: i64,
 
@@ -5827,6 +5847,7 @@ pub struct ListEntriesRequest {
 
     /// The maximum number of items to return. Default is 10. Maximum limit is
     /// 1000. Throws an invalid argument if `page_size` is more than 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Pagination token that specifies the next page to return. If empty, the
@@ -6904,6 +6925,7 @@ pub struct DataplexTableSpec {
     pub dataplex_spec: std::option::Option<crate::model::DataplexSpec>,
 
     /// Indicates if the table schema is managed by the user or not.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub user_managed: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7314,6 +7336,7 @@ pub struct GcsFileSpec {
     pub gcs_timestamps: std::option::Option<crate::model::SystemTimestamps>,
 
     /// Output only. File size in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_bytes: i64,
 
@@ -7810,6 +7833,7 @@ pub struct Taxonomy {
     pub description: std::string::String,
 
     /// Output only. Number of policy tags in this taxonomy.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub policy_tag_count: i32,
 
     /// Output only. Creation and modification timestamps of this taxonomy.
@@ -8269,6 +8293,7 @@ pub struct ListTaxonomiesRequest {
 
     /// The maximum number of items to return. Must be a value between 1 and 1000
     /// inclusively. If not set, defaults to 50.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The pagination token of the next results page. If not set,
@@ -8581,6 +8606,7 @@ pub struct ListPolicyTagsRequest {
     /// The maximum number of items to return. Must be a value between 1 and 1000
     /// inclusively.
     /// If not set, defaults to 50.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The pagination token of the next results page. If not set, returns the
@@ -9399,6 +9425,7 @@ pub struct ColumnSchema {
     pub default_value: std::string::String,
 
     /// Optional. Ordinal position
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ordinal_position: i32,
 
     /// Optional. Most important inclusion of this column.
@@ -10277,6 +10304,7 @@ pub struct BigQueryDateShardedSpec {
     pub table_prefix: std::string::String,
 
     /// Output only. Total number of shards.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub shard_count: i64,
 
@@ -10519,6 +10547,7 @@ pub struct TagField {
     /// field orders within a tag don't have to be sequential.
     ///
     /// [google.cloud.datacatalog.v1.TagTemplateField.order]: crate::model::TagTemplateField::order
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub order: i32,
 
     /// Required. The value of this field.
@@ -10808,6 +10837,7 @@ pub struct TagTemplate {
     /// simple search query in addition to using a ``tag:`` predicate.
     ///
     /// [google.cloud.datacatalog.v1.DataCatalog.ListTags]: crate::client::DataCatalog::list_tags
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_publicly_readable: bool,
 
     /// Required. Map of tag template field IDs to the settings for the field.
@@ -10989,6 +11019,7 @@ pub struct TagTemplateField {
     pub r#type: std::option::Option<crate::model::FieldType>,
 
     /// If true, this field is required. Defaults to false.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_required: bool,
 
     /// The description for this field. Defaults to an empty string.
@@ -11001,6 +11032,7 @@ pub struct TagTemplateField {
     /// For example, a higher value can indicate a more important field.
     /// The value can be negative. Multiple fields can have the same order and
     /// field orders within a tag don't have to be sequential.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub order: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11415,15 +11447,19 @@ impl wkt::message::Message for SystemTimestamps {
 #[non_exhaustive]
 pub struct UsageStats {
     /// The number of successful uses of the underlying entry.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_completions: f32,
 
     /// The number of failed attempts to use the underlying entry.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_failures: f32,
 
     /// The number of cancelled attempts to use the underlying entry.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_cancellations: f32,
 
     /// Total time spent only on successful uses, in milliseconds.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_execution_time_for_completions_millis: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

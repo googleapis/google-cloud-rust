@@ -71,6 +71,7 @@ pub struct DataExchange {
     pub documentation: std::string::String,
 
     /// Output only. Number of listings contained in the data exchange.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub listing_count: i32,
 
     /// Optional. Base64 encoded image representing the data exchange. Max
@@ -1260,14 +1261,17 @@ pub mod listing {
     #[non_exhaustive]
     pub struct RestrictedExportConfig {
         /// Optional. If true, enable restricted export.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enabled: bool,
 
         /// Output only. If true, restrict direct table access(read
         /// api/tabledata.list) on linked table.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub restrict_direct_table_access: bool,
 
         /// Optional. If true, restrict export of query result derived from
         /// restricted linked dataset table.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub restrict_query_result: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1967,6 +1971,7 @@ pub struct ListDataExchangesRequest {
 
     /// The maximum number of results to return in a single response page. Leverage
     /// the page tokens to iterate through the entire collection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -2083,6 +2088,7 @@ pub struct ListOrgDataExchangesRequest {
 
     /// The maximum number of results to return in a single response page. Leverage
     /// the page tokens to iterate through the entire collection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -2380,6 +2386,7 @@ pub struct ListListingsRequest {
 
     /// The maximum number of results to return in a single response page. Leverage
     /// the page tokens to iterate through the entire collection.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call, to request the next page of
@@ -3083,6 +3090,7 @@ pub struct ListSubscriptionsRequest {
     pub filter: std::string::String,
 
     /// The maximum number of results to return in a single response page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call.
@@ -3205,9 +3213,11 @@ pub struct ListSharedResourceSubscriptionsRequest {
 
     /// If selected, includes deleted subscriptions in the response
     /// (up to 63 days after deletion).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub include_deleted_subscriptions: bool,
 
     /// The maximum number of results to return in a single response page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Page token, returned by a previous call.
@@ -3437,6 +3447,7 @@ pub struct OperationMetadata {
     /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -3557,6 +3568,7 @@ pub struct PubSubSubscription {
     ///
     /// If the subscriber never acknowledges the message, the Pub/Sub
     /// system will eventually redeliver the message.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ack_deadline_seconds: i32,
 
     /// Optional. Indicates whether to retain acknowledged messages. If true, then
@@ -3565,6 +3577,7 @@ pub struct PubSubSubscription {
     /// window. This must be true if you would like to [`Seek` to a timestamp]
     /// (<https://cloud.google.com/pubsub/docs/replay-overview#seek_to_a_time>) in
     /// the past to replay previously-acknowledged messages.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub retain_acked_messages: bool,
 
     /// Optional. How long to retain unacknowledged messages in the subscription's
@@ -3584,6 +3597,7 @@ pub struct PubSubSubscription {
     /// `PubsubMessage` will be delivered to the subscribers in the order in which
     /// they are received by the Pub/Sub system. Otherwise, they may be delivered
     /// in any order.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_message_ordering: bool,
 
     /// Optional. A policy that specifies the conditions for this subscription's
@@ -3630,6 +3644,7 @@ pub struct PubSubSubscription {
     /// retain any backlog. `Pull` and `StreamingPull` requests will return
     /// FAILED_PRECONDITION. If the subscription is a push subscription, pushes to
     /// the endpoint will not be made.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub detached: bool,
 
     /// Optional. If true, Pub/Sub provides the following guarantees for the
@@ -3644,6 +3659,7 @@ pub struct PubSubSubscription {
     /// when `enable_exactly_once_delivery` is true if the message was published
     /// multiple times by a publisher client. These copies are  considered distinct
     /// by Pub/Sub and have distinct `message_id` values.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_exactly_once_delivery: bool,
 
     /// Optional. Transforms to be applied to messages before they are delivered to
@@ -3903,6 +3919,7 @@ pub struct DeadLetterPolicy {
     /// This field will be honored on a best effort basis.
     ///
     /// If this parameter is 0, a default value of 5 is used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_delivery_attempts: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4272,6 +4289,7 @@ pub mod push_config {
         /// Optional. When true, writes the Pub/Sub message metadata to
         /// `x-goog-pubsub-<KEY>:<VAL>` headers of the HTTP request. Writes the
         /// Pub/Sub message attributes to `<KEY>:<VAL>` headers of the HTTP request.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub write_metadata: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4340,6 +4358,7 @@ pub struct BigQueryConfig {
     /// Optional. When true, use the topic's schema as the columns to write to in
     /// BigQuery, if it exists. `use_topic_schema` and `use_table_schema` cannot be
     /// enabled at the same time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_topic_schema: bool,
 
     /// Optional. When true, write the subscription name, message_id, publish_time,
@@ -4347,6 +4366,7 @@ pub struct BigQueryConfig {
     /// subscription name, message_id, and publish_time fields are put in their own
     /// columns while all other message properties (other than data) are written to
     /// a JSON object in the attributes column.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub write_metadata: bool,
 
     /// Optional. When true and use_topic_schema is true, any fields that are a
@@ -4354,11 +4374,13 @@ pub struct BigQueryConfig {
     /// dropped when writing to BigQuery. Otherwise, the schemas must be kept in
     /// sync and any messages with extra fields are not written and remain in the
     /// subscription's backlog.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub drop_unknown_fields: bool,
 
     /// Optional. When true, use the BigQuery table's schema as the columns to
     /// write to in BigQuery. `use_table_schema` and `use_topic_schema` cannot be
     /// enabled at the same time.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_table_schema: bool,
 
     /// Optional. The service account to use to write to BigQuery. The subscription
@@ -4469,11 +4491,13 @@ pub struct CloudStorageConfig {
     /// Optional. The maximum bytes that can be written to a Cloud Storage file
     /// before a new file is created. Min 1 KB, max 10 GiB. The max_bytes limit may
     /// be exceeded in cases where messages are larger than the limit.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub max_bytes: i64,
 
     /// Optional. The maximum number of messages that can be written to a Cloud
     /// Storage file before a new file is created. Min 1000 messages.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub max_messages: i64,
 
@@ -4683,10 +4707,12 @@ pub mod cloud_storage_config {
         /// put in their own fields while all other message properties other than
         /// data (for example, an ordering_key, if present) are added as entries in
         /// the attributes map.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub write_metadata: bool,
 
         /// Optional. When true, the output Cloud Storage file will be serialized
         /// using the topic schema, if it exists.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub use_topic_schema: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4739,10 +4765,12 @@ pub mod cloud_storage_config {
 pub struct MessageTransform {
     /// Optional. This field is deprecated, use the `disabled` field to disable
     /// transforms.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enabled: bool,
 
     /// Optional. If true, the transform is disabled and will not be applied to
     /// messages. Defaults to `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// The type of transform to apply to messages.

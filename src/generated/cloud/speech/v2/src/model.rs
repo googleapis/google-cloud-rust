@@ -49,6 +49,7 @@ pub struct CreateRecognizerRequest {
 
     /// If set, validate the request and preview the Recognizer, but do not
     /// actually create it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// The ID to use for the Recognizer, which will become the final component of
@@ -145,6 +146,7 @@ pub struct OperationMetadata {
 
     /// The percent progress of the Operation. Values can range from 0-100. If the
     /// value is 100, then the operation is finished.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percent: i32,
 
     /// The request that spawned the Operation.
@@ -797,6 +799,7 @@ pub struct ListRecognizersRequest {
     /// The maximum number of Recognizers to return. The service may return fewer
     /// than this value. If unspecified, at most 5 Recognizers will be returned.
     /// The maximum value is 100; values above 100 will be coerced to 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous
@@ -812,6 +815,7 @@ pub struct ListRecognizersRequest {
     pub page_token: std::string::String,
 
     /// Whether, or not, to show resources that have been deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -982,6 +986,7 @@ pub struct UpdateRecognizerRequest {
 
     /// If set, validate the request and preview the updated Recognizer, but do not
     /// actually update it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1040,10 +1045,12 @@ pub struct DeleteRecognizerRequest {
 
     /// If set, validate the request and preview the deleted Recognizer, but do not
     /// actually delete it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// If set to true, and the Recognizer is not found, the request will succeed
     /// and  be a no-op (no Operation is recorded in this case).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// This checksum is computed by the server based on the value of other
@@ -1109,6 +1116,7 @@ pub struct UndeleteRecognizerRequest {
 
     /// If set, validate the request and preview the undeleted Recognizer, but do
     /// not actually undelete it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// This checksum is computed by the server based on the value of other
@@ -1255,6 +1263,7 @@ pub struct Recognizer {
 
     /// Output only. Whether or not this Recognizer is in the process of being
     /// updated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. The [KMS key
@@ -1543,6 +1552,7 @@ pub struct ExplicitDecodingConfig {
     /// the native sample rate of the audio source (instead of re-sampling).
     /// Note that this field is marked as OPTIONAL for backward compatibility
     /// reasons. It is (and has always been) effectively REQUIRED.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Number of channels present in the audio data sent for
@@ -1550,6 +1560,7 @@ pub struct ExplicitDecodingConfig {
     /// compatibility reasons. It is (and has always been) effectively REQUIRED.
     ///
     /// The maximum allowed value is 8.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub audio_channel_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1718,12 +1729,14 @@ pub struct SpeakerDiarizationConfig {
     ///
     /// To fix the number of speakers detected in the audio, set
     /// `min_speaker_count` = `max_speaker_count`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_speaker_count: i32,
 
     /// Required. Maximum number of speakers in the conversation. Valid values are:
     /// 1-6. Must be >= `min_speaker_count`. This range gives you more flexibility
     /// by allowing the system to automatically determine the correct number of
     /// speakers.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_speaker_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1764,21 +1777,25 @@ pub struct RecognitionFeatures {
     /// replacing all but the initial character in each filtered word with
     /// asterisks, for instance, "f***". If set to `false` or omitted, profanities
     /// won't be filtered out.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub profanity_filter: bool,
 
     /// If `true`, the top result includes a list of words and the start and end
     /// time offsets (timestamps) for those words. If `false`, no word-level time
     /// offset information is returned. The default is `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_word_time_offsets: bool,
 
     /// If `true`, the top result includes a list of words and the confidence for
     /// those words. If `false`, no word-level confidence information is returned.
     /// The default is `false`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_word_confidence: bool,
 
     /// If `true`, adds punctuation to recognition result hypotheses. This feature
     /// is only available in select languages. The default `false` value does not
     /// add punctuation to result hypotheses.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_automatic_punctuation: bool,
 
     /// The spoken punctuation behavior for the call. If `true`, replaces spoken
@@ -1786,12 +1803,14 @@ pub struct RecognitionFeatures {
     /// "how are you question mark" becomes "how are you?". See
     /// <https://cloud.google.com/speech-to-text/docs/spoken-punctuation> for
     /// support. If `false`, spoken punctuation is not replaced.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_spoken_punctuation: bool,
 
     /// The spoken emoji behavior for the call. If `true`, adds spoken emoji
     /// formatting for the request. This will replace spoken emojis with the
     /// corresponding Unicode symbols in the final transcript. If `false`, spoken
     /// emojis are not replaced.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_spoken_emojis: bool,
 
     /// Mode for recognizing multi-channel audio.
@@ -1812,6 +1831,7 @@ pub struct RecognitionFeatures {
     /// The server may return fewer than `max_alternatives`.
     /// Valid values are `0`-`30`. A value of `0` or `1` will return a maximum of
     /// one. If omitted, will return a maximum of one.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_alternatives: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2025,6 +2045,7 @@ pub mod transcript_normalization {
         pub replace: std::string::String,
 
         /// Whether the search is case sensitive.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub case_sensitive: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2764,6 +2785,7 @@ pub struct SpeechRecognitionAlternative {
     /// value indicating `confidence` was not set.
     ///
     /// [google.cloud.speech.v2.StreamingRecognitionResult.is_final]: crate::model::StreamingRecognitionResult::is_final
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// A list of word-specific information for each recognized word.
@@ -2856,6 +2878,7 @@ pub struct WordInfo {
     /// value indicating `confidence` was not set.
     ///
     /// [google.cloud.speech.v2.StreamingRecognitionResult.is_final]: crate::model::StreamingRecognitionResult::is_final
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub confidence: f32,
 
     /// A distinct label is assigned for every speaker within the audio. This field
@@ -2936,6 +2959,7 @@ pub struct SpeechRecognitionResult {
     /// recognized result for the audio from that channel.
     /// For `audio_channel_count` = `N`, its output values can range from `1` to
     /// `N`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub channel_tag: i32,
 
     /// Time offset of the end of this result relative to the beginning of the
@@ -3061,11 +3085,13 @@ impl wkt::message::Message for RecognizeResponse {
 pub struct StreamingRecognitionFeatures {
     /// If `true`, responses with voice activity speech events will be returned as
     /// they are detected.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_voice_activity_events: bool,
 
     /// Whether or not to stream interim results to the client. If set to true,
     /// interim results will be streamed to the client. Otherwise, only the final
     /// response will be streamed back.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub interim_results: bool,
 
     /// If set, the server will automatically close the stream after the specified
@@ -4371,6 +4397,7 @@ pub mod batch_recognize_file_result {
 #[non_exhaustive]
 pub struct BatchRecognizeTranscriptionMetadata {
     /// How much of the file has been transcribed so far.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percent: i32,
 
     /// Error if one was encountered.
@@ -4620,6 +4647,7 @@ pub struct StreamingRecognitionResult {
     /// the transcript and corresponding audio.
     ///
     /// [google.cloud.speech.v2.StreamingRecognitionResult]: crate::model::StreamingRecognitionResult
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_final: bool,
 
     /// An estimate of the likelihood that the recognizer will not change its guess
@@ -4629,6 +4657,7 @@ pub struct StreamingRecognitionResult {
     /// The default of 0.0 is a sentinel value indicating `stability` was not set.
     ///
     /// [google.cloud.speech.v2.StreamingRecognitionResult.is_final]: crate::model::StreamingRecognitionResult::is_final
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub stability: f32,
 
     /// Time offset of the end of this result relative to the beginning of the
@@ -4640,6 +4669,7 @@ pub struct StreamingRecognitionResult {
     /// recognized result for the audio from that channel.
     /// For
     /// `audio_channel_count` = `N`, its output values can range from `1` to `N`.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub channel_tag: i32,
 
     /// Output only. The [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt)
@@ -5144,6 +5174,7 @@ pub struct CustomClass {
 
     /// Output only. Whether or not this CustomClass is in the process of being
     /// updated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. The [KMS key
@@ -5412,6 +5443,7 @@ pub struct PhraseSet {
     /// Valid `boost` values are between 0 (exclusive) and 20. We recommend using a
     /// binary search approach to finding the optimal value for your use case as
     /// well as adding phrases both with and without boost to your requests.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub boost: f32,
 
     /// User-settable, human-readable name for the PhraseSet. Must be 63
@@ -5452,6 +5484,7 @@ pub struct PhraseSet {
 
     /// Output only. Whether or not this PhraseSet is in the process of being
     /// updated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Output only. The [KMS key
@@ -5635,6 +5668,7 @@ pub mod phrase_set {
         /// We recommend using a binary search approach to finding the optimal value
         /// for your use case as well as adding phrases both with and without boost
         /// to your requests.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub boost: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5739,6 +5773,7 @@ pub struct CreateCustomClassRequest {
 
     /// If set, validate the request and preview the CustomClass, but do not
     /// actually create it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// The ID to use for the CustomClass, which will become the final component of
@@ -5817,6 +5852,7 @@ pub struct ListCustomClassesRequest {
     /// inclusive. If the page_size is zero or unspecified, a page size of 5 will
     /// be chosen. If the page size exceeds 100, it will be coerced down to 100.
     /// Note that a call might return fewer results than the requested page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous
@@ -5832,6 +5868,7 @@ pub struct ListCustomClassesRequest {
     pub page_token: std::string::String,
 
     /// Whether, or not, to show resources that have been deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6003,6 +6040,7 @@ pub struct UpdateCustomClassRequest {
 
     /// If set, validate the request and preview the updated CustomClass, but do
     /// not actually update it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6064,10 +6102,12 @@ pub struct DeleteCustomClassRequest {
 
     /// If set, validate the request and preview the deleted CustomClass, but do
     /// not actually delete it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// If set to true, and the CustomClass is not found, the request will succeed
     /// and  be a no-op (no Operation is recorded in this case).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// This checksum is computed by the server based on the value of other
@@ -6134,6 +6174,7 @@ pub struct UndeleteCustomClassRequest {
 
     /// If set, validate the request and preview the undeleted CustomClass, but do
     /// not actually undelete it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// This checksum is computed by the server based on the value of other
@@ -6191,6 +6232,7 @@ pub struct CreatePhraseSetRequest {
 
     /// If set, validate the request and preview the PhraseSet, but do not
     /// actually create it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// The ID to use for the PhraseSet, which will become the final component of
@@ -6266,6 +6308,7 @@ pub struct ListPhraseSetsRequest {
     /// The maximum number of PhraseSets to return. The service may return fewer
     /// than this value. If unspecified, at most 5 PhraseSets will be returned.
     /// The maximum value is 100; values above 100 will be coerced to 100.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous
@@ -6281,6 +6324,7 @@ pub struct ListPhraseSetsRequest {
     pub page_token: std::string::String,
 
     /// Whether, or not, to show resources that have been deleted.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6451,6 +6495,7 @@ pub struct UpdatePhraseSetRequest {
 
     /// If set, validate the request and preview the updated PhraseSet, but do not
     /// actually update it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6509,10 +6554,12 @@ pub struct DeletePhraseSetRequest {
 
     /// If set, validate the request and preview the deleted PhraseSet, but do not
     /// actually delete it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// If set to true, and the PhraseSet is not found, the request will succeed
     /// and  be a no-op (no Operation is recorded in this case).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// This checksum is computed by the server based on the value of other
@@ -6578,6 +6625,7 @@ pub struct UndeletePhraseSetRequest {
 
     /// If set, validate the request and preview the undeleted PhraseSet, but do
     /// not actually undelete it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// This checksum is computed by the server based on the value of other

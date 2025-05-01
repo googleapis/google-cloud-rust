@@ -220,11 +220,13 @@ pub mod common_metadata {
 pub struct Progress {
     /// The amount of work that has been completed. Note that this may be greater
     /// than work_estimated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub work_completed: i64,
 
     /// An estimate of how much work needs to be performed. May be zero if the
     /// work estimate is unavailable.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub work_estimated: i64,
 
@@ -916,6 +918,7 @@ pub struct ListIndexesRequest {
 
     /// The maximum number of items to return.  If zero, then all results will be
     /// returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.

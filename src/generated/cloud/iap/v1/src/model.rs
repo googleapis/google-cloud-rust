@@ -48,6 +48,7 @@ pub struct ListTunnelDestGroupsRequest {
     /// this value.
     /// If unspecified, at most 100 groups are returned.
     /// The maximum value is 1000; values above 1000 are coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListTunnelDestGroups`
@@ -1849,6 +1850,7 @@ pub struct ListIdentityAwareProxyClientsRequest {
     /// this value.
     /// If unspecified, at most 100 clients will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListIdentityAwareProxyClients`
@@ -2131,6 +2133,7 @@ pub struct Brand {
 
     /// Output only. Whether the brand is only intended for usage inside the
     /// G Suite organization only.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub org_internal_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

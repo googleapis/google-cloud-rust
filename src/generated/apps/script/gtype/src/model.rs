@@ -410,6 +410,7 @@ pub struct CommonAddOnManifest {
     pub add_on_widget_set: std::option::Option<crate::model::AddOnWidgetSet>,
 
     /// Whether to pass locale information from host app.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_locale_from_app: bool,
 
     /// Defines an endpoint that will be executed in any context, in

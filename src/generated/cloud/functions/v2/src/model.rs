@@ -97,6 +97,7 @@ pub struct Function {
     pub kms_key_name: std::string::String,
 
     /// Output only. Reserved for future use.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub satisfies_pzs: bool,
 
     /// Output only. The create timestamp of a Cloud Function. This is only
@@ -462,6 +463,7 @@ pub struct StorageSource {
 
     /// Google Cloud Storage generation for the object. If the generation is
     /// omitted, the latest generation will be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -539,6 +541,7 @@ pub struct RepoSource {
 
     /// Only trigger a build if the revision regex does NOT match the revision
     /// regex.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub invert_regex: bool,
 
     /// A revision within the Cloud Source Repository must be specified in
@@ -1255,6 +1258,7 @@ pub struct ServiceConfig {
     /// The function execution timeout. Execution is considered failed and
     /// can be terminated if the function is not completed at the end of the
     /// timeout period. Defaults to 60 seconds.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub timeout_seconds: i32,
 
     /// The amount of memory available for a function.
@@ -1290,6 +1294,7 @@ pub struct ServiceConfig {
     /// See the [Max
     /// Instances](https://cloud.google.com/functions/docs/max-instances) Guide for
     /// more details.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_instance_count: i32,
 
     /// The limit on the minimum number of function instances that may coexist at a
@@ -1301,6 +1306,7 @@ pub struct ServiceConfig {
     /// number of instances are kept running in idle state always. This can help
     /// with cold start times when jump in incoming request count occurs after the
     /// idle instance would have been stopped in the default case.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub min_instance_count: i32,
 
     /// The Serverless VPC Access connector that this cloud function can connect
@@ -1330,6 +1336,7 @@ pub struct ServiceConfig {
     /// deployed will serve 100% of traffic, ignoring any traffic split settings,
     /// if any. On GetFunction, true will be returned if the latest revision is
     /// serving 100% of traffic.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub all_traffic_on_latest_revision: bool,
 
     /// Secret environment variables configuration.
@@ -1346,6 +1353,7 @@ pub struct ServiceConfig {
 
     /// Sets the maximum number of concurrent requests that each instance
     /// can receive. Defaults to 1.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub max_instance_request_concurrency: i32,
 
     /// Security level configure whether the function only accepts https.
@@ -2279,6 +2287,7 @@ pub struct ListFunctionsRequest {
     /// page_size is 1,000, if the page_size is omitted or specified as greater
     /// than 1,000 then it will be replaced as 1,000. The size of the list
     /// response can be less than specified when used with filters.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last
@@ -3132,6 +3141,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cancel_requested: bool,
 
     /// API version used to start the operation.

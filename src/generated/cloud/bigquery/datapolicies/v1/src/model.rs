@@ -260,6 +260,7 @@ pub struct ListDataPoliciesRequest {
     /// The maximum number of data policies to return. Must be a value between 1
     /// and 1000.
     /// If not set, defaults to 50.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The `nextPageToken` value returned from a previous list request, if any. If

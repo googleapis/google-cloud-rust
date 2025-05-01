@@ -45,6 +45,7 @@ pub struct ListConnectionsRequest {
     /// The maximum number of connections to return. The service may return fewer
     /// than this value. If unspecified, at most 100 connections will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListConnections` call.
@@ -167,6 +168,7 @@ pub struct Connection {
     pub cluster: std::option::Option<crate::model::Cluster>,
 
     /// The count of streams.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub stream_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -799,6 +801,7 @@ pub struct HttpResponse {
     pub status: std::string::String,
 
     /// Status code of http response, e.g. 200.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status_code: i32,
 
     /// The HTTP 1.1 response body.
@@ -814,6 +817,7 @@ pub struct HttpResponse {
     /// value -1 indicates that the length is unknown. Unless http method
     /// is "HEAD", values >= 0 indicate that the given number of bytes may
     /// be read from Body.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub content_length: i64,
 

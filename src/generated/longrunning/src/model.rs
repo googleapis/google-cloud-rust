@@ -54,6 +54,7 @@ pub struct Operation {
     /// If the value is `false`, it means the operation is still in progress.
     /// If `true`, the operation is completed, and either `error` or `response` is
     /// available.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub done: bool,
 
     /// The operation result, which can be either an `error` or a valid `response`.
@@ -240,6 +241,7 @@ pub struct ListOperationsRequest {
     pub filter: std::string::String,
 
     /// The standard list page size.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The standard list page token.

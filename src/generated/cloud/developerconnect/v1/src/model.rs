@@ -67,10 +67,12 @@ pub struct Connection {
     /// Optional. If disabled is set to true, functionality is disabled for this
     /// connection. Repository based API methods and webhooks processing for
     /// repositories in this connection will be disabled.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Output only. Set to true when the connection is being set up or updated in
     /// the background.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Optional. Allows clients to store small amounts of arbitrary data.
@@ -559,6 +561,7 @@ pub struct GitHubConfig {
     pub authorizer_credential: std::option::Option<crate::model::OAuthCredential>,
 
     /// Optional. GitHub App installation id.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub app_installation_id: i64,
 
@@ -695,6 +698,7 @@ pub struct GitHubEnterpriseConfig {
     pub host_uri: std::string::String,
 
     /// Optional. ID of the GitHub App created from the manifest.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub app_id: i64,
 
@@ -713,6 +717,7 @@ pub struct GitHubEnterpriseConfig {
     pub webhook_secret_secret_version: std::string::String,
 
     /// Optional. ID of the installation of the GitHub App.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub app_installation_id: i64,
 
@@ -1172,6 +1177,7 @@ pub struct ListConnectionsRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1377,6 +1383,7 @@ pub struct CreateConnectionRequest {
     pub request_id: std::string::String,
 
     /// Optional. If set, validate the request, but do not actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1467,9 +1474,11 @@ pub struct UpdateConnectionRequest {
     /// The creation will succeed only if the input connection has all the
     /// necessary information (e.g a github_config with both  user_oauth_token and
     /// installation_id properties).
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request, but do not actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1551,6 +1560,7 @@ pub struct DeleteConnectionRequest {
     pub request_id: std::string::String,
 
     /// Optional. If set, validate the request, but do not actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. The current etag of the Connection.
@@ -1634,6 +1644,7 @@ pub struct OperationMetadata {
     ///
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1743,6 +1754,7 @@ pub struct GitRepositoryLink {
 
     /// Output only. Set to true when the connection is being set up or updated in
     /// the background.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub reconciling: bool,
 
     /// Optional. Allows clients to store small amounts of arbitrary data.
@@ -1899,6 +1911,7 @@ pub struct CreateGitRepositoryLinkRequest {
     pub request_id: std::string::String,
 
     /// Optional. If set, validate the request, but do not actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1982,6 +1995,7 @@ pub struct DeleteGitRepositoryLinkRequest {
     pub request_id: std::string::String,
 
     /// Optional. If set, validate the request, but do not actually post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     /// Optional. This checksum is computed by the server based on the value of
@@ -2042,6 +2056,7 @@ pub struct ListGitRepositoryLinksRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -2408,6 +2423,7 @@ pub struct FetchLinkableGitRepositoriesRequest {
     pub connection: std::string::String,
 
     /// Optional. Number of results to return in the list. Defaults to 20.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page start.
@@ -2626,6 +2642,7 @@ pub mod fetch_git_hub_installations_response {
     #[non_exhaustive]
     pub struct Installation {
         /// ID of the installation in GitHub.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub id: i64,
 
@@ -2688,6 +2705,7 @@ pub struct FetchGitRefsRequest {
     pub ref_type: crate::model::fetch_git_refs_request::RefType,
 
     /// Optional. Number of results to return in the list. Default to 20.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Page start.

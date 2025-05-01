@@ -560,6 +560,7 @@ pub struct ListAuthorizationPoliciesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of AuthorizationPolicies to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last
@@ -993,6 +994,7 @@ pub struct ListClientTlsPoliciesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of ClientTlsPolicies to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListClientTlsPoliciesResponse`
@@ -1315,6 +1317,7 @@ pub struct OperationMetadata {
     /// corresponding to `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
@@ -1423,6 +1426,7 @@ pub struct ServerTlsPolicy {
     ///
     /// Consider using it if you wish to upgrade in place your deployment to TLS
     /// while having mixed TLS and non-TLS traffic reaching port :80.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_open: bool,
 
     /// Defines a mechanism to provision server identity (public and private keys).
@@ -1581,6 +1585,7 @@ pub struct ListServerTlsPoliciesRequest {
     pub parent: std::string::String,
 
     /// Maximum number of ServerTlsPolicies to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The value returned by the last `ListServerTlsPoliciesResponse`

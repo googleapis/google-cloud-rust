@@ -174,6 +174,7 @@ pub struct StorageSource {
 
     /// Cloud Storage generation for the object. If the generation is
     /// omitted, the latest generation will be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -380,6 +381,7 @@ pub struct RepoSource {
 
     /// Only trigger a build if the revision regex does NOT match the revision
     /// regex.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub invert_regex: bool,
 
     /// Substitutions to use in a triggered build.
@@ -572,6 +574,7 @@ pub struct StorageSourceManifest {
 
     /// Cloud Storage generation for the object. If the generation is
     /// omitted, the latest generation will be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
 
@@ -1183,9 +1186,11 @@ pub struct BuildStep {
     /// If false, the entire build will fail if this step fails. Otherwise, the
     /// build will succeed, but this step will still have a failure status.
     /// Error information will be reported in the failure_detail field.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_failure: bool,
 
     /// Output only. Return code from running the step.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub exit_code: i32,
 
     /// Allow this build step to fail without failing the entire build if and
@@ -1443,6 +1448,7 @@ pub struct Results {
 
     /// Number of non-container artifacts uploaded to Cloud Storage. Only populated
     /// when artifacts are uploaded to Cloud Storage.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub num_artifacts: i64,
 
@@ -2587,10 +2593,12 @@ pub mod dependency {
         pub revision: std::string::String,
 
         /// Optional. True if submodules should be fetched too (default false).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub recurse_submodules: bool,
 
         /// Optional. How much history should be fetched for the build (default 1, -1
         /// for all history).
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub depth: i64,
 
@@ -4055,6 +4063,7 @@ pub struct ListBuildsRequest {
     pub project_id: std::string::String,
 
     /// Number of results to return in the list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The page token for the next page of Builds.
@@ -4425,6 +4434,7 @@ pub struct ApprovalConfig {
     /// Whether or not approval is needed. If this is set on a build, it will
     /// become pending when created, and will need to be explicitly approved
     /// to start.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub approval_required: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5099,6 +5109,7 @@ pub struct BuildTrigger {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// If true, the trigger will never automatically execute a build.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Substitutions for Build resource. The keys must match the following
@@ -5701,6 +5712,7 @@ pub mod repository_event_config {
 #[non_exhaustive]
 pub struct GitHubEventsConfig {
     /// The installationID that emits the GitHub event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub installation_id: i64,
 
@@ -6157,6 +6169,7 @@ pub struct PullRequestFilter {
     pub comment_control: crate::model::pull_request_filter::CommentControl,
 
     /// If true, branches that do NOT match the git_ref will trigger a build.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub invert_regex: bool,
 
     /// Target refs to match.
@@ -6340,6 +6353,7 @@ pub mod pull_request_filter {
 pub struct PushFilter {
     /// When true, only trigger a build if the revision regex does NOT match the
     /// git_ref regex.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub invert_regex: bool,
 
     /// Modified refs to match.
@@ -6575,6 +6589,7 @@ pub struct ListBuildTriggersRequest {
     pub project_id: std::string::String,
 
     /// Number of results to return in the list.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Token to provide to skip to a particular spot in the list.
@@ -6827,6 +6842,7 @@ pub struct BuildOptions {
     /// allocated for the build -- the build may run with a larger disk than
     /// requested. At present, the maximum disk size is 4000GB; builds that request
     /// more than the maximum are rejected with an error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub disk_size_gb: i64,
 
@@ -6842,10 +6858,12 @@ pub struct BuildOptions {
     ///
     /// NOTE: this is always enabled for triggered builds and cannot be
     /// overridden in the build configuration file.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub dynamic_substitutions: bool,
 
     /// Option to include built-in and custom substitutions as env variables
     /// for all build steps.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub automap_substitutions: bool,
 
     /// Option to define build log streaming behavior to Cloud
@@ -6902,6 +6920,7 @@ pub struct BuildOptions {
     /// Optional. Option to specify whether structured logging is enabled.
     ///
     /// If true, JSON-formatted logs are parsed as structured logs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_structured_logging: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7618,6 +7637,7 @@ pub struct GitHubEnterpriseConfig {
 
     /// Required. The GitHub app id of the Cloud Build app on the GitHub Enterprise
     /// server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub app_id: i64,
 
@@ -8196,6 +8216,7 @@ pub mod private_pool_v_1_config {
         /// file](https://cloud.google.com/build/docs/private-pools/worker-pool-config-file-schema).
         /// Specify a value of up to 2000. If `0` is specified, Cloud Build will use
         /// a standard disk size.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub disk_size_gb: i64,
 
@@ -8397,6 +8418,7 @@ pub mod private_pool_v_1_config {
         /// through the primary network interface.
         /// If `route_all_traffic` is set to true, all traffic will go through the
         /// non-primary network interface, this boolean has no effect.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub public_ip_address_disabled: bool,
 
         /// Immutable. Route all traffic through PSC interface. Enable this if you
@@ -8405,6 +8427,7 @@ pub mod private_pool_v_1_config {
         ///
         /// If false, Only route private IPs, e.g. 10.0.0.0/8, 172.16.0.0/12, and
         /// 192.168.0.0/16 through PSC interface.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub route_all_traffic: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8470,6 +8493,7 @@ pub struct CreateWorkerPoolRequest {
 
     /// If set, validate the request and preview the response, but do not actually
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8567,10 +8591,12 @@ pub struct DeleteWorkerPoolRequest {
 
     /// If set to true, and the `WorkerPool` is not found, the request will succeed
     /// but no action will be taken on the server.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub allow_missing: bool,
 
     /// If set, validate the request and preview the response, but do not actually
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8632,6 +8658,7 @@ pub struct UpdateWorkerPoolRequest {
 
     /// If set, validate the request and preview the response, but do not actually
     /// post it.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8687,6 +8714,7 @@ pub struct ListWorkerPoolsRequest {
 
     /// The maximum number of `WorkerPool`s to return. The service may return
     /// fewer than this value. If omitted, the server will use a sensible default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListWorkerPools` call. Provide this

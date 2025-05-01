@@ -165,6 +165,7 @@ pub struct ListParametersRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -566,6 +567,7 @@ pub struct ParameterVersion {
     /// true any calls will always default to BASIC view even if the user
     /// explicitly passes FULL view as part of the request. A render call on a
     /// disabled resource fails with an error. Default value is False.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub disabled: bool,
 
     /// Required. Immutable. Payload content of a ParameterVersion resource.  This
@@ -693,6 +695,7 @@ pub struct ListParameterVersionsRequest {
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.

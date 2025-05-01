@@ -465,6 +465,7 @@ pub struct SecretVersion {
     /// [google.cloud.secretmanager.v1.SecretManagerService]: crate::client::SecretManagerService
     /// [google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion]: crate::client::SecretManagerService::add_secret_version
     /// [google.cloud.secretmanager.v1.SecretPayload]: crate::model::SecretPayload
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub client_specified_payload_checksum: bool,
 
     /// Optional. Output only. Scheduled destroy time for secret version.
@@ -1580,6 +1581,7 @@ pub struct ListSecretsRequest {
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -1668,6 +1670,7 @@ pub struct ListSecretsResponse {
     ///
     /// [google.cloud.secretmanager.v1.ListSecretsRequest.filter]: crate::model::ListSecretsRequest::filter
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1910,6 +1913,7 @@ pub struct ListSecretVersionsRequest {
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -1997,6 +2001,7 @@ pub struct ListSecretVersionsResponse {
     ///
     /// [google.cloud.secretmanager.v1.ListSecretsRequest.filter]: crate::model::ListSecretsRequest::filter
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

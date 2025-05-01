@@ -59,6 +59,7 @@ pub struct Reservation {
     /// you have recently changed your baseline slot capacity and your baseline
     /// slots exceed your committed slots. Otherwise, you can decrease your
     /// baseline slots every few minutes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub slot_capacity: i64,
 
@@ -66,6 +67,7 @@ pub struct Reservation {
     /// slots from other reservations within the same admin project. If true, a
     /// query or pipeline job using this reservation will execute with the slot
     /// capacity specified in the slot_capacity field at most.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub ignore_idle_slots: bool,
 
     /// The configuration parameters for the auto scaling feature.
@@ -80,6 +82,7 @@ pub struct Reservation {
     /// automatically computed by the system.
     /// NOTE: this field is exposed as target job concurrency in the Information
     /// Schema, DDL and BigQuery CLI.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub concurrency: i64,
 
@@ -100,6 +103,7 @@ pub struct Reservation {
     ///
     /// NOTE: this is a preview feature. Project must be allow-listed in order to
     /// set this field.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub multi_region_auxiliary: bool,
 
     /// Edition of the reservation.
@@ -271,10 +275,12 @@ pub mod reservation {
         /// max_slots, it may take a while before it can be propagated, so
         /// current_slots may stay in the original value and could be larger than
         /// max_slots for that brief period (less than one minute)
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub current_slots: i64,
 
         /// Number of slots to be scaled when needed.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub max_slots: i64,
 
@@ -399,6 +405,7 @@ pub struct CapacityCommitment {
     pub name: std::string::String,
 
     /// Number of slots in this commitment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub slot_count: i64,
 
@@ -441,6 +448,7 @@ pub struct CapacityCommitment {
     ///
     /// NOTE: this is a preview feature. Project must be allow-listed in order to
     /// set this field.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub multi_region_auxiliary: bool,
 
     /// Edition of the capacity commitment.
@@ -448,6 +456,7 @@ pub struct CapacityCommitment {
 
     /// Output only. If true, the commitment is a flat-rate commitment, otherwise,
     /// it's an edition commitment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub is_flat_rate: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -816,6 +825,7 @@ pub struct ListReservationsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -1099,6 +1109,7 @@ pub struct CreateCapacityCommitmentRequest {
 
     /// If true, fail the request if another project in the organization has a
     /// capacity commitment.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enforce_single_admin_project_per_org: bool,
 
     /// The optional capacity commitment ID. Capacity commitment name will be
@@ -1175,6 +1186,7 @@ pub struct ListCapacityCommitmentsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -1333,6 +1345,7 @@ pub struct DeleteCapacityCommitmentRequest {
     /// Can be used to force delete commitments even if assignments exist. Deleting
     /// commitments with assignments may cause queries to fail if they no longer
     /// have access to slots.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1431,6 +1444,7 @@ pub struct SplitCapacityCommitmentRequest {
     pub name: std::string::String,
 
     /// Number of slots in the capacity commitment after the split.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub slot_count: i64,
 
@@ -1605,6 +1619,7 @@ pub struct Assignment {
     /// the parent reservation edition is ENTERPRISE_PLUS, then the assignment will
     /// give the grantee project/organization access to "Gemini in BigQuery"
     /// features.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub enable_gemini_in_bigquery: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1884,6 +1899,7 @@ pub struct ListAssignmentsRequest {
     pub parent: std::string::String,
 
     /// The maximum number of items to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -2055,6 +2071,7 @@ pub struct SearchAssignmentsRequest {
     pub query: std::string::String,
 
     /// The maximum number of items to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -2129,6 +2146,7 @@ pub struct SearchAllAssignmentsRequest {
     pub query: std::string::String,
 
     /// The maximum number of items to return per page.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous List request, if any.
@@ -2495,6 +2513,7 @@ pub struct BiReservation {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Size of a reservation, in bytes.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size: i64,
 
