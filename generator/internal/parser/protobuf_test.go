@@ -334,6 +334,7 @@ func TestProtobuf_SkipExternaEnums(t *testing.T) {
 	}
 	checkEnum(t, *enum, api.Enum{
 		Name:          "LocalEnum",
+		ID:            ".test.LocalEnum",
 		Package:       "test",
 		Documentation: "This is a local enum, it should be generated.",
 		Values: []*api.EnumValue{
@@ -407,6 +408,7 @@ func TestProtobuf_Comments(t *testing.T) {
 	}
 	checkEnum(t, *e, api.Enum{
 		Name:          "Status",
+		ID:            ".test.Response.Status",
 		Package:       "test",
 		Documentation: "Some enum.\n\nLine 1.\nLine 2.",
 		Values: []*api.EnumValue{
@@ -972,6 +974,7 @@ func TestProtobuf_Enum(t *testing.T) {
 	}
 	checkEnum(t, *e, api.Enum{
 		Name:          "Code",
+		ID:            ".test.Code",
 		Package:       "test",
 		Documentation: "An enum.",
 		Values: []*api.EnumValue{
@@ -1416,7 +1419,6 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 			},
 		},
 	})
-
 }
 
 func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
