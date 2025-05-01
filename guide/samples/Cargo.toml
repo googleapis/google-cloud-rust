@@ -78,7 +78,7 @@ rand = "0.9"
 
 # ANCHOR: tokio
 [dependencies.tokio]
-version = "1"
+version  = "1"
 features = ["full", "macros"]
 # ANCHOR_END: tokio
 
