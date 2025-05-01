@@ -285,6 +285,7 @@ reqwest          = { version = "0.12", default-features = false, features = ["js
 serde            = { version = "1", default-features = false, features = ["serde_derive"] }
 serde_json       = { version = "1", default-features = false }
 serde_with       = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
+test-case        = { version = "3" }
 tokio            = { version = "1", default-features = false }
 tokio-test       = { version = "0.4", default-features = false }
 tonic            = { version = "0.13", default-features = false, features = ["prost", "tls-native-roots", "tls-ring"] }
