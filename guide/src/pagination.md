@@ -86,6 +86,10 @@ with deal with any breaks that result from incompatible changes to the
 The examples will also use the `futures::stream::StreamExt` trait, so we must
 add the crate that defines it.
 
+```toml
+{{#include ../samples/Cargo.toml:futures}}
+```
+
 ```rust,ignore
 {{#include ../samples/src/pagination.rs:paginator-stream-items}}
 ```

@@ -274,7 +274,6 @@ incremental = false
 [workspace.dependencies]
 async-trait      = { version = "0.1" }
 bytes            = { version = "1", default-features = false, features = ["serde"] }
-futures          = { version = "0.3", default-features = false}
 http             = { version = "1", default-features = false }
 lazy_static      = { version = "1", default-features = false }
 percent-encoding = { version = "2", default-features = false }

@@ -28,9 +28,11 @@ categories.workspace = true
 name = "getting_started"
 
 [dependencies]
-crc32c               = "0.6"
-tokio                = { version = "1", features = ["full", "macros"] }
-futures.workspace    = true
+crc32c = "0.6"
+tokio  = { version = "1", features = ["full", "macros"] }
+# ANCHOR: futures
+futures = "0.3"
+# ANCHOR_END: futures
 # ANCHOR: longrunning
 google-cloud-longrunning = { version = "0.24", path = "../../src/generated/longrunning" }
 # ANCHOR_END: longrunning
