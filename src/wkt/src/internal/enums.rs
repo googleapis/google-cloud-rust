@@ -111,8 +111,7 @@ pub fn display_enum(
     value: Option<i32>,
 ) -> Result<(), std::fmt::Error> {
     match (name, value) {
-        (Some(n), Some(_)) => f.write_str(n),
-        (Some(n), None) => f.write_str(n),
+        (Some(n), _) => f.write_str(n),
         (None, Some(v)) => write!(f, "{}", v),
         (None, None) => unreachable!("enums must have a numeric or string value"),
     }
@@ -130,9 +129,9 @@ mod test {
         assert_eq!(u.value(), Some(123));
         assert_eq!(u.name(), None);
 
-        let u = UnknownEnumValue::String("123".into());
+        let u = UnknownEnumValue::String("RED".into());
         assert_eq!(u.value(), None);
-        assert_eq!(u.name(), Some("123"));
+        assert_eq!(u.name(), Some("RED"));
     }
 
     #[test]
@@ -141,9 +140,9 @@ mod test {
         let got = serde_json::to_value(&u)?;
         assert_eq!(got, json!(123));
 
-        let u = UnknownEnumValue::String("123".into());
+        let u = UnknownEnumValue::String("RED".into());
         let got = serde_json::to_value(&u)?;
-        assert_eq!(got, json!("123"));
+        assert_eq!(got, json!("RED"));
 
         Ok(())
     }
