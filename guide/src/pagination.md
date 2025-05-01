@@ -16,10 +16,10 @@ limitations under the License.
 
 # Working with List operations
 
-Some services return over potentially large lists of items, such as rows or
-resource descriptions. To keep CPU and memory usage under control, the services
-returned theses resources in `pages`: smaller subsets of the items with a
-continuation token to request the next subset.
+Some services return potentially large lists of items, such as rows or resource
+descriptions. To keep CPU and memory usage under control, services return theses
+resources in `pages`: smaller subsets of the items with a continuation token to 
+request the next subset.
 
 Iterating over items in this way can be tedious. The client libraries provide
 adapters to convert the pages into asynchronous iterators. This guide will show
@@ -46,7 +46,7 @@ As it is usual with Rust, you must declare the dependency in your
 
 ## Iterating List methods
 
-To help iterate the items in a list method, the API return an implementation of
+To help iterate the items in a list method, the APIs return an implementation of
 the `Paginator` trait. We need to introduce it in scope via a `use` declaration:
 
 ```rust,ignore
@@ -79,8 +79,8 @@ enable the `unstable-streams` feature in the `google_cloud_gax` crate:
 ```
 
 The name of this feature is intended to convey that we consider these APIs
-unstable, because they are! You should only use them if you are prepared to work
-with deal with any breaks that result from incompatible changes to the
+unstable, because they are! You should only use them if you are prepared to deal
+with any breaks that result from incompatible changes to the
 [`futures::Stream`][future-stub] trait.
 
 The examples will also use the `futures::stream::StreamExt` trait, so we must
@@ -90,11 +90,15 @@ add the crate that defines it.
 {{#include ../samples/Cargo.toml:futures}}
 ```
 
+We use the `into_stream` function to convert the Paginator into a
+`futures::Stream` of items.
+
 ```rust,ignore
 {{#include ../samples/src/pagination.rs:paginator-stream-items}}
 ```
 
-Similarly, use the `into_stream` function to stream the pages.
+Similarly, we can use the `into_stream` function to convert the Paginator into
+`futures::Stream` of pages.
 
 ```rust,ignore
 {{#include ../samples/src/pagination.rs:paginator-stream-pages}}
@@ -103,7 +107,7 @@ Similarly, use the `into_stream` function to stream the pages.
 ## Resuming List methods by setting next page token
 
 In some cases such as an interrupted List operation, we can set the next page
-token to start resume paginating from a specific page.
+token to resume paginating from a specific page.
 
 ```rust,ignore
 {{#include ../samples/src/pagination.rs:paginator-page-token}}
@@ -116,9 +120,9 @@ The standard Google API List method follows the pagination guideline defined by
 resource items (e.g. Secrets) along with a "next-page token" that can be passed
 to the List method to retrieve the next page.
 
-The Google Cloud Client Libraries for Rust provide an adapter to converts the
-list RPCs as defined by [AIP-4233] into a [`futures::Stream`][future-stub] that
-can be iterated over in an async fashion.
+The Google Cloud Client Libraries for Rust provide an adapter to convert the
+list RPCs as defined by [AIP-4233] into a streams that can be iterated over in
+an async fashion.
 
 [aip-158]: https://google.aip.dev/158
 [aip-4233]: https://google.aip.dev/client-libraries/4233
