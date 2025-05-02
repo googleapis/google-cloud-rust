@@ -33,9 +33,10 @@
 //! * [MetadataService](client/struct.MetadataService.html)
 //! * [DataplexService](client/struct.DataplexService.html)
 
+#![allow(deprecated)]
+
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
-#[allow(deprecated)]
 pub mod model;
 
 pub use gax::Result;
@@ -43,19 +44,15 @@ pub use gax::error::Error;
 
 #[allow(rustdoc::invalid_html_tags)]
 #[allow(rustdoc::redundant_explicit_links)]
-#[allow(deprecated)]
 pub mod stub;
 
 /// Concrete implementations of this client library traits.
-#[allow(deprecated)]
 pub mod client;
 
 /// Request builders.
-#[allow(deprecated)]
 pub mod builder;
 
 #[doc(hidden)]
-#[allow(deprecated)]
 pub(crate) mod tracing;
 
 #[doc(hidden)]
