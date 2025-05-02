@@ -20,7 +20,7 @@
 pub type F32 = Float<f32>;
 pub type F64 = Float<f64>;
 
-pub struct Float<T: FloatExt>(std::marker::PhantomData<T>);
+pub struct Float<T>(std::marker::PhantomData<T>);
 
 impl<T> serde_with::SerializeAs<T> for Float<T>
 where
@@ -112,7 +112,7 @@ where
 }
 
 // Trait to abstract over f32 and f64.
-pub trait FloatExt: num_traits::Float + std::fmt::Debug {
+trait FloatExt: num_traits::Float + std::fmt::Debug {
     fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer;
