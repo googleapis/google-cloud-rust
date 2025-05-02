@@ -203,6 +203,7 @@ mod test {
             .is_err()
         );
         assert!(F32::deserialize_as(serde_json::Value::Bool(false)).is_err());
+        assert!(F64::deserialize_as(serde_json::Value::Bool(false)).is_err());
     }
 
     fn assert_float_eq<T: FloatExt>(left: T, right: T) {
