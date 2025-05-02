@@ -39,7 +39,7 @@ tokio          = { version = "1", features = ["fs"] }
 base64         = "0.22"
 bon            = "3"
 # Local dependencies
-gax.workspace = true
+gax = { workspace = true, features = ["unstable-sdk-client"] }
 
 [dev-dependencies]
 axum        = "0.8"

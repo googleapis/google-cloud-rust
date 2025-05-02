@@ -994,4 +994,19 @@ mod test {
 
         Ok(())
     }
+
+    pub enum CacheableResource<T> {
+        NotModified,
+        New {entity_tag: String, data: T},
+    }
+    
+    struct Credential;
+
+    impl Credential {
+        pub fn header(&self, tag: Option<String>) -> CacheableResource<String> {
+            match tag == "old_value" {
+            true => CacheableResource::NotModified,
+            false => CacheableResource::New(entity_tag: "old_value", data: "headers")
+        }
+    }
 }
