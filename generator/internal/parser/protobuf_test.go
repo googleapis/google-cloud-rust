@@ -1421,6 +1421,129 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 	})
 }
 
+func TestProtobuf_Deprecated(t *testing.T) {
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "deprecated.proto"))
+	s, ok := test.State.ServiceByID[".test.ServiceA"]
+	if !ok {
+		t.Fatalf("Cannot find %s in API State", ".test.ServiceA")
+	}
+	checkService(t, s, &api.Service{
+		Name:       "ServiceA",
+		ID:         ".test.ServiceA",
+		Package:    "test",
+		Deprecated: true,
+	})
+
+	s, ok = test.State.ServiceByID[".test.ServiceB"]
+	if !ok {
+		t.Fatalf("Cannot find %s in API State", ".test.ServiceB")
+	}
+	checkService(t, s, &api.Service{
+		Name:       "ServiceB",
+		ID:         ".test.ServiceB",
+		Package:    "test",
+		Deprecated: false,
+		Methods: []*api.Method{
+			{
+				Name:         "RpcA",
+				ID:           ".test.ServiceB.RpcA",
+				Deprecated:   true,
+				InputTypeID:  ".test.Request",
+				OutputTypeID: ".test.Response",
+				PathInfo: &api.PathInfo{
+					Verb:            "POST",
+					PathTemplate:    []api.PathSegment{},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "*",
+				},
+			},
+		},
+	})
+
+	m, ok := test.State.MessageByID[".test.Request"]
+	if !ok {
+		t.Fatalf("Cannot find %s in API State", ".test.Request")
+	}
+	checkMessage(t, m, &api.Message{
+		Name:       "Request",
+		ID:         ".test.Request",
+		Package:    "test",
+		Deprecated: false,
+		Fields: []*api.Field{
+			{
+				Name:     "name",
+				JSONName: "name",
+				ID:       ".test.Request.name",
+				Typez:    api.STRING_TYPE,
+			},
+			{
+				Name:       "other",
+				JSONName:   "other",
+				ID:         ".test.Request.other",
+				Typez:      api.STRING_TYPE,
+				Deprecated: true,
+			},
+		},
+	})
+
+	m, ok = test.State.MessageByID[".test.Response"]
+	if !ok {
+		t.Fatalf("Cannot find %s in API State", ".test.Response")
+	}
+	checkMessage(t, m, &api.Message{
+		Name:       "Response",
+		ID:         ".test.Response",
+		Package:    "test",
+		Deprecated: true,
+	})
+
+	e, ok := test.State.EnumByID[".test.EnumA"]
+	if !ok {
+		t.Fatalf("Cannot find %s in API State", ".test.EnumA")
+	}
+	checkEnum(t, *e, api.Enum{
+		Name:       "EnumA",
+		ID:         ".test.EnumA",
+		Package:    "test",
+		Deprecated: true,
+		Values: []*api.EnumValue{
+			{
+				Name:   "ENUM_A_UNSPECIFIED",
+				Number: 0,
+			},
+		},
+	})
+
+	e, ok = test.State.EnumByID[".test.EnumB"]
+	if !ok {
+		t.Fatalf("Cannot find %s in API State", ".test.EnumB")
+	}
+	checkEnum(t, *e, api.Enum{
+		Name:    "EnumB",
+		ID:      ".test.EnumB",
+		Package: "test",
+		Values: []*api.EnumValue{
+			{
+				Name:   "ENUM_B_UNSPECIFIED",
+				Number: 0,
+			},
+			{
+				Name:       "RED",
+				Number:     1,
+				Deprecated: true,
+			},
+			{
+				Name:   "GREEN",
+				Number: 2,
+			},
+			{
+				Name:   "BLUE",
+				Number: 3,
+			},
+		},
+	})
+}
+
 func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
 	options := map[string]string{
