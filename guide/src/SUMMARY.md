@@ -29,3 +29,4 @@ limitations under the License.
 - [Configuring polling policies](configuring_polling_policies.md)
 - [How to write tests using a client](mock_a_client.md)
 - [How to write tests for long-running operations](mocking_lros.md)
+- [Working with enums](working_with_enums.md)

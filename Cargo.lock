@@ -6506,6 +6506,8 @@ dependencies = [
  "google-cloud-wkt",
  "mockall",
  "rand 0.9.0",
+ "serde_json",
+ "test-case",
  "tokio",
 ]
 

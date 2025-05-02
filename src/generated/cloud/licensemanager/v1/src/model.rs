@@ -187,64 +187,141 @@ pub mod configuration {
     use super::*;
 
     /// State of the configuration.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The Status of the configuration is unspecified
+        Unspecified,
+        /// Configuration is in active state.
+        Active,
+        /// Configuration is in deactivated state.
+        Suspended,
+        /// Configuration is in deleted state.
+        Deleted,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// The Status of the configuration is unspecified
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// Configuration is in active state.
-        pub const STATE_ACTIVE: State = State::new(1);
-
-        /// Configuration is in deactivated state.
-        pub const STATE_SUSPENDED: State = State::new(2);
-
-        /// Configuration is in deleted state.
-        pub const STATE_DELETED: State = State::new(3);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Suspended => std::option::Option::Some(2),
+                Self::Deleted => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("STATE_ACTIVE"),
-                2 => std::borrow::Cow::Borrowed("STATE_SUSPENDED"),
-                3 => std::borrow::Cow::Borrowed("STATE_DELETED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("STATE_ACTIVE"),
+                Self::Suspended => std::option::Option::Some("STATE_SUSPENDED"),
+                Self::Deleted => std::option::Option::Some("STATE_DELETED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "STATE_ACTIVE" => std::option::Option::Some(Self::STATE_ACTIVE),
-                "STATE_SUSPENDED" => std::option::Option::Some(Self::STATE_SUSPENDED),
-                "STATE_DELETED" => std::option::Option::Some(Self::STATE_DELETED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Suspended,
+                3 => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "STATE_ACTIVE" => Self::Active,
+                "STATE_SUSPENDED" => Self::Suspended,
+                "STATE_DELETED" => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Suspended => serializer.serialize_i32(2),
+                Self::Deleted => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.licensemanager.v1.Configuration.State",
+            ))
         }
     }
 }
@@ -524,69 +601,148 @@ pub mod product {
     use super::*;
 
     /// State of the product.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The Status of the product is unknown.
+        Unspecified,
+        /// Product is under provisioning stage.
+        Provisioning,
+        /// Product is ok to run on instances.
+        Running,
+        /// The product is about to terminate or has been announced for termination.
+        Terminating,
+        /// The product has been terminated.
+        Terminated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// The Status of the product is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// Product is under provisioning stage.
-        pub const STATE_PROVISIONING: State = State::new(1);
-
-        /// Product is ok to run on instances.
-        pub const STATE_RUNNING: State = State::new(2);
-
-        /// The product is about to terminate or has been announced for termination.
-        pub const STATE_TERMINATING: State = State::new(3);
-
-        /// The product has been terminated.
-        pub const STATE_TERMINATED: State = State::new(4);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Provisioning => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::Terminating => std::option::Option::Some(3),
+                Self::Terminated => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("STATE_PROVISIONING"),
-                2 => std::borrow::Cow::Borrowed("STATE_RUNNING"),
-                3 => std::borrow::Cow::Borrowed("STATE_TERMINATING"),
-                4 => std::borrow::Cow::Borrowed("STATE_TERMINATED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Provisioning => std::option::Option::Some("STATE_PROVISIONING"),
+                Self::Running => std::option::Option::Some("STATE_RUNNING"),
+                Self::Terminating => std::option::Option::Some("STATE_TERMINATING"),
+                Self::Terminated => std::option::Option::Some("STATE_TERMINATED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "STATE_PROVISIONING" => std::option::Option::Some(Self::STATE_PROVISIONING),
-                "STATE_RUNNING" => std::option::Option::Some(Self::STATE_RUNNING),
-                "STATE_TERMINATING" => std::option::Option::Some(Self::STATE_TERMINATING),
-                "STATE_TERMINATED" => std::option::Option::Some(Self::STATE_TERMINATED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Provisioning,
+                2 => Self::Running,
+                3 => Self::Terminating,
+                4 => Self::Terminated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "STATE_PROVISIONING" => Self::Provisioning,
+                "STATE_RUNNING" => Self::Running,
+                "STATE_TERMINATING" => Self::Terminating,
+                "STATE_TERMINATED" => Self::Terminated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Provisioning => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::Terminating => serializer.serialize_i32(3),
+                Self::Terminated => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.licensemanager.v1.Product.State",
+            ))
         }
     }
 }
@@ -734,86 +890,171 @@ pub mod instance {
     use super::*;
 
     /// VM status enum.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// The Status of the VM is unspecified.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// Resources are being allocated for the instance.
-        pub const PROVISIONING: State = State::new(1);
-
+        Provisioning,
         /// All required resources have been allocated and
         /// the instance is being started.
-        pub const STAGING: State = State::new(2);
-
+        Staging,
         /// The instance is running.
-        pub const RUNNING: State = State::new(3);
-
+        Running,
         /// The instance is currently stopping (either being deleted or terminated).
-        pub const STOPPING: State = State::new(4);
-
+        Stopping,
         /// The instance has stopped due to various reasons (user request, VM
         /// preemption, project freezing, etc.).
-        pub const STOPPED: State = State::new(5);
-
+        Stopped,
         /// The instance has failed in some way.
-        pub const TERMINATED: State = State::new(6);
-
+        Terminated,
         /// The instance is in repair.
-        pub const REPAIRING: State = State::new(7);
+        Repairing,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Provisioning => std::option::Option::Some(1),
+                Self::Staging => std::option::Option::Some(2),
+                Self::Running => std::option::Option::Some(3),
+                Self::Stopping => std::option::Option::Some(4),
+                Self::Stopped => std::option::Option::Some(5),
+                Self::Terminated => std::option::Option::Some(6),
+                Self::Repairing => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PROVISIONING"),
-                2 => std::borrow::Cow::Borrowed("STAGING"),
-                3 => std::borrow::Cow::Borrowed("RUNNING"),
-                4 => std::borrow::Cow::Borrowed("STOPPING"),
-                5 => std::borrow::Cow::Borrowed("STOPPED"),
-                6 => std::borrow::Cow::Borrowed("TERMINATED"),
-                7 => std::borrow::Cow::Borrowed("REPAIRING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Provisioning => std::option::Option::Some("PROVISIONING"),
+                Self::Staging => std::option::Option::Some("STAGING"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Stopping => std::option::Option::Some("STOPPING"),
+                Self::Stopped => std::option::Option::Some("STOPPED"),
+                Self::Terminated => std::option::Option::Some("TERMINATED"),
+                Self::Repairing => std::option::Option::Some("REPAIRING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "PROVISIONING" => std::option::Option::Some(Self::PROVISIONING),
-                "STAGING" => std::option::Option::Some(Self::STAGING),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "STOPPING" => std::option::Option::Some(Self::STOPPING),
-                "STOPPED" => std::option::Option::Some(Self::STOPPED),
-                "TERMINATED" => std::option::Option::Some(Self::TERMINATED),
-                "REPAIRING" => std::option::Option::Some(Self::REPAIRING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Provisioning,
+                2 => Self::Staging,
+                3 => Self::Running,
+                4 => Self::Stopping,
+                5 => Self::Stopped,
+                6 => Self::Terminated,
+                7 => Self::Repairing,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PROVISIONING" => Self::Provisioning,
+                "STAGING" => Self::Staging,
+                "RUNNING" => Self::Running,
+                "STOPPING" => Self::Stopping,
+                "STOPPED" => Self::Stopped,
+                "TERMINATED" => Self::Terminated,
+                "REPAIRING" => Self::Repairing,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Provisioning => serializer.serialize_i32(1),
+                Self::Staging => serializer.serialize_i32(2),
+                Self::Running => serializer.serialize_i32(3),
+                Self::Stopping => serializer.serialize_i32(4),
+                Self::Stopped => serializer.serialize_i32(5),
+                Self::Terminated => serializer.serialize_i32(6),
+                Self::Repairing => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.licensemanager.v1.Instance.State",
+            ))
         }
     }
 }
@@ -2164,153 +2405,295 @@ impl wkt::message::Message for OperationMetadata {
 }
 
 /// Different types of licenses that are supported.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LicenseType(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LicenseType {
+    /// unspecified.
+    Unspecified,
+    /// Billing will be based on number of users listed per month.
+    PerMonthPerUser,
+    /// Bring your own license.
+    BringYourOwnLicense,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LicenseType::value] or
+    /// [LicenseType::name].
+    UnknownValue(license_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod license_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl LicenseType {
-    /// unspecified.
-    pub const LICENSE_TYPE_UNSPECIFIED: LicenseType = LicenseType::new(0);
-
-    /// Billing will be based on number of users listed per month.
-    pub const LICENSE_TYPE_PER_MONTH_PER_USER: LicenseType = LicenseType::new(1);
-
-    /// Bring your own license.
-    pub const LICENSE_TYPE_BRING_YOUR_OWN_LICENSE: LicenseType = LicenseType::new(2);
-
-    /// Creates a new LicenseType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::PerMonthPerUser => std::option::Option::Some(1),
+            Self::BringYourOwnLicense => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LICENSE_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("LICENSE_TYPE_PER_MONTH_PER_USER"),
-            2 => std::borrow::Cow::Borrowed("LICENSE_TYPE_BRING_YOUR_OWN_LICENSE"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LICENSE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::LICENSE_TYPE_UNSPECIFIED),
-            "LICENSE_TYPE_PER_MONTH_PER_USER" => {
-                std::option::Option::Some(Self::LICENSE_TYPE_PER_MONTH_PER_USER)
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LICENSE_TYPE_UNSPECIFIED"),
+            Self::PerMonthPerUser => std::option::Option::Some("LICENSE_TYPE_PER_MONTH_PER_USER"),
+            Self::BringYourOwnLicense => {
+                std::option::Option::Some("LICENSE_TYPE_BRING_YOUR_OWN_LICENSE")
             }
-            "LICENSE_TYPE_BRING_YOUR_OWN_LICENSE" => {
-                std::option::Option::Some(Self::LICENSE_TYPE_BRING_YOUR_OWN_LICENSE)
-            }
-            _ => std::option::Option::None,
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-}
-
-impl std::convert::From<i32> for LicenseType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for LicenseType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LicenseType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LicenseType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::PerMonthPerUser,
+            2 => Self::BringYourOwnLicense,
+            _ => Self::UnknownValue(license_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LicenseType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LICENSE_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "LICENSE_TYPE_PER_MONTH_PER_USER" => Self::PerMonthPerUser,
+            "LICENSE_TYPE_BRING_YOUR_OWN_LICENSE" => Self::BringYourOwnLicense,
+            _ => Self::UnknownValue(license_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LicenseType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::PerMonthPerUser => serializer.serialize_i32(1),
+            Self::BringYourOwnLicense => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LicenseType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LicenseType>::new(
+            ".google.cloud.licensemanager.v1.LicenseType",
+        ))
     }
 }
 
 /// State of the License Key activation on the instance.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ActivationState(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ActivationState {
+    /// The Status of the activation is unspecified
+    Unspecified,
+    /// Activation key (MAK) requested for the instance.
+    KeyRequested,
+    /// License activation process is running on the instance.
+    Activating,
+    /// License activation is complete on the instance.
+    Activated,
+    /// License Key is deactivating on the instance.
+    Deactivating,
+    /// License Key is deactivated on the instance.
+    Deactivated,
+    /// License Key activation failed on the instance.
+    Terminated,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ActivationState::value] or
+    /// [ActivationState::name].
+    UnknownValue(activation_state::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod activation_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl ActivationState {
-    /// The Status of the activation is unspecified
-    pub const ACTIVATION_STATE_UNSPECIFIED: ActivationState = ActivationState::new(0);
-
-    /// Activation key (MAK) requested for the instance.
-    pub const ACTIVATION_STATE_KEY_REQUESTED: ActivationState = ActivationState::new(1);
-
-    /// License activation process is running on the instance.
-    pub const ACTIVATION_STATE_ACTIVATING: ActivationState = ActivationState::new(2);
-
-    /// License activation is complete on the instance.
-    pub const ACTIVATION_STATE_ACTIVATED: ActivationState = ActivationState::new(3);
-
-    /// License Key is deactivating on the instance.
-    pub const ACTIVATION_STATE_DEACTIVATING: ActivationState = ActivationState::new(4);
-
-    /// License Key is deactivated on the instance.
-    pub const ACTIVATION_STATE_DEACTIVATED: ActivationState = ActivationState::new(5);
-
-    /// License Key activation failed on the instance.
-    pub const ACTIVATION_STATE_TERMINATED: ActivationState = ActivationState::new(6);
-
-    /// Creates a new ActivationState instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::KeyRequested => std::option::Option::Some(1),
+            Self::Activating => std::option::Option::Some(2),
+            Self::Activated => std::option::Option::Some(3),
+            Self::Deactivating => std::option::Option::Some(4),
+            Self::Deactivated => std::option::Option::Some(5),
+            Self::Terminated => std::option::Option::Some(6),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("ACTIVATION_STATE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("ACTIVATION_STATE_KEY_REQUESTED"),
-            2 => std::borrow::Cow::Borrowed("ACTIVATION_STATE_ACTIVATING"),
-            3 => std::borrow::Cow::Borrowed("ACTIVATION_STATE_ACTIVATED"),
-            4 => std::borrow::Cow::Borrowed("ACTIVATION_STATE_DEACTIVATING"),
-            5 => std::borrow::Cow::Borrowed("ACTIVATION_STATE_DEACTIVATED"),
-            6 => std::borrow::Cow::Borrowed("ACTIVATION_STATE_TERMINATED"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("ACTIVATION_STATE_UNSPECIFIED"),
+            Self::KeyRequested => std::option::Option::Some("ACTIVATION_STATE_KEY_REQUESTED"),
+            Self::Activating => std::option::Option::Some("ACTIVATION_STATE_ACTIVATING"),
+            Self::Activated => std::option::Option::Some("ACTIVATION_STATE_ACTIVATED"),
+            Self::Deactivating => std::option::Option::Some("ACTIVATION_STATE_DEACTIVATING"),
+            Self::Deactivated => std::option::Option::Some("ACTIVATION_STATE_DEACTIVATED"),
+            Self::Terminated => std::option::Option::Some("ACTIVATION_STATE_TERMINATED"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "ACTIVATION_STATE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::ACTIVATION_STATE_UNSPECIFIED)
-            }
-            "ACTIVATION_STATE_KEY_REQUESTED" => {
-                std::option::Option::Some(Self::ACTIVATION_STATE_KEY_REQUESTED)
-            }
-            "ACTIVATION_STATE_ACTIVATING" => {
-                std::option::Option::Some(Self::ACTIVATION_STATE_ACTIVATING)
-            }
-            "ACTIVATION_STATE_ACTIVATED" => {
-                std::option::Option::Some(Self::ACTIVATION_STATE_ACTIVATED)
-            }
-            "ACTIVATION_STATE_DEACTIVATING" => {
-                std::option::Option::Some(Self::ACTIVATION_STATE_DEACTIVATING)
-            }
-            "ACTIVATION_STATE_DEACTIVATED" => {
-                std::option::Option::Some(Self::ACTIVATION_STATE_DEACTIVATED)
-            }
-            "ACTIVATION_STATE_TERMINATED" => {
-                std::option::Option::Some(Self::ACTIVATION_STATE_TERMINATED)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for ActivationState {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for ActivationState {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ActivationState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ActivationState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::KeyRequested,
+            2 => Self::Activating,
+            3 => Self::Activated,
+            4 => Self::Deactivating,
+            5 => Self::Deactivated,
+            6 => Self::Terminated,
+            _ => Self::UnknownValue(activation_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ActivationState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "ACTIVATION_STATE_UNSPECIFIED" => Self::Unspecified,
+            "ACTIVATION_STATE_KEY_REQUESTED" => Self::KeyRequested,
+            "ACTIVATION_STATE_ACTIVATING" => Self::Activating,
+            "ACTIVATION_STATE_ACTIVATED" => Self::Activated,
+            "ACTIVATION_STATE_DEACTIVATING" => Self::Deactivating,
+            "ACTIVATION_STATE_DEACTIVATED" => Self::Deactivated,
+            "ACTIVATION_STATE_TERMINATED" => Self::Terminated,
+            _ => Self::UnknownValue(activation_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ActivationState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::KeyRequested => serializer.serialize_i32(1),
+            Self::Activating => serializer.serialize_i32(2),
+            Self::Activated => serializer.serialize_i32(3),
+            Self::Deactivating => serializer.serialize_i32(4),
+            Self::Deactivated => serializer.serialize_i32(5),
+            Self::Terminated => serializer.serialize_i32(6),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ActivationState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ActivationState>::new(
+            ".google.cloud.licensemanager.v1.ActivationState",
+        ))
     }
 }

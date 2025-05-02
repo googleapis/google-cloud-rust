@@ -957,59 +957,134 @@ pub mod frequency_options {
     use super::*;
 
     /// This ENUM specifies possible frequencies of report generation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Frequency(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Frequency {
+        /// Unspecified.
+        Unspecified,
+        /// Report will be generated daily.
+        Daily,
+        /// Report will be generated weekly.
+        Weekly,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Frequency::value] or
+        /// [Frequency::name].
+        UnknownValue(frequency::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod frequency {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Frequency {
-        /// Unspecified.
-        pub const FREQUENCY_UNSPECIFIED: Frequency = Frequency::new(0);
-
-        /// Report will be generated daily.
-        pub const DAILY: Frequency = Frequency::new(1);
-
-        /// Report will be generated weekly.
-        pub const WEEKLY: Frequency = Frequency::new(2);
-
-        /// Creates a new Frequency instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Daily => std::option::Option::Some(1),
+                Self::Weekly => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("FREQUENCY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DAILY"),
-                2 => std::borrow::Cow::Borrowed("WEEKLY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("FREQUENCY_UNSPECIFIED"),
+                Self::Daily => std::option::Option::Some("DAILY"),
+                Self::Weekly => std::option::Option::Some("WEEKLY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "FREQUENCY_UNSPECIFIED" => std::option::Option::Some(Self::FREQUENCY_UNSPECIFIED),
-                "DAILY" => std::option::Option::Some(Self::DAILY),
-                "WEEKLY" => std::option::Option::Some(Self::WEEKLY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Frequency {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Frequency {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Frequency {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Frequency {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Daily,
+                2 => Self::Weekly,
+                _ => Self::UnknownValue(frequency::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Frequency {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FREQUENCY_UNSPECIFIED" => Self::Unspecified,
+                "DAILY" => Self::Daily,
+                "WEEKLY" => Self::Weekly,
+                _ => Self::UnknownValue(frequency::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Frequency {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Daily => serializer.serialize_i32(1),
+                Self::Weekly => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Frequency {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Frequency>::new(
+                ".google.cloud.storageinsights.v1.FrequencyOptions.Frequency",
+            ))
         }
     }
 }

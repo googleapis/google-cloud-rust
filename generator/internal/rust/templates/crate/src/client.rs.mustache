@@ -82,6 +82,9 @@ use std::sync::Arc;
 #[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.ModuleName}}")))]
 {{/Codec.PerServiceFeatures}}
 #[derive(Clone, Debug)]
+{{#Deprecated}}
+#[deprecated]
+{{/Deprecated}}
 pub struct {{Codec.Name}} {
     inner: Arc<dyn super::stub::dynamic::{{Codec.Name}}>,
 }
@@ -147,6 +150,9 @@ impl {{Codec.Name}} {
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     {{/OperationInfo}}
+    {{#Deprecated}}
+    #[deprecated]
+    {{/Deprecated}}
     pub fn {{Codec.Name}}(
         &self,
         {{#Codec.PathParams}}

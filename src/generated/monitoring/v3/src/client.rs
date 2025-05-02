@@ -926,6 +926,7 @@ impl QueryService {
     /// using PromQL instead of MQL. For more information about the status of MQL,
     /// see the [MQL deprecation
     /// notice](https://cloud.google.com/stackdriver/docs/deprecations/mql).
+    #[deprecated]
     pub fn query_time_series(
         &self,
         name: impl Into<std::string::String>,

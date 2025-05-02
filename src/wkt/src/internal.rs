@@ -12,6 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Implementation details provided by the `google-cloud-sdk` crate.
+//!
+//! These types are intended for developers of the Google Cloud client libraries
+//! for Rust. They are undocumented and may change at any time.
+
 pub type F32 = Float<f32>;
 pub type F64 = Float<f64>;
 
@@ -153,6 +158,9 @@ where
 {
     *t == T::default()
 }
+
+mod enums;
+pub use enums::*;
 
 #[cfg(test)]
 mod test {

@@ -397,6 +397,7 @@ impl ReservationService {
     ///
     /// **Note** "-" cannot be used for projects
     /// nor locations.
+    #[deprecated]
     pub fn search_assignments(
         &self,
         parent: impl Into<std::string::String>,

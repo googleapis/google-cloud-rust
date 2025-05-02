@@ -25,206 +25,443 @@ extern crate std;
 extern crate wkt;
 
 /// The encryption state of the device.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DeviceEncryptionStatus(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DeviceEncryptionStatus {
+    /// The encryption status of the device is not specified or not known.
+    EncryptionUnspecified,
+    /// The device does not support encryption.
+    EncryptionUnsupported,
+    /// The device supports encryption, but is currently unencrypted.
+    Unencrypted,
+    /// The device is encrypted.
+    Encrypted,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DeviceEncryptionStatus::value] or
+    /// [DeviceEncryptionStatus::name].
+    UnknownValue(device_encryption_status::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod device_encryption_status {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl DeviceEncryptionStatus {
-    /// The encryption status of the device is not specified or not known.
-    pub const ENCRYPTION_UNSPECIFIED: DeviceEncryptionStatus = DeviceEncryptionStatus::new(0);
-
-    /// The device does not support encryption.
-    pub const ENCRYPTION_UNSUPPORTED: DeviceEncryptionStatus = DeviceEncryptionStatus::new(1);
-
-    /// The device supports encryption, but is currently unencrypted.
-    pub const UNENCRYPTED: DeviceEncryptionStatus = DeviceEncryptionStatus::new(2);
-
-    /// The device is encrypted.
-    pub const ENCRYPTED: DeviceEncryptionStatus = DeviceEncryptionStatus::new(3);
-
-    /// Creates a new DeviceEncryptionStatus instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::EncryptionUnspecified => std::option::Option::Some(0),
+            Self::EncryptionUnsupported => std::option::Option::Some(1),
+            Self::Unencrypted => std::option::Option::Some(2),
+            Self::Encrypted => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("ENCRYPTION_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("ENCRYPTION_UNSUPPORTED"),
-            2 => std::borrow::Cow::Borrowed("UNENCRYPTED"),
-            3 => std::borrow::Cow::Borrowed("ENCRYPTED"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::EncryptionUnspecified => std::option::Option::Some("ENCRYPTION_UNSPECIFIED"),
+            Self::EncryptionUnsupported => std::option::Option::Some("ENCRYPTION_UNSUPPORTED"),
+            Self::Unencrypted => std::option::Option::Some("UNENCRYPTED"),
+            Self::Encrypted => std::option::Option::Some("ENCRYPTED"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "ENCRYPTION_UNSPECIFIED" => std::option::Option::Some(Self::ENCRYPTION_UNSPECIFIED),
-            "ENCRYPTION_UNSUPPORTED" => std::option::Option::Some(Self::ENCRYPTION_UNSUPPORTED),
-            "UNENCRYPTED" => std::option::Option::Some(Self::UNENCRYPTED),
-            "ENCRYPTED" => std::option::Option::Some(Self::ENCRYPTED),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for DeviceEncryptionStatus {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for DeviceEncryptionStatus {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for DeviceEncryptionStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for DeviceEncryptionStatus {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::EncryptionUnspecified,
+            1 => Self::EncryptionUnsupported,
+            2 => Self::Unencrypted,
+            3 => Self::Encrypted,
+            _ => Self::UnknownValue(device_encryption_status::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for DeviceEncryptionStatus {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "ENCRYPTION_UNSPECIFIED" => Self::EncryptionUnspecified,
+            "ENCRYPTION_UNSUPPORTED" => Self::EncryptionUnsupported,
+            "UNENCRYPTED" => Self::Unencrypted,
+            "ENCRYPTED" => Self::Encrypted,
+            _ => Self::UnknownValue(device_encryption_status::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for DeviceEncryptionStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::EncryptionUnspecified => serializer.serialize_i32(0),
+            Self::EncryptionUnsupported => serializer.serialize_i32(1),
+            Self::Unencrypted => serializer.serialize_i32(2),
+            Self::Encrypted => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DeviceEncryptionStatus {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DeviceEncryptionStatus>::new(
+            ".google.identity.accesscontextmanager.type.DeviceEncryptionStatus",
+        ))
     }
 }
 
 /// The operating system type of the device.
 /// Next id: 7
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OsType(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum OsType {
+    /// The operating system of the device is not specified or not known.
+    OsUnspecified,
+    /// A desktop Mac operating system.
+    DesktopMac,
+    /// A desktop Windows operating system.
+    DesktopWindows,
+    /// A desktop Linux operating system.
+    DesktopLinux,
+    /// A desktop ChromeOS operating system.
+    DesktopChromeOs,
+    /// An Android operating system.
+    Android,
+    /// An iOS operating system.
+    Ios,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [OsType::value] or
+    /// [OsType::name].
+    UnknownValue(os_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod os_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl OsType {
-    /// The operating system of the device is not specified or not known.
-    pub const OS_UNSPECIFIED: OsType = OsType::new(0);
-
-    /// A desktop Mac operating system.
-    pub const DESKTOP_MAC: OsType = OsType::new(1);
-
-    /// A desktop Windows operating system.
-    pub const DESKTOP_WINDOWS: OsType = OsType::new(2);
-
-    /// A desktop Linux operating system.
-    pub const DESKTOP_LINUX: OsType = OsType::new(3);
-
-    /// A desktop ChromeOS operating system.
-    pub const DESKTOP_CHROME_OS: OsType = OsType::new(6);
-
-    /// An Android operating system.
-    pub const ANDROID: OsType = OsType::new(4);
-
-    /// An iOS operating system.
-    pub const IOS: OsType = OsType::new(5);
-
-    /// Creates a new OsType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::OsUnspecified => std::option::Option::Some(0),
+            Self::DesktopMac => std::option::Option::Some(1),
+            Self::DesktopWindows => std::option::Option::Some(2),
+            Self::DesktopLinux => std::option::Option::Some(3),
+            Self::DesktopChromeOs => std::option::Option::Some(6),
+            Self::Android => std::option::Option::Some(4),
+            Self::Ios => std::option::Option::Some(5),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("OS_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("DESKTOP_MAC"),
-            2 => std::borrow::Cow::Borrowed("DESKTOP_WINDOWS"),
-            3 => std::borrow::Cow::Borrowed("DESKTOP_LINUX"),
-            4 => std::borrow::Cow::Borrowed("ANDROID"),
-            5 => std::borrow::Cow::Borrowed("IOS"),
-            6 => std::borrow::Cow::Borrowed("DESKTOP_CHROME_OS"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::OsUnspecified => std::option::Option::Some("OS_UNSPECIFIED"),
+            Self::DesktopMac => std::option::Option::Some("DESKTOP_MAC"),
+            Self::DesktopWindows => std::option::Option::Some("DESKTOP_WINDOWS"),
+            Self::DesktopLinux => std::option::Option::Some("DESKTOP_LINUX"),
+            Self::DesktopChromeOs => std::option::Option::Some("DESKTOP_CHROME_OS"),
+            Self::Android => std::option::Option::Some("ANDROID"),
+            Self::Ios => std::option::Option::Some("IOS"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "OS_UNSPECIFIED" => std::option::Option::Some(Self::OS_UNSPECIFIED),
-            "DESKTOP_MAC" => std::option::Option::Some(Self::DESKTOP_MAC),
-            "DESKTOP_WINDOWS" => std::option::Option::Some(Self::DESKTOP_WINDOWS),
-            "DESKTOP_LINUX" => std::option::Option::Some(Self::DESKTOP_LINUX),
-            "DESKTOP_CHROME_OS" => std::option::Option::Some(Self::DESKTOP_CHROME_OS),
-            "ANDROID" => std::option::Option::Some(Self::ANDROID),
-            "IOS" => std::option::Option::Some(Self::IOS),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for OsType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for OsType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for OsType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for OsType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::OsUnspecified,
+            1 => Self::DesktopMac,
+            2 => Self::DesktopWindows,
+            3 => Self::DesktopLinux,
+            4 => Self::Android,
+            5 => Self::Ios,
+            6 => Self::DesktopChromeOs,
+            _ => Self::UnknownValue(os_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for OsType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "OS_UNSPECIFIED" => Self::OsUnspecified,
+            "DESKTOP_MAC" => Self::DesktopMac,
+            "DESKTOP_WINDOWS" => Self::DesktopWindows,
+            "DESKTOP_LINUX" => Self::DesktopLinux,
+            "DESKTOP_CHROME_OS" => Self::DesktopChromeOs,
+            "ANDROID" => Self::Android,
+            "IOS" => Self::Ios,
+            _ => Self::UnknownValue(os_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for OsType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::OsUnspecified => serializer.serialize_i32(0),
+            Self::DesktopMac => serializer.serialize_i32(1),
+            Self::DesktopWindows => serializer.serialize_i32(2),
+            Self::DesktopLinux => serializer.serialize_i32(3),
+            Self::DesktopChromeOs => serializer.serialize_i32(6),
+            Self::Android => serializer.serialize_i32(4),
+            Self::Ios => serializer.serialize_i32(5),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for OsType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<OsType>::new(
+            ".google.identity.accesscontextmanager.type.OsType",
+        ))
     }
 }
 
 /// The degree to which the device is managed by the Cloud organization.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DeviceManagementLevel(i32);
-
-impl DeviceManagementLevel {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DeviceManagementLevel {
     /// The device's management level is not specified or not known.
-    pub const MANAGEMENT_UNSPECIFIED: DeviceManagementLevel = DeviceManagementLevel::new(0);
-
+    ManagementUnspecified,
     /// The device is not managed.
-    pub const NONE: DeviceManagementLevel = DeviceManagementLevel::new(1);
-
+    None,
     /// Basic management is enabled, which is generally limited to monitoring and
     /// wiping the corporate account.
-    pub const BASIC: DeviceManagementLevel = DeviceManagementLevel::new(2);
-
+    Basic,
     /// Complete device management. This includes more thorough monitoring and the
     /// ability to directly manage the device (such as remote wiping). This can be
     /// enabled through the Android Enterprise Platform.
-    pub const COMPLETE: DeviceManagementLevel = DeviceManagementLevel::new(3);
+    Complete,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DeviceManagementLevel::value] or
+    /// [DeviceManagementLevel::name].
+    UnknownValue(device_management_level::UnknownValue),
+}
 
-    /// Creates a new DeviceManagementLevel instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod device_management_level {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl DeviceManagementLevel {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::ManagementUnspecified => std::option::Option::Some(0),
+            Self::None => std::option::Option::Some(1),
+            Self::Basic => std::option::Option::Some(2),
+            Self::Complete => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("MANAGEMENT_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("NONE"),
-            2 => std::borrow::Cow::Borrowed("BASIC"),
-            3 => std::borrow::Cow::Borrowed("COMPLETE"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::ManagementUnspecified => std::option::Option::Some("MANAGEMENT_UNSPECIFIED"),
+            Self::None => std::option::Option::Some("NONE"),
+            Self::Basic => std::option::Option::Some("BASIC"),
+            Self::Complete => std::option::Option::Some("COMPLETE"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "MANAGEMENT_UNSPECIFIED" => std::option::Option::Some(Self::MANAGEMENT_UNSPECIFIED),
-            "NONE" => std::option::Option::Some(Self::NONE),
-            "BASIC" => std::option::Option::Some(Self::BASIC),
-            "COMPLETE" => std::option::Option::Some(Self::COMPLETE),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for DeviceManagementLevel {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for DeviceManagementLevel {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for DeviceManagementLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for DeviceManagementLevel {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::ManagementUnspecified,
+            1 => Self::None,
+            2 => Self::Basic,
+            3 => Self::Complete,
+            _ => Self::UnknownValue(device_management_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for DeviceManagementLevel {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "MANAGEMENT_UNSPECIFIED" => Self::ManagementUnspecified,
+            "NONE" => Self::None,
+            "BASIC" => Self::Basic,
+            "COMPLETE" => Self::Complete,
+            _ => Self::UnknownValue(device_management_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for DeviceManagementLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::ManagementUnspecified => serializer.serialize_i32(0),
+            Self::None => serializer.serialize_i32(1),
+            Self::Basic => serializer.serialize_i32(2),
+            Self::Complete => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DeviceManagementLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DeviceManagementLevel>::new(
+            ".google.identity.accesscontextmanager.type.DeviceManagementLevel",
+        ))
     }
 }

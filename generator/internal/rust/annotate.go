@@ -262,9 +262,10 @@ type enumAnnotation struct {
 }
 
 type enumValueAnnotation struct {
-	Name     string
-	EnumType string
-	DocLines []string
+	Name        string
+	VariantName string
+	EnumType    string
+	DocLines    []string
 }
 
 // annotateModel creates a struct used as input for Mustache templates.
@@ -730,7 +731,7 @@ func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificati
 	seen := map[string]*api.EnumValue{}
 	var unique []*api.EnumValue
 	for _, ev := range e.Values {
-		name := enumValueName(ev)
+		name := enumValueVariantName(ev)
 		if existing, ok := seen[name]; ok {
 			if existing.Number != ev.Number {
 				slog.Warn("conflicting names for enum values", "enum.ID", e.ID)
@@ -740,6 +741,7 @@ func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificati
 			seen[name] = ev
 		}
 	}
+
 	qualifiedName := fullyQualifiedEnumName(e, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	relativeName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
 	e.Codec = &enumAnnotation{
@@ -754,9 +756,10 @@ func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificati
 
 func (c *codec) annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState) {
 	ev.Codec = &enumValueAnnotation{
-		DocLines: c.formatDocComments(ev.Documentation, ev.ID, state, ev.Scopes()),
-		Name:     enumValueName(ev),
-		EnumType: enumName(e),
+		DocLines:    c.formatDocComments(ev.Documentation, ev.ID, state, ev.Scopes()),
+		Name:        enumValueName(ev),
+		EnumType:    enumName(e),
+		VariantName: enumValueVariantName(ev),
 	}
 }
 

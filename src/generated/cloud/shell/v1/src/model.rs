@@ -174,73 +174,152 @@ pub mod environment {
     use super::*;
 
     /// Possible execution states for an environment.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// The environment's states is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The environment is not running and can't be connected to. Starting the
         /// environment will transition it to the PENDING state.
-        pub const SUSPENDED: State = State::new(1);
-
+        Suspended,
         /// The environment is being started but is not yet ready to accept
         /// connections.
-        pub const PENDING: State = State::new(2);
-
+        Pending,
         /// The environment is running and ready to accept connections. It will
         /// automatically transition back to DISABLED after a period of inactivity or
         /// if another environment is started.
-        pub const RUNNING: State = State::new(3);
-
+        Running,
         /// The environment is being deleted and can't be connected to.
-        pub const DELETING: State = State::new(4);
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Suspended => std::option::Option::Some(1),
+                Self::Pending => std::option::Option::Some(2),
+                Self::Running => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SUSPENDED"),
-                2 => std::borrow::Cow::Borrowed("PENDING"),
-                3 => std::borrow::Cow::Borrowed("RUNNING"),
-                4 => std::borrow::Cow::Borrowed("DELETING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Suspended => std::option::Option::Some("SUSPENDED"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "SUSPENDED" => std::option::Option::Some(Self::SUSPENDED),
-                "PENDING" => std::option::Option::Some(Self::PENDING),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Suspended,
+                2 => Self::Pending,
+                3 => Self::Running,
+                4 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "SUSPENDED" => Self::Suspended,
+                "PENDING" => Self::Pending,
+                "RUNNING" => Self::Running,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Suspended => serializer.serialize_i32(1),
+                Self::Pending => serializer.serialize_i32(2),
+                Self::Running => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.shell.v1.Environment.State",
+            ))
         }
     }
 }
@@ -560,79 +639,158 @@ pub mod start_environment_metadata {
     /// show a progress message to the user. An environment won't necessarily go
     /// through all of these states when starting. More states are likely to be
     /// added in the future.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// The environment's start state is unknown.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The environment is in the process of being started, but no additional
         /// details are available.
-        pub const STARTING: State = State::new(1);
-
+        Starting,
         /// Startup is waiting for the user's disk to be unarchived. This can happen
         /// when the user returns to Cloud Shell after not having used it for a
         /// while, and suggests that startup will take longer than normal.
-        pub const UNARCHIVING_DISK: State = State::new(2);
-
+        UnarchivingDisk,
         /// Startup is waiting for compute resources to be assigned to the
         /// environment. This should normally happen very quickly, but an environment
         /// might stay in this state for an extended period of time if the system is
         /// experiencing heavy load.
-        pub const AWAITING_COMPUTE_RESOURCES: State = State::new(4);
-
+        AwaitingComputeResources,
         /// Startup has completed. If the start operation was successful, the user
         /// should be able to establish an SSH connection to their environment.
         /// Otherwise, the operation will contain details of the failure.
-        pub const FINISHED: State = State::new(3);
+        Finished,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Starting => std::option::Option::Some(1),
+                Self::UnarchivingDisk => std::option::Option::Some(2),
+                Self::AwaitingComputeResources => std::option::Option::Some(4),
+                Self::Finished => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("STARTING"),
-                2 => std::borrow::Cow::Borrowed("UNARCHIVING_DISK"),
-                3 => std::borrow::Cow::Borrowed("FINISHED"),
-                4 => std::borrow::Cow::Borrowed("AWAITING_COMPUTE_RESOURCES"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "STARTING" => std::option::Option::Some(Self::STARTING),
-                "UNARCHIVING_DISK" => std::option::Option::Some(Self::UNARCHIVING_DISK),
-                "AWAITING_COMPUTE_RESOURCES" => {
-                    std::option::Option::Some(Self::AWAITING_COMPUTE_RESOURCES)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Starting => std::option::Option::Some("STARTING"),
+                Self::UnarchivingDisk => std::option::Option::Some("UNARCHIVING_DISK"),
+                Self::AwaitingComputeResources => {
+                    std::option::Option::Some("AWAITING_COMPUTE_RESOURCES")
                 }
-                "FINISHED" => std::option::Option::Some(Self::FINISHED),
-                _ => std::option::Option::None,
+                Self::Finished => std::option::Option::Some("FINISHED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Starting,
+                2 => Self::UnarchivingDisk,
+                3 => Self::Finished,
+                4 => Self::AwaitingComputeResources,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "STARTING" => Self::Starting,
+                "UNARCHIVING_DISK" => Self::UnarchivingDisk,
+                "AWAITING_COMPUTE_RESOURCES" => Self::AwaitingComputeResources,
+                "FINISHED" => Self::Finished,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Starting => serializer.serialize_i32(1),
+                Self::UnarchivingDisk => serializer.serialize_i32(2),
+                Self::AwaitingComputeResources => serializer.serialize_i32(4),
+                Self::Finished => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.shell.v1.StartEnvironmentMetadata.State",
+            ))
         }
     }
 }
@@ -928,84 +1086,164 @@ pub mod cloud_shell_error_details {
     use super::*;
 
     /// Set of possible errors returned from API calls.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CloudShellErrorCode(i32);
-
-    impl CloudShellErrorCode {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CloudShellErrorCode {
         /// An unknown error occurred.
-        pub const CLOUD_SHELL_ERROR_CODE_UNSPECIFIED: CloudShellErrorCode =
-            CloudShellErrorCode::new(0);
-
+        Unspecified,
         /// The image used by the Cloud Shell environment either does not exist or
         /// the user does not have access to it.
-        pub const IMAGE_UNAVAILABLE: CloudShellErrorCode = CloudShellErrorCode::new(1);
-
+        ImageUnavailable,
         /// Cloud Shell has been disabled by an administrator for the user making the
         /// request.
-        pub const CLOUD_SHELL_DISABLED: CloudShellErrorCode = CloudShellErrorCode::new(2);
-
+        CloudShellDisabled,
         /// Cloud Shell has been permanently disabled due to a Terms of Service
         /// violation by the user.
-        pub const TOS_VIOLATION: CloudShellErrorCode = CloudShellErrorCode::new(4);
-
+        TosViolation,
         /// The user has exhausted their weekly Cloud Shell quota, and Cloud Shell
         /// will be disabled until the quota resets.
-        pub const QUOTA_EXCEEDED: CloudShellErrorCode = CloudShellErrorCode::new(5);
-
+        QuotaExceeded,
         /// The Cloud Shell environment is unavailable and cannot be connected to at
         /// the moment.
-        pub const ENVIRONMENT_UNAVAILABLE: CloudShellErrorCode = CloudShellErrorCode::new(6);
+        EnvironmentUnavailable,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CloudShellErrorCode::value] or
+        /// [CloudShellErrorCode::name].
+        UnknownValue(cloud_shell_error_code::UnknownValue),
+    }
 
-        /// Creates a new CloudShellErrorCode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod cloud_shell_error_code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl CloudShellErrorCode {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ImageUnavailable => std::option::Option::Some(1),
+                Self::CloudShellDisabled => std::option::Option::Some(2),
+                Self::TosViolation => std::option::Option::Some(4),
+                Self::QuotaExceeded => std::option::Option::Some(5),
+                Self::EnvironmentUnavailable => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CLOUD_SHELL_ERROR_CODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("IMAGE_UNAVAILABLE"),
-                2 => std::borrow::Cow::Borrowed("CLOUD_SHELL_DISABLED"),
-                4 => std::borrow::Cow::Borrowed("TOS_VIOLATION"),
-                5 => std::borrow::Cow::Borrowed("QUOTA_EXCEEDED"),
-                6 => std::borrow::Cow::Borrowed("ENVIRONMENT_UNAVAILABLE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CLOUD_SHELL_ERROR_CODE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CLOUD_SHELL_ERROR_CODE_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CLOUD_SHELL_ERROR_CODE_UNSPECIFIED")
                 }
-                "IMAGE_UNAVAILABLE" => std::option::Option::Some(Self::IMAGE_UNAVAILABLE),
-                "CLOUD_SHELL_DISABLED" => std::option::Option::Some(Self::CLOUD_SHELL_DISABLED),
-                "TOS_VIOLATION" => std::option::Option::Some(Self::TOS_VIOLATION),
-                "QUOTA_EXCEEDED" => std::option::Option::Some(Self::QUOTA_EXCEEDED),
-                "ENVIRONMENT_UNAVAILABLE" => {
-                    std::option::Option::Some(Self::ENVIRONMENT_UNAVAILABLE)
+                Self::ImageUnavailable => std::option::Option::Some("IMAGE_UNAVAILABLE"),
+                Self::CloudShellDisabled => std::option::Option::Some("CLOUD_SHELL_DISABLED"),
+                Self::TosViolation => std::option::Option::Some("TOS_VIOLATION"),
+                Self::QuotaExceeded => std::option::Option::Some("QUOTA_EXCEEDED"),
+                Self::EnvironmentUnavailable => {
+                    std::option::Option::Some("ENVIRONMENT_UNAVAILABLE")
                 }
-                _ => std::option::Option::None,
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for CloudShellErrorCode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for CloudShellErrorCode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CloudShellErrorCode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CloudShellErrorCode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ImageUnavailable,
+                2 => Self::CloudShellDisabled,
+                4 => Self::TosViolation,
+                5 => Self::QuotaExceeded,
+                6 => Self::EnvironmentUnavailable,
+                _ => Self::UnknownValue(cloud_shell_error_code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CloudShellErrorCode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CLOUD_SHELL_ERROR_CODE_UNSPECIFIED" => Self::Unspecified,
+                "IMAGE_UNAVAILABLE" => Self::ImageUnavailable,
+                "CLOUD_SHELL_DISABLED" => Self::CloudShellDisabled,
+                "TOS_VIOLATION" => Self::TosViolation,
+                "QUOTA_EXCEEDED" => Self::QuotaExceeded,
+                "ENVIRONMENT_UNAVAILABLE" => Self::EnvironmentUnavailable,
+                _ => Self::UnknownValue(cloud_shell_error_code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CloudShellErrorCode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ImageUnavailable => serializer.serialize_i32(1),
+                Self::CloudShellDisabled => serializer.serialize_i32(2),
+                Self::TosViolation => serializer.serialize_i32(4),
+                Self::QuotaExceeded => serializer.serialize_i32(5),
+                Self::EnvironmentUnavailable => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CloudShellErrorCode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CloudShellErrorCode>::new(
+                ".google.cloud.shell.v1.CloudShellErrorDetails.CloudShellErrorCode",
+            ))
         }
     }
 }

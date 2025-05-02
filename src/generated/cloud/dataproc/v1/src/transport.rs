@@ -613,7 +613,7 @@ impl super::stub::ClusterController for ClusterController {
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[(
             "actionOnFailedPrimaryWorkers",
-            &req.action_on_failed_primary_workers.value(),
+            &req.action_on_failed_primary_workers,
         )]);
         self.inner
             .execute(builder, Some(req.cluster), options)
@@ -1089,7 +1089,7 @@ impl super::stub::JobController for JobController {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("clusterName", &req.cluster_name)]);
-        let builder = builder.query(&[("jobStateMatcher", &req.job_state_matcher.value())]);
+        let builder = builder.query(&[("jobStateMatcher", &req.job_state_matcher)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)

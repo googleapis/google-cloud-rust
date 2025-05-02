@@ -650,9 +650,9 @@ func addQueryParameter(f *api.Field) string {
 	switch f.Typez {
 	case api.ENUM_TYPE:
 		if f.Optional || f.Repeated {
-			return fmt.Sprintf(`let builder = req.%s.iter().fold(builder, |builder, p| builder.query(&[("%s", p.value())]));`, fieldName, f.JSONName)
+			return fmt.Sprintf(`let builder = req.%s.iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, fieldName, f.JSONName)
 		}
-		return fmt.Sprintf(`let builder = builder.query(&[("%s", &req.%s.value())]);`, f.JSONName, fieldName)
+		return fmt.Sprintf(`let builder = builder.query(&[("%s", &req.%s)]);`, f.JSONName, fieldName)
 	case api.MESSAGE_TYPE:
 		if f.TypezID == ".google.protobuf.FieldMask" {
 			// `FieldMask` (and other well-known types) are special. Their JSON
@@ -685,7 +685,7 @@ func addQueryParameterOneOf(f *api.Field) string {
 	fieldName := toSnake(f.Name)
 	switch f.Typez {
 	case api.ENUM_TYPE:
-		return fmt.Sprintf(`let builder = req.%s().iter().fold(builder, |builder, p| builder.query(&[("%s", p.value())]));`, fieldName, f.JSONName)
+		return fmt.Sprintf(`let builder = req.%s().iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, fieldName, f.JSONName)
 	case api.MESSAGE_TYPE:
 		// Query parameters in nested messages are first converted to a
 		// `serde_json::Value`` and then recursively merged into the request
@@ -766,8 +766,67 @@ func enumValueName(e *api.EnumValue) string {
 	return escapeKeyword(toScreamingSnake(e.Name))
 }
 
+// enumValueVariantName returns the name of the Rust enumeration variant for a
+// given enumeration.
+//
+// The Protobuf naming convention is to use SCREAMING_SNAKE_CASE, often
+// prefixed with the name of the enum, e.g.:
+//
+// ```proto
+//
+//	enum MyEnum {
+//	    MY_ENUM_UNSPECIFIED = 0;
+//	    MY_ENUM_RED            = 1;
+//	    MY_ENUM_GREEN          = 2;
+//	    MY_ENUM_BLACK_AND_BLUE = 2;
+//	    MY_ENUM_123            = 123;
+//	}
+//
+// ```
+//
+// What we want in this case is something like:
+//
+// ```rust
+// #[non_exhaustive]
+//
+//	pub enum Syntax {
+//	    Unspecified,
+//	    Red,
+//	    Green,
+//	    BlackAndBlue,
+//	    _123,
+//	    UnknownVariant(/* implementation detail */),
+//	}
+//
+// ```
+// sometimes it is not followed.
+func enumValueVariantName(e *api.EnumValue) string {
+	// The most common case is trying to strip the prefix for `FOO_BAR_UNSPECIFIED`.
+	// The naming conventions being what they are, we need to test with a couple
+	// of different combinations. In particular, names with numbers, such as
+	// `InstancePrivateIpv6GoogleAccess` make life difficult for everyone.
+	parent := toScreamingSnake(e.Parent.Name)
+	if strings.HasPrefix(e.Name, parent+"_") {
+		return enumValueVariantEscape(strings.TrimPrefix(e.Name, parent+"_"))
+	}
+	trimNumbers := regexp.MustCompile(`_([0-9])`)
+	parent = trimNumbers.ReplaceAllString(parent, `$1`)
+	if strings.HasPrefix(e.Name, parent+"_") {
+		return enumValueVariantEscape(strings.TrimPrefix(e.Name, parent+"_"))
+	}
+	return toPascal(e.Name)
+}
+
+func enumValueVariantEscape(trimmed string) string {
+	trimmed = toPascal(trimmed)
+	if strings.IndexFunc(trimmed, unicode.IsLetter) != 0 {
+		return "_" + trimmed
+	}
+	return toPascal(trimmed)
+}
+
 func fullyQualifiedEnumValueName(v *api.EnumValue, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) string {
-	return fmt.Sprintf("%s::%s::%s", enumScopeName(v.Parent, modulePath, sourceSpecificationPackageName, packageMapping), toSnake(v.Parent.Name), enumValueName(v))
+	return fmt.Sprintf("%s::%s::%s", enumScopeName(v.Parent, modulePath, sourceSpecificationPackageName, packageMapping), enumName(v.Parent), enumValueVariantName(v))
 }
 
 func bodyAccessor(m *api.Method) string {
@@ -816,7 +875,7 @@ func derefFieldSingle(name string, message *api.Message, state *api.APIState) (s
 		}
 		if field.Typez == api.ENUM_TYPE {
 			expr, nextMessage := derefFieldExpr(name, field.Optional, nil)
-			return expr + ".value()", nextMessage
+			return expr, nextMessage
 		}
 		return derefFieldExpr(name, field.Optional, nil)
 	}

@@ -130,6 +130,7 @@ pub mod service_manager {
         }
 
         /// Sets the value of [consumer_id][crate::model::ListServicesRequest::consumer_id].
+        #[deprecated]
         pub fn set_consumer_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.consumer_id = v.into();
             self

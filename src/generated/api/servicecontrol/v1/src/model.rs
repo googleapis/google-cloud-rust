@@ -116,164 +116,277 @@ pub mod check_error {
     use super::*;
 
     /// Error codes for Check responses.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(i32);
-
-    impl Code {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Code {
         /// This is never used in `CheckResponse`.
-        pub const ERROR_CODE_UNSPECIFIED: Code = Code::new(0);
-
+        ErrorCodeUnspecified,
         /// The consumer's project id, network container, or resource container was
         /// not found. Same as [google.rpc.Code.NOT_FOUND][google.rpc.Code.NOT_FOUND].
-        pub const NOT_FOUND: Code = Code::new(5);
-
+        NotFound,
         /// The consumer doesn't have access to the specified resource.
         /// Same as [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED].
-        pub const PERMISSION_DENIED: Code = Code::new(7);
-
+        PermissionDenied,
         /// Quota check failed. Same as [google.rpc.Code.RESOURCE_EXHAUSTED][google.rpc.Code.RESOURCE_EXHAUSTED].
-        pub const RESOURCE_EXHAUSTED: Code = Code::new(8);
-
+        ResourceExhausted,
         /// The consumer hasn't activated the service.
-        pub const SERVICE_NOT_ACTIVATED: Code = Code::new(104);
-
+        ServiceNotActivated,
         /// The consumer cannot access the service because billing is disabled.
-        pub const BILLING_DISABLED: Code = Code::new(107);
-
+        BillingDisabled,
         /// The consumer's project has been marked as deleted (soft deletion).
-        pub const PROJECT_DELETED: Code = Code::new(108);
-
+        ProjectDeleted,
         /// The consumer's project number or id does not represent a valid project.
-        pub const PROJECT_INVALID: Code = Code::new(114);
-
+        ProjectInvalid,
         /// The input consumer info does not represent a valid consumer folder or
         /// organization.
-        pub const CONSUMER_INVALID: Code = Code::new(125);
-
+        ConsumerInvalid,
         /// The IP address of the consumer is invalid for the specific consumer
         /// project.
-        pub const IP_ADDRESS_BLOCKED: Code = Code::new(109);
-
+        IpAddressBlocked,
         /// The referer address of the consumer request is invalid for the specific
         /// consumer project.
-        pub const REFERER_BLOCKED: Code = Code::new(110);
-
+        RefererBlocked,
         /// The client application of the consumer request is invalid for the
         /// specific consumer project.
-        pub const CLIENT_APP_BLOCKED: Code = Code::new(111);
-
+        ClientAppBlocked,
         /// The API targeted by this request is invalid for the specified consumer
         /// project.
-        pub const API_TARGET_BLOCKED: Code = Code::new(122);
-
+        ApiTargetBlocked,
         /// The consumer's API key is invalid.
-        pub const API_KEY_INVALID: Code = Code::new(105);
-
+        ApiKeyInvalid,
         /// The consumer's API Key has expired.
-        pub const API_KEY_EXPIRED: Code = Code::new(112);
-
+        ApiKeyExpired,
         /// The consumer's API Key was not found in config record.
-        pub const API_KEY_NOT_FOUND: Code = Code::new(113);
-
+        ApiKeyNotFound,
         /// The credential in the request can not be verified.
-        pub const INVALID_CREDENTIAL: Code = Code::new(123);
-
+        InvalidCredential,
         /// The backend server for looking up project id/number is unavailable.
-        pub const NAMESPACE_LOOKUP_UNAVAILABLE: Code = Code::new(300);
-
+        NamespaceLookupUnavailable,
         /// The backend server for checking service status is unavailable.
-        pub const SERVICE_STATUS_UNAVAILABLE: Code = Code::new(301);
-
+        ServiceStatusUnavailable,
         /// The backend server for checking billing status is unavailable.
-        pub const BILLING_STATUS_UNAVAILABLE: Code = Code::new(302);
-
+        BillingStatusUnavailable,
         /// Cloud Resource Manager backend server is unavailable.
-        pub const CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE: Code = Code::new(305);
+        CloudResourceManagerBackendUnavailable,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Code::value] or
+        /// [Code::name].
+        UnknownValue(code::UnknownValue),
+    }
 
-        /// Creates a new Code instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Code {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::ErrorCodeUnspecified => std::option::Option::Some(0),
+                Self::NotFound => std::option::Option::Some(5),
+                Self::PermissionDenied => std::option::Option::Some(7),
+                Self::ResourceExhausted => std::option::Option::Some(8),
+                Self::ServiceNotActivated => std::option::Option::Some(104),
+                Self::BillingDisabled => std::option::Option::Some(107),
+                Self::ProjectDeleted => std::option::Option::Some(108),
+                Self::ProjectInvalid => std::option::Option::Some(114),
+                Self::ConsumerInvalid => std::option::Option::Some(125),
+                Self::IpAddressBlocked => std::option::Option::Some(109),
+                Self::RefererBlocked => std::option::Option::Some(110),
+                Self::ClientAppBlocked => std::option::Option::Some(111),
+                Self::ApiTargetBlocked => std::option::Option::Some(122),
+                Self::ApiKeyInvalid => std::option::Option::Some(105),
+                Self::ApiKeyExpired => std::option::Option::Some(112),
+                Self::ApiKeyNotFound => std::option::Option::Some(113),
+                Self::InvalidCredential => std::option::Option::Some(123),
+                Self::NamespaceLookupUnavailable => std::option::Option::Some(300),
+                Self::ServiceStatusUnavailable => std::option::Option::Some(301),
+                Self::BillingStatusUnavailable => std::option::Option::Some(302),
+                Self::CloudResourceManagerBackendUnavailable => std::option::Option::Some(305),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ERROR_CODE_UNSPECIFIED"),
-                5 => std::borrow::Cow::Borrowed("NOT_FOUND"),
-                7 => std::borrow::Cow::Borrowed("PERMISSION_DENIED"),
-                8 => std::borrow::Cow::Borrowed("RESOURCE_EXHAUSTED"),
-                104 => std::borrow::Cow::Borrowed("SERVICE_NOT_ACTIVATED"),
-                105 => std::borrow::Cow::Borrowed("API_KEY_INVALID"),
-                107 => std::borrow::Cow::Borrowed("BILLING_DISABLED"),
-                108 => std::borrow::Cow::Borrowed("PROJECT_DELETED"),
-                109 => std::borrow::Cow::Borrowed("IP_ADDRESS_BLOCKED"),
-                110 => std::borrow::Cow::Borrowed("REFERER_BLOCKED"),
-                111 => std::borrow::Cow::Borrowed("CLIENT_APP_BLOCKED"),
-                112 => std::borrow::Cow::Borrowed("API_KEY_EXPIRED"),
-                113 => std::borrow::Cow::Borrowed("API_KEY_NOT_FOUND"),
-                114 => std::borrow::Cow::Borrowed("PROJECT_INVALID"),
-                122 => std::borrow::Cow::Borrowed("API_TARGET_BLOCKED"),
-                123 => std::borrow::Cow::Borrowed("INVALID_CREDENTIAL"),
-                125 => std::borrow::Cow::Borrowed("CONSUMER_INVALID"),
-                300 => std::borrow::Cow::Borrowed("NAMESPACE_LOOKUP_UNAVAILABLE"),
-                301 => std::borrow::Cow::Borrowed("SERVICE_STATUS_UNAVAILABLE"),
-                302 => std::borrow::Cow::Borrowed("BILLING_STATUS_UNAVAILABLE"),
-                305 => std::borrow::Cow::Borrowed("CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::ErrorCodeUnspecified => std::option::Option::Some("ERROR_CODE_UNSPECIFIED"),
+                Self::NotFound => std::option::Option::Some("NOT_FOUND"),
+                Self::PermissionDenied => std::option::Option::Some("PERMISSION_DENIED"),
+                Self::ResourceExhausted => std::option::Option::Some("RESOURCE_EXHAUSTED"),
+                Self::ServiceNotActivated => std::option::Option::Some("SERVICE_NOT_ACTIVATED"),
+                Self::BillingDisabled => std::option::Option::Some("BILLING_DISABLED"),
+                Self::ProjectDeleted => std::option::Option::Some("PROJECT_DELETED"),
+                Self::ProjectInvalid => std::option::Option::Some("PROJECT_INVALID"),
+                Self::ConsumerInvalid => std::option::Option::Some("CONSUMER_INVALID"),
+                Self::IpAddressBlocked => std::option::Option::Some("IP_ADDRESS_BLOCKED"),
+                Self::RefererBlocked => std::option::Option::Some("REFERER_BLOCKED"),
+                Self::ClientAppBlocked => std::option::Option::Some("CLIENT_APP_BLOCKED"),
+                Self::ApiTargetBlocked => std::option::Option::Some("API_TARGET_BLOCKED"),
+                Self::ApiKeyInvalid => std::option::Option::Some("API_KEY_INVALID"),
+                Self::ApiKeyExpired => std::option::Option::Some("API_KEY_EXPIRED"),
+                Self::ApiKeyNotFound => std::option::Option::Some("API_KEY_NOT_FOUND"),
+                Self::InvalidCredential => std::option::Option::Some("INVALID_CREDENTIAL"),
+                Self::NamespaceLookupUnavailable => {
+                    std::option::Option::Some("NAMESPACE_LOOKUP_UNAVAILABLE")
+                }
+                Self::ServiceStatusUnavailable => {
+                    std::option::Option::Some("SERVICE_STATUS_UNAVAILABLE")
+                }
+                Self::BillingStatusUnavailable => {
+                    std::option::Option::Some("BILLING_STATUS_UNAVAILABLE")
+                }
+                Self::CloudResourceManagerBackendUnavailable => {
+                    std::option::Option::Some("CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ERROR_CODE_UNSPECIFIED" => std::option::Option::Some(Self::ERROR_CODE_UNSPECIFIED),
-                "NOT_FOUND" => std::option::Option::Some(Self::NOT_FOUND),
-                "PERMISSION_DENIED" => std::option::Option::Some(Self::PERMISSION_DENIED),
-                "RESOURCE_EXHAUSTED" => std::option::Option::Some(Self::RESOURCE_EXHAUSTED),
-                "SERVICE_NOT_ACTIVATED" => std::option::Option::Some(Self::SERVICE_NOT_ACTIVATED),
-                "BILLING_DISABLED" => std::option::Option::Some(Self::BILLING_DISABLED),
-                "PROJECT_DELETED" => std::option::Option::Some(Self::PROJECT_DELETED),
-                "PROJECT_INVALID" => std::option::Option::Some(Self::PROJECT_INVALID),
-                "CONSUMER_INVALID" => std::option::Option::Some(Self::CONSUMER_INVALID),
-                "IP_ADDRESS_BLOCKED" => std::option::Option::Some(Self::IP_ADDRESS_BLOCKED),
-                "REFERER_BLOCKED" => std::option::Option::Some(Self::REFERER_BLOCKED),
-                "CLIENT_APP_BLOCKED" => std::option::Option::Some(Self::CLIENT_APP_BLOCKED),
-                "API_TARGET_BLOCKED" => std::option::Option::Some(Self::API_TARGET_BLOCKED),
-                "API_KEY_INVALID" => std::option::Option::Some(Self::API_KEY_INVALID),
-                "API_KEY_EXPIRED" => std::option::Option::Some(Self::API_KEY_EXPIRED),
-                "API_KEY_NOT_FOUND" => std::option::Option::Some(Self::API_KEY_NOT_FOUND),
-                "INVALID_CREDENTIAL" => std::option::Option::Some(Self::INVALID_CREDENTIAL),
-                "NAMESPACE_LOOKUP_UNAVAILABLE" => {
-                    std::option::Option::Some(Self::NAMESPACE_LOOKUP_UNAVAILABLE)
-                }
-                "SERVICE_STATUS_UNAVAILABLE" => {
-                    std::option::Option::Some(Self::SERVICE_STATUS_UNAVAILABLE)
-                }
-                "BILLING_STATUS_UNAVAILABLE" => {
-                    std::option::Option::Some(Self::BILLING_STATUS_UNAVAILABLE)
-                }
-                "CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE" => {
-                    std::option::Option::Some(Self::CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Code {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::ErrorCodeUnspecified,
+                5 => Self::NotFound,
+                7 => Self::PermissionDenied,
+                8 => Self::ResourceExhausted,
+                104 => Self::ServiceNotActivated,
+                105 => Self::ApiKeyInvalid,
+                107 => Self::BillingDisabled,
+                108 => Self::ProjectDeleted,
+                109 => Self::IpAddressBlocked,
+                110 => Self::RefererBlocked,
+                111 => Self::ClientAppBlocked,
+                112 => Self::ApiKeyExpired,
+                113 => Self::ApiKeyNotFound,
+                114 => Self::ProjectInvalid,
+                122 => Self::ApiTargetBlocked,
+                123 => Self::InvalidCredential,
+                125 => Self::ConsumerInvalid,
+                300 => Self::NamespaceLookupUnavailable,
+                301 => Self::ServiceStatusUnavailable,
+                302 => Self::BillingStatusUnavailable,
+                305 => Self::CloudResourceManagerBackendUnavailable,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Code {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ERROR_CODE_UNSPECIFIED" => Self::ErrorCodeUnspecified,
+                "NOT_FOUND" => Self::NotFound,
+                "PERMISSION_DENIED" => Self::PermissionDenied,
+                "RESOURCE_EXHAUSTED" => Self::ResourceExhausted,
+                "SERVICE_NOT_ACTIVATED" => Self::ServiceNotActivated,
+                "BILLING_DISABLED" => Self::BillingDisabled,
+                "PROJECT_DELETED" => Self::ProjectDeleted,
+                "PROJECT_INVALID" => Self::ProjectInvalid,
+                "CONSUMER_INVALID" => Self::ConsumerInvalid,
+                "IP_ADDRESS_BLOCKED" => Self::IpAddressBlocked,
+                "REFERER_BLOCKED" => Self::RefererBlocked,
+                "CLIENT_APP_BLOCKED" => Self::ClientAppBlocked,
+                "API_TARGET_BLOCKED" => Self::ApiTargetBlocked,
+                "API_KEY_INVALID" => Self::ApiKeyInvalid,
+                "API_KEY_EXPIRED" => Self::ApiKeyExpired,
+                "API_KEY_NOT_FOUND" => Self::ApiKeyNotFound,
+                "INVALID_CREDENTIAL" => Self::InvalidCredential,
+                "NAMESPACE_LOOKUP_UNAVAILABLE" => Self::NamespaceLookupUnavailable,
+                "SERVICE_STATUS_UNAVAILABLE" => Self::ServiceStatusUnavailable,
+                "BILLING_STATUS_UNAVAILABLE" => Self::BillingStatusUnavailable,
+                "CLOUD_RESOURCE_MANAGER_BACKEND_UNAVAILABLE" => {
+                    Self::CloudResourceManagerBackendUnavailable
+                }
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::ErrorCodeUnspecified => serializer.serialize_i32(0),
+                Self::NotFound => serializer.serialize_i32(5),
+                Self::PermissionDenied => serializer.serialize_i32(7),
+                Self::ResourceExhausted => serializer.serialize_i32(8),
+                Self::ServiceNotActivated => serializer.serialize_i32(104),
+                Self::BillingDisabled => serializer.serialize_i32(107),
+                Self::ProjectDeleted => serializer.serialize_i32(108),
+                Self::ProjectInvalid => serializer.serialize_i32(114),
+                Self::ConsumerInvalid => serializer.serialize_i32(125),
+                Self::IpAddressBlocked => serializer.serialize_i32(109),
+                Self::RefererBlocked => serializer.serialize_i32(110),
+                Self::ClientAppBlocked => serializer.serialize_i32(111),
+                Self::ApiTargetBlocked => serializer.serialize_i32(122),
+                Self::ApiKeyInvalid => serializer.serialize_i32(105),
+                Self::ApiKeyExpired => serializer.serialize_i32(112),
+                Self::ApiKeyNotFound => serializer.serialize_i32(113),
+                Self::InvalidCredential => serializer.serialize_i32(123),
+                Self::NamespaceLookupUnavailable => serializer.serialize_i32(300),
+                Self::ServiceStatusUnavailable => serializer.serialize_i32(301),
+                Self::BillingStatusUnavailable => serializer.serialize_i32(302),
+                Self::CloudResourceManagerBackendUnavailable => serializer.serialize_i32(305),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                ".google.api.servicecontrol.v1.CheckError.Code",
+            ))
         }
     }
 }
@@ -1835,57 +1948,130 @@ pub mod operation {
     use super::*;
 
     /// Defines the importance of the data contained in the operation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Importance(i32);
-
-    impl Importance {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Importance {
         /// Allows data caching, batching, and aggregation. It provides
         /// higher performance with higher data loss risk.
-        pub const LOW: Importance = Importance::new(0);
-
+        Low,
         /// Disables data aggregation to minimize data loss. It is for operations
         /// that contains significant monetary value or audit trail. This feature
         /// only applies to the client libraries.
-        pub const HIGH: Importance = Importance::new(1);
+        High,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Importance::value] or
+        /// [Importance::name].
+        UnknownValue(importance::UnknownValue),
+    }
 
-        /// Creates a new Importance instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod importance {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Importance {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Low => std::option::Option::Some(0),
+                Self::High => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("LOW"),
-                1 => std::borrow::Cow::Borrowed("HIGH"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Low => std::option::Option::Some("LOW"),
+                Self::High => std::option::Option::Some("HIGH"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "LOW" => std::option::Option::Some(Self::LOW),
-                "HIGH" => std::option::Option::Some(Self::HIGH),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Importance {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Importance {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Importance {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Importance {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Low,
+                1 => Self::High,
+                _ => Self::UnknownValue(importance::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Importance {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "LOW" => Self::Low,
+                "HIGH" => Self::High,
+                _ => Self::UnknownValue(importance::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Importance {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Low => serializer.serialize_i32(0),
+                Self::High => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Importance {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Importance>::new(
+                ".google.api.servicecontrol.v1.Operation.Importance",
+            ))
         }
     }
 }
@@ -2089,21 +2275,32 @@ pub mod quota_operation {
     use super::*;
 
     /// Supported quota modes.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct QuotaMode(i32);
-
-    impl QuotaMode {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum QuotaMode {
         /// Guard against implicit default. Must not be used.
-        pub const UNSPECIFIED: QuotaMode = QuotaMode::new(0);
-
+        Unspecified,
         /// For AllocateQuota request, allocates quota for the amount specified in
         /// the service configuration or specified using the quota metrics. If the
         /// amount is higher than the available quota, allocation error will be
         /// returned and no quota will be allocated.
         /// If multiple quotas are part of the request, and one fails, none of the
         /// quotas are allocated or released.
-        pub const NORMAL: QuotaMode = QuotaMode::new(1);
-
+        Normal,
         /// The operation allocates quota for the amount specified in the service
         /// configuration or specified using the quota metrics. If the amount is
         /// higher than the available quota, request does not fail but all available
@@ -2112,73 +2309,143 @@ pub mod quota_operation {
         /// even if one does not have enough quota. For allocation, it will find the
         /// minimum available amount across all groups and deduct that amount from
         /// all the affected groups.
-        pub const BEST_EFFORT: QuotaMode = QuotaMode::new(2);
-
+        BestEffort,
         /// For AllocateQuota request, only checks if there is enough quota
         /// available and does not change the available quota. No lock is placed on
         /// the available quota either.
-        pub const CHECK_ONLY: QuotaMode = QuotaMode::new(3);
-
+        CheckOnly,
         /// Unimplemented. When used in AllocateQuotaRequest, this returns the
         /// effective quota limit(s) in the response, and no quota check will be
         /// performed. Not supported for other requests, and even for
         /// AllocateQuotaRequest, this is currently supported only for allowlisted
         /// services.
-        pub const QUERY_ONLY: QuotaMode = QuotaMode::new(4);
-
+        QueryOnly,
         /// The operation allocates quota for the amount specified in the service
         /// configuration or specified using the quota metrics. If the requested
         /// amount is higher than the available quota, request does not fail and
         /// remaining quota would become negative (going over the limit).
         /// Not supported for Rate Quota.
-        pub const ADJUST_ONLY: QuotaMode = QuotaMode::new(5);
+        AdjustOnly,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [QuotaMode::value] or
+        /// [QuotaMode::name].
+        UnknownValue(quota_mode::UnknownValue),
+    }
 
-        /// Creates a new QuotaMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod quota_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl QuotaMode {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Normal => std::option::Option::Some(1),
+                Self::BestEffort => std::option::Option::Some(2),
+                Self::CheckOnly => std::option::Option::Some(3),
+                Self::QueryOnly => std::option::Option::Some(4),
+                Self::AdjustOnly => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NORMAL"),
-                2 => std::borrow::Cow::Borrowed("BEST_EFFORT"),
-                3 => std::borrow::Cow::Borrowed("CHECK_ONLY"),
-                4 => std::borrow::Cow::Borrowed("QUERY_ONLY"),
-                5 => std::borrow::Cow::Borrowed("ADJUST_ONLY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("UNSPECIFIED"),
+                Self::Normal => std::option::Option::Some("NORMAL"),
+                Self::BestEffort => std::option::Option::Some("BEST_EFFORT"),
+                Self::CheckOnly => std::option::Option::Some("CHECK_ONLY"),
+                Self::QueryOnly => std::option::Option::Some("QUERY_ONLY"),
+                Self::AdjustOnly => std::option::Option::Some("ADJUST_ONLY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "UNSPECIFIED" => std::option::Option::Some(Self::UNSPECIFIED),
-                "NORMAL" => std::option::Option::Some(Self::NORMAL),
-                "BEST_EFFORT" => std::option::Option::Some(Self::BEST_EFFORT),
-                "CHECK_ONLY" => std::option::Option::Some(Self::CHECK_ONLY),
-                "QUERY_ONLY" => std::option::Option::Some(Self::QUERY_ONLY),
-                "ADJUST_ONLY" => std::option::Option::Some(Self::ADJUST_ONLY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for QuotaMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for QuotaMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for QuotaMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for QuotaMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Normal,
+                2 => Self::BestEffort,
+                3 => Self::CheckOnly,
+                4 => Self::QueryOnly,
+                5 => Self::AdjustOnly,
+                _ => Self::UnknownValue(quota_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for QuotaMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "UNSPECIFIED" => Self::Unspecified,
+                "NORMAL" => Self::Normal,
+                "BEST_EFFORT" => Self::BestEffort,
+                "CHECK_ONLY" => Self::CheckOnly,
+                "QUERY_ONLY" => Self::QueryOnly,
+                "ADJUST_ONLY" => Self::AdjustOnly,
+                _ => Self::UnknownValue(quota_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for QuotaMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Normal => serializer.serialize_i32(1),
+                Self::BestEffort => serializer.serialize_i32(2),
+                Self::CheckOnly => serializer.serialize_i32(3),
+                Self::QueryOnly => serializer.serialize_i32(4),
+                Self::AdjustOnly => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for QuotaMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<QuotaMode>::new(
+                ".google.api.servicecontrol.v1.QuotaOperation.QuotaMode",
+            ))
         }
     }
 }
@@ -2351,76 +2618,157 @@ pub mod quota_error {
     /// have to call the Check method, without quota_properties field, to perform
     /// these validations before calling the quota controller methods. These
     /// methods check only for project deletion to be wipe out compliant.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(i32);
-
-    impl Code {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Code {
         /// This is never used.
-        pub const UNSPECIFIED: Code = Code::new(0);
-
+        Unspecified,
         /// Quota allocation failed.
         /// Same as [google.rpc.Code.RESOURCE_EXHAUSTED][google.rpc.Code.RESOURCE_EXHAUSTED].
-        pub const RESOURCE_EXHAUSTED: Code = Code::new(8);
-
+        ResourceExhausted,
         /// Consumer cannot access the service because the service requires active
         /// billing.
-        pub const BILLING_NOT_ACTIVE: Code = Code::new(107);
-
+        BillingNotActive,
         /// Consumer's project has been marked as deleted (soft deletion).
-        pub const PROJECT_DELETED: Code = Code::new(108);
-
+        ProjectDeleted,
         /// Specified API key is invalid.
-        pub const API_KEY_INVALID: Code = Code::new(105);
-
+        ApiKeyInvalid,
         /// Specified API Key has expired.
-        pub const API_KEY_EXPIRED: Code = Code::new(112);
+        ApiKeyExpired,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Code::value] or
+        /// [Code::name].
+        UnknownValue(code::UnknownValue),
+    }
 
-        /// Creates a new Code instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Code {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ResourceExhausted => std::option::Option::Some(8),
+                Self::BillingNotActive => std::option::Option::Some(107),
+                Self::ProjectDeleted => std::option::Option::Some(108),
+                Self::ApiKeyInvalid => std::option::Option::Some(105),
+                Self::ApiKeyExpired => std::option::Option::Some(112),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("UNSPECIFIED"),
-                8 => std::borrow::Cow::Borrowed("RESOURCE_EXHAUSTED"),
-                105 => std::borrow::Cow::Borrowed("API_KEY_INVALID"),
-                107 => std::borrow::Cow::Borrowed("BILLING_NOT_ACTIVE"),
-                108 => std::borrow::Cow::Borrowed("PROJECT_DELETED"),
-                112 => std::borrow::Cow::Borrowed("API_KEY_EXPIRED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("UNSPECIFIED"),
+                Self::ResourceExhausted => std::option::Option::Some("RESOURCE_EXHAUSTED"),
+                Self::BillingNotActive => std::option::Option::Some("BILLING_NOT_ACTIVE"),
+                Self::ProjectDeleted => std::option::Option::Some("PROJECT_DELETED"),
+                Self::ApiKeyInvalid => std::option::Option::Some("API_KEY_INVALID"),
+                Self::ApiKeyExpired => std::option::Option::Some("API_KEY_EXPIRED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "UNSPECIFIED" => std::option::Option::Some(Self::UNSPECIFIED),
-                "RESOURCE_EXHAUSTED" => std::option::Option::Some(Self::RESOURCE_EXHAUSTED),
-                "BILLING_NOT_ACTIVE" => std::option::Option::Some(Self::BILLING_NOT_ACTIVE),
-                "PROJECT_DELETED" => std::option::Option::Some(Self::PROJECT_DELETED),
-                "API_KEY_INVALID" => std::option::Option::Some(Self::API_KEY_INVALID),
-                "API_KEY_EXPIRED" => std::option::Option::Some(Self::API_KEY_EXPIRED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Code {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                8 => Self::ResourceExhausted,
+                105 => Self::ApiKeyInvalid,
+                107 => Self::BillingNotActive,
+                108 => Self::ProjectDeleted,
+                112 => Self::ApiKeyExpired,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Code {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "UNSPECIFIED" => Self::Unspecified,
+                "RESOURCE_EXHAUSTED" => Self::ResourceExhausted,
+                "BILLING_NOT_ACTIVE" => Self::BillingNotActive,
+                "PROJECT_DELETED" => Self::ProjectDeleted,
+                "API_KEY_INVALID" => Self::ApiKeyInvalid,
+                "API_KEY_EXPIRED" => Self::ApiKeyExpired,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ResourceExhausted => serializer.serialize_i32(8),
+                Self::BillingNotActive => serializer.serialize_i32(107),
+                Self::ProjectDeleted => serializer.serialize_i32(108),
+                Self::ApiKeyInvalid => serializer.serialize_i32(105),
+                Self::ApiKeyExpired => serializer.serialize_i32(112),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                ".google.api.servicecontrol.v1.QuotaError.Code",
+            ))
         }
     }
 }
@@ -2732,73 +3080,153 @@ pub mod check_response {
 
         /// The type of the consumer as defined in
         /// [Google Resource Manager](https://cloud.google.com/resource-manager/).
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ConsumerType(i32);
-
-        impl ConsumerType {
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ConsumerType {
             /// This is never used.
-            pub const CONSUMER_TYPE_UNSPECIFIED: ConsumerType = ConsumerType::new(0);
-
+            Unspecified,
             /// The consumer is a Google Cloud Project.
-            pub const PROJECT: ConsumerType = ConsumerType::new(1);
-
+            Project,
             /// The consumer is a Google Cloud Folder.
-            pub const FOLDER: ConsumerType = ConsumerType::new(2);
-
+            Folder,
             /// The consumer is a Google Cloud Organization.
-            pub const ORGANIZATION: ConsumerType = ConsumerType::new(3);
-
+            Organization,
             /// Service-specific resource container which is defined by the service
             /// producer to offer their users the ability to manage service control
             /// functionalities at a finer level of granularity than the PROJECT.
-            pub const SERVICE_SPECIFIC: ConsumerType = ConsumerType::new(4);
+            ServiceSpecific,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ConsumerType::value] or
+            /// [ConsumerType::name].
+            UnknownValue(consumer_type::UnknownValue),
+        }
 
-            /// Creates a new ConsumerType instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod consumer_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl ConsumerType {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Project => std::option::Option::Some(1),
+                    Self::Folder => std::option::Option::Some(2),
+                    Self::Organization => std::option::Option::Some(3),
+                    Self::ServiceSpecific => std::option::Option::Some(4),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("CONSUMER_TYPE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("PROJECT"),
-                    2 => std::borrow::Cow::Borrowed("FOLDER"),
-                    3 => std::borrow::Cow::Borrowed("ORGANIZATION"),
-                    4 => std::borrow::Cow::Borrowed("SERVICE_SPECIFIC"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("CONSUMER_TYPE_UNSPECIFIED"),
+                    Self::Project => std::option::Option::Some("PROJECT"),
+                    Self::Folder => std::option::Option::Some("FOLDER"),
+                    Self::Organization => std::option::Option::Some("ORGANIZATION"),
+                    Self::ServiceSpecific => std::option::Option::Some("SERVICE_SPECIFIC"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "CONSUMER_TYPE_UNSPECIFIED" => {
-                        std::option::Option::Some(Self::CONSUMER_TYPE_UNSPECIFIED)
-                    }
-                    "PROJECT" => std::option::Option::Some(Self::PROJECT),
-                    "FOLDER" => std::option::Option::Some(Self::FOLDER),
-                    "ORGANIZATION" => std::option::Option::Some(Self::ORGANIZATION),
-                    "SERVICE_SPECIFIC" => std::option::Option::Some(Self::SERVICE_SPECIFIC),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for ConsumerType {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for ConsumerType {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ConsumerType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ConsumerType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Project,
+                    2 => Self::Folder,
+                    3 => Self::Organization,
+                    4 => Self::ServiceSpecific,
+                    _ => Self::UnknownValue(consumer_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ConsumerType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CONSUMER_TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "PROJECT" => Self::Project,
+                    "FOLDER" => Self::Folder,
+                    "ORGANIZATION" => Self::Organization,
+                    "SERVICE_SPECIFIC" => Self::ServiceSpecific,
+                    _ => Self::UnknownValue(consumer_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ConsumerType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Project => serializer.serialize_i32(1),
+                    Self::Folder => serializer.serialize_i32(2),
+                    Self::Organization => serializer.serialize_i32(3),
+                    Self::ServiceSpecific => serializer.serialize_i32(4),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ConsumerType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConsumerType>::new(
+                    ".google.api.servicecontrol.v1.CheckResponse.ConsumerInfo.ConsumerType",
+                ))
             }
         }
     }

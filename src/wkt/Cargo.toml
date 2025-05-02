@@ -46,7 +46,7 @@ time       = { version = "0.3", features = ["formatting", "parsing"] }
 num-traits = "0.2"
 
 [dev-dependencies]
-anyhow.workspace = true
-bytes            = { version = "1", features = ["serde"] }
-test-case        = "3"
-wkt              = { path = ".", package = "google-cloud-wkt", features = ["chrono", "time"] }
+anyhow.workspace    = true
+bytes               = { version = "1", features = ["serde"] }
+test-case.workspace = true
+wkt                 = { path = ".", package = "google-cloud-wkt", features = ["chrono", "time"] }

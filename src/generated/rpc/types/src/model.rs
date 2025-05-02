@@ -769,7 +769,7 @@ pub struct ResourceInfo {
     /// error is
     /// [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED].
     ///
-    /// [google.rpc.Code.PERMISSION_DENIED]: crate::model::code::PERMISSION_DENIED
+    /// [google.rpc.Code.PERMISSION_DENIED]: crate::model::Code::PermissionDenied
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub resource_name: std::string::String,
 
@@ -1217,20 +1217,31 @@ impl wkt::message::Message for Status {
 /// the most specific error code that applies.  For example, prefer
 /// `OUT_OF_RANGE` over `FAILED_PRECONDITION` if both codes apply.
 /// Similarly prefer `NOT_FOUND` or `ALREADY_EXISTS` over `FAILED_PRECONDITION`.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Code(i32);
-
-impl Code {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Code {
     /// Not an error; returned on success.
     ///
     /// HTTP Mapping: 200 OK
-    pub const OK: Code = Code::new(0);
-
+    Ok,
     /// The operation was cancelled, typically by the caller.
     ///
     /// HTTP Mapping: 499 Client Closed Request
-    pub const CANCELLED: Code = Code::new(1);
-
+    Cancelled,
     /// Unknown error.  For example, this error may be returned when
     /// a `Status` value received from another address space belongs to
     /// an error space that is not known in this address space.  Also
@@ -1238,16 +1249,14 @@ impl Code {
     /// may be converted to this error.
     ///
     /// HTTP Mapping: 500 Internal Server Error
-    pub const UNKNOWN: Code = Code::new(2);
-
+    Unknown,
     /// The client specified an invalid argument.  Note that this differs
     /// from `FAILED_PRECONDITION`.  `INVALID_ARGUMENT` indicates arguments
     /// that are problematic regardless of the state of the system
     /// (e.g., a malformed file name).
     ///
     /// HTTP Mapping: 400 Bad Request
-    pub const INVALID_ARGUMENT: Code = Code::new(3);
-
+    InvalidArgument,
     /// The deadline expired before the operation could complete. For operations
     /// that change the state of the system, this error may be returned
     /// even if the operation has completed successfully.  For example, a
@@ -1255,8 +1264,7 @@ impl Code {
     /// enough for the deadline to expire.
     ///
     /// HTTP Mapping: 504 Gateway Timeout
-    pub const DEADLINE_EXCEEDED: Code = Code::new(4);
-
+    DeadlineExceeded,
     /// Some requested entity (e.g., file or directory) was not found.
     ///
     /// Note to server developers: if a request is denied for an entire class
@@ -1266,14 +1274,12 @@ impl Code {
     /// must be used.
     ///
     /// HTTP Mapping: 404 Not Found
-    pub const NOT_FOUND: Code = Code::new(5);
-
+    NotFound,
     /// The entity that a client attempted to create (e.g., file or directory)
     /// already exists.
     ///
     /// HTTP Mapping: 409 Conflict
-    pub const ALREADY_EXISTS: Code = Code::new(6);
-
+    AlreadyExists,
     /// The caller does not have permission to execute the specified
     /// operation. `PERMISSION_DENIED` must not be used for rejections
     /// caused by exhausting some resource (use `RESOURCE_EXHAUSTED`
@@ -1284,20 +1290,17 @@ impl Code {
     /// other pre-conditions.
     ///
     /// HTTP Mapping: 403 Forbidden
-    pub const PERMISSION_DENIED: Code = Code::new(7);
-
+    PermissionDenied,
     /// The request does not have valid authentication credentials for the
     /// operation.
     ///
     /// HTTP Mapping: 401 Unauthorized
-    pub const UNAUTHENTICATED: Code = Code::new(16);
-
+    Unauthenticated,
     /// Some resource has been exhausted, perhaps a per-user quota, or
     /// perhaps the entire file system is out of space.
     ///
     /// HTTP Mapping: 429 Too Many Requests
-    pub const RESOURCE_EXHAUSTED: Code = Code::new(8);
-
+    ResourceExhausted,
     /// The operation was rejected because the system is not in a state
     /// required for the operation's execution.  For example, the directory
     /// to be deleted is non-empty, an rmdir operation is applied to
@@ -1316,8 +1319,7 @@ impl Code {
     /// the files are deleted from the directory.
     ///
     /// HTTP Mapping: 400 Bad Request
-    pub const FAILED_PRECONDITION: Code = Code::new(9);
-
+    FailedPrecondition,
     /// The operation was aborted, typically due to a concurrency issue such as
     /// a sequencer check failure or transaction abort.
     ///
@@ -1325,8 +1327,7 @@ impl Code {
     /// `ABORTED`, and `UNAVAILABLE`.
     ///
     /// HTTP Mapping: 409 Conflict
-    pub const ABORTED: Code = Code::new(10);
-
+    Aborted,
     /// The operation was attempted past the valid range.  E.g., seeking or
     /// reading past end-of-file.
     ///
@@ -1344,21 +1345,18 @@ impl Code {
     /// they are done.
     ///
     /// HTTP Mapping: 400 Bad Request
-    pub const OUT_OF_RANGE: Code = Code::new(11);
-
+    OutOfRange,
     /// The operation is not implemented or is not supported/enabled in this
     /// service.
     ///
     /// HTTP Mapping: 501 Not Implemented
-    pub const UNIMPLEMENTED: Code = Code::new(12);
-
+    Unimplemented,
     /// Internal errors.  This means that some invariants expected by the
     /// underlying system have been broken.  This error code is reserved
     /// for serious errors.
     ///
     /// HTTP Mapping: 500 Internal Server Error
-    pub const INTERNAL: Code = Code::new(13);
-
+    Internal,
     /// The service is currently unavailable.  This is most likely a
     /// transient condition, which can be corrected by retrying with
     /// a backoff. Note that it is not always safe to retry
@@ -1368,80 +1366,183 @@ impl Code {
     /// `ABORTED`, and `UNAVAILABLE`.
     ///
     /// HTTP Mapping: 503 Service Unavailable
-    pub const UNAVAILABLE: Code = Code::new(14);
-
+    Unavailable,
     /// Unrecoverable data loss or corruption.
     ///
     /// HTTP Mapping: 500 Internal Server Error
-    pub const DATA_LOSS: Code = Code::new(15);
+    DataLoss,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Code::value] or
+    /// [Code::name].
+    UnknownValue(code::UnknownValue),
+}
 
-    /// Creates a new Code instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod code {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl Code {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Ok => std::option::Option::Some(0),
+            Self::Cancelled => std::option::Option::Some(1),
+            Self::Unknown => std::option::Option::Some(2),
+            Self::InvalidArgument => std::option::Option::Some(3),
+            Self::DeadlineExceeded => std::option::Option::Some(4),
+            Self::NotFound => std::option::Option::Some(5),
+            Self::AlreadyExists => std::option::Option::Some(6),
+            Self::PermissionDenied => std::option::Option::Some(7),
+            Self::Unauthenticated => std::option::Option::Some(16),
+            Self::ResourceExhausted => std::option::Option::Some(8),
+            Self::FailedPrecondition => std::option::Option::Some(9),
+            Self::Aborted => std::option::Option::Some(10),
+            Self::OutOfRange => std::option::Option::Some(11),
+            Self::Unimplemented => std::option::Option::Some(12),
+            Self::Internal => std::option::Option::Some(13),
+            Self::Unavailable => std::option::Option::Some(14),
+            Self::DataLoss => std::option::Option::Some(15),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("OK"),
-            1 => std::borrow::Cow::Borrowed("CANCELLED"),
-            2 => std::borrow::Cow::Borrowed("UNKNOWN"),
-            3 => std::borrow::Cow::Borrowed("INVALID_ARGUMENT"),
-            4 => std::borrow::Cow::Borrowed("DEADLINE_EXCEEDED"),
-            5 => std::borrow::Cow::Borrowed("NOT_FOUND"),
-            6 => std::borrow::Cow::Borrowed("ALREADY_EXISTS"),
-            7 => std::borrow::Cow::Borrowed("PERMISSION_DENIED"),
-            8 => std::borrow::Cow::Borrowed("RESOURCE_EXHAUSTED"),
-            9 => std::borrow::Cow::Borrowed("FAILED_PRECONDITION"),
-            10 => std::borrow::Cow::Borrowed("ABORTED"),
-            11 => std::borrow::Cow::Borrowed("OUT_OF_RANGE"),
-            12 => std::borrow::Cow::Borrowed("UNIMPLEMENTED"),
-            13 => std::borrow::Cow::Borrowed("INTERNAL"),
-            14 => std::borrow::Cow::Borrowed("UNAVAILABLE"),
-            15 => std::borrow::Cow::Borrowed("DATA_LOSS"),
-            16 => std::borrow::Cow::Borrowed("UNAUTHENTICATED"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Ok => std::option::Option::Some("OK"),
+            Self::Cancelled => std::option::Option::Some("CANCELLED"),
+            Self::Unknown => std::option::Option::Some("UNKNOWN"),
+            Self::InvalidArgument => std::option::Option::Some("INVALID_ARGUMENT"),
+            Self::DeadlineExceeded => std::option::Option::Some("DEADLINE_EXCEEDED"),
+            Self::NotFound => std::option::Option::Some("NOT_FOUND"),
+            Self::AlreadyExists => std::option::Option::Some("ALREADY_EXISTS"),
+            Self::PermissionDenied => std::option::Option::Some("PERMISSION_DENIED"),
+            Self::Unauthenticated => std::option::Option::Some("UNAUTHENTICATED"),
+            Self::ResourceExhausted => std::option::Option::Some("RESOURCE_EXHAUSTED"),
+            Self::FailedPrecondition => std::option::Option::Some("FAILED_PRECONDITION"),
+            Self::Aborted => std::option::Option::Some("ABORTED"),
+            Self::OutOfRange => std::option::Option::Some("OUT_OF_RANGE"),
+            Self::Unimplemented => std::option::Option::Some("UNIMPLEMENTED"),
+            Self::Internal => std::option::Option::Some("INTERNAL"),
+            Self::Unavailable => std::option::Option::Some("UNAVAILABLE"),
+            Self::DataLoss => std::option::Option::Some("DATA_LOSS"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "OK" => std::option::Option::Some(Self::OK),
-            "CANCELLED" => std::option::Option::Some(Self::CANCELLED),
-            "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
-            "INVALID_ARGUMENT" => std::option::Option::Some(Self::INVALID_ARGUMENT),
-            "DEADLINE_EXCEEDED" => std::option::Option::Some(Self::DEADLINE_EXCEEDED),
-            "NOT_FOUND" => std::option::Option::Some(Self::NOT_FOUND),
-            "ALREADY_EXISTS" => std::option::Option::Some(Self::ALREADY_EXISTS),
-            "PERMISSION_DENIED" => std::option::Option::Some(Self::PERMISSION_DENIED),
-            "UNAUTHENTICATED" => std::option::Option::Some(Self::UNAUTHENTICATED),
-            "RESOURCE_EXHAUSTED" => std::option::Option::Some(Self::RESOURCE_EXHAUSTED),
-            "FAILED_PRECONDITION" => std::option::Option::Some(Self::FAILED_PRECONDITION),
-            "ABORTED" => std::option::Option::Some(Self::ABORTED),
-            "OUT_OF_RANGE" => std::option::Option::Some(Self::OUT_OF_RANGE),
-            "UNIMPLEMENTED" => std::option::Option::Some(Self::UNIMPLEMENTED),
-            "INTERNAL" => std::option::Option::Some(Self::INTERNAL),
-            "UNAVAILABLE" => std::option::Option::Some(Self::UNAVAILABLE),
-            "DATA_LOSS" => std::option::Option::Some(Self::DATA_LOSS),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for Code {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for Code {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Code {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Code {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Ok,
+            1 => Self::Cancelled,
+            2 => Self::Unknown,
+            3 => Self::InvalidArgument,
+            4 => Self::DeadlineExceeded,
+            5 => Self::NotFound,
+            6 => Self::AlreadyExists,
+            7 => Self::PermissionDenied,
+            8 => Self::ResourceExhausted,
+            9 => Self::FailedPrecondition,
+            10 => Self::Aborted,
+            11 => Self::OutOfRange,
+            12 => Self::Unimplemented,
+            13 => Self::Internal,
+            14 => Self::Unavailable,
+            15 => Self::DataLoss,
+            16 => Self::Unauthenticated,
+            _ => Self::UnknownValue(code::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Code {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "OK" => Self::Ok,
+            "CANCELLED" => Self::Cancelled,
+            "UNKNOWN" => Self::Unknown,
+            "INVALID_ARGUMENT" => Self::InvalidArgument,
+            "DEADLINE_EXCEEDED" => Self::DeadlineExceeded,
+            "NOT_FOUND" => Self::NotFound,
+            "ALREADY_EXISTS" => Self::AlreadyExists,
+            "PERMISSION_DENIED" => Self::PermissionDenied,
+            "UNAUTHENTICATED" => Self::Unauthenticated,
+            "RESOURCE_EXHAUSTED" => Self::ResourceExhausted,
+            "FAILED_PRECONDITION" => Self::FailedPrecondition,
+            "ABORTED" => Self::Aborted,
+            "OUT_OF_RANGE" => Self::OutOfRange,
+            "UNIMPLEMENTED" => Self::Unimplemented,
+            "INTERNAL" => Self::Internal,
+            "UNAVAILABLE" => Self::Unavailable,
+            "DATA_LOSS" => Self::DataLoss,
+            _ => Self::UnknownValue(code::UnknownValue(wkt::internal::UnknownEnumValue::String(
+                value.to_string(),
+            ))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Code {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Ok => serializer.serialize_i32(0),
+            Self::Cancelled => serializer.serialize_i32(1),
+            Self::Unknown => serializer.serialize_i32(2),
+            Self::InvalidArgument => serializer.serialize_i32(3),
+            Self::DeadlineExceeded => serializer.serialize_i32(4),
+            Self::NotFound => serializer.serialize_i32(5),
+            Self::AlreadyExists => serializer.serialize_i32(6),
+            Self::PermissionDenied => serializer.serialize_i32(7),
+            Self::Unauthenticated => serializer.serialize_i32(16),
+            Self::ResourceExhausted => serializer.serialize_i32(8),
+            Self::FailedPrecondition => serializer.serialize_i32(9),
+            Self::Aborted => serializer.serialize_i32(10),
+            Self::OutOfRange => serializer.serialize_i32(11),
+            Self::Unimplemented => serializer.serialize_i32(12),
+            Self::Internal => serializer.serialize_i32(13),
+            Self::Unavailable => serializer.serialize_i32(14),
+            Self::DataLoss => serializer.serialize_i32(15),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Code {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(".google.rpc.Code"))
     }
 }

@@ -60,7 +60,7 @@ impl super::stub::GatewayControl for GatewayControl {
         let builder = builder.query(&[("forceUseAgent", &req.force_use_agent)]);
         let builder = builder.query(&[("version", &req.version)]);
         let builder = builder.query(&[("kubernetesNamespace", &req.kubernetes_namespace)]);
-        let builder = builder.query(&[("operatingSystem", &req.operating_system.value())]);
+        let builder = builder.query(&[("operatingSystem", &req.operating_system)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

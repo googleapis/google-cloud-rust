@@ -463,64 +463,138 @@ pub mod disable_service_request {
 
     /// Enum to determine if service usage should be checked when disabling a
     /// service.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CheckIfServiceHasUsage(i32);
-
-    impl CheckIfServiceHasUsage {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CheckIfServiceHasUsage {
         /// When unset, the default behavior is used, which is SKIP.
-        pub const CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED: CheckIfServiceHasUsage =
-            CheckIfServiceHasUsage::new(0);
-
+        Unspecified,
         /// If set, skip checking service usage when disabling a service.
-        pub const SKIP: CheckIfServiceHasUsage = CheckIfServiceHasUsage::new(1);
-
+        Skip,
         /// If set, service usage is checked when disabling the service. If a
         /// service, or its dependents, has usage in the last 30 days, the request
         /// returns a FAILED_PRECONDITION error.
-        pub const CHECK: CheckIfServiceHasUsage = CheckIfServiceHasUsage::new(2);
+        Check,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CheckIfServiceHasUsage::value] or
+        /// [CheckIfServiceHasUsage::name].
+        UnknownValue(check_if_service_has_usage::UnknownValue),
+    }
 
-        /// Creates a new CheckIfServiceHasUsage instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod check_if_service_has_usage {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl CheckIfServiceHasUsage {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Skip => std::option::Option::Some(1),
+                Self::Check => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SKIP"),
-                2 => std::borrow::Cow::Borrowed("CHECK"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED")
                 }
-                "SKIP" => std::option::Option::Some(Self::SKIP),
-                "CHECK" => std::option::Option::Some(Self::CHECK),
-                _ => std::option::Option::None,
+                Self::Skip => std::option::Option::Some("SKIP"),
+                Self::Check => std::option::Option::Some("CHECK"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for CheckIfServiceHasUsage {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for CheckIfServiceHasUsage {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CheckIfServiceHasUsage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CheckIfServiceHasUsage {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Skip,
+                2 => Self::Check,
+                _ => Self::UnknownValue(check_if_service_has_usage::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CheckIfServiceHasUsage {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED" => Self::Unspecified,
+                "SKIP" => Self::Skip,
+                "CHECK" => Self::Check,
+                _ => Self::UnknownValue(check_if_service_has_usage::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CheckIfServiceHasUsage {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Skip => serializer.serialize_i32(1),
+                Self::Check => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CheckIfServiceHasUsage {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CheckIfServiceHasUsage>::new(
+                ".google.api.serviceusage.v1.DisableServiceRequest.CheckIfServiceHasUsage",
+            ))
         }
     }
 }
@@ -991,61 +1065,136 @@ impl wkt::message::Message for BatchGetServicesResponse {
 }
 
 /// Whether or not a service has been enabled for use by a consumer.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct State(i32);
-
-impl State {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum State {
     /// The default value, which indicates that the enabled state of the service
     /// is unspecified or not meaningful. Currently, all consumers other than
     /// projects (such as folders and organizations) are always in this state.
-    pub const STATE_UNSPECIFIED: State = State::new(0);
-
+    Unspecified,
     /// The service cannot be used by this consumer. It has either been explicitly
     /// disabled, or has never been enabled.
-    pub const DISABLED: State = State::new(1);
-
+    Disabled,
     /// The service has been explicitly enabled for use by this consumer.
-    pub const ENABLED: State = State::new(2);
+    Enabled,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [State::value] or
+    /// [State::name].
+    UnknownValue(state::UnknownValue),
+}
 
-    /// Creates a new State instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl State {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Disabled => std::option::Option::Some(1),
+            Self::Enabled => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("DISABLED"),
-            2 => std::borrow::Cow::Borrowed("ENABLED"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+            Self::Disabled => std::option::Option::Some("DISABLED"),
+            Self::Enabled => std::option::Option::Some("ENABLED"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-            "DISABLED" => std::option::Option::Some(Self::DISABLED),
-            "ENABLED" => std::option::Option::Some(Self::ENABLED),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for State {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for State {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for State {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for State {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Disabled,
+            2 => Self::Enabled,
+            _ => Self::UnknownValue(state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for State {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "STATE_UNSPECIFIED" => Self::Unspecified,
+            "DISABLED" => Self::Disabled,
+            "ENABLED" => Self::Enabled,
+            _ => Self::UnknownValue(state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for State {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Disabled => serializer.serialize_i32(1),
+            Self::Enabled => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for State {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+            ".google.api.serviceusage.v1.State",
+        ))
     }
 }

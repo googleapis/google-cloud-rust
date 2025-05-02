@@ -77,23 +77,30 @@ impl crate::message::Message for ListValue {
 /// useful to make it behave as if it was.
 impl NullValue {
     /// Gets the value.
-    pub fn value(&self) -> i32 {
-        0
+    pub fn value(&self) -> Option<i32> {
+        Some(0)
     }
 
     /// Gets the value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        "NULL_VALUE".into()
-    }
-
-    /// Creates a value from the value name
-    pub fn from_str_name(_name: &str) -> Option<Self> {
-        Some(Self)
+    pub fn name(&self) -> Option<&str> {
+        Some("NULL_VALUE")
     }
 }
 
 impl From<i32> for NullValue {
     fn from(_value: i32) -> Self {
+        Self
+    }
+}
+
+impl From<&str> for NullValue {
+    fn from(_value: &str) -> Self {
+        Self
+    }
+}
+
+impl From<String> for NullValue {
+    fn from(_value: String) -> Self {
         Self
     }
 }
@@ -154,9 +161,10 @@ mod any_tests {
     #[test]
     fn test_null_value_interface() {
         let input = NullValue;
-        assert_eq!(input.value(), NullValue.value());
-        assert_eq!(input.as_str_name().as_ref(), "NULL_VALUE");
-        assert_eq!(NullValue::from_str_name("NULL_VALUE"), Some(NullValue));
+        assert_eq!(input.value(), Some(0));
+        assert_eq!(input.name(), Some("NULL_VALUE"));
+        assert_eq!(NullValue::from("NULL_VALUE"), NullValue);
+        assert_eq!(NullValue::from("NULL_VALUE".to_string()), NullValue);
         assert_eq!(NullValue::from(0), NullValue);
     }
 

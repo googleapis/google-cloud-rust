@@ -217,6 +217,7 @@ pub mod fleet_routing {
         }
 
         /// Sets the value of [populate_travel_step_polylines][crate::model::OptimizeToursRequest::populate_travel_step_polylines].
+        #[deprecated]
         pub fn set_populate_travel_step_polylines<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.populate_travel_step_polylines = v.into();
             self

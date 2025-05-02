@@ -92,59 +92,134 @@ pub mod metadata_exchange_request {
     use super::*;
 
     /// AuthType contains all supported authentication types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AuthType(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AuthType {
+        /// Authentication type is unspecified and DB_NATIVE is used by default
+        Unspecified,
+        /// Database native authentication (user/password)
+        DbNative,
+        /// Automatic IAM authentication
+        AutoIam,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AuthType::value] or
+        /// [AuthType::name].
+        UnknownValue(auth_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod auth_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl AuthType {
-        /// Authentication type is unspecified and DB_NATIVE is used by default
-        pub const AUTH_TYPE_UNSPECIFIED: AuthType = AuthType::new(0);
-
-        /// Database native authentication (user/password)
-        pub const DB_NATIVE: AuthType = AuthType::new(1);
-
-        /// Automatic IAM authentication
-        pub const AUTO_IAM: AuthType = AuthType::new(2);
-
-        /// Creates a new AuthType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::DbNative => std::option::Option::Some(1),
+                Self::AutoIam => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("AUTH_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DB_NATIVE"),
-                2 => std::borrow::Cow::Borrowed("AUTO_IAM"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("AUTH_TYPE_UNSPECIFIED"),
+                Self::DbNative => std::option::Option::Some("DB_NATIVE"),
+                Self::AutoIam => std::option::Option::Some("AUTO_IAM"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "AUTH_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::AUTH_TYPE_UNSPECIFIED),
-                "DB_NATIVE" => std::option::Option::Some(Self::DB_NATIVE),
-                "AUTO_IAM" => std::option::Option::Some(Self::AUTO_IAM),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for AuthType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for AuthType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AuthType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AuthType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::DbNative,
+                2 => Self::AutoIam,
+                _ => Self::UnknownValue(auth_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AuthType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AUTH_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "DB_NATIVE" => Self::DbNative,
+                "AUTO_IAM" => Self::AutoIam,
+                _ => Self::UnknownValue(auth_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AuthType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::DbNative => serializer.serialize_i32(1),
+                Self::AutoIam => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AuthType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AuthType>::new(
+                ".google.cloud.alloydb.connectors.v1.MetadataExchangeRequest.AuthType",
+            ))
         }
     }
 }
@@ -203,61 +278,134 @@ pub mod metadata_exchange_response {
     use super::*;
 
     /// Response code.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ResponseCode(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ResponseCode {
+        /// Unknown response code
+        Unspecified,
+        /// Success
+        Ok,
+        /// Failure
+        Error,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ResponseCode::value] or
+        /// [ResponseCode::name].
+        UnknownValue(response_code::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod response_code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl ResponseCode {
-        /// Unknown response code
-        pub const RESPONSE_CODE_UNSPECIFIED: ResponseCode = ResponseCode::new(0);
-
-        /// Success
-        pub const OK: ResponseCode = ResponseCode::new(1);
-
-        /// Failure
-        pub const ERROR: ResponseCode = ResponseCode::new(2);
-
-        /// Creates a new ResponseCode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Ok => std::option::Option::Some(1),
+                Self::Error => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("RESPONSE_CODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("OK"),
-                2 => std::borrow::Cow::Borrowed("ERROR"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RESPONSE_CODE_UNSPECIFIED"),
+                Self::Ok => std::option::Option::Some("OK"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "RESPONSE_CODE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::RESPONSE_CODE_UNSPECIFIED)
-                }
-                "OK" => std::option::Option::Some(Self::OK),
-                "ERROR" => std::option::Option::Some(Self::ERROR),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ResponseCode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ResponseCode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ResponseCode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ResponseCode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Ok,
+                2 => Self::Error,
+                _ => Self::UnknownValue(response_code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ResponseCode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RESPONSE_CODE_UNSPECIFIED" => Self::Unspecified,
+                "OK" => Self::Ok,
+                "ERROR" => Self::Error,
+                _ => Self::UnknownValue(response_code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ResponseCode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Ok => serializer.serialize_i32(1),
+                Self::Error => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ResponseCode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ResponseCode>::new(
+                ".google.cloud.alloydb.connectors.v1.MetadataExchangeResponse.ResponseCode",
+            ))
         }
     }
 }

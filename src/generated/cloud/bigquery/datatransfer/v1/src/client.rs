@@ -192,6 +192,7 @@ impl DataTransferService {
     /// range, one transfer run is created.
     /// Note that runs are created per UTC time in the time range.
     /// DEPRECATED: use StartManualTransferRuns instead.
+    #[deprecated]
     pub fn schedule_transfer_runs(
         &self,
         parent: impl Into<std::string::String>,

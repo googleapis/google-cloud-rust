@@ -77,6 +77,7 @@ pub struct Instance {
     /// Output only. Deprecated 'daos_version' field.
     /// Output only. The version of DAOS software running in the instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub daos_version: std::string::String,
 
     /// Output only. A list of IPv4 addresses used for client side configuration.
@@ -180,6 +181,7 @@ impl Instance {
     }
 
     /// Sets the value of [daos_version][crate::model::Instance::daos_version].
+    #[deprecated]
     pub fn set_daos_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.daos_version = v.into();
         self
@@ -272,80 +274,163 @@ pub mod instance {
     use super::*;
 
     /// The possible states of a Parallelstore instance.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Not set.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The instance is being created.
-        pub const CREATING: State = State::new(1);
-
+        Creating,
         /// The instance is available for use.
-        pub const ACTIVE: State = State::new(2);
-
+        Active,
         /// The instance is being deleted.
-        pub const DELETING: State = State::new(3);
-
+        Deleting,
         /// The instance is not usable.
-        pub const FAILED: State = State::new(4);
-
+        Failed,
         /// The instance is being upgraded.
-        pub const UPGRADING: State = State::new(5);
-
+        Upgrading,
         /// The instance is being repaired. This should only be used by instances
         /// using the `PERSISTENT` deployment type.
-        pub const REPAIRING: State = State::new(6);
+        Repairing,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::Upgrading => std::option::Option::Some(5),
+                Self::Repairing => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATING"),
-                2 => std::borrow::Cow::Borrowed("ACTIVE"),
-                3 => std::borrow::Cow::Borrowed("DELETING"),
-                4 => std::borrow::Cow::Borrowed("FAILED"),
-                5 => std::borrow::Cow::Borrowed("UPGRADING"),
-                6 => std::borrow::Cow::Borrowed("REPAIRING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Upgrading => std::option::Option::Some("UPGRADING"),
+                Self::Repairing => std::option::Option::Some("REPAIRING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "UPGRADING" => std::option::Option::Some(Self::UPGRADING),
-                "REPAIRING" => std::option::Option::Some(Self::REPAIRING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::Deleting,
+                4 => Self::Failed,
+                5 => Self::Upgrading,
+                6 => Self::Repairing,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "DELETING" => Self::Deleting,
+                "FAILED" => Self::Failed,
+                "UPGRADING" => Self::Upgrading,
+                "REPAIRING" => Self::Repairing,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::Upgrading => serializer.serialize_i32(5),
+                Self::Repairing => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.parallelstore.v1.Instance.State",
+            ))
         }
     }
 }
@@ -2153,257 +2238,544 @@ impl wkt::message::Message for TransferCounters {
 }
 
 /// Type of transfer that occurred.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TransferType(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum TransferType {
+    /// Zero is an illegal value.
+    Unspecified,
+    /// Imports to Parallelstore.
+    Import,
+    /// Exports from Parallelstore.
+    Export,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [TransferType::value] or
+    /// [TransferType::name].
+    UnknownValue(transfer_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod transfer_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl TransferType {
-    /// Zero is an illegal value.
-    pub const TRANSFER_TYPE_UNSPECIFIED: TransferType = TransferType::new(0);
-
-    /// Imports to Parallelstore.
-    pub const IMPORT: TransferType = TransferType::new(1);
-
-    /// Exports from Parallelstore.
-    pub const EXPORT: TransferType = TransferType::new(2);
-
-    /// Creates a new TransferType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Import => std::option::Option::Some(1),
+            Self::Export => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("TRANSFER_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("IMPORT"),
-            2 => std::borrow::Cow::Borrowed("EXPORT"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("TRANSFER_TYPE_UNSPECIFIED"),
+            Self::Import => std::option::Option::Some("IMPORT"),
+            Self::Export => std::option::Option::Some("EXPORT"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "TRANSFER_TYPE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::TRANSFER_TYPE_UNSPECIFIED)
-            }
-            "IMPORT" => std::option::Option::Some(Self::IMPORT),
-            "EXPORT" => std::option::Option::Some(Self::EXPORT),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for TransferType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for TransferType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for TransferType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for TransferType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Import,
+            2 => Self::Export,
+            _ => Self::UnknownValue(transfer_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for TransferType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "TRANSFER_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "IMPORT" => Self::Import,
+            "EXPORT" => Self::Export,
+            _ => Self::UnknownValue(transfer_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for TransferType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Import => serializer.serialize_i32(1),
+            Self::Export => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for TransferType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<TransferType>::new(
+            ".google.cloud.parallelstore.v1.TransferType",
+        ))
     }
 }
 
 /// Represents the striping options for files.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FileStripeLevel(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum FileStripeLevel {
+    /// If not set, FileStripeLevel will default to FILE_STRIPE_LEVEL_BALANCED
+    Unspecified,
+    /// Minimum file striping
+    Min,
+    /// Medium file striping
+    Balanced,
+    /// Maximum file striping
+    Max,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [FileStripeLevel::value] or
+    /// [FileStripeLevel::name].
+    UnknownValue(file_stripe_level::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod file_stripe_level {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl FileStripeLevel {
-    /// If not set, FileStripeLevel will default to FILE_STRIPE_LEVEL_BALANCED
-    pub const FILE_STRIPE_LEVEL_UNSPECIFIED: FileStripeLevel = FileStripeLevel::new(0);
-
-    /// Minimum file striping
-    pub const FILE_STRIPE_LEVEL_MIN: FileStripeLevel = FileStripeLevel::new(1);
-
-    /// Medium file striping
-    pub const FILE_STRIPE_LEVEL_BALANCED: FileStripeLevel = FileStripeLevel::new(2);
-
-    /// Maximum file striping
-    pub const FILE_STRIPE_LEVEL_MAX: FileStripeLevel = FileStripeLevel::new(3);
-
-    /// Creates a new FileStripeLevel instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Min => std::option::Option::Some(1),
+            Self::Balanced => std::option::Option::Some(2),
+            Self::Max => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("FILE_STRIPE_LEVEL_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("FILE_STRIPE_LEVEL_MIN"),
-            2 => std::borrow::Cow::Borrowed("FILE_STRIPE_LEVEL_BALANCED"),
-            3 => std::borrow::Cow::Borrowed("FILE_STRIPE_LEVEL_MAX"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("FILE_STRIPE_LEVEL_UNSPECIFIED"),
+            Self::Min => std::option::Option::Some("FILE_STRIPE_LEVEL_MIN"),
+            Self::Balanced => std::option::Option::Some("FILE_STRIPE_LEVEL_BALANCED"),
+            Self::Max => std::option::Option::Some("FILE_STRIPE_LEVEL_MAX"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "FILE_STRIPE_LEVEL_UNSPECIFIED" => {
-                std::option::Option::Some(Self::FILE_STRIPE_LEVEL_UNSPECIFIED)
-            }
-            "FILE_STRIPE_LEVEL_MIN" => std::option::Option::Some(Self::FILE_STRIPE_LEVEL_MIN),
-            "FILE_STRIPE_LEVEL_BALANCED" => {
-                std::option::Option::Some(Self::FILE_STRIPE_LEVEL_BALANCED)
-            }
-            "FILE_STRIPE_LEVEL_MAX" => std::option::Option::Some(Self::FILE_STRIPE_LEVEL_MAX),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for FileStripeLevel {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for FileStripeLevel {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for FileStripeLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for FileStripeLevel {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Min,
+            2 => Self::Balanced,
+            3 => Self::Max,
+            _ => Self::UnknownValue(file_stripe_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for FileStripeLevel {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "FILE_STRIPE_LEVEL_UNSPECIFIED" => Self::Unspecified,
+            "FILE_STRIPE_LEVEL_MIN" => Self::Min,
+            "FILE_STRIPE_LEVEL_BALANCED" => Self::Balanced,
+            "FILE_STRIPE_LEVEL_MAX" => Self::Max,
+            _ => Self::UnknownValue(file_stripe_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for FileStripeLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Min => serializer.serialize_i32(1),
+            Self::Balanced => serializer.serialize_i32(2),
+            Self::Max => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FileStripeLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<FileStripeLevel>::new(
+            ".google.cloud.parallelstore.v1.FileStripeLevel",
+        ))
     }
 }
 
 /// Represents the striping options for directories.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DirectoryStripeLevel(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DirectoryStripeLevel {
+    /// If not set, DirectoryStripeLevel will default to DIRECTORY_STRIPE_LEVEL_MAX
+    Unspecified,
+    /// Minimum directory striping
+    Min,
+    /// Medium directory striping
+    Balanced,
+    /// Maximum directory striping
+    Max,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DirectoryStripeLevel::value] or
+    /// [DirectoryStripeLevel::name].
+    UnknownValue(directory_stripe_level::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod directory_stripe_level {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl DirectoryStripeLevel {
-    /// If not set, DirectoryStripeLevel will default to DIRECTORY_STRIPE_LEVEL_MAX
-    pub const DIRECTORY_STRIPE_LEVEL_UNSPECIFIED: DirectoryStripeLevel =
-        DirectoryStripeLevel::new(0);
-
-    /// Minimum directory striping
-    pub const DIRECTORY_STRIPE_LEVEL_MIN: DirectoryStripeLevel = DirectoryStripeLevel::new(1);
-
-    /// Medium directory striping
-    pub const DIRECTORY_STRIPE_LEVEL_BALANCED: DirectoryStripeLevel = DirectoryStripeLevel::new(2);
-
-    /// Maximum directory striping
-    pub const DIRECTORY_STRIPE_LEVEL_MAX: DirectoryStripeLevel = DirectoryStripeLevel::new(3);
-
-    /// Creates a new DirectoryStripeLevel instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Min => std::option::Option::Some(1),
+            Self::Balanced => std::option::Option::Some(2),
+            Self::Max => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("DIRECTORY_STRIPE_LEVEL_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("DIRECTORY_STRIPE_LEVEL_MIN"),
-            2 => std::borrow::Cow::Borrowed("DIRECTORY_STRIPE_LEVEL_BALANCED"),
-            3 => std::borrow::Cow::Borrowed("DIRECTORY_STRIPE_LEVEL_MAX"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("DIRECTORY_STRIPE_LEVEL_UNSPECIFIED"),
+            Self::Min => std::option::Option::Some("DIRECTORY_STRIPE_LEVEL_MIN"),
+            Self::Balanced => std::option::Option::Some("DIRECTORY_STRIPE_LEVEL_BALANCED"),
+            Self::Max => std::option::Option::Some("DIRECTORY_STRIPE_LEVEL_MAX"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "DIRECTORY_STRIPE_LEVEL_UNSPECIFIED" => {
-                std::option::Option::Some(Self::DIRECTORY_STRIPE_LEVEL_UNSPECIFIED)
-            }
-            "DIRECTORY_STRIPE_LEVEL_MIN" => {
-                std::option::Option::Some(Self::DIRECTORY_STRIPE_LEVEL_MIN)
-            }
-            "DIRECTORY_STRIPE_LEVEL_BALANCED" => {
-                std::option::Option::Some(Self::DIRECTORY_STRIPE_LEVEL_BALANCED)
-            }
-            "DIRECTORY_STRIPE_LEVEL_MAX" => {
-                std::option::Option::Some(Self::DIRECTORY_STRIPE_LEVEL_MAX)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for DirectoryStripeLevel {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for DirectoryStripeLevel {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for DirectoryStripeLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for DirectoryStripeLevel {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Min,
+            2 => Self::Balanced,
+            3 => Self::Max,
+            _ => Self::UnknownValue(directory_stripe_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for DirectoryStripeLevel {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DIRECTORY_STRIPE_LEVEL_UNSPECIFIED" => Self::Unspecified,
+            "DIRECTORY_STRIPE_LEVEL_MIN" => Self::Min,
+            "DIRECTORY_STRIPE_LEVEL_BALANCED" => Self::Balanced,
+            "DIRECTORY_STRIPE_LEVEL_MAX" => Self::Max,
+            _ => Self::UnknownValue(directory_stripe_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for DirectoryStripeLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Min => serializer.serialize_i32(1),
+            Self::Balanced => serializer.serialize_i32(2),
+            Self::Max => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DirectoryStripeLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DirectoryStripeLevel>::new(
+            ".google.cloud.parallelstore.v1.DirectoryStripeLevel",
+        ))
     }
 }
 
 /// Represents the deployment type for the instance.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DeploymentType(i32);
-
-impl DeploymentType {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DeploymentType {
     /// Default Deployment Type
     /// It is equivalent to SCRATCH
-    pub const DEPLOYMENT_TYPE_UNSPECIFIED: DeploymentType = DeploymentType::new(0);
-
+    Unspecified,
     /// Scratch
-    pub const SCRATCH: DeploymentType = DeploymentType::new(1);
-
+    Scratch,
     /// Persistent
-    pub const PERSISTENT: DeploymentType = DeploymentType::new(2);
+    Persistent,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DeploymentType::value] or
+    /// [DeploymentType::name].
+    UnknownValue(deployment_type::UnknownValue),
+}
 
-    /// Creates a new DeploymentType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod deployment_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl DeploymentType {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Scratch => std::option::Option::Some(1),
+            Self::Persistent => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("DEPLOYMENT_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("SCRATCH"),
-            2 => std::borrow::Cow::Borrowed("PERSISTENT"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("DEPLOYMENT_TYPE_UNSPECIFIED"),
+            Self::Scratch => std::option::Option::Some("SCRATCH"),
+            Self::Persistent => std::option::Option::Some("PERSISTENT"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "DEPLOYMENT_TYPE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::DEPLOYMENT_TYPE_UNSPECIFIED)
-            }
-            "SCRATCH" => std::option::Option::Some(Self::SCRATCH),
-            "PERSISTENT" => std::option::Option::Some(Self::PERSISTENT),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for DeploymentType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for DeploymentType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for DeploymentType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for DeploymentType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Scratch,
+            2 => Self::Persistent,
+            _ => Self::UnknownValue(deployment_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for DeploymentType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DEPLOYMENT_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "SCRATCH" => Self::Scratch,
+            "PERSISTENT" => Self::Persistent,
+            _ => Self::UnknownValue(deployment_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for DeploymentType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Scratch => serializer.serialize_i32(1),
+            Self::Persistent => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DeploymentType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DeploymentType>::new(
+            ".google.cloud.parallelstore.v1.DeploymentType",
+        ))
     }
 }

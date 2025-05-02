@@ -160,7 +160,7 @@ impl super::stub::Config for Config {
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("force", &req.force)]);
-        let builder = builder.query(&[("deletePolicy", &req.delete_policy.value())]);
+        let builder = builder.query(&[("deletePolicy", &req.delete_policy)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

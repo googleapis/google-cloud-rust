@@ -370,65 +370,136 @@ pub mod custom_pronunciation_params {
     use super::*;
 
     /// The phonetic encoding of the phrase.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PhoneticEncoding(i32);
-
-    impl PhoneticEncoding {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PhoneticEncoding {
         /// Not specified.
-        pub const PHONETIC_ENCODING_UNSPECIFIED: PhoneticEncoding = PhoneticEncoding::new(0);
-
+        Unspecified,
         /// IPA, such as apple -> ˈæpəl.
         /// <https://en.wikipedia.org/wiki/International_Phonetic_Alphabet>
-        pub const PHONETIC_ENCODING_IPA: PhoneticEncoding = PhoneticEncoding::new(1);
-
+        Ipa,
         /// X-SAMPA, such as apple -> "{p@l".
         /// <https://en.wikipedia.org/wiki/X-SAMPA>
-        pub const PHONETIC_ENCODING_X_SAMPA: PhoneticEncoding = PhoneticEncoding::new(2);
+        XSampa,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PhoneticEncoding::value] or
+        /// [PhoneticEncoding::name].
+        UnknownValue(phonetic_encoding::UnknownValue),
+    }
 
-        /// Creates a new PhoneticEncoding instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod phonetic_encoding {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl PhoneticEncoding {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Ipa => std::option::Option::Some(1),
+                Self::XSampa => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PHONETIC_ENCODING_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PHONETIC_ENCODING_IPA"),
-                2 => std::borrow::Cow::Borrowed("PHONETIC_ENCODING_X_SAMPA"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PHONETIC_ENCODING_UNSPECIFIED"),
+                Self::Ipa => std::option::Option::Some("PHONETIC_ENCODING_IPA"),
+                Self::XSampa => std::option::Option::Some("PHONETIC_ENCODING_X_SAMPA"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PHONETIC_ENCODING_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::PHONETIC_ENCODING_UNSPECIFIED)
-                }
-                "PHONETIC_ENCODING_IPA" => std::option::Option::Some(Self::PHONETIC_ENCODING_IPA),
-                "PHONETIC_ENCODING_X_SAMPA" => {
-                    std::option::Option::Some(Self::PHONETIC_ENCODING_X_SAMPA)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for PhoneticEncoding {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for PhoneticEncoding {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PhoneticEncoding {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PhoneticEncoding {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Ipa,
+                2 => Self::XSampa,
+                _ => Self::UnknownValue(phonetic_encoding::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PhoneticEncoding {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PHONETIC_ENCODING_UNSPECIFIED" => Self::Unspecified,
+                "PHONETIC_ENCODING_IPA" => Self::Ipa,
+                "PHONETIC_ENCODING_X_SAMPA" => Self::XSampa,
+                _ => Self::UnknownValue(phonetic_encoding::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PhoneticEncoding {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Ipa => serializer.serialize_i32(1),
+                Self::XSampa => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PhoneticEncoding {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PhoneticEncoding>::new(
+                ".google.cloud.texttospeech.v1.CustomPronunciationParams.PhoneticEncoding",
+            ))
         }
     }
 }
@@ -950,6 +1021,7 @@ pub struct CustomVoiceParams {
     pub model: std::string::String,
 
     /// Optional. Deprecated. The usage of the synthesized audio to be reported.
+    #[deprecated]
     pub reported_usage: crate::model::custom_voice_params::ReportedUsage,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -968,6 +1040,7 @@ impl CustomVoiceParams {
     }
 
     /// Sets the value of [reported_usage][crate::model::CustomVoiceParams::reported_usage].
+    #[deprecated]
     pub fn set_reported_usage<
         T: std::convert::Into<crate::model::custom_voice_params::ReportedUsage>,
     >(
@@ -992,64 +1065,137 @@ pub mod custom_voice_params {
 
     /// Deprecated. The usage of the synthesized audio. Usage does not affect
     /// billing.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ReportedUsage(i32);
-
-    impl ReportedUsage {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ReportedUsage {
         /// Request with reported usage unspecified will be rejected.
-        pub const REPORTED_USAGE_UNSPECIFIED: ReportedUsage = ReportedUsage::new(0);
-
+        Unspecified,
         /// For scenarios where the synthesized audio is not downloadable and can
         /// only be used once. For example, real-time request in IVR system.
-        pub const REALTIME: ReportedUsage = ReportedUsage::new(1);
-
+        Realtime,
         /// For scenarios where the synthesized audio is downloadable and can be
         /// reused. For example, the synthesized audio is downloaded, stored in
         /// customer service system and played repeatedly.
-        pub const OFFLINE: ReportedUsage = ReportedUsage::new(2);
+        Offline,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ReportedUsage::value] or
+        /// [ReportedUsage::name].
+        UnknownValue(reported_usage::UnknownValue),
+    }
 
-        /// Creates a new ReportedUsage instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod reported_usage {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ReportedUsage {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Realtime => std::option::Option::Some(1),
+                Self::Offline => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("REPORTED_USAGE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("REALTIME"),
-                2 => std::borrow::Cow::Borrowed("OFFLINE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("REPORTED_USAGE_UNSPECIFIED"),
+                Self::Realtime => std::option::Option::Some("REALTIME"),
+                Self::Offline => std::option::Option::Some("OFFLINE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "REPORTED_USAGE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::REPORTED_USAGE_UNSPECIFIED)
-                }
-                "REALTIME" => std::option::Option::Some(Self::REALTIME),
-                "OFFLINE" => std::option::Option::Some(Self::OFFLINE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ReportedUsage {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ReportedUsage {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ReportedUsage {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ReportedUsage {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Realtime,
+                2 => Self::Offline,
+                _ => Self::UnknownValue(reported_usage::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ReportedUsage {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REPORTED_USAGE_UNSPECIFIED" => Self::Unspecified,
+                "REALTIME" => Self::Realtime,
+                "OFFLINE" => Self::Offline,
+                _ => Self::UnknownValue(reported_usage::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ReportedUsage {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Realtime => serializer.serialize_i32(1),
+                Self::Offline => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ReportedUsage {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReportedUsage>::new(
+                ".google.cloud.texttospeech.v1.CustomVoiceParams.ReportedUsage",
+            ))
         }
     }
 }
@@ -1634,6 +1780,7 @@ pub struct SynthesizeLongAudioMetadata {
 
     /// Deprecated. Do not use.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub last_update_time: std::option::Option<wkt::Timestamp>,
 
     /// The progress of the most recent processing update in percentage, ie. 70.0%.
@@ -1659,6 +1806,7 @@ impl SynthesizeLongAudioMetadata {
     }
 
     /// Sets the value of [last_update_time][crate::model::SynthesizeLongAudioMetadata::last_update_time].
+    #[deprecated]
     pub fn set_last_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1682,158 +1830,314 @@ impl wkt::message::Message for SynthesizeLongAudioMetadata {
 
 /// Gender of the voice as described in
 /// [SSML voice element](https://www.w3.org/TR/speech-synthesis11/#edef_voice).
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SsmlVoiceGender(i32);
-
-impl SsmlVoiceGender {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SsmlVoiceGender {
     /// An unspecified gender.
     /// In VoiceSelectionParams, this means that the client doesn't care which
     /// gender the selected voice will have. In the Voice field of
     /// ListVoicesResponse, this may mean that the voice doesn't fit any of the
     /// other categories in this enum, or that the gender of the voice isn't known.
-    pub const SSML_VOICE_GENDER_UNSPECIFIED: SsmlVoiceGender = SsmlVoiceGender::new(0);
-
+    Unspecified,
     /// A male voice.
-    pub const MALE: SsmlVoiceGender = SsmlVoiceGender::new(1);
-
+    Male,
     /// A female voice.
-    pub const FEMALE: SsmlVoiceGender = SsmlVoiceGender::new(2);
-
+    Female,
     /// A gender-neutral voice. This voice is not yet supported.
-    pub const NEUTRAL: SsmlVoiceGender = SsmlVoiceGender::new(3);
+    Neutral,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SsmlVoiceGender::value] or
+    /// [SsmlVoiceGender::name].
+    UnknownValue(ssml_voice_gender::UnknownValue),
+}
 
-    /// Creates a new SsmlVoiceGender instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod ssml_voice_gender {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl SsmlVoiceGender {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Male => std::option::Option::Some(1),
+            Self::Female => std::option::Option::Some(2),
+            Self::Neutral => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SSML_VOICE_GENDER_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("MALE"),
-            2 => std::borrow::Cow::Borrowed("FEMALE"),
-            3 => std::borrow::Cow::Borrowed("NEUTRAL"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SSML_VOICE_GENDER_UNSPECIFIED"),
+            Self::Male => std::option::Option::Some("MALE"),
+            Self::Female => std::option::Option::Some("FEMALE"),
+            Self::Neutral => std::option::Option::Some("NEUTRAL"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SSML_VOICE_GENDER_UNSPECIFIED" => {
-                std::option::Option::Some(Self::SSML_VOICE_GENDER_UNSPECIFIED)
-            }
-            "MALE" => std::option::Option::Some(Self::MALE),
-            "FEMALE" => std::option::Option::Some(Self::FEMALE),
-            "NEUTRAL" => std::option::Option::Some(Self::NEUTRAL),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for SsmlVoiceGender {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for SsmlVoiceGender {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SsmlVoiceGender {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SsmlVoiceGender {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Male,
+            2 => Self::Female,
+            3 => Self::Neutral,
+            _ => Self::UnknownValue(ssml_voice_gender::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SsmlVoiceGender {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SSML_VOICE_GENDER_UNSPECIFIED" => Self::Unspecified,
+            "MALE" => Self::Male,
+            "FEMALE" => Self::Female,
+            "NEUTRAL" => Self::Neutral,
+            _ => Self::UnknownValue(ssml_voice_gender::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SsmlVoiceGender {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Male => serializer.serialize_i32(1),
+            Self::Female => serializer.serialize_i32(2),
+            Self::Neutral => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SsmlVoiceGender {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SsmlVoiceGender>::new(
+            ".google.cloud.texttospeech.v1.SsmlVoiceGender",
+        ))
     }
 }
 
 /// Configuration to set up audio encoder. The encoding determines the output
 /// audio format that we'd like.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AudioEncoding(i32);
-
-impl AudioEncoding {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum AudioEncoding {
     /// Not specified. Will return result
     /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT].
-    pub const AUDIO_ENCODING_UNSPECIFIED: AudioEncoding = AudioEncoding::new(0);
-
+    Unspecified,
     /// Uncompressed 16-bit signed little-endian samples (Linear PCM).
     /// Audio content returned as LINEAR16 also contains a WAV header.
-    pub const LINEAR16: AudioEncoding = AudioEncoding::new(1);
-
+    Linear16,
     /// MP3 audio at 32kbps.
-    pub const MP3: AudioEncoding = AudioEncoding::new(2);
-
+    Mp3,
     /// Opus encoded audio wrapped in an ogg container. The result is a
     /// file which can be played natively on Android, and in browsers (at least
     /// Chrome and Firefox). The quality of the encoding is considerably higher
     /// than MP3 while using approximately the same bitrate.
-    pub const OGG_OPUS: AudioEncoding = AudioEncoding::new(3);
-
+    OggOpus,
     /// 8-bit samples that compand 14-bit audio samples using G.711 PCMU/mu-law.
     /// Audio content returned as MULAW also contains a WAV header.
-    pub const MULAW: AudioEncoding = AudioEncoding::new(5);
-
+    Mulaw,
     /// 8-bit samples that compand 14-bit audio samples using G.711 PCMU/A-law.
     /// Audio content returned as ALAW also contains a WAV header.
-    pub const ALAW: AudioEncoding = AudioEncoding::new(6);
-
+    Alaw,
     /// Uncompressed 16-bit signed little-endian samples (Linear PCM).
     /// Note that as opposed to LINEAR16, audio won't be wrapped in a WAV (or
     /// any other) header.
-    pub const PCM: AudioEncoding = AudioEncoding::new(7);
+    Pcm,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [AudioEncoding::value] or
+    /// [AudioEncoding::name].
+    UnknownValue(audio_encoding::UnknownValue),
+}
 
-    /// Creates a new AudioEncoding instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod audio_encoding {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl AudioEncoding {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Linear16 => std::option::Option::Some(1),
+            Self::Mp3 => std::option::Option::Some(2),
+            Self::OggOpus => std::option::Option::Some(3),
+            Self::Mulaw => std::option::Option::Some(5),
+            Self::Alaw => std::option::Option::Some(6),
+            Self::Pcm => std::option::Option::Some(7),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("AUDIO_ENCODING_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("LINEAR16"),
-            2 => std::borrow::Cow::Borrowed("MP3"),
-            3 => std::borrow::Cow::Borrowed("OGG_OPUS"),
-            5 => std::borrow::Cow::Borrowed("MULAW"),
-            6 => std::borrow::Cow::Borrowed("ALAW"),
-            7 => std::borrow::Cow::Borrowed("PCM"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("AUDIO_ENCODING_UNSPECIFIED"),
+            Self::Linear16 => std::option::Option::Some("LINEAR16"),
+            Self::Mp3 => std::option::Option::Some("MP3"),
+            Self::OggOpus => std::option::Option::Some("OGG_OPUS"),
+            Self::Mulaw => std::option::Option::Some("MULAW"),
+            Self::Alaw => std::option::Option::Some("ALAW"),
+            Self::Pcm => std::option::Option::Some("PCM"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "AUDIO_ENCODING_UNSPECIFIED" => {
-                std::option::Option::Some(Self::AUDIO_ENCODING_UNSPECIFIED)
-            }
-            "LINEAR16" => std::option::Option::Some(Self::LINEAR16),
-            "MP3" => std::option::Option::Some(Self::MP3),
-            "OGG_OPUS" => std::option::Option::Some(Self::OGG_OPUS),
-            "MULAW" => std::option::Option::Some(Self::MULAW),
-            "ALAW" => std::option::Option::Some(Self::ALAW),
-            "PCM" => std::option::Option::Some(Self::PCM),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for AudioEncoding {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for AudioEncoding {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for AudioEncoding {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for AudioEncoding {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Linear16,
+            2 => Self::Mp3,
+            3 => Self::OggOpus,
+            5 => Self::Mulaw,
+            6 => Self::Alaw,
+            7 => Self::Pcm,
+            _ => Self::UnknownValue(audio_encoding::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for AudioEncoding {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "AUDIO_ENCODING_UNSPECIFIED" => Self::Unspecified,
+            "LINEAR16" => Self::Linear16,
+            "MP3" => Self::Mp3,
+            "OGG_OPUS" => Self::OggOpus,
+            "MULAW" => Self::Mulaw,
+            "ALAW" => Self::Alaw,
+            "PCM" => Self::Pcm,
+            _ => Self::UnknownValue(audio_encoding::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for AudioEncoding {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Linear16 => serializer.serialize_i32(1),
+            Self::Mp3 => serializer.serialize_i32(2),
+            Self::OggOpus => serializer.serialize_i32(3),
+            Self::Mulaw => serializer.serialize_i32(5),
+            Self::Alaw => serializer.serialize_i32(6),
+            Self::Pcm => serializer.serialize_i32(7),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AudioEncoding {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<AudioEncoding>::new(
+            ".google.cloud.texttospeech.v1.AudioEncoding",
+        ))
     }
 }

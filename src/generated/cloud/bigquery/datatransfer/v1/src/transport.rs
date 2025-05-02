@@ -311,12 +311,13 @@ impl super::stub::DataTransferService for DataTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = req.states.iter().fold(builder, |builder, p| {
-            builder.query(&[("states", p.value())])
-        });
+        let builder = req
+            .states
+            .iter()
+            .fold(builder, |builder, p| builder.query(&[("states", p)]));
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = builder.query(&[("runAttempt", &req.run_attempt.value())]);
+        let builder = builder.query(&[("runAttempt", &req.run_attempt)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -341,9 +342,10 @@ impl super::stub::DataTransferService for DataTransferService {
             );
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
-        let builder = req.message_types.iter().fold(builder, |builder, p| {
-            builder.query(&[("messageTypes", p.value())])
-        });
+        let builder = req
+            .message_types
+            .iter()
+            .fold(builder, |builder, p| builder.query(&[("messageTypes", p)]));
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

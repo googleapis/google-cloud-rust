@@ -340,69 +340,148 @@ pub mod finding {
     use super::*;
 
     /// The severity level of a vulnerability.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Severity {
+        /// No severity specified. The default value.
+        Unspecified,
+        /// Critical severity.
+        Critical,
+        /// High severity.
+        High,
+        /// Medium severity.
+        Medium,
+        /// Low severity.
+        Low,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Severity::value] or
+        /// [Severity::name].
+        UnknownValue(severity::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod severity {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Severity {
-        /// No severity specified. The default value.
-        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new(0);
-
-        /// Critical severity.
-        pub const CRITICAL: Severity = Severity::new(1);
-
-        /// High severity.
-        pub const HIGH: Severity = Severity::new(2);
-
-        /// Medium severity.
-        pub const MEDIUM: Severity = Severity::new(3);
-
-        /// Low severity.
-        pub const LOW: Severity = Severity::new(4);
-
-        /// Creates a new Severity instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Critical => std::option::Option::Some(1),
+                Self::High => std::option::Option::Some(2),
+                Self::Medium => std::option::Option::Some(3),
+                Self::Low => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SEVERITY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CRITICAL"),
-                2 => std::borrow::Cow::Borrowed("HIGH"),
-                3 => std::borrow::Cow::Borrowed("MEDIUM"),
-                4 => std::borrow::Cow::Borrowed("LOW"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SEVERITY_UNSPECIFIED"),
+                Self::Critical => std::option::Option::Some("CRITICAL"),
+                Self::High => std::option::Option::Some("HIGH"),
+                Self::Medium => std::option::Option::Some("MEDIUM"),
+                Self::Low => std::option::Option::Some("LOW"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SEVERITY_UNSPECIFIED" => std::option::Option::Some(Self::SEVERITY_UNSPECIFIED),
-                "CRITICAL" => std::option::Option::Some(Self::CRITICAL),
-                "HIGH" => std::option::Option::Some(Self::HIGH),
-                "MEDIUM" => std::option::Option::Some(Self::MEDIUM),
-                "LOW" => std::option::Option::Some(Self::LOW),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Severity {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Severity {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Severity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Severity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Critical,
+                2 => Self::High,
+                3 => Self::Medium,
+                4 => Self::Low,
+                _ => Self::UnknownValue(severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Severity {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SEVERITY_UNSPECIFIED" => Self::Unspecified,
+                "CRITICAL" => Self::Critical,
+                "HIGH" => Self::High,
+                "MEDIUM" => Self::Medium,
+                "LOW" => Self::Low,
+                _ => Self::UnknownValue(severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Severity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Critical => serializer.serialize_i32(1),
+                Self::High => serializer.serialize_i32(2),
+                Self::Medium => serializer.serialize_i32(3),
+                Self::Low => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Severity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
+                ".google.cloud.websecurityscanner.v1.Finding.Severity",
+            ))
         }
     }
 }
@@ -769,127 +848,226 @@ pub mod xss {
     use super::*;
 
     /// Types of XSS attack vector.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AttackVector(i32);
-
-    impl AttackVector {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AttackVector {
         /// Unknown attack vector.
-        pub const ATTACK_VECTOR_UNSPECIFIED: AttackVector = AttackVector::new(0);
-
+        Unspecified,
         /// The attack comes from fuzzing the browser's localStorage.
-        pub const LOCAL_STORAGE: AttackVector = AttackVector::new(1);
-
+        LocalStorage,
         /// The attack comes from fuzzing the browser's sessionStorage.
-        pub const SESSION_STORAGE: AttackVector = AttackVector::new(2);
-
+        SessionStorage,
         /// The attack comes from fuzzing the window's name property.
-        pub const WINDOW_NAME: AttackVector = AttackVector::new(3);
-
+        WindowName,
         /// The attack comes from fuzzing the referrer property.
-        pub const REFERRER: AttackVector = AttackVector::new(4);
-
+        Referrer,
         /// The attack comes from fuzzing an input element.
-        pub const FORM_INPUT: AttackVector = AttackVector::new(5);
-
+        FormInput,
         /// The attack comes from fuzzing the browser's cookies.
-        pub const COOKIE: AttackVector = AttackVector::new(6);
-
+        Cookie,
         /// The attack comes from hijacking the post messaging mechanism.
-        pub const POST_MESSAGE: AttackVector = AttackVector::new(7);
-
+        PostMessage,
         /// The attack comes from fuzzing parameters in the url.
-        pub const GET_PARAMETERS: AttackVector = AttackVector::new(8);
-
+        GetParameters,
         /// The attack comes from fuzzing the fragment in the url.
-        pub const URL_FRAGMENT: AttackVector = AttackVector::new(9);
-
+        UrlFragment,
         /// The attack comes from fuzzing the HTML comments.
-        pub const HTML_COMMENT: AttackVector = AttackVector::new(10);
-
+        HtmlComment,
         /// The attack comes from fuzzing the POST parameters.
-        pub const POST_PARAMETERS: AttackVector = AttackVector::new(11);
-
+        PostParameters,
         /// The attack comes from fuzzing the protocol.
-        pub const PROTOCOL: AttackVector = AttackVector::new(12);
-
+        Protocol,
         /// The attack comes from the server side and is stored.
-        pub const STORED_XSS: AttackVector = AttackVector::new(13);
-
+        StoredXss,
         /// The attack is a Same-Origin Method Execution attack via a GET parameter.
-        pub const SAME_ORIGIN: AttackVector = AttackVector::new(14);
-
+        SameOrigin,
         /// The attack payload is received from a third-party host via a URL that is
         /// user-controllable
-        pub const USER_CONTROLLABLE_URL: AttackVector = AttackVector::new(15);
+        UserControllableUrl,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AttackVector::value] or
+        /// [AttackVector::name].
+        UnknownValue(attack_vector::UnknownValue),
+    }
 
-        /// Creates a new AttackVector instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod attack_vector {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl AttackVector {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::LocalStorage => std::option::Option::Some(1),
+                Self::SessionStorage => std::option::Option::Some(2),
+                Self::WindowName => std::option::Option::Some(3),
+                Self::Referrer => std::option::Option::Some(4),
+                Self::FormInput => std::option::Option::Some(5),
+                Self::Cookie => std::option::Option::Some(6),
+                Self::PostMessage => std::option::Option::Some(7),
+                Self::GetParameters => std::option::Option::Some(8),
+                Self::UrlFragment => std::option::Option::Some(9),
+                Self::HtmlComment => std::option::Option::Some(10),
+                Self::PostParameters => std::option::Option::Some(11),
+                Self::Protocol => std::option::Option::Some(12),
+                Self::StoredXss => std::option::Option::Some(13),
+                Self::SameOrigin => std::option::Option::Some(14),
+                Self::UserControllableUrl => std::option::Option::Some(15),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("ATTACK_VECTOR_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("LOCAL_STORAGE"),
-                2 => std::borrow::Cow::Borrowed("SESSION_STORAGE"),
-                3 => std::borrow::Cow::Borrowed("WINDOW_NAME"),
-                4 => std::borrow::Cow::Borrowed("REFERRER"),
-                5 => std::borrow::Cow::Borrowed("FORM_INPUT"),
-                6 => std::borrow::Cow::Borrowed("COOKIE"),
-                7 => std::borrow::Cow::Borrowed("POST_MESSAGE"),
-                8 => std::borrow::Cow::Borrowed("GET_PARAMETERS"),
-                9 => std::borrow::Cow::Borrowed("URL_FRAGMENT"),
-                10 => std::borrow::Cow::Borrowed("HTML_COMMENT"),
-                11 => std::borrow::Cow::Borrowed("POST_PARAMETERS"),
-                12 => std::borrow::Cow::Borrowed("PROTOCOL"),
-                13 => std::borrow::Cow::Borrowed("STORED_XSS"),
-                14 => std::borrow::Cow::Borrowed("SAME_ORIGIN"),
-                15 => std::borrow::Cow::Borrowed("USER_CONTROLLABLE_URL"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ATTACK_VECTOR_UNSPECIFIED"),
+                Self::LocalStorage => std::option::Option::Some("LOCAL_STORAGE"),
+                Self::SessionStorage => std::option::Option::Some("SESSION_STORAGE"),
+                Self::WindowName => std::option::Option::Some("WINDOW_NAME"),
+                Self::Referrer => std::option::Option::Some("REFERRER"),
+                Self::FormInput => std::option::Option::Some("FORM_INPUT"),
+                Self::Cookie => std::option::Option::Some("COOKIE"),
+                Self::PostMessage => std::option::Option::Some("POST_MESSAGE"),
+                Self::GetParameters => std::option::Option::Some("GET_PARAMETERS"),
+                Self::UrlFragment => std::option::Option::Some("URL_FRAGMENT"),
+                Self::HtmlComment => std::option::Option::Some("HTML_COMMENT"),
+                Self::PostParameters => std::option::Option::Some("POST_PARAMETERS"),
+                Self::Protocol => std::option::Option::Some("PROTOCOL"),
+                Self::StoredXss => std::option::Option::Some("STORED_XSS"),
+                Self::SameOrigin => std::option::Option::Some("SAME_ORIGIN"),
+                Self::UserControllableUrl => std::option::Option::Some("USER_CONTROLLABLE_URL"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "ATTACK_VECTOR_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::ATTACK_VECTOR_UNSPECIFIED)
-                }
-                "LOCAL_STORAGE" => std::option::Option::Some(Self::LOCAL_STORAGE),
-                "SESSION_STORAGE" => std::option::Option::Some(Self::SESSION_STORAGE),
-                "WINDOW_NAME" => std::option::Option::Some(Self::WINDOW_NAME),
-                "REFERRER" => std::option::Option::Some(Self::REFERRER),
-                "FORM_INPUT" => std::option::Option::Some(Self::FORM_INPUT),
-                "COOKIE" => std::option::Option::Some(Self::COOKIE),
-                "POST_MESSAGE" => std::option::Option::Some(Self::POST_MESSAGE),
-                "GET_PARAMETERS" => std::option::Option::Some(Self::GET_PARAMETERS),
-                "URL_FRAGMENT" => std::option::Option::Some(Self::URL_FRAGMENT),
-                "HTML_COMMENT" => std::option::Option::Some(Self::HTML_COMMENT),
-                "POST_PARAMETERS" => std::option::Option::Some(Self::POST_PARAMETERS),
-                "PROTOCOL" => std::option::Option::Some(Self::PROTOCOL),
-                "STORED_XSS" => std::option::Option::Some(Self::STORED_XSS),
-                "SAME_ORIGIN" => std::option::Option::Some(Self::SAME_ORIGIN),
-                "USER_CONTROLLABLE_URL" => std::option::Option::Some(Self::USER_CONTROLLABLE_URL),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for AttackVector {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for AttackVector {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AttackVector {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AttackVector {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::LocalStorage,
+                2 => Self::SessionStorage,
+                3 => Self::WindowName,
+                4 => Self::Referrer,
+                5 => Self::FormInput,
+                6 => Self::Cookie,
+                7 => Self::PostMessage,
+                8 => Self::GetParameters,
+                9 => Self::UrlFragment,
+                10 => Self::HtmlComment,
+                11 => Self::PostParameters,
+                12 => Self::Protocol,
+                13 => Self::StoredXss,
+                14 => Self::SameOrigin,
+                15 => Self::UserControllableUrl,
+                _ => Self::UnknownValue(attack_vector::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AttackVector {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ATTACK_VECTOR_UNSPECIFIED" => Self::Unspecified,
+                "LOCAL_STORAGE" => Self::LocalStorage,
+                "SESSION_STORAGE" => Self::SessionStorage,
+                "WINDOW_NAME" => Self::WindowName,
+                "REFERRER" => Self::Referrer,
+                "FORM_INPUT" => Self::FormInput,
+                "COOKIE" => Self::Cookie,
+                "POST_MESSAGE" => Self::PostMessage,
+                "GET_PARAMETERS" => Self::GetParameters,
+                "URL_FRAGMENT" => Self::UrlFragment,
+                "HTML_COMMENT" => Self::HtmlComment,
+                "POST_PARAMETERS" => Self::PostParameters,
+                "PROTOCOL" => Self::Protocol,
+                "STORED_XSS" => Self::StoredXss,
+                "SAME_ORIGIN" => Self::SameOrigin,
+                "USER_CONTROLLABLE_URL" => Self::UserControllableUrl,
+                _ => Self::UnknownValue(attack_vector::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AttackVector {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::LocalStorage => serializer.serialize_i32(1),
+                Self::SessionStorage => serializer.serialize_i32(2),
+                Self::WindowName => serializer.serialize_i32(3),
+                Self::Referrer => serializer.serialize_i32(4),
+                Self::FormInput => serializer.serialize_i32(5),
+                Self::Cookie => serializer.serialize_i32(6),
+                Self::PostMessage => serializer.serialize_i32(7),
+                Self::GetParameters => serializer.serialize_i32(8),
+                Self::UrlFragment => serializer.serialize_i32(9),
+                Self::HtmlComment => serializer.serialize_i32(10),
+                Self::PostParameters => serializer.serialize_i32(11),
+                Self::Protocol => serializer.serialize_i32(12),
+                Self::StoredXss => serializer.serialize_i32(13),
+                Self::SameOrigin => serializer.serialize_i32(14),
+                Self::UserControllableUrl => serializer.serialize_i32(15),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AttackVector {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AttackVector>::new(
+                ".google.cloud.websecurityscanner.v1.Xss.AttackVector",
+            ))
         }
     }
 }
@@ -945,54 +1123,127 @@ pub mod xxe {
     use super::*;
 
     /// Locations within a request where XML was substituted.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Location(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Location {
+        /// Unknown Location.
+        Unspecified,
+        /// The XML payload replaced the complete request body.
+        CompleteRequestBody,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Location::value] or
+        /// [Location::name].
+        UnknownValue(location::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod location {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl Location {
-        /// Unknown Location.
-        pub const LOCATION_UNSPECIFIED: Location = Location::new(0);
-
-        /// The XML payload replaced the complete request body.
-        pub const COMPLETE_REQUEST_BODY: Location = Location::new(1);
-
-        /// Creates a new Location instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CompleteRequestBody => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("LOCATION_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("COMPLETE_REQUEST_BODY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("LOCATION_UNSPECIFIED"),
+                Self::CompleteRequestBody => std::option::Option::Some("COMPLETE_REQUEST_BODY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "LOCATION_UNSPECIFIED" => std::option::Option::Some(Self::LOCATION_UNSPECIFIED),
-                "COMPLETE_REQUEST_BODY" => std::option::Option::Some(Self::COMPLETE_REQUEST_BODY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Location {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Location {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Location {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Location {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CompleteRequestBody,
+                _ => Self::UnknownValue(location::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Location {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "LOCATION_UNSPECIFIED" => Self::Unspecified,
+                "COMPLETE_REQUEST_BODY" => Self::CompleteRequestBody,
+                _ => Self::UnknownValue(location::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Location {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CompleteRequestBody => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Location {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Location>::new(
+                ".google.cloud.websecurityscanner.v1.Xxe.Location",
+            ))
         }
     }
 }
@@ -1275,6 +1526,7 @@ pub mod scan_config {
         /// The value of [authentication][crate::model::scan_config::Authentication::authentication]
         /// if it holds a `GoogleAccount`, `None` if the field is not set or
         /// holds a different branch.
+        #[deprecated]
         pub fn google_account(
             &self,
         ) -> std::option::Option<
@@ -1328,6 +1580,7 @@ pub mod scan_config {
         ///
         /// Note that all the setters affecting `authentication` are
         /// mutually exclusive.
+        #[deprecated]
         pub fn set_google_account<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::scan_config::authentication::GoogleAccount>,
@@ -1397,6 +1650,7 @@ pub mod scan_config {
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
+        #[deprecated]
         pub struct GoogleAccount {
             /// Required. The user name of the Google account.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -1626,6 +1880,7 @@ pub mod scan_config {
         #[non_exhaustive]
         pub enum Authentication {
             /// Authentication using a Google account.
+            #[deprecated]
             GoogleAccount(
                 std::boxed::Box<crate::model::scan_config::authentication::GoogleAccount>,
             ),
@@ -1689,184 +1944,412 @@ pub mod scan_config {
     }
 
     /// Type of user agents used for scanning.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct UserAgent(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum UserAgent {
+        /// The user agent is unknown. Service will default to CHROME_LINUX.
+        Unspecified,
+        /// Chrome on Linux. This is the service default if unspecified.
+        ChromeLinux,
+        /// Chrome on Android.
+        ChromeAndroid,
+        /// Safari on IPhone.
+        SafariIphone,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [UserAgent::value] or
+        /// [UserAgent::name].
+        UnknownValue(user_agent::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod user_agent {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl UserAgent {
-        /// The user agent is unknown. Service will default to CHROME_LINUX.
-        pub const USER_AGENT_UNSPECIFIED: UserAgent = UserAgent::new(0);
-
-        /// Chrome on Linux. This is the service default if unspecified.
-        pub const CHROME_LINUX: UserAgent = UserAgent::new(1);
-
-        /// Chrome on Android.
-        pub const CHROME_ANDROID: UserAgent = UserAgent::new(2);
-
-        /// Safari on IPhone.
-        pub const SAFARI_IPHONE: UserAgent = UserAgent::new(3);
-
-        /// Creates a new UserAgent instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ChromeLinux => std::option::Option::Some(1),
+                Self::ChromeAndroid => std::option::Option::Some(2),
+                Self::SafariIphone => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("USER_AGENT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CHROME_LINUX"),
-                2 => std::borrow::Cow::Borrowed("CHROME_ANDROID"),
-                3 => std::borrow::Cow::Borrowed("SAFARI_IPHONE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("USER_AGENT_UNSPECIFIED"),
+                Self::ChromeLinux => std::option::Option::Some("CHROME_LINUX"),
+                Self::ChromeAndroid => std::option::Option::Some("CHROME_ANDROID"),
+                Self::SafariIphone => std::option::Option::Some("SAFARI_IPHONE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "USER_AGENT_UNSPECIFIED" => std::option::Option::Some(Self::USER_AGENT_UNSPECIFIED),
-                "CHROME_LINUX" => std::option::Option::Some(Self::CHROME_LINUX),
-                "CHROME_ANDROID" => std::option::Option::Some(Self::CHROME_ANDROID),
-                "SAFARI_IPHONE" => std::option::Option::Some(Self::SAFARI_IPHONE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for UserAgent {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for UserAgent {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for UserAgent {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for UserAgent {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ChromeLinux,
+                2 => Self::ChromeAndroid,
+                3 => Self::SafariIphone,
+                _ => Self::UnknownValue(user_agent::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for UserAgent {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "USER_AGENT_UNSPECIFIED" => Self::Unspecified,
+                "CHROME_LINUX" => Self::ChromeLinux,
+                "CHROME_ANDROID" => Self::ChromeAndroid,
+                "SAFARI_IPHONE" => Self::SafariIphone,
+                _ => Self::UnknownValue(user_agent::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for UserAgent {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ChromeLinux => serializer.serialize_i32(1),
+                Self::ChromeAndroid => serializer.serialize_i32(2),
+                Self::SafariIphone => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for UserAgent {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<UserAgent>::new(
+                ".google.cloud.websecurityscanner.v1.ScanConfig.UserAgent",
+            ))
         }
     }
 
     /// Scan risk levels supported by Web Security Scanner. LOW impact
     /// scanning will minimize requests with the potential to modify data. To
     /// achieve the maximum scan coverage, NORMAL risk level is recommended.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RiskLevel(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RiskLevel {
+        /// Use default, which is NORMAL.
+        Unspecified,
+        /// Normal scanning (Recommended)
+        Normal,
+        /// Lower impact scanning
+        Low,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RiskLevel::value] or
+        /// [RiskLevel::name].
+        UnknownValue(risk_level::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod risk_level {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl RiskLevel {
-        /// Use default, which is NORMAL.
-        pub const RISK_LEVEL_UNSPECIFIED: RiskLevel = RiskLevel::new(0);
-
-        /// Normal scanning (Recommended)
-        pub const NORMAL: RiskLevel = RiskLevel::new(1);
-
-        /// Lower impact scanning
-        pub const LOW: RiskLevel = RiskLevel::new(2);
-
-        /// Creates a new RiskLevel instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Normal => std::option::Option::Some(1),
+                Self::Low => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("RISK_LEVEL_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NORMAL"),
-                2 => std::borrow::Cow::Borrowed("LOW"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RISK_LEVEL_UNSPECIFIED"),
+                Self::Normal => std::option::Option::Some("NORMAL"),
+                Self::Low => std::option::Option::Some("LOW"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "RISK_LEVEL_UNSPECIFIED" => std::option::Option::Some(Self::RISK_LEVEL_UNSPECIFIED),
-                "NORMAL" => std::option::Option::Some(Self::NORMAL),
-                "LOW" => std::option::Option::Some(Self::LOW),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for RiskLevel {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for RiskLevel {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RiskLevel {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RiskLevel {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Normal,
+                2 => Self::Low,
+                _ => Self::UnknownValue(risk_level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RiskLevel {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RISK_LEVEL_UNSPECIFIED" => Self::Unspecified,
+                "NORMAL" => Self::Normal,
+                "LOW" => Self::Low,
+                _ => Self::UnknownValue(risk_level::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RiskLevel {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Normal => serializer.serialize_i32(1),
+                Self::Low => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RiskLevel {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RiskLevel>::new(
+                ".google.cloud.websecurityscanner.v1.ScanConfig.RiskLevel",
+            ))
         }
     }
 
     /// Controls export of scan configurations and results to Security
     /// Command Center.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExportToSecurityCommandCenter(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ExportToSecurityCommandCenter {
+        /// Use default, which is ENABLED.
+        Unspecified,
+        /// Export results of this scan to Security Command Center.
+        Enabled,
+        /// Do not export results of this scan to Security Command Center.
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ExportToSecurityCommandCenter::value] or
+        /// [ExportToSecurityCommandCenter::name].
+        UnknownValue(export_to_security_command_center::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod export_to_security_command_center {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl ExportToSecurityCommandCenter {
-        /// Use default, which is ENABLED.
-        pub const EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED: ExportToSecurityCommandCenter =
-            ExportToSecurityCommandCenter::new(0);
-
-        /// Export results of this scan to Security Command Center.
-        pub const ENABLED: ExportToSecurityCommandCenter = ExportToSecurityCommandCenter::new(1);
-
-        /// Do not export results of this scan to Security Command Center.
-        pub const DISABLED: ExportToSecurityCommandCenter = ExportToSecurityCommandCenter::new(2);
-
-        /// Creates a new ExportToSecurityCommandCenter instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enabled => std::option::Option::Some(1),
+                Self::Disabled => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ENABLED"),
-                2 => std::borrow::Cow::Borrowed("DISABLED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED")
                 }
-                "ENABLED" => std::option::Option::Some(Self::ENABLED),
-                "DISABLED" => std::option::Option::Some(Self::DISABLED),
-                _ => std::option::Option::None,
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for ExportToSecurityCommandCenter {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ExportToSecurityCommandCenter {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ExportToSecurityCommandCenter {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ExportToSecurityCommandCenter {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enabled,
+                2 => Self::Disabled,
+                _ => Self::UnknownValue(export_to_security_command_center::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ExportToSecurityCommandCenter {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EXPORT_TO_SECURITY_COMMAND_CENTER_UNSPECIFIED" => Self::Unspecified,
+                "ENABLED" => Self::Enabled,
+                "DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(export_to_security_command_center::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ExportToSecurityCommandCenter {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enabled => serializer.serialize_i32(1),
+                Self::Disabled => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ExportToSecurityCommandCenter {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<ExportToSecurityCommandCenter>::new(
+                    ".google.cloud.websecurityscanner.v1.ScanConfig.ExportToSecurityCommandCenter",
+                ),
+            )
         }
     }
 }
@@ -1929,327 +2412,490 @@ pub mod scan_config_error {
     /// Output only.
     /// Defines an error reason code.
     /// Next id: 44
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(i32);
-
-    impl Code {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Code {
         /// There is no error.
-        pub const CODE_UNSPECIFIED: Code = Code::new(0);
-
+        Unspecified,
         /// There is no error.
-        pub const OK: Code = Code::new(0);
-
+        Ok,
         /// Indicates an internal server error.
         /// Please DO NOT USE THIS ERROR CODE unless the root cause is truly unknown.
-        pub const INTERNAL_ERROR: Code = Code::new(1);
-
+        InternalError,
         /// One of the seed URLs is an App Engine URL but we cannot validate the scan
         /// settings due to an App Engine API backend error.
-        pub const APPENGINE_API_BACKEND_ERROR: Code = Code::new(2);
-
+        AppengineApiBackendError,
         /// One of the seed URLs is an App Engine URL but we cannot access the
         /// App Engine API to validate scan settings.
-        pub const APPENGINE_API_NOT_ACCESSIBLE: Code = Code::new(3);
-
+        AppengineApiNotAccessible,
         /// One of the seed URLs is an App Engine URL but the Default Host of the
         /// App Engine is not set.
-        pub const APPENGINE_DEFAULT_HOST_MISSING: Code = Code::new(4);
-
+        AppengineDefaultHostMissing,
         /// Google corporate accounts can not be used for scanning.
-        pub const CANNOT_USE_GOOGLE_COM_ACCOUNT: Code = Code::new(6);
-
+        CannotUseGoogleComAccount,
         /// The account of the scan creator can not be used for scanning.
-        pub const CANNOT_USE_OWNER_ACCOUNT: Code = Code::new(7);
-
+        CannotUseOwnerAccount,
         /// This scan targets Compute Engine, but we cannot validate scan settings
         /// due to a Compute Engine API backend error.
-        pub const COMPUTE_API_BACKEND_ERROR: Code = Code::new(8);
-
+        ComputeApiBackendError,
         /// This scan targets Compute Engine, but we cannot access the Compute Engine
         /// API to validate the scan settings.
-        pub const COMPUTE_API_NOT_ACCESSIBLE: Code = Code::new(9);
-
+        ComputeApiNotAccessible,
         /// The Custom Login URL does not belong to the current project.
-        pub const CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT: Code = Code::new(10);
-
+        CustomLoginUrlDoesNotBelongToCurrentProject,
         /// The Custom Login URL is malformed (can not be parsed).
-        pub const CUSTOM_LOGIN_URL_MALFORMED: Code = Code::new(11);
-
+        CustomLoginUrlMalformed,
         /// The Custom Login URL is mapped to a non-routable IP address in DNS.
-        pub const CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS: Code = Code::new(12);
-
+        CustomLoginUrlMappedToNonRoutableAddress,
         /// The Custom Login URL is mapped to an IP address which is not reserved for
         /// the current project.
-        pub const CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS: Code = Code::new(13);
-
+        CustomLoginUrlMappedToUnreservedAddress,
         /// The Custom Login URL has a non-routable IP address.
-        pub const CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS: Code = Code::new(14);
-
+        CustomLoginUrlHasNonRoutableIpAddress,
         /// The Custom Login URL has an IP address which is not reserved for the
         /// current project.
-        pub const CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS: Code = Code::new(15);
-
+        CustomLoginUrlHasUnreservedIpAddress,
         /// Another scan with the same name (case-sensitive) already exists.
-        pub const DUPLICATE_SCAN_NAME: Code = Code::new(16);
-
+        DuplicateScanName,
         /// A field is set to an invalid value.
-        pub const INVALID_FIELD_VALUE: Code = Code::new(18);
-
+        InvalidFieldValue,
         /// There was an error trying to authenticate to the scan target.
-        pub const FAILED_TO_AUTHENTICATE_TO_TARGET: Code = Code::new(19);
-
+        FailedToAuthenticateToTarget,
         /// Finding type value is not specified in the list findings request.
-        pub const FINDING_TYPE_UNSPECIFIED: Code = Code::new(20);
-
+        FindingTypeUnspecified,
         /// Scan targets Compute Engine, yet current project was not whitelisted for
         /// Google Compute Engine Scanning Alpha access.
-        pub const FORBIDDEN_TO_SCAN_COMPUTE: Code = Code::new(21);
-
+        ForbiddenToScanCompute,
         /// User tries to update managed scan
-        pub const FORBIDDEN_UPDATE_TO_MANAGED_SCAN: Code = Code::new(43);
-
+        ForbiddenUpdateToManagedScan,
         /// The supplied filter is malformed. For example, it can not be parsed, does
         /// not have a filter type in expression, or the same filter type appears
         /// more than once.
-        pub const MALFORMED_FILTER: Code = Code::new(22);
-
+        MalformedFilter,
         /// The supplied resource name is malformed (can not be parsed).
-        pub const MALFORMED_RESOURCE_NAME: Code = Code::new(23);
-
+        MalformedResourceName,
         /// The current project is not in an active state.
-        pub const PROJECT_INACTIVE: Code = Code::new(24);
-
+        ProjectInactive,
         /// A required field is not set.
-        pub const REQUIRED_FIELD: Code = Code::new(25);
-
+        RequiredField,
         /// Project id, scanconfig id, scanrun id, or finding id are not consistent
         /// with each other in resource name.
-        pub const RESOURCE_NAME_INCONSISTENT: Code = Code::new(26);
-
+        ResourceNameInconsistent,
         /// The scan being requested to start is already running.
-        pub const SCAN_ALREADY_RUNNING: Code = Code::new(27);
-
+        ScanAlreadyRunning,
         /// The scan that was requested to be stopped is not running.
-        pub const SCAN_NOT_RUNNING: Code = Code::new(28);
-
+        ScanNotRunning,
         /// One of the seed URLs does not belong to the current project.
-        pub const SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT: Code = Code::new(29);
-
+        SeedUrlDoesNotBelongToCurrentProject,
         /// One of the seed URLs is malformed (can not be parsed).
-        pub const SEED_URL_MALFORMED: Code = Code::new(30);
-
+        SeedUrlMalformed,
         /// One of the seed URLs is mapped to a non-routable IP address in DNS.
-        pub const SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS: Code = Code::new(31);
-
+        SeedUrlMappedToNonRoutableAddress,
         /// One of the seed URLs is mapped to an IP address which is not reserved
         /// for the current project.
-        pub const SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS: Code = Code::new(32);
-
+        SeedUrlMappedToUnreservedAddress,
         /// One of the seed URLs has on-routable IP address.
-        pub const SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS: Code = Code::new(33);
-
+        SeedUrlHasNonRoutableIpAddress,
         /// One of the seed URLs has an IP address that is not reserved
         /// for the current project.
-        pub const SEED_URL_HAS_UNRESERVED_IP_ADDRESS: Code = Code::new(35);
-
+        SeedUrlHasUnreservedIpAddress,
         /// The Web Security Scanner service account is not configured under the
         /// project.
-        pub const SERVICE_ACCOUNT_NOT_CONFIGURED: Code = Code::new(36);
-
+        ServiceAccountNotConfigured,
         /// A project has reached the maximum number of scans.
-        pub const TOO_MANY_SCANS: Code = Code::new(37);
-
+        TooManyScans,
         /// Resolving the details of the current project fails.
-        pub const UNABLE_TO_RESOLVE_PROJECT_INFO: Code = Code::new(38);
-
+        UnableToResolveProjectInfo,
         /// One or more blacklist patterns were in the wrong format.
-        pub const UNSUPPORTED_BLACKLIST_PATTERN_FORMAT: Code = Code::new(39);
-
+        UnsupportedBlacklistPatternFormat,
         /// The supplied filter is not supported.
-        pub const UNSUPPORTED_FILTER: Code = Code::new(40);
-
+        UnsupportedFilter,
         /// The supplied finding type is not supported. For example, we do not
         /// provide findings of the given finding type.
-        pub const UNSUPPORTED_FINDING_TYPE: Code = Code::new(41);
-
+        UnsupportedFindingType,
         /// The URL scheme of one or more of the supplied URLs is not supported.
-        pub const UNSUPPORTED_URL_SCHEME: Code = Code::new(42);
+        UnsupportedUrlScheme,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Code::value] or
+        /// [Code::name].
+        UnknownValue(code::UnknownValue),
+    }
 
-        /// Creates a new Code instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Code {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Ok => std::option::Option::Some(0),
+                Self::InternalError => std::option::Option::Some(1),
+                Self::AppengineApiBackendError => std::option::Option::Some(2),
+                Self::AppengineApiNotAccessible => std::option::Option::Some(3),
+                Self::AppengineDefaultHostMissing => std::option::Option::Some(4),
+                Self::CannotUseGoogleComAccount => std::option::Option::Some(6),
+                Self::CannotUseOwnerAccount => std::option::Option::Some(7),
+                Self::ComputeApiBackendError => std::option::Option::Some(8),
+                Self::ComputeApiNotAccessible => std::option::Option::Some(9),
+                Self::CustomLoginUrlDoesNotBelongToCurrentProject => std::option::Option::Some(10),
+                Self::CustomLoginUrlMalformed => std::option::Option::Some(11),
+                Self::CustomLoginUrlMappedToNonRoutableAddress => std::option::Option::Some(12),
+                Self::CustomLoginUrlMappedToUnreservedAddress => std::option::Option::Some(13),
+                Self::CustomLoginUrlHasNonRoutableIpAddress => std::option::Option::Some(14),
+                Self::CustomLoginUrlHasUnreservedIpAddress => std::option::Option::Some(15),
+                Self::DuplicateScanName => std::option::Option::Some(16),
+                Self::InvalidFieldValue => std::option::Option::Some(18),
+                Self::FailedToAuthenticateToTarget => std::option::Option::Some(19),
+                Self::FindingTypeUnspecified => std::option::Option::Some(20),
+                Self::ForbiddenToScanCompute => std::option::Option::Some(21),
+                Self::ForbiddenUpdateToManagedScan => std::option::Option::Some(43),
+                Self::MalformedFilter => std::option::Option::Some(22),
+                Self::MalformedResourceName => std::option::Option::Some(23),
+                Self::ProjectInactive => std::option::Option::Some(24),
+                Self::RequiredField => std::option::Option::Some(25),
+                Self::ResourceNameInconsistent => std::option::Option::Some(26),
+                Self::ScanAlreadyRunning => std::option::Option::Some(27),
+                Self::ScanNotRunning => std::option::Option::Some(28),
+                Self::SeedUrlDoesNotBelongToCurrentProject => std::option::Option::Some(29),
+                Self::SeedUrlMalformed => std::option::Option::Some(30),
+                Self::SeedUrlMappedToNonRoutableAddress => std::option::Option::Some(31),
+                Self::SeedUrlMappedToUnreservedAddress => std::option::Option::Some(32),
+                Self::SeedUrlHasNonRoutableIpAddress => std::option::Option::Some(33),
+                Self::SeedUrlHasUnreservedIpAddress => std::option::Option::Some(35),
+                Self::ServiceAccountNotConfigured => std::option::Option::Some(36),
+                Self::TooManyScans => std::option::Option::Some(37),
+                Self::UnableToResolveProjectInfo => std::option::Option::Some(38),
+                Self::UnsupportedBlacklistPatternFormat => std::option::Option::Some(39),
+                Self::UnsupportedFilter => std::option::Option::Some(40),
+                Self::UnsupportedFindingType => std::option::Option::Some(41),
+                Self::UnsupportedUrlScheme => std::option::Option::Some(42),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("OK"),
-                1 => std::borrow::Cow::Borrowed("INTERNAL_ERROR"),
-                2 => std::borrow::Cow::Borrowed("APPENGINE_API_BACKEND_ERROR"),
-                3 => std::borrow::Cow::Borrowed("APPENGINE_API_NOT_ACCESSIBLE"),
-                4 => std::borrow::Cow::Borrowed("APPENGINE_DEFAULT_HOST_MISSING"),
-                6 => std::borrow::Cow::Borrowed("CANNOT_USE_GOOGLE_COM_ACCOUNT"),
-                7 => std::borrow::Cow::Borrowed("CANNOT_USE_OWNER_ACCOUNT"),
-                8 => std::borrow::Cow::Borrowed("COMPUTE_API_BACKEND_ERROR"),
-                9 => std::borrow::Cow::Borrowed("COMPUTE_API_NOT_ACCESSIBLE"),
-                10 => std::borrow::Cow::Borrowed(
-                    "CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT",
-                ),
-                11 => std::borrow::Cow::Borrowed("CUSTOM_LOGIN_URL_MALFORMED"),
-                12 => std::borrow::Cow::Borrowed("CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS"),
-                13 => std::borrow::Cow::Borrowed("CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS"),
-                14 => std::borrow::Cow::Borrowed("CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS"),
-                15 => std::borrow::Cow::Borrowed("CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS"),
-                16 => std::borrow::Cow::Borrowed("DUPLICATE_SCAN_NAME"),
-                18 => std::borrow::Cow::Borrowed("INVALID_FIELD_VALUE"),
-                19 => std::borrow::Cow::Borrowed("FAILED_TO_AUTHENTICATE_TO_TARGET"),
-                20 => std::borrow::Cow::Borrowed("FINDING_TYPE_UNSPECIFIED"),
-                21 => std::borrow::Cow::Borrowed("FORBIDDEN_TO_SCAN_COMPUTE"),
-                22 => std::borrow::Cow::Borrowed("MALFORMED_FILTER"),
-                23 => std::borrow::Cow::Borrowed("MALFORMED_RESOURCE_NAME"),
-                24 => std::borrow::Cow::Borrowed("PROJECT_INACTIVE"),
-                25 => std::borrow::Cow::Borrowed("REQUIRED_FIELD"),
-                26 => std::borrow::Cow::Borrowed("RESOURCE_NAME_INCONSISTENT"),
-                27 => std::borrow::Cow::Borrowed("SCAN_ALREADY_RUNNING"),
-                28 => std::borrow::Cow::Borrowed("SCAN_NOT_RUNNING"),
-                29 => std::borrow::Cow::Borrowed("SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT"),
-                30 => std::borrow::Cow::Borrowed("SEED_URL_MALFORMED"),
-                31 => std::borrow::Cow::Borrowed("SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS"),
-                32 => std::borrow::Cow::Borrowed("SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS"),
-                33 => std::borrow::Cow::Borrowed("SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS"),
-                35 => std::borrow::Cow::Borrowed("SEED_URL_HAS_UNRESERVED_IP_ADDRESS"),
-                36 => std::borrow::Cow::Borrowed("SERVICE_ACCOUNT_NOT_CONFIGURED"),
-                37 => std::borrow::Cow::Borrowed("TOO_MANY_SCANS"),
-                38 => std::borrow::Cow::Borrowed("UNABLE_TO_RESOLVE_PROJECT_INFO"),
-                39 => std::borrow::Cow::Borrowed("UNSUPPORTED_BLACKLIST_PATTERN_FORMAT"),
-                40 => std::borrow::Cow::Borrowed("UNSUPPORTED_FILTER"),
-                41 => std::borrow::Cow::Borrowed("UNSUPPORTED_FINDING_TYPE"),
-                42 => std::borrow::Cow::Borrowed("UNSUPPORTED_URL_SCHEME"),
-                43 => std::borrow::Cow::Borrowed("FORBIDDEN_UPDATE_TO_MANAGED_SCAN"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CODE_UNSPECIFIED"),
+                Self::Ok => std::option::Option::Some("OK"),
+                Self::InternalError => std::option::Option::Some("INTERNAL_ERROR"),
+                Self::AppengineApiBackendError => {
+                    std::option::Option::Some("APPENGINE_API_BACKEND_ERROR")
+                }
+                Self::AppengineApiNotAccessible => {
+                    std::option::Option::Some("APPENGINE_API_NOT_ACCESSIBLE")
+                }
+                Self::AppengineDefaultHostMissing => {
+                    std::option::Option::Some("APPENGINE_DEFAULT_HOST_MISSING")
+                }
+                Self::CannotUseGoogleComAccount => {
+                    std::option::Option::Some("CANNOT_USE_GOOGLE_COM_ACCOUNT")
+                }
+                Self::CannotUseOwnerAccount => {
+                    std::option::Option::Some("CANNOT_USE_OWNER_ACCOUNT")
+                }
+                Self::ComputeApiBackendError => {
+                    std::option::Option::Some("COMPUTE_API_BACKEND_ERROR")
+                }
+                Self::ComputeApiNotAccessible => {
+                    std::option::Option::Some("COMPUTE_API_NOT_ACCESSIBLE")
+                }
+                Self::CustomLoginUrlDoesNotBelongToCurrentProject => {
+                    std::option::Option::Some("CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT")
+                }
+                Self::CustomLoginUrlMalformed => {
+                    std::option::Option::Some("CUSTOM_LOGIN_URL_MALFORMED")
+                }
+                Self::CustomLoginUrlMappedToNonRoutableAddress => {
+                    std::option::Option::Some("CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS")
+                }
+                Self::CustomLoginUrlMappedToUnreservedAddress => {
+                    std::option::Option::Some("CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS")
+                }
+                Self::CustomLoginUrlHasNonRoutableIpAddress => {
+                    std::option::Option::Some("CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS")
+                }
+                Self::CustomLoginUrlHasUnreservedIpAddress => {
+                    std::option::Option::Some("CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS")
+                }
+                Self::DuplicateScanName => std::option::Option::Some("DUPLICATE_SCAN_NAME"),
+                Self::InvalidFieldValue => std::option::Option::Some("INVALID_FIELD_VALUE"),
+                Self::FailedToAuthenticateToTarget => {
+                    std::option::Option::Some("FAILED_TO_AUTHENTICATE_TO_TARGET")
+                }
+                Self::FindingTypeUnspecified => {
+                    std::option::Option::Some("FINDING_TYPE_UNSPECIFIED")
+                }
+                Self::ForbiddenToScanCompute => {
+                    std::option::Option::Some("FORBIDDEN_TO_SCAN_COMPUTE")
+                }
+                Self::ForbiddenUpdateToManagedScan => {
+                    std::option::Option::Some("FORBIDDEN_UPDATE_TO_MANAGED_SCAN")
+                }
+                Self::MalformedFilter => std::option::Option::Some("MALFORMED_FILTER"),
+                Self::MalformedResourceName => std::option::Option::Some("MALFORMED_RESOURCE_NAME"),
+                Self::ProjectInactive => std::option::Option::Some("PROJECT_INACTIVE"),
+                Self::RequiredField => std::option::Option::Some("REQUIRED_FIELD"),
+                Self::ResourceNameInconsistent => {
+                    std::option::Option::Some("RESOURCE_NAME_INCONSISTENT")
+                }
+                Self::ScanAlreadyRunning => std::option::Option::Some("SCAN_ALREADY_RUNNING"),
+                Self::ScanNotRunning => std::option::Option::Some("SCAN_NOT_RUNNING"),
+                Self::SeedUrlDoesNotBelongToCurrentProject => {
+                    std::option::Option::Some("SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT")
+                }
+                Self::SeedUrlMalformed => std::option::Option::Some("SEED_URL_MALFORMED"),
+                Self::SeedUrlMappedToNonRoutableAddress => {
+                    std::option::Option::Some("SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS")
+                }
+                Self::SeedUrlMappedToUnreservedAddress => {
+                    std::option::Option::Some("SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS")
+                }
+                Self::SeedUrlHasNonRoutableIpAddress => {
+                    std::option::Option::Some("SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS")
+                }
+                Self::SeedUrlHasUnreservedIpAddress => {
+                    std::option::Option::Some("SEED_URL_HAS_UNRESERVED_IP_ADDRESS")
+                }
+                Self::ServiceAccountNotConfigured => {
+                    std::option::Option::Some("SERVICE_ACCOUNT_NOT_CONFIGURED")
+                }
+                Self::TooManyScans => std::option::Option::Some("TOO_MANY_SCANS"),
+                Self::UnableToResolveProjectInfo => {
+                    std::option::Option::Some("UNABLE_TO_RESOLVE_PROJECT_INFO")
+                }
+                Self::UnsupportedBlacklistPatternFormat => {
+                    std::option::Option::Some("UNSUPPORTED_BLACKLIST_PATTERN_FORMAT")
+                }
+                Self::UnsupportedFilter => std::option::Option::Some("UNSUPPORTED_FILTER"),
+                Self::UnsupportedFindingType => {
+                    std::option::Option::Some("UNSUPPORTED_FINDING_TYPE")
+                }
+                Self::UnsupportedUrlScheme => std::option::Option::Some("UNSUPPORTED_URL_SCHEME"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CODE_UNSPECIFIED" => std::option::Option::Some(Self::CODE_UNSPECIFIED),
-                "OK" => std::option::Option::Some(Self::OK),
-                "INTERNAL_ERROR" => std::option::Option::Some(Self::INTERNAL_ERROR),
-                "APPENGINE_API_BACKEND_ERROR" => {
-                    std::option::Option::Some(Self::APPENGINE_API_BACKEND_ERROR)
-                }
-                "APPENGINE_API_NOT_ACCESSIBLE" => {
-                    std::option::Option::Some(Self::APPENGINE_API_NOT_ACCESSIBLE)
-                }
-                "APPENGINE_DEFAULT_HOST_MISSING" => {
-                    std::option::Option::Some(Self::APPENGINE_DEFAULT_HOST_MISSING)
-                }
-                "CANNOT_USE_GOOGLE_COM_ACCOUNT" => {
-                    std::option::Option::Some(Self::CANNOT_USE_GOOGLE_COM_ACCOUNT)
-                }
-                "CANNOT_USE_OWNER_ACCOUNT" => {
-                    std::option::Option::Some(Self::CANNOT_USE_OWNER_ACCOUNT)
-                }
-                "COMPUTE_API_BACKEND_ERROR" => {
-                    std::option::Option::Some(Self::COMPUTE_API_BACKEND_ERROR)
-                }
-                "COMPUTE_API_NOT_ACCESSIBLE" => {
-                    std::option::Option::Some(Self::COMPUTE_API_NOT_ACCESSIBLE)
-                }
-                "CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT" => std::option::Option::Some(
-                    Self::CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT,
-                ),
-                "CUSTOM_LOGIN_URL_MALFORMED" => {
-                    std::option::Option::Some(Self::CUSTOM_LOGIN_URL_MALFORMED)
-                }
-                "CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS" => {
-                    std::option::Option::Some(Self::CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS)
-                }
-                "CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS" => {
-                    std::option::Option::Some(Self::CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS)
-                }
-                "CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS" => {
-                    std::option::Option::Some(Self::CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS)
-                }
-                "CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS" => {
-                    std::option::Option::Some(Self::CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS)
-                }
-                "DUPLICATE_SCAN_NAME" => std::option::Option::Some(Self::DUPLICATE_SCAN_NAME),
-                "INVALID_FIELD_VALUE" => std::option::Option::Some(Self::INVALID_FIELD_VALUE),
-                "FAILED_TO_AUTHENTICATE_TO_TARGET" => {
-                    std::option::Option::Some(Self::FAILED_TO_AUTHENTICATE_TO_TARGET)
-                }
-                "FINDING_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::FINDING_TYPE_UNSPECIFIED)
-                }
-                "FORBIDDEN_TO_SCAN_COMPUTE" => {
-                    std::option::Option::Some(Self::FORBIDDEN_TO_SCAN_COMPUTE)
-                }
-                "FORBIDDEN_UPDATE_TO_MANAGED_SCAN" => {
-                    std::option::Option::Some(Self::FORBIDDEN_UPDATE_TO_MANAGED_SCAN)
-                }
-                "MALFORMED_FILTER" => std::option::Option::Some(Self::MALFORMED_FILTER),
-                "MALFORMED_RESOURCE_NAME" => {
-                    std::option::Option::Some(Self::MALFORMED_RESOURCE_NAME)
-                }
-                "PROJECT_INACTIVE" => std::option::Option::Some(Self::PROJECT_INACTIVE),
-                "REQUIRED_FIELD" => std::option::Option::Some(Self::REQUIRED_FIELD),
-                "RESOURCE_NAME_INCONSISTENT" => {
-                    std::option::Option::Some(Self::RESOURCE_NAME_INCONSISTENT)
-                }
-                "SCAN_ALREADY_RUNNING" => std::option::Option::Some(Self::SCAN_ALREADY_RUNNING),
-                "SCAN_NOT_RUNNING" => std::option::Option::Some(Self::SCAN_NOT_RUNNING),
-                "SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT" => {
-                    std::option::Option::Some(Self::SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT)
-                }
-                "SEED_URL_MALFORMED" => std::option::Option::Some(Self::SEED_URL_MALFORMED),
-                "SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS" => {
-                    std::option::Option::Some(Self::SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS)
-                }
-                "SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS" => {
-                    std::option::Option::Some(Self::SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS)
-                }
-                "SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS" => {
-                    std::option::Option::Some(Self::SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS)
-                }
-                "SEED_URL_HAS_UNRESERVED_IP_ADDRESS" => {
-                    std::option::Option::Some(Self::SEED_URL_HAS_UNRESERVED_IP_ADDRESS)
-                }
-                "SERVICE_ACCOUNT_NOT_CONFIGURED" => {
-                    std::option::Option::Some(Self::SERVICE_ACCOUNT_NOT_CONFIGURED)
-                }
-                "TOO_MANY_SCANS" => std::option::Option::Some(Self::TOO_MANY_SCANS),
-                "UNABLE_TO_RESOLVE_PROJECT_INFO" => {
-                    std::option::Option::Some(Self::UNABLE_TO_RESOLVE_PROJECT_INFO)
-                }
-                "UNSUPPORTED_BLACKLIST_PATTERN_FORMAT" => {
-                    std::option::Option::Some(Self::UNSUPPORTED_BLACKLIST_PATTERN_FORMAT)
-                }
-                "UNSUPPORTED_FILTER" => std::option::Option::Some(Self::UNSUPPORTED_FILTER),
-                "UNSUPPORTED_FINDING_TYPE" => {
-                    std::option::Option::Some(Self::UNSUPPORTED_FINDING_TYPE)
-                }
-                "UNSUPPORTED_URL_SCHEME" => std::option::Option::Some(Self::UNSUPPORTED_URL_SCHEME),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Code {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Ok,
+                1 => Self::InternalError,
+                2 => Self::AppengineApiBackendError,
+                3 => Self::AppengineApiNotAccessible,
+                4 => Self::AppengineDefaultHostMissing,
+                6 => Self::CannotUseGoogleComAccount,
+                7 => Self::CannotUseOwnerAccount,
+                8 => Self::ComputeApiBackendError,
+                9 => Self::ComputeApiNotAccessible,
+                10 => Self::CustomLoginUrlDoesNotBelongToCurrentProject,
+                11 => Self::CustomLoginUrlMalformed,
+                12 => Self::CustomLoginUrlMappedToNonRoutableAddress,
+                13 => Self::CustomLoginUrlMappedToUnreservedAddress,
+                14 => Self::CustomLoginUrlHasNonRoutableIpAddress,
+                15 => Self::CustomLoginUrlHasUnreservedIpAddress,
+                16 => Self::DuplicateScanName,
+                18 => Self::InvalidFieldValue,
+                19 => Self::FailedToAuthenticateToTarget,
+                20 => Self::FindingTypeUnspecified,
+                21 => Self::ForbiddenToScanCompute,
+                22 => Self::MalformedFilter,
+                23 => Self::MalformedResourceName,
+                24 => Self::ProjectInactive,
+                25 => Self::RequiredField,
+                26 => Self::ResourceNameInconsistent,
+                27 => Self::ScanAlreadyRunning,
+                28 => Self::ScanNotRunning,
+                29 => Self::SeedUrlDoesNotBelongToCurrentProject,
+                30 => Self::SeedUrlMalformed,
+                31 => Self::SeedUrlMappedToNonRoutableAddress,
+                32 => Self::SeedUrlMappedToUnreservedAddress,
+                33 => Self::SeedUrlHasNonRoutableIpAddress,
+                35 => Self::SeedUrlHasUnreservedIpAddress,
+                36 => Self::ServiceAccountNotConfigured,
+                37 => Self::TooManyScans,
+                38 => Self::UnableToResolveProjectInfo,
+                39 => Self::UnsupportedBlacklistPatternFormat,
+                40 => Self::UnsupportedFilter,
+                41 => Self::UnsupportedFindingType,
+                42 => Self::UnsupportedUrlScheme,
+                43 => Self::ForbiddenUpdateToManagedScan,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Code {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CODE_UNSPECIFIED" => Self::Unspecified,
+                "OK" => Self::Ok,
+                "INTERNAL_ERROR" => Self::InternalError,
+                "APPENGINE_API_BACKEND_ERROR" => Self::AppengineApiBackendError,
+                "APPENGINE_API_NOT_ACCESSIBLE" => Self::AppengineApiNotAccessible,
+                "APPENGINE_DEFAULT_HOST_MISSING" => Self::AppengineDefaultHostMissing,
+                "CANNOT_USE_GOOGLE_COM_ACCOUNT" => Self::CannotUseGoogleComAccount,
+                "CANNOT_USE_OWNER_ACCOUNT" => Self::CannotUseOwnerAccount,
+                "COMPUTE_API_BACKEND_ERROR" => Self::ComputeApiBackendError,
+                "COMPUTE_API_NOT_ACCESSIBLE" => Self::ComputeApiNotAccessible,
+                "CUSTOM_LOGIN_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT" => {
+                    Self::CustomLoginUrlDoesNotBelongToCurrentProject
+                }
+                "CUSTOM_LOGIN_URL_MALFORMED" => Self::CustomLoginUrlMalformed,
+                "CUSTOM_LOGIN_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS" => {
+                    Self::CustomLoginUrlMappedToNonRoutableAddress
+                }
+                "CUSTOM_LOGIN_URL_MAPPED_TO_UNRESERVED_ADDRESS" => {
+                    Self::CustomLoginUrlMappedToUnreservedAddress
+                }
+                "CUSTOM_LOGIN_URL_HAS_NON_ROUTABLE_IP_ADDRESS" => {
+                    Self::CustomLoginUrlHasNonRoutableIpAddress
+                }
+                "CUSTOM_LOGIN_URL_HAS_UNRESERVED_IP_ADDRESS" => {
+                    Self::CustomLoginUrlHasUnreservedIpAddress
+                }
+                "DUPLICATE_SCAN_NAME" => Self::DuplicateScanName,
+                "INVALID_FIELD_VALUE" => Self::InvalidFieldValue,
+                "FAILED_TO_AUTHENTICATE_TO_TARGET" => Self::FailedToAuthenticateToTarget,
+                "FINDING_TYPE_UNSPECIFIED" => Self::FindingTypeUnspecified,
+                "FORBIDDEN_TO_SCAN_COMPUTE" => Self::ForbiddenToScanCompute,
+                "FORBIDDEN_UPDATE_TO_MANAGED_SCAN" => Self::ForbiddenUpdateToManagedScan,
+                "MALFORMED_FILTER" => Self::MalformedFilter,
+                "MALFORMED_RESOURCE_NAME" => Self::MalformedResourceName,
+                "PROJECT_INACTIVE" => Self::ProjectInactive,
+                "REQUIRED_FIELD" => Self::RequiredField,
+                "RESOURCE_NAME_INCONSISTENT" => Self::ResourceNameInconsistent,
+                "SCAN_ALREADY_RUNNING" => Self::ScanAlreadyRunning,
+                "SCAN_NOT_RUNNING" => Self::ScanNotRunning,
+                "SEED_URL_DOES_NOT_BELONG_TO_CURRENT_PROJECT" => {
+                    Self::SeedUrlDoesNotBelongToCurrentProject
+                }
+                "SEED_URL_MALFORMED" => Self::SeedUrlMalformed,
+                "SEED_URL_MAPPED_TO_NON_ROUTABLE_ADDRESS" => {
+                    Self::SeedUrlMappedToNonRoutableAddress
+                }
+                "SEED_URL_MAPPED_TO_UNRESERVED_ADDRESS" => Self::SeedUrlMappedToUnreservedAddress,
+                "SEED_URL_HAS_NON_ROUTABLE_IP_ADDRESS" => Self::SeedUrlHasNonRoutableIpAddress,
+                "SEED_URL_HAS_UNRESERVED_IP_ADDRESS" => Self::SeedUrlHasUnreservedIpAddress,
+                "SERVICE_ACCOUNT_NOT_CONFIGURED" => Self::ServiceAccountNotConfigured,
+                "TOO_MANY_SCANS" => Self::TooManyScans,
+                "UNABLE_TO_RESOLVE_PROJECT_INFO" => Self::UnableToResolveProjectInfo,
+                "UNSUPPORTED_BLACKLIST_PATTERN_FORMAT" => Self::UnsupportedBlacklistPatternFormat,
+                "UNSUPPORTED_FILTER" => Self::UnsupportedFilter,
+                "UNSUPPORTED_FINDING_TYPE" => Self::UnsupportedFindingType,
+                "UNSUPPORTED_URL_SCHEME" => Self::UnsupportedUrlScheme,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Ok => serializer.serialize_i32(0),
+                Self::InternalError => serializer.serialize_i32(1),
+                Self::AppengineApiBackendError => serializer.serialize_i32(2),
+                Self::AppengineApiNotAccessible => serializer.serialize_i32(3),
+                Self::AppengineDefaultHostMissing => serializer.serialize_i32(4),
+                Self::CannotUseGoogleComAccount => serializer.serialize_i32(6),
+                Self::CannotUseOwnerAccount => serializer.serialize_i32(7),
+                Self::ComputeApiBackendError => serializer.serialize_i32(8),
+                Self::ComputeApiNotAccessible => serializer.serialize_i32(9),
+                Self::CustomLoginUrlDoesNotBelongToCurrentProject => serializer.serialize_i32(10),
+                Self::CustomLoginUrlMalformed => serializer.serialize_i32(11),
+                Self::CustomLoginUrlMappedToNonRoutableAddress => serializer.serialize_i32(12),
+                Self::CustomLoginUrlMappedToUnreservedAddress => serializer.serialize_i32(13),
+                Self::CustomLoginUrlHasNonRoutableIpAddress => serializer.serialize_i32(14),
+                Self::CustomLoginUrlHasUnreservedIpAddress => serializer.serialize_i32(15),
+                Self::DuplicateScanName => serializer.serialize_i32(16),
+                Self::InvalidFieldValue => serializer.serialize_i32(18),
+                Self::FailedToAuthenticateToTarget => serializer.serialize_i32(19),
+                Self::FindingTypeUnspecified => serializer.serialize_i32(20),
+                Self::ForbiddenToScanCompute => serializer.serialize_i32(21),
+                Self::ForbiddenUpdateToManagedScan => serializer.serialize_i32(43),
+                Self::MalformedFilter => serializer.serialize_i32(22),
+                Self::MalformedResourceName => serializer.serialize_i32(23),
+                Self::ProjectInactive => serializer.serialize_i32(24),
+                Self::RequiredField => serializer.serialize_i32(25),
+                Self::ResourceNameInconsistent => serializer.serialize_i32(26),
+                Self::ScanAlreadyRunning => serializer.serialize_i32(27),
+                Self::ScanNotRunning => serializer.serialize_i32(28),
+                Self::SeedUrlDoesNotBelongToCurrentProject => serializer.serialize_i32(29),
+                Self::SeedUrlMalformed => serializer.serialize_i32(30),
+                Self::SeedUrlMappedToNonRoutableAddress => serializer.serialize_i32(31),
+                Self::SeedUrlMappedToUnreservedAddress => serializer.serialize_i32(32),
+                Self::SeedUrlHasNonRoutableIpAddress => serializer.serialize_i32(33),
+                Self::SeedUrlHasUnreservedIpAddress => serializer.serialize_i32(35),
+                Self::ServiceAccountNotConfigured => serializer.serialize_i32(36),
+                Self::TooManyScans => serializer.serialize_i32(37),
+                Self::UnableToResolveProjectInfo => serializer.serialize_i32(38),
+                Self::UnsupportedBlacklistPatternFormat => serializer.serialize_i32(39),
+                Self::UnsupportedFilter => serializer.serialize_i32(40),
+                Self::UnsupportedFindingType => serializer.serialize_i32(41),
+                Self::UnsupportedUrlScheme => serializer.serialize_i32(42),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                ".google.cloud.websecurityscanner.v1.ScanConfigError.Code",
+            ))
         }
     }
 }
@@ -2427,132 +3073,282 @@ pub mod scan_run {
     use super::*;
 
     /// Types of ScanRun execution state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExecutionState(i32);
-
-    impl ExecutionState {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ExecutionState {
         /// Represents an invalid state caused by internal server error. This value
         /// should never be returned.
-        pub const EXECUTION_STATE_UNSPECIFIED: ExecutionState = ExecutionState::new(0);
-
+        Unspecified,
         /// The scan is waiting in the queue.
-        pub const QUEUED: ExecutionState = ExecutionState::new(1);
-
+        Queued,
         /// The scan is in progress.
-        pub const SCANNING: ExecutionState = ExecutionState::new(2);
-
+        Scanning,
         /// The scan is either finished or stopped by user.
-        pub const FINISHED: ExecutionState = ExecutionState::new(3);
+        Finished,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ExecutionState::value] or
+        /// [ExecutionState::name].
+        UnknownValue(execution_state::UnknownValue),
+    }
 
-        /// Creates a new ExecutionState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod execution_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ExecutionState {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Queued => std::option::Option::Some(1),
+                Self::Scanning => std::option::Option::Some(2),
+                Self::Finished => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("EXECUTION_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("QUEUED"),
-                2 => std::borrow::Cow::Borrowed("SCANNING"),
-                3 => std::borrow::Cow::Borrowed("FINISHED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EXECUTION_STATE_UNSPECIFIED"),
+                Self::Queued => std::option::Option::Some("QUEUED"),
+                Self::Scanning => std::option::Option::Some("SCANNING"),
+                Self::Finished => std::option::Option::Some("FINISHED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "EXECUTION_STATE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::EXECUTION_STATE_UNSPECIFIED)
-                }
-                "QUEUED" => std::option::Option::Some(Self::QUEUED),
-                "SCANNING" => std::option::Option::Some(Self::SCANNING),
-                "FINISHED" => std::option::Option::Some(Self::FINISHED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ExecutionState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ExecutionState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ExecutionState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ExecutionState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Queued,
+                2 => Self::Scanning,
+                3 => Self::Finished,
+                _ => Self::UnknownValue(execution_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ExecutionState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EXECUTION_STATE_UNSPECIFIED" => Self::Unspecified,
+                "QUEUED" => Self::Queued,
+                "SCANNING" => Self::Scanning,
+                "FINISHED" => Self::Finished,
+                _ => Self::UnknownValue(execution_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ExecutionState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Queued => serializer.serialize_i32(1),
+                Self::Scanning => serializer.serialize_i32(2),
+                Self::Finished => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ExecutionState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExecutionState>::new(
+                ".google.cloud.websecurityscanner.v1.ScanRun.ExecutionState",
+            ))
         }
     }
 
     /// Types of ScanRun result state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ResultState(i32);
-
-    impl ResultState {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ResultState {
         /// Default value. This value is returned when the ScanRun is not yet
         /// finished.
-        pub const RESULT_STATE_UNSPECIFIED: ResultState = ResultState::new(0);
-
+        Unspecified,
         /// The scan finished without errors.
-        pub const SUCCESS: ResultState = ResultState::new(1);
-
+        Success,
         /// The scan finished with errors.
-        pub const ERROR: ResultState = ResultState::new(2);
-
+        Error,
         /// The scan was terminated by user.
-        pub const KILLED: ResultState = ResultState::new(3);
+        Killed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ResultState::value] or
+        /// [ResultState::name].
+        UnknownValue(result_state::UnknownValue),
+    }
 
-        /// Creates a new ResultState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod result_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ResultState {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Success => std::option::Option::Some(1),
+                Self::Error => std::option::Option::Some(2),
+                Self::Killed => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("RESULT_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SUCCESS"),
-                2 => std::borrow::Cow::Borrowed("ERROR"),
-                3 => std::borrow::Cow::Borrowed("KILLED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RESULT_STATE_UNSPECIFIED"),
+                Self::Success => std::option::Option::Some("SUCCESS"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::Killed => std::option::Option::Some("KILLED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "RESULT_STATE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::RESULT_STATE_UNSPECIFIED)
-                }
-                "SUCCESS" => std::option::Option::Some(Self::SUCCESS),
-                "ERROR" => std::option::Option::Some(Self::ERROR),
-                "KILLED" => std::option::Option::Some(Self::KILLED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ResultState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ResultState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ResultState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ResultState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Success,
+                2 => Self::Error,
+                3 => Self::Killed,
+                _ => Self::UnknownValue(result_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ResultState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RESULT_STATE_UNSPECIFIED" => Self::Unspecified,
+                "SUCCESS" => Self::Success,
+                "ERROR" => Self::Error,
+                "KILLED" => Self::Killed,
+                _ => Self::UnknownValue(result_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ResultState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Success => serializer.serialize_i32(1),
+                Self::Error => serializer.serialize_i32(2),
+                Self::Killed => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ResultState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ResultState>::new(
+                ".google.cloud.websecurityscanner.v1.ScanRun.ResultState",
+            ))
         }
     }
 }
@@ -2629,88 +3425,171 @@ pub mod scan_run_error_trace {
     /// Output only.
     /// Defines an error reason code.
     /// Next id: 8
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(i32);
-
-    impl Code {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Code {
         /// Default value is never used.
-        pub const CODE_UNSPECIFIED: Code = Code::new(0);
-
+        Unspecified,
         /// Indicates that the scan run failed due to an internal server error.
-        pub const INTERNAL_ERROR: Code = Code::new(1);
-
+        InternalError,
         /// Indicates a scan configuration error, usually due to outdated ScanConfig
         /// settings, such as starting_urls or the DNS configuration.
-        pub const SCAN_CONFIG_ISSUE: Code = Code::new(2);
-
+        ScanConfigIssue,
         /// Indicates an authentication error, usually due to outdated ScanConfig
         /// authentication settings.
-        pub const AUTHENTICATION_CONFIG_ISSUE: Code = Code::new(3);
-
+        AuthenticationConfigIssue,
         /// Indicates a scan operation timeout, usually caused by a very large site.
-        pub const TIMED_OUT_WHILE_SCANNING: Code = Code::new(4);
-
+        TimedOutWhileScanning,
         /// Indicates that a scan encountered excessive redirects, either to
         /// authentication or some other page outside of the scan scope.
-        pub const TOO_MANY_REDIRECTS: Code = Code::new(5);
-
+        TooManyRedirects,
         /// Indicates that a scan encountered numerous errors from the web site
         /// pages. When available, most_common_http_error_code field indicates the
         /// most common HTTP error code encountered during the scan.
-        pub const TOO_MANY_HTTP_ERRORS: Code = Code::new(6);
+        TooManyHttpErrors,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Code::value] or
+        /// [Code::name].
+        UnknownValue(code::UnknownValue),
+    }
 
-        /// Creates a new Code instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Code {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::InternalError => std::option::Option::Some(1),
+                Self::ScanConfigIssue => std::option::Option::Some(2),
+                Self::AuthenticationConfigIssue => std::option::Option::Some(3),
+                Self::TimedOutWhileScanning => std::option::Option::Some(4),
+                Self::TooManyRedirects => std::option::Option::Some(5),
+                Self::TooManyHttpErrors => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INTERNAL_ERROR"),
-                2 => std::borrow::Cow::Borrowed("SCAN_CONFIG_ISSUE"),
-                3 => std::borrow::Cow::Borrowed("AUTHENTICATION_CONFIG_ISSUE"),
-                4 => std::borrow::Cow::Borrowed("TIMED_OUT_WHILE_SCANNING"),
-                5 => std::borrow::Cow::Borrowed("TOO_MANY_REDIRECTS"),
-                6 => std::borrow::Cow::Borrowed("TOO_MANY_HTTP_ERRORS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CODE_UNSPECIFIED" => std::option::Option::Some(Self::CODE_UNSPECIFIED),
-                "INTERNAL_ERROR" => std::option::Option::Some(Self::INTERNAL_ERROR),
-                "SCAN_CONFIG_ISSUE" => std::option::Option::Some(Self::SCAN_CONFIG_ISSUE),
-                "AUTHENTICATION_CONFIG_ISSUE" => {
-                    std::option::Option::Some(Self::AUTHENTICATION_CONFIG_ISSUE)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CODE_UNSPECIFIED"),
+                Self::InternalError => std::option::Option::Some("INTERNAL_ERROR"),
+                Self::ScanConfigIssue => std::option::Option::Some("SCAN_CONFIG_ISSUE"),
+                Self::AuthenticationConfigIssue => {
+                    std::option::Option::Some("AUTHENTICATION_CONFIG_ISSUE")
                 }
-                "TIMED_OUT_WHILE_SCANNING" => {
-                    std::option::Option::Some(Self::TIMED_OUT_WHILE_SCANNING)
+                Self::TimedOutWhileScanning => {
+                    std::option::Option::Some("TIMED_OUT_WHILE_SCANNING")
                 }
-                "TOO_MANY_REDIRECTS" => std::option::Option::Some(Self::TOO_MANY_REDIRECTS),
-                "TOO_MANY_HTTP_ERRORS" => std::option::Option::Some(Self::TOO_MANY_HTTP_ERRORS),
-                _ => std::option::Option::None,
+                Self::TooManyRedirects => std::option::Option::Some("TOO_MANY_REDIRECTS"),
+                Self::TooManyHttpErrors => std::option::Option::Some("TOO_MANY_HTTP_ERRORS"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for Code {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::InternalError,
+                2 => Self::ScanConfigIssue,
+                3 => Self::AuthenticationConfigIssue,
+                4 => Self::TimedOutWhileScanning,
+                5 => Self::TooManyRedirects,
+                6 => Self::TooManyHttpErrors,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Code {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CODE_UNSPECIFIED" => Self::Unspecified,
+                "INTERNAL_ERROR" => Self::InternalError,
+                "SCAN_CONFIG_ISSUE" => Self::ScanConfigIssue,
+                "AUTHENTICATION_CONFIG_ISSUE" => Self::AuthenticationConfigIssue,
+                "TIMED_OUT_WHILE_SCANNING" => Self::TimedOutWhileScanning,
+                "TOO_MANY_REDIRECTS" => Self::TooManyRedirects,
+                "TOO_MANY_HTTP_ERRORS" => Self::TooManyHttpErrors,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::InternalError => serializer.serialize_i32(1),
+                Self::ScanConfigIssue => serializer.serialize_i32(2),
+                Self::AuthenticationConfigIssue => serializer.serialize_i32(3),
+                Self::TimedOutWhileScanning => serializer.serialize_i32(4),
+                Self::TooManyRedirects => serializer.serialize_i32(5),
+                Self::TooManyHttpErrors => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                ".google.cloud.websecurityscanner.v1.ScanRunErrorTrace.Code",
+            ))
         }
     }
 }
@@ -2872,83 +3751,164 @@ pub mod scan_run_warning_trace {
     /// Output only.
     /// Defines a warning message code.
     /// Next id: 6
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(i32);
-
-    impl Code {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Code {
         /// Default value is never used.
-        pub const CODE_UNSPECIFIED: Code = Code::new(0);
-
+        Unspecified,
         /// Indicates that a scan discovered an unexpectedly low number of URLs. This
         /// is sometimes caused by complex navigation features or by using a single
         /// URL for numerous pages.
-        pub const INSUFFICIENT_CRAWL_RESULTS: Code = Code::new(1);
-
+        InsufficientCrawlResults,
         /// Indicates that a scan discovered too many URLs to test, or excessive
         /// redundant URLs.
-        pub const TOO_MANY_CRAWL_RESULTS: Code = Code::new(2);
-
+        TooManyCrawlResults,
         /// Indicates that too many tests have been generated for the scan. Customer
         /// should try reducing the number of starting URLs, increasing the QPS rate,
         /// or narrowing down the scope of the scan using the excluded patterns.
-        pub const TOO_MANY_FUZZ_TASKS: Code = Code::new(3);
-
+        TooManyFuzzTasks,
         /// Indicates that a scan is blocked by IAP.
-        pub const BLOCKED_BY_IAP: Code = Code::new(4);
-
+        BlockedByIap,
         /// Indicates that no seeds is found for a scan
-        pub const NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN: Code = Code::new(5);
+        NoStartingUrlFoundForManagedScan,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Code::value] or
+        /// [Code::name].
+        UnknownValue(code::UnknownValue),
+    }
 
-        /// Creates a new Code instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Code {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::InsufficientCrawlResults => std::option::Option::Some(1),
+                Self::TooManyCrawlResults => std::option::Option::Some(2),
+                Self::TooManyFuzzTasks => std::option::Option::Some(3),
+                Self::BlockedByIap => std::option::Option::Some(4),
+                Self::NoStartingUrlFoundForManagedScan => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("INSUFFICIENT_CRAWL_RESULTS"),
-                2 => std::borrow::Cow::Borrowed("TOO_MANY_CRAWL_RESULTS"),
-                3 => std::borrow::Cow::Borrowed("TOO_MANY_FUZZ_TASKS"),
-                4 => std::borrow::Cow::Borrowed("BLOCKED_BY_IAP"),
-                5 => std::borrow::Cow::Borrowed("NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CODE_UNSPECIFIED" => std::option::Option::Some(Self::CODE_UNSPECIFIED),
-                "INSUFFICIENT_CRAWL_RESULTS" => {
-                    std::option::Option::Some(Self::INSUFFICIENT_CRAWL_RESULTS)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CODE_UNSPECIFIED"),
+                Self::InsufficientCrawlResults => {
+                    std::option::Option::Some("INSUFFICIENT_CRAWL_RESULTS")
                 }
-                "TOO_MANY_CRAWL_RESULTS" => std::option::Option::Some(Self::TOO_MANY_CRAWL_RESULTS),
-                "TOO_MANY_FUZZ_TASKS" => std::option::Option::Some(Self::TOO_MANY_FUZZ_TASKS),
-                "BLOCKED_BY_IAP" => std::option::Option::Some(Self::BLOCKED_BY_IAP),
-                "NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN" => {
-                    std::option::Option::Some(Self::NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN)
+                Self::TooManyCrawlResults => std::option::Option::Some("TOO_MANY_CRAWL_RESULTS"),
+                Self::TooManyFuzzTasks => std::option::Option::Some("TOO_MANY_FUZZ_TASKS"),
+                Self::BlockedByIap => std::option::Option::Some("BLOCKED_BY_IAP"),
+                Self::NoStartingUrlFoundForManagedScan => {
+                    std::option::Option::Some("NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN")
                 }
-                _ => std::option::Option::None,
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for Code {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Code {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Code {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Code {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::InsufficientCrawlResults,
+                2 => Self::TooManyCrawlResults,
+                3 => Self::TooManyFuzzTasks,
+                4 => Self::BlockedByIap,
+                5 => Self::NoStartingUrlFoundForManagedScan,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Code {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CODE_UNSPECIFIED" => Self::Unspecified,
+                "INSUFFICIENT_CRAWL_RESULTS" => Self::InsufficientCrawlResults,
+                "TOO_MANY_CRAWL_RESULTS" => Self::TooManyCrawlResults,
+                "TOO_MANY_FUZZ_TASKS" => Self::TooManyFuzzTasks,
+                "BLOCKED_BY_IAP" => Self::BlockedByIap,
+                "NO_STARTING_URL_FOUND_FOR_MANAGED_SCAN" => Self::NoStartingUrlFoundForManagedScan,
+                _ => Self::UnknownValue(code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Code {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::InsufficientCrawlResults => serializer.serialize_i32(1),
+                Self::TooManyCrawlResults => serializer.serialize_i32(2),
+                Self::TooManyFuzzTasks => serializer.serialize_i32(3),
+                Self::BlockedByIap => serializer.serialize_i32(4),
+                Self::NoStartingUrlFoundForManagedScan => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Code {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Code>::new(
+                ".google.cloud.websecurityscanner.v1.ScanRunWarningTrace.Code",
+            ))
         }
     }
 }

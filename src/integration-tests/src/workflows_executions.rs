@@ -53,7 +53,7 @@ pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()
     // The execution list using the `BASIC` view.
     let mut executions = client
         .list_executions(&parent)
-        .set_view(wfe::model::ExecutionView::BASIC)
+        .set_view(wfe::model::ExecutionView::Basic)
         .paginator()
         .await
         .items();
@@ -67,7 +67,7 @@ pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()
     // The execution list using the `FULL` view.
     let mut executions = client
         .list_executions(&parent)
-        .set_view(wfe::model::ExecutionView::FULL)
+        .set_view(wfe::model::ExecutionView::Full)
         .paginator()
         .await
         .items();

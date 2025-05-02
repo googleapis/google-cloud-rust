@@ -27,6 +27,7 @@
 use gax::error::Error;
 use std::sync::Arc;
 
+#[allow(deprecated)]
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::OsConfigService].

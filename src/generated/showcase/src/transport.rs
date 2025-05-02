@@ -178,7 +178,6 @@ impl super::stub::Compliance for Compliance {
                         .as_ref()
                         .ok_or_else(|| gaxi::path_parameter::missing("info"))?
                         .f_kingdom
-                        .value()
                 ),
             )
             .query(&[("$alt", "json;enum-encoding=int")])
@@ -439,7 +438,7 @@ impl super::stub::Compliance for Compliance {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "request")
             });
-        let builder = builder.query(&[("continent", &req.continent.value())]);
+        let builder = builder.query(&[("continent", &req.continent)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

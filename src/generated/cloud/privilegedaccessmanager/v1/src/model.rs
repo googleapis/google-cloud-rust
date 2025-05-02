@@ -714,74 +714,155 @@ pub mod entitlement {
     }
 
     /// Different states an entitlement can be in.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Unspecified state. This value is never returned by the server.
+        Unspecified,
+        /// The entitlement is being created.
+        Creating,
+        /// The entitlement is available for requesting access.
+        Available,
+        /// The entitlement is being deleted.
+        Deleting,
+        /// The entitlement has been deleted.
+        Deleted,
+        /// The entitlement is being updated.
+        Updating,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// Unspecified state. This value is never returned by the server.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// The entitlement is being created.
-        pub const CREATING: State = State::new(1);
-
-        /// The entitlement is available for requesting access.
-        pub const AVAILABLE: State = State::new(2);
-
-        /// The entitlement is being deleted.
-        pub const DELETING: State = State::new(3);
-
-        /// The entitlement has been deleted.
-        pub const DELETED: State = State::new(4);
-
-        /// The entitlement is being updated.
-        pub const UPDATING: State = State::new(5);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Available => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Deleted => std::option::Option::Some(4),
+                Self::Updating => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATING"),
-                2 => std::borrow::Cow::Borrowed("AVAILABLE"),
-                3 => std::borrow::Cow::Borrowed("DELETING"),
-                4 => std::borrow::Cow::Borrowed("DELETED"),
-                5 => std::borrow::Cow::Borrowed("UPDATING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Available => std::option::Option::Some("AVAILABLE"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "AVAILABLE" => std::option::Option::Some(Self::AVAILABLE),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                "DELETED" => std::option::Option::Some(Self::DELETED),
-                "UPDATING" => std::option::Option::Some(Self::UPDATING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Available,
+                3 => Self::Deleting,
+                4 => Self::Deleted,
+                5 => Self::Updating,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "AVAILABLE" => Self::Available,
+                "DELETING" => Self::Deleting,
+                "DELETED" => Self::Deleted,
+                "UPDATING" => Self::Updating,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Available => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Deleted => serializer.serialize_i32(4),
+                Self::Updating => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.privilegedaccessmanager.v1.Entitlement.State",
+            ))
         }
     }
 }
@@ -1488,62 +1569,134 @@ pub mod search_entitlements_request {
     use super::*;
 
     /// Different types of access a user can have on the entitlement resource.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CallerAccessType(i32);
-
-    impl CallerAccessType {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CallerAccessType {
         /// Unspecified access type.
-        pub const CALLER_ACCESS_TYPE_UNSPECIFIED: CallerAccessType = CallerAccessType::new(0);
-
+        Unspecified,
         /// The user has access to create grants using this entitlement.
-        pub const GRANT_REQUESTER: CallerAccessType = CallerAccessType::new(1);
-
+        GrantRequester,
         /// The user has access to approve/deny grants created under this
         /// entitlement.
-        pub const GRANT_APPROVER: CallerAccessType = CallerAccessType::new(2);
+        GrantApprover,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CallerAccessType::value] or
+        /// [CallerAccessType::name].
+        UnknownValue(caller_access_type::UnknownValue),
+    }
 
-        /// Creates a new CallerAccessType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod caller_access_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl CallerAccessType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::GrantRequester => std::option::Option::Some(1),
+                Self::GrantApprover => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CALLER_ACCESS_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("GRANT_REQUESTER"),
-                2 => std::borrow::Cow::Borrowed("GRANT_APPROVER"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CALLER_ACCESS_TYPE_UNSPECIFIED"),
+                Self::GrantRequester => std::option::Option::Some("GRANT_REQUESTER"),
+                Self::GrantApprover => std::option::Option::Some("GRANT_APPROVER"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CALLER_ACCESS_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CALLER_ACCESS_TYPE_UNSPECIFIED)
-                }
-                "GRANT_REQUESTER" => std::option::Option::Some(Self::GRANT_REQUESTER),
-                "GRANT_APPROVER" => std::option::Option::Some(Self::GRANT_APPROVER),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for CallerAccessType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for CallerAccessType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CallerAccessType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CallerAccessType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::GrantRequester,
+                2 => Self::GrantApprover,
+                _ => Self::UnknownValue(caller_access_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CallerAccessType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CALLER_ACCESS_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "GRANT_REQUESTER" => Self::GrantRequester,
+                "GRANT_APPROVER" => Self::GrantApprover,
+                _ => Self::UnknownValue(caller_access_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CallerAccessType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::GrantRequester => serializer.serialize_i32(1),
+                Self::GrantApprover => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CallerAccessType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CallerAccessType>::new(
+                ".google.cloud.privilegedaccessmanager.v1.SearchEntitlementsRequest.CallerAccessType"))
         }
     }
 }
@@ -2936,105 +3089,196 @@ pub mod grant {
     }
 
     /// Different states a grant can be in.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Unspecified state. This value is never returned by the server.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The entitlement had an approval workflow configured and this grant is
         /// waiting for the workflow to complete.
-        pub const APPROVAL_AWAITED: State = State::new(1);
-
+        ApprovalAwaited,
         /// The approval workflow completed with a denied result. No access is
         /// granted for this grant. This is a terminal state.
-        pub const DENIED: State = State::new(3);
-
+        Denied,
         /// The approval workflow completed successfully with an approved result or
         /// none was configured. Access is provided at an appropriate time.
-        pub const SCHEDULED: State = State::new(4);
-
+        Scheduled,
         /// Access is being given.
-        pub const ACTIVATING: State = State::new(5);
-
+        Activating,
         /// Access was successfully given and is currently active.
-        pub const ACTIVE: State = State::new(6);
-
+        Active,
         /// The system could not give access due to a non-retriable error. This is a
         /// terminal state.
-        pub const ACTIVATION_FAILED: State = State::new(7);
-
+        ActivationFailed,
         /// Expired after waiting for the approval workflow to complete. This is a
         /// terminal state.
-        pub const EXPIRED: State = State::new(8);
-
+        Expired,
         /// Access is being revoked.
-        pub const REVOKING: State = State::new(9);
-
+        Revoking,
         /// Access was revoked by a user. This is a terminal state.
-        pub const REVOKED: State = State::new(10);
-
+        Revoked,
         /// System took back access as the requested duration was over. This is a
         /// terminal state.
-        pub const ENDED: State = State::new(11);
+        Ended,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ApprovalAwaited => std::option::Option::Some(1),
+                Self::Denied => std::option::Option::Some(3),
+                Self::Scheduled => std::option::Option::Some(4),
+                Self::Activating => std::option::Option::Some(5),
+                Self::Active => std::option::Option::Some(6),
+                Self::ActivationFailed => std::option::Option::Some(7),
+                Self::Expired => std::option::Option::Some(8),
+                Self::Revoking => std::option::Option::Some(9),
+                Self::Revoked => std::option::Option::Some(10),
+                Self::Ended => std::option::Option::Some(11),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("APPROVAL_AWAITED"),
-                3 => std::borrow::Cow::Borrowed("DENIED"),
-                4 => std::borrow::Cow::Borrowed("SCHEDULED"),
-                5 => std::borrow::Cow::Borrowed("ACTIVATING"),
-                6 => std::borrow::Cow::Borrowed("ACTIVE"),
-                7 => std::borrow::Cow::Borrowed("ACTIVATION_FAILED"),
-                8 => std::borrow::Cow::Borrowed("EXPIRED"),
-                9 => std::borrow::Cow::Borrowed("REVOKING"),
-                10 => std::borrow::Cow::Borrowed("REVOKED"),
-                11 => std::borrow::Cow::Borrowed("ENDED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::ApprovalAwaited => std::option::Option::Some("APPROVAL_AWAITED"),
+                Self::Denied => std::option::Option::Some("DENIED"),
+                Self::Scheduled => std::option::Option::Some("SCHEDULED"),
+                Self::Activating => std::option::Option::Some("ACTIVATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::ActivationFailed => std::option::Option::Some("ACTIVATION_FAILED"),
+                Self::Expired => std::option::Option::Some("EXPIRED"),
+                Self::Revoking => std::option::Option::Some("REVOKING"),
+                Self::Revoked => std::option::Option::Some("REVOKED"),
+                Self::Ended => std::option::Option::Some("ENDED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "APPROVAL_AWAITED" => std::option::Option::Some(Self::APPROVAL_AWAITED),
-                "DENIED" => std::option::Option::Some(Self::DENIED),
-                "SCHEDULED" => std::option::Option::Some(Self::SCHEDULED),
-                "ACTIVATING" => std::option::Option::Some(Self::ACTIVATING),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "ACTIVATION_FAILED" => std::option::Option::Some(Self::ACTIVATION_FAILED),
-                "EXPIRED" => std::option::Option::Some(Self::EXPIRED),
-                "REVOKING" => std::option::Option::Some(Self::REVOKING),
-                "REVOKED" => std::option::Option::Some(Self::REVOKED),
-                "ENDED" => std::option::Option::Some(Self::ENDED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ApprovalAwaited,
+                3 => Self::Denied,
+                4 => Self::Scheduled,
+                5 => Self::Activating,
+                6 => Self::Active,
+                7 => Self::ActivationFailed,
+                8 => Self::Expired,
+                9 => Self::Revoking,
+                10 => Self::Revoked,
+                11 => Self::Ended,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "APPROVAL_AWAITED" => Self::ApprovalAwaited,
+                "DENIED" => Self::Denied,
+                "SCHEDULED" => Self::Scheduled,
+                "ACTIVATING" => Self::Activating,
+                "ACTIVE" => Self::Active,
+                "ACTIVATION_FAILED" => Self::ActivationFailed,
+                "EXPIRED" => Self::Expired,
+                "REVOKING" => Self::Revoking,
+                "REVOKED" => Self::Revoked,
+                "ENDED" => Self::Ended,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ApprovalAwaited => serializer.serialize_i32(1),
+                Self::Denied => serializer.serialize_i32(3),
+                Self::Scheduled => serializer.serialize_i32(4),
+                Self::Activating => serializer.serialize_i32(5),
+                Self::Active => serializer.serialize_i32(6),
+                Self::ActivationFailed => serializer.serialize_i32(7),
+                Self::Expired => serializer.serialize_i32(8),
+                Self::Revoking => serializer.serialize_i32(9),
+                Self::Revoked => serializer.serialize_i32(10),
+                Self::Ended => serializer.serialize_i32(11),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.privilegedaccessmanager.v1.Grant.State",
+            ))
         }
     }
 }
@@ -3354,68 +3598,143 @@ pub mod search_grants_request {
     use super::*;
 
     /// Different types of relationships a user can have with a grant.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CallerRelationshipType(i32);
-
-    impl CallerRelationshipType {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CallerRelationshipType {
         /// Unspecified caller relationship type.
-        pub const CALLER_RELATIONSHIP_TYPE_UNSPECIFIED: CallerRelationshipType =
-            CallerRelationshipType::new(0);
-
+        Unspecified,
         /// The user created this grant by calling `CreateGrant` earlier.
-        pub const HAD_CREATED: CallerRelationshipType = CallerRelationshipType::new(1);
-
+        HadCreated,
         /// The user is an approver for the entitlement that this grant is parented
         /// under and can currently approve/deny it.
-        pub const CAN_APPROVE: CallerRelationshipType = CallerRelationshipType::new(2);
-
+        CanApprove,
         /// The caller had successfully approved/denied this grant earlier.
-        pub const HAD_APPROVED: CallerRelationshipType = CallerRelationshipType::new(3);
+        HadApproved,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CallerRelationshipType::value] or
+        /// [CallerRelationshipType::name].
+        UnknownValue(caller_relationship_type::UnknownValue),
+    }
 
-        /// Creates a new CallerRelationshipType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod caller_relationship_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl CallerRelationshipType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::HadCreated => std::option::Option::Some(1),
+                Self::CanApprove => std::option::Option::Some(2),
+                Self::HadApproved => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CALLER_RELATIONSHIP_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("HAD_CREATED"),
-                2 => std::borrow::Cow::Borrowed("CAN_APPROVE"),
-                3 => std::borrow::Cow::Borrowed("HAD_APPROVED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CALLER_RELATIONSHIP_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CALLER_RELATIONSHIP_TYPE_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CALLER_RELATIONSHIP_TYPE_UNSPECIFIED")
                 }
-                "HAD_CREATED" => std::option::Option::Some(Self::HAD_CREATED),
-                "CAN_APPROVE" => std::option::Option::Some(Self::CAN_APPROVE),
-                "HAD_APPROVED" => std::option::Option::Some(Self::HAD_APPROVED),
-                _ => std::option::Option::None,
+                Self::HadCreated => std::option::Option::Some("HAD_CREATED"),
+                Self::CanApprove => std::option::Option::Some("CAN_APPROVE"),
+                Self::HadApproved => std::option::Option::Some("HAD_APPROVED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for CallerRelationshipType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for CallerRelationshipType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CallerRelationshipType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CallerRelationshipType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::HadCreated,
+                2 => Self::CanApprove,
+                3 => Self::HadApproved,
+                _ => Self::UnknownValue(caller_relationship_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CallerRelationshipType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CALLER_RELATIONSHIP_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "HAD_CREATED" => Self::HadCreated,
+                "CAN_APPROVE" => Self::CanApprove,
+                "HAD_APPROVED" => Self::HadApproved,
+                _ => Self::UnknownValue(caller_relationship_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CallerRelationshipType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::HadCreated => serializer.serialize_i32(1),
+                Self::CanApprove => serializer.serialize_i32(2),
+                Self::HadApproved => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CallerRelationshipType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CallerRelationshipType>::new(
+                ".google.cloud.privilegedaccessmanager.v1.SearchGrantsRequest.CallerRelationshipType"))
         }
     }
 }

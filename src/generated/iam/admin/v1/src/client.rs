@@ -377,6 +377,7 @@ impl Iam {
     /// Signs a blob using the system-managed private key for a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
+    #[deprecated]
     pub fn sign_blob(&self, name: impl Into<std::string::String>) -> super::builder::iam::SignBlob {
         super::builder::iam::SignBlob::new(self.inner.clone()).set_name(name.into())
     }
@@ -392,6 +393,7 @@ impl Iam {
     /// [ServiceAccount][google.iam.admin.v1.ServiceAccount].
     ///
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
+    #[deprecated]
     pub fn sign_jwt(&self, name: impl Into<std::string::String>) -> super::builder::iam::SignJwt {
         super::builder::iam::SignJwt::new(self.inner.clone()).set_name(name.into())
     }

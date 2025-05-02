@@ -1922,73 +1922,143 @@ pub mod cancel_order_request {
     use super::*;
 
     /// Indicates the cancellation policy the customer uses to cancel the order.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CancellationPolicy(i32);
-
-    impl CancellationPolicy {
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CancellationPolicy {
         /// If unspecified, cancellation will try to cancel the order, if order
         /// cannot be immediately cancelled, auto renewal will be turned off.
         /// However, caller should avoid using the value as it will yield a
         /// non-deterministic result. This is still supported mainly to maintain
         /// existing integrated usages and ensure backwards compatibility.
-        pub const CANCELLATION_POLICY_UNSPECIFIED: CancellationPolicy = CancellationPolicy::new(0);
-
+        Unspecified,
         /// Request will cancel the whole order immediately, if order cannot be
         /// immediately cancelled, the request will fail.
-        pub const CANCELLATION_POLICY_CANCEL_IMMEDIATELY: CancellationPolicy =
-            CancellationPolicy::new(1);
-
+        CancelImmediately,
         /// Request will cancel the auto renewal, if order is not subscription based,
         /// the request will fail.
-        pub const CANCELLATION_POLICY_CANCEL_AT_TERM_END: CancellationPolicy =
-            CancellationPolicy::new(2);
+        CancelAtTermEnd,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CancellationPolicy::value] or
+        /// [CancellationPolicy::name].
+        UnknownValue(cancellation_policy::UnknownValue),
+    }
 
-        /// Creates a new CancellationPolicy instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod cancellation_policy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl CancellationPolicy {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CancelImmediately => std::option::Option::Some(1),
+                Self::CancelAtTermEnd => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CANCELLATION_POLICY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CANCELLATION_POLICY_CANCEL_IMMEDIATELY"),
-                2 => std::borrow::Cow::Borrowed("CANCELLATION_POLICY_CANCEL_AT_TERM_END"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CANCELLATION_POLICY_UNSPECIFIED"),
+                Self::CancelImmediately => {
+                    std::option::Option::Some("CANCELLATION_POLICY_CANCEL_IMMEDIATELY")
+                }
+                Self::CancelAtTermEnd => {
+                    std::option::Option::Some("CANCELLATION_POLICY_CANCEL_AT_TERM_END")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CANCELLATION_POLICY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CANCELLATION_POLICY_UNSPECIFIED)
-                }
-                "CANCELLATION_POLICY_CANCEL_IMMEDIATELY" => {
-                    std::option::Option::Some(Self::CANCELLATION_POLICY_CANCEL_IMMEDIATELY)
-                }
-                "CANCELLATION_POLICY_CANCEL_AT_TERM_END" => {
-                    std::option::Option::Some(Self::CANCELLATION_POLICY_CANCEL_AT_TERM_END)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for CancellationPolicy {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for CancellationPolicy {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CancellationPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CancellationPolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CancelImmediately,
+                2 => Self::CancelAtTermEnd,
+                _ => Self::UnknownValue(cancellation_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CancellationPolicy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CANCELLATION_POLICY_UNSPECIFIED" => Self::Unspecified,
+                "CANCELLATION_POLICY_CANCEL_IMMEDIATELY" => Self::CancelImmediately,
+                "CANCELLATION_POLICY_CANCEL_AT_TERM_END" => Self::CancelAtTermEnd,
+                _ => Self::UnknownValue(cancellation_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CancellationPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CancelImmediately => serializer.serialize_i32(1),
+                Self::CancelAtTermEnd => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CancellationPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CancellationPolicy>::new(
+                ".google.cloud.commerce.consumer.procurement.v1.CancelOrderRequest.CancellationPolicy"))
         }
     }
 }
@@ -2019,319 +2089,603 @@ impl wkt::message::Message for CancelOrderMetadata {
 }
 
 /// Type of a line item change.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LineItemChangeType(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LineItemChangeType {
+    /// Sentinel value. Do not use.
+    Unspecified,
+    /// The change is to create a new line item.
+    Create,
+    /// The change is to update an existing line item.
+    Update,
+    /// The change is to cancel an existing line item.
+    Cancel,
+    /// The change is to revert a cancellation.
+    RevertCancellation,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LineItemChangeType::value] or
+    /// [LineItemChangeType::name].
+    UnknownValue(line_item_change_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod line_item_change_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl LineItemChangeType {
-    /// Sentinel value. Do not use.
-    pub const LINE_ITEM_CHANGE_TYPE_UNSPECIFIED: LineItemChangeType = LineItemChangeType::new(0);
-
-    /// The change is to create a new line item.
-    pub const LINE_ITEM_CHANGE_TYPE_CREATE: LineItemChangeType = LineItemChangeType::new(1);
-
-    /// The change is to update an existing line item.
-    pub const LINE_ITEM_CHANGE_TYPE_UPDATE: LineItemChangeType = LineItemChangeType::new(2);
-
-    /// The change is to cancel an existing line item.
-    pub const LINE_ITEM_CHANGE_TYPE_CANCEL: LineItemChangeType = LineItemChangeType::new(3);
-
-    /// The change is to revert a cancellation.
-    pub const LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION: LineItemChangeType =
-        LineItemChangeType::new(4);
-
-    /// Creates a new LineItemChangeType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Create => std::option::Option::Some(1),
+            Self::Update => std::option::Option::Some(2),
+            Self::Cancel => std::option::Option::Some(3),
+            Self::RevertCancellation => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_TYPE_CREATE"),
-            2 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_TYPE_UPDATE"),
-            3 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_TYPE_CANCEL"),
-            4 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LINE_ITEM_CHANGE_TYPE_UNSPECIFIED"),
+            Self::Create => std::option::Option::Some("LINE_ITEM_CHANGE_TYPE_CREATE"),
+            Self::Update => std::option::Option::Some("LINE_ITEM_CHANGE_TYPE_UPDATE"),
+            Self::Cancel => std::option::Option::Some("LINE_ITEM_CHANGE_TYPE_CANCEL"),
+            Self::RevertCancellation => {
+                std::option::Option::Some("LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION")
+            }
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LINE_ITEM_CHANGE_TYPE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_TYPE_UNSPECIFIED)
-            }
-            "LINE_ITEM_CHANGE_TYPE_CREATE" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_TYPE_CREATE)
-            }
-            "LINE_ITEM_CHANGE_TYPE_UPDATE" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_TYPE_UPDATE)
-            }
-            "LINE_ITEM_CHANGE_TYPE_CANCEL" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_TYPE_CANCEL)
-            }
-            "LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for LineItemChangeType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for LineItemChangeType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LineItemChangeType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LineItemChangeType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Create,
+            2 => Self::Update,
+            3 => Self::Cancel,
+            4 => Self::RevertCancellation,
+            _ => Self::UnknownValue(line_item_change_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LineItemChangeType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LINE_ITEM_CHANGE_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "LINE_ITEM_CHANGE_TYPE_CREATE" => Self::Create,
+            "LINE_ITEM_CHANGE_TYPE_UPDATE" => Self::Update,
+            "LINE_ITEM_CHANGE_TYPE_CANCEL" => Self::Cancel,
+            "LINE_ITEM_CHANGE_TYPE_REVERT_CANCELLATION" => Self::RevertCancellation,
+            _ => Self::UnknownValue(line_item_change_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LineItemChangeType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Create => serializer.serialize_i32(1),
+            Self::Update => serializer.serialize_i32(2),
+            Self::Cancel => serializer.serialize_i32(3),
+            Self::RevertCancellation => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LineItemChangeType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LineItemChangeType>::new(
+            ".google.cloud.commerce.consumer.procurement.v1.LineItemChangeType",
+        ))
     }
 }
 
 /// State of a change.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LineItemChangeState(i32);
-
-impl LineItemChangeState {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LineItemChangeState {
     /// Sentinel value. Do not use.
-    pub const LINE_ITEM_CHANGE_STATE_UNSPECIFIED: LineItemChangeState = LineItemChangeState::new(0);
-
+    Unspecified,
     /// Change is in this state when a change is initiated and waiting for partner
     /// approval. This state is only applicable for pending change.
-    pub const LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL: LineItemChangeState =
-        LineItemChangeState::new(1);
-
+    PendingApproval,
     /// Change is in this state after it's approved by the partner or auto-approved
     /// but before it takes effect. The change can be overwritten or cancelled
     /// depending on the new line item info property (pending Private Offer change
     /// cannot be cancelled and can only be overwritten by another Private Offer).
     /// This state is only applicable for pending change.
-    pub const LINE_ITEM_CHANGE_STATE_APPROVED: LineItemChangeState = LineItemChangeState::new(2);
-
+    Approved,
     /// Change is in this state after it's been activated. This state is only
     /// applicable for change in history.
-    pub const LINE_ITEM_CHANGE_STATE_COMPLETED: LineItemChangeState = LineItemChangeState::new(3);
-
+    Completed,
     /// Change is in this state if it was rejected by the partner. This state is
     /// only applicable for change in history.
-    pub const LINE_ITEM_CHANGE_STATE_REJECTED: LineItemChangeState = LineItemChangeState::new(4);
-
+    Rejected,
     /// Change is in this state if it was abandoned by the user. This state is only
     /// applicable for change in history.
-    pub const LINE_ITEM_CHANGE_STATE_ABANDONED: LineItemChangeState = LineItemChangeState::new(5);
-
+    Abandoned,
     /// Change is in this state if it's currently being provisioned downstream. The
     /// change can't be overwritten or cancelled when it's in this state. This
     /// state is only applicable for pending change.
-    pub const LINE_ITEM_CHANGE_STATE_ACTIVATING: LineItemChangeState = LineItemChangeState::new(6);
+    Activating,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LineItemChangeState::value] or
+    /// [LineItemChangeState::name].
+    UnknownValue(line_item_change_state::UnknownValue),
+}
 
-    /// Creates a new LineItemChangeState instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod line_item_change_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl LineItemChangeState {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::PendingApproval => std::option::Option::Some(1),
+            Self::Approved => std::option::Option::Some(2),
+            Self::Completed => std::option::Option::Some(3),
+            Self::Rejected => std::option::Option::Some(4),
+            Self::Abandoned => std::option::Option::Some(5),
+            Self::Activating => std::option::Option::Some(6),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_STATE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL"),
-            2 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_STATE_APPROVED"),
-            3 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_STATE_COMPLETED"),
-            4 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_STATE_REJECTED"),
-            5 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_STATE_ABANDONED"),
-            6 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_STATE_ACTIVATING"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_UNSPECIFIED"),
+            Self::PendingApproval => {
+                std::option::Option::Some("LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL")
+            }
+            Self::Approved => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_APPROVED"),
+            Self::Completed => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_COMPLETED"),
+            Self::Rejected => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REJECTED"),
+            Self::Abandoned => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_ABANDONED"),
+            Self::Activating => std::option::Option::Some("LINE_ITEM_CHANGE_STATE_ACTIVATING"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LINE_ITEM_CHANGE_STATE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_STATE_UNSPECIFIED)
-            }
-            "LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL)
-            }
-            "LINE_ITEM_CHANGE_STATE_APPROVED" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_STATE_APPROVED)
-            }
-            "LINE_ITEM_CHANGE_STATE_COMPLETED" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_STATE_COMPLETED)
-            }
-            "LINE_ITEM_CHANGE_STATE_REJECTED" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_STATE_REJECTED)
-            }
-            "LINE_ITEM_CHANGE_STATE_ABANDONED" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_STATE_ABANDONED)
-            }
-            "LINE_ITEM_CHANGE_STATE_ACTIVATING" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_STATE_ACTIVATING)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for LineItemChangeState {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for LineItemChangeState {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LineItemChangeState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LineItemChangeState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::PendingApproval,
+            2 => Self::Approved,
+            3 => Self::Completed,
+            4 => Self::Rejected,
+            5 => Self::Abandoned,
+            6 => Self::Activating,
+            _ => Self::UnknownValue(line_item_change_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LineItemChangeState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LINE_ITEM_CHANGE_STATE_UNSPECIFIED" => Self::Unspecified,
+            "LINE_ITEM_CHANGE_STATE_PENDING_APPROVAL" => Self::PendingApproval,
+            "LINE_ITEM_CHANGE_STATE_APPROVED" => Self::Approved,
+            "LINE_ITEM_CHANGE_STATE_COMPLETED" => Self::Completed,
+            "LINE_ITEM_CHANGE_STATE_REJECTED" => Self::Rejected,
+            "LINE_ITEM_CHANGE_STATE_ABANDONED" => Self::Abandoned,
+            "LINE_ITEM_CHANGE_STATE_ACTIVATING" => Self::Activating,
+            _ => Self::UnknownValue(line_item_change_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LineItemChangeState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::PendingApproval => serializer.serialize_i32(1),
+            Self::Approved => serializer.serialize_i32(2),
+            Self::Completed => serializer.serialize_i32(3),
+            Self::Rejected => serializer.serialize_i32(4),
+            Self::Abandoned => serializer.serialize_i32(5),
+            Self::Activating => serializer.serialize_i32(6),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LineItemChangeState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LineItemChangeState>::new(
+            ".google.cloud.commerce.consumer.procurement.v1.LineItemChangeState",
+        ))
     }
 }
 
 /// Predefined types for line item change state reason.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LineItemChangeStateReasonType(i32);
-
-impl LineItemChangeStateReasonType {
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LineItemChangeStateReasonType {
     /// Default value, indicating there's no predefined type for change state
     /// reason.
-    pub const LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED: LineItemChangeStateReasonType =
-        LineItemChangeStateReasonType::new(0);
-
+    Unspecified,
     /// Change is in current state due to term expiration.
-    pub const LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED: LineItemChangeStateReasonType =
-        LineItemChangeStateReasonType::new(1);
-
+    Expired,
     /// Change is in current state due to user-initiated cancellation.
-    pub const LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED: LineItemChangeStateReasonType =
-        LineItemChangeStateReasonType::new(2);
-
+    UserCancelled,
     /// Change is in current state due to system-initiated cancellation.
-    pub const LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED: LineItemChangeStateReasonType =
-        LineItemChangeStateReasonType::new(3);
+    SystemCancelled,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LineItemChangeStateReasonType::value] or
+    /// [LineItemChangeStateReasonType::name].
+    UnknownValue(line_item_change_state_reason_type::UnknownValue),
+}
 
-    /// Creates a new LineItemChangeStateReasonType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod line_item_change_state_reason_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl LineItemChangeStateReasonType {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Expired => std::option::Option::Some(1),
+            Self::UserCancelled => std::option::Option::Some(2),
+            Self::SystemCancelled => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED"),
-            2 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED"),
-            3 => std::borrow::Cow::Borrowed("LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => {
+                std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED")
+            }
+            Self::Expired => {
+                std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED")
+            }
+            Self::UserCancelled => {
+                std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED")
+            }
+            Self::SystemCancelled => {
+                std::option::Option::Some("LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED")
+            }
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED)
-            }
-            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED)
-            }
-            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED)
-            }
-            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED" => {
-                std::option::Option::Some(Self::LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for LineItemChangeStateReasonType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for LineItemChangeStateReasonType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LineItemChangeStateReasonType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LineItemChangeStateReasonType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Expired,
+            2 => Self::UserCancelled,
+            3 => Self::SystemCancelled,
+            _ => Self::UnknownValue(line_item_change_state_reason_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LineItemChangeStateReasonType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_EXPIRED" => Self::Expired,
+            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_USER_CANCELLED" => Self::UserCancelled,
+            "LINE_ITEM_CHANGE_STATE_REASON_TYPE_SYSTEM_CANCELLED" => Self::SystemCancelled,
+            _ => Self::UnknownValue(line_item_change_state_reason_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LineItemChangeStateReasonType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Expired => serializer.serialize_i32(1),
+            Self::UserCancelled => serializer.serialize_i32(2),
+            Self::SystemCancelled => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LineItemChangeStateReasonType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(
+            wkt::internal::EnumVisitor::<LineItemChangeStateReasonType>::new(
+                ".google.cloud.commerce.consumer.procurement.v1.LineItemChangeStateReasonType",
+            ),
+        )
     }
 }
 
 /// Indicates the auto renewal behavior customer specifies on subscription.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AutoRenewalBehavior(i32);
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum AutoRenewalBehavior {
+    /// If unspecified, the auto renewal behavior will follow the default config.
+    Unspecified,
+    /// Auto Renewal will be enabled on subscription.
+    Enable,
+    /// Auto Renewal will be disabled on subscription.
+    Disable,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [AutoRenewalBehavior::value] or
+    /// [AutoRenewalBehavior::name].
+    UnknownValue(auto_renewal_behavior::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod auto_renewal_behavior {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl AutoRenewalBehavior {
-    /// If unspecified, the auto renewal behavior will follow the default config.
-    pub const AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED: AutoRenewalBehavior = AutoRenewalBehavior::new(0);
-
-    /// Auto Renewal will be enabled on subscription.
-    pub const AUTO_RENEWAL_BEHAVIOR_ENABLE: AutoRenewalBehavior = AutoRenewalBehavior::new(1);
-
-    /// Auto Renewal will be disabled on subscription.
-    pub const AUTO_RENEWAL_BEHAVIOR_DISABLE: AutoRenewalBehavior = AutoRenewalBehavior::new(2);
-
-    /// Creates a new AutoRenewalBehavior instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Enable => std::option::Option::Some(1),
+            Self::Disable => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("AUTO_RENEWAL_BEHAVIOR_ENABLE"),
-            2 => std::borrow::Cow::Borrowed("AUTO_RENEWAL_BEHAVIOR_DISABLE"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED"),
+            Self::Enable => std::option::Option::Some("AUTO_RENEWAL_BEHAVIOR_ENABLE"),
+            Self::Disable => std::option::Option::Some("AUTO_RENEWAL_BEHAVIOR_DISABLE"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED" => {
-                std::option::Option::Some(Self::AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED)
-            }
-            "AUTO_RENEWAL_BEHAVIOR_ENABLE" => {
-                std::option::Option::Some(Self::AUTO_RENEWAL_BEHAVIOR_ENABLE)
-            }
-            "AUTO_RENEWAL_BEHAVIOR_DISABLE" => {
-                std::option::Option::Some(Self::AUTO_RENEWAL_BEHAVIOR_DISABLE)
-            }
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for AutoRenewalBehavior {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for AutoRenewalBehavior {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for AutoRenewalBehavior {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for AutoRenewalBehavior {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Enable,
+            2 => Self::Disable,
+            _ => Self::UnknownValue(auto_renewal_behavior::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for AutoRenewalBehavior {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "AUTO_RENEWAL_BEHAVIOR_UNSPECIFIED" => Self::Unspecified,
+            "AUTO_RENEWAL_BEHAVIOR_ENABLE" => Self::Enable,
+            "AUTO_RENEWAL_BEHAVIOR_DISABLE" => Self::Disable,
+            _ => Self::UnknownValue(auto_renewal_behavior::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for AutoRenewalBehavior {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Enable => serializer.serialize_i32(1),
+            Self::Disable => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AutoRenewalBehavior {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<AutoRenewalBehavior>::new(
+            ".google.cloud.commerce.consumer.procurement.v1.AutoRenewalBehavior",
+        ))
     }
 }
