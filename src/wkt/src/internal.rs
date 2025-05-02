@@ -24,7 +24,7 @@ pub struct Float<T>(std::marker::PhantomData<T>);
 
 impl<T> serde_with::SerializeAs<T> for Float<T>
 where
-    T: FloatExt,
+    T: num_traits::Float,
 {
     fn serialize_as<S>(value: &T, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -41,7 +41,7 @@ where
 
 impl<'de, T> serde_with::DeserializeAs<'de, T> for Float<T>
 where
-    T: FloatExt + 'de,
+    T: num_traits::Float + 'de,
 {
     fn deserialize_as<D>(deserializer: D) -> Result<T, D::Error>
     where
@@ -63,9 +63,9 @@ impl<T> FloatVisitor<T> {
     }
 }
 
-impl<'de, T: FloatExt> serde::de::Visitor<'de> for FloatVisitor<T>
+impl<'de, T> serde::de::Visitor<'de> for FloatVisitor<T>
 where
-    T: FloatExt,
+    T: num_traits::Float,
 {
     type Value = T;
 
@@ -92,7 +92,14 @@ where
     where
         E: serde::de::Error,
     {
-        Ok(T::from_f64(value))
+        num_traits::NumCast::from(value).ok_or_else(|| {
+            serde::de::Error::invalid_value(
+                serde::de::Unexpected::Float(value),
+                // This error condition should be unreachable, since precision loss
+                // is allowed.
+                &format!("a valid {} value", std::any::type_name::<T>()).as_str(),
+            )
+        })
     }
 
     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
@@ -105,18 +112,12 @@ where
 
 // Trait to abstract over f32 and f64
 pub trait FloatExt: num_traits::Float {
-    fn from_f64(value: f64) -> Self;
     fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer;
 }
 
 impl FloatExt for f32 {
-    fn from_f64(value: f64) -> Self {
-        // Cast f64 to f32 to produce the closest possible float value.
-        // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
-        value as f32
-    }
     fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -126,9 +127,6 @@ impl FloatExt for f32 {
 }
 
 impl FloatExt for f64 {
-    fn from_f64(value: f64) -> Self {
-        value
-    }
     fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
