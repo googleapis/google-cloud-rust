@@ -724,6 +724,7 @@ func TestProtobuf_MapFields(t *testing.T) {
 			{
 				Repeated: false,
 				Optional: false,
+				Map:      true,
 				Name:     "singular_map",
 				JSONName: "singularMap",
 				ID:       ".test.Fake.singular_map",
@@ -733,6 +734,7 @@ func TestProtobuf_MapFields(t *testing.T) {
 			{
 				Repeated: false,
 				Optional: false,
+				Map:      true,
 				Name:     "enum_value",
 				JSONName: "enumValue",
 				ID:       ".test.Fake.enum_value",

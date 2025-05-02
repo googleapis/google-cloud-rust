@@ -482,8 +482,16 @@ type Field struct {
 	JSONName string
 	// Optional indicates that the field is marked as optional in proto3.
 	Optional bool
+
+	// For a given field, at most one of `Repeated` or `Map` is true.
+	//
+	// Using booleans (as opposed to an enum) makes it easier to write mustache
+	// templates.
+	//
 	// Repeated is true if the field is a repeated field.
 	Repeated bool
+	// Map is true if the field is a map.
+	Map bool
 	// Some source specifications allow marking fields as deprecated.
 	Deprecated bool
 	// IsOneOf is true if the field is related to a one-of and not
@@ -522,6 +530,10 @@ type Field struct {
 
 func (field *Field) DocumentAsRequired() bool {
 	return slices.Contains(field.Behavior, FIELD_BEHAVIOR_REQUIRED)
+}
+
+func (f *Field) Singular() bool {
+	return !f.Map && !f.Repeated
 }
 
 // Pair is a key-value pair.
