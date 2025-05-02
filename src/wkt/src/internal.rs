@@ -81,7 +81,7 @@ where
                 serde::de::Unexpected::Other(value),
                 &format!(
                     "a valid ProtoJSON string for {} (NaN, Infinity, -Infinity)",
-                    T::type_name()
+                    std::any::type_name::<T>()
                 )
                 .as_str(),
             )),
@@ -98,7 +98,7 @@ where
     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
         formatter.write_str(&format!(
             "a {}-bit floating point in ProtoJSON format",
-            T::bits()
+            std::mem::size_of::<T>() * 8 // bit size = byte size of T * 8
         ))
     }
 }
@@ -106,8 +106,6 @@ where
 // Trait to abstract over f32 and f64
 pub trait FloatExt: num_traits::Float {
     fn from_f64(value: f64) -> Self;
-    fn type_name() -> &'static str;
-    fn bits() -> u8;
     fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer;
@@ -118,12 +116,6 @@ impl FloatExt for f32 {
         // Cast f64 to f32 to produce the closest possible float value.
         // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
         value as f32
-    }
-    fn type_name() -> &'static str {
-        "f32"
-    }
-    fn bits() -> u8 {
-        32
     }
     fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -136,12 +128,6 @@ impl FloatExt for f32 {
 impl FloatExt for f64 {
     fn from_f64(value: f64) -> Self {
         value
-    }
-    fn type_name() -> &'static str {
-        "f64"
-    }
-    fn bits() -> u8 {
-        64
     }
     fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -210,5 +196,6 @@ mod test {
             ))
             .is_err()
         );
+        assert!(F32::deserialize_as(serde_json::Value::Bool(false)).is_err());
     }
 }
