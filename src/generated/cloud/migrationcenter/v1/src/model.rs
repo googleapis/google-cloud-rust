@@ -10858,6 +10858,7 @@ impl wkt::message::Message for PhysicalPlatformDetails {
 pub struct MemoryUsageSample {
     /// Percentage of system memory utilized. Must be in the interval [0, 100].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub utilized_percentage: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10891,6 +10892,7 @@ pub struct CpuUsageSample {
     /// Percentage of total CPU capacity utilized. Must be in the interval [0,
     /// 100]. On most systems can be calculated using 100 - idle percentage.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub utilized_percentage: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10924,11 +10926,13 @@ pub struct NetworkUsageSample {
     /// Average network ingress in B/s sampled over a short window.
     /// Must be non-negative.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub average_ingress_bps: f32,
 
     /// Average network egress in B/s sampled over a short window.
     /// Must be non-negative.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub average_egress_bps: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10967,6 +10971,7 @@ impl wkt::message::Message for NetworkUsageSample {
 pub struct DiskUsageSample {
     /// Average IOPS sampled over a short window. Must be non-negative.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub average_iops: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11239,18 +11244,22 @@ pub mod daily_resource_usage_aggregation {
     pub struct Stats {
         /// Average usage value.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub average: f32,
 
         /// Median usage value.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub median: f32,
 
         /// 95th percentile usage value.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub nintey_fifth_percentile: f32,
 
         /// Peak usage value.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub peak: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

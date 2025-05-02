@@ -352,6 +352,7 @@ pub struct ComplianceData {
     pub f_double: f64,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub f_float: f32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -726,6 +727,7 @@ pub struct ComplianceDataChild {
     pub f_string: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub f_float: f32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -743,6 +745,7 @@ pub struct ComplianceDataChild {
     pub p_string: std::option::Option<std::string::String>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub p_float: std::option::Option<f32>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]

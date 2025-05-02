@@ -2329,6 +2329,7 @@ pub mod method_settings {
         /// reaches max_poll_delay.
         /// Default value: 1.5.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub poll_delay_multiplier: f32,
 
         /// Maximum time between two subsequent poll requests.

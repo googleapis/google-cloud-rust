@@ -161,14 +161,17 @@ extern crate wkt;
 pub struct Color {
     /// The amount of red in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub red: f32,
 
     /// The amount of green in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub green: f32,
 
     /// The amount of blue in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub blue: f32,
 
     /// The fraction of this color that should be applied to the pixel. That is,
@@ -183,6 +186,7 @@ pub struct Color {
     /// If omitted, this color object is rendered as a solid color
     /// (as if the alpha value had been explicitly given a value of 1.0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub alpha: std::option::Option<wkt::FloatValue>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -2789,14 +2789,17 @@ pub mod redact_image_request {
 pub struct Color {
     /// The amount of red in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub red: f32,
 
     /// The amount of green in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub green: f32,
 
     /// The amount of blue in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub blue: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

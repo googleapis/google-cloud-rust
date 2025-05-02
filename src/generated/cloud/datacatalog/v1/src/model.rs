@@ -12757,18 +12757,22 @@ impl wkt::message::Message for SystemTimestamps {
 pub struct UsageStats {
     /// The number of successful uses of the underlying entry.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub total_completions: f32,
 
     /// The number of failed attempts to use the underlying entry.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub total_failures: f32,
 
     /// The number of cancelled attempts to use the underlying entry.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub total_cancellations: f32,
 
     /// Total time spent only on successful uses, in milliseconds.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub total_execution_time_for_completions_millis: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

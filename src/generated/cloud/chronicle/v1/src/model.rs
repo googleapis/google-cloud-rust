@@ -1274,6 +1274,7 @@ pub struct Watchlist {
     /// in this watchlist.
     /// The default is 1.0 if it is not specified.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub multiplying_factor: f32,
 
     /// Required. Mechanism to populate entities in the watchlist.
@@ -3301,6 +3302,7 @@ pub struct Retrohunt {
     /// Output only. Percent progress of the retrohunt towards completion, from
     /// 0.00 to 100.00.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub progress_percentage: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4752,6 +4754,7 @@ pub struct RetrohuntMetadata {
 
     /// Percent progress of the retrohunt towards completion, from 0.00 to 100.00.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub progress_percentage: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

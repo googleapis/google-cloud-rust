@@ -2764,6 +2764,7 @@ pub struct RiskAnalysis {
     /// (1.0 means very likely legitimate traffic while 0.0 means very likely
     /// non-legitimate traffic).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     /// Output only. Reasons contributing to the risk analysis verdict.
@@ -3435,6 +3436,7 @@ pub struct FraudPreventionAssessment {
     /// the combined risk of attack vectors below. Values are from 0.0 (lowest)
     /// to 1.0 (highest).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub transaction_risk: f32,
 
     /// Output only. Assessment of this transaction for risk of a stolen
@@ -3534,6 +3536,7 @@ pub mod fraud_prevention_assessment {
         /// Output only. Probability of this transaction being executed with a stolen
         /// instrument. Values are from 0.0 (lowest) to 1.0 (highest).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub risk: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3568,6 +3571,7 @@ pub mod fraud_prevention_assessment {
         /// Output only. Probability of this transaction attempt being part of a card
         /// testing attack. Values are from 0.0 (lowest) to 1.0 (highest).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub risk: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3602,6 +3606,7 @@ pub mod fraud_prevention_assessment {
         /// behaviorally trustworthy way. Values are from 0.0 (lowest) to 1.0
         /// (highest).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub trust: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3700,6 +3705,7 @@ pub mod fraud_signals {
         /// components in their identity, such as a randomly generated email address,
         /// temporary phone number, or fake shipping address.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub synthetic_risk: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3928,6 +3934,7 @@ pub struct SmsTollFraudVerdict {
     /// Output only. Probability of an SMS event being fraudulent.
     /// Values are from 0.0 (lowest) to 1.0 (highest).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub risk: f32,
 
     /// Output only. Reasons contributing to the SMS toll fraud verdict.
@@ -5473,6 +5480,7 @@ pub struct TestingOptions {
     /// Optional. All assessments for this Key return this score. Must be between 0
     /// (likely not legitimate) and 1 (likely legitimate) inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub testing_score: f32,
 
     /// Optional. For challenge-based keys only (CHECKBOX, INVISIBLE), all

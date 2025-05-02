@@ -191,6 +191,7 @@ pub struct AutonomousDatabaseProperties {
 
     /// Optional. The number of compute servers for the Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub compute_count: f32,
 
     /// Optional. The number of CPU cores to be made available to the database.
@@ -421,6 +422,7 @@ pub struct AutonomousDatabaseProperties {
     /// Output only. The storage space used by automatic backups of Autonomous
     /// Database, in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub total_auto_backup_storage_size_gbs: f32,
 
     /// Output only. The long term backup schedule of the Autonomous Database.
@@ -4236,6 +4238,7 @@ pub struct AutonomousDatabaseBackupProperties {
 
     /// Output only. The quantity of data in the database, in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub database_size_tb: f32,
 
     /// Output only. A valid Oracle Database version for Autonomous Database.
@@ -4286,6 +4289,7 @@ pub struct AutonomousDatabaseBackupProperties {
 
     /// Output only. The backup size in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub size_tb: f32,
 
     /// Output only. Timestamp until when the backup will be available.
@@ -9556,6 +9560,7 @@ pub struct CloudVmClusterProperties {
 
     /// Optional. OCPU count per VM. Minimum is 0.1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub ocpu_count: f32,
 
     /// Optional. Memory allocated in GBs.

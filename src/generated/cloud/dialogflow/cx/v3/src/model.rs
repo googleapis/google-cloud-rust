@@ -2523,6 +2523,7 @@ pub struct SpeechWordInfo {
     /// This field is not guaranteed to be fully stable over time for the same
     /// audio input. Users should also not rely on it to always be provided.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9477,6 +9478,7 @@ pub mod version_variants {
         /// Percentage of the traffic which should be routed to this
         /// version of flow. Traffic allocation for a single flow must sum up to 1.0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub traffic_allocation: f32,
 
         /// Whether the variant is for the control group.
@@ -10214,6 +10216,7 @@ pub struct NluSettings {
     /// to 0.0, the default of 0.3 is used. You can set a separate classification
     /// threshold for the flow in each language enabled for the agent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub classification_threshold: f32,
 
     /// Indicates NLU model training mode.
@@ -12946,6 +12949,7 @@ pub mod generator {
         /// Valid range: [0.0, 1.0]
         /// Low temperature = less random. High temperature = more random.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
         pub temperature: std::option::Option<f32>,
 
         /// The maximum number of tokens to generate.
@@ -12959,6 +12963,7 @@ pub mod generator {
         /// Valid range: (0.0, 1.0].
         /// Small topP = less random. Large topP = more random.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
         pub top_p: std::option::Option<f32>,
 
         /// If set, the sampling process in each step is limited to the top_k tokens
@@ -20725,6 +20730,7 @@ pub struct StreamingRecognitionResult {
     /// This field is typically only provided if `is_final` is true and you should
     /// not rely on it being accurate or even set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// An estimate of the likelihood that the speech recognizer will
@@ -20736,6 +20742,7 @@ pub struct StreamingRecognitionResult {
     /// * Otherwise, the value is in (0.0, 1.0] where 0.0 means completely
     ///   unstable and 1.0 means completely stable.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub stability: f32,
 
     /// Word-specific information for the words recognized by Speech in
@@ -21446,6 +21453,7 @@ pub mod boost_spec {
         /// Setting to 0.0 means no boost applied. The boosting condition is
         /// ignored.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub boost: f32,
 
         /// Optional. Complex specification for custom ranking based on customer
@@ -21607,6 +21615,7 @@ pub mod boost_spec {
                 /// Optional. The value between -1 to 1 by which to boost the score if
                 /// the attribute_value evaluates to the value specified above.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F32")]
                 pub boost_amount: f32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22344,6 +22353,7 @@ pub struct QueryResult {
     ///
     /// [google.cloud.dialogflow.cx.v3.QueryResult.match]: crate::model::QueryResult::match
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     #[deprecated]
     pub intent_detection_confidence: f32,
 
@@ -23028,6 +23038,7 @@ pub struct Match {
     /// for the same end-user expression at any time due to a model retraining or
     /// change in implementation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23722,11 +23733,13 @@ pub struct SentimentAnalysisResult {
     /// Sentiment score between -1.0 (negative sentiment) and 1.0 (positive
     /// sentiment).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     /// A non-negative number in the [0, +inf) range, which represents the absolute
     /// magnitude of sentiment, regardless of score (positive or negative).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub magnitude: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25097,6 +25110,7 @@ pub struct TransitionCoverage {
 
     /// The percent of transitions in the agent that are covered.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub coverage_score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25452,6 +25466,7 @@ pub struct TransitionRouteGroupCoverage {
     /// The percent of transition routes in all the transition route groups that
     /// are covered.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub coverage_score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25510,6 +25525,7 @@ pub mod transition_route_group_coverage {
         /// The percent of transition routes in the transition route group that are
         /// covered.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub coverage_score: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25626,6 +25642,7 @@ pub struct IntentCoverage {
 
     /// The percent of intents in the agent that are covered.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub coverage_score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -31174,6 +31191,7 @@ pub mod webhook_request {
         /// The confidence of the matched intent. Values range from 0.0 (completely
         /// uncertain) to 1.0 (completely certain).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub confidence: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -31292,12 +31310,14 @@ pub mod webhook_request {
         /// Sentiment score between -1.0 (negative sentiment) and 1.0 (positive
         /// sentiment).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         /// A non-negative number in the [0, +inf) range, which represents the
         /// absolute magnitude of sentiment, regardless of score (positive or
         /// negative).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub magnitude: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32236,6 +32256,7 @@ pub struct LanguageInfo {
 
     /// The confidence score of the detected language between 0 and 1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence_score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

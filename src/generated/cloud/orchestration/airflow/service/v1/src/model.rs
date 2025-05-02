@@ -4909,16 +4909,19 @@ pub mod workloads_config {
     pub struct SchedulerResource {
         /// Optional. CPU request and limit for a single Airflow scheduler replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow scheduler
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for a single Airflow scheduler
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub storage_gb: f32,
 
         /// Optional. The number of schedulers.
@@ -4973,14 +4976,17 @@ pub mod workloads_config {
     pub struct WebServerResource {
         /// Optional. CPU request and limit for Airflow web server.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for Airflow web server.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for Airflow web server.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub storage_gb: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5025,16 +5031,19 @@ pub mod workloads_config {
     pub struct WorkerResource {
         /// Optional. CPU request and limit for a single Airflow worker replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow worker
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for a single Airflow worker
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub storage_gb: f32,
 
         /// Optional. Minimum number of workers for autoscaling.
@@ -5103,11 +5112,13 @@ pub mod workloads_config {
 
         /// Optional. CPU request and limit for a single Airflow triggerer replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow triggerer
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub memory_gb: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5156,16 +5167,19 @@ pub mod workloads_config {
         /// Optional. CPU request and limit for a single Airflow DAG processor
         /// replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub cpu: f32,
 
         /// Optional. Memory (GB) request and limit for a single Airflow DAG
         /// processor replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub memory_gb: f32,
 
         /// Optional. Storage (GB) request and limit for a single Airflow DAG
         /// processor replica.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub storage_gb: f32,
 
         /// Optional. The number of DAG processors. If not provided or set to 0, a

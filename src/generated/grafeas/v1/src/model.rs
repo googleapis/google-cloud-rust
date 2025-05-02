@@ -1156,12 +1156,15 @@ impl wkt::message::Message for NonCompliantFile {
 pub struct CVSSv3 {
     /// The base score is a function of the base metric scores.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub base_score: f32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub exploitability_score: f32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub impact_score: f32,
 
     /// Base Metrics
@@ -2099,12 +2102,15 @@ pub mod cvs_sv_3 {
 pub struct Cvss {
     /// The base score is a function of the base metric scores.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub base_score: f32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub exploitability_score: f32,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub impact_score: f32,
 
     /// Base Metrics
@@ -12453,6 +12459,7 @@ pub struct VulnerabilityNote {
     /// The CVSS score of this vulnerability. CVSS score is on a scale of 0 - 10
     /// where 0 indicates low severity and 10 indicates high severity.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub cvss_score: f32,
 
     /// The note provider assigned severity of this vulnerability.
@@ -12940,6 +12947,7 @@ pub struct VulnerabilityOccurrence {
     /// scale of 0 - 10 where 0 indicates low severity and 10 indicates high
     /// severity.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub cvss_score: f32,
 
     /// The cvss v3 score for the vulnerability.

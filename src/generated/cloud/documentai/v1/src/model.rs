@@ -615,6 +615,7 @@ pub mod document {
         pub struct FontSize {
             /// Font size for the text.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub size: f32,
 
             /// Unit for the font size. Follows CSS naming (such as `in`, `px`, and
@@ -962,10 +963,12 @@ pub mod document {
         pub struct Dimension {
             /// Page width.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub width: f32,
 
             /// Page height.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub height: f32,
 
             /// Dimension unit.
@@ -1163,6 +1166,7 @@ pub mod document {
             ///
             /// [google.cloud.documentai.v1.Document.Page.Layout]: crate::model::document::page::Layout
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub confidence: f32,
 
             /// The bounding polygon for the
@@ -2691,6 +2695,7 @@ pub mod document {
 
             /// Confidence of detected language. Range `[0, 1]`.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub confidence: f32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2732,6 +2737,7 @@ pub mod document {
         pub struct ImageQualityScores {
             /// The overall quality score. Range `[0, 1]` where `1` is perfect quality.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub quality_score: f32,
 
             /// A list of detected defects.
@@ -2802,6 +2808,7 @@ pub mod document {
                 /// Confidence of detected defect. Range `[0, 1]` where `1` indicates
                 /// strong confidence that the defect exists.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F32")]
                 pub confidence: f32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2868,6 +2875,7 @@ pub mod document {
 
         /// Optional. Confidence of detected Schema entity. Range `[0, 1]`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub confidence: f32,
 
         /// Optional. Represents the provenance of this entity wrt. the location on
@@ -3584,6 +3592,7 @@ pub mod document {
             /// Optional. Confidence of detected page element, if applicable. Range
             /// `[0, 1]`.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub confidence: f32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9281,6 +9290,7 @@ pub mod train_processor_version_request {
         /// values are between 0.1 and 10. If not provided, recommended learning rate
         /// will be used.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub learning_rate_multiplier: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11206,14 +11216,17 @@ pub mod evaluation {
     pub struct Metrics {
         /// The calculated precision.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub precision: f32,
 
         /// The calculated recall.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub recall: f32,
 
         /// The calculated f1 score.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub f1_score: f32,
 
         /// The amount of occurrences in predicted documents.
@@ -11341,6 +11354,7 @@ pub mod evaluation {
     pub struct ConfidenceLevelMetrics {
         /// The confidence level.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub confidence_level: f32,
 
         /// The metrics at the specific confidence level.
@@ -11399,21 +11413,25 @@ pub mod evaluation {
         /// The calculated area under the precision recall curve (AUPRC), computed by
         /// integrating over all confidence thresholds.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub auprc: f32,
 
         /// The Estimated Calibration Error (ECE) of the confidence of the predicted
         /// entities.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub estimated_calibration_error: f32,
 
         /// The AUPRC for metrics with fuzzy matching disabled, i.e., exact matching
         /// only.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub auprc_exact: f32,
 
         /// The ECE for the predicted entities with fuzzy matching disabled, i.e.,
         /// exact matching only.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub estimated_calibration_error_exact: f32,
 
         /// The metrics type for the label.
@@ -11689,10 +11707,12 @@ impl wkt::message::Message for Vertex {
 pub struct NormalizedVertex {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub x: f32,
 
     /// Y coordinate (starts from the top of the image).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub y: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

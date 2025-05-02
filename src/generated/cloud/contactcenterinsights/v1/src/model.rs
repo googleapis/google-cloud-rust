@@ -1976,6 +1976,7 @@ pub struct BulkAnalyzeConversationsRequest {
     /// Required. Percentage of selected conversation to analyze, between
     /// [0, 100].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub analysis_percentage: f32,
 
     /// To select the annotators to run and the phrase matchers to use
@@ -6367,6 +6368,7 @@ pub mod query_metrics_response {
 
                 /// The average silence percentage.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
                 pub average_silence_percentage: std::option::Option<f32>,
 
                 /// The average duration.
@@ -6375,14 +6377,17 @@ pub mod query_metrics_response {
 
                 /// The average turn count.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
                 pub average_turn_count: std::option::Option<f32>,
 
                 /// The average agent's sentiment score.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
                 pub average_agent_sentiment_score: std::option::Option<f32>,
 
                 /// The average client's sentiment score.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
+                #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
                 pub average_client_sentiment_score: std::option::Option<f32>,
 
                 /// The average customer satisfaction rating.
@@ -10314,6 +10319,7 @@ pub mod conversation {
             /// A confidence estimate between 0.0 and 1.0 of the fidelity of this
             /// segment. A default value of 0.0 indicates that the value is unset.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub confidence: f32,
 
             /// A list of the word-specific information for each word in the segment.
@@ -10466,6 +10472,7 @@ pub mod conversation {
                 /// A confidence estimate between 0.0 and 1.0 of the fidelity of this
                 /// word. A default value of 0.0 indicates that the value is unset.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "wkt::internal::F32")]
                 pub confidence: f32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11533,6 +11540,7 @@ pub struct ConversationLevelSilence {
 
     /// Percentage of the total conversation spent in silence.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub silence_percentage: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12088,6 +12096,7 @@ pub struct Entity {
     /// Scores closer to 0 are less salient, while scores closer to 1.0 are highly
     /// salient.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub salience: f32,
 
     /// The aggregate sentiment expressed for this entity in the conversation.
@@ -12832,10 +12841,12 @@ pub struct SentimentData {
     /// A non-negative number from 0 to infinity which represents the abolute
     /// magnitude of sentiment regardless of score.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub magnitude: f32,
 
     /// The sentiment score between -1.0 (negative) and 1.0 (positive).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15595,6 +15606,7 @@ pub struct ArticleSuggestionData {
     /// conversation, ranging from 0.0 (completely uncertain) to 1.0 (completely
     /// certain).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence_score: f32,
 
     /// Map that contains metadata about the Article Suggestion and the document
@@ -15686,6 +15698,7 @@ pub struct FaqAnswerData {
     /// conversation, ranging from 0.0 (completely uncertain) to 1.0 (completely
     /// certain).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence_score: f32,
 
     /// The corresponding FAQ question.
@@ -15927,6 +15940,7 @@ pub struct DialogflowInteractionData {
     /// The confidence of the match ranging from 0.0 (completely uncertain) to 1.0
     /// (completely certain).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15978,6 +15992,7 @@ pub struct ConversationSummarizationSuggestionData {
 
     /// The confidence score of the summarization.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// A map that contains metadata about the summarization and the document

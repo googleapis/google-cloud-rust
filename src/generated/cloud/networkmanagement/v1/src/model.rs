@@ -10722,6 +10722,7 @@ pub struct VpcFlowLogsConfig {
     /// sampling rate to 0.0 is not allowed. If you want to disable VPC Flow Logs,
     /// use the state field instead. Default value is 1.0.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub flow_sampling: std::option::Option<f32>,
 
     /// Optional. Configures whether all, none or a subset of metadata fields

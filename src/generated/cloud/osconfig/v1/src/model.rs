@@ -12097,6 +12097,7 @@ pub mod vulnerability_report {
             /// The CVSS V2 score of this vulnerability. CVSS V2 score is on a scale of
             /// 0 - 10 where 0 indicates low severity and 10 indicates high severity.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub cvss_v2_score: f32,
 
             /// The full description of the CVSSv3 for this vulnerability from NVD.
@@ -12505,16 +12506,19 @@ pub struct CVSSv3 {
     /// The base score is a function of the base metric scores.
     /// <https://www.first.org/cvss/specification-document#Base-Metrics>
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub base_score: f32,
 
     /// The Exploitability sub-score equation is derived from the Base
     /// Exploitability metrics.
     /// <https://www.first.org/cvss/specification-document#2-1-Exploitability-Metrics>
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub exploitability_score: f32,
 
     /// The Impact sub-score equation is derived from the Base Impact metrics.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub impact_score: f32,
 
     /// This metric reflects the context by which vulnerability exploitation is

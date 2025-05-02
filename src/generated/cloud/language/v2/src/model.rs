@@ -698,11 +698,13 @@ pub struct Sentiment {
     /// the absolute magnitude of sentiment regardless of score (positive or
     /// negative).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub magnitude: f32,
 
     /// Sentiment score between -1.0 (negative sentiment) and 1.0
     /// (positive sentiment).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -760,6 +762,7 @@ pub struct EntityMention {
     /// The score shows the probability of the entity mention being the entity
     /// type. The score is in (0, 1] range.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub probability: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1009,12 +1012,14 @@ pub struct ClassificationCategory {
     /// The classifier's confidence of the category. Number represents how certain
     /// the classifier is that this category represents the given text.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub confidence: f32,
 
     /// Optional. The classifier's severity of the category. This is only present
     /// when the ModerateTextRequest.ModelVersion is set to MODEL_VERSION_2, and
     /// the corresponding category has a severity score.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub severity: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

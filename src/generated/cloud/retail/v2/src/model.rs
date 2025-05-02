@@ -3262,6 +3262,7 @@ pub mod rule {
         /// Setting to 0.0 means no boost applied. The boosting condition is
         /// ignored.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub boost: f32,
 
         /// The filter can have a max size of 5000 characters.
@@ -4596,6 +4597,7 @@ pub struct PriceInfo {
     /// [price](https://support.google.com/merchants/answer/6324371). Schema.org
     /// property [Offer.price](https://schema.org/price).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub price: f32,
 
     /// Price of the product without any discount. If zero, by default set to be
@@ -4607,6 +4609,7 @@ pub struct PriceInfo {
     /// [google.cloud.retail.v2.PriceInfo.original_price]: crate::model::PriceInfo::original_price
     /// [google.cloud.retail.v2.PriceInfo.price]: crate::model::PriceInfo::price
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub original_price: f32,
 
     /// The costs associated with the sale of a particular product. Used for gross
@@ -4621,6 +4624,7 @@ pub struct PriceInfo {
     /// [google.cloud.retail.v2.PriceInfo.cost]: crate::model::PriceInfo::cost
     /// [google.cloud.retail.v2.PriceInfo.price]: crate::model::PriceInfo::price
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub cost: f32,
 
     /// The timestamp when the [price][google.cloud.retail.v2.PriceInfo.price]
@@ -4856,6 +4860,7 @@ pub struct Rating {
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub average_rating: f32,
 
     /// List of rating counts per rating value (index = rating - 1). The list is
@@ -6805,6 +6810,7 @@ pub struct GenerativeQuestionConfig {
 
     /// Output only. The ratio of how often a question was asked.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub frequency: f32,
 
     /// Optional. Whether the question is asked at serving time.
@@ -15460,6 +15466,7 @@ pub mod search_request {
             /// Setting to 0.0 means no boost applied. The boosting condition is
             /// ignored.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub boost: f32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19361,10 +19368,12 @@ pub struct PurchaseTransaction {
     /// total revenue that you want to include as part of your revenue
     /// calculations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub revenue: f32,
 
     /// All the taxes associated with the transaction.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub tax: f32,
 
     /// All the costs associated with the products. These can be manufacturing
@@ -19379,6 +19388,7 @@ pub struct PurchaseTransaction {
     /// [google.cloud.retail.v2.PurchaseTransaction.revenue]: crate::model::PurchaseTransaction::revenue
     /// [google.cloud.retail.v2.PurchaseTransaction.tax]: crate::model::PurchaseTransaction::tax
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub cost: f32,
 
     /// Required. Currency code. Use three-character ISO-4217 code.

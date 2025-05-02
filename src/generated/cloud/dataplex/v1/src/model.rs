@@ -8772,6 +8772,7 @@ pub struct DataProfileSpec {
     /// * Sampling is not applied if `sampling_percent` is not specified, 0 or
     ///
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub sampling_percent: f32,
 
     /// Optional. A filter applied to all rows in a single DataScan job.
@@ -9954,6 +9955,7 @@ pub struct DataQualitySpec {
     /// * Sampling is not applied if `sampling_percent` is not specified, 0 or
     ///
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "wkt::internal::F32")]
     pub sampling_percent: f32,
 
     /// Optional. A filter applied to all rows in a single DataScan job.
@@ -10181,6 +10183,7 @@ pub mod data_quality_spec {
         pub struct ScoreThresholdTrigger {
             /// Optional. The score range is in [0,100].
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "wkt::internal::F32")]
             pub score_threshold: f32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10363,6 +10366,7 @@ pub struct DataQualityResult {
     ///
     /// The score ranges between [0, 100] (up to two decimal points).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     /// Output only. A list of results at the dimension level.
@@ -10879,6 +10883,7 @@ pub struct DataQualityDimensionResult {
     /// The score ranges between [0, 100] (up to two decimal
     /// points).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12012,6 +12017,7 @@ pub struct DataQualityColumnResult {
     /// The score ranges between between [0, 100] (up to two decimal
     /// points).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
     pub score: std::option::Option<f32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19047,6 +19053,7 @@ pub mod data_scan_event {
         /// The data quality score ranges between [0, 100] (up to two decimal
         /// points).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub score: f32,
 
         /// The score of each dimension for data quality result.
@@ -19056,6 +19063,7 @@ pub mod data_scan_event {
         /// The score ranges between [0, 100] (up to two decimal
         /// points).
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F32>")]
         pub dimension_score: std::collections::HashMap<std::string::String, f32>,
 
         /// The score of each column scanned in the data scan job.
@@ -19065,6 +19073,7 @@ pub mod data_scan_event {
         /// The score ranges between [0, 100] (up to two decimal
         /// points).
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F32>")]
         pub column_score: std::collections::HashMap<std::string::String, f32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19148,6 +19157,7 @@ pub mod data_scan_event {
         /// * Value ranges between 0.0 and 100.0.
         /// * Value 0.0 or 100.0 imply that sampling was not applied.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub sampling_percent: f32,
 
         /// Boolean indicating whether a row filter was applied in the DataScan job.
@@ -19204,6 +19214,7 @@ pub mod data_scan_event {
         /// * Value ranges between 0.0 and 100.0.
         /// * Value 0.0 or 100.0 imply that sampling was not applied.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "wkt::internal::F32")]
         pub sampling_percent: f32,
 
         /// Boolean indicating whether a row filter was applied in the DataScan job.
