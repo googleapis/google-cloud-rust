@@ -114,6 +114,7 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 			Name:          name,
 			ID:            id,
 			Package:       packageName,
+			Deprecated:    msg.Schema().Deprecated != nil && *msg.Schema().Deprecated,
 			Documentation: msg.Schema().Description,
 			Fields:        fields,
 		}
