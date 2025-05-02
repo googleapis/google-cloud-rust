@@ -2201,6 +2201,7 @@ pub struct MaintenanceSchedule {
 
     /// If the scheduled maintenance can be rescheduled, default is true.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub can_reschedule: bool,
 
     /// Output only. The deadline that the maintenance schedule start time can not
@@ -2236,6 +2237,7 @@ impl MaintenanceSchedule {
     }
 
     /// Sets the value of [can_reschedule][crate::model::MaintenanceSchedule::can_reschedule].
+    #[deprecated]
     pub fn set_can_reschedule<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.can_reschedule = v.into();
         self

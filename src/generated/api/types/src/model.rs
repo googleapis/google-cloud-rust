@@ -689,6 +689,7 @@ pub struct BackendRule {
 
     /// Deprecated, do not use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub min_deadline: f64,
 
     /// The number of seconds to wait for the completion of a long running
@@ -774,6 +775,7 @@ impl BackendRule {
     }
 
     /// Sets the value of [min_deadline][crate::model::BackendRule::min_deadline].
+    #[deprecated]
     pub fn set_min_deadline<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.min_deadline = v.into();
         self
@@ -1252,6 +1254,7 @@ pub struct CommonLanguageSettings {
     /// Link to automatically generated reference documentation.  Example:
     /// <https://cloud.google.com/nodejs/docs/reference/asset/latest>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub reference_docs_uri: std::string::String,
 
     /// The destination where API teams want this client library to be published.
@@ -1272,6 +1275,7 @@ impl CommonLanguageSettings {
     }
 
     /// Sets the value of [reference_docs_uri][crate::model::CommonLanguageSettings::reference_docs_uri].
+    #[deprecated]
     pub fn set_reference_docs_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5849,6 +5853,7 @@ pub mod metric_descriptor {
         /// instead.
         ///
         /// [google.api.MetricDescriptor.launch_stage]: crate::model::MetricDescriptor::launch_stage
+        #[deprecated]
         pub launch_stage: crate::model::LaunchStage,
 
         /// The sampling period of metric data points. For metrics which are written
@@ -5878,6 +5883,7 @@ pub mod metric_descriptor {
         }
 
         /// Sets the value of [launch_stage][crate::model::metric_descriptor::MetricDescriptorMetadata::launch_stage].
+        #[deprecated]
         pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
             mut self,
             v: T,

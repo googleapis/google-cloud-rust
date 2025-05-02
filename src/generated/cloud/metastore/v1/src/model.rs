@@ -2041,6 +2041,7 @@ pub mod metadata_import {
     #[non_exhaustive]
     pub struct DatabaseDump {
         /// The type of the database.
+        #[deprecated]
         pub database_type: crate::model::metadata_import::database_dump::DatabaseType,
 
         /// A Cloud Storage object or folder URI that specifies the source from which
@@ -2050,6 +2051,7 @@ pub mod metadata_import {
 
         /// The name of the source database.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[deprecated]
         pub source_database: std::string::String,
 
         /// Optional. The type of the database dump. If unspecified, defaults to
@@ -2067,6 +2069,7 @@ pub mod metadata_import {
         }
 
         /// Sets the value of [database_type][crate::model::metadata_import::DatabaseDump::database_type].
+        #[deprecated]
         pub fn set_database_type<
             T: std::convert::Into<crate::model::metadata_import::database_dump::DatabaseType>,
         >(
@@ -2084,6 +2087,7 @@ pub mod metadata_import {
         }
 
         /// Sets the value of [source_database][crate::model::metadata_import::DatabaseDump::source_database].
+        #[deprecated]
         pub fn set_source_database<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,

@@ -18823,6 +18823,7 @@ pub enum Type {
     /// Deploy Policy evaluation.
     DeployPolicyEvaluation,
     /// Deprecated: This field is never used. Use release_render log type instead.
+    #[deprecated]
     RenderStatuesChange,
     /// If set, the enum was initialized with an unknown value.
     ///

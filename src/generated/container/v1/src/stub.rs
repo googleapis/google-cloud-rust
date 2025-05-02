@@ -26,6 +26,7 @@
 
 use gax::error::Error;
 
+#[allow(deprecated)]
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::ClusterManager].

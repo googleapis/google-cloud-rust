@@ -54,11 +54,13 @@ pub struct Zone {
     /// Deprecated: not implemented.
     /// Labels as key value pairs.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[deprecated]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Deprecated: not implemented.
     /// The deployment layout type.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub layout_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -95,12 +97,14 @@ impl Zone {
     }
 
     /// Sets the value of [layout_name][crate::model::Zone::layout_name].
+    #[deprecated]
     pub fn set_layout_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.layout_name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Zone::labels].
+    #[deprecated]
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2450,6 +2454,7 @@ pub mod router_status {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct ListZonesRequest {
     /// Required. Parent value for ListZonesRequest
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -2524,6 +2529,7 @@ impl wkt::message::Message for ListZonesRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct ListZonesResponse {
     /// The list of Zone
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -2601,6 +2607,7 @@ impl gax::paginator::internal::PageableResponse for ListZonesResponse {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct GetZoneRequest {
     /// Required. Name of the resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]

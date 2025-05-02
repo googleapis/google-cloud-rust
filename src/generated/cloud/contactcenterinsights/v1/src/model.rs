@@ -111,6 +111,7 @@ pub struct CalculateStatsResponse {
     /// `projects/<Project-ID>/locations/<Location-ID>/issueModels/<Issue-Model-ID>/issues/<Issue-ID>`
     /// Deprecated, use `issue_matches_stats` field instead.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[deprecated]
     pub issue_matches: std::collections::HashMap<std::string::String, i32>,
 
     /// A map associating each issue resource name with its respective number of
@@ -195,6 +196,7 @@ impl CalculateStatsResponse {
     }
 
     /// Sets the value of [issue_matches][crate::model::CalculateStatsResponse::issue_matches].
+    #[deprecated]
     pub fn set_issue_matches<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -13061,6 +13063,7 @@ pub mod issue_model {
         /// Medium of conversations used in training data. This field is being
         /// deprecated. To specify the medium to be used in training a new issue
         /// model, set the `medium` field on `filter`.
+        #[deprecated]
         pub medium: crate::model::conversation::Medium,
 
         /// Output only. Number of conversations used in training. Output only.
@@ -13083,6 +13086,7 @@ pub mod issue_model {
         }
 
         /// Sets the value of [medium][crate::model::issue_model::InputDataConfig::medium].
+        #[deprecated]
         pub fn set_medium<T: std::convert::Into<crate::model::conversation::Medium>>(
             mut self,
             v: T,
@@ -16070,6 +16074,7 @@ pub struct ConversationParticipant {
     /// The name of the Dialogflow participant. Format:
     /// projects/{project}/locations/{location}/conversations/{conversation}/participants/{participant}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub dialogflow_participant: std::string::String,
 
     /// Obfuscated user ID from Dialogflow.
@@ -16092,6 +16097,7 @@ impl ConversationParticipant {
     }
 
     /// Sets the value of [dialogflow_participant][crate::model::ConversationParticipant::dialogflow_participant].
+    #[deprecated]
     pub fn set_dialogflow_participant<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,

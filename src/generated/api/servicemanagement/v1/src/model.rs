@@ -1376,6 +1376,7 @@ pub struct ListServicesRequest {
     ///
     /// - project:<project_id>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub consumer_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1409,6 +1410,7 @@ impl ListServicesRequest {
     }
 
     /// Sets the value of [consumer_id][crate::model::ListServicesRequest::consumer_id].
+    #[deprecated]
     pub fn set_consumer_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.consumer_id = v.into();
         self

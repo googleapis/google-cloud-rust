@@ -95,6 +95,7 @@ pub struct Agent {
     pub enable_logging: bool,
 
     /// Optional. Determines how intents are detected from user queries.
+    #[deprecated]
     pub match_mode: crate::model::agent::MatchMode,
 
     /// Optional. To filter out false positive results and still get variety in
@@ -171,6 +172,7 @@ impl Agent {
     }
 
     /// Sets the value of [match_mode][crate::model::Agent::match_mode].
+    #[deprecated]
     pub fn set_match_mode<T: std::convert::Into<crate::model::agent::MatchMode>>(
         mut self,
         v: T,
@@ -522,6 +524,7 @@ pub mod agent {
         Enterprise,
         /// Essentials Edition (same as TIER_ENTERPRISE), previously known as
         /// Enterprise Plus Edition.
+        #[deprecated]
         EnterprisePlus,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -3132,6 +3135,7 @@ pub struct InputAudioConfig {
     /// specify both [`phrase_hints`]() and [`speech_contexts`](), Dialogflow will
     /// treat the [`phrase_hints`]() as a single additional [`SpeechContext`]().
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub phrase_hints: std::vec::Vec<std::string::String>,
 
     /// Context information to assist speech recognition.
@@ -3275,6 +3279,7 @@ impl InputAudioConfig {
     }
 
     /// Sets the value of [phrase_hints][crate::model::InputAudioConfig::phrase_hints].
+    #[deprecated]
     pub fn set_phrase_hints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18694,6 +18699,7 @@ pub mod fulfillment {
         /// is_cloud_function is deprecated. Cloud functions can be configured by
         /// its uri as a regular web service now.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[deprecated]
         pub is_cloud_function: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18724,6 +18730,7 @@ pub mod fulfillment {
         }
 
         /// Sets the value of [is_cloud_function][crate::model::fulfillment::GenericWebService::is_cloud_function].
+        #[deprecated]
         pub fn set_is_cloud_function<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.is_cloud_function = v.into();
             self
@@ -21355,6 +21362,7 @@ pub mod intent {
             /// way to create new training phrases. If you have existing training
             /// phrases that you've created in template mode, those will continue to
             /// work.
+            #[deprecated]
             Template,
             /// If set, the enum was initialized with an unknown value.
             ///
@@ -31089,6 +31097,7 @@ pub struct StreamingDetectIntentRequest {
     ///
     /// [google.cloud.dialogflow.v2.InputAudioConfig.single_utterance]: crate::model::InputAudioConfig::single_utterance
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub single_utterance: bool,
 
     /// Instructs the speech synthesizer how to generate the output
@@ -31157,6 +31166,7 @@ impl StreamingDetectIntentRequest {
     }
 
     /// Sets the value of [single_utterance][crate::model::StreamingDetectIntentRequest::single_utterance].
+    #[deprecated]
     pub fn set_single_utterance<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.single_utterance = v.into();
         self

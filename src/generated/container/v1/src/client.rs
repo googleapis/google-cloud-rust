@@ -217,6 +217,7 @@ impl ClusterManager {
     /// Deprecated. Use
     /// [projects.locations.clusters.update](https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters/update)
     /// instead.
+    #[deprecated]
     pub fn set_locations(
         &self,
         name: impl Into<std::string::String>,

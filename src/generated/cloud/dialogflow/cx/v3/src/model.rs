@@ -518,6 +518,7 @@ pub struct Agent {
     ///
     /// [google.cloud.dialogflow.cx.v3.AdvancedSettings.LoggingSettings]: crate::model::advanced_settings::LoggingSettings
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub enable_stackdriver_logging: bool,
 
     /// Indicates if automatic spell correction is enabled in detect intent
@@ -651,6 +652,7 @@ impl Agent {
     }
 
     /// Sets the value of [enable_stackdriver_logging][crate::model::Agent::enable_stackdriver_logging].
+    #[deprecated]
     pub fn set_enable_stackdriver_logging<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_stackdriver_logging = v.into();
         self
@@ -14392,6 +14394,7 @@ pub mod import_intents_request {
         /// [REPORT_CONFLICT][ImportIntentsRequest.REPORT_CONFLICT] instead.
         /// Fail the request if there are intents whose display names conflict with
         /// the display names of intents in the agent.
+        #[deprecated]
         Reject,
         /// Replace the original intent in the agent with the new intent when display
         /// name conflicts exist.
@@ -21150,6 +21153,7 @@ pub struct QueryParameters {
     /// DetectIntentResponse.query_result.data_store_connection_signals
     /// will be filled with data that can help evaluations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub populate_data_store_connection_signals: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21248,6 +21252,7 @@ impl QueryParameters {
     }
 
     /// Sets the value of [populate_data_store_connection_signals][crate::model::QueryParameters::populate_data_store_connection_signals].
+    #[deprecated]
     pub fn set_populate_data_store_connection_signals<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -22324,6 +22329,7 @@ pub struct QueryResult {
     /// [google.cloud.dialogflow.cx.v3.Intent]: crate::model::Intent
     /// [google.cloud.dialogflow.cx.v3.QueryResult.match]: crate::model::QueryResult::match
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub intent: std::option::Option<crate::model::Intent>,
 
     /// The intent detection confidence. Values range from 0.0 (completely
@@ -22338,6 +22344,7 @@ pub struct QueryResult {
     ///
     /// [google.cloud.dialogflow.cx.v3.QueryResult.match]: crate::model::QueryResult::match
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub intent_detection_confidence: f32,
 
     /// Intent match result, could be an intent or an event.
@@ -22438,6 +22445,7 @@ impl QueryResult {
     }
 
     /// Sets the value of [intent][crate::model::QueryResult::intent].
+    #[deprecated]
     pub fn set_intent<T: std::convert::Into<std::option::Option<crate::model::Intent>>>(
         mut self,
         v: T,
@@ -22447,6 +22455,7 @@ impl QueryResult {
     }
 
     /// Sets the value of [intent_detection_confidence][crate::model::QueryResult::intent_detection_confidence].
+    #[deprecated]
     pub fn set_intent_detection_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.intent_detection_confidence = v.into();
         self
@@ -28229,6 +28238,7 @@ pub struct ValidationMessage {
 
     /// The names of the resources where the message is found.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub resources: std::vec::Vec<std::string::String>,
 
     /// The resource names of the resources where the message is found.
@@ -28278,6 +28288,7 @@ impl ValidationMessage {
     }
 
     /// Sets the value of [resources][crate::model::ValidationMessage::resources].
+    #[deprecated]
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -29654,10 +29665,12 @@ pub mod webhook {
 
         /// The user name for HTTP Basic authentication.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[deprecated]
         pub username: std::string::String,
 
         /// The password for HTTP Basic authentication.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[deprecated]
         pub password: std::string::String,
 
         /// The HTTP request headers to send together with webhook requests.
@@ -29730,12 +29743,14 @@ pub mod webhook {
         }
 
         /// Sets the value of [username][crate::model::webhook::GenericWebService::username].
+        #[deprecated]
         pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.username = v.into();
             self
         }
 
         /// Sets the value of [password][crate::model::webhook::GenericWebService::password].
+        #[deprecated]
         pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.password = v.into();
             self

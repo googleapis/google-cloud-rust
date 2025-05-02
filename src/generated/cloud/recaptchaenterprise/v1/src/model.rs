@@ -581,10 +581,12 @@ pub mod annotate_assessment_request {
         /// Provides information that the event was related to a login event in which
         /// the user typed the correct password. Deprecated, prefer indicating
         /// CORRECT_PASSWORD through the reasons field instead.
+        #[deprecated]
         PasswordCorrect,
         /// Provides information that the event was related to a login event in which
         /// the user typed the incorrect password. Deprecated, prefer indicating
         /// INCORRECT_PASSWORD through the reasons field instead.
+        #[deprecated]
         PasswordIncorrect,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -1114,6 +1116,7 @@ pub struct AccountVerificationInfo {
     /// Username of the account that is being verified. Deprecated. Customers
     /// should now provide the `account_id` field in `event.user_info`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub username: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1143,6 +1146,7 @@ impl AccountVerificationInfo {
     }
 
     /// Sets the value of [username][crate::model::AccountVerificationInfo::username].
+    #[deprecated]
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
@@ -1703,6 +1707,7 @@ pub struct Event {
     /// be hashed using hmac-sha256 with stable secret.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
+    #[deprecated]
     pub hashed_account_id: ::bytes::Bytes,
 
     /// Optional. Flag for a reCAPTCHA express request for an assessment without a
@@ -1796,6 +1801,7 @@ impl Event {
     }
 
     /// Sets the value of [hashed_account_id][crate::model::Event::hashed_account_id].
+    #[deprecated]
     pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
         self
@@ -7267,6 +7273,7 @@ pub struct SearchRelatedAccountGroupMembershipsRequest {
     /// hashed_account_id or account_id must be set, but not both.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
+    #[deprecated]
     pub hashed_account_id: ::bytes::Bytes,
 
     /// Optional. The maximum number of groups to return. The service might return
@@ -7307,6 +7314,7 @@ impl SearchRelatedAccountGroupMembershipsRequest {
     }
 
     /// Sets the value of [hashed_account_id][crate::model::SearchRelatedAccountGroupMembershipsRequest::hashed_account_id].
+    #[deprecated]
     pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
         self
@@ -7676,6 +7684,7 @@ pub struct RelatedAccountGroupMembership {
     /// `CreateAssessment` or `AnnotateAssessment` call.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
+    #[deprecated]
     pub hashed_account_id: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7700,6 +7709,7 @@ impl RelatedAccountGroupMembership {
     }
 
     /// Sets the value of [hashed_account_id][crate::model::RelatedAccountGroupMembership::hashed_account_id].
+    #[deprecated]
     pub fn set_hashed_account_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.hashed_account_id = v.into();
         self

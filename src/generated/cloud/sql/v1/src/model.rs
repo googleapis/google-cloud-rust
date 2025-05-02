@@ -4639,6 +4639,7 @@ pub struct DatabaseInstance {
     /// The maximum disk size of the instance in bytes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[deprecated]
     pub max_disk_size: std::option::Option<wkt::Int64Value>,
 
     /// The current disk usage of the instance in bytes. This property has been
@@ -4649,6 +4650,7 @@ pub struct DatabaseInstance {
     /// for details.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[deprecated]
     pub current_disk_size: std::option::Option<wkt::Int64Value>,
 
     /// The assigned IP addresses for the instance.
@@ -4671,6 +4673,7 @@ pub struct DatabaseInstance {
     /// (Deprecated) This property was applicable only
     /// to First Generation instances.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub ipv6_address: std::string::String,
 
     /// The service account email address assigned to the instance.\This
@@ -4804,6 +4807,7 @@ pub struct DatabaseInstance {
 
     /// Output only. DEPRECATED: please use write_endpoint instead.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub primary_dns_name: std::option::Option<std::string::String>,
 
     /// Output only. The dns name of the primary instance in a replication group.
@@ -4884,12 +4888,14 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [max_disk_size][crate::model::DatabaseInstance::max_disk_size].
+    #[deprecated]
     pub fn set_max_disk_size<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(mut self, v: T) -> Self {
         self.max_disk_size = v.into();
         self
     }
 
     /// Sets the value of [current_disk_size][crate::model::DatabaseInstance::current_disk_size].
+    #[deprecated]
     pub fn set_current_disk_size<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(mut self, v: T) -> Self {
         self.current_disk_size = v.into();
         self
@@ -4914,6 +4920,7 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [ipv6_address][crate::model::DatabaseInstance::ipv6_address].
+    #[deprecated]
     pub fn set_ipv6_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ipv6_address = v.into();
         self
@@ -5052,6 +5059,7 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [primary_dns_name][crate::model::DatabaseInstance::primary_dns_name].
+    #[deprecated]
     pub fn set_primary_dns_name<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.primary_dns_name = v.into();
         self
@@ -5213,6 +5221,7 @@ pub mod database_instance {
         pub start_time: std::option::Option<wkt::Timestamp>,
 
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[deprecated]
         pub can_defer: bool,
 
         /// If the scheduled maintenance can be rescheduled.
@@ -5239,6 +5248,7 @@ pub mod database_instance {
         }
 
         /// Sets the value of [can_defer][crate::model::database_instance::SqlScheduledMaintenance::can_defer].
+        #[deprecated]
         pub fn set_can_defer<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.can_defer = v.into();
             self
@@ -5486,6 +5496,7 @@ pub mod database_instance {
         /// maintenance.
         Failed,
         /// Deprecated
+        #[deprecated]
         OnlineMaintenance,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -9313,6 +9324,7 @@ pub mod export_context {
 
         /// Deprecated: copy_only is deprecated. Use differential_base instead
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[deprecated]
         pub copy_only: std::option::Option<wkt::BoolValue>,
 
         /// Whether or not the backup can be used as a differential base
@@ -9348,6 +9360,7 @@ pub mod export_context {
         }
 
         /// Sets the value of [copy_only][crate::model::export_context::SqlBakExportOptions::copy_only].
+        #[deprecated]
         pub fn set_copy_only<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
             self.copy_only = v.into();
             self
@@ -10356,6 +10369,7 @@ pub struct LocationPreference {
     /// The App Engine application to follow, it must be in the same region as the
     /// Cloud SQL instance. WARNING: Changing this might restart the instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub follow_gae_application: std::string::String,
 
     /// The preferred Compute Engine zone (for example: us-central1-a,
@@ -10383,6 +10397,7 @@ impl LocationPreference {
     }
 
     /// Sets the value of [follow_gae_application][crate::model::LocationPreference::follow_gae_application].
+    #[deprecated]
     pub fn set_follow_gae_application<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.follow_gae_application = v.into();
         self
@@ -11169,7 +11184,9 @@ pub mod operation {
         Delete,
         /// Restarts the Cloud SQL instance.
         Restart,
+        #[deprecated]
         Backup,
+        #[deprecated]
         Snapshot,
         /// Performs instance backup.
         BackupVolume,
@@ -11216,9 +11233,12 @@ pub mod operation {
         /// typically causes the instance to be unavailable for 1-3 minutes.
         Maintenance,
         /// This field is deprecated, and will be removed in future version of API.
+        #[deprecated]
         EnablePrivateIp,
+        #[deprecated]
         DeferMaintenance,
         /// Creates clone instance.
+        #[deprecated]
         CreateClone,
         /// Reschedule maintenance to another time.
         RescheduleMaintenance,
@@ -11848,6 +11868,7 @@ pub struct PasswordValidationPolicy {
     /// This field is deprecated and will be removed in a future version of the
     /// API.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub disallow_compromised_credentials: std::option::Option<wkt::BoolValue>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11896,6 +11917,7 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets the value of [disallow_compromised_credentials][crate::model::PasswordValidationPolicy::disallow_compromised_credentials].
+    #[deprecated]
     pub fn set_disallow_compromised_credentials<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
         self.disallow_compromised_credentials = v.into();
         self
@@ -12087,6 +12109,7 @@ pub struct Settings {
     /// The App Engine app IDs that can access this instance.
     /// (Deprecated) Applied to First Generation instances only.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub authorized_gae_applications: std::vec::Vec<std::string::String>,
 
     /// The tier (or machine type) for this instance, for example
@@ -12121,6 +12144,7 @@ pub struct Settings {
     /// The type of replication this instance uses. This can be either
     /// `ASYNCHRONOUS` or `SYNCHRONOUS`. (Deprecated) This property was only
     /// applicable to First Generation instances.
+    #[deprecated]
     pub replication_type: crate::model::SqlReplicationType,
 
     /// The maximum size to which storage capacity can be automatically increased.
@@ -12183,6 +12207,7 @@ pub struct Settings {
     /// database flags for crash-safe replication are enabled. This property was
     /// only applicable to First Generation instances.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub crash_safe_replication_enabled: std::option::Option<wkt::BoolValue>,
 
     /// The size of data disk, in GB. The data disk size minimum is 10GB.
@@ -12299,6 +12324,7 @@ impl Settings {
     }
 
     /// Sets the value of [replication_type][crate::model::Settings::replication_type].
+    #[deprecated]
     pub fn set_replication_type<T: std::convert::Into<crate::model::SqlReplicationType>>(mut self, v: T) -> Self {
         self.replication_type = v.into();
         self
@@ -12359,6 +12385,7 @@ impl Settings {
     }
 
     /// Sets the value of [crash_safe_replication_enabled][crate::model::Settings::crash_safe_replication_enabled].
+    #[deprecated]
     pub fn set_crash_safe_replication_enabled<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
         self.crash_safe_replication_enabled = v.into();
         self
@@ -12449,6 +12476,7 @@ impl Settings {
     }
 
     /// Sets the value of [authorized_gae_applications][crate::model::Settings::authorized_gae_applications].
+    #[deprecated]
     pub fn set_authorized_gae_applications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12531,6 +12559,7 @@ pub mod settings {
         /// The instance never starts.
         Never,
         /// The instance starts upon receiving requests.
+        #[deprecated]
         OnDemand,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -14711,6 +14740,7 @@ pub struct UsersListResponse {
 
     /// Unused.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14729,6 +14759,7 @@ impl UsersListResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::UsersListResponse::next_page_token].
+    #[deprecated]
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -16045,6 +16076,7 @@ pub enum SqlBackendType {
     /// This is an unknown backend type for instance.
     Unspecified,
     /// V1 speckle instance.
+    #[deprecated]
     FirstGen,
     /// V2 speckle instance.
     SecondGen,
@@ -16325,8 +16357,10 @@ pub enum SqlDatabaseVersion {
     /// This is an unknown database version.
     Unspecified,
     /// The database version is MySQL 5.1.
+    #[deprecated]
     Mysql51,
     /// The database version is MySQL 5.5.
+    #[deprecated]
     Mysql55,
     /// The database version is MySQL 5.6.
     Mysql56,
@@ -16367,6 +16401,7 @@ pub enum SqlDatabaseVersion {
     /// The database major version is MySQL 8.0 and the minor version is 28.
     Mysql8028,
     /// The database major version is MySQL 8.0 and the minor version is 29.
+    #[deprecated]
     Mysql8029,
     /// The database major version is MySQL 8.0 and the minor version is 30.
     Mysql8030,
@@ -17001,6 +17036,7 @@ pub enum SqlDataDiskType {
     PdHdd,
     /// This field is deprecated and will be removed from a future version of the
     /// API.
+    #[deprecated]
     ObsoleteLocalSsd,
     /// If set, the enum was initialized with an unknown value.
     ///

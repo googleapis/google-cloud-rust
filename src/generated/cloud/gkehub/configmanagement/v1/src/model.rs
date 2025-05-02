@@ -1727,6 +1727,7 @@ pub struct SyncState {
     /// Timestamp of when ACM last successfully synced the repo
     /// The time format is specified in <https://golang.org/pkg/time/#Time.String>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub last_sync: std::string::String,
 
     /// Timestamp type of when ACM last successfully synced the repo
@@ -1770,6 +1771,7 @@ impl SyncState {
     }
 
     /// Sets the value of [last_sync][crate::model::SyncState::last_sync].
+    #[deprecated]
     pub fn set_last_sync<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_sync = v.into();
         self

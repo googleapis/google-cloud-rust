@@ -1922,6 +1922,7 @@ pub mod conversational_search_service {
         }
 
         /// Sets the value of [asynchronous_mode][crate::model::AnswerQueryRequest::asynchronous_mode].
+        #[deprecated]
         pub fn set_asynchronous_mode<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.asynchronous_mode = v.into();
             self

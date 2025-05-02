@@ -146,6 +146,7 @@ pub struct Document {
     ///
     /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub text_styles: std::vec::Vec<crate::model::document::Style>,
 
     /// Visual page layout for the [Document][google.cloud.documentai.v1.Document].
@@ -273,6 +274,7 @@ impl Document {
     }
 
     /// Sets the value of [text_styles][crate::model::Document::text_styles].
+    #[deprecated]
     pub fn set_text_styles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -743,6 +745,7 @@ pub mod document {
 
         /// The history of this page.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[deprecated]
         pub provenance: std::option::Option<crate::model::document::Provenance>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -807,6 +810,7 @@ pub mod document {
         }
 
         /// Sets the value of [provenance][crate::model::document::Page::provenance].
+        #[deprecated]
         pub fn set_provenance<
             T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
         >(
@@ -1408,6 +1412,7 @@ pub mod document {
 
             /// The history of this annotation.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[deprecated]
             pub provenance: std::option::Option<crate::model::document::Provenance>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1431,6 +1436,7 @@ pub mod document {
             }
 
             /// Sets the value of [provenance][crate::model::document::page::Block::provenance].
+            #[deprecated]
             pub fn set_provenance<
                 T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
             >(
@@ -1479,6 +1485,7 @@ pub mod document {
 
             /// The  history of this annotation.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[deprecated]
             pub provenance: std::option::Option<crate::model::document::Provenance>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1502,6 +1509,7 @@ pub mod document {
             }
 
             /// Sets the value of [provenance][crate::model::document::page::Paragraph::provenance].
+            #[deprecated]
             pub fn set_provenance<
                 T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
             >(
@@ -1551,6 +1559,7 @@ pub mod document {
 
             /// The  history of this annotation.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[deprecated]
             pub provenance: std::option::Option<crate::model::document::Provenance>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1574,6 +1583,7 @@ pub mod document {
             }
 
             /// Sets the value of [provenance][crate::model::document::page::Line::provenance].
+            #[deprecated]
             pub fn set_provenance<
                 T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
             >(
@@ -1630,6 +1640,7 @@ pub mod document {
 
             /// The history of this annotation.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[deprecated]
             pub provenance: std::option::Option<crate::model::document::Provenance>,
 
             /// Text style attributes.
@@ -1670,6 +1681,7 @@ pub mod document {
             }
 
             /// Sets the value of [provenance][crate::model::document::page::Token::provenance].
+            #[deprecated]
             pub fn set_provenance<
                 T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
             >(
@@ -2255,6 +2267,7 @@ pub mod document {
 
             /// The history of this table.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[deprecated]
             pub provenance: std::option::Option<crate::model::document::Provenance>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2278,6 +2291,7 @@ pub mod document {
             }
 
             /// Sets the value of [provenance][crate::model::document::page::Table::provenance].
+            #[deprecated]
             pub fn set_provenance<
                 T: std::convert::Into<std::option::Option<crate::model::document::Provenance>>,
             >(
@@ -3558,6 +3572,7 @@ pub mod document {
             ///
             /// [google.cloud.documentai.v1.Document.PageAnchor.PageRef.bounding_poly]: crate::model::document::page_anchor::PageRef::bounding_poly
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[deprecated]
             pub layout_id: std::string::String,
 
             /// Optional. Identifies the bounding polygon of a layout element on the
@@ -3598,6 +3613,7 @@ pub mod document {
             }
 
             /// Sets the value of [layout_id][crate::model::document::page_anchor::PageRef::layout_id].
+            #[deprecated]
             pub fn set_layout_id<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -3843,11 +3859,13 @@ pub mod document {
     pub struct Provenance {
         /// The index of the revision that produced this element.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[deprecated]
         pub revision: i32,
 
         /// The Id of this operation.  Needs to be unique within the scope of the
         /// revision.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[deprecated]
         pub id: i32,
 
         /// References to the original elements that are replaced.
@@ -3868,12 +3886,14 @@ pub mod document {
         }
 
         /// Sets the value of [revision][crate::model::document::Provenance::revision].
+        #[deprecated]
         pub fn set_revision<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.revision = v.into();
             self
         }
 
         /// Sets the value of [id][crate::model::document::Provenance::id].
+        #[deprecated]
         pub fn set_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
@@ -3931,6 +3951,7 @@ pub mod document {
 
             /// The id of the parent provenance.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[deprecated]
             pub id: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3955,6 +3976,7 @@ pub mod document {
             }
 
             /// Sets the value of [id][crate::model::document::provenance::Parent::id].
+            #[deprecated]
             pub fn set_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.id = v.into();
                 self
@@ -4001,11 +4023,14 @@ pub mod document {
             Replace,
             /// Deprecated. Request human review for the element identified by
             /// `parent`.
+            #[deprecated]
             EvalRequested,
             /// Deprecated. Element is reviewed and approved at human review,
             /// confidence will be set to 1.0.
+            #[deprecated]
             EvalApproved,
             /// Deprecated. Element is skipped in the validation process.
+            #[deprecated]
             EvalSkipped,
             /// If set, the enum was initialized with an unknown value.
             ///
@@ -4159,6 +4184,7 @@ pub mod document {
         /// more parent (when documents are merged.)  This field represents the
         /// index into the `revisions` field.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[deprecated]
         pub parent: std::vec::Vec<i32>,
 
         /// The revisions that this revision is based on. Must include all the ids
@@ -4216,6 +4242,7 @@ pub mod document {
         }
 
         /// Sets the value of [parent][crate::model::document::Revision::parent].
+        #[deprecated]
         pub fn set_parent<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4394,6 +4421,7 @@ pub mod document {
 
         /// The history of this annotation.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[deprecated]
         pub provenance: std::vec::Vec<crate::model::document::Provenance>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4426,6 +4454,7 @@ pub mod document {
         }
 
         /// Sets the value of [provenance][crate::model::document::TextChange::provenance].
+        #[deprecated]
         pub fn set_provenance<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5925,6 +5954,7 @@ pub struct OcrConfig {
     ///
     /// [google.cloud.documentai.v1.OcrConfig.PremiumFeatures.compute_style_info]: crate::model::ocr_config::PremiumFeatures::compute_style_info
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub compute_style_info: bool,
 
     /// Turn off character box detector in OCR engine. Character box detection is
@@ -5975,6 +6005,7 @@ impl OcrConfig {
     }
 
     /// Sets the value of [compute_style_info][crate::model::OcrConfig::compute_style_info].
+    #[deprecated]
     pub fn set_compute_style_info<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.compute_style_info = v.into();
         self

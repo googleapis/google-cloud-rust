@@ -11969,6 +11969,7 @@ pub mod vulnerability_report {
         /// update, these values might not display in VM inventory. For some distros,
         /// this field may be empty.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[deprecated]
         pub installed_inventory_item_ids: std::vec::Vec<std::string::String>,
 
         /// Corresponds to the `AVAILABLE_PACKAGE` inventory item on the VM.
@@ -11978,6 +11979,7 @@ pub mod vulnerability_report {
         /// the latest `SoftwarePackage` available to the VM that fixes the
         /// vulnerability.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[deprecated]
         pub available_inventory_item_ids: std::vec::Vec<std::string::String>,
 
         /// The timestamp for when the vulnerability was first detected.
@@ -12033,6 +12035,7 @@ pub mod vulnerability_report {
         }
 
         /// Sets the value of [installed_inventory_item_ids][crate::model::vulnerability_report::Vulnerability::installed_inventory_item_ids].
+        #[deprecated]
         pub fn set_installed_inventory_item_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12044,6 +12047,7 @@ pub mod vulnerability_report {
         }
 
         /// Sets the value of [available_inventory_item_ids][crate::model::vulnerability_report::Vulnerability::available_inventory_item_ids].
+        #[deprecated]
         pub fn set_available_inventory_item_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

@@ -3135,6 +3135,7 @@ pub struct LogicalInterface {
     /// The index of the logical interface mapping to the index of the hardware
     /// bond or nic on the chosen network template. This field is deprecated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub interface_index: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3153,6 +3154,7 @@ impl LogicalInterface {
     }
 
     /// Sets the value of [interface_index][crate::model::LogicalInterface::interface_index].
+    #[deprecated]
     pub fn set_interface_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.interface_index = v.into();
         self
@@ -4950,6 +4952,7 @@ pub struct ProvisioningConfig {
     /// Email provided to send a confirmation with provisioning config to.
     /// Deprecated in favour of email field in request messages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub email: std::string::String,
 
     /// Output only. State of ProvisioningConfig.
@@ -5011,6 +5014,7 @@ impl ProvisioningConfig {
     }
 
     /// Sets the value of [email][crate::model::ProvisioningConfig::email].
+    #[deprecated]
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
@@ -5913,11 +5917,13 @@ pub struct InstanceConfig {
 
     /// Client network address. Filled if InstanceConfig.multivlan_config is false.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub client_network: std::option::Option<crate::model::instance_config::NetworkAddress>,
 
     /// Private network address, if any. Filled if InstanceConfig.multivlan_config
     /// is false.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub private_network: std::option::Option<crate::model::instance_config::NetworkAddress>,
 
     /// User note field, it can be used by customers to add additional information
@@ -5987,6 +5993,7 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [client_network][crate::model::InstanceConfig::client_network].
+    #[deprecated]
     pub fn set_client_network<
         T: std::convert::Into<std::option::Option<crate::model::instance_config::NetworkAddress>>,
     >(
@@ -5998,6 +6005,7 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [private_network][crate::model::InstanceConfig::private_network].
+    #[deprecated]
     pub fn set_private_network<
         T: std::convert::Into<std::option::Option<crate::model::instance_config::NetworkAddress>>,
     >(
@@ -7680,6 +7688,7 @@ pub struct InstanceQuota {
     /// Instance type.
     /// Deprecated: use gcp_service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub instance_type: std::string::String,
 
     /// The gcp service of the provisioning quota.
@@ -7711,6 +7720,7 @@ impl InstanceQuota {
     }
 
     /// Sets the value of [instance_type][crate::model::InstanceQuota::instance_type].
+    #[deprecated]
     pub fn set_instance_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_type = v.into();
         self

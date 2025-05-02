@@ -132,6 +132,7 @@ impl EdgeNetwork {
 
     /// Deprecated: not implemented.
     /// Lists Zones in a given project and location.
+    #[deprecated]
     pub fn list_zones(
         &self,
         parent: impl Into<std::string::String>,
@@ -141,6 +142,7 @@ impl EdgeNetwork {
 
     /// Deprecated: not implemented.
     /// Gets details of a single Zone.
+    #[deprecated]
     pub fn get_zone(
         &self,
         name: impl Into<std::string::String>,

@@ -4105,6 +4105,7 @@ pub mod control {
         /// Strength of the boost, which should be in [-1, 1]. Negative
         /// boost means demotion. Default is 0.0 (No-op).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[deprecated]
         pub boost: f32,
 
         /// Required. Specifies which products to apply the boost to.
@@ -4137,6 +4138,7 @@ pub mod control {
         }
 
         /// Sets the value of [boost][crate::model::control::BoostAction::boost].
+        #[deprecated]
         pub fn set_boost<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.boost = v.into();
             self
@@ -6346,6 +6348,7 @@ pub struct AnswerQueryRequest {
     /// [google.cloud.discoveryengine.v1.ConversationalSearchService.GetAnswer]: crate::client::ConversationalSearchService::get_answer
     /// [google.cloud.discoveryengine.v1.ConversationalSearchService.GetSession]: crate::client::ConversationalSearchService::get_session
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub asynchronous_mode: bool,
 
     /// A unique identifier for tracking visitors. For example, this could be
@@ -6487,6 +6490,7 @@ impl AnswerQueryRequest {
     }
 
     /// Sets the value of [asynchronous_mode][crate::model::AnswerQueryRequest::asynchronous_mode].
+    #[deprecated]
     pub fn set_asynchronous_mode<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.asynchronous_mode = v.into();
         self
@@ -7699,6 +7703,7 @@ pub mod answer_query_request {
                     /// Please use document_contexts and extractive_segments fields.
                     /// List of extractive answers.
                     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                    #[deprecated]
                     pub extractive_answers: std::vec::Vec<crate::model::answer_query_request::search_spec::search_result_list::search_result::unstructured_document_info::ExtractiveAnswer>,
 
                     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7760,6 +7765,7 @@ pub mod answer_query_request {
                     }
 
                     /// Sets the value of [extractive_answers][crate::model::answer_query_request::search_spec::search_result_list::search_result::UnstructuredDocumentInfo::extractive_answers].
+                    #[deprecated]
                     pub fn set_extractive_answers<T, V>(mut self, v: T) -> Self
                     where
                         T: std::iter::IntoIterator<Item = V>,
@@ -9274,6 +9280,7 @@ pub struct CustomTuningModel {
 
     /// Deprecated: Timestamp the Model was created at.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Timestamp the model training was initiated.
@@ -9326,6 +9333,7 @@ impl CustomTuningModel {
     }
 
     /// Sets the value of [create_time][crate::model::CustomTuningModel::create_time].
+    #[deprecated]
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -11752,6 +11760,7 @@ pub mod document_processing_config {
             /// [DEPRECATED] This field is deprecated. To use the additional enhanced
             /// document elements processing, please switch to `layout_parsing_config`.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[deprecated]
             pub enhanced_document_elements: std::vec::Vec<std::string::String>,
 
             /// If true, will use native text instead of OCR text on pages containing
@@ -11775,6 +11784,7 @@ pub mod document_processing_config {
             }
 
             /// Sets the value of [enhanced_document_elements][crate::model::document_processing_config::parsing_config::OcrParsingConfig::enhanced_document_elements].
+            #[deprecated]
             pub fn set_enhanced_document_elements<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -24961,11 +24971,13 @@ pub mod search_request {
             /// `return_snippet` field. For backwards compatibility, we will return
             /// snippet if max_snippet_count > 0.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[deprecated]
             pub max_snippet_count: i32,
 
             /// [DEPRECATED] This field is deprecated and will have no affect on the
             /// snippet.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[deprecated]
             pub reference_only: bool,
 
             /// If `true`, then return snippet. If no snippet can be generated, we
@@ -24984,12 +24996,14 @@ pub mod search_request {
             }
 
             /// Sets the value of [max_snippet_count][crate::model::search_request::content_search_spec::SnippetSpec::max_snippet_count].
+            #[deprecated]
             pub fn set_max_snippet_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.max_snippet_count = v.into();
                 self
             }
 
             /// Sets the value of [reference_only][crate::model::search_request::content_search_spec::SnippetSpec::reference_only].
+            #[deprecated]
             pub fn set_reference_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.reference_only = v.into();
                 self

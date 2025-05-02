@@ -30,4 +30,12 @@ limitations under the License.
 //! module.
 
 /// The messages and enums that are part of this client library.
+{{!
+    The generated code uses deprecated items in:
+    - setters for deprecated fields.
+    - fields that reference deprecated messages and enums.
+}}
+{{#HasDeprecatedEntities}}
+#[allow(deprecated)]
+{{/HasDeprecatedEntities}}
 pub mod model;

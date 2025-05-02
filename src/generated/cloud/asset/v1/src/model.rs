@@ -8845,6 +8845,7 @@ pub struct Asset {
     /// The related assets of the asset of one relationship type. One asset
     /// only represents one type of relationship.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub related_assets: std::option::Option<crate::model::RelatedAssets>,
 
     /// One related asset of the current asset.
@@ -8927,6 +8928,7 @@ impl Asset {
     }
 
     /// Sets the value of [related_assets][crate::model::Asset::related_assets].
+    #[deprecated]
     pub fn set_related_assets<
         T: std::convert::Into<std::option::Option<crate::model::RelatedAssets>>,
     >(
@@ -9241,6 +9243,7 @@ impl wkt::message::Message for Resource {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct RelatedAssets {
     /// The detailed relationship attributes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -9297,6 +9300,7 @@ impl wkt::message::Message for RelatedAssets {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
+#[deprecated]
 pub struct RelationshipAttributes {
     /// The unique identifier of the relationship type. Example:
     /// `INSTANCE_TO_INSTANCEGROUP`
@@ -9738,6 +9742,7 @@ pub struct ResourceSearchResult {
     /// * Use a field query. Example: `kmsKey:key`
     /// * Use a free text query. Example: `key`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub kms_key: std::string::String,
 
     /// The Cloud KMS
@@ -9883,6 +9888,7 @@ pub struct ResourceSearchResult {
     ///
     ///   - `env`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub tag_keys: std::vec::Vec<std::string::String>,
 
     /// This field is only present for the purpose of backward compatibility.
@@ -9902,6 +9908,7 @@ pub struct ResourceSearchResult {
     ///
     ///   - `prod`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub tag_values: std::vec::Vec<std::string::String>,
 
     /// This field is only present for the purpose of backward compatibility.
@@ -9917,6 +9924,7 @@ pub struct ResourceSearchResult {
     ///
     ///   - `456`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub tag_value_ids: std::vec::Vec<std::string::String>,
 
     /// The tags directly attached to this resource.
@@ -10034,6 +10042,7 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [kms_key][crate::model::ResourceSearchResult::kms_key].
+    #[deprecated]
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
@@ -10146,6 +10155,7 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [tag_keys][crate::model::ResourceSearchResult::tag_keys].
+    #[deprecated]
     pub fn set_tag_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10157,6 +10167,7 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [tag_values][crate::model::ResourceSearchResult::tag_values].
+    #[deprecated]
     pub fn set_tag_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10168,6 +10179,7 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [tag_value_ids][crate::model::ResourceSearchResult::tag_value_ids].
+    #[deprecated]
     pub fn set_tag_value_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

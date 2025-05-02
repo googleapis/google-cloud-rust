@@ -62,6 +62,7 @@ use gax::error::Error;
 #[allow(unused_imports)]
 use std::sync::Arc;
 
+#[allow(deprecated)]
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::DatasetService].

@@ -6427,6 +6427,7 @@ pub struct GitHubEventsConfig {
     /// The installationID that emits the GitHub event.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[deprecated]
     pub installation_id: i64,
 
     /// Owner of the repository. For example: The owner for
@@ -6455,6 +6456,7 @@ impl GitHubEventsConfig {
     }
 
     /// Sets the value of [installation_id][crate::model::GitHubEventsConfig::installation_id].
+    #[deprecated]
     pub fn set_installation_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.installation_id = v.into();
         self
@@ -7815,6 +7817,7 @@ pub struct BuildOptions {
 
     /// This field deprecated; please use `pool.name` instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub worker_pool: std::string::String,
 
     /// Optional. Specification for execution on a `WorkerPool`.
@@ -7936,6 +7939,7 @@ impl BuildOptions {
     }
 
     /// Sets the value of [worker_pool][crate::model::BuildOptions::worker_pool].
+    #[deprecated]
     pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool = v.into();
         self
@@ -8648,6 +8652,7 @@ pub mod build_options {
         /// Build logs are stored in Cloud Storage.
         GcsOnly,
         /// This option is the same as CLOUD_LOGGING_ONLY.
+        #[deprecated]
         StackdriverOnly,
         /// Build logs are stored in Cloud Logging. Selecting this option will not
         /// allow [logs

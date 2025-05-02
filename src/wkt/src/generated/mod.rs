@@ -2116,6 +2116,7 @@ pub struct FileOptions {
 
     /// This option does nothing.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub java_generate_equals_and_hash: bool,
 
     /// A proto2 file can set this to true to opt in to UTF-8 checking for Java,
@@ -2252,6 +2253,7 @@ impl FileOptions {
     }
 
     /// Sets the value of [java_generate_equals_and_hash][crate::FileOptions::java_generate_equals_and_hash].
+    #[deprecated]
     pub fn set_java_generate_equals_and_hash<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.java_generate_equals_and_hash = v.into();
         self
@@ -2599,6 +2601,7 @@ pub struct MessageOptions {
     /// TODO This is legacy behavior we plan to remove once downstream
     /// teams have had time to migrate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub deprecated_legacy_json_field_conflicts: bool,
 
     /// Any features defined in the specific edition.
@@ -2646,6 +2649,7 @@ impl MessageOptions {
     }
 
     /// Sets the value of [deprecated_legacy_json_field_conflicts][crate::MessageOptions::deprecated_legacy_json_field_conflicts].
+    #[deprecated]
     pub fn set_deprecated_legacy_json_field_conflicts<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -3671,6 +3675,7 @@ pub struct EnumOptions {
     /// TODO Remove this legacy behavior once downstream teams have
     /// had time to migrate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub deprecated_legacy_json_field_conflicts: bool,
 
     /// Any features defined in the specific edition.
@@ -3703,6 +3708,7 @@ impl EnumOptions {
     }
 
     /// Sets the value of [deprecated_legacy_json_field_conflicts][crate::EnumOptions::deprecated_legacy_json_field_conflicts].
+    #[deprecated]
     pub fn set_deprecated_legacy_json_field_conflicts<T: std::convert::Into<bool>>(
         mut self,
         v: T,

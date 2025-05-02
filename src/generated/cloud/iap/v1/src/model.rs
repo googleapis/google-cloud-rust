@@ -1175,6 +1175,7 @@ pub mod reauth_settings {
         Unspecified,
         /// Prompts the user to log in again.
         Login,
+        #[deprecated]
         Password,
         /// User must use their secure key 2nd factor device.
         SecureKey,

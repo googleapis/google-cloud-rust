@@ -5023,6 +5023,7 @@ pub struct MessageTransform {
     /// Optional. This field is deprecated, use the `disabled` field to disable
     /// transforms.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub enabled: bool,
 
     /// Optional. If true, the transform is disabled and will not be applied to
@@ -5044,6 +5045,7 @@ impl MessageTransform {
     }
 
     /// Sets the value of [enabled][crate::model::MessageTransform::enabled].
+    #[deprecated]
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self

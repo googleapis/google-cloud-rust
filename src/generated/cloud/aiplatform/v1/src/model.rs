@@ -6976,8 +6976,10 @@ pub mod scheduling {
         /// Strategy will default to STANDARD.
         Unspecified,
         /// Deprecated. Regular on-demand provisioning strategy.
+        #[deprecated]
         OnDemand,
         /// Deprecated. Low cost by making potential use of spot resources.
+        #[deprecated]
         LowCost,
         /// Standard provisioning strategy uses regular on-demand resources.
         Standard,
@@ -10461,6 +10463,7 @@ pub struct SearchDataItemsRequest {
     /// `projects/{project}/locations/{location}/datasets/{dataset}/savedQueries/{saved_query}`
     /// All of the search will be done in the context of this SavedQuery.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub saved_query: std::string::String,
 
     /// The resource name of a DataLabelingJob.
@@ -10491,6 +10494,7 @@ pub struct SearchDataItemsRequest {
     ///
     /// * `annotation_spec_id` - for = or !=.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub annotations_filter: std::string::String,
 
     /// An expression that specifies what Annotations will be returned per
@@ -10523,6 +10527,7 @@ pub struct SearchDataItemsRequest {
     /// A comma-separated list of fields to order by, sorted in ascending order.
     /// Use "desc" after a field name for descending.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub order_by: std::string::String,
 
     /// A token identifying a page of results for the server to return
@@ -10557,6 +10562,7 @@ impl SearchDataItemsRequest {
     }
 
     /// Sets the value of [saved_query][crate::model::SearchDataItemsRequest::saved_query].
+    #[deprecated]
     pub fn set_saved_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.saved_query = v.into();
         self
@@ -10581,6 +10587,7 @@ impl SearchDataItemsRequest {
     }
 
     /// Sets the value of [annotations_filter][crate::model::SearchDataItemsRequest::annotations_filter].
+    #[deprecated]
     pub fn set_annotations_filter<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10611,6 +10618,7 @@ impl SearchDataItemsRequest {
     }
 
     /// Sets the value of [order_by][crate::model::SearchDataItemsRequest::order_by].
+    #[deprecated]
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -12230,6 +12238,7 @@ impl wkt::message::Message for QueryDeployedModelsRequest {
 pub struct QueryDeployedModelsResponse {
     /// DEPRECATED Use deployed_model_refs instead.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub deployed_models: std::vec::Vec<crate::model::DeployedModel>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
@@ -12280,6 +12289,7 @@ impl QueryDeployedModelsResponse {
     }
 
     /// Sets the value of [deployed_models][crate::model::QueryDeployedModelsResponse::deployed_models].
+    #[deprecated]
     pub fn set_deployed_models<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12521,6 +12531,7 @@ pub struct Endpoint {
     /// [google.cloud.aiplatform.v1.Endpoint.enable_private_service_connect]: crate::model::Endpoint::enable_private_service_connect
     /// [google.cloud.aiplatform.v1.Endpoint.network]: crate::model::Endpoint::network
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub enable_private_service_connect: bool,
 
     /// Optional. Configuration for private service connect.
@@ -12649,6 +12660,7 @@ impl Endpoint {
     }
 
     /// Sets the value of [enable_private_service_connect][crate::model::Endpoint::enable_private_service_connect].
+    #[deprecated]
     pub fn set_enable_private_service_connect<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_private_service_connect = v.into();
         self
@@ -44703,6 +44715,7 @@ pub struct IndexEndpoint {
     /// [google.cloud.aiplatform.v1.IndexEndpoint.enable_private_service_connect]: crate::model::IndexEndpoint::enable_private_service_connect
     /// [google.cloud.aiplatform.v1.IndexEndpoint.network]: crate::model::IndexEndpoint::network
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub enable_private_service_connect: bool,
 
     /// Optional. Configuration for private service connect.
@@ -44804,6 +44817,7 @@ impl IndexEndpoint {
     }
 
     /// Sets the value of [enable_private_service_connect][crate::model::IndexEndpoint::enable_private_service_connect].
+    #[deprecated]
     pub fn set_enable_private_service_connect<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_private_service_connect = v.into();
         self
@@ -53716,6 +53730,7 @@ pub struct DeleteMetadataStoreRequest {
 
     /// Deprecated: Field is no longer supported.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -53735,6 +53750,7 @@ impl DeleteMetadataStoreRequest {
     }
 
     /// Sets the value of [force][crate::model::DeleteMetadataStoreRequest::force].
+    #[deprecated]
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -67417,6 +67433,7 @@ pub struct NasJob {
     /// Optional. Enable a separation of Custom model training
     /// and restricted image training for tenant project.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub enable_restricted_image_training: bool,
 
     /// Output only. Reserved for future use.
@@ -67534,6 +67551,7 @@ impl NasJob {
     }
 
     /// Sets the value of [enable_restricted_image_training][crate::model::NasJob::enable_restricted_image_training].
+    #[deprecated]
     pub fn set_enable_restricted_image_training<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -69857,6 +69875,7 @@ pub struct NotebookRuntimeTemplate {
     ///
     /// The default template to use if not specified.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub is_default: bool,
 
     /// Optional. Immutable. The specification of a single machine for the
@@ -69891,6 +69910,7 @@ pub struct NotebookRuntimeTemplate {
     /// account](https://cloud.google.com/compute/docs/access/service-accounts#default_service_account)
     /// is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub service_account: std::string::String,
 
     /// Used to perform consistent read-modify-write updates. If not set, a blind
@@ -69976,6 +69996,7 @@ impl NotebookRuntimeTemplate {
     }
 
     /// Sets the value of [is_default][crate::model::NotebookRuntimeTemplate::is_default].
+    #[deprecated]
     pub fn set_is_default<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_default = v.into();
         self
@@ -70015,6 +70036,7 @@ impl NotebookRuntimeTemplate {
     }
 
     /// Sets the value of [service_account][crate::model::NotebookRuntimeTemplate::service_account].
+    #[deprecated]
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
@@ -75253,6 +75275,7 @@ pub mod pipeline_job {
         /// [google.cloud.aiplatform.v1.PipelineJob.RuntimeConfig.parameter_values]: crate::model::pipeline_job::RuntimeConfig::parameter_values
         /// [google.cloud.aiplatform.v1.PipelineJob.pipeline_spec]: crate::model::PipelineJob::pipeline_spec
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[deprecated]
         pub parameters: std::collections::HashMap<std::string::String, crate::model::Value>,
 
         /// Required. A path in a Cloud Storage bucket, which will be treated as the
@@ -75322,6 +75345,7 @@ pub mod pipeline_job {
         }
 
         /// Sets the value of [parameters][crate::model::pipeline_job::RuntimeConfig::parameters].
+        #[deprecated]
         pub fn set_parameters<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -79732,6 +79756,7 @@ pub mod publisher_model {
         /// The value of [reference][crate::model::publisher_model::ResourceReference::reference]
         /// if it holds a `UseCase`, `None` if the field is not set or
         /// holds a different branch.
+        #[deprecated]
         pub fn use_case(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.reference.as_ref().and_then(|v| match v {
@@ -79745,6 +79770,7 @@ pub mod publisher_model {
         /// The value of [reference][crate::model::publisher_model::ResourceReference::reference]
         /// if it holds a `Description`, `None` if the field is not set or
         /// holds a different branch.
+        #[deprecated]
         pub fn description(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.reference.as_ref().and_then(|v| match v {
@@ -79789,6 +79815,7 @@ pub mod publisher_model {
         ///
         /// Note that all the setters affecting `reference` are
         /// mutually exclusive.
+        #[deprecated]
         pub fn set_use_case<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.reference = std::option::Option::Some(
                 crate::model::publisher_model::resource_reference::Reference::UseCase(v.into()),
@@ -79801,6 +79828,7 @@ pub mod publisher_model {
         ///
         /// Note that all the setters affecting `reference` are
         /// mutually exclusive.
+        #[deprecated]
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.reference = std::option::Option::Some(
                 crate::model::publisher_model::resource_reference::Reference::Description(v.into()),
@@ -79832,8 +79860,10 @@ pub mod publisher_model {
             /// The resource name of the Google Cloud resource.
             ResourceName(std::string::String),
             /// Use case (CUJ) of the resource.
+            #[deprecated]
             UseCase(std::string::String),
             /// Description of the resource.
+            #[deprecated]
             Description(std::string::String),
         }
     }
@@ -92918,6 +92948,7 @@ pub mod code_execution_result {
 pub struct Retrieval {
     /// Optional. Deprecated. This option is no longer supported.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub disable_attribution: bool,
 
     /// The source of the retrieval.
@@ -92939,6 +92970,7 @@ impl Retrieval {
     }
 
     /// Sets the value of [disable_attribution][crate::model::Retrieval::disable_attribution].
+    #[deprecated]
     pub fn set_disable_attribution<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_attribution = v.into();
         self
@@ -93077,11 +93109,13 @@ pub struct VertexRagStore {
 
     /// Optional. Number of top k results to return from the selected corpora.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub similarity_top_k: std::option::Option<i32>,
 
     /// Optional. Only return results with vector distance smaller than the
     /// threshold.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub vector_distance_threshold: std::option::Option<f64>,
 
     /// Optional. The retrieval config for the Rag query.
@@ -93104,6 +93138,7 @@ impl VertexRagStore {
     }
 
     /// Sets the value of [similarity_top_k][crate::model::VertexRagStore::similarity_top_k].
+    #[deprecated]
     pub fn set_similarity_top_k<T: std::convert::Into<std::option::Option<i32>>>(
         mut self,
         v: T,
@@ -93113,6 +93148,7 @@ impl VertexRagStore {
     }
 
     /// Sets the value of [vector_distance_threshold][crate::model::VertexRagStore::vector_distance_threshold].
+    #[deprecated]
     pub fn set_vector_distance_threshold<T: std::convert::Into<std::option::Option<f64>>>(
         mut self,
         v: T,
@@ -96301,6 +96337,7 @@ pub struct SupervisedTuningDataStats {
     /// Output only. Number of billable characters in the tuning dataset.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[deprecated]
     pub total_billable_character_count: i64,
 
     /// Output only. Number of billable tokens in the tuning dataset.
@@ -96367,6 +96404,7 @@ impl SupervisedTuningDataStats {
     }
 
     /// Sets the value of [total_billable_character_count][crate::model::SupervisedTuningDataStats::total_billable_character_count].
+    #[deprecated]
     pub fn set_total_billable_character_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_billable_character_count = v.into();
         self
@@ -100147,6 +100185,7 @@ impl ImportRagFilesConfig {
     /// The value of [partial_failure_sink][crate::model::ImportRagFilesConfig::partial_failure_sink]
     /// if it holds a `PartialFailureGcsSink`, `None` if the field is not set or
     /// holds a different branch.
+    #[deprecated]
     pub fn partial_failure_gcs_sink(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::GcsDestination>> {
@@ -100162,6 +100201,7 @@ impl ImportRagFilesConfig {
     /// The value of [partial_failure_sink][crate::model::ImportRagFilesConfig::partial_failure_sink]
     /// if it holds a `PartialFailureBigquerySink`, `None` if the field is not set or
     /// holds a different branch.
+    #[deprecated]
     pub fn partial_failure_bigquery_sink(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::BigQueryDestination>> {
@@ -100177,6 +100217,7 @@ impl ImportRagFilesConfig {
     ///
     /// Note that all the setters affecting `partial_failure_sink` are
     /// mutually exclusive.
+    #[deprecated]
     pub fn set_partial_failure_gcs_sink<
         T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
     >(
@@ -100196,6 +100237,7 @@ impl ImportRagFilesConfig {
     ///
     /// Note that all the setters affecting `partial_failure_sink` are
     /// mutually exclusive.
+    #[deprecated]
     pub fn set_partial_failure_bigquery_sink<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDestination>>,
     >(
@@ -100338,6 +100380,7 @@ pub mod import_rag_files_config {
     pub enum PartialFailureSink {
         /// The Cloud Storage path to write partial failures to.
         /// Deprecated. Prefer to use `import_result_gcs_sink`.
+        #[deprecated]
         PartialFailureGcsSink(std::boxed::Box<crate::model::GcsDestination>),
         /// The BigQuery destination to write partial failures to. It should be a
         /// bigquery table resource name (e.g.
@@ -100346,6 +100389,7 @@ pub mod import_rag_files_config {
         /// table exists, the schema will be validated and data will be added to this
         /// existing table.
         /// Deprecated. Prefer to use `import_result_bq_sink`.
+        #[deprecated]
         PartialFailureBigquerySink(std::boxed::Box<crate::model::BigQueryDestination>),
     }
 
@@ -101722,6 +101766,7 @@ pub mod retrieve_contexts_request {
         /// Optional. Only return contexts with vector distance smaller than the
         /// threshold.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[deprecated]
         pub vector_distance_threshold: std::option::Option<f64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -101735,6 +101780,7 @@ pub mod retrieve_contexts_request {
         }
 
         /// Sets the value of [vector_distance_threshold][crate::model::retrieve_contexts_request::VertexRagStore::vector_distance_threshold].
+        #[deprecated]
         pub fn set_vector_distance_threshold<T: std::convert::Into<std::option::Option<f64>>>(
             mut self,
             v: T,
@@ -102464,6 +102510,7 @@ pub struct Fact {
 
     /// If present, the distance between the query vector and this fact vector.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub vector_distance: std::option::Option<f64>,
 
     /// If present, according to the underlying Vector DB and the selected metric
@@ -102528,6 +102575,7 @@ impl Fact {
     }
 
     /// Sets the value of [vector_distance][crate::model::Fact::vector_distance].
+    #[deprecated]
     pub fn set_vector_distance<T: std::convert::Into<std::option::Option<f64>>>(
         mut self,
         v: T,
@@ -103887,6 +103935,7 @@ pub enum AcceleratorType {
     Unspecified,
     /// Deprecated: Nvidia Tesla K80 GPU has reached end of support,
     /// see <https://cloud.google.com/compute/docs/eol/k80-eol>.
+    #[deprecated]
     NvidiaTeslaK80,
     /// Nvidia Tesla P100 GPU.
     NvidiaTeslaP100,

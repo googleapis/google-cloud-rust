@@ -4144,6 +4144,7 @@ pub struct CustomAttribute {
     /// [google.cloud.retail.v2.SearchService.Search]: crate::client::SearchService::search
     /// [google.cloud.retail.v2.UserEvent]: crate::model::UserEvent
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub searchable: std::option::Option<bool>,
 
     /// This field is normally ignored unless
@@ -4172,6 +4173,7 @@ pub struct CustomAttribute {
     /// [google.cloud.retail.v2.SearchService.Search]: crate::client::SearchService::search
     /// [google.cloud.retail.v2.UserEvent]: crate::model::UserEvent
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub indexable: std::option::Option<bool>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4184,6 +4186,7 @@ impl CustomAttribute {
     }
 
     /// Sets the value of [searchable][crate::model::CustomAttribute::searchable].
+    #[deprecated]
     pub fn set_searchable<T: std::convert::Into<std::option::Option<bool>>>(
         mut self,
         v: T,
@@ -4193,6 +4196,7 @@ impl CustomAttribute {
     }
 
     /// Sets the value of [indexable][crate::model::CustomAttribute::indexable].
+    #[deprecated]
     pub fn set_indexable<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
         self.indexable = v.into();
         self
@@ -5370,6 +5374,7 @@ pub struct CompleteQueryResponse {
     /// [google.cloud.retail.v2.CompleteQueryRequest.visitor_id]: crate::model::CompleteQueryRequest::visitor_id
     /// [google.cloud.retail.v2.UserEvent]: crate::model::UserEvent
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub recent_search_results:
         std::vec::Vec<crate::model::complete_query_response::RecentSearchResult>,
 
@@ -5418,6 +5423,7 @@ impl CompleteQueryResponse {
     }
 
     /// Sets the value of [recent_search_results][crate::model::CompleteQueryResponse::recent_search_results].
+    #[deprecated]
     pub fn set_recent_search_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5517,6 +5523,7 @@ pub mod complete_query_response {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
+    #[deprecated]
     pub struct RecentSearchResult {
         /// The recent search query.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -7609,6 +7616,7 @@ pub struct ImportProductsRequest {
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub request_id: std::string::String,
 
     /// Required. The desired input location of the data.
@@ -7671,6 +7679,7 @@ impl ImportProductsRequest {
     }
 
     /// Sets the value of [request_id][crate::model::ImportProductsRequest::request_id].
+    #[deprecated]
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -8446,6 +8455,7 @@ pub struct ImportMetadata {
 
     /// Deprecated. This field is never set.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub request_id: std::string::String,
 
     /// Pub/Sub topic for receiving notification. If this field is set,
@@ -8498,6 +8508,7 @@ impl ImportMetadata {
     }
 
     /// Sets the value of [request_id][crate::model::ImportMetadata::request_id].
+    #[deprecated]
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -10452,6 +10463,7 @@ pub struct PredictRequest {
 
     /// This field is not used; leave it unset.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub page_token: std::string::String,
 
     /// Filter for restricting prediction results with a length limit of 5,000
@@ -10585,6 +10597,7 @@ impl PredictRequest {
     }
 
     /// Sets the value of [page_token][crate::model::PredictRequest::page_token].
+    #[deprecated]
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -11292,6 +11305,7 @@ pub struct Product {
     /// [google.cloud.retail.v2.Product.uri]: crate::model::Product::uri
     /// [google.cloud.retail.v2.SearchResponse]: crate::model::SearchResponse
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub retrievable_fields: std::option::Option<wkt::FieldMask>,
 
     /// Output only. Product variants grouped together on primary product which
@@ -11467,6 +11481,7 @@ impl Product {
     }
 
     /// Sets the value of [retrievable_fields][crate::model::Product::retrievable_fields].
+    #[deprecated]
     pub fn set_retrievable_fields<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -14310,6 +14325,7 @@ pub struct SearchRequest {
     /// The specification for dynamically generated facets. Notice that only
     /// textual facets can be dynamically generated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub dynamic_facet_spec: std::option::Option<crate::model::search_request::DynamicFacetSpec>,
 
     /// Boost specification to boost certain products. For more information, see
@@ -14583,6 +14599,7 @@ impl SearchRequest {
     }
 
     /// Sets the value of [dynamic_facet_spec][crate::model::SearchRequest::dynamic_facet_spec].
+    #[deprecated]
     pub fn set_dynamic_facet_spec<
         T: std::convert::Into<std::option::Option<crate::model::search_request::DynamicFacetSpec>>,
     >(
@@ -16243,6 +16260,7 @@ pub mod search_request {
             pub struct SelectedAnswer {
                 /// This field is deprecated and should not be set.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[deprecated]
                 pub product_attribute_values: std::vec::Vec<crate::model::ProductAttributeValue>,
 
                 /// This field specifies the selected answer which is a attribute
@@ -16272,6 +16290,7 @@ pub mod search_request {
                 }
 
                 /// Sets the value of [product_attribute_values][crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer::product_attribute_values].
+                #[deprecated]
                 pub fn set_product_attribute_values<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -17301,6 +17320,7 @@ pub mod search_response {
         /// There is expected to have only one additional filter and the value will
         /// be the same to the same as field `additional_filter`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[deprecated]
         pub additional_filters: std::vec::Vec<
             crate::model::search_response::conversational_search_result::AdditionalFilter,
         >,
@@ -17370,6 +17390,7 @@ pub mod search_response {
         }
 
         /// Sets the value of [additional_filters][crate::model::search_response::ConversationalSearchResult::additional_filters].
+        #[deprecated]
         pub fn set_additional_filters<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

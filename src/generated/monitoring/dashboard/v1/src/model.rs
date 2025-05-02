@@ -3104,6 +3104,7 @@ impl TimeSeriesFilter {
     /// The value of [output_filter][crate::model::TimeSeriesFilter::output_filter]
     /// if it holds a `StatisticalTimeSeriesFilter`, `None` if the field is not set or
     /// holds a different branch.
+    #[deprecated]
     pub fn statistical_time_series_filter(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>> {
@@ -3138,6 +3139,7 @@ impl TimeSeriesFilter {
     ///
     /// Note that all the setters affecting `output_filter` are
     /// mutually exclusive.
+    #[deprecated]
     pub fn set_statistical_time_series_filter<
         T: std::convert::Into<std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>>,
     >(
@@ -3171,6 +3173,7 @@ pub mod time_series_filter {
         PickTimeSeriesFilter(std::boxed::Box<crate::model::PickTimeSeriesFilter>),
         /// Statistics based time series filter.
         /// Note: This field is deprecated and completely ignored by the API.
+        #[deprecated]
         StatisticalTimeSeriesFilter(std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>),
     }
 }
@@ -3276,6 +3279,7 @@ impl TimeSeriesFilterRatio {
     /// The value of [output_filter][crate::model::TimeSeriesFilterRatio::output_filter]
     /// if it holds a `StatisticalTimeSeriesFilter`, `None` if the field is not set or
     /// holds a different branch.
+    #[deprecated]
     pub fn statistical_time_series_filter(
         &self,
     ) -> std::option::Option<&std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>> {
@@ -3310,6 +3314,7 @@ impl TimeSeriesFilterRatio {
     ///
     /// Note that all the setters affecting `output_filter` are
     /// mutually exclusive.
+    #[deprecated]
     pub fn set_statistical_time_series_filter<
         T: std::convert::Into<std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>>,
     >(
@@ -3398,6 +3403,7 @@ pub mod time_series_filter_ratio {
         PickTimeSeriesFilter(std::boxed::Box<crate::model::PickTimeSeriesFilter>),
         /// Statistics based time series filter.
         /// Note: This field is deprecated and completely ignored by the API.
+        #[deprecated]
         StatisticalTimeSeriesFilter(std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>),
     }
 }
@@ -4889,6 +4895,7 @@ pub struct TableDisplayOptions {
     /// Optional. This field is unused and has been replaced by
     /// TimeSeriesTable.column_settings
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub shown_columns: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4901,6 +4908,7 @@ impl TableDisplayOptions {
     }
 
     /// Sets the value of [shown_columns][crate::model::TableDisplayOptions::shown_columns].
+    #[deprecated]
     pub fn set_shown_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

@@ -177,6 +177,7 @@ impl CloudControlsPartnerCore {
 
     /// Deprecated: Only returns access approval requests directly associated with
     /// an assured workload folder.
+    #[deprecated]
     pub fn list_access_approval_requests(
         &self,
         parent: impl Into<std::string::String>,

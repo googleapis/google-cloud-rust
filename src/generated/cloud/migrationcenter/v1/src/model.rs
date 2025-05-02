@@ -6947,6 +6947,7 @@ pub struct BiosDetails {
     /// BIOS name.
     /// This fields is deprecated. Please use the `id` field instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub bios_name: std::string::String,
 
     /// BIOS ID.
@@ -6979,6 +6980,7 @@ impl BiosDetails {
     }
 
     /// Sets the value of [bios_name][crate::model::BiosDetails::bios_name].
+    #[deprecated]
     pub fn set_bios_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bios_name = v.into();
         self
@@ -13203,6 +13205,7 @@ pub mod import_error {
 pub struct ImportRowError {
     /// The row number where the error was detected.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub row_number: i32,
 
     /// The name of the VM in the row.
@@ -13227,6 +13230,7 @@ impl ImportRowError {
     }
 
     /// Sets the value of [row_number][crate::model::ImportRowError::row_number].
+    #[deprecated]
     pub fn set_row_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.row_number = v.into();
         self
@@ -15499,6 +15503,7 @@ pub mod report_summary {
         /// This field is deprecated, do not rely on it having a value.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[deprecated]
         pub overlapping_asset_count: i64,
 
         /// Findings for each of the PreferenceSets for this group.
@@ -15544,6 +15549,7 @@ pub mod report_summary {
         }
 
         /// Sets the value of [overlapping_asset_count][crate::model::report_summary::GroupFinding::overlapping_asset_count].
+        #[deprecated]
         pub fn set_overlapping_asset_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.overlapping_asset_count = v.into();
             self

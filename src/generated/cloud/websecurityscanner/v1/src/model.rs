@@ -1526,6 +1526,7 @@ pub mod scan_config {
         /// The value of [authentication][crate::model::scan_config::Authentication::authentication]
         /// if it holds a `GoogleAccount`, `None` if the field is not set or
         /// holds a different branch.
+        #[deprecated]
         pub fn google_account(
             &self,
         ) -> std::option::Option<
@@ -1579,6 +1580,7 @@ pub mod scan_config {
         ///
         /// Note that all the setters affecting `authentication` are
         /// mutually exclusive.
+        #[deprecated]
         pub fn set_google_account<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::scan_config::authentication::GoogleAccount>,
@@ -1648,6 +1650,7 @@ pub mod scan_config {
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
+        #[deprecated]
         pub struct GoogleAccount {
             /// Required. The user name of the Google account.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -1877,6 +1880,7 @@ pub mod scan_config {
         #[non_exhaustive]
         pub enum Authentication {
             /// Authentication using a Google account.
+            #[deprecated]
             GoogleAccount(
                 std::boxed::Box<crate::model::scan_config::authentication::GoogleAccount>,
             ),

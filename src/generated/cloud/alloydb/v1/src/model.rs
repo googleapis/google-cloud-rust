@@ -754,14 +754,17 @@ pub mod ssl_config {
         /// SSL mode is not specified. Defaults to ENCRYPTED_ONLY.
         Unspecified,
         /// SSL connections are optional. CA verification not enforced.
+        #[deprecated]
         Allow,
         /// SSL connections are required. CA verification not enforced.
         /// Clients may use locally self-signed certificates (default psql client
         /// behavior).
+        #[deprecated]
         Require,
         /// SSL connections are required. CA verification enforced.
         /// Clients must have certificates signed by a Cluster CA, for example, using
         /// GenerateClientCertificate.
+        #[deprecated]
         VerifyCa,
         /// SSL connections are optional. CA verification not enforced.
         AllowUnencryptedAndEncrypted,
@@ -1891,6 +1894,7 @@ pub struct Cluster {
     /// form: `projects/{project}/global/networks/{network_id}`. This is required
     /// to create a cluster. Deprecated, use network_config.network instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub network: std::string::String,
 
     /// For Resource freshness validation (<https://google.aip.dev/154>)
@@ -1928,6 +1932,7 @@ pub struct Cluster {
 
     /// SSL configuration for this AlloyDB cluster.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub ssl_config: std::option::Option<crate::model::SslConfig>,
 
     /// Optional. The encryption config can be specified to encrypt the data disks
@@ -2089,6 +2094,7 @@ impl Cluster {
     }
 
     /// Sets the value of [network][crate::model::Cluster::network].
+    #[deprecated]
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
@@ -2129,6 +2135,7 @@ impl Cluster {
     }
 
     /// Sets the value of [ssl_config][crate::model::Cluster::ssl_config].
+    #[deprecated]
     pub fn set_ssl_config<T: std::convert::Into<std::option::Option<crate::model::SslConfig>>>(
         mut self,
         v: T,
@@ -10233,6 +10240,7 @@ pub enum DatabaseVersion {
     /// This is an unknown database version.
     Unspecified,
     /// DEPRECATED - The database version is Postgres 13.
+    #[deprecated]
     Postgres13,
     /// The database version is Postgres 14.
     Postgres14,

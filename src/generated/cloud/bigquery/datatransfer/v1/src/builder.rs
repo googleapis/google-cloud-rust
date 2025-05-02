@@ -236,6 +236,7 @@ pub mod data_transfer_service {
         }
 
         /// Sets the value of [authorization_code][crate::model::CreateTransferConfigRequest::authorization_code].
+        #[deprecated]
         pub fn set_authorization_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.authorization_code = v.into();
             self
@@ -305,6 +306,7 @@ pub mod data_transfer_service {
         }
 
         /// Sets the value of [authorization_code][crate::model::UpdateTransferConfigRequest::authorization_code].
+        #[deprecated]
         pub fn set_authorization_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.authorization_code = v.into();
             self

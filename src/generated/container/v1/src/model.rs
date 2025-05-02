@@ -3448,6 +3448,7 @@ pub struct MasterAuth {
     /// authentication methods, see:
     /// <https://cloud.google.com/kubernetes-engine/docs/how-to/api-server-authentication>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub username: std::string::String,
 
     /// The password to use for HTTP basic authentication to the master endpoint.
@@ -3460,6 +3461,7 @@ pub struct MasterAuth {
     /// authentication methods, see:
     /// <https://cloud.google.com/kubernetes-engine/docs/how-to/api-server-authentication>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub password: std::string::String,
 
     /// Configuration for client certificate authentication on the cluster. For
@@ -3494,12 +3496,14 @@ impl MasterAuth {
     }
 
     /// Sets the value of [username][crate::model::MasterAuth::username].
+    #[deprecated]
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::MasterAuth::password].
+    #[deprecated]
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
@@ -3603,6 +3607,7 @@ pub struct AddonsConfig {
     /// workloads and applications. For more information, see:
     /// <https://cloud.google.com/kubernetes-engine/docs/concepts/dashboards>
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub kubernetes_dashboard: std::option::Option<crate::model::KubernetesDashboard>,
 
     /// Configuration for NetworkPolicy. This only tracks whether the addon
@@ -3688,6 +3693,7 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [kubernetes_dashboard][crate::model::AddonsConfig::kubernetes_dashboard].
+    #[deprecated]
     pub fn set_kubernetes_dashboard<
         T: std::convert::Into<std::option::Option<crate::model::KubernetesDashboard>>,
     >(
@@ -4043,6 +4049,7 @@ pub struct PrivateClusterConfig {
     ///
     /// [google.container.v1.NetworkConfig.default_enable_private_nodes]: crate::model::NetworkConfig::default_enable_private_nodes
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub enable_private_nodes: bool,
 
     /// Whether the master's internal IP address is used as the cluster endpoint.
@@ -4054,6 +4061,7 @@ pub struct PrivateClusterConfig {
     ///
     /// [google.container.v1.ControlPlaneEndpointsConfig.IPEndpointsConfig.enable_public_endpoint]: crate::model::control_plane_endpoints_config::IPEndpointsConfig::enable_public_endpoint
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub enable_private_endpoint: bool,
 
     /// The IP range in CIDR notation to use for the hosted master network. This
@@ -4071,6 +4079,7 @@ pub struct PrivateClusterConfig {
     ///
     /// [google.container.v1.ControlPlaneEndpointsConfig.IPEndpointsConfig.private_endpoint]: crate::model::control_plane_endpoints_config::IPEndpointsConfig::private_endpoint
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub private_endpoint: std::string::String,
 
     /// Output only. The external IP address of this cluster's master endpoint.
@@ -4081,6 +4090,7 @@ pub struct PrivateClusterConfig {
     ///
     /// [google.container.v1.ControlPlaneEndpointsConfig.IPEndpointsConfig.public_endpoint]: crate::model::control_plane_endpoints_config::IPEndpointsConfig::public_endpoint
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub public_endpoint: std::string::String,
 
     /// Output only. The peering name in the customer VPC used by this cluster.
@@ -4093,6 +4103,7 @@ pub struct PrivateClusterConfig {
     /// [ControlPlaneEndpointsConfig.IPEndpointsConfig.enable_global_access][]
     /// instead.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub master_global_access_config:
         std::option::Option<crate::model::PrivateClusterMasterGlobalAccessConfig>,
 
@@ -4105,6 +4116,7 @@ pub struct PrivateClusterConfig {
     ///
     /// [google.container.v1.ControlPlaneEndpointsConfig.IPEndpointsConfig.private_endpoint_subnetwork]: crate::model::control_plane_endpoints_config::IPEndpointsConfig::private_endpoint_subnetwork
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub private_endpoint_subnetwork: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4117,12 +4129,14 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [enable_private_nodes][crate::model::PrivateClusterConfig::enable_private_nodes].
+    #[deprecated]
     pub fn set_enable_private_nodes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_private_nodes = v.into();
         self
     }
 
     /// Sets the value of [enable_private_endpoint][crate::model::PrivateClusterConfig::enable_private_endpoint].
+    #[deprecated]
     pub fn set_enable_private_endpoint<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_private_endpoint = v.into();
         self
@@ -4138,6 +4152,7 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [private_endpoint][crate::model::PrivateClusterConfig::private_endpoint].
+    #[deprecated]
     pub fn set_private_endpoint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4147,6 +4162,7 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [public_endpoint][crate::model::PrivateClusterConfig::public_endpoint].
+    #[deprecated]
     pub fn set_public_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.public_endpoint = v.into();
         self
@@ -4159,6 +4175,7 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [master_global_access_config][crate::model::PrivateClusterConfig::master_global_access_config].
+    #[deprecated]
     pub fn set_master_global_access_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::PrivateClusterMasterGlobalAccessConfig>,
@@ -4172,6 +4189,7 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [private_endpoint_subnetwork][crate::model::PrivateClusterConfig::private_endpoint_subnetwork].
+    #[deprecated]
     pub fn set_private_endpoint_subnetwork<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5055,6 +5073,7 @@ pub struct BinaryAuthorization {
     /// BinaryAuthorization using evaluation_mode. If evaluation_mode is set to
     /// anything other than EVALUATION_MODE_UNSPECIFIED, this field is ignored.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub enabled: bool,
 
     /// Mode of operation for binauthz policy evaluation. If unspecified, defaults
@@ -5071,6 +5090,7 @@ impl BinaryAuthorization {
     }
 
     /// Sets the value of [enabled][crate::model::BinaryAuthorization::enabled].
+    #[deprecated]
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -5297,14 +5317,17 @@ pub struct IPAllocationPolicy {
 
     /// This field is deprecated, use cluster_ipv4_cidr_block.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_ipv4_cidr: std::string::String,
 
     /// This field is deprecated, use node_ipv4_cidr_block.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub node_ipv4_cidr: std::string::String,
 
     /// This field is deprecated, use services_ipv4_cidr_block.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub services_ipv4_cidr: std::string::String,
 
     /// The name of the secondary range to be used for the cluster CIDR
@@ -5476,6 +5499,7 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [cluster_ipv4_cidr][crate::model::IPAllocationPolicy::cluster_ipv4_cidr].
+    #[deprecated]
     pub fn set_cluster_ipv4_cidr<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5485,12 +5509,14 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [node_ipv4_cidr][crate::model::IPAllocationPolicy::node_ipv4_cidr].
+    #[deprecated]
     pub fn set_node_ipv4_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_ipv4_cidr = v.into();
         self
     }
 
     /// Sets the value of [services_ipv4_cidr][crate::model::IPAllocationPolicy::services_ipv4_cidr].
+    #[deprecated]
     pub fn set_services_ipv4_cidr<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5661,6 +5687,7 @@ pub struct Cluster {
     ///
     /// This field is deprecated, use node_pool.initial_node_count instead.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub initial_node_count: i32,
 
     /// Parameters used in creating the cluster's nodes.
@@ -5675,6 +5702,7 @@ pub struct Cluster {
     /// If unspecified, the defaults are used.
     /// This field is deprecated, use node_pool.config instead.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub node_config: std::option::Option<crate::model::NodeConfig>,
 
     /// The authentication information for accessing the master endpoint.
@@ -5795,6 +5823,7 @@ pub struct Cluster {
     ///
     /// [google.container.v1.ControlPlaneEndpointsConfig.IPEndpointsConfig.authorized_networks_config]: crate::model::control_plane_endpoints_config::IPEndpointsConfig::authorized_networks_config
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub master_authorized_networks_config:
         std::option::Option<crate::model::MasterAuthorizedNetworksConfig>,
 
@@ -5889,6 +5918,7 @@ pub struct Cluster {
     /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
     /// cluster resides. This field is deprecated, use location instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Output only. The IP address of this cluster's master endpoint.
@@ -5926,6 +5956,7 @@ pub struct Cluster {
     /// currently at multiple versions because they're in the process of being
     /// upgraded, this reflects the minimum version of all nodes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub current_node_version: std::string::String,
 
     /// Output only. The time the cluster was created, in
@@ -5940,6 +5971,7 @@ pub struct Cluster {
     /// Additional information about the current status of this
     /// cluster, if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub status_message: std::string::String,
 
     /// Output only. The size of the address space on each node for hosting
@@ -5959,11 +5991,13 @@ pub struct Cluster {
 
     /// Output only. Deprecated. Use node_pools.instance_group_urls.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub instance_group_urls: std::vec::Vec<std::string::String>,
 
     /// Output only. The number of nodes currently in the cluster. Deprecated.
     /// Call Kubernetes API directly to retrieve node information.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub current_node_count: i32,
 
     /// Output only. The time the cluster will be automatically
@@ -6094,12 +6128,14 @@ impl Cluster {
     }
 
     /// Sets the value of [initial_node_count][crate::model::Cluster::initial_node_count].
+    #[deprecated]
     pub fn set_initial_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.initial_node_count = v.into();
         self
     }
 
     /// Sets the value of [node_config][crate::model::Cluster::node_config].
+    #[deprecated]
     pub fn set_node_config<T: std::convert::Into<std::option::Option<crate::model::NodeConfig>>>(
         mut self,
         v: T,
@@ -6211,6 +6247,7 @@ impl Cluster {
     }
 
     /// Sets the value of [master_authorized_networks_config][crate::model::Cluster::master_authorized_networks_config].
+    #[deprecated]
     pub fn set_master_authorized_networks_config<
         T: std::convert::Into<std::option::Option<crate::model::MasterAuthorizedNetworksConfig>>,
     >(
@@ -6426,6 +6463,7 @@ impl Cluster {
     }
 
     /// Sets the value of [zone][crate::model::Cluster::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
@@ -6456,6 +6494,7 @@ impl Cluster {
     }
 
     /// Sets the value of [current_node_version][crate::model::Cluster::current_node_version].
+    #[deprecated]
     pub fn set_current_node_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6480,6 +6519,7 @@ impl Cluster {
     }
 
     /// Sets the value of [status_message][crate::model::Cluster::status_message].
+    #[deprecated]
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
@@ -6501,6 +6541,7 @@ impl Cluster {
     }
 
     /// Sets the value of [current_node_count][crate::model::Cluster::current_node_count].
+    #[deprecated]
     pub fn set_current_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.current_node_count = v.into();
         self
@@ -6736,6 +6777,7 @@ impl Cluster {
     }
 
     /// Sets the value of [instance_group_urls][crate::model::Cluster::instance_group_urls].
+    #[deprecated]
     pub fn set_instance_group_urls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8051,6 +8093,7 @@ pub struct ClusterUpdate {
     /// desired_control_plane_endpoints_config.ip_endpoints_config.authorized_networks_config
     /// instead.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub desired_master_authorized_networks_config:
         std::option::Option<crate::model::MasterAuthorizedNetworksConfig>,
 
@@ -8099,6 +8142,7 @@ pub struct ClusterUpdate {
     /// [google.container.v1.ClusterUpdate.desired_enable_private_endpoint]: crate::model::ClusterUpdate::desired_enable_private_endpoint
     /// [google.container.v1.PrivateClusterConfig]: crate::model::PrivateClusterConfig
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub desired_private_cluster_config: std::option::Option<crate::model::PrivateClusterConfig>,
 
     /// The desired config of Intra-node visibility.
@@ -8159,6 +8203,7 @@ pub struct ClusterUpdate {
     /// instead. Note that the value of enable_public_endpoint is reversed: if
     /// enable_private_endpoint is false, then enable_public_endpoint will be true.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[deprecated]
     pub desired_enable_private_endpoint: std::option::Option<bool>,
 
     /// Override the default setting of whether future created
@@ -8460,6 +8505,7 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_master_authorized_networks_config][crate::model::ClusterUpdate::desired_master_authorized_networks_config].
+    #[deprecated]
     pub fn set_desired_master_authorized_networks_config<
         T: std::convert::Into<std::option::Option<crate::model::MasterAuthorizedNetworksConfig>>,
     >(
@@ -8524,6 +8570,7 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_private_cluster_config][crate::model::ClusterUpdate::desired_private_cluster_config].
+    #[deprecated]
     pub fn set_desired_private_cluster_config<
         T: std::convert::Into<std::option::Option<crate::model::PrivateClusterConfig>>,
     >(
@@ -8665,6 +8712,7 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_enable_private_endpoint][crate::model::ClusterUpdate::desired_enable_private_endpoint].
+    #[deprecated]
     pub fn set_desired_enable_private_endpoint<T: std::convert::Into<std::option::Option<bool>>>(
         mut self,
         v: T,
@@ -9165,6 +9213,7 @@ pub struct Operation {
     /// [zone](https://cloud.google.com/compute/docs/zones#available) in which the
     /// operation is taking place. This field is deprecated, use location instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Output only. The operation type.
@@ -9180,6 +9229,7 @@ pub struct Operation {
     /// Output only. If an error has occurred, a textual description of the error.
     /// Deprecated. Use the field error instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub status_message: std::string::String,
 
     /// Output only. Server-defined URI for the operation. Example:
@@ -9232,11 +9282,13 @@ pub struct Operation {
     /// Which conditions caused the current cluster state.
     /// Deprecated. Use field error instead.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub cluster_conditions: std::vec::Vec<crate::model::StatusCondition>,
 
     /// Which conditions caused the current node pool state.
     /// Deprecated. Use field error instead.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[deprecated]
     pub nodepool_conditions: std::vec::Vec<crate::model::StatusCondition>,
 
     /// The error result of the operation in case of failure.
@@ -9259,6 +9311,7 @@ impl Operation {
     }
 
     /// Sets the value of [zone][crate::model::Operation::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
@@ -9289,6 +9342,7 @@ impl Operation {
     }
 
     /// Sets the value of [status_message][crate::model::Operation::status_message].
+    #[deprecated]
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
@@ -9345,6 +9399,7 @@ impl Operation {
     }
 
     /// Sets the value of [cluster_conditions][crate::model::Operation::cluster_conditions].
+    #[deprecated]
     pub fn set_cluster_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9356,6 +9411,7 @@ impl Operation {
     }
 
     /// Sets the value of [nodepool_conditions][crate::model::Operation::nodepool_conditions].
+    #[deprecated]
     pub fn set_nodepool_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9632,16 +9688,19 @@ pub mod operation {
         /// [UPGRADE_NODES][google.container.v1.Operation.Type.UPGRADE_NODES].
         ///
         /// [google.container.v1.Operation.Type.UPGRADE_NODES]: crate::model::operation::Type::UpgradeNodes
+        #[deprecated]
         AutoUpgradeNodes,
         /// Unused. Updating labels uses
         /// [UPDATE_CLUSTER][google.container.v1.Operation.Type.UPDATE_CLUSTER].
         ///
         /// [google.container.v1.Operation.Type.UPDATE_CLUSTER]: crate::model::operation::Type::UpdateCluster
+        #[deprecated]
         SetLabels,
         /// Unused. Updating master auth uses
         /// [UPDATE_CLUSTER][google.container.v1.Operation.Type.UPDATE_CLUSTER].
         ///
         /// [google.container.v1.Operation.Type.UPDATE_CLUSTER]: crate::model::operation::Type::UpdateCluster
+        #[deprecated]
         SetMasterAuth,
         /// The node pool is being resized. With the exception of resizing to or from
         /// size zero, the node pool is generally usable during this operation.
@@ -9650,11 +9709,13 @@ pub mod operation {
         /// [UPDATE_CLUSTER][google.container.v1.Operation.Type.UPDATE_CLUSTER].
         ///
         /// [google.container.v1.Operation.Type.UPDATE_CLUSTER]: crate::model::operation::Type::UpdateCluster
+        #[deprecated]
         SetNetworkPolicy,
         /// Unused. Updating maintenance policy uses
         /// [UPDATE_CLUSTER][google.container.v1.Operation.Type.UPDATE_CLUSTER].
         ///
         /// [google.container.v1.Operation.Type.UPDATE_CLUSTER]: crate::model::operation::Type::UpdateCluster
+        #[deprecated]
         SetMaintenancePolicy,
         /// The control plane is being resized. This operation type is initiated by
         /// GKE. These operations are often performed preemptively to ensure that the
@@ -10103,6 +10164,7 @@ pub struct CreateClusterRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the parent field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -10110,6 +10172,7 @@ pub struct CreateClusterRequest {
     /// cluster resides. This field has been deprecated and replaced by the parent
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Required. A [cluster
@@ -10132,12 +10195,14 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [project_id][crate::model::CreateClusterRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::CreateClusterRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
@@ -10175,6 +10240,7 @@ pub struct GetClusterRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -10182,11 +10248,13 @@ pub struct GetClusterRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to retrieve.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// The name (project, location, cluster) of the cluster to retrieve.
@@ -10204,18 +10272,21 @@ impl GetClusterRequest {
     }
 
     /// Sets the value of [project_id][crate::model::GetClusterRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::GetClusterRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::GetClusterRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -10244,6 +10315,7 @@ pub struct UpdateClusterRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -10251,11 +10323,13 @@ pub struct UpdateClusterRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to upgrade.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Required. A description of the update.
@@ -10277,18 +10351,21 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [project_id][crate::model::UpdateClusterRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::UpdateClusterRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::UpdateClusterRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -10326,6 +10403,7 @@ pub struct UpdateNodePoolRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -10333,16 +10411,19 @@ pub struct UpdateNodePoolRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to upgrade.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Deprecated. The name of the node pool to upgrade.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub node_pool_id: std::string::String,
 
     /// Required. The Kubernetes version to change the nodes to (typically an
@@ -10512,24 +10593,28 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [project_id][crate::model::UpdateNodePoolRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::UpdateNodePoolRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::UpdateNodePoolRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [node_pool_id][crate::model::UpdateNodePoolRequest::node_pool_id].
+    #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
         self
@@ -10813,6 +10898,7 @@ pub struct SetNodePoolAutoscalingRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -10820,16 +10906,19 @@ pub struct SetNodePoolAutoscalingRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to upgrade.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Deprecated. The name of the node pool to upgrade.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub node_pool_id: std::string::String,
 
     /// Required. Autoscaling configuration for the node pool.
@@ -10852,24 +10941,28 @@ impl SetNodePoolAutoscalingRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetNodePoolAutoscalingRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::SetNodePoolAutoscalingRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::SetNodePoolAutoscalingRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [node_pool_id][crate::model::SetNodePoolAutoscalingRequest::node_pool_id].
+    #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
         self
@@ -10909,6 +11002,7 @@ pub struct SetLoggingServiceRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -10916,11 +11010,13 @@ pub struct SetLoggingServiceRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to upgrade.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Required. The logging service the cluster should use to write logs.
@@ -10952,18 +11048,21 @@ impl SetLoggingServiceRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetLoggingServiceRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::SetLoggingServiceRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::SetLoggingServiceRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -10998,6 +11097,7 @@ pub struct SetMonitoringServiceRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -11005,11 +11105,13 @@ pub struct SetMonitoringServiceRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to upgrade.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Required. The monitoring service the cluster should use to write metrics.
@@ -11041,18 +11143,21 @@ impl SetMonitoringServiceRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetMonitoringServiceRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::SetMonitoringServiceRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::SetMonitoringServiceRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -11090,6 +11195,7 @@ pub struct SetAddonsConfigRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -11097,11 +11203,13 @@ pub struct SetAddonsConfigRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to upgrade.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Required. The desired configurations for the various addons available to
@@ -11124,18 +11232,21 @@ impl SetAddonsConfigRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetAddonsConfigRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::SetAddonsConfigRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::SetAddonsConfigRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -11175,6 +11286,7 @@ pub struct SetLocationsRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -11182,11 +11294,13 @@ pub struct SetLocationsRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to upgrade.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Required. The desired list of Google Compute Engine
@@ -11214,18 +11328,21 @@ impl SetLocationsRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetLocationsRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::SetLocationsRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::SetLocationsRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -11265,6 +11382,7 @@ pub struct UpdateMasterRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -11272,11 +11390,13 @@ pub struct UpdateMasterRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to upgrade.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Required. The Kubernetes version to change the master to.
@@ -11307,18 +11427,21 @@ impl UpdateMasterRequest {
     }
 
     /// Sets the value of [project_id][crate::model::UpdateMasterRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::UpdateMasterRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::UpdateMasterRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -11353,6 +11476,7 @@ pub struct SetMasterAuthRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -11360,11 +11484,13 @@ pub struct SetMasterAuthRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to upgrade.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Required. The exact form of action to be taken on the master auth.
@@ -11389,18 +11515,21 @@ impl SetMasterAuthRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetMasterAuthRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::SetMasterAuthRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::SetMasterAuthRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -11595,6 +11724,7 @@ pub struct DeleteClusterRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -11602,11 +11732,13 @@ pub struct DeleteClusterRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to delete.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// The name (project, location, cluster) of the cluster to delete.
@@ -11624,18 +11756,21 @@ impl DeleteClusterRequest {
     }
 
     /// Sets the value of [project_id][crate::model::DeleteClusterRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::DeleteClusterRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::DeleteClusterRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -11664,6 +11799,7 @@ pub struct ListClustersRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the parent field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -11671,6 +11807,7 @@ pub struct ListClustersRequest {
     /// cluster resides, or "-" for all zones. This field has been deprecated and
     /// replaced by the parent field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// The parent (project and location) where the clusters will be listed.
@@ -11689,12 +11826,14 @@ impl ListClustersRequest {
     }
 
     /// Sets the value of [project_id][crate::model::ListClustersRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::ListClustersRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
@@ -11777,6 +11916,7 @@ pub struct GetOperationRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -11784,11 +11924,13 @@ pub struct GetOperationRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The server-assigned `name` of the operation.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub operation_id: std::string::String,
 
     /// The name (project, location, operation id) of the operation to get.
@@ -11806,18 +11948,21 @@ impl GetOperationRequest {
     }
 
     /// Sets the value of [project_id][crate::model::GetOperationRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::GetOperationRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [operation_id][crate::model::GetOperationRequest::operation_id].
+    #[deprecated]
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
         self
@@ -11846,6 +11991,7 @@ pub struct ListOperationsRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the parent field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -11853,6 +11999,7 @@ pub struct ListOperationsRequest {
     /// operations for, or `-` for all zones. This field has been deprecated and
     /// replaced by the parent field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// The parent (project and location) where the operations will be listed.
@@ -11871,12 +12018,14 @@ impl ListOperationsRequest {
     }
 
     /// Sets the value of [project_id][crate::model::ListOperationsRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::ListOperationsRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
@@ -11905,6 +12054,7 @@ pub struct CancelOperationRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -11912,11 +12062,13 @@ pub struct CancelOperationRequest {
     /// operation resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The server-assigned `name` of the operation.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub operation_id: std::string::String,
 
     /// The name (project, location, operation id) of the operation to cancel.
@@ -11934,18 +12086,21 @@ impl CancelOperationRequest {
     }
 
     /// Sets the value of [project_id][crate::model::CancelOperationRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::CancelOperationRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [operation_id][crate::model::CancelOperationRequest::operation_id].
+    #[deprecated]
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
         self
@@ -12027,6 +12182,7 @@ pub struct GetServerConfigRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -12034,6 +12190,7 @@ pub struct GetServerConfigRequest {
     /// operations for. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// The name (project and location) of the server config to get,
@@ -12051,12 +12208,14 @@ impl GetServerConfigRequest {
     }
 
     /// Sets the value of [project_id][crate::model::GetServerConfigRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::GetServerConfigRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
@@ -12274,6 +12433,7 @@ pub struct CreateNodePoolRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the parent field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -12281,11 +12441,13 @@ pub struct CreateNodePoolRequest {
     /// cluster resides. This field has been deprecated and replaced by the parent
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster.
     /// This field has been deprecated and replaced by the parent field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Required. The node pool to create.
@@ -12308,18 +12470,21 @@ impl CreateNodePoolRequest {
     }
 
     /// Sets the value of [project_id][crate::model::CreateNodePoolRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::CreateNodePoolRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::CreateNodePoolRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -12357,6 +12522,7 @@ pub struct DeleteNodePoolRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -12364,16 +12530,19 @@ pub struct DeleteNodePoolRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Deprecated. The name of the node pool to delete.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub node_pool_id: std::string::String,
 
     /// The name (project, location, cluster, node pool id) of the node pool to
@@ -12392,24 +12561,28 @@ impl DeleteNodePoolRequest {
     }
 
     /// Sets the value of [project_id][crate::model::DeleteNodePoolRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::DeleteNodePoolRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::DeleteNodePoolRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [node_pool_id][crate::model::DeleteNodePoolRequest::node_pool_id].
+    #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
         self
@@ -12438,6 +12611,7 @@ pub struct ListNodePoolsRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the parent field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -12445,11 +12619,13 @@ pub struct ListNodePoolsRequest {
     /// cluster resides. This field has been deprecated and replaced by the parent
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster.
     /// This field has been deprecated and replaced by the parent field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// The parent (project, location, cluster name) where the node pools will be
@@ -12467,18 +12643,21 @@ impl ListNodePoolsRequest {
     }
 
     /// Sets the value of [project_id][crate::model::ListNodePoolsRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::ListNodePoolsRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::ListNodePoolsRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -12507,6 +12686,7 @@ pub struct GetNodePoolRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -12514,16 +12694,19 @@ pub struct GetNodePoolRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Deprecated. The name of the node pool.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub node_pool_id: std::string::String,
 
     /// The name (project, location, cluster, node pool id) of the node pool to
@@ -12542,24 +12725,28 @@ impl GetNodePoolRequest {
     }
 
     /// Sets the value of [project_id][crate::model::GetNodePoolRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::GetNodePoolRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::GetNodePoolRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [node_pool_id][crate::model::GetNodePoolRequest::node_pool_id].
+    #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
         self
@@ -12885,6 +13072,7 @@ pub struct NodePool {
     /// Additional information about the current status of this
     /// node pool instance, if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub status_message: std::string::String,
 
     /// Autoscaler configuration for this NodePool. Autoscaler is enabled
@@ -12999,6 +13187,7 @@ impl NodePool {
     }
 
     /// Sets the value of [status_message][crate::model::NodePool::status_message].
+    #[deprecated]
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
@@ -14770,6 +14959,7 @@ pub struct SetNodePoolManagementRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -14777,16 +14967,19 @@ pub struct SetNodePoolManagementRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to update.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Deprecated. The name of the node pool to update.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub node_pool_id: std::string::String,
 
     /// Required. NodeManagement configuration for the node pool.
@@ -14809,24 +15002,28 @@ impl SetNodePoolManagementRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetNodePoolManagementRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::SetNodePoolManagementRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::SetNodePoolManagementRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [node_pool_id][crate::model::SetNodePoolManagementRequest::node_pool_id].
+    #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
         self
@@ -14866,6 +15063,7 @@ pub struct SetNodePoolSizeRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -14873,16 +15071,19 @@ pub struct SetNodePoolSizeRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to update.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Deprecated. The name of the node pool to update.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub node_pool_id: std::string::String,
 
     /// Required. The desired node count for the pool.
@@ -14905,24 +15106,28 @@ impl SetNodePoolSizeRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetNodePoolSizeRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::SetNodePoolSizeRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::SetNodePoolSizeRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [node_pool_id][crate::model::SetNodePoolSizeRequest::node_pool_id].
+    #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
         self
@@ -14994,6 +15199,7 @@ pub struct RollbackNodePoolUpgradeRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -15001,16 +15207,19 @@ pub struct RollbackNodePoolUpgradeRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to rollback.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Deprecated. The name of the node pool to rollback.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub node_pool_id: std::string::String,
 
     /// The name (project, location, cluster, node pool id) of the node poll to
@@ -15034,24 +15243,28 @@ impl RollbackNodePoolUpgradeRequest {
     }
 
     /// Sets the value of [project_id][crate::model::RollbackNodePoolUpgradeRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::RollbackNodePoolUpgradeRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::RollbackNodePoolUpgradeRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [node_pool_id][crate::model::RollbackNodePoolUpgradeRequest::node_pool_id].
+    #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
         self
@@ -15385,6 +15598,7 @@ pub struct AutoprovisioningNodePoolDefaults {
     /// To unset the min cpu platform field pass "automatic"
     /// as field value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub min_cpu_platform: std::string::String,
 
     /// Size of the disk attached to each node, specified in GB.
@@ -15462,6 +15676,7 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets the value of [min_cpu_platform][crate::model::AutoprovisioningNodePoolDefaults::min_cpu_platform].
+    #[deprecated]
     pub fn set_min_cpu_platform<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15849,6 +16064,7 @@ pub struct SetLabelsRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -15856,11 +16072,13 @@ pub struct SetLabelsRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Required. The labels to set for that cluster.
@@ -15891,18 +16109,21 @@ impl SetLabelsRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetLabelsRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::SetLabelsRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::SetLabelsRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -15953,6 +16174,7 @@ pub struct SetLegacyAbacRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -15960,11 +16182,13 @@ pub struct SetLegacyAbacRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster to update.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Required. Whether ABAC authorization will be enabled in the cluster.
@@ -15986,18 +16210,21 @@ impl SetLegacyAbacRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetLegacyAbacRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::SetLegacyAbacRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::SetLegacyAbacRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -16033,6 +16260,7 @@ pub struct StartIPRotationRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -16040,11 +16268,13 @@ pub struct StartIPRotationRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// The name (project, location, cluster name) of the cluster to start IP
@@ -16066,18 +16296,21 @@ impl StartIPRotationRequest {
     }
 
     /// Sets the value of [project_id][crate::model::StartIPRotationRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::StartIPRotationRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::StartIPRotationRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -16112,6 +16345,7 @@ pub struct CompleteIPRotationRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -16119,11 +16353,13 @@ pub struct CompleteIPRotationRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// The name (project, location, cluster name) of the cluster to complete IP
@@ -16141,18 +16377,21 @@ impl CompleteIPRotationRequest {
     }
 
     /// Sets the value of [project_id][crate::model::CompleteIPRotationRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::CompleteIPRotationRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::CompleteIPRotationRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -16829,6 +17068,7 @@ pub struct SetNetworkPolicyRequest {
     /// number](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub project_id: std::string::String,
 
     /// Deprecated. The name of the Google Compute Engine
@@ -16836,11 +17076,13 @@ pub struct SetNetworkPolicyRequest {
     /// cluster resides. This field has been deprecated and replaced by the name
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub zone: std::string::String,
 
     /// Deprecated. The name of the cluster.
     /// This field has been deprecated and replaced by the name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[deprecated]
     pub cluster_id: std::string::String,
 
     /// Required. Configuration options for the NetworkPolicy feature.
@@ -16862,18 +17104,21 @@ impl SetNetworkPolicyRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetNetworkPolicyRequest::project_id].
+    #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::SetNetworkPolicyRequest::zone].
+    #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::SetNetworkPolicyRequest::cluster_id].
+    #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
@@ -16995,6 +17240,7 @@ impl wkt::message::Message for SetMaintenancePolicyRequest {
 pub struct StatusCondition {
     /// Machine-friendly representation of the condition
     /// Deprecated. Use canonical_code instead.
+    #[deprecated]
     pub code: crate::model::status_condition::Code,
 
     /// Human-friendly representation of the condition
@@ -17014,6 +17260,7 @@ impl StatusCondition {
     }
 
     /// Sets the value of [code][crate::model::StatusCondition::code].
+    #[deprecated]
     pub fn set_code<T: std::convert::Into<crate::model::status_condition::Code>>(
         mut self,
         v: T,
@@ -17712,6 +17959,7 @@ pub mod gateway_api_config {
         Disabled,
         /// Deprecated: use CHANNEL_STANDARD instead.
         /// Gateway API support is enabled, experimental CRDs are installed
+        #[deprecated]
         Experimental,
         /// Gateway API support is enabled, standard CRDs are installed
         Standard,

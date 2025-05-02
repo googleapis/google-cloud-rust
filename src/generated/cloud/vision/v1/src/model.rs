@@ -1401,6 +1401,7 @@ pub struct EntityAnnotation {
     /// this field represents the confidence that there is a tower in the query
     /// image. Range [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub confidence: f32,
 
     /// The relevancy of the ICA (Image Content Annotation) label to the
@@ -1463,6 +1464,7 @@ impl EntityAnnotation {
     }
 
     /// Sets the value of [confidence][crate::model::EntityAnnotation::confidence].
+    #[deprecated]
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -1996,6 +1998,7 @@ impl wkt::message::Message for CropHintsParams {
 pub struct WebDetectionParams {
     /// This field has no effect on results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[deprecated]
     pub include_geo_results: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2008,6 +2011,7 @@ impl WebDetectionParams {
     }
 
     /// Sets the value of [include_geo_results][crate::model::WebDetectionParams::include_geo_results].
+    #[deprecated]
     pub fn set_include_geo_results<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_geo_results = v.into();
         self

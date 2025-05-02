@@ -37,6 +37,8 @@
 //! * [ServingConfigService](client/struct.ServingConfigService.html)
 //! * [UserEventService](client/struct.UserEventService.html)
 
+#![allow(deprecated)]
+
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
 pub mod model;
@@ -58,6 +60,7 @@ pub mod builder;
 pub(crate) mod tracing;
 
 #[doc(hidden)]
+#[allow(deprecated)]
 pub(crate) mod transport;
 
 /// The default host used by the service.

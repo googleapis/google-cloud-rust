@@ -5600,8 +5600,10 @@ pub mod runtime_config {
         /// STATE_UNSPECIFIED.
         Unspecified,
         /// INACTIVE.
+        #[deprecated]
         Inactive,
         /// ACTIVATING.
+        #[deprecated]
         Activating,
         /// ACTIVE.
         Active,
@@ -6525,6 +6527,7 @@ pub enum DataType {
     /// Data type is not specified.
     Unspecified,
     /// DEPRECATED! Use DATA_TYPE_INTEGER.
+    #[deprecated]
     Int,
     /// Short integer(int16) data type.
     Smallint,
@@ -6533,18 +6536,22 @@ pub enum DataType {
     /// Date data type.
     Date,
     /// DEPRECATED! Use DATA_TYPE_TIMESTAMP.
+    #[deprecated]
     Datetime,
     /// Time data type.
     Time,
     /// DEPRECATED! Use DATA_TYPE_VARCHAR.
+    #[deprecated]
     String,
     /// DEPRECATED! Use DATA_TYPE_BIGINT.
+    #[deprecated]
     Long,
     /// Boolean data type.
     Boolean,
     /// Decimal data type.
     Decimal,
     /// DEPRECATED! Use DATA_TYPE_VARCHAR.
+    #[deprecated]
     Uuid,
     /// UNSUPPORTED! Binary data type.
     Blob,
