@@ -19,17 +19,12 @@ impl gaxi::prost::ToProto<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             {{#Fields}}
-            {{#IsEnum}}
-            Self::{{Codec.BranchName}}(v) => Ok(Self::Output::{{Codec.BranchName}}(v.value())),
-            {{/IsEnum}}
-            {{^IsEnum}}
             {{^Codec.IsBoxed}}
             Self::{{Codec.BranchName}}(v) => Ok(Self::Output::{{Codec.BranchName}}(v.to_proto()?)),
             {{/Codec.IsBoxed}}
             {{#Codec.IsBoxed}}
             Self::{{Codec.BranchName}}(v) => Ok(Self::Output::{{Codec.BranchName}}((*v).to_proto()?)),
             {{/Codec.IsBoxed}}
-            {{/IsEnum}}
             {{/Fields}}
         }
     }

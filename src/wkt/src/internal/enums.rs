@@ -120,6 +120,7 @@ pub fn display_enum(
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::field_descriptor_proto::Label;
     use serde_json::json;
     use test_case::test_case;
 
@@ -216,7 +217,7 @@ mod test {
     impl std::fmt::Display for TestDisplay {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             let tmp = self.name.clone();
-            display_enum(f, tmp.as_deref(), self.value)
+            super::display_enum(f, tmp.as_deref(), self.value)
         }
     }
 
@@ -227,5 +228,25 @@ mod test {
         let input = TestDisplay { name, value };
         let got = format!("{input}");
         assert_eq!(got.as_str(), want);
+    }
+
+    #[test_case(json!("LABEL_OPTIONAL"), Label::Optional)]
+    #[test_case(json!(1), Label::Optional)]
+    #[test_case(json!("UNKNOWN_VALUE"), Label::from("UNKNOWN_VALUE"))]
+    #[test_case(json!(42), Label::from(42))]
+    fn deserialize(input: serde_json::Value, want: Label) -> anyhow::Result<()> {
+        let got = serde_json::from_value::<Label>(input)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(Label::Optional, "LABEL_OPTIONAL")]
+    #[test_case(Label::from(1), "LABEL_OPTIONAL")]
+    #[test_case(Label::from("LABEL_OPTIONAL"), "LABEL_OPTIONAL")]
+    #[test_case(Label::from("UNKNOWN_VALUE"), "UNKNOWN_VALUE")]
+    #[test_case(Label::from(42), "42")]
+    fn display_enum(input: Label, want: &str) {
+        let got = format!("{input}");
+        assert_eq!(got, want);
     }
 }

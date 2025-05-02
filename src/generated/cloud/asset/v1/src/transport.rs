@@ -88,7 +88,7 @@ impl super::stub::AssetService for AssetService {
             .asset_types
             .iter()
             .fold(builder, |builder, p| builder.query(&[("assetTypes", p)]));
-        let builder = builder.query(&[("contentType", &req.content_type.value())]);
+        let builder = builder.query(&[("contentType", &req.content_type)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = req.relationship_types.iter().fold(builder, |builder, p| {
@@ -120,7 +120,7 @@ impl super::stub::AssetService for AssetService {
             .asset_names
             .iter()
             .fold(builder, |builder, p| builder.query(&[("assetNames", p)]));
-        let builder = builder.query(&[("contentType", &req.content_type.value())]);
+        let builder = builder.query(&[("contentType", &req.content_type)]);
         let builder = req
             .read_time_window
             .as_ref()
@@ -402,7 +402,7 @@ impl super::stub::AssetService for AssetService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("destinationParent", &req.destination_parent)]);
-        let builder = builder.query(&[("view", &req.view.value())]);
+        let builder = builder.query(&[("view", &req.view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

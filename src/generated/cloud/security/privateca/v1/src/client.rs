@@ -198,8 +198,8 @@ impl CertificateAuthorityService {
     /// this method can complete the activation process.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    /// [google.cloud.security.privateca.v1.CertificateAuthority.State.AWAITING_USER_ACTIVATION]: crate::model::certificate_authority::state::AWAITING_USER_ACTIVATION
-    /// [google.cloud.security.privateca.v1.CertificateAuthority.Type.SUBORDINATE]: crate::model::certificate_authority::r#type::SUBORDINATE
+    /// [google.cloud.security.privateca.v1.CertificateAuthority.State.AWAITING_USER_ACTIVATION]: crate::model::certificate_authority::State::AwaitingUserActivation
+    /// [google.cloud.security.privateca.v1.CertificateAuthority.Type.SUBORDINATE]: crate::model::certificate_authority::Type::Subordinate
     /// [google.cloud.security.privateca.v1.CertificateAuthorityService.FetchCertificateAuthorityCsr]: crate::client::CertificateAuthorityService::fetch_certificate_authority_csr
     ///
     /// # Long running operations
@@ -307,8 +307,8 @@ impl CertificateAuthorityService {
     /// [ActivateCertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthorityService.ActivateCertificateAuthority].
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
-    /// [google.cloud.security.privateca.v1.CertificateAuthority.State.AWAITING_USER_ACTIVATION]: crate::model::certificate_authority::state::AWAITING_USER_ACTIVATION
-    /// [google.cloud.security.privateca.v1.CertificateAuthority.Type.SUBORDINATE]: crate::model::certificate_authority::r#type::SUBORDINATE
+    /// [google.cloud.security.privateca.v1.CertificateAuthority.State.AWAITING_USER_ACTIVATION]: crate::model::certificate_authority::State::AwaitingUserActivation
+    /// [google.cloud.security.privateca.v1.CertificateAuthority.Type.SUBORDINATE]: crate::model::certificate_authority::Type::Subordinate
     /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ActivateCertificateAuthority]: crate::client::CertificateAuthorityService::activate_certificate_authority
     pub fn fetch_certificate_authority_csr(
         &self,

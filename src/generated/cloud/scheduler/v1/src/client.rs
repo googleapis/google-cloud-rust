@@ -157,7 +157,7 @@ impl CloudScheduler {
     /// UpdateJob request until a successful response is received.
     ///
     /// [google.cloud.scheduler.v1.Job]: crate::model::Job
-    /// [google.cloud.scheduler.v1.Job.State.UPDATE_FAILED]: crate::model::job::state::UPDATE_FAILED
+    /// [google.cloud.scheduler.v1.Job.State.UPDATE_FAILED]: crate::model::job::State::UpdateFailed
     pub fn update_job(
         &self,
         job: impl Into<crate::model::Job>,
@@ -185,8 +185,8 @@ impl CloudScheduler {
     /// be paused.
     ///
     /// [google.cloud.scheduler.v1.CloudScheduler.ResumeJob]: crate::client::CloudScheduler::resume_job
-    /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::state::ENABLED
-    /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::state::PAUSED
+    /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::State::Enabled
+    /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::State::Paused
     /// [google.cloud.scheduler.v1.Job.state]: crate::model::Job::state
     pub fn pause_job(
         &self,
@@ -205,8 +205,8 @@ impl CloudScheduler {
     /// must be in [Job.State.PAUSED][google.cloud.scheduler.v1.Job.State.PAUSED]
     /// to be resumed.
     ///
-    /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::state::ENABLED
-    /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::state::PAUSED
+    /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::State::Enabled
+    /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::State::Paused
     /// [google.cloud.scheduler.v1.Job.state]: crate::model::Job::state
     pub fn resume_job(
         &self,

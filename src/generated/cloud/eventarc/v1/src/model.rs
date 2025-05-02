@@ -216,24 +216,20 @@ pub mod channel {
     use super::*;
 
     /// State lists all the possible states of a Channel
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Default value. This value is unused.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The PENDING state indicates that a Channel has been created successfully
         /// and there is a new activation token available for the subscriber to use
         /// to convey the Channel to the provider in order to create a Connection.
-        pub const PENDING: State = State::new(1);
-
+        Pending,
         /// The ACTIVE state indicates that a Channel has been successfully
         /// connected with the event provider.
         /// An ACTIVE Channel is ready to receive and route events from the
         /// event provider.
-        pub const ACTIVE: State = State::new(2);
-
+        Active,
         /// The INACTIVE state indicates that the Channel cannot receive events
         /// permanently. There are two possible cases this state can happen:
         ///
@@ -243,50 +239,117 @@ pub mod channel {
         ///
         /// To re-establish a Connection with a provider, the subscriber
         /// should create a new Channel and give it to the provider.
-        pub const INACTIVE: State = State::new(3);
+        Inactive,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Pending => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Inactive => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PENDING"),
-                2 => std::borrow::Cow::Borrowed("ACTIVE"),
-                3 => std::borrow::Cow::Borrowed("INACTIVE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Inactive => std::option::Option::Some("INACTIVE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "PENDING" => std::option::Option::Some(Self::PENDING),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "INACTIVE" => std::option::Option::Some(Self::INACTIVE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Pending,
+                2 => Self::Active,
+                3 => Self::Inactive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING" => Self::Pending,
+                "ACTIVE" => Self::Active,
+                "INACTIVE" => Self::Inactive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Pending => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Inactive => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.eventarc.v1.Channel.State",
+            ))
         }
     }
 
@@ -4133,100 +4196,173 @@ pub mod logging_config {
     /// resources.
     /// This enum is an exhaustive list of log severities and is FROZEN. Do not
     /// expect new values to be added.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogSeverity(i32);
-
-    impl LogSeverity {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum LogSeverity {
         /// Log severity is not specified. This value is treated the same as NONE,
         /// but is used to distinguish between no update and update to NONE in
         /// update_masks.
-        pub const LOG_SEVERITY_UNSPECIFIED: LogSeverity = LogSeverity::new(0);
-
+        Unspecified,
         /// Default value at resource creation, presence of this value must be
         /// treated as no logging/disable logging.
-        pub const NONE: LogSeverity = LogSeverity::new(1);
-
+        None,
         /// Debug or trace level logging.
-        pub const DEBUG: LogSeverity = LogSeverity::new(2);
-
+        Debug,
         /// Routine information, such as ongoing status or performance.
-        pub const INFO: LogSeverity = LogSeverity::new(3);
-
+        Info,
         /// Normal but significant events, such as start up, shut down, or a
         /// configuration change.
-        pub const NOTICE: LogSeverity = LogSeverity::new(4);
-
+        Notice,
         /// Warning events might cause problems.
-        pub const WARNING: LogSeverity = LogSeverity::new(5);
-
+        Warning,
         /// Error events are likely to cause problems.
-        pub const ERROR: LogSeverity = LogSeverity::new(6);
-
+        Error,
         /// Critical events cause more severe problems or outages.
-        pub const CRITICAL: LogSeverity = LogSeverity::new(7);
-
+        Critical,
         /// A person must take action immediately.
-        pub const ALERT: LogSeverity = LogSeverity::new(8);
-
+        Alert,
         /// One or more systems are unusable.
-        pub const EMERGENCY: LogSeverity = LogSeverity::new(9);
+        Emergency,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [LogSeverity::value] or
+        /// [LogSeverity::name].
+        UnknownValue(log_severity::UnknownValue),
+    }
 
-        /// Creates a new LogSeverity instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod log_severity {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl LogSeverity {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::None => std::option::Option::Some(1),
+                Self::Debug => std::option::Option::Some(2),
+                Self::Info => std::option::Option::Some(3),
+                Self::Notice => std::option::Option::Some(4),
+                Self::Warning => std::option::Option::Some(5),
+                Self::Error => std::option::Option::Some(6),
+                Self::Critical => std::option::Option::Some(7),
+                Self::Alert => std::option::Option::Some(8),
+                Self::Emergency => std::option::Option::Some(9),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("LOG_SEVERITY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NONE"),
-                2 => std::borrow::Cow::Borrowed("DEBUG"),
-                3 => std::borrow::Cow::Borrowed("INFO"),
-                4 => std::borrow::Cow::Borrowed("NOTICE"),
-                5 => std::borrow::Cow::Borrowed("WARNING"),
-                6 => std::borrow::Cow::Borrowed("ERROR"),
-                7 => std::borrow::Cow::Borrowed("CRITICAL"),
-                8 => std::borrow::Cow::Borrowed("ALERT"),
-                9 => std::borrow::Cow::Borrowed("EMERGENCY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("LOG_SEVERITY_UNSPECIFIED"),
+                Self::None => std::option::Option::Some("NONE"),
+                Self::Debug => std::option::Option::Some("DEBUG"),
+                Self::Info => std::option::Option::Some("INFO"),
+                Self::Notice => std::option::Option::Some("NOTICE"),
+                Self::Warning => std::option::Option::Some("WARNING"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::Critical => std::option::Option::Some("CRITICAL"),
+                Self::Alert => std::option::Option::Some("ALERT"),
+                Self::Emergency => std::option::Option::Some("EMERGENCY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "LOG_SEVERITY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::LOG_SEVERITY_UNSPECIFIED)
-                }
-                "NONE" => std::option::Option::Some(Self::NONE),
-                "DEBUG" => std::option::Option::Some(Self::DEBUG),
-                "INFO" => std::option::Option::Some(Self::INFO),
-                "NOTICE" => std::option::Option::Some(Self::NOTICE),
-                "WARNING" => std::option::Option::Some(Self::WARNING),
-                "ERROR" => std::option::Option::Some(Self::ERROR),
-                "CRITICAL" => std::option::Option::Some(Self::CRITICAL),
-                "ALERT" => std::option::Option::Some(Self::ALERT),
-                "EMERGENCY" => std::option::Option::Some(Self::EMERGENCY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for LogSeverity {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for LogSeverity {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for LogSeverity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for LogSeverity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::None,
+                2 => Self::Debug,
+                3 => Self::Info,
+                4 => Self::Notice,
+                5 => Self::Warning,
+                6 => Self::Error,
+                7 => Self::Critical,
+                8 => Self::Alert,
+                9 => Self::Emergency,
+                _ => Self::UnknownValue(log_severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for LogSeverity {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "LOG_SEVERITY_UNSPECIFIED" => Self::Unspecified,
+                "NONE" => Self::None,
+                "DEBUG" => Self::Debug,
+                "INFO" => Self::Info,
+                "NOTICE" => Self::Notice,
+                "WARNING" => Self::Warning,
+                "ERROR" => Self::Error,
+                "CRITICAL" => Self::Critical,
+                "ALERT" => Self::Alert,
+                "EMERGENCY" => Self::Emergency,
+                _ => Self::UnknownValue(log_severity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for LogSeverity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::None => serializer.serialize_i32(1),
+                Self::Debug => serializer.serialize_i32(2),
+                Self::Info => serializer.serialize_i32(3),
+                Self::Notice => serializer.serialize_i32(4),
+                Self::Warning => serializer.serialize_i32(5),
+                Self::Error => serializer.serialize_i32(6),
+                Self::Critical => serializer.serialize_i32(7),
+                Self::Alert => serializer.serialize_i32(8),
+                Self::Emergency => serializer.serialize_i32(9),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for LogSeverity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<LogSeverity>::new(
+                ".google.cloud.eventarc.v1.LoggingConfig.LogSeverity",
+            ))
         }
     }
 }

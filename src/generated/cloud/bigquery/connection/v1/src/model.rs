@@ -763,61 +763,120 @@ pub mod cloud_sql_properties {
     use super::*;
 
     /// Supported Cloud SQL database types.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DatabaseType(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DatabaseType {
+        /// Unspecified database type.
+        Unspecified,
+        /// Cloud SQL for PostgreSQL.
+        Postgres,
+        /// Cloud SQL for MySQL.
+        Mysql,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DatabaseType::value] or
+        /// [DatabaseType::name].
+        UnknownValue(database_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod database_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl DatabaseType {
-        /// Unspecified database type.
-        pub const DATABASE_TYPE_UNSPECIFIED: DatabaseType = DatabaseType::new(0);
-
-        /// Cloud SQL for PostgreSQL.
-        pub const POSTGRES: DatabaseType = DatabaseType::new(1);
-
-        /// Cloud SQL for MySQL.
-        pub const MYSQL: DatabaseType = DatabaseType::new(2);
-
-        /// Creates a new DatabaseType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Postgres => std::option::Option::Some(1),
+                Self::Mysql => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DATABASE_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("POSTGRES"),
-                2 => std::borrow::Cow::Borrowed("MYSQL"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DATABASE_TYPE_UNSPECIFIED"),
+                Self::Postgres => std::option::Option::Some("POSTGRES"),
+                Self::Mysql => std::option::Option::Some("MYSQL"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DATABASE_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::DATABASE_TYPE_UNSPECIFIED)
-                }
-                "POSTGRES" => std::option::Option::Some(Self::POSTGRES),
-                "MYSQL" => std::option::Option::Some(Self::MYSQL),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for DatabaseType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for DatabaseType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DatabaseType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DatabaseType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Postgres,
+                2 => Self::Mysql,
+                _ => Self::UnknownValue(database_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DatabaseType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DATABASE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "POSTGRES" => Self::Postgres,
+                "MYSQL" => Self::Mysql,
+                _ => Self::UnknownValue(database_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DatabaseType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Postgres => serializer.serialize_i32(1),
+                Self::Mysql => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DatabaseType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DatabaseType>::new(
+                ".google.cloud.bigquery.connection.v1.CloudSqlProperties.DatabaseType",
+            ))
         }
     }
 }

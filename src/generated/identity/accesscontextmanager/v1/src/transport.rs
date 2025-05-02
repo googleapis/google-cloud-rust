@@ -168,7 +168,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        let builder = builder.query(&[("accessLevelFormat", &req.access_level_format.value())]);
+        let builder = builder.query(&[("accessLevelFormat", &req.access_level_format)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -188,7 +188,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = builder.query(&[("accessLevelFormat", &req.access_level_format.value())]);
+        let builder = builder.query(&[("accessLevelFormat", &req.access_level_format)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

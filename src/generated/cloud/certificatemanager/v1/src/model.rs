@@ -579,61 +579,120 @@ pub mod certificate_issuance_config {
     }
 
     /// The type of keypair to generate.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct KeyAlgorithm(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum KeyAlgorithm {
+        /// Unspecified key algorithm.
+        Unspecified,
+        /// Specifies RSA with a 2048-bit modulus.
+        Rsa2048,
+        /// Specifies ECDSA with curve P256.
+        EcdsaP256,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [KeyAlgorithm::value] or
+        /// [KeyAlgorithm::name].
+        UnknownValue(key_algorithm::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod key_algorithm {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl KeyAlgorithm {
-        /// Unspecified key algorithm.
-        pub const KEY_ALGORITHM_UNSPECIFIED: KeyAlgorithm = KeyAlgorithm::new(0);
-
-        /// Specifies RSA with a 2048-bit modulus.
-        pub const RSA_2048: KeyAlgorithm = KeyAlgorithm::new(1);
-
-        /// Specifies ECDSA with curve P256.
-        pub const ECDSA_P256: KeyAlgorithm = KeyAlgorithm::new(4);
-
-        /// Creates a new KeyAlgorithm instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Rsa2048 => std::option::Option::Some(1),
+                Self::EcdsaP256 => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("KEY_ALGORITHM_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RSA_2048"),
-                4 => std::borrow::Cow::Borrowed("ECDSA_P256"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("KEY_ALGORITHM_UNSPECIFIED"),
+                Self::Rsa2048 => std::option::Option::Some("RSA_2048"),
+                Self::EcdsaP256 => std::option::Option::Some("ECDSA_P256"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "KEY_ALGORITHM_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::KEY_ALGORITHM_UNSPECIFIED)
-                }
-                "RSA_2048" => std::option::Option::Some(Self::RSA_2048),
-                "ECDSA_P256" => std::option::Option::Some(Self::ECDSA_P256),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for KeyAlgorithm {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for KeyAlgorithm {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for KeyAlgorithm {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for KeyAlgorithm {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Rsa2048,
+                4 => Self::EcdsaP256,
+                _ => Self::UnknownValue(key_algorithm::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for KeyAlgorithm {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "KEY_ALGORITHM_UNSPECIFIED" => Self::Unspecified,
+                "RSA_2048" => Self::Rsa2048,
+                "ECDSA_P256" => Self::EcdsaP256,
+                _ => Self::UnknownValue(key_algorithm::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for KeyAlgorithm {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Rsa2048 => serializer.serialize_i32(1),
+                Self::EcdsaP256 => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for KeyAlgorithm {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<KeyAlgorithm>::new(
+                ".google.cloud.certificatemanager.v1.CertificateIssuanceConfig.KeyAlgorithm",
+            ))
         }
     }
 }
@@ -2540,65 +2599,128 @@ pub mod certificate {
             use super::*;
 
             /// Reason for provisioning failures.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct Reason(i32);
-
-            impl Reason {
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Reason {
                 /// Reason is unspecified.
-                pub const REASON_UNSPECIFIED: Reason = Reason::new(0);
-
+                Unspecified,
                 /// Certificate provisioning failed due to an issue with one or more of
                 /// the domains on the certificate.
                 /// For details of which domains failed, consult the
                 /// `authorization_attempt_info` field.
-                pub const AUTHORIZATION_ISSUE: Reason = Reason::new(1);
-
+                AuthorizationIssue,
                 /// Exceeded Certificate Authority quotas or internal rate limits of the
                 /// system. Provisioning may take longer to complete.
-                pub const RATE_LIMITED: Reason = Reason::new(2);
+                RateLimited,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [Reason::value] or
+                /// [Reason::name].
+                UnknownValue(reason::UnknownValue),
+            }
 
-                /// Creates a new Reason instance.
-                pub(crate) const fn new(value: i32) -> Self {
-                    Self(value)
-                }
+            #[doc(hidden)]
+            pub mod reason {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
 
+            impl Reason {
                 /// Gets the enum value.
-                pub fn value(&self) -> i32 {
-                    self.0
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::AuthorizationIssue => std::option::Option::Some(1),
+                        Self::RateLimited => std::option::Option::Some(2),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
                 }
 
                 /// Gets the enum value as a string.
-                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                    match self.0 {
-                        0 => std::borrow::Cow::Borrowed("REASON_UNSPECIFIED"),
-                        1 => std::borrow::Cow::Borrowed("AUTHORIZATION_ISSUE"),
-                        2 => std::borrow::Cow::Borrowed("RATE_LIMITED"),
-                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                    }
-                }
-
-                /// Creates an enum value from the value name.
-                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                    match name {
-                        "REASON_UNSPECIFIED" => std::option::Option::Some(Self::REASON_UNSPECIFIED),
-                        "AUTHORIZATION_ISSUE" => {
-                            std::option::Option::Some(Self::AUTHORIZATION_ISSUE)
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some("REASON_UNSPECIFIED"),
+                        Self::AuthorizationIssue => {
+                            std::option::Option::Some("AUTHORIZATION_ISSUE")
                         }
-                        "RATE_LIMITED" => std::option::Option::Some(Self::RATE_LIMITED),
-                        _ => std::option::Option::None,
+                        Self::RateLimited => std::option::Option::Some("RATE_LIMITED"),
+                        Self::UnknownValue(u) => u.0.name(),
                     }
-                }
-            }
-
-            impl std::convert::From<i32> for Reason {
-                fn from(value: i32) -> Self {
-                    Self::new(value)
                 }
             }
 
             impl std::default::Default for Reason {
                 fn default() -> Self {
-                    Self::new(0)
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for Reason {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for Reason {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::AuthorizationIssue,
+                        2 => Self::RateLimited,
+                        _ => Self::UnknownValue(reason::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for Reason {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "REASON_UNSPECIFIED" => Self::Unspecified,
+                        "AUTHORIZATION_ISSUE" => Self::AuthorizationIssue,
+                        "RATE_LIMITED" => Self::RateLimited,
+                        _ => Self::UnknownValue(reason::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for Reason {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::AuthorizationIssue => serializer.serialize_i32(1),
+                        Self::RateLimited => serializer.serialize_i32(2),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for Reason {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<Reason>::new(
+                        ".google.cloud.certificatemanager.v1.Certificate.ManagedCertificate.ProvisioningIssue.Reason"))
                 }
             }
         }
@@ -2674,265 +2796,522 @@ pub mod certificate {
             use super::*;
 
             /// State of the domain for managed certificate issuance.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct State(i32);
-
-            impl State {
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum State {
                 /// State is unspecified.
-                pub const STATE_UNSPECIFIED: State = State::new(0);
-
+                Unspecified,
                 /// Certificate provisioning for this domain is under way. Google Cloud
                 /// will attempt to authorize the domain.
-                pub const AUTHORIZING: State = State::new(1);
-
+                Authorizing,
                 /// A managed certificate can be provisioned, no issues for this domain.
-                pub const AUTHORIZED: State = State::new(6);
-
+                Authorized,
                 /// Attempt to authorize the domain failed. This prevents the Managed
                 /// Certificate from being issued.
                 /// See `failure_reason` and `details` fields for more information.
-                pub const FAILED: State = State::new(7);
+                Failed,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [State::value] or
+                /// [State::name].
+                UnknownValue(state::UnknownValue),
+            }
 
-                /// Creates a new State instance.
-                pub(crate) const fn new(value: i32) -> Self {
-                    Self(value)
-                }
+            #[doc(hidden)]
+            pub mod state {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
 
+            impl State {
                 /// Gets the enum value.
-                pub fn value(&self) -> i32 {
-                    self.0
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Authorizing => std::option::Option::Some(1),
+                        Self::Authorized => std::option::Option::Some(6),
+                        Self::Failed => std::option::Option::Some(7),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
                 }
 
                 /// Gets the enum value as a string.
-                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                    match self.0 {
-                        0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                        1 => std::borrow::Cow::Borrowed("AUTHORIZING"),
-                        6 => std::borrow::Cow::Borrowed("AUTHORIZED"),
-                        7 => std::borrow::Cow::Borrowed("FAILED"),
-                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                        Self::Authorizing => std::option::Option::Some("AUTHORIZING"),
+                        Self::Authorized => std::option::Option::Some("AUTHORIZED"),
+                        Self::Failed => std::option::Option::Some("FAILED"),
+                        Self::UnknownValue(u) => u.0.name(),
                     }
-                }
-
-                /// Creates an enum value from the value name.
-                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                    match name {
-                        "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                        "AUTHORIZING" => std::option::Option::Some(Self::AUTHORIZING),
-                        "AUTHORIZED" => std::option::Option::Some(Self::AUTHORIZED),
-                        "FAILED" => std::option::Option::Some(Self::FAILED),
-                        _ => std::option::Option::None,
-                    }
-                }
-            }
-
-            impl std::convert::From<i32> for State {
-                fn from(value: i32) -> Self {
-                    Self::new(value)
                 }
             }
 
             impl std::default::Default for State {
                 fn default() -> Self {
-                    Self::new(0)
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for State {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for State {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Authorizing,
+                        6 => Self::Authorized,
+                        7 => Self::Failed,
+                        _ => Self::UnknownValue(state::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for State {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "STATE_UNSPECIFIED" => Self::Unspecified,
+                        "AUTHORIZING" => Self::Authorizing,
+                        "AUTHORIZED" => Self::Authorized,
+                        "FAILED" => Self::Failed,
+                        _ => Self::UnknownValue(state::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for State {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Authorizing => serializer.serialize_i32(1),
+                        Self::Authorized => serializer.serialize_i32(6),
+                        Self::Failed => serializer.serialize_i32(7),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for State {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                        ".google.cloud.certificatemanager.v1.Certificate.ManagedCertificate.AuthorizationAttemptInfo.State"))
                 }
             }
 
             /// Reason for failure of the authorization attempt for the domain.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct FailureReason(i32);
-
-            impl FailureReason {
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum FailureReason {
                 /// FailureReason is unspecified.
-                pub const FAILURE_REASON_UNSPECIFIED: FailureReason = FailureReason::new(0);
-
+                Unspecified,
                 /// There was a problem with the user's DNS or load balancer
                 /// configuration for this domain.
-                pub const CONFIG: FailureReason = FailureReason::new(1);
-
+                Config,
                 /// Certificate issuance forbidden by an explicit CAA record for the
                 /// domain or a failure to check CAA records for the domain.
-                pub const CAA: FailureReason = FailureReason::new(2);
-
+                Caa,
                 /// Reached a CA or internal rate-limit for the domain,
                 /// e.g. for certificates per top-level private domain.
-                pub const RATE_LIMITED: FailureReason = FailureReason::new(3);
+                RateLimited,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [FailureReason::value] or
+                /// [FailureReason::name].
+                UnknownValue(failure_reason::UnknownValue),
+            }
 
-                /// Creates a new FailureReason instance.
-                pub(crate) const fn new(value: i32) -> Self {
-                    Self(value)
-                }
+            #[doc(hidden)]
+            pub mod failure_reason {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
 
+            impl FailureReason {
                 /// Gets the enum value.
-                pub fn value(&self) -> i32 {
-                    self.0
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Config => std::option::Option::Some(1),
+                        Self::Caa => std::option::Option::Some(2),
+                        Self::RateLimited => std::option::Option::Some(3),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
                 }
 
                 /// Gets the enum value as a string.
-                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                    match self.0 {
-                        0 => std::borrow::Cow::Borrowed("FAILURE_REASON_UNSPECIFIED"),
-                        1 => std::borrow::Cow::Borrowed("CONFIG"),
-                        2 => std::borrow::Cow::Borrowed("CAA"),
-                        3 => std::borrow::Cow::Borrowed("RATE_LIMITED"),
-                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                    }
-                }
-
-                /// Creates an enum value from the value name.
-                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                    match name {
-                        "FAILURE_REASON_UNSPECIFIED" => {
-                            std::option::Option::Some(Self::FAILURE_REASON_UNSPECIFIED)
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("FAILURE_REASON_UNSPECIFIED")
                         }
-                        "CONFIG" => std::option::Option::Some(Self::CONFIG),
-                        "CAA" => std::option::Option::Some(Self::CAA),
-                        "RATE_LIMITED" => std::option::Option::Some(Self::RATE_LIMITED),
-                        _ => std::option::Option::None,
+                        Self::Config => std::option::Option::Some("CONFIG"),
+                        Self::Caa => std::option::Option::Some("CAA"),
+                        Self::RateLimited => std::option::Option::Some("RATE_LIMITED"),
+                        Self::UnknownValue(u) => u.0.name(),
                     }
-                }
-            }
-
-            impl std::convert::From<i32> for FailureReason {
-                fn from(value: i32) -> Self {
-                    Self::new(value)
                 }
             }
 
             impl std::default::Default for FailureReason {
                 fn default() -> Self {
-                    Self::new(0)
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for FailureReason {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for FailureReason {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Config,
+                        2 => Self::Caa,
+                        3 => Self::RateLimited,
+                        _ => Self::UnknownValue(failure_reason::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for FailureReason {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "FAILURE_REASON_UNSPECIFIED" => Self::Unspecified,
+                        "CONFIG" => Self::Config,
+                        "CAA" => Self::Caa,
+                        "RATE_LIMITED" => Self::RateLimited,
+                        _ => Self::UnknownValue(failure_reason::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for FailureReason {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Config => serializer.serialize_i32(1),
+                        Self::Caa => serializer.serialize_i32(2),
+                        Self::RateLimited => serializer.serialize_i32(3),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for FailureReason {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<FailureReason>::new(
+                        ".google.cloud.certificatemanager.v1.Certificate.ManagedCertificate.AuthorizationAttemptInfo.FailureReason"))
                 }
             }
         }
 
         /// State of the managed certificate resource.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct State(i32);
-
-        impl State {
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum State {
             /// State is unspecified.
-            pub const STATE_UNSPECIFIED: State = State::new(0);
-
+            Unspecified,
             /// Certificate Manager attempts to provision or renew the certificate.
             /// If the process takes longer than expected, consult the
             /// `provisioning_issue` field.
-            pub const PROVISIONING: State = State::new(1);
-
+            Provisioning,
             /// Multiple certificate provisioning attempts failed and Certificate
             /// Manager gave up. To try again, delete and create a new managed
             /// Certificate resource.
             /// For details see the `provisioning_issue` field.
-            pub const FAILED: State = State::new(2);
-
+            Failed,
             /// The certificate management is working, and a certificate has been
             /// provisioned.
-            pub const ACTIVE: State = State::new(3);
+            Active,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [State::value] or
+            /// [State::name].
+            UnknownValue(state::UnknownValue),
+        }
 
-            /// Creates a new State instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
+        #[doc(hidden)]
+        pub mod state {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
 
+        impl State {
             /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Provisioning => std::option::Option::Some(1),
+                    Self::Failed => std::option::Option::Some(2),
+                    Self::Active => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
             }
 
             /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("PROVISIONING"),
-                    2 => std::borrow::Cow::Borrowed("FAILED"),
-                    3 => std::borrow::Cow::Borrowed("ACTIVE"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                    Self::Provisioning => std::option::Option::Some("PROVISIONING"),
+                    Self::Failed => std::option::Option::Some("FAILED"),
+                    Self::Active => std::option::Option::Some("ACTIVE"),
+                    Self::UnknownValue(u) => u.0.name(),
                 }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                    "PROVISIONING" => std::option::Option::Some(Self::PROVISIONING),
-                    "FAILED" => std::option::Option::Some(Self::FAILED),
-                    "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                    _ => std::option::Option::None,
-                }
-            }
-        }
-
-        impl std::convert::From<i32> for State {
-            fn from(value: i32) -> Self {
-                Self::new(value)
             }
         }
 
         impl std::default::Default for State {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for State {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Provisioning,
+                    2 => Self::Failed,
+                    3 => Self::Active,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for State {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "STATE_UNSPECIFIED" => Self::Unspecified,
+                    "PROVISIONING" => Self::Provisioning,
+                    "FAILED" => Self::Failed,
+                    "ACTIVE" => Self::Active,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for State {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Provisioning => serializer.serialize_i32(1),
+                    Self::Failed => serializer.serialize_i32(2),
+                    Self::Active => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for State {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                    ".google.cloud.certificatemanager.v1.Certificate.ManagedCertificate.State",
+                ))
             }
         }
     }
 
     /// Certificate scope.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Scope(i32);
-
-    impl Scope {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Scope {
         /// Certificates with default scope are served from core Google data centers.
         /// If unsure, choose this option.
-        pub const DEFAULT: Scope = Scope::new(0);
-
+        Default,
         /// Certificates with scope EDGE_CACHE are special-purposed certificates,
         /// served from Edge Points of Presence.
         /// See <https://cloud.google.com/vpc/docs/edge-locations>.
-        pub const EDGE_CACHE: Scope = Scope::new(1);
-
+        EdgeCache,
         /// Certificates with ALL_REGIONS scope are served from all Google Cloud
         /// regions. See <https://cloud.google.com/compute/docs/regions-zones>.
-        pub const ALL_REGIONS: Scope = Scope::new(2);
+        AllRegions,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Scope::value] or
+        /// [Scope::name].
+        UnknownValue(scope::UnknownValue),
+    }
 
-        /// Creates a new Scope instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod scope {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Scope {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Default => std::option::Option::Some(0),
+                Self::EdgeCache => std::option::Option::Some(1),
+                Self::AllRegions => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DEFAULT"),
-                1 => std::borrow::Cow::Borrowed("EDGE_CACHE"),
-                2 => std::borrow::Cow::Borrowed("ALL_REGIONS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Default => std::option::Option::Some("DEFAULT"),
+                Self::EdgeCache => std::option::Option::Some("EDGE_CACHE"),
+                Self::AllRegions => std::option::Option::Some("ALL_REGIONS"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DEFAULT" => std::option::Option::Some(Self::DEFAULT),
-                "EDGE_CACHE" => std::option::Option::Some(Self::EDGE_CACHE),
-                "ALL_REGIONS" => std::option::Option::Some(Self::ALL_REGIONS),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Scope {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Scope {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Scope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Scope {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Default,
+                1 => Self::EdgeCache,
+                2 => Self::AllRegions,
+                _ => Self::UnknownValue(scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Scope {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DEFAULT" => Self::Default,
+                "EDGE_CACHE" => Self::EdgeCache,
+                "ALL_REGIONS" => Self::AllRegions,
+                _ => Self::UnknownValue(scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Scope {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Default => serializer.serialize_i32(0),
+                Self::EdgeCache => serializer.serialize_i32(1),
+                Self::AllRegions => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Scope {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Scope>::new(
+                ".google.cloud.certificatemanager.v1.Certificate.Scope",
+            ))
         }
     }
 
@@ -3427,55 +3806,114 @@ pub mod certificate_map_entry {
 
     /// Defines predefined cases other than SNI-hostname match when this
     /// configuration should be applied.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Matcher(i32);
-
-    impl Matcher {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Matcher {
         /// A matcher has't been recognized.
-        pub const MATCHER_UNSPECIFIED: Matcher = Matcher::new(0);
-
+        Unspecified,
         /// A primary certificate that is served when SNI wasn't specified in the
         /// request or SNI couldn't be found in the map.
-        pub const PRIMARY: Matcher = Matcher::new(1);
+        Primary,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Matcher::value] or
+        /// [Matcher::name].
+        UnknownValue(matcher::UnknownValue),
+    }
 
-        /// Creates a new Matcher instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod matcher {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Matcher {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Primary => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("MATCHER_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PRIMARY"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MATCHER_UNSPECIFIED"),
+                Self::Primary => std::option::Option::Some("PRIMARY"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "MATCHER_UNSPECIFIED" => std::option::Option::Some(Self::MATCHER_UNSPECIFIED),
-                "PRIMARY" => std::option::Option::Some(Self::PRIMARY),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Matcher {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Matcher {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Matcher {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Matcher {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Primary,
+                _ => Self::UnknownValue(matcher::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Matcher {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MATCHER_UNSPECIFIED" => Self::Unspecified,
+                "PRIMARY" => Self::Primary,
+                _ => Self::UnknownValue(matcher::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Matcher {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Primary => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Matcher {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Matcher>::new(
+                ".google.cloud.certificatemanager.v1.CertificateMapEntry.Matcher",
+            ))
         }
     }
 
@@ -3688,61 +4126,122 @@ pub mod dns_authorization {
     }
 
     /// DnsAuthorization type.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(i32);
-
-    impl Type {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
         /// Type is unspecified.
-        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
+        Unspecified,
         /// FIXED_RECORD DNS authorization uses DNS-01 validation method.
-        pub const FIXED_RECORD: Type = Type::new(1);
-
+        FixedRecord,
         /// PER_PROJECT_RECORD DNS authorization allows for independent management
         /// of Google-managed certificates with DNS authorization across multiple
         /// projects.
-        pub const PER_PROJECT_RECORD: Type = Type::new(2);
+        PerProjectRecord,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
 
-        /// Creates a new Type instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Type {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::FixedRecord => std::option::Option::Some(1),
+                Self::PerProjectRecord => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("FIXED_RECORD"),
-                2 => std::borrow::Cow::Borrowed("PER_PROJECT_RECORD"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::FixedRecord => std::option::Option::Some("FIXED_RECORD"),
+                Self::PerProjectRecord => std::option::Option::Some("PER_PROJECT_RECORD"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                "FIXED_RECORD" => std::option::Option::Some(Self::FIXED_RECORD),
-                "PER_PROJECT_RECORD" => std::option::Option::Some(Self::PER_PROJECT_RECORD),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Type {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::FixedRecord,
+                2 => Self::PerProjectRecord,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "FIXED_RECORD" => Self::FixedRecord,
+                "PER_PROJECT_RECORD" => Self::PerProjectRecord,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::FixedRecord => serializer.serialize_i32(1),
+                Self::PerProjectRecord => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.certificatemanager.v1.DnsAuthorization.Type",
+            ))
         }
     }
 }
@@ -4442,60 +4941,119 @@ pub mod trust_config {
 }
 
 /// Defines set of serving states associated with a resource.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServingState(i32);
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ServingState {
+    /// The status is undefined.
+    Unspecified,
+    /// The configuration is serving.
+    Active,
+    /// Update is in progress. Some frontends may serve this configuration.
+    Pending,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ServingState::value] or
+    /// [ServingState::name].
+    UnknownValue(serving_state::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod serving_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl ServingState {
-    /// The status is undefined.
-    pub const SERVING_STATE_UNSPECIFIED: ServingState = ServingState::new(0);
-
-    /// The configuration is serving.
-    pub const ACTIVE: ServingState = ServingState::new(1);
-
-    /// Update is in progress. Some frontends may serve this configuration.
-    pub const PENDING: ServingState = ServingState::new(2);
-
-    /// Creates a new ServingState instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Active => std::option::Option::Some(1),
+            Self::Pending => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SERVING_STATE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("ACTIVE"),
-            2 => std::borrow::Cow::Borrowed("PENDING"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SERVING_STATE_UNSPECIFIED"),
+            Self::Active => std::option::Option::Some("ACTIVE"),
+            Self::Pending => std::option::Option::Some("PENDING"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SERVING_STATE_UNSPECIFIED" => {
-                std::option::Option::Some(Self::SERVING_STATE_UNSPECIFIED)
-            }
-            "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-            "PENDING" => std::option::Option::Some(Self::PENDING),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for ServingState {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for ServingState {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ServingState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ServingState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Active,
+            2 => Self::Pending,
+            _ => Self::UnknownValue(serving_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ServingState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SERVING_STATE_UNSPECIFIED" => Self::Unspecified,
+            "ACTIVE" => Self::Active,
+            "PENDING" => Self::Pending,
+            _ => Self::UnknownValue(serving_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ServingState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Active => serializer.serialize_i32(1),
+            Self::Pending => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ServingState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ServingState>::new(
+            ".google.cloud.certificatemanager.v1.ServingState",
+        ))
     }
 }

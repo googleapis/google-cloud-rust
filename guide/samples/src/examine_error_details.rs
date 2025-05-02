@@ -28,7 +28,7 @@ pub async fn examine_error_details() -> crate::Result<()> {
             lang::model::Document::new()
                 // Missing document contents
                 // .set_content("Hello World!")
-                .set_type(lang::model::document::Type::PLAIN_TEXT),
+                .set_type(lang::model::document::Type::PlainText),
         )
         .send()
         .await;

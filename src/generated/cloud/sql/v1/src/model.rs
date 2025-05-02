@@ -722,61 +722,116 @@ pub mod connect_settings {
 
 
     /// Various Certificate Authority (CA) modes for certificate signing.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CaMode(i32);
-
-    impl CaMode {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CaMode {
         /// CA mode is unknown.
-        pub const CA_MODE_UNSPECIFIED: CaMode = CaMode::new(0);
-
+        Unspecified,
         /// Google-managed self-signed internal CA.
-        pub const GOOGLE_MANAGED_INTERNAL_CA: CaMode = CaMode::new(1);
-
+        GoogleManagedInternalCa,
         /// Google-managed regional CA part of root CA hierarchy hosted on Google
         /// Cloud's Certificate Authority Service (CAS).
-        pub const GOOGLE_MANAGED_CAS_CA: CaMode = CaMode::new(2);
-
-        /// Creates a new CaMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CA_MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_INTERNAL_CA"),
-                2 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_CAS_CA"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CA_MODE_UNSPECIFIED" => std::option::Option::Some(Self::CA_MODE_UNSPECIFIED),
-                "GOOGLE_MANAGED_INTERNAL_CA" => std::option::Option::Some(Self::GOOGLE_MANAGED_INTERNAL_CA),
-                "GOOGLE_MANAGED_CAS_CA" => std::option::Option::Some(Self::GOOGLE_MANAGED_CAS_CA),
-                _ => std::option::Option::None,
-            }
-        }
+        GoogleManagedCasCa,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CaMode::value] or
+        /// [CaMode::name].
+        UnknownValue(ca_mode::UnknownValue),
     }
 
-    impl std::convert::From<i32> for CaMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod ca_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl CaMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::GoogleManagedInternalCa => std::option::Option::Some(1),
+                Self::GoogleManagedCasCa => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CA_MODE_UNSPECIFIED"),
+                Self::GoogleManagedInternalCa => std::option::Option::Some("GOOGLE_MANAGED_INTERNAL_CA"),
+                Self::GoogleManagedCasCa => std::option::Option::Some("GOOGLE_MANAGED_CAS_CA"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for CaMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CaMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CaMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::GoogleManagedInternalCa,
+                2 => Self::GoogleManagedCasCa,
+                _ => Self::UnknownValue(ca_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CaMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CA_MODE_UNSPECIFIED" => Self::Unspecified,
+                "GOOGLE_MANAGED_INTERNAL_CA" => Self::GoogleManagedInternalCa,
+                "GOOGLE_MANAGED_CAS_CA" => Self::GoogleManagedCasCa,
+                _ => Self::UnknownValue(ca_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CaMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::GoogleManagedInternalCa => serializer.serialize_i32(1),
+                Self::GoogleManagedCasCa => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CaMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CaMode>::new(
+                ".google.cloud.sql.v1.ConnectSettings.CaMode"))
         }
     }
 }
@@ -2839,60 +2894,115 @@ pub mod backup_reencryption_config {
 
 
     /// Backup type for re-encryption
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct BackupType(i32);
-
-    impl BackupType {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum BackupType {
         /// Unknown backup type, will be defaulted to AUTOMATIC backup type
-        pub const BACKUP_TYPE_UNSPECIFIED: BackupType = BackupType::new(0);
-
+        Unspecified,
         /// Reencrypt automatic backups
-        pub const AUTOMATED: BackupType = BackupType::new(1);
-
+        Automated,
         /// Reencrypt on-demand backups
-        pub const ON_DEMAND: BackupType = BackupType::new(2);
-
-        /// Creates a new BackupType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("BACKUP_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("AUTOMATED"),
-                2 => std::borrow::Cow::Borrowed("ON_DEMAND"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "BACKUP_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::BACKUP_TYPE_UNSPECIFIED),
-                "AUTOMATED" => std::option::Option::Some(Self::AUTOMATED),
-                "ON_DEMAND" => std::option::Option::Some(Self::ON_DEMAND),
-                _ => std::option::Option::None,
-            }
-        }
+        OnDemand,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [BackupType::value] or
+        /// [BackupType::name].
+        UnknownValue(backup_type::UnknownValue),
     }
 
-    impl std::convert::From<i32> for BackupType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod backup_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl BackupType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Automated => std::option::Option::Some(1),
+                Self::OnDemand => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("BACKUP_TYPE_UNSPECIFIED"),
+                Self::Automated => std::option::Option::Some("AUTOMATED"),
+                Self::OnDemand => std::option::Option::Some("ON_DEMAND"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for BackupType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for BackupType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for BackupType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Automated,
+                2 => Self::OnDemand,
+                _ => Self::UnknownValue(backup_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for BackupType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "BACKUP_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "AUTOMATED" => Self::Automated,
+                "ON_DEMAND" => Self::OnDemand,
+                _ => Self::UnknownValue(backup_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for BackupType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Automated => serializer.serialize_i32(1),
+                Self::OnDemand => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for BackupType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<BackupType>::new(
+                ".google.cloud.sql.v1.BackupReencryptionConfig.BackupType"))
         }
     }
 }
@@ -3077,121 +3187,231 @@ pub mod sql_instances_verify_external_sync_settings_request {
     use super::*;
 
 
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExternalSyncMode(i32);
-
-    impl ExternalSyncMode {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ExternalSyncMode {
         /// Unknown external sync mode, will be defaulted to ONLINE mode
-        pub const EXTERNAL_SYNC_MODE_UNSPECIFIED: ExternalSyncMode = ExternalSyncMode::new(0);
-
+        Unspecified,
         /// Online external sync will set up replication after initial data external
         /// sync
-        pub const ONLINE: ExternalSyncMode = ExternalSyncMode::new(1);
-
+        Online,
         /// Offline external sync only dumps and loads a one-time snapshot of
         /// the primary instance's data
-        pub const OFFLINE: ExternalSyncMode = ExternalSyncMode::new(2);
-
-        /// Creates a new ExternalSyncMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("EXTERNAL_SYNC_MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ONLINE"),
-                2 => std::borrow::Cow::Borrowed("OFFLINE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "EXTERNAL_SYNC_MODE_UNSPECIFIED" => std::option::Option::Some(Self::EXTERNAL_SYNC_MODE_UNSPECIFIED),
-                "ONLINE" => std::option::Option::Some(Self::ONLINE),
-                "OFFLINE" => std::option::Option::Some(Self::OFFLINE),
-                _ => std::option::Option::None,
-            }
-        }
+        Offline,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ExternalSyncMode::value] or
+        /// [ExternalSyncMode::name].
+        UnknownValue(external_sync_mode::UnknownValue),
     }
 
-    impl std::convert::From<i32> for ExternalSyncMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod external_sync_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ExternalSyncMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Online => std::option::Option::Some(1),
+                Self::Offline => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EXTERNAL_SYNC_MODE_UNSPECIFIED"),
+                Self::Online => std::option::Option::Some("ONLINE"),
+                Self::Offline => std::option::Option::Some("OFFLINE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for ExternalSyncMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ExternalSyncMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ExternalSyncMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Online,
+                2 => Self::Offline,
+                _ => Self::UnknownValue(external_sync_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ExternalSyncMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EXTERNAL_SYNC_MODE_UNSPECIFIED" => Self::Unspecified,
+                "ONLINE" => Self::Online,
+                "OFFLINE" => Self::Offline,
+                _ => Self::UnknownValue(external_sync_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ExternalSyncMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Online => serializer.serialize_i32(1),
+                Self::Offline => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ExternalSyncMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExternalSyncMode>::new(
+                ".google.cloud.sql.v1.SqlInstancesVerifyExternalSyncSettingsRequest.ExternalSyncMode"))
         }
     }
 
     /// MigrationType determines whether the migration is a physical file-based
     /// migration or a logical dump file-based migration.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MigrationType(i32);
-
-    impl MigrationType {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum MigrationType {
         /// Default value is a logical dump file-based migration
-        pub const MIGRATION_TYPE_UNSPECIFIED: MigrationType = MigrationType::new(0);
-
+        Unspecified,
         /// Logical dump file-based migration
-        pub const LOGICAL: MigrationType = MigrationType::new(1);
-
+        Logical,
         /// Physical file-based migration
-        pub const PHYSICAL: MigrationType = MigrationType::new(2);
-
-        /// Creates a new MigrationType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("MIGRATION_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("LOGICAL"),
-                2 => std::borrow::Cow::Borrowed("PHYSICAL"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "MIGRATION_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::MIGRATION_TYPE_UNSPECIFIED),
-                "LOGICAL" => std::option::Option::Some(Self::LOGICAL),
-                "PHYSICAL" => std::option::Option::Some(Self::PHYSICAL),
-                _ => std::option::Option::None,
-            }
-        }
+        Physical,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [MigrationType::value] or
+        /// [MigrationType::name].
+        UnknownValue(migration_type::UnknownValue),
     }
 
-    impl std::convert::From<i32> for MigrationType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod migration_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl MigrationType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Logical => std::option::Option::Some(1),
+                Self::Physical => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MIGRATION_TYPE_UNSPECIFIED"),
+                Self::Logical => std::option::Option::Some("LOGICAL"),
+                Self::Physical => std::option::Option::Some("PHYSICAL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for MigrationType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for MigrationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for MigrationType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Logical,
+                2 => Self::Physical,
+                _ => Self::UnknownValue(migration_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for MigrationType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MIGRATION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "LOGICAL" => Self::Logical,
+                "PHYSICAL" => Self::Physical,
+                _ => Self::UnknownValue(migration_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for MigrationType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Logical => serializer.serialize_i32(1),
+                Self::Physical => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MigrationType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<MigrationType>::new(
+                ".google.cloud.sql.v1.SqlInstancesVerifyExternalSyncSettingsRequest.MigrationType"))
         }
     }
 
@@ -5048,203 +5268,378 @@ pub mod database_instance {
 
 
         /// This enum lists all possible states regarding out-of-disk issues.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct SqlOutOfDiskState(i32);
-
-        impl SqlOutOfDiskState {
-
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum SqlOutOfDiskState {
             /// Unspecified state
-            pub const SQL_OUT_OF_DISK_STATE_UNSPECIFIED: SqlOutOfDiskState = SqlOutOfDiskState::new(0);
-
+            Unspecified,
             /// The instance has plenty space on data disk
-            pub const NORMAL: SqlOutOfDiskState = SqlOutOfDiskState::new(1);
-
+            Normal,
             /// Data disk is almost used up. It is shutdown to prevent data
             /// corruption.
-            pub const SOFT_SHUTDOWN: SqlOutOfDiskState = SqlOutOfDiskState::new(2);
-
-            /// Creates a new SqlOutOfDiskState instance.
-            pub(crate) const fn new(value: i32) -> Self {
-                Self(value)
-            }
-
-            /// Gets the enum value.
-            pub fn value(&self) -> i32 {
-                self.0
-            }
-            
-            /// Gets the enum value as a string.
-            pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                match self.0 {
-                    0 => std::borrow::Cow::Borrowed("SQL_OUT_OF_DISK_STATE_UNSPECIFIED"),
-                    1 => std::borrow::Cow::Borrowed("NORMAL"),
-                    2 => std::borrow::Cow::Borrowed("SOFT_SHUTDOWN"),
-                    _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                }
-            }
-
-            /// Creates an enum value from the value name.
-            pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                match name {
-                    "SQL_OUT_OF_DISK_STATE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_OUT_OF_DISK_STATE_UNSPECIFIED),
-                    "NORMAL" => std::option::Option::Some(Self::NORMAL),
-                    "SOFT_SHUTDOWN" => std::option::Option::Some(Self::SOFT_SHUTDOWN),
-                    _ => std::option::Option::None,
-                }
-            }
+            SoftShutdown,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [SqlOutOfDiskState::value] or
+            /// [SqlOutOfDiskState::name].
+            UnknownValue(sql_out_of_disk_state::UnknownValue),
         }
 
-        impl std::convert::From<i32> for SqlOutOfDiskState {
-            fn from(value: i32) -> Self {
-                Self::new(value)
+        #[doc(hidden)]
+        pub mod sql_out_of_disk_state {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl SqlOutOfDiskState {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Normal => std::option::Option::Some(1),
+                    Self::SoftShutdown => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("SQL_OUT_OF_DISK_STATE_UNSPECIFIED"),
+                    Self::Normal => std::option::Option::Some("NORMAL"),
+                    Self::SoftShutdown => std::option::Option::Some("SOFT_SHUTDOWN"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
             }
         }
 
         impl std::default::Default for SqlOutOfDiskState {
             fn default() -> Self {
-                Self::new(0)
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for SqlOutOfDiskState {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for SqlOutOfDiskState {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Normal,
+                    2 => Self::SoftShutdown,
+                    _ => Self::UnknownValue(sql_out_of_disk_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for SqlOutOfDiskState {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "SQL_OUT_OF_DISK_STATE_UNSPECIFIED" => Self::Unspecified,
+                    "NORMAL" => Self::Normal,
+                    "SOFT_SHUTDOWN" => Self::SoftShutdown,
+                    _ => Self::UnknownValue(sql_out_of_disk_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for SqlOutOfDiskState {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Normal => serializer.serialize_i32(1),
+                    Self::SoftShutdown => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for SqlOutOfDiskState {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlOutOfDiskState>::new(
+                    ".google.cloud.sql.v1.DatabaseInstance.SqlOutOfDiskReport.SqlOutOfDiskState"))
             }
         }
     }
 
     /// The current serving state of the database instance.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlInstanceState(i32);
-
-    impl SqlInstanceState {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SqlInstanceState {
         /// The state of the instance is unknown.
-        pub const SQL_INSTANCE_STATE_UNSPECIFIED: SqlInstanceState = SqlInstanceState::new(0);
-
+        Unspecified,
         /// The instance is running, or has been stopped by owner.
-        pub const RUNNABLE: SqlInstanceState = SqlInstanceState::new(1);
-
+        Runnable,
         /// The instance is not available, for example due to problems with billing.
-        pub const SUSPENDED: SqlInstanceState = SqlInstanceState::new(2);
-
+        Suspended,
         /// The instance is being deleted.
-        pub const PENDING_DELETE: SqlInstanceState = SqlInstanceState::new(3);
-
+        PendingDelete,
         /// The instance is being created.
-        pub const PENDING_CREATE: SqlInstanceState = SqlInstanceState::new(4);
-
+        PendingCreate,
         /// The instance is down for maintenance.
-        pub const MAINTENANCE: SqlInstanceState = SqlInstanceState::new(5);
-
+        Maintenance,
         /// The creation of the instance failed or a fatal error occurred during
         /// maintenance.
-        pub const FAILED: SqlInstanceState = SqlInstanceState::new(6);
-
+        Failed,
         /// Deprecated
-        pub const ONLINE_MAINTENANCE: SqlInstanceState = SqlInstanceState::new(7);
-
-        /// Creates a new SqlInstanceState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SQL_INSTANCE_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RUNNABLE"),
-                2 => std::borrow::Cow::Borrowed("SUSPENDED"),
-                3 => std::borrow::Cow::Borrowed("PENDING_DELETE"),
-                4 => std::borrow::Cow::Borrowed("PENDING_CREATE"),
-                5 => std::borrow::Cow::Borrowed("MAINTENANCE"),
-                6 => std::borrow::Cow::Borrowed("FAILED"),
-                7 => std::borrow::Cow::Borrowed("ONLINE_MAINTENANCE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SQL_INSTANCE_STATE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_INSTANCE_STATE_UNSPECIFIED),
-                "RUNNABLE" => std::option::Option::Some(Self::RUNNABLE),
-                "SUSPENDED" => std::option::Option::Some(Self::SUSPENDED),
-                "PENDING_DELETE" => std::option::Option::Some(Self::PENDING_DELETE),
-                "PENDING_CREATE" => std::option::Option::Some(Self::PENDING_CREATE),
-                "MAINTENANCE" => std::option::Option::Some(Self::MAINTENANCE),
-                "FAILED" => std::option::Option::Some(Self::FAILED),
-                "ONLINE_MAINTENANCE" => std::option::Option::Some(Self::ONLINE_MAINTENANCE),
-                _ => std::option::Option::None,
-            }
-        }
+        OnlineMaintenance,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SqlInstanceState::value] or
+        /// [SqlInstanceState::name].
+        UnknownValue(sql_instance_state::UnknownValue),
     }
 
-    impl std::convert::From<i32> for SqlInstanceState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod sql_instance_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SqlInstanceState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Runnable => std::option::Option::Some(1),
+                Self::Suspended => std::option::Option::Some(2),
+                Self::PendingDelete => std::option::Option::Some(3),
+                Self::PendingCreate => std::option::Option::Some(4),
+                Self::Maintenance => std::option::Option::Some(5),
+                Self::Failed => std::option::Option::Some(6),
+                Self::OnlineMaintenance => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SQL_INSTANCE_STATE_UNSPECIFIED"),
+                Self::Runnable => std::option::Option::Some("RUNNABLE"),
+                Self::Suspended => std::option::Option::Some("SUSPENDED"),
+                Self::PendingDelete => std::option::Option::Some("PENDING_DELETE"),
+                Self::PendingCreate => std::option::Option::Some("PENDING_CREATE"),
+                Self::Maintenance => std::option::Option::Some("MAINTENANCE"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::OnlineMaintenance => std::option::Option::Some("ONLINE_MAINTENANCE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for SqlInstanceState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SqlInstanceState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SqlInstanceState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Runnable,
+                2 => Self::Suspended,
+                3 => Self::PendingDelete,
+                4 => Self::PendingCreate,
+                5 => Self::Maintenance,
+                6 => Self::Failed,
+                7 => Self::OnlineMaintenance,
+                _ => Self::UnknownValue(sql_instance_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SqlInstanceState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SQL_INSTANCE_STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNABLE" => Self::Runnable,
+                "SUSPENDED" => Self::Suspended,
+                "PENDING_DELETE" => Self::PendingDelete,
+                "PENDING_CREATE" => Self::PendingCreate,
+                "MAINTENANCE" => Self::Maintenance,
+                "FAILED" => Self::Failed,
+                "ONLINE_MAINTENANCE" => Self::OnlineMaintenance,
+                _ => Self::UnknownValue(sql_instance_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SqlInstanceState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Runnable => serializer.serialize_i32(1),
+                Self::Suspended => serializer.serialize_i32(2),
+                Self::PendingDelete => serializer.serialize_i32(3),
+                Self::PendingCreate => serializer.serialize_i32(4),
+                Self::Maintenance => serializer.serialize_i32(5),
+                Self::Failed => serializer.serialize_i32(6),
+                Self::OnlineMaintenance => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SqlInstanceState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlInstanceState>::new(
+                ".google.cloud.sql.v1.DatabaseInstance.SqlInstanceState"))
         }
     }
 
     /// The SQL network architecture for the instance.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlNetworkArchitecture(i32);
-
-    impl SqlNetworkArchitecture {
-
-        pub const SQL_NETWORK_ARCHITECTURE_UNSPECIFIED: SqlNetworkArchitecture = SqlNetworkArchitecture::new(0);
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SqlNetworkArchitecture {
+        Unspecified,
         /// The instance uses the new network architecture.
-        pub const NEW_NETWORK_ARCHITECTURE: SqlNetworkArchitecture = SqlNetworkArchitecture::new(1);
-
+        NewNetworkArchitecture,
         /// The instance uses the old network architecture.
-        pub const OLD_NETWORK_ARCHITECTURE: SqlNetworkArchitecture = SqlNetworkArchitecture::new(2);
-
-        /// Creates a new SqlNetworkArchitecture instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SQL_NETWORK_ARCHITECTURE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NEW_NETWORK_ARCHITECTURE"),
-                2 => std::borrow::Cow::Borrowed("OLD_NETWORK_ARCHITECTURE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SQL_NETWORK_ARCHITECTURE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_NETWORK_ARCHITECTURE_UNSPECIFIED),
-                "NEW_NETWORK_ARCHITECTURE" => std::option::Option::Some(Self::NEW_NETWORK_ARCHITECTURE),
-                "OLD_NETWORK_ARCHITECTURE" => std::option::Option::Some(Self::OLD_NETWORK_ARCHITECTURE),
-                _ => std::option::Option::None,
-            }
-        }
+        OldNetworkArchitecture,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SqlNetworkArchitecture::value] or
+        /// [SqlNetworkArchitecture::name].
+        UnknownValue(sql_network_architecture::UnknownValue),
     }
 
-    impl std::convert::From<i32> for SqlNetworkArchitecture {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod sql_network_architecture {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SqlNetworkArchitecture {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NewNetworkArchitecture => std::option::Option::Some(1),
+                Self::OldNetworkArchitecture => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SQL_NETWORK_ARCHITECTURE_UNSPECIFIED"),
+                Self::NewNetworkArchitecture => std::option::Option::Some("NEW_NETWORK_ARCHITECTURE"),
+                Self::OldNetworkArchitecture => std::option::Option::Some("OLD_NETWORK_ARCHITECTURE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for SqlNetworkArchitecture {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SqlNetworkArchitecture {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SqlNetworkArchitecture {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NewNetworkArchitecture,
+                2 => Self::OldNetworkArchitecture,
+                _ => Self::UnknownValue(sql_network_architecture::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SqlNetworkArchitecture {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SQL_NETWORK_ARCHITECTURE_UNSPECIFIED" => Self::Unspecified,
+                "NEW_NETWORK_ARCHITECTURE" => Self::NewNetworkArchitecture,
+                "OLD_NETWORK_ARCHITECTURE" => Self::OldNetworkArchitecture,
+                _ => Self::UnknownValue(sql_network_architecture::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SqlNetworkArchitecture {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NewNetworkArchitecture => serializer.serialize_i32(1),
+                Self::OldNetworkArchitecture => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SqlNetworkArchitecture {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlNetworkArchitecture>::new(
+                ".google.cloud.sql.v1.DatabaseInstance.SqlNetworkArchitecture"))
         }
     }
 }
@@ -5537,65 +5932,122 @@ pub mod sql_instances_reschedule_maintenance_request_body {
         }
     }
 
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RescheduleType(i32);
-
-    impl RescheduleType {
-
-        pub const RESCHEDULE_TYPE_UNSPECIFIED: RescheduleType = RescheduleType::new(0);
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RescheduleType {
+        Unspecified,
         /// Reschedules maintenance to happen now (within 5 minutes).
-        pub const IMMEDIATE: RescheduleType = RescheduleType::new(1);
-
+        Immediate,
         /// Reschedules maintenance to occur within one week from the originally
         /// scheduled day and time.
-        pub const NEXT_AVAILABLE_WINDOW: RescheduleType = RescheduleType::new(2);
-
+        NextAvailableWindow,
         /// Reschedules maintenance to a specific time and day.
-        pub const SPECIFIC_TIME: RescheduleType = RescheduleType::new(3);
-
-        /// Creates a new RescheduleType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("RESCHEDULE_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("IMMEDIATE"),
-                2 => std::borrow::Cow::Borrowed("NEXT_AVAILABLE_WINDOW"),
-                3 => std::borrow::Cow::Borrowed("SPECIFIC_TIME"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "RESCHEDULE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::RESCHEDULE_TYPE_UNSPECIFIED),
-                "IMMEDIATE" => std::option::Option::Some(Self::IMMEDIATE),
-                "NEXT_AVAILABLE_WINDOW" => std::option::Option::Some(Self::NEXT_AVAILABLE_WINDOW),
-                "SPECIFIC_TIME" => std::option::Option::Some(Self::SPECIFIC_TIME),
-                _ => std::option::Option::None,
-            }
-        }
+        SpecificTime,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RescheduleType::value] or
+        /// [RescheduleType::name].
+        UnknownValue(reschedule_type::UnknownValue),
     }
 
-    impl std::convert::From<i32> for RescheduleType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod reschedule_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RescheduleType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Immediate => std::option::Option::Some(1),
+                Self::NextAvailableWindow => std::option::Option::Some(2),
+                Self::SpecificTime => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RESCHEDULE_TYPE_UNSPECIFIED"),
+                Self::Immediate => std::option::Option::Some("IMMEDIATE"),
+                Self::NextAvailableWindow => std::option::Option::Some("NEXT_AVAILABLE_WINDOW"),
+                Self::SpecificTime => std::option::Option::Some("SPECIFIC_TIME"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for RescheduleType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RescheduleType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RescheduleType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Immediate,
+                2 => Self::NextAvailableWindow,
+                3 => Self::SpecificTime,
+                _ => Self::UnknownValue(reschedule_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RescheduleType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RESCHEDULE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "IMMEDIATE" => Self::Immediate,
+                "NEXT_AVAILABLE_WINDOW" => Self::NextAvailableWindow,
+                "SPECIFIC_TIME" => Self::SpecificTime,
+                _ => Self::UnknownValue(reschedule_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RescheduleType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Immediate => serializer.serialize_i32(1),
+                Self::NextAvailableWindow => serializer.serialize_i32(2),
+                Self::SpecificTime => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RescheduleType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RescheduleType>::new(
+                ".google.cloud.sql.v1.SqlInstancesRescheduleMaintenanceRequestBody.RescheduleType"))
         }
     }
 }
@@ -5984,311 +6436,460 @@ pub mod sql_external_sync_setting_error {
     use super::*;
 
 
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlExternalSyncSettingErrorType(i32);
-
-    impl SqlExternalSyncSettingErrorType {
-
-        pub const SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(0);
-
-        pub const CONNECTION_FAILURE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(1);
-
-        pub const BINLOG_NOT_ENABLED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(2);
-
-        pub const INCOMPATIBLE_DATABASE_VERSION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(3);
-
-        pub const REPLICA_ALREADY_SETUP: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(4);
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SqlExternalSyncSettingErrorType {
+        Unspecified,
+        ConnectionFailure,
+        BinlogNotEnabled,
+        IncompatibleDatabaseVersion,
+        ReplicaAlreadySetup,
         /// The replication user is missing privileges that are required.
-        pub const INSUFFICIENT_PRIVILEGE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(5);
-
+        InsufficientPrivilege,
         /// Unsupported migration type.
-        pub const UNSUPPORTED_MIGRATION_TYPE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(6);
-
+        UnsupportedMigrationType,
         /// No pglogical extension installed on databases, applicable for postgres.
-        pub const NO_PGLOGICAL_INSTALLED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(7);
-
+        NoPglogicalInstalled,
         /// pglogical node already exists on databases, applicable for postgres.
-        pub const PGLOGICAL_NODE_ALREADY_EXISTS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(8);
-
+        PglogicalNodeAlreadyExists,
         /// The value of parameter wal_level is not set to logical.
-        pub const INVALID_WAL_LEVEL: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(9);
-
+        InvalidWalLevel,
         /// The value of parameter shared_preload_libraries does not include
         /// pglogical.
-        pub const INVALID_SHARED_PRELOAD_LIBRARY: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(10);
-
+        InvalidSharedPreloadLibrary,
         /// The value of parameter max_replication_slots is not sufficient.
-        pub const INSUFFICIENT_MAX_REPLICATION_SLOTS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(11);
-
+        InsufficientMaxReplicationSlots,
         /// The value of parameter max_wal_senders is not sufficient.
-        pub const INSUFFICIENT_MAX_WAL_SENDERS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(12);
-
+        InsufficientMaxWalSenders,
         /// The value of parameter max_worker_processes is not sufficient.
-        pub const INSUFFICIENT_MAX_WORKER_PROCESSES: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(13);
-
+        InsufficientMaxWorkerProcesses,
         /// Extensions installed are either not supported or having unsupported
         /// versions.
-        pub const UNSUPPORTED_EXTENSIONS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(14);
-
+        UnsupportedExtensions,
         /// The value of parameter rds.logical_replication is not set to 1.
-        pub const INVALID_RDS_LOGICAL_REPLICATION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(15);
-
+        InvalidRdsLogicalReplication,
         /// The primary instance logging setup doesn't allow EM sync.
-        pub const INVALID_LOGGING_SETUP: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(16);
-
+        InvalidLoggingSetup,
         /// The primary instance database parameter setup doesn't allow EM sync.
-        pub const INVALID_DB_PARAM: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(17);
-
+        InvalidDbParam,
         /// The gtid_mode is not supported, applicable for MySQL.
-        pub const UNSUPPORTED_GTID_MODE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(18);
-
+        UnsupportedGtidMode,
         /// SQL Server Agent is not running.
-        pub const SQLSERVER_AGENT_NOT_RUNNING: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(19);
-
+        SqlserverAgentNotRunning,
         /// The table definition is not support due to missing primary key or replica
         /// identity, applicable for postgres.
-        pub const UNSUPPORTED_TABLE_DEFINITION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(20);
-
+        UnsupportedTableDefinition,
         /// The customer has a definer that will break EM setup.
-        pub const UNSUPPORTED_DEFINER: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(21);
-
+        UnsupportedDefiner,
         /// SQL Server @@SERVERNAME does not match actual host name.
-        pub const SQLSERVER_SERVERNAME_MISMATCH: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(22);
-
+        SqlserverServernameMismatch,
         /// The primary instance has been setup and will fail the setup.
-        pub const PRIMARY_ALREADY_SETUP: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(23);
-
+        PrimaryAlreadySetup,
         /// The primary instance has unsupported binary log format.
-        pub const UNSUPPORTED_BINLOG_FORMAT: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(24);
-
+        UnsupportedBinlogFormat,
         /// The primary instance's binary log retention setting.
-        pub const BINLOG_RETENTION_SETTING: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(25);
-
+        BinlogRetentionSetting,
         /// The primary instance has tables with unsupported storage engine.
-        pub const UNSUPPORTED_STORAGE_ENGINE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(26);
-
+        UnsupportedStorageEngine,
         /// Source has tables with limited support
         /// eg: PostgreSQL tables without primary keys.
-        pub const LIMITED_SUPPORT_TABLES: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(27);
-
+        LimitedSupportTables,
         /// The replica instance contains existing data.
-        pub const EXISTING_DATA_IN_REPLICA: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(28);
-
+        ExistingDataInReplica,
         /// The replication user is missing privileges that are optional.
-        pub const MISSING_OPTIONAL_PRIVILEGES: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(29);
-
+        MissingOptionalPrivileges,
         /// Additional BACKUP_ADMIN privilege is granted to the replication user
         /// which may lock source MySQL 8 instance for DDLs during initial sync.
-        pub const RISKY_BACKUP_ADMIN_PRIVILEGE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(30);
-
+        RiskyBackupAdminPrivilege,
         /// The Cloud Storage bucket is missing necessary permissions.
-        pub const INSUFFICIENT_GCS_PERMISSIONS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(31);
-
+        InsufficientGcsPermissions,
         /// The Cloud Storage bucket has an error in the file or contains invalid
         /// file information.
-        pub const INVALID_FILE_INFO: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(32);
-
+        InvalidFileInfo,
         /// The source instance has unsupported database settings for migration.
-        pub const UNSUPPORTED_DATABASE_SETTINGS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(33);
-
+        UnsupportedDatabaseSettings,
         /// The replication user is missing parallel import specific privileges.
         /// (e.g. LOCK TABLES) for MySQL.
-        pub const MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(34);
-
+        MysqlParallelImportInsufficientPrivilege,
         /// The global variable local_infile is off on external server replica.
-        pub const LOCAL_INFILE_OFF: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(35);
-
+        LocalInfileOff,
         /// This code instructs customers to turn on point-in-time recovery manually
         /// for the instance after promoting the Cloud SQL for PostgreSQL instance.
-        pub const TURN_ON_PITR_AFTER_PROMOTE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(36);
-
+        TurnOnPitrAfterPromote,
         /// The minor version of replica database is incompatible with the source.
-        pub const INCOMPATIBLE_DATABASE_MINOR_VERSION: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(37);
-
+        IncompatibleDatabaseMinorVersion,
         /// This warning message indicates that Cloud SQL uses the maximum number of
         /// subscriptions to migrate data from the source to the destination.
-        pub const SOURCE_MAX_SUBSCRIPTIONS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(38);
-
+        SourceMaxSubscriptions,
         /// Unable to verify definers on the source for MySQL.
-        pub const UNABLE_TO_VERIFY_DEFINERS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(39);
-
+        UnableToVerifyDefiners,
         /// If a time out occurs while the subscription counts are calculated, then
         /// this value is set to 1. Otherwise, this value is set to 2.
-        pub const SUBSCRIPTION_CALCULATION_STATUS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(40);
-
+        SubscriptionCalculationStatus,
         /// Count of subscriptions needed to sync source data for PostgreSQL
         /// database.
-        pub const PG_SUBSCRIPTION_COUNT: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(41);
-
+        PgSubscriptionCount,
         /// Final parallel level that is used to do migration.
-        pub const PG_SYNC_PARALLEL_LEVEL: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(42);
-
+        PgSyncParallelLevel,
         /// The disk size of the replica instance is smaller than the data size of
         /// the source instance.
-        pub const INSUFFICIENT_DISK_SIZE: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(43);
-
+        InsufficientDiskSize,
         /// The data size of the source instance is greater than 1 TB, the number of
         /// cores of the replica instance is less than 8, and the memory of the
         /// replica is less than 32 GB.
-        pub const INSUFFICIENT_MACHINE_TIER: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(44);
-
+        InsufficientMachineTier,
         /// The warning message indicates the unsupported extensions will not be
         /// migrated to the destination.
-        pub const UNSUPPORTED_EXTENSIONS_NOT_MIGRATED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(45);
-
+        UnsupportedExtensionsNotMigrated,
         /// The warning message indicates the pg_cron extension and settings will not
         /// be migrated to the destination.
-        pub const EXTENSIONS_NOT_MIGRATED: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(46);
-
+        ExtensionsNotMigrated,
         /// The error message indicates that pg_cron flags are enabled on the
         /// destination which is not supported during the migration.
-        pub const PG_CRON_FLAG_ENABLED_IN_REPLICA: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(47);
-
+        PgCronFlagEnabledInReplica,
         /// This error message indicates that the specified extensions are not
         /// enabled on destination instance. For example, before you can migrate
         /// data to the destination instance, you must enable the PGAudit extension
         /// on the instance.
-        pub const EXTENSIONS_NOT_ENABLED_IN_REPLICA: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(48);
-
+        ExtensionsNotEnabledInReplica,
         /// The source database has generated columns that can't be migrated. Please
         /// change them to regular columns before migration.
-        pub const UNSUPPORTED_COLUMNS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new(49);
-
-        /// Creates a new SqlExternalSyncSettingErrorType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CONNECTION_FAILURE"),
-                2 => std::borrow::Cow::Borrowed("BINLOG_NOT_ENABLED"),
-                3 => std::borrow::Cow::Borrowed("INCOMPATIBLE_DATABASE_VERSION"),
-                4 => std::borrow::Cow::Borrowed("REPLICA_ALREADY_SETUP"),
-                5 => std::borrow::Cow::Borrowed("INSUFFICIENT_PRIVILEGE"),
-                6 => std::borrow::Cow::Borrowed("UNSUPPORTED_MIGRATION_TYPE"),
-                7 => std::borrow::Cow::Borrowed("NO_PGLOGICAL_INSTALLED"),
-                8 => std::borrow::Cow::Borrowed("PGLOGICAL_NODE_ALREADY_EXISTS"),
-                9 => std::borrow::Cow::Borrowed("INVALID_WAL_LEVEL"),
-                10 => std::borrow::Cow::Borrowed("INVALID_SHARED_PRELOAD_LIBRARY"),
-                11 => std::borrow::Cow::Borrowed("INSUFFICIENT_MAX_REPLICATION_SLOTS"),
-                12 => std::borrow::Cow::Borrowed("INSUFFICIENT_MAX_WAL_SENDERS"),
-                13 => std::borrow::Cow::Borrowed("INSUFFICIENT_MAX_WORKER_PROCESSES"),
-                14 => std::borrow::Cow::Borrowed("UNSUPPORTED_EXTENSIONS"),
-                15 => std::borrow::Cow::Borrowed("INVALID_RDS_LOGICAL_REPLICATION"),
-                16 => std::borrow::Cow::Borrowed("INVALID_LOGGING_SETUP"),
-                17 => std::borrow::Cow::Borrowed("INVALID_DB_PARAM"),
-                18 => std::borrow::Cow::Borrowed("UNSUPPORTED_GTID_MODE"),
-                19 => std::borrow::Cow::Borrowed("SQLSERVER_AGENT_NOT_RUNNING"),
-                20 => std::borrow::Cow::Borrowed("UNSUPPORTED_TABLE_DEFINITION"),
-                21 => std::borrow::Cow::Borrowed("UNSUPPORTED_DEFINER"),
-                22 => std::borrow::Cow::Borrowed("SQLSERVER_SERVERNAME_MISMATCH"),
-                23 => std::borrow::Cow::Borrowed("PRIMARY_ALREADY_SETUP"),
-                24 => std::borrow::Cow::Borrowed("UNSUPPORTED_BINLOG_FORMAT"),
-                25 => std::borrow::Cow::Borrowed("BINLOG_RETENTION_SETTING"),
-                26 => std::borrow::Cow::Borrowed("UNSUPPORTED_STORAGE_ENGINE"),
-                27 => std::borrow::Cow::Borrowed("LIMITED_SUPPORT_TABLES"),
-                28 => std::borrow::Cow::Borrowed("EXISTING_DATA_IN_REPLICA"),
-                29 => std::borrow::Cow::Borrowed("MISSING_OPTIONAL_PRIVILEGES"),
-                30 => std::borrow::Cow::Borrowed("RISKY_BACKUP_ADMIN_PRIVILEGE"),
-                31 => std::borrow::Cow::Borrowed("INSUFFICIENT_GCS_PERMISSIONS"),
-                32 => std::borrow::Cow::Borrowed("INVALID_FILE_INFO"),
-                33 => std::borrow::Cow::Borrowed("UNSUPPORTED_DATABASE_SETTINGS"),
-                34 => std::borrow::Cow::Borrowed("MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE"),
-                35 => std::borrow::Cow::Borrowed("LOCAL_INFILE_OFF"),
-                36 => std::borrow::Cow::Borrowed("TURN_ON_PITR_AFTER_PROMOTE"),
-                37 => std::borrow::Cow::Borrowed("INCOMPATIBLE_DATABASE_MINOR_VERSION"),
-                38 => std::borrow::Cow::Borrowed("SOURCE_MAX_SUBSCRIPTIONS"),
-                39 => std::borrow::Cow::Borrowed("UNABLE_TO_VERIFY_DEFINERS"),
-                40 => std::borrow::Cow::Borrowed("SUBSCRIPTION_CALCULATION_STATUS"),
-                41 => std::borrow::Cow::Borrowed("PG_SUBSCRIPTION_COUNT"),
-                42 => std::borrow::Cow::Borrowed("PG_SYNC_PARALLEL_LEVEL"),
-                43 => std::borrow::Cow::Borrowed("INSUFFICIENT_DISK_SIZE"),
-                44 => std::borrow::Cow::Borrowed("INSUFFICIENT_MACHINE_TIER"),
-                45 => std::borrow::Cow::Borrowed("UNSUPPORTED_EXTENSIONS_NOT_MIGRATED"),
-                46 => std::borrow::Cow::Borrowed("EXTENSIONS_NOT_MIGRATED"),
-                47 => std::borrow::Cow::Borrowed("PG_CRON_FLAG_ENABLED_IN_REPLICA"),
-                48 => std::borrow::Cow::Borrowed("EXTENSIONS_NOT_ENABLED_IN_REPLICA"),
-                49 => std::borrow::Cow::Borrowed("UNSUPPORTED_COLUMNS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED),
-                "CONNECTION_FAILURE" => std::option::Option::Some(Self::CONNECTION_FAILURE),
-                "BINLOG_NOT_ENABLED" => std::option::Option::Some(Self::BINLOG_NOT_ENABLED),
-                "INCOMPATIBLE_DATABASE_VERSION" => std::option::Option::Some(Self::INCOMPATIBLE_DATABASE_VERSION),
-                "REPLICA_ALREADY_SETUP" => std::option::Option::Some(Self::REPLICA_ALREADY_SETUP),
-                "INSUFFICIENT_PRIVILEGE" => std::option::Option::Some(Self::INSUFFICIENT_PRIVILEGE),
-                "UNSUPPORTED_MIGRATION_TYPE" => std::option::Option::Some(Self::UNSUPPORTED_MIGRATION_TYPE),
-                "NO_PGLOGICAL_INSTALLED" => std::option::Option::Some(Self::NO_PGLOGICAL_INSTALLED),
-                "PGLOGICAL_NODE_ALREADY_EXISTS" => std::option::Option::Some(Self::PGLOGICAL_NODE_ALREADY_EXISTS),
-                "INVALID_WAL_LEVEL" => std::option::Option::Some(Self::INVALID_WAL_LEVEL),
-                "INVALID_SHARED_PRELOAD_LIBRARY" => std::option::Option::Some(Self::INVALID_SHARED_PRELOAD_LIBRARY),
-                "INSUFFICIENT_MAX_REPLICATION_SLOTS" => std::option::Option::Some(Self::INSUFFICIENT_MAX_REPLICATION_SLOTS),
-                "INSUFFICIENT_MAX_WAL_SENDERS" => std::option::Option::Some(Self::INSUFFICIENT_MAX_WAL_SENDERS),
-                "INSUFFICIENT_MAX_WORKER_PROCESSES" => std::option::Option::Some(Self::INSUFFICIENT_MAX_WORKER_PROCESSES),
-                "UNSUPPORTED_EXTENSIONS" => std::option::Option::Some(Self::UNSUPPORTED_EXTENSIONS),
-                "INVALID_RDS_LOGICAL_REPLICATION" => std::option::Option::Some(Self::INVALID_RDS_LOGICAL_REPLICATION),
-                "INVALID_LOGGING_SETUP" => std::option::Option::Some(Self::INVALID_LOGGING_SETUP),
-                "INVALID_DB_PARAM" => std::option::Option::Some(Self::INVALID_DB_PARAM),
-                "UNSUPPORTED_GTID_MODE" => std::option::Option::Some(Self::UNSUPPORTED_GTID_MODE),
-                "SQLSERVER_AGENT_NOT_RUNNING" => std::option::Option::Some(Self::SQLSERVER_AGENT_NOT_RUNNING),
-                "UNSUPPORTED_TABLE_DEFINITION" => std::option::Option::Some(Self::UNSUPPORTED_TABLE_DEFINITION),
-                "UNSUPPORTED_DEFINER" => std::option::Option::Some(Self::UNSUPPORTED_DEFINER),
-                "SQLSERVER_SERVERNAME_MISMATCH" => std::option::Option::Some(Self::SQLSERVER_SERVERNAME_MISMATCH),
-                "PRIMARY_ALREADY_SETUP" => std::option::Option::Some(Self::PRIMARY_ALREADY_SETUP),
-                "UNSUPPORTED_BINLOG_FORMAT" => std::option::Option::Some(Self::UNSUPPORTED_BINLOG_FORMAT),
-                "BINLOG_RETENTION_SETTING" => std::option::Option::Some(Self::BINLOG_RETENTION_SETTING),
-                "UNSUPPORTED_STORAGE_ENGINE" => std::option::Option::Some(Self::UNSUPPORTED_STORAGE_ENGINE),
-                "LIMITED_SUPPORT_TABLES" => std::option::Option::Some(Self::LIMITED_SUPPORT_TABLES),
-                "EXISTING_DATA_IN_REPLICA" => std::option::Option::Some(Self::EXISTING_DATA_IN_REPLICA),
-                "MISSING_OPTIONAL_PRIVILEGES" => std::option::Option::Some(Self::MISSING_OPTIONAL_PRIVILEGES),
-                "RISKY_BACKUP_ADMIN_PRIVILEGE" => std::option::Option::Some(Self::RISKY_BACKUP_ADMIN_PRIVILEGE),
-                "INSUFFICIENT_GCS_PERMISSIONS" => std::option::Option::Some(Self::INSUFFICIENT_GCS_PERMISSIONS),
-                "INVALID_FILE_INFO" => std::option::Option::Some(Self::INVALID_FILE_INFO),
-                "UNSUPPORTED_DATABASE_SETTINGS" => std::option::Option::Some(Self::UNSUPPORTED_DATABASE_SETTINGS),
-                "MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE" => std::option::Option::Some(Self::MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE),
-                "LOCAL_INFILE_OFF" => std::option::Option::Some(Self::LOCAL_INFILE_OFF),
-                "TURN_ON_PITR_AFTER_PROMOTE" => std::option::Option::Some(Self::TURN_ON_PITR_AFTER_PROMOTE),
-                "INCOMPATIBLE_DATABASE_MINOR_VERSION" => std::option::Option::Some(Self::INCOMPATIBLE_DATABASE_MINOR_VERSION),
-                "SOURCE_MAX_SUBSCRIPTIONS" => std::option::Option::Some(Self::SOURCE_MAX_SUBSCRIPTIONS),
-                "UNABLE_TO_VERIFY_DEFINERS" => std::option::Option::Some(Self::UNABLE_TO_VERIFY_DEFINERS),
-                "SUBSCRIPTION_CALCULATION_STATUS" => std::option::Option::Some(Self::SUBSCRIPTION_CALCULATION_STATUS),
-                "PG_SUBSCRIPTION_COUNT" => std::option::Option::Some(Self::PG_SUBSCRIPTION_COUNT),
-                "PG_SYNC_PARALLEL_LEVEL" => std::option::Option::Some(Self::PG_SYNC_PARALLEL_LEVEL),
-                "INSUFFICIENT_DISK_SIZE" => std::option::Option::Some(Self::INSUFFICIENT_DISK_SIZE),
-                "INSUFFICIENT_MACHINE_TIER" => std::option::Option::Some(Self::INSUFFICIENT_MACHINE_TIER),
-                "UNSUPPORTED_EXTENSIONS_NOT_MIGRATED" => std::option::Option::Some(Self::UNSUPPORTED_EXTENSIONS_NOT_MIGRATED),
-                "EXTENSIONS_NOT_MIGRATED" => std::option::Option::Some(Self::EXTENSIONS_NOT_MIGRATED),
-                "PG_CRON_FLAG_ENABLED_IN_REPLICA" => std::option::Option::Some(Self::PG_CRON_FLAG_ENABLED_IN_REPLICA),
-                "EXTENSIONS_NOT_ENABLED_IN_REPLICA" => std::option::Option::Some(Self::EXTENSIONS_NOT_ENABLED_IN_REPLICA),
-                "UNSUPPORTED_COLUMNS" => std::option::Option::Some(Self::UNSUPPORTED_COLUMNS),
-                _ => std::option::Option::None,
-            }
-        }
+        UnsupportedColumns,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SqlExternalSyncSettingErrorType::value] or
+        /// [SqlExternalSyncSettingErrorType::name].
+        UnknownValue(sql_external_sync_setting_error_type::UnknownValue),
     }
 
-    impl std::convert::From<i32> for SqlExternalSyncSettingErrorType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod sql_external_sync_setting_error_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SqlExternalSyncSettingErrorType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ConnectionFailure => std::option::Option::Some(1),
+                Self::BinlogNotEnabled => std::option::Option::Some(2),
+                Self::IncompatibleDatabaseVersion => std::option::Option::Some(3),
+                Self::ReplicaAlreadySetup => std::option::Option::Some(4),
+                Self::InsufficientPrivilege => std::option::Option::Some(5),
+                Self::UnsupportedMigrationType => std::option::Option::Some(6),
+                Self::NoPglogicalInstalled => std::option::Option::Some(7),
+                Self::PglogicalNodeAlreadyExists => std::option::Option::Some(8),
+                Self::InvalidWalLevel => std::option::Option::Some(9),
+                Self::InvalidSharedPreloadLibrary => std::option::Option::Some(10),
+                Self::InsufficientMaxReplicationSlots => std::option::Option::Some(11),
+                Self::InsufficientMaxWalSenders => std::option::Option::Some(12),
+                Self::InsufficientMaxWorkerProcesses => std::option::Option::Some(13),
+                Self::UnsupportedExtensions => std::option::Option::Some(14),
+                Self::InvalidRdsLogicalReplication => std::option::Option::Some(15),
+                Self::InvalidLoggingSetup => std::option::Option::Some(16),
+                Self::InvalidDbParam => std::option::Option::Some(17),
+                Self::UnsupportedGtidMode => std::option::Option::Some(18),
+                Self::SqlserverAgentNotRunning => std::option::Option::Some(19),
+                Self::UnsupportedTableDefinition => std::option::Option::Some(20),
+                Self::UnsupportedDefiner => std::option::Option::Some(21),
+                Self::SqlserverServernameMismatch => std::option::Option::Some(22),
+                Self::PrimaryAlreadySetup => std::option::Option::Some(23),
+                Self::UnsupportedBinlogFormat => std::option::Option::Some(24),
+                Self::BinlogRetentionSetting => std::option::Option::Some(25),
+                Self::UnsupportedStorageEngine => std::option::Option::Some(26),
+                Self::LimitedSupportTables => std::option::Option::Some(27),
+                Self::ExistingDataInReplica => std::option::Option::Some(28),
+                Self::MissingOptionalPrivileges => std::option::Option::Some(29),
+                Self::RiskyBackupAdminPrivilege => std::option::Option::Some(30),
+                Self::InsufficientGcsPermissions => std::option::Option::Some(31),
+                Self::InvalidFileInfo => std::option::Option::Some(32),
+                Self::UnsupportedDatabaseSettings => std::option::Option::Some(33),
+                Self::MysqlParallelImportInsufficientPrivilege => std::option::Option::Some(34),
+                Self::LocalInfileOff => std::option::Option::Some(35),
+                Self::TurnOnPitrAfterPromote => std::option::Option::Some(36),
+                Self::IncompatibleDatabaseMinorVersion => std::option::Option::Some(37),
+                Self::SourceMaxSubscriptions => std::option::Option::Some(38),
+                Self::UnableToVerifyDefiners => std::option::Option::Some(39),
+                Self::SubscriptionCalculationStatus => std::option::Option::Some(40),
+                Self::PgSubscriptionCount => std::option::Option::Some(41),
+                Self::PgSyncParallelLevel => std::option::Option::Some(42),
+                Self::InsufficientDiskSize => std::option::Option::Some(43),
+                Self::InsufficientMachineTier => std::option::Option::Some(44),
+                Self::UnsupportedExtensionsNotMigrated => std::option::Option::Some(45),
+                Self::ExtensionsNotMigrated => std::option::Option::Some(46),
+                Self::PgCronFlagEnabledInReplica => std::option::Option::Some(47),
+                Self::ExtensionsNotEnabledInReplica => std::option::Option::Some(48),
+                Self::UnsupportedColumns => std::option::Option::Some(49),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED"),
+                Self::ConnectionFailure => std::option::Option::Some("CONNECTION_FAILURE"),
+                Self::BinlogNotEnabled => std::option::Option::Some("BINLOG_NOT_ENABLED"),
+                Self::IncompatibleDatabaseVersion => std::option::Option::Some("INCOMPATIBLE_DATABASE_VERSION"),
+                Self::ReplicaAlreadySetup => std::option::Option::Some("REPLICA_ALREADY_SETUP"),
+                Self::InsufficientPrivilege => std::option::Option::Some("INSUFFICIENT_PRIVILEGE"),
+                Self::UnsupportedMigrationType => std::option::Option::Some("UNSUPPORTED_MIGRATION_TYPE"),
+                Self::NoPglogicalInstalled => std::option::Option::Some("NO_PGLOGICAL_INSTALLED"),
+                Self::PglogicalNodeAlreadyExists => std::option::Option::Some("PGLOGICAL_NODE_ALREADY_EXISTS"),
+                Self::InvalidWalLevel => std::option::Option::Some("INVALID_WAL_LEVEL"),
+                Self::InvalidSharedPreloadLibrary => std::option::Option::Some("INVALID_SHARED_PRELOAD_LIBRARY"),
+                Self::InsufficientMaxReplicationSlots => std::option::Option::Some("INSUFFICIENT_MAX_REPLICATION_SLOTS"),
+                Self::InsufficientMaxWalSenders => std::option::Option::Some("INSUFFICIENT_MAX_WAL_SENDERS"),
+                Self::InsufficientMaxWorkerProcesses => std::option::Option::Some("INSUFFICIENT_MAX_WORKER_PROCESSES"),
+                Self::UnsupportedExtensions => std::option::Option::Some("UNSUPPORTED_EXTENSIONS"),
+                Self::InvalidRdsLogicalReplication => std::option::Option::Some("INVALID_RDS_LOGICAL_REPLICATION"),
+                Self::InvalidLoggingSetup => std::option::Option::Some("INVALID_LOGGING_SETUP"),
+                Self::InvalidDbParam => std::option::Option::Some("INVALID_DB_PARAM"),
+                Self::UnsupportedGtidMode => std::option::Option::Some("UNSUPPORTED_GTID_MODE"),
+                Self::SqlserverAgentNotRunning => std::option::Option::Some("SQLSERVER_AGENT_NOT_RUNNING"),
+                Self::UnsupportedTableDefinition => std::option::Option::Some("UNSUPPORTED_TABLE_DEFINITION"),
+                Self::UnsupportedDefiner => std::option::Option::Some("UNSUPPORTED_DEFINER"),
+                Self::SqlserverServernameMismatch => std::option::Option::Some("SQLSERVER_SERVERNAME_MISMATCH"),
+                Self::PrimaryAlreadySetup => std::option::Option::Some("PRIMARY_ALREADY_SETUP"),
+                Self::UnsupportedBinlogFormat => std::option::Option::Some("UNSUPPORTED_BINLOG_FORMAT"),
+                Self::BinlogRetentionSetting => std::option::Option::Some("BINLOG_RETENTION_SETTING"),
+                Self::UnsupportedStorageEngine => std::option::Option::Some("UNSUPPORTED_STORAGE_ENGINE"),
+                Self::LimitedSupportTables => std::option::Option::Some("LIMITED_SUPPORT_TABLES"),
+                Self::ExistingDataInReplica => std::option::Option::Some("EXISTING_DATA_IN_REPLICA"),
+                Self::MissingOptionalPrivileges => std::option::Option::Some("MISSING_OPTIONAL_PRIVILEGES"),
+                Self::RiskyBackupAdminPrivilege => std::option::Option::Some("RISKY_BACKUP_ADMIN_PRIVILEGE"),
+                Self::InsufficientGcsPermissions => std::option::Option::Some("INSUFFICIENT_GCS_PERMISSIONS"),
+                Self::InvalidFileInfo => std::option::Option::Some("INVALID_FILE_INFO"),
+                Self::UnsupportedDatabaseSettings => std::option::Option::Some("UNSUPPORTED_DATABASE_SETTINGS"),
+                Self::MysqlParallelImportInsufficientPrivilege => std::option::Option::Some("MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE"),
+                Self::LocalInfileOff => std::option::Option::Some("LOCAL_INFILE_OFF"),
+                Self::TurnOnPitrAfterPromote => std::option::Option::Some("TURN_ON_PITR_AFTER_PROMOTE"),
+                Self::IncompatibleDatabaseMinorVersion => std::option::Option::Some("INCOMPATIBLE_DATABASE_MINOR_VERSION"),
+                Self::SourceMaxSubscriptions => std::option::Option::Some("SOURCE_MAX_SUBSCRIPTIONS"),
+                Self::UnableToVerifyDefiners => std::option::Option::Some("UNABLE_TO_VERIFY_DEFINERS"),
+                Self::SubscriptionCalculationStatus => std::option::Option::Some("SUBSCRIPTION_CALCULATION_STATUS"),
+                Self::PgSubscriptionCount => std::option::Option::Some("PG_SUBSCRIPTION_COUNT"),
+                Self::PgSyncParallelLevel => std::option::Option::Some("PG_SYNC_PARALLEL_LEVEL"),
+                Self::InsufficientDiskSize => std::option::Option::Some("INSUFFICIENT_DISK_SIZE"),
+                Self::InsufficientMachineTier => std::option::Option::Some("INSUFFICIENT_MACHINE_TIER"),
+                Self::UnsupportedExtensionsNotMigrated => std::option::Option::Some("UNSUPPORTED_EXTENSIONS_NOT_MIGRATED"),
+                Self::ExtensionsNotMigrated => std::option::Option::Some("EXTENSIONS_NOT_MIGRATED"),
+                Self::PgCronFlagEnabledInReplica => std::option::Option::Some("PG_CRON_FLAG_ENABLED_IN_REPLICA"),
+                Self::ExtensionsNotEnabledInReplica => std::option::Option::Some("EXTENSIONS_NOT_ENABLED_IN_REPLICA"),
+                Self::UnsupportedColumns => std::option::Option::Some("UNSUPPORTED_COLUMNS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for SqlExternalSyncSettingErrorType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SqlExternalSyncSettingErrorType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SqlExternalSyncSettingErrorType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ConnectionFailure,
+                2 => Self::BinlogNotEnabled,
+                3 => Self::IncompatibleDatabaseVersion,
+                4 => Self::ReplicaAlreadySetup,
+                5 => Self::InsufficientPrivilege,
+                6 => Self::UnsupportedMigrationType,
+                7 => Self::NoPglogicalInstalled,
+                8 => Self::PglogicalNodeAlreadyExists,
+                9 => Self::InvalidWalLevel,
+                10 => Self::InvalidSharedPreloadLibrary,
+                11 => Self::InsufficientMaxReplicationSlots,
+                12 => Self::InsufficientMaxWalSenders,
+                13 => Self::InsufficientMaxWorkerProcesses,
+                14 => Self::UnsupportedExtensions,
+                15 => Self::InvalidRdsLogicalReplication,
+                16 => Self::InvalidLoggingSetup,
+                17 => Self::InvalidDbParam,
+                18 => Self::UnsupportedGtidMode,
+                19 => Self::SqlserverAgentNotRunning,
+                20 => Self::UnsupportedTableDefinition,
+                21 => Self::UnsupportedDefiner,
+                22 => Self::SqlserverServernameMismatch,
+                23 => Self::PrimaryAlreadySetup,
+                24 => Self::UnsupportedBinlogFormat,
+                25 => Self::BinlogRetentionSetting,
+                26 => Self::UnsupportedStorageEngine,
+                27 => Self::LimitedSupportTables,
+                28 => Self::ExistingDataInReplica,
+                29 => Self::MissingOptionalPrivileges,
+                30 => Self::RiskyBackupAdminPrivilege,
+                31 => Self::InsufficientGcsPermissions,
+                32 => Self::InvalidFileInfo,
+                33 => Self::UnsupportedDatabaseSettings,
+                34 => Self::MysqlParallelImportInsufficientPrivilege,
+                35 => Self::LocalInfileOff,
+                36 => Self::TurnOnPitrAfterPromote,
+                37 => Self::IncompatibleDatabaseMinorVersion,
+                38 => Self::SourceMaxSubscriptions,
+                39 => Self::UnableToVerifyDefiners,
+                40 => Self::SubscriptionCalculationStatus,
+                41 => Self::PgSubscriptionCount,
+                42 => Self::PgSyncParallelLevel,
+                43 => Self::InsufficientDiskSize,
+                44 => Self::InsufficientMachineTier,
+                45 => Self::UnsupportedExtensionsNotMigrated,
+                46 => Self::ExtensionsNotMigrated,
+                47 => Self::PgCronFlagEnabledInReplica,
+                48 => Self::ExtensionsNotEnabledInReplica,
+                49 => Self::UnsupportedColumns,
+                _ => Self::UnknownValue(sql_external_sync_setting_error_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SqlExternalSyncSettingErrorType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "CONNECTION_FAILURE" => Self::ConnectionFailure,
+                "BINLOG_NOT_ENABLED" => Self::BinlogNotEnabled,
+                "INCOMPATIBLE_DATABASE_VERSION" => Self::IncompatibleDatabaseVersion,
+                "REPLICA_ALREADY_SETUP" => Self::ReplicaAlreadySetup,
+                "INSUFFICIENT_PRIVILEGE" => Self::InsufficientPrivilege,
+                "UNSUPPORTED_MIGRATION_TYPE" => Self::UnsupportedMigrationType,
+                "NO_PGLOGICAL_INSTALLED" => Self::NoPglogicalInstalled,
+                "PGLOGICAL_NODE_ALREADY_EXISTS" => Self::PglogicalNodeAlreadyExists,
+                "INVALID_WAL_LEVEL" => Self::InvalidWalLevel,
+                "INVALID_SHARED_PRELOAD_LIBRARY" => Self::InvalidSharedPreloadLibrary,
+                "INSUFFICIENT_MAX_REPLICATION_SLOTS" => Self::InsufficientMaxReplicationSlots,
+                "INSUFFICIENT_MAX_WAL_SENDERS" => Self::InsufficientMaxWalSenders,
+                "INSUFFICIENT_MAX_WORKER_PROCESSES" => Self::InsufficientMaxWorkerProcesses,
+                "UNSUPPORTED_EXTENSIONS" => Self::UnsupportedExtensions,
+                "INVALID_RDS_LOGICAL_REPLICATION" => Self::InvalidRdsLogicalReplication,
+                "INVALID_LOGGING_SETUP" => Self::InvalidLoggingSetup,
+                "INVALID_DB_PARAM" => Self::InvalidDbParam,
+                "UNSUPPORTED_GTID_MODE" => Self::UnsupportedGtidMode,
+                "SQLSERVER_AGENT_NOT_RUNNING" => Self::SqlserverAgentNotRunning,
+                "UNSUPPORTED_TABLE_DEFINITION" => Self::UnsupportedTableDefinition,
+                "UNSUPPORTED_DEFINER" => Self::UnsupportedDefiner,
+                "SQLSERVER_SERVERNAME_MISMATCH" => Self::SqlserverServernameMismatch,
+                "PRIMARY_ALREADY_SETUP" => Self::PrimaryAlreadySetup,
+                "UNSUPPORTED_BINLOG_FORMAT" => Self::UnsupportedBinlogFormat,
+                "BINLOG_RETENTION_SETTING" => Self::BinlogRetentionSetting,
+                "UNSUPPORTED_STORAGE_ENGINE" => Self::UnsupportedStorageEngine,
+                "LIMITED_SUPPORT_TABLES" => Self::LimitedSupportTables,
+                "EXISTING_DATA_IN_REPLICA" => Self::ExistingDataInReplica,
+                "MISSING_OPTIONAL_PRIVILEGES" => Self::MissingOptionalPrivileges,
+                "RISKY_BACKUP_ADMIN_PRIVILEGE" => Self::RiskyBackupAdminPrivilege,
+                "INSUFFICIENT_GCS_PERMISSIONS" => Self::InsufficientGcsPermissions,
+                "INVALID_FILE_INFO" => Self::InvalidFileInfo,
+                "UNSUPPORTED_DATABASE_SETTINGS" => Self::UnsupportedDatabaseSettings,
+                "MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE" => Self::MysqlParallelImportInsufficientPrivilege,
+                "LOCAL_INFILE_OFF" => Self::LocalInfileOff,
+                "TURN_ON_PITR_AFTER_PROMOTE" => Self::TurnOnPitrAfterPromote,
+                "INCOMPATIBLE_DATABASE_MINOR_VERSION" => Self::IncompatibleDatabaseMinorVersion,
+                "SOURCE_MAX_SUBSCRIPTIONS" => Self::SourceMaxSubscriptions,
+                "UNABLE_TO_VERIFY_DEFINERS" => Self::UnableToVerifyDefiners,
+                "SUBSCRIPTION_CALCULATION_STATUS" => Self::SubscriptionCalculationStatus,
+                "PG_SUBSCRIPTION_COUNT" => Self::PgSubscriptionCount,
+                "PG_SYNC_PARALLEL_LEVEL" => Self::PgSyncParallelLevel,
+                "INSUFFICIENT_DISK_SIZE" => Self::InsufficientDiskSize,
+                "INSUFFICIENT_MACHINE_TIER" => Self::InsufficientMachineTier,
+                "UNSUPPORTED_EXTENSIONS_NOT_MIGRATED" => Self::UnsupportedExtensionsNotMigrated,
+                "EXTENSIONS_NOT_MIGRATED" => Self::ExtensionsNotMigrated,
+                "PG_CRON_FLAG_ENABLED_IN_REPLICA" => Self::PgCronFlagEnabledInReplica,
+                "EXTENSIONS_NOT_ENABLED_IN_REPLICA" => Self::ExtensionsNotEnabledInReplica,
+                "UNSUPPORTED_COLUMNS" => Self::UnsupportedColumns,
+                _ => Self::UnknownValue(sql_external_sync_setting_error_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SqlExternalSyncSettingErrorType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ConnectionFailure => serializer.serialize_i32(1),
+                Self::BinlogNotEnabled => serializer.serialize_i32(2),
+                Self::IncompatibleDatabaseVersion => serializer.serialize_i32(3),
+                Self::ReplicaAlreadySetup => serializer.serialize_i32(4),
+                Self::InsufficientPrivilege => serializer.serialize_i32(5),
+                Self::UnsupportedMigrationType => serializer.serialize_i32(6),
+                Self::NoPglogicalInstalled => serializer.serialize_i32(7),
+                Self::PglogicalNodeAlreadyExists => serializer.serialize_i32(8),
+                Self::InvalidWalLevel => serializer.serialize_i32(9),
+                Self::InvalidSharedPreloadLibrary => serializer.serialize_i32(10),
+                Self::InsufficientMaxReplicationSlots => serializer.serialize_i32(11),
+                Self::InsufficientMaxWalSenders => serializer.serialize_i32(12),
+                Self::InsufficientMaxWorkerProcesses => serializer.serialize_i32(13),
+                Self::UnsupportedExtensions => serializer.serialize_i32(14),
+                Self::InvalidRdsLogicalReplication => serializer.serialize_i32(15),
+                Self::InvalidLoggingSetup => serializer.serialize_i32(16),
+                Self::InvalidDbParam => serializer.serialize_i32(17),
+                Self::UnsupportedGtidMode => serializer.serialize_i32(18),
+                Self::SqlserverAgentNotRunning => serializer.serialize_i32(19),
+                Self::UnsupportedTableDefinition => serializer.serialize_i32(20),
+                Self::UnsupportedDefiner => serializer.serialize_i32(21),
+                Self::SqlserverServernameMismatch => serializer.serialize_i32(22),
+                Self::PrimaryAlreadySetup => serializer.serialize_i32(23),
+                Self::UnsupportedBinlogFormat => serializer.serialize_i32(24),
+                Self::BinlogRetentionSetting => serializer.serialize_i32(25),
+                Self::UnsupportedStorageEngine => serializer.serialize_i32(26),
+                Self::LimitedSupportTables => serializer.serialize_i32(27),
+                Self::ExistingDataInReplica => serializer.serialize_i32(28),
+                Self::MissingOptionalPrivileges => serializer.serialize_i32(29),
+                Self::RiskyBackupAdminPrivilege => serializer.serialize_i32(30),
+                Self::InsufficientGcsPermissions => serializer.serialize_i32(31),
+                Self::InvalidFileInfo => serializer.serialize_i32(32),
+                Self::UnsupportedDatabaseSettings => serializer.serialize_i32(33),
+                Self::MysqlParallelImportInsufficientPrivilege => serializer.serialize_i32(34),
+                Self::LocalInfileOff => serializer.serialize_i32(35),
+                Self::TurnOnPitrAfterPromote => serializer.serialize_i32(36),
+                Self::IncompatibleDatabaseMinorVersion => serializer.serialize_i32(37),
+                Self::SourceMaxSubscriptions => serializer.serialize_i32(38),
+                Self::UnableToVerifyDefiners => serializer.serialize_i32(39),
+                Self::SubscriptionCalculationStatus => serializer.serialize_i32(40),
+                Self::PgSubscriptionCount => serializer.serialize_i32(41),
+                Self::PgSyncParallelLevel => serializer.serialize_i32(42),
+                Self::InsufficientDiskSize => serializer.serialize_i32(43),
+                Self::InsufficientMachineTier => serializer.serialize_i32(44),
+                Self::UnsupportedExtensionsNotMigrated => serializer.serialize_i32(45),
+                Self::ExtensionsNotMigrated => serializer.serialize_i32(46),
+                Self::PgCronFlagEnabledInReplica => serializer.serialize_i32(47),
+                Self::ExtensionsNotEnabledInReplica => serializer.serialize_i32(48),
+                Self::UnsupportedColumns => serializer.serialize_i32(49),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SqlExternalSyncSettingErrorType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlExternalSyncSettingErrorType>::new(
+                ".google.cloud.sql.v1.SqlExternalSyncSettingError.SqlExternalSyncSettingErrorType"))
         }
     }
 }
@@ -6982,74 +7583,133 @@ pub mod api_warning {
     use super::*;
 
 
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlApiWarningCode(i32);
-
-    impl SqlApiWarningCode {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SqlApiWarningCode {
         /// An unknown or unset warning type from Cloud SQL API.
-        pub const SQL_API_WARNING_CODE_UNSPECIFIED: SqlApiWarningCode = SqlApiWarningCode::new(0);
-
+        Unspecified,
         /// Warning when one or more regions are not reachable.  The returned result
         /// set may be incomplete.
-        pub const REGION_UNREACHABLE: SqlApiWarningCode = SqlApiWarningCode::new(1);
-
+        RegionUnreachable,
         /// Warning when user provided maxResults parameter exceeds the limit.  The
         /// returned result set may be incomplete.
-        pub const MAX_RESULTS_EXCEEDS_LIMIT: SqlApiWarningCode = SqlApiWarningCode::new(2);
-
+        MaxResultsExceedsLimit,
         /// Warning when user tries to create/update a user with credentials that
         /// have previously been compromised by a public data breach.
-        pub const COMPROMISED_CREDENTIALS: SqlApiWarningCode = SqlApiWarningCode::new(3);
-
+        CompromisedCredentials,
         /// Warning when the operation succeeds but some non-critical workflow state
         /// failed.
-        pub const INTERNAL_STATE_FAILURE: SqlApiWarningCode = SqlApiWarningCode::new(4);
-
-        /// Creates a new SqlApiWarningCode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SQL_API_WARNING_CODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("REGION_UNREACHABLE"),
-                2 => std::borrow::Cow::Borrowed("MAX_RESULTS_EXCEEDS_LIMIT"),
-                3 => std::borrow::Cow::Borrowed("COMPROMISED_CREDENTIALS"),
-                4 => std::borrow::Cow::Borrowed("INTERNAL_STATE_FAILURE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SQL_API_WARNING_CODE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_API_WARNING_CODE_UNSPECIFIED),
-                "REGION_UNREACHABLE" => std::option::Option::Some(Self::REGION_UNREACHABLE),
-                "MAX_RESULTS_EXCEEDS_LIMIT" => std::option::Option::Some(Self::MAX_RESULTS_EXCEEDS_LIMIT),
-                "COMPROMISED_CREDENTIALS" => std::option::Option::Some(Self::COMPROMISED_CREDENTIALS),
-                "INTERNAL_STATE_FAILURE" => std::option::Option::Some(Self::INTERNAL_STATE_FAILURE),
-                _ => std::option::Option::None,
-            }
-        }
+        InternalStateFailure,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SqlApiWarningCode::value] or
+        /// [SqlApiWarningCode::name].
+        UnknownValue(sql_api_warning_code::UnknownValue),
     }
 
-    impl std::convert::From<i32> for SqlApiWarningCode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod sql_api_warning_code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SqlApiWarningCode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::RegionUnreachable => std::option::Option::Some(1),
+                Self::MaxResultsExceedsLimit => std::option::Option::Some(2),
+                Self::CompromisedCredentials => std::option::Option::Some(3),
+                Self::InternalStateFailure => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SQL_API_WARNING_CODE_UNSPECIFIED"),
+                Self::RegionUnreachable => std::option::Option::Some("REGION_UNREACHABLE"),
+                Self::MaxResultsExceedsLimit => std::option::Option::Some("MAX_RESULTS_EXCEEDS_LIMIT"),
+                Self::CompromisedCredentials => std::option::Option::Some("COMPROMISED_CREDENTIALS"),
+                Self::InternalStateFailure => std::option::Option::Some("INTERNAL_STATE_FAILURE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for SqlApiWarningCode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SqlApiWarningCode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SqlApiWarningCode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::RegionUnreachable,
+                2 => Self::MaxResultsExceedsLimit,
+                3 => Self::CompromisedCredentials,
+                4 => Self::InternalStateFailure,
+                _ => Self::UnknownValue(sql_api_warning_code::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SqlApiWarningCode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SQL_API_WARNING_CODE_UNSPECIFIED" => Self::Unspecified,
+                "REGION_UNREACHABLE" => Self::RegionUnreachable,
+                "MAX_RESULTS_EXCEEDS_LIMIT" => Self::MaxResultsExceedsLimit,
+                "COMPROMISED_CREDENTIALS" => Self::CompromisedCredentials,
+                "INTERNAL_STATE_FAILURE" => Self::InternalStateFailure,
+                _ => Self::UnknownValue(sql_api_warning_code::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SqlApiWarningCode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::RegionUnreachable => serializer.serialize_i32(1),
+                Self::MaxResultsExceedsLimit => serializer.serialize_i32(2),
+                Self::CompromisedCredentials => serializer.serialize_i32(3),
+                Self::InternalStateFailure => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SqlApiWarningCode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlApiWarningCode>::new(
+                ".google.cloud.sql.v1.ApiWarning.SqlApiWarningCode"))
         }
     }
 }
@@ -7106,55 +7766,108 @@ pub mod backup_retention_settings {
 
 
     /// The units that retained_backups specifies, we only support COUNT.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RetentionUnit(i32);
-
-    impl RetentionUnit {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RetentionUnit {
         /// Backup retention unit is unspecified, will be treated as COUNT.
-        pub const RETENTION_UNIT_UNSPECIFIED: RetentionUnit = RetentionUnit::new(0);
-
+        Unspecified,
         /// Retention will be by count, eg. "retain the most recent 7 backups".
-        pub const COUNT: RetentionUnit = RetentionUnit::new(1);
-
-        /// Creates a new RetentionUnit instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("RETENTION_UNIT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("COUNT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "RETENTION_UNIT_UNSPECIFIED" => std::option::Option::Some(Self::RETENTION_UNIT_UNSPECIFIED),
-                "COUNT" => std::option::Option::Some(Self::COUNT),
-                _ => std::option::Option::None,
-            }
-        }
+        Count,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RetentionUnit::value] or
+        /// [RetentionUnit::name].
+        UnknownValue(retention_unit::UnknownValue),
     }
 
-    impl std::convert::From<i32> for RetentionUnit {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod retention_unit {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RetentionUnit {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Count => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RETENTION_UNIT_UNSPECIFIED"),
+                Self::Count => std::option::Option::Some("COUNT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for RetentionUnit {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RetentionUnit {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RetentionUnit {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Count,
+                _ => Self::UnknownValue(retention_unit::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RetentionUnit {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RETENTION_UNIT_UNSPECIFIED" => Self::Unspecified,
+                "COUNT" => Self::Count,
+                _ => Self::UnknownValue(retention_unit::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RetentionUnit {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Count => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RetentionUnit {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RetentionUnit>::new(
+                ".google.cloud.sql.v1.BackupRetentionSettings.RetentionUnit"))
         }
     }
 }
@@ -7294,76 +8007,135 @@ pub mod backup_configuration {
 
     /// This value contains the storage location of the transactional logs
     /// used to perform point-in-time recovery (PITR) for the database.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct TransactionalLogStorageState(i32);
-
-    impl TransactionalLogStorageState {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TransactionalLogStorageState {
         /// Unspecified.
-        pub const TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED: TransactionalLogStorageState = TransactionalLogStorageState::new(0);
-
+        Unspecified,
         /// The transaction logs used for PITR for the instance are stored
         /// on a data disk.
-        pub const DISK: TransactionalLogStorageState = TransactionalLogStorageState::new(1);
-
+        Disk,
         /// The transaction logs used for PITR for the instance are switching from
         /// being stored on a data disk to being stored in Cloud Storage.
         /// Only applicable to MySQL.
-        pub const SWITCHING_TO_CLOUD_STORAGE: TransactionalLogStorageState = TransactionalLogStorageState::new(2);
-
+        SwitchingToCloudStorage,
         /// The transaction logs used for PITR for the instance are now stored
         /// in Cloud Storage. Previously, they were stored on a data disk.
         /// Only applicable to MySQL.
-        pub const SWITCHED_TO_CLOUD_STORAGE: TransactionalLogStorageState = TransactionalLogStorageState::new(3);
-
+        SwitchedToCloudStorage,
         /// The transaction logs used for PITR for the instance are stored in
         /// Cloud Storage. Only applicable to MySQL and PostgreSQL.
-        pub const CLOUD_STORAGE: TransactionalLogStorageState = TransactionalLogStorageState::new(4);
-
-        /// Creates a new TransactionalLogStorageState instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DISK"),
-                2 => std::borrow::Cow::Borrowed("SWITCHING_TO_CLOUD_STORAGE"),
-                3 => std::borrow::Cow::Borrowed("SWITCHED_TO_CLOUD_STORAGE"),
-                4 => std::borrow::Cow::Borrowed("CLOUD_STORAGE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED" => std::option::Option::Some(Self::TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED),
-                "DISK" => std::option::Option::Some(Self::DISK),
-                "SWITCHING_TO_CLOUD_STORAGE" => std::option::Option::Some(Self::SWITCHING_TO_CLOUD_STORAGE),
-                "SWITCHED_TO_CLOUD_STORAGE" => std::option::Option::Some(Self::SWITCHED_TO_CLOUD_STORAGE),
-                "CLOUD_STORAGE" => std::option::Option::Some(Self::CLOUD_STORAGE),
-                _ => std::option::Option::None,
-            }
-        }
+        CloudStorage,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TransactionalLogStorageState::value] or
+        /// [TransactionalLogStorageState::name].
+        UnknownValue(transactional_log_storage_state::UnknownValue),
     }
 
-    impl std::convert::From<i32> for TransactionalLogStorageState {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod transactional_log_storage_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl TransactionalLogStorageState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Disk => std::option::Option::Some(1),
+                Self::SwitchingToCloudStorage => std::option::Option::Some(2),
+                Self::SwitchedToCloudStorage => std::option::Option::Some(3),
+                Self::CloudStorage => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED"),
+                Self::Disk => std::option::Option::Some("DISK"),
+                Self::SwitchingToCloudStorage => std::option::Option::Some("SWITCHING_TO_CLOUD_STORAGE"),
+                Self::SwitchedToCloudStorage => std::option::Option::Some("SWITCHED_TO_CLOUD_STORAGE"),
+                Self::CloudStorage => std::option::Option::Some("CLOUD_STORAGE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for TransactionalLogStorageState {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TransactionalLogStorageState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TransactionalLogStorageState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Disk,
+                2 => Self::SwitchingToCloudStorage,
+                3 => Self::SwitchedToCloudStorage,
+                4 => Self::CloudStorage,
+                _ => Self::UnknownValue(transactional_log_storage_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TransactionalLogStorageState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED" => Self::Unspecified,
+                "DISK" => Self::Disk,
+                "SWITCHING_TO_CLOUD_STORAGE" => Self::SwitchingToCloudStorage,
+                "SWITCHED_TO_CLOUD_STORAGE" => Self::SwitchedToCloudStorage,
+                "CLOUD_STORAGE" => Self::CloudStorage,
+                _ => Self::UnknownValue(transactional_log_storage_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TransactionalLogStorageState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Disk => serializer.serialize_i32(1),
+                Self::SwitchingToCloudStorage => serializer.serialize_i32(2),
+                Self::SwitchedToCloudStorage => serializer.serialize_i32(3),
+                Self::CloudStorage => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TransactionalLogStorageState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TransactionalLogStorageState>::new(
+                ".google.cloud.sql.v1.BackupConfiguration.TransactionalLogStorageState"))
         }
     }
 }
@@ -9065,30 +9837,25 @@ pub mod ip_configuration {
 
 
     /// The SSL options for database connections.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SslMode(i32);
-
-    impl SslMode {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SslMode {
         /// The SSL mode is unknown.
-        pub const SSL_MODE_UNSPECIFIED: SslMode = SslMode::new(0);
-
+        Unspecified,
         /// Allow non-SSL/non-TLS and SSL/TLS connections.
         /// For SSL connections to MySQL and PostgreSQL, the client certificate
         /// isn't verified.
         ///
         /// When this value is used, the legacy `require_ssl` flag must be false or
         /// cleared to avoid a conflict between the values of the two flags.
-        pub const ALLOW_UNENCRYPTED_AND_ENCRYPTED: SslMode = SslMode::new(1);
-
+        AllowUnencryptedAndEncrypted,
         /// Only allow connections encrypted with SSL/TLS.
         /// For SSL connections to MySQL and PostgreSQL, the client certificate
         /// isn't verified.
         ///
         /// When this value is used, the legacy `require_ssl` flag must be false or
         /// cleared to avoid a conflict between the values of the two flags.
-        pub const ENCRYPTED_ONLY: SslMode = SslMode::new(2);
-
+        EncryptedOnly,
         /// Only allow connections encrypted with SSL/TLS and with valid
         /// client certificates.
         ///
@@ -9103,109 +9870,226 @@ pub mod ip_configuration {
         /// to enforce client identity verification.
         ///
         /// Only applicable to MySQL and PostgreSQL. Not applicable to SQL Server.
-        pub const TRUSTED_CLIENT_CERTIFICATE_REQUIRED: SslMode = SslMode::new(3);
-
-        /// Creates a new SslMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SSL_MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ALLOW_UNENCRYPTED_AND_ENCRYPTED"),
-                2 => std::borrow::Cow::Borrowed("ENCRYPTED_ONLY"),
-                3 => std::borrow::Cow::Borrowed("TRUSTED_CLIENT_CERTIFICATE_REQUIRED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SSL_MODE_UNSPECIFIED" => std::option::Option::Some(Self::SSL_MODE_UNSPECIFIED),
-                "ALLOW_UNENCRYPTED_AND_ENCRYPTED" => std::option::Option::Some(Self::ALLOW_UNENCRYPTED_AND_ENCRYPTED),
-                "ENCRYPTED_ONLY" => std::option::Option::Some(Self::ENCRYPTED_ONLY),
-                "TRUSTED_CLIENT_CERTIFICATE_REQUIRED" => std::option::Option::Some(Self::TRUSTED_CLIENT_CERTIFICATE_REQUIRED),
-                _ => std::option::Option::None,
-            }
-        }
+        TrustedClientCertificateRequired,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SslMode::value] or
+        /// [SslMode::name].
+        UnknownValue(ssl_mode::UnknownValue),
     }
 
-    impl std::convert::From<i32> for SslMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod ssl_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SslMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::AllowUnencryptedAndEncrypted => std::option::Option::Some(1),
+                Self::EncryptedOnly => std::option::Option::Some(2),
+                Self::TrustedClientCertificateRequired => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SSL_MODE_UNSPECIFIED"),
+                Self::AllowUnencryptedAndEncrypted => std::option::Option::Some("ALLOW_UNENCRYPTED_AND_ENCRYPTED"),
+                Self::EncryptedOnly => std::option::Option::Some("ENCRYPTED_ONLY"),
+                Self::TrustedClientCertificateRequired => std::option::Option::Some("TRUSTED_CLIENT_CERTIFICATE_REQUIRED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for SslMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SslMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SslMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::AllowUnencryptedAndEncrypted,
+                2 => Self::EncryptedOnly,
+                3 => Self::TrustedClientCertificateRequired,
+                _ => Self::UnknownValue(ssl_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SslMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SSL_MODE_UNSPECIFIED" => Self::Unspecified,
+                "ALLOW_UNENCRYPTED_AND_ENCRYPTED" => Self::AllowUnencryptedAndEncrypted,
+                "ENCRYPTED_ONLY" => Self::EncryptedOnly,
+                "TRUSTED_CLIENT_CERTIFICATE_REQUIRED" => Self::TrustedClientCertificateRequired,
+                _ => Self::UnknownValue(ssl_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SslMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::AllowUnencryptedAndEncrypted => serializer.serialize_i32(1),
+                Self::EncryptedOnly => serializer.serialize_i32(2),
+                Self::TrustedClientCertificateRequired => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SslMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SslMode>::new(
+                ".google.cloud.sql.v1.IpConfiguration.SslMode"))
         }
     }
 
     /// Various Certificate Authority (CA) modes for certificate signing.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CaMode(i32);
-
-    impl CaMode {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CaMode {
         /// CA mode is unknown.
-        pub const CA_MODE_UNSPECIFIED: CaMode = CaMode::new(0);
-
+        Unspecified,
         /// Google-managed self-signed internal CA.
-        pub const GOOGLE_MANAGED_INTERNAL_CA: CaMode = CaMode::new(1);
-
+        GoogleManagedInternalCa,
         /// Google-managed regional CA part of root CA hierarchy hosted on Google
         /// Cloud's Certificate Authority Service (CAS).
-        pub const GOOGLE_MANAGED_CAS_CA: CaMode = CaMode::new(2);
-
-        /// Creates a new CaMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CA_MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_INTERNAL_CA"),
-                2 => std::borrow::Cow::Borrowed("GOOGLE_MANAGED_CAS_CA"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CA_MODE_UNSPECIFIED" => std::option::Option::Some(Self::CA_MODE_UNSPECIFIED),
-                "GOOGLE_MANAGED_INTERNAL_CA" => std::option::Option::Some(Self::GOOGLE_MANAGED_INTERNAL_CA),
-                "GOOGLE_MANAGED_CAS_CA" => std::option::Option::Some(Self::GOOGLE_MANAGED_CAS_CA),
-                _ => std::option::Option::None,
-            }
-        }
+        GoogleManagedCasCa,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CaMode::value] or
+        /// [CaMode::name].
+        UnknownValue(ca_mode::UnknownValue),
     }
 
-    impl std::convert::From<i32> for CaMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod ca_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl CaMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::GoogleManagedInternalCa => std::option::Option::Some(1),
+                Self::GoogleManagedCasCa => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CA_MODE_UNSPECIFIED"),
+                Self::GoogleManagedInternalCa => std::option::Option::Some("GOOGLE_MANAGED_INTERNAL_CA"),
+                Self::GoogleManagedCasCa => std::option::Option::Some("GOOGLE_MANAGED_CAS_CA"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for CaMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CaMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CaMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::GoogleManagedInternalCa,
+                2 => Self::GoogleManagedCasCa,
+                _ => Self::UnknownValue(ca_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CaMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CA_MODE_UNSPECIFIED" => Self::Unspecified,
+                "GOOGLE_MANAGED_INTERNAL_CA" => Self::GoogleManagedInternalCa,
+                "GOOGLE_MANAGED_CAS_CA" => Self::GoogleManagedCasCa,
+                _ => Self::UnknownValue(ca_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CaMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::GoogleManagedInternalCa => serializer.serialize_i32(1),
+                Self::GoogleManagedCasCa => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CaMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CaMode>::new(
+                ".google.cloud.sql.v1.IpConfiguration.CaMode"))
         }
     }
 }
@@ -10057,352 +10941,550 @@ pub mod operation {
 
 
     /// The type of Cloud SQL operation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlOperationType(i32);
-
-    impl SqlOperationType {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SqlOperationType {
         /// Unknown operation type.
-        pub const SQL_OPERATION_TYPE_UNSPECIFIED: SqlOperationType = SqlOperationType::new(0);
-
+        Unspecified,
         /// Imports data into a Cloud SQL instance.
-        pub const IMPORT: SqlOperationType = SqlOperationType::new(1);
-
+        Import,
         /// Exports data from a Cloud SQL instance to a Cloud Storage
         /// bucket.
-        pub const EXPORT: SqlOperationType = SqlOperationType::new(2);
-
+        Export,
         /// Creates a new Cloud SQL instance.
-        pub const CREATE: SqlOperationType = SqlOperationType::new(3);
-
+        Create,
         /// Updates the settings of a Cloud SQL instance.
-        pub const UPDATE: SqlOperationType = SqlOperationType::new(4);
-
+        Update,
         /// Deletes a Cloud SQL instance.
-        pub const DELETE: SqlOperationType = SqlOperationType::new(5);
-
+        Delete,
         /// Restarts the Cloud SQL instance.
-        pub const RESTART: SqlOperationType = SqlOperationType::new(6);
-
-        pub const BACKUP: SqlOperationType = SqlOperationType::new(7);
-
-        pub const SNAPSHOT: SqlOperationType = SqlOperationType::new(8);
-
+        Restart,
+        Backup,
+        Snapshot,
         /// Performs instance backup.
-        pub const BACKUP_VOLUME: SqlOperationType = SqlOperationType::new(9);
-
+        BackupVolume,
         /// Deletes an instance backup.
-        pub const DELETE_VOLUME: SqlOperationType = SqlOperationType::new(10);
-
+        DeleteVolume,
         /// Restores an instance backup.
-        pub const RESTORE_VOLUME: SqlOperationType = SqlOperationType::new(11);
-
+        RestoreVolume,
         /// Injects a privileged user in mysql for MOB instances.
-        pub const INJECT_USER: SqlOperationType = SqlOperationType::new(12);
-
+        InjectUser,
         /// Clones a Cloud SQL instance.
-        pub const CLONE: SqlOperationType = SqlOperationType::new(14);
-
+        Clone,
         /// Stops replication on a Cloud SQL read replica instance.
-        pub const STOP_REPLICA: SqlOperationType = SqlOperationType::new(15);
-
+        StopReplica,
         /// Starts replication on a Cloud SQL read replica instance.
-        pub const START_REPLICA: SqlOperationType = SqlOperationType::new(16);
-
+        StartReplica,
         /// Promotes a Cloud SQL replica instance.
-        pub const PROMOTE_REPLICA: SqlOperationType = SqlOperationType::new(17);
-
+        PromoteReplica,
         /// Creates a Cloud SQL replica instance.
-        pub const CREATE_REPLICA: SqlOperationType = SqlOperationType::new(18);
-
+        CreateReplica,
         /// Creates a new user in a Cloud SQL instance.
-        pub const CREATE_USER: SqlOperationType = SqlOperationType::new(19);
-
+        CreateUser,
         /// Deletes a user from a Cloud SQL instance.
-        pub const DELETE_USER: SqlOperationType = SqlOperationType::new(20);
-
+        DeleteUser,
         /// Updates an existing user in a Cloud SQL instance.
-        pub const UPDATE_USER: SqlOperationType = SqlOperationType::new(21);
-
+        UpdateUser,
         /// Creates a database in the Cloud SQL instance.
-        pub const CREATE_DATABASE: SqlOperationType = SqlOperationType::new(22);
-
+        CreateDatabase,
         /// Deletes a database in the Cloud SQL instance.
-        pub const DELETE_DATABASE: SqlOperationType = SqlOperationType::new(23);
-
+        DeleteDatabase,
         /// Updates a database in the Cloud SQL instance.
-        pub const UPDATE_DATABASE: SqlOperationType = SqlOperationType::new(24);
-
+        UpdateDatabase,
         /// Performs failover of an HA-enabled Cloud SQL
         /// failover replica.
-        pub const FAILOVER: SqlOperationType = SqlOperationType::new(25);
-
+        Failover,
         /// Deletes the backup taken by a backup run.
-        pub const DELETE_BACKUP: SqlOperationType = SqlOperationType::new(26);
-
-        pub const RECREATE_REPLICA: SqlOperationType = SqlOperationType::new(27);
-
+        DeleteBackup,
+        RecreateReplica,
         /// Truncates a general or slow log table in MySQL.
-        pub const TRUNCATE_LOG: SqlOperationType = SqlOperationType::new(28);
-
+        TruncateLog,
         /// Demotes the stand-alone instance to be a Cloud SQL
         /// read replica for an external database server.
-        pub const DEMOTE_MASTER: SqlOperationType = SqlOperationType::new(29);
-
+        DemoteMaster,
         /// Indicates that the instance is currently in maintenance. Maintenance
         /// typically causes the instance to be unavailable for 1-3 minutes.
-        pub const MAINTENANCE: SqlOperationType = SqlOperationType::new(30);
-
+        Maintenance,
         /// This field is deprecated, and will be removed in future version of API.
-        pub const ENABLE_PRIVATE_IP: SqlOperationType = SqlOperationType::new(31);
-
-        pub const DEFER_MAINTENANCE: SqlOperationType = SqlOperationType::new(32);
-
+        EnablePrivateIp,
+        DeferMaintenance,
         /// Creates clone instance.
-        pub const CREATE_CLONE: SqlOperationType = SqlOperationType::new(33);
-
+        CreateClone,
         /// Reschedule maintenance to another time.
-        pub const RESCHEDULE_MAINTENANCE: SqlOperationType = SqlOperationType::new(34);
-
+        RescheduleMaintenance,
         /// Starts external sync of a Cloud SQL EM replica to an external primary
         /// instance.
-        pub const START_EXTERNAL_SYNC: SqlOperationType = SqlOperationType::new(35);
-
+        StartExternalSync,
         /// Recovers logs from an instance's old data disk.
-        pub const LOG_CLEANUP: SqlOperationType = SqlOperationType::new(36);
-
+        LogCleanup,
         /// Performs auto-restart of an HA-enabled Cloud SQL database for auto
         /// recovery.
-        pub const AUTO_RESTART: SqlOperationType = SqlOperationType::new(37);
-
+        AutoRestart,
         /// Re-encrypts CMEK instances with latest key version.
-        pub const REENCRYPT: SqlOperationType = SqlOperationType::new(38);
-
+        Reencrypt,
         /// Switches the roles of the primary and replica pair. The target instance
         /// should be the replica.
-        pub const SWITCHOVER: SqlOperationType = SqlOperationType::new(39);
-
+        Switchover,
         /// Acquire a lease for the setup of SQL Server Reporting Services (SSRS).
-        pub const ACQUIRE_SSRS_LEASE: SqlOperationType = SqlOperationType::new(42);
-
+        AcquireSsrsLease,
         /// Release a lease for the setup of SQL Server Reporting Services (SSRS).
-        pub const RELEASE_SSRS_LEASE: SqlOperationType = SqlOperationType::new(43);
-
+        ReleaseSsrsLease,
         /// Reconfigures old primary after a promote replica operation. Effect of a
         /// promote operation to the old primary is executed in this operation,
         /// asynchronously from the promote replica operation executed to the
         /// replica.
-        pub const RECONFIGURE_OLD_PRIMARY: SqlOperationType = SqlOperationType::new(44);
-
+        ReconfigureOldPrimary,
         /// Indicates that the instance, its read replicas, and its cascading
         /// replicas are in maintenance. Maintenance typically gets initiated on
         /// groups of replicas first, followed by the primary instance. For each
         /// instance, maintenance typically causes the instance to be unavailable for
         /// 1-3 minutes.
-        pub const CLUSTER_MAINTENANCE: SqlOperationType = SqlOperationType::new(45);
-
+        ClusterMaintenance,
         /// Indicates that the instance (and any of its replicas) are currently in
         /// maintenance. This is initiated as a self-service request by using SSM.
         /// Maintenance typically causes the instance to be unavailable for 1-3
         /// minutes.
-        pub const SELF_SERVICE_MAINTENANCE: SqlOperationType = SqlOperationType::new(46);
-
+        SelfServiceMaintenance,
         /// Switches a primary instance to a replica. This operation runs as part of
         /// a switchover operation to the original primary instance.
-        pub const SWITCHOVER_TO_REPLICA: SqlOperationType = SqlOperationType::new(47);
-
+        SwitchoverToReplica,
         /// Updates the major version of a Cloud SQL instance.
-        pub const MAJOR_VERSION_UPGRADE: SqlOperationType = SqlOperationType::new(48);
-
-        /// Creates a new SqlOperationType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SQL_OPERATION_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("IMPORT"),
-                2 => std::borrow::Cow::Borrowed("EXPORT"),
-                3 => std::borrow::Cow::Borrowed("CREATE"),
-                4 => std::borrow::Cow::Borrowed("UPDATE"),
-                5 => std::borrow::Cow::Borrowed("DELETE"),
-                6 => std::borrow::Cow::Borrowed("RESTART"),
-                7 => std::borrow::Cow::Borrowed("BACKUP"),
-                8 => std::borrow::Cow::Borrowed("SNAPSHOT"),
-                9 => std::borrow::Cow::Borrowed("BACKUP_VOLUME"),
-                10 => std::borrow::Cow::Borrowed("DELETE_VOLUME"),
-                11 => std::borrow::Cow::Borrowed("RESTORE_VOLUME"),
-                12 => std::borrow::Cow::Borrowed("INJECT_USER"),
-                14 => std::borrow::Cow::Borrowed("CLONE"),
-                15 => std::borrow::Cow::Borrowed("STOP_REPLICA"),
-                16 => std::borrow::Cow::Borrowed("START_REPLICA"),
-                17 => std::borrow::Cow::Borrowed("PROMOTE_REPLICA"),
-                18 => std::borrow::Cow::Borrowed("CREATE_REPLICA"),
-                19 => std::borrow::Cow::Borrowed("CREATE_USER"),
-                20 => std::borrow::Cow::Borrowed("DELETE_USER"),
-                21 => std::borrow::Cow::Borrowed("UPDATE_USER"),
-                22 => std::borrow::Cow::Borrowed("CREATE_DATABASE"),
-                23 => std::borrow::Cow::Borrowed("DELETE_DATABASE"),
-                24 => std::borrow::Cow::Borrowed("UPDATE_DATABASE"),
-                25 => std::borrow::Cow::Borrowed("FAILOVER"),
-                26 => std::borrow::Cow::Borrowed("DELETE_BACKUP"),
-                27 => std::borrow::Cow::Borrowed("RECREATE_REPLICA"),
-                28 => std::borrow::Cow::Borrowed("TRUNCATE_LOG"),
-                29 => std::borrow::Cow::Borrowed("DEMOTE_MASTER"),
-                30 => std::borrow::Cow::Borrowed("MAINTENANCE"),
-                31 => std::borrow::Cow::Borrowed("ENABLE_PRIVATE_IP"),
-                32 => std::borrow::Cow::Borrowed("DEFER_MAINTENANCE"),
-                33 => std::borrow::Cow::Borrowed("CREATE_CLONE"),
-                34 => std::borrow::Cow::Borrowed("RESCHEDULE_MAINTENANCE"),
-                35 => std::borrow::Cow::Borrowed("START_EXTERNAL_SYNC"),
-                36 => std::borrow::Cow::Borrowed("LOG_CLEANUP"),
-                37 => std::borrow::Cow::Borrowed("AUTO_RESTART"),
-                38 => std::borrow::Cow::Borrowed("REENCRYPT"),
-                39 => std::borrow::Cow::Borrowed("SWITCHOVER"),
-                42 => std::borrow::Cow::Borrowed("ACQUIRE_SSRS_LEASE"),
-                43 => std::borrow::Cow::Borrowed("RELEASE_SSRS_LEASE"),
-                44 => std::borrow::Cow::Borrowed("RECONFIGURE_OLD_PRIMARY"),
-                45 => std::borrow::Cow::Borrowed("CLUSTER_MAINTENANCE"),
-                46 => std::borrow::Cow::Borrowed("SELF_SERVICE_MAINTENANCE"),
-                47 => std::borrow::Cow::Borrowed("SWITCHOVER_TO_REPLICA"),
-                48 => std::borrow::Cow::Borrowed("MAJOR_VERSION_UPGRADE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SQL_OPERATION_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_OPERATION_TYPE_UNSPECIFIED),
-                "IMPORT" => std::option::Option::Some(Self::IMPORT),
-                "EXPORT" => std::option::Option::Some(Self::EXPORT),
-                "CREATE" => std::option::Option::Some(Self::CREATE),
-                "UPDATE" => std::option::Option::Some(Self::UPDATE),
-                "DELETE" => std::option::Option::Some(Self::DELETE),
-                "RESTART" => std::option::Option::Some(Self::RESTART),
-                "BACKUP" => std::option::Option::Some(Self::BACKUP),
-                "SNAPSHOT" => std::option::Option::Some(Self::SNAPSHOT),
-                "BACKUP_VOLUME" => std::option::Option::Some(Self::BACKUP_VOLUME),
-                "DELETE_VOLUME" => std::option::Option::Some(Self::DELETE_VOLUME),
-                "RESTORE_VOLUME" => std::option::Option::Some(Self::RESTORE_VOLUME),
-                "INJECT_USER" => std::option::Option::Some(Self::INJECT_USER),
-                "CLONE" => std::option::Option::Some(Self::CLONE),
-                "STOP_REPLICA" => std::option::Option::Some(Self::STOP_REPLICA),
-                "START_REPLICA" => std::option::Option::Some(Self::START_REPLICA),
-                "PROMOTE_REPLICA" => std::option::Option::Some(Self::PROMOTE_REPLICA),
-                "CREATE_REPLICA" => std::option::Option::Some(Self::CREATE_REPLICA),
-                "CREATE_USER" => std::option::Option::Some(Self::CREATE_USER),
-                "DELETE_USER" => std::option::Option::Some(Self::DELETE_USER),
-                "UPDATE_USER" => std::option::Option::Some(Self::UPDATE_USER),
-                "CREATE_DATABASE" => std::option::Option::Some(Self::CREATE_DATABASE),
-                "DELETE_DATABASE" => std::option::Option::Some(Self::DELETE_DATABASE),
-                "UPDATE_DATABASE" => std::option::Option::Some(Self::UPDATE_DATABASE),
-                "FAILOVER" => std::option::Option::Some(Self::FAILOVER),
-                "DELETE_BACKUP" => std::option::Option::Some(Self::DELETE_BACKUP),
-                "RECREATE_REPLICA" => std::option::Option::Some(Self::RECREATE_REPLICA),
-                "TRUNCATE_LOG" => std::option::Option::Some(Self::TRUNCATE_LOG),
-                "DEMOTE_MASTER" => std::option::Option::Some(Self::DEMOTE_MASTER),
-                "MAINTENANCE" => std::option::Option::Some(Self::MAINTENANCE),
-                "ENABLE_PRIVATE_IP" => std::option::Option::Some(Self::ENABLE_PRIVATE_IP),
-                "DEFER_MAINTENANCE" => std::option::Option::Some(Self::DEFER_MAINTENANCE),
-                "CREATE_CLONE" => std::option::Option::Some(Self::CREATE_CLONE),
-                "RESCHEDULE_MAINTENANCE" => std::option::Option::Some(Self::RESCHEDULE_MAINTENANCE),
-                "START_EXTERNAL_SYNC" => std::option::Option::Some(Self::START_EXTERNAL_SYNC),
-                "LOG_CLEANUP" => std::option::Option::Some(Self::LOG_CLEANUP),
-                "AUTO_RESTART" => std::option::Option::Some(Self::AUTO_RESTART),
-                "REENCRYPT" => std::option::Option::Some(Self::REENCRYPT),
-                "SWITCHOVER" => std::option::Option::Some(Self::SWITCHOVER),
-                "ACQUIRE_SSRS_LEASE" => std::option::Option::Some(Self::ACQUIRE_SSRS_LEASE),
-                "RELEASE_SSRS_LEASE" => std::option::Option::Some(Self::RELEASE_SSRS_LEASE),
-                "RECONFIGURE_OLD_PRIMARY" => std::option::Option::Some(Self::RECONFIGURE_OLD_PRIMARY),
-                "CLUSTER_MAINTENANCE" => std::option::Option::Some(Self::CLUSTER_MAINTENANCE),
-                "SELF_SERVICE_MAINTENANCE" => std::option::Option::Some(Self::SELF_SERVICE_MAINTENANCE),
-                "SWITCHOVER_TO_REPLICA" => std::option::Option::Some(Self::SWITCHOVER_TO_REPLICA),
-                "MAJOR_VERSION_UPGRADE" => std::option::Option::Some(Self::MAJOR_VERSION_UPGRADE),
-                _ => std::option::Option::None,
-            }
-        }
+        MajorVersionUpgrade,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SqlOperationType::value] or
+        /// [SqlOperationType::name].
+        UnknownValue(sql_operation_type::UnknownValue),
     }
 
-    impl std::convert::From<i32> for SqlOperationType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod sql_operation_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SqlOperationType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Import => std::option::Option::Some(1),
+                Self::Export => std::option::Option::Some(2),
+                Self::Create => std::option::Option::Some(3),
+                Self::Update => std::option::Option::Some(4),
+                Self::Delete => std::option::Option::Some(5),
+                Self::Restart => std::option::Option::Some(6),
+                Self::Backup => std::option::Option::Some(7),
+                Self::Snapshot => std::option::Option::Some(8),
+                Self::BackupVolume => std::option::Option::Some(9),
+                Self::DeleteVolume => std::option::Option::Some(10),
+                Self::RestoreVolume => std::option::Option::Some(11),
+                Self::InjectUser => std::option::Option::Some(12),
+                Self::Clone => std::option::Option::Some(14),
+                Self::StopReplica => std::option::Option::Some(15),
+                Self::StartReplica => std::option::Option::Some(16),
+                Self::PromoteReplica => std::option::Option::Some(17),
+                Self::CreateReplica => std::option::Option::Some(18),
+                Self::CreateUser => std::option::Option::Some(19),
+                Self::DeleteUser => std::option::Option::Some(20),
+                Self::UpdateUser => std::option::Option::Some(21),
+                Self::CreateDatabase => std::option::Option::Some(22),
+                Self::DeleteDatabase => std::option::Option::Some(23),
+                Self::UpdateDatabase => std::option::Option::Some(24),
+                Self::Failover => std::option::Option::Some(25),
+                Self::DeleteBackup => std::option::Option::Some(26),
+                Self::RecreateReplica => std::option::Option::Some(27),
+                Self::TruncateLog => std::option::Option::Some(28),
+                Self::DemoteMaster => std::option::Option::Some(29),
+                Self::Maintenance => std::option::Option::Some(30),
+                Self::EnablePrivateIp => std::option::Option::Some(31),
+                Self::DeferMaintenance => std::option::Option::Some(32),
+                Self::CreateClone => std::option::Option::Some(33),
+                Self::RescheduleMaintenance => std::option::Option::Some(34),
+                Self::StartExternalSync => std::option::Option::Some(35),
+                Self::LogCleanup => std::option::Option::Some(36),
+                Self::AutoRestart => std::option::Option::Some(37),
+                Self::Reencrypt => std::option::Option::Some(38),
+                Self::Switchover => std::option::Option::Some(39),
+                Self::AcquireSsrsLease => std::option::Option::Some(42),
+                Self::ReleaseSsrsLease => std::option::Option::Some(43),
+                Self::ReconfigureOldPrimary => std::option::Option::Some(44),
+                Self::ClusterMaintenance => std::option::Option::Some(45),
+                Self::SelfServiceMaintenance => std::option::Option::Some(46),
+                Self::SwitchoverToReplica => std::option::Option::Some(47),
+                Self::MajorVersionUpgrade => std::option::Option::Some(48),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SQL_OPERATION_TYPE_UNSPECIFIED"),
+                Self::Import => std::option::Option::Some("IMPORT"),
+                Self::Export => std::option::Option::Some("EXPORT"),
+                Self::Create => std::option::Option::Some("CREATE"),
+                Self::Update => std::option::Option::Some("UPDATE"),
+                Self::Delete => std::option::Option::Some("DELETE"),
+                Self::Restart => std::option::Option::Some("RESTART"),
+                Self::Backup => std::option::Option::Some("BACKUP"),
+                Self::Snapshot => std::option::Option::Some("SNAPSHOT"),
+                Self::BackupVolume => std::option::Option::Some("BACKUP_VOLUME"),
+                Self::DeleteVolume => std::option::Option::Some("DELETE_VOLUME"),
+                Self::RestoreVolume => std::option::Option::Some("RESTORE_VOLUME"),
+                Self::InjectUser => std::option::Option::Some("INJECT_USER"),
+                Self::Clone => std::option::Option::Some("CLONE"),
+                Self::StopReplica => std::option::Option::Some("STOP_REPLICA"),
+                Self::StartReplica => std::option::Option::Some("START_REPLICA"),
+                Self::PromoteReplica => std::option::Option::Some("PROMOTE_REPLICA"),
+                Self::CreateReplica => std::option::Option::Some("CREATE_REPLICA"),
+                Self::CreateUser => std::option::Option::Some("CREATE_USER"),
+                Self::DeleteUser => std::option::Option::Some("DELETE_USER"),
+                Self::UpdateUser => std::option::Option::Some("UPDATE_USER"),
+                Self::CreateDatabase => std::option::Option::Some("CREATE_DATABASE"),
+                Self::DeleteDatabase => std::option::Option::Some("DELETE_DATABASE"),
+                Self::UpdateDatabase => std::option::Option::Some("UPDATE_DATABASE"),
+                Self::Failover => std::option::Option::Some("FAILOVER"),
+                Self::DeleteBackup => std::option::Option::Some("DELETE_BACKUP"),
+                Self::RecreateReplica => std::option::Option::Some("RECREATE_REPLICA"),
+                Self::TruncateLog => std::option::Option::Some("TRUNCATE_LOG"),
+                Self::DemoteMaster => std::option::Option::Some("DEMOTE_MASTER"),
+                Self::Maintenance => std::option::Option::Some("MAINTENANCE"),
+                Self::EnablePrivateIp => std::option::Option::Some("ENABLE_PRIVATE_IP"),
+                Self::DeferMaintenance => std::option::Option::Some("DEFER_MAINTENANCE"),
+                Self::CreateClone => std::option::Option::Some("CREATE_CLONE"),
+                Self::RescheduleMaintenance => std::option::Option::Some("RESCHEDULE_MAINTENANCE"),
+                Self::StartExternalSync => std::option::Option::Some("START_EXTERNAL_SYNC"),
+                Self::LogCleanup => std::option::Option::Some("LOG_CLEANUP"),
+                Self::AutoRestart => std::option::Option::Some("AUTO_RESTART"),
+                Self::Reencrypt => std::option::Option::Some("REENCRYPT"),
+                Self::Switchover => std::option::Option::Some("SWITCHOVER"),
+                Self::AcquireSsrsLease => std::option::Option::Some("ACQUIRE_SSRS_LEASE"),
+                Self::ReleaseSsrsLease => std::option::Option::Some("RELEASE_SSRS_LEASE"),
+                Self::ReconfigureOldPrimary => std::option::Option::Some("RECONFIGURE_OLD_PRIMARY"),
+                Self::ClusterMaintenance => std::option::Option::Some("CLUSTER_MAINTENANCE"),
+                Self::SelfServiceMaintenance => std::option::Option::Some("SELF_SERVICE_MAINTENANCE"),
+                Self::SwitchoverToReplica => std::option::Option::Some("SWITCHOVER_TO_REPLICA"),
+                Self::MajorVersionUpgrade => std::option::Option::Some("MAJOR_VERSION_UPGRADE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for SqlOperationType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SqlOperationType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SqlOperationType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Import,
+                2 => Self::Export,
+                3 => Self::Create,
+                4 => Self::Update,
+                5 => Self::Delete,
+                6 => Self::Restart,
+                7 => Self::Backup,
+                8 => Self::Snapshot,
+                9 => Self::BackupVolume,
+                10 => Self::DeleteVolume,
+                11 => Self::RestoreVolume,
+                12 => Self::InjectUser,
+                14 => Self::Clone,
+                15 => Self::StopReplica,
+                16 => Self::StartReplica,
+                17 => Self::PromoteReplica,
+                18 => Self::CreateReplica,
+                19 => Self::CreateUser,
+                20 => Self::DeleteUser,
+                21 => Self::UpdateUser,
+                22 => Self::CreateDatabase,
+                23 => Self::DeleteDatabase,
+                24 => Self::UpdateDatabase,
+                25 => Self::Failover,
+                26 => Self::DeleteBackup,
+                27 => Self::RecreateReplica,
+                28 => Self::TruncateLog,
+                29 => Self::DemoteMaster,
+                30 => Self::Maintenance,
+                31 => Self::EnablePrivateIp,
+                32 => Self::DeferMaintenance,
+                33 => Self::CreateClone,
+                34 => Self::RescheduleMaintenance,
+                35 => Self::StartExternalSync,
+                36 => Self::LogCleanup,
+                37 => Self::AutoRestart,
+                38 => Self::Reencrypt,
+                39 => Self::Switchover,
+                42 => Self::AcquireSsrsLease,
+                43 => Self::ReleaseSsrsLease,
+                44 => Self::ReconfigureOldPrimary,
+                45 => Self::ClusterMaintenance,
+                46 => Self::SelfServiceMaintenance,
+                47 => Self::SwitchoverToReplica,
+                48 => Self::MajorVersionUpgrade,
+                _ => Self::UnknownValue(sql_operation_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SqlOperationType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SQL_OPERATION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "IMPORT" => Self::Import,
+                "EXPORT" => Self::Export,
+                "CREATE" => Self::Create,
+                "UPDATE" => Self::Update,
+                "DELETE" => Self::Delete,
+                "RESTART" => Self::Restart,
+                "BACKUP" => Self::Backup,
+                "SNAPSHOT" => Self::Snapshot,
+                "BACKUP_VOLUME" => Self::BackupVolume,
+                "DELETE_VOLUME" => Self::DeleteVolume,
+                "RESTORE_VOLUME" => Self::RestoreVolume,
+                "INJECT_USER" => Self::InjectUser,
+                "CLONE" => Self::Clone,
+                "STOP_REPLICA" => Self::StopReplica,
+                "START_REPLICA" => Self::StartReplica,
+                "PROMOTE_REPLICA" => Self::PromoteReplica,
+                "CREATE_REPLICA" => Self::CreateReplica,
+                "CREATE_USER" => Self::CreateUser,
+                "DELETE_USER" => Self::DeleteUser,
+                "UPDATE_USER" => Self::UpdateUser,
+                "CREATE_DATABASE" => Self::CreateDatabase,
+                "DELETE_DATABASE" => Self::DeleteDatabase,
+                "UPDATE_DATABASE" => Self::UpdateDatabase,
+                "FAILOVER" => Self::Failover,
+                "DELETE_BACKUP" => Self::DeleteBackup,
+                "RECREATE_REPLICA" => Self::RecreateReplica,
+                "TRUNCATE_LOG" => Self::TruncateLog,
+                "DEMOTE_MASTER" => Self::DemoteMaster,
+                "MAINTENANCE" => Self::Maintenance,
+                "ENABLE_PRIVATE_IP" => Self::EnablePrivateIp,
+                "DEFER_MAINTENANCE" => Self::DeferMaintenance,
+                "CREATE_CLONE" => Self::CreateClone,
+                "RESCHEDULE_MAINTENANCE" => Self::RescheduleMaintenance,
+                "START_EXTERNAL_SYNC" => Self::StartExternalSync,
+                "LOG_CLEANUP" => Self::LogCleanup,
+                "AUTO_RESTART" => Self::AutoRestart,
+                "REENCRYPT" => Self::Reencrypt,
+                "SWITCHOVER" => Self::Switchover,
+                "ACQUIRE_SSRS_LEASE" => Self::AcquireSsrsLease,
+                "RELEASE_SSRS_LEASE" => Self::ReleaseSsrsLease,
+                "RECONFIGURE_OLD_PRIMARY" => Self::ReconfigureOldPrimary,
+                "CLUSTER_MAINTENANCE" => Self::ClusterMaintenance,
+                "SELF_SERVICE_MAINTENANCE" => Self::SelfServiceMaintenance,
+                "SWITCHOVER_TO_REPLICA" => Self::SwitchoverToReplica,
+                "MAJOR_VERSION_UPGRADE" => Self::MajorVersionUpgrade,
+                _ => Self::UnknownValue(sql_operation_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SqlOperationType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Import => serializer.serialize_i32(1),
+                Self::Export => serializer.serialize_i32(2),
+                Self::Create => serializer.serialize_i32(3),
+                Self::Update => serializer.serialize_i32(4),
+                Self::Delete => serializer.serialize_i32(5),
+                Self::Restart => serializer.serialize_i32(6),
+                Self::Backup => serializer.serialize_i32(7),
+                Self::Snapshot => serializer.serialize_i32(8),
+                Self::BackupVolume => serializer.serialize_i32(9),
+                Self::DeleteVolume => serializer.serialize_i32(10),
+                Self::RestoreVolume => serializer.serialize_i32(11),
+                Self::InjectUser => serializer.serialize_i32(12),
+                Self::Clone => serializer.serialize_i32(14),
+                Self::StopReplica => serializer.serialize_i32(15),
+                Self::StartReplica => serializer.serialize_i32(16),
+                Self::PromoteReplica => serializer.serialize_i32(17),
+                Self::CreateReplica => serializer.serialize_i32(18),
+                Self::CreateUser => serializer.serialize_i32(19),
+                Self::DeleteUser => serializer.serialize_i32(20),
+                Self::UpdateUser => serializer.serialize_i32(21),
+                Self::CreateDatabase => serializer.serialize_i32(22),
+                Self::DeleteDatabase => serializer.serialize_i32(23),
+                Self::UpdateDatabase => serializer.serialize_i32(24),
+                Self::Failover => serializer.serialize_i32(25),
+                Self::DeleteBackup => serializer.serialize_i32(26),
+                Self::RecreateReplica => serializer.serialize_i32(27),
+                Self::TruncateLog => serializer.serialize_i32(28),
+                Self::DemoteMaster => serializer.serialize_i32(29),
+                Self::Maintenance => serializer.serialize_i32(30),
+                Self::EnablePrivateIp => serializer.serialize_i32(31),
+                Self::DeferMaintenance => serializer.serialize_i32(32),
+                Self::CreateClone => serializer.serialize_i32(33),
+                Self::RescheduleMaintenance => serializer.serialize_i32(34),
+                Self::StartExternalSync => serializer.serialize_i32(35),
+                Self::LogCleanup => serializer.serialize_i32(36),
+                Self::AutoRestart => serializer.serialize_i32(37),
+                Self::Reencrypt => serializer.serialize_i32(38),
+                Self::Switchover => serializer.serialize_i32(39),
+                Self::AcquireSsrsLease => serializer.serialize_i32(42),
+                Self::ReleaseSsrsLease => serializer.serialize_i32(43),
+                Self::ReconfigureOldPrimary => serializer.serialize_i32(44),
+                Self::ClusterMaintenance => serializer.serialize_i32(45),
+                Self::SelfServiceMaintenance => serializer.serialize_i32(46),
+                Self::SwitchoverToReplica => serializer.serialize_i32(47),
+                Self::MajorVersionUpgrade => serializer.serialize_i32(48),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SqlOperationType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlOperationType>::new(
+                ".google.cloud.sql.v1.Operation.SqlOperationType"))
         }
     }
 
     /// The status of an operation.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlOperationStatus(i32);
-
-    impl SqlOperationStatus {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SqlOperationStatus {
         /// The state of the operation is unknown.
-        pub const SQL_OPERATION_STATUS_UNSPECIFIED: SqlOperationStatus = SqlOperationStatus::new(0);
-
+        Unspecified,
         /// The operation has been queued, but has not started yet.
-        pub const PENDING: SqlOperationStatus = SqlOperationStatus::new(1);
-
+        Pending,
         /// The operation is running.
-        pub const RUNNING: SqlOperationStatus = SqlOperationStatus::new(2);
-
+        Running,
         /// The operation completed.
-        pub const DONE: SqlOperationStatus = SqlOperationStatus::new(3);
-
-        /// Creates a new SqlOperationStatus instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SQL_OPERATION_STATUS_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PENDING"),
-                2 => std::borrow::Cow::Borrowed("RUNNING"),
-                3 => std::borrow::Cow::Borrowed("DONE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SQL_OPERATION_STATUS_UNSPECIFIED" => std::option::Option::Some(Self::SQL_OPERATION_STATUS_UNSPECIFIED),
-                "PENDING" => std::option::Option::Some(Self::PENDING),
-                "RUNNING" => std::option::Option::Some(Self::RUNNING),
-                "DONE" => std::option::Option::Some(Self::DONE),
-                _ => std::option::Option::None,
-            }
-        }
+        Done,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SqlOperationStatus::value] or
+        /// [SqlOperationStatus::name].
+        UnknownValue(sql_operation_status::UnknownValue),
     }
 
-    impl std::convert::From<i32> for SqlOperationStatus {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod sql_operation_status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SqlOperationStatus {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Pending => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::Done => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SQL_OPERATION_STATUS_UNSPECIFIED"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Done => std::option::Option::Some("DONE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for SqlOperationStatus {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SqlOperationStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SqlOperationStatus {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Pending,
+                2 => Self::Running,
+                3 => Self::Done,
+                _ => Self::UnknownValue(sql_operation_status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SqlOperationStatus {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SQL_OPERATION_STATUS_UNSPECIFIED" => Self::Unspecified,
+                "PENDING" => Self::Pending,
+                "RUNNING" => Self::Running,
+                "DONE" => Self::Done,
+                _ => Self::UnknownValue(sql_operation_status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SqlOperationStatus {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Pending => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::Done => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SqlOperationStatus {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlOperationStatus>::new(
+                ".google.cloud.sql.v1.Operation.SqlOperationStatus"))
         }
     }
 }
@@ -10609,56 +11691,109 @@ pub mod password_validation_policy {
 
 
     /// The complexity choices of the password.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Complexity(i32);
-
-    impl Complexity {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Complexity {
         /// Complexity check is not specified.
-        pub const COMPLEXITY_UNSPECIFIED: Complexity = Complexity::new(0);
-
+        Unspecified,
         /// A combination of lowercase, uppercase, numeric, and non-alphanumeric
         /// characters.
-        pub const COMPLEXITY_DEFAULT: Complexity = Complexity::new(1);
-
-        /// Creates a new Complexity instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("COMPLEXITY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("COMPLEXITY_DEFAULT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "COMPLEXITY_UNSPECIFIED" => std::option::Option::Some(Self::COMPLEXITY_UNSPECIFIED),
-                "COMPLEXITY_DEFAULT" => std::option::Option::Some(Self::COMPLEXITY_DEFAULT),
-                _ => std::option::Option::None,
-            }
-        }
+        Default,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Complexity::value] or
+        /// [Complexity::name].
+        UnknownValue(complexity::UnknownValue),
     }
 
-    impl std::convert::From<i32> for Complexity {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod complexity {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Complexity {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Default => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("COMPLEXITY_UNSPECIFIED"),
+                Self::Default => std::option::Option::Some("COMPLEXITY_DEFAULT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for Complexity {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Complexity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Complexity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Default,
+                _ => Self::UnknownValue(complexity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Complexity {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "COMPLEXITY_UNSPECIFIED" => Self::Unspecified,
+                "COMPLEXITY_DEFAULT" => Self::Default,
+                _ => Self::UnknownValue(complexity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Complexity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Default => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Complexity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Complexity>::new(
+                ".google.cloud.sql.v1.PasswordValidationPolicy.Complexity"))
         }
     }
 }
@@ -11134,183 +12269,350 @@ pub mod settings {
 
 
     /// Specifies when the instance is activated.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlActivationPolicy(i32);
-
-    impl SqlActivationPolicy {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SqlActivationPolicy {
         /// Unknown activation plan.
-        pub const SQL_ACTIVATION_POLICY_UNSPECIFIED: SqlActivationPolicy = SqlActivationPolicy::new(0);
-
+        Unspecified,
         /// The instance is always up and running.
-        pub const ALWAYS: SqlActivationPolicy = SqlActivationPolicy::new(1);
-
+        Always,
         /// The instance never starts.
-        pub const NEVER: SqlActivationPolicy = SqlActivationPolicy::new(2);
-
+        Never,
         /// The instance starts upon receiving requests.
-        pub const ON_DEMAND: SqlActivationPolicy = SqlActivationPolicy::new(3);
-
-        /// Creates a new SqlActivationPolicy instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SQL_ACTIVATION_POLICY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ALWAYS"),
-                2 => std::borrow::Cow::Borrowed("NEVER"),
-                3 => std::borrow::Cow::Borrowed("ON_DEMAND"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SQL_ACTIVATION_POLICY_UNSPECIFIED" => std::option::Option::Some(Self::SQL_ACTIVATION_POLICY_UNSPECIFIED),
-                "ALWAYS" => std::option::Option::Some(Self::ALWAYS),
-                "NEVER" => std::option::Option::Some(Self::NEVER),
-                "ON_DEMAND" => std::option::Option::Some(Self::ON_DEMAND),
-                _ => std::option::Option::None,
-            }
-        }
+        OnDemand,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SqlActivationPolicy::value] or
+        /// [SqlActivationPolicy::name].
+        UnknownValue(sql_activation_policy::UnknownValue),
     }
 
-    impl std::convert::From<i32> for SqlActivationPolicy {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod sql_activation_policy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SqlActivationPolicy {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Always => std::option::Option::Some(1),
+                Self::Never => std::option::Option::Some(2),
+                Self::OnDemand => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SQL_ACTIVATION_POLICY_UNSPECIFIED"),
+                Self::Always => std::option::Option::Some("ALWAYS"),
+                Self::Never => std::option::Option::Some("NEVER"),
+                Self::OnDemand => std::option::Option::Some("ON_DEMAND"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for SqlActivationPolicy {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SqlActivationPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SqlActivationPolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Always,
+                2 => Self::Never,
+                3 => Self::OnDemand,
+                _ => Self::UnknownValue(sql_activation_policy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SqlActivationPolicy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SQL_ACTIVATION_POLICY_UNSPECIFIED" => Self::Unspecified,
+                "ALWAYS" => Self::Always,
+                "NEVER" => Self::Never,
+                "ON_DEMAND" => Self::OnDemand,
+                _ => Self::UnknownValue(sql_activation_policy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SqlActivationPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Always => serializer.serialize_i32(1),
+                Self::Never => serializer.serialize_i32(2),
+                Self::OnDemand => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SqlActivationPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlActivationPolicy>::new(
+                ".google.cloud.sql.v1.Settings.SqlActivationPolicy"))
         }
     }
 
     /// The edition of the instance, can be ENTERPRISE or ENTERPRISE_PLUS.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Edition(i32);
-
-    impl Edition {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Edition {
         /// The instance did not specify the edition.
-        pub const EDITION_UNSPECIFIED: Edition = Edition::new(0);
-
+        Unspecified,
         /// The instance is an enterprise edition.
-        pub const ENTERPRISE: Edition = Edition::new(2);
-
+        Enterprise,
         /// The instance is an Enterprise Plus edition.
-        pub const ENTERPRISE_PLUS: Edition = Edition::new(3);
-
-        /// Creates a new Edition instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("EDITION_UNSPECIFIED"),
-                2 => std::borrow::Cow::Borrowed("ENTERPRISE"),
-                3 => std::borrow::Cow::Borrowed("ENTERPRISE_PLUS"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "EDITION_UNSPECIFIED" => std::option::Option::Some(Self::EDITION_UNSPECIFIED),
-                "ENTERPRISE" => std::option::Option::Some(Self::ENTERPRISE),
-                "ENTERPRISE_PLUS" => std::option::Option::Some(Self::ENTERPRISE_PLUS),
-                _ => std::option::Option::None,
-            }
-        }
+        EnterprisePlus,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Edition::value] or
+        /// [Edition::name].
+        UnknownValue(edition::UnknownValue),
     }
 
-    impl std::convert::From<i32> for Edition {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod edition {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Edition {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enterprise => std::option::Option::Some(2),
+                Self::EnterprisePlus => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EDITION_UNSPECIFIED"),
+                Self::Enterprise => std::option::Option::Some("ENTERPRISE"),
+                Self::EnterprisePlus => std::option::Option::Some("ENTERPRISE_PLUS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for Edition {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Edition {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Edition {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                2 => Self::Enterprise,
+                3 => Self::EnterprisePlus,
+                _ => Self::UnknownValue(edition::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Edition {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EDITION_UNSPECIFIED" => Self::Unspecified,
+                "ENTERPRISE" => Self::Enterprise,
+                "ENTERPRISE_PLUS" => Self::EnterprisePlus,
+                _ => Self::UnknownValue(edition::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Edition {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enterprise => serializer.serialize_i32(2),
+                Self::EnterprisePlus => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Edition {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Edition>::new(
+                ".google.cloud.sql.v1.Settings.Edition"))
         }
     }
 
     /// The options for enforcing Cloud SQL connectors in the instance.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConnectorEnforcement(i32);
-
-    impl ConnectorEnforcement {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ConnectorEnforcement {
         /// The requirement for Cloud SQL connectors is unknown.
-        pub const CONNECTOR_ENFORCEMENT_UNSPECIFIED: ConnectorEnforcement = ConnectorEnforcement::new(0);
-
+        Unspecified,
         /// Do not require Cloud SQL connectors.
-        pub const NOT_REQUIRED: ConnectorEnforcement = ConnectorEnforcement::new(1);
-
+        NotRequired,
         /// Require all connections to use Cloud SQL connectors, including the
         /// Cloud SQL Auth Proxy and Cloud SQL Java, Python, and Go connectors.
         /// Note: This disables all existing authorized networks.
-        pub const REQUIRED: ConnectorEnforcement = ConnectorEnforcement::new(2);
-
-        /// Creates a new ConnectorEnforcement instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CONNECTOR_ENFORCEMENT_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NOT_REQUIRED"),
-                2 => std::borrow::Cow::Borrowed("REQUIRED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CONNECTOR_ENFORCEMENT_UNSPECIFIED" => std::option::Option::Some(Self::CONNECTOR_ENFORCEMENT_UNSPECIFIED),
-                "NOT_REQUIRED" => std::option::Option::Some(Self::NOT_REQUIRED),
-                "REQUIRED" => std::option::Option::Some(Self::REQUIRED),
-                _ => std::option::Option::None,
-            }
-        }
+        Required,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ConnectorEnforcement::value] or
+        /// [ConnectorEnforcement::name].
+        UnknownValue(connector_enforcement::UnknownValue),
     }
 
-    impl std::convert::From<i32> for ConnectorEnforcement {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod connector_enforcement {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ConnectorEnforcement {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NotRequired => std::option::Option::Some(1),
+                Self::Required => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CONNECTOR_ENFORCEMENT_UNSPECIFIED"),
+                Self::NotRequired => std::option::Option::Some("NOT_REQUIRED"),
+                Self::Required => std::option::Option::Some("REQUIRED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for ConnectorEnforcement {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ConnectorEnforcement {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ConnectorEnforcement {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NotRequired,
+                2 => Self::Required,
+                _ => Self::UnknownValue(connector_enforcement::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ConnectorEnforcement {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CONNECTOR_ENFORCEMENT_UNSPECIFIED" => Self::Unspecified,
+                "NOT_REQUIRED" => Self::NotRequired,
+                "REQUIRED" => Self::Required,
+                _ => Self::UnknownValue(connector_enforcement::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ConnectorEnforcement {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NotRequired => serializer.serialize_i32(1),
+                Self::Required => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ConnectorEnforcement {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConnectorEnforcement>::new(
+                ".google.cloud.sql.v1.Settings.ConnectorEnforcement"))
         }
     }
 }
@@ -12774,138 +14076,256 @@ pub mod user {
 
 
     /// The user type.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SqlUserType(i32);
-
-    impl SqlUserType {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SqlUserType {
         /// The database's built-in user type.
-        pub const BUILT_IN: SqlUserType = SqlUserType::new(0);
-
+        BuiltIn,
         /// Cloud IAM user.
-        pub const CLOUD_IAM_USER: SqlUserType = SqlUserType::new(1);
-
+        CloudIamUser,
         /// Cloud IAM service account.
-        pub const CLOUD_IAM_SERVICE_ACCOUNT: SqlUserType = SqlUserType::new(2);
-
+        CloudIamServiceAccount,
         /// Cloud IAM group non-login user.
-        pub const CLOUD_IAM_GROUP: SqlUserType = SqlUserType::new(3);
-
+        CloudIamGroup,
         /// Cloud IAM group login user.
-        pub const CLOUD_IAM_GROUP_USER: SqlUserType = SqlUserType::new(4);
-
+        CloudIamGroupUser,
         /// Cloud IAM group login service account.
-        pub const CLOUD_IAM_GROUP_SERVICE_ACCOUNT: SqlUserType = SqlUserType::new(5);
-
-        /// Creates a new SqlUserType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("BUILT_IN"),
-                1 => std::borrow::Cow::Borrowed("CLOUD_IAM_USER"),
-                2 => std::borrow::Cow::Borrowed("CLOUD_IAM_SERVICE_ACCOUNT"),
-                3 => std::borrow::Cow::Borrowed("CLOUD_IAM_GROUP"),
-                4 => std::borrow::Cow::Borrowed("CLOUD_IAM_GROUP_USER"),
-                5 => std::borrow::Cow::Borrowed("CLOUD_IAM_GROUP_SERVICE_ACCOUNT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "BUILT_IN" => std::option::Option::Some(Self::BUILT_IN),
-                "CLOUD_IAM_USER" => std::option::Option::Some(Self::CLOUD_IAM_USER),
-                "CLOUD_IAM_SERVICE_ACCOUNT" => std::option::Option::Some(Self::CLOUD_IAM_SERVICE_ACCOUNT),
-                "CLOUD_IAM_GROUP" => std::option::Option::Some(Self::CLOUD_IAM_GROUP),
-                "CLOUD_IAM_GROUP_USER" => std::option::Option::Some(Self::CLOUD_IAM_GROUP_USER),
-                "CLOUD_IAM_GROUP_SERVICE_ACCOUNT" => std::option::Option::Some(Self::CLOUD_IAM_GROUP_SERVICE_ACCOUNT),
-                _ => std::option::Option::None,
-            }
-        }
+        CloudIamGroupServiceAccount,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SqlUserType::value] or
+        /// [SqlUserType::name].
+        UnknownValue(sql_user_type::UnknownValue),
     }
 
-    impl std::convert::From<i32> for SqlUserType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod sql_user_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl SqlUserType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::BuiltIn => std::option::Option::Some(0),
+                Self::CloudIamUser => std::option::Option::Some(1),
+                Self::CloudIamServiceAccount => std::option::Option::Some(2),
+                Self::CloudIamGroup => std::option::Option::Some(3),
+                Self::CloudIamGroupUser => std::option::Option::Some(4),
+                Self::CloudIamGroupServiceAccount => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::BuiltIn => std::option::Option::Some("BUILT_IN"),
+                Self::CloudIamUser => std::option::Option::Some("CLOUD_IAM_USER"),
+                Self::CloudIamServiceAccount => std::option::Option::Some("CLOUD_IAM_SERVICE_ACCOUNT"),
+                Self::CloudIamGroup => std::option::Option::Some("CLOUD_IAM_GROUP"),
+                Self::CloudIamGroupUser => std::option::Option::Some("CLOUD_IAM_GROUP_USER"),
+                Self::CloudIamGroupServiceAccount => std::option::Option::Some("CLOUD_IAM_GROUP_SERVICE_ACCOUNT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for SqlUserType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SqlUserType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SqlUserType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::BuiltIn,
+                1 => Self::CloudIamUser,
+                2 => Self::CloudIamServiceAccount,
+                3 => Self::CloudIamGroup,
+                4 => Self::CloudIamGroupUser,
+                5 => Self::CloudIamGroupServiceAccount,
+                _ => Self::UnknownValue(sql_user_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SqlUserType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "BUILT_IN" => Self::BuiltIn,
+                "CLOUD_IAM_USER" => Self::CloudIamUser,
+                "CLOUD_IAM_SERVICE_ACCOUNT" => Self::CloudIamServiceAccount,
+                "CLOUD_IAM_GROUP" => Self::CloudIamGroup,
+                "CLOUD_IAM_GROUP_USER" => Self::CloudIamGroupUser,
+                "CLOUD_IAM_GROUP_SERVICE_ACCOUNT" => Self::CloudIamGroupServiceAccount,
+                _ => Self::UnknownValue(sql_user_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SqlUserType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::BuiltIn => serializer.serialize_i32(0),
+                Self::CloudIamUser => serializer.serialize_i32(1),
+                Self::CloudIamServiceAccount => serializer.serialize_i32(2),
+                Self::CloudIamGroup => serializer.serialize_i32(3),
+                Self::CloudIamGroupUser => serializer.serialize_i32(4),
+                Self::CloudIamGroupServiceAccount => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SqlUserType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlUserType>::new(
+                ".google.cloud.sql.v1.User.SqlUserType"))
         }
     }
 
     /// The type of retained password.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DualPasswordType(i32);
-
-    impl DualPasswordType {
-
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DualPasswordType {
         /// The default value.
-        pub const DUAL_PASSWORD_TYPE_UNSPECIFIED: DualPasswordType = DualPasswordType::new(0);
-
+        Unspecified,
         /// Do not update the user's dual password status.
-        pub const NO_MODIFY_DUAL_PASSWORD: DualPasswordType = DualPasswordType::new(1);
-
+        NoModifyDualPassword,
         /// No dual password usable for connecting using this user.
-        pub const NO_DUAL_PASSWORD: DualPasswordType = DualPasswordType::new(2);
-
+        NoDualPassword,
         /// Dual password usable for connecting using this user.
-        pub const DUAL_PASSWORD: DualPasswordType = DualPasswordType::new(3);
-
-        /// Creates a new DualPasswordType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
-        /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
-        }
-        
-        /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("DUAL_PASSWORD_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("NO_MODIFY_DUAL_PASSWORD"),
-                2 => std::borrow::Cow::Borrowed("NO_DUAL_PASSWORD"),
-                3 => std::borrow::Cow::Borrowed("DUAL_PASSWORD"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "DUAL_PASSWORD_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::DUAL_PASSWORD_TYPE_UNSPECIFIED),
-                "NO_MODIFY_DUAL_PASSWORD" => std::option::Option::Some(Self::NO_MODIFY_DUAL_PASSWORD),
-                "NO_DUAL_PASSWORD" => std::option::Option::Some(Self::NO_DUAL_PASSWORD),
-                "DUAL_PASSWORD" => std::option::Option::Some(Self::DUAL_PASSWORD),
-                _ => std::option::Option::None,
-            }
-        }
+        DualPassword,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DualPasswordType::value] or
+        /// [DualPasswordType::name].
+        UnknownValue(dual_password_type::UnknownValue),
     }
 
-    impl std::convert::From<i32> for DualPasswordType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
+    #[doc(hidden)]
+    pub mod dual_password_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl DualPasswordType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NoModifyDualPassword => std::option::Option::Some(1),
+                Self::NoDualPassword => std::option::Option::Some(2),
+                Self::DualPassword => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DUAL_PASSWORD_TYPE_UNSPECIFIED"),
+                Self::NoModifyDualPassword => std::option::Option::Some("NO_MODIFY_DUAL_PASSWORD"),
+                Self::NoDualPassword => std::option::Option::Some("NO_DUAL_PASSWORD"),
+                Self::DualPassword => std::option::Option::Some("DUAL_PASSWORD"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
         }
     }
 
     impl std::default::Default for DualPasswordType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DualPasswordType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DualPasswordType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NoModifyDualPassword,
+                2 => Self::NoDualPassword,
+                3 => Self::DualPassword,
+                _ => Self::UnknownValue(dual_password_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DualPasswordType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DUAL_PASSWORD_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "NO_MODIFY_DUAL_PASSWORD" => Self::NoModifyDualPassword,
+                "NO_DUAL_PASSWORD" => Self::NoDualPassword,
+                "DUAL_PASSWORD" => Self::DualPassword,
+                _ => Self::UnknownValue(dual_password_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DualPasswordType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NoModifyDualPassword => serializer.serialize_i32(1),
+                Self::NoDualPassword => serializer.serialize_i32(2),
+                Self::DualPassword => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DualPasswordType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DualPasswordType>::new(
+                ".google.cloud.sql.v1.User.DualPasswordType"))
         }
     }
 
@@ -13025,1326 +14445,2389 @@ impl wkt::message::Message for UsersListResponse {
 }
 
 /// The status of a backup run.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlBackupRunStatus(i32);
-
-impl SqlBackupRunStatus {
-
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlBackupRunStatus {
     /// The status of the run is unknown.
-    pub const SQL_BACKUP_RUN_STATUS_UNSPECIFIED: SqlBackupRunStatus = SqlBackupRunStatus::new(0);
-
+    Unspecified,
     /// The backup operation was enqueued.
-    pub const ENQUEUED: SqlBackupRunStatus = SqlBackupRunStatus::new(1);
-
+    Enqueued,
     /// The backup is overdue across a given backup window. Indicates a
     /// problem. Example: Long-running operation in progress during
     /// the whole window.
-    pub const OVERDUE: SqlBackupRunStatus = SqlBackupRunStatus::new(2);
-
+    Overdue,
     /// The backup is in progress.
-    pub const RUNNING: SqlBackupRunStatus = SqlBackupRunStatus::new(3);
-
+    Running,
     /// The backup failed.
-    pub const FAILED: SqlBackupRunStatus = SqlBackupRunStatus::new(4);
-
+    Failed,
     /// The backup was successful.
-    pub const SUCCESSFUL: SqlBackupRunStatus = SqlBackupRunStatus::new(5);
-
+    Successful,
     /// The backup was skipped (without problems) for a given backup
     /// window. Example: Instance was idle.
-    pub const SKIPPED: SqlBackupRunStatus = SqlBackupRunStatus::new(6);
-
+    Skipped,
     /// The backup is about to be deleted.
-    pub const DELETION_PENDING: SqlBackupRunStatus = SqlBackupRunStatus::new(7);
-
+    DeletionPending,
     /// The backup deletion failed.
-    pub const DELETION_FAILED: SqlBackupRunStatus = SqlBackupRunStatus::new(8);
-
+    DeletionFailed,
     /// The backup has been deleted.
-    pub const DELETED: SqlBackupRunStatus = SqlBackupRunStatus::new(9);
-
-    /// Creates a new SqlBackupRunStatus instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_BACKUP_RUN_STATUS_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("ENQUEUED"),
-            2 => std::borrow::Cow::Borrowed("OVERDUE"),
-            3 => std::borrow::Cow::Borrowed("RUNNING"),
-            4 => std::borrow::Cow::Borrowed("FAILED"),
-            5 => std::borrow::Cow::Borrowed("SUCCESSFUL"),
-            6 => std::borrow::Cow::Borrowed("SKIPPED"),
-            7 => std::borrow::Cow::Borrowed("DELETION_PENDING"),
-            8 => std::borrow::Cow::Borrowed("DELETION_FAILED"),
-            9 => std::borrow::Cow::Borrowed("DELETED"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_BACKUP_RUN_STATUS_UNSPECIFIED" => std::option::Option::Some(Self::SQL_BACKUP_RUN_STATUS_UNSPECIFIED),
-            "ENQUEUED" => std::option::Option::Some(Self::ENQUEUED),
-            "OVERDUE" => std::option::Option::Some(Self::OVERDUE),
-            "RUNNING" => std::option::Option::Some(Self::RUNNING),
-            "FAILED" => std::option::Option::Some(Self::FAILED),
-            "SUCCESSFUL" => std::option::Option::Some(Self::SUCCESSFUL),
-            "SKIPPED" => std::option::Option::Some(Self::SKIPPED),
-            "DELETION_PENDING" => std::option::Option::Some(Self::DELETION_PENDING),
-            "DELETION_FAILED" => std::option::Option::Some(Self::DELETION_FAILED),
-            "DELETED" => std::option::Option::Some(Self::DELETED),
-            _ => std::option::Option::None,
-        }
-    }
+    Deleted,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlBackupRunStatus::value] or
+    /// [SqlBackupRunStatus::name].
+    UnknownValue(sql_backup_run_status::UnknownValue),
 }
 
-impl std::convert::From<i32> for SqlBackupRunStatus {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod sql_backup_run_status {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SqlBackupRunStatus {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Enqueued => std::option::Option::Some(1),
+            Self::Overdue => std::option::Option::Some(2),
+            Self::Running => std::option::Option::Some(3),
+            Self::Failed => std::option::Option::Some(4),
+            Self::Successful => std::option::Option::Some(5),
+            Self::Skipped => std::option::Option::Some(6),
+            Self::DeletionPending => std::option::Option::Some(7),
+            Self::DeletionFailed => std::option::Option::Some(8),
+            Self::Deleted => std::option::Option::Some(9),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_BACKUP_RUN_STATUS_UNSPECIFIED"),
+            Self::Enqueued => std::option::Option::Some("ENQUEUED"),
+            Self::Overdue => std::option::Option::Some("OVERDUE"),
+            Self::Running => std::option::Option::Some("RUNNING"),
+            Self::Failed => std::option::Option::Some("FAILED"),
+            Self::Successful => std::option::Option::Some("SUCCESSFUL"),
+            Self::Skipped => std::option::Option::Some("SKIPPED"),
+            Self::DeletionPending => std::option::Option::Some("DELETION_PENDING"),
+            Self::DeletionFailed => std::option::Option::Some("DELETION_FAILED"),
+            Self::Deleted => std::option::Option::Some("DELETED"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for SqlBackupRunStatus {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SqlBackupRunStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SqlBackupRunStatus {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Enqueued,
+            2 => Self::Overdue,
+            3 => Self::Running,
+            4 => Self::Failed,
+            5 => Self::Successful,
+            6 => Self::Skipped,
+            7 => Self::DeletionPending,
+            8 => Self::DeletionFailed,
+            9 => Self::Deleted,
+            _ => Self::UnknownValue(sql_backup_run_status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SqlBackupRunStatus {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_BACKUP_RUN_STATUS_UNSPECIFIED" => Self::Unspecified,
+            "ENQUEUED" => Self::Enqueued,
+            "OVERDUE" => Self::Overdue,
+            "RUNNING" => Self::Running,
+            "FAILED" => Self::Failed,
+            "SUCCESSFUL" => Self::Successful,
+            "SKIPPED" => Self::Skipped,
+            "DELETION_PENDING" => Self::DeletionPending,
+            "DELETION_FAILED" => Self::DeletionFailed,
+            "DELETED" => Self::Deleted,
+            _ => Self::UnknownValue(sql_backup_run_status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlBackupRunStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Enqueued => serializer.serialize_i32(1),
+            Self::Overdue => serializer.serialize_i32(2),
+            Self::Running => serializer.serialize_i32(3),
+            Self::Failed => serializer.serialize_i32(4),
+            Self::Successful => serializer.serialize_i32(5),
+            Self::Skipped => serializer.serialize_i32(6),
+            Self::DeletionPending => serializer.serialize_i32(7),
+            Self::DeletionFailed => serializer.serialize_i32(8),
+            Self::Deleted => serializer.serialize_i32(9),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlBackupRunStatus {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlBackupRunStatus>::new(
+            ".google.cloud.sql.v1.SqlBackupRunStatus"))
     }
 }
 
 /// Defines the supported backup kinds.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlBackupKind(i32);
-
-impl SqlBackupKind {
-
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlBackupKind {
     /// This is an unknown BackupKind.
-    pub const SQL_BACKUP_KIND_UNSPECIFIED: SqlBackupKind = SqlBackupKind::new(0);
-
+    Unspecified,
     /// The snapshot based backups
-    pub const SNAPSHOT: SqlBackupKind = SqlBackupKind::new(1);
-
+    Snapshot,
     /// Physical backups
-    pub const PHYSICAL: SqlBackupKind = SqlBackupKind::new(2);
-
-    /// Creates a new SqlBackupKind instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_BACKUP_KIND_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("SNAPSHOT"),
-            2 => std::borrow::Cow::Borrowed("PHYSICAL"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_BACKUP_KIND_UNSPECIFIED" => std::option::Option::Some(Self::SQL_BACKUP_KIND_UNSPECIFIED),
-            "SNAPSHOT" => std::option::Option::Some(Self::SNAPSHOT),
-            "PHYSICAL" => std::option::Option::Some(Self::PHYSICAL),
-            _ => std::option::Option::None,
-        }
-    }
+    Physical,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlBackupKind::value] or
+    /// [SqlBackupKind::name].
+    UnknownValue(sql_backup_kind::UnknownValue),
 }
 
-impl std::convert::From<i32> for SqlBackupKind {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod sql_backup_kind {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SqlBackupKind {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Snapshot => std::option::Option::Some(1),
+            Self::Physical => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_BACKUP_KIND_UNSPECIFIED"),
+            Self::Snapshot => std::option::Option::Some("SNAPSHOT"),
+            Self::Physical => std::option::Option::Some("PHYSICAL"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for SqlBackupKind {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SqlBackupKind {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SqlBackupKind {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Snapshot,
+            2 => Self::Physical,
+            _ => Self::UnknownValue(sql_backup_kind::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SqlBackupKind {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_BACKUP_KIND_UNSPECIFIED" => Self::Unspecified,
+            "SNAPSHOT" => Self::Snapshot,
+            "PHYSICAL" => Self::Physical,
+            _ => Self::UnknownValue(sql_backup_kind::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlBackupKind {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Snapshot => serializer.serialize_i32(1),
+            Self::Physical => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlBackupKind {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlBackupKind>::new(
+            ".google.cloud.sql.v1.SqlBackupKind"))
     }
 }
 
 /// Type of backup (i.e. automated, on demand, etc).
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlBackupRunType(i32);
-
-impl SqlBackupRunType {
-
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlBackupRunType {
     /// This is an unknown BackupRun type.
-    pub const SQL_BACKUP_RUN_TYPE_UNSPECIFIED: SqlBackupRunType = SqlBackupRunType::new(0);
-
+    Unspecified,
     /// The backup schedule automatically triggers a backup.
-    pub const AUTOMATED: SqlBackupRunType = SqlBackupRunType::new(1);
-
+    Automated,
     /// The user manually triggers a backup.
-    pub const ON_DEMAND: SqlBackupRunType = SqlBackupRunType::new(2);
-
-    /// Creates a new SqlBackupRunType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_BACKUP_RUN_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("AUTOMATED"),
-            2 => std::borrow::Cow::Borrowed("ON_DEMAND"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_BACKUP_RUN_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_BACKUP_RUN_TYPE_UNSPECIFIED),
-            "AUTOMATED" => std::option::Option::Some(Self::AUTOMATED),
-            "ON_DEMAND" => std::option::Option::Some(Self::ON_DEMAND),
-            _ => std::option::Option::None,
-        }
-    }
+    OnDemand,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlBackupRunType::value] or
+    /// [SqlBackupRunType::name].
+    UnknownValue(sql_backup_run_type::UnknownValue),
 }
 
-impl std::convert::From<i32> for SqlBackupRunType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod sql_backup_run_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SqlBackupRunType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Automated => std::option::Option::Some(1),
+            Self::OnDemand => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_BACKUP_RUN_TYPE_UNSPECIFIED"),
+            Self::Automated => std::option::Option::Some("AUTOMATED"),
+            Self::OnDemand => std::option::Option::Some("ON_DEMAND"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for SqlBackupRunType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlFlagType(i32);
+impl std::fmt::Display for SqlBackupRunType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
 
-impl SqlFlagType {
+impl std::convert::From<i32> for SqlBackupRunType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Automated,
+            2 => Self::OnDemand,
+            _ => Self::UnknownValue(sql_backup_run_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
 
+impl std::convert::From<&str> for SqlBackupRunType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_BACKUP_RUN_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "AUTOMATED" => Self::Automated,
+            "ON_DEMAND" => Self::OnDemand,
+            _ => Self::UnknownValue(sql_backup_run_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlBackupRunType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Automated => serializer.serialize_i32(1),
+            Self::OnDemand => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlBackupRunType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlBackupRunType>::new(
+            ".google.cloud.sql.v1.SqlBackupRunType"))
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlFlagType {
     /// This is an unknown flag type.
-    pub const SQL_FLAG_TYPE_UNSPECIFIED: SqlFlagType = SqlFlagType::new(0);
-
+    Unspecified,
     /// Boolean type flag.
-    pub const BOOLEAN: SqlFlagType = SqlFlagType::new(1);
-
+    Boolean,
     /// String type flag.
-    pub const STRING: SqlFlagType = SqlFlagType::new(2);
-
+    String,
     /// Integer type flag.
-    pub const INTEGER: SqlFlagType = SqlFlagType::new(3);
-
+    Integer,
     /// Flag type used for a server startup option.
-    pub const NONE: SqlFlagType = SqlFlagType::new(4);
-
+    None,
     /// Type introduced specially for MySQL TimeZone offset. Accept a string value
     /// with the format [-12:59, 13:00].
-    pub const MYSQL_TIMEZONE_OFFSET: SqlFlagType = SqlFlagType::new(5);
-
+    MysqlTimezoneOffset,
     /// Float type flag.
-    pub const FLOAT: SqlFlagType = SqlFlagType::new(6);
-
+    Float,
     /// Comma-separated list of the strings in a SqlFlagType enum.
-    pub const REPEATED_STRING: SqlFlagType = SqlFlagType::new(7);
-
-    /// Creates a new SqlFlagType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_FLAG_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("BOOLEAN"),
-            2 => std::borrow::Cow::Borrowed("STRING"),
-            3 => std::borrow::Cow::Borrowed("INTEGER"),
-            4 => std::borrow::Cow::Borrowed("NONE"),
-            5 => std::borrow::Cow::Borrowed("MYSQL_TIMEZONE_OFFSET"),
-            6 => std::borrow::Cow::Borrowed("FLOAT"),
-            7 => std::borrow::Cow::Borrowed("REPEATED_STRING"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_FLAG_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_FLAG_TYPE_UNSPECIFIED),
-            "BOOLEAN" => std::option::Option::Some(Self::BOOLEAN),
-            "STRING" => std::option::Option::Some(Self::STRING),
-            "INTEGER" => std::option::Option::Some(Self::INTEGER),
-            "NONE" => std::option::Option::Some(Self::NONE),
-            "MYSQL_TIMEZONE_OFFSET" => std::option::Option::Some(Self::MYSQL_TIMEZONE_OFFSET),
-            "FLOAT" => std::option::Option::Some(Self::FLOAT),
-            "REPEATED_STRING" => std::option::Option::Some(Self::REPEATED_STRING),
-            _ => std::option::Option::None,
-        }
-    }
+    RepeatedString,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlFlagType::value] or
+    /// [SqlFlagType::name].
+    UnknownValue(sql_flag_type::UnknownValue),
 }
 
-impl std::convert::From<i32> for SqlFlagType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod sql_flag_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SqlFlagType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Boolean => std::option::Option::Some(1),
+            Self::String => std::option::Option::Some(2),
+            Self::Integer => std::option::Option::Some(3),
+            Self::None => std::option::Option::Some(4),
+            Self::MysqlTimezoneOffset => std::option::Option::Some(5),
+            Self::Float => std::option::Option::Some(6),
+            Self::RepeatedString => std::option::Option::Some(7),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_FLAG_TYPE_UNSPECIFIED"),
+            Self::Boolean => std::option::Option::Some("BOOLEAN"),
+            Self::String => std::option::Option::Some("STRING"),
+            Self::Integer => std::option::Option::Some("INTEGER"),
+            Self::None => std::option::Option::Some("NONE"),
+            Self::MysqlTimezoneOffset => std::option::Option::Some("MYSQL_TIMEZONE_OFFSET"),
+            Self::Float => std::option::Option::Some("FLOAT"),
+            Self::RepeatedString => std::option::Option::Some("REPEATED_STRING"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for SqlFlagType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SqlFlagType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SqlFlagType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Boolean,
+            2 => Self::String,
+            3 => Self::Integer,
+            4 => Self::None,
+            5 => Self::MysqlTimezoneOffset,
+            6 => Self::Float,
+            7 => Self::RepeatedString,
+            _ => Self::UnknownValue(sql_flag_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SqlFlagType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_FLAG_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "BOOLEAN" => Self::Boolean,
+            "STRING" => Self::String,
+            "INTEGER" => Self::Integer,
+            "NONE" => Self::None,
+            "MYSQL_TIMEZONE_OFFSET" => Self::MysqlTimezoneOffset,
+            "FLOAT" => Self::Float,
+            "REPEATED_STRING" => Self::RepeatedString,
+            _ => Self::UnknownValue(sql_flag_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlFlagType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Boolean => serializer.serialize_i32(1),
+            Self::String => serializer.serialize_i32(2),
+            Self::Integer => serializer.serialize_i32(3),
+            Self::None => serializer.serialize_i32(4),
+            Self::MysqlTimezoneOffset => serializer.serialize_i32(5),
+            Self::Float => serializer.serialize_i32(6),
+            Self::RepeatedString => serializer.serialize_i32(7),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlFlagType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlFlagType>::new(
+            ".google.cloud.sql.v1.SqlFlagType"))
     }
 }
 
 /// External Sync parallel level.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ExternalSyncParallelLevel(i32);
-
-impl ExternalSyncParallelLevel {
-
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ExternalSyncParallelLevel {
     /// Unknown sync parallel level. Will be defaulted to OPTIMAL.
-    pub const EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new(0);
-
+    Unspecified,
     /// Minimal parallel level.
-    pub const MIN: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new(1);
-
+    Min,
     /// Optimal parallel level.
-    pub const OPTIMAL: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new(2);
-
+    Optimal,
     /// Maximum parallel level.
-    pub const MAX: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new(3);
-
-    /// Creates a new ExternalSyncParallelLevel instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("MIN"),
-            2 => std::borrow::Cow::Borrowed("OPTIMAL"),
-            3 => std::borrow::Cow::Borrowed("MAX"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED" => std::option::Option::Some(Self::EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED),
-            "MIN" => std::option::Option::Some(Self::MIN),
-            "OPTIMAL" => std::option::Option::Some(Self::OPTIMAL),
-            "MAX" => std::option::Option::Some(Self::MAX),
-            _ => std::option::Option::None,
-        }
-    }
+    Max,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ExternalSyncParallelLevel::value] or
+    /// [ExternalSyncParallelLevel::name].
+    UnknownValue(external_sync_parallel_level::UnknownValue),
 }
 
-impl std::convert::From<i32> for ExternalSyncParallelLevel {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod external_sync_parallel_level {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl ExternalSyncParallelLevel {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Min => std::option::Option::Some(1),
+            Self::Optimal => std::option::Option::Some(2),
+            Self::Max => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED"),
+            Self::Min => std::option::Option::Some("MIN"),
+            Self::Optimal => std::option::Option::Some("OPTIMAL"),
+            Self::Max => std::option::Option::Some("MAX"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for ExternalSyncParallelLevel {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlInstanceType(i32);
+impl std::fmt::Display for ExternalSyncParallelLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
 
-impl SqlInstanceType {
+impl std::convert::From<i32> for ExternalSyncParallelLevel {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Min,
+            2 => Self::Optimal,
+            3 => Self::Max,
+            _ => Self::UnknownValue(external_sync_parallel_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
 
+impl std::convert::From<&str> for ExternalSyncParallelLevel {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED" => Self::Unspecified,
+            "MIN" => Self::Min,
+            "OPTIMAL" => Self::Optimal,
+            "MAX" => Self::Max,
+            _ => Self::UnknownValue(external_sync_parallel_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ExternalSyncParallelLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Min => serializer.serialize_i32(1),
+            Self::Optimal => serializer.serialize_i32(2),
+            Self::Max => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ExternalSyncParallelLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExternalSyncParallelLevel>::new(
+            ".google.cloud.sql.v1.ExternalSyncParallelLevel"))
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlInstanceType {
     /// This is an unknown Cloud SQL instance type.
-    pub const SQL_INSTANCE_TYPE_UNSPECIFIED: SqlInstanceType = SqlInstanceType::new(0);
-
+    Unspecified,
     /// A regular Cloud SQL instance that is not replicating from a primary
     /// instance.
-    pub const CLOUD_SQL_INSTANCE: SqlInstanceType = SqlInstanceType::new(1);
-
+    CloudSqlInstance,
     /// An instance running on the customer's premises that is not managed by
     /// Cloud SQL.
-    pub const ON_PREMISES_INSTANCE: SqlInstanceType = SqlInstanceType::new(2);
-
+    OnPremisesInstance,
     /// A Cloud SQL instance acting as a read-replica.
-    pub const READ_REPLICA_INSTANCE: SqlInstanceType = SqlInstanceType::new(3);
-
-    /// Creates a new SqlInstanceType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_INSTANCE_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("CLOUD_SQL_INSTANCE"),
-            2 => std::borrow::Cow::Borrowed("ON_PREMISES_INSTANCE"),
-            3 => std::borrow::Cow::Borrowed("READ_REPLICA_INSTANCE"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_INSTANCE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_INSTANCE_TYPE_UNSPECIFIED),
-            "CLOUD_SQL_INSTANCE" => std::option::Option::Some(Self::CLOUD_SQL_INSTANCE),
-            "ON_PREMISES_INSTANCE" => std::option::Option::Some(Self::ON_PREMISES_INSTANCE),
-            "READ_REPLICA_INSTANCE" => std::option::Option::Some(Self::READ_REPLICA_INSTANCE),
-            _ => std::option::Option::None,
-        }
-    }
+    ReadReplicaInstance,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlInstanceType::value] or
+    /// [SqlInstanceType::name].
+    UnknownValue(sql_instance_type::UnknownValue),
 }
 
-impl std::convert::From<i32> for SqlInstanceType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod sql_instance_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SqlInstanceType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::CloudSqlInstance => std::option::Option::Some(1),
+            Self::OnPremisesInstance => std::option::Option::Some(2),
+            Self::ReadReplicaInstance => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_INSTANCE_TYPE_UNSPECIFIED"),
+            Self::CloudSqlInstance => std::option::Option::Some("CLOUD_SQL_INSTANCE"),
+            Self::OnPremisesInstance => std::option::Option::Some("ON_PREMISES_INSTANCE"),
+            Self::ReadReplicaInstance => std::option::Option::Some("READ_REPLICA_INSTANCE"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for SqlInstanceType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SqlInstanceType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SqlInstanceType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::CloudSqlInstance,
+            2 => Self::OnPremisesInstance,
+            3 => Self::ReadReplicaInstance,
+            _ => Self::UnknownValue(sql_instance_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SqlInstanceType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_INSTANCE_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "CLOUD_SQL_INSTANCE" => Self::CloudSqlInstance,
+            "ON_PREMISES_INSTANCE" => Self::OnPremisesInstance,
+            "READ_REPLICA_INSTANCE" => Self::ReadReplicaInstance,
+            _ => Self::UnknownValue(sql_instance_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlInstanceType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::CloudSqlInstance => serializer.serialize_i32(1),
+            Self::OnPremisesInstance => serializer.serialize_i32(2),
+            Self::ReadReplicaInstance => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlInstanceType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlInstanceType>::new(
+            ".google.cloud.sql.v1.SqlInstanceType"))
     }
 }
 
 /// The suspension reason of the database instance if the state is SUSPENDED.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlSuspensionReason(i32);
-
-impl SqlSuspensionReason {
-
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlSuspensionReason {
     /// This is an unknown suspension reason.
-    pub const SQL_SUSPENSION_REASON_UNSPECIFIED: SqlSuspensionReason = SqlSuspensionReason::new(0);
-
+    Unspecified,
     /// The instance is suspended due to billing issues (for example:, GCP account
     /// issue)
-    pub const BILLING_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new(2);
-
+    BillingIssue,
     /// The instance is suspended due to illegal content (for example:, child
     /// pornography, copyrighted material, etc.).
-    pub const LEGAL_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new(3);
-
+    LegalIssue,
     /// The instance is causing operational issues (for example:, causing the
     /// database to crash).
-    pub const OPERATIONAL_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new(4);
-
+    OperationalIssue,
     /// The KMS key used by the instance is either revoked or denied access to
-    pub const KMS_KEY_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new(5);
-
-    /// Creates a new SqlSuspensionReason instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_SUSPENSION_REASON_UNSPECIFIED"),
-            2 => std::borrow::Cow::Borrowed("BILLING_ISSUE"),
-            3 => std::borrow::Cow::Borrowed("LEGAL_ISSUE"),
-            4 => std::borrow::Cow::Borrowed("OPERATIONAL_ISSUE"),
-            5 => std::borrow::Cow::Borrowed("KMS_KEY_ISSUE"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_SUSPENSION_REASON_UNSPECIFIED" => std::option::Option::Some(Self::SQL_SUSPENSION_REASON_UNSPECIFIED),
-            "BILLING_ISSUE" => std::option::Option::Some(Self::BILLING_ISSUE),
-            "LEGAL_ISSUE" => std::option::Option::Some(Self::LEGAL_ISSUE),
-            "OPERATIONAL_ISSUE" => std::option::Option::Some(Self::OPERATIONAL_ISSUE),
-            "KMS_KEY_ISSUE" => std::option::Option::Some(Self::KMS_KEY_ISSUE),
-            _ => std::option::Option::None,
-        }
-    }
+    KmsKeyIssue,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlSuspensionReason::value] or
+    /// [SqlSuspensionReason::name].
+    UnknownValue(sql_suspension_reason::UnknownValue),
 }
 
-impl std::convert::From<i32> for SqlSuspensionReason {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod sql_suspension_reason {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SqlSuspensionReason {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::BillingIssue => std::option::Option::Some(2),
+            Self::LegalIssue => std::option::Option::Some(3),
+            Self::OperationalIssue => std::option::Option::Some(4),
+            Self::KmsKeyIssue => std::option::Option::Some(5),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_SUSPENSION_REASON_UNSPECIFIED"),
+            Self::BillingIssue => std::option::Option::Some("BILLING_ISSUE"),
+            Self::LegalIssue => std::option::Option::Some("LEGAL_ISSUE"),
+            Self::OperationalIssue => std::option::Option::Some("OPERATIONAL_ISSUE"),
+            Self::KmsKeyIssue => std::option::Option::Some("KMS_KEY_ISSUE"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for SqlSuspensionReason {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlFileType(i32);
+impl std::fmt::Display for SqlSuspensionReason {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SqlSuspensionReason {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            2 => Self::BillingIssue,
+            3 => Self::LegalIssue,
+            4 => Self::OperationalIssue,
+            5 => Self::KmsKeyIssue,
+            _ => Self::UnknownValue(sql_suspension_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SqlSuspensionReason {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_SUSPENSION_REASON_UNSPECIFIED" => Self::Unspecified,
+            "BILLING_ISSUE" => Self::BillingIssue,
+            "LEGAL_ISSUE" => Self::LegalIssue,
+            "OPERATIONAL_ISSUE" => Self::OperationalIssue,
+            "KMS_KEY_ISSUE" => Self::KmsKeyIssue,
+            _ => Self::UnknownValue(sql_suspension_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlSuspensionReason {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::BillingIssue => serializer.serialize_i32(2),
+            Self::LegalIssue => serializer.serialize_i32(3),
+            Self::OperationalIssue => serializer.serialize_i32(4),
+            Self::KmsKeyIssue => serializer.serialize_i32(5),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlSuspensionReason {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlSuspensionReason>::new(
+            ".google.cloud.sql.v1.SqlSuspensionReason"))
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlFileType {
+    /// Unknown file type.
+    Unspecified,
+    /// File containing SQL statements.
+    Sql,
+    /// File in CSV format.
+    Csv,
+    Bak,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlFileType::value] or
+    /// [SqlFileType::name].
+    UnknownValue(sql_file_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod sql_file_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl SqlFileType {
-
-    /// Unknown file type.
-    pub const SQL_FILE_TYPE_UNSPECIFIED: SqlFileType = SqlFileType::new(0);
-
-    /// File containing SQL statements.
-    pub const SQL: SqlFileType = SqlFileType::new(1);
-
-    /// File in CSV format.
-    pub const CSV: SqlFileType = SqlFileType::new(2);
-
-    pub const BAK: SqlFileType = SqlFileType::new(4);
-
-    /// Creates a new SqlFileType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Sql => std::option::Option::Some(1),
+            Self::Csv => std::option::Option::Some(2),
+            Self::Bak => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
-    
+
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_FILE_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("SQL"),
-            2 => std::borrow::Cow::Borrowed("CSV"),
-            4 => std::borrow::Cow::Borrowed("BAK"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_FILE_TYPE_UNSPECIFIED"),
+            Self::Sql => std::option::Option::Some("SQL"),
+            Self::Csv => std::option::Option::Some("CSV"),
+            Self::Bak => std::option::Option::Some("BAK"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_FILE_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_FILE_TYPE_UNSPECIFIED),
-            "SQL" => std::option::Option::Some(Self::SQL),
-            "CSV" => std::option::Option::Some(Self::CSV),
-            "BAK" => std::option::Option::Some(Self::BAK),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for SqlFileType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for SqlFileType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct BakType(i32);
+impl std::fmt::Display for SqlFileType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SqlFileType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Sql,
+            2 => Self::Csv,
+            4 => Self::Bak,
+            _ => Self::UnknownValue(sql_file_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SqlFileType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_FILE_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "SQL" => Self::Sql,
+            "CSV" => Self::Csv,
+            "BAK" => Self::Bak,
+            _ => Self::UnknownValue(sql_file_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlFileType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Sql => serializer.serialize_i32(1),
+            Self::Csv => serializer.serialize_i32(2),
+            Self::Bak => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlFileType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlFileType>::new(
+            ".google.cloud.sql.v1.SqlFileType"))
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum BakType {
+    /// Default type.
+    Unspecified,
+    /// Full backup.
+    Full,
+    /// Differential backup.
+    Diff,
+    /// Transaction Log backup
+    Tlog,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [BakType::value] or
+    /// [BakType::name].
+    UnknownValue(bak_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod bak_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl BakType {
-
-    /// Default type.
-    pub const BAK_TYPE_UNSPECIFIED: BakType = BakType::new(0);
-
-    /// Full backup.
-    pub const FULL: BakType = BakType::new(1);
-
-    /// Differential backup.
-    pub const DIFF: BakType = BakType::new(2);
-
-    /// Transaction Log backup
-    pub const TLOG: BakType = BakType::new(3);
-
-    /// Creates a new BakType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Full => std::option::Option::Some(1),
+            Self::Diff => std::option::Option::Some(2),
+            Self::Tlog => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
-    
+
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("BAK_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("FULL"),
-            2 => std::borrow::Cow::Borrowed("DIFF"),
-            3 => std::borrow::Cow::Borrowed("TLOG"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("BAK_TYPE_UNSPECIFIED"),
+            Self::Full => std::option::Option::Some("FULL"),
+            Self::Diff => std::option::Option::Some("DIFF"),
+            Self::Tlog => std::option::Option::Some("TLOG"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "BAK_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::BAK_TYPE_UNSPECIFIED),
-            "FULL" => std::option::Option::Some(Self::FULL),
-            "DIFF" => std::option::Option::Some(Self::DIFF),
-            "TLOG" => std::option::Option::Some(Self::TLOG),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for BakType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for BakType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlBackendType(i32);
+impl std::fmt::Display for BakType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for BakType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Full,
+            2 => Self::Diff,
+            3 => Self::Tlog,
+            _ => Self::UnknownValue(bak_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
+
+impl std::convert::From<&str> for BakType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "BAK_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "FULL" => Self::Full,
+            "DIFF" => Self::Diff,
+            "TLOG" => Self::Tlog,
+            _ => Self::UnknownValue(bak_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for BakType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Full => serializer.serialize_i32(1),
+            Self::Diff => serializer.serialize_i32(2),
+            Self::Tlog => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for BakType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<BakType>::new(
+            ".google.cloud.sql.v1.BakType"))
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlBackendType {
+    /// This is an unknown backend type for instance.
+    Unspecified,
+    /// V1 speckle instance.
+    FirstGen,
+    /// V2 speckle instance.
+    SecondGen,
+    /// On premises instance.
+    External,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlBackendType::value] or
+    /// [SqlBackendType::name].
+    UnknownValue(sql_backend_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod sql_backend_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl SqlBackendType {
-
-    /// This is an unknown backend type for instance.
-    pub const SQL_BACKEND_TYPE_UNSPECIFIED: SqlBackendType = SqlBackendType::new(0);
-
-    /// V1 speckle instance.
-    pub const FIRST_GEN: SqlBackendType = SqlBackendType::new(1);
-
-    /// V2 speckle instance.
-    pub const SECOND_GEN: SqlBackendType = SqlBackendType::new(2);
-
-    /// On premises instance.
-    pub const EXTERNAL: SqlBackendType = SqlBackendType::new(3);
-
-    /// Creates a new SqlBackendType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::FirstGen => std::option::Option::Some(1),
+            Self::SecondGen => std::option::Option::Some(2),
+            Self::External => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
-    
+
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_BACKEND_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("FIRST_GEN"),
-            2 => std::borrow::Cow::Borrowed("SECOND_GEN"),
-            3 => std::borrow::Cow::Borrowed("EXTERNAL"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_BACKEND_TYPE_UNSPECIFIED"),
+            Self::FirstGen => std::option::Option::Some("FIRST_GEN"),
+            Self::SecondGen => std::option::Option::Some("SECOND_GEN"),
+            Self::External => std::option::Option::Some("EXTERNAL"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_BACKEND_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_BACKEND_TYPE_UNSPECIFIED),
-            "FIRST_GEN" => std::option::Option::Some(Self::FIRST_GEN),
-            "SECOND_GEN" => std::option::Option::Some(Self::SECOND_GEN),
-            "EXTERNAL" => std::option::Option::Some(Self::EXTERNAL),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for SqlBackendType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for SqlBackendType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlIpAddressType(i32);
+impl std::fmt::Display for SqlBackendType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
 
-impl SqlIpAddressType {
+impl std::convert::From<i32> for SqlBackendType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::FirstGen,
+            2 => Self::SecondGen,
+            3 => Self::External,
+            _ => Self::UnknownValue(sql_backend_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
 
+impl std::convert::From<&str> for SqlBackendType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_BACKEND_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "FIRST_GEN" => Self::FirstGen,
+            "SECOND_GEN" => Self::SecondGen,
+            "EXTERNAL" => Self::External,
+            _ => Self::UnknownValue(sql_backend_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlBackendType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::FirstGen => serializer.serialize_i32(1),
+            Self::SecondGen => serializer.serialize_i32(2),
+            Self::External => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlBackendType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlBackendType>::new(
+            ".google.cloud.sql.v1.SqlBackendType"))
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlIpAddressType {
     /// This is an unknown IP address type.
-    pub const SQL_IP_ADDRESS_TYPE_UNSPECIFIED: SqlIpAddressType = SqlIpAddressType::new(0);
-
+    Unspecified,
     /// IP address the customer is supposed to connect to. Usually this is the
     /// load balancer's IP address
-    pub const PRIMARY: SqlIpAddressType = SqlIpAddressType::new(1);
-
+    Primary,
     /// Source IP address of the connection a read replica establishes to its
     /// external primary instance. This IP address can be allowlisted by the
     /// customer in case it has a firewall that filters incoming connection to its
     /// on premises primary instance.
-    pub const OUTGOING: SqlIpAddressType = SqlIpAddressType::new(2);
-
+    Outgoing,
     /// Private IP used when using private IPs and network peering.
-    pub const PRIVATE: SqlIpAddressType = SqlIpAddressType::new(3);
-
+    Private,
     /// V1 IP of a migrated instance. We want the user to
     /// decommission this IP as soon as the migration is complete.
     /// Note: V1 instances with V1 ip addresses will be counted as PRIMARY.
-    pub const MIGRATED_1ST_GEN: SqlIpAddressType = SqlIpAddressType::new(4);
-
-    /// Creates a new SqlIpAddressType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_IP_ADDRESS_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("PRIMARY"),
-            2 => std::borrow::Cow::Borrowed("OUTGOING"),
-            3 => std::borrow::Cow::Borrowed("PRIVATE"),
-            4 => std::borrow::Cow::Borrowed("MIGRATED_1ST_GEN"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_IP_ADDRESS_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_IP_ADDRESS_TYPE_UNSPECIFIED),
-            "PRIMARY" => std::option::Option::Some(Self::PRIMARY),
-            "OUTGOING" => std::option::Option::Some(Self::OUTGOING),
-            "PRIVATE" => std::option::Option::Some(Self::PRIVATE),
-            "MIGRATED_1ST_GEN" => std::option::Option::Some(Self::MIGRATED_1ST_GEN),
-            _ => std::option::Option::None,
-        }
-    }
+    Migrated1StGen,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlIpAddressType::value] or
+    /// [SqlIpAddressType::name].
+    UnknownValue(sql_ip_address_type::UnknownValue),
 }
 
-impl std::convert::From<i32> for SqlIpAddressType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod sql_ip_address_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SqlIpAddressType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Primary => std::option::Option::Some(1),
+            Self::Outgoing => std::option::Option::Some(2),
+            Self::Private => std::option::Option::Some(3),
+            Self::Migrated1StGen => std::option::Option::Some(4),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_IP_ADDRESS_TYPE_UNSPECIFIED"),
+            Self::Primary => std::option::Option::Some("PRIMARY"),
+            Self::Outgoing => std::option::Option::Some("OUTGOING"),
+            Self::Private => std::option::Option::Some("PRIVATE"),
+            Self::Migrated1StGen => std::option::Option::Some("MIGRATED_1ST_GEN"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for SqlIpAddressType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SqlIpAddressType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SqlIpAddressType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Primary,
+            2 => Self::Outgoing,
+            3 => Self::Private,
+            4 => Self::Migrated1StGen,
+            _ => Self::UnknownValue(sql_ip_address_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SqlIpAddressType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_IP_ADDRESS_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "PRIMARY" => Self::Primary,
+            "OUTGOING" => Self::Outgoing,
+            "PRIVATE" => Self::Private,
+            "MIGRATED_1ST_GEN" => Self::Migrated1StGen,
+            _ => Self::UnknownValue(sql_ip_address_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlIpAddressType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Primary => serializer.serialize_i32(1),
+            Self::Outgoing => serializer.serialize_i32(2),
+            Self::Private => serializer.serialize_i32(3),
+            Self::Migrated1StGen => serializer.serialize_i32(4),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlIpAddressType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlIpAddressType>::new(
+            ".google.cloud.sql.v1.SqlIpAddressType"))
     }
 }
 
 /// The database engine type and version.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlDatabaseVersion(i32);
-
-impl SqlDatabaseVersion {
-
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlDatabaseVersion {
     /// This is an unknown database version.
-    pub const SQL_DATABASE_VERSION_UNSPECIFIED: SqlDatabaseVersion = SqlDatabaseVersion::new(0);
-
+    Unspecified,
     /// The database version is MySQL 5.1.
-    pub const MYSQL_5_1: SqlDatabaseVersion = SqlDatabaseVersion::new(2);
-
+    Mysql51,
     /// The database version is MySQL 5.5.
-    pub const MYSQL_5_5: SqlDatabaseVersion = SqlDatabaseVersion::new(3);
-
+    Mysql55,
     /// The database version is MySQL 5.6.
-    pub const MYSQL_5_6: SqlDatabaseVersion = SqlDatabaseVersion::new(5);
-
+    Mysql56,
     /// The database version is MySQL 5.7.
-    pub const MYSQL_5_7: SqlDatabaseVersion = SqlDatabaseVersion::new(6);
-
+    Mysql57,
     /// The database version is SQL Server 2017 Standard.
-    pub const SQLSERVER_2017_STANDARD: SqlDatabaseVersion = SqlDatabaseVersion::new(11);
-
+    Sqlserver2017Standard,
     /// The database version is SQL Server 2017 Enterprise.
-    pub const SQLSERVER_2017_ENTERPRISE: SqlDatabaseVersion = SqlDatabaseVersion::new(14);
-
+    Sqlserver2017Enterprise,
     /// The database version is SQL Server 2017 Express.
-    pub const SQLSERVER_2017_EXPRESS: SqlDatabaseVersion = SqlDatabaseVersion::new(15);
-
+    Sqlserver2017Express,
     /// The database version is SQL Server 2017 Web.
-    pub const SQLSERVER_2017_WEB: SqlDatabaseVersion = SqlDatabaseVersion::new(16);
-
+    Sqlserver2017Web,
     /// The database version is PostgreSQL 9.6.
-    pub const POSTGRES_9_6: SqlDatabaseVersion = SqlDatabaseVersion::new(9);
-
+    Postgres96,
     /// The database version is PostgreSQL 10.
-    pub const POSTGRES_10: SqlDatabaseVersion = SqlDatabaseVersion::new(18);
-
+    Postgres10,
     /// The database version is PostgreSQL 11.
-    pub const POSTGRES_11: SqlDatabaseVersion = SqlDatabaseVersion::new(10);
-
+    Postgres11,
     /// The database version is PostgreSQL 12.
-    pub const POSTGRES_12: SqlDatabaseVersion = SqlDatabaseVersion::new(19);
-
+    Postgres12,
     /// The database version is PostgreSQL 13.
-    pub const POSTGRES_13: SqlDatabaseVersion = SqlDatabaseVersion::new(23);
-
+    Postgres13,
     /// The database version is PostgreSQL 14.
-    pub const POSTGRES_14: SqlDatabaseVersion = SqlDatabaseVersion::new(110);
-
+    Postgres14,
     /// The database version is PostgreSQL 15.
-    pub const POSTGRES_15: SqlDatabaseVersion = SqlDatabaseVersion::new(172);
-
+    Postgres15,
     /// The database version is PostgreSQL 16.
-    pub const POSTGRES_16: SqlDatabaseVersion = SqlDatabaseVersion::new(272);
-
+    Postgres16,
     /// The database version is MySQL 8.
-    pub const MYSQL_8_0: SqlDatabaseVersion = SqlDatabaseVersion::new(20);
-
+    Mysql80,
     /// The database major version is MySQL 8.0 and the minor version is 18.
-    pub const MYSQL_8_0_18: SqlDatabaseVersion = SqlDatabaseVersion::new(41);
-
+    Mysql8018,
     /// The database major version is MySQL 8.0 and the minor version is 26.
-    pub const MYSQL_8_0_26: SqlDatabaseVersion = SqlDatabaseVersion::new(85);
-
+    Mysql8026,
     /// The database major version is MySQL 8.0 and the minor version is 27.
-    pub const MYSQL_8_0_27: SqlDatabaseVersion = SqlDatabaseVersion::new(111);
-
+    Mysql8027,
     /// The database major version is MySQL 8.0 and the minor version is 28.
-    pub const MYSQL_8_0_28: SqlDatabaseVersion = SqlDatabaseVersion::new(132);
-
+    Mysql8028,
     /// The database major version is MySQL 8.0 and the minor version is 29.
-    pub const MYSQL_8_0_29: SqlDatabaseVersion = SqlDatabaseVersion::new(148);
-
+    Mysql8029,
     /// The database major version is MySQL 8.0 and the minor version is 30.
-    pub const MYSQL_8_0_30: SqlDatabaseVersion = SqlDatabaseVersion::new(174);
-
+    Mysql8030,
     /// The database major version is MySQL 8.0 and the minor version is 31.
-    pub const MYSQL_8_0_31: SqlDatabaseVersion = SqlDatabaseVersion::new(197);
-
+    Mysql8031,
     /// The database major version is MySQL 8.0 and the minor version is 32.
-    pub const MYSQL_8_0_32: SqlDatabaseVersion = SqlDatabaseVersion::new(213);
-
+    Mysql8032,
     /// The database major version is MySQL 8.0 and the minor version is 33.
-    pub const MYSQL_8_0_33: SqlDatabaseVersion = SqlDatabaseVersion::new(238);
-
+    Mysql8033,
     /// The database major version is MySQL 8.0 and the minor version is 34.
-    pub const MYSQL_8_0_34: SqlDatabaseVersion = SqlDatabaseVersion::new(239);
-
+    Mysql8034,
     /// The database major version is MySQL 8.0 and the minor version is 35.
-    pub const MYSQL_8_0_35: SqlDatabaseVersion = SqlDatabaseVersion::new(240);
-
+    Mysql8035,
     /// The database major version is MySQL 8.0 and the minor version is 36.
-    pub const MYSQL_8_0_36: SqlDatabaseVersion = SqlDatabaseVersion::new(241);
-
+    Mysql8036,
     /// The database major version is MySQL 8.0 and the minor version is 37.
-    pub const MYSQL_8_0_37: SqlDatabaseVersion = SqlDatabaseVersion::new(355);
-
+    Mysql8037,
     /// The database major version is MySQL 8.0 and the minor version is 38.
-    pub const MYSQL_8_0_38: SqlDatabaseVersion = SqlDatabaseVersion::new(356);
-
+    Mysql8038,
     /// The database major version is MySQL 8.0 and the minor version is 39.
-    pub const MYSQL_8_0_39: SqlDatabaseVersion = SqlDatabaseVersion::new(357);
-
+    Mysql8039,
     /// The database major version is MySQL 8.0 and the minor version is 40.
-    pub const MYSQL_8_0_40: SqlDatabaseVersion = SqlDatabaseVersion::new(358);
-
+    Mysql8040,
     /// The database version is MySQL 8.4.
-    pub const MYSQL_8_4: SqlDatabaseVersion = SqlDatabaseVersion::new(398);
-
+    Mysql84,
     /// The database version is MySQL 8.4 and the patch version is 0.
-    pub const MYSQL_8_4_0: SqlDatabaseVersion = SqlDatabaseVersion::new(399);
-
+    Mysql840,
     /// The database version is SQL Server 2019 Standard.
-    pub const SQLSERVER_2019_STANDARD: SqlDatabaseVersion = SqlDatabaseVersion::new(26);
-
+    Sqlserver2019Standard,
     /// The database version is SQL Server 2019 Enterprise.
-    pub const SQLSERVER_2019_ENTERPRISE: SqlDatabaseVersion = SqlDatabaseVersion::new(27);
-
+    Sqlserver2019Enterprise,
     /// The database version is SQL Server 2019 Express.
-    pub const SQLSERVER_2019_EXPRESS: SqlDatabaseVersion = SqlDatabaseVersion::new(28);
-
+    Sqlserver2019Express,
     /// The database version is SQL Server 2019 Web.
-    pub const SQLSERVER_2019_WEB: SqlDatabaseVersion = SqlDatabaseVersion::new(29);
-
+    Sqlserver2019Web,
     /// The database version is SQL Server 2022 Standard.
-    pub const SQLSERVER_2022_STANDARD: SqlDatabaseVersion = SqlDatabaseVersion::new(199);
-
+    Sqlserver2022Standard,
     /// The database version is SQL Server 2022 Enterprise.
-    pub const SQLSERVER_2022_ENTERPRISE: SqlDatabaseVersion = SqlDatabaseVersion::new(200);
-
+    Sqlserver2022Enterprise,
     /// The database version is SQL Server 2022 Express.
-    pub const SQLSERVER_2022_EXPRESS: SqlDatabaseVersion = SqlDatabaseVersion::new(201);
-
+    Sqlserver2022Express,
     /// The database version is SQL Server 2022 Web.
-    pub const SQLSERVER_2022_WEB: SqlDatabaseVersion = SqlDatabaseVersion::new(202);
-
-    /// Creates a new SqlDatabaseVersion instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_DATABASE_VERSION_UNSPECIFIED"),
-            2 => std::borrow::Cow::Borrowed("MYSQL_5_1"),
-            3 => std::borrow::Cow::Borrowed("MYSQL_5_5"),
-            5 => std::borrow::Cow::Borrowed("MYSQL_5_6"),
-            6 => std::borrow::Cow::Borrowed("MYSQL_5_7"),
-            9 => std::borrow::Cow::Borrowed("POSTGRES_9_6"),
-            10 => std::borrow::Cow::Borrowed("POSTGRES_11"),
-            11 => std::borrow::Cow::Borrowed("SQLSERVER_2017_STANDARD"),
-            14 => std::borrow::Cow::Borrowed("SQLSERVER_2017_ENTERPRISE"),
-            15 => std::borrow::Cow::Borrowed("SQLSERVER_2017_EXPRESS"),
-            16 => std::borrow::Cow::Borrowed("SQLSERVER_2017_WEB"),
-            18 => std::borrow::Cow::Borrowed("POSTGRES_10"),
-            19 => std::borrow::Cow::Borrowed("POSTGRES_12"),
-            20 => std::borrow::Cow::Borrowed("MYSQL_8_0"),
-            23 => std::borrow::Cow::Borrowed("POSTGRES_13"),
-            26 => std::borrow::Cow::Borrowed("SQLSERVER_2019_STANDARD"),
-            27 => std::borrow::Cow::Borrowed("SQLSERVER_2019_ENTERPRISE"),
-            28 => std::borrow::Cow::Borrowed("SQLSERVER_2019_EXPRESS"),
-            29 => std::borrow::Cow::Borrowed("SQLSERVER_2019_WEB"),
-            41 => std::borrow::Cow::Borrowed("MYSQL_8_0_18"),
-            85 => std::borrow::Cow::Borrowed("MYSQL_8_0_26"),
-            110 => std::borrow::Cow::Borrowed("POSTGRES_14"),
-            111 => std::borrow::Cow::Borrowed("MYSQL_8_0_27"),
-            132 => std::borrow::Cow::Borrowed("MYSQL_8_0_28"),
-            148 => std::borrow::Cow::Borrowed("MYSQL_8_0_29"),
-            172 => std::borrow::Cow::Borrowed("POSTGRES_15"),
-            174 => std::borrow::Cow::Borrowed("MYSQL_8_0_30"),
-            197 => std::borrow::Cow::Borrowed("MYSQL_8_0_31"),
-            199 => std::borrow::Cow::Borrowed("SQLSERVER_2022_STANDARD"),
-            200 => std::borrow::Cow::Borrowed("SQLSERVER_2022_ENTERPRISE"),
-            201 => std::borrow::Cow::Borrowed("SQLSERVER_2022_EXPRESS"),
-            202 => std::borrow::Cow::Borrowed("SQLSERVER_2022_WEB"),
-            213 => std::borrow::Cow::Borrowed("MYSQL_8_0_32"),
-            238 => std::borrow::Cow::Borrowed("MYSQL_8_0_33"),
-            239 => std::borrow::Cow::Borrowed("MYSQL_8_0_34"),
-            240 => std::borrow::Cow::Borrowed("MYSQL_8_0_35"),
-            241 => std::borrow::Cow::Borrowed("MYSQL_8_0_36"),
-            272 => std::borrow::Cow::Borrowed("POSTGRES_16"),
-            355 => std::borrow::Cow::Borrowed("MYSQL_8_0_37"),
-            356 => std::borrow::Cow::Borrowed("MYSQL_8_0_38"),
-            357 => std::borrow::Cow::Borrowed("MYSQL_8_0_39"),
-            358 => std::borrow::Cow::Borrowed("MYSQL_8_0_40"),
-            398 => std::borrow::Cow::Borrowed("MYSQL_8_4"),
-            399 => std::borrow::Cow::Borrowed("MYSQL_8_4_0"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_DATABASE_VERSION_UNSPECIFIED" => std::option::Option::Some(Self::SQL_DATABASE_VERSION_UNSPECIFIED),
-            "MYSQL_5_1" => std::option::Option::Some(Self::MYSQL_5_1),
-            "MYSQL_5_5" => std::option::Option::Some(Self::MYSQL_5_5),
-            "MYSQL_5_6" => std::option::Option::Some(Self::MYSQL_5_6),
-            "MYSQL_5_7" => std::option::Option::Some(Self::MYSQL_5_7),
-            "SQLSERVER_2017_STANDARD" => std::option::Option::Some(Self::SQLSERVER_2017_STANDARD),
-            "SQLSERVER_2017_ENTERPRISE" => std::option::Option::Some(Self::SQLSERVER_2017_ENTERPRISE),
-            "SQLSERVER_2017_EXPRESS" => std::option::Option::Some(Self::SQLSERVER_2017_EXPRESS),
-            "SQLSERVER_2017_WEB" => std::option::Option::Some(Self::SQLSERVER_2017_WEB),
-            "POSTGRES_9_6" => std::option::Option::Some(Self::POSTGRES_9_6),
-            "POSTGRES_10" => std::option::Option::Some(Self::POSTGRES_10),
-            "POSTGRES_11" => std::option::Option::Some(Self::POSTGRES_11),
-            "POSTGRES_12" => std::option::Option::Some(Self::POSTGRES_12),
-            "POSTGRES_13" => std::option::Option::Some(Self::POSTGRES_13),
-            "POSTGRES_14" => std::option::Option::Some(Self::POSTGRES_14),
-            "POSTGRES_15" => std::option::Option::Some(Self::POSTGRES_15),
-            "POSTGRES_16" => std::option::Option::Some(Self::POSTGRES_16),
-            "MYSQL_8_0" => std::option::Option::Some(Self::MYSQL_8_0),
-            "MYSQL_8_0_18" => std::option::Option::Some(Self::MYSQL_8_0_18),
-            "MYSQL_8_0_26" => std::option::Option::Some(Self::MYSQL_8_0_26),
-            "MYSQL_8_0_27" => std::option::Option::Some(Self::MYSQL_8_0_27),
-            "MYSQL_8_0_28" => std::option::Option::Some(Self::MYSQL_8_0_28),
-            "MYSQL_8_0_29" => std::option::Option::Some(Self::MYSQL_8_0_29),
-            "MYSQL_8_0_30" => std::option::Option::Some(Self::MYSQL_8_0_30),
-            "MYSQL_8_0_31" => std::option::Option::Some(Self::MYSQL_8_0_31),
-            "MYSQL_8_0_32" => std::option::Option::Some(Self::MYSQL_8_0_32),
-            "MYSQL_8_0_33" => std::option::Option::Some(Self::MYSQL_8_0_33),
-            "MYSQL_8_0_34" => std::option::Option::Some(Self::MYSQL_8_0_34),
-            "MYSQL_8_0_35" => std::option::Option::Some(Self::MYSQL_8_0_35),
-            "MYSQL_8_0_36" => std::option::Option::Some(Self::MYSQL_8_0_36),
-            "MYSQL_8_0_37" => std::option::Option::Some(Self::MYSQL_8_0_37),
-            "MYSQL_8_0_38" => std::option::Option::Some(Self::MYSQL_8_0_38),
-            "MYSQL_8_0_39" => std::option::Option::Some(Self::MYSQL_8_0_39),
-            "MYSQL_8_0_40" => std::option::Option::Some(Self::MYSQL_8_0_40),
-            "MYSQL_8_4" => std::option::Option::Some(Self::MYSQL_8_4),
-            "MYSQL_8_4_0" => std::option::Option::Some(Self::MYSQL_8_4_0),
-            "SQLSERVER_2019_STANDARD" => std::option::Option::Some(Self::SQLSERVER_2019_STANDARD),
-            "SQLSERVER_2019_ENTERPRISE" => std::option::Option::Some(Self::SQLSERVER_2019_ENTERPRISE),
-            "SQLSERVER_2019_EXPRESS" => std::option::Option::Some(Self::SQLSERVER_2019_EXPRESS),
-            "SQLSERVER_2019_WEB" => std::option::Option::Some(Self::SQLSERVER_2019_WEB),
-            "SQLSERVER_2022_STANDARD" => std::option::Option::Some(Self::SQLSERVER_2022_STANDARD),
-            "SQLSERVER_2022_ENTERPRISE" => std::option::Option::Some(Self::SQLSERVER_2022_ENTERPRISE),
-            "SQLSERVER_2022_EXPRESS" => std::option::Option::Some(Self::SQLSERVER_2022_EXPRESS),
-            "SQLSERVER_2022_WEB" => std::option::Option::Some(Self::SQLSERVER_2022_WEB),
-            _ => std::option::Option::None,
-        }
-    }
+    Sqlserver2022Web,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlDatabaseVersion::value] or
+    /// [SqlDatabaseVersion::name].
+    UnknownValue(sql_database_version::UnknownValue),
 }
 
-impl std::convert::From<i32> for SqlDatabaseVersion {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod sql_database_version {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SqlDatabaseVersion {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Mysql51 => std::option::Option::Some(2),
+            Self::Mysql55 => std::option::Option::Some(3),
+            Self::Mysql56 => std::option::Option::Some(5),
+            Self::Mysql57 => std::option::Option::Some(6),
+            Self::Sqlserver2017Standard => std::option::Option::Some(11),
+            Self::Sqlserver2017Enterprise => std::option::Option::Some(14),
+            Self::Sqlserver2017Express => std::option::Option::Some(15),
+            Self::Sqlserver2017Web => std::option::Option::Some(16),
+            Self::Postgres96 => std::option::Option::Some(9),
+            Self::Postgres10 => std::option::Option::Some(18),
+            Self::Postgres11 => std::option::Option::Some(10),
+            Self::Postgres12 => std::option::Option::Some(19),
+            Self::Postgres13 => std::option::Option::Some(23),
+            Self::Postgres14 => std::option::Option::Some(110),
+            Self::Postgres15 => std::option::Option::Some(172),
+            Self::Postgres16 => std::option::Option::Some(272),
+            Self::Mysql80 => std::option::Option::Some(20),
+            Self::Mysql8018 => std::option::Option::Some(41),
+            Self::Mysql8026 => std::option::Option::Some(85),
+            Self::Mysql8027 => std::option::Option::Some(111),
+            Self::Mysql8028 => std::option::Option::Some(132),
+            Self::Mysql8029 => std::option::Option::Some(148),
+            Self::Mysql8030 => std::option::Option::Some(174),
+            Self::Mysql8031 => std::option::Option::Some(197),
+            Self::Mysql8032 => std::option::Option::Some(213),
+            Self::Mysql8033 => std::option::Option::Some(238),
+            Self::Mysql8034 => std::option::Option::Some(239),
+            Self::Mysql8035 => std::option::Option::Some(240),
+            Self::Mysql8036 => std::option::Option::Some(241),
+            Self::Mysql8037 => std::option::Option::Some(355),
+            Self::Mysql8038 => std::option::Option::Some(356),
+            Self::Mysql8039 => std::option::Option::Some(357),
+            Self::Mysql8040 => std::option::Option::Some(358),
+            Self::Mysql84 => std::option::Option::Some(398),
+            Self::Mysql840 => std::option::Option::Some(399),
+            Self::Sqlserver2019Standard => std::option::Option::Some(26),
+            Self::Sqlserver2019Enterprise => std::option::Option::Some(27),
+            Self::Sqlserver2019Express => std::option::Option::Some(28),
+            Self::Sqlserver2019Web => std::option::Option::Some(29),
+            Self::Sqlserver2022Standard => std::option::Option::Some(199),
+            Self::Sqlserver2022Enterprise => std::option::Option::Some(200),
+            Self::Sqlserver2022Express => std::option::Option::Some(201),
+            Self::Sqlserver2022Web => std::option::Option::Some(202),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_DATABASE_VERSION_UNSPECIFIED"),
+            Self::Mysql51 => std::option::Option::Some("MYSQL_5_1"),
+            Self::Mysql55 => std::option::Option::Some("MYSQL_5_5"),
+            Self::Mysql56 => std::option::Option::Some("MYSQL_5_6"),
+            Self::Mysql57 => std::option::Option::Some("MYSQL_5_7"),
+            Self::Sqlserver2017Standard => std::option::Option::Some("SQLSERVER_2017_STANDARD"),
+            Self::Sqlserver2017Enterprise => std::option::Option::Some("SQLSERVER_2017_ENTERPRISE"),
+            Self::Sqlserver2017Express => std::option::Option::Some("SQLSERVER_2017_EXPRESS"),
+            Self::Sqlserver2017Web => std::option::Option::Some("SQLSERVER_2017_WEB"),
+            Self::Postgres96 => std::option::Option::Some("POSTGRES_9_6"),
+            Self::Postgres10 => std::option::Option::Some("POSTGRES_10"),
+            Self::Postgres11 => std::option::Option::Some("POSTGRES_11"),
+            Self::Postgres12 => std::option::Option::Some("POSTGRES_12"),
+            Self::Postgres13 => std::option::Option::Some("POSTGRES_13"),
+            Self::Postgres14 => std::option::Option::Some("POSTGRES_14"),
+            Self::Postgres15 => std::option::Option::Some("POSTGRES_15"),
+            Self::Postgres16 => std::option::Option::Some("POSTGRES_16"),
+            Self::Mysql80 => std::option::Option::Some("MYSQL_8_0"),
+            Self::Mysql8018 => std::option::Option::Some("MYSQL_8_0_18"),
+            Self::Mysql8026 => std::option::Option::Some("MYSQL_8_0_26"),
+            Self::Mysql8027 => std::option::Option::Some("MYSQL_8_0_27"),
+            Self::Mysql8028 => std::option::Option::Some("MYSQL_8_0_28"),
+            Self::Mysql8029 => std::option::Option::Some("MYSQL_8_0_29"),
+            Self::Mysql8030 => std::option::Option::Some("MYSQL_8_0_30"),
+            Self::Mysql8031 => std::option::Option::Some("MYSQL_8_0_31"),
+            Self::Mysql8032 => std::option::Option::Some("MYSQL_8_0_32"),
+            Self::Mysql8033 => std::option::Option::Some("MYSQL_8_0_33"),
+            Self::Mysql8034 => std::option::Option::Some("MYSQL_8_0_34"),
+            Self::Mysql8035 => std::option::Option::Some("MYSQL_8_0_35"),
+            Self::Mysql8036 => std::option::Option::Some("MYSQL_8_0_36"),
+            Self::Mysql8037 => std::option::Option::Some("MYSQL_8_0_37"),
+            Self::Mysql8038 => std::option::Option::Some("MYSQL_8_0_38"),
+            Self::Mysql8039 => std::option::Option::Some("MYSQL_8_0_39"),
+            Self::Mysql8040 => std::option::Option::Some("MYSQL_8_0_40"),
+            Self::Mysql84 => std::option::Option::Some("MYSQL_8_4"),
+            Self::Mysql840 => std::option::Option::Some("MYSQL_8_4_0"),
+            Self::Sqlserver2019Standard => std::option::Option::Some("SQLSERVER_2019_STANDARD"),
+            Self::Sqlserver2019Enterprise => std::option::Option::Some("SQLSERVER_2019_ENTERPRISE"),
+            Self::Sqlserver2019Express => std::option::Option::Some("SQLSERVER_2019_EXPRESS"),
+            Self::Sqlserver2019Web => std::option::Option::Some("SQLSERVER_2019_WEB"),
+            Self::Sqlserver2022Standard => std::option::Option::Some("SQLSERVER_2022_STANDARD"),
+            Self::Sqlserver2022Enterprise => std::option::Option::Some("SQLSERVER_2022_ENTERPRISE"),
+            Self::Sqlserver2022Express => std::option::Option::Some("SQLSERVER_2022_EXPRESS"),
+            Self::Sqlserver2022Web => std::option::Option::Some("SQLSERVER_2022_WEB"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for SqlDatabaseVersion {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SqlDatabaseVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SqlDatabaseVersion {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            2 => Self::Mysql51,
+            3 => Self::Mysql55,
+            5 => Self::Mysql56,
+            6 => Self::Mysql57,
+            9 => Self::Postgres96,
+            10 => Self::Postgres11,
+            11 => Self::Sqlserver2017Standard,
+            14 => Self::Sqlserver2017Enterprise,
+            15 => Self::Sqlserver2017Express,
+            16 => Self::Sqlserver2017Web,
+            18 => Self::Postgres10,
+            19 => Self::Postgres12,
+            20 => Self::Mysql80,
+            23 => Self::Postgres13,
+            26 => Self::Sqlserver2019Standard,
+            27 => Self::Sqlserver2019Enterprise,
+            28 => Self::Sqlserver2019Express,
+            29 => Self::Sqlserver2019Web,
+            41 => Self::Mysql8018,
+            85 => Self::Mysql8026,
+            110 => Self::Postgres14,
+            111 => Self::Mysql8027,
+            132 => Self::Mysql8028,
+            148 => Self::Mysql8029,
+            172 => Self::Postgres15,
+            174 => Self::Mysql8030,
+            197 => Self::Mysql8031,
+            199 => Self::Sqlserver2022Standard,
+            200 => Self::Sqlserver2022Enterprise,
+            201 => Self::Sqlserver2022Express,
+            202 => Self::Sqlserver2022Web,
+            213 => Self::Mysql8032,
+            238 => Self::Mysql8033,
+            239 => Self::Mysql8034,
+            240 => Self::Mysql8035,
+            241 => Self::Mysql8036,
+            272 => Self::Postgres16,
+            355 => Self::Mysql8037,
+            356 => Self::Mysql8038,
+            357 => Self::Mysql8039,
+            358 => Self::Mysql8040,
+            398 => Self::Mysql84,
+            399 => Self::Mysql840,
+            _ => Self::UnknownValue(sql_database_version::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SqlDatabaseVersion {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_DATABASE_VERSION_UNSPECIFIED" => Self::Unspecified,
+            "MYSQL_5_1" => Self::Mysql51,
+            "MYSQL_5_5" => Self::Mysql55,
+            "MYSQL_5_6" => Self::Mysql56,
+            "MYSQL_5_7" => Self::Mysql57,
+            "SQLSERVER_2017_STANDARD" => Self::Sqlserver2017Standard,
+            "SQLSERVER_2017_ENTERPRISE" => Self::Sqlserver2017Enterprise,
+            "SQLSERVER_2017_EXPRESS" => Self::Sqlserver2017Express,
+            "SQLSERVER_2017_WEB" => Self::Sqlserver2017Web,
+            "POSTGRES_9_6" => Self::Postgres96,
+            "POSTGRES_10" => Self::Postgres10,
+            "POSTGRES_11" => Self::Postgres11,
+            "POSTGRES_12" => Self::Postgres12,
+            "POSTGRES_13" => Self::Postgres13,
+            "POSTGRES_14" => Self::Postgres14,
+            "POSTGRES_15" => Self::Postgres15,
+            "POSTGRES_16" => Self::Postgres16,
+            "MYSQL_8_0" => Self::Mysql80,
+            "MYSQL_8_0_18" => Self::Mysql8018,
+            "MYSQL_8_0_26" => Self::Mysql8026,
+            "MYSQL_8_0_27" => Self::Mysql8027,
+            "MYSQL_8_0_28" => Self::Mysql8028,
+            "MYSQL_8_0_29" => Self::Mysql8029,
+            "MYSQL_8_0_30" => Self::Mysql8030,
+            "MYSQL_8_0_31" => Self::Mysql8031,
+            "MYSQL_8_0_32" => Self::Mysql8032,
+            "MYSQL_8_0_33" => Self::Mysql8033,
+            "MYSQL_8_0_34" => Self::Mysql8034,
+            "MYSQL_8_0_35" => Self::Mysql8035,
+            "MYSQL_8_0_36" => Self::Mysql8036,
+            "MYSQL_8_0_37" => Self::Mysql8037,
+            "MYSQL_8_0_38" => Self::Mysql8038,
+            "MYSQL_8_0_39" => Self::Mysql8039,
+            "MYSQL_8_0_40" => Self::Mysql8040,
+            "MYSQL_8_4" => Self::Mysql84,
+            "MYSQL_8_4_0" => Self::Mysql840,
+            "SQLSERVER_2019_STANDARD" => Self::Sqlserver2019Standard,
+            "SQLSERVER_2019_ENTERPRISE" => Self::Sqlserver2019Enterprise,
+            "SQLSERVER_2019_EXPRESS" => Self::Sqlserver2019Express,
+            "SQLSERVER_2019_WEB" => Self::Sqlserver2019Web,
+            "SQLSERVER_2022_STANDARD" => Self::Sqlserver2022Standard,
+            "SQLSERVER_2022_ENTERPRISE" => Self::Sqlserver2022Enterprise,
+            "SQLSERVER_2022_EXPRESS" => Self::Sqlserver2022Express,
+            "SQLSERVER_2022_WEB" => Self::Sqlserver2022Web,
+            _ => Self::UnknownValue(sql_database_version::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlDatabaseVersion {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Mysql51 => serializer.serialize_i32(2),
+            Self::Mysql55 => serializer.serialize_i32(3),
+            Self::Mysql56 => serializer.serialize_i32(5),
+            Self::Mysql57 => serializer.serialize_i32(6),
+            Self::Sqlserver2017Standard => serializer.serialize_i32(11),
+            Self::Sqlserver2017Enterprise => serializer.serialize_i32(14),
+            Self::Sqlserver2017Express => serializer.serialize_i32(15),
+            Self::Sqlserver2017Web => serializer.serialize_i32(16),
+            Self::Postgres96 => serializer.serialize_i32(9),
+            Self::Postgres10 => serializer.serialize_i32(18),
+            Self::Postgres11 => serializer.serialize_i32(10),
+            Self::Postgres12 => serializer.serialize_i32(19),
+            Self::Postgres13 => serializer.serialize_i32(23),
+            Self::Postgres14 => serializer.serialize_i32(110),
+            Self::Postgres15 => serializer.serialize_i32(172),
+            Self::Postgres16 => serializer.serialize_i32(272),
+            Self::Mysql80 => serializer.serialize_i32(20),
+            Self::Mysql8018 => serializer.serialize_i32(41),
+            Self::Mysql8026 => serializer.serialize_i32(85),
+            Self::Mysql8027 => serializer.serialize_i32(111),
+            Self::Mysql8028 => serializer.serialize_i32(132),
+            Self::Mysql8029 => serializer.serialize_i32(148),
+            Self::Mysql8030 => serializer.serialize_i32(174),
+            Self::Mysql8031 => serializer.serialize_i32(197),
+            Self::Mysql8032 => serializer.serialize_i32(213),
+            Self::Mysql8033 => serializer.serialize_i32(238),
+            Self::Mysql8034 => serializer.serialize_i32(239),
+            Self::Mysql8035 => serializer.serialize_i32(240),
+            Self::Mysql8036 => serializer.serialize_i32(241),
+            Self::Mysql8037 => serializer.serialize_i32(355),
+            Self::Mysql8038 => serializer.serialize_i32(356),
+            Self::Mysql8039 => serializer.serialize_i32(357),
+            Self::Mysql8040 => serializer.serialize_i32(358),
+            Self::Mysql84 => serializer.serialize_i32(398),
+            Self::Mysql840 => serializer.serialize_i32(399),
+            Self::Sqlserver2019Standard => serializer.serialize_i32(26),
+            Self::Sqlserver2019Enterprise => serializer.serialize_i32(27),
+            Self::Sqlserver2019Express => serializer.serialize_i32(28),
+            Self::Sqlserver2019Web => serializer.serialize_i32(29),
+            Self::Sqlserver2022Standard => serializer.serialize_i32(199),
+            Self::Sqlserver2022Enterprise => serializer.serialize_i32(200),
+            Self::Sqlserver2022Express => serializer.serialize_i32(201),
+            Self::Sqlserver2022Web => serializer.serialize_i32(202),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlDatabaseVersion {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlDatabaseVersion>::new(
+            ".google.cloud.sql.v1.SqlDatabaseVersion"))
     }
 }
 
 /// The pricing plan for this instance.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlPricingPlan(i32);
-
-impl SqlPricingPlan {
-
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlPricingPlan {
     /// This is an unknown pricing plan for this instance.
-    pub const SQL_PRICING_PLAN_UNSPECIFIED: SqlPricingPlan = SqlPricingPlan::new(0);
-
+    Unspecified,
     /// The instance is billed at a monthly flat rate.
-    pub const PACKAGE: SqlPricingPlan = SqlPricingPlan::new(1);
-
+    Package,
     /// The instance is billed per usage.
-    pub const PER_USE: SqlPricingPlan = SqlPricingPlan::new(2);
-
-    /// Creates a new SqlPricingPlan instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_PRICING_PLAN_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("PACKAGE"),
-            2 => std::borrow::Cow::Borrowed("PER_USE"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_PRICING_PLAN_UNSPECIFIED" => std::option::Option::Some(Self::SQL_PRICING_PLAN_UNSPECIFIED),
-            "PACKAGE" => std::option::Option::Some(Self::PACKAGE),
-            "PER_USE" => std::option::Option::Some(Self::PER_USE),
-            _ => std::option::Option::None,
-        }
-    }
+    PerUse,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlPricingPlan::value] or
+    /// [SqlPricingPlan::name].
+    UnknownValue(sql_pricing_plan::UnknownValue),
 }
 
-impl std::convert::From<i32> for SqlPricingPlan {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod sql_pricing_plan {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SqlPricingPlan {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Package => std::option::Option::Some(1),
+            Self::PerUse => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_PRICING_PLAN_UNSPECIFIED"),
+            Self::Package => std::option::Option::Some("PACKAGE"),
+            Self::PerUse => std::option::Option::Some("PER_USE"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for SqlPricingPlan {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlReplicationType(i32);
+impl std::fmt::Display for SqlPricingPlan {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
 
-impl SqlReplicationType {
+impl std::convert::From<i32> for SqlPricingPlan {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Package,
+            2 => Self::PerUse,
+            _ => Self::UnknownValue(sql_pricing_plan::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
 
+impl std::convert::From<&str> for SqlPricingPlan {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_PRICING_PLAN_UNSPECIFIED" => Self::Unspecified,
+            "PACKAGE" => Self::Package,
+            "PER_USE" => Self::PerUse,
+            _ => Self::UnknownValue(sql_pricing_plan::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlPricingPlan {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Package => serializer.serialize_i32(1),
+            Self::PerUse => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlPricingPlan {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlPricingPlan>::new(
+            ".google.cloud.sql.v1.SqlPricingPlan"))
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlReplicationType {
     /// This is an unknown replication type for a Cloud SQL instance.
-    pub const SQL_REPLICATION_TYPE_UNSPECIFIED: SqlReplicationType = SqlReplicationType::new(0);
-
+    Unspecified,
     /// The synchronous replication mode for First Generation instances. It is the
     /// default value.
-    pub const SYNCHRONOUS: SqlReplicationType = SqlReplicationType::new(1);
-
+    Synchronous,
     /// The asynchronous replication mode for First Generation instances. It
     /// provides a slight performance gain, but if an outage occurs while this
     /// option is set to asynchronous, you can lose up to a few seconds of updates
     /// to your data.
-    pub const ASYNCHRONOUS: SqlReplicationType = SqlReplicationType::new(2);
-
-    /// Creates a new SqlReplicationType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_REPLICATION_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("SYNCHRONOUS"),
-            2 => std::borrow::Cow::Borrowed("ASYNCHRONOUS"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_REPLICATION_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_REPLICATION_TYPE_UNSPECIFIED),
-            "SYNCHRONOUS" => std::option::Option::Some(Self::SYNCHRONOUS),
-            "ASYNCHRONOUS" => std::option::Option::Some(Self::ASYNCHRONOUS),
-            _ => std::option::Option::None,
-        }
-    }
+    Asynchronous,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlReplicationType::value] or
+    /// [SqlReplicationType::name].
+    UnknownValue(sql_replication_type::UnknownValue),
 }
 
-impl std::convert::From<i32> for SqlReplicationType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod sql_replication_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SqlReplicationType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Synchronous => std::option::Option::Some(1),
+            Self::Asynchronous => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_REPLICATION_TYPE_UNSPECIFIED"),
+            Self::Synchronous => std::option::Option::Some("SYNCHRONOUS"),
+            Self::Asynchronous => std::option::Option::Some("ASYNCHRONOUS"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for SqlReplicationType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SqlReplicationType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SqlReplicationType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Synchronous,
+            2 => Self::Asynchronous,
+            _ => Self::UnknownValue(sql_replication_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SqlReplicationType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_REPLICATION_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "SYNCHRONOUS" => Self::Synchronous,
+            "ASYNCHRONOUS" => Self::Asynchronous,
+            _ => Self::UnknownValue(sql_replication_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlReplicationType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Synchronous => serializer.serialize_i32(1),
+            Self::Asynchronous => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlReplicationType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlReplicationType>::new(
+            ".google.cloud.sql.v1.SqlReplicationType"))
     }
 }
 
 /// The type of disk that is used for a v2 instance to use.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlDataDiskType(i32);
-
-impl SqlDataDiskType {
-
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlDataDiskType {
     /// This is an unknown data disk type.
-    pub const SQL_DATA_DISK_TYPE_UNSPECIFIED: SqlDataDiskType = SqlDataDiskType::new(0);
-
+    Unspecified,
     /// An SSD data disk.
-    pub const PD_SSD: SqlDataDiskType = SqlDataDiskType::new(1);
-
+    PdSsd,
     /// An HDD data disk.
-    pub const PD_HDD: SqlDataDiskType = SqlDataDiskType::new(2);
-
+    PdHdd,
     /// This field is deprecated and will be removed from a future version of the
     /// API.
-    pub const OBSOLETE_LOCAL_SSD: SqlDataDiskType = SqlDataDiskType::new(3);
-
-    /// Creates a new SqlDataDiskType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_DATA_DISK_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("PD_SSD"),
-            2 => std::borrow::Cow::Borrowed("PD_HDD"),
-            3 => std::borrow::Cow::Borrowed("OBSOLETE_LOCAL_SSD"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_DATA_DISK_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_DATA_DISK_TYPE_UNSPECIFIED),
-            "PD_SSD" => std::option::Option::Some(Self::PD_SSD),
-            "PD_HDD" => std::option::Option::Some(Self::PD_HDD),
-            "OBSOLETE_LOCAL_SSD" => std::option::Option::Some(Self::OBSOLETE_LOCAL_SSD),
-            _ => std::option::Option::None,
-        }
-    }
+    ObsoleteLocalSsd,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlDataDiskType::value] or
+    /// [SqlDataDiskType::name].
+    UnknownValue(sql_data_disk_type::UnknownValue),
 }
 
-impl std::convert::From<i32> for SqlDataDiskType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod sql_data_disk_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SqlDataDiskType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::PdSsd => std::option::Option::Some(1),
+            Self::PdHdd => std::option::Option::Some(2),
+            Self::ObsoleteLocalSsd => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_DATA_DISK_TYPE_UNSPECIFIED"),
+            Self::PdSsd => std::option::Option::Some("PD_SSD"),
+            Self::PdHdd => std::option::Option::Some("PD_HDD"),
+            Self::ObsoleteLocalSsd => std::option::Option::Some("OBSOLETE_LOCAL_SSD"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for SqlDataDiskType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SqlDataDiskType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SqlDataDiskType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::PdSsd,
+            2 => Self::PdHdd,
+            3 => Self::ObsoleteLocalSsd,
+            _ => Self::UnknownValue(sql_data_disk_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SqlDataDiskType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_DATA_DISK_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "PD_SSD" => Self::PdSsd,
+            "PD_HDD" => Self::PdHdd,
+            "OBSOLETE_LOCAL_SSD" => Self::ObsoleteLocalSsd,
+            _ => Self::UnknownValue(sql_data_disk_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlDataDiskType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::PdSsd => serializer.serialize_i32(1),
+            Self::PdHdd => serializer.serialize_i32(2),
+            Self::ObsoleteLocalSsd => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlDataDiskType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlDataDiskType>::new(
+            ".google.cloud.sql.v1.SqlDataDiskType"))
     }
 }
 
 /// The availability type of the given Cloud SQL instance.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlAvailabilityType(i32);
-
-impl SqlAvailabilityType {
-
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlAvailabilityType {
     /// This is an unknown Availability type.
-    pub const SQL_AVAILABILITY_TYPE_UNSPECIFIED: SqlAvailabilityType = SqlAvailabilityType::new(0);
-
+    Unspecified,
     /// Zonal available instance.
-    pub const ZONAL: SqlAvailabilityType = SqlAvailabilityType::new(1);
-
+    Zonal,
     /// Regional available instance.
-    pub const REGIONAL: SqlAvailabilityType = SqlAvailabilityType::new(2);
-
-    /// Creates a new SqlAvailabilityType instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_AVAILABILITY_TYPE_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("ZONAL"),
-            2 => std::borrow::Cow::Borrowed("REGIONAL"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_AVAILABILITY_TYPE_UNSPECIFIED" => std::option::Option::Some(Self::SQL_AVAILABILITY_TYPE_UNSPECIFIED),
-            "ZONAL" => std::option::Option::Some(Self::ZONAL),
-            "REGIONAL" => std::option::Option::Some(Self::REGIONAL),
-            _ => std::option::Option::None,
-        }
-    }
+    Regional,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlAvailabilityType::value] or
+    /// [SqlAvailabilityType::name].
+    UnknownValue(sql_availability_type::UnknownValue),
 }
 
-impl std::convert::From<i32> for SqlAvailabilityType {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod sql_availability_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SqlAvailabilityType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Zonal => std::option::Option::Some(1),
+            Self::Regional => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_AVAILABILITY_TYPE_UNSPECIFIED"),
+            Self::Zonal => std::option::Option::Some("ZONAL"),
+            Self::Regional => std::option::Option::Some("REGIONAL"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for SqlAvailabilityType {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct SqlUpdateTrack(i32);
+impl std::fmt::Display for SqlAvailabilityType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
 
-impl SqlUpdateTrack {
+impl std::convert::From<i32> for SqlAvailabilityType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Zonal,
+            2 => Self::Regional,
+            _ => Self::UnknownValue(sql_availability_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
 
+impl std::convert::From<&str> for SqlAvailabilityType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_AVAILABILITY_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "ZONAL" => Self::Zonal,
+            "REGIONAL" => Self::Regional,
+            _ => Self::UnknownValue(sql_availability_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlAvailabilityType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Zonal => serializer.serialize_i32(1),
+            Self::Regional => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlAvailabilityType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlAvailabilityType>::new(
+            ".google.cloud.sql.v1.SqlAvailabilityType"))
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SqlUpdateTrack {
     /// This is an unknown maintenance timing preference.
-    pub const SQL_UPDATE_TRACK_UNSPECIFIED: SqlUpdateTrack = SqlUpdateTrack::new(0);
-
+    Unspecified,
     /// For an instance with a scheduled maintenance window, this maintenance
     /// timing indicates that the maintenance update is scheduled 7 to 14 days
     /// after the notification is sent out. Also referred to as `Week 1` (Console)
     /// and `preview` (gcloud CLI).
-    pub const CANARY: SqlUpdateTrack = SqlUpdateTrack::new(1);
-
+    Canary,
     /// For an instance with a scheduled maintenance window, this maintenance
     /// timing indicates that the maintenance update is scheduled 15 to 21 days
     /// after the notification is sent out. Also referred to as `Week 2` (Console)
     /// and `production` (gcloud CLI).
-    pub const STABLE: SqlUpdateTrack = SqlUpdateTrack::new(2);
-
+    Stable,
     /// For instance with a scheduled maintenance window, this maintenance
     /// timing indicates that the maintenance update is scheduled 35 to 42 days
     /// after the notification is sent out.
-    pub const WEEK_5: SqlUpdateTrack = SqlUpdateTrack::new(3);
-
-    /// Creates a new SqlUpdateTrack instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
-    }
-    
-    /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SQL_UPDATE_TRACK_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("canary"),
-            2 => std::borrow::Cow::Borrowed("stable"),
-            3 => std::borrow::Cow::Borrowed("week5"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-        }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SQL_UPDATE_TRACK_UNSPECIFIED" => std::option::Option::Some(Self::SQL_UPDATE_TRACK_UNSPECIFIED),
-            "canary" => std::option::Option::Some(Self::CANARY),
-            "stable" => std::option::Option::Some(Self::STABLE),
-            "week5" => std::option::Option::Some(Self::WEEK_5),
-            _ => std::option::Option::None,
-        }
-    }
+    Week5,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SqlUpdateTrack::value] or
+    /// [SqlUpdateTrack::name].
+    UnknownValue(sql_update_track::UnknownValue),
 }
 
-impl std::convert::From<i32> for SqlUpdateTrack {
-    fn from(value: i32) -> Self {
-        Self::new(value)
+#[doc(hidden)]
+pub mod sql_update_track {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SqlUpdateTrack {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Canary => std::option::Option::Some(1),
+            Self::Stable => std::option::Option::Some(2),
+            Self::Week5 => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SQL_UPDATE_TRACK_UNSPECIFIED"),
+            Self::Canary => std::option::Option::Some("canary"),
+            Self::Stable => std::option::Option::Some("stable"),
+            Self::Week5 => std::option::Option::Some("week5"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
     }
 }
 
 impl std::default::Default for SqlUpdateTrack {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SqlUpdateTrack {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SqlUpdateTrack {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Canary,
+            2 => Self::Stable,
+            3 => Self::Week5,
+            _ => Self::UnknownValue(sql_update_track::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SqlUpdateTrack {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SQL_UPDATE_TRACK_UNSPECIFIED" => Self::Unspecified,
+            "canary" => Self::Canary,
+            "stable" => Self::Stable,
+            "week5" => Self::Week5,
+            _ => Self::UnknownValue(sql_update_track::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SqlUpdateTrack {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Canary => serializer.serialize_i32(1),
+            Self::Stable => serializer.serialize_i32(2),
+            Self::Week5 => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SqlUpdateTrack {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlUpdateTrack>::new(
+            ".google.cloud.sql.v1.SqlUpdateTrack"))
     }
 }

@@ -1225,7 +1225,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Target> for Target {
 impl gaxi::prost::ToProto<target_change::TargetChangeType> for crate::generated::gapic::model::target_change::TargetChangeType {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        Ok(self.value())
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::target_change::TargetChangeType"))
     }
 }
 
@@ -1427,7 +1427,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Fi
 impl gaxi::prost::ToProto<structured_query::composite_filter::Operator> for crate::generated::gapic::model::structured_query::composite_filter::Operator {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        Ok(self.value())
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::structured_query::composite_filter::Operator"))
     }
 }
 
@@ -1455,7 +1455,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Co
 impl gaxi::prost::ToProto<structured_query::field_filter::Operator> for crate::generated::gapic::model::structured_query::field_filter::Operator {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        Ok(self.value())
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::structured_query::field_filter::Operator"))
     }
 }
 
@@ -1482,7 +1482,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Fi
 impl gaxi::prost::ToProto<structured_query::unary_filter::Operator> for crate::generated::gapic::model::structured_query::unary_filter::Operator {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        Ok(self.value())
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::structured_query::unary_filter::Operator"))
     }
 }
 
@@ -1578,7 +1578,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Pr
 impl gaxi::prost::ToProto<structured_query::find_nearest::DistanceMeasure> for crate::generated::gapic::model::structured_query::find_nearest::DistanceMeasure {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        Ok(self.value())
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::structured_query::find_nearest::DistanceMeasure"))
     }
 }
 
@@ -1611,7 +1611,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Fi
 impl gaxi::prost::ToProto<structured_query::Direction> for crate::generated::gapic::model::structured_query::Direction {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        Ok(self.value())
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::structured_query::Direction"))
     }
 }
 
@@ -1926,7 +1926,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Write> for Write {
 impl gaxi::prost::ToProto<document_transform::field_transform::ServerValue> for crate::generated::gapic::model::document_transform::field_transform::ServerValue {
     type Output = i32;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        Ok(self.value())
+        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::document_transform::field_transform::ServerValue"))
     }
 }
 

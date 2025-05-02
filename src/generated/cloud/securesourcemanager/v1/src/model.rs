@@ -339,134 +339,260 @@ pub mod instance {
     }
 
     /// Secure Source Manager instance state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set. This should only be the case for incoming requests.
+        Unspecified,
+        /// Instance is being created.
+        Creating,
+        /// Instance is ready.
+        Active,
+        /// Instance is being deleted.
+        Deleting,
+        /// Instance is paused.
+        Paused,
+        /// Instance is unknown, we are not sure if it's functioning.
+        Unknown,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// Not set. This should only be the case for incoming requests.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// Instance is being created.
-        pub const CREATING: State = State::new(1);
-
-        /// Instance is ready.
-        pub const ACTIVE: State = State::new(2);
-
-        /// Instance is being deleted.
-        pub const DELETING: State = State::new(3);
-
-        /// Instance is paused.
-        pub const PAUSED: State = State::new(4);
-
-        /// Instance is unknown, we are not sure if it's functioning.
-        pub const UNKNOWN: State = State::new(6);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Paused => std::option::Option::Some(4),
+                Self::Unknown => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CREATING"),
-                2 => std::borrow::Cow::Borrowed("ACTIVE"),
-                3 => std::borrow::Cow::Borrowed("DELETING"),
-                4 => std::borrow::Cow::Borrowed("PAUSED"),
-                6 => std::borrow::Cow::Borrowed("UNKNOWN"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Paused => std::option::Option::Some("PAUSED"),
+                Self::Unknown => std::option::Option::Some("UNKNOWN"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "CREATING" => std::option::Option::Some(Self::CREATING),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "DELETING" => std::option::Option::Some(Self::DELETING),
-                "PAUSED" => std::option::Option::Some(Self::PAUSED),
-                "UNKNOWN" => std::option::Option::Some(Self::UNKNOWN),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::Deleting,
+                4 => Self::Paused,
+                6 => Self::Unknown,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "DELETING" => Self::Deleting,
+                "PAUSED" => Self::Paused,
+                "UNKNOWN" => Self::Unknown,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Paused => serializer.serialize_i32(4),
+                Self::Unknown => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.securesourcemanager.v1.Instance.State",
+            ))
         }
     }
 
     /// Provides information about the current instance state.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct StateNote(i32);
-
-    impl StateNote {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum StateNote {
         /// STATE_NOTE_UNSPECIFIED as the first value of State.
-        pub const STATE_NOTE_UNSPECIFIED: StateNote = StateNote::new(0);
-
+        Unspecified,
         /// CMEK access is unavailable.
-        pub const PAUSED_CMEK_UNAVAILABLE: StateNote = StateNote::new(1);
-
+        PausedCmekUnavailable,
         /// INSTANCE_RESUMING indicates that the instance was previously paused
         /// and is under the process of being brought back.
-        pub const INSTANCE_RESUMING: StateNote = StateNote::new(2);
+        InstanceResuming,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [StateNote::value] or
+        /// [StateNote::name].
+        UnknownValue(state_note::UnknownValue),
+    }
 
-        /// Creates a new StateNote instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state_note {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl StateNote {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PausedCmekUnavailable => std::option::Option::Some(1),
+                Self::InstanceResuming => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_NOTE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("PAUSED_CMEK_UNAVAILABLE"),
-                2 => std::borrow::Cow::Borrowed("INSTANCE_RESUMING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_NOTE_UNSPECIFIED"),
+                Self::PausedCmekUnavailable => std::option::Option::Some("PAUSED_CMEK_UNAVAILABLE"),
+                Self::InstanceResuming => std::option::Option::Some("INSTANCE_RESUMING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_NOTE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_NOTE_UNSPECIFIED),
-                "PAUSED_CMEK_UNAVAILABLE" => {
-                    std::option::Option::Some(Self::PAUSED_CMEK_UNAVAILABLE)
-                }
-                "INSTANCE_RESUMING" => std::option::Option::Some(Self::INSTANCE_RESUMING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for StateNote {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for StateNote {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for StateNote {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for StateNote {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PausedCmekUnavailable,
+                2 => Self::InstanceResuming,
+                _ => Self::UnknownValue(state_note::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for StateNote {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_NOTE_UNSPECIFIED" => Self::Unspecified,
+                "PAUSED_CMEK_UNAVAILABLE" => Self::PausedCmekUnavailable,
+                "INSTANCE_RESUMING" => Self::InstanceResuming,
+                _ => Self::UnknownValue(state_note::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for StateNote {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PausedCmekUnavailable => serializer.serialize_i32(1),
+                Self::InstanceResuming => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for StateNote {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<StateNote>::new(
+                ".google.cloud.securesourcemanager.v1.Instance.StateNote",
+            ))
         }
     }
 }

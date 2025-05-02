@@ -154,13 +154,11 @@ pub mod access_reason {
     use super::*;
 
     /// Type of access justification.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(i32);
-
-    impl Type {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
         /// Default value for proto, shouldn't be used.
-        pub const TYPE_UNSPECIFIED: Type = Type::new(0);
-
+        Unspecified,
         /// Customer made a request or raised an issue that required the principal to
         /// access customer data. `detail` is of the form ("#####" is the issue ID):
         ///
@@ -170,83 +168,150 @@ pub mod access_reason {
         /// * "E-PIN Reference: #####"
         /// * "Google-#####"
         /// * "T-#####"
-        pub const CUSTOMER_INITIATED_SUPPORT: Type = Type::new(1);
-
+        CustomerInitiatedSupport,
         /// The principal accessed customer data in order to diagnose or resolve a
         /// suspected issue in services. Often this access is used to confirm that
         /// customers are not affected by a suspected service issue or to remediate a
         /// reversible system issue.
-        pub const GOOGLE_INITIATED_SERVICE: Type = Type::new(2);
-
+        GoogleInitiatedService,
         /// Google initiated service for security, fraud, abuse, or compliance
         /// purposes.
-        pub const GOOGLE_INITIATED_REVIEW: Type = Type::new(3);
-
+        GoogleInitiatedReview,
         /// The principal was compelled to access customer data in order to respond
         /// to a legal third party data request or process, including legal processes
         /// from customers themselves.
-        pub const THIRD_PARTY_DATA_REQUEST: Type = Type::new(4);
-
+        ThirdPartyDataRequest,
         /// The principal accessed customer data in order to diagnose or resolve a
         /// suspected issue in services or a known outage.
-        pub const GOOGLE_RESPONSE_TO_PRODUCTION_ALERT: Type = Type::new(5);
+        GoogleResponseToProductionAlert,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
 
-        /// Creates a new Type instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Type {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CustomerInitiatedSupport => std::option::Option::Some(1),
+                Self::GoogleInitiatedService => std::option::Option::Some(2),
+                Self::GoogleInitiatedReview => std::option::Option::Some(3),
+                Self::ThirdPartyDataRequest => std::option::Option::Some(4),
+                Self::GoogleResponseToProductionAlert => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("CUSTOMER_INITIATED_SUPPORT"),
-                2 => std::borrow::Cow::Borrowed("GOOGLE_INITIATED_SERVICE"),
-                3 => std::borrow::Cow::Borrowed("GOOGLE_INITIATED_REVIEW"),
-                4 => std::borrow::Cow::Borrowed("THIRD_PARTY_DATA_REQUEST"),
-                5 => std::borrow::Cow::Borrowed("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::CustomerInitiatedSupport => {
+                    std::option::Option::Some("CUSTOMER_INITIATED_SUPPORT")
+                }
+                Self::GoogleInitiatedService => {
+                    std::option::Option::Some("GOOGLE_INITIATED_SERVICE")
+                }
+                Self::GoogleInitiatedReview => std::option::Option::Some("GOOGLE_INITIATED_REVIEW"),
+                Self::ThirdPartyDataRequest => {
+                    std::option::Option::Some("THIRD_PARTY_DATA_REQUEST")
+                }
+                Self::GoogleResponseToProductionAlert => {
+                    std::option::Option::Some("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "TYPE_UNSPECIFIED" => std::option::Option::Some(Self::TYPE_UNSPECIFIED),
-                "CUSTOMER_INITIATED_SUPPORT" => {
-                    std::option::Option::Some(Self::CUSTOMER_INITIATED_SUPPORT)
-                }
-                "GOOGLE_INITIATED_SERVICE" => {
-                    std::option::Option::Some(Self::GOOGLE_INITIATED_SERVICE)
-                }
-                "GOOGLE_INITIATED_REVIEW" => {
-                    std::option::Option::Some(Self::GOOGLE_INITIATED_REVIEW)
-                }
-                "THIRD_PARTY_DATA_REQUEST" => {
-                    std::option::Option::Some(Self::THIRD_PARTY_DATA_REQUEST)
-                }
-                "GOOGLE_RESPONSE_TO_PRODUCTION_ALERT" => {
-                    std::option::Option::Some(Self::GOOGLE_RESPONSE_TO_PRODUCTION_ALERT)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Type {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Type {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CustomerInitiatedSupport,
+                2 => Self::GoogleInitiatedService,
+                3 => Self::GoogleInitiatedReview,
+                4 => Self::ThirdPartyDataRequest,
+                5 => Self::GoogleResponseToProductionAlert,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "CUSTOMER_INITIATED_SUPPORT" => Self::CustomerInitiatedSupport,
+                "GOOGLE_INITIATED_SERVICE" => Self::GoogleInitiatedService,
+                "GOOGLE_INITIATED_REVIEW" => Self::GoogleInitiatedReview,
+                "THIRD_PARTY_DATA_REQUEST" => Self::ThirdPartyDataRequest,
+                "GOOGLE_RESPONSE_TO_PRODUCTION_ALERT" => Self::GoogleResponseToProductionAlert,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CustomerInitiatedSupport => serializer.serialize_i32(1),
+                Self::GoogleInitiatedService => serializer.serialize_i32(2),
+                Self::GoogleInitiatedReview => serializer.serialize_i32(3),
+                Self::ThirdPartyDataRequest => serializer.serialize_i32(4),
+                Self::GoogleResponseToProductionAlert => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.accessapproval.v1.AccessReason.Type",
+            ))
         }
     }
 }
@@ -1479,55 +1544,112 @@ impl wkt::message::Message for GetAccessApprovalServiceAccountMessage {
 }
 
 /// Represents the type of enrollment for a given service to Access Approval.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EnrollmentLevel(i32);
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum EnrollmentLevel {
+    /// Default value for proto, shouldn't be used.
+    Unspecified,
+    /// Service is enrolled in Access Approval for all requests
+    BlockAll,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [EnrollmentLevel::value] or
+    /// [EnrollmentLevel::name].
+    UnknownValue(enrollment_level::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod enrollment_level {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl EnrollmentLevel {
-    /// Default value for proto, shouldn't be used.
-    pub const ENROLLMENT_LEVEL_UNSPECIFIED: EnrollmentLevel = EnrollmentLevel::new(0);
-
-    /// Service is enrolled in Access Approval for all requests
-    pub const BLOCK_ALL: EnrollmentLevel = EnrollmentLevel::new(1);
-
-    /// Creates a new EnrollmentLevel instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::BlockAll => std::option::Option::Some(1),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("ENROLLMENT_LEVEL_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("BLOCK_ALL"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("ENROLLMENT_LEVEL_UNSPECIFIED"),
+            Self::BlockAll => std::option::Option::Some("BLOCK_ALL"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "ENROLLMENT_LEVEL_UNSPECIFIED" => {
-                std::option::Option::Some(Self::ENROLLMENT_LEVEL_UNSPECIFIED)
-            }
-            "BLOCK_ALL" => std::option::Option::Some(Self::BLOCK_ALL),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for EnrollmentLevel {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for EnrollmentLevel {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for EnrollmentLevel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for EnrollmentLevel {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::BlockAll,
+            _ => Self::UnknownValue(enrollment_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for EnrollmentLevel {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "ENROLLMENT_LEVEL_UNSPECIFIED" => Self::Unspecified,
+            "BLOCK_ALL" => Self::BlockAll,
+            _ => Self::UnknownValue(enrollment_level::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for EnrollmentLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::BlockAll => serializer.serialize_i32(1),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for EnrollmentLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<EnrollmentLevel>::new(
+            ".google.cloud.accessapproval.v1.EnrollmentLevel",
+        ))
     }
 }

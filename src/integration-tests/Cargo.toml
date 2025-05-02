@@ -66,9 +66,9 @@ package = "google-cloud-workflows-executions-v1"
 path    = "../../src/generated/cloud/workflows/executions/v1"
 
 [dev-dependencies]
-anyhow.workspace = true
-mockall          = "0.13"
-serde            = { version = "1", features = ["serde_derive"] }
-serde_with       = { version = "3", features = ["base64"] }
-test-case        = "3"
-tokio            = { version = "1", features = ["full", "macros"] }
+anyhow.workspace    = true
+mockall             = "0.13"
+serde               = { version = "1", features = ["serde_derive"] }
+serde_with          = { version = "3", features = ["base64"] }
+test-case.workspace = true
+tokio               = { version = "1", features = ["full", "macros"] }

@@ -1795,54 +1795,112 @@ pub mod basic_level {
 
     /// Options for how the `conditions` list should be combined to determine if
     /// this `AccessLevel` is applied. Default is AND.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConditionCombiningFunction(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ConditionCombiningFunction {
+        /// All `Conditions` must be true for the `BasicLevel` to be true.
+        And,
+        /// If at least one `Condition` is true, then the `BasicLevel` is true.
+        Or,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ConditionCombiningFunction::value] or
+        /// [ConditionCombiningFunction::name].
+        UnknownValue(condition_combining_function::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod condition_combining_function {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl ConditionCombiningFunction {
-        /// All `Conditions` must be true for the `BasicLevel` to be true.
-        pub const AND: ConditionCombiningFunction = ConditionCombiningFunction::new(0);
-
-        /// If at least one `Condition` is true, then the `BasicLevel` is true.
-        pub const OR: ConditionCombiningFunction = ConditionCombiningFunction::new(1);
-
-        /// Creates a new ConditionCombiningFunction instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::And => std::option::Option::Some(0),
+                Self::Or => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("AND"),
-                1 => std::borrow::Cow::Borrowed("OR"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::And => std::option::Option::Some("AND"),
+                Self::Or => std::option::Option::Some("OR"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "AND" => std::option::Option::Some(Self::AND),
-                "OR" => std::option::Option::Some(Self::OR),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ConditionCombiningFunction {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ConditionCombiningFunction {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ConditionCombiningFunction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ConditionCombiningFunction {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::And,
+                1 => Self::Or,
+                _ => Self::UnknownValue(condition_combining_function::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ConditionCombiningFunction {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AND" => Self::And,
+                "OR" => Self::Or,
+                _ => Self::UnknownValue(condition_combining_function::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ConditionCombiningFunction {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::And => serializer.serialize_i32(0),
+                Self::Or => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ConditionCombiningFunction {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConditionCombiningFunction>::new(
+                ".google.identity.accesscontextmanager.v1.BasicLevel.ConditionCombiningFunction"))
         }
     }
 }
@@ -2565,54 +2623,113 @@ pub mod service_perimeter {
     /// Perimeter Bridges are typically useful when building more complex toplogies
     /// with many independent perimeters that need to share some data with a common
     /// perimeter, but should not be able to share data among themselves.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PerimeterType(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PerimeterType {
+        /// Regular Perimeter.
+        Regular,
+        /// Perimeter Bridge.
+        Bridge,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PerimeterType::value] or
+        /// [PerimeterType::name].
+        UnknownValue(perimeter_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod perimeter_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl PerimeterType {
-        /// Regular Perimeter.
-        pub const PERIMETER_TYPE_REGULAR: PerimeterType = PerimeterType::new(0);
-
-        /// Perimeter Bridge.
-        pub const PERIMETER_TYPE_BRIDGE: PerimeterType = PerimeterType::new(1);
-
-        /// Creates a new PerimeterType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Regular => std::option::Option::Some(0),
+                Self::Bridge => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PERIMETER_TYPE_REGULAR"),
-                1 => std::borrow::Cow::Borrowed("PERIMETER_TYPE_BRIDGE"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Regular => std::option::Option::Some("PERIMETER_TYPE_REGULAR"),
+                Self::Bridge => std::option::Option::Some("PERIMETER_TYPE_BRIDGE"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PERIMETER_TYPE_REGULAR" => std::option::Option::Some(Self::PERIMETER_TYPE_REGULAR),
-                "PERIMETER_TYPE_BRIDGE" => std::option::Option::Some(Self::PERIMETER_TYPE_BRIDGE),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for PerimeterType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for PerimeterType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PerimeterType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PerimeterType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Regular,
+                1 => Self::Bridge,
+                _ => Self::UnknownValue(perimeter_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PerimeterType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PERIMETER_TYPE_REGULAR" => Self::Regular,
+                "PERIMETER_TYPE_BRIDGE" => Self::Bridge,
+                _ => Self::UnknownValue(perimeter_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PerimeterType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Regular => serializer.serialize_i32(0),
+                Self::Bridge => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PerimeterType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PerimeterType>::new(
+                ".google.identity.accesscontextmanager.v1.ServicePerimeter.PerimeterType",
+            ))
         }
     }
 }
@@ -3629,125 +3746,247 @@ pub mod service_perimeter_config {
     /// or [EgressFrom]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressFrom]
     /// rules.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IdentityType(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IdentityType {
+        /// No blanket identity group specified.
+        Unspecified,
+        /// Authorize access from all identities outside the perimeter.
+        AnyIdentity,
+        /// Authorize access from all human users outside the perimeter.
+        AnyUserAccount,
+        /// Authorize access from all service accounts outside the perimeter.
+        AnyServiceAccount,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [IdentityType::value] or
+        /// [IdentityType::name].
+        UnknownValue(identity_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod identity_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl IdentityType {
-        /// No blanket identity group specified.
-        pub const IDENTITY_TYPE_UNSPECIFIED: IdentityType = IdentityType::new(0);
-
-        /// Authorize access from all identities outside the perimeter.
-        pub const ANY_IDENTITY: IdentityType = IdentityType::new(1);
-
-        /// Authorize access from all human users outside the perimeter.
-        pub const ANY_USER_ACCOUNT: IdentityType = IdentityType::new(2);
-
-        /// Authorize access from all service accounts outside the perimeter.
-        pub const ANY_SERVICE_ACCOUNT: IdentityType = IdentityType::new(3);
-
-        /// Creates a new IdentityType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::AnyIdentity => std::option::Option::Some(1),
+                Self::AnyUserAccount => std::option::Option::Some(2),
+                Self::AnyServiceAccount => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("IDENTITY_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("ANY_IDENTITY"),
-                2 => std::borrow::Cow::Borrowed("ANY_USER_ACCOUNT"),
-                3 => std::borrow::Cow::Borrowed("ANY_SERVICE_ACCOUNT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("IDENTITY_TYPE_UNSPECIFIED"),
+                Self::AnyIdentity => std::option::Option::Some("ANY_IDENTITY"),
+                Self::AnyUserAccount => std::option::Option::Some("ANY_USER_ACCOUNT"),
+                Self::AnyServiceAccount => std::option::Option::Some("ANY_SERVICE_ACCOUNT"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "IDENTITY_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::IDENTITY_TYPE_UNSPECIFIED)
-                }
-                "ANY_IDENTITY" => std::option::Option::Some(Self::ANY_IDENTITY),
-                "ANY_USER_ACCOUNT" => std::option::Option::Some(Self::ANY_USER_ACCOUNT),
-                "ANY_SERVICE_ACCOUNT" => std::option::Option::Some(Self::ANY_SERVICE_ACCOUNT),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for IdentityType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for IdentityType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for IdentityType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for IdentityType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::AnyIdentity,
+                2 => Self::AnyUserAccount,
+                3 => Self::AnyServiceAccount,
+                _ => Self::UnknownValue(identity_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for IdentityType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "IDENTITY_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "ANY_IDENTITY" => Self::AnyIdentity,
+                "ANY_USER_ACCOUNT" => Self::AnyUserAccount,
+                "ANY_SERVICE_ACCOUNT" => Self::AnyServiceAccount,
+                _ => Self::UnknownValue(identity_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for IdentityType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::AnyIdentity => serializer.serialize_i32(1),
+                Self::AnyUserAccount => serializer.serialize_i32(2),
+                Self::AnyServiceAccount => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IdentityType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<IdentityType>::new(
+                ".google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IdentityType",
+            ))
         }
     }
 }
 
 /// The format used in an `AccessLevel`.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LevelFormat(i32);
-
-impl LevelFormat {
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LevelFormat {
     /// The format was not specified.
-    pub const LEVEL_FORMAT_UNSPECIFIED: LevelFormat = LevelFormat::new(0);
-
+    Unspecified,
     /// Uses the format the resource was defined in. BasicLevels are returned as
     /// BasicLevels, CustomLevels are returned as CustomLevels.
-    pub const AS_DEFINED: LevelFormat = LevelFormat::new(1);
-
+    AsDefined,
     /// Use Cloud Common Expression Language when returning the resource.  Both
     /// BasicLevels and CustomLevels are returned as CustomLevels.
-    pub const CEL: LevelFormat = LevelFormat::new(2);
+    Cel,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LevelFormat::value] or
+    /// [LevelFormat::name].
+    UnknownValue(level_format::UnknownValue),
+}
 
-    /// Creates a new LevelFormat instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod level_format {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl LevelFormat {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::AsDefined => std::option::Option::Some(1),
+            Self::Cel => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("LEVEL_FORMAT_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("AS_DEFINED"),
-            2 => std::borrow::Cow::Borrowed("CEL"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("LEVEL_FORMAT_UNSPECIFIED"),
+            Self::AsDefined => std::option::Option::Some("AS_DEFINED"),
+            Self::Cel => std::option::Option::Some("CEL"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "LEVEL_FORMAT_UNSPECIFIED" => std::option::Option::Some(Self::LEVEL_FORMAT_UNSPECIFIED),
-            "AS_DEFINED" => std::option::Option::Some(Self::AS_DEFINED),
-            "CEL" => std::option::Option::Some(Self::CEL),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for LevelFormat {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for LevelFormat {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LevelFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LevelFormat {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::AsDefined,
+            2 => Self::Cel,
+            _ => Self::UnknownValue(level_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LevelFormat {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "LEVEL_FORMAT_UNSPECIFIED" => Self::Unspecified,
+            "AS_DEFINED" => Self::AsDefined,
+            "CEL" => Self::Cel,
+            _ => Self::UnknownValue(level_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LevelFormat {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::AsDefined => serializer.serialize_i32(1),
+            Self::Cel => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LevelFormat {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LevelFormat>::new(
+            ".google.identity.accesscontextmanager.v1.LevelFormat",
+        ))
     }
 }

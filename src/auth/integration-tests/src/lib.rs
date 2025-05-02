@@ -113,7 +113,7 @@ pub async fn api_key() -> Result<()> {
     // Make a request using the API key.
     let d = Document::new()
         .set_content("Hello, world!")
-        .set_type(language::model::document::Type::PLAIN_TEXT);
+        .set_type(language::model::document::Type::PlainText);
     client.analyze_sentiment().set_document(d).send().await?;
 
     Ok(())

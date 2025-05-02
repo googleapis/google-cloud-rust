@@ -359,11 +359,21 @@ func TestEnumAnnotations(t *testing.T) {
 		Documentation: "VALUE is also documented.",
 		Number:        0,
 	}
+	v3 := &api.EnumValue{
+		Name:   "TEST_ENUM_V3",
+		ID:     ".test.v1.TestEnum.TEST_ENUM_V3",
+		Number: 3,
+	}
+	v4 := &api.EnumValue{
+		Name:   "TEST_ENUM_2025",
+		ID:     ".test.v1.TestEnum.TEST_ENUM_2025",
+		Number: 4,
+	}
 	enum := &api.Enum{
 		Name:          "TestEnum",
 		ID:            ".test.v1.TestEnum",
 		Documentation: "The enum is documented.",
-		Values:        []*api.EnumValue{v0, v1, v2},
+		Values:        []*api.EnumValue{v0, v1, v2, v3, v4},
 	}
 
 	model := api.NewTestAPI(
@@ -380,32 +390,49 @@ func TestEnumAnnotations(t *testing.T) {
 		QualifiedName: "crate::model::TestEnum",
 		RelativeName:  "TestEnum",
 		DocLines:      []string{"/// The enum is documented."},
-		UniqueNames:   []*api.EnumValue{v0, v1, v2},
+		UniqueNames:   []*api.EnumValue{v0, v1, v2, v3, v4},
 	}
 	if diff := cmp.Diff(want, enum.Codec, cmpopts.IgnoreFields(api.EnumValue{}, "Codec", "Parent")); diff != "" {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 
 	if diff := cmp.Diff(&enumValueAnnotation{
-		Name:     "WEEK_5",
-		EnumType: "TestEnum",
-		DocLines: []string{"/// week5 is also documented."},
+		Name:        "WEEK_5",
+		VariantName: "Week5",
+		EnumType:    "TestEnum",
+		DocLines:    []string{"/// week5 is also documented."},
 	}, v0.Codec); diff != "" {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 
 	if diff := cmp.Diff(&enumValueAnnotation{
-		Name:     "MULTI_WORD_VALUE",
-		EnumType: "TestEnum",
-		DocLines: []string{"/// MULTI_WORD_VALUE is also documented."},
+		Name:        "MULTI_WORD_VALUE",
+		VariantName: "MultiWordValue",
+		EnumType:    "TestEnum",
+		DocLines:    []string{"/// MULTI_WORD_VALUE is also documented."},
 	}, v1.Codec); diff != "" {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 	if diff := cmp.Diff(&enumValueAnnotation{
-		Name:     "VALUE",
-		EnumType: "TestEnum",
-		DocLines: []string{"/// VALUE is also documented."},
+		Name:        "VALUE",
+		VariantName: "Value",
+		EnumType:    "TestEnum",
+		DocLines:    []string{"/// VALUE is also documented."},
 	}, v2.Codec); diff != "" {
+		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
+	}
+	if diff := cmp.Diff(&enumValueAnnotation{
+		Name:        "TEST_ENUM_V3",
+		VariantName: "V3",
+		EnumType:    "TestEnum",
+	}, v3.Codec); diff != "" {
+		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
+	}
+	if diff := cmp.Diff(&enumValueAnnotation{
+		Name:        "TEST_ENUM_2025",
+		VariantName: "_2025",
+		EnumType:    "TestEnum",
+	}, v4.Codec); diff != "" {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 }
@@ -936,7 +963,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		Attributes:         []string{},
 		FieldType:          "crate::model::TestEnum",
 		PrimitiveFieldType: "crate::model::TestEnum",
-		AddQueryParameter:  `let builder = builder.query(&[("singularField", &req.singular_field.value())]);`,
+		AddQueryParameter:  `let builder = builder.query(&[("singularField", &req.singular_field)]);`,
 	}
 	if diff := cmp.Diff(wantField, singular_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -952,7 +979,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		},
 		FieldType:          "std::vec::Vec<crate::model::TestEnum>",
 		PrimitiveFieldType: "crate::model::TestEnum",
-		AddQueryParameter:  `let builder = req.repeated_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p.value())]));`,
+		AddQueryParameter:  `let builder = req.repeated_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`,
 	}
 	if diff := cmp.Diff(wantField, repeated_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -968,7 +995,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		},
 		FieldType:          "std::option::Option<crate::model::TestEnum>",
 		PrimitiveFieldType: "crate::model::TestEnum",
-		AddQueryParameter:  `let builder = req.optional_field.iter().fold(builder, |builder, p| builder.query(&[("optionalField", p.value())]));`,
+		AddQueryParameter:  `let builder = req.optional_field.iter().fold(builder, |builder, p| builder.query(&[("optionalField", p)]));`,
 	}
 	if diff := cmp.Diff(wantField, optional_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -984,7 +1011,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		Attributes:         []string{},
 		FieldType:          "wkt::NullValue",
 		PrimitiveFieldType: "wkt::NullValue",
-		AddQueryParameter:  `let builder = builder.query(&[("nullValueField", &req.null_value_field.value())]);`,
+		AddQueryParameter:  `let builder = builder.query(&[("nullValueField", &req.null_value_field)]);`,
 	}
 	if diff := cmp.Diff(wantField, null_value_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)

@@ -1191,126 +1191,248 @@ impl wkt::message::Message for DeleteParameterVersionRequest {
 /// Option to specify the format of a Parameter resource (UNFORMATTED / YAML /
 /// JSON). This option is user specified at the time of creation of the resource
 /// and is immutable.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ParameterFormat(i32);
-
-impl ParameterFormat {
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ParameterFormat {
     /// The default / unset value.
     /// The API will default to the UNFORMATTED format.
-    pub const PARAMETER_FORMAT_UNSPECIFIED: ParameterFormat = ParameterFormat::new(0);
-
+    Unspecified,
     /// Unformatted.
-    pub const UNFORMATTED: ParameterFormat = ParameterFormat::new(1);
-
+    Unformatted,
     /// YAML format.
-    pub const YAML: ParameterFormat = ParameterFormat::new(2);
-
+    Yaml,
     /// JSON format.
-    pub const JSON: ParameterFormat = ParameterFormat::new(3);
+    Json,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ParameterFormat::value] or
+    /// [ParameterFormat::name].
+    UnknownValue(parameter_format::UnknownValue),
+}
 
-    /// Creates a new ParameterFormat instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod parameter_format {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl ParameterFormat {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Unformatted => std::option::Option::Some(1),
+            Self::Yaml => std::option::Option::Some(2),
+            Self::Json => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("PARAMETER_FORMAT_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("UNFORMATTED"),
-            2 => std::borrow::Cow::Borrowed("YAML"),
-            3 => std::borrow::Cow::Borrowed("JSON"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("PARAMETER_FORMAT_UNSPECIFIED"),
+            Self::Unformatted => std::option::Option::Some("UNFORMATTED"),
+            Self::Yaml => std::option::Option::Some("YAML"),
+            Self::Json => std::option::Option::Some("JSON"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "PARAMETER_FORMAT_UNSPECIFIED" => {
-                std::option::Option::Some(Self::PARAMETER_FORMAT_UNSPECIFIED)
-            }
-            "UNFORMATTED" => std::option::Option::Some(Self::UNFORMATTED),
-            "YAML" => std::option::Option::Some(Self::YAML),
-            "JSON" => std::option::Option::Some(Self::JSON),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for ParameterFormat {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for ParameterFormat {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ParameterFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ParameterFormat {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Unformatted,
+            2 => Self::Yaml,
+            3 => Self::Json,
+            _ => Self::UnknownValue(parameter_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ParameterFormat {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "PARAMETER_FORMAT_UNSPECIFIED" => Self::Unspecified,
+            "UNFORMATTED" => Self::Unformatted,
+            "YAML" => Self::Yaml,
+            "JSON" => Self::Json,
+            _ => Self::UnknownValue(parameter_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ParameterFormat {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Unformatted => serializer.serialize_i32(1),
+            Self::Yaml => serializer.serialize_i32(2),
+            Self::Json => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ParameterFormat {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ParameterFormat>::new(
+            ".google.cloud.parametermanager.v1.ParameterFormat",
+        ))
     }
 }
 
 /// Option for requesting only metadata, or user provided payload
 /// of a ParameterVersion resource.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct View(i32);
-
-impl View {
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum View {
     /// The default / unset value.
     /// The API will default to the FULL view..
-    pub const VIEW_UNSPECIFIED: View = View::new(0);
-
+    Unspecified,
     /// Include only the metadata for the resource.
-    pub const BASIC: View = View::new(1);
-
+    Basic,
     /// Include metadata & other relevant payload data as well.
     /// This is the default view.
-    pub const FULL: View = View::new(2);
+    Full,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [View::value] or
+    /// [View::name].
+    UnknownValue(view::UnknownValue),
+}
 
-    /// Creates a new View instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod view {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl View {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Basic => std::option::Option::Some(1),
+            Self::Full => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("VIEW_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("BASIC"),
-            2 => std::borrow::Cow::Borrowed("FULL"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("VIEW_UNSPECIFIED"),
+            Self::Basic => std::option::Option::Some("BASIC"),
+            Self::Full => std::option::Option::Some("FULL"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "VIEW_UNSPECIFIED" => std::option::Option::Some(Self::VIEW_UNSPECIFIED),
-            "BASIC" => std::option::Option::Some(Self::BASIC),
-            "FULL" => std::option::Option::Some(Self::FULL),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for View {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for View {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for View {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for View {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Basic,
+            2 => Self::Full,
+            _ => Self::UnknownValue(view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for View {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "VIEW_UNSPECIFIED" => Self::Unspecified,
+            "BASIC" => Self::Basic,
+            "FULL" => Self::Full,
+            _ => Self::UnknownValue(view::UnknownValue(wkt::internal::UnknownEnumValue::String(
+                value.to_string(),
+            ))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for View {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Basic => serializer.serialize_i32(1),
+            Self::Full => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for View {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<View>::new(
+            ".google.cloud.parametermanager.v1.View",
+        ))
     }
 }

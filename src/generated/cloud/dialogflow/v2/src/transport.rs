@@ -3679,7 +3679,7 @@ impl super::stub::Intents for Intents {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("languageCode", &req.language_code)]);
-        let builder = builder.query(&[("intentView", &req.intent_view.value())]);
+        let builder = builder.query(&[("intentView", &req.intent_view)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
@@ -3702,7 +3702,7 @@ impl super::stub::Intents for Intents {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("languageCode", &req.language_code)]);
-        let builder = builder.query(&[("intentView", &req.intent_view.value())]);
+        let builder = builder.query(&[("intentView", &req.intent_view)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -3723,7 +3723,7 @@ impl super::stub::Intents for Intents {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("languageCode", &req.language_code)]);
-        let builder = builder.query(&[("intentView", &req.intent_view.value())]);
+        let builder = builder.query(&[("intentView", &req.intent_view)]);
         self.inner.execute(builder, Some(req.intent), options).await
     }
 
@@ -3757,7 +3757,7 @@ impl super::stub::Intents for Intents {
             .iter()
             .flat_map(|p| p.paths.iter())
             .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
-        let builder = builder.query(&[("intentView", &req.intent_view.value())]);
+        let builder = builder.query(&[("intentView", &req.intent_view)]);
         self.inner.execute(builder, Some(req.intent), options).await
     }
 

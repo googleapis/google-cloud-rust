@@ -879,169 +879,348 @@ impl wkt::message::Message for HttpResponse {
 }
 
 /// The action taken by agent.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Action(i32);
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Action {
+    /// Unspecified Action.
+    Unspecified,
+    /// Indicates that agent should open a new stream.
+    OpenNewStream,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Action::value] or
+    /// [Action::name].
+    UnknownValue(action::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod action {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl Action {
-    /// Unspecified Action.
-    pub const ACTION_UNSPECIFIED: Action = Action::new(0);
-
-    /// Indicates that agent should open a new stream.
-    pub const OPEN_NEW_STREAM: Action = Action::new(1);
-
-    /// Creates a new Action instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::OpenNewStream => std::option::Option::Some(1),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("ACTION_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("OPEN_NEW_STREAM"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("ACTION_UNSPECIFIED"),
+            Self::OpenNewStream => std::option::Option::Some("OPEN_NEW_STREAM"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "ACTION_UNSPECIFIED" => std::option::Option::Some(Self::ACTION_UNSPECIFIED),
-            "OPEN_NEW_STREAM" => std::option::Option::Some(Self::OPEN_NEW_STREAM),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for Action {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for Action {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Action {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Action {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::OpenNewStream,
+            _ => Self::UnknownValue(action::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Action {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "ACTION_UNSPECIFIED" => Self::Unspecified,
+            "OPEN_NEW_STREAM" => Self::OpenNewStream,
+            _ => Self::UnknownValue(action::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Action {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::OpenNewStream => serializer.serialize_i32(1),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Action {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
+            ".google.cloud.apigeeconnect.v1.Action",
+        ))
     }
 }
 
 /// Endpoint indicates where the messages will be delivered.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct TetherEndpoint(i32);
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum TetherEndpoint {
+    /// Unspecified tether endpoint.
+    Unspecified,
+    /// Apigee MART endpoint.
+    ApigeeMart,
+    /// Apigee Runtime endpoint.
+    ApigeeRuntime,
+    /// Apigee Mint Rating endpoint.
+    ApigeeMintRating,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [TetherEndpoint::value] or
+    /// [TetherEndpoint::name].
+    UnknownValue(tether_endpoint::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod tether_endpoint {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl TetherEndpoint {
-    /// Unspecified tether endpoint.
-    pub const TETHER_ENDPOINT_UNSPECIFIED: TetherEndpoint = TetherEndpoint::new(0);
-
-    /// Apigee MART endpoint.
-    pub const APIGEE_MART: TetherEndpoint = TetherEndpoint::new(1);
-
-    /// Apigee Runtime endpoint.
-    pub const APIGEE_RUNTIME: TetherEndpoint = TetherEndpoint::new(2);
-
-    /// Apigee Mint Rating endpoint.
-    pub const APIGEE_MINT_RATING: TetherEndpoint = TetherEndpoint::new(3);
-
-    /// Creates a new TetherEndpoint instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::ApigeeMart => std::option::Option::Some(1),
+            Self::ApigeeRuntime => std::option::Option::Some(2),
+            Self::ApigeeMintRating => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("TETHER_ENDPOINT_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("APIGEE_MART"),
-            2 => std::borrow::Cow::Borrowed("APIGEE_RUNTIME"),
-            3 => std::borrow::Cow::Borrowed("APIGEE_MINT_RATING"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("TETHER_ENDPOINT_UNSPECIFIED"),
+            Self::ApigeeMart => std::option::Option::Some("APIGEE_MART"),
+            Self::ApigeeRuntime => std::option::Option::Some("APIGEE_RUNTIME"),
+            Self::ApigeeMintRating => std::option::Option::Some("APIGEE_MINT_RATING"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "TETHER_ENDPOINT_UNSPECIFIED" => {
-                std::option::Option::Some(Self::TETHER_ENDPOINT_UNSPECIFIED)
-            }
-            "APIGEE_MART" => std::option::Option::Some(Self::APIGEE_MART),
-            "APIGEE_RUNTIME" => std::option::Option::Some(Self::APIGEE_RUNTIME),
-            "APIGEE_MINT_RATING" => std::option::Option::Some(Self::APIGEE_MINT_RATING),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for TetherEndpoint {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for TetherEndpoint {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for TetherEndpoint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for TetherEndpoint {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::ApigeeMart,
+            2 => Self::ApigeeRuntime,
+            3 => Self::ApigeeMintRating,
+            _ => Self::UnknownValue(tether_endpoint::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for TetherEndpoint {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "TETHER_ENDPOINT_UNSPECIFIED" => Self::Unspecified,
+            "APIGEE_MART" => Self::ApigeeMart,
+            "APIGEE_RUNTIME" => Self::ApigeeRuntime,
+            "APIGEE_MINT_RATING" => Self::ApigeeMintRating,
+            _ => Self::UnknownValue(tether_endpoint::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for TetherEndpoint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::ApigeeMart => serializer.serialize_i32(1),
+            Self::ApigeeRuntime => serializer.serialize_i32(2),
+            Self::ApigeeMintRating => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for TetherEndpoint {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<TetherEndpoint>::new(
+            ".google.cloud.apigeeconnect.v1.TetherEndpoint",
+        ))
     }
 }
 
 /// HTTP Scheme.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Scheme(i32);
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Scheme {
+    /// Unspecified scheme.
+    Unspecified,
+    /// HTTPS protocol.
+    Https,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Scheme::value] or
+    /// [Scheme::name].
+    UnknownValue(scheme::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod scheme {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
 impl Scheme {
-    /// Unspecified scheme.
-    pub const SCHEME_UNSPECIFIED: Scheme = Scheme::new(0);
-
-    /// HTTPS protocol.
-    pub const HTTPS: Scheme = Scheme::new(1);
-
-    /// Creates a new Scheme instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Https => std::option::Option::Some(1),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("SCHEME_UNSPECIFIED"),
-            1 => std::borrow::Cow::Borrowed("HTTPS"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SCHEME_UNSPECIFIED"),
+            Self::Https => std::option::Option::Some("HTTPS"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "SCHEME_UNSPECIFIED" => std::option::Option::Some(Self::SCHEME_UNSPECIFIED),
-            "HTTPS" => std::option::Option::Some(Self::HTTPS),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for Scheme {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for Scheme {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Scheme {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Scheme {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Https,
+            _ => Self::UnknownValue(scheme::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Scheme {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SCHEME_UNSPECIFIED" => Self::Unspecified,
+            "HTTPS" => Self::Https,
+            _ => Self::UnknownValue(scheme::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Scheme {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Https => serializer.serialize_i32(1),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Scheme {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Scheme>::new(
+            ".google.cloud.apigeeconnect.v1.Scheme",
+        ))
     }
 }

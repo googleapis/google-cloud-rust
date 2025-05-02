@@ -1379,62 +1379,125 @@ pub mod workstation_config {
 
             /// Value representing what should happen to the disk after the workstation
             /// is deleted.
-            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct ReclaimPolicy(i32);
-
-            impl ReclaimPolicy {
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum ReclaimPolicy {
                 /// Do not use.
-                pub const RECLAIM_POLICY_UNSPECIFIED: ReclaimPolicy = ReclaimPolicy::new(0);
-
+                Unspecified,
                 /// Delete the persistent disk when deleting the workstation.
-                pub const DELETE: ReclaimPolicy = ReclaimPolicy::new(1);
-
+                Delete,
                 /// Keep the persistent disk when deleting the workstation.
                 /// An administrator must manually delete the disk.
-                pub const RETAIN: ReclaimPolicy = ReclaimPolicy::new(2);
+                Retain,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [ReclaimPolicy::value] or
+                /// [ReclaimPolicy::name].
+                UnknownValue(reclaim_policy::UnknownValue),
+            }
 
-                /// Creates a new ReclaimPolicy instance.
-                pub(crate) const fn new(value: i32) -> Self {
-                    Self(value)
-                }
+            #[doc(hidden)]
+            pub mod reclaim_policy {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
 
+            impl ReclaimPolicy {
                 /// Gets the enum value.
-                pub fn value(&self) -> i32 {
-                    self.0
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Delete => std::option::Option::Some(1),
+                        Self::Retain => std::option::Option::Some(2),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
                 }
 
                 /// Gets the enum value as a string.
-                pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-                    match self.0 {
-                        0 => std::borrow::Cow::Borrowed("RECLAIM_POLICY_UNSPECIFIED"),
-                        1 => std::borrow::Cow::Borrowed("DELETE"),
-                        2 => std::borrow::Cow::Borrowed("RETAIN"),
-                        _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-                    }
-                }
-
-                /// Creates an enum value from the value name.
-                pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-                    match name {
-                        "RECLAIM_POLICY_UNSPECIFIED" => {
-                            std::option::Option::Some(Self::RECLAIM_POLICY_UNSPECIFIED)
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("RECLAIM_POLICY_UNSPECIFIED")
                         }
-                        "DELETE" => std::option::Option::Some(Self::DELETE),
-                        "RETAIN" => std::option::Option::Some(Self::RETAIN),
-                        _ => std::option::Option::None,
+                        Self::Delete => std::option::Option::Some("DELETE"),
+                        Self::Retain => std::option::Option::Some("RETAIN"),
+                        Self::UnknownValue(u) => u.0.name(),
                     }
-                }
-            }
-
-            impl std::convert::From<i32> for ReclaimPolicy {
-                fn from(value: i32) -> Self {
-                    Self::new(value)
                 }
             }
 
             impl std::default::Default for ReclaimPolicy {
                 fn default() -> Self {
-                    Self::new(0)
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for ReclaimPolicy {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for ReclaimPolicy {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Delete,
+                        2 => Self::Retain,
+                        _ => Self::UnknownValue(reclaim_policy::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for ReclaimPolicy {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "RECLAIM_POLICY_UNSPECIFIED" => Self::Unspecified,
+                        "DELETE" => Self::Delete,
+                        "RETAIN" => Self::Retain,
+                        _ => Self::UnknownValue(reclaim_policy::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for ReclaimPolicy {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Delete => serializer.serialize_i32(1),
+                        Self::Retain => serializer.serialize_i32(2),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for ReclaimPolicy {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReclaimPolicy>::new(
+                        ".google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.ReclaimPolicy"))
                 }
             }
         }
@@ -1856,71 +1919,136 @@ pub mod workstation {
     use super::*;
 
     /// Whether a workstation is running and ready to receive user requests.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Do not use.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The workstation is not yet ready to accept requests from users but will
         /// be soon.
-        pub const STATE_STARTING: State = State::new(1);
-
+        Starting,
         /// The workstation is ready to accept requests from users.
-        pub const STATE_RUNNING: State = State::new(2);
-
+        Running,
         /// The workstation is being stopped.
-        pub const STATE_STOPPING: State = State::new(3);
-
+        Stopping,
         /// The workstation is stopped and will not be able to receive requests until
         /// it is started.
-        pub const STATE_STOPPED: State = State::new(4);
+        Stopped,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Starting => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::Stopping => std::option::Option::Some(3),
+                Self::Stopped => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("STATE_STARTING"),
-                2 => std::borrow::Cow::Borrowed("STATE_RUNNING"),
-                3 => std::borrow::Cow::Borrowed("STATE_STOPPING"),
-                4 => std::borrow::Cow::Borrowed("STATE_STOPPED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Starting => std::option::Option::Some("STATE_STARTING"),
+                Self::Running => std::option::Option::Some("STATE_RUNNING"),
+                Self::Stopping => std::option::Option::Some("STATE_STOPPING"),
+                Self::Stopped => std::option::Option::Some("STATE_STOPPED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "STATE_STARTING" => std::option::Option::Some(Self::STATE_STARTING),
-                "STATE_RUNNING" => std::option::Option::Some(Self::STATE_RUNNING),
-                "STATE_STOPPING" => std::option::Option::Some(Self::STATE_STOPPING),
-                "STATE_STOPPED" => std::option::Option::Some(Self::STATE_STOPPED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Starting,
+                2 => Self::Running,
+                3 => Self::Stopping,
+                4 => Self::Stopped,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "STATE_STARTING" => Self::Starting,
+                "STATE_RUNNING" => Self::Running,
+                "STATE_STOPPING" => Self::Stopping,
+                "STATE_STOPPED" => Self::Stopped,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Starting => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::Stopping => serializer.serialize_i32(3),
+                Self::Stopped => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.workstations.v1.Workstation.State",
+            ))
         }
     }
 }

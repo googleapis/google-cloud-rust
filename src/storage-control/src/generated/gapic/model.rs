@@ -2366,180 +2366,277 @@ pub mod service_constants {
     use super::*;
 
     /// A collection of constant values meaningful to the Storage API.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Values(i32);
-
-    impl Values {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Values {
         /// Unused. Proto3 requires first enum to be 0.
-        pub const VALUES_UNSPECIFIED: Values = Values::new(0);
-
+        Unspecified,
         /// The maximum size chunk that can will be returned in a single
         /// ReadRequest.
         /// 2 MiB.
-        pub const MAX_READ_CHUNK_BYTES: Values = Values::new(2097152);
-
+        MaxReadChunkBytes,
         /// The maximum size chunk that can be sent in a single WriteObjectRequest.
         /// 2 MiB.
-        pub const MAX_WRITE_CHUNK_BYTES: Values = Values::new(2097152);
-
+        MaxWriteChunkBytes,
         /// The maximum size of an object in MB - whether written in a single stream
         /// or composed from multiple other objects.
         /// 5 TiB.
-        pub const MAX_OBJECT_SIZE_MB: Values = Values::new(5242880);
-
+        MaxObjectSizeMb,
         /// The maximum length field name that can be sent in a single
         /// custom metadata field.
         /// 1 KiB.
-        pub const MAX_CUSTOM_METADATA_FIELD_NAME_BYTES: Values = Values::new(1024);
-
+        MaxCustomMetadataFieldNameBytes,
         /// The maximum length field value that can be sent in a single
         /// custom_metadata field.
         /// 4 KiB.
-        pub const MAX_CUSTOM_METADATA_FIELD_VALUE_BYTES: Values = Values::new(4096);
-
+        MaxCustomMetadataFieldValueBytes,
         /// The maximum total bytes that can be populated into all field names and
         /// values of the custom_metadata for one object.
         /// 8 KiB.
-        pub const MAX_CUSTOM_METADATA_TOTAL_SIZE_BYTES: Values = Values::new(8192);
-
+        MaxCustomMetadataTotalSizeBytes,
         /// The maximum total bytes that can be populated into all bucket metadata
         /// fields.
         /// 20 KiB.
-        pub const MAX_BUCKET_METADATA_TOTAL_SIZE_BYTES: Values = Values::new(20480);
-
+        MaxBucketMetadataTotalSizeBytes,
         /// The maximum number of NotificationConfigs that can be registered
         /// for a given bucket.
-        pub const MAX_NOTIFICATION_CONFIGS_PER_BUCKET: Values = Values::new(100);
-
+        MaxNotificationConfigsPerBucket,
         /// The maximum number of LifecycleRules that can be registered for a given
         /// bucket.
-        pub const MAX_LIFECYCLE_RULES_PER_BUCKET: Values = Values::new(100);
-
+        MaxLifecycleRulesPerBucket,
         /// The maximum number of custom attributes per NotificationConfigs.
-        pub const MAX_NOTIFICATION_CUSTOM_ATTRIBUTES: Values = Values::new(5);
-
+        MaxNotificationCustomAttributes,
         /// The maximum length of a custom attribute key included in
         /// NotificationConfig.
-        pub const MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_KEY_LENGTH: Values = Values::new(256);
-
+        MaxNotificationCustomAttributeKeyLength,
         /// The maximum length of a custom attribute value included in a
         /// NotificationConfig.
-        pub const MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_VALUE_LENGTH: Values = Values::new(1024);
-
+        MaxNotificationCustomAttributeValueLength,
         /// The maximum number of key/value entries per bucket label.
-        pub const MAX_LABELS_ENTRIES_COUNT: Values = Values::new(64);
-
+        MaxLabelsEntriesCount,
         /// The maximum character length of the key or value in a bucket
         /// label map.
-        pub const MAX_LABELS_KEY_VALUE_LENGTH: Values = Values::new(63);
-
+        MaxLabelsKeyValueLength,
         /// The maximum byte size of the key or value in a bucket label
         /// map.
-        pub const MAX_LABELS_KEY_VALUE_BYTES: Values = Values::new(128);
-
+        MaxLabelsKeyValueBytes,
         /// The maximum number of object IDs that can be included in a
         /// DeleteObjectsRequest.
-        pub const MAX_OBJECT_IDS_PER_DELETE_OBJECTS_REQUEST: Values = Values::new(1000);
-
+        MaxObjectIdsPerDeleteObjectsRequest,
         /// The maximum number of days for which a token returned by the
         /// GetListObjectsSplitPoints RPC is valid.
-        pub const SPLIT_TOKEN_MAX_VALID_DAYS: Values = Values::new(14);
+        SplitTokenMaxValidDays,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Values::value] or
+        /// [Values::name].
+        UnknownValue(values::UnknownValue),
+    }
 
-        /// Creates a new Values instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod values {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl Values {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::MaxReadChunkBytes => std::option::Option::Some(2097152),
+                Self::MaxWriteChunkBytes => std::option::Option::Some(2097152),
+                Self::MaxObjectSizeMb => std::option::Option::Some(5242880),
+                Self::MaxCustomMetadataFieldNameBytes => std::option::Option::Some(1024),
+                Self::MaxCustomMetadataFieldValueBytes => std::option::Option::Some(4096),
+                Self::MaxCustomMetadataTotalSizeBytes => std::option::Option::Some(8192),
+                Self::MaxBucketMetadataTotalSizeBytes => std::option::Option::Some(20480),
+                Self::MaxNotificationConfigsPerBucket => std::option::Option::Some(100),
+                Self::MaxLifecycleRulesPerBucket => std::option::Option::Some(100),
+                Self::MaxNotificationCustomAttributes => std::option::Option::Some(5),
+                Self::MaxNotificationCustomAttributeKeyLength => std::option::Option::Some(256),
+                Self::MaxNotificationCustomAttributeValueLength => std::option::Option::Some(1024),
+                Self::MaxLabelsEntriesCount => std::option::Option::Some(64),
+                Self::MaxLabelsKeyValueLength => std::option::Option::Some(63),
+                Self::MaxLabelsKeyValueBytes => std::option::Option::Some(128),
+                Self::MaxObjectIdsPerDeleteObjectsRequest => std::option::Option::Some(1000),
+                Self::SplitTokenMaxValidDays => std::option::Option::Some(14),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("VALUES_UNSPECIFIED"),
-                5 => std::borrow::Cow::Borrowed("MAX_NOTIFICATION_CUSTOM_ATTRIBUTES"),
-                14 => std::borrow::Cow::Borrowed("SPLIT_TOKEN_MAX_VALID_DAYS"),
-                63 => std::borrow::Cow::Borrowed("MAX_LABELS_KEY_VALUE_LENGTH"),
-                64 => std::borrow::Cow::Borrowed("MAX_LABELS_ENTRIES_COUNT"),
-                100 => std::borrow::Cow::Borrowed("MAX_LIFECYCLE_RULES_PER_BUCKET"),
-                128 => std::borrow::Cow::Borrowed("MAX_LABELS_KEY_VALUE_BYTES"),
-                256 => std::borrow::Cow::Borrowed("MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_KEY_LENGTH"),
-                1000 => std::borrow::Cow::Borrowed("MAX_OBJECT_IDS_PER_DELETE_OBJECTS_REQUEST"),
-                1024 => std::borrow::Cow::Borrowed("MAX_CUSTOM_METADATA_FIELD_NAME_BYTES"),
-                4096 => std::borrow::Cow::Borrowed("MAX_CUSTOM_METADATA_FIELD_VALUE_BYTES"),
-                8192 => std::borrow::Cow::Borrowed("MAX_CUSTOM_METADATA_TOTAL_SIZE_BYTES"),
-                20480 => std::borrow::Cow::Borrowed("MAX_BUCKET_METADATA_TOTAL_SIZE_BYTES"),
-                2097152 => std::borrow::Cow::Borrowed("MAX_READ_CHUNK_BYTES"),
-                5242880 => std::borrow::Cow::Borrowed("MAX_OBJECT_SIZE_MB"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("VALUES_UNSPECIFIED"),
+                Self::MaxReadChunkBytes => std::option::Option::Some("MAX_READ_CHUNK_BYTES"),
+                Self::MaxWriteChunkBytes => std::option::Option::Some("MAX_WRITE_CHUNK_BYTES"),
+                Self::MaxObjectSizeMb => std::option::Option::Some("MAX_OBJECT_SIZE_MB"),
+                Self::MaxCustomMetadataFieldNameBytes => {
+                    std::option::Option::Some("MAX_CUSTOM_METADATA_FIELD_NAME_BYTES")
+                }
+                Self::MaxCustomMetadataFieldValueBytes => {
+                    std::option::Option::Some("MAX_CUSTOM_METADATA_FIELD_VALUE_BYTES")
+                }
+                Self::MaxCustomMetadataTotalSizeBytes => {
+                    std::option::Option::Some("MAX_CUSTOM_METADATA_TOTAL_SIZE_BYTES")
+                }
+                Self::MaxBucketMetadataTotalSizeBytes => {
+                    std::option::Option::Some("MAX_BUCKET_METADATA_TOTAL_SIZE_BYTES")
+                }
+                Self::MaxNotificationConfigsPerBucket => {
+                    std::option::Option::Some("MAX_NOTIFICATION_CONFIGS_PER_BUCKET")
+                }
+                Self::MaxLifecycleRulesPerBucket => {
+                    std::option::Option::Some("MAX_LIFECYCLE_RULES_PER_BUCKET")
+                }
+                Self::MaxNotificationCustomAttributes => {
+                    std::option::Option::Some("MAX_NOTIFICATION_CUSTOM_ATTRIBUTES")
+                }
+                Self::MaxNotificationCustomAttributeKeyLength => {
+                    std::option::Option::Some("MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_KEY_LENGTH")
+                }
+                Self::MaxNotificationCustomAttributeValueLength => {
+                    std::option::Option::Some("MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_VALUE_LENGTH")
+                }
+                Self::MaxLabelsEntriesCount => {
+                    std::option::Option::Some("MAX_LABELS_ENTRIES_COUNT")
+                }
+                Self::MaxLabelsKeyValueLength => {
+                    std::option::Option::Some("MAX_LABELS_KEY_VALUE_LENGTH")
+                }
+                Self::MaxLabelsKeyValueBytes => {
+                    std::option::Option::Some("MAX_LABELS_KEY_VALUE_BYTES")
+                }
+                Self::MaxObjectIdsPerDeleteObjectsRequest => {
+                    std::option::Option::Some("MAX_OBJECT_IDS_PER_DELETE_OBJECTS_REQUEST")
+                }
+                Self::SplitTokenMaxValidDays => {
+                    std::option::Option::Some("SPLIT_TOKEN_MAX_VALID_DAYS")
+                }
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "VALUES_UNSPECIFIED" => std::option::Option::Some(Self::VALUES_UNSPECIFIED),
-                "MAX_READ_CHUNK_BYTES" => std::option::Option::Some(Self::MAX_READ_CHUNK_BYTES),
-                "MAX_WRITE_CHUNK_BYTES" => std::option::Option::Some(Self::MAX_WRITE_CHUNK_BYTES),
-                "MAX_OBJECT_SIZE_MB" => std::option::Option::Some(Self::MAX_OBJECT_SIZE_MB),
-                "MAX_CUSTOM_METADATA_FIELD_NAME_BYTES" => {
-                    std::option::Option::Some(Self::MAX_CUSTOM_METADATA_FIELD_NAME_BYTES)
-                }
-                "MAX_CUSTOM_METADATA_FIELD_VALUE_BYTES" => {
-                    std::option::Option::Some(Self::MAX_CUSTOM_METADATA_FIELD_VALUE_BYTES)
-                }
-                "MAX_CUSTOM_METADATA_TOTAL_SIZE_BYTES" => {
-                    std::option::Option::Some(Self::MAX_CUSTOM_METADATA_TOTAL_SIZE_BYTES)
-                }
-                "MAX_BUCKET_METADATA_TOTAL_SIZE_BYTES" => {
-                    std::option::Option::Some(Self::MAX_BUCKET_METADATA_TOTAL_SIZE_BYTES)
-                }
-                "MAX_NOTIFICATION_CONFIGS_PER_BUCKET" => {
-                    std::option::Option::Some(Self::MAX_NOTIFICATION_CONFIGS_PER_BUCKET)
-                }
-                "MAX_LIFECYCLE_RULES_PER_BUCKET" => {
-                    std::option::Option::Some(Self::MAX_LIFECYCLE_RULES_PER_BUCKET)
-                }
-                "MAX_NOTIFICATION_CUSTOM_ATTRIBUTES" => {
-                    std::option::Option::Some(Self::MAX_NOTIFICATION_CUSTOM_ATTRIBUTES)
-                }
-                "MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_KEY_LENGTH" => {
-                    std::option::Option::Some(Self::MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_KEY_LENGTH)
-                }
-                "MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_VALUE_LENGTH" => {
-                    std::option::Option::Some(Self::MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_VALUE_LENGTH)
-                }
-                "MAX_LABELS_ENTRIES_COUNT" => {
-                    std::option::Option::Some(Self::MAX_LABELS_ENTRIES_COUNT)
-                }
-                "MAX_LABELS_KEY_VALUE_LENGTH" => {
-                    std::option::Option::Some(Self::MAX_LABELS_KEY_VALUE_LENGTH)
-                }
-                "MAX_LABELS_KEY_VALUE_BYTES" => {
-                    std::option::Option::Some(Self::MAX_LABELS_KEY_VALUE_BYTES)
-                }
-                "MAX_OBJECT_IDS_PER_DELETE_OBJECTS_REQUEST" => {
-                    std::option::Option::Some(Self::MAX_OBJECT_IDS_PER_DELETE_OBJECTS_REQUEST)
-                }
-                "SPLIT_TOKEN_MAX_VALID_DAYS" => {
-                    std::option::Option::Some(Self::SPLIT_TOKEN_MAX_VALID_DAYS)
-                }
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for Values {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for Values {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Values {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Values {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                5 => Self::MaxNotificationCustomAttributes,
+                14 => Self::SplitTokenMaxValidDays,
+                63 => Self::MaxLabelsKeyValueLength,
+                64 => Self::MaxLabelsEntriesCount,
+                100 => Self::MaxLifecycleRulesPerBucket,
+                128 => Self::MaxLabelsKeyValueBytes,
+                256 => Self::MaxNotificationCustomAttributeKeyLength,
+                1000 => Self::MaxObjectIdsPerDeleteObjectsRequest,
+                1024 => Self::MaxCustomMetadataFieldNameBytes,
+                4096 => Self::MaxCustomMetadataFieldValueBytes,
+                8192 => Self::MaxCustomMetadataTotalSizeBytes,
+                20480 => Self::MaxBucketMetadataTotalSizeBytes,
+                2097152 => Self::MaxReadChunkBytes,
+                5242880 => Self::MaxObjectSizeMb,
+                _ => Self::UnknownValue(values::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Values {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "VALUES_UNSPECIFIED" => Self::Unspecified,
+                "MAX_READ_CHUNK_BYTES" => Self::MaxReadChunkBytes,
+                "MAX_WRITE_CHUNK_BYTES" => Self::MaxWriteChunkBytes,
+                "MAX_OBJECT_SIZE_MB" => Self::MaxObjectSizeMb,
+                "MAX_CUSTOM_METADATA_FIELD_NAME_BYTES" => Self::MaxCustomMetadataFieldNameBytes,
+                "MAX_CUSTOM_METADATA_FIELD_VALUE_BYTES" => Self::MaxCustomMetadataFieldValueBytes,
+                "MAX_CUSTOM_METADATA_TOTAL_SIZE_BYTES" => Self::MaxCustomMetadataTotalSizeBytes,
+                "MAX_BUCKET_METADATA_TOTAL_SIZE_BYTES" => Self::MaxBucketMetadataTotalSizeBytes,
+                "MAX_NOTIFICATION_CONFIGS_PER_BUCKET" => Self::MaxNotificationConfigsPerBucket,
+                "MAX_LIFECYCLE_RULES_PER_BUCKET" => Self::MaxLifecycleRulesPerBucket,
+                "MAX_NOTIFICATION_CUSTOM_ATTRIBUTES" => Self::MaxNotificationCustomAttributes,
+                "MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_KEY_LENGTH" => {
+                    Self::MaxNotificationCustomAttributeKeyLength
+                }
+                "MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_VALUE_LENGTH" => {
+                    Self::MaxNotificationCustomAttributeValueLength
+                }
+                "MAX_LABELS_ENTRIES_COUNT" => Self::MaxLabelsEntriesCount,
+                "MAX_LABELS_KEY_VALUE_LENGTH" => Self::MaxLabelsKeyValueLength,
+                "MAX_LABELS_KEY_VALUE_BYTES" => Self::MaxLabelsKeyValueBytes,
+                "MAX_OBJECT_IDS_PER_DELETE_OBJECTS_REQUEST" => {
+                    Self::MaxObjectIdsPerDeleteObjectsRequest
+                }
+                "SPLIT_TOKEN_MAX_VALID_DAYS" => Self::SplitTokenMaxValidDays,
+                _ => Self::UnknownValue(values::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Values {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::MaxReadChunkBytes => serializer.serialize_i32(2097152),
+                Self::MaxWriteChunkBytes => serializer.serialize_i32(2097152),
+                Self::MaxObjectSizeMb => serializer.serialize_i32(5242880),
+                Self::MaxCustomMetadataFieldNameBytes => serializer.serialize_i32(1024),
+                Self::MaxCustomMetadataFieldValueBytes => serializer.serialize_i32(4096),
+                Self::MaxCustomMetadataTotalSizeBytes => serializer.serialize_i32(8192),
+                Self::MaxBucketMetadataTotalSizeBytes => serializer.serialize_i32(20480),
+                Self::MaxNotificationConfigsPerBucket => serializer.serialize_i32(100),
+                Self::MaxLifecycleRulesPerBucket => serializer.serialize_i32(100),
+                Self::MaxNotificationCustomAttributes => serializer.serialize_i32(5),
+                Self::MaxNotificationCustomAttributeKeyLength => serializer.serialize_i32(256),
+                Self::MaxNotificationCustomAttributeValueLength => serializer.serialize_i32(1024),
+                Self::MaxLabelsEntriesCount => serializer.serialize_i32(64),
+                Self::MaxLabelsKeyValueLength => serializer.serialize_i32(63),
+                Self::MaxLabelsKeyValueBytes => serializer.serialize_i32(128),
+                Self::MaxObjectIdsPerDeleteObjectsRequest => serializer.serialize_i32(1000),
+                Self::SplitTokenMaxValidDays => serializer.serialize_i32(14),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Values {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Values>::new(
+                ".google.storage.v2.ServiceConstants.Values",
+            ))
         }
     }
 }

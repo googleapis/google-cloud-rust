@@ -1432,59 +1432,120 @@ pub mod recognizer {
     use super::*;
 
     /// Set of states that define the lifecycle of a Recognizer.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The default value. This value is used if the state is omitted.
+        Unspecified,
+        /// The Recognizer is active and ready for use.
+        Active,
+        /// This Recognizer has been deleted.
+        Deleted,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl State {
-        /// The default value. This value is used if the state is omitted.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
-        /// The Recognizer is active and ready for use.
-        pub const ACTIVE: State = State::new(2);
-
-        /// This Recognizer has been deleted.
-        pub const DELETED: State = State::new(4);
-
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(2),
+                Self::Deleted => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                2 => std::borrow::Cow::Borrowed("ACTIVE"),
-                4 => std::borrow::Cow::Borrowed("DELETED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "DELETED" => std::option::Option::Some(Self::DELETED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                2 => Self::Active,
+                4 => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "DELETED" => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Deleted => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.speech.v2.Recognizer.State",
+            ))
         }
     }
 }
@@ -1608,111 +1669,190 @@ pub mod explicit_decoding_config {
     use super::*;
 
     /// Supported audio data encodings.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AudioEncoding(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AudioEncoding {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Headerless 16-bit signed little-endian PCM samples.
+        Linear16,
+        /// Headerless 8-bit companded mulaw samples.
+        Mulaw,
+        /// Headerless 8-bit companded alaw samples.
+        Alaw,
+        /// AMR frames with an rfc4867.5 header.
+        Amr,
+        /// AMR-WB frames with an rfc4867.5 header.
+        AmrWb,
+        /// FLAC frames in the "native FLAC" container format.
+        Flac,
+        /// MPEG audio frames with optional (ignored) ID3 metadata.
+        Mp3,
+        /// Opus audio frames in an Ogg container.
+        OggOpus,
+        /// Opus audio frames in a WebM container.
+        WebmOpus,
+        /// AAC audio frames in an MP4 container.
+        Mp4Aac,
+        /// AAC audio frames in an M4A container.
+        M4AAac,
+        /// AAC audio frames in an MOV container.
+        MovAac,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AudioEncoding::value] or
+        /// [AudioEncoding::name].
+        UnknownValue(audio_encoding::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod audio_encoding {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl AudioEncoding {
-        /// Default value. This value is unused.
-        pub const AUDIO_ENCODING_UNSPECIFIED: AudioEncoding = AudioEncoding::new(0);
-
-        /// Headerless 16-bit signed little-endian PCM samples.
-        pub const LINEAR16: AudioEncoding = AudioEncoding::new(1);
-
-        /// Headerless 8-bit companded mulaw samples.
-        pub const MULAW: AudioEncoding = AudioEncoding::new(2);
-
-        /// Headerless 8-bit companded alaw samples.
-        pub const ALAW: AudioEncoding = AudioEncoding::new(3);
-
-        /// AMR frames with an rfc4867.5 header.
-        pub const AMR: AudioEncoding = AudioEncoding::new(4);
-
-        /// AMR-WB frames with an rfc4867.5 header.
-        pub const AMR_WB: AudioEncoding = AudioEncoding::new(5);
-
-        /// FLAC frames in the "native FLAC" container format.
-        pub const FLAC: AudioEncoding = AudioEncoding::new(6);
-
-        /// MPEG audio frames with optional (ignored) ID3 metadata.
-        pub const MP3: AudioEncoding = AudioEncoding::new(7);
-
-        /// Opus audio frames in an Ogg container.
-        pub const OGG_OPUS: AudioEncoding = AudioEncoding::new(8);
-
-        /// Opus audio frames in a WebM container.
-        pub const WEBM_OPUS: AudioEncoding = AudioEncoding::new(9);
-
-        /// AAC audio frames in an MP4 container.
-        pub const MP4_AAC: AudioEncoding = AudioEncoding::new(10);
-
-        /// AAC audio frames in an M4A container.
-        pub const M4A_AAC: AudioEncoding = AudioEncoding::new(11);
-
-        /// AAC audio frames in an MOV container.
-        pub const MOV_AAC: AudioEncoding = AudioEncoding::new(12);
-
-        /// Creates a new AudioEncoding instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Linear16 => std::option::Option::Some(1),
+                Self::Mulaw => std::option::Option::Some(2),
+                Self::Alaw => std::option::Option::Some(3),
+                Self::Amr => std::option::Option::Some(4),
+                Self::AmrWb => std::option::Option::Some(5),
+                Self::Flac => std::option::Option::Some(6),
+                Self::Mp3 => std::option::Option::Some(7),
+                Self::OggOpus => std::option::Option::Some(8),
+                Self::WebmOpus => std::option::Option::Some(9),
+                Self::Mp4Aac => std::option::Option::Some(10),
+                Self::M4AAac => std::option::Option::Some(11),
+                Self::MovAac => std::option::Option::Some(12),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("AUDIO_ENCODING_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("LINEAR16"),
-                2 => std::borrow::Cow::Borrowed("MULAW"),
-                3 => std::borrow::Cow::Borrowed("ALAW"),
-                4 => std::borrow::Cow::Borrowed("AMR"),
-                5 => std::borrow::Cow::Borrowed("AMR_WB"),
-                6 => std::borrow::Cow::Borrowed("FLAC"),
-                7 => std::borrow::Cow::Borrowed("MP3"),
-                8 => std::borrow::Cow::Borrowed("OGG_OPUS"),
-                9 => std::borrow::Cow::Borrowed("WEBM_OPUS"),
-                10 => std::borrow::Cow::Borrowed("MP4_AAC"),
-                11 => std::borrow::Cow::Borrowed("M4A_AAC"),
-                12 => std::borrow::Cow::Borrowed("MOV_AAC"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("AUDIO_ENCODING_UNSPECIFIED"),
+                Self::Linear16 => std::option::Option::Some("LINEAR16"),
+                Self::Mulaw => std::option::Option::Some("MULAW"),
+                Self::Alaw => std::option::Option::Some("ALAW"),
+                Self::Amr => std::option::Option::Some("AMR"),
+                Self::AmrWb => std::option::Option::Some("AMR_WB"),
+                Self::Flac => std::option::Option::Some("FLAC"),
+                Self::Mp3 => std::option::Option::Some("MP3"),
+                Self::OggOpus => std::option::Option::Some("OGG_OPUS"),
+                Self::WebmOpus => std::option::Option::Some("WEBM_OPUS"),
+                Self::Mp4Aac => std::option::Option::Some("MP4_AAC"),
+                Self::M4AAac => std::option::Option::Some("M4A_AAC"),
+                Self::MovAac => std::option::Option::Some("MOV_AAC"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "AUDIO_ENCODING_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::AUDIO_ENCODING_UNSPECIFIED)
-                }
-                "LINEAR16" => std::option::Option::Some(Self::LINEAR16),
-                "MULAW" => std::option::Option::Some(Self::MULAW),
-                "ALAW" => std::option::Option::Some(Self::ALAW),
-                "AMR" => std::option::Option::Some(Self::AMR),
-                "AMR_WB" => std::option::Option::Some(Self::AMR_WB),
-                "FLAC" => std::option::Option::Some(Self::FLAC),
-                "MP3" => std::option::Option::Some(Self::MP3),
-                "OGG_OPUS" => std::option::Option::Some(Self::OGG_OPUS),
-                "WEBM_OPUS" => std::option::Option::Some(Self::WEBM_OPUS),
-                "MP4_AAC" => std::option::Option::Some(Self::MP4_AAC),
-                "M4A_AAC" => std::option::Option::Some(Self::M4A_AAC),
-                "MOV_AAC" => std::option::Option::Some(Self::MOV_AAC),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for AudioEncoding {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for AudioEncoding {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AudioEncoding {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AudioEncoding {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Linear16,
+                2 => Self::Mulaw,
+                3 => Self::Alaw,
+                4 => Self::Amr,
+                5 => Self::AmrWb,
+                6 => Self::Flac,
+                7 => Self::Mp3,
+                8 => Self::OggOpus,
+                9 => Self::WebmOpus,
+                10 => Self::Mp4Aac,
+                11 => Self::M4AAac,
+                12 => Self::MovAac,
+                _ => Self::UnknownValue(audio_encoding::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AudioEncoding {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AUDIO_ENCODING_UNSPECIFIED" => Self::Unspecified,
+                "LINEAR16" => Self::Linear16,
+                "MULAW" => Self::Mulaw,
+                "ALAW" => Self::Alaw,
+                "AMR" => Self::Amr,
+                "AMR_WB" => Self::AmrWb,
+                "FLAC" => Self::Flac,
+                "MP3" => Self::Mp3,
+                "OGG_OPUS" => Self::OggOpus,
+                "WEBM_OPUS" => Self::WebmOpus,
+                "MP4_AAC" => Self::Mp4Aac,
+                "M4A_AAC" => Self::M4AAac,
+                "MOV_AAC" => Self::MovAac,
+                _ => Self::UnknownValue(audio_encoding::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AudioEncoding {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Linear16 => serializer.serialize_i32(1),
+                Self::Mulaw => serializer.serialize_i32(2),
+                Self::Alaw => serializer.serialize_i32(3),
+                Self::Amr => serializer.serialize_i32(4),
+                Self::AmrWb => serializer.serialize_i32(5),
+                Self::Flac => serializer.serialize_i32(6),
+                Self::Mp3 => serializer.serialize_i32(7),
+                Self::OggOpus => serializer.serialize_i32(8),
+                Self::WebmOpus => serializer.serialize_i32(9),
+                Self::Mp4Aac => serializer.serialize_i32(10),
+                Self::M4AAac => serializer.serialize_i32(11),
+                Self::MovAac => serializer.serialize_i32(12),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AudioEncoding {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AudioEncoding>::new(
+                ".google.cloud.speech.v2.ExplicitDecodingConfig.AudioEncoding",
+            ))
         }
     }
 }
@@ -1920,64 +2060,121 @@ pub mod recognition_features {
     use super::*;
 
     /// Options for how to recognize multi-channel audio.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MultiChannelMode(i32);
-
-    impl MultiChannelMode {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum MultiChannelMode {
         /// Default value for the multi-channel mode. If the audio contains
         /// multiple channels, only the first channel will be transcribed; other
         /// channels will be ignored.
-        pub const MULTI_CHANNEL_MODE_UNSPECIFIED: MultiChannelMode = MultiChannelMode::new(0);
-
+        Unspecified,
         /// If selected, each channel in the provided audio is transcribed
         /// independently. This cannot be selected if the selected
         /// [model][google.cloud.speech.v2.Recognizer.model] is `latest_short`.
         ///
         /// [google.cloud.speech.v2.Recognizer.model]: crate::model::Recognizer::model
-        pub const SEPARATE_RECOGNITION_PER_CHANNEL: MultiChannelMode = MultiChannelMode::new(1);
+        SeparateRecognitionPerChannel,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [MultiChannelMode::value] or
+        /// [MultiChannelMode::name].
+        UnknownValue(multi_channel_mode::UnknownValue),
+    }
 
-        /// Creates a new MultiChannelMode instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod multi_channel_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl MultiChannelMode {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::SeparateRecognitionPerChannel => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("MULTI_CHANNEL_MODE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("SEPARATE_RECOGNITION_PER_CHANNEL"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "MULTI_CHANNEL_MODE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::MULTI_CHANNEL_MODE_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MULTI_CHANNEL_MODE_UNSPECIFIED"),
+                Self::SeparateRecognitionPerChannel => {
+                    std::option::Option::Some("SEPARATE_RECOGNITION_PER_CHANNEL")
                 }
-                "SEPARATE_RECOGNITION_PER_CHANNEL" => {
-                    std::option::Option::Some(Self::SEPARATE_RECOGNITION_PER_CHANNEL)
-                }
-                _ => std::option::Option::None,
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for MultiChannelMode {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for MultiChannelMode {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for MultiChannelMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for MultiChannelMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::SeparateRecognitionPerChannel,
+                _ => Self::UnknownValue(multi_channel_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for MultiChannelMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MULTI_CHANNEL_MODE_UNSPECIFIED" => Self::Unspecified,
+                "SEPARATE_RECOGNITION_PER_CHANNEL" => Self::SeparateRecognitionPerChannel,
+                _ => Self::UnknownValue(multi_channel_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for MultiChannelMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::SeparateRecognitionPerChannel => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MultiChannelMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<MultiChannelMode>::new(
+                ".google.cloud.speech.v2.RecognitionFeatures.MultiChannelMode",
+            ))
         }
     }
 }
@@ -3590,58 +3787,115 @@ pub mod batch_recognize_request {
     use super::*;
 
     /// Possible processing strategies for batch requests.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ProcessingStrategy(i32);
-
-    impl ProcessingStrategy {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ProcessingStrategy {
         /// Default value for the processing strategy. The request is processed as
         /// soon as its received.
-        pub const PROCESSING_STRATEGY_UNSPECIFIED: ProcessingStrategy = ProcessingStrategy::new(0);
-
+        Unspecified,
         /// If selected, processes the request during lower utilization periods for a
         /// price discount. The request is fulfilled within 24 hours.
-        pub const DYNAMIC_BATCHING: ProcessingStrategy = ProcessingStrategy::new(1);
+        DynamicBatching,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ProcessingStrategy::value] or
+        /// [ProcessingStrategy::name].
+        UnknownValue(processing_strategy::UnknownValue),
+    }
 
-        /// Creates a new ProcessingStrategy instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod processing_strategy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl ProcessingStrategy {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::DynamicBatching => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("PROCESSING_STRATEGY_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("DYNAMIC_BATCHING"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PROCESSING_STRATEGY_UNSPECIFIED"),
+                Self::DynamicBatching => std::option::Option::Some("DYNAMIC_BATCHING"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "PROCESSING_STRATEGY_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::PROCESSING_STRATEGY_UNSPECIFIED)
-                }
-                "DYNAMIC_BATCHING" => std::option::Option::Some(Self::DYNAMIC_BATCHING),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for ProcessingStrategy {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ProcessingStrategy {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ProcessingStrategy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ProcessingStrategy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::DynamicBatching,
+                _ => Self::UnknownValue(processing_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ProcessingStrategy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROCESSING_STRATEGY_UNSPECIFIED" => Self::Unspecified,
+                "DYNAMIC_BATCHING" => Self::DynamicBatching,
+                _ => Self::UnknownValue(processing_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ProcessingStrategy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::DynamicBatching => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ProcessingStrategy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProcessingStrategy>::new(
+                ".google.cloud.speech.v2.BatchRecognizeRequest.ProcessingStrategy",
+            ))
         }
     }
 }
@@ -4880,13 +5134,11 @@ pub mod streaming_recognize_response {
     use super::*;
 
     /// Indicates the type of speech event.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SpeechEventType(i32);
-
-    impl SpeechEventType {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SpeechEventType {
         /// No speech event specified.
-        pub const SPEECH_EVENT_TYPE_UNSPECIFIED: SpeechEventType = SpeechEventType::new(0);
-
+        Unspecified,
         /// This event indicates that the server has detected the end of the user's
         /// speech utterance and expects no additional speech. Therefore, the server
         /// will not process additional audio and will close the gRPC bidirectional
@@ -4895,66 +5147,127 @@ pub mod streaming_recognize_response {
         /// `latest_short` [model][google.cloud.speech.v2.Recognizer.model].
         ///
         /// [google.cloud.speech.v2.Recognizer.model]: crate::model::Recognizer::model
-        pub const END_OF_SINGLE_UTTERANCE: SpeechEventType = SpeechEventType::new(1);
-
+        EndOfSingleUtterance,
         /// This event indicates that the server has detected the beginning of human
         /// voice activity in the stream. This event can be returned multiple times
         /// if speech starts and stops repeatedly throughout the stream. This event
         /// is only sent if `voice_activity_events` is set to true.
-        pub const SPEECH_ACTIVITY_BEGIN: SpeechEventType = SpeechEventType::new(2);
-
+        SpeechActivityBegin,
         /// This event indicates that the server has detected the end of human voice
         /// activity in the stream. This event can be returned multiple times if
         /// speech starts and stops repeatedly throughout the stream. This event is
         /// only sent if `voice_activity_events` is set to true.
-        pub const SPEECH_ACTIVITY_END: SpeechEventType = SpeechEventType::new(3);
+        SpeechActivityEnd,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SpeechEventType::value] or
+        /// [SpeechEventType::name].
+        UnknownValue(speech_event_type::UnknownValue),
+    }
 
-        /// Creates a new SpeechEventType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod speech_event_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl SpeechEventType {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::EndOfSingleUtterance => std::option::Option::Some(1),
+                Self::SpeechActivityBegin => std::option::Option::Some(2),
+                Self::SpeechActivityEnd => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("SPEECH_EVENT_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("END_OF_SINGLE_UTTERANCE"),
-                2 => std::borrow::Cow::Borrowed("SPEECH_ACTIVITY_BEGIN"),
-                3 => std::borrow::Cow::Borrowed("SPEECH_ACTIVITY_END"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SPEECH_EVENT_TYPE_UNSPECIFIED"),
+                Self::EndOfSingleUtterance => std::option::Option::Some("END_OF_SINGLE_UTTERANCE"),
+                Self::SpeechActivityBegin => std::option::Option::Some("SPEECH_ACTIVITY_BEGIN"),
+                Self::SpeechActivityEnd => std::option::Option::Some("SPEECH_ACTIVITY_END"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "SPEECH_EVENT_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::SPEECH_EVENT_TYPE_UNSPECIFIED)
-                }
-                "END_OF_SINGLE_UTTERANCE" => {
-                    std::option::Option::Some(Self::END_OF_SINGLE_UTTERANCE)
-                }
-                "SPEECH_ACTIVITY_BEGIN" => std::option::Option::Some(Self::SPEECH_ACTIVITY_BEGIN),
-                "SPEECH_ACTIVITY_END" => std::option::Option::Some(Self::SPEECH_ACTIVITY_END),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for SpeechEventType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for SpeechEventType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for SpeechEventType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for SpeechEventType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::EndOfSingleUtterance,
+                2 => Self::SpeechActivityBegin,
+                3 => Self::SpeechActivityEnd,
+                _ => Self::UnknownValue(speech_event_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for SpeechEventType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SPEECH_EVENT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "END_OF_SINGLE_UTTERANCE" => Self::EndOfSingleUtterance,
+                "SPEECH_ACTIVITY_BEGIN" => Self::SpeechActivityBegin,
+                "SPEECH_ACTIVITY_END" => Self::SpeechActivityEnd,
+                _ => Self::UnknownValue(speech_event_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for SpeechEventType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::EndOfSingleUtterance => serializer.serialize_i32(1),
+                Self::SpeechActivityBegin => serializer.serialize_i32(2),
+                Self::SpeechActivityEnd => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for SpeechEventType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SpeechEventType>::new(
+                ".google.cloud.speech.v2.StreamingRecognizeResponse.SpeechEventType",
+            ))
         }
     }
 }
@@ -5358,60 +5671,121 @@ pub mod custom_class {
     }
 
     /// Set of states that define the lifecycle of a CustomClass.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Unspecified state.  This is only used/useful for distinguishing
         /// unset values.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The normal and active state.
-        pub const ACTIVE: State = State::new(2);
-
+        Active,
         /// This CustomClass has been deleted.
-        pub const DELETED: State = State::new(4);
+        Deleted,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(2),
+                Self::Deleted => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                2 => std::borrow::Cow::Borrowed("ACTIVE"),
-                4 => std::borrow::Cow::Borrowed("DELETED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "DELETED" => std::option::Option::Some(Self::DELETED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                2 => Self::Active,
+                4 => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "DELETED" => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Deleted => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.speech.v2.CustomClass.State",
+            ))
         }
     }
 }
@@ -5700,60 +6074,121 @@ pub mod phrase_set {
     }
 
     /// Set of states that define the lifecycle of a PhraseSet.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(i32);
-
-    impl State {
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
         /// Unspecified state.  This is only used/useful for distinguishing
         /// unset values.
-        pub const STATE_UNSPECIFIED: State = State::new(0);
-
+        Unspecified,
         /// The normal and active state.
-        pub const ACTIVE: State = State::new(2);
-
+        Active,
         /// This PhraseSet has been deleted.
-        pub const DELETED: State = State::new(4);
+        Deleted,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
 
-        /// Creates a new State instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
+    impl State {
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(2),
+                Self::Deleted => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("STATE_UNSPECIFIED"),
-                2 => std::borrow::Cow::Borrowed("ACTIVE"),
-                4 => std::borrow::Cow::Borrowed("DELETED"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "STATE_UNSPECIFIED" => std::option::Option::Some(Self::STATE_UNSPECIFIED),
-                "ACTIVE" => std::option::Option::Some(Self::ACTIVE),
-                "DELETED" => std::option::Option::Some(Self::DELETED),
-                _ => std::option::Option::None,
-            }
-        }
-    }
-
-    impl std::convert::From<i32> for State {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for State {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                2 => Self::Active,
+                4 => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "DELETED" => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Deleted => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.speech.v2.PhraseSet.State",
+            ))
         }
     }
 }
@@ -6870,59 +7305,117 @@ pub mod access_metadata {
 
     /// Describes the different types of constraints that can be applied on a
     /// region.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ConstraintType(i32);
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ConstraintType {
+        /// Unspecified constraint applied.
+        Unspecified,
+        /// The project's org policy disallows the given region.
+        ResourceLocationsOrgPolicyCreateConstraint,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ConstraintType::value] or
+        /// [ConstraintType::name].
+        UnknownValue(constraint_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod constraint_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
 
     impl ConstraintType {
-        /// Unspecified constraint applied.
-        pub const CONSTRAINT_TYPE_UNSPECIFIED: ConstraintType = ConstraintType::new(0);
-
-        /// The project's org policy disallows the given region.
-        pub const RESOURCE_LOCATIONS_ORG_POLICY_CREATE_CONSTRAINT: ConstraintType =
-            ConstraintType::new(1);
-
-        /// Creates a new ConstraintType instance.
-        pub(crate) const fn new(value: i32) -> Self {
-            Self(value)
-        }
-
         /// Gets the enum value.
-        pub fn value(&self) -> i32 {
-            self.0
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ResourceLocationsOrgPolicyCreateConstraint => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
         }
 
         /// Gets the enum value as a string.
-        pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-            match self.0 {
-                0 => std::borrow::Cow::Borrowed("CONSTRAINT_TYPE_UNSPECIFIED"),
-                1 => std::borrow::Cow::Borrowed("RESOURCE_LOCATIONS_ORG_POLICY_CREATE_CONSTRAINT"),
-                _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
-            }
-        }
-
-        /// Creates an enum value from the value name.
-        pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-            match name {
-                "CONSTRAINT_TYPE_UNSPECIFIED" => {
-                    std::option::Option::Some(Self::CONSTRAINT_TYPE_UNSPECIFIED)
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CONSTRAINT_TYPE_UNSPECIFIED"),
+                Self::ResourceLocationsOrgPolicyCreateConstraint => {
+                    std::option::Option::Some("RESOURCE_LOCATIONS_ORG_POLICY_CREATE_CONSTRAINT")
                 }
-                "RESOURCE_LOCATIONS_ORG_POLICY_CREATE_CONSTRAINT" => {
-                    std::option::Option::Some(Self::RESOURCE_LOCATIONS_ORG_POLICY_CREATE_CONSTRAINT)
-                }
-                _ => std::option::Option::None,
+                Self::UnknownValue(u) => u.0.name(),
             }
-        }
-    }
-
-    impl std::convert::From<i32> for ConstraintType {
-        fn from(value: i32) -> Self {
-            Self::new(value)
         }
     }
 
     impl std::default::Default for ConstraintType {
         fn default() -> Self {
-            Self::new(0)
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ConstraintType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ConstraintType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ResourceLocationsOrgPolicyCreateConstraint,
+                _ => Self::UnknownValue(constraint_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ConstraintType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CONSTRAINT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "RESOURCE_LOCATIONS_ORG_POLICY_CREATE_CONSTRAINT" => {
+                    Self::ResourceLocationsOrgPolicyCreateConstraint
+                }
+                _ => Self::UnknownValue(constraint_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ConstraintType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ResourceLocationsOrgPolicyCreateConstraint => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ConstraintType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConstraintType>::new(
+                ".google.cloud.speech.v2.AccessMetadata.ConstraintType",
+            ))
         }
     }
 }

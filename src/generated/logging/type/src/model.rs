@@ -242,89 +242,162 @@ impl wkt::message::Message for HttpRequest {
 /// one of these standard levels. For example, you might map all of Java's FINE,
 /// FINER, and FINEST levels to `LogSeverity.DEBUG`. You can preserve the
 /// original severity level in the log entry payload if you wish.
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LogSeverity(i32);
-
-impl LogSeverity {
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum LogSeverity {
     /// (0) The log entry has no assigned severity level.
-    pub const DEFAULT: LogSeverity = LogSeverity::new(0);
-
+    Default,
     /// (100) Debug or trace information.
-    pub const DEBUG: LogSeverity = LogSeverity::new(100);
-
+    Debug,
     /// (200) Routine information, such as ongoing status or performance.
-    pub const INFO: LogSeverity = LogSeverity::new(200);
-
+    Info,
     /// (300) Normal but significant events, such as start up, shut down, or
     /// a configuration change.
-    pub const NOTICE: LogSeverity = LogSeverity::new(300);
-
+    Notice,
     /// (400) Warning events might cause problems.
-    pub const WARNING: LogSeverity = LogSeverity::new(400);
-
+    Warning,
     /// (500) Error events are likely to cause problems.
-    pub const ERROR: LogSeverity = LogSeverity::new(500);
-
+    Error,
     /// (600) Critical events cause more severe problems or outages.
-    pub const CRITICAL: LogSeverity = LogSeverity::new(600);
-
+    Critical,
     /// (700) A person must take an action immediately.
-    pub const ALERT: LogSeverity = LogSeverity::new(700);
-
+    Alert,
     /// (800) One or more systems are unusable.
-    pub const EMERGENCY: LogSeverity = LogSeverity::new(800);
+    Emergency,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [LogSeverity::value] or
+    /// [LogSeverity::name].
+    UnknownValue(log_severity::UnknownValue),
+}
 
-    /// Creates a new LogSeverity instance.
-    pub(crate) const fn new(value: i32) -> Self {
-        Self(value)
-    }
+#[doc(hidden)]
+pub mod log_severity {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
 
+impl LogSeverity {
     /// Gets the enum value.
-    pub fn value(&self) -> i32 {
-        self.0
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Default => std::option::Option::Some(0),
+            Self::Debug => std::option::Option::Some(100),
+            Self::Info => std::option::Option::Some(200),
+            Self::Notice => std::option::Option::Some(300),
+            Self::Warning => std::option::Option::Some(400),
+            Self::Error => std::option::Option::Some(500),
+            Self::Critical => std::option::Option::Some(600),
+            Self::Alert => std::option::Option::Some(700),
+            Self::Emergency => std::option::Option::Some(800),
+            Self::UnknownValue(u) => u.0.value(),
+        }
     }
 
     /// Gets the enum value as a string.
-    pub fn as_str_name(&self) -> std::borrow::Cow<'static, str> {
-        match self.0 {
-            0 => std::borrow::Cow::Borrowed("DEFAULT"),
-            100 => std::borrow::Cow::Borrowed("DEBUG"),
-            200 => std::borrow::Cow::Borrowed("INFO"),
-            300 => std::borrow::Cow::Borrowed("NOTICE"),
-            400 => std::borrow::Cow::Borrowed("WARNING"),
-            500 => std::borrow::Cow::Borrowed("ERROR"),
-            600 => std::borrow::Cow::Borrowed("CRITICAL"),
-            700 => std::borrow::Cow::Borrowed("ALERT"),
-            800 => std::borrow::Cow::Borrowed("EMERGENCY"),
-            _ => std::borrow::Cow::Owned(std::format!("UNKNOWN-VALUE:{}", self.0)),
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Default => std::option::Option::Some("DEFAULT"),
+            Self::Debug => std::option::Option::Some("DEBUG"),
+            Self::Info => std::option::Option::Some("INFO"),
+            Self::Notice => std::option::Option::Some("NOTICE"),
+            Self::Warning => std::option::Option::Some("WARNING"),
+            Self::Error => std::option::Option::Some("ERROR"),
+            Self::Critical => std::option::Option::Some("CRITICAL"),
+            Self::Alert => std::option::Option::Some("ALERT"),
+            Self::Emergency => std::option::Option::Some("EMERGENCY"),
+            Self::UnknownValue(u) => u.0.name(),
         }
-    }
-
-    /// Creates an enum value from the value name.
-    pub fn from_str_name(name: &str) -> std::option::Option<Self> {
-        match name {
-            "DEFAULT" => std::option::Option::Some(Self::DEFAULT),
-            "DEBUG" => std::option::Option::Some(Self::DEBUG),
-            "INFO" => std::option::Option::Some(Self::INFO),
-            "NOTICE" => std::option::Option::Some(Self::NOTICE),
-            "WARNING" => std::option::Option::Some(Self::WARNING),
-            "ERROR" => std::option::Option::Some(Self::ERROR),
-            "CRITICAL" => std::option::Option::Some(Self::CRITICAL),
-            "ALERT" => std::option::Option::Some(Self::ALERT),
-            "EMERGENCY" => std::option::Option::Some(Self::EMERGENCY),
-            _ => std::option::Option::None,
-        }
-    }
-}
-
-impl std::convert::From<i32> for LogSeverity {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
 impl std::default::Default for LogSeverity {
     fn default() -> Self {
-        Self::new(0)
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for LogSeverity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for LogSeverity {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Default,
+            100 => Self::Debug,
+            200 => Self::Info,
+            300 => Self::Notice,
+            400 => Self::Warning,
+            500 => Self::Error,
+            600 => Self::Critical,
+            700 => Self::Alert,
+            800 => Self::Emergency,
+            _ => Self::UnknownValue(log_severity::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for LogSeverity {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DEFAULT" => Self::Default,
+            "DEBUG" => Self::Debug,
+            "INFO" => Self::Info,
+            "NOTICE" => Self::Notice,
+            "WARNING" => Self::Warning,
+            "ERROR" => Self::Error,
+            "CRITICAL" => Self::Critical,
+            "ALERT" => Self::Alert,
+            "EMERGENCY" => Self::Emergency,
+            _ => Self::UnknownValue(log_severity::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for LogSeverity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Default => serializer.serialize_i32(0),
+            Self::Debug => serializer.serialize_i32(100),
+            Self::Info => serializer.serialize_i32(200),
+            Self::Notice => serializer.serialize_i32(300),
+            Self::Warning => serializer.serialize_i32(400),
+            Self::Error => serializer.serialize_i32(500),
+            Self::Critical => serializer.serialize_i32(600),
+            Self::Alert => serializer.serialize_i32(700),
+            Self::Emergency => serializer.serialize_i32(800),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for LogSeverity {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<LogSeverity>::new(
+            ".google.logging.type.LogSeverity",
+        ))
     }
 }
