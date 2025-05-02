@@ -113,25 +113,17 @@ where
 
 // Trait to abstract over f32 and f64.
 trait FloatExt: num_traits::Float + std::fmt::Debug {
-    fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer;
+    fn serialize<S: serde::ser::Serializer>(self, serializer: S) -> Result<S::Ok, S::Error>;
 }
 
 impl FloatExt for f32 {
-    fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
+    fn serialize<S: serde::ser::Serializer>(self, serializer: S) -> Result<S::Ok, S::Error> {
         serializer.serialize_f32(self)
     }
 }
 
 impl FloatExt for f64 {
-    fn serialize<S>(self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
+    fn serialize<S: serde::ser::Serializer>(self, serializer: S) -> Result<S::Ok, S::Error> {
         serializer.serialize_f64(self)
     }
 }
