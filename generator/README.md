@@ -56,24 +56,17 @@ Or from `generator/`: `go test ./...`
 
 ### Installing `protoc`: the Protobuf Compiler
 
-The unit tests use `protoc` to parse text `.proto` files. You will need this
-installed in your `$PATH` to run the tests.
+The generator uses the protobuf compiler, `protoc`, with the `--retain_options`
+flag. 
 
-You can find numerous guides on how to install the Protobuf Compiler. Here
-we suggest two approaches:
+Ensure that you have `protoc` installed and that its version is >= v23.0.
 
-- Follow the instructions in the [gRPC Tutorial].
+```bash
+protoc --version
+```
 
-- The Protobuf team ships easy to install binaries with each release. In the
-  [latest Protobuf release][protobuf-latest] you can find a `.zip` file for
-  your platform. Download and extract such that the `bin/` subdirectory is in
-  your path. For example:
-
-  ```shell
-  curl -fSSL -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v28.3/protoc-28.3-linux-x86_64.zip
-  cd /usr/local
-  sudo unzip -x /tmp/protoc.zip
-  ```
+If not, follow the steps in [Protocol Buffer Compiler Installation] to download
+a suitable version.
 
 ### Install goimports
 
@@ -82,5 +75,5 @@ go install golang.org/x/tools/cmd/goimports@latest
 ```
 
 [grpc tutorial]: https://grpc.io/docs/protoc-installation/
-[protobuf-latest]: https://github.com/protocolbuffers/protobuf/releases/latest
+[protocol buffer compiler installation]: https://protobuf.dev/installation/
 [secret manager]: https://cloud.google.com/secret-manager/
