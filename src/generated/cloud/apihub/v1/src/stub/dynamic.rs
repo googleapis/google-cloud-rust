@@ -636,6 +636,7 @@ impl<T: super::ApiHub> ApiHub for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::ApiHubDependencies].
 #[async_trait::async_trait]
 pub trait ApiHubDependencies: std::fmt::Debug + Send + Sync {
@@ -808,6 +809,7 @@ impl<T: super::ApiHubDependencies> ApiHubDependencies for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::HostProjectRegistrationService].
 #[async_trait::async_trait]
 pub trait HostProjectRegistrationService: std::fmt::Debug + Send + Sync {
@@ -951,6 +953,7 @@ impl<T: super::HostProjectRegistrationService> HostProjectRegistrationService fo
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::LintingService].
 #[async_trait::async_trait]
 pub trait LintingService: std::fmt::Debug + Send + Sync {
@@ -1108,6 +1111,7 @@ impl<T: super::LintingService> LintingService for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::ApiHubPlugin].
 #[async_trait::async_trait]
 pub trait ApiHubPlugin: std::fmt::Debug + Send + Sync {
@@ -1250,6 +1254,7 @@ impl<T: super::ApiHubPlugin> ApiHubPlugin for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Provisioning].
 #[async_trait::async_trait]
 pub trait Provisioning: std::fmt::Debug + Send + Sync {
@@ -1416,6 +1421,7 @@ impl<T: super::Provisioning> Provisioning for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::RuntimeProjectAttachmentService].
 #[async_trait::async_trait]
 pub trait RuntimeProjectAttachmentService: std::fmt::Debug + Send + Sync {

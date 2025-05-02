@@ -59,7 +59,7 @@
     feature = "vizier_service",
 ))]
 use gax::error::Error;
-#[allow(unused_imports)]
+
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::DatasetService].

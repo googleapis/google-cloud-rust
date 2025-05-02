@@ -65,8 +65,8 @@ use crate::Result;
 ///
 /// `BinauthzManagementServiceV1` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `BinauthzManagementServiceV1` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct BinauthzManagementServiceV1 {
     inner: std::sync::Arc<dyn super::stub::dynamic::BinauthzManagementServiceV1>,
@@ -262,8 +262,8 @@ impl BinauthzManagementServiceV1 {
 ///
 /// `SystemPolicyV1` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SystemPolicyV1` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SystemPolicyV1 {
     inner: std::sync::Arc<dyn super::stub::dynamic::SystemPolicyV1>,
@@ -373,8 +373,8 @@ impl SystemPolicyV1 {
 ///
 /// `ValidationHelperV1` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ValidationHelperV1` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ValidationHelperV1 {
     inner: std::sync::Arc<dyn super::stub::dynamic::ValidationHelperV1>,

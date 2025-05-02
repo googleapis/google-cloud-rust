@@ -64,8 +64,8 @@ use crate::Result;
 ///
 /// `AlertPolicyService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AlertPolicyService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AlertPolicyService {
     inner: std::sync::Arc<dyn super::stub::dynamic::AlertPolicyService>,
@@ -237,8 +237,8 @@ impl AlertPolicyService {
 ///
 /// `GroupService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `GroupService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct GroupService {
     inner: std::sync::Arc<dyn super::stub::dynamic::GroupService>,
@@ -388,8 +388,8 @@ impl GroupService {
 ///
 /// `MetricService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `MetricService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct MetricService {
     inner: std::sync::Arc<dyn super::stub::dynamic::MetricService>,
@@ -593,8 +593,8 @@ impl MetricService {
 ///
 /// `NotificationChannelService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `NotificationChannelService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct NotificationChannelService {
     inner: std::sync::Arc<dyn super::stub::dynamic::NotificationChannelService>,
@@ -855,8 +855,8 @@ impl NotificationChannelService {
 ///
 /// `QueryService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `QueryService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct QueryService {
     inner: std::sync::Arc<dyn super::stub::dynamic::QueryService>,
@@ -970,8 +970,8 @@ impl QueryService {
 ///
 /// `ServiceMonitoringService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ServiceMonitoringService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ServiceMonitoringService {
     inner: std::sync::Arc<dyn super::stub::dynamic::ServiceMonitoringService>,
@@ -1174,8 +1174,8 @@ impl ServiceMonitoringService {
 ///
 /// `SnoozeService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SnoozeService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SnoozeService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SnoozeService>,
@@ -1320,8 +1320,8 @@ impl SnoozeService {
 ///
 /// `UptimeCheckService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `UptimeCheckService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct UptimeCheckService {
     inner: std::sync::Arc<dyn super::stub::dynamic::UptimeCheckService>,

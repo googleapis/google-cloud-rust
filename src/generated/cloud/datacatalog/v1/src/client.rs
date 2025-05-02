@@ -59,8 +59,8 @@ use crate::Result;
 ///
 /// `DataCatalog` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataCatalog` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DataCatalog {
     inner: std::sync::Arc<dyn super::stub::dynamic::DataCatalog>,
@@ -785,8 +785,8 @@ impl DataCatalog {
 ///
 /// `PolicyTagManager` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PolicyTagManager` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PolicyTagManager {
     inner: std::sync::Arc<dyn super::stub::dynamic::PolicyTagManager>,
@@ -1064,8 +1064,8 @@ impl PolicyTagManager {
 ///
 /// `PolicyTagManagerSerialization` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PolicyTagManagerSerialization` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PolicyTagManagerSerialization {
     inner: std::sync::Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>,

@@ -56,8 +56,8 @@ use crate::Result;
 ///
 /// `CaseAttachmentService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CaseAttachmentService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CaseAttachmentService {
     inner: std::sync::Arc<dyn super::stub::dynamic::CaseAttachmentService>,
@@ -167,8 +167,8 @@ impl CaseAttachmentService {
 ///
 /// `CaseService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CaseService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CaseService {
     inner: std::sync::Arc<dyn super::stub::dynamic::CaseService>,
@@ -346,8 +346,8 @@ impl CaseService {
 ///
 /// `CommentService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CommentService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CommentService {
     inner: std::sync::Arc<dyn super::stub::dynamic::CommentService>,

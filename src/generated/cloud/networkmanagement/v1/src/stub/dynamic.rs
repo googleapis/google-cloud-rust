@@ -270,6 +270,7 @@ impl<T: super::ReachabilityService> ReachabilityService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::VpcFlowLogsService].
 #[async_trait::async_trait]
 pub trait VpcFlowLogsService: std::fmt::Debug + Send + Sync {

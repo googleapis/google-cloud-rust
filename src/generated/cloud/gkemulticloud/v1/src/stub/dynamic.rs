@@ -248,6 +248,7 @@ impl<T: super::AttachedClusters> AttachedClusters for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::AwsClusters].
 #[async_trait::async_trait]
 pub trait AwsClusters: std::fmt::Debug + Send + Sync {
@@ -580,6 +581,7 @@ impl<T: super::AwsClusters> AwsClusters for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::AzureClusters].
 #[async_trait::async_trait]
 pub trait AzureClusters: std::fmt::Debug + Send + Sync {

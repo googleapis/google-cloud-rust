@@ -57,8 +57,8 @@ use crate::Result;
 ///
 /// `AutoscalingPolicyService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AutoscalingPolicyService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AutoscalingPolicyService {
     inner: std::sync::Arc<dyn super::stub::dynamic::AutoscalingPolicyService>,
@@ -290,8 +290,8 @@ impl AutoscalingPolicyService {
 ///
 /// `BatchController` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `BatchController` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct BatchController {
     inner: std::sync::Arc<dyn super::stub::dynamic::BatchController>,
@@ -520,8 +520,8 @@ impl BatchController {
 ///
 /// `ClusterController` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ClusterController` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ClusterController {
     inner: std::sync::Arc<dyn super::stub::dynamic::ClusterController>,
@@ -889,8 +889,8 @@ impl ClusterController {
 ///
 /// `JobController` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `JobController` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct JobController {
     inner: std::sync::Arc<dyn super::stub::dynamic::JobController>,
@@ -1171,8 +1171,8 @@ impl JobController {
 ///
 /// `NodeGroupController` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `NodeGroupController` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct NodeGroupController {
     inner: std::sync::Arc<dyn super::stub::dynamic::NodeGroupController>,
@@ -1411,8 +1411,8 @@ impl NodeGroupController {
 ///
 /// `SessionTemplateController` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SessionTemplateController` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SessionTemplateController {
     inner: std::sync::Arc<dyn super::stub::dynamic::SessionTemplateController>,
@@ -1640,8 +1640,8 @@ impl SessionTemplateController {
 ///
 /// `SessionController` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SessionController` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SessionController {
     inner: std::sync::Arc<dyn super::stub::dynamic::SessionController>,
@@ -1901,8 +1901,8 @@ impl SessionController {
 ///
 /// `WorkflowTemplateService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `WorkflowTemplateService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct WorkflowTemplateService {
     inner: std::sync::Arc<dyn super::stub::dynamic::WorkflowTemplateService>,

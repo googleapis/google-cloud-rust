@@ -570,6 +570,7 @@ impl<T: super::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::BigtableTableAdmin].
 #[async_trait::async_trait]
 pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {

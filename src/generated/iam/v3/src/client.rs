@@ -57,8 +57,8 @@ use crate::Result;
 ///
 /// `PolicyBindings` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PolicyBindings` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PolicyBindings {
     inner: std::sync::Arc<dyn super::stub::dynamic::PolicyBindings>,
@@ -261,8 +261,8 @@ impl PolicyBindings {
 ///
 /// `PrincipalAccessBoundaryPolicies` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PrincipalAccessBoundaryPolicies` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PrincipalAccessBoundaryPolicies {
     inner: std::sync::Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>,

@@ -56,8 +56,8 @@ use crate::Result;
 ///
 /// `Applications` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Applications` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Applications {
     inner: std::sync::Arc<dyn super::stub::dynamic::Applications>,
@@ -257,8 +257,8 @@ impl Applications {
 ///
 /// `Services` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Services` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Services {
     inner: std::sync::Arc<dyn super::stub::dynamic::Services>,
@@ -429,8 +429,8 @@ impl Services {
 ///
 /// `Versions` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Versions` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Versions {
     inner: std::sync::Arc<dyn super::stub::dynamic::Versions>,
@@ -656,8 +656,8 @@ impl Versions {
 ///
 /// `Instances` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Instances` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Instances {
     inner: std::sync::Arc<dyn super::stub::dynamic::Instances>,
@@ -858,8 +858,8 @@ impl Instances {
 ///
 /// `Firewall` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Firewall` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Firewall {
     inner: std::sync::Arc<dyn super::stub::dynamic::Firewall>,
@@ -1035,8 +1035,8 @@ impl Firewall {
 ///
 /// `AuthorizedDomains` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AuthorizedDomains` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AuthorizedDomains {
     inner: std::sync::Arc<dyn super::stub::dynamic::AuthorizedDomains>,
@@ -1169,8 +1169,8 @@ impl AuthorizedDomains {
 ///
 /// `AuthorizedCertificates` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AuthorizedCertificates` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AuthorizedCertificates {
     inner: std::sync::Arc<dyn super::stub::dynamic::AuthorizedCertificates>,
@@ -1348,8 +1348,8 @@ impl AuthorizedCertificates {
 ///
 /// `DomainMappings` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DomainMappings` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DomainMappings {
     inner: std::sync::Arc<dyn super::stub::dynamic::DomainMappings>,

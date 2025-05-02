@@ -125,8 +125,8 @@ use crate::Result;
 ///
 /// `DatasetService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DatasetService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "dataset_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "dataset_service")))]
 #[derive(Clone, Debug)]
@@ -587,8 +587,8 @@ impl DatasetService {
 ///
 /// `DeploymentResourcePoolService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DeploymentResourcePoolService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "deployment_resource_pool_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "deployment_resource_pool_service")))]
 #[derive(Clone, Debug)]
@@ -901,8 +901,8 @@ impl DeploymentResourcePoolService {
 ///
 /// `EndpointService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `EndpointService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "endpoint_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "endpoint_service")))]
 #[derive(Clone, Debug)]
@@ -1260,8 +1260,8 @@ impl EndpointService {
 ///
 /// `EvaluationService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `EvaluationService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "evaluation_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "evaluation_service")))]
 #[derive(Clone, Debug)]
@@ -1486,8 +1486,8 @@ impl EvaluationService {
 ///
 /// `FeatureOnlineStoreAdminService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `FeatureOnlineStoreAdminService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "feature_online_store_admin_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "feature_online_store_admin_service")))]
 #[derive(Clone, Debug)]
@@ -1904,8 +1904,8 @@ impl FeatureOnlineStoreAdminService {
 ///
 /// `FeatureOnlineStoreService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `FeatureOnlineStoreService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "feature_online_store_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "feature_online_store_service")))]
 #[derive(Clone, Debug)]
@@ -2141,8 +2141,8 @@ impl FeatureOnlineStoreService {
 ///
 /// `FeatureRegistryService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `FeatureRegistryService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "feature_registry_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "feature_registry_service")))]
 #[derive(Clone, Debug)]
@@ -2526,8 +2526,8 @@ impl FeatureRegistryService {
 ///
 /// `FeaturestoreOnlineServingService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `FeaturestoreOnlineServingService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "featurestore_online_serving_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "featurestore_online_serving_service")))]
 #[derive(Clone, Debug)]
@@ -2776,8 +2776,8 @@ impl FeaturestoreOnlineServingService {
 ///
 /// `FeaturestoreService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `FeaturestoreService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "featurestore_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "featurestore_service")))]
 #[derive(Clone, Debug)]
@@ -3336,8 +3336,8 @@ impl FeaturestoreService {
 ///
 /// `GenAiCacheService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `GenAiCacheService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "gen_ai_cache_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "gen_ai_cache_service")))]
 #[derive(Clone, Debug)]
@@ -3598,8 +3598,8 @@ impl GenAiCacheService {
 ///
 /// `GenAiTuningService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `GenAiTuningService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "gen_ai_tuning_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "gen_ai_tuning_service")))]
 #[derive(Clone, Debug)]
@@ -3886,8 +3886,8 @@ impl GenAiTuningService {
 ///
 /// `IndexEndpointService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `IndexEndpointService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "index_endpoint_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "index_endpoint_service")))]
 #[derive(Clone, Debug)]
@@ -4227,8 +4227,8 @@ impl IndexEndpointService {
 ///
 /// `IndexService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `IndexService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "index_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "index_service")))]
 #[derive(Clone, Debug)]
@@ -4531,8 +4531,8 @@ impl IndexService {
 ///
 /// `JobService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `JobService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "job_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "job_service")))]
 #[derive(Clone, Debug)]
@@ -5194,8 +5194,8 @@ impl JobService {
 ///
 /// `LlmUtilityService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `LlmUtilityService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "llm_utility_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "llm_utility_service")))]
 #[derive(Clone, Debug)]
@@ -5429,8 +5429,8 @@ impl LlmUtilityService {
 ///
 /// `MatchService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `MatchService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "match_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "match_service")))]
 #[derive(Clone, Debug)]
@@ -5657,8 +5657,8 @@ impl MatchService {
 ///
 /// `MetadataService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `MetadataService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "metadata_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "metadata_service")))]
 #[derive(Clone, Debug)]
@@ -6255,8 +6255,8 @@ impl MetadataService {
 ///
 /// `MigrationService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `MigrationService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "migration_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "migration_service")))]
 #[derive(Clone, Debug)]
@@ -6502,8 +6502,8 @@ impl MigrationService {
 ///
 /// `ModelGardenService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ModelGardenService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "model_garden_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "model_garden_service")))]
 #[derive(Clone, Debug)]
@@ -6727,8 +6727,8 @@ impl ModelGardenService {
 ///
 /// `ModelService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ModelService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "model_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "model_service")))]
 #[derive(Clone, Debug)]
@@ -7193,8 +7193,8 @@ impl ModelService {
 ///
 /// `NotebookService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `NotebookService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "notebook_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "notebook_service")))]
 #[derive(Clone, Debug)]
@@ -7643,8 +7643,8 @@ impl NotebookService {
 ///
 /// `PersistentResourceService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PersistentResourceService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "persistent_resource_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "persistent_resource_service")))]
 #[derive(Clone, Debug)]
@@ -7965,8 +7965,8 @@ impl PersistentResourceService {
 ///
 /// `PipelineService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PipelineService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "pipeline_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "pipeline_service")))]
 #[derive(Clone, Debug)]
@@ -8372,8 +8372,8 @@ impl PipelineService {
 ///
 /// `PredictionService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PredictionService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "prediction_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "prediction_service")))]
 #[derive(Clone, Debug)]
@@ -8671,8 +8671,8 @@ impl PredictionService {
 ///
 /// `ReasoningEngineExecutionService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ReasoningEngineExecutionService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "reasoning_engine_execution_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "reasoning_engine_execution_service")))]
 #[derive(Clone, Debug)]
@@ -8900,8 +8900,8 @@ impl ReasoningEngineExecutionService {
 ///
 /// `ReasoningEngineService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ReasoningEngineService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "reasoning_engine_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "reasoning_engine_service")))]
 #[derive(Clone, Debug)]
@@ -9192,8 +9192,8 @@ impl ReasoningEngineService {
 ///
 /// `ScheduleService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ScheduleService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "schedule_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "schedule_service")))]
 #[derive(Clone, Debug)]
@@ -9506,8 +9506,8 @@ impl ScheduleService {
 ///
 /// `SpecialistPoolService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SpecialistPoolService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "specialist_pool_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "specialist_pool_service")))]
 #[derive(Clone, Debug)]
@@ -9797,8 +9797,8 @@ impl SpecialistPoolService {
 ///
 /// `TensorboardService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TensorboardService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "tensorboard_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "tensorboard_service")))]
 #[derive(Clone, Debug)]
@@ -10351,8 +10351,8 @@ impl TensorboardService {
 ///
 /// `VertexRagDataService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `VertexRagDataService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "vertex_rag_data_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "vertex_rag_data_service")))]
 #[derive(Clone, Debug)]
@@ -10707,8 +10707,8 @@ impl VertexRagDataService {
 ///
 /// `VertexRagService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `VertexRagService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "vertex_rag_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "vertex_rag_service")))]
 #[derive(Clone, Debug)]
@@ -10957,8 +10957,8 @@ impl VertexRagService {
 ///
 /// `VizierService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `VizierService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[cfg(feature = "vizier_service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "vizier_service")))]
 #[derive(Clone, Debug)]

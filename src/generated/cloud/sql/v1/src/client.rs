@@ -56,8 +56,8 @@ use crate::Result;
 ///
 /// `SqlBackupRunsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlBackupRunsService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SqlBackupRunsService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SqlBackupRunsService>,
@@ -198,8 +198,8 @@ impl SqlBackupRunsService {
 ///
 /// `SqlConnectService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlConnectService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SqlConnectService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SqlConnectService>,
@@ -313,8 +313,8 @@ impl SqlConnectService {
 ///
 /// `SqlDatabasesService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlDatabasesService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SqlDatabasesService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SqlDatabasesService>,
@@ -487,8 +487,8 @@ impl SqlDatabasesService {
 ///
 /// `SqlFlagsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlFlagsService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SqlFlagsService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SqlFlagsService>,
@@ -583,8 +583,8 @@ impl SqlFlagsService {
 ///
 /// `SqlInstancesService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlInstancesService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SqlInstancesService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SqlInstancesService>,
@@ -1111,8 +1111,8 @@ impl SqlInstancesService {
 ///
 /// `SqlOperationsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlOperationsService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SqlOperationsService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SqlOperationsService>,
@@ -1234,8 +1234,8 @@ impl SqlOperationsService {
 ///
 /// `SqlSslCertsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlSslCertsService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SqlSslCertsService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SqlSslCertsService>,
@@ -1379,8 +1379,8 @@ impl SqlSslCertsService {
 ///
 /// `SqlTiersService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlTiersService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SqlTiersService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SqlTiersService>,
@@ -1479,8 +1479,8 @@ impl SqlTiersService {
 ///
 /// `SqlUsersService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlUsersService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SqlUsersService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SqlUsersService>,

@@ -65,8 +65,8 @@ use crate::Result;
 ///
 /// `SecretManagerService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SecretManagerService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SecretManagerService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SecretManagerService>,

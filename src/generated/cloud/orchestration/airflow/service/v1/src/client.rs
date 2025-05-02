@@ -56,8 +56,8 @@ use crate::Result;
 ///
 /// `Environments` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Environments` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Environments {
     inner: std::sync::Arc<dyn super::stub::dynamic::Environments>,
@@ -514,8 +514,8 @@ impl Environments {
 ///
 /// `ImageVersions` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ImageVersions` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ImageVersions {
     inner: std::sync::Arc<dyn super::stub::dynamic::ImageVersions>,

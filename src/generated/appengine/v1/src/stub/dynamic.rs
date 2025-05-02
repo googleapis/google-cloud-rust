@@ -135,6 +135,7 @@ impl<T: super::Applications> Applications for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Services].
 #[async_trait::async_trait]
 pub trait Services: std::fmt::Debug + Send + Sync {
@@ -256,6 +257,7 @@ impl<T: super::Services> Services for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Versions].
 #[async_trait::async_trait]
 pub trait Versions: std::fmt::Debug + Send + Sync {
@@ -392,6 +394,7 @@ impl<T: super::Versions> Versions for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Instances].
 #[async_trait::async_trait]
 pub trait Instances: std::fmt::Debug + Send + Sync {
@@ -513,6 +516,7 @@ impl<T: super::Instances> Instances for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Firewall].
 #[async_trait::async_trait]
 pub trait Firewall: std::fmt::Debug + Send + Sync {
@@ -640,6 +644,7 @@ impl<T: super::Firewall> Firewall for T {
         T::get_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::AuthorizedDomains].
 #[async_trait::async_trait]
 pub trait AuthorizedDomains: std::fmt::Debug + Send + Sync {
@@ -692,6 +697,7 @@ impl<T: super::AuthorizedDomains> AuthorizedDomains for T {
         T::get_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::AuthorizedCertificates].
 #[async_trait::async_trait]
 pub trait AuthorizedCertificates: std::fmt::Debug + Send + Sync {
@@ -805,6 +811,7 @@ impl<T: super::AuthorizedCertificates> AuthorizedCertificates for T {
         T::get_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::DomainMappings].
 #[async_trait::async_trait]
 pub trait DomainMappings: std::fmt::Debug + Send + Sync {

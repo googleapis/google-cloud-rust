@@ -56,8 +56,8 @@ use crate::Result;
 ///
 /// `LoggingServiceV2` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `LoggingServiceV2` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct LoggingServiceV2 {
     inner: std::sync::Arc<dyn super::stub::dynamic::LoggingServiceV2>,
@@ -241,8 +241,8 @@ impl LoggingServiceV2 {
 ///
 /// `ConfigServiceV2` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ConfigServiceV2` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ConfigServiceV2 {
     inner: std::sync::Arc<dyn super::stub::dynamic::ConfigServiceV2>,
@@ -798,8 +798,8 @@ impl ConfigServiceV2 {
 ///
 /// `MetricsServiceV2` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `MetricsServiceV2` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct MetricsServiceV2 {
     inner: std::sync::Arc<dyn super::stub::dynamic::MetricsServiceV2>,

@@ -255,6 +255,7 @@ impl<T: super::Agents> Agents for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::AnswerRecords].
 #[async_trait::async_trait]
 pub trait AnswerRecords: std::fmt::Debug + Send + Sync {
@@ -367,6 +368,7 @@ impl<T: super::AnswerRecords> AnswerRecords for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Contexts].
 #[async_trait::async_trait]
 pub trait Contexts: std::fmt::Debug + Send + Sync {
@@ -539,6 +541,7 @@ impl<T: super::Contexts> Contexts for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Conversations].
 #[async_trait::async_trait]
 pub trait Conversations: std::fmt::Debug + Send + Sync {
@@ -789,6 +792,7 @@ impl<T: super::Conversations> Conversations for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::ConversationDatasets].
 #[async_trait::async_trait]
 pub trait ConversationDatasets: std::fmt::Debug + Send + Sync {
@@ -971,6 +975,7 @@ impl<T: super::ConversationDatasets> ConversationDatasets for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::ConversationModels].
 #[async_trait::async_trait]
 pub trait ConversationModels: std::fmt::Debug + Send + Sync {
@@ -1216,6 +1221,7 @@ impl<T: super::ConversationModels> ConversationModels for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::ConversationProfiles].
 #[async_trait::async_trait]
 pub trait ConversationProfiles: std::fmt::Debug + Send + Sync {
@@ -1428,6 +1434,7 @@ impl<T: super::ConversationProfiles> ConversationProfiles for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Documents].
 #[async_trait::async_trait]
 pub trait Documents: std::fmt::Debug + Send + Sync {
@@ -1654,6 +1661,7 @@ impl<T: super::Documents> Documents for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::EncryptionSpecService].
 #[async_trait::async_trait]
 pub trait EncryptionSpecService: std::fmt::Debug + Send + Sync {
@@ -1790,6 +1798,7 @@ impl<T: super::EncryptionSpecService> EncryptionSpecService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::EntityTypes].
 #[async_trait::async_trait]
 pub trait EntityTypes: std::fmt::Debug + Send + Sync {
@@ -2046,6 +2055,7 @@ impl<T: super::EntityTypes> EntityTypes for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Environments].
 #[async_trait::async_trait]
 pub trait Environments: std::fmt::Debug + Send + Sync {
@@ -2218,6 +2228,7 @@ impl<T: super::Environments> Environments for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Fulfillments].
 #[async_trait::async_trait]
 pub trait Fulfillments: std::fmt::Debug + Send + Sync {
@@ -2330,6 +2341,7 @@ impl<T: super::Fulfillments> Fulfillments for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Generators].
 #[async_trait::async_trait]
 pub trait Generators: std::fmt::Debug + Send + Sync {
@@ -2487,6 +2499,7 @@ impl<T: super::Generators> Generators for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Intents].
 #[async_trait::async_trait]
 pub trait Intents: std::fmt::Debug + Send + Sync {
@@ -2698,6 +2711,7 @@ impl<T: super::Intents> Intents for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::KnowledgeBases].
 #[async_trait::async_trait]
 pub trait KnowledgeBases: std::fmt::Debug + Send + Sync {
@@ -2855,6 +2869,7 @@ impl<T: super::KnowledgeBases> KnowledgeBases for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Participants].
 #[async_trait::async_trait]
 pub trait Participants: std::fmt::Debug + Send + Sync {
@@ -3072,6 +3087,7 @@ impl<T: super::Participants> Participants for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Sessions].
 #[async_trait::async_trait]
 pub trait Sessions: std::fmt::Debug + Send + Sync {
@@ -3169,6 +3185,7 @@ impl<T: super::Sessions> Sessions for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::SessionEntityTypes].
 #[async_trait::async_trait]
 pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
@@ -3326,6 +3343,7 @@ impl<T: super::SessionEntityTypes> SessionEntityTypes for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::Versions].
 #[async_trait::async_trait]
 pub trait Versions: std::fmt::Debug + Send + Sync {

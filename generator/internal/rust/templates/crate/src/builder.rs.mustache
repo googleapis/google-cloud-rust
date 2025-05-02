@@ -112,7 +112,7 @@ pub mod {{Codec.ModuleName}} {
         pub async fn send(self) -> Result<{{Codec.ReturnType}}> {
             {{!
                 In rare cases `self.0.stub.foo` is ambiguous: we are calling
-                via `std::sync::Arc<dyn T>` which implements `T` but also implements other
+                via `Arc<dyn T>` which implements `T` but also implements other
                 traits (e.g. `std::clone::Clone`) making the call ambiguous.
                 Using `*self.0.stub` makes the call not-ambiguous.
             }}

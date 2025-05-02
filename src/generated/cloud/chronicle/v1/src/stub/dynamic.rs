@@ -231,6 +231,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::EntityService].
 #[async_trait::async_trait]
 pub trait EntityService: std::fmt::Debug + Send + Sync {
@@ -373,6 +374,7 @@ impl<T: super::EntityService> EntityService for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::InstanceService].
 #[async_trait::async_trait]
 pub trait InstanceService: std::fmt::Debug + Send + Sync {
@@ -455,6 +457,7 @@ impl<T: super::InstanceService> InstanceService for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::ReferenceListService].
 #[async_trait::async_trait]
 pub trait ReferenceListService: std::fmt::Debug + Send + Sync {
@@ -582,6 +585,7 @@ impl<T: super::ReferenceListService> ReferenceListService for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::RuleService].
 #[async_trait::async_trait]
 pub trait RuleService: std::fmt::Debug + Send + Sync {

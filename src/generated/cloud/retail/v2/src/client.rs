@@ -57,8 +57,8 @@ use crate::Result;
 ///
 /// `AnalyticsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AnalyticsService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AnalyticsService {
     inner: std::sync::Arc<dyn super::stub::dynamic::AnalyticsService>,
@@ -203,8 +203,8 @@ impl AnalyticsService {
 ///
 /// `CatalogService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CatalogService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CatalogService {
     inner: std::sync::Arc<dyn super::stub::dynamic::CatalogService>,
@@ -514,8 +514,8 @@ impl CatalogService {
 ///
 /// `CompletionService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CompletionService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CompletionService {
     inner: std::sync::Arc<dyn super::stub::dynamic::CompletionService>,
@@ -677,8 +677,8 @@ impl CompletionService {
 ///
 /// `ControlService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ControlService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ControlService {
     inner: std::sync::Arc<dyn super::stub::dynamic::ControlService>,
@@ -862,8 +862,8 @@ impl ControlService {
 ///
 /// `GenerativeQuestionService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `GenerativeQuestionService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct GenerativeQuestionService {
     inner: std::sync::Arc<dyn super::stub::dynamic::GenerativeQuestionService>,
@@ -1054,8 +1054,8 @@ impl GenerativeQuestionService {
 ///
 /// `ModelService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ModelService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ModelService {
     inner: std::sync::Arc<dyn super::stub::dynamic::ModelService>,
@@ -1262,8 +1262,8 @@ impl ModelService {
 ///
 /// `PredictionService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PredictionService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PredictionService {
     inner: std::sync::Arc<dyn super::stub::dynamic::PredictionService>,
@@ -1398,8 +1398,8 @@ impl PredictionService {
 ///
 /// `ProductService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ProductService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ProductService {
     inner: std::sync::Arc<dyn super::stub::dynamic::ProductService>,
@@ -1943,8 +1943,8 @@ impl ProductService {
 ///
 /// `SearchService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SearchService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SearchService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SearchService>,
@@ -2076,8 +2076,8 @@ impl SearchService {
 ///
 /// `ServingConfigService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ServingConfigService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ServingConfigService {
     inner: std::sync::Arc<dyn super::stub::dynamic::ServingConfigService>,
@@ -2283,8 +2283,8 @@ impl ServingConfigService {
 ///
 /// `UserEventService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `UserEventService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct UserEventService {
     inner: std::sync::Arc<dyn super::stub::dynamic::UserEventService>,

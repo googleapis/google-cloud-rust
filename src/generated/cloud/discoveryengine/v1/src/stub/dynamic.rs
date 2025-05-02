@@ -165,6 +165,7 @@ impl<T: super::CompletionService> CompletionService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::ControlService].
 #[async_trait::async_trait]
 pub trait ControlService: std::fmt::Debug + Send + Sync {
@@ -292,6 +293,7 @@ impl<T: super::ControlService> ControlService for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::ConversationalSearchService].
 #[async_trait::async_trait]
 pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
@@ -539,6 +541,7 @@ impl<T: super::ConversationalSearchService> ConversationalSearchService for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::DataStoreService].
 #[async_trait::async_trait]
 pub trait DataStoreService: std::fmt::Debug + Send + Sync {
@@ -690,6 +693,7 @@ impl<T: super::DataStoreService> DataStoreService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::DocumentService].
 #[async_trait::async_trait]
 pub trait DocumentService: std::fmt::Debug + Send + Sync {
@@ -887,6 +891,7 @@ impl<T: super::DocumentService> DocumentService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::EngineService].
 #[async_trait::async_trait]
 pub trait EngineService: std::fmt::Debug + Send + Sync {
@@ -1038,6 +1043,7 @@ impl<T: super::EngineService> EngineService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::GroundedGenerationService].
 #[async_trait::async_trait]
 pub trait GroundedGenerationService: std::fmt::Debug + Send + Sync {
@@ -1120,6 +1126,7 @@ impl<T: super::GroundedGenerationService> GroundedGenerationService for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::ProjectService].
 #[async_trait::async_trait]
 pub trait ProjectService: std::fmt::Debug + Send + Sync {
@@ -1211,6 +1218,7 @@ impl<T: super::ProjectService> ProjectService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::RankService].
 #[async_trait::async_trait]
 pub trait RankService: std::fmt::Debug + Send + Sync {
@@ -1278,6 +1286,7 @@ impl<T: super::RankService> RankService for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::RecommendationService].
 #[async_trait::async_trait]
 pub trait RecommendationService: std::fmt::Debug + Send + Sync {
@@ -1345,6 +1354,7 @@ impl<T: super::RecommendationService> RecommendationService for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::SchemaService].
 #[async_trait::async_trait]
 pub trait SchemaService: std::fmt::Debug + Send + Sync {
@@ -1496,6 +1506,7 @@ impl<T: super::SchemaService> SchemaService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::SearchService].
 #[async_trait::async_trait]
 pub trait SearchService: std::fmt::Debug + Send + Sync {
@@ -1578,6 +1589,7 @@ impl<T: super::SearchService> SearchService for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::SearchTuningService].
 #[async_trait::async_trait]
 pub trait SearchTuningService: std::fmt::Debug + Send + Sync {
@@ -1684,6 +1696,7 @@ impl<T: super::SearchTuningService> SearchTuningService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::ServingConfigService].
 #[async_trait::async_trait]
 pub trait ServingConfigService: std::fmt::Debug + Send + Sync {
@@ -1751,6 +1764,7 @@ impl<T: super::ServingConfigService> ServingConfigService for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::SiteSearchEngineService].
 #[async_trait::async_trait]
 pub trait SiteSearchEngineService: std::fmt::Debug + Send + Sync {
@@ -2053,6 +2067,7 @@ impl<T: super::SiteSearchEngineService> SiteSearchEngineService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::UserEventService].
 #[async_trait::async_trait]
 pub trait UserEventService: std::fmt::Debug + Send + Sync {

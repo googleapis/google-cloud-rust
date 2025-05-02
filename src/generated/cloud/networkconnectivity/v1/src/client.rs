@@ -56,8 +56,8 @@ use crate::Result;
 ///
 /// `CrossNetworkAutomationService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CrossNetworkAutomationService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CrossNetworkAutomationService {
     inner: std::sync::Arc<dyn super::stub::dynamic::CrossNetworkAutomationService>,
@@ -558,8 +558,8 @@ impl CrossNetworkAutomationService {
 ///
 /// `HubService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `HubService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct HubService {
     inner: std::sync::Arc<dyn super::stub::dynamic::HubService>,
@@ -1059,8 +1059,8 @@ impl HubService {
 ///
 /// `PolicyBasedRoutingService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PolicyBasedRoutingService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PolicyBasedRoutingService {
     inner: std::sync::Arc<dyn super::stub::dynamic::PolicyBasedRoutingService>,

@@ -78,8 +78,8 @@ use crate::Result;
 ///
 /// `Autokey` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Autokey` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Autokey {
     inner: std::sync::Arc<dyn super::stub::dynamic::Autokey>,
@@ -296,8 +296,8 @@ impl Autokey {
 ///
 /// `AutokeyAdmin` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AutokeyAdmin` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AutokeyAdmin {
     inner: std::sync::Arc<dyn super::stub::dynamic::AutokeyAdmin>,
@@ -507,8 +507,8 @@ impl AutokeyAdmin {
 ///
 /// `EkmService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `EkmService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct EkmService {
     inner: std::sync::Arc<dyn super::stub::dynamic::EkmService>,
@@ -770,8 +770,8 @@ impl EkmService {
 ///
 /// `KeyManagementService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `KeyManagementService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct KeyManagementService {
     inner: std::sync::Arc<dyn super::stub::dynamic::KeyManagementService>,

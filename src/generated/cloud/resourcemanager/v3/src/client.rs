@@ -58,8 +58,8 @@ use crate::Result;
 ///
 /// `Folders` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Folders` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Folders {
     inner: std::sync::Arc<dyn super::stub::dynamic::Folders>,
@@ -413,8 +413,8 @@ impl Folders {
 ///
 /// `Organizations` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Organizations` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Organizations {
     inner: std::sync::Arc<dyn super::stub::dynamic::Organizations>,
@@ -584,8 +584,8 @@ impl Organizations {
 ///
 /// `Projects` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Projects` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Projects {
     inner: std::sync::Arc<dyn super::stub::dynamic::Projects>,
@@ -957,8 +957,8 @@ impl Projects {
 ///
 /// `TagBindings` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagBindings` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TagBindings {
     inner: std::sync::Arc<dyn super::stub::dynamic::TagBindings>,
@@ -1120,8 +1120,8 @@ impl TagBindings {
 ///
 /// `TagHolds` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagHolds` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TagHolds {
     inner: std::sync::Arc<dyn super::stub::dynamic::TagHolds>,
@@ -1275,8 +1275,8 @@ impl TagHolds {
 ///
 /// `TagKeys` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagKeys` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TagKeys {
     inner: std::sync::Arc<dyn super::stub::dynamic::TagKeys>,
@@ -1501,8 +1501,8 @@ impl TagKeys {
 ///
 /// `TagValues` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagValues` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TagValues {
     inner: std::sync::Arc<dyn super::stub::dynamic::TagValues>,

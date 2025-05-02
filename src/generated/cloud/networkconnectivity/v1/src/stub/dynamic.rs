@@ -453,6 +453,7 @@ impl<T: super::CrossNetworkAutomationService> CrossNetworkAutomationService for 
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::HubService].
 #[async_trait::async_trait]
 pub trait HubService: std::fmt::Debug + Send + Sync {
@@ -964,6 +965,7 @@ impl<T: super::HubService> HubService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::PolicyBasedRoutingService].
 #[async_trait::async_trait]
 pub trait PolicyBasedRoutingService: std::fmt::Debug + Send + Sync {

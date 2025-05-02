@@ -34,12 +34,6 @@ limitations under the License.
 #[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 use gax::error::Error;
-{{#Codec.HasLROs}}
-{{#Codec.PerServiceFeatures}}
-{{! When using per-service features this may be used or not depending on what services use LROs }}
-#[allow(unused_imports)]
-{{/Codec.PerServiceFeatures}}
-{{/Codec.HasLROs}}
 
 pub(crate) mod dynamic;
 

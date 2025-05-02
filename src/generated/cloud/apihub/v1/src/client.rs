@@ -56,8 +56,8 @@ use crate::Result;
 ///
 /// `ApiHub` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ApiHub` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ApiHub {
     inner: std::sync::Arc<dyn super::stub::dynamic::ApiHub>,
@@ -709,8 +709,8 @@ impl ApiHub {
 ///
 /// `ApiHubDependencies` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ApiHubDependencies` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ApiHubDependencies {
     inner: std::sync::Arc<dyn super::stub::dynamic::ApiHubDependencies>,
@@ -929,8 +929,8 @@ impl ApiHubDependencies {
 ///
 /// `HostProjectRegistrationService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `HostProjectRegistrationService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct HostProjectRegistrationService {
     inner: std::sync::Arc<dyn super::stub::dynamic::HostProjectRegistrationService>,
@@ -1130,8 +1130,8 @@ impl HostProjectRegistrationService {
 ///
 /// `LintingService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `LintingService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct LintingService {
     inner: std::sync::Arc<dyn super::stub::dynamic::LintingService>,
@@ -1327,8 +1327,8 @@ impl LintingService {
 ///
 /// `ApiHubPlugin` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ApiHubPlugin` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ApiHubPlugin {
     inner: std::sync::Arc<dyn super::stub::dynamic::ApiHubPlugin>,
@@ -1512,8 +1512,8 @@ impl ApiHubPlugin {
 ///
 /// `Provisioning` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Provisioning` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Provisioning {
     inner: std::sync::Arc<dyn super::stub::dynamic::Provisioning>,
@@ -1706,8 +1706,8 @@ impl Provisioning {
 ///
 /// `RuntimeProjectAttachmentService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `RuntimeProjectAttachmentService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct RuntimeProjectAttachmentService {
     inner: std::sync::Arc<dyn super::stub::dynamic::RuntimeProjectAttachmentService>,

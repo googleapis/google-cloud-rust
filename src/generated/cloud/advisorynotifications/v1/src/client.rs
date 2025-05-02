@@ -56,8 +56,8 @@ use crate::Result;
 ///
 /// `AdvisoryNotificationsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AdvisoryNotificationsService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AdvisoryNotificationsService {
     inner: std::sync::Arc<dyn super::stub::dynamic::AdvisoryNotificationsService>,

@@ -58,8 +58,8 @@ use crate::Result;
 ///
 /// `AttachedClusters` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AttachedClusters` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AttachedClusters {
     inner: std::sync::Arc<dyn super::stub::dynamic::AttachedClusters>,
@@ -369,8 +369,8 @@ impl AttachedClusters {
 ///
 /// `AwsClusters` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AwsClusters` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AwsClusters {
     inner: std::sync::Arc<dyn super::stub::dynamic::AwsClusters>,
@@ -793,8 +793,8 @@ impl AwsClusters {
 ///
 /// `AzureClusters` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AzureClusters` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AzureClusters {
     inner: std::sync::Arc<dyn super::stub::dynamic::AzureClusters>,

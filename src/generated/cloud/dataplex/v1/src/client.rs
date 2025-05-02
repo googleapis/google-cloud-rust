@@ -60,8 +60,8 @@ use crate::Result;
 ///
 /// `CatalogService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CatalogService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CatalogService {
     inner: std::sync::Arc<dyn super::stub::dynamic::CatalogService>,
@@ -594,8 +594,8 @@ impl CatalogService {
 ///
 /// `CmekService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CmekService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CmekService {
     inner: std::sync::Arc<dyn super::stub::dynamic::CmekService>,
@@ -863,8 +863,8 @@ impl CmekService {
 ///
 /// `ContentService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ContentService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ContentService {
     inner: std::sync::Arc<dyn super::stub::dynamic::ContentService>,
@@ -1113,8 +1113,8 @@ impl ContentService {
 ///
 /// `DataTaxonomyService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataTaxonomyService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DataTaxonomyService {
     inner: std::sync::Arc<dyn super::stub::dynamic::DataTaxonomyService>,
@@ -1545,8 +1545,8 @@ impl DataTaxonomyService {
 ///
 /// `DataScanService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataScanService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DataScanService {
     inner: std::sync::Arc<dyn super::stub::dynamic::DataScanService>,
@@ -1862,8 +1862,8 @@ impl DataScanService {
 ///
 /// `MetadataService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `MetadataService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct MetadataService {
     inner: std::sync::Arc<dyn super::stub::dynamic::MetadataService>,
@@ -2147,8 +2147,8 @@ impl MetadataService {
 ///
 /// `DataplexService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataplexService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DataplexService {
     inner: std::sync::Arc<dyn super::stub::dynamic::DataplexService>,

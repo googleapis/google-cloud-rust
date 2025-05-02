@@ -58,8 +58,8 @@ use crate::Result;
 ///
 /// `Compliance` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Compliance` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Compliance {
     inner: std::sync::Arc<dyn super::stub::dynamic::Compliance>,
@@ -332,8 +332,8 @@ impl Compliance {
 ///
 /// `Echo` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Echo` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Echo {
     inner: std::sync::Arc<dyn super::stub::dynamic::Echo>,
@@ -589,8 +589,8 @@ impl Echo {
 ///
 /// `Identity` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Identity` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Identity {
     inner: std::sync::Arc<dyn super::stub::dynamic::Identity>,
@@ -816,8 +816,8 @@ impl Identity {
 ///
 /// `Messaging` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Messaging` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Messaging {
     inner: std::sync::Arc<dyn super::stub::dynamic::Messaging>,
@@ -1102,8 +1102,8 @@ impl Messaging {
 ///
 /// `SequenceService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SequenceService` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SequenceService {
     inner: std::sync::Arc<dyn super::stub::dynamic::SequenceService>,
@@ -1343,8 +1343,8 @@ impl SequenceService {
 ///
 /// `Testing` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Testing` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Testing {
     inner: std::sync::Arc<dyn super::stub::dynamic::Testing>,

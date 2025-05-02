@@ -201,6 +201,7 @@ impl<T: super::AutoscalingPolicyService> AutoscalingPolicyService for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::BatchController].
 #[async_trait::async_trait]
 pub trait BatchController: std::fmt::Debug + Send + Sync {
@@ -397,6 +398,7 @@ impl<T: super::BatchController> BatchController for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::ClusterController].
 #[async_trait::async_trait]
 pub trait ClusterController: std::fmt::Debug + Send + Sync {
@@ -653,6 +655,7 @@ impl<T: super::ClusterController> ClusterController for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::JobController].
 #[async_trait::async_trait]
 pub trait JobController: std::fmt::Debug + Send + Sync {
@@ -894,6 +897,7 @@ impl<T: super::JobController> JobController for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::NodeGroupController].
 #[async_trait::async_trait]
 pub trait NodeGroupController: std::fmt::Debug + Send + Sync {
@@ -1075,6 +1079,7 @@ impl<T: super::NodeGroupController> NodeGroupController for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::SessionTemplateController].
 #[async_trait::async_trait]
 pub trait SessionTemplateController: std::fmt::Debug + Send + Sync {
@@ -1262,6 +1267,7 @@ impl<T: super::SessionTemplateController> SessionTemplateController for T {
         T::cancel_operation(self, req, options).await
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::SessionController].
 #[async_trait::async_trait]
 pub trait SessionController: std::fmt::Debug + Send + Sync {
@@ -1473,6 +1479,7 @@ impl<T: super::SessionController> SessionController for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::WorkflowTemplateService].
 #[async_trait::async_trait]
 pub trait WorkflowTemplateService: std::fmt::Debug + Send + Sync {

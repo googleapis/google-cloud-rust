@@ -452,6 +452,7 @@ impl<T: super::Environments> Environments for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
+
 /// A dyn-compatible, crate-private version of [super::ImageVersions].
 #[async_trait::async_trait]
 pub trait ImageVersions: std::fmt::Debug + Send + Sync {

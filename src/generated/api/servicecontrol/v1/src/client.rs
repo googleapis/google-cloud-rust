@@ -59,8 +59,8 @@ use crate::Result;
 ///
 /// `QuotaController` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `QuotaController` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct QuotaController {
     inner: std::sync::Arc<dyn super::stub::dynamic::QuotaController>,
@@ -183,8 +183,8 @@ impl QuotaController {
 ///
 /// `ServiceController` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ServiceController` in
-/// an [Rc](std::rc::Rc) or [std::sync::Arc] to reuse it, because it already uses
-/// an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ServiceController {
     inner: std::sync::Arc<dyn super::stub::dynamic::ServiceController>,
