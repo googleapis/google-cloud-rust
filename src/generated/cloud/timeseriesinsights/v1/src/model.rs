@@ -268,6 +268,20 @@ pub mod data_set {
     use super::*;
 
     /// DataSet state.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -1208,6 +1222,20 @@ pub mod forecast_params {
     use super::*;
 
     /// A time period of a fixed interval.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Period {
@@ -1951,6 +1979,20 @@ pub mod timeseries_params {
     /// [metric][google.cloud.timeseriesinsights.v1.TimeseriesParams.metric].
     ///
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AggregationMethod {

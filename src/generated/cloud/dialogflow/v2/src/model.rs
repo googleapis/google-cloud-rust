@@ -224,6 +224,20 @@ pub mod agent {
     use super::*;
 
     /// Match mode determines how intents are detected from user queries.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MatchMode {
@@ -344,6 +358,20 @@ pub mod agent {
     }
 
     /// API version for the agent.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ApiVersion {
@@ -469,6 +497,20 @@ pub mod agent {
     }
 
     /// Represents the agent tier.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Tier {
@@ -1851,6 +1893,20 @@ pub mod answer_feedback {
     use super::*;
 
     /// The correctness level of an answer.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CorrectnessLevel {
@@ -2336,6 +2392,20 @@ pub mod agent_assistant_feedback {
     }
 
     /// Relevance of an answer.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AnswerRelevance {
@@ -2454,6 +2524,20 @@ pub mod agent_assistant_feedback {
     }
 
     /// Correctness of document.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DocumentCorrectness {
@@ -2572,6 +2656,20 @@ pub mod agent_assistant_feedback {
     }
 
     /// Efficiency of document.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DocumentEfficiency {
@@ -4592,6 +4690,20 @@ pub mod conversation {
             use super::*;
 
             /// Represents the format of the ingested string.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum ContentFormat {
@@ -4715,6 +4827,20 @@ pub mod conversation {
         }
 
         /// Represents the mode in which context reference contents are updated.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum UpdateMode {
@@ -4837,6 +4963,20 @@ pub mod conversation {
     }
 
     /// Enumeration of the completion status of the conversation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum LifecycleState {
@@ -4957,6 +5097,20 @@ pub mod conversation {
     /// Enumeration of the different conversation stages a conversation can be in.
     /// Reference:
     /// <https://cloud.google.com/agent-assist/docs/basics#conversation_stages>
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ConversationStage {
@@ -7003,6 +7157,20 @@ pub mod search_knowledge_request {
 
                         /// The attribute(or function) for which the custom ranking is to be
                         /// applied.
+                        ///
+                        /// # Working with unknown values
+                        ///
+                        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+                        /// additional enum variants at any time. Adding new variants is not considered
+                        /// a breaking change. Applications should write their code in anticipation of:
+                        ///
+                        /// - New values appearing in future releases of the client library, **and**
+                        /// - New values received dynamically, without application changes.
+                        ///
+                        /// Please consult the [Working with enums] section in the user guide for some
+                        /// guidelines.
+                        ///
+                        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
                         #[derive(Clone, Debug, PartialEq)]
                         #[non_exhaustive]
                         pub enum AttributeType {
@@ -7140,6 +7308,20 @@ pub mod search_knowledge_request {
 
                         /// The interpolation type to be applied. Default will be linear
                         /// (Piecewise Linear).
+                        ///
+                        /// # Working with unknown values
+                        ///
+                        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+                        /// additional enum variants at any time. Adding new variants is not considered
+                        /// a breaking change. Applications should write their code in anticipation of:
+                        ///
+                        /// - New values appearing in future releases of the client library, **and**
+                        /// - New values received dynamically, without application changes.
+                        ///
+                        /// Please consult the [Working with enums] section in the user guide for some
+                        /// guidelines.
+                        ///
+                        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
                         #[derive(Clone, Debug, PartialEq)]
                         #[non_exhaustive]
                         pub enum InterpolationType {
@@ -7325,6 +7507,20 @@ pub mod search_knowledge_request {
     /// of a SuggestKnowledgeAssist call.
     ///
     /// [google.cloud.dialogflow.v2.Participants.SuggestKnowledgeAssist]: crate::client::Participants::suggest_knowledge_assist
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum QuerySource {
@@ -7642,6 +7838,20 @@ pub mod search_knowledge_answer {
     }
 
     /// The type of the answer.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AnswerType {
@@ -8722,6 +8932,20 @@ pub mod conversation_event {
     use super::*;
 
     /// Enumeration of the types of events available.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
@@ -9118,6 +9342,20 @@ pub mod conversation_model {
     use super::*;
 
     /// State of the model.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -9280,6 +9518,20 @@ pub mod conversation_model {
     }
 
     /// Model type.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ModelType {
@@ -10647,6 +10899,20 @@ pub mod create_conversation_model_operation_metadata {
     use super::*;
 
     /// State of CreateConversationModel operation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -11049,6 +11315,20 @@ pub mod create_conversation_model_evaluation_operation_metadata {
     use super::*;
 
     /// State of CreateConversationModel operation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -12736,6 +13016,20 @@ pub mod human_agent_assistant_config {
 
             /// Selectable sections to return when requesting a summary of a
             /// conversation.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum SectionType {
@@ -13402,6 +13696,20 @@ pub mod notification_config {
     use super::*;
 
     /// Format of cloud pub/sub message.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MessageFormat {
@@ -13601,6 +13909,20 @@ pub mod suggestion_feature {
     use super::*;
 
     /// Defines the type of Human Agent Assistant feature.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
@@ -14319,6 +14641,20 @@ pub mod document {
     }
 
     /// The knowledge type of document content.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum KnowledgeType {
@@ -14461,6 +14797,20 @@ pub mod document {
     }
 
     /// Possible states of the document
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -15598,6 +15948,20 @@ pub mod knowledge_operation_metadata {
     use super::*;
 
     /// States of the operation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -16096,6 +16460,20 @@ pub mod entity_type {
     }
 
     /// Represents kinds of entities.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Kind {
@@ -16227,6 +16605,20 @@ pub mod entity_type {
     /// Represents different entity type expansion modes. Automated expansion
     /// allows an agent to recognize values that have not been explicitly listed in
     /// the entity (for example, new kinds of shopping list items).
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AutoExpansionMode {
@@ -17354,6 +17746,20 @@ pub mod environment {
     /// During that time, the environment keeps on serving the previous version of
     /// the agent. After the new agent version is done loading, the environment is
     /// set back to the `RUNNING` state.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -18383,6 +18789,20 @@ pub mod fulfillment {
         use super::*;
 
         /// The type of the feature.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Type {
@@ -19044,6 +19464,20 @@ pub mod message_entry {
     use super::*;
 
     /// Enumeration of the roles a participant can play in a conversation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Role {
@@ -19527,6 +19961,20 @@ pub mod summarization_section {
     use super::*;
 
     /// Type enum of the summarization sections.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
@@ -20879,6 +21327,20 @@ pub mod intent {
         }
 
         /// Represents different types of training phrases.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Type {
@@ -22851,6 +23313,20 @@ pub mod intent {
             }
 
             /// Format of response media type.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum ResponseMediaType {
@@ -23182,6 +23658,20 @@ pub mod intent {
                     use super::*;
 
                     /// Type of the URI.
+                    ///
+                    /// # Working with unknown values
+                    ///
+                    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+                    /// additional enum variants at any time. Adding new variants is not considered
+                    /// a breaking change. Applications should write their code in anticipation of:
+                    ///
+                    /// - New values appearing in future releases of the client library, **and**
+                    /// - New values received dynamically, without application changes.
+                    ///
+                    /// Please consult the [Working with enums] section in the user guide for some
+                    /// guidelines.
+                    ///
+                    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
                     #[derive(Clone, Debug, PartialEq)]
                     #[non_exhaustive]
                     pub enum UrlTypeHint {
@@ -23312,6 +23802,20 @@ pub mod intent {
             /// Image display options for Actions on Google. This should be used for
             /// when the image's aspect ratio does not match the image container's
             /// aspect ratio.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum ImageDisplayOptions {
@@ -23620,6 +24124,20 @@ pub mod intent {
             use super::*;
 
             /// Text alignments within a cell.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum HorizontalAlignment {
@@ -23835,6 +24353,20 @@ pub mod intent {
 
         /// The rich response message integration platform. See
         /// [Integrations](https://cloud.google.com/dialogflow/docs/integrations).
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Platform {
@@ -24093,6 +24625,20 @@ pub mod intent {
     }
 
     /// Represents the different states that webhooks can be in.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum WebhookState {
@@ -25494,6 +26040,20 @@ pub mod participant {
     use super::*;
 
     /// Enumeration of the roles a participant can play in a conversation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Role {
@@ -27906,6 +28466,20 @@ pub mod automated_agent_reply {
     use super::*;
 
     /// Represents different automated agent reply types.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AutomatedAgentReplyType {
@@ -31203,6 +31777,20 @@ pub mod streaming_recognition_result {
     use super::*;
 
     /// Type of the response message.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MessageType {
@@ -31678,6 +32266,20 @@ pub mod session_entity_type {
     use super::*;
 
     /// The types of modifications for a session entity type.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum EntityOverrideMode {
@@ -32203,6 +32805,20 @@ pub mod validation_error {
     use super::*;
 
     /// Represents a level of severity.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Severity {
@@ -32480,6 +33096,20 @@ pub mod version {
     use super::*;
 
     /// The status of a version.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum VersionStatus {
@@ -33246,6 +33876,20 @@ impl wkt::message::Message for OriginalDetectIntentRequest {
 
 /// [DTMF](https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling)
 /// digit in Telephony Gateway.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum TelephonyDtmf {
@@ -33466,6 +34110,20 @@ impl<'de> serde::de::Deserialize<'de> for TelephonyDtmf {
 /// [Cloud Speech API
 /// documentation](https://cloud.google.com/speech-to-text/docs/basics) for more
 /// details.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum AudioEncoding {
@@ -33655,6 +34313,20 @@ impl<'de> serde::de::Deserialize<'de> for AudioEncoding {
 /// you will generally receive higher quality results than for a standard model.
 ///
 /// [google.cloud.dialogflow.v2.InputAudioConfig.model]: crate::model::InputAudioConfig::model
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum SpeechModelVariant {
@@ -33806,6 +34478,20 @@ impl<'de> serde::de::Deserialize<'de> for SpeechModelVariant {
 
 /// Gender of the voice as described in
 /// [SSML voice element](https://www.w3.org/TR/speech-synthesis11/#edef_voice).
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum SsmlVoiceGender {
@@ -33932,6 +34618,20 @@ impl<'de> serde::de::Deserialize<'de> for SsmlVoiceGender {
 }
 
 /// Audio encoding of the output audio format in Text-To-Speech.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum OutputAudioEncoding {
@@ -34082,6 +34782,20 @@ impl<'de> serde::de::Deserialize<'de> for OutputAudioEncoding {
 }
 
 /// The event that triggers the generator and LLM execution.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum TriggerEvent {
@@ -34218,6 +34932,20 @@ impl<'de> serde::de::Deserialize<'de> for TriggerEvent {
 /// Represents the options for views of an intent.
 /// An intent can be a sizable object. Therefore, we provide a resource view that
 /// does not return training phrases in the response by default.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum IntentView {

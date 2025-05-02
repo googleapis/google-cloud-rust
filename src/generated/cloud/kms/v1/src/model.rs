@@ -578,6 +578,20 @@ pub mod autokey_config {
     use super::*;
 
     /// The states AutokeyConfig can be in.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -1606,6 +1620,20 @@ pub mod ekm_connection {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode]: crate::model::ekm_connection::KeyManagementMode
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum KeyManagementMode {
@@ -2271,6 +2299,20 @@ pub mod crypto_key {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose]: crate::model::crypto_key::CryptoKeyPurpose
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CryptoKeyPurpose {
@@ -2690,6 +2732,20 @@ pub mod key_operation_attestation {
     }
 
     /// Attestation formats provided by the HSM.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AttestationFormat {
@@ -3197,6 +3253,20 @@ pub mod crypto_key_version {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm.GOOGLE_SYMMETRIC_ENCRYPTION]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm::GoogleSymmetricEncryption
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm.RSA_SIGN_PSS_2048_SHA256]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm::RsaSignPss2048Sha256
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CryptoKeyVersionAlgorithm {
@@ -3606,6 +3676,20 @@ pub mod crypto_key_version {
     /// indicating if it can be used.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CryptoKeyVersionState {
@@ -3847,6 +3931,20 @@ pub mod crypto_key_version {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions]: crate::client::KeyManagementService::list_crypto_key_versions
     /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeys]: crate::client::KeyManagementService::list_crypto_keys
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CryptoKeyVersionView {
@@ -4203,6 +4301,20 @@ pub mod public_key {
     /// The supported [PublicKey][google.cloud.kms.v1.PublicKey] formats.
     ///
     /// [google.cloud.kms.v1.PublicKey]: crate::model::PublicKey
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum PublicKeyFormat {
@@ -4630,6 +4742,20 @@ pub mod import_job {
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     /// [google.cloud.kms.v1.ImportJob.ImportMethod]: crate::model::import_job::ImportMethod
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ImportMethod {
@@ -4813,6 +4939,20 @@ pub mod import_job {
     /// it can be used.
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ImportJobState {
@@ -9514,6 +9654,20 @@ impl wkt::message::Message for LocationMetadata {
 /// levels] (<https://cloud.google.com/kms/docs/algorithms#protection_levels>).
 ///
 /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum ProtectionLevel {
@@ -9648,6 +9802,20 @@ impl<'de> serde::de::Deserialize<'de> for ProtectionLevel {
 /// Describes the reason for a data access. Please refer to
 /// <https://cloud.google.com/assured-workloads/key-access-justifications/docs/justification-codes>
 /// for the detailed semantic meaning of justification reason codes.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum AccessReason {

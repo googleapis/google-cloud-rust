@@ -555,6 +555,20 @@ pub mod constraint {
             }
 
             /// All valid types of parameter.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum Type {
@@ -690,6 +704,20 @@ pub mod constraint {
         ///
         /// `UPDATE`-only custom constraints are not supported. Use `CREATE` or
         /// `CREATE, UPDATE`.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum MethodType {
@@ -834,6 +862,20 @@ pub mod constraint {
         }
 
         /// Allow or deny type.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum ActionType {
@@ -1006,6 +1048,20 @@ pub mod constraint {
     /// constraint. This must not be `CONSTRAINT_DEFAULT_UNSPECIFIED`.
     ///
     /// Immutable after creation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ConstraintDefault {
@@ -1294,6 +1350,20 @@ pub mod custom_constraint {
     ///
     /// `UPDATE` only custom constraints are not supported. Use `CREATE` or
     /// `CREATE, UPDATE`.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MethodType {
@@ -1435,6 +1505,20 @@ pub mod custom_constraint {
     }
 
     /// Allow or deny type.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ActionType {

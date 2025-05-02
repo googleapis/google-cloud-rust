@@ -583,6 +583,20 @@ pub mod certificate_authority {
     /// indicating its issuing chain.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
@@ -709,6 +723,20 @@ pub mod certificate_authority {
     /// indicating if it can be used.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -894,6 +922,20 @@ pub mod certificate_authority {
     /// use PKCS1 algorithms if required for compatibility. For further
     /// recommendations, see
     /// <https://cloud.google.com/kms/docs/algorithms#algorithm_recommendations>.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SignHashAlgorithm {
@@ -1279,6 +1321,20 @@ pub mod ca_pool {
         use super::*;
 
         /// Supported encoding formats for publishing.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum EncodingFormat {
@@ -1837,6 +1893,20 @@ pub mod ca_pool {
                 ///
                 /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
                 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
+                ///
+                /// # Working with unknown values
+                ///
+                /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+                /// additional enum variants at any time. Adding new variants is not considered
+                /// a breaking change. Applications should write their code in anticipation of:
+                ///
+                /// - New values appearing in future releases of the client library, **and**
+                /// - New values received dynamically, without application changes.
+                ///
+                /// Please consult the [Working with enums] section in the user guide for some
+                /// guidelines.
+                ///
+                /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
                 #[derive(Clone, Debug, PartialEq)]
                 #[non_exhaustive]
                 pub enum EcSignatureAlgorithm {
@@ -2058,6 +2128,20 @@ pub mod ca_pool {
     /// indicating its supported functionality and/or billing SKU.
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Tier {
@@ -2429,6 +2513,20 @@ pub mod certificate_revocation_list {
     /// indicating if it is current.
     ///
     /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -3732,6 +3830,20 @@ pub mod public_key {
 
     /// Types of public keys formats that are supported. Currently, only `PEM`
     /// format is supported.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum KeyFormat {
@@ -5152,6 +5264,20 @@ pub mod certificate_extension_constraints {
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
     /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum KnownCertificateExtension {
@@ -8180,6 +8306,20 @@ impl wkt::message::Message for OperationMetadata {
 ///
 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
 /// [google.cloud.security.privateca.v1.RevocationReason]: crate::model::RevocationReason
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum RevocationReason {
@@ -8381,6 +8521,20 @@ impl<'de> serde::de::Deserialize<'de> for RevocationReason {
 /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
 /// [google.cloud.security.privateca.v1.Subject]: crate::model::Subject
 /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum SubjectRequestMode {
