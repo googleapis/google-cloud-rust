@@ -16,7 +16,6 @@
 
 pub mod cloud_redis_cluster {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [CloudRedisCluster][super::super::client::CloudRedisCluster].
     ///
@@ -49,7 +48,7 @@ pub mod cloud_redis_cluster {
     /// Common implementation for [super::super::client::CloudRedisCluster] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod cloud_redis_cluster {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod cloud_redis_cluster {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -144,7 +147,9 @@ pub mod cloud_redis_cluster {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -189,7 +194,9 @@ pub mod cloud_redis_cluster {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -289,7 +296,9 @@ pub mod cloud_redis_cluster {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -375,7 +384,9 @@ pub mod cloud_redis_cluster {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -482,7 +493,9 @@ pub mod cloud_redis_cluster {
     );
 
     impl GetClusterCertificateAuthority {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -532,7 +545,9 @@ pub mod cloud_redis_cluster {
     );
 
     impl RescheduleClusterMaintenance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -637,7 +652,9 @@ pub mod cloud_redis_cluster {
     pub struct ListBackupCollections(RequestBuilder<crate::model::ListBackupCollectionsRequest>);
 
     impl ListBackupCollections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -712,7 +729,9 @@ pub mod cloud_redis_cluster {
     pub struct GetBackupCollection(RequestBuilder<crate::model::GetBackupCollectionRequest>);
 
     impl GetBackupCollection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -760,7 +779,9 @@ pub mod cloud_redis_cluster {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -832,7 +853,9 @@ pub mod cloud_redis_cluster {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -877,7 +900,9 @@ pub mod cloud_redis_cluster {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -963,7 +988,9 @@ pub mod cloud_redis_cluster {
     pub struct ExportBackup(RequestBuilder<crate::model::ExportBackupRequest>);
 
     impl ExportBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1067,7 +1094,9 @@ pub mod cloud_redis_cluster {
     pub struct BackupCluster(RequestBuilder<crate::model::BackupClusterRequest>);
 
     impl BackupCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1162,7 +1191,9 @@ pub mod cloud_redis_cluster {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1241,7 +1272,9 @@ pub mod cloud_redis_cluster {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1284,7 +1317,9 @@ pub mod cloud_redis_cluster {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1363,7 +1398,9 @@ pub mod cloud_redis_cluster {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1409,7 +1446,9 @@ pub mod cloud_redis_cluster {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1455,7 +1494,9 @@ pub mod cloud_redis_cluster {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudRedisCluster>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

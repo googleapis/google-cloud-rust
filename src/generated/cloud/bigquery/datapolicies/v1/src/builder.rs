@@ -16,7 +16,6 @@
 
 pub mod data_policy_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DataPolicyService][super::super::client::DataPolicyService].
     ///
@@ -49,7 +48,7 @@ pub mod data_policy_service {
     /// Common implementation for [super::super::client::DataPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod data_policy_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod data_policy_service {
     pub struct CreateDataPolicy(RequestBuilder<crate::model::CreateDataPolicyRequest>);
 
     impl CreateDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -131,7 +134,9 @@ pub mod data_policy_service {
     pub struct UpdateDataPolicy(RequestBuilder<crate::model::UpdateDataPolicyRequest>);
 
     impl UpdateDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -191,7 +196,9 @@ pub mod data_policy_service {
     pub struct RenameDataPolicy(RequestBuilder<crate::model::RenameDataPolicyRequest>);
 
     impl RenameDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -247,7 +254,9 @@ pub mod data_policy_service {
     pub struct DeleteDataPolicy(RequestBuilder<crate::model::DeleteDataPolicyRequest>);
 
     impl DeleteDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -295,7 +304,9 @@ pub mod data_policy_service {
     pub struct GetDataPolicy(RequestBuilder<crate::model::GetDataPolicyRequest>);
 
     impl GetDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -340,7 +351,9 @@ pub mod data_policy_service {
     pub struct ListDataPolicies(RequestBuilder<crate::model::ListDataPoliciesRequest>);
 
     impl ListDataPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -421,7 +434,9 @@ pub mod data_policy_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -475,7 +490,9 @@ pub mod data_policy_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -540,7 +557,9 @@ pub mod data_policy_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

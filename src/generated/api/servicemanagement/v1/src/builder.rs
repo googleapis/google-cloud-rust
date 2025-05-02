@@ -16,7 +16,6 @@
 
 pub mod service_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ServiceManager][super::super::client::ServiceManager].
     ///
@@ -49,7 +48,7 @@ pub mod service_manager {
     /// Common implementation for [super::super::client::ServiceManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod service_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod service_manager {
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -148,7 +151,9 @@ pub mod service_manager {
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -193,7 +198,9 @@ pub mod service_manager {
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -280,7 +287,9 @@ pub mod service_manager {
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -360,7 +369,9 @@ pub mod service_manager {
     pub struct UndeleteService(RequestBuilder<crate::model::UndeleteServiceRequest>);
 
     impl UndeleteService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -446,7 +457,9 @@ pub mod service_manager {
     pub struct ListServiceConfigs(RequestBuilder<crate::model::ListServiceConfigsRequest>);
 
     impl ListServiceConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -521,7 +534,9 @@ pub mod service_manager {
     pub struct GetServiceConfig(RequestBuilder<crate::model::GetServiceConfigRequest>);
 
     impl GetServiceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -586,7 +601,9 @@ pub mod service_manager {
     pub struct CreateServiceConfig(RequestBuilder<crate::model::CreateServiceConfigRequest>);
 
     impl CreateServiceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -645,7 +662,9 @@ pub mod service_manager {
     pub struct SubmitConfigSource(RequestBuilder<crate::model::SubmitConfigSourceRequest>);
 
     impl SubmitConfigSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -751,7 +770,9 @@ pub mod service_manager {
     pub struct ListServiceRollouts(RequestBuilder<crate::model::ListServiceRolloutsRequest>);
 
     impl ListServiceRollouts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -834,7 +855,9 @@ pub mod service_manager {
     pub struct GetServiceRollout(RequestBuilder<crate::model::GetServiceRolloutRequest>);
 
     impl GetServiceRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -890,7 +913,9 @@ pub mod service_manager {
     pub struct CreateServiceRollout(RequestBuilder<crate::model::CreateServiceRolloutRequest>);
 
     impl CreateServiceRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -986,7 +1011,9 @@ pub mod service_manager {
     pub struct GenerateConfigReport(RequestBuilder<crate::model::GenerateConfigReportRequest>);
 
     impl GenerateConfigReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1040,7 +1067,9 @@ pub mod service_manager {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1105,7 +1134,9 @@ pub mod service_manager {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1159,7 +1190,9 @@ pub mod service_manager {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1220,7 +1253,9 @@ pub mod service_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1299,7 +1334,9 @@ pub mod service_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

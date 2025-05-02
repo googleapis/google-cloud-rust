@@ -16,7 +16,6 @@
 
 pub mod rapid_migration_assessment {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [RapidMigrationAssessment][super::super::client::RapidMigrationAssessment].
     ///
@@ -49,7 +48,7 @@ pub mod rapid_migration_assessment {
     /// Common implementation for [super::super::client::RapidMigrationAssessment] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod rapid_migration_assessment {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod rapid_migration_assessment {
 
     impl CreateCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -185,7 +184,7 @@ pub mod rapid_migration_assessment {
 
     impl CreateAnnotation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -290,7 +289,7 @@ pub mod rapid_migration_assessment {
 
     impl GetAnnotation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -337,7 +336,7 @@ pub mod rapid_migration_assessment {
 
     impl ListCollectors {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -423,7 +422,7 @@ pub mod rapid_migration_assessment {
 
     impl GetCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -470,7 +469,7 @@ pub mod rapid_migration_assessment {
 
     impl UpdateCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -575,7 +574,7 @@ pub mod rapid_migration_assessment {
 
     impl DeleteCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -666,7 +665,7 @@ pub mod rapid_migration_assessment {
 
     impl ResumeCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -757,7 +756,7 @@ pub mod rapid_migration_assessment {
 
     impl RegisterCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -851,7 +850,7 @@ pub mod rapid_migration_assessment {
 
     impl PauseCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -942,7 +941,7 @@ pub mod rapid_migration_assessment {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1023,7 +1022,7 @@ pub mod rapid_migration_assessment {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1068,7 +1067,7 @@ pub mod rapid_migration_assessment {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1149,7 +1148,7 @@ pub mod rapid_migration_assessment {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1197,7 +1196,7 @@ pub mod rapid_migration_assessment {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1245,7 +1244,7 @@ pub mod rapid_migration_assessment {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

@@ -16,7 +16,6 @@
 
 pub mod datastore_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DatastoreAdmin][super::super::client::DatastoreAdmin].
     ///
@@ -49,7 +48,7 @@ pub mod datastore_admin {
     /// Common implementation for [super::super::client::DatastoreAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod datastore_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod datastore_admin {
     pub struct ExportEntities(RequestBuilder<crate::model::ExportEntitiesRequest>);
 
     impl ExportEntities {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -186,7 +189,9 @@ pub mod datastore_admin {
     pub struct ImportEntities(RequestBuilder<crate::model::ImportEntitiesRequest>);
 
     impl ImportEntities {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -294,7 +299,9 @@ pub mod datastore_admin {
     pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
 
     impl CreateIndex {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -384,7 +391,9 @@ pub mod datastore_admin {
     pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
 
     impl DeleteIndex {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -471,7 +480,9 @@ pub mod datastore_admin {
     pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
 
     impl GetIndex {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -520,7 +531,9 @@ pub mod datastore_admin {
     pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
 
     impl ListIndexes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -596,7 +609,9 @@ pub mod datastore_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -675,7 +690,9 @@ pub mod datastore_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -721,7 +738,9 @@ pub mod datastore_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -767,7 +786,9 @@ pub mod datastore_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatastoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatastoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

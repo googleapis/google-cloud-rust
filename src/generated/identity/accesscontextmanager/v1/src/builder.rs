@@ -16,7 +16,6 @@
 
 pub mod access_context_manager {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AccessContextManager][super::super::client::AccessContextManager].
     ///
@@ -49,7 +48,7 @@ pub mod access_context_manager {
     /// Common implementation for [super::super::client::AccessContextManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod access_context_manager {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod access_context_manager {
 
     impl ListAccessPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -152,7 +151,7 @@ pub mod access_context_manager {
 
     impl GetAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -199,7 +198,7 @@ pub mod access_context_manager {
 
     impl CreateAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -334,7 +333,7 @@ pub mod access_context_manager {
 
     impl UpdateAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -441,7 +440,7 @@ pub mod access_context_manager {
 
     impl DeleteAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -530,7 +529,7 @@ pub mod access_context_manager {
 
     impl ListAccessLevels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -613,7 +612,7 @@ pub mod access_context_manager {
 
     impl GetAccessLevel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -666,7 +665,7 @@ pub mod access_context_manager {
 
     impl CreateAccessLevel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -770,7 +769,7 @@ pub mod access_context_manager {
 
     impl UpdateAccessLevel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -877,7 +876,7 @@ pub mod access_context_manager {
 
     impl DeleteAccessLevel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -966,7 +965,7 @@ pub mod access_context_manager {
 
     impl ReplaceAccessLevels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1078,7 +1077,7 @@ pub mod access_context_manager {
 
     impl ListServicePerimeters {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1155,7 +1154,7 @@ pub mod access_context_manager {
 
     impl GetServicePerimeter {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1205,7 +1204,7 @@ pub mod access_context_manager {
 
     impl CreateServicePerimeter {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1311,7 +1310,7 @@ pub mod access_context_manager {
 
     impl UpdateServicePerimeter {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1420,7 +1419,7 @@ pub mod access_context_manager {
 
     impl DeleteServicePerimeter {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1511,7 +1510,7 @@ pub mod access_context_manager {
 
     impl ReplaceServicePerimeters {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1625,7 +1624,7 @@ pub mod access_context_manager {
 
     impl CommitServicePerimeters {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1726,7 +1725,7 @@ pub mod access_context_manager {
 
     impl ListGcpUserAccessBindings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1807,7 +1806,7 @@ pub mod access_context_manager {
 
     impl GetGcpUserAccessBinding {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1859,7 +1858,7 @@ pub mod access_context_manager {
 
     impl CreateGcpUserAccessBinding {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1967,7 +1966,7 @@ pub mod access_context_manager {
 
     impl UpdateGcpUserAccessBinding {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2078,7 +2077,7 @@ pub mod access_context_manager {
 
     impl DeleteGcpUserAccessBinding {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2167,7 +2166,7 @@ pub mod access_context_manager {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2234,7 +2233,7 @@ pub mod access_context_manager {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2290,7 +2289,7 @@ pub mod access_context_manager {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2353,7 +2352,7 @@ pub mod access_context_manager {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

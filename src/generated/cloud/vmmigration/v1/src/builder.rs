@@ -16,7 +16,6 @@
 
 pub mod vm_migration {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [VmMigration][super::super::client::VmMigration].
     ///
@@ -49,7 +48,7 @@ pub mod vm_migration {
     /// Common implementation for [super::super::client::VmMigration] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VmMigration>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod vm_migration {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod vm_migration {
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -158,7 +161,9 @@ pub mod vm_migration {
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -203,7 +208,9 @@ pub mod vm_migration {
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -310,7 +317,9 @@ pub mod vm_migration {
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -410,7 +419,9 @@ pub mod vm_migration {
     pub struct DeleteSource(RequestBuilder<crate::model::DeleteSourceRequest>);
 
     impl DeleteSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -496,7 +507,9 @@ pub mod vm_migration {
     pub struct FetchInventory(RequestBuilder<crate::model::FetchInventoryRequest>);
 
     impl FetchInventory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -547,7 +560,9 @@ pub mod vm_migration {
     pub struct ListUtilizationReports(RequestBuilder<crate::model::ListUtilizationReportsRequest>);
 
     impl ListUtilizationReports {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -644,7 +659,9 @@ pub mod vm_migration {
     pub struct GetUtilizationReport(RequestBuilder<crate::model::GetUtilizationReportRequest>);
 
     impl GetUtilizationReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -700,7 +717,9 @@ pub mod vm_migration {
     );
 
     impl CreateUtilizationReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -816,7 +835,9 @@ pub mod vm_migration {
     );
 
     impl DeleteUtilizationReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -907,7 +928,9 @@ pub mod vm_migration {
     );
 
     impl ListDatacenterConnectors {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -998,7 +1021,9 @@ pub mod vm_migration {
     pub struct GetDatacenterConnector(RequestBuilder<crate::model::GetDatacenterConnectorRequest>);
 
     impl GetDatacenterConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1048,7 +1073,9 @@ pub mod vm_migration {
     );
 
     impl CreateDatacenterConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1164,7 +1191,9 @@ pub mod vm_migration {
     );
 
     impl DeleteDatacenterConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1253,7 +1282,9 @@ pub mod vm_migration {
     pub struct UpgradeAppliance(RequestBuilder<crate::model::UpgradeApplianceRequest>);
 
     impl UpgradeAppliance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1348,7 +1379,9 @@ pub mod vm_migration {
     pub struct CreateMigratingVm(RequestBuilder<crate::model::CreateMigratingVmRequest>);
 
     impl CreateMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1459,7 +1492,9 @@ pub mod vm_migration {
     pub struct ListMigratingVms(RequestBuilder<crate::model::ListMigratingVmsRequest>);
 
     impl ListMigratingVms {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1554,7 +1589,9 @@ pub mod vm_migration {
     pub struct GetMigratingVm(RequestBuilder<crate::model::GetMigratingVmRequest>);
 
     impl GetMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1605,7 +1642,9 @@ pub mod vm_migration {
     pub struct UpdateMigratingVm(RequestBuilder<crate::model::UpdateMigratingVmRequest>);
 
     impl UpdateMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1709,7 +1748,9 @@ pub mod vm_migration {
     pub struct DeleteMigratingVm(RequestBuilder<crate::model::DeleteMigratingVmRequest>);
 
     impl DeleteMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1792,7 +1833,9 @@ pub mod vm_migration {
     pub struct StartMigration(RequestBuilder<crate::model::StartMigrationRequest>);
 
     impl StartMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1878,7 +1921,9 @@ pub mod vm_migration {
     pub struct ResumeMigration(RequestBuilder<crate::model::ResumeMigrationRequest>);
 
     impl ResumeMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1964,7 +2009,9 @@ pub mod vm_migration {
     pub struct PauseMigration(RequestBuilder<crate::model::PauseMigrationRequest>);
 
     impl PauseMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2050,7 +2097,9 @@ pub mod vm_migration {
     pub struct FinalizeMigration(RequestBuilder<crate::model::FinalizeMigrationRequest>);
 
     impl FinalizeMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2139,7 +2188,9 @@ pub mod vm_migration {
     pub struct CreateCloneJob(RequestBuilder<crate::model::CreateCloneJobRequest>);
 
     impl CreateCloneJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2247,7 +2298,9 @@ pub mod vm_migration {
     pub struct CancelCloneJob(RequestBuilder<crate::model::CancelCloneJobRequest>);
 
     impl CancelCloneJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2333,7 +2386,9 @@ pub mod vm_migration {
     pub struct ListCloneJobs(RequestBuilder<crate::model::ListCloneJobsRequest>);
 
     impl ListCloneJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2419,7 +2474,9 @@ pub mod vm_migration {
     pub struct GetCloneJob(RequestBuilder<crate::model::GetCloneJobRequest>);
 
     impl GetCloneJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2464,7 +2521,9 @@ pub mod vm_migration {
     pub struct CreateCutoverJob(RequestBuilder<crate::model::CreateCutoverJobRequest>);
 
     impl CreateCutoverJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2575,7 +2634,9 @@ pub mod vm_migration {
     pub struct CancelCutoverJob(RequestBuilder<crate::model::CancelCutoverJobRequest>);
 
     impl CancelCutoverJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2664,7 +2725,9 @@ pub mod vm_migration {
     pub struct ListCutoverJobs(RequestBuilder<crate::model::ListCutoverJobsRequest>);
 
     impl ListCutoverJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2750,7 +2813,9 @@ pub mod vm_migration {
     pub struct GetCutoverJob(RequestBuilder<crate::model::GetCutoverJobRequest>);
 
     impl GetCutoverJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2795,7 +2860,9 @@ pub mod vm_migration {
     pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
 
     impl ListGroups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2881,7 +2948,9 @@ pub mod vm_migration {
     pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
 
     impl GetGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2926,7 +2995,9 @@ pub mod vm_migration {
     pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
 
     impl CreateGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3033,7 +3104,9 @@ pub mod vm_migration {
     pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
 
     impl UpdateGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3133,7 +3206,9 @@ pub mod vm_migration {
     pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
 
     impl DeleteGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3219,7 +3294,9 @@ pub mod vm_migration {
     pub struct AddGroupMigration(RequestBuilder<crate::model::AddGroupMigrationRequest>);
 
     impl AddGroupMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3314,7 +3391,9 @@ pub mod vm_migration {
     pub struct RemoveGroupMigration(RequestBuilder<crate::model::RemoveGroupMigrationRequest>);
 
     impl RemoveGroupMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3409,7 +3488,9 @@ pub mod vm_migration {
     pub struct ListTargetProjects(RequestBuilder<crate::model::ListTargetProjectsRequest>);
 
     impl ListTargetProjects {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3498,7 +3579,9 @@ pub mod vm_migration {
     pub struct GetTargetProject(RequestBuilder<crate::model::GetTargetProjectRequest>);
 
     impl GetTargetProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3546,7 +3629,9 @@ pub mod vm_migration {
     pub struct CreateTargetProject(RequestBuilder<crate::model::CreateTargetProjectRequest>);
 
     impl CreateTargetProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3658,7 +3743,9 @@ pub mod vm_migration {
     pub struct UpdateTargetProject(RequestBuilder<crate::model::UpdateTargetProjectRequest>);
 
     impl UpdateTargetProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3763,7 +3850,9 @@ pub mod vm_migration {
     pub struct DeleteTargetProject(RequestBuilder<crate::model::DeleteTargetProjectRequest>);
 
     impl DeleteTargetProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3852,7 +3941,9 @@ pub mod vm_migration {
     pub struct ListReplicationCycles(RequestBuilder<crate::model::ListReplicationCyclesRequest>);
 
     impl ListReplicationCycles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3941,7 +4032,9 @@ pub mod vm_migration {
     pub struct GetReplicationCycle(RequestBuilder<crate::model::GetReplicationCycleRequest>);
 
     impl GetReplicationCycle {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3989,7 +4082,9 @@ pub mod vm_migration {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4068,7 +4163,9 @@ pub mod vm_migration {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4111,7 +4208,9 @@ pub mod vm_migration {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4190,7 +4289,9 @@ pub mod vm_migration {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4236,7 +4337,9 @@ pub mod vm_migration {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4282,7 +4385,9 @@ pub mod vm_migration {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

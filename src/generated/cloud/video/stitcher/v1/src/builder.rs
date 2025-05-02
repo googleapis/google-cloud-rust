@@ -16,7 +16,6 @@
 
 pub mod video_stitcher_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [VideoStitcherService][super::super::client::VideoStitcherService].
     ///
@@ -49,7 +48,7 @@ pub mod video_stitcher_service {
     /// Common implementation for [super::super::client::VideoStitcherService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod video_stitcher_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod video_stitcher_service {
 
     impl CreateCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -178,7 +177,7 @@ pub mod video_stitcher_service {
 
     impl ListCdnKeys {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -264,7 +263,7 @@ pub mod video_stitcher_service {
 
     impl GetCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -311,7 +310,7 @@ pub mod video_stitcher_service {
 
     impl DeleteCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -393,7 +392,7 @@ pub mod video_stitcher_service {
 
     impl UpdateCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -491,7 +490,7 @@ pub mod video_stitcher_service {
 
     impl CreateVodSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -552,7 +551,7 @@ pub mod video_stitcher_service {
 
     impl GetVodSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -599,7 +598,7 @@ pub mod video_stitcher_service {
 
     impl ListVodStitchDetails {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -676,7 +675,7 @@ pub mod video_stitcher_service {
 
     impl GetVodStitchDetail {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -726,7 +725,7 @@ pub mod video_stitcher_service {
 
     impl ListVodAdTagDetails {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -803,7 +802,7 @@ pub mod video_stitcher_service {
 
     impl GetVodAdTagDetail {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -853,7 +852,7 @@ pub mod video_stitcher_service {
 
     impl ListLiveAdTagDetails {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -930,7 +929,7 @@ pub mod video_stitcher_service {
 
     impl GetLiveAdTagDetail {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -980,7 +979,7 @@ pub mod video_stitcher_service {
 
     impl CreateSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1089,7 +1088,7 @@ pub mod video_stitcher_service {
 
     impl ListSlates {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1175,7 +1174,7 @@ pub mod video_stitcher_service {
 
     impl GetSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1222,7 +1221,7 @@ pub mod video_stitcher_service {
 
     impl UpdateSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1320,7 +1319,7 @@ pub mod video_stitcher_service {
 
     impl DeleteSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1402,7 +1401,7 @@ pub mod video_stitcher_service {
 
     impl CreateLiveSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1463,7 +1462,7 @@ pub mod video_stitcher_service {
 
     impl GetLiveSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1510,7 +1509,7 @@ pub mod video_stitcher_service {
 
     impl CreateLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1623,7 +1622,7 @@ pub mod video_stitcher_service {
 
     impl ListLiveConfigs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1709,7 +1708,7 @@ pub mod video_stitcher_service {
 
     impl GetLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1756,7 +1755,7 @@ pub mod video_stitcher_service {
 
     impl DeleteLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1841,7 +1840,7 @@ pub mod video_stitcher_service {
 
     impl UpdateLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1943,7 +1942,7 @@ pub mod video_stitcher_service {
 
     impl CreateVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2053,7 +2052,7 @@ pub mod video_stitcher_service {
 
     impl ListVodConfigs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2139,7 +2138,7 @@ pub mod video_stitcher_service {
 
     impl GetVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2186,7 +2185,7 @@ pub mod video_stitcher_service {
 
     impl DeleteVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2268,7 +2267,7 @@ pub mod video_stitcher_service {
 
     impl UpdateVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2367,7 +2366,7 @@ pub mod video_stitcher_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2448,7 +2447,7 @@ pub mod video_stitcher_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2496,7 +2495,7 @@ pub mod video_stitcher_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2544,7 +2543,7 @@ pub mod video_stitcher_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

@@ -16,7 +16,6 @@
 
 pub mod attached_clusters {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AttachedClusters][super::super::client::AttachedClusters].
     ///
@@ -49,7 +48,7 @@ pub mod attached_clusters {
     /// Common implementation for [super::super::client::AttachedClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod attached_clusters {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod attached_clusters {
     pub struct CreateAttachedCluster(RequestBuilder<crate::model::CreateAttachedClusterRequest>);
 
     impl CreateAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -184,7 +187,9 @@ pub mod attached_clusters {
     pub struct UpdateAttachedCluster(RequestBuilder<crate::model::UpdateAttachedClusterRequest>);
 
     impl UpdateAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -291,7 +296,9 @@ pub mod attached_clusters {
     pub struct ImportAttachedCluster(RequestBuilder<crate::model::ImportAttachedClusterRequest>);
 
     impl ImportAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -417,7 +424,9 @@ pub mod attached_clusters {
     pub struct GetAttachedCluster(RequestBuilder<crate::model::GetAttachedClusterRequest>);
 
     impl GetAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -465,7 +474,9 @@ pub mod attached_clusters {
     pub struct ListAttachedClusters(RequestBuilder<crate::model::ListAttachedClustersRequest>);
 
     impl ListAttachedClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -540,7 +551,9 @@ pub mod attached_clusters {
     pub struct DeleteAttachedCluster(RequestBuilder<crate::model::DeleteAttachedClusterRequest>);
 
     impl DeleteAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -649,7 +662,9 @@ pub mod attached_clusters {
     );
 
     impl GetAttachedServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -699,7 +714,9 @@ pub mod attached_clusters {
     );
 
     impl GenerateAttachedClusterInstallManifest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -778,7 +795,9 @@ pub mod attached_clusters {
     );
 
     impl GenerateAttachedClusterAgentToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -880,7 +899,9 @@ pub mod attached_clusters {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -959,7 +980,9 @@ pub mod attached_clusters {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1005,7 +1028,9 @@ pub mod attached_clusters {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1051,7 +1076,9 @@ pub mod attached_clusters {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1095,7 +1122,6 @@ pub mod attached_clusters {
 
 pub mod aws_clusters {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AwsClusters][super::super::client::AwsClusters].
     ///
@@ -1128,7 +1154,7 @@ pub mod aws_clusters {
     /// Common implementation for [super::super::client::AwsClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1137,7 +1163,9 @@ pub mod aws_clusters {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1151,7 +1179,9 @@ pub mod aws_clusters {
     pub struct CreateAwsCluster(RequestBuilder<crate::model::CreateAwsClusterRequest>);
 
     impl CreateAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1262,7 +1292,9 @@ pub mod aws_clusters {
     pub struct UpdateAwsCluster(RequestBuilder<crate::model::UpdateAwsClusterRequest>);
 
     impl UpdateAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1368,7 +1400,9 @@ pub mod aws_clusters {
     pub struct GetAwsCluster(RequestBuilder<crate::model::GetAwsClusterRequest>);
 
     impl GetAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1413,7 +1447,9 @@ pub mod aws_clusters {
     pub struct ListAwsClusters(RequestBuilder<crate::model::ListAwsClustersRequest>);
 
     impl ListAwsClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1485,7 +1521,9 @@ pub mod aws_clusters {
     pub struct DeleteAwsCluster(RequestBuilder<crate::model::DeleteAwsClusterRequest>);
 
     impl DeleteAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1594,7 +1632,9 @@ pub mod aws_clusters {
     );
 
     impl GenerateAwsClusterAgentToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1702,7 +1742,9 @@ pub mod aws_clusters {
     pub struct GenerateAwsAccessToken(RequestBuilder<crate::model::GenerateAwsAccessTokenRequest>);
 
     impl GenerateAwsAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1750,7 +1792,9 @@ pub mod aws_clusters {
     pub struct CreateAwsNodePool(RequestBuilder<crate::model::CreateAwsNodePoolRequest>);
 
     impl CreateAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1861,7 +1905,9 @@ pub mod aws_clusters {
     pub struct UpdateAwsNodePool(RequestBuilder<crate::model::UpdateAwsNodePoolRequest>);
 
     impl UpdateAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1969,7 +2015,9 @@ pub mod aws_clusters {
     );
 
     impl RollbackAwsNodePoolUpdate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2061,7 +2109,9 @@ pub mod aws_clusters {
     pub struct GetAwsNodePool(RequestBuilder<crate::model::GetAwsNodePoolRequest>);
 
     impl GetAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2106,7 +2156,9 @@ pub mod aws_clusters {
     pub struct ListAwsNodePools(RequestBuilder<crate::model::ListAwsNodePoolsRequest>);
 
     impl ListAwsNodePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2181,7 +2233,9 @@ pub mod aws_clusters {
     pub struct DeleteAwsNodePool(RequestBuilder<crate::model::DeleteAwsNodePoolRequest>);
 
     impl DeleteAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2288,7 +2342,9 @@ pub mod aws_clusters {
     pub struct GetAwsOpenIdConfig(RequestBuilder<crate::model::GetAwsOpenIdConfigRequest>);
 
     impl GetAwsOpenIdConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2336,7 +2392,9 @@ pub mod aws_clusters {
     pub struct GetAwsJsonWebKeys(RequestBuilder<crate::model::GetAwsJsonWebKeysRequest>);
 
     impl GetAwsJsonWebKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2384,7 +2442,9 @@ pub mod aws_clusters {
     pub struct GetAwsServerConfig(RequestBuilder<crate::model::GetAwsServerConfigRequest>);
 
     impl GetAwsServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2432,7 +2492,9 @@ pub mod aws_clusters {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2511,7 +2573,9 @@ pub mod aws_clusters {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2557,7 +2621,9 @@ pub mod aws_clusters {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2603,7 +2669,9 @@ pub mod aws_clusters {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2647,7 +2715,6 @@ pub mod aws_clusters {
 
 pub mod azure_clusters {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [AzureClusters][super::super::client::AzureClusters].
     ///
@@ -2680,7 +2747,7 @@ pub mod azure_clusters {
     /// Common implementation for [super::super::client::AzureClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2689,7 +2756,9 @@ pub mod azure_clusters {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2703,7 +2772,9 @@ pub mod azure_clusters {
     pub struct CreateAzureClient(RequestBuilder<crate::model::CreateAzureClientRequest>);
 
     impl CreateAzureClient {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2814,7 +2885,9 @@ pub mod azure_clusters {
     pub struct GetAzureClient(RequestBuilder<crate::model::GetAzureClientRequest>);
 
     impl GetAzureClient {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2859,7 +2932,9 @@ pub mod azure_clusters {
     pub struct ListAzureClients(RequestBuilder<crate::model::ListAzureClientsRequest>);
 
     impl ListAzureClients {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2934,7 +3009,9 @@ pub mod azure_clusters {
     pub struct DeleteAzureClient(RequestBuilder<crate::model::DeleteAzureClientRequest>);
 
     impl DeleteAzureClient {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3029,7 +3106,9 @@ pub mod azure_clusters {
     pub struct CreateAzureCluster(RequestBuilder<crate::model::CreateAzureClusterRequest>);
 
     impl CreateAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3140,7 +3219,9 @@ pub mod azure_clusters {
     pub struct UpdateAzureCluster(RequestBuilder<crate::model::UpdateAzureClusterRequest>);
 
     impl UpdateAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3246,7 +3327,9 @@ pub mod azure_clusters {
     pub struct GetAzureCluster(RequestBuilder<crate::model::GetAzureClusterRequest>);
 
     impl GetAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3291,7 +3374,9 @@ pub mod azure_clusters {
     pub struct ListAzureClusters(RequestBuilder<crate::model::ListAzureClustersRequest>);
 
     impl ListAzureClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3366,7 +3451,9 @@ pub mod azure_clusters {
     pub struct DeleteAzureCluster(RequestBuilder<crate::model::DeleteAzureClusterRequest>);
 
     impl DeleteAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3475,7 +3562,9 @@ pub mod azure_clusters {
     );
 
     impl GenerateAzureClusterAgentToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3585,7 +3674,9 @@ pub mod azure_clusters {
     );
 
     impl GenerateAzureAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3633,7 +3724,9 @@ pub mod azure_clusters {
     pub struct CreateAzureNodePool(RequestBuilder<crate::model::CreateAzureNodePoolRequest>);
 
     impl CreateAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3745,7 +3838,9 @@ pub mod azure_clusters {
     pub struct UpdateAzureNodePool(RequestBuilder<crate::model::UpdateAzureNodePoolRequest>);
 
     impl UpdateAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3852,7 +3947,9 @@ pub mod azure_clusters {
     pub struct GetAzureNodePool(RequestBuilder<crate::model::GetAzureNodePoolRequest>);
 
     impl GetAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3900,7 +3997,9 @@ pub mod azure_clusters {
     pub struct ListAzureNodePools(RequestBuilder<crate::model::ListAzureNodePoolsRequest>);
 
     impl ListAzureNodePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3975,7 +4074,9 @@ pub mod azure_clusters {
     pub struct DeleteAzureNodePool(RequestBuilder<crate::model::DeleteAzureNodePoolRequest>);
 
     impl DeleteAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4082,7 +4183,9 @@ pub mod azure_clusters {
     pub struct GetAzureOpenIdConfig(RequestBuilder<crate::model::GetAzureOpenIdConfigRequest>);
 
     impl GetAzureOpenIdConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4130,7 +4233,9 @@ pub mod azure_clusters {
     pub struct GetAzureJsonWebKeys(RequestBuilder<crate::model::GetAzureJsonWebKeysRequest>);
 
     impl GetAzureJsonWebKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4178,7 +4283,9 @@ pub mod azure_clusters {
     pub struct GetAzureServerConfig(RequestBuilder<crate::model::GetAzureServerConfigRequest>);
 
     impl GetAzureServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4226,7 +4333,9 @@ pub mod azure_clusters {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4305,7 +4414,9 @@ pub mod azure_clusters {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4351,7 +4462,9 @@ pub mod azure_clusters {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4397,7 +4510,9 @@ pub mod azure_clusters {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

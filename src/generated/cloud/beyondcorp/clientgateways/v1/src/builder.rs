@@ -16,7 +16,6 @@
 
 pub mod client_gateways_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ClientGatewaysService][super::super::client::ClientGatewaysService].
     ///
@@ -49,7 +48,7 @@ pub mod client_gateways_service {
     /// Common implementation for [super::super::client::ClientGatewaysService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod client_gateways_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod client_gateways_service {
 
     impl ListClientGateways {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -164,7 +163,7 @@ pub mod client_gateways_service {
 
     impl GetClientGateway {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -214,7 +213,7 @@ pub mod client_gateways_service {
 
     impl CreateClientGateway {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -334,7 +333,7 @@ pub mod client_gateways_service {
 
     impl DeleteClientGateway {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -434,7 +433,7 @@ pub mod client_gateways_service {
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -515,7 +514,7 @@ pub mod client_gateways_service {
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -560,7 +559,7 @@ pub mod client_gateways_service {
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -627,7 +626,7 @@ pub mod client_gateways_service {
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -683,7 +682,7 @@ pub mod client_gateways_service {
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -746,7 +745,7 @@ pub mod client_gateways_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -827,7 +826,7 @@ pub mod client_gateways_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -875,7 +874,7 @@ pub mod client_gateways_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -923,7 +922,7 @@ pub mod client_gateways_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

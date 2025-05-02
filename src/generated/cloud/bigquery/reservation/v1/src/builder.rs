@@ -16,7 +16,6 @@
 
 pub mod reservation_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ReservationService][super::super::client::ReservationService].
     ///
@@ -49,7 +48,7 @@ pub mod reservation_service {
     /// Common implementation for [super::super::client::ReservationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ReservationService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod reservation_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod reservation_service {
     pub struct CreateReservation(RequestBuilder<crate::model::CreateReservationRequest>);
 
     impl CreateReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -135,7 +138,9 @@ pub mod reservation_service {
     pub struct ListReservations(RequestBuilder<crate::model::ListReservationsRequest>);
 
     impl ListReservations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -210,7 +215,9 @@ pub mod reservation_service {
     pub struct GetReservation(RequestBuilder<crate::model::GetReservationRequest>);
 
     impl GetReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -255,7 +262,9 @@ pub mod reservation_service {
     pub struct DeleteReservation(RequestBuilder<crate::model::DeleteReservationRequest>);
 
     impl DeleteReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -303,7 +312,9 @@ pub mod reservation_service {
     pub struct UpdateReservation(RequestBuilder<crate::model::UpdateReservationRequest>);
 
     impl UpdateReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -361,7 +372,9 @@ pub mod reservation_service {
     pub struct FailoverReservation(RequestBuilder<crate::model::FailoverReservationRequest>);
 
     impl FailoverReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -411,7 +424,9 @@ pub mod reservation_service {
     );
 
     impl CreateCapacityCommitment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -484,7 +499,9 @@ pub mod reservation_service {
     );
 
     impl ListCapacityCommitments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -561,7 +578,9 @@ pub mod reservation_service {
     pub struct GetCapacityCommitment(RequestBuilder<crate::model::GetCapacityCommitmentRequest>);
 
     impl GetCapacityCommitment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -611,7 +630,9 @@ pub mod reservation_service {
     );
 
     impl DeleteCapacityCommitment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -667,7 +688,9 @@ pub mod reservation_service {
     );
 
     impl UpdateCapacityCommitment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -729,7 +752,9 @@ pub mod reservation_service {
     );
 
     impl SplitCapacityCommitment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -785,7 +810,9 @@ pub mod reservation_service {
     );
 
     impl MergeCapacityCommitments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -842,7 +869,9 @@ pub mod reservation_service {
     pub struct CreateAssignment(RequestBuilder<crate::model::CreateAssignmentRequest>);
 
     impl CreateAssignment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -905,7 +934,9 @@ pub mod reservation_service {
     pub struct ListAssignments(RequestBuilder<crate::model::ListAssignmentsRequest>);
 
     impl ListAssignments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -977,7 +1008,9 @@ pub mod reservation_service {
     pub struct DeleteAssignment(RequestBuilder<crate::model::DeleteAssignmentRequest>);
 
     impl DeleteAssignment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1025,7 +1058,9 @@ pub mod reservation_service {
     pub struct SearchAssignments(RequestBuilder<crate::model::SearchAssignmentsRequest>);
 
     impl SearchAssignments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1106,7 +1141,9 @@ pub mod reservation_service {
     pub struct SearchAllAssignments(RequestBuilder<crate::model::SearchAllAssignmentsRequest>);
 
     impl SearchAllAssignments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1187,7 +1224,9 @@ pub mod reservation_service {
     pub struct MoveAssignment(RequestBuilder<crate::model::MoveAssignmentRequest>);
 
     impl MoveAssignment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1244,7 +1283,9 @@ pub mod reservation_service {
     pub struct UpdateAssignment(RequestBuilder<crate::model::UpdateAssignmentRequest>);
 
     impl UpdateAssignment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1302,7 +1343,9 @@ pub mod reservation_service {
     pub struct GetBiReservation(RequestBuilder<crate::model::GetBiReservationRequest>);
 
     impl GetBiReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1350,7 +1393,9 @@ pub mod reservation_service {
     pub struct UpdateBiReservation(RequestBuilder<crate::model::UpdateBiReservationRequest>);
 
     impl UpdateBiReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

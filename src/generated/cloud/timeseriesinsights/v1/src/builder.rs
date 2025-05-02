@@ -16,7 +16,6 @@
 
 pub mod timeseries_insights_controller {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [TimeseriesInsightsController][super::super::client::TimeseriesInsightsController].
     ///
@@ -49,7 +48,7 @@ pub mod timeseries_insights_controller {
     /// Common implementation for [super::super::client::TimeseriesInsightsController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod timeseries_insights_controller {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod timeseries_insights_controller {
 
     impl ListDataSets {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -149,7 +148,7 @@ pub mod timeseries_insights_controller {
 
     impl CreateDataSet {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -207,7 +206,7 @@ pub mod timeseries_insights_controller {
 
     impl DeleteDataSet {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -254,7 +253,7 @@ pub mod timeseries_insights_controller {
 
     impl AppendEvents {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -312,7 +311,7 @@ pub mod timeseries_insights_controller {
 
     impl QueryDataSet {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -411,7 +410,7 @@ pub mod timeseries_insights_controller {
 
     impl EvaluateSlice {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -502,7 +501,7 @@ pub mod timeseries_insights_controller {
 
     impl EvaluateTimeseries {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

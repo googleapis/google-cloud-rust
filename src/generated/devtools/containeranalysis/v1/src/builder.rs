@@ -16,7 +16,6 @@
 
 pub mod container_analysis {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ContainerAnalysis][super::super::client::ContainerAnalysis].
     ///
@@ -49,7 +48,7 @@ pub mod container_analysis {
     /// Common implementation for [super::super::client::ContainerAnalysis] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod container_analysis {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod container_analysis {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -137,7 +140,9 @@ pub mod container_analysis {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -191,7 +196,9 @@ pub mod container_analysis {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -254,7 +261,9 @@ pub mod container_analysis {
     );
 
     impl GetVulnerabilityOccurrencesSummary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -308,7 +317,9 @@ pub mod container_analysis {
     pub struct ExportSBOM(RequestBuilder<crate::model::ExportSBOMRequest>);
 
     impl ExportSBOM {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

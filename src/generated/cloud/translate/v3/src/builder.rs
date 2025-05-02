@@ -16,7 +16,6 @@
 
 pub mod translation_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [TranslationService][super::super::client::TranslationService].
     ///
@@ -49,7 +48,7 @@ pub mod translation_service {
     /// Common implementation for [super::super::client::TranslationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TranslationService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod translation_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod translation_service {
     pub struct TranslateText(RequestBuilder<crate::model::TranslateTextRequest>);
 
     impl TranslateText {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -189,7 +192,9 @@ pub mod translation_service {
     pub struct RomanizeText(RequestBuilder<crate::model::RomanizeTextRequest>);
 
     impl RomanizeText {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -253,7 +258,9 @@ pub mod translation_service {
     pub struct DetectLanguage(RequestBuilder<crate::model::DetectLanguageRequest>);
 
     impl DetectLanguage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -343,7 +350,9 @@ pub mod translation_service {
     pub struct GetSupportedLanguages(RequestBuilder<crate::model::GetSupportedLanguagesRequest>);
 
     impl GetSupportedLanguages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -403,7 +412,9 @@ pub mod translation_service {
     pub struct TranslateDocument(RequestBuilder<crate::model::TranslateDocumentRequest>);
 
     impl TranslateDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -541,7 +552,9 @@ pub mod translation_service {
     pub struct BatchTranslateText(RequestBuilder<crate::model::BatchTranslateTextRequest>);
 
     impl BatchTranslateText {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -708,7 +721,9 @@ pub mod translation_service {
     pub struct BatchTranslateDocument(RequestBuilder<crate::model::BatchTranslateDocumentRequest>);
 
     impl BatchTranslateDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -898,7 +913,9 @@ pub mod translation_service {
     pub struct CreateGlossary(RequestBuilder<crate::model::CreateGlossaryRequest>);
 
     impl CreateGlossary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -993,7 +1010,9 @@ pub mod translation_service {
     pub struct UpdateGlossary(RequestBuilder<crate::model::UpdateGlossaryRequest>);
 
     impl UpdateGlossary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1089,7 +1108,9 @@ pub mod translation_service {
     pub struct ListGlossaries(RequestBuilder<crate::model::ListGlossariesRequest>);
 
     impl ListGlossaries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1167,7 +1188,9 @@ pub mod translation_service {
     pub struct GetGlossary(RequestBuilder<crate::model::GetGlossaryRequest>);
 
     impl GetGlossary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1212,7 +1235,9 @@ pub mod translation_service {
     pub struct DeleteGlossary(RequestBuilder<crate::model::DeleteGlossaryRequest>);
 
     impl DeleteGlossary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1298,7 +1323,9 @@ pub mod translation_service {
     pub struct GetGlossaryEntry(RequestBuilder<crate::model::GetGlossaryEntryRequest>);
 
     impl GetGlossaryEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1346,7 +1373,9 @@ pub mod translation_service {
     pub struct ListGlossaryEntries(RequestBuilder<crate::model::ListGlossaryEntriesRequest>);
 
     impl ListGlossaryEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1421,7 +1450,9 @@ pub mod translation_service {
     pub struct CreateGlossaryEntry(RequestBuilder<crate::model::CreateGlossaryEntryRequest>);
 
     impl CreateGlossaryEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1480,7 +1511,9 @@ pub mod translation_service {
     pub struct UpdateGlossaryEntry(RequestBuilder<crate::model::UpdateGlossaryEntryRequest>);
 
     impl UpdateGlossaryEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1531,7 +1564,9 @@ pub mod translation_service {
     pub struct DeleteGlossaryEntry(RequestBuilder<crate::model::DeleteGlossaryEntryRequest>);
 
     impl DeleteGlossaryEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1579,7 +1614,9 @@ pub mod translation_service {
     pub struct CreateDataset(RequestBuilder<crate::model::CreateDatasetRequest>);
 
     impl CreateDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1673,7 +1710,9 @@ pub mod translation_service {
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
     impl GetDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1718,7 +1757,9 @@ pub mod translation_service {
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
     impl ListDatasets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1790,7 +1831,9 @@ pub mod translation_service {
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
     impl DeleteDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1872,7 +1915,9 @@ pub mod translation_service {
     );
 
     impl CreateAdaptiveMtDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1935,7 +1980,9 @@ pub mod translation_service {
     );
 
     impl DeleteAdaptiveMtDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1983,7 +2030,9 @@ pub mod translation_service {
     pub struct GetAdaptiveMtDataset(RequestBuilder<crate::model::GetAdaptiveMtDatasetRequest>);
 
     impl GetAdaptiveMtDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2031,7 +2080,9 @@ pub mod translation_service {
     pub struct ListAdaptiveMtDatasets(RequestBuilder<crate::model::ListAdaptiveMtDatasetsRequest>);
 
     impl ListAdaptiveMtDatasets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2114,7 +2165,9 @@ pub mod translation_service {
     pub struct AdaptiveMtTranslate(RequestBuilder<crate::model::AdaptiveMtTranslateRequest>);
 
     impl AdaptiveMtTranslate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2209,7 +2262,9 @@ pub mod translation_service {
     pub struct GetAdaptiveMtFile(RequestBuilder<crate::model::GetAdaptiveMtFileRequest>);
 
     impl GetAdaptiveMtFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2257,7 +2312,9 @@ pub mod translation_service {
     pub struct DeleteAdaptiveMtFile(RequestBuilder<crate::model::DeleteAdaptiveMtFileRequest>);
 
     impl DeleteAdaptiveMtFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2305,7 +2362,9 @@ pub mod translation_service {
     pub struct ImportAdaptiveMtFile(RequestBuilder<crate::model::ImportAdaptiveMtFileRequest>);
 
     impl ImportAdaptiveMtFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2397,7 +2456,9 @@ pub mod translation_service {
     pub struct ListAdaptiveMtFiles(RequestBuilder<crate::model::ListAdaptiveMtFilesRequest>);
 
     impl ListAdaptiveMtFiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2474,7 +2535,9 @@ pub mod translation_service {
     );
 
     impl ListAdaptiveMtSentences {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2551,7 +2614,9 @@ pub mod translation_service {
     pub struct ImportData(RequestBuilder<crate::model::ImportDataRequest>);
 
     impl ImportData {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2642,7 +2707,9 @@ pub mod translation_service {
     pub struct ExportData(RequestBuilder<crate::model::ExportDataRequest>);
 
     impl ExportData {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2735,7 +2802,9 @@ pub mod translation_service {
     pub struct ListExamples(RequestBuilder<crate::model::ListExamplesRequest>);
 
     impl ListExamples {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2813,7 +2882,9 @@ pub mod translation_service {
     pub struct CreateModel(RequestBuilder<crate::model::CreateModelRequest>);
 
     impl CreateModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2906,7 +2977,9 @@ pub mod translation_service {
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
     impl ListModels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2984,7 +3057,9 @@ pub mod translation_service {
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
     impl GetModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3029,7 +3104,9 @@ pub mod translation_service {
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
     impl DeleteModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3109,7 +3186,9 @@ pub mod translation_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3188,7 +3267,9 @@ pub mod translation_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3231,7 +3312,9 @@ pub mod translation_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3310,7 +3393,9 @@ pub mod translation_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3356,7 +3441,9 @@ pub mod translation_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3402,7 +3489,9 @@ pub mod translation_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3448,7 +3537,9 @@ pub mod translation_service {
     pub struct WaitOperation(RequestBuilder<longrunning::model::WaitOperationRequest>);
 
     impl WaitOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranslationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranslationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

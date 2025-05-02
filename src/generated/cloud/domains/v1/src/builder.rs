@@ -16,7 +16,6 @@
 
 pub mod domains {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Domains][super::super::client::Domains].
     ///
@@ -49,7 +48,7 @@ pub mod domains {
     /// Common implementation for [super::super::client::Domains] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Domains>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,7 @@ pub mod domains {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +71,7 @@ pub mod domains {
     pub struct SearchDomains(RequestBuilder<crate::model::SearchDomainsRequest>);
 
     impl SearchDomains {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -127,7 +126,7 @@ pub mod domains {
     );
 
     impl RetrieveRegisterParameters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -183,7 +182,7 @@ pub mod domains {
     pub struct RegisterDomain(RequestBuilder<crate::model::RegisterDomainRequest>);
 
     impl RegisterDomain {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -318,7 +317,7 @@ pub mod domains {
     );
 
     impl RetrieveTransferParameters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -374,7 +373,7 @@ pub mod domains {
     pub struct TransferDomain(RequestBuilder<crate::model::TransferDomainRequest>);
 
     impl TransferDomain {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -507,7 +506,7 @@ pub mod domains {
     pub struct ListRegistrations(RequestBuilder<crate::model::ListRegistrationsRequest>);
 
     impl ListRegistrations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -588,7 +587,7 @@ pub mod domains {
     pub struct GetRegistration(RequestBuilder<crate::model::GetRegistrationRequest>);
 
     impl GetRegistration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -633,7 +632,7 @@ pub mod domains {
     pub struct UpdateRegistration(RequestBuilder<crate::model::UpdateRegistrationRequest>);
 
     impl UpdateRegistration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -733,7 +732,7 @@ pub mod domains {
     );
 
     impl ConfigureManagementSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -841,7 +840,7 @@ pub mod domains {
     pub struct ConfigureDnsSettings(RequestBuilder<crate::model::ConfigureDnsSettingsRequest>);
 
     impl ConfigureDnsSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -955,7 +954,7 @@ pub mod domains {
     );
 
     impl ConfigureContactSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1078,7 +1077,7 @@ pub mod domains {
     pub struct ExportRegistration(RequestBuilder<crate::model::ExportRegistrationRequest>);
 
     impl ExportRegistration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1164,7 +1163,7 @@ pub mod domains {
     pub struct DeleteRegistration(RequestBuilder<crate::model::DeleteRegistrationRequest>);
 
     impl DeleteRegistration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1249,7 +1248,7 @@ pub mod domains {
     );
 
     impl RetrieveAuthorizationCode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1297,7 +1296,7 @@ pub mod domains {
     pub struct ResetAuthorizationCode(RequestBuilder<crate::model::ResetAuthorizationCodeRequest>);
 
     impl ResetAuthorizationCode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1345,7 +1344,7 @@ pub mod domains {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1424,7 +1423,7 @@ pub mod domains {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -16,7 +16,6 @@
 
 pub mod firestore_admin {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [FirestoreAdmin][super::super::client::FirestoreAdmin].
     ///
@@ -49,7 +48,7 @@ pub mod firestore_admin {
     /// Common implementation for [super::super::client::FirestoreAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod firestore_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod firestore_admin {
     pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
 
     impl CreateIndex {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -166,7 +169,9 @@ pub mod firestore_admin {
     pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
 
     impl ListIndexes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -244,7 +249,9 @@ pub mod firestore_admin {
     pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
 
     impl GetIndex {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -289,7 +296,9 @@ pub mod firestore_admin {
     pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
 
     impl DeleteIndex {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -334,7 +343,9 @@ pub mod firestore_admin {
     pub struct GetField(RequestBuilder<crate::model::GetFieldRequest>);
 
     impl GetField {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -379,7 +390,9 @@ pub mod firestore_admin {
     pub struct UpdateField(RequestBuilder<crate::model::UpdateFieldRequest>);
 
     impl UpdateField {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -474,7 +487,9 @@ pub mod firestore_admin {
     pub struct ListFields(RequestBuilder<crate::model::ListFieldsRequest>);
 
     impl ListFields {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -552,7 +567,9 @@ pub mod firestore_admin {
     pub struct ExportDocuments(RequestBuilder<crate::model::ExportDocumentsRequest>);
 
     impl ExportDocuments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -675,7 +692,9 @@ pub mod firestore_admin {
     pub struct ImportDocuments(RequestBuilder<crate::model::ImportDocumentsRequest>);
 
     impl ImportDocuments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -783,7 +802,9 @@ pub mod firestore_admin {
     pub struct BulkDeleteDocuments(RequestBuilder<crate::model::BulkDeleteDocumentsRequest>);
 
     impl BulkDeleteDocuments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -896,7 +917,9 @@ pub mod firestore_admin {
     pub struct CreateDatabase(RequestBuilder<crate::model::CreateDatabaseRequest>);
 
     impl CreateDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -999,7 +1022,9 @@ pub mod firestore_admin {
     pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
 
     impl GetDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1044,7 +1069,9 @@ pub mod firestore_admin {
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1095,7 +1122,9 @@ pub mod firestore_admin {
     pub struct UpdateDatabase(RequestBuilder<crate::model::UpdateDatabaseRequest>);
 
     impl UpdateDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1191,7 +1220,9 @@ pub mod firestore_admin {
     pub struct DeleteDatabase(RequestBuilder<crate::model::DeleteDatabaseRequest>);
 
     impl DeleteDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1281,7 +1312,9 @@ pub mod firestore_admin {
     pub struct CreateUserCreds(RequestBuilder<crate::model::CreateUserCredsRequest>);
 
     impl CreateUserCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1345,7 +1378,9 @@ pub mod firestore_admin {
     pub struct GetUserCreds(RequestBuilder<crate::model::GetUserCredsRequest>);
 
     impl GetUserCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1390,7 +1425,9 @@ pub mod firestore_admin {
     pub struct ListUserCreds(RequestBuilder<crate::model::ListUserCredsRequest>);
 
     impl ListUserCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1435,7 +1472,9 @@ pub mod firestore_admin {
     pub struct EnableUserCreds(RequestBuilder<crate::model::EnableUserCredsRequest>);
 
     impl EnableUserCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1480,7 +1519,9 @@ pub mod firestore_admin {
     pub struct DisableUserCreds(RequestBuilder<crate::model::DisableUserCredsRequest>);
 
     impl DisableUserCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1528,7 +1569,9 @@ pub mod firestore_admin {
     pub struct ResetUserPassword(RequestBuilder<crate::model::ResetUserPasswordRequest>);
 
     impl ResetUserPassword {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1576,7 +1619,9 @@ pub mod firestore_admin {
     pub struct DeleteUserCreds(RequestBuilder<crate::model::DeleteUserCredsRequest>);
 
     impl DeleteUserCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1621,7 +1666,9 @@ pub mod firestore_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1666,7 +1713,9 @@ pub mod firestore_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1717,7 +1766,9 @@ pub mod firestore_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1762,7 +1813,9 @@ pub mod firestore_admin {
     pub struct RestoreDatabase(RequestBuilder<crate::model::RestoreDatabaseRequest>);
 
     impl RestoreDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1873,7 +1926,9 @@ pub mod firestore_admin {
     pub struct CreateBackupSchedule(RequestBuilder<crate::model::CreateBackupScheduleRequest>);
 
     impl CreateBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1932,7 +1987,9 @@ pub mod firestore_admin {
     pub struct GetBackupSchedule(RequestBuilder<crate::model::GetBackupScheduleRequest>);
 
     impl GetBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1980,7 +2037,9 @@ pub mod firestore_admin {
     pub struct ListBackupSchedules(RequestBuilder<crate::model::ListBackupSchedulesRequest>);
 
     impl ListBackupSchedules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2028,7 +2087,9 @@ pub mod firestore_admin {
     pub struct UpdateBackupSchedule(RequestBuilder<crate::model::UpdateBackupScheduleRequest>);
 
     impl UpdateBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2088,7 +2149,9 @@ pub mod firestore_admin {
     pub struct DeleteBackupSchedule(RequestBuilder<crate::model::DeleteBackupScheduleRequest>);
 
     impl DeleteBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2136,7 +2199,9 @@ pub mod firestore_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2215,7 +2280,9 @@ pub mod firestore_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2261,7 +2328,9 @@ pub mod firestore_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2307,7 +2376,9 @@ pub mod firestore_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

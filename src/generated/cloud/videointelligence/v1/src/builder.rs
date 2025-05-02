@@ -16,7 +16,6 @@
 
 pub mod video_intelligence_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [VideoIntelligenceService][super::super::client::VideoIntelligenceService].
     ///
@@ -49,7 +48,7 @@ pub mod video_intelligence_service {
     /// Common implementation for [super::super::client::VideoIntelligenceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod video_intelligence_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod video_intelligence_service {
 
     impl AnnotateVideo {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -201,7 +200,7 @@ pub mod video_intelligence_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -282,7 +281,7 @@ pub mod video_intelligence_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -330,7 +329,7 @@ pub mod video_intelligence_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -378,7 +377,7 @@ pub mod video_intelligence_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

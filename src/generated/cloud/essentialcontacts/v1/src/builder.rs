@@ -16,7 +16,6 @@
 
 pub mod essential_contacts_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [EssentialContactsService][super::super::client::EssentialContactsService].
     ///
@@ -49,7 +48,7 @@ pub mod essential_contacts_service {
     /// Common implementation for [super::super::client::EssentialContactsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod essential_contacts_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod essential_contacts_service {
 
     impl CreateContact {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -133,7 +132,7 @@ pub mod essential_contacts_service {
 
     impl UpdateContact {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -192,7 +191,7 @@ pub mod essential_contacts_service {
 
     impl ListContacts {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -266,7 +265,7 @@ pub mod essential_contacts_service {
 
     impl GetContact {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -313,7 +312,7 @@ pub mod essential_contacts_service {
 
     impl DeleteContact {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -360,7 +359,7 @@ pub mod essential_contacts_service {
 
     impl ComputeContacts {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -445,7 +444,7 @@ pub mod essential_contacts_service {
 
     impl SendTestMessage {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

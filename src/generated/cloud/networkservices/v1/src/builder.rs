@@ -16,7 +16,6 @@
 
 pub mod dep_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [DepService][super::super::client::DepService].
     ///
@@ -49,7 +48,7 @@ pub mod dep_service {
     /// Common implementation for [super::super::client::DepService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DepService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod dep_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -74,7 +75,9 @@ pub mod dep_service {
     );
 
     impl ListLbTrafficExtensions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -163,7 +166,9 @@ pub mod dep_service {
     pub struct GetLbTrafficExtension(RequestBuilder<crate::model::GetLbTrafficExtensionRequest>);
 
     impl GetLbTrafficExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -213,7 +218,9 @@ pub mod dep_service {
     );
 
     impl CreateLbTrafficExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -329,7 +336,9 @@ pub mod dep_service {
     );
 
     impl UpdateLbTrafficExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -438,7 +447,9 @@ pub mod dep_service {
     );
 
     impl DeleteLbTrafficExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -527,7 +538,9 @@ pub mod dep_service {
     pub struct ListLbRouteExtensions(RequestBuilder<crate::model::ListLbRouteExtensionsRequest>);
 
     impl ListLbRouteExtensions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -614,7 +627,9 @@ pub mod dep_service {
     pub struct GetLbRouteExtension(RequestBuilder<crate::model::GetLbRouteExtensionRequest>);
 
     impl GetLbRouteExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -662,7 +677,9 @@ pub mod dep_service {
     pub struct CreateLbRouteExtension(RequestBuilder<crate::model::CreateLbRouteExtensionRequest>);
 
     impl CreateLbRouteExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -776,7 +793,9 @@ pub mod dep_service {
     pub struct UpdateLbRouteExtension(RequestBuilder<crate::model::UpdateLbRouteExtensionRequest>);
 
     impl UpdateLbRouteExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -883,7 +902,9 @@ pub mod dep_service {
     pub struct DeleteLbRouteExtension(RequestBuilder<crate::model::DeleteLbRouteExtensionRequest>);
 
     impl DeleteLbRouteExtension {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -972,7 +993,9 @@ pub mod dep_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1051,7 +1074,9 @@ pub mod dep_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1094,7 +1119,9 @@ pub mod dep_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1159,7 +1186,9 @@ pub mod dep_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1213,7 +1242,9 @@ pub mod dep_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1274,7 +1305,9 @@ pub mod dep_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1353,7 +1386,9 @@ pub mod dep_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1399,7 +1434,9 @@ pub mod dep_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1445,7 +1482,9 @@ pub mod dep_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DepService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1489,7 +1528,6 @@ pub mod dep_service {
 
 pub mod network_services {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [NetworkServices][super::super::client::NetworkServices].
     ///
@@ -1522,7 +1560,7 @@ pub mod network_services {
     /// Common implementation for [super::super::client::NetworkServices] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1531,7 +1569,9 @@ pub mod network_services {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1545,7 +1585,9 @@ pub mod network_services {
     pub struct ListEndpointPolicies(RequestBuilder<crate::model::ListEndpointPoliciesRequest>);
 
     impl ListEndpointPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1620,7 +1662,9 @@ pub mod network_services {
     pub struct GetEndpointPolicy(RequestBuilder<crate::model::GetEndpointPolicyRequest>);
 
     impl GetEndpointPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1668,7 +1712,9 @@ pub mod network_services {
     pub struct CreateEndpointPolicy(RequestBuilder<crate::model::CreateEndpointPolicyRequest>);
 
     impl CreateEndpointPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1774,7 +1820,9 @@ pub mod network_services {
     pub struct UpdateEndpointPolicy(RequestBuilder<crate::model::UpdateEndpointPolicyRequest>);
 
     impl UpdateEndpointPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1873,7 +1921,9 @@ pub mod network_services {
     pub struct DeleteEndpointPolicy(RequestBuilder<crate::model::DeleteEndpointPolicyRequest>);
 
     impl DeleteEndpointPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1956,7 +2006,9 @@ pub mod network_services {
     pub struct ListGateways(RequestBuilder<crate::model::ListGatewaysRequest>);
 
     impl ListGateways {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2028,7 +2080,9 @@ pub mod network_services {
     pub struct GetGateway(RequestBuilder<crate::model::GetGatewayRequest>);
 
     impl GetGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2073,7 +2127,9 @@ pub mod network_services {
     pub struct CreateGateway(RequestBuilder<crate::model::CreateGatewayRequest>);
 
     impl CreateGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2174,7 +2230,9 @@ pub mod network_services {
     pub struct UpdateGateway(RequestBuilder<crate::model::UpdateGatewayRequest>);
 
     impl UpdateGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2268,7 +2326,9 @@ pub mod network_services {
     pub struct DeleteGateway(RequestBuilder<crate::model::DeleteGatewayRequest>);
 
     impl DeleteGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2348,7 +2408,9 @@ pub mod network_services {
     pub struct ListGrpcRoutes(RequestBuilder<crate::model::ListGrpcRoutesRequest>);
 
     impl ListGrpcRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2420,7 +2482,9 @@ pub mod network_services {
     pub struct GetGrpcRoute(RequestBuilder<crate::model::GetGrpcRouteRequest>);
 
     impl GetGrpcRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2465,7 +2529,9 @@ pub mod network_services {
     pub struct CreateGrpcRoute(RequestBuilder<crate::model::CreateGrpcRouteRequest>);
 
     impl CreateGrpcRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2567,7 +2633,9 @@ pub mod network_services {
     pub struct UpdateGrpcRoute(RequestBuilder<crate::model::UpdateGrpcRouteRequest>);
 
     impl UpdateGrpcRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2662,7 +2730,9 @@ pub mod network_services {
     pub struct DeleteGrpcRoute(RequestBuilder<crate::model::DeleteGrpcRouteRequest>);
 
     impl DeleteGrpcRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2742,7 +2812,9 @@ pub mod network_services {
     pub struct ListHttpRoutes(RequestBuilder<crate::model::ListHttpRoutesRequest>);
 
     impl ListHttpRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2814,7 +2886,9 @@ pub mod network_services {
     pub struct GetHttpRoute(RequestBuilder<crate::model::GetHttpRouteRequest>);
 
     impl GetHttpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2859,7 +2933,9 @@ pub mod network_services {
     pub struct CreateHttpRoute(RequestBuilder<crate::model::CreateHttpRouteRequest>);
 
     impl CreateHttpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2961,7 +3037,9 @@ pub mod network_services {
     pub struct UpdateHttpRoute(RequestBuilder<crate::model::UpdateHttpRouteRequest>);
 
     impl UpdateHttpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3056,7 +3134,9 @@ pub mod network_services {
     pub struct DeleteHttpRoute(RequestBuilder<crate::model::DeleteHttpRouteRequest>);
 
     impl DeleteHttpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3136,7 +3216,9 @@ pub mod network_services {
     pub struct ListTcpRoutes(RequestBuilder<crate::model::ListTcpRoutesRequest>);
 
     impl ListTcpRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3208,7 +3290,9 @@ pub mod network_services {
     pub struct GetTcpRoute(RequestBuilder<crate::model::GetTcpRouteRequest>);
 
     impl GetTcpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3253,7 +3337,9 @@ pub mod network_services {
     pub struct CreateTcpRoute(RequestBuilder<crate::model::CreateTcpRouteRequest>);
 
     impl CreateTcpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3355,7 +3441,9 @@ pub mod network_services {
     pub struct UpdateTcpRoute(RequestBuilder<crate::model::UpdateTcpRouteRequest>);
 
     impl UpdateTcpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3450,7 +3538,9 @@ pub mod network_services {
     pub struct DeleteTcpRoute(RequestBuilder<crate::model::DeleteTcpRouteRequest>);
 
     impl DeleteTcpRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3530,7 +3620,9 @@ pub mod network_services {
     pub struct ListTlsRoutes(RequestBuilder<crate::model::ListTlsRoutesRequest>);
 
     impl ListTlsRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3602,7 +3694,9 @@ pub mod network_services {
     pub struct GetTlsRoute(RequestBuilder<crate::model::GetTlsRouteRequest>);
 
     impl GetTlsRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3647,7 +3741,9 @@ pub mod network_services {
     pub struct CreateTlsRoute(RequestBuilder<crate::model::CreateTlsRouteRequest>);
 
     impl CreateTlsRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3749,7 +3845,9 @@ pub mod network_services {
     pub struct UpdateTlsRoute(RequestBuilder<crate::model::UpdateTlsRouteRequest>);
 
     impl UpdateTlsRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3844,7 +3942,9 @@ pub mod network_services {
     pub struct DeleteTlsRoute(RequestBuilder<crate::model::DeleteTlsRouteRequest>);
 
     impl DeleteTlsRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3924,7 +4024,9 @@ pub mod network_services {
     pub struct ListServiceBindings(RequestBuilder<crate::model::ListServiceBindingsRequest>);
 
     impl ListServiceBindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3999,7 +4101,9 @@ pub mod network_services {
     pub struct GetServiceBinding(RequestBuilder<crate::model::GetServiceBindingRequest>);
 
     impl GetServiceBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4047,7 +4151,9 @@ pub mod network_services {
     pub struct CreateServiceBinding(RequestBuilder<crate::model::CreateServiceBindingRequest>);
 
     impl CreateServiceBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4153,7 +4259,9 @@ pub mod network_services {
     pub struct DeleteServiceBinding(RequestBuilder<crate::model::DeleteServiceBindingRequest>);
 
     impl DeleteServiceBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4236,7 +4344,9 @@ pub mod network_services {
     pub struct ListMeshes(RequestBuilder<crate::model::ListMeshesRequest>);
 
     impl ListMeshes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4308,7 +4418,9 @@ pub mod network_services {
     pub struct GetMesh(RequestBuilder<crate::model::GetMeshRequest>);
 
     impl GetMesh {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4353,7 +4465,9 @@ pub mod network_services {
     pub struct CreateMesh(RequestBuilder<crate::model::CreateMeshRequest>);
 
     impl CreateMesh {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4451,7 +4565,9 @@ pub mod network_services {
     pub struct UpdateMesh(RequestBuilder<crate::model::UpdateMeshRequest>);
 
     impl UpdateMesh {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4542,7 +4658,9 @@ pub mod network_services {
     pub struct DeleteMesh(RequestBuilder<crate::model::DeleteMeshRequest>);
 
     impl DeleteMesh {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4622,7 +4740,9 @@ pub mod network_services {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4701,7 +4821,9 @@ pub mod network_services {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4744,7 +4866,9 @@ pub mod network_services {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4809,7 +4933,9 @@ pub mod network_services {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4863,7 +4989,9 @@ pub mod network_services {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4924,7 +5052,9 @@ pub mod network_services {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5003,7 +5133,9 @@ pub mod network_services {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5049,7 +5181,9 @@ pub mod network_services {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5095,7 +5229,9 @@ pub mod network_services {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkServices>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

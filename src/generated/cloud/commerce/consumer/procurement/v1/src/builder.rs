@@ -16,7 +16,6 @@
 
 pub mod license_management_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [LicenseManagementService][super::super::client::LicenseManagementService].
     ///
@@ -49,7 +48,7 @@ pub mod license_management_service {
     /// Common implementation for [super::super::client::LicenseManagementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod license_management_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self {
                 stub,
@@ -75,7 +74,7 @@ pub mod license_management_service {
 
     impl GetLicensePool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -122,7 +121,7 @@ pub mod license_management_service {
 
     impl UpdateLicensePool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -186,7 +185,7 @@ pub mod license_management_service {
 
     impl Assign {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -246,7 +245,7 @@ pub mod license_management_service {
 
     impl Unassign {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -306,7 +305,7 @@ pub mod license_management_service {
 
     impl EnumerateLicensedUsers {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -385,7 +384,7 @@ pub mod license_management_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -430,7 +429,6 @@ pub mod license_management_service {
 
 pub mod consumer_procurement_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ConsumerProcurementService][super::super::client::ConsumerProcurementService].
     ///
@@ -463,7 +461,7 @@ pub mod consumer_procurement_service {
     /// Common implementation for [super::super::client::ConsumerProcurementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -473,7 +471,7 @@ pub mod consumer_procurement_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self {
                 stub,
@@ -489,7 +487,7 @@ pub mod consumer_procurement_service {
 
     impl PlaceOrder {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -598,7 +596,7 @@ pub mod consumer_procurement_service {
 
     impl GetOrder {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -645,7 +643,7 @@ pub mod consumer_procurement_service {
 
     impl ListOrders {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -725,7 +723,7 @@ pub mod consumer_procurement_service {
 
     impl ModifyOrder {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -832,7 +830,7 @@ pub mod consumer_procurement_service {
 
     impl CancelOrder {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -933,7 +931,7 @@ pub mod consumer_procurement_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

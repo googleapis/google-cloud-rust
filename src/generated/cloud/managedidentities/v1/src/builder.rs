@@ -16,7 +16,6 @@
 
 pub mod managed_identities_service {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ManagedIdentitiesService][super::super::client::ManagedIdentitiesService].
     ///
@@ -49,7 +48,7 @@ pub mod managed_identities_service {
     /// Common implementation for [super::super::client::ManagedIdentitiesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +58,7 @@ pub mod managed_identities_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self {
                 stub,
@@ -77,7 +76,7 @@ pub mod managed_identities_service {
 
     impl CreateMicrosoftAdDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -181,7 +180,7 @@ pub mod managed_identities_service {
 
     impl ResetAdminPassword {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -231,7 +230,7 @@ pub mod managed_identities_service {
 
     impl ListDomains {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -317,7 +316,7 @@ pub mod managed_identities_service {
 
     impl GetDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -364,7 +363,7 @@ pub mod managed_identities_service {
 
     impl UpdateDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -460,7 +459,7 @@ pub mod managed_identities_service {
 
     impl DeleteDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -542,7 +541,7 @@ pub mod managed_identities_service {
 
     impl AttachTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -635,7 +634,7 @@ pub mod managed_identities_service {
 
     impl ReconfigureTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -741,7 +740,7 @@ pub mod managed_identities_service {
 
     impl DetachTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -834,7 +833,7 @@ pub mod managed_identities_service {
 
     impl ValidateTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -927,7 +926,7 @@ pub mod managed_identities_service {
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1008,7 +1007,7 @@ pub mod managed_identities_service {
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1056,7 +1055,7 @@ pub mod managed_identities_service {
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1104,7 +1103,7 @@ pub mod managed_identities_service {
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

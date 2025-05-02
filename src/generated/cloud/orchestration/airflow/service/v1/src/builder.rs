@@ -16,7 +16,6 @@
 
 pub mod environments {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Environments][super::super::client::Environments].
     ///
@@ -49,7 +48,7 @@ pub mod environments {
     /// Common implementation for [super::super::client::Environments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Environments>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod environments {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod environments {
     pub struct CreateEnvironment(RequestBuilder<crate::model::CreateEnvironmentRequest>);
 
     impl CreateEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -165,7 +168,9 @@ pub mod environments {
     pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
 
     impl GetEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -208,7 +213,9 @@ pub mod environments {
     pub struct ListEnvironments(RequestBuilder<crate::model::ListEnvironmentsRequest>);
 
     impl ListEnvironments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -281,7 +288,9 @@ pub mod environments {
     pub struct UpdateEnvironment(RequestBuilder<crate::model::UpdateEnvironmentRequest>);
 
     impl UpdateEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -383,7 +392,9 @@ pub mod environments {
     pub struct DeleteEnvironment(RequestBuilder<crate::model::DeleteEnvironmentRequest>);
 
     impl DeleteEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -464,7 +475,9 @@ pub mod environments {
     pub struct ExecuteAirflowCommand(RequestBuilder<crate::model::ExecuteAirflowCommandRequest>);
 
     impl ExecuteAirflowCommand {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -533,7 +546,9 @@ pub mod environments {
     pub struct StopAirflowCommand(RequestBuilder<crate::model::StopAirflowCommandRequest>);
 
     impl StopAirflowCommand {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -603,7 +618,9 @@ pub mod environments {
     pub struct PollAirflowCommand(RequestBuilder<crate::model::PollAirflowCommandRequest>);
 
     impl PollAirflowCommand {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -673,7 +690,9 @@ pub mod environments {
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -751,7 +770,9 @@ pub mod environments {
     pub struct CheckUpgrade(RequestBuilder<crate::model::CheckUpgradeRequest>);
 
     impl CheckUpgrade {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -843,7 +864,9 @@ pub mod environments {
     );
 
     impl CreateUserWorkloadsSecret {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -904,7 +927,9 @@ pub mod environments {
     pub struct GetUserWorkloadsSecret(RequestBuilder<crate::model::GetUserWorkloadsSecretRequest>);
 
     impl GetUserWorkloadsSecret {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -954,7 +979,9 @@ pub mod environments {
     );
 
     impl ListUserWorkloadsSecrets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1033,7 +1060,9 @@ pub mod environments {
     );
 
     impl UpdateUserWorkloadsSecret {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1086,7 +1115,9 @@ pub mod environments {
     );
 
     impl DeleteUserWorkloadsSecret {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1136,7 +1167,9 @@ pub mod environments {
     );
 
     impl CreateUserWorkloadsConfigMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1199,7 +1232,9 @@ pub mod environments {
     );
 
     impl GetUserWorkloadsConfigMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1249,7 +1284,9 @@ pub mod environments {
     );
 
     impl ListUserWorkloadsConfigMaps {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1328,7 +1365,9 @@ pub mod environments {
     );
 
     impl UpdateUserWorkloadsConfigMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1381,7 +1420,9 @@ pub mod environments {
     );
 
     impl DeleteUserWorkloadsConfigMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1429,7 +1470,9 @@ pub mod environments {
     pub struct SaveSnapshot(RequestBuilder<crate::model::SaveSnapshotRequest>);
 
     impl SaveSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1517,7 +1560,9 @@ pub mod environments {
     pub struct LoadSnapshot(RequestBuilder<crate::model::LoadSnapshotRequest>);
 
     impl LoadSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1629,7 +1674,9 @@ pub mod environments {
     pub struct DatabaseFailover(RequestBuilder<crate::model::DatabaseFailoverRequest>);
 
     impl DatabaseFailover {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1718,7 +1765,9 @@ pub mod environments {
     );
 
     impl FetchDatabaseProperties {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1766,7 +1815,9 @@ pub mod environments {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1845,7 +1896,9 @@ pub mod environments {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1891,7 +1944,9 @@ pub mod environments {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1935,7 +1990,6 @@ pub mod environments {
 
 pub mod image_versions {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [ImageVersions][super::super::client::ImageVersions].
     ///
@@ -1968,7 +2022,7 @@ pub mod image_versions {
     /// Common implementation for [super::super::client::ImageVersions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1977,7 +2031,9 @@ pub mod image_versions {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1991,7 +2047,9 @@ pub mod image_versions {
     pub struct ListImageVersions(RequestBuilder<crate::model::ListImageVersionsRequest>);
 
     impl ListImageVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2070,7 +2128,9 @@ pub mod image_versions {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2149,7 +2209,9 @@ pub mod image_versions {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2195,7 +2257,9 @@ pub mod image_versions {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

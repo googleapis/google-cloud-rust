@@ -16,7 +16,6 @@
 
 pub mod connectors {
     use crate::Result;
-    use std::sync::Arc;
 
     /// A builder for [Connectors][super::super::client::Connectors].
     ///
@@ -49,7 +48,7 @@ pub mod connectors {
     /// Common implementation for [super::super::client::Connectors] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Connectors>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +57,9 @@ pub mod connectors {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -72,7 +73,9 @@ pub mod connectors {
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -162,7 +165,9 @@ pub mod connectors {
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -213,7 +218,9 @@ pub mod connectors {
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -318,7 +325,9 @@ pub mod connectors {
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -418,7 +427,9 @@ pub mod connectors {
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -501,7 +512,9 @@ pub mod connectors {
     pub struct ListProviders(RequestBuilder<crate::model::ListProvidersRequest>);
 
     impl ListProviders {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -573,7 +586,9 @@ pub mod connectors {
     pub struct GetProvider(RequestBuilder<crate::model::GetProviderRequest>);
 
     impl GetProvider {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -618,7 +633,9 @@ pub mod connectors {
     pub struct ListConnectors(RequestBuilder<crate::model::ListConnectorsRequest>);
 
     impl ListConnectors {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -690,7 +707,9 @@ pub mod connectors {
     pub struct GetConnector(RequestBuilder<crate::model::GetConnectorRequest>);
 
     impl GetConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -735,7 +754,9 @@ pub mod connectors {
     pub struct ListConnectorVersions(RequestBuilder<crate::model::ListConnectorVersionsRequest>);
 
     impl ListConnectorVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -816,7 +837,9 @@ pub mod connectors {
     pub struct GetConnectorVersion(RequestBuilder<crate::model::GetConnectorVersionRequest>);
 
     impl GetConnectorVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -872,7 +895,9 @@ pub mod connectors {
     );
 
     impl GetConnectionSchemaMetadata {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -922,7 +947,9 @@ pub mod connectors {
     );
 
     impl RefreshConnectionSchemaMetadata {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1013,7 +1040,9 @@ pub mod connectors {
     );
 
     impl ListRuntimeEntitySchemas {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1100,7 +1129,9 @@ pub mod connectors {
     );
 
     impl ListRuntimeActionSchemas {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1185,7 +1216,9 @@ pub mod connectors {
     pub struct GetRuntimeConfig(RequestBuilder<crate::model::GetRuntimeConfigRequest>);
 
     impl GetRuntimeConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1233,7 +1266,9 @@ pub mod connectors {
     pub struct GetGlobalSettings(RequestBuilder<crate::model::GetGlobalSettingsRequest>);
 
     impl GetGlobalSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1281,7 +1316,9 @@ pub mod connectors {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1360,7 +1397,9 @@ pub mod connectors {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1403,7 +1442,9 @@ pub mod connectors {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1468,7 +1509,9 @@ pub mod connectors {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1522,7 +1565,9 @@ pub mod connectors {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1583,7 +1628,9 @@ pub mod connectors {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1662,7 +1709,9 @@ pub mod connectors {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1708,7 +1757,9 @@ pub mod connectors {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1754,7 +1805,9 @@ pub mod connectors {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
