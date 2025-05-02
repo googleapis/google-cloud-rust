@@ -802,9 +802,9 @@ func enumValueName(e *api.EnumValue) string {
 // sometimes it is not followed.
 func enumValueVariantName(e *api.EnumValue) string {
 	// The most common case is trying to strip the prefix for `FOO_BAR_UNSPECIFIED`.
-	// The naming conventions being what they are, we need to test with with a
-	// couple of different combinations. In particular, names with numbers, such
-	// as `InstancePrivateIpv6GoogleAccess` make life difficult for everyone.
+	// The naming conventions being what they are, we need to test with a couple
+	// of different combinations. In particular, names with numbers, such as
+	// `InstancePrivateIpv6GoogleAccess` make life difficult for everyone.
 	parent := toScreamingSnake(e.Parent.Name)
 	if strings.HasPrefix(e.Name, parent+"_") {
 		return enumValueVariantEscape(strings.TrimPrefix(e.Name, parent+"_"))
