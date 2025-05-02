@@ -110,6 +110,8 @@ pub trait FloatExt: num_traits::Float {
 
 impl FloatExt for f32 {
     fn from_f64(value: f64) -> Self {
+        // Cast f64 to f32 to produce the closest possible float value.
+        // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
         value as f32
     }
     fn type_name() -> &'static str {
