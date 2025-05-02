@@ -111,7 +111,6 @@ impl<T: super::CompanyService> CompanyService for T {
         T::get_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::Completion].
 #[async_trait::async_trait]
 pub trait Completion: std::fmt::Debug + Send + Sync {
@@ -149,7 +148,6 @@ impl<T: super::Completion> Completion for T {
         T::get_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::EventService].
 #[async_trait::async_trait]
 pub trait EventService: std::fmt::Debug + Send + Sync {
@@ -187,7 +185,6 @@ impl<T: super::EventService> EventService for T {
         T::get_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::JobService].
 #[async_trait::async_trait]
 pub trait JobService: std::fmt::Debug + Send + Sync {
@@ -384,7 +381,6 @@ impl<T: super::JobService> JobService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::TenantService].
 #[async_trait::async_trait]
 pub trait TenantService: std::fmt::Debug + Send + Sync {

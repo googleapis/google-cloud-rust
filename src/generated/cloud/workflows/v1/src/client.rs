@@ -19,7 +19,6 @@
 #![allow(rustdoc::bare_urls)]
 
 use crate::Result;
-
 /// Implements a client for the Workflows API.
 ///
 /// # Example

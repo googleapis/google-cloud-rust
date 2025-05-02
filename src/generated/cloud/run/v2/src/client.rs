@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the Cloud Run Admin API.
 ///
 /// # Example
@@ -166,7 +165,6 @@ impl Builds {
         super::builder::builds::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Run Admin API.
 ///
 /// # Example
@@ -361,7 +359,6 @@ impl Executions {
         super::builder::executions::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Run Admin API.
 ///
 /// # Example
@@ -608,7 +605,6 @@ impl Jobs {
         super::builder::jobs::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Run Admin API.
 ///
 /// # Example
@@ -784,7 +780,6 @@ impl Revisions {
         super::builder::revisions::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Run Admin API.
 ///
 /// # Example
@@ -1028,7 +1023,6 @@ impl Services {
         super::builder::services::WaitOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Run Admin API.
 ///
 /// # Example

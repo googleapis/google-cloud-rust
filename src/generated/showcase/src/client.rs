@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the Client Libraries Showcase API.
 ///
 /// # Example
@@ -288,7 +287,6 @@ impl Compliance {
         super::builder::compliance::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Client Libraries Showcase API.
 ///
 /// # Example
@@ -552,7 +550,6 @@ impl Echo {
         super::builder::echo::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Client Libraries Showcase API.
 ///
 /// # Example
@@ -777,7 +774,6 @@ impl Identity {
         super::builder::identity::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Client Libraries Showcase API.
 ///
 /// # Example
@@ -1068,7 +1064,6 @@ impl Messaging {
         super::builder::messaging::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Client Libraries Showcase API.
 ///
 /// # Example
@@ -1303,7 +1298,6 @@ impl SequenceService {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Client Libraries Showcase API.
 ///
 /// # Example

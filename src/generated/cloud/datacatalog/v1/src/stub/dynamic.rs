@@ -660,7 +660,6 @@ impl<T: super::DataCatalog> DataCatalog for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::PolicyTagManager].
 #[async_trait::async_trait]
 pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
@@ -923,7 +922,6 @@ impl<T: super::PolicyTagManager> PolicyTagManager for T {
         T::cancel_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::PolicyTagManagerSerialization].
 #[async_trait::async_trait]
 pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {

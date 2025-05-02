@@ -19,7 +19,6 @@
 #![allow(rustdoc::invalid_html_tags)]
 
 use crate::Result;
-
 /// Implements a client for the OS Config API.
 ///
 /// # Example
@@ -259,7 +258,6 @@ impl OsConfigService {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the OS Config API.
 ///
 /// # Example

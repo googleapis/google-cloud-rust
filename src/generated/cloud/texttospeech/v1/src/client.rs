@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the Cloud Text-to-Speech API.
 ///
 /// # Example
@@ -150,7 +149,6 @@ impl TextToSpeech {
         super::builder::text_to_speech::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Text-to-Speech API.
 ///
 /// # Example

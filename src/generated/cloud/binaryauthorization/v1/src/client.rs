@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the Binary Authorization API.
 ///
 /// # Example
@@ -224,7 +223,6 @@ impl BinauthzManagementServiceV1 {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Binary Authorization API.
 ///
 /// # Example
@@ -336,7 +334,6 @@ impl SystemPolicyV1 {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Binary Authorization API.
 ///
 /// # Example

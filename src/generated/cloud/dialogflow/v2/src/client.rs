@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -369,7 +368,6 @@ impl Agents {
         super::builder::agents::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -540,7 +538,6 @@ impl AnswerRecords {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -740,7 +737,6 @@ impl Contexts {
         super::builder::contexts::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -1028,7 +1024,6 @@ impl Conversations {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -1298,7 +1293,6 @@ impl ConversationDatasets {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -1639,7 +1633,6 @@ impl ConversationModels {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -1934,7 +1927,6 @@ impl ConversationProfiles {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -2286,7 +2278,6 @@ impl Documents {
         super::builder::documents::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -2472,7 +2463,6 @@ impl EncryptionSpecService {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -2841,7 +2831,6 @@ impl EntityTypes {
         super::builder::entity_types::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -3054,7 +3043,6 @@ impl Environments {
         super::builder::environments::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -3220,7 +3208,6 @@ impl Fulfillments {
         super::builder::fulfillments::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -3414,7 +3401,6 @@ impl Generators {
         super::builder::generators::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -3681,7 +3667,6 @@ impl Intents {
         super::builder::intents::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -3879,7 +3864,6 @@ impl KnowledgeBases {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -4116,7 +4100,6 @@ impl Participants {
         super::builder::participants::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -4290,7 +4273,6 @@ impl Sessions {
         super::builder::sessions::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -4515,7 +4497,6 @@ impl SessionEntityTypes {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example

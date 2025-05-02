@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the Cloud Logging API.
 ///
 /// # Example
@@ -203,7 +202,6 @@ impl LoggingServiceV2 {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Logging API.
 ///
 /// # Example
@@ -761,7 +759,6 @@ impl ConfigServiceV2 {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Logging API.
 ///
 /// # Example

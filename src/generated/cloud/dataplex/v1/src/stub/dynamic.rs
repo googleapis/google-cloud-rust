@@ -570,7 +570,6 @@ impl<T: super::CatalogService> CatalogService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::CmekService].
 #[async_trait::async_trait]
 pub trait CmekService: std::fmt::Debug + Send + Sync {
@@ -812,7 +811,6 @@ impl<T: super::CmekService> CmekService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::ContentService].
 #[async_trait::async_trait]
 pub trait ContentService: std::fmt::Debug + Send + Sync {
@@ -1030,7 +1028,6 @@ impl<T: super::ContentService> ContentService for T {
         T::cancel_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::DataTaxonomyService].
 #[async_trait::async_trait]
 pub trait DataTaxonomyService: std::fmt::Debug + Send + Sync {
@@ -1423,7 +1420,6 @@ impl<T: super::DataTaxonomyService> DataTaxonomyService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::DataScanService].
 #[async_trait::async_trait]
 pub trait DataScanService: std::fmt::Debug + Send + Sync {
@@ -1726,7 +1722,6 @@ impl<T: super::DataScanService> DataScanService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::MetadataService].
 #[async_trait::async_trait]
 pub trait MetadataService: std::fmt::Debug + Send + Sync {
@@ -2004,7 +1999,6 @@ impl<T: super::MetadataService> MetadataService for T {
         T::cancel_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::DataplexService].
 #[async_trait::async_trait]
 pub trait DataplexService: std::fmt::Debug + Send + Sync {

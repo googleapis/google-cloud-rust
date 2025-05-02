@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the Network Connectivity API.
 ///
 /// # Example
@@ -518,7 +517,6 @@ impl CrossNetworkAutomationService {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Network Connectivity API.
 ///
 /// # Example
@@ -1021,7 +1019,6 @@ impl HubService {
         super::builder::hub_service::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Network Connectivity API.
 ///
 /// # Example

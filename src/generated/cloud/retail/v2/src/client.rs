@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the Vertex AI Search for Retail API.
 ///
 /// # Example
@@ -165,7 +164,6 @@ impl AnalyticsService {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Vertex AI Search for Retail API.
 ///
 /// # Example
@@ -474,7 +472,6 @@ impl CatalogService {
         super::builder::catalog_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Vertex AI Search for Retail API.
 ///
 /// # Example
@@ -641,7 +638,6 @@ impl CompletionService {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Vertex AI Search for Retail API.
 ///
 /// # Example
@@ -827,7 +823,6 @@ impl ControlService {
         super::builder::control_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Vertex AI Search for Retail API.
 ///
 /// # Example
@@ -1009,7 +1004,6 @@ impl GenerativeQuestionService {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Vertex AI Search for Retail API.
 ///
 /// # Example
@@ -1229,7 +1223,6 @@ impl ModelService {
         super::builder::model_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Vertex AI Search for Retail API.
 ///
 /// # Example
@@ -1363,7 +1356,6 @@ impl PredictionService {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Vertex AI Search for Retail API.
 ///
 /// # Example
@@ -1909,7 +1901,6 @@ impl ProductService {
         super::builder::product_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Vertex AI Search for Retail API.
 ///
 /// # Example
@@ -2046,7 +2037,6 @@ impl SearchService {
         super::builder::search_service::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Vertex AI Search for Retail API.
 ///
 /// # Example
@@ -2254,7 +2244,6 @@ impl ServingConfigService {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Vertex AI Search for Retail API.
 ///
 /// # Example

@@ -111,7 +111,6 @@ impl<T: super::LicenseManagementService> LicenseManagementService for T {
         T::get_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::ConsumerProcurementService].
 #[async_trait::async_trait]
 pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {

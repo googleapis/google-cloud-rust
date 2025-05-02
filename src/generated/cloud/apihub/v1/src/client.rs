@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the API hub API.
 ///
 /// # Example
@@ -668,7 +667,6 @@ impl ApiHub {
         super::builder::api_hub::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the API hub API.
 ///
 /// # Example
@@ -892,7 +890,6 @@ impl ApiHubDependencies {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the API hub API.
 ///
 /// # Example
@@ -1094,7 +1091,6 @@ impl HostProjectRegistrationService {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the API hub API.
 ///
 /// # Example
@@ -1292,7 +1288,6 @@ impl LintingService {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the API hub API.
 ///
 /// # Example
@@ -1478,7 +1473,6 @@ impl ApiHubPlugin {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the API hub API.
 ///
 /// # Example
@@ -1673,7 +1667,6 @@ impl Provisioning {
         super::builder::provisioning::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the API hub API.
 ///
 /// # Example

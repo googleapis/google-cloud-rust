@@ -151,7 +151,6 @@ impl<T: super::PolicyBindings> PolicyBindings for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::PrincipalAccessBoundaryPolicies].
 #[async_trait::async_trait]
 pub trait PrincipalAccessBoundaryPolicies: std::fmt::Debug + Send + Sync {

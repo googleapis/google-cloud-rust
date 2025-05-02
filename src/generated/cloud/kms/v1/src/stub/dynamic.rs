@@ -180,7 +180,6 @@ impl<T: super::Autokey> Autokey for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::AutokeyAdmin].
 #[async_trait::async_trait]
 pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
@@ -324,7 +323,6 @@ impl<T: super::AutokeyAdmin> AutokeyAdmin for T {
         T::get_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::EkmService].
 #[async_trait::async_trait]
 pub trait EkmService: std::fmt::Debug + Send + Sync {
@@ -527,7 +525,6 @@ impl<T: super::EkmService> EkmService for T {
         T::get_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::KeyManagementService].
 #[async_trait::async_trait]
 pub trait KeyManagementService: std::fmt::Debug + Send + Sync {

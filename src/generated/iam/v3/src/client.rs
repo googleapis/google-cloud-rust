@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the Identity and Access Management (IAM) API.
 ///
 /// # Example
@@ -222,7 +221,6 @@ impl PolicyBindings {
         super::builder::policy_bindings::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Identity and Access Management (IAM) API.
 ///
 /// # Example

@@ -90,7 +90,6 @@ impl<T: super::AnalyticsService> AnalyticsService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::CatalogService].
 #[async_trait::async_trait]
 pub trait CatalogService: std::fmt::Debug + Send + Sync {
@@ -293,7 +292,6 @@ impl<T: super::CatalogService> CatalogService for T {
         T::get_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::CompletionService].
 #[async_trait::async_trait]
 pub trait CompletionService: std::fmt::Debug + Send + Sync {
@@ -385,7 +383,6 @@ impl<T: super::CompletionService> CompletionService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::ControlService].
 #[async_trait::async_trait]
 pub trait ControlService: std::fmt::Debug + Send + Sync {
@@ -498,7 +495,6 @@ impl<T: super::ControlService> ControlService for T {
         T::get_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::GenerativeQuestionService].
 #[async_trait::async_trait]
 pub trait GenerativeQuestionService: std::fmt::Debug + Send + Sync {
@@ -618,7 +614,6 @@ impl<T: super::GenerativeQuestionService> GenerativeQuestionService for T {
         T::get_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::ModelService].
 #[async_trait::async_trait]
 pub trait ModelService: std::fmt::Debug + Send + Sync {
@@ -800,7 +795,6 @@ impl<T: super::ModelService> ModelService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::PredictionService].
 #[async_trait::async_trait]
 pub trait PredictionService: std::fmt::Debug + Send + Sync {
@@ -853,7 +847,6 @@ impl<T: super::PredictionService> PredictionService for T {
         T::get_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::ProductService].
 #[async_trait::async_trait]
 pub trait ProductService: std::fmt::Debug + Send + Sync {
@@ -1095,7 +1088,6 @@ impl<T: super::ProductService> ProductService for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::SearchService].
 #[async_trait::async_trait]
 pub trait SearchService: std::fmt::Debug + Send + Sync {
@@ -1148,7 +1140,6 @@ impl<T: super::SearchService> SearchService for T {
         T::get_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::ServingConfigService].
 #[async_trait::async_trait]
 pub trait ServingConfigService: std::fmt::Debug + Send + Sync {
@@ -1291,7 +1282,6 @@ impl<T: super::ServingConfigService> ServingConfigService for T {
         T::get_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::UserEventService].
 #[async_trait::async_trait]
 pub trait UserEventService: std::fmt::Debug + Send + Sync {

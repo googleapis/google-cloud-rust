@@ -306,7 +306,6 @@ impl<T: super::Compliance> Compliance for T {
         T::cancel_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::Echo].
 #[async_trait::async_trait]
 pub trait Echo: std::fmt::Debug + Send + Sync {
@@ -593,7 +592,6 @@ impl<T: super::Echo> Echo for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::Identity].
 #[async_trait::async_trait]
 pub trait Identity: std::fmt::Debug + Send + Sync {
@@ -811,7 +809,6 @@ impl<T: super::Identity> Identity for T {
         T::cancel_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::Messaging].
 #[async_trait::async_trait]
 pub trait Messaging: std::fmt::Debug + Send + Sync {
@@ -1143,7 +1140,6 @@ impl<T: super::Messaging> Messaging for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::SequenceService].
 #[async_trait::async_trait]
 pub trait SequenceService: std::fmt::Debug + Send + Sync {
@@ -1361,7 +1357,6 @@ impl<T: super::SequenceService> SequenceService for T {
         T::cancel_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::Testing].
 #[async_trait::async_trait]
 pub trait Testing: std::fmt::Debug + Send + Sync {

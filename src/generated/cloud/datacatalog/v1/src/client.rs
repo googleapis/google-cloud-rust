@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the Google Cloud Data Catalog API.
 ///
 /// # Example
@@ -742,7 +741,6 @@ impl DataCatalog {
         super::builder::data_catalog::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the Google Cloud Data Catalog API.
 ///
 /// # Example
@@ -1024,7 +1022,6 @@ impl PolicyTagManager {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Google Cloud Data Catalog API.
 ///
 /// # Example

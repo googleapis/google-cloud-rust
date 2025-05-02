@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the Cloud Dataproc API.
 ///
 /// # Example
@@ -252,7 +251,6 @@ impl AutoscalingPolicyService {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Dataproc API.
 ///
 /// # Example
@@ -482,7 +480,6 @@ impl BatchController {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Dataproc API.
 ///
 /// # Example
@@ -853,7 +850,6 @@ impl ClusterController {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Dataproc API.
 ///
 /// # Example
@@ -1135,7 +1131,6 @@ impl JobController {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Dataproc API.
 ///
 /// # Example
@@ -1377,7 +1372,6 @@ impl NodeGroupController {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Dataproc API.
 ///
 /// # Example
@@ -1607,7 +1601,6 @@ impl SessionTemplateController {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Dataproc API.
 ///
 /// # Example
@@ -1868,7 +1861,6 @@ impl SessionController {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the Cloud Dataproc API.
 ///
 /// # Example

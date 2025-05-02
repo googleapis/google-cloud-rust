@@ -145,7 +145,6 @@ impl<T: super::LoggingServiceV2> LoggingServiceV2 for T {
         T::cancel_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::ConfigServiceV2].
 #[async_trait::async_trait]
 pub trait ConfigServiceV2: std::fmt::Debug + Send + Sync {
@@ -702,7 +701,6 @@ impl<T: super::ConfigServiceV2> ConfigServiceV2 for T {
         T::get_polling_backoff_policy(self, options)
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::MetricsServiceV2].
 #[async_trait::async_trait]
 pub trait MetricsServiceV2: std::fmt::Debug + Send + Sync {

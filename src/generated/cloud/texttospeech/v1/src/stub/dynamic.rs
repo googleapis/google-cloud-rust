@@ -81,7 +81,6 @@ impl<T: super::TextToSpeech> TextToSpeech for T {
         T::get_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::TextToSpeechLongAudioSynthesize].
 #[async_trait::async_trait]
 pub trait TextToSpeechLongAudioSynthesize: std::fmt::Debug + Send + Sync {

@@ -232,7 +232,6 @@ impl<T: super::OsConfigService> OsConfigService for T {
         T::cancel_operation(self, req, options).await
     }
 }
-
 /// A dyn-compatible, crate-private version of [super::OsConfigZonalService].
 #[async_trait::async_trait]
 pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {

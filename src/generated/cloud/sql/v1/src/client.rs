@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the Cloud SQL Admin API.
 ///
 /// # Example
@@ -160,7 +159,6 @@ impl SqlBackupRunsService {
             .set_instance ( instance.into() )
     }
 }
-
 /// Implements a client for the Cloud SQL Admin API.
 ///
 /// # Example
@@ -276,7 +274,6 @@ impl SqlConnectService {
             .set_instance ( instance.into() )
     }
 }
-
 /// Implements a client for the Cloud SQL Admin API.
 ///
 /// # Example
@@ -451,7 +448,6 @@ impl SqlDatabasesService {
             .set_database ( database.into() )
     }
 }
-
 /// Implements a client for the Cloud SQL Admin API.
 ///
 /// # Example
@@ -548,7 +544,6 @@ impl SqlFlagsService {
         super::builder::sql_flags_service::List::new(self.inner.clone())
     }
 }
-
 /// Implements a client for the Cloud SQL Admin API.
 ///
 /// # Example
@@ -1077,7 +1072,6 @@ impl SqlInstancesService {
             .set_instance ( instance.into() )
     }
 }
-
 /// Implements a client for the Cloud SQL Admin API.
 ///
 /// # Example
@@ -1201,7 +1195,6 @@ impl SqlOperationsService {
             .set_operation ( operation.into() )
     }
 }
-
 /// Implements a client for the Cloud SQL Admin API.
 ///
 /// # Example
@@ -1347,7 +1340,6 @@ impl SqlSslCertsService {
             .set_instance ( instance.into() )
     }
 }
-
 /// Implements a client for the Cloud SQL Admin API.
 ///
 /// # Example
@@ -1448,7 +1440,6 @@ impl SqlTiersService {
             .set_project ( project.into() )
     }
 }
-
 /// Implements a client for the Cloud SQL Admin API.
 ///
 /// # Example

@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the Cloud Identity-Aware Proxy API.
 ///
 /// # Example
@@ -247,7 +246,6 @@ impl IdentityAwareProxyAdminService {
         .set_tunnel_dest_group(tunnel_dest_group.into())
     }
 }
-
 /// Implements a client for the Cloud Identity-Aware Proxy API.
 ///
 /// # Example

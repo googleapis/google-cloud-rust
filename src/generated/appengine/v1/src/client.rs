@@ -17,7 +17,6 @@
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
-
 /// Implements a client for the App Engine Admin API.
 ///
 /// # Example
@@ -219,7 +218,6 @@ impl Applications {
         super::builder::applications::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the App Engine Admin API.
 ///
 /// # Example
@@ -392,7 +390,6 @@ impl Services {
         super::builder::services::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the App Engine Admin API.
 ///
 /// # Example
@@ -620,7 +617,6 @@ impl Versions {
         super::builder::versions::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the App Engine Admin API.
 ///
 /// # Example
@@ -814,7 +810,6 @@ impl Instances {
         super::builder::instances::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the App Engine Admin API.
 ///
 /// # Example
@@ -999,7 +994,6 @@ impl Firewall {
         super::builder::firewall::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
-
 /// Implements a client for the App Engine Admin API.
 ///
 /// # Example
@@ -1135,7 +1129,6 @@ impl AuthorizedDomains {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the App Engine Admin API.
 ///
 /// # Example
@@ -1316,7 +1309,6 @@ impl AuthorizedCertificates {
             .set_name(name.into())
     }
 }
-
 /// Implements a client for the App Engine Admin API.
 ///
 /// # Example
