@@ -22,7 +22,6 @@ data "google_service_account" "test-sa-creds-principal" {
   account_id = "test-sa-creds"
 }
 
-
 # Key rotation for the service account key.
 resource "time_rotating" "key_rotation" {
   rotation_days = 60
