@@ -18,11 +18,19 @@ limitations under the License.
 //{{{.}}}
 {{/Codec.BoilerPlate}}
 
+{{!
+    The generated code uses deprecated items in:
+    - setters for deprecated fields.
+    - fields that reference deprecated messages and enums.
+    - clients and stubs use deprecated RPCs.
+    - clients and stubs use deprecated services and deprecated request messages.
+}}
+{{#HasDeprecatedEntities}}
+#![allow(deprecated)]
+{{/HasDeprecatedEntities}}
+
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
-{{#HasDeprecatedEntities}}
-#[allow(deprecated)]
-{{/HasDeprecatedEntities}}
 pub mod model;
 
 {{! We use explicit links because it is easier to generate the code with them. }}
@@ -30,23 +38,13 @@ pub mod model;
 pub mod stub;
 
 /// Request builders.
-{{#HasDeprecatedEntities}}
-#[allow(deprecated)]
-{{/HasDeprecatedEntities}}
 pub mod builder;
 
 /// The client(s) for this client library.
 pub mod client;
 
 #[doc(hidden)]
-{{! The generated code may use deprecated request messages. }}
-{{#HasDeprecatedEntities}}
-#[allow(deprecated)]
-{{/HasDeprecatedEntities}}
 pub(crate) mod tracing;
 
 #[doc(hidden)]
-{{#HasDeprecatedEntities}}
-#[allow(deprecated)]
-{{/HasDeprecatedEntities}}
 pub(crate) mod transport;

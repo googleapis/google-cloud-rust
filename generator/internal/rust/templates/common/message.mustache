@@ -200,8 +200,6 @@ impl {{Codec.Name}} {
 {{^Codec.HasSyntheticFields}}
 
 {{> /templates/common/feature_gate}}
-{{#Deprecated}}
-{{/Deprecated}}
 impl wkt::message::Message for {{Codec.Name}} {
     fn typename() -> &'static str {
         "type.googleapis.com/{{Codec.SourceFQN}}"

@@ -37,16 +37,19 @@ limitations under the License.
 #![cfg_attr(docsrs, feature(doc_cfg))]
 {{/Codec.PerServiceFeatures}}
 
-/// The messages and enums that are part of this client library.
-#[allow(clippy::module_inception)]
 {{!
     The generated code uses deprecated items in:
     - setters for deprecated fields.
     - fields that reference deprecated messages and enums.
+    - clients and stubs use deprecated RPCs.
+    - clients and stubs use deprecated services and deprecated request messages.
 }}
 {{#HasDeprecatedEntities}}
-#[allow(deprecated)]
+#![allow(deprecated)]
 {{/HasDeprecatedEntities}}
+
+/// The messages and enums that are part of this client library.
+#[allow(clippy::module_inception)]
 pub mod model;
 
 {{#Codec.HasServices}}
@@ -57,35 +60,15 @@ pub use gax::error::Error;
 #[allow(rustdoc::invalid_html_tags)]
 {{! We use explicit links because it is easier to generate the code with them. }}
 #[allow(rustdoc::redundant_explicit_links)]
-{{! The generated code may use deprecated request messages. }}
-{{#HasDeprecatedEntities}}
-#[allow(deprecated)]
-{{/HasDeprecatedEntities}}
 pub mod stub;
 
 /// Concrete implementations of this client library traits.
-{{! The generated code may use clients and stubs because the corresponding service is deprecated. }}
-{{#HasDeprecatedEntities}}
-#[allow(deprecated)]
-{{/HasDeprecatedEntities}}
 pub mod client;
 
 /// Request builders.
-{{!
-    The generated code uses deprecated items in:
-    - setters for deprecated fields.
-    - fields that reference deprecated messages and enums.
-}}
-{{#HasDeprecatedEntities}}
-#[allow(deprecated)]
-{{/HasDeprecatedEntities}}
 pub mod builder;
 
 #[doc(hidden)]
-{{! The generated code may use deprecated request messages. }}
-{{#HasDeprecatedEntities}}
-#[allow(deprecated)]
-{{/HasDeprecatedEntities}}
 pub(crate) mod tracing;
 
 #[doc(hidden)]
